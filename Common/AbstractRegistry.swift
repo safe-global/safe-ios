@@ -4,16 +4,16 @@
 
 import Foundation
 
-class AbstractRegistry {
+open class AbstractRegistry {
 
     private static var instance = AbstractRegistry()
     private var services = [String: Any]()
 
-    class func put<T>(service: T, for type: T.Type) {
+    public class func put<T>(service: T, for type: T.Type) {
         instance.put(service: service, for: type)
     }
 
-    class func service<T>(for type: T.Type) -> T {
+    public class func service<T>(for type: T.Type) -> T {
         return instance.service(for: type)
     }
 
