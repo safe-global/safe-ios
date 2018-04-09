@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A3FADDF207B501F00F0D214 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FADDE207B501F00F0D214 /* Common.swift */; };
 		0A3FADE6207B503B00F0D214 /* AbstractRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */; };
 		0A3FADF0207B504F00F0D214 /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3FADDB207B501F00F0D214 /* libCommon.a */; };
 		0A3FADF8207B505E00F0D214 /* AbstractRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */; };
 		0AA0C873207B762A0019E282 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA0C871207B762A0019E282 /* TestError.swift */; };
 		0AA0C874207B762A0019E282 /* XCLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA0C872207B762A0019E282 /* XCLocalizedString.swift */; };
-		0AC17583207B73A90016320A /* CommonTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC17582207B73A90016320A /* CommonTestSupport.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +47,6 @@
 
 /* Begin PBXFileReference section */
 		0A3FADDB207B501F00F0D214 /* libCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A3FADDE207B501F00F0D214 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRegistry.swift; sourceTree = "<group>"; };
 		0A3FADEB207B504F00F0D214 /* CommonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CommonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3FADEF207B504F00F0D214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,7 +54,6 @@
 		0AA0C871207B762A0019E282 /* TestError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		0AA0C872207B762A0019E282 /* XCLocalizedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCLocalizedString.swift; sourceTree = "<group>"; };
 		0AC17580207B73A90016320A /* libCommonTestSupport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommonTestSupport.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		0AC17582207B73A90016320A /* CommonTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTestSupport.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +105,6 @@
 		0A3FADDD207B501F00F0D214 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				0A3FADDE207B501F00F0D214 /* Common.swift */,
 				0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */,
 				0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */,
 			);
@@ -127,7 +122,6 @@
 		0AC17581207B73A90016320A /* CommonTestSupport */ = {
 			isa = PBXGroup;
 			children = (
-				0AC17582207B73A90016320A /* CommonTestSupport.swift */,
 				0AA0C871207B762A0019E282 /* TestError.swift */,
 				0AA0C872207B762A0019E282 /* XCLocalizedString.swift */,
 			);
@@ -245,7 +239,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A3FADE6207B503B00F0D214 /* AbstractRegistry.swift in Sources */,
-				0A3FADDF207B501F00F0D214 /* Common.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,7 +256,6 @@
 			files = (
 				0AA0C873207B762A0019E282 /* TestError.swift in Sources */,
 				0AA0C874207B762A0019E282 /* XCLocalizedString.swift in Sources */,
-				0AC17583207B73A90016320A /* CommonTestSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
