@@ -9,8 +9,8 @@ class AbstractRegistryTests: XCTestCase {
 
     func test_put_linksService() {
         let instance = MyClass()
-        ApplicationServiceRegistry.put(service: instance, for: MyProtocol.self)
-        XCTAssertTrue(ApplicationServiceRegistry.service(for: MyProtocol.self) === instance)
+        AbstractRegistry.put(service: instance, for: MyProtocol.self)
+        XCTAssertTrue(AbstractRegistry.service(for: MyProtocol.self) === instance)
     }
 
 }
