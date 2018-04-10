@@ -49,7 +49,7 @@
 		0A3FADDB207B501F00F0D214 /* libCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRegistry.swift; sourceTree = "<group>"; };
 		0A3FADEB207B504F00F0D214 /* CommonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CommonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A3FADEF207B504F00F0D214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A3FADEF207B504F00F0D214 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRegistryTests.swift; sourceTree = "<group>"; };
 		0AA0C871207B762A0019E282 /* TestError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		0AA0C872207B762A0019E282 /* XCLocalizedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCLocalizedString.swift; sourceTree = "<group>"; };
@@ -86,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				0A3FADDD207B501F00F0D214 /* Common */,
-				0A3FADEC207B504F00F0D214 /* CommonTests */,
 				0AC17581207B73A90016320A /* CommonTestSupport */,
 				0A3FADDC207B501F00F0D214 /* Products */,
 			);
@@ -107,16 +106,9 @@
 			children = (
 				0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */,
 				0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */,
+				0A3FADEF207B504F00F0D214 /* Tests-Info.plist */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		0A3FADEC207B504F00F0D214 /* CommonTests */ = {
-			isa = PBXGroup;
-			children = (
-				0A3FADEF207B504F00F0D214 /* Info.plist */,
-			);
-			path = CommonTests;
 			sourceTree = "<group>";
 		};
 		0AC17581207B73A90016320A /* CommonTestSupport */ = {
@@ -135,6 +127,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A3FADE2207B501F00F0D214 /* Build configuration list for PBXNativeTarget "Common" */;
 			buildPhases = (
+				0A537C1E207D045900921FB9 /* Lint */,
 				0A3FADD7207B501F00F0D214 /* Sources */,
 				0A3FADD8207B501F00F0D214 /* Frameworks */,
 				0A3FADD9207B501F00F0D214 /* CopyFiles */,
@@ -170,6 +163,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AC17584207B73A90016320A /* Build configuration list for PBXNativeTarget "CommonTestSupport" */;
 			buildPhases = (
+				0A537C1F207D046B00921FB9 /* Lint */,
 				0AC1757C207B73A90016320A /* Sources */,
 				0AC1757D207B73A90016320A /* Frameworks */,
 				0AC1757E207B73A90016320A /* CopyFiles */,
@@ -232,6 +226,37 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A537C1E207D045900921FB9 /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${SRCROOT}/../scripts/run_swiftlint.sh";
+		};
+		0A537C1F207D046B00921FB9 /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${SRCROOT}/../scripts/run_swiftlint.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0A3FADD7207B501F00F0D214 /* Sources */ = {
@@ -415,7 +440,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAHRQRF52;
-				INFOPLIST_FILE = CommonTests/Info.plist;
+				INFOPLIST_FILE = "Common/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -433,7 +458,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAHRQRF52;
-				INFOPLIST_FILE = CommonTests/Info.plist;
+				INFOPLIST_FILE = "Common/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

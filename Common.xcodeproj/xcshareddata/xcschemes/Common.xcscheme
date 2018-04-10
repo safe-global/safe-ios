@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Common.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0AC1757F207B73A90016320A"
+               BuildableName = "libCommonTestSupport.a"
+               BlueprintName = "CommonTestSupport"
+               ReferencedContainer = "container:Common.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
