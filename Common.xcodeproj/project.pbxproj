@@ -14,6 +14,8 @@
 		0AA0C874207B762A0019E282 /* XCLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA0C872207B762A0019E282 /* XCLocalizedString.swift */; };
 		0AFFF41320809AA10030200C /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41220809AA10030200C /* FoundationExtensions.swift */; };
 		0AFFF41520809BBE0030200C /* Assertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41420809BBE0030200C /* Assertable.swift */; };
+		0AFFF41720809D040030200C /* FoundationExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41620809D040030200C /* FoundationExtensionsTests.swift */; };
+		0AFFF41920809D430030200C /* AssertableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41820809D430030200C /* AssertableTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 		0AC17580207B73A90016320A /* libCommonTestSupport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommonTestSupport.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AFFF41220809AA10030200C /* FoundationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 		0AFFF41420809BBE0030200C /* Assertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertable.swift; sourceTree = "<group>"; };
+		0AFFF41620809D040030200C /* FoundationExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensionsTests.swift; sourceTree = "<group>"; };
+		0AFFF41820809D430030200C /* AssertableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertableTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,9 +114,11 @@
 			children = (
 				0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */,
 				0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */,
-				0A3FADEF207B504F00F0D214 /* Tests-Info.plist */,
-				0AFFF41220809AA10030200C /* FoundationExtensions.swift */,
 				0AFFF41420809BBE0030200C /* Assertable.swift */,
+				0AFFF41820809D430030200C /* AssertableTests.swift */,
+				0AFFF41220809AA10030200C /* FoundationExtensions.swift */,
+				0AFFF41620809D040030200C /* FoundationExtensionsTests.swift */,
+				0A3FADEF207B504F00F0D214 /* Tests-Info.plist */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -279,7 +285,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AFFF41720809D040030200C /* FoundationExtensionsTests.swift in Sources */,
 				0A3FADF8207B505E00F0D214 /* AbstractRegistryTests.swift in Sources */,
+				0AFFF41920809D430030200C /* AssertableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
