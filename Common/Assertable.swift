@@ -5,7 +5,9 @@
 import Foundation
 
 public protocol Assertable {
+
     static func assertArgument(_ assertion: @autoclosure () -> Bool, _ error: Swift.Error) throws
+
 }
 
 public extension Assertable {
