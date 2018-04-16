@@ -11,13 +11,13 @@ class AssertableTests: XCTestCase {
     enum E: Error, Hashable { case error }
 
     func test_whenAssertionFails_throwsError() {
-        XCTAssertThrowsError(try A.assertArgument(false, E.error)) {
+        XCTAssertThrowsError(try A().assertArgument(false, E.error)) {
             XCTAssertEqual($0 as? E, .error)
         }
     }
 
     func test_whenAssertionPasses_doesNotThrow() {
-        XCTAssertNoThrow(try A.assertArgument(true, E.error))
+        XCTAssertNoThrow(try A().assertArgument(true, E.error))
     }
 
 }
