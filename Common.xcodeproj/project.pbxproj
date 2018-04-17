@@ -16,6 +16,8 @@
 		0AFFF41520809BBE0030200C /* Assertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41420809BBE0030200C /* Assertable.swift */; };
 		0AFFF41720809D040030200C /* FoundationExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41620809D040030200C /* FoundationExtensionsTests.swift */; };
 		0AFFF41920809D430030200C /* AssertableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41820809D430030200C /* AssertableTests.swift */; };
+		0AFFF4492084FB3D0030200C /* BaseID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF4482084FB3D0030200C /* BaseID.swift */; };
+		0AFFF44B2084FB540030200C /* IdentifiedEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF44A2084FB540030200C /* IdentifiedEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		0AFFF41420809BBE0030200C /* Assertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertable.swift; sourceTree = "<group>"; };
 		0AFFF41620809D040030200C /* FoundationExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensionsTests.swift; sourceTree = "<group>"; };
 		0AFFF41820809D430030200C /* AssertableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertableTests.swift; sourceTree = "<group>"; };
+		0AFFF4482084FB3D0030200C /* BaseID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseID.swift; sourceTree = "<group>"; };
+		0AFFF44A2084FB540030200C /* IdentifiedEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiedEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,8 @@
 				0AFFF41220809AA10030200C /* FoundationExtensions.swift */,
 				0AFFF41620809D040030200C /* FoundationExtensionsTests.swift */,
 				0A3FADEF207B504F00F0D214 /* Tests-Info.plist */,
+				0AFFF4482084FB3D0030200C /* BaseID.swift */,
+				0AFFF44A2084FB540030200C /* IdentifiedEntity.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -276,8 +282,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AFFF41320809AA10030200C /* FoundationExtensions.swift in Sources */,
+				0AFFF44B2084FB540030200C /* IdentifiedEntity.swift in Sources */,
 				0A3FADE6207B503B00F0D214 /* AbstractRegistry.swift in Sources */,
 				0AFFF41520809BBE0030200C /* Assertable.swift in Sources */,
+				0AFFF4492084FB3D0030200C /* BaseID.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
