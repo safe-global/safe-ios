@@ -15,3 +15,11 @@ public extension String {
     }
 
 }
+
+public extension SetAlgebra {
+
+    func intersects(with other: Self) -> Bool {
+        return !isDisjoint(with: other)
+    }
+
+}
