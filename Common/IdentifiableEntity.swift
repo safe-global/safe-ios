@@ -4,12 +4,12 @@
 
 import Foundation
 
-open class IdentifiedEntity<T: Hashable>: Hashable, Assertable {
+open class IdentifiableEntity<T: Hashable>: Hashable, Assertable {
 
     public let id: T
     public var hashValue: Int { return id.hashValue }
 
-    public static func ==(lhs: IdentifiedEntity<T>, rhs: IdentifiedEntity<T>) -> Bool {
+    public static func ==(lhs: IdentifiableEntity<T>, rhs: IdentifiableEntity<T>) -> Bool {
         return lhs.id == rhs.id
     }
 
