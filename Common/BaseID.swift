@@ -11,7 +11,7 @@ open class BaseID: Hashable, Assertable {
     }
 
     public let id: String
-    public var hashValue: Int { return id.hashValue * 31 }
+    public var hashValue: Int { return id.hashValue &* 31 } // hashValue * 31 may overflow, so using &* operator
 
     open static func ==(lhs: BaseID, rhs: BaseID) -> Bool {
         return lhs.id == rhs.id
