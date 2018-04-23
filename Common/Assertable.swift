@@ -14,6 +14,9 @@ public protocol Assertable {
     func assertEqual<T>(_ expression1: @autoclosure () -> T,
                         _ expression2: @autoclosure () -> T,
                         _ error: Swift.Error) throws where T: Equatable
+    func assertNotEqual<T>(_ expression1: @autoclosure () -> T,
+                           _ expression2: @autoclosure () -> T,
+                           _ error: Swift.Error) throws where T: Equatable
 }
 
 public extension Assertable {
@@ -44,5 +47,10 @@ public extension Assertable {
         if expression1() != expression2() { throw error }
     }
 
+    func assertNotEqual<T>(_ expression1: @autoclosure () -> T,
+                           _ expression2: @autoclosure () -> T,
+                           _ error: Swift.Error) throws where T: Equatable {
+        if expression1() == expression2() { throw error }
+    }
 
 }
