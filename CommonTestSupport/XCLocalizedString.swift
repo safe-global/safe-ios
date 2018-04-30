@@ -12,6 +12,10 @@ public func XCLocalizedString(_ key: String) -> String {
     return NSLocalizedString(key, bundle: XCBundle, comment: "")
 }
 
+public func XCLocalizedString(_ key: String, table: String) -> String {
+    return NSLocalizedString(key, tableName: table, bundle: Bundle(for: BundleMarker.self), value: key, comment: "")
+}
+
 private func localizationBundle() -> Bundle {
     let testBundle = Bundle(for: BundleMarker.self)
     let localizedBundle: Bundle
