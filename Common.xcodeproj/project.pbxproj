@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A14B2F520A2F33700C72761 /* MockDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14B2F420A2F33700C72761 /* MockDatabase.swift */; };
 		0A160BB420A0803100E064E1 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A160BA920A0803000E064E1 /* SQLiteDatabase.swift */; };
 		0A160BB520A0803100E064E1 /* SQLiteConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A160BAA20A0803000E064E1 /* SQLiteConnection.swift */; };
 		0A160BB820A0803100E064E1 /* SQLiteResultSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A160BAD20A0803000E064E1 /* SQLiteResultSet.swift */; };
@@ -89,6 +90,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A14B2F420A2F33700C72761 /* MockDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDatabase.swift; sourceTree = "<group>"; };
 		0A160B9220A07FE100E064E1 /* libDatabase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDatabase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A160BA620A0803000E064E1 /* Database-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Database-Bridging-Header.h"; sourceTree = "<group>"; };
 		0A160BA820A0803000E064E1 /* SQLiteDatabaseIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDatabaseIntegrationTests.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				0A160BB220A0803000E064E1 /* Database.swift */,
 				0A160BA720A0803000E064E1 /* SQLite */,
 				0A160BA620A0803000E064E1 /* Database-Bridging-Header.h */,
+				0A14B2F420A2F33700C72761 /* MockDatabase.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A160BB920A0803100E064E1 /* SQLiteStatement.swift in Sources */,
+				0A14B2F520A2F33700C72761 /* MockDatabase.swift in Sources */,
 				0A160BBD20A0803100E064E1 /* Database.swift in Sources */,
 				0A160BBA20A0803100E064E1 /* CSQLite3.swift in Sources */,
 				0A160BB520A0803100E064E1 /* SQLiteConnection.swift in Sources */,
