@@ -1,0 +1,9 @@
+//
+//  Copyright © 2018 Gnosis Ltd. All rights reserved.
+//
+
+WORKSPACE_LIB_PATH=${SRCROOT}/../Library/${PLATFORM_NAME}
+FRAMEWORK_SEARCH_PATHS=$(inherited) ${WORKSPACE_LIB_PATH}
+LIBRARY_SEARCH_PATHS=$(inherited) ${WORKSPACE_LIB_PATH}
+HEADER_SEARCH_PATHS=$(inherited) ${WORKSPACE_LIB_PATH}/include
+OTHER_LDFLAGS=$(inherited) -framework "Crashlytics" -framework "Fabric"
