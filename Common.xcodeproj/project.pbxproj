@@ -38,6 +38,11 @@
 		0A8E3BD620B41B8600F002F6 /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E3BC220B41B0800F002F6 /* LogServiceTests.swift */; };
 		0A8E3BE420B41CA200F002F6 /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3FADDB207B501F00F0D214 /* libCommon.a */; };
 		0A8E3BE520B41CA700F002F6 /* libCommonTestSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC17580207B73A90016320A /* libCommonTestSupport.a */; };
+		0A934D3020B703E400F15616 /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A934D2F20B703E400F15616 /* SecureStore.swift */; };
+		0A934D3620B7042300F15616 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A934D3220B7042300F15616 /* KeychainService.swift */; };
+		0A934D3720B7042300F15616 /* MockKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A934D3320B7042300F15616 /* MockKeychain.swift */; };
+		0A934D3920B7042300F15616 /* InMemorySecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A934D3520B7042300F15616 /* InMemorySecureStore.swift */; };
+		0A934D3A20B7042A00F15616 /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A934D3420B7042300F15616 /* KeychainServiceIntegrationTests.swift */; };
 		0AA0C873207B762A0019E282 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA0C871207B762A0019E282 /* TestError.swift */; };
 		0AA0C874207B762A0019E282 /* XCLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA0C872207B762A0019E282 /* XCLocalizedString.swift */; };
 		0AEF8A2A20A08147006A1265 /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3FADDB207B501F00F0D214 /* libCommon.a */; };
@@ -165,6 +170,11 @@
 		0A8E3BC720B41B0800F002F6 /* LogService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
 		0A8E3BD120B41B2800F002F6 /* LoggableErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggableErrorTests.swift; sourceTree = "<group>"; };
 		0A8E3BE320B41BF700F002F6 /* CommonImplementationsConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CommonImplementationsConfig.xcconfig; sourceTree = "<group>"; };
+		0A934D2F20B703E400F15616 /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
+		0A934D3220B7042300F15616 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		0A934D3320B7042300F15616 /* MockKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeychain.swift; sourceTree = "<group>"; };
+		0A934D3420B7042300F15616 /* KeychainServiceIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainServiceIntegrationTests.swift; sourceTree = "<group>"; };
+		0A934D3520B7042300F15616 /* InMemorySecureStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemorySecureStore.swift; sourceTree = "<group>"; };
 		0AA0C871207B762A0019E282 /* TestError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		0AA0C872207B762A0019E282 /* XCLocalizedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCLocalizedString.swift; sourceTree = "<group>"; };
 		0AC17580207B73A90016320A /* libCommonTestSupport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommonTestSupport.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -316,6 +326,7 @@
 				0A8E3BAC20B41AAF00F002F6 /* Logger.swift */,
 				0A8E3BBC20B41AFA00F002F6 /* MockLogger.swift */,
 				0A3FADEF207B504F00F0D214 /* Tests-Info.plist */,
+				0A934D2F20B703E400F15616 /* SecureStore.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -324,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				0A8E3BE320B41BF700F002F6 /* CommonImplementationsConfig.xcconfig */,
+				0A934D3120B7042300F15616 /* secureStore */,
 				0A8E3BBE20B41B0800F002F6 /* logger */,
 				0A8E3BA220B419E000F002F6 /* Tests-Info.plist */,
 			);
@@ -343,6 +355,17 @@
 				0A8E3BC220B41B0800F002F6 /* LogServiceTests.swift */,
 			);
 			path = logger;
+			sourceTree = "<group>";
+		};
+		0A934D3120B7042300F15616 /* secureStore */ = {
+			isa = PBXGroup;
+			children = (
+				0A934D3520B7042300F15616 /* InMemorySecureStore.swift */,
+				0A934D3220B7042300F15616 /* KeychainService.swift */,
+				0A934D3420B7042300F15616 /* KeychainServiceIntegrationTests.swift */,
+				0A934D3320B7042300F15616 /* MockKeychain.swift */,
+			);
+			path = secureStore;
 			sourceTree = "<group>";
 		};
 		0AC17581207B73A90016320A /* CommonTestSupport */ = {
@@ -636,6 +659,7 @@
 			files = (
 				0AFFF41320809AA10030200C /* FoundationExtensions.swift in Sources */,
 				0A8E3BBB20B41AED00F002F6 /* LoggableError.swift in Sources */,
+				0A934D3020B703E400F15616 /* SecureStore.swift in Sources */,
 				0A8E3BAD20B41AAF00F002F6 /* Logger.swift in Sources */,
 				0AFFF44B2084FB540030200C /* IdentifiableEntity.swift in Sources */,
 				0A3FADE6207B503B00F0D214 /* AbstractRegistry.swift in Sources */,
@@ -660,9 +684,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A934D3920B7042300F15616 /* InMemorySecureStore.swift in Sources */,
 				0A8E3BD020B41B0800F002F6 /* LogService.swift in Sources */,
+				0A934D3720B7042300F15616 /* MockKeychain.swift in Sources */,
 				0A8E3BCE20B41B0800F002F6 /* CrashlyticsLogger.swift in Sources */,
 				0A8E3BCF20B41B0800F002F6 /* ConsoleLogger.swift in Sources */,
+				0A934D3620B7042300F15616 /* KeychainService.swift in Sources */,
 				0A8E3BCC20B41B0800F002F6 /* LogFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -671,6 +698,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A934D3A20B7042A00F15616 /* KeychainServiceIntegrationTests.swift in Sources */,
 				0A8E3BD320B41B8600F002F6 /* ConsoleLoggerTests.swift in Sources */,
 				0A8E3BD520B41B8600F002F6 /* LogFormatterTests.swift in Sources */,
 				0A8E3BD620B41B8600F002F6 /* LogServiceTests.swift in Sources */,
