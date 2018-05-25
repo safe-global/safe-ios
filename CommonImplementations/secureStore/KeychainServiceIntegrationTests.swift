@@ -37,4 +37,14 @@ class KeychainServiceIntegrationTests: XCTestCase {
         XCTAssertNil(try keychainService.data(forKey: "testKey"))
     }
 
+    func test_whenUpdatesExistingValue_thenItIsUpdated() {
+        XCTAssertNoThrow(try keychainService.save(data: data, forKey: "testKey"))
+        let otherData = Data(repeating: 3, count: 33)
+        XCTAssertThrowsError(try keychainService.save(data: otherData, forKey: "testKey"))
+    }
+
+    func test_whenRemovesInexistingKey_thenItIsOK() {
+        XCTAssertNoThrow(try keychainService.removeData(forKey: "SOME_KEY"))
+    }
+
 }
