@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import Common
 
 public class InMemorySecureStore: SecureStore {
 
@@ -23,6 +22,10 @@ public class InMemorySecureStore: SecureStore {
 
     public func removeData(forKey: String) throws {
         values.removeValue(forKey: forKey)
+    }
+
+    public func destroy() throws {
+        values.removeAll()
     }
 
 }

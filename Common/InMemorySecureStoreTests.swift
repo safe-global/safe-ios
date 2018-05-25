@@ -3,7 +3,7 @@
 //
 
 import XCTest
-@testable import CommonImplementations
+@testable import Common
 
 class InMemorySecureStoreTests: XCTestCase {
 
@@ -14,6 +14,11 @@ class InMemorySecureStoreTests: XCTestCase {
         XCTAssertEqual(try store.data(forKey: "test"), data)
         try store.removeData(forKey: "test")
         XCTAssertNil(try store.data(forKey: "test"))
+        try store.save(data: data, forKey: "other")
+        try store.save(data: data, forKey: "another")
+        try store.destroy()
+        XCTAssertNil(try store.data(forKey: "other"))
+        XCTAssertNil(try store.data(forKey: "another"))
     }
 
 }
