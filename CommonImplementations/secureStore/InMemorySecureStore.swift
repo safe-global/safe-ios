@@ -4,7 +4,6 @@
 
 import Foundation
 import Common
-import CommonTestSupport
 
 public class InMemorySecureStore: SecureStore {
 
