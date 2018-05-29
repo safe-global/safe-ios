@@ -28,5 +28,6 @@ private func localizationBundle() -> Bundle {
 }
 
 public func delay(_ delay: TimeInterval = 0.1) {
+    if delay == 0 { return }
     RunLoop.current.run(until: Date(timeIntervalSinceNow: delay))
 }
