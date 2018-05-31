@@ -18,7 +18,18 @@ public class SQLiteDatabase: Database, Assertable {
     private let fileManager: FileManager
     private let sqlite: CSQLite3
     private let bundleIdentifier: String
-    private var connections = [SQLiteConnection]()
+    // SQLite's default mode is when connections are not shared across threads
+    // that's why we use theadDictionary to store connections for each thread separately.
+    private var connections: [SQLiteConnection] {
+        get {
+            let nsDict = Thread.current.threadDictionary
+            return nsDict["sqlite_connections"] as? [SQLiteConnection] ?? []
+        }
+        set {
+            let nsDict = Thread.current.threadDictionary
+            nsDict["sqlite_connections"] = newValue
+        }
+    }
 
     public enum Error: Hashable, LocalizedError {
         case applicationSupportDirNotFound
@@ -51,6 +62,7 @@ public class SQLiteDatabase: Database, Assertable {
         self.fileManager = fileManager
         self.sqlite = sqlite
         self.bundleIdentifier = bundleId
+        self.connections = []
     }
 
     public func create() throws {
