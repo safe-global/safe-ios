@@ -167,7 +167,8 @@ class SQLiteDatabaseTests: XCTestCase {
         sqlite.prepare_out_pzTail = nil
         sqlite.prepare_result = CSQLite3.SQLITE_ERROR
         sqlite.errmsg_result = "error"
-        assertThrows(try conn.prepare(statement: "some"), SQLiteDatabase.Error.invalidSQLStatement("error: some"))
+        assertThrows(try conn.prepare(statement: "some"),
+                     SQLiteDatabase.Error.invalidSQLStatement("status: (1) error: some"))
     }
 
     func test_prepareStatement_whenReceivesNilStatement_thenThrowsError() throws {
@@ -263,7 +264,7 @@ class SQLiteDatabaseTests: XCTestCase {
     func test_whenExecuteError_thenThrows() throws {
         try givenPreparedStatement()
         sqlite.step_results = [CSQLite3.SQLITE_ERROR]
-        assertThrows(try stmt.execute(), SQLiteDatabase.Error.runtimeError)
+        assertThrows(try stmt.execute(), SQLiteDatabase.Error.runtimeError(""))
     }
 
     func test_whenExecuteMisuse_thenTrows() throws {

@@ -115,4 +115,32 @@ class SQLiteDatabaseIntegrationTests: XCTestCase {
         try db.destroy()
     }
 
+    func test_whenOneConnectionIsWritingAndOtherIsReading_thenOtherIsBlockingUntilWriteFinished() {
+        do {
+            let db = newDB()
+            try db.destroy()
+            try db.create()
+            try db.execute(sql: "CREATE TABLE tbl_test (id INTEGER PRIMARY KEY, val TEXT);")
+            let exp = expectation(description: "wait")
+            DispatchQueue.global().async {
+                do {
+                    for i in (0..<10) {
+                        try db.execute(sql: "INSERT INTO tbl_test VALUES (?, 'test');", bindings: [i])
+                    }
+                    exp.fulfill()
+                } catch let error {
+                    DispatchQueue.main.async {
+                        XCTFail("Failure in background thread: \(error)")
+                    }
+                }
+            }
+            for _ in (0..<10) {
+                try db.execute(sql: "SELECT id, val FROM tbl_test;")
+            }
+            waitForExpectations(timeout: 5, handler: nil)
+        } catch let error {
+            XCTFail("Failed with error: \(error)")
+        }
+    }
+
 }

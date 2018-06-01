@@ -24,12 +24,16 @@ public class SQLiteConnection: Connection, Assertable {
         }
         var outStmt: OpaquePointer?
         var outTail: UnsafePointer<Int8>?
-        let status = sqlite.sqlite3_prepare_v2(db, cstr, Int32(cstr.count), &outStmt, &outTail)
+        var status = sqlite.sqlite3_prepare_v2(db, cstr, Int32(cstr.count), &outStmt, &outTail)
+        while status == CSQLite3.SQLITE_BUSY {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.05))
+            status = sqlite.sqlite3_prepare_v2(db, cstr, Int32(cstr.count), &outStmt, &outTail)
+        }
         guard status == CSQLite3.SQLITE_OK else {
             if let cString = sqlite.sqlite3_errmsg(db), let message = String(cString: cString, encoding: .utf8) {
-                throw SQLiteDatabase.Error.invalidSQLStatement("\(message): \(statement)")
+                throw SQLiteDatabase.Error.invalidSQLStatement("status: (\(status)) \(message): \(statement)")
             } else {
-                throw SQLiteDatabase.Error.invalidSQLStatement("unknown error: \(statement)")
+                throw SQLiteDatabase.Error.invalidSQLStatement("status: (\(status)) unknown error: \(statement)")
             }
         }
         try assertNotNil(outStmt, SQLiteDatabase.Error.invalidSQLStatement("unknown error: \(statement)"))

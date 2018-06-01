@@ -4,7 +4,7 @@
 
 import Foundation
 
-open class BaseID: Hashable, Assertable {
+open class BaseID: Hashable, Assertable, CustomStringConvertible {
 
     public enum Error: Swift.Error, Hashable {
         case invalidID
@@ -12,6 +12,7 @@ open class BaseID: Hashable, Assertable {
 
     public let id: String
     public var hashValue: Int { return id.hashValue &* 31 } // hashValue * 31 may overflow, so using &* operator
+    public var description: String { return id }
 
     open static func ==(lhs: BaseID, rhs: BaseID) -> Bool {
         return lhs.id == rhs.id
@@ -21,4 +22,5 @@ open class BaseID: Hashable, Assertable {
         self.id = id
         try assertTrue(id.count == 36, Error.invalidID)
     }
+
 }

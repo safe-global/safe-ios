@@ -44,12 +44,17 @@ public class SQLiteStatement: Statement, Assertable {
                 throw SQLiteDatabase.Error.transactionMustBeRolledBack
             }
         case CSQLite3.SQLITE_ERROR:
-            throw SQLiteDatabase.Error.runtimeError
+            throw SQLiteDatabase.Error.runtimeError(lastErrorMessage())
         case CSQLite3.SQLITE_MISUSE:
             throw SQLiteDatabase.Error.invalidStatementState
         default:
             preconditionFailure("Unexpected sqlite3_step() status: \(status)")
         }
+    }
+
+    func lastErrorMessage() -> String {
+        guard let cString = sqlite.sqlite3_errmsg(db) else { return "" }
+        return String(cString: cString, encoding: .utf8) ?? ""
     }
 
     func finalize() {

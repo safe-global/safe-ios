@@ -19,8 +19,8 @@ public class SQLiteResultSet: ResultSet {
         self.sqlite = sqlite
         var status = sqlite.sqlite3_reset(stmt)
         while status == CSQLite3.SQLITE_BUSY {
-            status = sqlite.sqlite3_reset(stmt)
             RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.05))
+            status = sqlite.sqlite3_reset(stmt)
         }
         precondition(status == CSQLite3.SQLITE_OK)
     }

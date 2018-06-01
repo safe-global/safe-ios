@@ -46,7 +46,7 @@ public class SQLiteDatabase: Database, Assertable {
         case connectionIsAlreadyClosed
         case invalidConnection
         case statementWasAlreadyExecuted
-        case runtimeError
+        case runtimeError(String)
         case invalidStatementState
         case transactionMustBeRolledBack
         case invalidStringBindingValue
