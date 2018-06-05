@@ -6,11 +6,50 @@ import Foundation
 
 public protocol Database: class {
 
+    /// True if the database
     var exists: Bool { get }
+
+    /// Creates the database. Throws error if the database already exists.
+    /// May throw error if unable to create the database for some other reason.
+    ///
+    /// - Throws: May throw error if some problem encountered.
     func create() throws
+
+    /// Deletes the database. All active connections are closed automatically before destroying.
+    ///
+    /// - Throws: if unable to destroy the database.
     func destroy() throws
+
+    /// Creates new connection to the database and opens it. The database must exist, otherwise error is thrown.
+    ///
+    /// - Returns: Initialized and opened connection.
+    /// - Throws: error thrown if database does not exist or some problem creating connection encountered.
     func connection() throws -> Connection
+
+    /// Closes opened connection that was created by `connection()` method. If the connection is already closed,
+    /// the method throws error.
+    ///
+    /// - Parameter connection: connection that was created before.
+    /// - Throws: if connection was closed, method throws error. May throw other error if closing failed.
     func close(_ connection: Connection) throws
+
+    /// Executes arbitrary SQL statement, binding values from `bindings` and `dict` arguments to it.
+    /// This method is meant for update queries.
+    ///
+    /// See `execute(sql:bindings:dict:resultMap:)` for executing SQL select queries that return result.
+    ///
+    /// - Parameters:
+    ///   - sql: SQL string to execute
+    ///   - bindings: Array of optional bindable values to bind with SQL statement by array index.
+    ///   - dict: Dictionary of bindable values to bind with SQL statement by keys.
+    /// - Returns: result of the SQL statement is ignored.
+    /// - Throws: may throw error if there is a problem with SQL statement or with the database.
+    func execute(sql: String, bindings: [SQLBindable?], dict: [String: SQLBindable?]) throws
+
+    func execute<T>(sql: String,
+                    bindings: [SQLBindable?],
+                    dict: [String: SQLBindable?],
+                    resultMap: (ResultSet) throws -> T?) throws -> [T?]
 
 }
 
