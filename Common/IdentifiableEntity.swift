@@ -4,6 +4,7 @@
 
 import Foundation
 
+/// Base class for an Entity with an identifier (immutable).
 open class IdentifiableEntity<T: Hashable>: Hashable, Assertable {
 
     public let id: T
@@ -13,6 +14,9 @@ open class IdentifiableEntity<T: Hashable>: Hashable, Assertable {
         return lhs.id == rhs.id
     }
 
+    /// Creates new instance with provided identifier
+    ///
+    /// - Parameter id: Identifier of the entitiy.
     public init(id: T) {
         self.id = id
     }

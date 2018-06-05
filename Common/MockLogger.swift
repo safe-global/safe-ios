@@ -4,6 +4,7 @@
 
 import Foundation
 
+/// `MockLogger` implements `Logger` protocol for use in unit tests.
 public class MockLogger: Logger {
 
     public var fatalLogged = false

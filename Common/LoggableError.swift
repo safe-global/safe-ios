@@ -6,7 +6,13 @@ import Foundation
 
 public let LoggableErrorDescriptionKey = "LoggableErrorDescriptionKey"
 
+/// Default implementation of utility to convert any `Swift.Error` to `NSError`
 public protocol LoggableError: Error {
+
+    /// Creates `NSError` and puts the `causedBy` error into `NSError.userInfo` dictionary.
+    ///
+    /// - Parameter causedBy: Underlying error
+    /// - Returns: new NSError with `causedBy` underlying error inside.
     func nsError(causedBy: Error?) -> NSError
 }
 
@@ -25,6 +31,8 @@ public extension LoggableError {
 
 }
 
+/// Loggable error that can be used in tests.
 public enum TestLoggableError: LoggableError {
+    /// Test error
     case error
 }

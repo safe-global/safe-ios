@@ -4,9 +4,21 @@
 
 import Foundation
 
+/// Base generic class for all UUID-based identifier classes, used to identify Entities.
+///
+/// To implement your identifier class, just inherit from the `BaseID`:
+///
+///     class MyID: BaseID {}
+///
+///     // instantiation
+///     let id = MyID()
+///
 open class BaseID: Hashable, Assertable, CustomStringConvertible {
 
+    /// Errors thrown if ID is invalid
+    ///
     public enum Error: Swift.Error, Hashable {
+        /// the ID provided to `BaseID.init(...)` method is invalid.
         case invalidID
     }
 
@@ -18,6 +30,10 @@ open class BaseID: Hashable, Assertable, CustomStringConvertible {
         return lhs.id == rhs.id
     }
 
+    /// Creates new identifier from string. By default takes random UUID string.
+    ///
+    /// - Parameter id: String to initialize the identifier with
+    /// - Throws: Throws `Error.invalidID` if the `id` parameter is not 36 characters long.
     public required init(_ id: String = UUID().uuidString) throws {
         self.id = id
         try assertTrue(id.count == 36, Error.invalidID)

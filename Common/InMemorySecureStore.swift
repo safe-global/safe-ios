@@ -4,6 +4,7 @@
 
 import Foundation
 
+/// In-memory implementation of the `SecureStore` protocol, handy for unit tests.
 public class InMemorySecureStore: SecureStore {
 
     public var shouldThrow: Bool = false
