@@ -16,6 +16,7 @@ public protocol Logger {
     ///   - line: line in `file` from where this method was invoked
     ///   - function: name of the method from where this method was invoked
     func fatal(_ message: String, error: Error?, file: StaticString, line: UInt, function: StaticString)
+
     /// Indicates that an error occurred. The application is supposed to still work.
     ///
     /// - Parameters:
@@ -25,6 +26,7 @@ public protocol Logger {
     ///   - line: line in `file` from where this method was invoked
     ///   - function: name of the method from where this method was invoked
     func error(_ message: String, error: Error?, file: StaticString, line: UInt, function: StaticString)
+
     /// Indicates some important information.
     ///
     /// - Parameters:
@@ -34,6 +36,7 @@ public protocol Logger {
     ///   - line: line in `file` from where this method was invoked
     ///   - function: name of the method from where this method was invoked
     func info(_ message: String, error: Error?, file: StaticString, line: UInt, function: StaticString)
+
     /// Indicates a debug message.
     ///
     /// - Parameters:
