@@ -5,6 +5,7 @@
 import Foundation
 import SQLite3
 
+/// Mock object used for testing purposes.
 class MockCSQLite3: CSQLite3 {
 
     var openedFilename: String?

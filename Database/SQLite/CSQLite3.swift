@@ -5,6 +5,14 @@
 import Foundation
 import SQLite3
 
+/// A single wrapper over all SQLite3 C API. Used to decouple `SQLiteDatabase` and other classes from SQLite3 calls for
+/// testing purposes.
+///
+/// For details, please see the SQLite documentation links below:
+/// - [SQLite3 C Interface](https://sqlite.org/c3ref/intro.html)
+/// - [SQLite3 Constants List](https://sqlite.org/c3ref/constlist.html)
+/// - [SQLite3 Functions List](https://sqlite.org/c3ref/funclist.html)
+/// - [SQLite3 Objects List](https://sqlite.org/c3ref/objlist.html)
 open class CSQLite3 {
 
     public init() {}

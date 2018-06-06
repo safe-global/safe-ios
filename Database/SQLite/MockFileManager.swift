@@ -4,6 +4,7 @@
 
 import Foundation
 
+/// Mock file manager used for testing purposes
 class MockFileManager: FileManager {
 
     func appSupportURL() throws -> URL {
