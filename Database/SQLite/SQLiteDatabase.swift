@@ -5,16 +5,33 @@
 import Foundation
 import Common
 
+/// `SQLiteDatabase` is used to create a database, connect to existing one, close and open connections, and destroy
+/// existing database.
+///
+/// You initialize a database with a name, `CSQlite3` instance (wrapper over SQLite C interface), `FileManager` and
+/// bundle identifier.
+///
+/// After that, you can create database if it does not exist, otherwise, you can start executing
+/// queries or creating connections.
+///
+/// **Important**: If you created any connections with `SQLiteDatabase.connection()` method,
+/// then remember to close them with `SQLiteDatabase.close(...)` method, otherwise underlying C objects will leak
+/// and database may end up in undefined state.
 public class SQLiteDatabase: Database, Assertable {
 
+    /// The SQLite filename will have "db" extension with this `name`.
     public let name: String
+
+    /// True if `name`.db file exists at `url` path.
     public var exists: Bool {
         try? buildURL()
         guard let url = self.url else { return false }
         return fileManager.fileExists(atPath: url.path)
     }
 
+    /// Full file url of the database
     public var url: URL!
+
     private let fileManager: FileManager
     private let sqlite: CSQLite3
     private let bundleIdentifier: String
@@ -31,6 +48,7 @@ public class SQLiteDatabase: Database, Assertable {
         }
     }
 
+    /// Errors that are thrown from SQLite* classes' methods.
     public enum Error: Hashable, LocalizedError {
         case applicationSupportDirNotFound
         case bundleIdentifierNotFound
@@ -57,6 +75,13 @@ public class SQLiteDatabase: Database, Assertable {
         case attemptToBindFinalizedStatement
     }
 
+    /// Initializes new `SQLiteDatabase` object with name, dependencies and bundleId string.
+    ///
+    /// - Parameters:
+    ///   - name: The name will be used with ".db" extension to compose path to the database file.
+    ///   - fileManager: The FileManager dependency to access file system.
+    ///   - sqlite: The SQLite3 C API wrapper dependency.
+    ///   - bundleId: The bundleId string used to create or use a subfolder in ApplicationSupport directory.
     public init(name: String, fileManager: FileManager, sqlite: CSQLite3, bundleId: String) {
         self.name = name
         self.fileManager = fileManager
@@ -65,6 +90,16 @@ public class SQLiteDatabase: Database, Assertable {
         self.connections = []
     }
 
+    /// Creates an empty database file.
+    ///
+    /// ## Discussion
+    /// This method will create a `bundleId` directory inside ApplicationSupport directory if it does not exist.
+    /// It will also create an empty file named `name`.db inside that directory.
+    /// - Throws:
+    ///     - `Error.applicationSupportDirNotFound` thrown if can't find ApplicationSupport directory in file system.
+    ///     - `Error.databaseAlreadyExists` thrown if database file already exists.
+    ///     - `Error.failedToCreateDatabase` if were unable to create empty database file.
+    ///     - Any other errors from FileManager APIs may be thrown, if there was an error.
     public func create() throws {
         try buildURL()
         try assertFalse(fileManager.fileExists(atPath: url.path), Error.databaseAlreadyExists)
@@ -75,6 +110,15 @@ public class SQLiteDatabase: Database, Assertable {
         }
     }
 
+    /// Creates new `SQLiteConnection`, opens it and retains it.
+    ///
+    /// - Returns: new connection
+    /// - Throws:
+    ///     - `Error.databaseDoesNotExist` if database file is not there
+    ///     - `Error.invalidSQLiteVersion` if the linked library's major version is different from headers version
+    ///     - `Error.invalidSQLiteVersion` if linked library's and headers version equal but other version
+    ///       variables, like source id and integer version number have different header and linked values.
+    ///     - If `SQLiteConnection` opening throws error, it will be rethrown here.
     public func connection() throws -> Connection {
         try buildURL()
         try assertTrue(fileManager.fileExists(atPath: url.path), Error.databaseDoesNotExist)
@@ -114,6 +158,13 @@ public class SQLiteDatabase: Database, Assertable {
 
     }
 
+    /// Closes open connection, created with `connection()` method. Connection must be still open. Releases retained
+    /// object when connection is successfully closed.
+    ///
+    /// - Parameter connection: Previously opened connection.
+    /// - Throws:
+    ///     - `Error.invalidConnection` in case connection is not `SQLiteConnection`
+    ///     - Any error thrown from `SQLiteConnection.close()` is rethrown.
     public func close(_ connection: Connection) throws {
         guard let connection = connection as? SQLiteConnection else {
             throw SQLiteDatabase.Error.invalidConnection
@@ -124,6 +175,9 @@ public class SQLiteDatabase: Database, Assertable {
         }
     }
 
+    /// Closes all opened connections, releases memory for them, and removes database filen.
+    ///
+    /// - Throws: Throws error if were unable to close any connection or unable to delete database file.
     public func destroy() throws {
         try connections.forEach { try $0.close() }
         connections.removeAll()
