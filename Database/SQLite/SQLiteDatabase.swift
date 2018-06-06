@@ -78,13 +78,40 @@ public class SQLiteDatabase: Database, Assertable {
     public func connection() throws -> Connection {
         try buildURL()
         try assertTrue(fileManager.fileExists(atPath: url.path), Error.databaseDoesNotExist)
-        try assertEqual(String(cString: sqlite.sqlite3_libversion()), sqlite.SQLITE_VERSION, Error.invalidSQLiteVersion)
-        try assertEqual(String(cString: sqlite.sqlite3_sourceid()), sqlite.SQLITE_SOURCE_ID, Error.invalidSQLiteVersion)
-        try assertEqual(sqlite.sqlite3_libversion_number(), sqlite.SQLITE_VERSION_NUMBER, Error.invalidSQLiteVersion)
+        let libVersion = Version(String(cString: sqlite.sqlite3_libversion()))
+        let headerVersion = Version(sqlite.SQLITE_VERSION)
+        try assertEqual(libVersion.major, headerVersion.major, Error.invalidSQLiteVersion)
+        if libVersion == headerVersion {
+            let libSourceId = String(cString: sqlite.sqlite3_sourceid()).prefix(80)
+            let headerSourceId = sqlite.SQLITE_SOURCE_ID.prefix(80)
+            try assertEqual(libSourceId, headerSourceId, Error.invalidSQLiteVersion)
+            let libVersionNumber = sqlite.sqlite3_libversion_number()
+            let headerVersionNumber = sqlite.SQLITE_VERSION_NUMBER
+            try assertEqual(libVersionNumber, headerVersionNumber, Error.invalidSQLiteVersion)
+        }
         let connection = SQLiteConnection(sqlite: sqlite)
         try connection.open(url: url)
         connections.append(connection)
         return connection
+    }
+
+    private struct Version: Equatable {
+
+        let major: String
+        let minor: String
+        let patch: String
+
+        init(_ str: String) {
+            var parts = str.components(separatedBy: ".")
+            if parts.count == 3 {
+                (major, minor, patch) = (parts[0], parts[1], parts[2])
+            } else if parts.count == 2 {
+                (major, minor, patch) = (parts[0], parts[1], "")
+            } else {
+                (major, minor, patch) = (str, "", "")
+            }
+        }
+
     }
 
     public func close(_ connection: Connection) throws {
