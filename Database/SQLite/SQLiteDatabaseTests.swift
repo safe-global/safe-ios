@@ -96,11 +96,31 @@ class SQLiteDatabaseTests: XCTestCase {
         assertThrows(try db.connection(), SQLiteDatabase.Error.invalidSQLiteVersion)
     }
 
+    func test_whenMajorVersionIsEqual_thenDoesNotThrow() throws {
+        sqlite.version = "3.19.5"
+        sqlite.libversion_result = "3.14.0"
+        try db.create()
+        sqlite.open_pointer_result = opaquePointer()
+        XCTAssertNoThrow(try db.connection())
+    }
+
     func test_beforeConnecting_whenSourceIDNotMatches_thenThrows() throws {
         sqlite.sourceID = "1"
         sqlite.sourceid_result = "2"
         try db.create()
         assertThrows(try db.connection(), SQLiteDatabase.Error.invalidSQLiteVersion)
+    }
+
+    func test_whenMinorVersionsDifferent_thenSourceIdAndVersionNumberCanBeDifferent() throws {
+        sqlite.version = "3.19.5"
+        sqlite.libversion_result = "3.14.0"
+        sqlite.sourceID = "1"
+        sqlite.sourceid_result = "2"
+        sqlite.number = 1
+        sqlite.libversion_number_result = 2
+        try db.create()
+        sqlite.open_pointer_result = opaquePointer()
+        XCTAssertNoThrow(try db.connection())
     }
 
     func test_beforeConnecting_whenVersionNumberNotMatches_thenThrows() throws {
