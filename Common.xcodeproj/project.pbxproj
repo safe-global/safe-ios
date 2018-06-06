@@ -22,6 +22,7 @@
 		0A160BCF20A0805B00E064E1 /* SQLiteDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A160BAC20A0803000E064E1 /* SQLiteDatabaseTests.swift */; };
 		0A160BD020A0805B00E064E1 /* CSQLite3ErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A160BB020A0803000E064E1 /* CSQLite3ErrorTests.swift */; };
 		0A160BD220A0807000E064E1 /* MockCSQLite3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A160BAB20A0803000E064E1 /* MockCSQLite3.swift */; };
+		0A19C16920C7D2C20074C2BB /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3FADDB207B501F00F0D214 /* libCommon.a */; };
 		0A3FADE6207B503B00F0D214 /* AbstractRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */; };
 		0A3FADF0207B504F00F0D214 /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3FADDB207B501F00F0D214 /* libCommon.a */; };
 		0A3FADF8207B505E00F0D214 /* AbstractRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */; };
@@ -50,7 +51,6 @@
 		0A934D5C20B711F600F15616 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A934D5A20B711F600F15616 /* LaunchScreen.storyboard */; };
 		0AA0C873207B762A0019E282 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA0C871207B762A0019E282 /* TestError.swift */; };
 		0AA0C874207B762A0019E282 /* XCLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA0C872207B762A0019E282 /* XCLocalizedString.swift */; };
-		0AEF8A2A20A08147006A1265 /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3FADDB207B501F00F0D214 /* libCommon.a */; };
 		0AEF8A2C20A0814F006A1265 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */; };
 		0AFFF41320809AA10030200C /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41220809AA10030200C /* FoundationExtensions.swift */; };
 		0AFFF41520809BBE0030200C /* Assertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41420809BBE0030200C /* Assertable.swift */; };
@@ -218,8 +218,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A19C16920C7D2C20074C2BB /* libCommon.a in Frameworks */,
 				0AEF8A2C20A0814F006A1265 /* libsqlite3.tbd in Frameworks */,
-				0AEF8A2A20A08147006A1265 /* libCommon.a in Frameworks */,
 				0A160BC720A0804500E064E1 /* libDatabase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,16 +287,16 @@
 		0A160BA720A0803000E064E1 /* SQLite */ = {
 			isa = PBXGroup;
 			children = (
-				0A160BA820A0803000E064E1 /* SQLiteDatabaseIntegrationTests.swift */,
-				0A160BA920A0803000E064E1 /* SQLiteDatabase.swift */,
-				0A160BAA20A0803000E064E1 /* SQLiteConnection.swift */,
+				0A160BAF20A0803000E064E1 /* CSQLite3.swift */,
+				0A160BB020A0803000E064E1 /* CSQLite3ErrorTests.swift */,
 				0A160BAB20A0803000E064E1 /* MockCSQLite3.swift */,
+				0A160BB120A0803000E064E1 /* MockFileManager.swift */,
+				0A160BAA20A0803000E064E1 /* SQLiteConnection.swift */,
+				0A160BA920A0803000E064E1 /* SQLiteDatabase.swift */,
+				0A160BA820A0803000E064E1 /* SQLiteDatabaseIntegrationTests.swift */,
 				0A160BAC20A0803000E064E1 /* SQLiteDatabaseTests.swift */,
 				0A160BAD20A0803000E064E1 /* SQLiteResultSet.swift */,
 				0A160BAE20A0803000E064E1 /* SQLiteStatement.swift */,
-				0A160BAF20A0803000E064E1 /* CSQLite3.swift */,
-				0A160BB020A0803000E064E1 /* CSQLite3ErrorTests.swift */,
-				0A160BB120A0803000E064E1 /* MockFileManager.swift */,
 			);
 			path = SQLite;
 			sourceTree = "<group>";
@@ -922,7 +922,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAHRQRF52;
 				INFOPLIST_FILE = DatabaseTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -941,7 +940,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAHRQRF52;
 				INFOPLIST_FILE = DatabaseTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -960,7 +958,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAHRQRF52;
 				INFOPLIST_FILE = DatabaseTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1030,6 +1027,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -1084,6 +1082,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
 			name = Release;
 		};
@@ -1205,6 +1204,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
 			name = AdHoc;
 		};
@@ -1244,7 +1244,6 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAHRQRF52;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1302,7 +1301,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAHRQRF52;
 				INFOPLIST_FILE = "CommonImplementations/Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1323,7 +1321,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAHRQRF52;
 				INFOPLIST_FILE = "CommonImplementations/Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1344,7 +1341,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAHRQRF52;
 				INFOPLIST_FILE = "CommonImplementations/Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1417,7 +1413,6 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAHRQRF52;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1431,7 +1426,6 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAHRQRF52;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
