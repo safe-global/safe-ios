@@ -93,7 +93,7 @@ public protocol Statement: class {
     /// - Throws: May throw error if there is a problem in the database.
     func set(_ value: String, at index: Int) throws
 
-    /// Binds binary Data blob value to indexed SQL variable (index is 1-based)
+    /// Binds binary Data value to indexed SQL variable (index is 1-based)
     ///
     /// - Parameters:
     ///   - value: value to bind
@@ -133,7 +133,7 @@ public protocol Statement: class {
     /// - Throws: May throw error if there is a problem in the database.
     func set(_ value: String, forKey key: String) throws
 
-    /// Binds binary Data BLOB value to a named SQL variable
+    /// Binds binary Data value to a named SQL variable
     ///
     /// - Parameters:
     ///   - value: value to bind

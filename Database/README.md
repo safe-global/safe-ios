@@ -23,7 +23,7 @@ To create a database, initialize it and call `Database.create()` method. After t
 
 NOTE: currently, only one SQL command per execution is supported. Support for multiple, semicolon-separated SQL commands in one `Database.execute(...)` call will be added in future version.
 
-The SQLite database will work in multi-threaded mode, that means you can safely use the database from different threads, and it will work. 
+The SQLite database connections are started in multi-threaded mode, that means you can safely use the database from different threads, and it will work. 
 
 The default behavior when multiple threads are accesssing the database is that there can be only one write access to SQLite at a time, all other threads must wait when write operation finishes. 
 
