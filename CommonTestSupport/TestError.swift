@@ -4,6 +4,9 @@
 
 import Foundation
 
+/// Error that can be used in tests
+///
+/// - error: just an error
 public enum TestError: Error {
     case error
 }
