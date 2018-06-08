@@ -223,7 +223,7 @@ public protocol ResultSet: class {
     /// - Parameter index: 0-based column index
     /// - Returns: String represntation of the value or nil if the result is NULL
     func string(at index: Int) -> String?
-    
+
     /// Fetch value at column `inde` as integer
     ///
     /// - Parameter index: 0-based column index
