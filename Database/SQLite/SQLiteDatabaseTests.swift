@@ -151,7 +151,7 @@ class SQLiteDatabaseTests: XCTestCase {
 
     func test_whenClosingNotPossible_throwsError() throws {
         try givenConnection()
-        sqlite.close_result = CSQLite3.SQLITE_BUSY
+        sqlite.close_result = CSQLite3.SQLITE_ERROR
         assertThrows(try db.close(conn), SQLiteDatabase.Error.databaseBusy)
         sqlite.close_result = CSQLite3.SQLITE_OK
     }

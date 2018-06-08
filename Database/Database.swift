@@ -37,11 +37,15 @@ public protocol Database: class {
     /// Executes arbitrary SQL statement, binding values from `bindings` and `dict` arguments to it.
     /// This method is meant for update queries.
     ///
-    /// See `execute(sql:bindings:dict:resultMap:)` for executing SQL select queries that return result.
+    /// See `execute(sql:bindings:dict:resultMap:)` for executing SQL select queries that return result. That method
+    /// is used under the hood by default protocol implement
     ///
     /// - Parameters:
     ///   - sql: SQL string to execute
     ///   - bindings: Array of optional bindable values to bind with SQL statement by array index.
+    ///     You don't have to worry about indexes if you are using this method, just make sure you are passing as
+    ///     many values as there are positional parameters in your SQL statement, otherwise it is treated as a
+    ///     programmer's error and will crash.
     ///   - dict: Dictionary of bindable values to bind with SQL statement by keys.
     /// - Returns: result of the SQL statement is ignored.
     /// - Throws: may throw error if there is a problem with SQL statement or with the database.
@@ -49,17 +53,35 @@ public protocol Database: class {
 
     /// Executes SQL command that returns some result. Each result row is transformed using `resultMap` closure.
     ///
+    /// ## Discussion
+    /// The default protocol implementation of this method opens connection, creates prepared statement with `sql`
+    /// parameter, binds all `bindings` first, then binds all `dict` bindings.
+    ///
+    /// After that, it executes the statement.
+    ///
+    /// If SQL statement doesn't return results, then the method returns empty array.
+    ///
+    /// Otherwise, the returned `ResultSet` is passed to the `resultMap` closure after every call to
+    /// `advanceToNextRow()`, while it returns true. The return value of the `resultMap` call is appended to a temporary
+    /// array, which is finally returned from the method. Before returning, the method
+    /// closes opened database connection.
+    ///
     /// - Parameters:
     ///   - sql: SQL command to execute
     ///   - bindings: Array of optional positional bindings for SQL command
+    ///     You don't have to worry about indexes if you are using this method, just make sure you are passing as
+    ///     many values as there are positional parameters in your SQL statement, otherwise it is treated as a
+    ///     programmer's error and will crash.
     ///   - dict: Dictionary of keyed bindings for SQL command
-    ///   - resultMap: Transform of result row (ResultSet) to a return type
+    ///   - resultMap: Transform of result row (`ResultSet`) to a return type T
+    ///   - rs: `ResultSet` to convert to type T
     /// - Returns: Array of transformed result rows
     /// - Throws: may throw error if there was a problem in SQL statement, or in the database, or in transform closure.
     func execute<T>(sql: String,
                     bindings: [SQLBindable?],
                     dict: [String: SQLBindable?],
-                    resultMap: (ResultSet) throws -> T?) throws -> [T?]
+                    resultMap: (_ rs: ResultSet) throws -> T?) throws -> [T?]
+
 
 }
 
