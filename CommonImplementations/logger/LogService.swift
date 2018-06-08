@@ -5,8 +5,19 @@
 import Foundation
 import Common
 
+/// Helper protocol to delegate actual log writing to implementations.
 protocol LogWriter {
 
+    /// Write a message of a log level `level` to the log. The default implementation captures `file`, `line`,
+    /// `function` automatically, so you can skip them.
+    ///
+    /// - Parameters:
+    ///   - message: Message to log
+    ///   - level: Level of the logged message
+    ///   - error: Optional error to be logged
+    ///   - file: File from where the log was called
+    ///   - line: Line from where the log was called
+    ///   - function: Function from where the log was called
     func log(_ message: String, level: LogLevel, error: Error?, file: StaticString, line: UInt, function: StaticString)
 
 }
@@ -70,6 +81,7 @@ public let LogServiceEnabledLoggersKey = "SafeLogServiceEnabledLoggersKey"
 let LogServiceConsoleLoggerIdentifier = "console"
 let LogServiceCrashlyticsLoggerIdentifier = "crashlytics"
 
+/// Used for testing
 protocol BundleProtocol {
 
     func object(forInfoDictionaryKey key: String) -> Any?
@@ -78,17 +90,34 @@ protocol BundleProtocol {
 
 extension Bundle: BundleProtocol {}
 
+/// Implements the `Logger` protocol and hosts collection of different loggers.
 public final class LogService: Logger {
 
+    /// Singleton instance
     public static let shared = LogService()
 
+    /// The allowed log level of the messages. Only messages with level lower than `level` will be printed.
+    /// For example, if `level` is `.info`, then messages with levels `fatal`, `error`, and `info` will be printed,
+    /// but not `debug` messages.
     public let level: LogLevel
+
+    /// Actual loggers
     private (set) var loggers = [LogWriter]()
 
+    /// Creates new `LogService` with the specified level.
+    ///
+    /// - Parameter level: Allowed log level of the messages.
     init(level: LogLevel) {
         self.level = level
     }
 
+    /// Creates new `LogService` and takes log `level` from `bundle`'s `LogServiceLogLevelKey` info dictionary value.
+    /// The value of that String must be a comma-separated list of logger identifiers. Currently supported loggers:
+    /// "crashlytics", and "console". The values are case-sensitive.
+    ///
+    /// See `CrashlyticsLogger` and `ConsoleLogger` for details.
+    ///
+    /// - Parameter bundle: Bundle to initialize the logger with. By default, it is the main bundle.
     init(bundle: BundleProtocol = Bundle.main) {
         let string = bundle.object(forInfoDictionaryKey: LogServiceLogLevelKey) as? String ?? ""
         level = LogLevel(string: string)
@@ -152,10 +181,16 @@ public final class LogService: Logger {
         loggers.forEach { $0.log(message, level: level, error: error, file: file, line: line, function: function) }
     }
 
+    /// Add a logger to the service.
+    ///
+    /// - Parameter logger: New logger to add for logging messages.
     func add(_ logger: LogWriter) {
         loggers.append(logger)
     }
 
+    /// Add multiple loggers at once.
+    ///
+    /// - Parameter loggers: Loggers to add for logging.
     func add(_ loggers: [LogWriter]) {
         self.loggers.append(contentsOf: loggers)
     }
