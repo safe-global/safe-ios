@@ -124,7 +124,7 @@ class SQLiteDatabaseIntegrationTests: XCTestCase {
             let exp = expectation(description: "wait")
             DispatchQueue.global().async {
                 do {
-                    for i in (0..<10) {
+                    for i in (0..<5) {
                         try db.execute(sql: "INSERT INTO tbl_test VALUES (?, 'test');", bindings: [i])
                     }
                     exp.fulfill()
@@ -134,7 +134,7 @@ class SQLiteDatabaseIntegrationTests: XCTestCase {
                     }
                 }
             }
-            for _ in (0..<10) {
+            for _ in (0..<5) {
                 try db.execute(sql: "SELECT id, val FROM tbl_test;")
             }
             waitForExpectations(timeout: 5, handler: nil)
