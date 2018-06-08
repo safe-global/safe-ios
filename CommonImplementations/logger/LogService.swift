@@ -74,9 +74,10 @@ public enum LogLevel: Int {
 
 }
 
-/// Must be a string value. Valid values: LogLevel names
+/// "SafeLogServiceLogLevelKey". Value for this key must be a string. Valid values: `LogLevel` names.
 public let LogServiceLogLevelKey = "SafeLogServiceLogLevelKey"
-/// Must be comma-separated string of loggers. Valid loggers: crashlytics, console - case-insensitive
+/// "SafeLogServiceEnabledLoggersKey". The value for this key must be comma-separated string of loggers.
+/// Valid loggers: crashlytics, console - case-insensitive
 public let LogServiceEnabledLoggersKey = "SafeLogServiceEnabledLoggersKey"
 let LogServiceConsoleLoggerIdentifier = "console"
 let LogServiceCrashlyticsLoggerIdentifier = "crashlytics"
