@@ -59,6 +59,7 @@
 		0AFFF4492084FB3D0030200C /* BaseID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF4482084FB3D0030200C /* BaseID.swift */; };
 		0AFFF44B2084FB540030200C /* IdentifiableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF44A2084FB540030200C /* IdentifiableEntity.swift */; };
 		555C94B120E3B97300A0621D /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94B020E3B97300A0621D /* Fixtures.swift */; };
+		555C94C820E52B7A00A0621D /* JSONHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94C720E52B7900A0621D /* JSONHTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,6 +212,7 @@
 		0AFFF4482084FB3D0030200C /* BaseID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseID.swift; sourceTree = "<group>"; };
 		0AFFF44A2084FB540030200C /* IdentifiableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableEntity.swift; sourceTree = "<group>"; };
 		555C94B020E3B97300A0621D /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
+		555C94C720E52B7900A0621D /* JSONHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHTTPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +363,7 @@
 				0A8E3BBA20B41AED00F002F6 /* LoggableError.swift */,
 				0A8E3BD120B41B2800F002F6 /* LoggableErrorTests.swift */,
 				0A8E3BAC20B41AAF00F002F6 /* Logger.swift */,
+				555C94C720E52B7900A0621D /* JSONHTTPClient.swift */,
 				0A8E3BBC20B41AFA00F002F6 /* MockLogger.swift */,
 				0A3FADEF207B504F00F0D214 /* Tests-Info.plist */,
 				0A934D2F20B703E400F15616 /* SecureStore.swift */,
@@ -750,6 +753,7 @@
 				0A934D3020B703E400F15616 /* SecureStore.swift in Sources */,
 				0A8E3BAD20B41AAF00F002F6 /* Logger.swift in Sources */,
 				0AFFF44B2084FB540030200C /* IdentifiableEntity.swift in Sources */,
+				555C94C820E52B7A00A0621D /* JSONHTTPClient.swift in Sources */,
 				0A3FADE6207B503B00F0D214 /* AbstractRegistry.swift in Sources */,
 				0A042E1520B818A900F5C885 /* InMemorySecureStore.swift in Sources */,
 				0A8E3BBD20B41AFA00F002F6 /* MockLogger.swift in Sources */,
