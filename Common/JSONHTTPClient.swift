@@ -13,6 +13,16 @@ public protocol JSONRequest: Encodable {
 
 }
 
+public extension DateFormatter {
+
+    public static let networkDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        return formatter
+    }()
+
+}
+
 public class JSONHTTPClient {
 
     public enum Error: Swift.Error {
@@ -23,6 +33,13 @@ public class JSONHTTPClient {
 
     private let baseURL: URL
     private let logger: Logger?
+
+    private lazy var jsonEncoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        let dateFormatter = DateFormatter.networkDateFormatter
+        encoder.dateEncodingStrategy = .formatted(dateFormatter)
+        return encoder
+    }()
 
     public init(url: URL, logger: Logger? = nil) {
         baseURL = url
@@ -40,7 +57,10 @@ public class JSONHTTPClient {
         let url = baseURL.appendingPathComponent(jsonRequest.urlPath)
         var request = URLRequest(url: url)
         request.httpMethod = jsonRequest.httpMethod
-        request.httpBody = try JSONEncoder().encode(jsonRequest)
+        request.httpBody = try jsonEncoder.encode(jsonRequest)
+        if let str = String(data: request.httpBody!, encoding: .utf8) {
+            logger?.debug(str)
+        }
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
@@ -61,15 +81,15 @@ public class JSONHTTPClient {
     }
 
     private func response<T: Decodable>(from request: URLRequest, result: URLDataTaskResult) throws -> T {
+        if let data = result.data, let rawResponse = String(data: data, encoding: .utf8) {
+            logger?.debug(rawResponse)
+        }
         if let error = result.error {
             throw error
         }
         guard let httpResponse = result.response as? HTTPURLResponse, httpResponse.statusCode / 100 == 2,
             let data = result.data else {
                 throw Error.networkRequestFailed(request, result.response)
-        }
-        if let rawResponse = String(data: data, encoding: .utf8) {
-            logger?.debug(rawResponse)
         }
         let response: T
         do {

@@ -60,6 +60,7 @@
 		0AFFF44B2084FB540030200C /* IdentifiableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF44A2084FB540030200C /* IdentifiableEntity.swift */; };
 		555C94B120E3B97300A0621D /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94B020E3B97300A0621D /* Fixtures.swift */; };
 		555C94C820E52B7A00A0621D /* JSONHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94C720E52B7900A0621D /* JSONHTTPClient.swift */; };
+		555C94DA20E530A900A0621D /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94D920E530A800A0621D /* Keys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +214,7 @@
 		0AFFF44A2084FB540030200C /* IdentifiableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableEntity.swift; sourceTree = "<group>"; };
 		555C94B020E3B97300A0621D /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
 		555C94C720E52B7900A0621D /* JSONHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHTTPClient.swift; sourceTree = "<group>"; };
+		555C94D920E530A800A0621D /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +353,7 @@
 		0A3FADDD207B501F00F0D214 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				555C94D820E530A800A0621D /* generated */,
 				0AB19C5F20CAA23600A87E31 /* README.md */,
 				0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */,
 				0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */,
@@ -442,6 +445,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		555C94D820E530A800A0621D /* generated */ = {
+			isa = PBXGroup;
+			children = (
+				555C94D920E530A800A0621D /* Keys.swift */,
+			);
+			path = generated;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -486,6 +497,7 @@
 			buildConfigurationList = 0A3FADE2207B501F00F0D214 /* Build configuration list for PBXNativeTarget "Common" */;
 			buildPhases = (
 				0A537C1E207D045900921FB9 /* Lint */,
+				555C94D720E52FE500A0621D /* Generate API Keys */,
 				0A3FADD7207B501F00F0D214 /* Sources */,
 				0A3FADD8207B501F00F0D214 /* Frameworks */,
 				0A3FADD9207B501F00F0D214 /* CopyFiles */,
@@ -715,6 +727,24 @@
 			shellPath = /bin/sh;
 			shellScript = "${SRCROOT}/../scripts/run_swiftlint.sh";
 		};
+		555C94D720E52FE500A0621D /* Generate API Keys */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../.env.default",
+				"${SRCROOT}/../scripts/generate_env_swift.rb",
+			);
+			name = "Generate API Keys";
+			outputPaths = (
+				"$(SRCROOT)/$(PRODUCT_NAME)/generated/Keys.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which rbenv > /dev/null; then\nPATH=\"$HOME/.rbenv/bin:$PATH\"\neval \"$(rbenv init -)\"\nfi\n${SCRIPT_INPUT_FILE_1}";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -749,6 +779,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AFFF41320809AA10030200C /* FoundationExtensions.swift in Sources */,
+				555C94DA20E530A900A0621D /* Keys.swift in Sources */,
 				0A8E3BBB20B41AED00F002F6 /* LoggableError.swift in Sources */,
 				0A934D3020B703E400F15616 /* SecureStore.swift in Sources */,
 				0A8E3BAD20B41AAF00F002F6 /* Logger.swift in Sources */,
