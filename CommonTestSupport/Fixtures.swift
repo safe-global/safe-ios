@@ -17,3 +17,25 @@ public struct BrowserExtensionFixture {
             """
 
 }
+
+public struct PairingRequestFixture {
+
+    public static let testJSON = """
+            {
+                "temporaryAuthorization": {
+                    "expirationDate": "2018-05-09T14:18:55+00:00",
+                    "signature": {
+                        "v": 27,
+                        "r":"test",
+                        "s":"me"
+                    }
+                },
+                "signature": {
+                    "v" : 35,
+                    "r" : "test",
+                    "s" : "it"
+                }
+            }
+            """
+
+}

@@ -15,9 +15,11 @@ public protocol JSONRequest: Encodable {
 
 public extension DateFormatter {
 
-    public static let networkDateFormatter: DateFormatter = {
+    static let networkDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss+00:00"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
         return formatter
     }()
 
@@ -88,8 +90,11 @@ public class JSONHTTPClient {
             throw error
         }
         guard let httpResponse = result.response as? HTTPURLResponse, httpResponse.statusCode / 100 == 2,
-            let data = result.data else {
+            var data = result.data else {
                 throw Error.networkRequestFailed(request, result.response)
+        }
+        if data.isEmpty {
+            data = "{}".data(using: .utf8)!
         }
         let response: T
         do {
