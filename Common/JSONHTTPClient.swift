@@ -87,7 +87,7 @@ public class JSONHTTPClient {
         if let error = result.error {
             throw error
         }
-        guard let httpResponse = result.response as? HTTPURLResponse, httpResponse.statusCode / 100 == 2,
+        guard let httpResponse = result.response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode),
             let data = result.data else {
                 throw Error.networkRequestFailed(request, result.response)
         }
