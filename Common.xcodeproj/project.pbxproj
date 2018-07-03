@@ -61,6 +61,8 @@
 		555C94B120E3B97300A0621D /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94B020E3B97300A0621D /* Fixtures.swift */; };
 		555C94C820E52B7A00A0621D /* JSONHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94C720E52B7900A0621D /* JSONHTTPClient.swift */; };
 		555C94DA20E530A900A0621D /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94D920E530A800A0621D /* Keys.swift */; };
+		55AB1F1720EB6F3600717A9E /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB1F1620EB6F3600717A9E /* Timer.swift */; };
+		55AB1F1920EB706300717A9E /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB1F1820EB706300717A9E /* TimerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -215,6 +217,8 @@
 		555C94B020E3B97300A0621D /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
 		555C94C720E52B7900A0621D /* JSONHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHTTPClient.swift; sourceTree = "<group>"; };
 		555C94D920E530A800A0621D /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		55AB1F1620EB6F3600717A9E /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		55AB1F1820EB706300717A9E /* TimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +376,8 @@
 				0A934D2F20B703E400F15616 /* SecureStore.swift */,
 				0A042E1320B818A900F5C885 /* InMemorySecureStore.swift */,
 				0A042E1420B818A900F5C885 /* InMemorySecureStoreTests.swift */,
+				55AB1F1620EB6F3600717A9E /* Timer.swift */,
+				55AB1F1820EB706300717A9E /* TimerTests.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -782,6 +788,7 @@
 				555C94DA20E530A900A0621D /* Keys.swift in Sources */,
 				0A8E3BBB20B41AED00F002F6 /* LoggableError.swift in Sources */,
 				0A934D3020B703E400F15616 /* SecureStore.swift in Sources */,
+				55AB1F1720EB6F3600717A9E /* Timer.swift in Sources */,
 				0A8E3BAD20B41AAF00F002F6 /* Logger.swift in Sources */,
 				0AFFF44B2084FB540030200C /* IdentifiableEntity.swift in Sources */,
 				555C94C820E52B7A00A0621D /* JSONHTTPClient.swift in Sources */,
@@ -802,6 +809,7 @@
 				0A8E3BD220B41B2800F002F6 /* LoggableErrorTests.swift in Sources */,
 				0A3FADF8207B505E00F0D214 /* AbstractRegistryTests.swift in Sources */,
 				0AFFF41920809D430030200C /* AssertableTests.swift in Sources */,
+				55AB1F1920EB706300717A9E /* TimerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
