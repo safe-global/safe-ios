@@ -28,7 +28,7 @@ public extension DateFormatter {
 public class JSONHTTPClient {
 
     public enum Error: Swift.Error {
-        case networkRequestFailed(URLRequest, URLResponse?)
+        case networkRequestFailed(URLRequest, URLResponse?, Data?)
     }
 
     private typealias URLDataTaskResult = (data: Data?, response: URLResponse?, error: Swift.Error?)
@@ -91,7 +91,7 @@ public class JSONHTTPClient {
         }
         guard let httpResponse = result.response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode),
             var data = result.data else {
-                throw Error.networkRequestFailed(request, result.response)
+                throw Error.networkRequestFailed(request, result.response, result.data)
         }
         if data.isEmpty {
             data = "{}".data(using: .utf8)!
