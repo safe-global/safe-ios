@@ -49,6 +49,7 @@ public class JSONHTTPClient {
     }
 
     public func execute<T: JSONRequest>(request: T) throws -> T.ResponseType {
+        logger?.debug("Preparing to send \(request)")
         let urlRequest = try self.urlRequest(from: request)
         let result = send(urlRequest)
         let response: T.ResponseType = try self.response(from: urlRequest, result: result)
@@ -59,11 +60,13 @@ public class JSONHTTPClient {
         let url = baseURL.appendingPathComponent(jsonRequest.urlPath)
         var request = URLRequest(url: url)
         request.httpMethod = jsonRequest.httpMethod
-        request.httpBody = try jsonEncoder.encode(jsonRequest)
-        if let str = String(data: request.httpBody!, encoding: .utf8) {
-            logger?.debug(str)
+        if jsonRequest.httpMethod != "GET" {
+            request.httpBody = try jsonEncoder.encode(jsonRequest)
+            if let str = String(data: request.httpBody!, encoding: .utf8) {
+                logger?.debug(str)
+            }
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
 
