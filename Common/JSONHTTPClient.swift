@@ -48,6 +48,7 @@ public class JSONHTTPClient {
         self.logger = logger
     }
 
+    @discardableResult
     public func execute<T: JSONRequest>(request: T) throws -> T.ResponseType {
         logger?.debug("Preparing to send \(request)")
         let urlRequest = try self.urlRequest(from: request)
