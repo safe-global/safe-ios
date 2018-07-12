@@ -34,9 +34,8 @@ open class BaseID: Hashable, Assertable, CustomStringConvertible {
     ///
     /// - Parameter id: String to initialize the identifier with
     /// - Throws: Throws `Error.invalidID` if the `id` parameter is not 36 characters long.
-    public required init(_ id: String = UUID().uuidString) throws {
+    public required init(_ id: String = UUID().uuidString) {
         self.id = id
-        try assertTrue(id.count == 36, Error.invalidID)
     }
 
 }
