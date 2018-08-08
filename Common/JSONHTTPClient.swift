@@ -4,17 +4,22 @@
 
 import Foundation
 
+/// JSON model of a request.
 public protocol JSONRequest: Encodable {
 
+    /// GET, POST, PUT, DELETE
     var httpMethod: String { get }
+    /// Path to resource, without baseURL
     var urlPath: String { get }
 
+    /// Response associated with this JSON request
     associatedtype ResponseType: Decodable
 
 }
 
 public extension DateFormatter {
 
+    /// Date formatter with format "yyyy-MM-dd'T'HH:mm:ss+00:00"
     static let networkDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss+00:00"
@@ -25,8 +30,12 @@ public extension DateFormatter {
 
 }
 
+/// Synchronous http client that sends JSON requests and receives JSON responses.
 public class JSONHTTPClient {
 
+    /// Client error
+    ///
+    /// - networkRequestFailed: network request failed for some reason. Provided are request, response and data values.
     public enum Error: Swift.Error {
         case networkRequestFailed(URLRequest, URLResponse?, Data?)
     }
@@ -43,11 +52,24 @@ public class JSONHTTPClient {
         return encoder
     }()
 
+    /// Creates new client with baseURL and logger
+    ///
+    /// - Parameters:
+    ///   - url: base url for creating all request urls
+    ///   - logger: logger for debugging and error purposes
     public init(url: URL, logger: Logger? = nil) {
         baseURL = url
         self.logger = logger
     }
 
+    /// Executes request and returns server response converted to ResponseType. The call is synchronous.
+    ///
+    /// - Parameter request: a request to send
+    /// - Returns: response
+    /// - Throws:
+    ///     - `JSONHTTPClient.Error.networkRequestFailed` in case request fails
+    ///     - JSONDecoder error in case response could not be decoded properly
+    ///     - Network errors are rethrown (URLSession errors, for example)
     @discardableResult
     public func execute<T: JSONRequest>(request: T) throws -> T.ResponseType {
         logger?.debug("Preparing to send \(request)")

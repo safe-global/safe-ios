@@ -58,7 +58,6 @@
 		0AFFF41920809D430030200C /* AssertableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41820809D430030200C /* AssertableTests.swift */; };
 		0AFFF4492084FB3D0030200C /* BaseID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF4482084FB3D0030200C /* BaseID.swift */; };
 		0AFFF44B2084FB540030200C /* IdentifiableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF44A2084FB540030200C /* IdentifiableEntity.swift */; };
-		555C94B120E3B97300A0621D /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94B020E3B97300A0621D /* Fixtures.swift */; };
 		555C94C820E52B7A00A0621D /* JSONHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94C720E52B7900A0621D /* JSONHTTPClient.swift */; };
 		55AB1F1720EB6F3600717A9E /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB1F1620EB6F3600717A9E /* Timer.swift */; };
 		55AB1F1920EB706300717A9E /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB1F1820EB706300717A9E /* TimerTests.swift */; };
@@ -213,7 +212,6 @@
 		0AFFF41820809D430030200C /* AssertableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertableTests.swift; sourceTree = "<group>"; };
 		0AFFF4482084FB3D0030200C /* BaseID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseID.swift; sourceTree = "<group>"; };
 		0AFFF44A2084FB540030200C /* IdentifiableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableEntity.swift; sourceTree = "<group>"; };
-		555C94B020E3B97300A0621D /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
 		555C94C720E52B7900A0621D /* JSONHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHTTPClient.swift; sourceTree = "<group>"; };
 		55AB1F1620EB6F3600717A9E /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		55AB1F1820EB706300717A9E /* TimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
@@ -432,7 +430,6 @@
 		0AC17581207B73A90016320A /* CommonTestSupport */ = {
 			isa = PBXGroup;
 			children = (
-				555C94B020E3B97300A0621D /* Fixtures.swift */,
 				0AA0C871207B762A0019E282 /* TestError.swift */,
 				0AA0C872207B762A0019E282 /* XCLocalizedString.swift */,
 				0AB19C6220CAA35400A87E31 /* README.md */,
@@ -821,7 +818,6 @@
 			files = (
 				0AA0C873207B762A0019E282 /* TestError.swift in Sources */,
 				0AA0C874207B762A0019E282 /* XCLocalizedString.swift in Sources */,
-				555C94B120E3B97300A0621D /* Fixtures.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

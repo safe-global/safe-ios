@@ -4,6 +4,7 @@
 
 import Foundation
 
+/// Logs messages to the debug console
 final class ConsoleLogger: LogWriter {
 
     private let formatter = LogFormatter()
