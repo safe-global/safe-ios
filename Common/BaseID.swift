@@ -4,6 +4,9 @@
 
 import Foundation
 
+// Global Ethereum ID
+public var ethID = BaseID("0x0000000000000000000000000000000000000000")
+
 /// Base generic class for all UUID-based identifier classes, used to identify Entities.
 ///
 /// To implement your identifier class, just inherit from the `BaseID`:
