@@ -29,7 +29,7 @@ open class BaseID: Hashable, Assertable, CustomStringConvertible {
     public var hashValue: Int { return id.hashValue &* 31 } // hashValue * 31 may overflow, so using &* operator
     public var description: String { return id }
 
-    open static func ==(lhs: BaseID, rhs: BaseID) -> Bool {
+    public static func ==(lhs: BaseID, rhs: BaseID) -> Bool {
         return lhs.id == rhs.id
     }
 
