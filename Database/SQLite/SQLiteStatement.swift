@@ -58,7 +58,7 @@ public class SQLiteStatement: Statement, Assertable {
             let isCommitStatement = sql.localizedCaseInsensitiveContains("commit")
             if isCommitStatement || !isInsideExplicitTransaction {
                 // recurse until not busy with delay
-                RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.05))
+                Timer.wait(0.05)
                 return try execute()
             } else {
                 throw SQLiteDatabase.Error.transactionMustBeRolledBack

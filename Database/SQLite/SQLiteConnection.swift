@@ -55,7 +55,7 @@ public class SQLiteConnection: Connection, Assertable {
     private func waitWhileBusy(_ expression: @autoclosure () -> Int32) -> Int32 {
         var status = expression()
         while status == CSQLite3.SQLITE_BUSY {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.05))
+            Timer.wait(0.05)
             status = expression()
         }
         return status

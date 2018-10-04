@@ -28,7 +28,7 @@ public class SQLiteResultSet: ResultSet {
         self.sqlite = sqlite
         var status = sqlite.sqlite3_reset(stmt)
         while status == CSQLite3.SQLITE_BUSY {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.05))
+            Timer.wait(0.05)
             status = sqlite.sqlite3_reset(stmt)
         }
         precondition(status == CSQLite3.SQLITE_OK)
@@ -101,7 +101,7 @@ public class SQLiteResultSet: ResultSet {
         case CSQLite3.SQLITE_BUSY:
             let isOutsideOfExplicitTransaction = sqlite.sqlite3_get_autocommit(db) != 0
             if isOutsideOfExplicitTransaction {
-                RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
+                Timer.wait(0.01)
                 return try advanceToNextRow()
             } else {
                 throw SQLiteDatabase.Error.transactionMustBeRolledBack
