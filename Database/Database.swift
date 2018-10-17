@@ -317,3 +317,46 @@ public extension Database {
     }
 
 }
+
+public class ResultSetRowIterator {
+
+    private var index = 0
+    private let rs: ResultSet
+
+    public init(_ rs: ResultSet) {
+        self.rs = rs
+    }
+
+    public func nextString() -> String? {
+        defer { next() }
+        return rs.string(at: index)
+    }
+
+    public func nextInt() -> Int? {
+        defer { next() }
+        return rs.int(at: index)
+    }
+
+    public func nextDouble() -> Double? {
+        defer { next() }
+        return rs.double(at: index)
+    }
+
+    public func nextData() -> Data? {
+        defer { next() }
+        return rs.data(at: index)
+    }
+
+    private func next() {
+        index += 1
+    }
+
+}
+
+public extension ResultSet {
+
+    func rowIterator() -> ResultSetRowIterator {
+        return ResultSetRowIterator(self)
+    }
+
+}
