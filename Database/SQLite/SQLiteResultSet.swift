@@ -31,7 +31,7 @@ public class SQLiteResultSet: ResultSet {
             Timer.wait(0.05)
             status = sqlite.sqlite3_reset(stmt)
         }
-        precondition(status == CSQLite3.SQLITE_OK)
+        precondition(status == CSQLite3.SQLITE_OK, SQLiteDatabase.errorMessage(from: status, sqlite, db))
     }
 
     /// Returns string at specified column index (0-based). Index must be within `columnCount`.
@@ -107,7 +107,8 @@ public class SQLiteResultSet: ResultSet {
                 throw SQLiteDatabase.Error.transactionMustBeRolledBack
             }
         default:
-            preconditionFailure("Unexpected sqlite3_step() status: \(status)")
+            let message = SQLiteDatabase.errorMessage(from: status, sqlite, db)
+            preconditionFailure("Unexpected sqlite3_step() status: \(status), message: \(message)")
         }
     }
 }

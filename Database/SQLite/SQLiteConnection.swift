@@ -40,11 +40,8 @@ public class SQLiteConnection: Connection, Assertable {
         var outTail: UnsafePointer<Int8>?
         let status = waitWhileBusy(sqlite.sqlite3_prepare_v2(db, cstr, Int32(cstr.count), &outStmt, &outTail))
         guard status == CSQLite3.SQLITE_OK else {
-            if let cString = sqlite.sqlite3_errmsg(db), let message = String(cString: cString, encoding: .utf8) {
-                throw SQLiteDatabase.Error.invalidSQLStatement("status: (\(status)) \(message): \(statement)")
-            } else {
-                throw SQLiteDatabase.Error.invalidSQLStatement("status: (\(status)) unknown error: \(statement)")
-            }
+            let message = SQLiteDatabase.errorMessage(from: status, sqlite, db)
+            throw SQLiteDatabase.Error.invalidSQLStatement("status: (\(status)) \(message): \(statement)")
         }
         try assertNotNil(outStmt, SQLiteDatabase.Error.invalidSQLStatement("unknown error: \(statement)"))
         let result = SQLiteStatement(sql: statement, db: db, stmt: outStmt!, sqlite: sqlite)
@@ -85,8 +82,11 @@ public class SQLiteConnection: Connection, Assertable {
         try assertFalse(isClosed, SQLiteDatabase.Error.connectionIsAlreadyClosed)
         var conn: OpaquePointer?
         let status = sqlite.sqlite3_open(url.path.cString(using: .utf8), &conn)
-        try assertEqual(status, CSQLite3.SQLITE_OK, SQLiteDatabase.Error.failedToOpenDatabase)
-        try assertNotNil(conn, SQLiteDatabase.Error.failedToOpenDatabase)
+        guard status == CSQLite3.SQLITE_OK else {
+            let message = SQLiteDatabase.errorMessage(from: status, sqlite, db)
+            throw SQLiteDatabase.Error.failedToOpenDatabase("status: (\(status)) \(message)")
+        }
+        try assertNotNil(conn, SQLiteDatabase.Error.failedToOpenDatabase("connection is nil"))
         db = conn
         isOpened = true
     }
@@ -102,7 +102,10 @@ public class SQLiteConnection: Connection, Assertable {
         try assertOpened()
         destroyAllStatements()
         let status = waitWhileBusy(sqlite.sqlite3_close(db))
-        try assertEqual(status, CSQLite3.SQLITE_OK, SQLiteDatabase.Error.databaseBusy)
+        guard status == CSQLite3.SQLITE_OK else {
+            let message = SQLiteDatabase.errorMessage(from: status, sqlite, db)
+            throw SQLiteDatabase.Error.failedToCloseDatabase(message)
+        }
         isClosed = true
     }
 

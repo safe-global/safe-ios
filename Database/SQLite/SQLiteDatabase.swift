@@ -56,7 +56,8 @@ public class SQLiteDatabase: Database, Assertable {
         case failedToCreateDatabase
         case databaseDoesNotExist
         case invalidSQLiteVersion
-        case failedToOpenDatabase
+        case failedToOpenDatabase(String)
+        case failedToCloseDatabase(String)
         case databaseBusy
         case connectionIsNotOpened
         case invalidSQLStatement(String)
@@ -68,12 +69,22 @@ public class SQLiteDatabase: Database, Assertable {
         case invalidStatementState
         case transactionMustBeRolledBack
         case invalidStringBindingValue
-        case failedToSetStatementParameter
+        case failedToSetStatementParameter(String)
         case statementParameterIndexOutOfRange
         case invalidStatementKeyValue
         case attemptToBindExecutedStatement
         case attemptToBindFinalizedStatement
     }
+
+    static func errorMessage(from status: Int32, _ sqlite: CSQLite3, _ db: OpaquePointer?) -> String {
+        guard let db = db,
+            let cString = sqlite.sqlite3_errmsg(db),
+            let message = String(cString: cString, encoding: .utf8) else {
+                return "(unknown error code)"
+        }
+        return message
+    }
+
 
     /// Initializes new `SQLiteDatabase` object with name, dependencies and bundleId string.
     ///

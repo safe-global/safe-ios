@@ -133,13 +133,15 @@ class SQLiteDatabaseTests: XCTestCase {
     func test_whenConnectionReturnsError_thenThrows() throws {
         sqlite.open_result = CSQLite3.SQLITE_IOERR_LOCK
         try db.create()
-        assertThrows(try db.connection(), SQLiteDatabase.Error.failedToOpenDatabase)
+        let message = SQLiteDatabase.errorMessage(from: sqlite.open_result, sqlite, sqlite.open_pointer_result)
+        assertThrows(try db.connection(),
+                     SQLiteDatabase.Error.failedToOpenDatabase("status: (\(sqlite.open_result)) \(message)"))
     }
 
     func test_whenConnectionReturnsNilPointer_thenThrows() throws {
         sqlite.open_pointer_result = nil
         try db.create()
-        assertThrows(try db.connection(), SQLiteDatabase.Error.failedToOpenDatabase)
+        assertThrows(try db.connection(), SQLiteDatabase.Error.failedToOpenDatabase("connection is nil"))
     }
 
     func test_connectionClosesSQLiteDatabase() throws {
@@ -152,7 +154,8 @@ class SQLiteDatabaseTests: XCTestCase {
     func test_whenClosingNotPossible_throwsError() throws {
         try givenConnection()
         sqlite.close_result = CSQLite3.SQLITE_ERROR
-        assertThrows(try db.close(conn), SQLiteDatabase.Error.databaseBusy)
+        let message = SQLiteDatabase.errorMessage(from: sqlite.close_result, sqlite, sqlite.close_pointer)
+        assertThrows(try db.close(conn), SQLiteDatabase.Error.failedToCloseDatabase(message))
         sqlite.close_result = CSQLite3.SQLITE_OK
     }
 
@@ -403,7 +406,8 @@ class SQLiteDatabaseTests: XCTestCase {
         XCTAssertNotNil(sqlite.bind_text_in_destructor)
 
         sqlite.bind_text_result = CSQLite3.SQLITE_MISUSE
-        assertThrows(try stmt.set("text", at: 1), SQLiteDatabase.Error.failedToSetStatementParameter)
+        let message = SQLiteDatabase.errorMessage(from: sqlite.open_result, sqlite, sqlite.open_pointer_result)
+        assertThrows(try stmt.set("text", at: 1), SQLiteDatabase.Error.failedToSetStatementParameter(message))
 
         sqlite.bind_text_result = CSQLite3.SQLITE_RANGE
         assertThrows(try stmt.set("text", at: 2), SQLiteDatabase.Error.statementParameterIndexOutOfRange)

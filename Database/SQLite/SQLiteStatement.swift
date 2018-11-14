@@ -68,7 +68,8 @@ public class SQLiteStatement: Statement, Assertable {
         case CSQLite3.SQLITE_MISUSE:
             throw SQLiteDatabase.Error.invalidStatementState
         default:
-            preconditionFailure("Unexpected sqlite3_step() status: \(status)")
+            let message = SQLiteDatabase.errorMessage(from: status, sqlite, db)
+            preconditionFailure("Unexpected sqlite3_step() status: \(status), message: \(message)")
         }
     }
 
@@ -275,7 +276,10 @@ public class SQLiteStatement: Statement, Assertable {
 
     private func assertBindSuccess(_ status: Int32) throws {
         try assertNotEqual(status, CSQLite3.SQLITE_RANGE, SQLiteDatabase.Error.statementParameterIndexOutOfRange)
-        try assertEqual(status, CSQLite3.SQLITE_OK, SQLiteDatabase.Error.failedToSetStatementParameter)
+        guard status == CSQLite3.SQLITE_OK else {
+            let message = SQLiteDatabase.errorMessage(from: status, sqlite, db)
+            throw SQLiteDatabase.Error.failedToSetStatementParameter(message)
+        }
     }
 
     private func parameterIndex(for key: String) throws -> Int {
