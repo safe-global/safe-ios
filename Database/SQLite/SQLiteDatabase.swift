@@ -85,7 +85,6 @@ public class SQLiteDatabase: Database, Assertable {
         return message
     }
 
-
     /// Initializes new `SQLiteDatabase` object with name, dependencies and bundleId string.
     ///
     /// - Parameters:
