@@ -28,3 +28,11 @@ public struct TokenData: Equatable, Hashable {
     }
 
 }
+
+public extension TokenData {
+
+    var isEther: Bool {
+        return address == "0x0" || address == "0x0000000000000000000000000000000000000000"
+    }
+
+}
