@@ -120,7 +120,10 @@ open class CSQLite3 {
     public static var SQLITE_TRANSIENT = unsafeBitCast(-1, to: SQLite3.sqlite3_destructor_type.self)
     public static var SQLITE_STATIC = unsafeBitCast(0, to: SQLite3.sqlite3_destructor_type.self)
 
-    open func sqlite3_open(_ filename: UnsafePointer<Int8>!, _ ppDb: UnsafeMutablePointer<OpaquePointer?>!) -> Int32 {
+    public typealias ResultCode = Int32
+
+    open func sqlite3_open(_ filename: UnsafePointer<Int8>!,
+                           _ ppDb: UnsafeMutablePointer<OpaquePointer?>!) -> ResultCode {
         return SQLite3.sqlite3_open(filename, ppDb)
     }
 
@@ -136,7 +139,7 @@ open class CSQLite3 {
         return SQLite3.sqlite3_sourceid()
     }
 
-    open func sqlite3_close(_ db: OpaquePointer!) -> Int32 {
+    open func sqlite3_close(_ db: OpaquePointer!) -> ResultCode {
         return SQLite3.sqlite3_close(db)
     }
 
@@ -144,11 +147,11 @@ open class CSQLite3 {
                                  _ zSql: UnsafePointer<Int8>!,
                                  _ nByte: Int32,
                                  _ ppStmt: UnsafeMutablePointer<OpaquePointer?>!,
-                                 _ pzTail: UnsafeMutablePointer<UnsafePointer<Int8>?>!) -> Int32 {
+                                 _ pzTail: UnsafeMutablePointer<UnsafePointer<Int8>?>!) -> ResultCode {
         return SQLite3.sqlite3_prepare_v2(db, zSql, nByte, ppStmt, pzTail)
     }
 
-    open func sqlite3_finalize(_ pStmt: OpaquePointer!) -> Int32 {
+    open func sqlite3_finalize(_ pStmt: OpaquePointer!) -> ResultCode {
         return SQLite3.sqlite3_finalize(pStmt)
     }
 
@@ -156,7 +159,7 @@ open class CSQLite3 {
         return SQLite3.sqlite3_get_autocommit(db)
     }
 
-    open func sqlite3_step(_ pStmt: OpaquePointer!) -> Int32 {
+    open func sqlite3_step(_ pStmt: OpaquePointer!) -> ResultCode {
         return SQLite3.sqlite3_step(pStmt)
     }
 
@@ -188,19 +191,19 @@ open class CSQLite3 {
         return SQLite3.sqlite3_column_blob(pStmt, iCol)
     }
 
-    open func sqlite3_reset(_ pStmt: OpaquePointer!) -> Int32 {
+    open func sqlite3_reset(_ pStmt: OpaquePointer!) -> ResultCode {
         return SQLite3.sqlite3_reset(pStmt)
     }
 
-    open func sqlite3_bind_double(_ pStmt: OpaquePointer!, _ index: Int32, _ zValue: Double) -> Int32 {
+    open func sqlite3_bind_double(_ pStmt: OpaquePointer!, _ index: Int32, _ zValue: Double) -> ResultCode {
         return SQLite3.sqlite3_bind_double(pStmt, index, zValue)
     }
 
-    open func sqlite3_bind_int64(_ pStmt: OpaquePointer!, _ index: Int32, _ zValue: sqlite3_int64) -> Int32 {
+    open func sqlite3_bind_int64(_ pStmt: OpaquePointer!, _ index: Int32, _ zValue: sqlite3_int64) -> ResultCode {
         return SQLite3.sqlite3_bind_int64(pStmt, index, zValue)
     }
 
-    open func sqlite3_bind_null(_ pStmt: OpaquePointer!, _ index: Int32) -> Int32 {
+    open func sqlite3_bind_null(_ pStmt: OpaquePointer!, _ index: Int32) -> ResultCode {
         return SQLite3.sqlite3_bind_null(pStmt, index)
     }
 
@@ -208,20 +211,26 @@ open class CSQLite3 {
                                 _ index: Int32,
                                 _ zValue: UnsafePointer<Int8>!,
                                 _ nByte: Int32,
-                                _ destructor: (@convention(c) (UnsafeMutableRawPointer?) -> Swift.Void)!) -> Int32 {
-        return SQLite3.sqlite3_bind_text(pStmt, index, zValue, nByte, destructor)
+                                _ destructor: (@convention(c) (UnsafeMutableRawPointer?) -> Swift.Void)!)
+        -> ResultCode {
+            return SQLite3.sqlite3_bind_text(pStmt, index, zValue, nByte, destructor)
     }
 
     open func sqlite3_bind_blob(_ pStmt: OpaquePointer!,
                                 _ index: Int32,
                                 _ zValue: UnsafeRawPointer!,
                                 _ nByte: Int32,
-                                _ destructor: (@convention(c) (UnsafeMutableRawPointer?) -> Swift.Void)!) -> Int32 {
-        return SQLite3.sqlite3_bind_blob(pStmt, index, zValue, nByte, destructor)
+                                _ destructor: (@convention(c) (UnsafeMutableRawPointer?) -> Swift.Void)!)
+        -> ResultCode {
+            return SQLite3.sqlite3_bind_blob(pStmt, index, zValue, nByte, destructor)
     }
 
     open func sqlite3_bind_parameter_index(_ pStmt: OpaquePointer!, _ zName: UnsafePointer<Int8>!) -> Int32 {
         return SQLite3.sqlite3_bind_parameter_index(pStmt, zName)
+    }
+
+    open func sqlite3_db_handle(_ pStmt: OpaquePointer!) -> OpaquePointer! {
+        return SQLite3.sqlite3_db_handle(pStmt)
     }
 
     open func sqlite3_errmsg(_ db: OpaquePointer!) -> UnsafePointer<Int8>! {
@@ -231,5 +240,10 @@ open class CSQLite3 {
     open func sqlite3_errstr(_ code: Int32) -> UnsafePointer<Int8>! {
         return SQLite3.sqlite3_errstr(code)
     }
+
+    open func sqlite3_errcode(_ db: OpaquePointer!) -> Int32 {
+        return SQLite3.sqlite3_errcode(db)
+    }
+
 
 }

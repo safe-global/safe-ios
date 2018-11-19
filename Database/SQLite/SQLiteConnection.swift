@@ -50,10 +50,22 @@ public class SQLiteConnection: Connection, Assertable {
     }
 
     private func waitWhileBusy(_ expression: @autoclosure () -> Int32) -> Int32 {
-        var status = expression()
-        while status == CSQLite3.SQLITE_BUSY {
-            Timer.wait(0.05)
+        var status = CSQLite3.SQLITE_ERROR
+        let maxIOErrorRetryCount = 3
+        var ioErrorRetry = 0
+        while true {
             status = expression()
+            switch status {
+            case CSQLite3.SQLITE_BUSY:
+                Timer.wait(0.05)
+            case CSQLite3.SQLITE_AUTH, CSQLite3.SQLITE_IOERR:
+                if ioErrorRetry >= maxIOErrorRetryCount {
+                    fallthrough
+                }
+                ioErrorRetry += 1
+                Timer.wait(5)
+            default: return status
+            }
         }
         return status
     }
@@ -81,7 +93,7 @@ public class SQLiteConnection: Connection, Assertable {
     func open(url: URL) throws {
         try assertFalse(isClosed, SQLiteDatabase.Error.connectionIsAlreadyClosed)
         var conn: OpaquePointer?
-        let status = sqlite.sqlite3_open(url.path.cString(using: .utf8), &conn)
+        let status = waitWhileBusy(sqlite.sqlite3_open(url.path.cString(using: .utf8), &conn))
         guard status == CSQLite3.SQLITE_OK else {
             let message = SQLiteDatabase.errorMessage(from: status, sqlite, db)
             throw SQLiteDatabase.Error.failedToOpenDatabase("status: (\(status)) \(message)")

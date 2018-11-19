@@ -52,6 +52,9 @@
 		0AA0C873207B762A0019E282 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA0C871207B762A0019E282 /* TestError.swift */; };
 		0AA0C874207B762A0019E282 /* XCLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA0C872207B762A0019E282 /* XCLocalizedString.swift */; };
 		0AB0B565216384C200FB2435 /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556251D7214677CE00F569EE /* TokenData.swift */; };
+		0AD0779C21A2CDFC00DF1757 /* FileSystemGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779B21A2CDFC00DF1757 /* FileSystemGuard.swift */; };
+		0AD0779E21A2D35500DF1757 /* FileSystemGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779D21A2D35500DF1757 /* FileSystemGuardTests.swift */; };
+		0AD077A021A2F3DE00DF1757 /* DataProtectionAwareCSQLite3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779F21A2F3DE00DF1757 /* DataProtectionAwareCSQLite3.swift */; };
 		0AEF8A2C20A0814F006A1265 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */; };
 		0AFFF41320809AA10030200C /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41220809AA10030200C /* FoundationExtensions.swift */; };
 		0AFFF41520809BBE0030200C /* Assertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41420809BBE0030200C /* Assertable.swift */; };
@@ -207,6 +210,9 @@
 		0AB19C6120CAA25100A87E31 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0AB19C6220CAA35400A87E31 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0AC17580207B73A90016320A /* libCommonTestSupport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommonTestSupport.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AD0779B21A2CDFC00DF1757 /* FileSystemGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemGuard.swift; sourceTree = "<group>"; };
+		0AD0779D21A2D35500DF1757 /* FileSystemGuardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemGuardTests.swift; sourceTree = "<group>"; };
+		0AD0779F21A2F3DE00DF1757 /* DataProtectionAwareCSQLite3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProtectionAwareCSQLite3.swift; sourceTree = "<group>"; };
 		0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0AFFF41220809AA10030200C /* FoundationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 		0AFFF41420809BBE0030200C /* Assertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertable.swift; sourceTree = "<group>"; };
@@ -304,6 +310,9 @@
 			children = (
 				0A160BAF20A0803000E064E1 /* CSQLite3.swift */,
 				0A160BB020A0803000E064E1 /* CSQLite3ErrorTests.swift */,
+				0AD0779B21A2CDFC00DF1757 /* FileSystemGuard.swift */,
+				0AD0779D21A2D35500DF1757 /* FileSystemGuardTests.swift */,
+				0AD0779F21A2F3DE00DF1757 /* DataProtectionAwareCSQLite3.swift */,
 				0A160BAB20A0803000E064E1 /* MockCSQLite3.swift */,
 				0A160BB120A0803000E064E1 /* MockFileManager.swift */,
 				0A160BAA20A0803000E064E1 /* SQLiteConnection.swift */,
@@ -739,11 +748,13 @@
 			files = (
 				0A160BB920A0803100E064E1 /* SQLiteStatement.swift in Sources */,
 				0A14B2F520A2F33700C72761 /* MockDatabase.swift in Sources */,
+				0AD0779C21A2CDFC00DF1757 /* FileSystemGuard.swift in Sources */,
 				0A160BBD20A0803100E064E1 /* Database.swift in Sources */,
 				0A160BBA20A0803100E064E1 /* CSQLite3.swift in Sources */,
 				0A160BB520A0803100E064E1 /* SQLiteConnection.swift in Sources */,
 				0A160BB820A0803100E064E1 /* SQLiteResultSet.swift in Sources */,
 				0A160BB420A0803100E064E1 /* SQLiteDatabase.swift in Sources */,
+				0AD077A021A2F3DE00DF1757 /* DataProtectionAwareCSQLite3.swift in Sources */,
 				0A160BBC20A0803100E064E1 /* MockFileManager.swift in Sources */,
 				0A160BD220A0807000E064E1 /* MockCSQLite3.swift in Sources */,
 			);
@@ -753,6 +764,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AD0779E21A2D35500DF1757 /* FileSystemGuardTests.swift in Sources */,
 				0A160BD020A0805B00E064E1 /* CSQLite3ErrorTests.swift in Sources */,
 				0A160BCE20A0805B00E064E1 /* SQLiteDatabaseIntegrationTests.swift in Sources */,
 				0A160BCF20A0805B00E064E1 /* SQLiteDatabaseTests.swift in Sources */,
