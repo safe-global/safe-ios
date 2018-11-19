@@ -31,9 +31,9 @@ open class FileSystemGuard {
     }
 
     open func addUnlockSemaphore(_ semaphore: DispatchSemaphore) {
-        queue.sync {
-            if !checkSemaphore(semaphore) {
-                semaphores.append(semaphore)
+        queue.async { [unowned self] in
+            if !self.checkSemaphore(semaphore) {
+                self.semaphores.append(semaphore)
             }
         }
     }

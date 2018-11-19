@@ -26,7 +26,7 @@ public class DataProtectionAwareCSQLite3: CSQLite3 {
                 canProceed = true
             }
             while !canProceed {
-                RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+                RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.01))
             }
         }
         return super.sqlite3_open(filename, ppDb)
