@@ -18,7 +18,7 @@ public struct TokenData: Equatable, Hashable {
         self.address = address
         self.code = code
         self.name = name
-        self.logoURL = URL(string: logoURL)
+        self.logoURL = logoURL.isEmpty ? nil : URL(string: logoURL)
         self.decimals = decimals
         self.balance = balance
     }
