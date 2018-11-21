@@ -14,6 +14,13 @@ public struct TokenData: Equatable, Hashable {
     public let decimals: Int
     public let balance: BigInt?
 
+    public static let Ether = TokenData(address: "0x0000000000000000000000000000000000000000",
+                                        code: "ETH",
+                                        name: "Ether",
+                                        logoURL: "",
+                                        decimals: 18,
+                                        balance: 0)
+
     public init(address: String, code: String, name: String, logoURL: String, decimals: Int, balance: BigInt?) {
         self.address = address
         self.code = code
@@ -27,12 +34,17 @@ public struct TokenData: Equatable, Hashable {
         return address.hashValue
     }
 
-}
-
-public extension TokenData {
-
-    var isEther: Bool {
+    public var isEther: Bool {
         return address == "0x0" || address == "0x0000000000000000000000000000000000000000"
+    }
+
+    public func copy(balance: BigInt) -> TokenData {
+        return TokenData(address: address,
+                         code: code,
+                         name: name,
+                         logoURL: logoURL?.absoluteString ?? "",
+                         decimals: decimals,
+                         balance: balance)
     }
 
 }
