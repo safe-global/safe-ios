@@ -5,6 +5,7 @@
 import Foundation
 import BigInt
 
+// TODO: unit tests needed
 public struct TokenData: Equatable, Hashable {
 
     public let address: String
