@@ -47,4 +47,12 @@ public struct TokenData: Equatable, Hashable {
                          balance: balance)
     }
 
+    public func isSameToken(with other: TokenData) -> Bool {
+        return address == other.address &&
+            code == other.code &&
+            name == other.name &&
+            logoURL == other.logoURL &&
+            decimals == other.decimals
+    }
+
 }
