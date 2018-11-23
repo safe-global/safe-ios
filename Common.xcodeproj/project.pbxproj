@@ -55,6 +55,7 @@
 		0AD0779C21A2CDFC00DF1757 /* FileSystemGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779B21A2CDFC00DF1757 /* FileSystemGuard.swift */; };
 		0AD0779E21A2D35500DF1757 /* FileSystemGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779D21A2D35500DF1757 /* FileSystemGuardTests.swift */; };
 		0AD077A021A2F3DE00DF1757 /* DataProtectionAwareCSQLite3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779F21A2F3DE00DF1757 /* DataProtectionAwareCSQLite3.swift */; };
+		0AD1D1E421A8482800941EA1 /* Dasta+Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D1E321A8482800941EA1 /* Dasta+Padding.swift */; };
 		0AEF8A2C20A0814F006A1265 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */; };
 		0AFFF41320809AA10030200C /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41220809AA10030200C /* FoundationExtensions.swift */; };
 		0AFFF41520809BBE0030200C /* Assertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41420809BBE0030200C /* Assertable.swift */; };
@@ -213,6 +214,7 @@
 		0AD0779B21A2CDFC00DF1757 /* FileSystemGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemGuard.swift; sourceTree = "<group>"; };
 		0AD0779D21A2D35500DF1757 /* FileSystemGuardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemGuardTests.swift; sourceTree = "<group>"; };
 		0AD0779F21A2F3DE00DF1757 /* DataProtectionAwareCSQLite3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProtectionAwareCSQLite3.swift; sourceTree = "<group>"; };
+		0AD1D1E321A8482800941EA1 /* Dasta+Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dasta+Padding.swift"; sourceTree = "<group>"; };
 		0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0AFFF41220809AA10030200C /* FoundationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 		0AFFF41420809BBE0030200C /* Assertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertable.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				55AB1F1620EB6F3600717A9E /* Timer.swift */,
 				55AB1F1820EB706300717A9E /* TimerTests.swift */,
 				556251D7214677CE00F569EE /* TokenData.swift */,
+				0AD1D1E321A8482800941EA1 /* Dasta+Padding.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -786,6 +789,7 @@
 				0A042E1520B818A900F5C885 /* InMemorySecureStore.swift in Sources */,
 				0A8E3BBD20B41AFA00F002F6 /* MockLogger.swift in Sources */,
 				0AFFF41520809BBE0030200C /* Assertable.swift in Sources */,
+				0AD1D1E421A8482800941EA1 /* Dasta+Padding.swift in Sources */,
 				0AB0B565216384C200FB2435 /* TokenData.swift in Sources */,
 				0AFFF4492084FB3D0030200C /* BaseID.swift in Sources */,
 			);
