@@ -6,7 +6,7 @@ import XCTest
 @testable import Common
 import CommonTestSupport
 
-class OneOperationAwaitinSchedulerTests: XCTestCase {
+class OneOperationWaitinSchedulerTests: XCTestCase {
 
     let interval: TimeInterval = 0.1
     var scheduler: OneOperationWaitinScheduler!
