@@ -5,8 +5,8 @@
 import Foundation
 
 /// Allows to schedule operations that will be executed not more often than once in "interval" seconds.
-/// It allows to have only one opetion in a queue to execute.
-public final class OneOperationWaitinScheduler {
+/// It allows to have only one operation in a queue to execute.
+public final class OneOperationWaitingScheduler {
 
     let queue: OperationQueue
     let interval: TimeInterval

@@ -6,10 +6,10 @@ import XCTest
 @testable import Common
 import CommonTestSupport
 
-class OneOperationWaitinSchedulerTests: XCTestCase {
+class OneOperationWaitingSchedulerTests: XCTestCase {
 
     let interval: TimeInterval = 0.1
-    var scheduler: OneOperationWaitinScheduler!
+    var scheduler: OneOperationWaitingScheduler!
 
     var toggle = false
     var on: () -> Void {
@@ -25,7 +25,7 @@ class OneOperationWaitinSchedulerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        scheduler = OneOperationWaitinScheduler(interval: interval)
+        scheduler = OneOperationWaitingScheduler(interval: interval)
     }
 
     func test_whenAddingOneOperation_thenExecutesItImmediately() {

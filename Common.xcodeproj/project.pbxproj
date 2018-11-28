@@ -63,8 +63,8 @@
 		0AFFF41920809D430030200C /* AssertableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41820809D430030200C /* AssertableTests.swift */; };
 		0AFFF4492084FB3D0030200C /* BaseID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF4482084FB3D0030200C /* BaseID.swift */; };
 		0AFFF44B2084FB540030200C /* IdentifiableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF44A2084FB540030200C /* IdentifiableEntity.swift */; };
-		55126B7221AD75D300A9F810 /* OneOperationWaitinScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55126B7021AD75D300A9F810 /* OneOperationWaitinScheduler.swift */; };
-		55126B7321AD75D900A9F810 /* OneOperationWaitinSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55126B6F21AD75D300A9F810 /* OneOperationWaitinSchedulerTests.swift */; };
+		55126B7221AD75D300A9F810 /* OneOperationWaitingScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55126B7021AD75D300A9F810 /* OneOperationWaitingScheduler.swift */; };
+		55126B7321AD75D900A9F810 /* OneOperationWaitingSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55126B6F21AD75D300A9F810 /* OneOperationWaitingSchedulerTests.swift */; };
 		55126B7621AD77E800A9F810 /* libCommonTestSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC17580207B73A90016320A /* libCommonTestSupport.a */; };
 		555C94C820E52B7A00A0621D /* JSONHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94C720E52B7900A0621D /* JSONHTTPClient.swift */; };
 		55AB1F1720EB6F3600717A9E /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB1F1620EB6F3600717A9E /* Timer.swift */; };
@@ -225,8 +225,8 @@
 		0AFFF41820809D430030200C /* AssertableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertableTests.swift; sourceTree = "<group>"; };
 		0AFFF4482084FB3D0030200C /* BaseID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseID.swift; sourceTree = "<group>"; };
 		0AFFF44A2084FB540030200C /* IdentifiableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableEntity.swift; sourceTree = "<group>"; };
-		55126B6F21AD75D300A9F810 /* OneOperationWaitinSchedulerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneOperationWaitinSchedulerTests.swift; sourceTree = "<group>"; };
-		55126B7021AD75D300A9F810 /* OneOperationWaitinScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneOperationWaitinScheduler.swift; sourceTree = "<group>"; };
+		55126B6F21AD75D300A9F810 /* OneOperationWaitingSchedulerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneOperationWaitingSchedulerTests.swift; sourceTree = "<group>"; };
+		55126B7021AD75D300A9F810 /* OneOperationWaitingScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneOperationWaitingScheduler.swift; sourceTree = "<group>"; };
 		555C94C720E52B7900A0621D /* JSONHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHTTPClient.swift; sourceTree = "<group>"; };
 		556251D7214677CE00F569EE /* TokenData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
 		55AB1F1620EB6F3600717A9E /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
@@ -396,8 +396,8 @@
 				55AB1F1820EB706300717A9E /* TimerTests.swift */,
 				556251D7214677CE00F569EE /* TokenData.swift */,
 				0AD1D1E321A8482800941EA1 /* Data+Padding.swift */,
-				55126B7021AD75D300A9F810 /* OneOperationWaitinScheduler.swift */,
-				55126B6F21AD75D300A9F810 /* OneOperationWaitinSchedulerTests.swift */,
+				55126B7021AD75D300A9F810 /* OneOperationWaitingScheduler.swift */,
+				55126B6F21AD75D300A9F810 /* OneOperationWaitingSchedulerTests.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -798,7 +798,7 @@
 				0A8E3BBD20B41AFA00F002F6 /* MockLogger.swift in Sources */,
 				0AFFF41520809BBE0030200C /* Assertable.swift in Sources */,
 				0AD1D1E421A8482800941EA1 /* Data+Padding.swift in Sources */,
-				55126B7221AD75D300A9F810 /* OneOperationWaitinScheduler.swift in Sources */,
+				55126B7221AD75D300A9F810 /* OneOperationWaitingScheduler.swift in Sources */,
 				0AB0B565216384C200FB2435 /* TokenData.swift in Sources */,
 				0AFFF4492084FB3D0030200C /* BaseID.swift in Sources */,
 			);
@@ -812,7 +812,7 @@
 				0AFFF41720809D040030200C /* FoundationExtensionsTests.swift in Sources */,
 				0A8E3BD220B41B2800F002F6 /* LoggableErrorTests.swift in Sources */,
 				0A3FADF8207B505E00F0D214 /* AbstractRegistryTests.swift in Sources */,
-				55126B7321AD75D900A9F810 /* OneOperationWaitinSchedulerTests.swift in Sources */,
+				55126B7321AD75D900A9F810 /* OneOperationWaitingSchedulerTests.swift in Sources */,
 				0AFFF41920809D430030200C /* AssertableTests.swift in Sources */,
 				55AB1F1920EB706300717A9E /* TimerTests.swift in Sources */,
 			);
