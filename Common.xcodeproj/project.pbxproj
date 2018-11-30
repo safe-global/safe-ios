@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A028F5F21B1492100431D25 /* WeakWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A028F5E21B1492100431D25 /* WeakWrapper.swift */; };
 		0A042E1520B818A900F5C885 /* InMemorySecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042E1320B818A900F5C885 /* InMemorySecureStore.swift */; };
 		0A042E1720B818AD00F5C885 /* InMemorySecureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042E1420B818A900F5C885 /* InMemorySecureStoreTests.swift */; };
 		0A14B2F520A2F33700C72761 /* MockDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14B2F420A2F33700C72761 /* MockDatabase.swift */; };
@@ -156,6 +157,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A028F5E21B1492100431D25 /* WeakWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeakWrapper.swift; sourceTree = "<group>"; };
 		0A042E1320B818A900F5C885 /* InMemorySecureStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemorySecureStore.swift; sourceTree = "<group>"; };
 		0A042E1420B818A900F5C885 /* InMemorySecureStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemorySecureStoreTests.swift; sourceTree = "<group>"; };
 		0A14B2F420A2F33700C72761 /* MockDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDatabase.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				0AD1D1E321A8482800941EA1 /* Data+Padding.swift */,
 				55126B7021AD75D300A9F810 /* OneOperationWaitingScheduler.swift */,
 				55126B6F21AD75D300A9F810 /* OneOperationWaitingSchedulerTests.swift */,
+				0A028F5E21B1492100431D25 /* WeakWrapper.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -791,6 +794,7 @@
 				0A934D3020B703E400F15616 /* SecureStore.swift in Sources */,
 				55AB1F1720EB6F3600717A9E /* Timer.swift in Sources */,
 				0A8E3BAD20B41AAF00F002F6 /* Logger.swift in Sources */,
+				0A028F5F21B1492100431D25 /* WeakWrapper.swift in Sources */,
 				0AFFF44B2084FB540030200C /* IdentifiableEntity.swift in Sources */,
 				555C94C820E52B7A00A0621D /* JSONHTTPClient.swift in Sources */,
 				0A3FADE6207B503B00F0D214 /* AbstractRegistry.swift in Sources */,
