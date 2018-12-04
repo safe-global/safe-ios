@@ -167,6 +167,10 @@ open class CSQLite3 {
         return SQLite3.sqlite3_column_count(pStmt)
     }
 
+    open func sqlite3_column_name(_ pStmt: OpaquePointer!, _ iCol: Int32) -> UnsafePointer<Int8>! {
+        return SQLite3.sqlite3_column_name(pStmt, iCol)
+    }
+
     open func sqlite3_column_type(_ pStmt: OpaquePointer!, _ iCol: Int32) -> Int32 {
         return SQLite3.sqlite3_column_type(pStmt, iCol)
     }

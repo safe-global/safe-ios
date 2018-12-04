@@ -264,4 +264,20 @@ public class MockResultSet: ResultSet {
         return resultSet[currentRow][index] as? Double
     }
 
+    public func string(column: String) -> String? {
+        return nil
+    }
+
+    public func int(column: String) -> Int? {
+        return nil
+    }
+
+    public func double(column: String) -> Double? {
+        return nil
+    }
+
+    public func data(column: String) -> Data? {
+        return nil
+    }
+
 }

@@ -15,6 +15,7 @@ public class SQLiteResultSet: ResultSet {
     private let stmt: OpaquePointer
     private let sqlite: CSQLite3
     private let db: OpaquePointer
+    private var columnIndexes = [String: Int]()
 
     /// Creates new result set, resetting the `stmt` to return to the pre-first result row.
     ///
@@ -32,6 +33,21 @@ public class SQLiteResultSet: ResultSet {
             status = sqlite.sqlite3_reset(stmt)
         }
         precondition(status == CSQLite3.SQLITE_OK, SQLiteDatabase.errorMessage(from: status, sqlite, db))
+        reloadColumNames()
+    }
+
+    private func reloadColumNames() {
+        columnIndexes.removeAll()
+        for i in (0..<columnCount) {
+            guard let name = columnName(at: i) else { continue }
+            columnIndexes[name] = i
+        }
+    }
+
+    private func columnName(at index: Int) -> String? {
+        guard let nameCString = sqlite.sqlite3_column_name(stmt, Int32(index)),
+            let name = String(cString: nameCString, encoding: .utf8) else { return nil }
+        return name
     }
 
     /// Returns string at specified column index (0-based). Index must be within `columnCount`.
@@ -50,6 +66,11 @@ public class SQLiteResultSet: ResultSet {
         }
     }
 
+    public func string(column: String) -> String? {
+        guard let index = columnIndexes[column] else { return nil }
+        return string(at: index)
+    }
+
     /// Returns Data at specified column index (0-based). Index must be within `columnCount`.
     ///
     /// - Parameter index: index of a column in the result set
@@ -60,6 +81,11 @@ public class SQLiteResultSet: ResultSet {
         guard let ptr = sqlite.sqlite3_column_blob(stmt, Int32(index)) else { return nil }
         let bytesCount = sqlite.sqlite3_column_bytes(stmt, Int32(index))
         return Data(bytes: ptr, count: Int(bytesCount))
+    }
+
+    public func data(column: String) -> Data? {
+        guard let index = columnIndexes[column] else { return nil }
+        return data(at: index)
     }
 
     private func assertIndex(_ index: Int) {
@@ -76,6 +102,11 @@ public class SQLiteResultSet: ResultSet {
         return Int(sqlite.sqlite3_column_int64(stmt, Int32(index)))
     }
 
+    public func int(column: String) -> Int? {
+        guard let index = columnIndexes[column] else { return nil }
+        return int(at: index)
+    }
+
     /// Returns Data at specified column index (0-based). Index must be within `columnCount`.
     ///
     /// - Parameter index: index of a column in the result set
@@ -84,6 +115,11 @@ public class SQLiteResultSet: ResultSet {
         assertIndex(index)
         guard sqlite.sqlite3_column_type(stmt, Int32(index)) != CSQLite3.SQLITE_NULL else { return nil }
         return sqlite.sqlite3_column_double(stmt, Int32(index))
+    }
+
+    public func double(column: String) -> Double? {
+        guard let index = columnIndexes[column] else { return nil }
+        return double(at: index)
     }
 
     /// Moves result set to the next row and returns true if no more rows available.
