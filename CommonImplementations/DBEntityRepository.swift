@@ -64,7 +64,7 @@ open class DBEntityRepository<T: IdentifiableEntity<U>, U: BaseID> {
         preconditionFailure("Not implemented")
     }
 
-    open func objectFromResultSet(_ rs: ResultSet) -> T? {
+    open func objectFromResultSet(_ rs: ResultSet) throws -> T? {
         preconditionFailure("Not implemented")
     }
 
