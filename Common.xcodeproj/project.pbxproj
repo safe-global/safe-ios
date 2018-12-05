@@ -27,6 +27,9 @@
 		0A3FADE6207B503B00F0D214 /* AbstractRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */; };
 		0A3FADF0207B504F00F0D214 /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3FADDB207B501F00F0D214 /* libCommon.a */; };
 		0A3FADF8207B505E00F0D214 /* AbstractRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */; };
+		0A4FAF3521B8190200E9BBC2 /* DBEntityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FAF3421B8190200E9BBC2 /* DBEntityRepository.swift */; };
+		0A4FAF4021B8197D00E9BBC2 /* TableSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FAF3F21B8197D00E9BBC2 /* TableSchema.swift */; };
+		0A4FAF4421B819BB00E9BBC2 /* BaseID+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FAF4221B819BA00E9BBC2 /* BaseID+Serialization.swift */; };
 		0A8E3BA320B419E000F002F6 /* libCommonImplementations.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8E3B9220B419CC00F002F6 /* libCommonImplementations.a */; };
 		0A8E3BAD20B41AAF00F002F6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E3BAC20B41AAF00F002F6 /* Logger.swift */; };
 		0A8E3BBB20B41AED00F002F6 /* LoggableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E3BBA20B41AED00F002F6 /* LoggableError.swift */; };
@@ -52,6 +55,9 @@
 		0A934D5C20B711F600F15616 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A934D5A20B711F600F15616 /* LaunchScreen.storyboard */; };
 		0AA0C873207B762A0019E282 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA0C871207B762A0019E282 /* TestError.swift */; };
 		0AA0C874207B762A0019E282 /* XCLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA0C872207B762A0019E282 /* XCLocalizedString.swift */; };
+		0AAA734B21B81A7C00F4AB7A /* DBSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA734A21B81A7C00F4AB7A /* DBSerializable.swift */; };
+		0AAA735421B81AEF00F4AB7A /* DBMigrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA735221B81AEE00F4AB7A /* DBMigrationService.swift */; };
+		0AAA735721B81C0900F4AB7A /* DBMigrationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA735121B81AEE00F4AB7A /* DBMigrationServiceTests.swift */; };
 		0AB0B565216384C200FB2435 /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556251D7214677CE00F569EE /* TokenData.swift */; };
 		0AD0779C21A2CDFC00DF1757 /* FileSystemGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779B21A2CDFC00DF1757 /* FileSystemGuard.swift */; };
 		0AD0779E21A2D35500DF1757 /* FileSystemGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779D21A2D35500DF1757 /* FileSystemGuardTests.swift */; };
@@ -93,6 +99,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0A3FADDA207B501F00F0D214;
 			remoteInfo = Common;
+		};
+		0A4FAF3D21B8195700E9BBC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A3FADD3207B501F00F0D214 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A160B9120A07FE100E064E1;
+			remoteInfo = Database;
 		};
 		0A8E3BA420B419E000F002F6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -181,6 +194,9 @@
 		0A3FADEB207B504F00F0D214 /* CommonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CommonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3FADEF207B504F00F0D214 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRegistryTests.swift; sourceTree = "<group>"; };
+		0A4FAF3421B8190200E9BBC2 /* DBEntityRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBEntityRepository.swift; sourceTree = "<group>"; };
+		0A4FAF3F21B8197D00E9BBC2 /* TableSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSchema.swift; sourceTree = "<group>"; };
+		0A4FAF4221B819BA00E9BBC2 /* BaseID+Serialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseID+Serialization.swift"; sourceTree = "<group>"; };
 		0A8E3B9220B419CC00F002F6 /* libCommonImplementations.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommonImplementations.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A8E3B9E20B419E000F002F6 /* CommonImplementationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CommonImplementationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A8E3BA220B419E000F002F6 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
@@ -209,6 +225,9 @@
 		0A934D5D20B711F600F15616 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AA0C871207B762A0019E282 /* TestError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		0AA0C872207B762A0019E282 /* XCLocalizedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCLocalizedString.swift; sourceTree = "<group>"; };
+		0AAA734A21B81A7C00F4AB7A /* DBSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBSerializable.swift; sourceTree = "<group>"; };
+		0AAA735121B81AEE00F4AB7A /* DBMigrationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBMigrationServiceTests.swift; sourceTree = "<group>"; };
+		0AAA735221B81AEE00F4AB7A /* DBMigrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBMigrationService.swift; sourceTree = "<group>"; };
 		0AB0B5662163853100FB2435 /* CommonConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = CommonConfig.xcconfig; sourceTree = "<group>"; };
 		0AB19C5E20CAA22B00A87E31 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0AB19C5F20CAA23600A87E31 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -410,6 +429,12 @@
 			children = (
 				0AB19C6020CAA24100A87E31 /* README.md */,
 				0A8E3BE320B41BF700F002F6 /* CommonImplementationsConfig.xcconfig */,
+				0A4FAF4221B819BA00E9BBC2 /* BaseID+Serialization.swift */,
+				0A4FAF3F21B8197D00E9BBC2 /* TableSchema.swift */,
+				0A4FAF3421B8190200E9BBC2 /* DBEntityRepository.swift */,
+				0AAA734A21B81A7C00F4AB7A /* DBSerializable.swift */,
+				0AAA735221B81AEE00F4AB7A /* DBMigrationService.swift */,
+				0AAA735121B81AEE00F4AB7A /* DBMigrationServiceTests.swift */,
 				0A934D3120B7042300F15616 /* secureStore */,
 				0A8E3BBE20B41B0800F002F6 /* logger */,
 				0A8E3BA220B419E000F002F6 /* Tests-Info.plist */,
@@ -559,6 +584,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0A4FAF3E21B8195700E9BBC2 /* PBXTargetDependency */,
 				0A8E3BAB20B41A3000F002F6 /* PBXTargetDependency */,
 			);
 			name = CommonImplementations;
@@ -826,10 +852,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A4FAF4421B819BB00E9BBC2 /* BaseID+Serialization.swift in Sources */,
+				0A4FAF3521B8190200E9BBC2 /* DBEntityRepository.swift in Sources */,
 				0A8E3BD020B41B0800F002F6 /* LogService.swift in Sources */,
 				0A8E3BCE20B41B0800F002F6 /* CrashlyticsLogger.swift in Sources */,
 				0A8E3BCF20B41B0800F002F6 /* ConsoleLogger.swift in Sources */,
+				0AAA734B21B81A7C00F4AB7A /* DBSerializable.swift in Sources */,
+				0A4FAF4021B8197D00E9BBC2 /* TableSchema.swift in Sources */,
 				0A934D3620B7042300F15616 /* KeychainService.swift in Sources */,
+				0AAA735421B81AEF00F4AB7A /* DBMigrationService.swift in Sources */,
 				0A8E3BCC20B41B0800F002F6 /* LogFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -842,6 +873,7 @@
 				0A8E3BD320B41B8600F002F6 /* ConsoleLoggerTests.swift in Sources */,
 				0A8E3BD520B41B8600F002F6 /* LogFormatterTests.swift in Sources */,
 				0A8E3BD620B41B8600F002F6 /* LogServiceTests.swift in Sources */,
+				0AAA735721B81C0900F4AB7A /* DBMigrationServiceTests.swift in Sources */,
 				0A8E3BD420B41B8600F002F6 /* CrashlyticsLoggerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -881,6 +913,11 @@
 			isa = PBXTargetDependency;
 			target = 0A3FADDA207B501F00F0D214 /* Common */;
 			targetProxy = 0A3FADF1207B504F00F0D214 /* PBXContainerItemProxy */;
+		};
+		0A4FAF3E21B8195700E9BBC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A160B9120A07FE100E064E1 /* Database */;
+			targetProxy = 0A4FAF3D21B8195700E9BBC2 /* PBXContainerItemProxy */;
 		};
 		0A8E3BA520B419E000F002F6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
