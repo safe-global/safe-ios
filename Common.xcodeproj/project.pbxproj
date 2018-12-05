@@ -59,6 +59,7 @@
 		0AAA735421B81AEF00F4AB7A /* DBMigrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA735221B81AEE00F4AB7A /* DBMigrationService.swift */; };
 		0AAA735721B81C0900F4AB7A /* DBMigrationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA735121B81AEE00F4AB7A /* DBMigrationServiceTests.swift */; };
 		0AAA736121B820F800F4AB7A /* Date+DBSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA736021B820F800F4AB7A /* Date+DBSerializable.swift */; };
+		0AAA736221B8270900F4AB7A /* libDatabase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A160B9220A07FE100E064E1 /* libDatabase.a */; };
 		0AB0B565216384C200FB2435 /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556251D7214677CE00F569EE /* TokenData.swift */; };
 		0AD0779C21A2CDFC00DF1757 /* FileSystemGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779B21A2CDFC00DF1757 /* FileSystemGuard.swift */; };
 		0AD0779E21A2D35500DF1757 /* FileSystemGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779D21A2D35500DF1757 /* FileSystemGuardTests.swift */; };
@@ -128,6 +129,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0A934D4E20B711F400F15616;
 			remoteInfo = CommonIntegration;
+		};
+		0AAA736321B8271200F4AB7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A3FADD3207B501F00F0D214 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A160B9120A07FE100E064E1;
+			remoteInfo = Database;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -301,6 +309,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AAA736221B8270900F4AB7A /* libDatabase.a in Frameworks */,
 				0A8E3BE520B41CA700F002F6 /* libCommonTestSupport.a in Frameworks */,
 				0A8E3BE420B41CA200F002F6 /* libCommon.a in Frameworks */,
 				0A8E3BA320B419E000F002F6 /* libCommonImplementations.a in Frameworks */,
@@ -606,6 +615,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0AAA736421B8271200F4AB7A /* PBXTargetDependency */,
 				0A8E3BA520B419E000F002F6 /* PBXTargetDependency */,
 				0A934D6320B711FD00F15616 /* PBXTargetDependency */,
 			);
@@ -937,6 +947,11 @@
 			isa = PBXTargetDependency;
 			target = 0A934D4E20B711F400F15616 /* CommonIntegration */;
 			targetProxy = 0A934D6220B711FD00F15616 /* PBXContainerItemProxy */;
+		};
+		0AAA736421B8271200F4AB7A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A160B9120A07FE100E064E1 /* Database */;
+			targetProxy = 0AAA736321B8271200F4AB7A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

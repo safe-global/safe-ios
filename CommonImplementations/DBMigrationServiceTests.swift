@@ -4,8 +4,6 @@
 
 import Foundation
 import XCTest
-import MultisigWalletImplementations
-import MultisigWalletDomainModel
 import CommonImplementations
 import Database
 
@@ -64,17 +62,19 @@ class DBMigrationServiceTests: XCTestCase {
     //swiftlint:disable:next function_body_length
     func test_runsMultipleMigrations() {
         print(CSQLite3().SQLITE_VERSION)
-        let accountRepo = DBAccountRepository(db: db)
-        accountRepo.setUp()
-        let walletID = WalletID("test_wallet_id")
-        let accounts = [Account(tokenID: Token.Ether.id, walletID: walletID, balance: 1),
-                        Account(tokenID: Token.gno.id, walletID: walletID, balance: 2),
-                        Account(tokenID: Token.mgn.id, walletID: walletID, balance: 3)]
-        for account in accounts {
-            accountRepo.save(account)
+
+        struct Account: Equatable {
+            var id: String
+            var balance: Int
         }
 
-        XCTAssertEqual(accountRepo.all(), accounts)
+        let table = TableSchema("tbl_accounts",
+                                "id TEXT NOT NULL PRIMARY KEY",
+                                "balance TEXT")
+        try! db.execute(sql: table.createTableSQL)
+        try! db.execute(sql: table.insertSQL, bindings: ["a", "1"])
+        try! db.execute(sql: table.insertSQL, bindings: ["b", "2"])
+        try! db.execute(sql: table.insertSQL, bindings: ["c", "3"])
 
         // These are migrations that do not require advanced table changes (add column and rename table).
 
@@ -154,8 +154,13 @@ class DBMigrationServiceTests: XCTestCase {
 
         service.migrate()
 
-        let loadedAccounts = accountRepo.all()
-        XCTAssertEqual(loadedAccounts, accounts)
+        let results = try! db.execute(sql: "SELECT id, balance FROM tbl_accounts;") { rs -> Account? in
+            guard let id: String = rs["id"], let balance: Int = rs["balance"] else { return nil }
+            return Account(id: id, balance: balance)
+            }.compactMap { $0 }
+        XCTAssertEqual(results, [Account(id: "a", balance: 1),
+                                 Account(id: "b", balance: 2),
+                                 Account(id: "c", balance: 3)])
     }
 
 }
