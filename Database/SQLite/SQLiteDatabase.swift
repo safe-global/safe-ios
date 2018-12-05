@@ -74,6 +74,7 @@ public class SQLiteDatabase: Database, Assertable {
         case invalidStatementKeyValue
         case attemptToBindExecutedStatement
         case attemptToBindFinalizedStatement
+        case foreignKeyCheckFailed(String)
     }
 
     static func errorMessage(from status: Int32, _ sqlite: CSQLite3, _ db: OpaquePointer?) -> String {

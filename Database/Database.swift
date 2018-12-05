@@ -317,7 +317,25 @@ public extension Database {
                     resultMap: (ResultSet) throws -> T?) throws -> [T?] {
         let conn = try connection()
         defer { try? close(conn) }
-        let stmt = try conn.prepare(statement: sql)
+        return try conn.execute(sql: sql, bindings: bindings, dict: dict, resultMap: resultMap)
+    }
+
+}
+
+public extension Connection {
+
+    func execute(sql: String,
+                 bindings: [SQLBindable?] = [],
+                 dict: [String: SQLBindable?] = [:]) throws {
+        let map: (ResultSet) throws -> Void? = { _ in return nil }
+        _ = try self.execute(sql: sql, bindings: bindings, dict: dict, resultMap: map)
+    }
+
+    func execute<T>(sql: String,
+                    bindings: [SQLBindable?] = [],
+                    dict: [String: SQLBindable?] = [:],
+                    resultMap: (ResultSet) throws -> T?) throws -> [T?] {
+        let stmt = try prepare(statement: sql)
         try stmt.bind(bindings)
         try stmt.bind(dict)
         guard let rs = try stmt.execute() else { return [] }
@@ -329,6 +347,7 @@ public extension Database {
     }
 
 }
+
 
 public class ResultSetRowIterator {
 
