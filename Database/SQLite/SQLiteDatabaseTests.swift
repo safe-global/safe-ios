@@ -487,6 +487,10 @@ class SQLiteDatabaseTests: XCTestCase {
         XCTAssertEqual(conn.lastErrorMessage(), "ERROR")
     }
 
+    func test_correctErrorCode() {
+        XCTAssertEqual(CSQLite3.SQLITE_AUTH, 23)
+    }
+
 }
 
 extension SQLiteDatabaseTests {

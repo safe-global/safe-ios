@@ -81,7 +81,7 @@ public class SQLiteDatabase: Database, Assertable {
         guard let db = db,
             let cString = sqlite.sqlite3_errmsg(db),
             let message = String(cString: cString, encoding: .utf8) else {
-                return "(unknown error code)"
+                return String(cString: sqlite.sqlite3_errstr(status))
         }
         return message
     }
