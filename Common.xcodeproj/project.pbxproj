@@ -1046,16 +1046,18 @@
 		0A0920AA2180C68A00C5A503 /* PreRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = "Common/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1100,14 +1102,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = DatabaseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.DatabaseTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.DatabaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1134,14 +1136,14 @@
 			baseConfigurationReference = 0A8E3BE320B41BF700F002F6 /* CommonImplementationsConfig.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = "CommonImplementations/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonImplementationsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonImplementationsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1154,13 +1156,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = CommonIntegration/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonIntegration;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonIntegration;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1236,14 +1238,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = DatabaseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.DatabaseTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.DatabaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1254,14 +1256,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = DatabaseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.DatabaseTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.DatabaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1272,14 +1274,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = DatabaseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.DatabaseTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.DatabaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1432,16 +1434,18 @@
 		0A3FADF4207B504F00F0D214 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = "Common/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1450,16 +1454,18 @@
 		0A3FADF5207B504F00F0D214 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = "Common/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1541,16 +1547,18 @@
 		0A467036207E58C100F55ADE /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = "Common/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1620,14 +1628,14 @@
 			baseConfigurationReference = 0A8E3BE320B41BF700F002F6 /* CommonImplementationsConfig.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = "CommonImplementations/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonImplementationsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonImplementationsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1640,14 +1648,14 @@
 			baseConfigurationReference = 0A8E3BE320B41BF700F002F6 /* CommonImplementationsConfig.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = "CommonImplementations/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonImplementationsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonImplementationsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1660,14 +1668,14 @@
 			baseConfigurationReference = 0A8E3BE320B41BF700F002F6 /* CommonImplementationsConfig.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = "CommonImplementations/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonImplementationsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonImplementationsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1680,13 +1688,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = CommonIntegration/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonIntegration;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonIntegration;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1698,13 +1706,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = CommonIntegration/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonIntegration;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonIntegration;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1716,13 +1724,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAHRQRF52;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = CommonIntegration/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pm.gnosis.CommonIntegration;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.CommonIntegration;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
