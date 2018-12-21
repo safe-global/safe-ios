@@ -17,33 +17,33 @@ public extension DispatchQueue {
     }
 
     @discardableResult
-    static func async(_ queue: DispatchQueue, closure: @escaping () -> Void) -> DispatchWorkItem {
-        return queue.async(closure: closure)
+    static func asynchronous(_ queue: DispatchQueue, closure: @escaping () -> Void) -> DispatchWorkItem {
+        return queue.asynchronous(closure: closure)
     }
 
     @discardableResult
-    static func sync(_ queue: DispatchQueue, closure: @escaping () -> Void) -> DispatchWorkItem {
-        return queue.sync(closure: closure)
+    static func synchronous(_ queue: DispatchQueue, closure: @escaping () -> Void) -> DispatchWorkItem {
+        return queue.synchronous(closure: closure)
     }
 
     @discardableResult
-    func async(closure: @escaping () -> Void) -> DispatchWorkItem {
-        return async(item: DispatchWorkItem(block: closure))
+    func asynchronous(closure: @escaping () -> Void) -> DispatchWorkItem {
+        return asynchronous(item: DispatchWorkItem(block: closure))
     }
 
     @discardableResult
-    func sync(closure: @escaping () -> Void) -> DispatchWorkItem {
-        return sync(item: DispatchWorkItem(block: closure))
+    func synchronous(closure: @escaping () -> Void) -> DispatchWorkItem {
+        return synchronous(item: DispatchWorkItem(block: closure))
     }
 
     @discardableResult
-    func async(item: DispatchWorkItem) -> DispatchWorkItem {
+    func asynchronous(item: DispatchWorkItem) -> DispatchWorkItem {
         async(execute: item)
         return item
     }
 
     @discardableResult
-    func sync(item: DispatchWorkItem) -> DispatchWorkItem {
+    func synchronous(item: DispatchWorkItem) -> DispatchWorkItem {
         sync(execute: item)
         return item
     }
