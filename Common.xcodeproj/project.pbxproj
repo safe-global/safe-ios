@@ -30,6 +30,7 @@
 		0A4FAF3521B8190200E9BBC2 /* DBEntityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FAF3421B8190200E9BBC2 /* DBEntityRepository.swift */; };
 		0A4FAF4021B8197D00E9BBC2 /* TableSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FAF3F21B8197D00E9BBC2 /* TableSchema.swift */; };
 		0A4FAF4421B819BB00E9BBC2 /* BaseID+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FAF4221B819BA00E9BBC2 /* BaseID+Serialization.swift */; };
+		0A7812C221CD2106004F6D27 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7812C121CD2106004F6D27 /* Dispatch.swift */; };
 		0A8E3BA320B419E000F002F6 /* libCommonImplementations.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8E3B9220B419CC00F002F6 /* libCommonImplementations.a */; };
 		0A8E3BAD20B41AAF00F002F6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E3BAC20B41AAF00F002F6 /* Logger.swift */; };
 		0A8E3BBB20B41AED00F002F6 /* LoggableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E3BBA20B41AED00F002F6 /* LoggableError.swift */; };
@@ -206,6 +207,7 @@
 		0A4FAF3421B8190200E9BBC2 /* DBEntityRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBEntityRepository.swift; sourceTree = "<group>"; };
 		0A4FAF3F21B8197D00E9BBC2 /* TableSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSchema.swift; sourceTree = "<group>"; };
 		0A4FAF4221B819BA00E9BBC2 /* BaseID+Serialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseID+Serialization.swift"; sourceTree = "<group>"; };
+		0A7812C121CD2106004F6D27 /* Dispatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		0A8E3B9220B419CC00F002F6 /* libCommonImplementations.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommonImplementations.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A8E3B9E20B419E000F002F6 /* CommonImplementationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CommonImplementationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A8E3BA220B419E000F002F6 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 				55126B7021AD75D300A9F810 /* OneOperationWaitingScheduler.swift */,
 				55126B6F21AD75D300A9F810 /* OneOperationWaitingSchedulerTests.swift */,
 				0A028F5E21B1492100431D25 /* WeakWrapper.swift */,
+				0A7812C121CD2106004F6D27 /* Dispatch.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AFFF41320809AA10030200C /* FoundationExtensions.swift in Sources */,
+				0A7812C221CD2106004F6D27 /* Dispatch.swift in Sources */,
 				0A8E3BBB20B41AED00F002F6 /* LoggableError.swift in Sources */,
 				0A934D3020B703E400F15616 /* SecureStore.swift in Sources */,
 				55AB1F1720EB6F3600717A9E /* Timer.swift in Sources */,
