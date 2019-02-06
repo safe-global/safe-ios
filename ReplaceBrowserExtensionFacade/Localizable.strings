@@ -1,0 +1,3 @@
+/* Insufficient funds.\nPlease add ETH to your Safe. */
+"fee_calculation.error.insufficient_balance" = "Insufficient funds.\nPlease add ETH to your Safe.";
+
