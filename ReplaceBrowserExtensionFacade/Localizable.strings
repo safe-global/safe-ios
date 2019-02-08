@@ -1,3 +1,6 @@
+/* Browser extension is not connected. */
+"fee_calculation.error.extension_not_found" = "Browser extension is not connected.";
+
 /* Insufficient funds.\nPlease add ETH to your Safe. */
 "fee_calculation.error.insufficient_balance" = "Insufficient funds.\nPlease add ETH to your Safe.";
 
