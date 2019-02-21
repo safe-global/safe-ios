@@ -17,14 +17,14 @@ public extension String {
     var hasNoTrippleChar: Bool {
         guard count > 2 else { return true }
         var current = self.first!
-        var longestSiquence = 1
+        var longestSequence = 1
         for c in suffix(count - 1) {
             if c == current {
-                longestSiquence += 1
-                guard longestSiquence < 3 else { return false }
+                longestSequence += 1
+                guard longestSequence < 3 else { return false }
             } else {
                 current = c
-                longestSiquence = 1
+                longestSequence = 1
             }
         }
         return true
