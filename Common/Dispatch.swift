@@ -48,6 +48,14 @@ public extension DispatchQueue {
         return item
     }
 
+    static func onMainThread(_ block: @escaping () -> Void) {
+        if Thread.isMainThread {
+            block()
+        } else {
+            DispatchQueue.main.async(execute: block)
+        }
+    }
+
 }
 
 public extension DispatchWorkItem {
