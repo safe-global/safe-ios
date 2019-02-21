@@ -16,7 +16,7 @@ public class Timer {
     /// - Returns: random value
     public static func random(average: Double, maxDeviation: Double) -> Double {
         let amplitude = 2 * fabs(maxDeviation)
-        let random0to1 =  Double.random(in: 0..<1)
+        let random0to1 = Double.random(in: 0..<1)
         return average + amplitude * (random0to1 - 0.5)
     }
 
