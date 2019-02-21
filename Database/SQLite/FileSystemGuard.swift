@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import UIKit
 
 open class FileSystemGuard {
 
@@ -18,16 +19,16 @@ open class FileSystemGuard {
     }
 
     private func subscribeForLockingEvents() {
-        let unlockNotification = NSNotification.Name(rawValue: "UIApplicationProtectedDataDidBecomeAvailable")
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(didUnlock),
-                                               name: unlockNotification,
-                                               object: nil)
-        let lockNotification = NSNotification.Name(rawValue: "UIApplicationProtectedDataWillBecomeUnavailable")
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(didLock),
-                                               name: lockNotification,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didUnlock),
+            name: UIApplication.protectedDataDidBecomeAvailableNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didLock),
+            name: UIApplication.protectedDataWillBecomeUnavailableNotification,
+            object: nil)
     }
 
     open func addUnlockSemaphore(_ semaphore: DispatchSemaphore) {
