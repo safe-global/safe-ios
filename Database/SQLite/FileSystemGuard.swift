@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import UIKit
 
 open class FileSystemGuard {
 
@@ -15,20 +14,6 @@ open class FileSystemGuard {
         queue = DispatchQueue(label: "FileSystemGuardLockQueue",
                               qos: .userInitiated,
                               attributes: []) // serial by default
-        subscribeForLockingEvents()
-    }
-
-    private func subscribeForLockingEvents() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(didUnlock),
-            name: UIApplication.protectedDataDidBecomeAvailableNotification,
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(didLock),
-            name: UIApplication.protectedDataWillBecomeUnavailableNotification,
-            object: nil)
     }
 
     open func addUnlockSemaphore(_ semaphore: DispatchSemaphore) {
