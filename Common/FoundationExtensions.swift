@@ -34,7 +34,7 @@ public extension String {
 
 public extension Array {
 
-    subscript (safe index: Int) -> Element? {
+    subscript(safe index: Int) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
 

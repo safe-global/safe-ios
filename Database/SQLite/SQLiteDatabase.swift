@@ -158,9 +158,9 @@ public class SQLiteDatabase: Database, Assertable {
 
         init(_ str: String) {
             let parts = str.components(separatedBy: ".")
-            major = parts[safe:0] ?? ""
-            minor = parts[safe:1] ?? ""
-            patch = parts[safe:2] ?? ""
+            major = parts[safe: 0] ?? ""
+            minor = parts[safe: 1] ?? ""
+            patch = parts[safe: 2] ?? ""
         }
 
     }
