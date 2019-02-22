@@ -157,14 +157,10 @@ public class SQLiteDatabase: Database, Assertable {
         let patch: String
 
         init(_ str: String) {
-            var parts = str.components(separatedBy: ".")
-            if parts.count == 3 {
-                (major, minor, patch) = (parts[0], parts[1], parts[2])
-            } else if parts.count == 2 {
-                (major, minor, patch) = (parts[0], parts[1], "")
-            } else {
-                (major, minor, patch) = (str, "", "")
-            }
+            let parts = str.components(separatedBy: ".")
+            major = parts[safe:0] ?? ""
+            minor = parts[safe:1] ?? ""
+            patch = parts[safe:2] ?? ""
         }
 
     }
