@@ -16,15 +16,15 @@ public extension String {
 
     var hasNoTrippleChar: Bool {
         guard count > 2 else { return true }
-        var current = self.first!
-        var longestSiquence = 1
-        for c in suffix(count - 1) {
-            if c == current {
-                longestSiquence += 1
-                guard longestSiquence < 3 else { return false }
+        var previous = self.first!
+        var sequenceLength = 1
+        for c in dropFirst() {
+            if c == previous {
+                sequenceLength += 1
+                if sequenceLength == 3 { return false }
             } else {
-                current = c
-                longestSiquence = 1
+                previous = c
+                sequenceLength = 1
             }
         }
         return true
