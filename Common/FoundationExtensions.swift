@@ -32,6 +32,14 @@ public extension String {
 
 }
 
+public extension Array {
+
+    subscript(safe index: Int) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+
+}
+
 public extension SetAlgebra {
 
     func intersects(with other: Self) -> Bool {
