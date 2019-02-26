@@ -24,11 +24,6 @@
 		0A160BD020A0805B00E064E1 /* CSQLite3ErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A160BB020A0803000E064E1 /* CSQLite3ErrorTests.swift */; };
 		0A160BD220A0807000E064E1 /* MockCSQLite3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A160BAB20A0803000E064E1 /* MockCSQLite3.swift */; };
 		0A19C16920C7D2C20074C2BB /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3FADDB207B501F00F0D214 /* libCommon.a */; };
-		0A3D150F220B28A400E340DB /* FeeCalculationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3D150C220B28A300E340DB /* FeeCalculationError.swift */; };
-		0A3D1510220B28A400E340DB /* RBEStarter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3D150D220B28A400E340DB /* RBEStarter.swift */; };
-		0A3D1511220B28A400E340DB /* RBEFeeCalculationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3D150E220B28A400E340DB /* RBEFeeCalculationData.swift */; };
-		0A3D1523220B2BCA00E340DB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A3D1522220B2BCA00E340DB /* Localizable.strings */; };
-		0A3D1531220B2D3800E340DB /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3D1530220B2D3800E340DB /* LocalizedString.swift */; };
 		0A3FADE6207B503B00F0D214 /* AbstractRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */; };
 		0A3FADF0207B504F00F0D214 /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3FADDB207B501F00F0D214 /* libCommon.a */; };
 		0A3FADF8207B505E00F0D214 /* AbstractRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */; };
@@ -101,20 +96,6 @@
 			remoteGlobalIDString = 0A3FADDA207B501F00F0D214;
 			remoteInfo = Common;
 		};
-		0A3D150A220B288100E340DB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0A3FADD3207B501F00F0D214 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0A3FADDA207B501F00F0D214;
-			remoteInfo = Common;
-		};
-		0A3D1520220B2B3300E340DB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0A3FADD3207B501F00F0D214 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0A3D1517220B2A0A00E340DB;
-			remoteInfo = ReplaceBrowserExtensionFacadeResources;
-		};
 		0A3FADF1207B504F00F0D214 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0A3FADD3207B501F00F0D214 /* Project object */;
@@ -161,15 +142,6 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		0A160B9020A07FE100E064E1 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0A3D14FF220B286B00E340DB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
@@ -227,14 +199,6 @@
 		0A160BB220A0803000E064E1 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		0A160BC220A0804500E064E1 /* DatabaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatabaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A160BC620A0804500E064E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0A3D1501220B286B00E340DB /* libReplaceBrowserExtensionFacade.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReplaceBrowserExtensionFacade.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A3D150C220B28A300E340DB /* FeeCalculationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeeCalculationError.swift; sourceTree = "<group>"; };
-		0A3D150D220B28A400E340DB /* RBEStarter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBEStarter.swift; sourceTree = "<group>"; };
-		0A3D150E220B28A400E340DB /* RBEFeeCalculationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBEFeeCalculationData.swift; sourceTree = "<group>"; };
-		0A3D1518220B2A0A00E340DB /* ReplaceBrowserExtensionFacadeResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReplaceBrowserExtensionFacadeResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A3D151A220B2A0A00E340DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0A3D1522220B2BCA00E340DB /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		0A3D1530220B2D3800E340DB /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		0A3FADDB207B501F00F0D214 /* libCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRegistry.swift; sourceTree = "<group>"; };
 		0A3FADEB207B504F00F0D214 /* CommonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CommonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,13 +281,6 @@
 				0A19C16920C7D2C20074C2BB /* libCommon.a in Frameworks */,
 				0AEF8A2C20A0814F006A1265 /* libsqlite3.tbd in Frameworks */,
 				0A160BC720A0804500E064E1 /* libDatabase.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0A3D14FE220B286B00E340DB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,26 +375,6 @@
 			path = DatabaseTests;
 			sourceTree = "<group>";
 		};
-		0A3D1502220B286B00E340DB /* ReplaceBrowserExtensionFacade */ = {
-			isa = PBXGroup;
-			children = (
-				0A3D150E220B28A400E340DB /* RBEFeeCalculationData.swift */,
-				0A3D150C220B28A300E340DB /* FeeCalculationError.swift */,
-				0A3D1530220B2D3800E340DB /* LocalizedString.swift */,
-				0A3D150D220B28A400E340DB /* RBEStarter.swift */,
-				0A3D1522220B2BCA00E340DB /* Localizable.strings */,
-			);
-			path = ReplaceBrowserExtensionFacade;
-			sourceTree = "<group>";
-		};
-		0A3D1519220B2A0A00E340DB /* ReplaceBrowserExtensionFacadeResources */ = {
-			isa = PBXGroup;
-			children = (
-				0A3D151A220B2A0A00E340DB /* Info.plist */,
-			);
-			path = ReplaceBrowserExtensionFacadeResources;
-			sourceTree = "<group>";
-		};
 		0A3FADD2207B501F00F0D214 = {
 			isa = PBXGroup;
 			children = (
@@ -448,8 +385,6 @@
 				0A160BC320A0804500E064E1 /* DatabaseTests */,
 				0A8E3B9320B419CC00F002F6 /* CommonImplementations */,
 				0A934D5020B711F400F15616 /* CommonIntegration */,
-				0A3D1502220B286B00E340DB /* ReplaceBrowserExtensionFacade */,
-				0A3D1519220B2A0A00E340DB /* ReplaceBrowserExtensionFacadeResources */,
 				0A3FADDC207B501F00F0D214 /* Products */,
 				0AEF8A2920A08147006A1265 /* Frameworks */,
 			);
@@ -466,8 +401,6 @@
 				0A8E3B9220B419CC00F002F6 /* libCommonImplementations.a */,
 				0A8E3B9E20B419E000F002F6 /* CommonImplementationsTests.xctest */,
 				0A934D4F20B711F400F15616 /* CommonIntegration.app */,
-				0A3D1501220B286B00E340DB /* libReplaceBrowserExtensionFacade.a */,
-				0A3D1518220B2A0A00E340DB /* ReplaceBrowserExtensionFacadeResources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -619,41 +552,6 @@
 			productReference = 0A160BC220A0804500E064E1 /* DatabaseTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		0A3D1500220B286B00E340DB /* ReplaceBrowserExtensionFacade */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0A3D1509220B286B00E340DB /* Build configuration list for PBXNativeTarget "ReplaceBrowserExtensionFacade" */;
-			buildPhases = (
-				0A3D14FD220B286B00E340DB /* Sources */,
-				0A3D14FE220B286B00E340DB /* Frameworks */,
-				0A3D14FF220B286B00E340DB /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0A3D1521220B2B3300E340DB /* PBXTargetDependency */,
-				0A3D150B220B288100E340DB /* PBXTargetDependency */,
-			);
-			name = ReplaceBrowserExtensionFacade;
-			productName = ReplaceBrowserExtensionFacade;
-			productReference = 0A3D1501220B286B00E340DB /* libReplaceBrowserExtensionFacade.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		0A3D1517220B2A0A00E340DB /* ReplaceBrowserExtensionFacadeResources */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0A3D151B220B2A0A00E340DB /* Build configuration list for PBXNativeTarget "ReplaceBrowserExtensionFacadeResources" */;
-			buildPhases = (
-				0A3D152F220B2C2F00E340DB /* Localize */,
-				0A3D1516220B2A0A00E340DB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ReplaceBrowserExtensionFacadeResources;
-			productName = ReplaceBrowserExtensionFacadeResources;
-			productReference = 0A3D1518220B2A0A00E340DB /* ReplaceBrowserExtensionFacadeResources.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
 		0A3FADDA207B501F00F0D214 /* Common */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A3FADE2207B501F00F0D214 /* Build configuration list for PBXNativeTarget "Common" */;
@@ -782,12 +680,6 @@
 						CreatedOnToolsVersion = 9.3;
 						LastSwiftMigration = 1000;
 					};
-					0A3D1500220B286B00E340DB = {
-						CreatedOnToolsVersion = 10.1;
-					};
-					0A3D1517220B2A0A00E340DB = {
-						CreatedOnToolsVersion = 10.1;
-					};
 					0A3FADDA207B501F00F0D214 = {
 						CreatedOnToolsVersion = 9.3;
 						LastSwiftMigration = 1000;
@@ -836,8 +728,6 @@
 				0A8E3B9120B419CC00F002F6 /* CommonImplementations */,
 				0A8E3B9D20B419E000F002F6 /* CommonImplementationsTests */,
 				0A934D4E20B711F400F15616 /* CommonIntegration */,
-				0A3D1500220B286B00E340DB /* ReplaceBrowserExtensionFacade */,
-				0A3D1517220B2A0A00E340DB /* ReplaceBrowserExtensionFacadeResources */,
 			);
 		};
 /* End PBXProject section */
@@ -847,14 +737,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0A3D1516220B2A0A00E340DB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0A3D1523220B2BCA00E340DB /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -885,25 +767,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0A3D152F220B2C2F00E340DB /* Localize */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = Localize;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/../scripts/localize.sh LocalizedString ReplaceBrowserExtensionFacade\n";
-			showEnvVarsInLog = 0;
-		};
 		0A537C1E207D045900921FB9 /* Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -961,17 +824,6 @@
 				0A160BD020A0805B00E064E1 /* CSQLite3ErrorTests.swift in Sources */,
 				0A160BCE20A0805B00E064E1 /* SQLiteDatabaseIntegrationTests.swift in Sources */,
 				0A160BCF20A0805B00E064E1 /* SQLiteDatabaseTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0A3D14FD220B286B00E340DB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0A3D1511220B28A400E340DB /* RBEFeeCalculationData.swift in Sources */,
-				0A3D150F220B28A400E340DB /* FeeCalculationError.swift in Sources */,
-				0A3D1531220B2D3800E340DB /* LocalizedString.swift in Sources */,
-				0A3D1510220B28A400E340DB /* RBEStarter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1074,16 +926,6 @@
 			isa = PBXTargetDependency;
 			target = 0A3FADDA207B501F00F0D214 /* Common */;
 			targetProxy = 0A160BD320A080A500E064E1 /* PBXContainerItemProxy */;
-		};
-		0A3D150B220B288100E340DB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0A3FADDA207B501F00F0D214 /* Common */;
-			targetProxy = 0A3D150A220B288100E340DB /* PBXContainerItemProxy */;
-		};
-		0A3D1521220B2B3300E340DB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0A3D1517220B2A0A00E340DB /* ReplaceBrowserExtensionFacadeResources */;
-			targetProxy = 0A3D1520220B2B3300E340DB /* PBXContainerItemProxy */;
 		};
 		0A3FADF2207B504F00F0D214 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1449,145 +1291,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
-		};
-		0A3D1505220B286B00E340DB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		0A3D1506220B286B00E340DB /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = AdHoc;
-		};
-		0A3D1507220B286B00E340DB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		0A3D1508220B286B00E340DB /* PreRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = PreRelease;
-		};
-		0A3D151C220B2A0A00E340DB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
-				INFOPLIST_FILE = ReplaceBrowserExtensionFacadeResources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.ReplaceBrowserExtensionFacadeResources;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 arm64e armv7 armv7s i386 x86_64";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		0A3D151D220B2A0A00E340DB /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				INFOPLIST_FILE = ReplaceBrowserExtensionFacadeResources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.ReplaceBrowserExtensionFacadeResources;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 arm64e armv7 armv7s i386 x86_64";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = AdHoc;
-		};
-		0A3D151E220B2A0A00E340DB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				INFOPLIST_FILE = ReplaceBrowserExtensionFacadeResources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.ReplaceBrowserExtensionFacadeResources;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 arm64e armv7 armv7s i386 x86_64";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		0A3D151F220B2A0A00E340DB /* PreRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				INFOPLIST_FILE = ReplaceBrowserExtensionFacadeResources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.ReplaceBrowserExtensionFacadeResources;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 arm64e armv7 armv7s i386 x86_64";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = PreRelease;
 		};
 		0A3FADE0207B501F00F0D214 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2087,28 +1790,6 @@
 				0A160BCC20A0804500E064E1 /* AdHoc */,
 				0A160BCD20A0804500E064E1 /* Release */,
 				0A0920AD2180C68A00C5A503 /* PreRelease */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0A3D1509220B286B00E340DB /* Build configuration list for PBXNativeTarget "ReplaceBrowserExtensionFacade" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0A3D1505220B286B00E340DB /* Debug */,
-				0A3D1506220B286B00E340DB /* AdHoc */,
-				0A3D1507220B286B00E340DB /* Release */,
-				0A3D1508220B286B00E340DB /* PreRelease */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0A3D151B220B2A0A00E340DB /* Build configuration list for PBXNativeTarget "ReplaceBrowserExtensionFacadeResources" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0A3D151C220B2A0A00E340DB /* Debug */,
-				0A3D151D220B2A0A00E340DB /* AdHoc */,
-				0A3D151E220B2A0A00E340DB /* Release */,
-				0A3D151F220B2A0A00E340DB /* PreRelease */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
