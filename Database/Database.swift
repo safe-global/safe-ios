@@ -227,7 +227,7 @@ public protocol ResultSet: class {
     subscript(index: Int) -> String? { get }
     subscript(column: String) -> String? { get }
 
-    /// Fetch value at column `inde` as integer
+    /// Fetch value at column `index` as integer
     ///
     /// - Parameter index: 0-based column index
     /// - Returns: Value converted to integer, or nil if the value is NULL
@@ -236,7 +236,7 @@ public protocol ResultSet: class {
     subscript(index: Int) -> Int? { get }
     subscript(column: String) -> Int? { get }
 
-    /// Fetch value at column `inde` as double
+    /// Fetch value at column `index` as double
     ///
     /// - Parameter index: 0-based column index
     /// - Returns: Value converted to double, or nil if the value is NULL
@@ -245,7 +245,7 @@ public protocol ResultSet: class {
     subscript(index: Int) -> Double? { get }
     subscript(column: String) -> Double? { get }
 
-    /// Fetch value at column `inde` as binary data
+    /// Fetch value at column `index` as binary data
     ///
     /// - Parameter index: 0-based column index
     /// - Returns: Value converted to binary data, or nil if the value is NULL
