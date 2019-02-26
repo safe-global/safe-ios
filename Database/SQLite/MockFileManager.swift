@@ -18,8 +18,8 @@ class MockFileManager: FileManager {
     var existingURLs = [URL]()
 
     override func fileExists(atPath path: String) -> Bool {
-        if existingURLs.first(where: { $0.path == path }) != nil { return true }
-        if notExistingURLs.first(where: { $0.path == path }) != nil { return false }
+        if existingURLs.contains(where: { $0.path == path }) { return true }
+        if notExistingURLs.contains(where: { $0.path == path }) { return false }
         return super.fileExists(atPath: path)
     }
 
