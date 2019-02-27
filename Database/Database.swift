@@ -307,7 +307,7 @@ public extension Database {
     func execute(sql: String,
                  bindings: [SQLBindable?] = [],
                  dict: [String: SQLBindable?] = [:]) throws {
-        let map: (ResultSet) throws -> Void? = { _ in return nil }
+        let map: (ResultSet) throws -> Void? = { _ in nil }
         _ = try self.execute(sql: sql, bindings: bindings, dict: dict, resultMap: map)
     }
 
@@ -327,7 +327,7 @@ public extension Connection {
     func execute(sql: String,
                  bindings: [SQLBindable?] = [],
                  dict: [String: SQLBindable?] = [:]) throws {
-        let map: (ResultSet) throws -> Void? = { _ in return nil }
+        let map: (ResultSet) throws -> Void? = { _ in nil }
         _ = try self.execute(sql: sql, bindings: bindings, dict: dict, resultMap: map)
     }
 
