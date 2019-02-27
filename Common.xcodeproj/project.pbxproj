@@ -76,6 +76,9 @@
 		55126B7221AD75D300A9F810 /* OneOperationWaitingScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55126B7021AD75D300A9F810 /* OneOperationWaitingScheduler.swift */; };
 		55126B7321AD75D900A9F810 /* OneOperationWaitingSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55126B6F21AD75D300A9F810 /* OneOperationWaitingSchedulerTests.swift */; };
 		55126B7621AD77E800A9F810 /* libCommonTestSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC17580207B73A90016320A /* libCommonTestSupport.a */; };
+		55327B672226935700277B15 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55327B662226935700277B15 /* Tracker.swift */; };
+		55327B692226938800277B15 /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55327B682226938800277B15 /* TrackingView.swift */; };
+		55327B6B2226939300277B15 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55327B6A2226939300277B15 /* TrackingEvent.swift */; };
 		555C94C820E52B7A00A0621D /* JSONHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94C720E52B7900A0621D /* JSONHTTPClient.swift */; };
 		55AB1F1720EB6F3600717A9E /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB1F1620EB6F3600717A9E /* Timer.swift */; };
 		55AB1F1920EB706300717A9E /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB1F1820EB706300717A9E /* TimerTests.swift */; };
@@ -260,6 +263,9 @@
 		0AFFF44A2084FB540030200C /* IdentifiableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableEntity.swift; sourceTree = "<group>"; };
 		55126B6F21AD75D300A9F810 /* OneOperationWaitingSchedulerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneOperationWaitingSchedulerTests.swift; sourceTree = "<group>"; };
 		55126B7021AD75D300A9F810 /* OneOperationWaitingScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneOperationWaitingScheduler.swift; sourceTree = "<group>"; };
+		55327B662226935700277B15 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		55327B682226938800277B15 /* TrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingView.swift; sourceTree = "<group>"; };
+		55327B6A2226939300277B15 /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
 		555C94C720E52B7900A0621D /* JSONHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHTTPClient.swift; sourceTree = "<group>"; };
 		556251D7214677CE00F569EE /* TokenData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
 		55AB1F1620EB6F3600717A9E /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
@@ -408,6 +414,8 @@
 		0A3FADDD207B501F00F0D214 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				55327B65222692CD00277B15 /* Logging */,
+				55327B64222692C000277B15 /* Tracking */,
 				0AB19C5F20CAA23600A87E31 /* README.md */,
 				0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */,
 				0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */,
@@ -417,11 +425,7 @@
 				0AFFF41220809AA10030200C /* FoundationExtensions.swift */,
 				0AFFF41620809D040030200C /* FoundationExtensionsTests.swift */,
 				0AFFF44A2084FB540030200C /* IdentifiableEntity.swift */,
-				0A8E3BBA20B41AED00F002F6 /* LoggableError.swift */,
-				0A8E3BD120B41B2800F002F6 /* LoggableErrorTests.swift */,
-				0A8E3BAC20B41AAF00F002F6 /* Logger.swift */,
 				555C94C720E52B7900A0621D /* JSONHTTPClient.swift */,
-				0A8E3BBC20B41AFA00F002F6 /* MockLogger.swift */,
 				0A3FADEF207B504F00F0D214 /* Tests-Info.plist */,
 				0A934D2F20B703E400F15616 /* SecureStore.swift */,
 				0A042E1320B818A900F5C885 /* InMemorySecureStore.swift */,
@@ -511,6 +515,27 @@
 				0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		55327B64222692C000277B15 /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				55327B662226935700277B15 /* Tracker.swift */,
+				55327B682226938800277B15 /* TrackingView.swift */,
+				55327B6A2226939300277B15 /* TrackingEvent.swift */,
+			);
+			path = Tracking;
+			sourceTree = "<group>";
+		};
+		55327B65222692CD00277B15 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				0A8E3BBA20B41AED00F002F6 /* LoggableError.swift */,
+				0A8E3BD120B41B2800F002F6 /* LoggableErrorTests.swift */,
+				0A8E3BAC20B41AAF00F002F6 /* Logger.swift */,
+				0A8E3BBC20B41AFA00F002F6 /* MockLogger.swift */,
+			);
+			path = Logging;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -834,8 +859,10 @@
 				0AFFF41320809AA10030200C /* FoundationExtensions.swift in Sources */,
 				0A7812C221CD2106004F6D27 /* Dispatch.swift in Sources */,
 				0A8E3BBB20B41AED00F002F6 /* LoggableError.swift in Sources */,
+				55327B6B2226939300277B15 /* TrackingEvent.swift in Sources */,
 				0A934D3020B703E400F15616 /* SecureStore.swift in Sources */,
 				55AB1F1720EB6F3600717A9E /* Timer.swift in Sources */,
+				55327B692226938800277B15 /* TrackingView.swift in Sources */,
 				0A8E3BAD20B41AAF00F002F6 /* Logger.swift in Sources */,
 				0A028F5F21B1492100431D25 /* WeakWrapper.swift in Sources */,
 				0AFFF44B2084FB540030200C /* IdentifiableEntity.swift in Sources */,
@@ -843,6 +870,7 @@
 				0A3FADE6207B503B00F0D214 /* AbstractRegistry.swift in Sources */,
 				0A042E1520B818A900F5C885 /* InMemorySecureStore.swift in Sources */,
 				0A8E3BBD20B41AFA00F002F6 /* MockLogger.swift in Sources */,
+				55327B672226935700277B15 /* Tracker.swift in Sources */,
 				0AFFF41520809BBE0030200C /* Assertable.swift in Sources */,
 				0AD1D1E421A8482800941EA1 /* Data+Padding.swift in Sources */,
 				55126B7221AD75D300A9F810 /* OneOperationWaitingScheduler.swift in Sources */,
