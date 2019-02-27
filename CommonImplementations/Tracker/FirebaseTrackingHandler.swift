@@ -17,4 +17,8 @@ public final class FirebaseTrackingHandler: TrackingHandler {
 
     public func track(event: TrackingEvent, view: TrackingView?, parameters: [String: Any]?) {}
 
+    public func setScreenName(_ name: String, class: String?) {
+        Analytics.setScreenName(name, screenClass: `class`)
+    }
+
 }
