@@ -50,7 +50,7 @@ public class SQLiteResultSet: ResultSet {
         return name
     }
 
-    /// Returns string at specified column index (0-based). Index must be within `columnCount`.
+    /// Returns string at specified column index (0-based). Index must be within `0..<columnCount`.
     ///
     /// - Parameter index: index of a column in the result set
     /// - Returns: String or nil
@@ -71,7 +71,7 @@ public class SQLiteResultSet: ResultSet {
         return string(at: index)
     }
 
-    /// Returns Data at specified column index (0-based). Index must be within `columnCount`.
+    /// Returns Data at specified column index (0-based). Index must be within `0..<columnCount`.
     ///
     /// - Parameter index: index of a column in the result set
     /// - Returns: Data or nil
@@ -92,7 +92,7 @@ public class SQLiteResultSet: ResultSet {
         precondition((0..<columnCount).contains(index), "Index out of column count range")
     }
 
-    /// Returns Data at specified column index (0-based). Index must be within `columnCount`.
+    /// Returns Data at specified column index (0-based). Index must be within `0..<columnCount`.
     ///
     /// - Parameter index: index of a column in the result set
     /// - Returns: Data or nil
@@ -107,7 +107,7 @@ public class SQLiteResultSet: ResultSet {
         return int(at: index)
     }
 
-    /// Returns Data at specified column index (0-based). Index must be within `columnCount`.
+    /// Returns Data at specified column index (0-based). Index must be within `0..<columnCount`.
     ///
     /// - Parameter index: index of a column in the result set
     /// - Returns: Data or nil
