@@ -79,6 +79,7 @@
 		55327B672226935700277B15 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55327B662226935700277B15 /* Tracker.swift */; };
 		55327B692226938800277B15 /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55327B682226938800277B15 /* TrackingView.swift */; };
 		55327B6B2226939300277B15 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55327B6A2226939300277B15 /* TrackingEvent.swift */; };
+		55327B7B2226A8FB00277B15 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55327B7A2226A8FB00277B15 /* FirebaseTrackingHandler.swift */; };
 		555C94C820E52B7A00A0621D /* JSONHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C94C720E52B7900A0621D /* JSONHTTPClient.swift */; };
 		55AB1F1720EB6F3600717A9E /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB1F1620EB6F3600717A9E /* Timer.swift */; };
 		55AB1F1920EB706300717A9E /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB1F1820EB706300717A9E /* TimerTests.swift */; };
@@ -266,6 +267,7 @@
 		55327B662226935700277B15 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		55327B682226938800277B15 /* TrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingView.swift; sourceTree = "<group>"; };
 		55327B6A2226939300277B15 /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
+		55327B7A2226A8FB00277B15 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		555C94C720E52B7900A0621D /* JSONHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHTTPClient.swift; sourceTree = "<group>"; };
 		556251D7214677CE00F569EE /* TokenData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
 		55AB1F1620EB6F3600717A9E /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
@@ -414,8 +416,8 @@
 		0A3FADDD207B501F00F0D214 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				55327B65222692CD00277B15 /* Logging */,
-				55327B64222692C000277B15 /* Tracking */,
+				55327B65222692CD00277B15 /* Logger */,
+				55327B64222692C000277B15 /* Tracker */,
 				0AB19C5F20CAA23600A87E31 /* README.md */,
 				0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */,
 				0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */,
@@ -445,6 +447,7 @@
 		0A8E3B9320B419CC00F002F6 /* CommonImplementations */ = {
 			isa = PBXGroup;
 			children = (
+				55327B792226A8AB00277B15 /* Tracker */,
 				0AB19C6020CAA24100A87E31 /* README.md */,
 				0A8E3BE320B41BF700F002F6 /* CommonImplementationsConfig.xcconfig */,
 				0A4FAF4221B819BA00E9BBC2 /* BaseID+Serialization.swift */,
@@ -455,13 +458,13 @@
 				0AAA735221B81AEE00F4AB7A /* DBMigrationService.swift */,
 				0AAA735121B81AEE00F4AB7A /* DBMigrationServiceTests.swift */,
 				0A934D3120B7042300F15616 /* secureStore */,
-				0A8E3BBE20B41B0800F002F6 /* logger */,
+				0A8E3BBE20B41B0800F002F6 /* Logger */,
 				0A8E3BA220B419E000F002F6 /* Tests-Info.plist */,
 			);
 			path = CommonImplementations;
 			sourceTree = "<group>";
 		};
-		0A8E3BBE20B41B0800F002F6 /* logger */ = {
+		0A8E3BBE20B41B0800F002F6 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
 				0A8E3BC620B41B0800F002F6 /* ConsoleLogger.swift */,
@@ -473,7 +476,7 @@
 				0A8E3BC720B41B0800F002F6 /* LogService.swift */,
 				0A8E3BC220B41B0800F002F6 /* LogServiceTests.swift */,
 			);
-			path = logger;
+			path = Logger;
 			sourceTree = "<group>";
 		};
 		0A934D3120B7042300F15616 /* secureStore */ = {
@@ -517,17 +520,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		55327B64222692C000277B15 /* Tracking */ = {
+		55327B64222692C000277B15 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
 				55327B662226935700277B15 /* Tracker.swift */,
 				55327B682226938800277B15 /* TrackingView.swift */,
 				55327B6A2226939300277B15 /* TrackingEvent.swift */,
 			);
-			path = Tracking;
+			path = Tracker;
 			sourceTree = "<group>";
 		};
-		55327B65222692CD00277B15 /* Logging */ = {
+		55327B65222692CD00277B15 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
 				0A8E3BBA20B41AED00F002F6 /* LoggableError.swift */,
@@ -535,7 +538,15 @@
 				0A8E3BAC20B41AAF00F002F6 /* Logger.swift */,
 				0A8E3BBC20B41AFA00F002F6 /* MockLogger.swift */,
 			);
-			path = Logging;
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		55327B792226A8AB00277B15 /* Tracker */ = {
+			isa = PBXGroup;
+			children = (
+				55327B7A2226A8FB00277B15 /* FirebaseTrackingHandler.swift */,
+			);
+			path = Tracker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -906,6 +917,7 @@
 				0AAA734B21B81A7C00F4AB7A /* DBSerializable.swift in Sources */,
 				0A4FAF4021B8197D00E9BBC2 /* TableSchema.swift in Sources */,
 				0A934D3620B7042300F15616 /* KeychainService.swift in Sources */,
+				55327B7B2226A8FB00277B15 /* FirebaseTrackingHandler.swift in Sources */,
 				0AAA735421B81AEF00F4AB7A /* DBMigrationService.swift in Sources */,
 				0A8E3BCC20B41B0800F002F6 /* LogFormatter.swift in Sources */,
 			);
