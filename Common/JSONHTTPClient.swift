@@ -11,10 +11,16 @@ public protocol JSONRequest: Encodable {
     var httpMethod: String { get }
     /// Path to resource, without baseURL
     var urlPath: String { get }
+    /// Query parameters
+    var query: String? { get }
 
     /// Response associated with this JSON request
     associatedtype ResponseType: Decodable
 
+}
+
+public extension JSONRequest {
+    var query: String? { return nil }
 }
 
 public extension DateFormatter {
@@ -80,8 +86,10 @@ public class JSONHTTPClient {
     }
 
     private func urlRequest<T: JSONRequest>(from jsonRequest: T) throws -> URLRequest {
-        let url = baseURL.appendingPathComponent(jsonRequest.urlPath)
-        var request = URLRequest(url: url)
+        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)!
+        urlComponents.path = jsonRequest.urlPath
+        urlComponents.query = jsonRequest.query
+        var request = URLRequest(url: urlComponents.url!)
         request.httpMethod = jsonRequest.httpMethod
         if jsonRequest.httpMethod != "GET" {
             request.httpBody = try jsonEncoder.encode(jsonRequest)
