@@ -31,10 +31,10 @@ public class FunctionCallTrace {
     public func diff(_ other: [String]) -> String {
         var diffs = [(String, String)]()
         log.enumerated().forEach { offset, logEntry in
-            if !(0..<other.count).contains(offset) {
-                diffs.append((logEntry, "MISSING"))
-            } else if logEntry != other[offset] {
+            if other.indices ~= offset {
                 diffs.append((logEntry, other[offset]))
+            } else if logEntry != other[offset] {
+                diffs.append((logEntry, "MISSING"))
             }
         }
         if other.count > log.count {
