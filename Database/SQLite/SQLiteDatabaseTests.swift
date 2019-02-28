@@ -538,7 +538,7 @@ extension SQLiteDatabaseTests {
 
     func opaquePointer() -> OpaquePointer {
         return String(repeating: "a", count: Int.random(in: 1...10)).withCString {
-            ptr -> OpaquePointer in OpaquePointer.init(ptr)
+            ptr -> OpaquePointer in OpaquePointer(ptr)
         }
     }
 
