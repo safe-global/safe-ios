@@ -36,7 +36,7 @@ open class DBEntityRepository<T: IdentifiableEntity<U>, U: BaseID> {
                                          resultMap: objectFromResultSet))
     }
 
-    open func findAll() -> [T] {
+    open func all() -> [T] {
         return try! unwrapped(db.execute(sql: table.findAllSQL, resultMap: objectFromResultSet))
     }
 
