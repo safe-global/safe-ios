@@ -10,15 +10,8 @@ public final class FirebaseTrackingHandler: TrackingHandler {
 
     public init() {}
 
-    public func track(view: TrackingView, contentId: String?, parameters: [String: Any]?) {
-//        Analytics.logEvent(AnalyticsEventSelectContent, parameters: parameters)
-        Analytics.logEvent(view.rawValue, parameters: parameters)
-    }
-
-    public func track(event: TrackingEvent, view: TrackingView?, parameters: [String: Any]?) {}
-
-    public func setScreenName(_ name: String, class: String?) {
-        Analytics.setScreenName(name, screenClass: `class`)
+    public func track(event: Trackable, parameters: [String: Any]?) {
+        Analytics.logEvent(event.rawValue, parameters: parameters)
     }
 
 }

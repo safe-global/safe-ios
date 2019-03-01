@@ -5,9 +5,11 @@
 import Foundation
 
 public protocol TrackingHandler {
-    func track(view: TrackingView, contentId: String?, parameters: [String: Any]?)
-    func track(event: TrackingEvent, view: TrackingView?, parameters: [String: Any]?)
-    func setScreenName(_ name: String, class: String?)
+    func track(event: Trackable, parameters: [String: Any]?)
+}
+
+public protocol Trackable {
+    var rawValue: String { get }
 }
 
 public class Tracker {
@@ -20,22 +22,9 @@ public class Tracker {
         trackingHandlers.append(handler)
     }
 
-    public func track(view: TrackingView, contentId: String? = nil, parameters: [String: Any]? = nil) {
+    public func track(event: Trackable, parameters: [String: Any]? = nil) {
         for handler in trackingHandlers {
-            handler.track(view: view, contentId: contentId, parameters: parameters)
-        }
-    }
-
-    public func track(event: TrackingEvent, view: TrackingView? = nil, parameters: [String: Any]? = nil) {
-        for handler in trackingHandlers {
-            handler.track(event: event, view: view, parameters: parameters)
-        }
-    }
-
-    public func setScreenName(_ name: String, class: AnyClass? = nil) {
-        for handler in trackingHandlers {
-            let className = `class` != nil ? String(describing: `class`!) : nil
-            handler.setScreenName(name, class: className)
+            handler.track(event: event, parameters: parameters)
         }
     }
 
