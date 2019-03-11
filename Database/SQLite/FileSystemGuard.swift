@@ -7,7 +7,7 @@ import Foundation
 open class FileSystemGuard {
 
     private let queue: DispatchQueue
-    private var hasAccess: Bool = true
+    public private(set) var hasAccess: Bool = true
     private var semaphores: [DispatchSemaphore] = []
 
     public init() {
