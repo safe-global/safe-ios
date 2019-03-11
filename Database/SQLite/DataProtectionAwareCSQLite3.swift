@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Common
 
 public class DataProtectionAwareCSQLite3: CSQLite3 {
 
@@ -18,13 +19,8 @@ public class DataProtectionAwareCSQLite3: CSQLite3 {
         let semaphore = DispatchSemaphore(value: 0)
         filesystemGuard.addUnlockSemaphore(semaphore)
         if Thread.isMainThread {
-            var canProceed = false
-            DispatchQueue.global().async {
-                semaphore.wait()
-                canProceed = true
-            }
-            while !canProceed {
-                usleep(100)
+            while !filesystemGuard.hasAccess {
+                Timer.wait(0.1)
             }
         } else {
             semaphore.wait()
