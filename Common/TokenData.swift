@@ -31,8 +31,8 @@ public struct TokenData: Equatable, Hashable {
         self.balance = balance
     }
 
-    public var hashValue: Int {
-        return address.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(address)
     }
 
     public var isEther: Bool {
