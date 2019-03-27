@@ -26,7 +26,11 @@ open class BaseID: Hashable, Assertable, CustomStringConvertible {
     }
 
     public let id: String
-    public var hashValue: Int { return id.hashValue &* 31 } // hashValue * 31 may overflow, so using &* operator
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
     public var description: String { return id }
 
     public static func ==(lhs: BaseID, rhs: BaseID) -> Bool {
