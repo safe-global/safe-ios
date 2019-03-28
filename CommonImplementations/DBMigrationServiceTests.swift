@@ -54,7 +54,7 @@ class DBMigrationServiceTests: XCTestCase {
         XCTAssertEqual(repository.findLatest(), migration)
 
         let sqls = try repository.db.execute(sql: "SELECT sql FROM sqlite_master;") { rs -> String? in
-            return rs["sql"]
+            rs["sql"]
         }.compactMap { $0 }
         XCTAssertTrue(sqls.contains { $0.contains("tbl_users") }, "Created table not found")
     }

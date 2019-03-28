@@ -2,8 +2,10 @@
 //  Copyright © 2018 Gnosis Ltd. All rights reserved.
 //
 
-WORKSPACE_LIB_PATH=${SRCROOT}/../Library/${PLATFORM_NAME}
-FRAMEWORK_SEARCH_PATHS=$(inherited) ${WORKSPACE_LIB_PATH}
+LIBRARY_DIR=${SRCROOT}/../Library
+WORKSPACE_LIB_PATH=${LIBRARY_DIR}/${PLATFORM_NAME}
+FRAMEWORK_SEARCH_PATHS=$(inherited) ${WORKSPACE_LIB_PATH} ${LIBRARY_DIR}/Firebase/**
 LIBRARY_SEARCH_PATHS=$(inherited) ${WORKSPACE_LIB_PATH}
 HEADER_SEARCH_PATHS=$(inherited) ${WORKSPACE_LIB_PATH}/include
-OTHER_LDFLAGS=$(inherited) -framework "Crashlytics" -framework "Fabric"
+FIREBASE_ANALYTICS_FRAMEWORKS=-framework "FirebaseAnalytics" -framework "FIRAnalyticsConnector" -framework "FirebaseCoreDiagnostics" -framework "FirebaseCore" -framework "FirebaseInstanceID" -framework "GoogleAppMeasurement" -framework "GoogleUtilities" -framework "nanopb"
+OTHER_LDFLAGS=$(inherited) -framework "Crashlytics" -framework "Fabric" ${FIREBASE_ANALYTICS_FRAMEWORKS}

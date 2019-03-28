@@ -8,7 +8,10 @@ import Foundation
 open class IdentifiableEntity<T: Hashable>: Hashable, Assertable {
 
     public let id: T
-    public var hashValue: Int { return id.hashValue }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 
     public static func ==(lhs: IdentifiableEntity<T>, rhs: IdentifiableEntity<T>) -> Bool {
         return lhs.id == rhs.id
