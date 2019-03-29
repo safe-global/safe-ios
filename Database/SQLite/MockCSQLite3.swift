@@ -18,7 +18,9 @@ class MockCSQLite3: CSQLite3 {
 
 
     var libversion_result: String = ""
+    private var libversion_cString: [CChar]!
     var sourceid_result: String = ""
+    private var sourceid_cString: [CChar]!
     var libversion_number_result: Int32 = 0
 
     var open_result: Int32 = 0
@@ -36,16 +38,15 @@ class MockCSQLite3: CSQLite3 {
         return libversion_number_result
     }
 
-    private var libversion_cString: [CChar]!
 
     override func sqlite3_libversion() -> UnsafePointer<Int8>! {
         libversion_cString = libversion_result.cString(using: .ascii)!
-        let ptr = UnsafePointer<Int8>(&libversion_cString)
-        return ptr
+        return UnsafePointer<Int8>(&libversion_cString)
     }
 
     override func sqlite3_sourceid() -> UnsafePointer<Int8>! {
-        return sourceid_result.withCString { ptr -> UnsafePointer<Int8> in ptr }
+        sourceid_cString = sourceid_result.cString(using: .ascii)!
+        return UnsafePointer<Int8>(&sourceid_cString)
     }
 
     var close_pointer: OpaquePointer?
