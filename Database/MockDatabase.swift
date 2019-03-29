@@ -175,7 +175,7 @@ public class MockStatement: Statement {
 
     /// Appends "stmt.set(value, key)" to trace with actual values of `value` and `key` arguments
     public func set(_ value: Data, forKey key: String) throws {
-        trace.append("stmt.set(\(value), \(index))")
+        trace.append("stmt.set(\(value), \(String(describing: index)))")
     }
 
     /// Appends "stmt.setNil(key)" to trace with actual value of the `key` argument

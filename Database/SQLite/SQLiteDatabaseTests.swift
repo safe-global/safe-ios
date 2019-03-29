@@ -547,7 +547,7 @@ extension SQLiteDatabaseTests {
                                                     file: StaticString = #file,
                                                     line: UInt = #line,
                                                     function: StaticString = #function) {
-        XCTAssertThrowsError(expression, file: file, line: line) {
+        XCTAssertThrowsError(try expression(), file: file, line: line) {
             XCTAssertEqual($0 as? E, error, file: file, line: line)
         }
     }

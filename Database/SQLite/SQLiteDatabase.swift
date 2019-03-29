@@ -177,7 +177,7 @@ public class SQLiteDatabase: Database, Assertable {
             throw SQLiteDatabase.Error.invalidConnection
         }
         try connection.close()
-        if let index = connections.index(where: { $0 === connection }) {
+        if let index = connections.firstIndex(where: { $0 === connection }) {
             connections.remove(at: index)
         }
     }

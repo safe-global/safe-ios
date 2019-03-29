@@ -102,7 +102,7 @@ public class JSONHTTPClient {
     }
 
     private func send(_ request: URLRequest) -> URLDataTaskResult {
-        var result: URLDataTaskResult
+        var result: URLDataTaskResult!
         let semaphore = DispatchSemaphore(value: 0)
         logger?.debug("Sending request \(request)")
 
@@ -112,7 +112,7 @@ public class JSONHTTPClient {
         }
         dataTask.resume()
         semaphore.wait()
-        logger?.debug("Received response \(result)")
+        logger?.debug("Received response \(result!)")
         return result
     }
 

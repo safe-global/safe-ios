@@ -24,7 +24,7 @@ class MockFileManager: FileManager {
     }
 
     override func removeItem(at URL: URL) throws {
-        if let index = existingURLs.index(of: URL) {
+        if let index = existingURLs.firstIndex(of: URL) {
             existingURLs.remove(at: index)
             if !super.fileExists(atPath: URL.path) {
                 return
