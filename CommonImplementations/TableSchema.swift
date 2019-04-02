@@ -57,11 +57,11 @@ public struct TableSchema {
     }
 
     public var findFirstSQL: String {
-        return "SELECT \(fieldNameList) FROM \(tableName) LIMIT 1;"
+        return "SELECT \(fieldNameList) FROM \(tableName) ORDER BY rowid LIMIT 1;"
     }
 
     public var findByPrimaryKeySQL: String {
-        return "SELECT \(fieldNameList) FROM \(tableName) WHERE \(primaryKey.name) = ? LIMIT 1;"
+        return "SELECT \(fieldNameList) FROM \(tableName) WHERE \(primaryKey.name) = ? ORDER BY rowid LIMIT 1;"
     }
 
     public var findAllSQL: String {
