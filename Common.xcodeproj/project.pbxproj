@@ -23,6 +23,7 @@
 		0A160BCF20A0805B00E064E1 /* SQLiteDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A160BAC20A0803000E064E1 /* SQLiteDatabaseTests.swift */; };
 		0A160BD020A0805B00E064E1 /* CSQLite3ErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A160BB020A0803000E064E1 /* CSQLite3ErrorTests.swift */; };
 		0A160BD220A0807000E064E1 /* MockCSQLite3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A160BAB20A0803000E064E1 /* MockCSQLite3.swift */; };
+		0A179C912256672A00C60138 /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A179C902256672A00C60138 /* ConsoleTracker.swift */; };
 		0A19C16920C7D2C20074C2BB /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3FADDB207B501F00F0D214 /* libCommon.a */; };
 		0A3FADE6207B503B00F0D214 /* AbstractRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */; };
 		0A3FADF0207B504F00F0D214 /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3FADDB207B501F00F0D214 /* libCommon.a */; };
@@ -201,6 +202,7 @@
 		0A160BB220A0803000E064E1 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		0A160BC220A0804500E064E1 /* DatabaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatabaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A160BC620A0804500E064E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A179C902256672A00C60138 /* ConsoleTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
 		0A3FADDB207B501F00F0D214 /* libCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3FADE5207B503B00F0D214 /* AbstractRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRegistry.swift; sourceTree = "<group>"; };
 		0A3FADEB207B504F00F0D214 /* CommonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CommonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -539,6 +541,7 @@
 			isa = PBXGroup;
 			children = (
 				55327B7A2226A8FB00277B15 /* FirebaseTrackingHandler.swift */,
+				0A179C902256672A00C60138 /* ConsoleTracker.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -902,6 +905,7 @@
 			files = (
 				0AAA736121B820F800F4AB7A /* Date+DBSerializable.swift in Sources */,
 				0A4FAF4421B819BB00E9BBC2 /* BaseID+Serialization.swift in Sources */,
+				0A179C912256672A00C60138 /* ConsoleTracker.swift in Sources */,
 				0A4FAF3521B8190200E9BBC2 /* DBEntityRepository.swift in Sources */,
 				0A8E3BD020B41B0800F002F6 /* LogService.swift in Sources */,
 				0A8E3BCE20B41B0800F002F6 /* CrashlyticsLogger.swift in Sources */,

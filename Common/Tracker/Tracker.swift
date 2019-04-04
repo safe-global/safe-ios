@@ -7,10 +7,18 @@ import Foundation
 /**
  This class is a singleton used throughout the app to track events.
 
- To track an event, create an enum that conforms to Trackable protocol. For example:
+ To track an event, create an enum that conforms to Trackable or ScreenTrackingEvent protocol. For example:
 
-     enum MyMenuEvent: String, Trackable {
+     enum MyScreenEvent: String, ScreenTrackingEvent {
         case eventName = "ScreenId_EventName"
+     }
+
+     enum MyCustomEvent: String, Trackable {
+        case myEvent = "MyCustomEventName"
+
+         var name: String { return rawValue }
+         var parameters: [String: Any]? { return ["my_parameter": "my_value"] }
+
      }
 
  Then, from a view controller's `viewDidAppear` method call `trackEvent` method on UIViewController:
@@ -79,6 +87,24 @@ public protocol Trackable {
 }
 
 public extension Trackable {
+
     var name: String { return rawValue }
     var parameters: [String: Any]? { return nil }
+
+}
+
+public extension Tracker {
+
+    static let screenViewEventName = "gnosis_screen_view"
+    static let screenNameEventParameterName = "screen_name"
+
+}
+
+public protocol ScreenTrackingEvent: Trackable {}
+
+public extension ScreenTrackingEvent {
+
+    var name: String { return Tracker.screenViewEventName }
+    var parameters: [String: Any]? { return [Tracker.screenNameEventParameterName: rawValue] }
+
 }
