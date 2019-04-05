@@ -60,7 +60,7 @@ open class Tracker {
         parameters?.forEach { joinedParameters[$0.key] = $0.value }
         let trackedParameters: [String: Any]? = joinedParameters.isEmpty ? nil : joinedParameters
         for handler in trackingHandlers {
-            handler.track(event: event.name, parameters: trackedParameters)
+            handler.track(event: event.eventName, parameters: trackedParameters)
         }
     }
 
@@ -80,15 +80,15 @@ public protocol TrackingHandler: class {
 public protocol Trackable {
     // Raw value of the enum (String)
     var rawValue: String { get }
-    // Event name for tracking. Default value is the `rawValue`
-    var name: String { get }
+    // Event type for tracking. Default value is `rawValue`
+    var eventName: String { get }
     // Parameters to supply with the event. Default value is `nil`.
     var parameters: [String: Any]? { get }
 }
 
 public extension Trackable {
 
-    var name: String { return rawValue }
+    var eventName: String { return rawValue }
     var parameters: [String: Any]? { return nil }
 
 }
@@ -104,7 +104,7 @@ public protocol ScreenTrackingEvent: Trackable {}
 
 public extension ScreenTrackingEvent {
 
-    var name: String { return Tracker.screenViewEventName }
+    var eventName: String { return Tracker.screenViewEventName }
     var parameters: [String: Any]? { return [Tracker.screenNameEventParameterName: rawValue] }
 
 }
