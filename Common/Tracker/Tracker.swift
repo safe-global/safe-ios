@@ -49,6 +49,16 @@ open class Tracker {
         trackingHandlers.append(handler)
     }
 
+
+    /// Deletes a handler, if it is registered. If not, this operation does nothing.
+    ///
+    /// - Parameter handler: previously registered handler
+    open func remove(handler: TrackingHandler) {
+        if let handlerIndex = trackingHandlers.firstIndex(where: { $0 === handler }) {
+            trackingHandlers.remove(at: handlerIndex)
+        }
+    }
+
     /// Propagates the tracked event to all registered event handlers.
     ///
     /// - Parameters:

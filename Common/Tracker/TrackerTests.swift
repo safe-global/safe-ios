@@ -52,6 +52,12 @@ class TrackerTests: XCTestCase {
         XCTAssertNil(event.parameters)
     }
 
+    func test_whenRemovingHandler_thenRemovesIt() {
+        tracker.remove(handler: handler)
+        tracker.track(event: TestEvent.test)
+        XCTAssertTrue(handler.events.isEmpty)
+    }
+
 }
 
 enum TestEvent: String, Trackable, Equatable {
