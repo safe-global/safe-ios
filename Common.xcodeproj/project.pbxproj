@@ -67,6 +67,8 @@
 		0AD077A021A2F3DE00DF1757 /* DataProtectionAwareCSQLite3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779F21A2F3DE00DF1757 /* DataProtectionAwareCSQLite3.swift */; };
 		0AD1D1E421A8482800941EA1 /* Data+Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D1E321A8482800941EA1 /* Data+Padding.swift */; };
 		0AEF8A2C20A0814F006A1265 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */; };
+		0AF4F50C225CEDB00051F68B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F50A225CEDB00051F68B /* LaunchScreen.storyboard */; };
+		0AF4F50D225CEDB00051F68B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F50B225CEDB00051F68B /* Main.storyboard */; };
 		0AFFF41320809AA10030200C /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41220809AA10030200C /* FoundationExtensions.swift */; };
 		0AFFF41520809BBE0030200C /* Assertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41420809BBE0030200C /* Assertable.swift */; };
 		0AFFF41720809D040030200C /* FoundationExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41620809D040030200C /* FoundationExtensionsTests.swift */; };
@@ -254,6 +256,8 @@
 		0AD0779F21A2F3DE00DF1757 /* DataProtectionAwareCSQLite3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProtectionAwareCSQLite3.swift; sourceTree = "<group>"; };
 		0AD1D1E321A8482800941EA1 /* Data+Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Padding.swift"; sourceTree = "<group>"; };
 		0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		0AF4F50A225CEDB00051F68B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0AF4F50B225CEDB00051F68B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0AFFF41220809AA10030200C /* FoundationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 		0AFFF41420809BBE0030200C /* Assertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertable.swift; sourceTree = "<group>"; };
 		0AFFF41620809D040030200C /* FoundationExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensionsTests.swift; sourceTree = "<group>"; };
@@ -487,6 +491,8 @@
 		0A934D5020B711F400F15616 /* CommonIntegration */ = {
 			isa = PBXGroup;
 			children = (
+				0AF4F50A225CEDB00051F68B /* LaunchScreen.storyboard */,
+				0AF4F50B225CEDB00051F68B /* Main.storyboard */,
 				0A934D5120B711F400F15616 /* AppDelegate.swift */,
 				0A934D5320B711F400F15616 /* ViewController.swift */,
 				0A934D5820B711F600F15616 /* Assets.xcassets */,
@@ -787,7 +793,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AF4F50D225CEDB00051F68B /* Main.storyboard in Resources */,
 				0A934D5920B711F600F15616 /* Assets.xcassets in Resources */,
+				0AF4F50C225CEDB00051F68B /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
