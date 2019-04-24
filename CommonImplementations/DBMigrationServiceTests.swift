@@ -49,7 +49,7 @@ class DBMigrationServiceTests: XCTestCase {
         let migration = CreateUserTableMigration()
         service.register(migration)
 
-        service.migrate()
+        try service.migrate()
 
         XCTAssertEqual(repository.findLatest(), migration)
 
@@ -107,7 +107,7 @@ class DBMigrationServiceTests: XCTestCase {
         }
         service.register(RenameAccountTable())
 
-        service.migrate()
+        try! service.migrate()
 
         // Other changes to a table require re-creating the table and migrating the data.
         // SQLite v3.24.0 on iOS 12 does not support RENAME COLUMN TO syntax (added in v3.25.0)
@@ -136,7 +136,7 @@ class DBMigrationServiceTests: XCTestCase {
         }
         service.register(RemoveTimestampChangeBalanceTypeAccount())
 
-        service.migrate()
+        try! service.migrate()
 
         class RenameAccountTableAgain: Migration {
 
@@ -152,7 +152,7 @@ class DBMigrationServiceTests: XCTestCase {
         }
         service.register(RenameAccountTableAgain())
 
-        service.migrate()
+        try! service.migrate()
 
         let results = try! db.execute(sql: "SELECT id, balance FROM tbl_accounts;") { rs -> Account? in
             guard let id: String = rs["id"], let balance: Int = rs["balance"] else { return nil }

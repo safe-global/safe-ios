@@ -94,10 +94,10 @@ public class DBMigrationService {
         repository.register(migration: migration)
     }
 
-    public func migrate() {
+    public func migrate() throws {
         let pendingMigrations = repository.pendingMigrations()
         guard !pendingMigrations.isEmpty else { return }
-        try! repository.executeInTransaction { connection in
+        try repository.executeInTransaction { connection in
             for migration in pendingMigrations {
                 try migration.setUp(connection: connection)
                 repository.save(migration, connection: connection)
