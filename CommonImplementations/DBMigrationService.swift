@@ -57,8 +57,12 @@ public class DBMigrationRepository: DBEntityRepository<Migration, MigrationID> {
 
     public func pendingMigrations() -> [Migration] {
         let migrations = self.migrations.sorted { $0.id.id < $1.id.id }
-        if let latest = findLatest(), let index = migrations.firstIndex(of: latest), index + 1 < migrations.count {
-            return Array(migrations[index + 1 ..< migrations.count])
+        if let latestInDB = findLatest(), let index = migrations.firstIndex(of: latestInDB) {
+            if index < migrations.count - 1 {
+                return Array(migrations[index + 1 ..< migrations.count])
+            } else {
+                return []
+            }
         }
         return migrations
     }
@@ -102,6 +106,12 @@ public class DBMigrationService {
                 try migration.setUp(connection: connection)
                 repository.save(migration, connection: connection)
             }
+        }
+    }
+
+    public func skipMigraionsBeforeAndIncluding(_ migration: Migration) throws {
+        try repository.executeInTransaction { connection in
+            repository.save(migration, connection: connection)
         }
     }
 
