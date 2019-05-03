@@ -58,4 +58,13 @@ public struct TokenData: Equatable, Hashable {
         return address == other.address
     }
 
+    public func withNonNegativeBalance() -> TokenData {
+        return TokenData(address: address,
+                         code: code,
+                         name: name,
+                         logoURL: logoURL?.absoluteString ?? "",
+                         decimals: decimals,
+                         balance: balance != nil ? abs(balance!) : nil)
+    }
+
 }
