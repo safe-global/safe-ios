@@ -95,7 +95,7 @@ public class SQLiteResultSet: ResultSet {
     /// Returns Data at specified column index (0-based). Index must be within `0..<columnCount`.
     ///
     /// - Parameter index: index of a column in the result set
-    /// - Returns: Data or nil
+    /// - Returns: Int or nil
     public func int(at index: Int) -> Int? {
         assertIndex(index)
         guard sqlite.sqlite3_column_type(stmt, Int32(index)) != CSQLite3.SQLITE_NULL else { return nil }
@@ -110,7 +110,22 @@ public class SQLiteResultSet: ResultSet {
     /// Returns Data at specified column index (0-based). Index must be within `0..<columnCount`.
     ///
     /// - Parameter index: index of a column in the result set
-    /// - Returns: Data or nil
+    /// - Returns: Bool or nil
+    public func bool(at index: Int) -> Bool? {
+        assertIndex(index)
+        guard sqlite.sqlite3_column_type(stmt, Int32(index)) != CSQLite3.SQLITE_NULL else { return nil }
+        return Int(sqlite.sqlite3_column_int64(stmt, Int32(index))) != 0
+    }
+
+    public func bool(column: String) -> Bool? {
+        guard let index = columnIndexes[column] else { return nil }
+        return bool(at: index)
+    }
+
+    /// Returns Data at specified column index (0-based). Index must be within `0..<columnCount`.
+    ///
+    /// - Parameter index: index of a column in the result set
+    /// - Returns: Double or nil
     public func double(at index: Int) -> Double? {
         assertIndex(index)
         guard sqlite.sqlite3_column_type(stmt, Int32(index)) != CSQLite3.SQLITE_NULL else { return nil }

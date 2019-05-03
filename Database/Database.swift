@@ -236,6 +236,15 @@ public protocol ResultSet: class {
     subscript(index: Int) -> Int? { get }
     subscript(column: String) -> Int? { get }
 
+    /// Fetch value at column `index` as boolean
+    ///
+    /// - Parameter index: 0-based column index
+    /// - Returns: Value converted to boolean, or nil if the value is NULL
+    func bool(at index: Int) -> Bool?
+    func bool(column: String) -> Bool?
+    subscript(index: Int) -> Bool? { get }
+    subscript(column: String) -> Bool? { get }
+
     /// Fetch value at column `index` as double
     ///
     /// - Parameter index: 0-based column index
@@ -264,6 +273,7 @@ extension Int: SQLBindable {}
 extension Double: SQLBindable {}
 extension String: SQLBindable {}
 extension Data: SQLBindable {}
+extension Bool: SQLBindable {}
 
 
 public extension Statement {
@@ -279,6 +289,7 @@ public extension Statement {
             case let double as Double: try set(double, at: index)
             case let string as String: try set(string, at: index)
             case let data as Data: try set(data, at: index)
+            case let bool as Bool: try set(bool == false ? 0 : 1, at: index)
             default: preconditionFailure("Unrecognized SQLBindable type at index \(index - 1)")
             }
         }
@@ -295,6 +306,7 @@ public extension Statement {
             case let double as Double: try set(double, forKey: key)
             case let string as String: try set(string, forKey: key)
             case let data as Data: try set(data, forKey: key)
+            case let bool as Bool: try set(bool == false ? 0 : 1, forKey: key)
             default: preconditionFailure("Unrecognized SQLBindable type for key \(key)")
             }
         }
@@ -394,6 +406,10 @@ public extension ResultSet {
         return int(at: index)
     }
 
+    subscript(index: Int) -> Bool? {
+        return bool(at: index)
+    }
+
     subscript(index: Int) -> String? {
         return string(at: index)
     }
@@ -408,6 +424,10 @@ public extension ResultSet {
 
     subscript(column: String) -> Int? {
         return int(column: column)
+    }
+
+    subscript(column: String) -> Bool? {
+        return bool(column: column)
     }
 
     subscript(column: String) -> String? {

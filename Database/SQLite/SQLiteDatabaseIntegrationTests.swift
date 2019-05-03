@@ -56,6 +56,7 @@ class SQLiteDatabaseIntegrationTests: XCTestCase {
     struct Test: Hashable {
         var id: Int
         var val: String
+        var bool: Bool
     }
 
     func test_query() throws {
@@ -63,17 +64,22 @@ class SQLiteDatabaseIntegrationTests: XCTestCase {
         try db.destroy()
         try db.create()
         let conn = try db.connection()
-        let stmt = try conn.prepare(statement: "CREATE TABLE tbl_test (id INTEGER PRIMARY KEY, val TEXT);")
+        let stmt =
+            try conn.prepare(statement: "CREATE TABLE tbl_test (id INTEGER PRIMARY KEY, val TEXT, bool BOOLEAN);")
         try stmt.execute()
-        let stmt1 = try conn.prepare(statement: "INSERT INTO tbl_test VALUES (1, 'test');")
+        let stmt1 = try conn.prepare(statement: "INSERT INTO tbl_test VALUES (1, 'test', 1);")
         try stmt1.execute()
-        let stmt2 = try conn.prepare(statement: "SELECT id, val FROM tbl_test;")
-        if let rs = try stmt2.execute() {
+        let stmt2 = try conn.prepare(statement: "INSERT INTO tbl_test VALUES (-2, NULL, 0);")
+        try stmt2.execute()
+        let stmt3 = try conn.prepare(statement: "SELECT id, val, bool FROM tbl_test ORDER BY bool DESC;")
+        if let rs = try stmt3.execute() {
             var results = [Test]()
             while try rs.advanceToNextRow() {
-                results.append(Test(id: rs.int(at: 0) ?? -1, val: rs.string(at: 1) ?? "NULL"))
+                results.append(Test(id: rs.int(at: 0) ?? -1,
+                                    val: rs.string(at: 1) ?? "NULL",
+                                    bool: rs.bool(at: 2) ?? false))
             }
-            XCTAssertEqual(results, [Test(id: 1, val: "test")])
+            XCTAssertEqual(results, [Test(id: 1, val: "test", bool: true), Test(id: -2, val: "NULL", bool: false)])
         } else {
             XCTFail("Results are missing")
         }

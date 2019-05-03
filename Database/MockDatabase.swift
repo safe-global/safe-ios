@@ -254,6 +254,16 @@ public class MockResultSet: ResultSet {
         return resultSet[currentRow][index] as? Int
     }
 
+    /// Appends "rs.int(index)" to the trace with actual value of the `index` argument.
+    /// Returns value at current row at the specified index optionally unwrapped as a Bool.
+    ///
+    /// - Parameter index: index of an item in the current row
+    /// - Returns: value unwrapped as an Int, or nil if unwrapping fails.
+    public func bool(at index: Int) -> Bool? {
+        trace.append("rs.bool(\(index))")
+        return resultSet[currentRow][index] as? Bool
+    }
+
     /// Appends "rs.double(index)" to the trace with actual value of the `index` argument.
     /// Returns value at current row at the specified index optionally unwrapped as a Double.
     ///
@@ -269,6 +279,10 @@ public class MockResultSet: ResultSet {
     }
 
     public func int(column: String) -> Int? {
+        return nil
+    }
+
+    public func bool(column: String) -> Bool? {
         return nil
     }
 
