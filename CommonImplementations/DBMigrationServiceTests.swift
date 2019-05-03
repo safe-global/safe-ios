@@ -81,7 +81,7 @@ class DBMigrationServiceTests: XCTestCase {
 
     func test_skipsMigrations() {
         createAccountsTable()
-        try! service.skipMigraionsBeforeAndIncluding(RenameAccountTable())
+        try! service.skipMigrationsBeforeAndIncluding(RenameAccountTable())
         service.register(AddUpdatedAtColumnToAccount())
         service.register(RenameAccountTable())
         service.register(Rename2AccountTable())
