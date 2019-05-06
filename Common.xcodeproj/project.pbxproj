@@ -31,7 +31,6 @@
 		0A3FADF8207B505E00F0D214 /* AbstractRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */; };
 		0A4FAF3521B8190200E9BBC2 /* DBEntityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FAF3421B8190200E9BBC2 /* DBEntityRepository.swift */; };
 		0A4FAF4021B8197D00E9BBC2 /* TableSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FAF3F21B8197D00E9BBC2 /* TableSchema.swift */; };
-		0A4FAF4421B819BB00E9BBC2 /* BaseID+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4FAF4221B819BA00E9BBC2 /* BaseID+Serialization.swift */; };
 		0A7812C221CD2106004F6D27 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7812C121CD2106004F6D27 /* Dispatch.swift */; };
 		0A8E3BA320B419E000F002F6 /* libCommonImplementations.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8E3B9220B419CC00F002F6 /* libCommonImplementations.a */; };
 		0A8E3BAD20B41AAF00F002F6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E3BAC20B41AAF00F002F6 /* Logger.swift */; };
@@ -59,7 +58,6 @@
 		0AAA734B21B81A7C00F4AB7A /* DBSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA734A21B81A7C00F4AB7A /* DBSerializable.swift */; };
 		0AAA735421B81AEF00F4AB7A /* DBMigrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA735221B81AEE00F4AB7A /* DBMigrationService.swift */; };
 		0AAA735721B81C0900F4AB7A /* DBMigrationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA735121B81AEE00F4AB7A /* DBMigrationServiceTests.swift */; };
-		0AAA736121B820F800F4AB7A /* Date+DBSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA736021B820F800F4AB7A /* Date+DBSerializable.swift */; };
 		0AAA736221B8270900F4AB7A /* libDatabase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A160B9220A07FE100E064E1 /* libDatabase.a */; };
 		0AB0B565216384C200FB2435 /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556251D7214677CE00F569EE /* TokenData.swift */; };
 		0AD0779C21A2CDFC00DF1757 /* FileSystemGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0779B21A2CDFC00DF1757 /* FileSystemGuard.swift */; };
@@ -212,7 +210,6 @@
 		0A3FADF6207B505B00F0D214 /* AbstractRegistryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRegistryTests.swift; sourceTree = "<group>"; };
 		0A4FAF3421B8190200E9BBC2 /* DBEntityRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBEntityRepository.swift; sourceTree = "<group>"; };
 		0A4FAF3F21B8197D00E9BBC2 /* TableSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSchema.swift; sourceTree = "<group>"; };
-		0A4FAF4221B819BA00E9BBC2 /* BaseID+Serialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseID+Serialization.swift"; sourceTree = "<group>"; };
 		0A7812C121CD2106004F6D27 /* Dispatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		0A8E3B9220B419CC00F002F6 /* libCommonImplementations.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommonImplementations.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A8E3B9E20B419E000F002F6 /* CommonImplementationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CommonImplementationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -243,7 +240,6 @@
 		0AAA734A21B81A7C00F4AB7A /* DBSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBSerializable.swift; sourceTree = "<group>"; };
 		0AAA735121B81AEE00F4AB7A /* DBMigrationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBMigrationServiceTests.swift; sourceTree = "<group>"; };
 		0AAA735221B81AEE00F4AB7A /* DBMigrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBMigrationService.swift; sourceTree = "<group>"; };
-		0AAA736021B820F800F4AB7A /* Date+DBSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+DBSerializable.swift"; sourceTree = "<group>"; };
 		0AB0B5662163853100FB2435 /* CommonConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = CommonConfig.xcconfig; sourceTree = "<group>"; };
 		0AB19C5E20CAA22B00A87E31 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0AB19C5F20CAA23600A87E31 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -450,8 +446,6 @@
 				55327B792226A8AB00277B15 /* Tracker */,
 				0AB19C6020CAA24100A87E31 /* README.md */,
 				0A8E3BE320B41BF700F002F6 /* CommonImplementationsConfig.xcconfig */,
-				0A4FAF4221B819BA00E9BBC2 /* BaseID+Serialization.swift */,
-				0AAA736021B820F800F4AB7A /* Date+DBSerializable.swift */,
 				0A4FAF3F21B8197D00E9BBC2 /* TableSchema.swift */,
 				0A4FAF3421B8190200E9BBC2 /* DBEntityRepository.swift */,
 				0AAA734A21B81A7C00F4AB7A /* DBSerializable.swift */,
@@ -906,8 +900,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AAA736121B820F800F4AB7A /* Date+DBSerializable.swift in Sources */,
-				0A4FAF4421B819BB00E9BBC2 /* BaseID+Serialization.swift in Sources */,
 				0A179C912256672A00C60138 /* ConsoleTracker.swift in Sources */,
 				0A4FAF3521B8190200E9BBC2 /* DBEntityRepository.swift in Sources */,
 				0A8E3BD020B41B0800F002F6 /* LogService.swift in Sources */,
