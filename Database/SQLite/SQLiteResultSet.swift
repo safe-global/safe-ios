@@ -112,9 +112,7 @@ public class SQLiteResultSet: ResultSet {
     /// - Parameter index: index of a column in the result set
     /// - Returns: Bool or nil
     public func bool(at index: Int) -> Bool? {
-        assertIndex(index)
-        guard sqlite.sqlite3_column_type(stmt, Int32(index)) != CSQLite3.SQLITE_NULL else { return nil }
-        return Int(sqlite.sqlite3_column_int64(stmt, Int32(index))) != 0
+        return int(at: index) != 0
     }
 
     public func bool(column: String) -> Bool? {
