@@ -49,6 +49,14 @@ extension Int: DBSerializable {
 
 }
 
+extension Double: DBSerializable {
+
+    public var serializedValue: SQLBindable {
+        return self
+    }
+
+}
+
 extension Date: DBSerializable {
 
     public var serializedValue: SQLBindable {
