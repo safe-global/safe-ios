@@ -36,7 +36,7 @@ open class DBEntityRepository<T: IdentifiableEntity<U>, U: BaseID> {
                                          resultMap: objectFromResultSet))
     }
 
-    open func find(key: String, value: String, orderBy: String) -> [T] {
+    open func find(key: String, value: SQLBindable, orderBy: String) -> [T] {
         return try! unwrapped(db.execute(sql: table.findSQL(key: key, orderBy: orderBy),
                                          bindings: [value],
                                          resultMap: objectFromResultSet))
