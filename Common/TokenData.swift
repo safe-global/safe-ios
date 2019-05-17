@@ -9,17 +9,17 @@ import BigInt
 public struct TokenData: Equatable, Hashable {
 
     /// Ethereum address of the token
-    public var address: String
+    public let address: String
     /// Short abbreviation code of the token name
-    public var code: String
+    public let code: String
     /// Full name of the token
-    public var name: String
+    public let name: String
     /// Image URL of the token
-    public var logoURL: URL?
+    public let logoURL: URL?
     /// Maximum number of digits after the decimal point
-    public var decimals: Int
+    public let decimals: Int
     /// Account balance of the token measured in token units
-    public var balance: BigInt?
+    public let balance: BigInt?
 
     public static let Ether = TokenData(address: "0x0000000000000000000000000000000000000000",
                                         code: "ETH",
