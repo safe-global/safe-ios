@@ -45,7 +45,7 @@ public struct TokenData: Equatable, Hashable {
         return address == "0x0" || address == "0x0000000000000000000000000000000000000000"
     }
 
-    public func withBalance(_ balance: BigInt) -> TokenData {
+    public func withBalance(_ balance: BigInt?) -> TokenData {
         return TokenData(address: address,
                          code: code,
                          name: name,
