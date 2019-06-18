@@ -129,8 +129,11 @@ public class JSONHTTPClient {
         var data = result.data ?? Data()
 
         if (400...499).contains(httpResponse.statusCode) {
+            let requestBody = request.httpBody == nil ? "<null>" :
+                (String(data: request.httpBody!, encoding: .utf8) ?? "<empty>")
             let userInfo: [String: Any] = [NSLocalizedDescriptionKey: "URL request client error",
                                            "request": request,
+                                           "requestBody": requestBody,
                                            "response": httpResponse,
                                            "responseBody": String(data: data, encoding: .utf8) ?? "<empty>"]
             let error = NSError(domain: "JSONHTTPClient", code: httpResponse.statusCode, userInfo: userInfo)
