@@ -42,6 +42,10 @@ class CrashlyticsLoggerTests: XCTestCase {
 
 class MockCrashlytics: CrashlyticsProtocol {
 
+    func setUserIdentifier(_ identifier: String?) {
+        // empty
+    }
+
     var loggedError: Error?
 
     func recordError(_ error: Error) {

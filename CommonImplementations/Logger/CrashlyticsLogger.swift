@@ -6,11 +6,6 @@ import Foundation
 import Crashlytics
 import Common
 
-/// Protocol for enabling logger tests
-protocol CrashlyticsProtocol {
-    func recordError(_ error: Error)
-}
-
 /// Implements Crashlytics error logging. Logs are send to Crashlytics if log message contains non-nil `error` argument.
 final class CrashlyticsLogger: LogWriter {
 
