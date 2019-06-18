@@ -77,11 +77,13 @@ public class JSONHTTPClient {
     ///     - JSONDecoder error in case response could not be decoded properly
     ///     - Network errors are rethrown (URLSession errors, for example)
     @discardableResult
-    public func execute<T: JSONRequest>(request: T) throws -> T.ResponseType {
+    public func execute<T: JSONRequest>(request: T, skipLoggingStatus code: Int? = nil) throws -> T.ResponseType {
         logger?.debug("Preparing to send \(request)")
         let urlRequest = try self.urlRequest(from: request)
         let result = send(urlRequest)
-        let response: T.ResponseType = try self.response(from: urlRequest, result: result)
+        let response: T.ResponseType = try self.response(from: urlRequest,
+                                                         result: result,
+                                                         skipLoggingStatus: code)
         return response
     }
 
@@ -116,7 +118,9 @@ public class JSONHTTPClient {
         return result
     }
 
-    private func response<T: Decodable>(from request: URLRequest, result: URLDataTaskResult) throws -> T {
+    private func response<T: Decodable>(from request: URLRequest,
+                                        result: URLDataTaskResult,
+                                        skipLoggingStatus skippedCode: Int? = nil) throws -> T {
         if let data = result.data, let rawResponse = String(data: data, encoding: .utf8) {
             logger?.debug(rawResponse)
         }
@@ -137,7 +141,11 @@ public class JSONHTTPClient {
                                            "response": httpResponse,
                                            "responseBody": String(data: data, encoding: .utf8) ?? "<empty>"]
             let error = NSError(domain: "JSONHTTPClient", code: httpResponse.statusCode, userInfo: userInfo)
-            logger?.error("Request failed", error: error)
+
+            if httpResponse.statusCode != skippedCode {
+                logger?.error("Request failed", error: error)
+            }
+
             throw error
         }
         guard (200...299).contains(httpResponse.statusCode) else {
