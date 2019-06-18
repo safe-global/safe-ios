@@ -68,6 +68,7 @@
 		0AEF8A2C20A0814F006A1265 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */; };
 		0AF4F50C225CEDB00051F68B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F50A225CEDB00051F68B /* LaunchScreen.storyboard */; };
 		0AF4F50D225CEDB00051F68B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F50B225CEDB00051F68B /* Main.storyboard */; };
+		0AF8EB0022B92A9500CA770E /* CrashlyticsTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8EAFF22B92A9500CA770E /* CrashlyticsTrackingHandler.swift */; };
 		0AFFF41320809AA10030200C /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41220809AA10030200C /* FoundationExtensions.swift */; };
 		0AFFF41520809BBE0030200C /* Assertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41420809BBE0030200C /* Assertable.swift */; };
 		0AFFF41720809D040030200C /* FoundationExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF41620809D040030200C /* FoundationExtensionsTests.swift */; };
@@ -256,6 +257,7 @@
 		0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0AF4F50A225CEDB00051F68B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AF4F50B225CEDB00051F68B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0AF8EAFF22B92A9500CA770E /* CrashlyticsTrackingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlyticsTrackingHandler.swift; sourceTree = "<group>"; };
 		0AFFF41220809AA10030200C /* FoundationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 		0AFFF41420809BBE0030200C /* Assertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertable.swift; sourceTree = "<group>"; };
 		0AFFF41620809D040030200C /* FoundationExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensionsTests.swift; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 			children = (
 				55327B7A2226A8FB00277B15 /* FirebaseTrackingHandler.swift */,
 				0A179C902256672A00C60138 /* ConsoleTracker.swift */,
+				0AF8EAFF22B92A9500CA770E /* CrashlyticsTrackingHandler.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -915,6 +918,7 @@
 				0A934D3620B7042300F15616 /* KeychainService.swift in Sources */,
 				55327B7B2226A8FB00277B15 /* FirebaseTrackingHandler.swift in Sources */,
 				0AAA735421B81AEF00F4AB7A /* DBMigrationService.swift in Sources */,
+				0AF8EB0022B92A9500CA770E /* CrashlyticsTrackingHandler.swift in Sources */,
 				0A8E3BCC20B41B0800F002F6 /* LogFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
