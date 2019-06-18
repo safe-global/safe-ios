@@ -77,13 +77,11 @@ public class JSONHTTPClient {
     ///     - JSONDecoder error in case response could not be decoded properly
     ///     - Network errors are rethrown (URLSession errors, for example)
     @discardableResult
-    public func execute<T: JSONRequest>(request: T, skipLoggingStatus code: Int? = nil) throws -> T.ResponseType {
+    public func execute<T: JSONRequest>(request: T) throws -> T.ResponseType {
         logger?.debug("Preparing to send \(request)")
         let urlRequest = try self.urlRequest(from: request)
         let result = send(urlRequest)
-        let response: T.ResponseType = try self.response(from: urlRequest,
-                                                         result: result,
-                                                         skipLoggingStatus: code)
+        let response: T.ResponseType = try self.response(from: urlRequest, result: result)
         return response
     }
 
@@ -118,38 +116,16 @@ public class JSONHTTPClient {
         return result
     }
 
-    private func response<T: Decodable>(from request: URLRequest,
-                                        result: URLDataTaskResult,
-                                        skipLoggingStatus skippedCode: Int? = nil) throws -> T {
+    private func response<T: Decodable>(from request: URLRequest, result: URLDataTaskResult) throws -> T {
         if let data = result.data, let rawResponse = String(data: data, encoding: .utf8) {
             logger?.debug(rawResponse)
         }
         if let error = result.error {
             throw error
         }
-        guard let httpResponse = result.response as? HTTPURLResponse else {
-            throw Error.networkRequestFailed(request, result.response, nil)
-        }
-        var data = result.data ?? Data()
-
-        if (400...499).contains(httpResponse.statusCode) {
-            let requestBody = request.httpBody == nil ? "<null>" :
-                (String(data: request.httpBody!, encoding: .utf8) ?? "<empty>")
-            let userInfo: [String: Any] = [NSLocalizedDescriptionKey: "URL request client error",
-                                           "request": request,
-                                           "requestBody": requestBody,
-                                           "response": httpResponse,
-                                           "responseBody": String(data: data, encoding: .utf8) ?? "<empty>"]
-            let error = NSError(domain: "JSONHTTPClient", code: httpResponse.statusCode, userInfo: userInfo)
-
-            if httpResponse.statusCode != skippedCode {
-                logger?.error("Request failed", error: error)
-            }
-
-            throw error
-        }
-        guard (200...299).contains(httpResponse.statusCode) else {
-            throw Error.networkRequestFailed(request, result.response, result.data)
+        guard let httpResponse = result.response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode),
+            var data = result.data else {
+                throw Error.networkRequestFailed(request, result.response, result.data)
         }
         if data.isEmpty {
             data = "{}".data(using: .utf8)!
