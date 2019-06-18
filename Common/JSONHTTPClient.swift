@@ -123,9 +123,22 @@ public class JSONHTTPClient {
         if let error = result.error {
             throw error
         }
-        guard let httpResponse = result.response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode),
-            var data = result.data else {
-                throw Error.networkRequestFailed(request, result.response, result.data)
+        guard let httpResponse = result.response as? HTTPURLResponse else {
+            throw Error.networkRequestFailed(request, result.response, nil)
+        }
+        var data = result.data ?? Data()
+
+        if (400...499).contains(httpResponse.statusCode) {
+            let userInfo: [String: Any] = [NSLocalizedDescriptionKey: "URL request client error",
+                                           "request": request,
+                                           "response": httpResponse,
+                                           "responseBody": String(data: data, encoding: .utf8) ?? "<empty>"]
+            let error = NSError(domain: "JSONHTTPClient", code: httpResponse.statusCode, userInfo: userInfo)
+            logger?.error("Request failed", error: error)
+            throw error
+        }
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw Error.networkRequestFailed(request, result.response, result.data)
         }
         if data.isEmpty {
             data = "{}".data(using: .utf8)!
