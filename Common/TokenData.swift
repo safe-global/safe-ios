@@ -69,23 +69,14 @@ public struct TokenData: Equatable, Hashable {
 
 }
 
-public extension Optional where Wrapped == BigInt {
+public func subtract(_ lhs: BigInt?, _ rhs: TokenData) -> BigInt? {
+    guard let balance = lhs, let value = rhs.balance else { return  nil }
+    return balance - value
+}
 
-    static func -(lhs: BigInt?, rhs: TokenData) -> BigInt? {
-        guard let balance = lhs, let value = rhs.balance else { return  nil }
-        return balance - value
-    }
-
-    static func -(lhs: BigInt?, rhs: BigInt?) -> BigInt? {
-        guard let lhs = lhs, let rhs = rhs else { return  nil }
-        return lhs - rhs
-    }
-
-    static func -=(lhs: inout BigInt?, rhs: TokenData) {
-        // swiftlint:disable shorthand_operator
-        lhs = lhs - rhs
-    }
-
+public func subtract(_ lhs: BigInt?, _ rhs: BigInt?) -> BigInt? {
+    guard let lhs = lhs, let rhs = rhs else { return  nil }
+    return lhs - rhs
 }
 
 public func abs(_ value: BigInt?) -> BigInt? {
