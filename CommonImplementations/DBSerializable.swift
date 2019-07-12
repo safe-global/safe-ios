@@ -69,3 +69,11 @@ extension Date: DBSerializable {
     }
 
 }
+
+extension Data: DBSerializable {
+
+    public var serializedValue: SQLBindable {
+        return self
+    }
+
+}
