@@ -39,17 +39,8 @@ public extension DateFormatter {
 /// Synchronous http client that sends JSON requests and receives JSON responses.
 public class JSONHTTPClient {
 
-    /// Client error
-    ///
-    /// - networkRequestFailed: network request failed for some reason. Provided are request, response and data values.
-    public enum Error: Swift.Error {
-        case networkRequestFailed(URLRequest, URLResponse?, Data?)
-    }
-
-    private typealias URLDataTaskResult = (data: Data?, response: URLResponse?, error: Swift.Error?)
-
-    private let baseURL: URL
     private let logger: Logger?
+    private let client: HTTPClient
 
     private lazy var jsonEncoder: JSONEncoder = {
         let encoder = JSONEncoder()
@@ -58,13 +49,21 @@ public class JSONHTTPClient {
         return encoder
     }()
 
+    private struct Request: HTTPRequest {
+        var httpMethod: String
+        var urlPath: String
+        var query: String?
+        var body: Data?
+        var headers: [String: String]
+    }
+
     /// Creates new client with baseURL and logger
     ///
     /// - Parameters:
     ///   - url: base url for creating all request urls
     ///   - logger: logger for debugging and error purposes
     public init(url: URL, logger: Logger? = nil) {
-        baseURL = url
+        client = HTTPClient(url: url, logger: logger)
         self.logger = logger
     }
 
@@ -73,66 +72,35 @@ public class JSONHTTPClient {
     /// - Parameter request: a request to send
     /// - Returns: response
     /// - Throws:
-    ///     - `JSONHTTPClient.Error.networkRequestFailed` in case request fails
+    ///     - `HTTPClient.Error.networkRequestFailed` in case request fails
     ///     - JSONDecoder error in case response could not be decoded properly
     ///     - Network errors are rethrown (URLSession errors, for example)
     @discardableResult
-    public func execute<T: JSONRequest>(request: T) throws -> T.ResponseType {
-        logger?.debug("Preparing to send \(request)")
-        let urlRequest = try self.urlRequest(from: request)
-        let result = send(urlRequest)
-        let response: T.ResponseType = try self.response(from: urlRequest, result: result)
-        return response
+    public func execute<T: JSONRequest>(request jsonRequest: T) throws -> T.ResponseType {
+        let request = try self.request(from: jsonRequest)
+        let data = try client.execute(request: request)
+        return try response(from: data)
     }
 
-    private func urlRequest<T: JSONRequest>(from jsonRequest: T) throws -> URLRequest {
-        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)!
-        urlComponents.path = jsonRequest.urlPath
-        urlComponents.query = jsonRequest.query
-        var request = URLRequest(url: urlComponents.url!)
-        request.httpMethod = jsonRequest.httpMethod
-        if jsonRequest.httpMethod != "GET" {
-            request.httpBody = try jsonEncoder.encode(jsonRequest)
-            if let str = String(data: request.httpBody!, encoding: .utf8) {
-                logger?.debug(str)
-            }
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        }
-        return request
+    private func request<T: JSONRequest>(from request: T) throws -> Request {
+        let requestData = request.httpMethod != "GET" ? (try jsonEncoder.encode(request)) : nil
+        let requestHeaders = request.httpMethod != "GET" ? ["Content-Type": "application/json"] : [:]
+        let httpRequest = Request(httpMethod: request.httpMethod,
+                                  urlPath: request.urlPath,
+                                  query: request.query,
+                                  body: requestData,
+                                  headers: requestHeaders)
+        return httpRequest
     }
 
-    private func send(_ request: URLRequest) -> URLDataTaskResult {
-        var result: URLDataTaskResult!
-        let semaphore = DispatchSemaphore(value: 0)
-        logger?.debug("Sending request \(request)")
-
-        let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
-            result = (data, response, error)
-            semaphore.signal()
-        }
-        dataTask.resume()
-        semaphore.wait()
-        logger?.debug("Received response \(result!)")
-        return result
-    }
-
-    private func response<T: Decodable>(from request: URLRequest, result: URLDataTaskResult) throws -> T {
-        if let data = result.data, let rawResponse = String(data: data, encoding: .utf8) {
-            logger?.debug(rawResponse)
-        }
-        if let error = result.error {
-            throw error
-        }
-        guard let httpResponse = result.response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode),
-            var data = result.data else {
-                throw Error.networkRequestFailed(request, result.response, result.data)
-        }
-        if data.isEmpty {
-            data = "{}".data(using: .utf8)!
+    private func response<T: Decodable>(from data: Data) throws -> T {
+        var json = data
+        if json.isEmpty {
+            json = "{}".data(using: .utf8)!
         }
         let response: T
         do {
-            response = try JSONDecoder().decode(T.self, from: data)
+            response = try JSONDecoder().decode(T.self, from: json)
         } catch let error {
             logger?.error("Failed to decode response: \(error)")
             throw error
