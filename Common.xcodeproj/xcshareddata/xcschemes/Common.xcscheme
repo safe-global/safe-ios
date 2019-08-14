@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
-   version = "1.3">
+   LastUpgradeVersion = "1100"
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0A3FADDA207B501F00F0D214"
-               BuildableName = "libCommon.a"
+               BlueprintIdentifier = "0A0592E7230418D500E71A60"
+               BuildableName = "Common.framework"
                BlueprintName = "Common"
-               ReferencedContainer = "container:Common.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0AC1757F207B73A90016320A"
-               BuildableName = "libCommonTestSupport.a"
-               BlueprintName = "CommonTestSupport"
                ReferencedContainer = "container:Common.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -41,29 +27,12 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0A3FADEA207B504F00F0D214"
-               BuildableName = "CommonTests.xctest"
-               BlueprintName = "CommonTests"
-               ReferencedContainer = "container:Common.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0A3FADDA207B501F00F0D214"
-            BuildableName = "libCommon.a"
-            BlueprintName = "Common"
-            ReferencedContainer = "container:Common.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:CommonTests/Common.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -75,17 +44,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0A3FADDA207B501F00F0D214"
-            BuildableName = "libCommon.a"
-            BlueprintName = "Common"
-            ReferencedContainer = "container:Common.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -96,8 +54,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0A3FADDA207B501F00F0D214"
-            BuildableName = "libCommon.a"
+            BlueprintIdentifier = "0A0592E7230418D500E71A60"
+            BuildableName = "Common.framework"
             BlueprintName = "Common"
             ReferencedContainer = "container:Common.xcodeproj">
          </BuildableReference>

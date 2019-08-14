@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "86B015BA-F99D-4596-A825-7C00DB9E7191",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Common.xcodeproj",
+        "identifier" : "0A05933C230418E900E71A60",
+        "name" : "DatabaseTests"
+      }
+    }
+  ],
+  "version" : 1
+}

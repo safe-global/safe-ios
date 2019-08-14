@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "6FF170DF-1243-4130-A39F-343EFD76435C",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Common.xcodeproj",
+        "identifier" : "0A0592EF230418D500E71A60",
+        "name" : "CommonTests"
+      }
+    }
+  ],
+  "version" : 1
+}

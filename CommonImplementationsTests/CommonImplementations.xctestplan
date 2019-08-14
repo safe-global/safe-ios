@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "C84D082E-3A4E-43D1-99FA-D2FB0546D6D9",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Common.xcodeproj",
+        "identifier" : "0A059362230418F200E71A60",
+        "name" : "CommonImplementationsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -8,4 +8,4 @@ FRAMEWORK_SEARCH_PATHS=$(inherited) ${WORKSPACE_LIB_PATH} ${LIBRARY_DIR}/Firebas
 LIBRARY_SEARCH_PATHS=$(inherited) ${WORKSPACE_LIB_PATH}
 HEADER_SEARCH_PATHS=$(inherited) ${WORKSPACE_LIB_PATH}/include
 FIREBASE_ANALYTICS_FRAMEWORKS=-framework "FirebaseAnalytics" -framework "FIRAnalyticsConnector" -framework "FirebaseCoreDiagnostics" -framework "FirebaseCore" -framework "FirebaseInstanceID" -framework "GoogleAppMeasurement" -framework "GoogleUtilities" -framework "nanopb"
-OTHER_LDFLAGS=$(inherited) -framework "Crashlytics" -framework "Fabric" ${FIREBASE_ANALYTICS_FRAMEWORKS}
+OTHER_LDFLAGS=$(inherited) -framework "Crashlytics" -framework "Fabric" ${FIREBASE_ANALYTICS_FRAMEWORKS} -ObjC -lsqlite3 -all_load
