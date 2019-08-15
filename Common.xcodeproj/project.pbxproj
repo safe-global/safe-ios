@@ -1229,6 +1229,11 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-lsecp256k1",
+					"-lcrypto",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.Common;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1262,6 +1267,11 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-lsecp256k1",
+					"-lcrypto",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.Common;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1295,6 +1305,11 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-lsecp256k1",
+					"-lcrypto",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.Common;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1327,6 +1342,11 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-lsecp256k1",
+					"-lcrypto",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.Common;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
