@@ -102,6 +102,7 @@
 		0A05944D23043A7600E71A60 /* Database.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A059335230418E800E71A60 /* Database.framework */; };
 		0A05945123043A9E00E71A60 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A05945023043A9E00E71A60 /* libsqlite3.tbd */; };
 		0A05945223043AB800E71A60 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */; };
+		0A2ACC02232A37DF0054D1D1 /* DBAbstractRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ACC01232A37DF0054D1D1 /* DBAbstractRepository.swift */; };
 		0A84C24D23053CF30006DA50 /* CrashlyticsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0593AB23041A0F00E71A60 /* CrashlyticsProtocol.swift */; };
 		0A934D5220B711F400F15616 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A934D5120B711F400F15616 /* AppDelegate.swift */; };
 		0A934D5420B711F400F15616 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A934D5320B711F400F15616 /* ViewController.swift */; };
@@ -329,6 +330,7 @@
 		0A0594382304380C00E71A60 /* CommonImplementations.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CommonImplementations.xctestplan; sourceTree = "<group>"; };
 		0A05945023043A9E00E71A60 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 		0A160BC620A0804500E064E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A2ACC01232A37DF0054D1D1 /* DBAbstractRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBAbstractRepository.swift; sourceTree = "<group>"; };
 		0A934D4F20B711F400F15616 /* CommonIntegration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommonIntegration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A934D5120B711F400F15616 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A934D5320B711F400F15616 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 			children = (
 				0A0593B123041A0F00E71A60 /* CommonImplementationsConfig.xcconfig */,
 				0A0593B923041A0F00E71A60 /* DBEntityRepository.swift */,
+				0A2ACC01232A37DF0054D1D1 /* DBAbstractRepository.swift */,
 				0A0593B823041A0F00E71A60 /* DBMigrationService.swift */,
 				0A0593B723041A0F00E71A60 /* DBSerializable.swift */,
 				0A0593AA23041A0F00E71A60 /* Logger */,
@@ -1103,6 +1106,7 @@
 				0A0593BF23041A0F00E71A60 /* CrashlyticsLogger.swift in Sources */,
 				0A0593C523041A0F00E71A60 /* CrashlyticsTrackingHandler.swift in Sources */,
 				0A0593C023041A0F00E71A60 /* ConsoleLogger.swift in Sources */,
+				0A2ACC02232A37DF0054D1D1 /* DBAbstractRepository.swift in Sources */,
 				0A0593C823041A0F00E71A60 /* DBSerializable.swift in Sources */,
 				0A0593C223041A0F00E71A60 /* TableSchema.swift in Sources */,
 				0A0593CA23041A0F00E71A60 /* DBEntityRepository.swift in Sources */,
