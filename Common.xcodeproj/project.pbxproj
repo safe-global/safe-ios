@@ -96,7 +96,6 @@
 		0A0594372304264F00E71A60 /* Database.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A059335230418E800E71A60 /* Database.framework */; };
 		0A0594392304382D00E71A60 /* CommonTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A05930F230418DF00E71A60 /* CommonTestSupport.framework */; };
 		0A05943A230438C200E71A60 /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0592E8230418D500E71A60 /* Common.framework */; };
-		0A05943B230438C200E71A60 /* Common.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0592E8230418D500E71A60 /* Common.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0A0594432304391F00E71A60 /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0592E8230418D500E71A60 /* Common.framework */; };
 		0A05944C23043A7600E71A60 /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0592E8230418D500E71A60 /* Common.framework */; };
 		0A05944D23043A7600E71A60 /* Database.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A059335230418E800E71A60 /* Database.framework */; };
@@ -215,17 +214,6 @@
 				0A0594342304262500E71A60 /* Database.framework in Embed Frameworks */,
 				0A0592FE230418D500E71A60 /* Common.framework in Embed Frameworks */,
 				0A059325230418DF00E71A60 /* CommonTestSupport.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0A05943E230438C200E71A60 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				0A05943B230438C200E71A60 /* Common.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -799,7 +787,6 @@
 				0A059357230418F200E71A60 /* Sources */,
 				0A059358230418F200E71A60 /* Frameworks */,
 				0A059359230418F200E71A60 /* Resources */,
-				0A05943E230438C200E71A60 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
