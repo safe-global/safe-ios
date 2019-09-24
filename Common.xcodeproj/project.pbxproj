@@ -108,6 +108,7 @@
 		0A934D5920B711F600F15616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A934D5820B711F600F15616 /* Assets.xcassets */; };
 		0AF4F50C225CEDB00051F68B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F50A225CEDB00051F68B /* LaunchScreen.storyboard */; };
 		0AF4F50D225CEDB00051F68B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F50B225CEDB00051F68B /* Main.storyboard */; };
+		552D42DE233A09FB00C57B5C /* WalletData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552D42DD233A09FB00C57B5C /* WalletData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -329,6 +330,7 @@
 		0AEF8A2B20A0814F006A1265 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0AF4F50A225CEDB00051F68B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AF4F50B225CEDB00051F68B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		552D42DD233A09FB00C57B5C /* WalletData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -432,6 +434,7 @@
 				0A059390230419FE00E71A60 /* WeakWrapper.swift */,
 				0A0592EA230418D500E71A60 /* Common.h */,
 				0A0592EB230418D500E71A60 /* Info.plist */,
+				552D42DD233A09FB00C57B5C /* WalletData.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1013,6 +1016,7 @@
 				0A05939D230419FF00E71A60 /* TimeProfiler.swift in Sources */,
 				0A0593A1230419FF00E71A60 /* BaseID.swift in Sources */,
 				0A0593A6230419FF00E71A60 /* WeakWrapper.swift in Sources */,
+				552D42DE233A09FB00C57B5C /* WalletData.swift in Sources */,
 				0A0593A9230419FF00E71A60 /* HTTPClient.swift in Sources */,
 				0A05939A230419FF00E71A60 /* MockLogger.swift in Sources */,
 				0A059396230419FF00E71A60 /* Data+Padding.swift in Sources */,
