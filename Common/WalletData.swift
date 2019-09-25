@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct WalletData {
+public struct WalletData: Equatable {
 
     public enum State {
         case pending
