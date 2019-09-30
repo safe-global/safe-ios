@@ -13,3 +13,13 @@ public class WeakWrapper {
     }
 
 }
+
+public class TypedWeakWrapper<T: AnyObject> {
+
+    public weak var ref: T?
+
+    public init (_ ref: T?) {
+        self.ref = ref
+    }
+
+}
