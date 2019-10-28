@@ -84,8 +84,12 @@ public struct TableSchema {
         return values.joined(separator: ", ")
     }
 
-    public func findSQL(key: String, orderBy: String) -> String {
-        return "SELECT \(fieldNameList) FROM \(tableName) WHERE \(key) = ? ORDER BY \(orderBy);"
+    public func findSQL(key: String, caseSensitive: Bool, orderBy: String) -> String {
+        if caseSensitive {
+            return "SELECT \(fieldNameList) FROM \(tableName) WHERE \(key) = ? ORDER BY \(orderBy);"
+        } else {
+            return "SELECT \(fieldNameList) FROM \(tableName) WHERE \(key) = ? COLLATE NOCASE ORDER BY \(orderBy);"
+        }
     }
 
 }
