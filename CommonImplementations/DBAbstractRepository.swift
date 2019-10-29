@@ -50,7 +50,7 @@ open class DBAbstractRepository<T> {
         return try! first(of: db.execute(sql: table.findFirstSQL, resultMap: objectFromResultSet))
     }
 
-    open func find(key: String, value: SQLBindable, caseSensitive: Bool, orderBy: String) -> [T] {
+    open func find(key: String, value: SQLBindable, caseSensitive: Bool = true, orderBy: String) -> [T] {
         return try! unwrapped(db.execute(sql: table.findSQL(key: key, caseSensitive: caseSensitive, orderBy: orderBy),
                                          bindings: [value],
                                          resultMap: objectFromResultSet))
