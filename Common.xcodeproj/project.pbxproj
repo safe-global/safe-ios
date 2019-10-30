@@ -1221,7 +1221,6 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = (
-					"-lsecp256k1",
 					"-lcrypto",
 					"-all_load",
 				);
@@ -1260,7 +1259,6 @@
 				);
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = (
-					"-lsecp256k1",
 					"-lcrypto",
 					"-all_load",
 				);
@@ -1299,7 +1297,6 @@
 				);
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = (
-					"-lsecp256k1",
 					"-lcrypto",
 					"-all_load",
 				);
@@ -1337,7 +1334,6 @@
 				);
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = (
-					"-lsecp256k1",
 					"-lcrypto",
 					"-all_load",
 				);
