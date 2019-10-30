@@ -16,6 +16,16 @@ open class Migration: IdentifiableEntity<MigrationID> {
 
     open func setUp(connection: Connection) throws {}
 
+    // based on https://www.sqlite.org/faq.html#q11
+    public func deleteColumns(connection: Connection, newTableSchema: TableSchema, tableName: String) throws {
+        assert(newTableSchema.tableName != tableName, "newTableSchema should have a unique temporary name")
+        try connection.execute(sql: newTableSchema.createTableSQL)
+        try connection.execute(sql: "INSERT INTO \(newTableSchema.tableName) " +
+            "SELECT \(newTableSchema.fieldNameList) FROM \(tableName);")
+        try connection.execute(sql: "DROP TABLE \(tableName);")
+        try connection.execute(sql: "ALTER TABLE \(newTableSchema.tableName) RENAME TO \(tableName);")
+    }
+
 }
 
 public class DBMigrationRepository: DBEntityRepository<Migration, MigrationID> {
