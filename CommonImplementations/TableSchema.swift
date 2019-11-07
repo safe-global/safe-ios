@@ -65,7 +65,7 @@ public struct TableSchema {
     }
 
     public var findAllSQL: String {
-        return "SELECT \(fieldNameList) FROM \(tableName);"
+        return "SELECT \(fieldNameList) FROM \(tableName) ORDER BY rowid;"
     }
 
     public var fieldDeclarationList: String {
