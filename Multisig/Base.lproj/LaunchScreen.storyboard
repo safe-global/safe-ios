@@ -6,6 +6,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Averta-Regular.otf">
+            <string>Averta-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -16,14 +21,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchscreen-logo" translatesAutoresizingMaskIntoConstraints="NO" id="1gs-g6-Bnu">
-                                <rect key="frame" x="157" y="223" width="100" height="153"/>
+                                <rect key="frame" x="157" y="221.33333333333337" width="100" height="153"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsV-rr-BVs">
-                                <rect key="frame" x="48.666666666666657" y="401.33333333333331" width="317" height="93.333333333333314"/>
+                                <rect key="frame" x="35.333333333333343" y="399.66666666666669" width="343.33333333333326" height="96.666666666666686"/>
                                 <string key="text">The most trusted platform to
-store digital assets on
-Ethereum</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+store digital assets
+on Ethereum</string>
+                                <fontDescription key="fontDescription" name="Averta-Regular" family="Averta" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
