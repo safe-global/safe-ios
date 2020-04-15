@@ -9,8 +9,24 @@
 import SwiftUI
 
 struct SafeSelector: View {
+    var height: CGFloat = 116
+
     var body: some View {
-        Text("No Safe loaded")
+        HStack(spacing: 0) {
+            Image("safe-selector-not-selected-icon")
+                .padding()
+            Text("No Safe loaded")
+                .font(Font.gnoBody.weight(.semibold))
+                .foregroundColor(Color.gnoMediumGrey)
+            Spacer()
+        }
+        .frame(height: height, alignment: .bottom)
+        .background(
+            Rectangle()
+                .foregroundColor(Color.gnoSnowwhite)
+                .cardShadowTooltip()
+        )
+
     }
 }
 
