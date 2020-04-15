@@ -26,7 +26,6 @@ struct SafeSelector: View {
                 .foregroundColor(Color.gnoSnowwhite)
                 .cardShadowTooltip()
         )
-
     }
 }
 

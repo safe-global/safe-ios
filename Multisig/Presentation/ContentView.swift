@@ -15,9 +15,11 @@ struct ContentView: View {
  
     var body: some View {
         VStack(spacing: 0) {
+
             selector.zIndex(1)
 
             TabView(selection: $selection){
+
                 AddSafeIntro()
                     .padding(.top, -selector.height)
                     .tabItem {
@@ -37,6 +39,7 @@ struct ContentView: View {
                         }
                 }
                 .tag(1)
+
                 Text("Settings")
                     .font(.gnoNormal)
                     .tabItem {
@@ -46,11 +49,12 @@ struct ContentView: View {
                         }
                 }
                 .tag(2)
+
             }
             .accentColor(.gnoHold)
 
-        }.edgesIgnoringSafeArea(.top)
-
+        }
+        .edgesIgnoringSafeArea(.top)
     }
 }
 

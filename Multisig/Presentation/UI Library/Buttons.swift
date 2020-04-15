@@ -8,9 +8,7 @@
 
 import SwiftUI
 
-
 struct GNOFilledButtonStyle: ButtonStyle {
-
     var width: CGFloat? = nil
 
     func makeBody(configuration: Configuration) -> some View {
@@ -23,11 +21,9 @@ struct GNOFilledButtonStyle: ButtonStyle {
             .cornerRadius(10)
             .cardShadowTooltip()
     }
-
 }
 
 struct GNOBorderedButtonStyle: ButtonStyle {
-
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
@@ -42,18 +38,15 @@ struct GNOBorderedButtonStyle: ButtonStyle {
     func color(_ configuration: Configuration) -> Color {
         configuration.isPressed ? Color.gnoDarkBlue.opacity(0.7) : .gnoDarkBlue
     }
-
 }
 
 struct GNOPlainButtonStyle: ButtonStyle {
-
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
             .font(Font.gnoBody.bold())
             .foregroundColor(configuration.isPressed ? Color.gnoHoldTwo : .gnoHold)
     }
-
 }
 
 struct Buttons_Previews: PreviewProvider {

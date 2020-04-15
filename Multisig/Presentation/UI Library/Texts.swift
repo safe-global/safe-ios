@@ -9,7 +9,6 @@
 import SwiftUI
 
 extension Font {
-
     static let gnoHeadline = system(size: 17, weight: .semibold)
     static let gnoSubhead = system(size: 15, weight: .bold)
     static let gnoTitle3 = system(size: 20)
@@ -19,5 +18,4 @@ extension Font {
     static let gnoCaption1 = system(size: 12)
     static let gnoCaption2 = system(size: 10, weight: .bold)
     static let gnoFootnote = system(size: 13)
-
 }

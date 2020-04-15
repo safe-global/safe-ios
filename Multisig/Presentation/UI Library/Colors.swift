@@ -9,7 +9,6 @@
 import SwiftUI
 
 extension Color {
-
     static let gnoBlack15 = Color("black15")
     static let gnoCardShadow = Color("cardShadow")
     static let gnoCardShadowPassword = Color("cardShadowPassword")
@@ -32,7 +31,6 @@ extension Color {
     static let gnoWhite = Color("white")
     static let gnoWhitesmoke = Color("whitesmoke")
     static let gnoWhitesmokeTwo = Color("whitesmokeTwo")
-
 }
 
 extension View {
