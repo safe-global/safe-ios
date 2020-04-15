@@ -17,10 +17,14 @@
 		0A93DD712445CC8C00688050 /* MultisigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD702445CC8C00688050 /* MultisigTests.swift */; };
 		0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DDAA244604A400688050 /* Averta-Regular.otf */; };
 		0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDAD2446062F00688050 /* SafeSelector.swift */; };
-		0A93DDB02446072900688050 /* AddSafeIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDAF2446072900688050 /* AddSafeIntro.swift */; };
+		0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDAF2446072900688050 /* AddSafeIntroView.swift */; };
 		0A93DDB32446080000688050 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB22446080000688050 /* Colors.swift */; };
 		0A93DDB924461C1400688050 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB824461C1400688050 /* Texts.swift */; };
 		0A93DDBB24461F4800688050 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDBA24461F4800688050 /* Buttons.swift */; };
+		0AF64F9A24474AA30018D070 /* EnterSafeAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */; };
+		0AF64FA0244752E50018D070 /* EnterSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */; };
+		0AF64FA22447591A0018D070 /* AddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9B24474EA00018D070 /* AddressInput.swift */; };
+		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,10 +52,14 @@
 		0A93DD722445CC8C00688050 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A93DDAA244604A400688050 /* Averta-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Averta-Regular.otf"; sourceTree = "<group>"; };
 		0A93DDAD2446062F00688050 /* SafeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeSelector.swift; sourceTree = "<group>"; };
-		0A93DDAF2446072900688050 /* AddSafeIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeIntro.swift; sourceTree = "<group>"; };
+		0A93DDAF2446072900688050 /* AddSafeIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeIntroView.swift; sourceTree = "<group>"; };
 		0A93DDB22446080000688050 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0A93DDB824461C1400688050 /* Texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texts.swift; sourceTree = "<group>"; };
 		0A93DDBA24461F4800688050 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressView.swift; sourceTree = "<group>"; };
+		0AF64F9B24474EA00018D070 /* AddressInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInput.swift; sourceTree = "<group>"; };
+		0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameView.swift; sourceTree = "<group>"; };
+		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,8 +136,7 @@
 			children = (
 				0A93DD8B244603DB00688050 /* UI Library */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
-				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
-				0A93DDAF2446072900688050 /* AddSafeIntro.swift */,
+				0AF64FA3244759B80018D070 /* Add Safe */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -140,8 +147,21 @@
 				0A93DDB22446080000688050 /* Colors.swift */,
 				0A93DDB824461C1400688050 /* Texts.swift */,
 				0A93DDBA24461F4800688050 /* Buttons.swift */,
+				0AF64F9B24474EA00018D070 /* AddressInput.swift */,
+				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
 			);
 			path = "UI Library";
+			sourceTree = "<group>";
+		};
+		0AF64FA3244759B80018D070 /* Add Safe */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DDAF2446072900688050 /* AddSafeIntroView.swift */,
+				0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */,
+				0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */,
+				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
+			);
+			path = "Add Safe";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,15 +266,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
-				0A93DDB02446072900688050 /* AddSafeIntro.swift in Sources */,
+				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
+				0AF64FA0244752E50018D070 /* EnterSafeNameView.swift in Sources */,
 				0A93DDB924461C1400688050 /* Texts.swift in Sources */,
+				0AF64F9A24474AA30018D070 /* EnterSafeAddressView.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
 				0A93DD5C2445CC8A00688050 /* Multisig.xcdatamodeld in Sources */,
+				0AF64FA22447591A0018D070 /* AddressInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct GNOFilledButtonStyle: ButtonStyle {
-    var width: CGFloat? = nil
+    var width: CGFloat? = 270
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -36,7 +36,8 @@ struct GNOBorderedButtonStyle: ButtonStyle {
     }
 
     func color(_ configuration: Configuration) -> Color {
-        configuration.isPressed ? Color.gnoDarkBlue.opacity(0.7) : .gnoDarkBlue
+        configuration.isPressed ?
+            Color.gnoDarkBlue.opacity(0.7) : .gnoDarkBlue
     }
 }
 
@@ -45,7 +46,8 @@ struct GNOPlainButtonStyle: ButtonStyle {
         configuration.label
             .padding()
             .font(Font.gnoBody.bold())
-            .foregroundColor(configuration.isPressed ? Color.gnoHoldTwo : .gnoHold)
+            .foregroundColor(
+                configuration.isPressed ? Color.gnoHoldTwo : .gnoHold)
     }
 }
 
