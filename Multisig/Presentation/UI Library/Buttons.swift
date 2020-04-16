@@ -45,7 +45,8 @@ struct GNOPlainButtonStyle: ButtonStyle {
         configuration.label
             .padding()
             .font(Font.gnoBody.bold())
-            .foregroundColor(configuration.isPressed ? Color.gnoHoldTwo : .gnoHold)
+            .foregroundColor(
+                configuration.isPressed ? Color.gnoHoldTwo : .gnoHold)
     }
 }
 

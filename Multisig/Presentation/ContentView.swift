@@ -20,7 +20,7 @@ struct ContentView: View {
 
             TabView(selection: $selection){
 
-                AddSafeIntro()
+                AddSafeIntroView()
                     .padding(.top, -selector.height)
                     .tabItem {
                         VStack {
