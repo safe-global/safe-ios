@@ -3,17 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0FEB08D038979527D7229A16893F1120 /* BlockiesSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF41C0727FE6A6FEC40D457F045033EE /* BlockiesSwift-dummy.m */; };
 		4B5352A0B40C7FD9B3CB414E56B41350 /* Blockies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3757105F93FB6CDE5B9A28CF94ABE8D4 /* Blockies.swift */; };
-		4D551970A3CCE3B4AFE1CC4B72640424 /* Pods-Multisig-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 45DE1E8232980E82E499ED528CD08993 /* Pods-Multisig-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		4D551970A3CCE3B4AFE1CC4B72640424 /* Pods-Multisig-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0266BAB3EBAB1B475127E497F95E6785 /* Pods-Multisig-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5BB0CF8E9142256C4C0A26F8DFEBEA8B /* UIImage+Blockies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAE9B6E8A2E29C1B10302B55F931 /* UIImage+Blockies.swift */; };
 		72A301287327AA65B4CF9C2AF16CF619 /* BlockiesSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2334979DE823FE5CDB5A0B157E54D6EA /* BlockiesSwift-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		832F6598B32ED9110F738877BEA4CB1E /* Pods-Multisig-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B092ECB75C18B3F827A1223E76B0325C /* Pods-Multisig-dummy.m */; };
+		832F6598B32ED9110F738877BEA4CB1E /* Pods-Multisig-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D6006883E6A125656C349A90FB96C060 /* Pods-Multisig-dummy.m */; };
 		CC5715DDA538E2AAB4C08400450FACFC /* Color+HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285784B38B02FB733BB9F8A15339C11E /* Color+HSL.swift */; };
+		FAF5D69F4F5F5BF4F31274F24C6673E8 /* Pods-MultisigTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BA60F10749905BC3616338FF8D812B7 /* Pods-MultisigTests-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,29 +25,44 @@
 			remoteGlobalIDString = 4DC7EBCF557BEB4BAEAD22CFC7E37C1F;
 			remoteInfo = BlockiesSwift;
 		};
+		E69E5E5534FF9BC69C1321EC29A21056 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C22AEFF017BDA5AA1736D4C3B9283AD;
+			remoteInfo = "Pods-Multisig";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0266BAB3EBAB1B475127E497F95E6785 /* Pods-Multisig-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Multisig-umbrella.h"; sourceTree = "<group>"; };
+		0B86DCAFB43C86668F11BF65689AC28C /* libPods-MultisigTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-MultisigTests.a"; path = "libPods-MultisigTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E23B917BD6ADF0C035C956F5B60357 /* BlockiesSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = BlockiesSwift.modulemap; path = ../../Headers/Public/BlockiesSwift/BlockiesSwift.modulemap; sourceTree = "<group>"; };
 		2334979DE823FE5CDB5A0B157E54D6EA /* BlockiesSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "BlockiesSwift-umbrella.h"; path = "../../Headers/Public/BlockiesSwift/BlockiesSwift-umbrella.h"; sourceTree = "<group>"; };
-		2636D37CD63831F258B70CF015E67BB5 /* Pods-Multisig-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Multisig-frameworks.sh"; sourceTree = "<group>"; };
 		285784B38B02FB733BB9F8A15339C11E /* Color+HSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Color+HSL.swift"; path = "BlockiesSwift/Classes/Toolbox/Color+HSL.swift"; sourceTree = "<group>"; };
-		30144839F99191F0389A9E0C2AC4450F /* libBlockiesSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlockiesSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BA60F10749905BC3616338FF8D812B7 /* Pods-MultisigTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MultisigTests-dummy.m"; sourceTree = "<group>"; };
+		34F29D87D0C64E6B7793128E482A6088 /* Pods-MultisigTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MultisigTests-frameworks.sh"; sourceTree = "<group>"; };
 		3757105F93FB6CDE5B9A28CF94ABE8D4 /* Blockies.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Blockies.swift; path = BlockiesSwift/Classes/Blockies.swift; sourceTree = "<group>"; };
-		3C6A1048C0C1A513A3B29C96A58B8CEA /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
-		45DE1E8232980E82E499ED528CD08993 /* Pods-Multisig-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Multisig-umbrella.h"; sourceTree = "<group>"; };
+		391BF9E29E439A107F055095570D84B1 /* Pods-MultisigTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MultisigTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		4435743CCDAF753D753FFA3D82CA93F2 /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
 		473107BD4039080C512978BAD2E7DF1A /* BlockiesSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BlockiesSwift.xcconfig; sourceTree = "<group>"; };
-		5565610D7B8F33DDC915948649E0AF6F /* Pods-Multisig.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Multisig.modulemap"; sourceTree = "<group>"; };
-		6ADD37E0CA3C88494DAA27C29DFE90F3 /* Pods-Multisig-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Multisig-acknowledgements.plist"; sourceTree = "<group>"; };
 		6AF1BAE9B6E8A2E29C1B10302B55F931 /* UIImage+Blockies.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIImage+Blockies.swift"; path = "BlockiesSwift/Classes/UIImage+Blockies.swift"; sourceTree = "<group>"; };
-		71A9DAC08AC41C539A1FA5A7F881376D /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93828E4C4333D9CBE6BD1F1254A838EE /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9E70ED71C4BDD6ADB24EA7C8ED3E6FA8 /* Pods-Multisig-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Multisig-acknowledgements.plist"; sourceTree = "<group>"; };
 		A549795056A45ABA206D09B173CC65FD /* BlockiesSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BlockiesSwift-prefix.pch"; sourceTree = "<group>"; };
-		B092ECB75C18B3F827A1223E76B0325C /* Pods-Multisig-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Multisig-dummy.m"; sourceTree = "<group>"; };
-		B3A4B6B5EAF17A63DCFE4703DD3D95C1 /* Pods-Multisig-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Multisig-acknowledgements.markdown"; sourceTree = "<group>"; };
-		BA8D898A77555C70F28392E66E8D0FA9 /* libPods-Multisig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Multisig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6565DD6F5E649F8C1553F7282EEA0D8 /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
+		B11B26FC4635F00D3C80E4809CD12E74 /* Pods-MultisigTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MultisigTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		C814ED72BBF8F5729A447673AEBD8829 /* libPods-Multisig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Multisig.a"; path = "libPods-Multisig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEA406CE995278E6C96E16C675CB33FF /* Pods-MultisigTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MultisigTests-resources.sh"; sourceTree = "<group>"; };
 		CF41C0727FE6A6FEC40D457F045033EE /* BlockiesSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BlockiesSwift-dummy.m"; sourceTree = "<group>"; };
-		DAA59975A034FA14F48BEC82345D2EA1 /* Pods-Multisig-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Multisig-resources.sh"; sourceTree = "<group>"; };
+		D6006883E6A125656C349A90FB96C060 /* Pods-Multisig-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Multisig-dummy.m"; sourceTree = "<group>"; };
+		D8C499CDE8638A2E16FF5FC77AD58472 /* Pods-Multisig.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Multisig.modulemap"; sourceTree = "<group>"; };
+		E0CD5A840678108ECF5E7BB73552A457 /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E5464036DE5612806CF107243366C8A2 /* Pods-Multisig-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Multisig-frameworks.sh"; sourceTree = "<group>"; };
+		EC101BCE5962ABA1DB64E40E39EB7B86 /* libBlockiesSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libBlockiesSwift.a; path = libBlockiesSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED060D78C6B0C4877FC221B6B5BE2125 /* Pods-Multisig-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Multisig-resources.sh"; sourceTree = "<group>"; };
+		FD5BC31368780B243F4CE175381AD79D /* Pods-Multisig-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Multisig-acknowledgements.markdown"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +80,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8EACE7865B912538D6B169923F0543F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -74,6 +97,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		11DF7AD3562F8AF0394F57865E2374F4 /* Pods-Multisig */ = {
+			isa = PBXGroup;
+			children = (
+				D8C499CDE8638A2E16FF5FC77AD58472 /* Pods-Multisig.modulemap */,
+				FD5BC31368780B243F4CE175381AD79D /* Pods-Multisig-acknowledgements.markdown */,
+				9E70ED71C4BDD6ADB24EA7C8ED3E6FA8 /* Pods-Multisig-acknowledgements.plist */,
+				D6006883E6A125656C349A90FB96C060 /* Pods-Multisig-dummy.m */,
+				E5464036DE5612806CF107243366C8A2 /* Pods-Multisig-frameworks.sh */,
+				ED060D78C6B0C4877FC221B6B5BE2125 /* Pods-Multisig-resources.sh */,
+				0266BAB3EBAB1B475127E497F95E6785 /* Pods-Multisig-umbrella.h */,
+				A6565DD6F5E649F8C1553F7282EEA0D8 /* Pods-Multisig.debug.xcconfig */,
+				4435743CCDAF753D753FFA3D82CA93F2 /* Pods-Multisig.release.xcconfig */,
+			);
+			name = "Pods-Multisig";
+			path = "Target Support Files/Pods-Multisig";
+			sourceTree = "<group>";
+		};
 		2D923BF92ACEB39E570440D9A535A678 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,13 +122,38 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		5FEC24659C629EE8906223B9D91531C3 /* Products */ = {
+		30A57AEFA20CB68949E9B07316C7A12B /* Pods-MultisigTests */ = {
 			isa = PBXGroup;
 			children = (
-				30144839F99191F0389A9E0C2AC4450F /* libBlockiesSwift.a */,
-				BA8D898A77555C70F28392E66E8D0FA9 /* libPods-Multisig.a */,
+				391BF9E29E439A107F055095570D84B1 /* Pods-MultisigTests-acknowledgements.markdown */,
+				B11B26FC4635F00D3C80E4809CD12E74 /* Pods-MultisigTests-acknowledgements.plist */,
+				2BA60F10749905BC3616338FF8D812B7 /* Pods-MultisigTests-dummy.m */,
+				34F29D87D0C64E6B7793128E482A6088 /* Pods-MultisigTests-frameworks.sh */,
+				CEA406CE995278E6C96E16C675CB33FF /* Pods-MultisigTests-resources.sh */,
+				E0CD5A840678108ECF5E7BB73552A457 /* Pods-MultisigTests.debug.xcconfig */,
+				93828E4C4333D9CBE6BD1F1254A838EE /* Pods-MultisigTests.release.xcconfig */,
+			);
+			name = "Pods-MultisigTests";
+			path = "Target Support Files/Pods-MultisigTests";
+			sourceTree = "<group>";
+		};
+		4F3679BC4D7F5F693546EACD264BFBC2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC101BCE5962ABA1DB64E40E39EB7B86 /* libBlockiesSwift.a */,
+				C814ED72BBF8F5729A447673AEBD8829 /* libPods-Multisig.a */,
+				0B86DCAFB43C86668F11BF65689AC28C /* libPods-MultisigTests.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6E2583FB4400449559FFD4934134FEB0 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				11DF7AD3562F8AF0394F57865E2374F4 /* Pods-Multisig */,
+				30A57AEFA20CB68949E9B07316C7A12B /* Pods-MultisigTests */,
+			);
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -97,26 +162,9 @@
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */,
 				2D923BF92ACEB39E570440D9A535A678 /* Pods */,
-				5FEC24659C629EE8906223B9D91531C3 /* Products */,
-				F46B5981B5534DCB41EC2C44BD180C0A /* Targets Support Files */,
+				4F3679BC4D7F5F693546EACD264BFBC2 /* Products */,
+				6E2583FB4400449559FFD4934134FEB0 /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		D4953A697350B38C0548EA79C5626EFB /* Pods-Multisig */ = {
-			isa = PBXGroup;
-			children = (
-				5565610D7B8F33DDC915948649E0AF6F /* Pods-Multisig.modulemap */,
-				B3A4B6B5EAF17A63DCFE4703DD3D95C1 /* Pods-Multisig-acknowledgements.markdown */,
-				6ADD37E0CA3C88494DAA27C29DFE90F3 /* Pods-Multisig-acknowledgements.plist */,
-				B092ECB75C18B3F827A1223E76B0325C /* Pods-Multisig-dummy.m */,
-				2636D37CD63831F258B70CF015E67BB5 /* Pods-Multisig-frameworks.sh */,
-				DAA59975A034FA14F48BEC82345D2EA1 /* Pods-Multisig-resources.sh */,
-				45DE1E8232980E82E499ED528CD08993 /* Pods-Multisig-umbrella.h */,
-				71A9DAC08AC41C539A1FA5A7F881376D /* Pods-Multisig.debug.xcconfig */,
-				3C6A1048C0C1A513A3B29C96A58B8CEA /* Pods-Multisig.release.xcconfig */,
-			);
-			name = "Pods-Multisig";
-			path = "Target Support Files/Pods-Multisig";
 			sourceTree = "<group>";
 		};
 		EBD745473E222A70C868B57E624119F2 /* Support Files */ = {
@@ -132,14 +180,6 @@
 			path = "../Target Support Files/BlockiesSwift";
 			sourceTree = "<group>";
 		};
-		F46B5981B5534DCB41EC2C44BD180C0A /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				D4953A697350B38C0548EA79C5626EFB /* Pods-Multisig */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
 		FE7E6E3739885442225FE4EC81C02AEC /* BlockiesSwift */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +188,7 @@
 				6AF1BAE9B6E8A2E29C1B10302B55F931 /* UIImage+Blockies.swift */,
 				EBD745473E222A70C868B57E624119F2 /* Support Files */,
 			);
+			name = BlockiesSwift;
 			path = BlockiesSwift;
 			sourceTree = "<group>";
 		};
@@ -173,6 +214,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		36C8406645CDA955D9DB1DF1CF41B29B /* Pods-MultisigTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26B5564F3DC5971A8A160A51416135B6 /* Build configuration list for PBXNativeTarget "Pods-MultisigTests" */;
+			buildPhases = (
+				E2DD51060B4F1A3F4A35286FC50FFABE /* Sources */,
+				8EACE7865B912538D6B169923F0543F6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B94954F0F15B197FA0B7C099E7B100A5 /* PBXTargetDependency */,
+			);
+			name = "Pods-MultisigTests";
+			productName = "Pods-MultisigTests";
+			productReference = 0B86DCAFB43C86668F11BF65689AC28C /* libPods-MultisigTests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		3C22AEFF017BDA5AA1736D4C3B9283AD /* Pods-Multisig */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 46C2A45EF39E248953856BD3AD142C37 /* Build configuration list for PBXNativeTarget "Pods-Multisig" */;
@@ -188,7 +246,7 @@
 			);
 			name = "Pods-Multisig";
 			productName = "Pods-Multisig";
-			productReference = BA8D898A77555C70F28392E66E8D0FA9 /* libPods-Multisig.a */;
+			productReference = C814ED72BBF8F5729A447673AEBD8829 /* libPods-Multisig.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		4DC7EBCF557BEB4BAEAD22CFC7E37C1F /* BlockiesSwift */ = {
@@ -206,7 +264,7 @@
 			);
 			name = BlockiesSwift;
 			productName = BlockiesSwift;
-			productReference = 30144839F99191F0389A9E0C2AC4450F /* libBlockiesSwift.a */;
+			productReference = EC101BCE5962ABA1DB64E40E39EB7B86 /* libBlockiesSwift.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -216,23 +274,23 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 0930;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 5FEC24659C629EE8906223B9D91531C3 /* Products */;
+			productRefGroup = 4F3679BC4D7F5F693546EACD264BFBC2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				4DC7EBCF557BEB4BAEAD22CFC7E37C1F /* BlockiesSwift */,
 				3C22AEFF017BDA5AA1736D4C3B9283AD /* Pods-Multisig */,
+				36C8406645CDA955D9DB1DF1CF41B29B /* Pods-MultisigTests */,
 			);
 		};
 /* End PBXProject section */
@@ -257,6 +315,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "COMPATIBILITY_HEADER_PATH=\"${BUILT_PRODUCTS_DIR}/Swift Compatibility Header/${PRODUCT_MODULE_NAME}-Swift.h\"\nMODULE_MAP_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_MODULE_NAME}.modulemap\"\n\nditto \"${DERIVED_SOURCES_DIR}/${PRODUCT_MODULE_NAME}-Swift.h\" \"${COMPATIBILITY_HEADER_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/BlockiesSwift/BlockiesSwift.modulemap\" \"${MODULE_MAP_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/BlockiesSwift/BlockiesSwift-umbrella.h\" \"${BUILT_PRODUCTS_DIR}\"\nprintf \"\\n\\nmodule ${PRODUCT_MODULE_NAME}.Swift {\\n  header \\\"${COMPATIBILITY_HEADER_PATH}\\\"\\n  requires objc\\n}\\n\" >> \"${MODULE_MAP_PATH}\"\n";
+			showEnvVarsInLog = 1;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -280,9 +339,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E2DD51060B4F1A3F4A35286FC50FFABE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAF5D69F4F5F5BF4F31274F24C6673E8 /* Pods-MultisigTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B94954F0F15B197FA0B7C099E7B100A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-Multisig";
+			target = 3C22AEFF017BDA5AA1736D4C3B9283AD /* Pods-Multisig */;
+			targetProxy = E69E5E5534FF9BC69C1321EC29A21056 /* PBXContainerItemProxy */;
+		};
 		BBC37BB53574B6D4D1BC507DF38FE782 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = BlockiesSwift;
@@ -292,6 +365,29 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		090D1C48E237BA9CC901034B482495F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 93828E4C4333D9CBE6BD1F1254A838EE /* Pods-MultisigTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		177BB12D0FCD86CAF79E4C35015426B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -415,7 +511,7 @@
 		};
 		9D6A4BB4EFE5A07281840D941938A873 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C6A1048C0C1A513A3B29C96A58B8CEA /* Pods-Multisig.release.xcconfig */;
+			baseConfigurationReference = 4435743CCDAF753D753FFA3D82CA93F2 /* Pods-Multisig.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -464,6 +560,28 @@
 			};
 			name = Debug;
 		};
+		C1F37C910B8CFDFE2AA6E30A63D23BD0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E0CD5A840678108ECF5E7BB73552A457 /* Pods-MultisigTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		E33DDCA11FD8CD3227415ADA42189F63 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 473107BD4039080C512978BAD2E7DF1A /* BlockiesSwift.xcconfig */;
@@ -493,7 +611,7 @@
 		};
 		F3106F6C007A6DEEA24EBEF9E628F420 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71A9DAC08AC41C539A1FA5A7F881376D /* Pods-Multisig.debug.xcconfig */;
+			baseConfigurationReference = A6565DD6F5E649F8C1553F7282EEA0D8 /* Pods-Multisig.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -519,6 +637,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		26B5564F3DC5971A8A160A51416135B6 /* Build configuration list for PBXNativeTarget "Pods-MultisigTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1F37C910B8CFDFE2AA6E30A63D23BD0 /* Debug */,
+				090D1C48E237BA9CC901034B482495F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
