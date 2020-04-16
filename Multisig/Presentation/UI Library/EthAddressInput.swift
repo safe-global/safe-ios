@@ -13,6 +13,8 @@ struct EthAddressInput: View {
     @State var address: EthAddress?
     @State var isError = false
 
+    @State var showsActions = false
+
     var body: some View {
         HStack {
             // Note: SwiftUI does not support the 'if let'
@@ -39,6 +41,22 @@ struct EthAddressInput: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(isError ? Color.gnoTomato : .gnoWhitesmoke,
                         lineWidth: 2)
+        ).overlay(
+            Button(action: {
+                self.showsActions.toggle()
+            }, label: {
+                FullSize { Text("") }
+            })
+                .actionSheet(isPresented: self.$showsActions) {
+                ActionSheet(title: Text("Select how to enter address"),
+                            message: nil,
+                            buttons: [
+                    .default(Text("Paste From Clipboard")),
+                    .default(Text("Scan QR Code")),
+                    .default(Text("Enter ENS Name")),
+                    .cancel()
+                ])
+            }
         )
     }
 }

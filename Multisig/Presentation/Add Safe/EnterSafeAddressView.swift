@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EnterSafeAddressView: View {
 
-    var address: String?
+    var address: EthAddress?
 
     var body: some View {
         NavigationView {

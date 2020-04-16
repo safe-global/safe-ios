@@ -13,33 +13,21 @@ struct AddSafeIntroView: View {
     @State private var addSafeStarted = false
 
     var body: some View {
-        HStack {
-            Spacer()
-
-            VStack {
-
-                Spacer()
-
-                Text("Get started by loading your\nSafe Multisig")
-                    .padding()
-                    .font(.gnoTitle3)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.gnoDarkBlue)
+        FullSize {
+            Text("Get started by loading your\nSafe Multisig")
+                .padding()
+                .font(.gnoTitle3)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.gnoDarkBlue)
 
 
-                Button("Load Safe Multisig") {
-                    self.addSafeStarted = true
-                }
-                .buttonStyle(GNOFilledButtonStyle())
-                .sheet(isPresented: self.$addSafeStarted) {
-                    EnterSafeAddressView()
-                }
-
-                Spacer()
-
+            Button("Load Safe Multisig") {
+                self.addSafeStarted = true
             }
-
-            Spacer()
+            .buttonStyle(GNOFilledButtonStyle())
+            .sheet(isPresented: self.$addSafeStarted) {
+                EnterSafeAddressView()
+            }
         }
         .edgesIgnoringSafeArea(.all)
         .background(Color.gnoWhite)

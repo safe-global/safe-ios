@@ -28,6 +28,7 @@
 		0AF6500A24485E450018D070 /* EthIdenticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6500924485E450018D070 /* EthIdenticon.swift */; };
 		0AF650172448626C0018D070 /* EthAddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF650162448626C0018D070 /* EthAddressText.swift */; };
 		0AF650192448659B0018D070 /* EthAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF650182448659B0018D070 /* EthAddress.swift */; };
+		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
 		9982F1C834FC801EAD7BDFE8 /* libPods-Multisig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		0AF6500924485E450018D070 /* EthIdenticon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthIdenticon.swift; sourceTree = "<group>"; };
 		0AF650162448626C0018D070 /* EthAddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthAddressText.swift; sourceTree = "<group>"; };
 		0AF650182448659B0018D070 /* EthAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthAddress.swift; sourceTree = "<group>"; };
+		0AF6501A24488D280018D070 /* FullSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSize.swift; sourceTree = "<group>"; };
 		3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Multisig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD6D0510D7AE8BF83C2872E /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.xcconfig"; path = "Pods/Target Support Files/Pods-Multisig/Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
 		FEC2CA8BC55245DF88E5580F /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Multisig/Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
@@ -161,9 +163,10 @@
 				0A93DDB22446080000688050 /* Colors.swift */,
 				0A93DDB824461C1400688050 /* Texts.swift */,
 				0A93DDBA24461F4800688050 /* Buttons.swift */,
-				0AF64F9B24474EA00018D070 /* EthAddressInput.swift */,
+				0AF6501A24488D280018D070 /* FullSize.swift */,
 				0AF6500924485E450018D070 /* EthIdenticon.swift */,
 				0AF650162448626C0018D070 /* EthAddressText.swift */,
+				0AF64F9B24474EA00018D070 /* EthAddressInput.swift */,
 				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
 			);
 			path = "UI Library";
@@ -321,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AF6501B24488D280018D070 /* FullSize.swift in Sources */,
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				0AF6500A24485E450018D070 /* EthIdenticon.swift in Sources */,
 				0AF650192448659B0018D070 /* EthAddress.swift in Sources */,
