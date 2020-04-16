@@ -134,6 +134,7 @@ class QRCodeScannerViewController: UIViewController {
     
     func scannerDidScan(code: String) {
         self.delegate?.scannerViewControllerDidScan(code)
+        captureSession.stopRunning()
         dismiss(animated: true, completion: nil)
     }
 
@@ -146,7 +147,7 @@ extension QRCodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         let metadataObject = metadataObjects.first { (metaObject) -> Bool in
             guard let readableObject = metaObject as? AVMetadataMachineReadableCodeObject else { return false}
-            return readableObject.stringValue?.isEmpty ?? false && readableObject.type == .qr
+            return !(readableObject.stringValue?.isEmpty ?? false) && readableObject.type == .qr
         } as? AVMetadataMachineReadableCodeObject
         
         if let metadataObject = metadataObject {
