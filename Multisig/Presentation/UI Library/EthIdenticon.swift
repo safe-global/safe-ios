@@ -16,13 +16,13 @@ struct EthIdenticon: View {
     var blockSize: Int = 8
 
     var body: some View {
-
         GeometryReader { geometry in
             Image(uiImage:
-                Blockies(seed: self.address.checksummed,
-                         size: self.blockSize,
-                         scale: Int(geometry.size.width / CGFloat(self.blockSize)))
-                    .createImage()!
+                Blockies(
+                    seed: self.address.checksummed,
+                    size: self.blockSize,
+                    scale: Int(geometry.size.width / CGFloat(self.blockSize))
+                ).createImage()!
             ).clipShape(Circle())
         }
     }

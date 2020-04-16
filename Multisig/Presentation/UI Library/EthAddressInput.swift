@@ -41,23 +41,25 @@ struct EthAddressInput: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(isError ? Color.gnoTomato : .gnoWhitesmoke,
                         lineWidth: 2)
-        ).overlay(
-            Button(action: {
-                self.showsActions.toggle()
-            }, label: {
-                FullSize { Text("") }
-            })
-                .actionSheet(isPresented: self.$showsActions) {
-                ActionSheet(title: Text("Select how to enter address"),
-                            message: nil,
-                            buttons: [
-                    .default(Text("Paste From Clipboard")),
-                    .default(Text("Scan QR Code")),
-                    .default(Text("Enter ENS Name")),
-                    .cancel()
-                ])
-            }
-        )
+        ).overlay(button)
+    }
+
+    var button: some View {
+        Button(action: {
+            self.showsActions.toggle()
+        }, label: {
+            FullSize { Text("") }
+        })
+            .actionSheet(isPresented: self.$showsActions) {
+            ActionSheet(title: Text("Select how to enter address"),
+                        message: nil,
+                        buttons: [
+                .default(Text("Paste From Clipboard")),
+                .default(Text("Scan QR Code")),
+                .default(Text("Enter ENS Name")),
+                .cancel()
+            ])
+        }
     }
 }
 

@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct EthAddressText: View {
-
     var address: EthAddress
 
     var prefixLength: Int = 4
     var suffixLength: Int = 4
+
     var accentColor: Color = .gnoDarkBlue
     var baseColor: Color = .gnoMediumGrey
 
