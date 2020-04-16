@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QRCodeScannerViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="headerLabel" destination="0SR-B8-4pu" id="Lrr-Eq-gyQ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65d-DM-BCY">
+                    <rect key="frame" x="0.0" y="5" width="414" height="896"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4N-93-FGR">
+                    <rect key="frame" x="181" y="790" width="52" height="52"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="N4N-93-FGR" secondAttribute="height" multiplier="1:1" id="gyL-0J-vCj"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" image="ico-close"/>
+                    <connections>
+                        <action selector="closeButtonTouched:" destination="-1" eventType="touchUpInside" id="yPM-5M-9iI"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SR-B8-4pu">
+                    <rect key="frame" x="16" y="104" width="382" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-scanner-frame" translatesAutoresizingMaskIntoConstraints="NO" id="mnN-Rm-O4v">
+                    <rect key="frame" x="72" y="318" width="270" height="270"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="mnN-Rm-O4v" secondAttribute="height" id="Gex-7P-jSk"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0SR-B8-4pu" secondAttribute="trailing" constant="16" id="5Yb-LL-Xna"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="N4N-93-FGR" secondAttribute="bottom" constant="20" id="5gn-c0-EVS"/>
+                <constraint firstItem="65d-DM-BCY" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="92z-Vp-Oxb"/>
+                <constraint firstItem="mnN-Rm-O4v" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="OPS-AG-IVb"/>
+                <constraint firstItem="0SR-B8-4pu" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="60" id="PqW-7G-iGI"/>
+                <constraint firstItem="65d-DM-BCY" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="bB7-X7-UbT"/>
+                <constraint firstItem="65d-DM-BCY" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="cpl-0F-Q3i"/>
+                <constraint firstItem="mnN-Rm-O4v" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="245:375" id="e0S-3s-x6W"/>
+                <constraint firstItem="mnN-Rm-O4v" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="ecQ-sp-xBt"/>
+                <constraint firstItem="65d-DM-BCY" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="f9D-e0-Y79"/>
+                <constraint firstItem="N4N-93-FGR" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="g8h-sw-Ae9"/>
+                <constraint firstItem="0SR-B8-4pu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="jIn-nw-m8Y"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="140.57971014492756" y="153.34821428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ico-close" width="52" height="52"/>
+        <image name="ico-scanner-frame" width="245" height="245"/>
+    </resources>
+</document>
