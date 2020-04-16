@@ -23,8 +23,12 @@
 		0A93DDBB24461F4800688050 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDBA24461F4800688050 /* Buttons.swift */; };
 		0AF64F9A24474AA30018D070 /* EnterSafeAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */; };
 		0AF64FA0244752E50018D070 /* EnterSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */; };
-		0AF64FA22447591A0018D070 /* AddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9B24474EA00018D070 /* AddressInput.swift */; };
+		0AF64FA22447591A0018D070 /* EthAddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9B24474EA00018D070 /* EthAddressInput.swift */; };
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
+		0AF6500A24485E450018D070 /* EthIdenticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6500924485E450018D070 /* EthIdenticon.swift */; };
+		0AF650172448626C0018D070 /* EthAddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF650162448626C0018D070 /* EthAddressText.swift */; };
+		0AF650192448659B0018D070 /* EthAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF650182448659B0018D070 /* EthAddress.swift */; };
+		9982F1C834FC801EAD7BDFE8 /* libPods-Multisig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,9 +61,15 @@
 		0A93DDB824461C1400688050 /* Texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texts.swift; sourceTree = "<group>"; };
 		0A93DDBA24461F4800688050 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressView.swift; sourceTree = "<group>"; };
-		0AF64F9B24474EA00018D070 /* AddressInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInput.swift; sourceTree = "<group>"; };
+		0AF64F9B24474EA00018D070 /* EthAddressInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthAddressInput.swift; sourceTree = "<group>"; };
 		0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameView.swift; sourceTree = "<group>"; };
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
+		0AF6500924485E450018D070 /* EthIdenticon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthIdenticon.swift; sourceTree = "<group>"; };
+		0AF650162448626C0018D070 /* EthAddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthAddressText.swift; sourceTree = "<group>"; };
+		0AF650182448659B0018D070 /* EthAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthAddress.swift; sourceTree = "<group>"; };
+		3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Multisig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBD6D0510D7AE8BF83C2872E /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.xcconfig"; path = "Pods/Target Support Files/Pods-Multisig/Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
+		FEC2CA8BC55245DF88E5580F /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Multisig/Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9982F1C834FC801EAD7BDFE8 /* libPods-Multisig.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +97,8 @@
 				0A93DD552445CC8A00688050 /* Multisig */,
 				0A93DD6F2445CC8C00688050 /* MultisigTests */,
 				0A93DD542445CC8A00688050 /* Products */,
+				7994340F572ECDF0B5D53E31 /* Pods */,
+				9C122546D933513037C989E4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +116,7 @@
 			children = (
 				0A93DD88244603A400688050 /* Presentation */,
 				0A93DD562445CC8A00688050 /* AppDelegate.swift */,
+				0AF650182448659B0018D070 /* EthAddress.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
 				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
 				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
@@ -147,7 +161,9 @@
 				0A93DDB22446080000688050 /* Colors.swift */,
 				0A93DDB824461C1400688050 /* Texts.swift */,
 				0A93DDBA24461F4800688050 /* Buttons.swift */,
-				0AF64F9B24474EA00018D070 /* AddressInput.swift */,
+				0AF64F9B24474EA00018D070 /* EthAddressInput.swift */,
+				0AF6500924485E450018D070 /* EthIdenticon.swift */,
+				0AF650162448626C0018D070 /* EthAddressText.swift */,
 				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
 			);
 			path = "UI Library";
@@ -164,6 +180,23 @@
 			path = "Add Safe";
 			sourceTree = "<group>";
 		};
+		7994340F572ECDF0B5D53E31 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FEC2CA8BC55245DF88E5580F /* Pods-Multisig.debug.xcconfig */,
+				BBD6D0510D7AE8BF83C2872E /* Pods-Multisig.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9C122546D933513037C989E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -171,6 +204,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A93DD752445CC8C00688050 /* Build configuration list for PBXNativeTarget "Multisig" */;
 			buildPhases = (
+				1C3EB57ADF3ECDA5BEF25B89 /* [CP] Check Pods Manifest.lock */,
 				0A93DD4F2445CC8A00688050 /* Sources */,
 				0A93DD502445CC8A00688050 /* Frameworks */,
 				0A93DD512445CC8A00688050 /* Resources */,
@@ -261,12 +295,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1C3EB57ADF3ECDA5BEF25B89 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Multisig-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0A93DD4F2445CC8A00688050 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
+				0AF6500A24485E450018D070 /* EthIdenticon.swift in Sources */,
+				0AF650192448659B0018D070 /* EthAddress.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */,
@@ -278,7 +335,8 @@
 				0AF64F9A24474AA30018D070 /* EnterSafeAddressView.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
 				0A93DD5C2445CC8A00688050 /* Multisig.xcdatamodeld in Sources */,
-				0AF64FA22447591A0018D070 /* AddressInput.swift in Sources */,
+				0AF650172448626C0018D070 /* EthAddressText.swift in Sources */,
+				0AF64FA22447591A0018D070 /* EthAddressInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +486,7 @@
 		};
 		0A93DD762445CC8C00688050 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FEC2CA8BC55245DF88E5580F /* Pods-Multisig.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -448,6 +507,7 @@
 		};
 		0A93DD772445CC8C00688050 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBD6D0510D7AE8BF83C2872E /* Pods-Multisig.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

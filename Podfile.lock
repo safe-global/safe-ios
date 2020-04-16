@@ -1,0 +1,22 @@
+PODS:
+  - BlockiesSwift (0.1.2)
+
+DEPENDENCIES:
+  - BlockiesSwift (from `https://github.com/gnosis/BlockiesSwift.git`, branch `0.1.2-gnosis`)
+
+EXTERNAL SOURCES:
+  BlockiesSwift:
+    :branch: 0.1.2-gnosis
+    :git: https://github.com/gnosis/BlockiesSwift.git
+
+CHECKOUT OPTIONS:
+  BlockiesSwift:
+    :commit: 34bb4560f534fb9e3d7abf1d2b85143fc63e56b3
+    :git: https://github.com/gnosis/BlockiesSwift.git
+
+SPEC CHECKSUMS:
+  BlockiesSwift: d8fbf236b71552fc1fa85cd23bb26f29dd830156
+
+PODFILE CHECKSUM: 073df7e545524e8bb5b1bce0e6f925dcd96e7856
+
+COCOAPODS: 1.5.2

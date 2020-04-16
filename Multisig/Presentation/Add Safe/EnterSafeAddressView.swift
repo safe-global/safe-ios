@@ -21,7 +21,7 @@ struct EnterSafeAddressView: View {
                     .padding(.top, 8)
                     .padding(.bottom, 24)
 
-                AddressInput()
+                EthAddressInput()
 
                 text(
                     "Don't have a Safe? Create one first at",
