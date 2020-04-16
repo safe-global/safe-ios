@@ -2,13 +2,13 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E266" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Safe" representedClassName="Safe" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String"/>
-        <attribute name="confirmationsRequired" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="confirmationsRequired" attributeType="Integer 64" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="contractVersion" optional="YES" attributeType="String"/>
         <attribute name="ensName" optional="YES" attributeType="String"/>
         <attribute name="fallbackHandler" optional="YES" attributeType="String"/>
         <attribute name="masterCopyAddress" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="nonce" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="nonce" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="163"/>

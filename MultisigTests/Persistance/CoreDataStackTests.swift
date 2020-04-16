@@ -55,7 +55,7 @@ class CoreDataStackTests: XCTestCase {
         XCTAssertEqual(oneSafeResultAfterReseting[0].name, "Safe 1")
 
         // Delete entry
-        // NOTE: we can not use here 'newSafe1' variable as the context was reseted
+        // NOTE: we can not use here 'newSafe1' variable as the context was reset
         context.delete(oneSafeResultAfterReseting[0])
         try context.save()
         // deleting did not affect previous fetch results

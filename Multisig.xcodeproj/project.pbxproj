@@ -88,7 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				5528F6E624471C2B00A6FF93 /* Models */,
-				5528F6DB2446F82D00A6FF93 /* Persistance */,
+				5528F6DB2446F82D00A6FF93 /* Persistence */,
 				0A93DD562445CC8A00688050 /* AppDelegate.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
@@ -117,13 +117,13 @@
 			path = MultisigTests;
 			sourceTree = "<group>";
 		};
-		5528F6DB2446F82D00A6FF93 /* Persistance */ = {
+		5528F6DB2446F82D00A6FF93 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
 				5528F6DC2446F85100A6FF93 /* CoreDataStack.swift */,
 				0A93DD5A2445CC8A00688050 /* Multisig.xcdatamodeld */,
 			);
-			path = Persistance;
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		5528F6E624471C2B00A6FF93 /* Models */ = {
