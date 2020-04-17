@@ -11,6 +11,7 @@ import SwiftUI
 struct QRCodeScanner: UIViewControllerRepresentable {
     var header: String?
     var handler: (String) -> Void
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
@@ -25,6 +26,7 @@ struct QRCodeScanner: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ vc: QRCodeScannerViewController, context: Context) {
+        // do nothing
     }
     
     public func qrCodeScanner(handler: @escaping (String) -> Void) -> QRCodeScanner {
@@ -46,7 +48,7 @@ struct QRCodeScanner: UIViewControllerRepresentable {
 
 struct QRCodeScanner_Previews: PreviewProvider {
     static var previews: some View {
-        QRCodeScanner() {_ in
+        QRCodeScanner() { _ in
             
         }
     }

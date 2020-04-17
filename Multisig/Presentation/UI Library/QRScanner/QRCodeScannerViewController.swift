@@ -38,7 +38,7 @@ class QRCodeScannerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if (captureSession?.isRunning == false) {
+        if captureSession?.isRunning == false {
             captureSession.startRunning()
         }
     }
@@ -46,7 +46,7 @@ class QRCodeScannerViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        if (captureSession?.isRunning == true) {
+        if captureSession?.isRunning == true {
             captureSession.stopRunning()
         }
     }
@@ -61,8 +61,7 @@ class QRCodeScannerViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.createScanner()
                 }
-            }
-            else {
+            } else {
                 DispatchQueue.main.async {
                     self?.presentCameraAccessRequiredAlert()
                 }
@@ -71,32 +70,32 @@ class QRCodeScannerViewController: UIViewController {
     }
 
     func createScanner() {
-        captureSession = AVCaptureSession()
-
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
         let videoInput: AVCaptureDeviceInput
 
         do {
             videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
         } catch {
-            return presentFaildToCreateScannerAlert()
+            presentFailedToCreateScannerAlert()
+            return
         }
 
-        if (captureSession.canAddInput(videoInput)) {
+        captureSession = AVCaptureSession()
+        if captureSession.canAddInput(videoInput) {
             captureSession.addInput(videoInput)
         } else {
-            presentFaildToCreateScannerAlert()
+            presentFailedToCreateScannerAlert()
             return
         }
 
         let metadataOutput = AVCaptureMetadataOutput()
 
-        if (captureSession.canAddOutput(metadataOutput)) {
+        if captureSession.canAddOutput(metadataOutput) {
             captureSession.addOutput(metadataOutput)
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             metadataOutput.metadataObjectTypes = [.qr]
         } else {
-            presentFaildToCreateScannerAlert()
+            presentFailedToCreateScannerAlert()
             return
         }
 
@@ -125,8 +124,10 @@ class QRCodeScannerViewController: UIViewController {
         present(alert, animated: true)
     }
 
-    func presentFaildToCreateScannerAlert() {
-        let ac = UIAlertController(title: Strings.scannerNotSupportedTitle, message: Strings.scannerNotSupportedMessage, preferredStyle: .alert)
+    func presentFailedToCreateScannerAlert() {
+        let ac = UIAlertController(title: Strings.scannerNotSupportedTitle,
+                                   message: Strings.scannerNotSupportedMessage,
+                                   preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: Strings.ok, style: .default))
         present(ac, animated: true)
         captureSession = nil
@@ -144,15 +145,22 @@ class QRCodeScannerViewController: UIViewController {
 }
 
 extension QRCodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        let metadataObject = metadataObjects.first { (metaObject) -> Bool in
-            guard let readableObject = metaObject as? AVMetadataMachineReadableCodeObject else { return false}
-            return !(readableObject.stringValue?.isEmpty ?? false) && readableObject.type == .qr
-        } as? AVMetadataMachineReadableCodeObject
+    func metadataOutput(_ output: AVCaptureMetadataOutput,
+                        didOutput metadataObjects: [AVMetadataObject],
+                        from connection: AVCaptureConnection) {
         
-        if let metadataObject = metadataObject {
+        let scannedValue = metadataObjects
+            .compactMap { $0 as? AVMetadataMachineReadableCodeObject }
+            .filter { $0.type == .qr }
+            .compactMap { $0.stringValue }
+            .filter { !$0.isEmpty }
+            .first
+        
+        if let code = scannedValue {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            scannerDidScan(code: metadataObject.stringValue!)
+            scannerDidScan(code: code)
         }
     }
 }
+
+
