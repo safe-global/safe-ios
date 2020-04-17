@@ -3,7 +3,7 @@
 //
 
 import XCTest
-@testable import Common
+@testable import Multisig
 
 class LoggableErrorTests: XCTestCase {
 

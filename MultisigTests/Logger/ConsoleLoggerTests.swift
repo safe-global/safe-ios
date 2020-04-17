@@ -3,8 +3,7 @@
 //
 
 import XCTest
-@testable import CommonImplementations
-import Common
+@testable import Multisig
 
 class ConsoleLoggerTests: XCTestCase {
 

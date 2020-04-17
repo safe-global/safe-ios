@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import Common
 
 /// Helper protocol to delegate actual log writing to implementations.
 protocol LogWriter {
@@ -135,9 +134,9 @@ public final class LogService: Logger {
         if normalizedEnabledLoggers.contains(LogServiceConsoleLoggerIdentifier) {
             add(ConsoleLogger())
         }
-        if normalizedEnabledLoggers.contains(LogServiceCrashlyticsLoggerIdentifier) {
-            add(CrashlyticsLogger())
-        }
+//        if normalizedEnabledLoggers.contains(LogServiceCrashlyticsLoggerIdentifier) {
+//            add(CrashlyticsLogger())
+//        }
     }
 
     public func fatal(_ message: String,

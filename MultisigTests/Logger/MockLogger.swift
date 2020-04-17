@@ -3,6 +3,7 @@
 //
 
 import Foundation
+@testable import Multisig
 
 /// `MockLogger` implements `Logger` protocol for use in unit tests.
 public class MockLogger: Logger {

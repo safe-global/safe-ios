@@ -3,9 +3,7 @@
 //
 
 import XCTest
-@testable import CommonImplementations
-import Common
-import CommonTestSupport
+@testable import Multisig
 
 class LogFormatterTests: XCTestCase {
 

@@ -3,8 +3,6 @@
 //
 
 import Foundation
-import Crashlytics
-import Common
 
 /// Implements Crashlytics error logging. Logs are send to Crashlytics if log message contains non-nil `error` argument.
 final class CrashlyticsLogger: LogWriter {
@@ -14,7 +12,7 @@ final class CrashlyticsLogger: LogWriter {
     /// Creates logger.
     ///
     /// - Parameter crashlytics: default value is the Crashlytics shared instance.
-    init(crashlytics: CrashlyticsProtocol = Crashlytics.sharedInstance()) {
+    init(crashlytics: CrashlyticsProtocol/* = Crashlytics.sharedInstance()*/) {
         self.crashlytics = crashlytics
     }
 
@@ -25,8 +23,8 @@ final class CrashlyticsLogger: LogWriter {
              line: UInt,
              function: StaticString) {
         guard let error = error else {
-            CLSLogv("[%@] %@:%@:%@: %@",
-                    getVaList([level.string, file.description, String(line), function.description, message]))
+//            CLSLogv("[%@] %@:%@:%@: %@",
+//                    getVaList([level.string, file.description, String(line), function.description, message]))
             return
         }
         let nsError: NSError
@@ -37,9 +35,9 @@ final class CrashlyticsLogger: LogWriter {
         }
         var userInfo = nsError.userInfo
         userInfo["message"] = message
-        crashlytics.recordError(NSError(domain: nsError.domain, code: nsError.code, userInfo: userInfo))
+//        crashlytics.recordError(NSError(domain: nsError.domain, code: nsError.code, userInfo: userInfo))
     }
 
 }
 
-extension Crashlytics: CrashlyticsProtocol {}
+//extension Crashlytics: CrashlyticsProtocol {}
