@@ -37,6 +37,11 @@
                BlueprintName = "MultisigTests"
                ReferencedContainer = "container:Multisig.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "SafeRelayServiceIntegrationTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

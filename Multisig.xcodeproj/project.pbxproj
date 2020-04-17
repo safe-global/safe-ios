@@ -44,6 +44,8 @@
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
 		5532D4D12449A1E40067505A /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
+		5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4E02449A4CF0067505A /* SafeRelayService.swift */; };
+		5532D4E42449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */; };
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
@@ -107,6 +109,8 @@
 		5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleLoggerTests.swift; sourceTree = "<group>"; };
 		5532D4D02449A1E40067505A /* MockLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLogger.swift; sourceTree = "<group>"; };
 		5532D4DD2449A34A0067505A /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		5532D4E02449A4CF0067505A /* SafeRelayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeRelayService.swift; sourceTree = "<group>"; };
+		5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeRelayServiceIntegrationTests.swift; sourceTree = "<group>"; };
 		5556A03424489F37003EC861 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
@@ -159,6 +163,7 @@
 		0A93DD552445CC8A00688050 /* Multisig */ = {
 			isa = PBXGroup;
 			children = (
+				5532D4DF2449A4C00067505A /* Services */,
 				5532D4AE2449A17D0067505A /* Logger */,
 				5532D4B72449A17D0067505A /* Networking */,
 				5532D4912448A1960067505A /* Models */,
@@ -187,6 +192,7 @@
 		0A93DD6F2445CC8C00688050 /* MultisigTests */ = {
 			isa = PBXGroup;
 			children = (
+				5532D4E52449A5120067505A /* IntegrationTests */,
 				5532D4C42449A1980067505A /* Logger */,
 				5556A03924489F5D003EC861 /* Persistence */,
 				0A93DD722445CC8C00688050 /* Info.plist */,
@@ -273,6 +279,30 @@
 				5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */,
 			);
 			path = Logger;
+			sourceTree = "<group>";
+		};
+		5532D4DF2449A4C00067505A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5532D4E02449A4CF0067505A /* SafeRelayService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5532D4E22449A4E80067505A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5532D4E52449A5120067505A /* IntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				5532D4E22449A4E80067505A /* Services */,
+			);
+			path = IntegrationTests;
 			sourceTree = "<group>";
 		};
 		5556A03324489F37003EC861 /* Persistence */ = {
@@ -481,6 +511,7 @@
 				0AF64F9A24474AA30018D070 /* EnterSafeAddressView.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
+				5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */,
 				0AF650172448626C0018D070 /* EthAddressText.swift in Sources */,
 				0AF64FA22447591A0018D070 /* EthAddressInput.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
@@ -495,6 +526,7 @@
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,
+				5532D4E42449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift in Sources */,
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
 				5532D4D12449A1E40067505A /* MockLogger.swift in Sources */,
