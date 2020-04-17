@@ -1,0 +1,14 @@
+/* 
+  File.strings
+  Multisig
+
+  Created by Moaaz on 4/16/20.
+  Copyright © 2020 Gnosis Ltd. All rights reserved.
+*/
+"camera_title" = "Camera is not accessable.";
+"camera_message" = "Safe need to access camera.";
+"cancel" = "Cancel";
+"settings" = "Settings";
+"scanner_not_supported_title" = "Scanning not supported";
+"scanner_not_supported_message" = "Your device does not support scanning a code from an item.";
+"ok" = "OK";
