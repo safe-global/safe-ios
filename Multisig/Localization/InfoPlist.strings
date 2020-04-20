@@ -1,0 +1,8 @@
+/* 
+  InfoPlist.strings
+  Multisig
+
+  Created by Moaaz on 4/16/20.
+  Copyright © 2020 Gnosis Ltd. All rights reserved.
+*/
+"NSCameraUsageDescription" = "Safe need to use camera to scan QR code";
