@@ -12,28 +12,35 @@ import BlockiesSwift
 
 struct Identicon: View {
 
-    var address: EthAddress
-    private let blockSize: Int = 8
+    private let blockSize: CGFloat = 8
+
+    private var text: String
+
+    init(_ text: String) {
+        self.text = text
+    }
 
     var body: some View {
         GeometryReader { geometry in
-            Image(uiImage:
-                Blockies(
-                    seed: self.address.checksummed,
-                    size: self.blockSize,
-                    scale: Int(geometry.size.width / CGFloat(self.blockSize))
-                ).createImage()!
-            )
+            Image(uiImage: self.image(geometry.size))
+            .renderingMode(.original)
             .resizable()
             .aspectRatio(1, contentMode: .fit)
             .clipShape(Circle())
         }
     }
+
+    func image(_ size: CGSize) -> UIImage {
+        Blockies(
+            seed: text,
+            size: Int(blockSize),
+            scale: Int(size.width / blockSize)
+        ).createImage()!
+    }
 }
 
 struct Identicon_Previews: PreviewProvider {
     static var previews: some View {
-        Identicon(address: "Hello")
-            .frame(width: 32, height: 32)
+        Identicon("Hello").frame(width: 32)
     }
 }

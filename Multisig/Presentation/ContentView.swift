@@ -51,9 +51,8 @@ struct ContentView: View {
                 .tag(2)
 
             }
-            .accentColor(.gnoHold)
-
         }
+        .accentColor(.gnoHold)
         .edgesIgnoringSafeArea(.top)
     }
 }

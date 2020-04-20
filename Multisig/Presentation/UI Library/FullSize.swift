@@ -17,9 +17,9 @@ struct FullSize<Content> : View where Content : View {
     }
 
     var body: some View {
-        VStack {
+        HStack {
             Spacer()
-            HStack {
+            VStack {
                 Spacer()
 
                 content
