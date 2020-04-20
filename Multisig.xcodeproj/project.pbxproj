@@ -15,7 +15,6 @@
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
 		0A0256262449F90300C91D73 /* AddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256252449F90300C91D73 /* AddressInput.swift */; };
-		0A5633A9244DCD4500FDA4D5 /* AddressInputSourceSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5633A8244DCD4500FDA4D5 /* AddressInputSourceSheet.swift */; };
 		0A5633AB244DCEDB00FDA4D5 /* ENSNameForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */; };
 		0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD562445CC8A00688050 /* AppDelegate.swift */; };
 		0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD582445CC8A00688050 /* SceneDelegate.swift */; };
@@ -29,6 +28,9 @@
 		0A93DDB32446080000688050 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB22446080000688050 /* Colors.swift */; };
 		0A93DDB924461C1400688050 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB824461C1400688050 /* Fonts.swift */; };
 		0A93DDBB24461F4800688050 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDBA24461F4800688050 /* Buttons.swift */; };
+		0AF432C9244DFA9700E22E50 /* AddressInputSourceSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5633A8244DCD4500FDA4D5 /* AddressInputSourceSheet.swift */; };
+		0AF432CE244DFD0400E22E50 /* ARCHITECTURE.md in Resources */ = {isa = PBXBuildFile; fileRef = 0AF432CD244DFD0400E22E50 /* ARCHITECTURE.md */; };
+		0AF432D0244DFF2500E22E50 /* ABOUT.md in Resources */ = {isa = PBXBuildFile; fileRef = 0AF432CF244DFF2500E22E50 /* ABOUT.md */; };
 		0AF64F9A24474AA30018D070 /* EnterSafeAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */; };
 		0AF64FA0244752E50018D070 /* EnterSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */; };
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
@@ -98,6 +100,8 @@
 		0A93DDB22446080000688050 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0A93DDB824461C1400688050 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		0A93DDBA24461F4800688050 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		0AF432CD244DFD0400E22E50 /* ARCHITECTURE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ARCHITECTURE.md; sourceTree = "<group>"; };
+		0AF432CF244DFF2500E22E50 /* ABOUT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ABOUT.md; sourceTree = "<group>"; };
 		0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressView.swift; sourceTree = "<group>"; };
 		0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameView.swift; sourceTree = "<group>"; };
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
@@ -196,17 +200,12 @@
 		0A93DD552445CC8A00688050 /* Multisig */ = {
 			isa = PBXGroup;
 			children = (
-				5532D4DF2449A4C00067505A /* Services */,
-				5532D4AE2449A17D0067505A /* Logger */,
-				5532D4B72449A17D0067505A /* Networking */,
-				5532D4912448A1960067505A /* Models */,
-				5556A03324489F37003EC861 /* Persistence */,
+				0AF432CD244DFD0400E22E50 /* ARCHITECTURE.md */,
+				0AF432CC244DFBD700E22E50 /* Containers */,
 				0A93DD88244603A400688050 /* Presentation */,
-				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
-				044A544C2448E5CF009CBB80 /* Localization */,
-				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
-				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
-				0A93DD672445CC8B00688050 /* Info.plist */,
+				5532D4912448A1960067505A /* Business Entities */,
+				0AF432C5244DFA0200E22E50 /* Data */,
+				0AF432C6244DFA1800E22E50 /* Cross-cutting */,
 				0A93DD612445CC8B00688050 /* Preview Content */,
 			);
 			path = Multisig;
@@ -235,12 +234,10 @@
 		0A93DD88244603A400688050 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				0A93DD562445CC8A00688050 /* AppDelegate.swift */,
-				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
-				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
+				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
+				044A54432448D0B6009CBB80 /* QRScanner */,
 				0A93DD8B244603DB00688050 /* UI Library */,
-				0AF432BC244DF6C900E22E50 /* ENS Resolution */,
-				0AF64FA3244759B80018D070 /* Load Safe */,
+				0AF432CA244DFAFB00E22E50 /* Supporting Files */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -248,7 +245,6 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
-				044A54432448D0B6009CBB80 /* QRScanner */,
 				0A93DDB22446080000688050 /* Colors.swift */,
 				0A93DDB824461C1400688050 /* Fonts.swift */,
 				0A93DDBA24461F4800688050 /* Buttons.swift */,
@@ -271,23 +267,75 @@
 			path = "ENS Resolution";
 			sourceTree = "<group>";
 		};
-		0AF64FA3244759B80018D070 /* Load Safe */ = {
+		0AF432BF244DF8AD00E22E50 /* Safe Management */ = {
 			isa = PBXGroup;
 			children = (
 				0A93DDAF2446072900688050 /* AddSafeIntroView.swift */,
 				0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */,
 				0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */,
-				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
 			);
-			path = "Load Safe";
+			path = "Safe Management";
 			sourceTree = "<group>";
 		};
-		5532D4912448A1960067505A /* Models */ = {
+		0AF432C4244DF8FC00E22E50 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DD562445CC8A00688050 /* AppDelegate.swift */,
+				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
+				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		0AF432C5244DFA0200E22E50 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				5532D4B72449A17D0067505A /* Networking */,
+				5532D4DF2449A4C00067505A /* Services */,
+				5556A03324489F37003EC861 /* Persistence */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		0AF432C6244DFA1800E22E50 /* Cross-cutting */ = {
+			isa = PBXGroup;
+			children = (
+				5532D4AE2449A17D0067505A /* Logger */,
+				044A544C2448E5CF009CBB80 /* Localization */,
+			);
+			path = "Cross-cutting";
+			sourceTree = "<group>";
+		};
+		0AF432CA244DFAFB00E22E50 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
+				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
+				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
+				0A93DD672445CC8B00688050 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		0AF432CC244DFBD700E22E50 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				0AF432CF244DFF2500E22E50 /* ABOUT.md */,
+				0AF432C4244DF8FC00E22E50 /* App */,
+				0AF432BF244DF8AD00E22E50 /* Safe Management */,
+				0AF432BC244DF6C900E22E50 /* ENS Resolution */,
+			);
+			path = Containers;
+			sourceTree = "<group>";
+		};
+		5532D4912448A1960067505A /* Business Entities */ = {
 			isa = PBXGroup;
 			children = (
 				5532D4922448A1960067505A /* Safe.swift */,
+				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
 			);
-			path = Models;
+			path = "Business Entities";
 			sourceTree = "<group>";
 		};
 		5532D4AE2449A17D0067505A /* Logger */ = {
@@ -354,7 +402,6 @@
 			isa = PBXGroup;
 			children = (
 				5556A03424489F37003EC861 /* CoreDataStack.swift */,
-				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -472,10 +519,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
+				0AF432CE244DFD0400E22E50 /* ARCHITECTURE.md in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */,
+				0AF432D0244DFF2500E22E50 /* ABOUT.md in Resources */,
 				0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */,
 				0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */,
 			);
@@ -536,13 +585,12 @@
 			files = (
 				0AF6501B24488D280018D070 /* FullSize.swift in Sources */,
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
-				0AF6500A24485E450018D070 /* EthIdenticon.swift in Sources */,
+				0AF6500A24485E450018D070 /* Identicon.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
-				0AF650192448659B0018D070 /* EthAddress.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
@@ -552,6 +600,7 @@
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */,
 				0A0256262449F90300C91D73 /* AddressInput.swift in Sources */,
+				0AF432C9244DFA9700E22E50 /* AddressInputSourceSheet.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
