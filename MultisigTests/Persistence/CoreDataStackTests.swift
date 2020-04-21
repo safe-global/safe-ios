@@ -10,14 +10,7 @@ import XCTest
 import CoreData
 @testable import Multisig
 
-class CoreDataStackTests: XCTestCase {
-    let coreDataStack = TestCoreDataStack()
-    var context: NSManagedObjectContext!
-
-    override func setUpWithError() throws {
-        context = coreDataStack.persistentContainer.viewContext
-    }
-
+class CoreDataStackTests: CoreDataTestCase {
     func testCRUD() throws {
         // check that initially all Safes are empty
         let initialSafesResult = try context.fetch(Safe.allSafes())
@@ -44,9 +37,9 @@ class CoreDataStackTests: XCTestCase {
         // Without saving the context, fetch request should be updated
         let twoSafesResultBeforeSave = try context.fetch(Safe.allSafes())
         XCTAssertEqual(twoSafesResultBeforeSave.count, 2)
-        // result safes should be sorted by name
-        XCTAssertEqual(twoSafesResultBeforeSave[0].name, "Safe 0")
-        XCTAssertEqual(twoSafesResultBeforeSave[1].name, "Safe 1")
+        // result safes should be sorted by creation date
+        XCTAssertEqual(twoSafesResultBeforeSave[0].name, "Safe 1")
+        XCTAssertEqual(twoSafesResultBeforeSave[1].name, "Safe 0")
 
         // reset context; not saved object is discarded
         context.reset()
@@ -63,5 +56,4 @@ class CoreDataStackTests: XCTestCase {
         let oneSafeResultAfterDeleting = try context.fetch(Safe.allSafes())
         XCTAssertEqual(oneSafeResultAfterDeleting.count, 0)
     }
-
 }
