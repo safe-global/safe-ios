@@ -10,8 +10,6 @@ import SwiftUI
 
 struct EnterSafeAddressView: View {
 
-    var address: EthAddress?
-
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -21,7 +19,7 @@ struct EnterSafeAddressView: View {
                     .padding(.top, 8)
                     .padding(.bottom, 24)
 
-                EthAddressInput()
+                AddressInput()
 
                 text(
                     "Don't have a Safe? Create one first at",

@@ -10,10 +10,10 @@ import SwiftUI
 import UIKit
 import BlockiesSwift
 
-struct EthIdenticon: View {
+struct Identicon: View {
 
     var address: EthAddress
-    var blockSize: Int = 8
+    private let blockSize: Int = 8
 
     var body: some View {
         GeometryReader { geometry in
@@ -23,14 +23,17 @@ struct EthIdenticon: View {
                     size: self.blockSize,
                     scale: Int(geometry.size.width / CGFloat(self.blockSize))
                 ).createImage()!
-            ).clipShape(Circle())
+            )
+            .resizable()
+            .aspectRatio(1, contentMode: .fit)
+            .clipShape(Circle())
         }
     }
 }
 
 struct Identicon_Previews: PreviewProvider {
     static var previews: some View {
-        EthIdenticon(address: "Hello")
+        Identicon(address: "Hello")
             .frame(width: 32, height: 32)
     }
 }
