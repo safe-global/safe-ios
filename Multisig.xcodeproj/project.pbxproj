@@ -34,6 +34,10 @@
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6500A24485E450018D070 /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6500924485E450018D070 /* Identicon.swift */; };
 		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
+		551DDEE9244F183500C719D3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* AppSettings.swift */; };
+		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
+		551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEEF244F1A0A00C719D3 /* SafeTests.swift */; };
+		551DDEF2244F1B9800C719D3 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEF1244F1B9800C719D3 /* AppSettingsTests.swift */; };
 		5532D4932448A1960067505A /* Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4922448A1960067505A /* Safe.swift */; };
 		5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4AF2449A17D0067505A /* CrashlyticsProtocol.swift */; };
 		5532D4BB2449A17D0067505A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4B02449A17D0067505A /* Logger.swift */; };
@@ -106,6 +110,10 @@
 		1B81E8C8DC80D2C573D9B6BF /* libPods-MultisigTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C552F754BE182B85CF33FD /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
 		3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Multisig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		551DDEE8244F183500C719D3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
+		551DDEEF244F1A0A00C719D3 /* SafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTests.swift; sourceTree = "<group>"; };
+		551DDEF1244F1B9800C719D3 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
 		5532D4922448A1960067505A /* Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Safe.swift; sourceTree = "<group>"; };
 		5532D4AF2449A17D0067505A /* CrashlyticsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashlyticsProtocol.swift; sourceTree = "<group>"; };
 		5532D4B02449A17D0067505A /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -217,6 +225,7 @@
 		0A93DD6F2445CC8C00688050 /* MultisigTests */ = {
 			isa = PBXGroup;
 			children = (
+				551DDEEA244F192300C719D3 /* Models */,
 				5532D4E52449A5120067505A /* IntegrationTests */,
 				5532D4C42449A1980067505A /* Logger */,
 				5556A03924489F5D003EC861 /* Persistence */,
@@ -325,8 +334,18 @@
 		0AF432D5244F075800E22E50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				551DDEE8244F183500C719D3 /* AppSettings.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
 				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		551DDEEA244F192300C719D3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				551DDEEF244F1A0A00C719D3 /* SafeTests.swift */,
+				551DDEF1244F1B9800C719D3 /* AppSettingsTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -413,6 +432,7 @@
 			children = (
 				5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */,
 				5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */,
+				551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -599,6 +619,7 @@
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */,
+				551DDEE9244F183500C719D3 /* AppSettings.swift in Sources */,
 				0A0256262449F90300C91D73 /* AddressInput.swift in Sources */,
 				0AF432C9244DFA9700E22E50 /* AddressInputSourceSheet.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
@@ -626,10 +647,13 @@
 				5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */,
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
+				551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,
+				551DDEF2244F1B9800C719D3 /* AppSettingsTests.swift in Sources */,
 				5532D4E42449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift in Sources */,
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
+				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
 				5532D4D12449A1E40067505A /* MockLogger.swift in Sources */,
 				5556A03D24489F5D003EC861 /* TestCoreDataStack.swift in Sources */,
 				5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */,
