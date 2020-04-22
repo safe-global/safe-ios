@@ -12,7 +12,15 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        configureGloabalAppearance()
         return true
+    }
+
+    private func configureGloabalAppearance() {
+        let navBarAppearance = UINavigationBar.appearance()
+        navBarAppearance.isTranslucent = false
+        navBarAppearance.setBackgroundImage(UIImage(), for: .default)
+        navBarAppearance.shadowImage = UIImage(named: "shadow")
     }
 
     // MARK: UISceneSession Lifecycle
