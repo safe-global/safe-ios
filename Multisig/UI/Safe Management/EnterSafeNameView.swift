@@ -10,38 +10,38 @@ import SwiftUI
 
 struct EnterSafeNameView: View {
     var address: String?
-    @State private var name: String = ""
-    var body: some View {
-        NavigationView {
-            VStack(spacing: 0) {
-                Identicon(address!)
-                    .frame(width: 40, height: 40, alignment: .center)
-                
-                HStack (alignment: .top) {
-                    Image("ico-circle-check")
-                    AddressText(address!)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(.trailing, 37)
-                .padding(.top, 9)
-                
-                Text("Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties.")
-                    .font(Font.gnoBody.weight(.medium))
-                    .padding(.top, 27)
-                    .padding(.bottom, 24)
-                    .multilineTextAlignment(.center)
 
-                VerifiableTextField(name: "Enter Name", validator: { input in
-                    input.isEmpty ? "Safe name can't be empty" : ""
-                })
-                
-                Spacer()
+    @State private var name: String = ""
+
+    var body: some View {
+        VStack(spacing: 0) {
+            Identicon(address!)
+                .frame(width: 40, height: 40, alignment: .center)
+
+            HStack (alignment: .top) {
+                Image("ico-circle-check")
+                AddressText(address!)
+                    .multilineTextAlignment(.center)
             }
-            .foregroundColor(.gnoDarkBlue)
-            .padding()
-            .navigationBarTitle(title, displayMode: .inline)
-            .navigationBarItems(leading: backButton, trailing: nextButton)
+            .padding(.trailing, 37)
+            .padding(.top, 9)
+
+            Text("Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties.")
+                .font(Font.gnoBody.weight(.medium))
+                .padding(.top, 27)
+                .padding(.bottom, 24)
+                .multilineTextAlignment(.center)
+
+            VerifiableTextField(name: "Enter Name", validator: { input in
+                input.isEmpty ? "Safe name can't be empty" : ""
+            })
+
+            Spacer()
         }
+        .foregroundColor(.gnoDarkBlue)
+        .padding()
+        .navigationBarTitle(title, displayMode: .inline)
+        .navigationBarItems(leading: backButton, trailing: nextButton)
     }
     
     var title: Text {

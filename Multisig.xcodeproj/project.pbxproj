@@ -350,8 +350,8 @@
 		0AF432D5244F075800E22E50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				551DDEE8244F183500C719D3 /* AppSettings.swift */,
 				0A6C85B02450712D0026139E /* Ethereum */,
+				551DDEE8244F183500C719D3 /* AppSettings.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
 				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
 			);
@@ -639,7 +639,7 @@
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */,
 				551DDEE9244F183500C719D3 /* AppSettings.swift in Sources */,
-				0A0256262449F90300C91D73 /* AddressInput.swift in Sources */,
+				0A0256262449F90300C91D73 /* AddressField.swift in Sources */,
 				0A0256262449F90300C91D73 /* AddressField.swift in Sources */,
 				0AF432C9244DFA9700E22E50 /* AddressInputSourceSheet.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,

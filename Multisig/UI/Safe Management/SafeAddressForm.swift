@@ -193,7 +193,7 @@ struct SafeAddressForm: View {
     }
 
     var nextButton: some View {
-        NavigationLink(destination: EnterSafeNameView()) {
+        NavigationLink(destination: EnterSafeNameView(address: $model.address.wrappedValue?.hex(eip55: true))) {
             Text("Next")
                 .fontWeight(.semibold)
         }

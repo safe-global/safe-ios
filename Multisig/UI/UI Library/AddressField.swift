@@ -48,13 +48,13 @@ class AddressFieldModel: ObservableObject {
             self.isWithoutErrors = true
             return $0?.trimmingCharacters(in: .whitespacesAndNewlines)
         }
-        .flatMap { [unowned self] in
-            Just($0)
+        .flatMap { [unowned self] text in
+            Just(text)
                 .tryMap(self.isEmpty)
                 .tryMap(self.toAddress)
                 .catch { error -> Just<String?> in
                     self.errorMessages = [error.localizedDescription]
-                    return .init(self.enteredText)
+                    return .init(text)
             }
         }
         .sink { [unowned self] in
