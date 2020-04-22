@@ -10,10 +10,13 @@ import SwiftUI
 
 struct VerifiableTextField: View {
     var name: String
-    @State private var text: String = ""
     var validator: (String) -> String
+    
+    @State private var text: String = ""
+    
     var body: some View {
         let errorMessage = validator(text)
+        let height: CGFloat = 56
         var foregroundColor = Color.gnoDarkGrey
         var borderColor = Color.gnoWhitesmoke
         
@@ -24,15 +27,23 @@ struct VerifiableTextField: View {
         
         return VStack (alignment: .leading) {
             HStack {
-                TextField(name, text: $text).foregroundColor(foregroundColor).frame(height: 56)
-                .font(.gnoBody)
+                TextField(name, text: $text)
+                    .foregroundColor(foregroundColor)
+                    .frame(height: height)
+                    .font(.gnoBody)
                 if errorMessage.isEmpty {
                     Image("ico-circle-check")
                 }
-            }.padding().background(RoundedRectangle(cornerRadius: 10)
-            .strokeBorder(borderColor, lineWidth: 2).frame(height: 56))
+            }
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10)
+            .strokeBorder(borderColor, lineWidth: 2)
+            .frame(height: height))
             
-            Text(errorMessage).font(.gnoCallout).foregroundColor(Color.gnoTomato).frame(alignment: .leading)
+            Text(errorMessage)
+                .font(.gnoCallout)
+                .foregroundColor(Color.gnoTomato)
+                .frame(alignment: .leading)
         }
     }
 }
