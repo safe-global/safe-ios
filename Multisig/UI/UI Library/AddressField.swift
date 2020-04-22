@@ -9,8 +9,11 @@
 import SwiftUI
 import Combine
 
-enum ValidationError: LocalizedError {
+enum ValidationError: Error {
     case empty
+}
+
+extension ValidationError: LocalizedError {
 
     var errorDescription: String? {
         "The value is empty"
@@ -28,33 +31,52 @@ class AddressFieldModel: ObservableObject {
     @Published
     var errorMessages: [String] = []
 
+    @Published
+    var isWithoutErrors: Bool = true
+
+    @Published
+    var address: Address?
+
     private var publishers = Set<AnyCancellable>()
 
     init() {
         $enteredText
         .map { [unowned self] in
             self.errorMessages = []
+            self.displayedText = nil
+            self.address = nil
+            self.isWithoutErrors = true
             return $0?.trimmingCharacters(in: .whitespacesAndNewlines)
         }
         .flatMap { [unowned self] in
             Just($0)
                 .tryMap(self.isEmpty)
+                .tryMap(self.toAddress)
                 .catch { error -> Just<String?> in
                     self.errorMessages = [error.localizedDescription]
-                    return .init(nil)
+                    return .init(self.enteredText)
             }
         }
         .sink { [unowned self] in
             self.displayedText = $0
+            self.isWithoutErrors = self.errorMessages.isEmpty
         }
         .store(in: &publishers)
     }
 
     func isEmpty(_ text: String?) throws -> String? {
-        guard let value = text, !value.isEmpty else { return text }
+        guard let value = text, value.isEmpty else { return text }
         throw ValidationError.empty
     }
 
+    func toAddress(_ text: String?) throws -> String? {
+        guard let input = text else { return text }
+        // We don't check for eip55 because we might get non-formatted
+        // address from the user.
+        address = try Address(hex: input, eip55: false)
+        let output = address!.hex(eip55: true)
+        return output
+    }
 }
 
 enum UIMetric {
@@ -79,17 +101,29 @@ struct AddressField: View {
 
             Button(action: { self.showsSheet.toggle() }) {
 
-                Frame(isValid: $model.errorMessages.wrappedValue.isEmpty) {
+                return Frame(isValid: $model.isWithoutErrors.wrappedValue) {
 
-                    if $model.displayedText.wrappedValue == nil {
+                    Group {
+                        // nothing entered
+                        if $model.displayedText.wrappedValue == nil {
 
-                        Text(placeholder ?? "")
-                            .font(.gnoCallout)
-                            .padding()
+                            Text(placeholder ?? "").font(.gnoCallout)
 
-                    } else {
-                        AddressView($model.displayedText.wrappedValue!).padding()
-                    }
+                        // entered address
+                        } else if $model.isWithoutErrors.wrappedValue {
+
+                            AddressView($model.displayedText.wrappedValue!)
+
+                        // entered some other text
+                        } else {
+
+                            Text($model.displayedText.wrappedValue!)
+                                .lineLimit(3)
+                                .font(Font.gnoCallout.weight(.medium))
+                                .foregroundColor(.gnoDarkBlue)
+
+                        }
+                    }.padding()
 
                 }
             }
@@ -126,7 +160,7 @@ struct AddressField: View {
                     .stroke(isValid ? Color.gnoWhitesmoke : .gnoTomato,
                             lineWidth: UIMetric.borderWidth)
             )
-            .frame(minHeight: UIMetric.fieldMinHeight)
+                .frame(minHeight: UIMetric.fieldMinHeight)
         }
     }
 

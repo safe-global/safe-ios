@@ -157,7 +157,7 @@ extension QRCodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
             .first
         
         if let code = scannedValue {
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
             scannerDidScan(code: code)
         }
     }
