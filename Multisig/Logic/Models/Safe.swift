@@ -10,13 +10,25 @@ import Foundation
 import CoreData
 
 extension Safe {
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        self.createdAt = Date()
+    }
+
+    // MARK: - Fetch Requests
 
     static func allSafes() -> NSFetchRequest<Safe> {
         let request: NSFetchRequest<Safe> = Safe.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Safe.createdAt, ascending: true)]
         return request
     }
 
+    static func by(address: String) -> NSFetchRequest<Safe> {
+        let request: NSFetchRequest<Safe> = Safe.fetchRequest()
+        request.predicate = NSPredicate(format: "address == %@", address)
+        request.fetchLimit = 1
+        return request
+    }
     static func exists(at address: Address) throws -> Bool {
         let stringAddress = address.hex(eip55: true)
         do {
