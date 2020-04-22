@@ -14,7 +14,7 @@
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
-		0A0256262449F90300C91D73 /* AddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256252449F90300C91D73 /* AddressInput.swift */; };
+		0A0256262449F90300C91D73 /* AddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256252449F90300C91D73 /* AddressField.swift */; };
 		0A5633AB244DCEDB00FDA4D5 /* ENSNameForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */; };
 		0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD562445CC8A00688050 /* AppDelegate.swift */; };
 		0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD582445CC8A00688050 /* SceneDelegate.swift */; };
@@ -29,7 +29,7 @@
 		0A93DDB924461C1400688050 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB824461C1400688050 /* Fonts.swift */; };
 		0A93DDBB24461F4800688050 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDBA24461F4800688050 /* Buttons.swift */; };
 		0AF432C9244DFA9700E22E50 /* AddressInputSourceSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5633A8244DCD4500FDA4D5 /* AddressInputSourceSheet.swift */; };
-		0AF64F9A24474AA30018D070 /* EnterSafeAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */; };
+		0AF64F9A24474AA30018D070 /* SafeAddressForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9924474AA30018D070 /* SafeAddressForm.swift */; };
 		0AF64FA0244752E50018D070 /* EnterSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */; };
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6500A24485E450018D070 /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6500924485E450018D070 /* Identicon.swift */; };
@@ -79,7 +79,7 @@
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
-		0A0256252449F90300C91D73 /* AddressInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInput.swift; sourceTree = "<group>"; };
+		0A0256252449F90300C91D73 /* AddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressField.swift; sourceTree = "<group>"; };
 		0A5633A8244DCD4500FDA4D5 /* AddressInputSourceSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInputSourceSheet.swift; sourceTree = "<group>"; };
 		0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSNameForm.swift; sourceTree = "<group>"; };
 		0A93DD532445CC8A00688050 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,7 +98,7 @@
 		0A93DDB22446080000688050 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0A93DDB824461C1400688050 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		0A93DDBA24461F4800688050 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
-		0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressView.swift; sourceTree = "<group>"; };
+		0AF64F9924474AA30018D070 /* SafeAddressForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAddressForm.swift; sourceTree = "<group>"; };
 		0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameView.swift; sourceTree = "<group>"; };
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF6500924485E450018D070 /* Identicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identicon.swift; sourceTree = "<group>"; };
@@ -244,10 +244,10 @@
 				0AF432D4244F063800E22E50 /* Styleguide */,
 				044A54432448D0B6009CBB80 /* QRScanner */,
 				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
-				0A0256212449F29200C91D73 /* AddressText.swift */,
 				0AF6500924485E450018D070 /* Identicon.swift */,
+				0A0256212449F29200C91D73 /* AddressText.swift */,
 				0A0256232449F7BF00C91D73 /* AddressView.swift */,
-				0A0256252449F90300C91D73 /* AddressInput.swift */,
+				0A0256252449F90300C91D73 /* AddressField.swift */,
 				0A5633A8244DCD4500FDA4D5 /* AddressInputSourceSheet.swift */,
 				0AF6501A24488D280018D070 /* FullSize.swift */,
 				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
@@ -267,7 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				0A93DDAF2446072900688050 /* AddSafeIntroView.swift */,
-				0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */,
+				0AF64F9924474AA30018D070 /* SafeAddressForm.swift */,
 				0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */,
 			);
 			path = "Safe Management";
@@ -599,7 +599,7 @@
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */,
-				0A0256262449F90300C91D73 /* AddressInput.swift in Sources */,
+				0A0256262449F90300C91D73 /* AddressField.swift in Sources */,
 				0AF432C9244DFA9700E22E50 /* AddressInputSourceSheet.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
@@ -609,7 +609,7 @@
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
-				0AF64F9A24474AA30018D070 /* EnterSafeAddressView.swift in Sources */,
+				0AF64F9A24474AA30018D070 /* SafeAddressForm.swift in Sources */,
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,

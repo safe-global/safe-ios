@@ -1,5 +1,5 @@
 //
-//  EnterSafeAddressView.swift
+//  SafeAddressForm.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 15.04.20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct EnterSafeAddressView: View {
+struct SafeAddressForm: View {
 
     var body: some View {
         NavigationView {
@@ -19,7 +19,7 @@ struct EnterSafeAddressView: View {
                     .padding(.top, 8)
                     .padding(.bottom, 24)
 
-                AddressInput()
+                AddressField()
 
                 text(
                     "Don't have a Safe? Create one first at",
@@ -89,8 +89,8 @@ struct EnterSafeAddressView: View {
     }
 }
 
-struct EnterSafeAddressView_Previews: PreviewProvider {
+struct SafeAddressForm_Previews: PreviewProvider {
     static var previews: some View {
-        EnterSafeAddressView()
+        SafeAddressForm()
     }
 }

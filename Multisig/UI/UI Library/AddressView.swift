@@ -18,7 +18,9 @@ struct AddressView: View {
 
     var body: some View {
         HStack {
-            Identicon(text).frame(width: 32, height: 32)
+            if !text.isEmpty {
+                Identicon(text).frame(width: 32, height: 32)
+            }
 
             AddressText(text)
         }

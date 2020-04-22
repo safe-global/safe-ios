@@ -26,7 +26,7 @@ struct AddSafeIntroView: View {
             }
             .buttonStyle(GNOFilledButtonStyle())
             .sheet(isPresented: self.$addSafeStarted) {
-                EnterSafeAddressView()
+                SafeAddressForm()
             }
         }
         .edgesIgnoringSafeArea(.all)
