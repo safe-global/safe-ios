@@ -41,7 +41,9 @@ struct EnterSafeNameView: View {
             .padding()
             .navigationBarTitle(title, displayMode: .inline)
             .navigationBarItems(leading: backButton, trailing: nextButton)
-        }
+        }.onTapGesture {
+            
+        }.modifier(KeyboadHandler())
     }
     
     var title: Text {
