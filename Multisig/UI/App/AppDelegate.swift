@@ -17,10 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func configureGloabalAppearance() {
-        let navBarAppearance = UINavigationBar.appearance()
-        navBarAppearance.isTranslucent = false
-        navBarAppearance.setBackgroundImage(UIImage(), for: .default)
-        navBarAppearance.shadowImage = UIImage(named: "shadow")
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UINavigationBar.appearance().shadowImage = UIImage(named: "shadow")
+
+        UITableView.appearance().tableFooterView = UIView()
+        UITableView.appearance().separatorStyle = .none
     }
 
     // MARK: UISceneSession Lifecycle
