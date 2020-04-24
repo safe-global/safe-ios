@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-extension Safe {
+extension Safe: Identifiable {
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         self.createdAt = Date()

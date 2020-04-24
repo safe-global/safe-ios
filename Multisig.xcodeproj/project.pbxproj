@@ -39,6 +39,8 @@
 		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
 		551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEEF244F1A0A00C719D3 /* SafeTests.swift */; };
 		551DDEF2244F1B9800C719D3 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEF1244F1B9800C719D3 /* AppSettingsTests.swift */; };
+		551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEF324506B0B00C719D3 /* SwitchSafeView.swift */; };
+		551DDF012450A22D00C719D3 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */; };
 		5532D4932448A1960067505A /* Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4922448A1960067505A /* Safe.swift */; };
 		5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4AF2449A17D0067505A /* CrashlyticsProtocol.swift */; };
 		5532D4BB2449A17D0067505A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4B02449A17D0067505A /* Logger.swift */; };
@@ -116,6 +118,7 @@
 		551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
 		551DDEEF244F1A0A00C719D3 /* SafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTests.swift; sourceTree = "<group>"; };
 		551DDEF1244F1B9800C719D3 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
+		551DDEF324506B0B00C719D3 /* SwitchSafeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchSafeView.swift; sourceTree = "<group>"; };
 		5532D4922448A1960067505A /* Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Safe.swift; sourceTree = "<group>"; };
 		5532D4AF2449A17D0067505A /* CrashlyticsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashlyticsProtocol.swift; sourceTree = "<group>"; };
 		5532D4B02449A17D0067505A /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -281,6 +284,7 @@
 				0A93DDAF2446072900688050 /* AddSafeIntroView.swift */,
 				0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */,
 				0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */,
+				551DDEF324506B0B00C719D3 /* SwitchSafeView.swift */,
 			);
 			path = "Safe Management";
 			sourceTree = "<group>";
@@ -613,6 +617,7 @@
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
+				551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
@@ -622,6 +627,7 @@
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
+				551DDF012450A22D00C719D3 /* TestCoreDataStack.swift in Sources */,
 				0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */,
 				551DDEE9244F183500C719D3 /* AppSettings.swift in Sources */,
 				0A0256262449F90300C91D73 /* AddressInput.swift in Sources */,

@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct AddSafeIntroView: View {
-
     @State private var addSafeStarted = false
+    @State private var swithSafeDisplayed = false
 
     var body: some View {
         FullSize {
@@ -28,15 +28,26 @@ struct AddSafeIntroView: View {
             .sheet(isPresented: self.$addSafeStarted) {
                 EnterSafeAddressView()
             }
+
+            Button("Switch Safe") {
+                self.swithSafeDisplayed = true
+            }
+            .padding()
+            .buttonStyle(GNOFilledButtonStyle())
+            .sheet(isPresented: self.$swithSafeDisplayed) {
+                SwitchSafeView()
+                    .environment(\.managedObjectContext, CoreDataStack.shared.persistentContainer.viewContext)
+            }
         }
         .edgesIgnoringSafeArea(.all)
         .background(Color.gnoWhite)
     }
 }
 
-
+#if DEBUG
 struct AddSafeIntro_Previews: PreviewProvider {
     static var previews: some View {
         AddSafeIntroView()
     }
 }
+#endif
