@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct SwitchSafeView: View {
-    @Environment(\.presentationMode)
-    var presentationMode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @FetchRequest(fetchRequest: Safe.allSafes()) var safes: FetchedResults<Safe>
     @FetchRequest(fetchRequest: AppSettings.settings()) var appSettings: FetchedResults<AppSettings>
@@ -22,7 +21,7 @@ struct SwitchSafeView: View {
             List {
                 AddSafeView(addSafe: $addSafe)
                 ForEach(safes) { safe in
-                    SafeCellView(safe: safe, isSelected: self.appSettings[0].selectedSafe == safe.address)
+                    SafeCellView(safe: safe, appSettings: self.appSettings[0])
                 }
             }
             .navigationBarTitle(Text("Switch Safes"), displayMode: .inline)
@@ -36,7 +35,7 @@ struct SwitchSafeView: View {
 
     struct SafeCellView: View {
         var safe: Safe
-        var isSelected: Bool
+        @ObservedObject var appSettings: AppSettings
 
         var body: some View {
             VStack {
@@ -47,9 +46,8 @@ struct SwitchSafeView: View {
                         Text(safe.name ?? "")
                         Text(safe.address ?? "")
                     }
-                    Rectangle() // otherwise this area is not tappable 💩
-                        .foregroundColor(.white)
-                    if isSelected {
+                    Spacer()
+                    if appSettings.selectedSafe == safe.address {
                         Image("ico-check")
                     }
                 }
@@ -59,9 +57,10 @@ struct SwitchSafeView: View {
                 Separator()
             }
             .padding(EdgeInsets(top: 0, leading: -20, bottom: 0, trailing: -20))
+            .background(Rectangle().foregroundColor(.white))
             .onTapGesture {
-                print("selected row")
-                // TODO: select item, change Database value
+                self.appSettings.selectedSafe = self.safe.address
+                CoreDataStack.shared.saveContext()
             }
         }
     }
@@ -83,14 +82,13 @@ struct SwitchSafeView: View {
                     Image("ico-plus-in-circle")
                     Text("Add Safe")
                         .foregroundColor(.gnoHold)
-                    Rectangle() // otherwise this area is not tappable 💩
-                        .foregroundColor(.white)
                 }
                 .padding(.horizontal)
 
                 Separator()
             }
             .padding(EdgeInsets(top: 0, leading: -20, bottom: 0, trailing: -20))
+            .background(Rectangle().foregroundColor(.white))
             .onTapGesture {
                 self.addSafe = true
             }
