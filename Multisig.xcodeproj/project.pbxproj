@@ -13,6 +13,7 @@
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
 		04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04764625244F1D7700511113 /* VerifiableTextField.swift */; };
+		04EEA07124531EF4002E9BBD /* ShortAddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EEA07024531EF4002E9BBD /* ShortAddressText.swift */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
 		0A0256262449F90300C91D73 /* AddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256252449F90300C91D73 /* AddressInput.swift */; };
@@ -85,6 +86,7 @@
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		04764625244F1D7700511113 /* VerifiableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifiableTextField.swift; sourceTree = "<group>"; };
+		04EEA07024531EF4002E9BBD /* ShortAddressText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortAddressText.swift; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		0A0256252449F90300C91D73 /* AddressInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInput.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				04764625244F1D7700511113 /* VerifiableTextField.swift */,
 				0AF6501A24488D280018D070 /* FullSize.swift */,
 				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
+				04EEA07024531EF4002E9BBD /* ShortAddressText.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -630,6 +633,7 @@
 				551DDF012450A22D00C719D3 /* TestCoreDataStack.swift in Sources */,
 				0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */,
 				551DDEE9244F183500C719D3 /* AppSettings.swift in Sources */,
+				04EEA07124531EF4002E9BBD /* ShortAddressText.swift in Sources */,
 				0A0256262449F90300C91D73 /* AddressInput.swift in Sources */,
 				0AF432C9244DFA9700E22E50 /* AddressInputSourceSheet.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
