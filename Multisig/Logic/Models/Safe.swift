@@ -15,6 +15,31 @@ extension Safe: Identifiable {
         self.createdAt = Date()
     }
 
+    static func download(at address: String) throws {
+        _ = try App.shared.safeRelayService.safeInfo(at: address)
+    }
+
+    static func exists(_ address: String) throws -> Bool {
+        let context = CoreDataStack.shared.viewContext
+        let count = try context.count(for: Safe.by(address: address))
+        return count > 0
+    }
+
+    static func create(address: String, name: String, selected: Bool = true) {
+        let context = CoreDataStack.shared.viewContext
+
+        let safe = Safe(context: context)
+        safe.address = address
+        safe.name = name
+
+        if selected {
+            let settings = AppSettings.getOrCreate(context: context)
+            settings.selectedSafe = address
+        }
+
+        CoreDataStack.shared.saveContext()
+    }
+
     // MARK: - Fetch Requests
 
     static func allSafes() -> NSFetchRequest<Safe> {
@@ -29,4 +54,5 @@ extension Safe: Identifiable {
         request.fetchLimit = 1
         return request
     }
+
 }

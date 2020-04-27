@@ -11,6 +11,7 @@ import AVFoundation
 
 protocol QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String)
+    func scannerViewControllerDidCancel()
 }
 
 class QRCodeScannerViewController: UIViewController {
@@ -52,7 +53,7 @@ class QRCodeScannerViewController: UIViewController {
     }
     
     @IBAction func closeButtonTouched(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        delegate?.scannerViewControllerDidCancel()
     }
     
     func setup() {
@@ -119,7 +120,7 @@ class QRCodeScannerViewController: UIViewController {
         })
         
         alert.addAction(UIAlertAction(title: Strings.cameraAlertCancel, style: .default) { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
+            self?.delegate?.scannerViewControllerDidCancel()
         })
         present(alert, animated: true)
     }
@@ -134,9 +135,8 @@ class QRCodeScannerViewController: UIViewController {
     }
     
     func scannerDidScan(code: String) {
-        self.delegate?.scannerViewControllerDidScan(code)
         captureSession.stopRunning()
-        dismiss(animated: true, completion: nil)
+        delegate?.scannerViewControllerDidScan(code)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -157,7 +157,7 @@ extension QRCodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
             .first
         
         if let code = scannedValue {
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
             scannerDidScan(code: code)
         }
     }
