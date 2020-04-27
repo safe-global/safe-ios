@@ -1,5 +1,5 @@
 //
-//  SafeAddressFormModel.swift
+//  EnterSafeAddressViewModel.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 24.04.20.
@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class SafeAddressFormModel: ObservableObject {
+class EnterSafeAddressViewModel: ObservableObject {
 
     enum FormError: LocalizedError {
         case safeExists
@@ -67,7 +67,7 @@ class SafeAddressFormModel: ObservableObject {
             }
             .receive(on: RunLoop.main)
             .tryMap { address -> String in
-                let exists = try Safe.alreadyExists(address)
+                let exists = try Safe.exists(address)
                 if exists  { throw FormError.safeExists }
                 return address
             }

@@ -1,5 +1,5 @@
 //
-//  SafeAddressForm.swift
+//  EnterSafeAddressView.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 24.04.20.
@@ -8,25 +8,25 @@
 
 import SwiftUI
 
-struct SafeAddressForm: View {
+struct EnterSafeAddressView: View {
 
     @Environment(\.presentationMode)
     var presentationMode: Binding<PresentationMode>
 
     @ObservedObject
-    var form: SafeAddressFormModel = SafeAddressFormModel()
+    var model: EnterSafeAddressViewModel = EnterSafeAddressViewModel()
 
     var body: some View {
         VStack(spacing: 23) {
             FormHeader("Enter your Safe Multisig address.")
 
             SafeAddressField(title: "Enter Safe address",
-                             enteredText: $form.text,
-                             displayText: form.displayText,
-                             isAddress: $form.isAddress,
-                             isValid: $form.isValid,
-                             isValidating: $form.isValidating,
-                             error: $form.errorMessage)
+                             enteredText: $model.text,
+                             displayText: model.displayText,
+                             isAddress: $model.isAddress,
+                             isValid: $model.isValid,
+                             isValidating: $model.isValidating,
+                             error: $model.errorMessage)
 
             Spacer()
         }
@@ -34,17 +34,21 @@ struct SafeAddressForm: View {
         .padding([.leading, .trailing])
         .navigationBarTitle("Load Safe Multisig", displayMode: .inline)
         .navigationBarItems(leading: cancelButton, trailing: nextButton)
-        .onReceive(form.$text, perform: form.validate(address:))
+        .onReceive(model.$text, perform: model.validate(address:))
     }
 
     var nextButton: some View {
         NavigationLink("Next", destination:
-            SafeNameForm(form: SafeNameFormModel(address: $form.displayText.wrappedValue)) {
+            EnterSafeNameView(address: $model.displayText.wrappedValue) {
+                // dismissing the EnterSafeNameView via its
+                // presentation mode will actually pop it back.
+                // What we need is to dismiss the whole navigation view,
+                // this is controlled by the current view's
+                // presentationMode.
                 self.presentationMode.wrappedValue.dismiss()
             }
-
         )
-        .disabled(form.isValid != true)
+        .disabled(model.isValid != true)
     }
 
     var cancelButton: some View {
@@ -57,7 +61,7 @@ struct SafeAddressForm: View {
 struct AddressForm_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SafeAddressForm()
+            EnterSafeAddressView()
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  SafeNameFormModel.swift
+//  EnterSafeNameViewModel.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 24.04.20.
@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class SafeNameFormModel: ObservableObject {
+class EnterSafeNameViewModel: ObservableObject {
 
     @Published
     var enteredText: String = ""
@@ -25,11 +25,11 @@ class SafeNameFormModel: ObservableObject {
         self.address = address
         
         $enteredText
-        .dropFirst()
-        .sink { value in
-            self.isValid = !value.isEmpty
-        }
-        .store(in: &subscribers)
+            .dropFirst()
+            .sink { value in
+                self.isValid = !value.isEmpty
+            }
+            .store(in: &subscribers)
     }
 
     func onEditing() {

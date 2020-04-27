@@ -19,7 +19,7 @@ extension Safe: Identifiable {
         _ = try App.shared.safeRelayService.safeInfo(at: address)
     }
 
-    static func alreadyExists(_ address: String) throws -> Bool {
+    static func exists(_ address: String) throws -> Bool {
         let context = CoreDataStack.shared.viewContext
         let count = try context.count(for: Safe.by(address: address))
         return count > 0

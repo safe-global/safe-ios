@@ -30,7 +30,7 @@ struct SwitchSafeView: View {
         }
         .sheet(isPresented: self.$addSafe) {
             NavigationView {
-                SafeAddressForm(form: SafeAddressFormModel())
+                EnterSafeAddressView()
             }
         }
     }

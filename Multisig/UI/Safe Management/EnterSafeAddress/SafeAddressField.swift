@@ -16,10 +16,16 @@ struct SafeAddressField: View {
     // rendered when text is empty
     var title: String
 
+    // The text entered through the field.
+    //
     // when not empty, renders in the field according to the "isAddress" logic
     // and "title" logic
-
+    //
     // when empty, shows the "create safe" prompt under the field
+    //
+    // note: using the `Binding<String>` instead of `@Binding var` here
+    // because the binding is injected from the outside. The @Binding
+    // does not give an option to inject it from the outside.
     var enteredText: Binding<String>
 
     // The text that will be displayed
