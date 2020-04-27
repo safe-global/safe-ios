@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func configureGloabalAppearance() {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage(named: "shadow")
+        UINavigationBar.appearance().tintColor = UIColor(named: "hold")
 
         UITableView.appearance().tableFooterView = UIView()
         UITableView.appearance().separatorStyle = .none
