@@ -14,7 +14,7 @@ struct SafeAddressForm: View {
     var presentationMode: Binding<PresentationMode>
 
     @ObservedObject
-    var form: SafeAddressFormModel
+    var form: SafeAddressFormModel = SafeAddressFormModel()
 
     var body: some View {
         VStack(spacing: 23) {
@@ -57,7 +57,7 @@ struct SafeAddressForm: View {
 struct AddressForm_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SafeAddressForm(form: SafeAddressFormModel())
+            SafeAddressForm()
         }
     }
 }

@@ -27,7 +27,7 @@ struct AddSafeIntroView: View {
                 .buttonStyle(GNOFilledButtonStyle())
                 .sheet(isPresented: self.$addSafeStarted) {
                     NavigationView {
-                        SafeAddressForm(form: SafeAddressFormModel())
+                        SafeAddressForm()
                     }
                 }
 
