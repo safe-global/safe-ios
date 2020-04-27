@@ -19,6 +19,36 @@ extension Safe: Identifiable {
         CoreDataStack.shared.saveContext()
     }
 
+    static func download(at address: String) throws {
+        _ = try App.shared.safeRelayService.safeInfo(at: address)
+    }
+
+    static func alreadyExists(_ address: String) throws -> Bool {
+        let context = CoreDataStack.shared.persistentContainer.viewContext
+        let count = try context.count(for: Safe.by(address: address))
+        return count > 0
+    }
+
+    static func create(address: String, name: String, selected: Bool = true) {
+        let context = CoreDataStack.shared.persistentContainer.viewContext
+
+        let safe = Safe(context: context)
+        safe.address = address
+        safe.name = name
+
+        if selected {
+            let settings = AppSettings.getOrCreate(context: context)
+            settings.selectedSafe = address
+        }
+
+        do {
+            try context.save()
+        } catch {
+            print(error)
+            fatalError()
+        }
+    }
+
     // MARK: - Fetch Requests
 
     static func allSafes() -> NSFetchRequest<Safe> {

@@ -296,12 +296,12 @@
 				0AF6501A24488D280018D070 /* FullSize.swift */,
 				0AF6500924485E450018D070 /* Identicon.swift */,
 				0A72AC612453169700840641 /* LinkText.swift */,
-				044A54432448D0B6009CBB80 /* QRScanner */,
 				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
 				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
 				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
-				0AF432D4244F063800E22E50 /* Styleguide */,
 				04764625244F1D7700511113 /* VerifiableTextField.swift */,
+				044A54432448D0B6009CBB80 /* QRScanner */,
+				0AF432D4244F063800E22E50 /* Styleguide */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";

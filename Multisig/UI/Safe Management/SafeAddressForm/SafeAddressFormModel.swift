@@ -62,21 +62,17 @@ class SafeAddressFormModel: ObservableObject {
             }
             .receive(on: DispatchQueue.global())
             .tryMap { address -> String in
-                // TODO: move to Business Logic object
-                _ = try App.shared.safeRelayService.safeInfo(at: address)
-                return address
-            }
-            .tryMap { address -> String in
-                let context = CoreDataStack.shared.persistentContainer.viewContext
-                let count = try context.count(for: Safe.by(address: address))
-                if count > 0 {
-                    throw FormError.safeExists
-                }
+                try Safe.download(at: address)
                 return address
             }
             .receive(on: RunLoop.main)
+            .tryMap { address -> String in
+                let exists = try Safe.alreadyExists(address)
+                if exists  { throw FormError.safeExists }
+                return address
+            }
             .sink(receiveCompletion: { completion in
-                if case Subscribers.Completion.failure(let error) = completion {
+                if case .failure(let error) = completion {
                     self.setError(error.localizedDescription)
                 }
             }, receiveValue: { address in

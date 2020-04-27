@@ -38,22 +38,7 @@ class SafeNameFormModel: ObservableObject {
 
     func submit() {
         guard isValid == true else { return }
-
-        // TODO: Move to business logic
-        let context = CoreDataStack.shared.persistentContainer.viewContext
-        let safe = Safe(context: context)
-        safe.address = address
-        safe.name = enteredText
-
-        let settings = AppSettings.getOrCreate(context: context)
-        settings.selectedSafe = address
-
-        do {
-            try context.save()
-        } catch {
-            print(error)
-            fatalError()
-        }
+        Safe.create(address: address, name: enteredText)
     }
 
 }
