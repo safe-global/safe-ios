@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func configureGloabalAppearance() {
-        UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage(named: "shadow")
 
