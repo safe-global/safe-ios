@@ -11,7 +11,6 @@ import SwiftUI
 struct AddSafeIntroView: View {
     @State private var addSafeStarted = false
     @State private var swithSafeDisplayed = false
-    @State private var switcherShown = false
 
     var body: some View {
         FullSize {
@@ -32,29 +31,18 @@ struct AddSafeIntroView: View {
                     }
                 }
 
-                Button("View Safes") {
-                    self.switcherShown.toggle()
+                Button("Switch Safe") {
+                    self.swithSafeDisplayed = true
                 }
+                .padding()
                 .buttonStyle(GNOFilledButtonStyle())
-                .sheet(isPresented: self.$switcherShown) {
-                    NavigationView {
-                        // For some reason, the view doesn't get the
-                        // context from the current environment of this view
-                        SafeSwitcher()
-                            .environment(\.managedObjectContext,
-                                         CoreDataStack.shared.persistentContainer.viewContext)
-                    }
+                .sheet(isPresented: self.$swithSafeDisplayed) {
+                    // For some reason, this view does not inherit the
+                    // context from the current view.
+                    SwitchSafeView()
+                        .environment(\.managedObjectContext,
+                                     CoreDataStack.shared.persistentContainer.viewContext)
                 }
-            }
-
-            Button("Switch Safe") {
-                self.swithSafeDisplayed = true
-            }
-            .padding()
-            .buttonStyle(GNOFilledButtonStyle())
-            .sheet(isPresented: self.$swithSafeDisplayed) {
-                SwitchSafeView()
-                    .environment(\.managedObjectContext, CoreDataStack.shared.persistentContainer.viewContext)
             }
         }
         .edgesIgnoringSafeArea(.all)
