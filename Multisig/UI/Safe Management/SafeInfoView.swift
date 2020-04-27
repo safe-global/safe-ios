@@ -22,12 +22,15 @@ struct SafeInfoView: View {
         return VStack (alignment: .center, spacing: 18){
             Identicon(safe?.address ?? "")
                 .frame(width: 56, height: 56)
+
             Text(safe?.name ?? "")
-            .font(Font.gnoBody.weight(.medium))
-            .multilineTextAlignment(.center)
+                .font(Font.gnoBody.weight(.medium))
+                .multilineTextAlignment(.center)
+
             HStack (alignment: .top, spacing: 12) {
                 AddressText(safe?.address ?? "")
-                .multilineTextAlignment(.center)
+                    .multilineTextAlignment(.center)
+
                 Button(action: {
                     UIPasteboard.general.string = safe?.address ?? ""
                 }) {
@@ -36,9 +39,11 @@ struct SafeInfoView: View {
             }
             .padding(.leading, 60)
             .padding(.trailing, 24)
+
             Text(safe?.ensName ?? "")
-            .font(Font.gnoBody.weight(.medium))
-            .multilineTextAlignment(.center)
+                .font(Font.gnoBody.weight(.medium))
+                .multilineTextAlignment(.center)
+
             QRView(value: safe?.address ?? "").frame(width: 124, height: 124)
         }.cardShadowTooltip()
     }

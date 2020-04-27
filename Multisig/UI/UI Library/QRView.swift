@@ -11,12 +11,19 @@ import CoreImage.CIFilterBuiltins
 
 struct QRView: View {
     var value: String
+
     var body: some View {
         VStack {
-            Image(uiImage: generateQRCode()).interpolation(.none).resizable()
-                .scaledToFit().padding(14)
-        }.background(RoundedRectangle(cornerRadius: 10)
-            .strokeBorder(Color.gnoWhitesmoke, lineWidth: 2))
+            Image(uiImage: generateQRCode())
+                .interpolation(.none)
+                .resizable()
+                .scaledToFit()
+                .padding(14)
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+            .strokeBorder(Color.gnoWhitesmoke, lineWidth: 2)
+        )
     }
     
     func generateQRCode() -> UIImage {

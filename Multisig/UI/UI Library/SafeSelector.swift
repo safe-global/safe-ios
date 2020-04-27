@@ -8,78 +8,95 @@
 
 import SwiftUI
 import CoreData
+import Combine
 
 struct SafeSelector: View {
-    var height: CGFloat = 116
-    
-    @FetchRequest(fetchRequest: AppSettings.settings()) var appSettings: FetchedResults<AppSettings>
-    @Environment(\.managedObjectContext) var context: NSManagedObjectContext
-    @Binding var showSheet: Bool
-    @Binding var activeSheet: SafeSelectorActiveOption
-    
+
+    private let height: CGFloat = 116
+
+    @Environment(\.managedObjectContext)
+    var context: NSManagedObjectContext
+
+    @FetchRequest(fetchRequest: AppSettings.settings())
+    var appSettings: FetchedResults<AppSettings>
+
+    // workaround to listen to the changes of the Safe object (name, address)
+    @State
+    var updateID = UUID()
+    var didSave = NotificationCenter.default
+        .publisher(for: .NSManagedObjectContextDidSave,
+                   object: CoreDataStack.shared.viewContext)
+        .receive(on: RunLoop.main)
+
+    @State
+    var safe: Safe?
+
+    @State
+    var showInfo: Bool = false
+
+    @State
+    var showSafes: Bool = false
+
     var body: some View {
-        var safe: Safe?
-        if let address = appSettings[0].selectedSafe {
-            safe = try? context.fetch(Safe.by(address: address)).first
-        }
-        
-        return HStack (alignment: .center, spacing: 0) {
+        HStack(alignment: .center, spacing: 0) {
             if safe == nil {
-                Image("safe-selector-not-selected-icon")
-                    .padding()
-                Text("No Safe loaded")
-                    .font(Font.gnoBody.weight(.semibold))
-                    .foregroundColor(Color.gnoMediumGrey)
+                notSelectedView
+            } else {
+                currentSafeButton(safe)
                 Spacer()
-                
+                switchSafeButton
             }
-            else {
-                Button(action: {
-                    self.showSheet.toggle()
-                    self.activeSheet = .info
-                }) {
-                    HStack {
-                        Identicon(safe?.address ?? "").frame(width: 36, height: 36)
-                            .padding()
-                        VStack (alignment: .leading){
-                            Text(safe?.name ?? "")
-                            .font(Font.gnoBody.weight(.medium))
-                            .multilineTextAlignment(.center)
-
-                            ShortAddressText(safe?.address ?? "")
-                            .multilineTextAlignment(.center)
-                        }.foregroundColor(Color.gnoDarkBlue)
-                    }
-                }
-                Spacer()
-                Button(action: {
-                    self.activeSheet = .switchSafe
-                    self.showSheet.toggle()
-                }) {
-                    Image("ico-circle-down")
-                    }.foregroundColor(.gnoMediumGrey).frame(width: 20, height: 20).padding()
-            }
-            
-        }.frame(height: height, alignment: .bottom)
-        .background(
-            Rectangle()
-                .foregroundColor(Color.gnoSnowwhite)
-                .cardShadowTooltip()
-        )
+        }
+        .id(updateID)
+        .frame(height: height, alignment: .bottom)
+        .background(backgroundView)
+        .onReceive(appSettings.publisher.first()) { settings in
+            self.safe = Safe.selected(settings)
+        }
+        .onReceive(didSave, perform: { _ in self.updateID = UUID() })
     }
-}
 
-enum SafeSelectorActiveOption {
-    case info, switchSafe, none
+    var notSelectedView: some View {
+        Group {
+            Image("safe-selector-not-selected-icon")
+                .padding()
+            Text("No Safe loaded")
+                .font(Font.gnoBody.weight(.semibold))
+                .foregroundColor(Color.gnoMediumGrey)
+            Spacer()
+        }
+    }
+
+    func currentSafeButton(_ safe: Safe?) -> some View {
+        Button(action: { self.showInfo.toggle() }) {
+            SafeCell(safe: safe)
+        }
+        .sheet(isPresented: self.$showInfo) {
+            SafeInfoView().environment(\.managedObjectContext, self.context)
+        }
+    }
+
+    var switchSafeButton: some View {
+        Button(action: { self.showSafes.toggle() }) {
+            Image("ico-circle-down")
+        }
+        .foregroundColor(.gnoMediumGrey)
+        .frame(width: 20, height: 20)
+        .padding()
+        .sheet(isPresented: self.$showSafes) {
+            SwitchSafeView().environment(\.managedObjectContext, self.context)
+        }
+    }
+
+    var backgroundView: some View {
+        Rectangle()
+        .foregroundColor(Color.gnoSnowwhite)
+        .cardShadowTooltip()
+    }
 }
 
 struct SafeSelector_Previews: PreviewProvider {
     static var previews: some View {
-//        let context = TestCoreDataStack().persistentContainer.viewContext
-//        let safe = Safe(context: context)
-//        safe.name = "Safe \(i)"
-//        safe.address = "0x\(i)"
-        return SafeSelector(showSheet: .constant(false), activeSheet: .constant(.info))
-            //.environment(\.managedObjectContext, context)
+        SafeSelector()
     }
 }

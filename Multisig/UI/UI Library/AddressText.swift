@@ -10,26 +10,39 @@ import SwiftUI
 
 struct AddressText: View {
 
+    enum Style {
+        case short, long
+    }
+
     private let tailColor = Color.gnoDarkBlue
     private let bodyColor = Color.gnoMediumGrey
-    private let prefixCount = 4
-    private let suffixCount = 4
 
     private var text: String
+    private var prefixCount: Int
+    private var suffixCount: Int
+    private var style: Style
 
-    private var prefix: Substring { text.prefix(prefixCount) }
-    private var suffix: Substring { text.dropFirst(prefixCount).suffix(suffixCount) }
-    private var middle: Substring { text.dropFirst(prefixCount).dropLast(suffixCount) }
+    private var prefix: String { String(text.prefix(prefixCount)) }
+    private var suffix: String { String(text.dropFirst(prefixCount).suffix(suffixCount)) }
+    private var middle: String { String(text.dropFirst(prefixCount).dropLast(suffixCount)) }
 
-    init(_ text: String) {
+    init(_ text: String, style: Style = .long, prefixCount: Int = 4, suffixCount: Int = 4) {
         self.text = text
+        self.style = style
+        self.prefixCount = prefixCount
+        self.suffixCount = suffixCount
     }
 
     var body: some View {
         Group {
-            Text(prefix).foregroundColor(tailColor) +
-            Text(middle).foregroundColor(bodyColor) +
-            Text(suffix).foregroundColor(tailColor)
+            if style == .long {
+                Text(prefix).foregroundColor(tailColor) +
+                Text(middle).foregroundColor(bodyColor) +
+                Text(suffix).foregroundColor(tailColor)
+            } else {
+                Text("\(prefix)…\(suffix)")
+                    .foregroundColor(bodyColor)
+            }
         }
         .font(Font.gnoCallout.weight(.medium))
         .lineLimit(2)
@@ -40,6 +53,7 @@ struct AddressText: View {
 struct AddressText_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
+            AddressText("Some text long", style: .short)
             AddressText("hello world, long welcome!")
             AddressText("")
             AddressText("hey")

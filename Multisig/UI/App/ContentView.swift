@@ -9,19 +9,13 @@
 import SwiftUI
 
 struct ContentView: View {
+
     @State private var selection = 0
-    @State private var showSafeSelectorSheet: Bool = false
-    @State private var activeSheet: SafeSelectorActiveOption = .none
-    @Environment(\.managedObjectContext) var context
-    
-    @FetchRequest(fetchRequest: AppSettings.settings()) var appSettings: FetchedResults<AppSettings>
+
     var body: some View {
-        return VStack(spacing: 0) {
-            SafeSelector(showSheet: $showSafeSelectorSheet, activeSheet: $activeSheet).zIndex(1).environment(\.managedObjectContext, context)
-            .sheet(isPresented: self.$showSafeSelectorSheet) {
-                //TODO: handle show safe info screen
-                SwitchSafeView().environment(\.managedObjectContext, self.context)
-            }
+        VStack(spacing: 0) {
+            SafeSelector()
+                .zIndex(1)
 
             TabView(selection: $selection){
 
