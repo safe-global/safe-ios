@@ -15,10 +15,16 @@
 		04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04764625244F1D7700511113 /* VerifiableTextField.swift */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
-		0A0256262449F90300C91D73 /* AddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256252449F90300C91D73 /* AddressField.swift */; };
 		0A5633AB244DCEDB00FDA4D5 /* ENSNameForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */; };
+		0A5EE3202455E9690079F701 /* SafeSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EE31F2455E9690079F701 /* SafeSwitcher.swift */; };
 		0A6C85B2245071510026139E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A6C85B4245080620026139E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B3245080620026139E /* App.swift */; };
+		0A72AC5A2453125800840641 /* SafeAddressForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC592453125800840641 /* SafeAddressForm.swift */; };
+		0A72AC5C245312FC00840641 /* FormHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC5B245312FC00840641 /* FormHeader.swift */; };
+		0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC5F2453157300840641 /* CreateSafePrompt.swift */; };
+		0A72AC622453169700840641 /* LinkText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC612453169700840641 /* LinkText.swift */; };
+		0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC652453184C00840641 /* SafeAddressField.swift */; };
+		0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC6924531C0200840641 /* AddressInputSelector.swift */; };
 		0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD562445CC8A00688050 /* AppDelegate.swift */; };
 		0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD582445CC8A00688050 /* SceneDelegate.swift */; };
 		0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD5D2445CC8A00688050 /* ContentView.swift */; };
@@ -31,9 +37,14 @@
 		0A93DDB32446080000688050 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB22446080000688050 /* Colors.swift */; };
 		0A93DDB924461C1400688050 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB824461C1400688050 /* Fonts.swift */; };
 		0A93DDBB24461F4800688050 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDBA24461F4800688050 /* Buttons.swift */; };
-		0AF432C9244DFA9700E22E50 /* AddressInputSourceSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5633A8244DCD4500FDA4D5 /* AddressInputSourceSheet.swift */; };
-		0AF64F9A24474AA30018D070 /* SafeAddressForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9924474AA30018D070 /* SafeAddressForm.swift */; };
-		0AF64FA0244752E50018D070 /* EnterSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */; };
+		0ADDA20824533C020066457E /* SafeAddressFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20724533C020066457E /* SafeAddressFormModel.swift */; };
+		0ADDA20B24533F1E0066457E /* SafeNameForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20A24533F1E0066457E /* SafeNameForm.swift */; };
+		0ADDA20D24533F860066457E /* BodyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20C24533F860066457E /* BodyText.swift */; };
+		0ADDA20F245340540066457E /* CorrectAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20E245340540066457E /* CorrectAddressView.swift */; };
+		0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA2102453467A0066457E /* RoundedTextField.swift */; };
+		0ADDA21324534F1B0066457E /* SafeNameFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA21224534F1B0066457E /* SafeNameFormModel.swift */; };
+		0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */; };
+		0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */; };
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6500A24485E450018D070 /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6500924485E450018D070 /* Identicon.swift */; };
 		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
@@ -87,11 +98,16 @@
 		04764625244F1D7700511113 /* VerifiableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifiableTextField.swift; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
-		0A0256252449F90300C91D73 /* AddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressField.swift; sourceTree = "<group>"; };
-		0A5633A8244DCD4500FDA4D5 /* AddressInputSourceSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInputSourceSheet.swift; sourceTree = "<group>"; };
 		0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSNameForm.swift; sourceTree = "<group>"; };
+		0A5EE31F2455E9690079F701 /* SafeSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeSwitcher.swift; sourceTree = "<group>"; };
 		0A6C85B1245071510026139E /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0A6C85B3245080620026139E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		0A72AC592453125800840641 /* SafeAddressForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAddressForm.swift; sourceTree = "<group>"; };
+		0A72AC5B245312FC00840641 /* FormHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormHeader.swift; sourceTree = "<group>"; };
+		0A72AC5F2453157300840641 /* CreateSafePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafePrompt.swift; sourceTree = "<group>"; };
+		0A72AC612453169700840641 /* LinkText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkText.swift; sourceTree = "<group>"; };
+		0A72AC652453184C00840641 /* SafeAddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAddressField.swift; sourceTree = "<group>"; };
+		0A72AC6924531C0200840641 /* AddressInputSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInputSelector.swift; sourceTree = "<group>"; };
 		0A93DD532445CC8A00688050 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,8 +124,13 @@
 		0A93DDB22446080000688050 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0A93DDB824461C1400688050 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		0A93DDBA24461F4800688050 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
-		0AF64F9924474AA30018D070 /* SafeAddressForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAddressForm.swift; sourceTree = "<group>"; };
-		0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameView.swift; sourceTree = "<group>"; };
+		0ADDA20724533C020066457E /* SafeAddressFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAddressFormModel.swift; sourceTree = "<group>"; };
+		0ADDA20A24533F1E0066457E /* SafeNameForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeNameForm.swift; sourceTree = "<group>"; };
+		0ADDA20C24533F860066457E /* BodyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyText.swift; sourceTree = "<group>"; };
+		0ADDA20E245340540066457E /* CorrectAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAddressView.swift; sourceTree = "<group>"; };
+		0ADDA2102453467A0066457E /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
+		0ADDA21224534F1B0066457E /* SafeNameFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeNameFormModel.swift; sourceTree = "<group>"; };
+		0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF6500924485E450018D070 /* Identicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identicon.swift; sourceTree = "<group>"; };
 		0AF6501A24488D280018D070 /* FullSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSize.swift; sourceTree = "<group>"; };
@@ -270,13 +291,38 @@
 				0AF6500924485E450018D070 /* Identicon.swift */,
 				0A0256212449F29200C91D73 /* AddressText.swift */,
 				0A0256232449F7BF00C91D73 /* AddressView.swift */,
-				0A0256252449F90300C91D73 /* AddressField.swift */,
-				0A5633A8244DCD4500FDA4D5 /* AddressInputSourceSheet.swift */,
 				04764625244F1D7700511113 /* VerifiableTextField.swift */,
-				0AF6501A24488D280018D070 /* FullSize.swift */,
 				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
+				0AF6501A24488D280018D070 /* FullSize.swift */,
+				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
+				0A72AC612453169700840641 /* LinkText.swift */,
+				0ADDA20C24533F860066457E /* BodyText.swift */,
+				0A72AC5B245312FC00840641 /* FormHeader.swift */,
+				0A72AC6924531C0200840641 /* AddressInputSelector.swift */,
+				0ADDA20E245340540066457E /* CorrectAddressView.swift */,
+				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
 			);
 			path = "UI Library";
+			sourceTree = "<group>";
+		};
+		0ADDA214245352CF0066457E /* SafeAddressForm */ = {
+			isa = PBXGroup;
+			children = (
+				0A72AC5F2453157300840641 /* CreateSafePrompt.swift */,
+				0A72AC652453184C00840641 /* SafeAddressField.swift */,
+				0A72AC592453125800840641 /* SafeAddressForm.swift */,
+				0ADDA20724533C020066457E /* SafeAddressFormModel.swift */,
+			);
+			path = SafeAddressForm;
+			sourceTree = "<group>";
+		};
+		0ADDA215245352DB0066457E /* SafeNameForm */ = {
+			isa = PBXGroup;
+			children = (
+				0ADDA20A24533F1E0066457E /* SafeNameForm.swift */,
+				0ADDA21224534F1B0066457E /* SafeNameFormModel.swift */,
+			);
+			path = SafeNameForm;
 			sourceTree = "<group>";
 		};
 		0AF432BC244DF6C900E22E50 /* ENS */ = {
@@ -291,8 +337,9 @@
 			isa = PBXGroup;
 			children = (
 				0A93DDAF2446072900688050 /* AddSafeIntroView.swift */,
-				0AF64F9924474AA30018D070 /* SafeAddressForm.swift */,
-				0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */,
+				0ADDA214245352CF0066457E /* SafeAddressForm */,
+				0ADDA215245352DB0066457E /* SafeNameForm */,
+				0A5EE31F2455E9690079F701 /* SafeSwitcher.swift */,
 			);
 			path = "Safe Management";
 			sourceTree = "<group>";
@@ -624,6 +671,8 @@
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				0AF6500A24485E450018D070 /* Identicon.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
+				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
+				0A5EE3202455E9690079F701 /* SafeSwitcher.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
@@ -631,33 +680,41 @@
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
+				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
 				04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */,
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
+				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
+				0ADDA21324534F1B0066457E /* SafeNameFormModel.swift in Sources */,
 				0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */,
 				551DDEE9244F183500C719D3 /* AppSettings.swift in Sources */,
-				0A0256262449F90300C91D73 /* AddressField.swift in Sources */,
-				0A0256262449F90300C91D73 /* AddressField.swift in Sources */,
-				0AF432C9244DFA9700E22E50 /* AddressInputSourceSheet.swift in Sources */,
+				0ADDA20B24533F1E0066457E /* SafeNameForm.swift in Sources */,
+				0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
+				0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
 				0A5633AB244DCEDB00FDA4D5 /* ENSNameForm.swift in Sources */,
-				0AF64FA0244752E50018D070 /* EnterSafeNameView.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
-				0AF64F9A24474AA30018D070 /* SafeAddressForm.swift in Sources */,
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
+				0A72AC5C245312FC00840641 /* FormHeader.swift in Sources */,
 				5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
+				0ADDA20D24533F860066457E /* BodyText.swift in Sources */,
+				0ADDA20824533C020066457E /* SafeAddressFormModel.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
+				0ADDA20F245340540066457E /* CorrectAddressView.swift in Sources */,
+				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
+				0A72AC5A2453125800840641 /* SafeAddressForm.swift in Sources */,
+				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

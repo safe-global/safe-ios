@@ -11,22 +11,40 @@ import SwiftUI
 struct AddSafeIntroView: View {
 
     @State private var addSafeStarted = false
+    @State private var switcherShown = false
 
     var body: some View {
         FullSize {
-            Text("Get started by loading your\nSafe Multisig")
-                .padding()
-                .font(.gnoTitle3)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.gnoDarkBlue)
+            VStack(spacing: 21) {
+                Text("Get started by loading your\nSafe Multisig")
+                    .font(.gnoTitle3)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.gnoDarkBlue)
 
 
-            Button("Load Safe Multisig") {
-                self.addSafeStarted = true
-            }
-            .buttonStyle(GNOFilledButtonStyle())
-            .sheet(isPresented: self.$addSafeStarted) {
-                SafeAddressForm()
+                Button("Load Safe Multisig") {
+                    self.addSafeStarted.toggle()
+                }
+                .buttonStyle(GNOFilledButtonStyle())
+                .sheet(isPresented: self.$addSafeStarted) {
+                    NavigationView {
+                        SafeAddressForm(form: SafeAddressFormModel())
+                    }
+                }
+
+                Button("View Safes") {
+                    self.switcherShown.toggle()
+                }
+                .buttonStyle(GNOFilledButtonStyle())
+                .sheet(isPresented: self.$switcherShown) {
+                    NavigationView {
+                        // For some reason, the view doesn't get the
+                        // context from the current environment of this view
+                        SafeSwitcher()
+                            .environment(\.managedObjectContext,
+                                         CoreDataStack.shared.persistentContainer.viewContext)
+                    }
+                }
             }
         }
         .edgesIgnoringSafeArea(.all)

@@ -8,6 +8,8 @@
 
 import CoreData
 
+#if DEBUG
+
 class TestCoreDataStack {
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Multisig")
@@ -21,3 +23,5 @@ class TestCoreDataStack {
         return container
     }()
 }
+
+#endif

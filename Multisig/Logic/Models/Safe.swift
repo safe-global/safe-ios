@@ -15,6 +15,10 @@ extension Safe {
         self.createdAt = Date()
     }
 
+    func save() {
+        CoreDataStack.shared.saveContext()
+    }
+
     // MARK: - Fetch Requests
 
     static func allSafes() -> NSFetchRequest<Safe> {

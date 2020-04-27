@@ -8,11 +8,14 @@
 
 import Foundation
 import CoreData
+import Combine
 
 class CoreDataStack {
     static let shared = CoreDataStack()
 
     private init() {}
+
+    private var subscribers = Set<AnyCancellable>()
 
     lazy var persistentContainer: NSPersistentContainer = {
         /*
@@ -36,6 +39,18 @@ class CoreDataStack {
                  Check the error message to determine what the actual problem was.
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
+            } else {
+                // merge changes from background contexts into the view context
+                NotificationCenter.default
+                .publisher(for: Notification.Name.NSManagedObjectContextDidSave)
+                .receive(on: RunLoop.main)
+                .sink { [unowned container] notification in
+                        let savedMOC = notification.object as! NSManagedObjectContext
+                        guard savedMOC != container.viewContext,
+                            savedMOC.persistentStoreCoordinator == container.persistentStoreCoordinator else { return }
+                        container.viewContext.mergeChanges(fromContextDidSave: notification)
+                }
+                .store(in: &self.subscribers)
             }
         }
         return container
