@@ -10,18 +10,23 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selection = 0
-
-    let selector = SafeSelector()
- 
+    @State private var showSafeSelectorSheet: Bool = false
+    @State private var activeSheet: SafeSelectorActiveOption = .none
+    @Environment(\.managedObjectContext) var context
+    
+    @FetchRequest(fetchRequest: AppSettings.settings()) var appSettings: FetchedResults<AppSettings>
     var body: some View {
-        VStack(spacing: 0) {
-
-            selector.zIndex(1)
+        return VStack(spacing: 0) {
+            SafeSelector(showSheet: $showSafeSelectorSheet, activeSheet: $activeSheet).zIndex(1).environment(\.managedObjectContext, context)
+            .sheet(isPresented: self.$showSafeSelectorSheet) {
+                //TODO: handle show safe info screen
+                SwitchSafeView().environment(\.managedObjectContext, self.context)
+            }
 
             TabView(selection: $selection){
 
                 AddSafeIntroView()
-                    .padding(.top, -selector.height)
+                    .padding(.top, -116)
                     .tabItem {
                         VStack {
                             Image("tab-icon-balances")
