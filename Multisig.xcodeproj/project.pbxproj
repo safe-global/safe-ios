@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041C2A542456D7320044A24C /* SafeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A532456D7320044A24C /* SafeInfoView.swift */; };
+		041C2A562456D7C80044A24C /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A552456D7C80044A24C /* QRView.swift */; };
 		044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A54442448D0B6009CBB80 /* QRCodeScanner.swift */; };
 		044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 044A54452448D0B6009CBB80 /* QRCodeScannerViewController.xib */; };
 		044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */; };
@@ -80,6 +82,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041C2A532456D7320044A24C /* SafeInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeInfoView.swift; sourceTree = "<group>"; };
+		041C2A552456D7C80044A24C /* QRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
 		044A54442448D0B6009CBB80 /* QRCodeScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
 		044A54452448D0B6009CBB80 /* QRCodeScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeScannerViewController.xib; sourceTree = "<group>"; };
 		044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
@@ -269,6 +273,7 @@
 				0AF6501A24488D280018D070 /* FullSize.swift */,
 				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
 				04EEA07024531EF4002E9BBD /* ShortAddressText.swift */,
+				041C2A552456D7C80044A24C /* QRView.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				0AF64F9924474AA30018D070 /* EnterSafeAddressView.swift */,
 				0AF64F9F244752E50018D070 /* EnterSafeNameView.swift */,
 				551DDEF324506B0B00C719D3 /* SwitchSafeView.swift */,
+				041C2A532456D7320044A24C /* SafeInfoView.swift */,
 			);
 			path = "Safe Management";
 			sourceTree = "<group>";
@@ -626,6 +632,7 @@
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
 				04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */,
+				041C2A562456D7C80044A24C /* QRView.swift in Sources */,
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
@@ -635,6 +642,7 @@
 				551DDEE9244F183500C719D3 /* AppSettings.swift in Sources */,
 				04EEA07124531EF4002E9BBD /* ShortAddressText.swift in Sources */,
 				0A0256262449F90300C91D73 /* AddressInput.swift in Sources */,
+				041C2A542456D7320044A24C /* SafeInfoView.swift in Sources */,
 				0AF432C9244DFA9700E22E50 /* AddressInputSourceSheet.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
