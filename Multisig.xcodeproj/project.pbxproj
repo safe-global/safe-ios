@@ -286,22 +286,22 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
-				0AF432D4244F063800E22E50 /* Styleguide */,
-				044A54432448D0B6009CBB80 /* QRScanner */,
-				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
-				0AF6500924485E450018D070 /* Identicon.swift */,
+				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
+				0A72AC6924531C0200840641 /* AddressInputSelector.swift */,
 				0A0256212449F29200C91D73 /* AddressText.swift */,
 				0A0256232449F7BF00C91D73 /* AddressView.swift */,
-				04764625244F1D7700511113 /* VerifiableTextField.swift */,
-				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
-				0AF6501A24488D280018D070 /* FullSize.swift */,
-				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
-				0A72AC612453169700840641 /* LinkText.swift */,
 				0ADDA20C24533F860066457E /* BodyText.swift */,
-				0A72AC5B245312FC00840641 /* FormHeader.swift */,
-				0A72AC6924531C0200840641 /* AddressInputSelector.swift */,
 				0ADDA20E245340540066457E /* CorrectAddressView.swift */,
+				0A72AC5B245312FC00840641 /* FormHeader.swift */,
+				0AF6501A24488D280018D070 /* FullSize.swift */,
+				0AF6500924485E450018D070 /* Identicon.swift */,
+				0A72AC612453169700840641 /* LinkText.swift */,
+				044A54432448D0B6009CBB80 /* QRScanner */,
 				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
+				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
+				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
+				0AF432D4244F063800E22E50 /* Styleguide */,
+				04764625244F1D7700511113 /* VerifiableTextField.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
