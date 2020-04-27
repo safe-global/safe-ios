@@ -29,7 +29,9 @@ struct SwitchSafeView: View {
             .padding(.top)
         }
         .sheet(isPresented: self.$addSafe) {
-            EnterSafeAddressView()
+            NavigationView {
+                EnterSafeAddressView()
+            }
         }
     }
 

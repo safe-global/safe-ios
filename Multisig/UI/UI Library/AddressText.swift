@@ -18,12 +18,11 @@ struct AddressText: View {
     private var text: String
 
     private var prefix: Substring { text.prefix(prefixCount) }
-    private var suffix: Substring { text.suffix(suffixCount) }
+    private var suffix: Substring { text.dropFirst(prefixCount).suffix(suffixCount) }
     private var middle: Substring { text.dropFirst(prefixCount).dropLast(suffixCount) }
 
     init(_ text: String) {
         self.text = text
-        assert(text.count > prefixCount + suffixCount)
     }
 
     var body: some View {
@@ -40,6 +39,10 @@ struct AddressText: View {
 
 struct AddressText_Previews: PreviewProvider {
     static var previews: some View {
-        AddressText("hello world, long welcome!")
+        VStack {
+            AddressText("hello world, long welcome!")
+            AddressText("")
+            AddressText("hey")
+        }
     }
 }

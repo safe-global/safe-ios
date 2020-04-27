@@ -8,11 +8,16 @@
 
 import Foundation
 import CoreData
+import Combine
 
 class CoreDataStack {
     static let shared = CoreDataStack()
 
+    var viewContext: NSManagedObjectContext { persistentContainer.viewContext }
+
     private init() {}
+
+    private var subscribers = Set<AnyCancellable>()
 
     lazy var persistentContainer: NSPersistentContainer = {
         /*
@@ -36,16 +41,27 @@ class CoreDataStack {
                  Check the error message to determine what the actual problem was.
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
+            } else {
+                // merge changes from background contexts into the view context
+                NotificationCenter.default
+                .publisher(for: Notification.Name.NSManagedObjectContextDidSave)
+                .receive(on: RunLoop.main)
+                .sink { [unowned container] notification in
+                        let savedMOC = notification.object as! NSManagedObjectContext
+                        guard savedMOC != container.viewContext,
+                            savedMOC.persistentStoreCoordinator == container.persistentStoreCoordinator else { return }
+                        container.viewContext.mergeChanges(fromContextDidSave: notification)
+                }
+                .store(in: &self.subscribers)
             }
         }
         return container
     }()
 
     func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
+        if viewContext.hasChanges {
             do {
-                try context.save()
+                try viewContext.save()
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.

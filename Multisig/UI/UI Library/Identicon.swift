@@ -34,7 +34,7 @@ struct Identicon: View {
         Blockies(
             seed: text,
             size: Int(blockSize),
-            scale: Int(size.width / blockSize)
+            scale: Int(min(size.width, size.height) / blockSize)
         ).createImage()!
     }
 }

@@ -1,0 +1,6 @@
+module Web3 {
+  umbrella header "Web3-umbrella.h"
+
+  export *
+  module * { export * }
+}

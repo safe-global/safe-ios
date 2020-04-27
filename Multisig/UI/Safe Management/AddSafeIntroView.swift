@@ -14,29 +14,35 @@ struct AddSafeIntroView: View {
 
     var body: some View {
         FullSize {
-            Text("Get started by loading your\nSafe Multisig")
+            VStack(spacing: 21) {
+                Text("Get started by loading your\nSafe Multisig")
+                    .font(.gnoTitle3)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.gnoDarkBlue)
+
+
+                Button("Load Safe Multisig") {
+                    self.addSafeStarted.toggle()
+                }
+                .buttonStyle(GNOFilledButtonStyle())
+                .sheet(isPresented: self.$addSafeStarted) {
+                    NavigationView {
+                        EnterSafeAddressView()
+                    }
+                }
+
+                Button("Switch Safe") {
+                    self.swithSafeDisplayed = true
+                }
                 .padding()
-                .font(.gnoTitle3)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.gnoDarkBlue)
-
-
-            Button("Load Safe Multisig") {
-                self.addSafeStarted = true
-            }
-            .buttonStyle(GNOFilledButtonStyle())
-            .sheet(isPresented: self.$addSafeStarted) {
-                EnterSafeAddressView()
-            }
-
-            Button("Switch Safe") {
-                self.swithSafeDisplayed = true
-            }
-            .padding()
-            .buttonStyle(GNOFilledButtonStyle())
-            .sheet(isPresented: self.$swithSafeDisplayed) {
-                SwitchSafeView()
-                    .environment(\.managedObjectContext, CoreDataStack.shared.persistentContainer.viewContext)
+                .buttonStyle(GNOFilledButtonStyle())
+                .sheet(isPresented: self.$swithSafeDisplayed) {
+                    // For some reason, this view does not inherit the
+                    // context from the current view.
+                    SwitchSafeView()
+                        .environment(\.managedObjectContext,
+                                     CoreDataStack.shared.persistentContainer.viewContext)
+                }
             }
         }
         .edgesIgnoringSafeArea(.all)
