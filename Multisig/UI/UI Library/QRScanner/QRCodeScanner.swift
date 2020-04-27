@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct QRCodeScanner: UIViewControllerRepresentable {
+
+    @Environment(\.presentationMode)
+    var presentationMode: Binding<PresentationMode>
+
     var header: String?
     var handler: (String) -> Void
     
@@ -34,14 +38,23 @@ struct QRCodeScanner: UIViewControllerRepresentable {
     }
 
     class Coordinator: NSObject, QRCodeScannerViewControllerDelegate {
-        func scannerViewControllerDidScan(_ code: String) {
-            parent.handler(code)
-        }
-        
         var parent: QRCodeScanner
         
         init(_ parent: QRCodeScanner) {
             self.parent = parent
+        }
+
+        func scannerViewControllerDidScan(_ code: String) {
+            parent.handler(code)
+            close()
+        }
+
+        func scannerViewControllerDidCancel() {
+            close()
+        }
+
+        func close() {
+            parent.presentationMode.wrappedValue.dismiss()
         }
     }
 }
