@@ -60,7 +60,6 @@ extension Safe: Identifiable {
         } else {
             return nil
         }
-
     }
 
 }
