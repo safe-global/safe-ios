@@ -40,8 +40,6 @@ extension Safe: Identifiable {
         CoreDataStack.shared.saveContext()
     }
 
-    // MARK: - Fetch Requests
-
     static func allSafes() -> NSFetchRequest<Safe> {
         let request: NSFetchRequest<Safe> = Safe.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Safe.createdAt, ascending: true)]
@@ -53,6 +51,15 @@ extension Safe: Identifiable {
         request.predicate = NSPredicate(format: "address == %@", address)
         request.fetchLimit = 1
         return request
+    }
+
+    static func selected(_ settings: AppSettings) -> Safe? {
+        if let address = settings.selectedSafe {
+            let request = Safe.by(address: address)
+            return try? CoreDataStack.shared.viewContext.fetch(request).first
+        } else {
+            return nil
+        }
     }
 
 }

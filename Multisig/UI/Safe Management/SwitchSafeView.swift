@@ -15,13 +15,12 @@ struct SwitchSafeView: View {
     @FetchRequest(fetchRequest: AppSettings.settings()) var appSettings: FetchedResults<AppSettings>
 
     @State var addSafe = false
-
     var body: some View {
         return NavigationView {
             List {
                 AddSafeView(addSafe: $addSafe)
                 ForEach(safes) { safe in
-                    SafeCellView(safe: safe, appSettings: self.appSettings[0])
+                    SafeCellView(safe: safe, appSettings: self.appSettings[0], presentationMode: self.presentationMode)
                 }
             }
             .navigationBarTitle(Text("Switch Safes"), displayMode: .inline)
@@ -38,7 +37,7 @@ struct SwitchSafeView: View {
     struct SafeCellView: View {
         var safe: Safe
         @ObservedObject var appSettings: AppSettings
-
+        var presentationMode: Binding<PresentationMode>
         var body: some View {
             VStack {
                 HStack {
@@ -62,6 +61,7 @@ struct SwitchSafeView: View {
             .background(Rectangle().foregroundColor(.white))
             .onTapGesture {
                 self.appSettings.selectedSafe = self.safe.address
+                self.presentationMode.wrappedValue.dismiss()
                 CoreDataStack.shared.saveContext()
             }
         }

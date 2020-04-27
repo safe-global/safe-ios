@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A572456F4F50044A24C /* SafeInfoView.swift */; };
+		041C2A5A2456F53E0044A24C /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A592456F53E0044A24C /* QRView.swift */; };
 		044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A54442448D0B6009CBB80 /* QRCodeScanner.swift */; };
 		044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 044A54452448D0B6009CBB80 /* QRCodeScannerViewController.xib */; };
 		044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */; };
@@ -16,6 +18,7 @@
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
 		0A5633AB244DCEDB00FDA4D5 /* ENSNameForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */; };
+		0A628FF5245710260038DC88 /* SafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A628FF4245710260038DC88 /* SafeCell.swift */; };
 		0A6C85B2245071510026139E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A6C85B4245080620026139E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B3245080620026139E /* App.swift */; };
 		0A72AC5A2453125800840641 /* EnterSafeAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC592453125800840641 /* EnterSafeAddressView.swift */; };
@@ -91,6 +94,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041C2A572456F4F50044A24C /* SafeInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeInfoView.swift; sourceTree = "<group>"; };
+		041C2A592456F53E0044A24C /* QRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
 		044A54442448D0B6009CBB80 /* QRCodeScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
 		044A54452448D0B6009CBB80 /* QRCodeScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeScannerViewController.xib; sourceTree = "<group>"; };
 		044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +105,7 @@
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSNameForm.swift; sourceTree = "<group>"; };
+		0A628FF4245710260038DC88 /* SafeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCell.swift; sourceTree = "<group>"; };
 		0A6C85B1245071510026139E /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0A6C85B3245080620026139E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		0A72AC592453125800840641 /* EnterSafeAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressView.swift; sourceTree = "<group>"; };
@@ -286,8 +292,6 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
-				0AF432D4244F063800E22E50 /* Styleguide */,
-				044A54432448D0B6009CBB80 /* QRScanner */,
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
 				0A72AC6924531C0200840641 /* AddressInputSelector.swift */,
 				0A0256212449F29200C91D73 /* AddressText.swift */,
@@ -298,10 +302,14 @@
 				0AF6501A24488D280018D070 /* FullSize.swift */,
 				0AF6500924485E450018D070 /* Identicon.swift */,
 				0A72AC612453169700840641 /* LinkText.swift */,
+				041C2A592456F53E0044A24C /* QRView.swift */,
 				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
 				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
 				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
+				0A628FF4245710260038DC88 /* SafeCell.swift */,
 				04764625244F1D7700511113 /* VerifiableTextField.swift */,
+				044A54432448D0B6009CBB80 /* QRScanner */,
+				0AF432D4244F063800E22E50 /* Styleguide */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -341,6 +349,7 @@
 				0ADDA214245352CF0066457E /* EnterSafeAddress */,
 				0ADDA215245352DB0066457E /* EnterSafeName */,
 				551DDEF324506B0B00C719D3 /* SwitchSafeView.swift */,
+				041C2A572456F4F50044A24C /* SafeInfoView.swift */,
 			);
 			path = "Safe Management";
 			sourceTree = "<group>";
@@ -672,6 +681,7 @@
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				0AF6500A24485E450018D070 /* Identicon.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
+				041C2A5A2456F53E0044A24C /* QRView.swift in Sources */,
 				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
@@ -679,6 +689,7 @@
 				551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
+				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
@@ -686,6 +697,7 @@
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
+				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
 				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,

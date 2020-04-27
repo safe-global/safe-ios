@@ -9,19 +9,18 @@
 import SwiftUI
 
 struct ContentView: View {
+
     @State private var selection = 0
 
-    let selector = SafeSelector()
- 
     var body: some View {
         VStack(spacing: 0) {
-
-            selector.zIndex(1)
+            SafeSelector()
+                .zIndex(1)
 
             TabView(selection: $selection){
 
                 AddSafeIntroView()
-                    .padding(.top, -selector.height)
+                    .padding(.top, -116)
                     .tabItem {
                         VStack {
                             Image("tab-icon-balances")
