@@ -36,9 +36,11 @@ struct VerifiableTextField: View {
                 }
             }
             .padding()
-            .background(RoundedRectangle(cornerRadius: 10)
-            .strokeBorder(borderColor, lineWidth: 2)
-            .frame(height: height))
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(borderColor, lineWidth: 2)
+                    .frame(height: height)
+            )
             
             Text(errorMessage)
                 .font(.gnoCallout)
