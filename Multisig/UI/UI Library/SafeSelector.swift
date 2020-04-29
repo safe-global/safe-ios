@@ -78,7 +78,9 @@ struct SafeSelector: View {
 
     var switchSafeButton: some View {
         Button(action: { self.showSafes.toggle() }) {
-            Image("ico-circle-down")
+            Image(systemName: "chevron.down.circle")
+                .foregroundColor(.gnoMediumGrey)
+                .font(Font.body.weight(.semibold))
         }
         .foregroundColor(.gnoMediumGrey)
         .frame(width: 20, height: 20)
@@ -90,13 +92,14 @@ struct SafeSelector: View {
 
     var backgroundView: some View {
         Rectangle()
-        .foregroundColor(Color.gnoSnowwhite)
-        .cardShadowTooltip()
+            .foregroundColor(Color.gnoSnowwhite)
+            .cardShadowTooltip()
     }
 }
 
 struct SafeSelector_Previews: PreviewProvider {
     static var previews: some View {
-        SafeSelector()
+        let context = TestCoreDataStack().persistentContainer.viewContext
+        return SafeSelector().environment(\.managedObjectContext, context)
     }
 }

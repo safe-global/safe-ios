@@ -41,19 +41,16 @@ struct SwitchSafeView: View {
         var body: some View {
             VStack {
                 HStack {
-                    Identicon(safe.address ?? "")
-                        .frame(width: 42, height: 42)
-                    VStack(alignment: .leading) {
-                        Text(safe.name ?? "")
-                        Text(safe.address ?? "")
-                    }
+                    SafeCell(safe: safe)
                     Spacer()
                     if appSettings.selectedSafe == safe {
-                        Image("ico-check")
+                        Image(systemName: "checkmark")
+                            .font(Font.body.weight(.regular))
+                            .foregroundColor(.gnoHold)
                     }
                 }
                 .frame(height: 46)
-                .padding(.horizontal)
+                .padding(.trailing)
 
                 Separator()
             }
@@ -81,7 +78,9 @@ struct SwitchSafeView: View {
         var body: some View {
             VStack(alignment: .leading) {
                 HStack {
-                    Image("ico-plus-in-circle")
+                    Image(systemName: "plus.circle")
+                        .foregroundColor(.gnoHold)
+                        .font(Font.body.weight(.medium))
                     Text("Add Safe")
                         .foregroundColor(.gnoHold)
                 }
@@ -101,13 +100,14 @@ struct SwitchSafeView: View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()
         }, label: {
-            Image("ico-cross")
+            Image(systemName: "xmark")
+                .foregroundColor(.gnoMediumGrey)
+                .font(Font.title.weight(.thin))
         })
         .accentColor(.gnoMediumGrey)
     }
 }
 
-#if DEBUG
 struct SwitchSafeView_Previews: PreviewProvider {
     static var previews: some View {
         let context = TestCoreDataStack().persistentContainer.viewContext
@@ -118,7 +118,7 @@ struct SwitchSafeView_Previews: PreviewProvider {
         }
         let safe = Safe(context: context)
         safe.name = "Safe 5"
-        safe.address = "0x5"
+        safe.address = "0x55555555555"
         let appSettings = AppSettings(context: context)
         appSettings.selectedSafe = safe
 
@@ -126,4 +126,3 @@ struct SwitchSafeView_Previews: PreviewProvider {
             .environment(\.managedObjectContext, context)
     }
 }
-#endif

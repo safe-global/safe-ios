@@ -32,7 +32,9 @@ struct VerifiableTextField: View {
                     .frame(height: height)
                     .font(.gnoBody)
                 if errorMessage.isEmpty {
-                    Image("ico-circle-check")
+                    Image(systemName: "checkmark.circle")
+                        .foregroundColor(.gnoHold)
+                        .font(Font.body.weight(.semibold))
                 }
             }
             .padding()
