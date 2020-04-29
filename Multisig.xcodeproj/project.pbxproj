@@ -15,6 +15,7 @@
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
 		04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04764625244F1D7700511113 /* VerifiableTextField.swift */; };
+		04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BFB55A2459785D00090386 /* KeyboadHandler.swift */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
 		0A5633AB244DCEDB00FDA4D5 /* ENSNameForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */; };
@@ -102,6 +103,7 @@
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		04764625244F1D7700511113 /* VerifiableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifiableTextField.swift; sourceTree = "<group>"; };
+		04BFB55A2459785D00090386 /* KeyboadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboadHandler.swift; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSNameForm.swift; sourceTree = "<group>"; };
@@ -299,8 +301,9 @@
 				0ADDA20C24533F860066457E /* BodyText.swift */,
 				0ADDA20E245340540066457E /* CorrectAddressView.swift */,
 				0A72AC5B245312FC00840641 /* FormHeader.swift */,
-				0AF6501A24488D280018D070 /* FullSize.swift */,
 				0AF6500924485E450018D070 /* Identicon.swift */,
+				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,
+				0AF6501A24488D280018D070 /* FullSize.swift */,
 				0A72AC612453169700840641 /* LinkText.swift */,
 				041C2A592456F53E0044A24C /* QRView.swift */,
 				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
@@ -691,6 +694,7 @@
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
+				04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
 				04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */,
