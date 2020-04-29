@@ -51,7 +51,7 @@ struct SafeSelector: View {
         .frame(height: height, alignment: .bottom)
         .background(backgroundView)
         .onReceive(appSettings.publisher.first()) { settings in
-            self.safe = Safe.selected(settings)
+            self.safe = settings.selectedSafe
         }
         .onReceive(didSave, perform: { _ in self.updateID = UUID() })
     }

@@ -48,7 +48,7 @@ struct SwitchSafeView: View {
                         Text(safe.address ?? "")
                     }
                     Spacer()
-                    if appSettings.selectedSafe == safe.address {
+                    if appSettings.selectedSafe == safe {
                         Image("ico-check")
                     }
                 }
@@ -60,7 +60,7 @@ struct SwitchSafeView: View {
             .padding(EdgeInsets(top: 0, leading: -20, bottom: 0, trailing: -20))
             .background(Rectangle().foregroundColor(.white))
             .onTapGesture {
-                self.appSettings.selectedSafe = self.safe.address
+                self.appSettings.selectedSafe = self.safe
                 self.presentationMode.wrappedValue.dismiss()
                 CoreDataStack.shared.saveContext()
             }
@@ -111,13 +111,17 @@ struct SwitchSafeView: View {
 struct SwitchSafeView_Previews: PreviewProvider {
     static var previews: some View {
         let context = TestCoreDataStack().persistentContainer.viewContext
-        let appSettings = AppSettings(context: context)
-        appSettings.selectedSafe = "0x3"
-        for i in 1...5 {
+        for i in 1...4 {
             let safe = Safe(context: context)
             safe.name = "Safe \(i)"
             safe.address = "0x\(i)"
         }
+        let safe = Safe(context: context)
+        safe.name = "Safe 5"
+        safe.address = "0x5"
+        let appSettings = AppSettings(context: context)
+        appSettings.selectedSafe = safe
+
         return SwitchSafeView()
             .environment(\.managedObjectContext, context)
     }

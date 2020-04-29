@@ -14,11 +14,8 @@ struct SafeInfoView: View {
     @Environment(\.managedObjectContext) var context: NSManagedObjectContext
     
     var body: some View {
-        var safe: Safe?
-        if let address = appSettings[0].selectedSafe {
-            safe = try? context.fetch(Safe.by(address: address)).first
-        }
-        
+        let safe = appSettings[0].selectedSafe
+
         return VStack (alignment: .center, spacing: 18){
             Identicon(safe?.address ?? "")
                 .frame(width: 56, height: 56)
