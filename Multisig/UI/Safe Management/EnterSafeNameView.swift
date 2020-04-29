@@ -43,7 +43,7 @@ struct EnterSafeNameView: View {
             .navigationBarItems(leading: backButton, trailing: nextButton)
         }.onTapGesture {
             
-        }.modifier(KeyboadHandler())
+        }
     }
     
     var title: Text {
