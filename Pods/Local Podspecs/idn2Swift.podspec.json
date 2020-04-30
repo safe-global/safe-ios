@@ -1,0 +1,53 @@
+{
+  "name": "idn2Swift",
+  "version": "0.0.1",
+  "summary": "This spec provides you with the iOS build of the Libidn2.",
+  "description": "The library contains functionality to convert internationalized domain names to and from ASCII Compatible Encoding (ACE), following the IDNA2008 and TR46 standards.\n\nThe API consists of two main functions, idn2_to_ascii_8z for converting data from UTF-8 to ASCII Compatible Encoding (ACE), and idn2_to_unicode_8z8z to convert ACE names into UTF-8 format. There are several variations of these main functions, which accept UTF-32, or input in the local system encoding. All functions assume zero-terminated strings.\n\nThis library is backwards (API) compatible with the libidn library. Replacing the idna.h header with idn2.h into a program is sufficient to switch the application from IDNA2003 to IDNA2008 as supported by this library.\n\nLibidn2 is believed to be a complete IDNA2008 and TR46 implementation, it contains an extensive test-suite, and is included in the continuous fuzzing project OSS-Fuzz.",
+  "homepage": "https://github.com/gnosis/libidn2",
+  "license": "LGPLv3+",
+  "authors": {
+    "Nikos Mavrogiannopoulos": "nmav@gnutls.org",
+    "Simon Josefsson": "simon@josefsson.org",
+    "Tim Rühsen": "tim.ruehsen@gmx.de"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source": {
+    "git": "https://github.com/DmitryBespalov/pod-idn2.git",
+    "branch": "master"
+  },
+  "source_files": [
+    "idn2/include/idn2.h",
+    "Source/IDN.swift"
+  ],
+  "preserve_paths": [
+    "idn2",
+    "unistring"
+  ],
+  "public_header_files": "idn2/include/idn2.h",
+  "xcconfig": {
+    "HEADER_SEARCH_PATHS": "\"$(SRCROOT)/Pods/idn2/idn2/include\""
+  },
+  "vendored_libraries": [
+    "unistring/lib/libunistring.a",
+    "idn2/lib/libidn2.a"
+  ],
+  "libraries": [
+    "idn2",
+    "iconv"
+  ],
+  "static_framework": true,
+  "resource_bundles": {
+    "idn2SwiftResources": [
+      "Resources/**/*"
+    ]
+  },
+  "testspecs": [
+    {
+      "name": "Tests",
+      "test_type": "unit",
+      "source_files": "Tests/IDNTests.swift"
+    }
+  ]
+}

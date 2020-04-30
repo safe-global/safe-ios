@@ -14,6 +14,9 @@ target 'Multisig' do
   
   # Dependency for the Web3: generate module map file
   pod 'secp256k1.swift', :modular_headers => true
+  
+  # Dependency for ENS name resolution
+ pod 'idn2Swift', :git => 'https://github.com/gnosis/pod-idn2.git', :branch => 'master', :testspecs => ['Tests']
 
   target 'MultisigTests' do
     inherit! :search_paths

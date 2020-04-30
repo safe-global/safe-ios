@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -56,7 +56,6 @@
 		551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEEF244F1A0A00C719D3 /* SafeTests.swift */; };
 		551DDEF2244F1B9800C719D3 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEF1244F1B9800C719D3 /* AppSettingsTests.swift */; };
 		551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEF324506B0B00C719D3 /* SwitchSafeView.swift */; };
-		551DDF012450A22D00C719D3 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */; };
 		5532D4932448A1960067505A /* Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4922448A1960067505A /* Safe.swift */; };
 		5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4AF2449A17D0067505A /* CrashlyticsProtocol.swift */; };
 		5532D4BB2449A17D0067505A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4B02449A17D0067505A /* Logger.swift */; };
@@ -545,6 +544,7 @@
 				0A93DD4F2445CC8A00688050 /* Sources */,
 				0A93DD502445CC8A00688050 /* Frameworks */,
 				0A93DD512445CC8A00688050 /* Resources */,
+				1F6A07B1A9325A186F6B4631 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -673,6 +673,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		1F6A07B1A9325A186F6B4631 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -705,7 +722,6 @@
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
 				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
-				551DDF012450A22D00C719D3 /* TestCoreDataStack.swift in Sources */,
 				0ADDA21324534F1B0066457E /* EnterSafeNameViewModel.swift in Sources */,
 				0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */,
 				551DDEE9244F183500C719D3 /* AppSettings.swift in Sources */,
@@ -953,7 +969,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Safe Multisig.app/Safe Multisig";
 			};
 			name = Debug;
 		};
@@ -976,7 +992,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Safe Multisig.app/Safe Multisig";
 			};
 			name = Release;
 		};
