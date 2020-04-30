@@ -10,6 +10,8 @@ import SwiftUI
 import CoreData
 import Combine
 
+fileprivate var safeSub: AnyCancellable?
+
 struct SafeSelector: View {
 
     private let height: CGFloat = 116
@@ -23,13 +25,6 @@ struct SafeSelector: View {
     // workaround to listen to the changes of the Safe object (name, address)
     @State
     var updateID = UUID()
-    var didSave = NotificationCenter.default
-        .publisher(for: .NSManagedObjectContextDidSave,
-                   object: CoreDataStack.shared.viewContext)
-        .receive(on: RunLoop.main)
-
-    @State
-    var safe: Safe?
 
     @State
     var showInfo: Bool = false
@@ -38,7 +33,18 @@ struct SafeSelector: View {
     var showSafes: Bool = false
 
     var body: some View {
-        HStack(alignment: .center, spacing: 0) {
+        let safe = appSettings.first?.selectedSafe
+        safeSub?.cancel()
+        if let safe = safe {
+            // subscribe on safe properties updates (like Name)
+            // FetchRequest triggers view update only if selected Safe is changed
+            safeSub = safe.objectWillChange
+                .receive(on: RunLoop.main)
+                .sink(receiveValue: { _ in
+                    self.updateID = UUID()
+                })
+        }
+        return HStack(alignment: .center, spacing: 0) {
             if safe == nil {
                 notSelectedView
             } else {
@@ -50,10 +56,6 @@ struct SafeSelector: View {
         .id(updateID)
         .frame(height: height, alignment: .bottom)
         .background(backgroundView)
-        .onReceive(appSettings.publisher.first()) { settings in
-            self.safe = settings.selectedSafe
-        }
-        .onReceive(didSave, perform: { _ in self.updateID = UUID() })
     }
 
     var notSelectedView: some View {
