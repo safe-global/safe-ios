@@ -33,10 +33,7 @@
     "unistring/lib/libunistring.a",
     "idn2/lib/libidn2.a"
   ],
-  "libraries": [
-    "idn2",
-    "iconv"
-  ],
+  "libraries": "iconv",
   "static_framework": true,
   "resource_bundles": {
     "idn2SwiftResources": [

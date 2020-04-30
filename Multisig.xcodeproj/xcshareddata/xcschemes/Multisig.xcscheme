@@ -43,6 +43,16 @@
                </Test>
             </SkippedTests>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "43E98F16D6931CEB766DA38CADFA01F5"
+               BuildableName = "idn2Swift-Unit-Tests.xctest"
+               BlueprintName = "idn2Swift-Unit-Tests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

@@ -37,17 +37,17 @@ CHECKOUT OPTIONS:
     :commit: 34bb4560f534fb9e3d7abf1d2b85143fc63e56b3
     :git: https://github.com/gnosis/BlockiesSwift.git
   idn2Swift:
-    :commit: 57b4e55d54113ed00c0b0d873aed89e97c080773
+    :commit: 4b4a820a104fbc3f2c168c1a7ca56ff25bc7b671
     :git: https://github.com/gnosis/pod-idn2.git
 
 SPEC CHECKSUMS:
   BigInt: 2aad1a9942dc932ec8b84290d2c564a3d76f97ab
   BlockiesSwift: d8fbf236b71552fc1fa85cd23bb26f29dd830156
   CryptoSwift: f12f037f6d0fcd6d48c96db0071b653de64e6c4d
-  idn2Swift: be7a242be71e9260db192b269def54a967107213
+  idn2Swift: d557454abb9872e6e2d5742acf88e04e3b25872c
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
   Web3: 7b2c30f98f24cc290bc671ab525d7a30a2afbc73
 
-PODFILE CHECKSUM: b64d05170b3a2b3a9a58fca5862e0f25da8b7d01
+PODFILE CHECKSUM: a35a727aff1c065e9881ae3ff6878a2ac21ac3c8
 
 COCOAPODS: 1.9.1

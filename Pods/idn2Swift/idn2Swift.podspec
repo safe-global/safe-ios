@@ -25,7 +25,7 @@ Libidn2 is believed to be a complete IDNA2008 and TR46 implementation, it contai
   spec.public_header_files = "idn2/include/idn2.h"
   spec.xcconfig = {'HEADER_SEARCH_PATHS' => '"$(SRCROOT)/Pods/idn2/idn2/include"'}
   spec.vendored_libraries = "unistring/lib/libunistring.a", "idn2/lib/libidn2.a"
-  spec.libraries = "idn2", "iconv"
+  spec.libraries = "iconv"
 
   spec.static_framework = true
   
