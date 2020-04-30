@@ -22,6 +22,7 @@ struct SafeCell: View {
             VStack (alignment: .leading){
                 BodyText(label: safe?.name ?? "")
                 AddressText(safe?.address ?? "", style: .short)
+                    .padding(.top, 4)
             }
         }
     }
