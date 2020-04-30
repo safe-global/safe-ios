@@ -50,10 +50,8 @@ struct AddSafeIntroView: View {
     }
 }
 
-#if DEBUG
 struct AddSafeIntro_Previews: PreviewProvider {
     static var previews: some View {
         AddSafeIntroView()
     }
 }
-#endif

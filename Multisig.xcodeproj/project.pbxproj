@@ -116,7 +116,7 @@
 		0A72AC612453169700840641 /* LinkText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkText.swift; sourceTree = "<group>"; };
 		0A72AC652453184C00840641 /* SafeAddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAddressField.swift; sourceTree = "<group>"; };
 		0A72AC6924531C0200840641 /* AddressInputSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInputSelector.swift; sourceTree = "<group>"; };
-		0A93DD532445CC8A00688050 /* Safe Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Multisig.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A93DD532445CC8A00688050 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0A93DD5D2445CC8A00688050 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -239,7 +239,7 @@
 		0A93DD542445CC8A00688050 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0A93DD532445CC8A00688050 /* Safe Multisig.app */,
+				0A93DD532445CC8A00688050 /* Multisig.app */,
 				0A93DD6C2445CC8C00688050 /* MultisigTests.xctest */,
 			);
 			name = Products;
@@ -552,7 +552,7 @@
 			);
 			name = Multisig;
 			productName = Multisig;
-			productReference = 0A93DD532445CC8A00688050 /* Safe Multisig.app */;
+			productReference = 0A93DD532445CC8A00688050 /* Multisig.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0A93DD6B2445CC8C00688050 /* MultisigTests */ = {
@@ -907,7 +907,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.multisig.prerelease;
-				PRODUCT_NAME = "Safe Multisig";
+				PRODUCT_NAME = Multisig;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -928,7 +928,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.multisig.prerelease;
-				PRODUCT_NAME = "Safe Multisig";
+				PRODUCT_NAME = Multisig;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
