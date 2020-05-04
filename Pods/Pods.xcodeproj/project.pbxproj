@@ -24,7 +24,7 @@
 		1093673D8315CEB5FC2BA557914269F4 /* GCM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B76551737EFB798D7204D38AC72C7 /* GCM.swift */; };
 		115E4053B1BCE39B1A9B3D8BDC498B0B /* DigestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCC7E3A49C09386F69E8A4E752FB1CF /* DigestType.swift */; };
 		11ADE52670760AFCF0D13687F020FFDB /* PKCS7Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38F17C04EC514814045049D8209411 /* PKCS7Padding.swift */; };
-		12739CE7E23CC9C487CA1BFAC776F9EC /* Pods-Multisig-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BC66DFB58661D4F661503D549AA52449 /* Pods-Multisig-dummy.m */; };
+		12739CE7E23CC9C487CA1BFAC776F9EC /* Pods-Multisig-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B7B0C6D4074BCD70DC57648BFD206 /* Pods-Multisig-dummy.m */; };
 		12B572E036666973F1D8E6CFE114D938 /* OFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FB16E9FBEED460ECC05D5EAF46F14E /* OFB.swift */; };
 		12E19D04A343F73DBC42E74691D355D8 /* StreamEncryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1815A2902CF4BAD7EC276409805D600 /* StreamEncryptor.swift */; };
 		12FA84881976F1F6FD50C4041B9FE2F5 /* AES.Cryptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A242AC60573A1B87C9F3E6424CACC652 /* AES.Cryptors.swift */; };
@@ -34,6 +34,7 @@
 		17C4C20E1A9F482CD4DA632A545188AC /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EAC4D8777ED7D21DC750DECC411201 /* UInt32+Extension.swift */; };
 		188381533819C1B5A340041B8D26BE06 /* ChaCha20+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B4A32A8B24C49C3522CDA8388CACF /* ChaCha20+Foundation.swift */; };
 		19929607E517AB54FA46C835A70D1087 /* String+FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FE98B8621BE8671FEED15C30B62E4D /* String+FoundationExtension.swift */; };
+		1BF01BA1ED5F347FAF81FBC396EB9502 /* Pods-MultisigIntegrationTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ABEBC8163344E6900CA75B1E183F9D83 /* Pods-MultisigIntegrationTests-dummy.m */; };
 		1BF092D9E93087DBFCF4B05BA06F28E6 /* field_10x26.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B15FFD051FFAA8C21D409FE6A8AC0A4 /* field_10x26.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		21984AEB5CBE5421A978113968A75DC9 /* secp256k1_main.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A693F6657CADF8B161F84874691ABA9 /* secp256k1_main.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		21C37A48B41990DEE4B2DC8AC1CC7268 /* Square Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DD4B5BDDF80868D77DFA20F2AC9032 /* Square Root.swift */; };
@@ -52,7 +53,7 @@
 		2EE435C19A55DD81513105E78E71217B /* field_5x52_asm_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 67BE61D8305D66B49C7DC2C1082BC31D /* field_5x52_asm_impl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2F796984CEF93CDBE530005CCE23F2E9 /* String+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B128B000838D44CC80279B489814C807 /* String+Conversion.swift */; };
 		30CF708276A4FE0C00357083A336A09D /* idn2.h in Headers */ = {isa = PBXBuildFile; fileRef = 3105EBCBBCFA47D09350D12AA7648028 /* idn2.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		337A2D8AC2838362EB2A203C828DC789 /* Pods-MultisigTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A679133AE6C8633F021D78F182AA0FF /* Pods-MultisigTests-dummy.m */; };
+		337A2D8AC2838362EB2A203C828DC789 /* Pods-MultisigTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 560CB31E6C76775689A94D1A28518608 /* Pods-MultisigTests-dummy.m */; };
 		3387E578E21E076A81C7871A144AABF8 /* EthereumPublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D46FEE773E63A75A1C14ED902B990DB /* EthereumPublicKey.swift */; };
 		3539B0F8CC6F503FAD75D1E33DFB5079 /* ecmult_const.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A163B71132D1054B74E1C1AD437E022 /* ecmult_const.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3714923FA420E760AC8E11E4E1CA7B80 /* eckey_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = A607789655206F47EA9DCE6BAD8175C1 /* eckey_impl.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -90,7 +91,7 @@
 		5CDE60142519AF2B3CBC0CDCAF6C51C4 /* RPCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9805BAC511215374B821D833DA5FD6 /* RPCRequest.swift */; };
 		5D1F31F1DAF94F9A0C9E7D3D20E4B8DD /* BigInt-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A0F82956BE95B304FC3A426A1BAE211C /* BigInt-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5E9296BC4F5D89BBD1F9DF97623C005A /* EthereumSyncStatusObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1EB5C32241A932471244E93A1A3ECE /* EthereumSyncStatusObject.swift */; };
-		5FBBCD26591AEA217ECC7370BA275C73 /* Pods-Multisig-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EE77F6CE336C35339BC76347C7CB7A31 /* Pods-Multisig-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		5FBBCD26591AEA217ECC7370BA275C73 /* Pods-Multisig-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 623B0C0C8BCA686C7C8E390C8074C17E /* Pods-Multisig-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6009FEC8AF1BE98490B1AB3B6C2CD8F4 /* field_10x26_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = F38BA01854BD872808F09C20C26196D8 /* field_10x26_impl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		60674237DF4F35B81C9B8301621C7011 /* scalar_4x64_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D6A88E7A7C8C1B259BB9A3C52D36D1 /* scalar_4x64_impl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		60A54880DF4D2F0596016E8746C394DA /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6878581EDB0FE2044D62B7C087EA77 /* Data+Extension.swift */; };
@@ -267,6 +268,13 @@
 			remoteGlobalIDString = 99313990C1D76A6D1D017868B6975CC8;
 			remoteInfo = CryptoSwift;
 		};
+		9449D2BEBF275BBB3C9292395CFF7C57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D25DB9CCA7E977F7A345A10F70F0F9EB;
+			remoteInfo = "Pods-Multisig";
+		};
 		B60EAA9E3EF93550141007D736CF26BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
@@ -317,6 +325,7 @@
 		0237ADDEC65F6A4C74CC6BAE92EFC8CD /* Array+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Array+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/Array+Foundation.swift"; sourceTree = "<group>"; };
 		02D2D18076050BD553A1FD961D90B480 /* Localizable.strings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		02DD4B5BDDF80868D77DFA20F2AC9032 /* Square Root.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Square Root.swift"; path = "Sources/Square Root.swift"; sourceTree = "<group>"; };
+		02EFAE9A94369E6C04BF88488A8E5E66 /* Pods-Multisig-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Multisig-acknowledgements.markdown"; sourceTree = "<group>"; };
 		0547A5A45D6AA7192FBF8C0AE59EFF78 /* CipherModeWorker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CipherModeWorker.swift; path = Sources/CryptoSwift/BlockMode/CipherModeWorker.swift; sourceTree = "<group>"; };
 		0578750C0A86F17955AF296A47CB98C6 /* Web3-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Web3-dummy.m"; sourceTree = "<group>"; };
 		0679AC164404DE68825EF409E9AB0C90 /* Rabbit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Rabbit.swift; path = Sources/CryptoSwift/Rabbit.swift; sourceTree = "<group>"; };
@@ -327,11 +336,14 @@
 		09761DA2E60B26B900C2C84E6AC0DDCD /* UInt8+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt8+Extension.swift"; path = "Sources/CryptoSwift/UInt8+Extension.swift"; sourceTree = "<group>"; };
 		0A693F6657CADF8B161F84874691ABA9 /* secp256k1_main.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1_main.h; path = secp256k1/Classes/secp256k1_main.h; sourceTree = "<group>"; };
 		0ABC3852E06EB55E6703E26C4CE2A93F /* Subtraction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Subtraction.swift; path = Sources/Subtraction.swift; sourceTree = "<group>"; };
+		0B5BBFA8CC268E5141820DF969A17B7C /* Pods-Multisig-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Multisig-acknowledgements.plist"; sourceTree = "<group>"; };
+		0B9ED81FF79BE28AC47FE80FC83F9DDF /* Pods-MultisigTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MultisigTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		0E43936A848E29EC54AEEEC018C67245 /* BlockDecryptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockDecryptor.swift; path = Sources/CryptoSwift/BlockDecryptor.swift; sourceTree = "<group>"; };
 		0E6D2CA658081F98123010E780551C49 /* Web3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Web3.debug.xcconfig; sourceTree = "<group>"; };
 		0E7BD29C5A84E63835A67BD462543D60 /* secp256k1.swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "secp256k1.swift-dummy.m"; sourceTree = "<group>"; };
 		1208D9FDEF542E185549830F19C0DF04 /* Updatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Updatable.swift; path = Sources/CryptoSwift/Updatable.swift; sourceTree = "<group>"; };
 		13911A97C2DCD40CAAE89071163FBA94 /* BlockCipher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockCipher.swift; path = Sources/CryptoSwift/BlockCipher.swift; sourceTree = "<group>"; };
+		1546FC650D62FFD9CAFC884372A7CBF2 /* Pods-MultisigIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MultisigIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1ADA52049550242DAE918783186E5DA6 /* ISO78164Padding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ISO78164Padding.swift; path = Sources/CryptoSwift/ISO78164Padding.swift; sourceTree = "<group>"; };
 		1B0EB28B4C2AD55652146224230E1C31 /* secp256k1.c */ = {isa = PBXFileReference; includeInIndex = 1; name = secp256k1.c; path = secp256k1/Classes/secp256k1/src/secp256k1.c; sourceTree = "<group>"; };
 		1D0A82E2724E14999794CE992F8E0D2E /* Comparable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Comparable.swift; path = Sources/Comparable.swift; sourceTree = "<group>"; };
@@ -353,7 +365,6 @@
 		31FB16E9FBEED460ECC05D5EAF46F14E /* OFB.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OFB.swift; path = Sources/CryptoSwift/BlockMode/OFB.swift; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		322734D4995D375F9B09279EF8351B53 /* RPCResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RPCResponse.swift; path = Web3/Classes/Core/Json/RPCResponse.swift; sourceTree = "<group>"; };
-		32C525F6194D8169D47D3425494687E6 /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
 		33E9FB109A6DA7D8DE8FAE7B63FAEEDA /* Data Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data Conversion.swift"; path = "Sources/Data Conversion.swift"; sourceTree = "<group>"; };
 		358D5DD7BDC6E7556A7B529648C7BA42 /* BigInt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BigInt.debug.xcconfig; sourceTree = "<group>"; };
 		35C762E905C7BEFC9EFEFDB15A0F7F5D /* Types+RLPItemConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Types+RLPItemConvertible.swift"; path = "Web3/Classes/Core/RLP/Types+RLPItemConvertible.swift"; sourceTree = "<group>"; };
@@ -367,21 +378,21 @@
 		40907E1FA02B0DD5C02BF11E17AA996C /* Multiplication.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Multiplication.swift; path = Sources/Multiplication.swift; sourceTree = "<group>"; };
 		40CCE1281164DE769303759678296832 /* libsecp256k1.swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libsecp256k1.swift.a; path = libsecp256k1.swift.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		420FB91C6168C20F631E98E39C298CCD /* EthereumAddress.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EthereumAddress.swift; path = Web3/Classes/Core/Transaction/EthereumAddress.swift; sourceTree = "<group>"; };
+		423EDE0BC171A760475E82C5B8F12C79 /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
 		4270CEE6AFD0676437AAF12FCACC8F2A /* eckey.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = eckey.h; path = secp256k1/Classes/secp256k1/src/eckey.h; sourceTree = "<group>"; };
 		432941AEA2DA3EA0359700A4B7CCB601 /* EthereumValueConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EthereumValueConvertible.swift; path = Web3/Classes/Core/Json/EthereumValueConvertible.swift; sourceTree = "<group>"; };
 		456AE5E838FC366AD4EBC06AA175D7F7 /* RLPItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RLPItem.swift; path = Web3/Classes/Core/RLP/RLPItem.swift; sourceTree = "<group>"; };
 		4714D89D604411C0D7F4733DDAA4DF3F /* UInt+BytesRepresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt+BytesRepresentable.swift"; path = "Web3/Classes/Core/Toolbox/UInt+BytesRepresentable.swift"; sourceTree = "<group>"; };
-		47F4E5FC6F110373870D220B7849FD60 /* Pods-Multisig.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Multisig.modulemap"; sourceTree = "<group>"; };
 		48AAF272E3DDD8EC3A92A8965B2EC8C3 /* EthereumTransactionReceiptObject.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EthereumTransactionReceiptObject.swift; path = Web3/Classes/Core/Json/EthereumTransactionReceiptObject.swift; sourceTree = "<group>"; };
 		49154B3142EEA62679169B3DE12E4F59 /* Collection+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Collection+Extension.swift"; path = "Sources/CryptoSwift/Collection+Extension.swift"; sourceTree = "<group>"; };
 		491AD620CF896E8E4E21FB6E07600A1D /* libWeb3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libWeb3.a; path = libWeb3.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C8354641DB09491EBE7D82E2F6E797 /* num_gmp_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = num_gmp_impl.h; path = secp256k1/Classes/secp256k1/src/num_gmp_impl.h; sourceTree = "<group>"; };
 		4AB970F28F8CEC81873D02BB1D92CFDE /* BigInt.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BigInt.modulemap; sourceTree = "<group>"; };
-		4C1F64AD1D97DD68ED217B3128D3E385 /* Pods-MultisigTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MultisigTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		4CCC7E3A49C09386F69E8A4E752FB1CF /* DigestType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DigestType.swift; path = Sources/CryptoSwift/DigestType.swift; sourceTree = "<group>"; };
 		4D3B14F7013315B5FE795CC02AEE1C23 /* EthereumValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EthereumValue.swift; path = Web3/Classes/Core/Json/EthereumValue.swift; sourceTree = "<group>"; };
 		4D9E7CC886833C5F4C9EDE172F55177A /* BlockiesSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BlockiesSwift.release.xcconfig; sourceTree = "<group>"; };
 		4F1EB5C32241A932471244E93A1A3ECE /* EthereumSyncStatusObject.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EthereumSyncStatusObject.swift; path = Web3/Classes/Core/Json/EthereumSyncStatusObject.swift; sourceTree = "<group>"; };
+		4F667202DEA85F2CD96E808412BDAE13 /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
 		503DA628ADA3E53F09518F2723C3F115 /* ChaCha20.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChaCha20.swift; path = Sources/CryptoSwift/ChaCha20.swift; sourceTree = "<group>"; };
 		504E643842F110AB34309D5F21EDC0B1 /* CompactMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompactMap.swift; path = Sources/CryptoSwift/CompactMap.swift; sourceTree = "<group>"; };
 		50D1144D72300174FD3BFF645623E6DF /* lax_der_parsing.c */ = {isa = PBXFileReference; includeInIndex = 1; name = lax_der_parsing.c; path = secp256k1/Classes/secp256k1/contrib/lax_der_parsing.c; sourceTree = "<group>"; };
@@ -390,18 +401,19 @@
 		55213E6B830542B1E59C971CE5D23183 /* Authenticator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Authenticator.swift; path = Sources/CryptoSwift/Authenticator.swift; sourceTree = "<group>"; };
 		553A026CCCD6CDB8582CE44787669DD4 /* scalar_8x32_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_8x32_impl.h; path = secp256k1/Classes/secp256k1/src/scalar_8x32_impl.h; sourceTree = "<group>"; };
 		55444D3CE8E16E0FF17AAAE887349FEA /* scalar_low.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_low.h; path = secp256k1/Classes/secp256k1/src/scalar_low.h; sourceTree = "<group>"; };
+		560CB31E6C76775689A94D1A28518608 /* Pods-MultisigTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MultisigTests-dummy.m"; sourceTree = "<group>"; };
 		562807B57D6383FB4C37629A1490E2A4 /* lax_der_privatekey_parsing.c */ = {isa = PBXFileReference; includeInIndex = 1; name = lax_der_privatekey_parsing.c; path = secp256k1/Classes/secp256k1/contrib/lax_der_privatekey_parsing.c; sourceTree = "<group>"; };
 		5628E1429B4149CCE09734201A6BE48B /* CryptoSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CryptoSwift.release.xcconfig; sourceTree = "<group>"; };
 		5711C5F20F60C0A67FD9358944B58E53 /* field_5x52_int128_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_5x52_int128_impl.h; path = secp256k1/Classes/secp256k1/src/field_5x52_int128_impl.h; sourceTree = "<group>"; };
 		58FE98B8621BE8671FEED15C30B62E4D /* String+FoundationExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+FoundationExtension.swift"; path = "Sources/CryptoSwift/Foundation/String+FoundationExtension.swift"; sourceTree = "<group>"; };
+		5A743E0F70E1E82FD3F49FDB94675B81 /* Pods-Multisig.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Multisig.modulemap"; sourceTree = "<group>"; };
 		5B533712C3A5DAFEEE1F5247F2A59574 /* scalar_low_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_low_impl.h; path = secp256k1/Classes/secp256k1/src/scalar_low_impl.h; sourceTree = "<group>"; };
 		5BC837718E9D120D5800F0A57A398FB7 /* idn2Swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "idn2Swift-dummy.m"; sourceTree = "<group>"; };
-		5CA40472C3C722595C487269C2BDCC0E /* Pods-Multisig-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Multisig-resources.sh"; sourceTree = "<group>"; };
-		5CB7371AE33E8F7F167B4F9A088A9B31 /* Pods-MultisigTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MultisigTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		5E381F35A7D740D0D30EABA1C5B255A1 /* Web3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Web3.release.xcconfig; sourceTree = "<group>"; };
 		60536B98B892077C5010248EFE5D7AA3 /* idn2Swift-Unit-Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "idn2Swift-Unit-Tests"; path = "idn2Swift-Unit-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61A77E908596ED2A5B5072E96425A1E4 /* ecmult_gen_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult_gen_impl.h; path = secp256k1/Classes/secp256k1/src/ecmult_gen_impl.h; sourceTree = "<group>"; };
 		61EA71DF94E101FA1AC00D5389A3FDD5 /* Web3+HTTPInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Web3+HTTPInitializer.swift"; path = "Web3/Classes/FoundationHTTP/Web3+HTTPInitializer.swift"; sourceTree = "<group>"; };
+		623B0C0C8BCA686C7C8E390C8074C17E /* Pods-Multisig-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Multisig-umbrella.h"; sourceTree = "<group>"; };
 		629A02DB40AA843F1EA350618564F97E /* ZeroPadding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeroPadding.swift; path = Sources/CryptoSwift/ZeroPadding.swift; sourceTree = "<group>"; };
 		62D8FD75D71E0D0282C75E0A304B4AA7 /* Exports+Web3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Exports+Web3.swift"; path = "Web3/Classes/Core/Toolbox/Exports+Web3.swift"; sourceTree = "<group>"; };
 		63CD37A6DC5DB77FCD9AC353C0DF6ABA /* scalar_4x64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_4x64.h; path = secp256k1/Classes/secp256k1/src/scalar_4x64.h; sourceTree = "<group>"; };
@@ -415,8 +427,10 @@
 		6B557FBDE04CAF84D68BC9DA785A1111 /* CCM.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CCM.swift; path = Sources/CryptoSwift/BlockMode/CCM.swift; sourceTree = "<group>"; };
 		6BFFBFDB14F6489E9D6596ADF3AC240F /* Integer Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Integer Conversion.swift"; path = "Sources/Integer Conversion.swift"; sourceTree = "<group>"; };
 		6D46FEE773E63A75A1C14ED902B990DB /* EthereumPublicKey.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EthereumPublicKey.swift; path = Web3/Classes/Core/Transaction/EthereumPublicKey.swift; sourceTree = "<group>"; };
+		6D637217859B3D1CBCE32347121E1F0C /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6DC23DB748FEA0EB15AFDDB99779A1A4 /* BigInt-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BigInt-prefix.pch"; sourceTree = "<group>"; };
 		6F210DDE78F4157775E532EA2A57F101 /* Bitwise Ops.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Bitwise Ops.swift"; path = "Sources/Bitwise Ops.swift"; sourceTree = "<group>"; };
+		6FABEC49C0E08B489A2AA094AE50063E /* Pods-MultisigTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MultisigTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		70FD66E71FA341F965C70C6754DAB976 /* libidn2Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libidn2Swift.a; path = libidn2Swift.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		715CF1D26B746AEB937AA19D6D0BA757 /* IDN.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IDN.swift; path = Source/IDN.swift; sourceTree = "<group>"; };
 		7205D2AD226A0FA19B87FB55CC7C31EB /* BlockMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockMode.swift; path = Sources/CryptoSwift/BlockMode/BlockMode.swift; sourceTree = "<group>"; };
@@ -426,9 +440,9 @@
 		76B5981564BE9EBF22CC6D7B278EF7BF /* BlockiesSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BlockiesSwift.modulemap; sourceTree = "<group>"; };
 		773BCAF73E133261E7EF7FE21F52EC20 /* main_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = main_impl.h; path = secp256k1/Classes/secp256k1/src/modules/ecdh/main_impl.h; sourceTree = "<group>"; };
 		7759DDCFDEAF58945E3066E81A8AF59B /* CBC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CBC.swift; path = Sources/CryptoSwift/BlockMode/CBC.swift; sourceTree = "<group>"; };
+		776A988955104CA146A4ED9B3D420518 /* Pods-MultisigIntegrationTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MultisigIntegrationTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		785AB98C05336106E4E2E8DB2451ECEE /* AES+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "AES+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/AES+Foundation.swift"; sourceTree = "<group>"; };
-		797B8BEE3BF111FA2DDA76C4150B084F /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
-		7E7AB7BAD064B2DD8534818E71EF9517 /* Pods-Multisig-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Multisig-acknowledgements.plist"; sourceTree = "<group>"; };
+		793992908F5C1D21ADF8DE3CD8D13578 /* libPods-MultisigIntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-MultisigIntegrationTests.a"; path = "libPods-MultisigIntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EA039A62C0AA83C9F1C3C0F80F3F461 /* HMAC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HMAC.swift; path = Sources/CryptoSwift/HMAC.swift; sourceTree = "<group>"; };
 		839840BF07073513C90EED7BC1AEF90D /* secp256k1_ecdh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1_ecdh.h; path = secp256k1/Classes/secp256k1/include/secp256k1_ecdh.h; sourceTree = "<group>"; };
 		84B7A31187C4D4378EC34B39C1C104C9 /* Color+HSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Color+HSL.swift"; path = "BlockiesSwift/Classes/Toolbox/Color+HSL.swift"; sourceTree = "<group>"; };
@@ -439,10 +453,10 @@
 		88B9D5AE246EFAE9645D14D88A72CC26 /* UnsignedInteger+BytesConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UnsignedInteger+BytesConvertible.swift"; path = "Web3/Classes/Core/Toolbox/UnsignedInteger+BytesConvertible.swift"; sourceTree = "<group>"; };
 		8A163B71132D1054B74E1C1AD437E022 /* ecmult_const.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult_const.h; path = secp256k1/Classes/secp256k1/src/ecmult_const.h; sourceTree = "<group>"; };
 		8A54DEB43DF8DB2D8411C0135438050B /* BlockiesSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BlockiesSwift-prefix.pch"; sourceTree = "<group>"; };
-		8A679133AE6C8633F021D78F182AA0FF /* Pods-MultisigTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MultisigTests-dummy.m"; sourceTree = "<group>"; };
 		8B7BEF5826F90133554124D5DE3E4FF4 /* Int+ETH.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Int+ETH.swift"; path = "Web3/Classes/Core/Toolbox/Int+ETH.swift"; sourceTree = "<group>"; };
 		8C31C1E1F9935AE43979ACE83B135A8A /* AEAD.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AEAD.swift; path = Sources/CryptoSwift/AEAD/AEAD.swift; sourceTree = "<group>"; };
 		8CF70A92365E3B9FB89DA09A05FC4B16 /* main_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = main_impl.h; path = secp256k1/Classes/secp256k1/src/modules/recovery/main_impl.h; sourceTree = "<group>"; };
+		8E5B7B0C6D4074BCD70DC57648BFD206 /* Pods-Multisig-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Multisig-dummy.m"; sourceTree = "<group>"; };
 		8E9805BAC511215374B821D833DA5FD6 /* RPCRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RPCRequest.swift; path = Web3/Classes/Core/Json/RPCRequest.swift; sourceTree = "<group>"; };
 		8EA0A042559FF251BAE51CB33C537B45 /* libPods-MultisigTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-MultisigTests.a"; path = "libPods-MultisigTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE141B3961A4CD59DA907DF45DAEA9E /* UnsignedInteger+Shifting.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UnsignedInteger+Shifting.swift"; path = "Web3/Classes/Core/Toolbox/UnsignedInteger+Shifting.swift"; sourceTree = "<group>"; };
@@ -464,12 +478,13 @@
 		A0F82956BE95B304FC3A426A1BAE211C /* BigInt-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BigInt-umbrella.h"; sourceTree = "<group>"; };
 		A10A78B59039F48D920817848E322012 /* Bytes+TrimLeadingZeros.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Bytes+TrimLeadingZeros.swift"; path = "Web3/Classes/Core/Toolbox/Bytes+TrimLeadingZeros.swift"; sourceTree = "<group>"; };
 		A18F6D6BE6532A952E60D2D3BE60D302 /* Bytes+UInt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Bytes+UInt.swift"; path = "Web3/Classes/Core/Toolbox/Bytes+UInt.swift"; sourceTree = "<group>"; };
+		A1A0049156659054762514C9DFE92FDB /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
 		A238656629A23DF9BCD4AB6F444DFC21 /* Generics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Generics.swift; path = Sources/CryptoSwift/Generics.swift; sourceTree = "<group>"; };
 		A242AC60573A1B87C9F3E6424CACC652 /* AES.Cryptors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.Cryptors.swift; path = Sources/CryptoSwift/AES.Cryptors.swift; sourceTree = "<group>"; };
 		A50AE5BEE37ED7FEEB96947C02BE11FC /* hash_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hash_impl.h; path = secp256k1/Classes/secp256k1/src/hash_impl.h; sourceTree = "<group>"; };
-		A54F3DE5B83153AA472448809007EE38 /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
 		A5C06F3ED8FE4E0C1BB6FCF11CD67647 /* SecureBytes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecureBytes.swift; path = Sources/CryptoSwift/SecureBytes.swift; sourceTree = "<group>"; };
 		A5D973B0B45BA4FBEA7DE0001A4B9BB8 /* secp256k1_ec_mult_static_context.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1_ec_mult_static_context.h; path = secp256k1/Classes/secp256k1_ec_mult_static_context.h; sourceTree = "<group>"; };
+		A5E6756E6D9A21CE4218739EF1EAB06E /* Pods-Multisig-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Multisig-resources.sh"; sourceTree = "<group>"; };
 		A607789655206F47EA9DCE6BAD8175C1 /* eckey_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = eckey_impl.h; path = secp256k1/Classes/secp256k1/src/eckey_impl.h; sourceTree = "<group>"; };
 		A867AC7683DB331B3986C54200F82665 /* EthereumCall.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EthereumCall.swift; path = Web3/Classes/Core/Json/EthereumCall.swift; sourceTree = "<group>"; };
 		AA16832062E868F575A413F2A039495E /* CryptoSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CryptoSwift-prefix.pch"; sourceTree = "<group>"; };
@@ -477,6 +492,7 @@
 		AA9F2C33C312500EAAD6281EF9B50612 /* BlockiesSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BlockiesSwift-dummy.m"; sourceTree = "<group>"; };
 		AB2557541FC0B5F16E5B46B396E40777 /* group.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = group.h; path = secp256k1/Classes/secp256k1/src/group.h; sourceTree = "<group>"; };
 		AB6878581EDB0FE2044D62B7C087EA77 /* Data+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Extension.swift"; path = "Sources/CryptoSwift/Foundation/Data+Extension.swift"; sourceTree = "<group>"; };
+		ABEBC8163344E6900CA75B1E183F9D83 /* Pods-MultisigIntegrationTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MultisigIntegrationTests-dummy.m"; sourceTree = "<group>"; };
 		AC773E2FB60555BF7CCA993B916F84F5 /* secp256k1.swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "secp256k1.swift-umbrella.h"; sourceTree = "<group>"; };
 		AC8FA58B648085BFE7FDF8989FC161F8 /* Hashable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Hashable.swift; path = Sources/Hashable.swift; sourceTree = "<group>"; };
 		ADD3351D0D2464A2F70547156E967E52 /* ECB.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ECB.swift; path = Sources/CryptoSwift/BlockMode/ECB.swift; sourceTree = "<group>"; };
@@ -488,7 +504,6 @@
 		B1E864E75EB97AA34B9CC2F54779AA68 /* Scrypt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Scrypt.swift; path = Sources/CryptoSwift/Scrypt.swift; sourceTree = "<group>"; };
 		B23B02D308D62F0BCCFAD946D802D1E9 /* BytesConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BytesConvertible.swift; path = Web3/Classes/Core/Toolbox/BytesConvertible.swift; sourceTree = "<group>"; };
 		B24EA6ED5A0E9594F4A5AC73B5E6BA16 /* libidn2.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libidn2.a; path = idn2/lib/libidn2.a; sourceTree = "<group>"; };
-		B25A28CB636B1DD19624634E306E05D1 /* Pods-Multisig-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Multisig-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B260646EA940AF83C08DA92176D4B688 /* secp256k1-config.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "secp256k1-config.h"; path = "secp256k1/Classes/secp256k1-config.h"; sourceTree = "<group>"; };
 		B323A3E8BFEE022DC655F115CEA28B63 /* secp256k1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1.h; path = secp256k1/Classes/secp256k1/include/secp256k1.h; sourceTree = "<group>"; };
 		B4A2CA1B62AE7A76B35F4E9BCD0E7F98 /* CBCMAC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CBCMAC.swift; path = Sources/CryptoSwift/CBCMAC.swift; sourceTree = "<group>"; };
@@ -498,10 +513,8 @@
 		B8A891A4FC25B9CA003067A205621635 /* RLPItemConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RLPItemConvertible.swift; path = Web3/Classes/Core/RLP/RLPItemConvertible.swift; sourceTree = "<group>"; };
 		B92E1484689B4292ECAC2D7D1EE14AEB /* Codable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Codable.swift; path = Sources/Codable.swift; sourceTree = "<group>"; };
 		B97C80F5A81B46A73ADF80BBB19FD043 /* libBlockiesSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libBlockiesSwift.a; path = libBlockiesSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		BBAC622062D7D00FE3B3C305A327D479 /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
 		BC1B215BB56E025454096E8C898421B7 /* secp256k1.swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = secp256k1.swift.debug.xcconfig; sourceTree = "<group>"; };
 		BC36C3DE6D36348D2E345E1ED2978F76 /* AEADChaCha20Poly1305.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AEADChaCha20Poly1305.swift; path = Sources/CryptoSwift/AEAD/AEADChaCha20Poly1305.swift; sourceTree = "<group>"; };
-		BC66DFB58661D4F661503D549AA52449 /* Pods-Multisig-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Multisig-dummy.m"; sourceTree = "<group>"; };
 		BCC13FB303DE08AD68A90F6FEDEF4309 /* Bytes+SecureRandom.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Bytes+SecureRandom.swift"; path = "Web3/Classes/Core/Toolbox/Bytes+SecureRandom.swift"; sourceTree = "<group>"; };
 		BDD82647CD1DC1752E9268E6BC3D4E00 /* CFB.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CFB.swift; path = Sources/CryptoSwift/BlockMode/CFB.swift; sourceTree = "<group>"; };
 		BE4D48895A365C99AE8AEDD0AA800130 /* BigUInt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BigUInt.swift; path = Sources/BigUInt.swift; sourceTree = "<group>"; };
@@ -522,6 +535,7 @@
 		C8E435037983E0862324B57806D3C88F /* Poly1305.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Poly1305.swift; path = Sources/CryptoSwift/Poly1305.swift; sourceTree = "<group>"; };
 		CA9E09FE4E080DF632E8F1575499CCD2 /* EthereumQuantityTag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EthereumQuantityTag.swift; path = Web3/Classes/Core/Json/EthereumQuantityTag.swift; sourceTree = "<group>"; };
 		CB166E12B61A89011CEAC3C1842F2C47 /* Web3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Web3.swift; path = Web3/Classes/Core/Web3/Web3.swift; sourceTree = "<group>"; };
+		CB24B46C71F7FF7D7F598B3EB87D8851 /* Pods-MultisigIntegrationTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MultisigIntegrationTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		CB551CAD19B7FF2C1A83AD221A09468D /* SHA2.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA2.swift; path = Sources/CryptoSwift/SHA2.swift; sourceTree = "<group>"; };
 		CB8BBDA1EAB3E7992D0C6DE86F7D0F7D /* idn2Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = idn2Swift.release.xcconfig; sourceTree = "<group>"; };
 		CC0D86AF3CEFF7C16A0479917A0F79EB /* PCBC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCBC.swift; path = Sources/CryptoSwift/BlockMode/PCBC.swift; sourceTree = "<group>"; };
@@ -556,7 +570,6 @@
 		E8530285593C76609EC2A5555D7565E8 /* scalar_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_impl.h; path = secp256k1/Classes/secp256k1/src/scalar_impl.h; sourceTree = "<group>"; };
 		EB98F868C936656BD36DAD98D2804189 /* SHA3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA3.swift; path = Sources/CryptoSwift/SHA3.swift; sourceTree = "<group>"; };
 		EBF2297FD7D0EE91EB4A735C84C92E2B /* RLPDecoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RLPDecoder.swift; path = Web3/Classes/Core/RLP/RLPDecoder.swift; sourceTree = "<group>"; };
-		EE77F6CE336C35339BC76347C7CB7A31 /* Pods-Multisig-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Multisig-umbrella.h"; sourceTree = "<group>"; };
 		EFDBADD2C4D2592840763CE902DD7E4E /* RLPEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RLPEncoder.swift; path = Web3/Classes/Core/RLP/RLPEncoder.swift; sourceTree = "<group>"; };
 		F00FEC0EF534C4B8FBFBCF8DFC77039C /* num_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = num_impl.h; path = secp256k1/Classes/secp256k1/src/num_impl.h; sourceTree = "<group>"; };
 		F0158654A04D3F1B8C5DA70ADC1F19D2 /* libunistring.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libunistring.a; path = unistring/lib/libunistring.a; sourceTree = "<group>"; };
@@ -574,6 +587,7 @@
 		FA2B76551737EFB798D7204D38AC72C7 /* GCM.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GCM.swift; path = Sources/CryptoSwift/BlockMode/GCM.swift; sourceTree = "<group>"; };
 		FA6E7BA9DE3FEAFE933FBB374FD023BC /* ecmult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult.h; path = secp256k1/Classes/secp256k1/src/ecmult.h; sourceTree = "<group>"; };
 		FBAF1680E5032ED593103FFFE19AD89B /* UIImage+Blockies.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIImage+Blockies.swift"; path = "BlockiesSwift/Classes/UIImage+Blockies.swift"; sourceTree = "<group>"; };
+		FC574B3936D9DEB9F73D5E97324A5FE9 /* Pods-MultisigIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MultisigIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		FC88698311966EF1652FCA340439C0FB /* num_gmp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = num_gmp.h; path = secp256k1/Classes/secp256k1/src/num_gmp.h; sourceTree = "<group>"; };
 		FCC3757143FB9C402CD5B2822B3E37A5 /* BigUInt+BytesConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "BigUInt+BytesConvertible.swift"; path = "Web3/Classes/Core/Toolbox/BigUInt+BytesConvertible.swift"; sourceTree = "<group>"; };
 		FDAB2EB0F4544FFD3DB537D08125A51E /* lax_der_parsing.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = lax_der_parsing.h; path = secp256k1/Classes/secp256k1/contrib/lax_der_parsing.h; sourceTree = "<group>"; };
@@ -647,6 +661,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4795CFF44B74042342D30A5FEC8912D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FDDAEEB6DC3707E5BB99C0634F32A91A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -714,19 +735,6 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
-		180CB60E7187F578F9289E9B48122B5E /* Pods-MultisigTests */ = {
-			isa = PBXGroup;
-			children = (
-				5CB7371AE33E8F7F167B4F9A088A9B31 /* Pods-MultisigTests-acknowledgements.markdown */,
-				4C1F64AD1D97DD68ED217B3128D3E385 /* Pods-MultisigTests-acknowledgements.plist */,
-				8A679133AE6C8633F021D78F182AA0FF /* Pods-MultisigTests-dummy.m */,
-				32C525F6194D8169D47D3425494687E6 /* Pods-MultisigTests.debug.xcconfig */,
-				A54F3DE5B83153AA472448809007EE38 /* Pods-MultisigTests.release.xcconfig */,
-			);
-			name = "Pods-MultisigTests";
-			path = "Target Support Files/Pods-MultisigTests";
-			sourceTree = "<group>";
-		};
 		1F1EA874DECBA6AA8ECAC26BB8C4BF32 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,6 +746,22 @@
 				AD83599B77CF91D64BB2C730873C7EC7 /* Web3 */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		2061D1AB55F03C7CAE11E956F824F4C6 /* Pods-Multisig */ = {
+			isa = PBXGroup;
+			children = (
+				5A743E0F70E1E82FD3F49FDB94675B81 /* Pods-Multisig.modulemap */,
+				02EFAE9A94369E6C04BF88488A8E5E66 /* Pods-Multisig-acknowledgements.markdown */,
+				0B5BBFA8CC268E5141820DF969A17B7C /* Pods-Multisig-acknowledgements.plist */,
+				8E5B7B0C6D4074BCD70DC57648BFD206 /* Pods-Multisig-dummy.m */,
+				A5E6756E6D9A21CE4218739EF1EAB06E /* Pods-Multisig-resources.sh */,
+				623B0C0C8BCA686C7C8E390C8074C17E /* Pods-Multisig-umbrella.h */,
+				4F667202DEA85F2CD96E808412BDAE13 /* Pods-Multisig.debug.xcconfig */,
+				A1A0049156659054762514C9DFE92FDB /* Pods-Multisig.release.xcconfig */,
+			);
+			name = "Pods-Multisig";
+			path = "Target Support Files/Pods-Multisig";
 			sourceTree = "<group>";
 		};
 		20F861FE28363BC3C9495DFDF78DC096 /* Resources */ = {
@@ -782,20 +806,17 @@
 			path = idn2Swift;
 			sourceTree = "<group>";
 		};
-		3EA04029C648083DBA5A77FD9EA18317 /* Pods-Multisig */ = {
+		4478149610BF4B78B2AC6675E1060511 /* Pods-MultisigIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
-				47F4E5FC6F110373870D220B7849FD60 /* Pods-Multisig.modulemap */,
-				B25A28CB636B1DD19624634E306E05D1 /* Pods-Multisig-acknowledgements.markdown */,
-				7E7AB7BAD064B2DD8534818E71EF9517 /* Pods-Multisig-acknowledgements.plist */,
-				BC66DFB58661D4F661503D549AA52449 /* Pods-Multisig-dummy.m */,
-				5CA40472C3C722595C487269C2BDCC0E /* Pods-Multisig-resources.sh */,
-				EE77F6CE336C35339BC76347C7CB7A31 /* Pods-Multisig-umbrella.h */,
-				797B8BEE3BF111FA2DDA76C4150B084F /* Pods-Multisig.debug.xcconfig */,
-				BBAC622062D7D00FE3B3C305A327D479 /* Pods-Multisig.release.xcconfig */,
+				CB24B46C71F7FF7D7F598B3EB87D8851 /* Pods-MultisigIntegrationTests-acknowledgements.markdown */,
+				776A988955104CA146A4ED9B3D420518 /* Pods-MultisigIntegrationTests-acknowledgements.plist */,
+				ABEBC8163344E6900CA75B1E183F9D83 /* Pods-MultisigIntegrationTests-dummy.m */,
+				1546FC650D62FFD9CAFC884372A7CBF2 /* Pods-MultisigIntegrationTests.debug.xcconfig */,
+				FC574B3936D9DEB9F73D5E97324A5FE9 /* Pods-MultisigIntegrationTests.release.xcconfig */,
 			);
-			name = "Pods-Multisig";
-			path = "Target Support Files/Pods-Multisig";
+			name = "Pods-MultisigIntegrationTests";
+			path = "Target Support Files/Pods-MultisigIntegrationTests";
 			sourceTree = "<group>";
 		};
 		46E00BAA6043447883EADFE5B2A594D0 /* Support Files */ = {
@@ -896,6 +917,24 @@
 			path = CryptoSwift;
 			sourceTree = "<group>";
 		};
+		6230039805466233D019626CFA4705CC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				60536B98B892077C5010248EFE5D7AA3 /* idn2Swift-Unit-Tests */,
+				E616029D2CEC546E9E1922DC344834AC /* idn2SwiftResources.bundle */,
+				91BB24BA472AF523E913108C9AA301F2 /* libBigInt.a */,
+				B97C80F5A81B46A73ADF80BBB19FD043 /* libBlockiesSwift.a */,
+				F81274EDB681F11E7CB05F7DCA2BB33C /* libCryptoSwift.a */,
+				70FD66E71FA341F965C70C6754DAB976 /* libidn2Swift.a */,
+				E2BE5A550D0527E0D17D06B993E6D44A /* libPods-Multisig.a */,
+				793992908F5C1D21ADF8DE3CD8D13578 /* libPods-MultisigIntegrationTests.a */,
+				8EA0A042559FF251BAE51CB33C537B45 /* libPods-MultisigTests.a */,
+				40CCE1281164DE769303759678296832 /* libsecp256k1.swift.a */,
+				491AD620CF896E8E4E21FB6E07600A1D /* libWeb3.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		76138A0679BABF283A9D31635C490FD9 /* BigInt */ = {
 			isa = PBXGroup;
 			children = (
@@ -927,21 +966,14 @@
 			path = BigInt;
 			sourceTree = "<group>";
 		};
-		77BCD8B9D5AA3F5056619DDCEDFA909C /* Products */ = {
+		793BF6EDC2599E9726AF1CABB43DFA26 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				60536B98B892077C5010248EFE5D7AA3 /* idn2Swift-Unit-Tests */,
-				E616029D2CEC546E9E1922DC344834AC /* idn2SwiftResources.bundle */,
-				91BB24BA472AF523E913108C9AA301F2 /* libBigInt.a */,
-				B97C80F5A81B46A73ADF80BBB19FD043 /* libBlockiesSwift.a */,
-				F81274EDB681F11E7CB05F7DCA2BB33C /* libCryptoSwift.a */,
-				70FD66E71FA341F965C70C6754DAB976 /* libidn2Swift.a */,
-				E2BE5A550D0527E0D17D06B993E6D44A /* libPods-Multisig.a */,
-				8EA0A042559FF251BAE51CB33C537B45 /* libPods-MultisigTests.a */,
-				40CCE1281164DE769303759678296832 /* libsecp256k1.swift.a */,
-				491AD620CF896E8E4E21FB6E07600A1D /* libWeb3.a */,
+				2061D1AB55F03C7CAE11E956F824F4C6 /* Pods-Multisig */,
+				4478149610BF4B78B2AC6675E1060511 /* Pods-MultisigIntegrationTests */,
+				B4469B64C7491C5C205E776AF3403686 /* Pods-MultisigTests */,
 			);
-			name = Products;
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 		93712A6DA46E6C76B6D581CEEF9477F8 /* secp256k1.swift */ = {
@@ -1004,15 +1036,6 @@
 			path = secp256k1.swift;
 			sourceTree = "<group>";
 		};
-		96C1551246E5B709BC567CA96870FDFC /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				3EA04029C648083DBA5A77FD9EA18317 /* Pods-Multisig */,
-				180CB60E7187F578F9289E9B48122B5E /* Pods-MultisigTests */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
 		A8FE5106778FB16E52498462371A236C /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1036,6 +1059,19 @@
 			);
 			name = Web3;
 			path = Web3;
+			sourceTree = "<group>";
+		};
+		B4469B64C7491C5C205E776AF3403686 /* Pods-MultisigTests */ = {
+			isa = PBXGroup;
+			children = (
+				6FABEC49C0E08B489A2AA094AE50063E /* Pods-MultisigTests-acknowledgements.markdown */,
+				0B9ED81FF79BE28AC47FE80FC83F9DDF /* Pods-MultisigTests-acknowledgements.plist */,
+				560CB31E6C76775689A94D1A28518608 /* Pods-MultisigTests-dummy.m */,
+				6D637217859B3D1CBCE32347121E1F0C /* Pods-MultisigTests.debug.xcconfig */,
+				423EDE0BC171A760475E82C5B8F12C79 /* Pods-MultisigTests.release.xcconfig */,
+			);
+			name = "Pods-MultisigTests";
+			path = "Target Support Files/Pods-MultisigTests";
 			sourceTree = "<group>";
 		};
 		B60BE4C5AC433B635828A170398421C7 /* Core */ = {
@@ -1110,8 +1146,8 @@
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
 				1F1EA874DECBA6AA8ECAC26BB8C4BF32 /* Pods */,
-				77BCD8B9D5AA3F5056619DDCEDFA909C /* Products */,
-				96C1551246E5B709BC567CA96870FDFC /* Targets Support Files */,
+				6230039805466233D019626CFA4705CC /* Products */,
+				793BF6EDC2599E9726AF1CABB43DFA26 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1185,6 +1221,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FBBCD26591AEA217ECC7370BA275C73 /* Pods-Multisig-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6D9ED3877D9D1DE45275CD3CE64C8D4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1289,6 +1332,24 @@
 			name = BlockiesSwift;
 			productName = BlockiesSwift;
 			productReference = B97C80F5A81B46A73ADF80BBB19FD043 /* libBlockiesSwift.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		2C0B4B8A47F79BF22E2078C1A64EE73C /* Pods-MultisigIntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3CCEB361C76D272DF32988F92194FA5E /* Build configuration list for PBXNativeTarget "Pods-MultisigIntegrationTests" */;
+			buildPhases = (
+				B6D9ED3877D9D1DE45275CD3CE64C8D4 /* Headers */,
+				90E2ABB6EED657A8E5AE1DB0DBD4CA33 /* Sources */,
+				F4795CFF44B74042342D30A5FEC8912D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				544C89AA0AA6E651D7507BA91B28EF6D /* PBXTargetDependency */,
+			);
+			name = "Pods-MultisigIntegrationTests";
+			productName = "Pods-MultisigIntegrationTests";
+			productReference = 793992908F5C1D21ADF8DE3CD8D13578 /* libPods-MultisigIntegrationTests.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		3101AE36D40FF0FE78F058DB9F7D8546 /* idn2Swift-idn2SwiftResources */ = {
@@ -1461,7 +1522,7 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 77BCD8B9D5AA3F5056619DDCEDFA909C /* Products */;
+			productRefGroup = 6230039805466233D019626CFA4705CC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1472,6 +1533,7 @@
 				3101AE36D40FF0FE78F058DB9F7D8546 /* idn2Swift-idn2SwiftResources */,
 				43E98F16D6931CEB766DA38CADFA01F5 /* idn2Swift-Unit-Tests */,
 				D25DB9CCA7E977F7A345A10F70F0F9EB /* Pods-Multisig */,
+				2C0B4B8A47F79BF22E2078C1A64EE73C /* Pods-MultisigIntegrationTests */,
 				E6C7380208C656AEFCF399A612880C86 /* Pods-MultisigTests */,
 				4FF1EE5493800BD023263DE462914B83 /* secp256k1.swift */,
 				CC9BC1645C866B2D07A22D0A3EBF42CA /* Web3 */,
@@ -1728,6 +1790,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		90E2ABB6EED657A8E5AE1DB0DBD4CA33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BF01BA1ED5F347FAF81FBC396EB9502 /* Pods-MultisigIntegrationTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96B9C172D7FF12F56D5440D216EEB39A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1903,6 +1973,12 @@
 			name = CryptoSwift;
 			target = 99313990C1D76A6D1D017868B6975CC8 /* CryptoSwift */;
 			targetProxy = 8A5F929D0F2610E43D939E2D2975F02A /* PBXContainerItemProxy */;
+		};
+		544C89AA0AA6E651D7507BA91B28EF6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-Multisig";
+			target = D25DB9CCA7E977F7A345A10F70F0F9EB /* Pods-Multisig */;
+			targetProxy = 9449D2BEBF275BBB3C9292395CFF7C57 /* PBXContainerItemProxy */;
 		};
 		57F6F9EE90EB6CEBBED3ACB25684BAB8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2117,7 +2193,7 @@
 		};
 		178500B47A0F8B13DA2DC406A36BAA00 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 797B8BEE3BF111FA2DDA76C4150B084F /* Pods-Multisig.debug.xcconfig */;
+			baseConfigurationReference = 4F667202DEA85F2CD96E808412BDAE13 /* Pods-Multisig.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -2169,6 +2245,28 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		5DD7A0CE3AC1F5501EF5098478802575 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1546FC650D62FFD9CAFC884372A7CBF2 /* Pods-MultisigIntegrationTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2301,7 +2399,7 @@
 		};
 		9FCFE38BC9C8E188FDC9646C9E0CFF16 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 32C525F6194D8169D47D3425494687E6 /* Pods-MultisigTests.debug.xcconfig */;
+			baseConfigurationReference = 6D637217859B3D1CBCE32347121E1F0C /* Pods-MultisigTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -2349,7 +2447,7 @@
 		};
 		AD044320935DAFA90C7C00AFC49137F8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BBAC622062D7D00FE3B3C305A327D479 /* Pods-Multisig.release.xcconfig */;
+			baseConfigurationReference = A1A0049156659054762514C9DFE92FDB /* Pods-Multisig.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -2373,7 +2471,7 @@
 		};
 		B6737B9E37DA47FC043A6CCB4B7F0E45 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A54F3DE5B83153AA472448809007EE38 /* Pods-MultisigTests.release.xcconfig */;
+			baseConfigurationReference = 423EDE0BC171A760475E82C5B8F12C79 /* Pods-MultisigTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -2415,6 +2513,29 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B8D88102B92A469D21595B43DDA5A5DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC574B3936D9DEB9F73D5E97324A5FE9 /* Pods-MultisigIntegrationTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2565,6 +2686,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3CCEB361C76D272DF32988F92194FA5E /* Build configuration list for PBXNativeTarget "Pods-MultisigIntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DD7A0CE3AC1F5501EF5098478802575 /* Debug */,
+				B8D88102B92A469D21595B43DDA5A5DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		433CFDCBD716FADBFB6BCE4E2ACF5E00 /* Build configuration list for PBXNativeTarget "idn2Swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

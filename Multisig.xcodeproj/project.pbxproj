@@ -49,6 +49,12 @@
 		0A9BC33D24603AE800EB9C5D /* ENSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33C24603AE800EB9C5D /* ENSTests.swift */; };
 		0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33E2460447400EB9C5D /* EnterENSNameView.swift */; };
 		0A9BC3412460449E00EB9C5D /* EnterENSNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3402460449E00EB9C5D /* EnterENSNameViewModel.swift */; };
+		0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3472460539F00EB9C5D /* ContractTests.swift */; };
+		0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC349246053AD00EB9C5D /* ENSContractsTests.swift */; };
+		0A9BC34C246053DB00EB9C5D /* DataInitWithHexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC34B246053DB00EB9C5D /* DataInitWithHexTests.swift */; };
+		0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */; };
+		0A9BC35E2460582D00EB9C5D /* SafeRelayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */; };
+		0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
 		0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */; };
 		0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20A24533F1E0066457E /* EnterSafeNameView.swift */; };
 		0ADDA20D24533F860066457E /* BodyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20C24533F860066457E /* BodyText.swift */; };
@@ -60,6 +66,7 @@
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6500A24485E450018D070 /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6500924485E450018D070 /* Identicon.swift */; };
 		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
+		3E3771EE88B47660DEA46D7D /* libPods-MultisigIntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B7E305E3E3D34CBC5DB687 /* libPods-MultisigIntegrationTests.a */; };
 		551DDEE9244F183500C719D3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* AppSettings.swift */; };
 		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
 		551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEEF244F1A0A00C719D3 /* SafeTests.swift */; };
@@ -80,10 +87,8 @@
 		5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C72449A1980067505A /* LogFormatterTests.swift */; };
 		5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C82449A1980067505A /* LogServiceTests.swift */; };
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
-		5532D4D12449A1E40067505A /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
 		5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4E02449A4CF0067505A /* SafeRelayService.swift */; };
-		5532D4E42449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */; };
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
@@ -94,6 +99,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		0A93DD6D2445CC8C00688050 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A93DD4B2445CC8A00688050 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A93DD522445CC8A00688050;
+			remoteInfo = Multisig;
+		};
+		0A9BC3582460581500EB9C5D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0A93DD4B2445CC8A00688050 /* Project object */;
 			proxyType = 1;
@@ -149,6 +161,12 @@
 		0A9BC33C24603AE800EB9C5D /* ENSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSTests.swift; sourceTree = "<group>"; };
 		0A9BC33E2460447400EB9C5D /* EnterENSNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterENSNameView.swift; sourceTree = "<group>"; };
 		0A9BC3402460449E00EB9C5D /* EnterENSNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterENSNameViewModel.swift; sourceTree = "<group>"; };
+		0A9BC3472460539F00EB9C5D /* ContractTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractTests.swift; sourceTree = "<group>"; };
+		0A9BC349246053AD00EB9C5D /* ENSContractsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSContractsTests.swift; sourceTree = "<group>"; };
+		0A9BC34B246053DB00EB9C5D /* DataInitWithHexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataInitWithHexTests.swift; sourceTree = "<group>"; };
+		0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSIntegrationTests.swift; sourceTree = "<group>"; };
+		0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A9BC3572460581500EB9C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressViewModel.swift; sourceTree = "<group>"; };
 		0ADDA20A24533F1E0066457E /* EnterSafeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameView.swift; sourceTree = "<group>"; };
 		0ADDA20C24533F860066457E /* BodyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyText.swift; sourceTree = "<group>"; };
@@ -160,6 +178,7 @@
 		0AF6500924485E450018D070 /* Identicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identicon.swift; sourceTree = "<group>"; };
 		0AF6501A24488D280018D070 /* FullSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSize.swift; sourceTree = "<group>"; };
 		1B81E8C8DC80D2C573D9B6BF /* libPods-MultisigTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		23818A2644AA144C642BCC23 /* Pods-MultisigIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		26C552F754BE182B85CF33FD /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
 		3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Multisig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		551DDEE8244F183500C719D3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
@@ -190,6 +209,8 @@
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
+		69FE277EF0E99D5C7D51C279 /* Pods-MultisigIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
+		92B7E305E3E3D34CBC5DB687 /* libPods-MultisigIntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigIntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD6D0510D7AE8BF83C2872E /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.xcconfig"; path = "Pods/Target Support Files/Pods-Multisig/Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
 		CE5B793207F84D41150572EF /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FEC2CA8BC55245DF88E5580F /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Multisig/Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
@@ -209,6 +230,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB57A403B3F8709859BA822E /* libPods-MultisigTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A9BC3502460581500EB9C5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E3771EE88B47660DEA46D7D /* libPods-MultisigIntegrationTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +279,7 @@
 			children = (
 				0A93DD552445CC8A00688050 /* Multisig */,
 				0A93DD6F2445CC8C00688050 /* MultisigTests */,
+				0A9BC3542460581500EB9C5D /* MultisigIntegrationTests */,
 				0A93DD542445CC8A00688050 /* Products */,
 				7994340F572ECDF0B5D53E31 /* Pods */,
 				9C122546D933513037C989E4 /* Frameworks */,
@@ -261,6 +291,7 @@
 			children = (
 				0A93DD532445CC8A00688050 /* Multisig.app */,
 				0A93DD6C2445CC8C00688050 /* MultisigTests.xctest */,
+				0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -290,7 +321,6 @@
 			isa = PBXGroup;
 			children = (
 				551DDEEA244F192300C719D3 /* Models */,
-				5532D4E52449A5120067505A /* IntegrationTests */,
 				5532D4C42449A1980067505A /* Logger */,
 				5556A03924489F5D003EC861 /* Persistence */,
 				0A93DD722445CC8C00688050 /* Info.plist */,
@@ -375,6 +405,17 @@
 				04764625244F1D7700511113 /* VerifiableTextField.swift */,
 			);
 			path = TextField;
+			sourceTree = "<group>";
+		};
+		0A9BC3542460581500EB9C5D /* MultisigIntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */,
+				5532D4D02449A1E40067505A /* MockLogger.swift */,
+				0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */,
+				0A9BC3572460581500EB9C5D /* Info.plist */,
+			);
+			path = MultisigIntegrationTests;
 			sourceTree = "<group>";
 		};
 		0ADDA214245352CF0066457E /* EnterSafeAddress */ = {
@@ -486,6 +527,9 @@
 			children = (
 				551DDEEF244F1A0A00C719D3 /* SafeTests.swift */,
 				551DDEF1244F1B9800C719D3 /* AppSettingsTests.swift */,
+				0A9BC34B246053DB00EB9C5D /* DataInitWithHexTests.swift */,
+				0A9BC349246053AD00EB9C5D /* ENSContractsTests.swift */,
+				0A9BC3472460539F00EB9C5D /* ContractTests.swift */,
 				0A9BC33C24603AE800EB9C5D /* ENSTests.swift */,
 			);
 			path = Models;
@@ -526,7 +570,6 @@
 		5532D4C42449A1980067505A /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				5532D4D02449A1E40067505A /* MockLogger.swift */,
 				5532D4C52449A1980067505A /* CrashlyticsLoggerTests.swift */,
 				5532D4C62449A1980067505A /* LoggableErrorTests.swift */,
 				5532D4C72449A1980067505A /* LogFormatterTests.swift */,
@@ -544,22 +587,6 @@
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		5532D4E22449A4E80067505A /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		5532D4E52449A5120067505A /* IntegrationTests */ = {
-			isa = PBXGroup;
-			children = (
-				5532D4E22449A4E80067505A /* Services */,
-			);
-			path = IntegrationTests;
 			sourceTree = "<group>";
 		};
 		5556A03324489F37003EC861 /* Persistence */ = {
@@ -587,6 +614,8 @@
 				BBD6D0510D7AE8BF83C2872E /* Pods-Multisig.release.xcconfig */,
 				CE5B793207F84D41150572EF /* Pods-MultisigTests.debug.xcconfig */,
 				26C552F754BE182B85CF33FD /* Pods-MultisigTests.release.xcconfig */,
+				23818A2644AA144C642BCC23 /* Pods-MultisigIntegrationTests.debug.xcconfig */,
+				69FE277EF0E99D5C7D51C279 /* Pods-MultisigIntegrationTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -596,6 +625,7 @@
 			children = (
 				3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */,
 				1B81E8C8DC80D2C573D9B6BF /* libPods-MultisigTests.a */,
+				92B7E305E3E3D34CBC5DB687 /* libPods-MultisigIntegrationTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -641,6 +671,25 @@
 			productReference = 0A93DD6C2445CC8C00688050 /* MultisigTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		0A9BC3522460581500EB9C5D /* MultisigIntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A9BC35A2460581500EB9C5D /* Build configuration list for PBXNativeTarget "MultisigIntegrationTests" */;
+			buildPhases = (
+				3296A2549676CE0C2B991E70 /* [CP] Check Pods Manifest.lock */,
+				0A9BC34F2460581500EB9C5D /* Sources */,
+				0A9BC3502460581500EB9C5D /* Frameworks */,
+				0A9BC3512460581500EB9C5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0A9BC3592460581500EB9C5D /* PBXTargetDependency */,
+			);
+			name = MultisigIntegrationTests;
+			productName = MultisigIntegrationTests;
+			productReference = 0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -656,6 +705,10 @@
 					};
 					0A93DD6B2445CC8C00688050 = {
 						CreatedOnToolsVersion = 11.4;
+						TestTargetID = 0A93DD522445CC8A00688050;
+					};
+					0A9BC3522460581500EB9C5D = {
+						CreatedOnToolsVersion = 11.4.1;
 						TestTargetID = 0A93DD522445CC8A00688050;
 					};
 				};
@@ -675,6 +728,7 @@
 			targets = (
 				0A93DD522445CC8A00688050 /* Multisig */,
 				0A93DD6B2445CC8C00688050 /* MultisigTests */,
+				0A9BC3522460581500EB9C5D /* MultisigIntegrationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -695,6 +749,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0A93DD6A2445CC8C00688050 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A9BC3512460581500EB9C5D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -755,6 +816,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3296A2549676CE0C2B991E70 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MultisigIntegrationTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -832,19 +915,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A9BC33D24603AE800EB9C5D /* ENSTests.swift in Sources */,
+				0A9BC34C246053DB00EB9C5D /* DataInitWithHexTests.swift in Sources */,
 				5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */,
+				0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */,
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
 				551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,
 				551DDEF2244F1B9800C719D3 /* AppSettingsTests.swift in Sources */,
-				5532D4E42449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift in Sources */,
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
 				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
-				5532D4D12449A1E40067505A /* MockLogger.swift in Sources */,
 				5556A03D24489F5D003EC861 /* TestCoreDataStack.swift in Sources */,
 				5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */,
+				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A9BC34F2460581500EB9C5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,
+				0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */,
+				0A9BC35E2460582D00EB9C5D /* SafeRelayServiceIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -855,6 +949,11 @@
 			isa = PBXTargetDependency;
 			target = 0A93DD522445CC8A00688050 /* Multisig */;
 			targetProxy = 0A93DD6D2445CC8C00688050 /* PBXContainerItemProxy */;
+		};
+		0A9BC3592460581500EB9C5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A93DD522445CC8A00688050 /* Multisig */;
+			targetProxy = 0A9BC3582460581500EB9C5D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1072,6 +1171,50 @@
 			};
 			name = Release;
 		};
+		0A9BC35B2460581500EB9C5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23818A2644AA144C642BCC23 /* Pods-MultisigIntegrationTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Debug;
+		};
+		0A9BC35C2460581500EB9C5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69FE277EF0E99D5C7D51C279 /* Pods-MultisigIntegrationTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1098,6 +1241,15 @@
 			buildConfigurations = (
 				0A93DD792445CC8C00688050 /* Debug */,
 				0A93DD7A2445CC8C00688050 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A9BC35A2460581500EB9C5D /* Build configuration list for PBXNativeTarget "MultisigIntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A9BC35B2460581500EB9C5D /* Debug */,
+				0A9BC35C2460581500EB9C5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

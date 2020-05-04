@@ -23,5 +23,9 @@ target 'Multisig' do
   target 'MultisigTests' do
     inherit! :search_paths
   end
+  
+  target 'MultisigIntegrationTests' do
+    inherit! :search_paths
+  end
 
 end
