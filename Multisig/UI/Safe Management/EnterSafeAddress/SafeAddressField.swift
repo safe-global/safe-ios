@@ -71,10 +71,7 @@ struct SafeAddressField: View {
     var errorView: some View {
         Group {
             if !error.wrappedValue.isEmpty {
-                Text(error.wrappedValue)
-                    .font(Font.gnoBody.weight(.medium))
-                    .foregroundColor(Color.gnoTomato)
-                    .padding(.leading)
+                ErrorText(label: error.wrappedValue)
             }
         }
     }

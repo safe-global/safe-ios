@@ -34,12 +34,7 @@ struct RoundedTextField: View {
             .background(borderView)
 
             if !error.wrappedValue.isEmpty {
-                // TODO: error view
-                Text(error.wrappedValue)
-                    .font(Font.gnoBody.weight(.medium))
-                    .foregroundColor(Color.gnoTomato)
-                    .padding(.leading)
-
+                ErrorText(label: error.wrappedValue)
             }
         }
     }
