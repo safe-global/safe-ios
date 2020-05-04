@@ -31,13 +31,23 @@ struct AddressInputSelector: View {
                 selection: $selection,
                 label: { EmptyView() })
 
-            //TODO: ENS Form
+            NavigationLink(
+                destination: ensName,
+                tag: InputType.ens,
+                selection: $selection,
+                label: { EmptyView() })
         }
         .actionSheet(isPresented: isPresented, content: selector)
     }
 
     var qrScanner: some View {
         QRCodeScanner(header: "Scan") { value in
+            self.text.wrappedValue = value
+        }
+    }
+
+    var ensName: some View {
+        EnterENSNameView { value in
             self.text.wrappedValue = value
         }
     }
