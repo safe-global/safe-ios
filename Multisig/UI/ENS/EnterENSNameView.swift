@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct EnterENSNameView: View {
-
+    
     @Environment(\.presentationMode)
     var presentationMode: Binding<PresentationMode>
 
@@ -25,10 +25,8 @@ struct EnterENSNameView: View {
                              isValid: $model.isValid,
                              isValidating: $model.isResolving,
                              error: $model.errorMessage)
-
             if model.address != nil {
                 BodyText(label: "Address found")
-
                 CorrectAddressView(address: model.address!.hex(eip55: true))
             }
             Spacer()
@@ -47,7 +45,6 @@ struct EnterENSNameView: View {
         }
         .disabled(model.address == nil)
     }
-
 }
 
 struct EnterENSNameView_Previews: PreviewProvider {
