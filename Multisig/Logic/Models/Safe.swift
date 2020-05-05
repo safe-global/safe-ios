@@ -34,7 +34,7 @@ extension Safe: Identifiable {
 
         if selected {
             let settings = AppSettings.getOrCreate(context: context)
-            settings.selectedSafe = address
+            settings.selectedSafe = safe
         }
 
         CoreDataStack.shared.saveContext()
@@ -52,14 +52,4 @@ extension Safe: Identifiable {
         request.fetchLimit = 1
         return request
     }
-
-    static func selected(_ settings: AppSettings) -> Safe? {
-        if let address = settings.selectedSafe {
-            let request = Safe.by(address: address)
-            return try? CoreDataStack.shared.viewContext.fetch(request).first
-        } else {
-            return nil
-        }
-    }
-
 }

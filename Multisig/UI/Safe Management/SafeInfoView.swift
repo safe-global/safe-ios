@@ -30,7 +30,7 @@ struct SafeInfoView: View {
     var showsLink: Bool = false
     
     var body: some View {
-        return VStack (alignment: .center, spacing: 18){
+        VStack (alignment: .center, spacing: 18){
             Identicon(safe?.address ?? "")
                 .frame(width: 56, height: 56)
 
