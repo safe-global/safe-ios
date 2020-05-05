@@ -15,7 +15,6 @@
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
 		04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04764625244F1D7700511113 /* VerifiableTextField.swift */; };
-		04951DA1245AF4FA00E44FF0 /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04951DA0245AF4FA00E44FF0 /* PopupContainer.swift */; };
 		04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BFB55A2459785D00090386 /* KeyboadHandler.swift */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
@@ -57,6 +56,7 @@
 		0A9BC35E2460582D00EB9C5D /* SafeRelayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */; };
 		0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
 		0A9BC36124605AA800EB9C5D /* ErrorText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC36024605AA800EB9C5D /* ErrorText.swift */; };
+		0A9BC3AC24617C2F00EB9C5D /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3AB24617C2F00EB9C5D /* PopupContainer.swift */; };
 		0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */; };
 		0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20A24533F1E0066457E /* EnterSafeNameView.swift */; };
 		0ADDA20D24533F860066457E /* BodyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20C24533F860066457E /* BodyText.swift */; };
@@ -125,7 +125,6 @@
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		04764625244F1D7700511113 /* VerifiableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifiableTextField.swift; sourceTree = "<group>"; };
-		04951DA0245AF4FA00E44FF0 /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		04BFB55A2459785D00090386 /* KeyboadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboadHandler.swift; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
@@ -171,6 +170,7 @@
 		0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A9BC3572460581500EB9C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A9BC36024605AA800EB9C5D /* ErrorText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorText.swift; sourceTree = "<group>"; };
+		0A9BC3AB24617C2F00EB9C5D /* PopupContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressViewModel.swift; sourceTree = "<group>"; };
 		0ADDA20A24533F1E0066457E /* EnterSafeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameView.swift; sourceTree = "<group>"; };
 		0ADDA20C24533F860066457E /* BodyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyText.swift; sourceTree = "<group>"; };
@@ -349,6 +349,7 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
+				0A9BC3AB24617C2F00EB9C5D /* PopupContainer.swift */,
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
 				0AF6501A24488D280018D070 /* FullSize.swift */,
 				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,
@@ -408,7 +409,6 @@
 			children = (
 				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
 				04764625244F1D7700511113 /* VerifiableTextField.swift */,
-                04951DA0245AF4FA00E44FF0 /* PopupContainer.swift */,
 			);
 			path = TextField;
 			sourceTree = "<group>";
@@ -879,6 +879,7 @@
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
 				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,
+				0A9BC3AC24617C2F00EB9C5D /* PopupContainer.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
@@ -901,7 +902,6 @@
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
-				04951DA1245AF4FA00E44FF0 /* PopupContainer.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A72AC5C245312FC00840641 /* FormHeader.swift in Sources */,
 				5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */,
