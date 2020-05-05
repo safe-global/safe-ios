@@ -37,6 +37,8 @@ struct SafeSelector: View {
     @State
     var showSafes: Bool = false
 
+    var showInfoHandler: () -> ()
+    
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
             if safe == nil {
@@ -55,7 +57,7 @@ struct SafeSelector: View {
         }
         .onReceive(didSave, perform: { _ in self.updateID = UUID() })
     }
-
+    
     var notSelectedView: some View {
         Group {
             Image("safe-selector-not-selected-icon")
@@ -68,13 +70,11 @@ struct SafeSelector: View {
     }
 
     func currentSafeButton(_ safe: Safe?) -> some View {
-        Button(action: { self.showInfo.toggle() }) {
+        Button(action: showInfoHandler) {
             SafeCell(safe: safe)
         }
-        .sheet(isPresented: self.$showInfo) {
-            SafeInfoView().environment(\.managedObjectContext, self.context)
-        }
     }
+
 
     var switchSafeButton: some View {
         Button(action: { self.showSafes.toggle() }) {
@@ -97,6 +97,6 @@ struct SafeSelector: View {
 
 struct SafeSelector_Previews: PreviewProvider {
     static var previews: some View {
-        SafeSelector()
+        SafeSelector(showInfoHandler: {})
     }
 }
