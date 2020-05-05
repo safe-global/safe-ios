@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TICKET=`git symbolic-ref HEAD | sed -E 's:.*/([a-zA-Z]+-[0-9]+)*.*:\1:'`
+TICKET=`git symbolic-ref HEAD | sed -E 's:.*\/([a-zA-Z]+-[0-9]+).*:\1:'`
 
 test -z "$TICKET" && exit 0
 head -1 "$1" | grep -q "$TICKET" && exit 0

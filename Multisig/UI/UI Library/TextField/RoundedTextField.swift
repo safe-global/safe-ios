@@ -13,22 +13,30 @@ struct RoundedTextField: View {
     var title: String
     var text: Binding<String>
     var isValid: Binding<Bool?>
+    var isValidating: Binding<Bool?> = .constant(nil)
+    var error: Binding<String> = .constant("")
     var onEditingChanged: (Bool) -> Void = { _ in }
     var onCommit: () -> Void = { }
 
     var body: some View {
-        HStack {
-            TextField(title,
-                      text: text,
-                      onEditingChanged: onEditingChanged,
-                      onCommit: onCommit)
+        VStack(alignment: .leading) {
+            HStack {
+                TextField(title,
+                          text: text,
+                          onEditingChanged: onEditingChanged,
+                          onCommit: onCommit)
 
-            rightView
+                rightView
 
+            }
+            .frame(height: 56)
+            .padding([.leading, .trailing])
+            .background(borderView)
+
+            if !error.wrappedValue.isEmpty {
+                ErrorText(label: error.wrappedValue)
+            }
         }
-        .frame(height: 56)
-        .padding([.leading, .trailing])
-        .background(borderView)
     }
 
     var borderView: some View {
@@ -48,7 +56,9 @@ struct RoundedTextField: View {
 
     var rightView: some View {
         Group {
-            if isValid.wrappedValue == true {
+            if isValidating.wrappedValue == true {
+                ActivityIndicator(isAnimating: .constant(true), style: .medium)
+            } else if isValid.wrappedValue == true {
                 Image(systemName: "checkmark.circle")
                     .foregroundColor(.gnoHold)
             } else if isValid.wrappedValue == false {

@@ -15,11 +15,9 @@
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
 		04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04764625244F1D7700511113 /* VerifiableTextField.swift */; };
-		04951DA1245AF4FA00E44FF0 /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04951DA0245AF4FA00E44FF0 /* PopupContainer.swift */; };
 		04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BFB55A2459785D00090386 /* KeyboadHandler.swift */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
-		0A5633AB244DCEDB00FDA4D5 /* ENSNameForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */; };
 		0A628FF5245710260038DC88 /* SafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A628FF4245710260038DC88 /* SafeCell.swift */; };
 		0A6C85B2245071510026139E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A6C85B4245080620026139E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B3245080620026139E /* App.swift */; };
@@ -41,6 +39,24 @@
 		0A93DDB32446080000688050 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB22446080000688050 /* Colors.swift */; };
 		0A93DDB924461C1400688050 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB824461C1400688050 /* Fonts.swift */; };
 		0A93DDBB24461F4800688050 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDBA24461F4800688050 /* Buttons.swift */; };
+		0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC32E246022BD00EB9C5D /* ENS.swift */; };
+		0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3302460233300EB9C5D /* ENSContracts.swift */; };
+		0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33224602A7400EB9C5D /* Contract.swift */; };
+		0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33424602CE200EB9C5D /* Data+InitWithHex.swift */; };
+		0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33624602D0D00EB9C5D /* Data+Padding.swift */; };
+		0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */; };
+		0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33A2460352E00EB9C5D /* EthHasher.swift */; };
+		0A9BC33D24603AE800EB9C5D /* ENSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33C24603AE800EB9C5D /* ENSTests.swift */; };
+		0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33E2460447400EB9C5D /* EnterENSNameView.swift */; };
+		0A9BC3412460449E00EB9C5D /* EnterENSNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3402460449E00EB9C5D /* EnterENSNameViewModel.swift */; };
+		0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3472460539F00EB9C5D /* ContractTests.swift */; };
+		0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC349246053AD00EB9C5D /* ENSContractsTests.swift */; };
+		0A9BC34C246053DB00EB9C5D /* DataInitWithHexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC34B246053DB00EB9C5D /* DataInitWithHexTests.swift */; };
+		0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */; };
+		0A9BC35E2460582D00EB9C5D /* SafeRelayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */; };
+		0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
+		0A9BC36124605AA800EB9C5D /* ErrorText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC36024605AA800EB9C5D /* ErrorText.swift */; };
+		0A9BC3AC24617C2F00EB9C5D /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3AB24617C2F00EB9C5D /* PopupContainer.swift */; };
 		0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */; };
 		0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20A24533F1E0066457E /* EnterSafeNameView.swift */; };
 		0ADDA20D24533F860066457E /* BodyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20C24533F860066457E /* BodyText.swift */; };
@@ -52,6 +68,7 @@
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6500A24485E450018D070 /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6500924485E450018D070 /* Identicon.swift */; };
 		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
+		3E3771EE88B47660DEA46D7D /* libPods-MultisigIntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B7E305E3E3D34CBC5DB687 /* libPods-MultisigIntegrationTests.a */; };
 		551DDEE9244F183500C719D3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* AppSettings.swift */; };
 		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
 		551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEEF244F1A0A00C719D3 /* SafeTests.swift */; };
@@ -72,10 +89,8 @@
 		5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C72449A1980067505A /* LogFormatterTests.swift */; };
 		5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C82449A1980067505A /* LogServiceTests.swift */; };
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
-		5532D4D12449A1E40067505A /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
 		5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4E02449A4CF0067505A /* SafeRelayService.swift */; };
-		5532D4E42449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */; };
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
@@ -86,6 +101,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		0A93DD6D2445CC8C00688050 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A93DD4B2445CC8A00688050 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A93DD522445CC8A00688050;
+			remoteInfo = Multisig;
+		};
+		0A9BC3582460581500EB9C5D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0A93DD4B2445CC8A00688050 /* Project object */;
 			proxyType = 1;
@@ -103,11 +125,9 @@
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		04764625244F1D7700511113 /* VerifiableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifiableTextField.swift; sourceTree = "<group>"; };
-		04951DA0245AF4FA00E44FF0 /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		04BFB55A2459785D00090386 /* KeyboadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboadHandler.swift; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
-		0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSNameForm.swift; sourceTree = "<group>"; };
 		0A628FF4245710260038DC88 /* SafeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCell.swift; sourceTree = "<group>"; };
 		0A6C85B1245071510026139E /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0A6C85B3245080620026139E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -133,6 +153,24 @@
 		0A93DDB22446080000688050 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0A93DDB824461C1400688050 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		0A93DDBA24461F4800688050 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		0A9BC32E246022BD00EB9C5D /* ENS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENS.swift; sourceTree = "<group>"; };
+		0A9BC3302460233300EB9C5D /* ENSContracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSContracts.swift; sourceTree = "<group>"; };
+		0A9BC33224602A7400EB9C5D /* Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
+		0A9BC33424602CE200EB9C5D /* Data+InitWithHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+InitWithHex.swift"; sourceTree = "<group>"; };
+		0A9BC33624602D0D00EB9C5D /* Data+Padding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Padding.swift"; sourceTree = "<group>"; };
+		0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumNodeService.swift; sourceTree = "<group>"; };
+		0A9BC33A2460352E00EB9C5D /* EthHasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthHasher.swift; sourceTree = "<group>"; };
+		0A9BC33C24603AE800EB9C5D /* ENSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSTests.swift; sourceTree = "<group>"; };
+		0A9BC33E2460447400EB9C5D /* EnterENSNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterENSNameView.swift; sourceTree = "<group>"; };
+		0A9BC3402460449E00EB9C5D /* EnterENSNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterENSNameViewModel.swift; sourceTree = "<group>"; };
+		0A9BC3472460539F00EB9C5D /* ContractTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractTests.swift; sourceTree = "<group>"; };
+		0A9BC349246053AD00EB9C5D /* ENSContractsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSContractsTests.swift; sourceTree = "<group>"; };
+		0A9BC34B246053DB00EB9C5D /* DataInitWithHexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataInitWithHexTests.swift; sourceTree = "<group>"; };
+		0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSIntegrationTests.swift; sourceTree = "<group>"; };
+		0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A9BC3572460581500EB9C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A9BC36024605AA800EB9C5D /* ErrorText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorText.swift; sourceTree = "<group>"; };
+		0A9BC3AB24617C2F00EB9C5D /* PopupContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressViewModel.swift; sourceTree = "<group>"; };
 		0ADDA20A24533F1E0066457E /* EnterSafeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameView.swift; sourceTree = "<group>"; };
 		0ADDA20C24533F860066457E /* BodyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyText.swift; sourceTree = "<group>"; };
@@ -144,6 +182,7 @@
 		0AF6500924485E450018D070 /* Identicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identicon.swift; sourceTree = "<group>"; };
 		0AF6501A24488D280018D070 /* FullSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSize.swift; sourceTree = "<group>"; };
 		1B81E8C8DC80D2C573D9B6BF /* libPods-MultisigTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		23818A2644AA144C642BCC23 /* Pods-MultisigIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		26C552F754BE182B85CF33FD /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
 		3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Multisig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		551DDEE8244F183500C719D3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
@@ -174,6 +213,8 @@
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
+		69FE277EF0E99D5C7D51C279 /* Pods-MultisigIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
+		92B7E305E3E3D34CBC5DB687 /* libPods-MultisigIntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigIntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD6D0510D7AE8BF83C2872E /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.xcconfig"; path = "Pods/Target Support Files/Pods-Multisig/Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
 		CE5B793207F84D41150572EF /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FEC2CA8BC55245DF88E5580F /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Multisig/Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
@@ -196,17 +237,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0A9BC3502460581500EB9C5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E3771EE88B47660DEA46D7D /* libPods-MultisigIntegrationTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		044A54432448D0B6009CBB80 /* QRScanner */ = {
+		044A54432448D0B6009CBB80 /* QRCodeScanner */ = {
 			isa = PBXGroup;
 			children = (
 				044A54442448D0B6009CBB80 /* QRCodeScanner.swift */,
 				044A54452448D0B6009CBB80 /* QRCodeScannerViewController.xib */,
 				044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */,
 			);
-			path = QRScanner;
+			path = QRCodeScanner;
 			sourceTree = "<group>";
 		};
 		044A544C2448E5CF009CBB80 /* Localization */ = {
@@ -221,7 +270,10 @@
 		0A6C85B02450712D0026139E /* Ethereum */ = {
 			isa = PBXGroup;
 			children = (
-				0A6C85B1245071510026139E /* Address.swift */,
+				0A9BC33224602A7400EB9C5D /* Contract.swift */,
+				0A9BC32E246022BD00EB9C5D /* ENS.swift */,
+				0A9BC3302460233300EB9C5D /* ENSContracts.swift */,
+				0A9BC3422460501300EB9C5D /* Utils */,
 			);
 			path = Ethereum;
 			sourceTree = "<group>";
@@ -231,6 +283,7 @@
 			children = (
 				0A93DD552445CC8A00688050 /* Multisig */,
 				0A93DD6F2445CC8C00688050 /* MultisigTests */,
+				0A9BC3542460581500EB9C5D /* MultisigIntegrationTests */,
 				0A93DD542445CC8A00688050 /* Products */,
 				7994340F572ECDF0B5D53E31 /* Pods */,
 				9C122546D933513037C989E4 /* Frameworks */,
@@ -242,6 +295,7 @@
 			children = (
 				0A93DD532445CC8A00688050 /* Multisig.app */,
 				0A93DD6C2445CC8C00688050 /* MultisigTests.xctest */,
+				0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -271,7 +325,6 @@
 			isa = PBXGroup;
 			children = (
 				551DDEEA244F192300C719D3 /* Models */,
-				5532D4E52449A5120067505A /* IntegrationTests */,
 				5532D4C42449A1980067505A /* Logger */,
 				5556A03924489F5D003EC861 /* Persistence */,
 				0A93DD722445CC8C00688050 /* Info.plist */,
@@ -286,6 +339,7 @@
 				0AF432C4244DF8FC00E22E50 /* App */,
 				0AF432BF244DF8AD00E22E50 /* Safe Management */,
 				0AF432BC244DF6C900E22E50 /* ENS */,
+				0A9BC3452460523300EB9C5D /* Utils */,
 				0A93DD8B244603DB00688050 /* UI Library */,
 				0AF432CA244DFAFB00E22E50 /* Resources */,
 			);
@@ -295,28 +349,79 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
+				0A9BC3AB24617C2F00EB9C5D /* PopupContainer.swift */,
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
-				0A72AC6924531C0200840641 /* AddressInputSelector.swift */,
-				0A0256212449F29200C91D73 /* AddressText.swift */,
-				0A0256232449F7BF00C91D73 /* AddressView.swift */,
-				0ADDA20C24533F860066457E /* BodyText.swift */,
-				0ADDA20E245340540066457E /* CorrectAddressView.swift */,
-				0A72AC5B245312FC00840641 /* FormHeader.swift */,
-				0AF6500924485E450018D070 /* Identicon.swift */,
-				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,
 				0AF6501A24488D280018D070 /* FullSize.swift */,
-				0A72AC612453169700840641 /* LinkText.swift */,
+				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,
 				041C2A592456F53E0044A24C /* QRView.swift */,
-				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
-				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
-				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
 				0A628FF4245710260038DC88 /* SafeCell.swift */,
-				04764625244F1D7700511113 /* VerifiableTextField.swift */,
-				04951DA0245AF4FA00E44FF0 /* PopupContainer.swift */,
-				044A54432448D0B6009CBB80 /* QRScanner */,
+				0A9BC3442460515800EB9C5D /* Address */,
 				0AF432D4244F063800E22E50 /* Styleguide */,
+				0A9BC3432460514B00EB9C5D /* Text */,
+				0A9BC3462460526300EB9C5D /* TextField */,
 			);
 			path = "UI Library";
+			sourceTree = "<group>";
+		};
+		0A9BC3422460501300EB9C5D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0A9BC33A2460352E00EB9C5D /* EthHasher.swift */,
+				0A9BC33424602CE200EB9C5D /* Data+InitWithHex.swift */,
+				0A9BC33624602D0D00EB9C5D /* Data+Padding.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		0A9BC3432460514B00EB9C5D /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				0ADDA20C24533F860066457E /* BodyText.swift */,
+				0A72AC5B245312FC00840641 /* FormHeader.swift */,
+				0A9BC36024605AA800EB9C5D /* ErrorText.swift */,
+				0A72AC612453169700840641 /* LinkText.swift */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
+		0A9BC3442460515800EB9C5D /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				0A0256212449F29200C91D73 /* AddressText.swift */,
+				0A0256232449F7BF00C91D73 /* AddressView.swift */,
+				0ADDA20E245340540066457E /* CorrectAddressView.swift */,
+				0AF6500924485E450018D070 /* Identicon.swift */,
+			);
+			path = Address;
+			sourceTree = "<group>";
+		};
+		0A9BC3452460523300EB9C5D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
+				044A54432448D0B6009CBB80 /* QRCodeScanner */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		0A9BC3462460526300EB9C5D /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
+				04764625244F1D7700511113 /* VerifiableTextField.swift */,
+			);
+			path = TextField;
+			sourceTree = "<group>";
+		};
+		0A9BC3542460581500EB9C5D /* MultisigIntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */,
+				5532D4D02449A1E40067505A /* MockLogger.swift */,
+				0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */,
+				0A9BC3572460581500EB9C5D /* Info.plist */,
+			);
+			path = MultisigIntegrationTests;
 			sourceTree = "<group>";
 		};
 		0ADDA214245352CF0066457E /* EnterSafeAddress */ = {
@@ -326,6 +431,7 @@
 				0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */,
 				0A72AC5F2453157300840641 /* CreateSafePrompt.swift */,
 				0A72AC652453184C00840641 /* SafeAddressField.swift */,
+				0A72AC6924531C0200840641 /* AddressInputSelector.swift */,
 			);
 			path = EnterSafeAddress;
 			sourceTree = "<group>";
@@ -342,7 +448,8 @@
 		0AF432BC244DF6C900E22E50 /* ENS */ = {
 			isa = PBXGroup;
 			children = (
-				0A5633AA244DCEDB00FDA4D5 /* ENSNameForm.swift */,
+				0A9BC33E2460447400EB9C5D /* EnterENSNameView.swift */,
+				0A9BC3402460449E00EB9C5D /* EnterENSNameViewModel.swift */,
 			);
 			path = ENS;
 			sourceTree = "<group>";
@@ -351,6 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				0A93DDAF2446072900688050 /* AddSafeIntroView.swift */,
+				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
 				0ADDA214245352CF0066457E /* EnterSafeAddress */,
 				0ADDA215245352DB0066457E /* EnterSafeName */,
 				551DDEF324506B0B00C719D3 /* SwitchSafeView.swift */,
@@ -365,7 +473,6 @@
 				0A93DD562445CC8A00688050 /* AppDelegate.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
-				0A6C85B3245080620026139E /* App.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -382,6 +489,7 @@
 		0AF432C6244DFA1800E22E50 /* Cross-layer */ = {
 			isa = PBXGroup;
 			children = (
+				0A6C85B3245080620026139E /* App.swift */,
 				5532D4AE2449A17D0067505A /* Logger */,
 				044A544C2448E5CF009CBB80 /* Localization */,
 			);
@@ -412,7 +520,7 @@
 		0AF432D5244F075800E22E50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0A6C85B02450712D0026139E /* Ethereum */,
+				0A6C85B1245071510026139E /* Address.swift */,
 				551DDEE8244F183500C719D3 /* AppSettings.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
 				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
@@ -425,6 +533,10 @@
 			children = (
 				551DDEEF244F1A0A00C719D3 /* SafeTests.swift */,
 				551DDEF1244F1B9800C719D3 /* AppSettingsTests.swift */,
+				0A9BC34B246053DB00EB9C5D /* DataInitWithHexTests.swift */,
+				0A9BC349246053AD00EB9C5D /* ENSContractsTests.swift */,
+				0A9BC3472460539F00EB9C5D /* ContractTests.swift */,
+				0A9BC33C24603AE800EB9C5D /* ENSTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -432,6 +544,7 @@
 		5532D4912448A1960067505A /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
 			);
 			path = Logic;
@@ -463,7 +576,6 @@
 		5532D4C42449A1980067505A /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				5532D4D02449A1E40067505A /* MockLogger.swift */,
 				5532D4C52449A1980067505A /* CrashlyticsLoggerTests.swift */,
 				5532D4C62449A1980067505A /* LoggableErrorTests.swift */,
 				5532D4C72449A1980067505A /* LogFormatterTests.swift */,
@@ -478,24 +590,9 @@
 			children = (
 				5532D4B72449A17D0067505A /* Networking Utils */,
 				5532D4E02449A4CF0067505A /* SafeRelayService.swift */,
+				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		5532D4E22449A4E80067505A /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		5532D4E52449A5120067505A /* IntegrationTests */ = {
-			isa = PBXGroup;
-			children = (
-				5532D4E22449A4E80067505A /* Services */,
-			);
-			path = IntegrationTests;
 			sourceTree = "<group>";
 		};
 		5556A03324489F37003EC861 /* Persistence */ = {
@@ -523,6 +620,8 @@
 				BBD6D0510D7AE8BF83C2872E /* Pods-Multisig.release.xcconfig */,
 				CE5B793207F84D41150572EF /* Pods-MultisigTests.debug.xcconfig */,
 				26C552F754BE182B85CF33FD /* Pods-MultisigTests.release.xcconfig */,
+				23818A2644AA144C642BCC23 /* Pods-MultisigIntegrationTests.debug.xcconfig */,
+				69FE277EF0E99D5C7D51C279 /* Pods-MultisigIntegrationTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -532,6 +631,7 @@
 			children = (
 				3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */,
 				1B81E8C8DC80D2C573D9B6BF /* libPods-MultisigTests.a */,
+				92B7E305E3E3D34CBC5DB687 /* libPods-MultisigIntegrationTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -577,6 +677,25 @@
 			productReference = 0A93DD6C2445CC8C00688050 /* MultisigTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		0A9BC3522460581500EB9C5D /* MultisigIntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A9BC35A2460581500EB9C5D /* Build configuration list for PBXNativeTarget "MultisigIntegrationTests" */;
+			buildPhases = (
+				3296A2549676CE0C2B991E70 /* [CP] Check Pods Manifest.lock */,
+				0A9BC34F2460581500EB9C5D /* Sources */,
+				0A9BC3502460581500EB9C5D /* Frameworks */,
+				0A9BC3512460581500EB9C5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0A9BC3592460581500EB9C5D /* PBXTargetDependency */,
+			);
+			name = MultisigIntegrationTests;
+			productName = MultisigIntegrationTests;
+			productReference = 0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -592,6 +711,10 @@
 					};
 					0A93DD6B2445CC8C00688050 = {
 						CreatedOnToolsVersion = 11.4;
+						TestTargetID = 0A93DD522445CC8A00688050;
+					};
+					0A9BC3522460581500EB9C5D = {
+						CreatedOnToolsVersion = 11.4.1;
 						TestTargetID = 0A93DD522445CC8A00688050;
 					};
 				};
@@ -611,6 +734,7 @@
 			targets = (
 				0A93DD522445CC8A00688050 /* Multisig */,
 				0A93DD6B2445CC8C00688050 /* MultisigTests */,
+				0A9BC3522460581500EB9C5D /* MultisigIntegrationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -631,6 +755,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0A93DD6A2445CC8C00688050 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A9BC3512460581500EB9C5D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -693,6 +824,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3296A2549676CE0C2B991E70 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MultisigIntegrationTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -707,40 +860,48 @@
 				041C2A5A2456F53E0044A24C /* QRView.swift in Sources */,
 				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
+				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
 				551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
+				0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
 				04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
+				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
+				0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */,
 				04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */,
+				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
+				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,
+				0A9BC3AC24617C2F00EB9C5D /* PopupContainer.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
+				0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */,
 				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				0ADDA21324534F1B0066457E /* EnterSafeNameViewModel.swift in Sources */,
 				0A93DDAE2446062F00688050 /* SafeSelector.swift in Sources */,
 				551DDEE9244F183500C719D3 /* AppSettings.swift in Sources */,
+				0A9BC3412460449E00EB9C5D /* EnterENSNameViewModel.swift in Sources */,
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
-				0A5633AB244DCEDB00FDA4D5 /* ENSNameForm.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
+				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
-				04951DA1245AF4FA00E44FF0 /* PopupContainer.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A72AC5C245312FC00840641 /* FormHeader.swift in Sources */,
 				5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */,
@@ -752,6 +913,7 @@
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
 				0A72AC5A2453125800840641 /* EnterSafeAddressView.swift in Sources */,
+				0A9BC36124605AA800EB9C5D /* ErrorText.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -760,19 +922,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A9BC33D24603AE800EB9C5D /* ENSTests.swift in Sources */,
+				0A9BC34C246053DB00EB9C5D /* DataInitWithHexTests.swift in Sources */,
 				5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */,
+				0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */,
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
 				551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,
 				551DDEF2244F1B9800C719D3 /* AppSettingsTests.swift in Sources */,
-				5532D4E42449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift in Sources */,
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
 				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
-				5532D4D12449A1E40067505A /* MockLogger.swift in Sources */,
 				5556A03D24489F5D003EC861 /* TestCoreDataStack.swift in Sources */,
 				5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */,
+				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A9BC34F2460581500EB9C5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,
+				0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */,
+				0A9BC35E2460582D00EB9C5D /* SafeRelayServiceIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,6 +957,11 @@
 			isa = PBXTargetDependency;
 			target = 0A93DD522445CC8A00688050 /* Multisig */;
 			targetProxy = 0A93DD6D2445CC8C00688050 /* PBXContainerItemProxy */;
+		};
+		0A9BC3592460581500EB9C5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A93DD522445CC8A00688050 /* Multisig */;
+			targetProxy = 0A9BC3582460581500EB9C5D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -973,7 +1152,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
- 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
 			};
 			name = Debug;
 		};
@@ -996,7 +1175,51 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
- 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Release;
+		};
+		0A9BC35B2460581500EB9C5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23818A2644AA144C642BCC23 /* Pods-MultisigIntegrationTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Debug;
+		};
+		0A9BC35C2460581500EB9C5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69FE277EF0E99D5C7D51C279 /* Pods-MultisigIntegrationTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
 			};
 			name = Release;
 		};
@@ -1026,6 +1249,15 @@
 			buildConfigurations = (
 				0A93DD792445CC8C00688050 /* Debug */,
 				0A93DD7A2445CC8C00688050 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A9BC35A2460581500EB9C5D /* Build configuration list for PBXNativeTarget "MultisigIntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A9BC35B2460581500EB9C5D /* Debug */,
+				0A9BC35C2460581500EB9C5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

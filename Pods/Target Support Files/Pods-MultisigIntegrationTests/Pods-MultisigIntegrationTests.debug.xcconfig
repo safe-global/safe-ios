@@ -1,0 +1,11 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/idn2Swift" "${PODS_ROOT}/Headers/Public/secp256k1.swift" "$(SRCROOT)/Pods/idn2/idn2/include"
+OTHER_CFLAGS = $(inherited) -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/BigInt/BigInt.modulemap" -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/BlockiesSwift/BlockiesSwift.modulemap" -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift/CryptoSwift.modulemap" -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/Web3/Web3.modulemap" -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2Swift.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/secp256k1/secp256k1.swift.modulemap"
+OTHER_LDFLAGS = $(inherited) -l"iconv"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/BigInt/BigInt.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/BlockiesSwift/BlockiesSwift.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift/CryptoSwift.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/Web3/Web3.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2Swift.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/secp256k1/secp256k1.swift.modulemap"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods
+SWIFT_INCLUDE_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/BigInt" "${PODS_CONFIGURATION_BUILD_DIR}/BlockiesSwift" "${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift" "${PODS_CONFIGURATION_BUILD_DIR}/Web3" "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift"
+USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES
