@@ -14,8 +14,12 @@ struct AddressInputSelector: View {
     var isPresented: Binding<Bool>
     var text: Binding<String>
 
-    @State
-    private var selection: InputType?
+    @State private var selection: InputType? {
+        didSet {
+            showsQR = selection == .qr
+        }
+    }
+    @State private var showsQR = false
 
     enum InputType {
         case clipboard
@@ -26,30 +30,20 @@ struct AddressInputSelector: View {
     var body: some View {
         Group {
             NavigationLink(
-                destination: qrScanner,
-                tag: InputType.qr,
-                selection: $selection,
-                label: { EmptyView() })
-
-            NavigationLink(
-                destination: ensName,
+                destination: EnterENSNameView(onConfirm: setText(_:)),
                 tag: InputType.ens,
                 selection: $selection,
                 label: { EmptyView() })
         }
         .actionSheet(isPresented: isPresented, content: selector)
-    }
-
-    var qrScanner: some View {
-        QRCodeScanner(header: "Scan") { value in
-            self.text.wrappedValue = value
+        .sheet(isPresented: $showsQR) {
+            QRCodeScanner(header: "Scan", handler: self.setText(_:))
+            .edgesIgnoringSafeArea(.all)
         }
     }
 
-    var ensName: some View {
-        EnterENSNameView { value in
-            self.text.wrappedValue = value
-        }
+    func setText(_ value: String) {
+        self.text.wrappedValue = value
     }
 
     func selector() -> ActionSheet {
@@ -59,7 +53,7 @@ struct AddressInputSelector: View {
             buttons: [
                 .default(Text("Paste From Clipboard")) {
                     self.selection = .clipboard
-                    self.text.wrappedValue = UIPasteboard.general.string ?? ""
+                    self.setText(UIPasteboard.general.string ?? "")
                 },
                 .default(Text("Scan QR Code")) {
                     self.selection = .qr
