@@ -23,7 +23,6 @@ struct PopupView<Content>: View where Content: View {
     private let screenEdgePadding: CGFloat = 16
 
     private let cardCornerRadius: CGFloat = 10
-    private let cardShadowRadius: CGFloat = 10
 
     private let cardBackgroundColor = Color.white
 
@@ -71,7 +70,7 @@ struct PopupView<Content>: View where Content: View {
             .background(
                 RoundedRectangle(cornerRadius: cardCornerRadius)
                     .foregroundColor(cardBackgroundColor)
-                    .shadow(radius: cardShadowRadius)
+                    .cardShadowTooltip()
             )
             .padding(screenEdgePadding)
             .offset(x: 0, y: cardYOffsetFromMiddle)

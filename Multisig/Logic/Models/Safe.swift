@@ -10,9 +10,15 @@ import Foundation
 import CoreData
 
 extension Safe: Identifiable {
+
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        self.createdAt = Date()
+        additionDate = Date()
+    }
+
+    func select() {
+        let selection = Selection.current()
+        selection.safe = self
     }
 
     static func download(at address: String) throws {
@@ -21,7 +27,8 @@ extension Safe: Identifiable {
 
     static func exists(_ address: String) throws -> Bool {
         let context = CoreDataStack.shared.viewContext
-        let count = try context.count(for: Safe.by(address: address))
+        let fr = Safe.fetchRequest().by(address: address)
+        let count = try context.count(for: fr)
         return count > 0
     }
 
@@ -33,23 +40,28 @@ extension Safe: Identifiable {
         safe.name = name
 
         if selected {
-            let settings = AppSettings.getOrCreate(context: context)
-            settings.selectedSafe = safe
+            safe.select()
         }
 
         CoreDataStack.shared.saveContext()
     }
 
-    static func allSafes() -> NSFetchRequest<Safe> {
-        let request: NSFetchRequest<Safe> = Safe.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Safe.createdAt, ascending: true)]
-        return request
+}
+
+extension NSFetchRequest where ResultType == Safe {
+    func all() -> Self {
+        sortDescriptors = [NSSortDescriptor(keyPath: \Safe.additionDate, ascending: true)]
+        return self
     }
 
-    static func by(address: String) -> NSFetchRequest<Safe> {
-        let request: NSFetchRequest<Safe> = Safe.fetchRequest()
-        request.predicate = NSPredicate(format: "address == %@", address)
-        request.fetchLimit = 1
-        return request
+    func by(address: String) -> Self {
+        predicate = NSPredicate(format: "address CONTAINS[c] %@", address)
+        fetchLimit = 1
+        return self
+    }
+
+    func selected() -> Self {
+        predicate = NSPredicate(format: "selection != nil")
+        return self
     }
 }

@@ -7,76 +7,80 @@
 //
 
 import SwiftUI
-import CoreData
+
+struct SafeInfo {
+    var address: String
+    var name: String
+    var ensName: String
+
+    var browseURL: URL {
+         URL(string: "https://etherscan.io/address/\(address)")!
+    }
+
+    static let empty = SafeInfo(address: "", name: "", ensName: "")
+}
 
 struct SafeInfoView: View {
-    @Environment(\.managedObjectContext)
-    var context: NSManagedObjectContext
 
-    @FetchRequest(fetchRequest: AppSettings.settings())
-    var appSettings: FetchedResults<AppSettings>
-    
-    @State
-    var updateID = UUID()
-    var didSave = NotificationCenter.default
-        .publisher(for: .NSManagedObjectContextDidSave,
-                   object: CoreDataStack.shared.viewContext)
-        .receive(on: RunLoop.main)
+    var safeInfo: SafeInfo = .empty
 
     @State
-    var safe: Safe?
-    
-    @State
-    var showsLink: Bool = false
+    var showsBrowser: Bool = false
     
     var body: some View {
         VStack (alignment: .center, spacing: 18){
-            Identicon(safe?.address ?? "")
+            Identicon(safeInfo.address)
                 .frame(width: 56, height: 56)
 
-            Text(safe?.name ?? "")
-                .font(Font.gnoBody.weight(.medium))
-                .multilineTextAlignment(.center)
+            BodyText(label: safeInfo.name)
 
-            HStack (alignment: .top, spacing: 2) {
-                
-                Button(action: {
-                    UIPasteboard.general.string = self.safe?.address ?? ""
-                }) {
-                    AddressText(safe?.address ?? "")
-                    .multilineTextAlignment(.center)
-                }
-                
-                Button(action: { self.showsLink.toggle()}) {
-                    Image("icon-external-link")
-                }.foregroundColor(.gnoHold)
-                .frame(width: 24, height: 24)
-                .sheet(isPresented: $showsLink, content: browseSafeAddress)
+            addressView
+
+            if !safeInfo.ensName.isEmpty {
+                BodyText(label: safeInfo.ensName)
             }
-            .padding(.leading, 20)
-            .padding(.trailing, 20)
 
-            Text(safe?.ensName ?? "")
-                .font(Font.gnoBody.weight(.medium))
-                .multilineTextAlignment(.center)
-
-            QRView(value: safe?.address ?? "").frame(width: 124, height: 124)
-        }.cardShadowTooltip()
-        .id(updateID)
-        .onReceive(appSettings.publisher.first()) { settings in
-            self.safe = settings.selectedSafe
+            QRView(value: safeInfo.address)
+                .frame(width: 150, height: 150)
         }
-        .onReceive(didSave, perform: { _ in self.updateID = UUID() })
+        .multilineTextAlignment(.center)
+        .sheet(isPresented: $showsBrowser) {
+            SafariViewController(url: self.safeInfo.browseURL)
+        }
+    }
+
+    var addressView: some View {
+        HStack {
+            Button(action: {
+                UIPasteboard.general.string = self.safeInfo.address
+            }) {
+                AddressText(safeInfo.address)
+                    .multilineTextAlignment(.center)
+            }
+
+            Button(action: { self.showsBrowser.toggle() }) {
+                Image("icon-external-link")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.gnoHold)
+            }
+            .frame(width: 44, height: 44)
+
+        }
+            // these two lines make sure that the alignment will be by
+            // the addreses text's center, and
+            .padding([.leading, .trailing], 44)
+            // that 'link button' will be visually attached to the trailnig
+            .padding(.trailing, -44)
     }
     
-    func browseSafeAddress() -> some View {
-        let safeURL = URL(string: "https://etherscan.io/address/" + (safe?.address ?? ""))!
-        return SafariViewController(url: safeURL)
-    }
 }
 
 struct SafeInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        SafeInfoView()
+        SafeInfoView(safeInfo: SafeInfo(address: "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
+                                        name: "My Safe Name",
+                                        ensName: "alice.eth"))
+        .padding()
     }
 }

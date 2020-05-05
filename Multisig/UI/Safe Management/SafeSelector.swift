@@ -17,8 +17,8 @@ struct SafeSelector: View {
     @Environment(\.managedObjectContext)
     var context: NSManagedObjectContext
 
-    @FetchRequest(fetchRequest: AppSettings.settings())
-    var appSettings: FetchedResults<AppSettings>
+//    @FetchRequest(fetchRequest: AppSettings.settings())
+//    var appSettings: FetchedResults<AppSettings>
 
     // workaround to listen to the changes of the Safe object (name, address)
     @State
@@ -52,9 +52,9 @@ struct SafeSelector: View {
         .id(updateID)
         .frame(height: height, alignment: .bottom)
         .background(backgroundView)
-        .onReceive(appSettings.publisher.first()) { settings in
-            self.safe = settings.selectedSafe
-        }
+//        .onReceive(appSettings.publisher.first()) { settings in
+//            self.safe = settings.selectedSafe
+//        }
         .onReceive(didSave, perform: { _ in self.updateID = UUID() })
     }
     

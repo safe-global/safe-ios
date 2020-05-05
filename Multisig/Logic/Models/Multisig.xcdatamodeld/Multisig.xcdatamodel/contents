@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="AppSettings" representedClassName="AppSettings" syncable="YES" codeGenerationType="class">
-        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="selectedSafe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="selection" inverseEntity="Safe"/>
-    </entity>
     <entity name="Safe" representedClassName="Safe" syncable="YES" codeGenerationType="class">
+        <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
-        <attribute name="confirmationsRequired" attributeType="Integer 64" defaultValueString="1" usesScalarValueType="YES"/>
-        <attribute name="contractVersion" optional="YES" attributeType="String"/>
-        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="ensName" optional="YES" attributeType="String"/>
-        <attribute name="fallbackHandler" optional="YES" attributeType="String"/>
-        <attribute name="isDeployed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="masterCopyAddress" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="nonce" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="selection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppSettings" inverseName="selectedSafe" inverseEntity="AppSettings"/>
+        <relationship name="selection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Selection" inverseName="safe" inverseEntity="Selection"/>
+    </entity>
+    <entity name="Selection" representedClassName="Selection" syncable="YES" codeGenerationType="class">
+        <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="selection" inverseEntity="Safe"/>
     </entity>
     <elements>
-        <element name="AppSettings" positionX="-54" positionY="54" width="128" height="73"/>
-        <element name="Safe" positionX="-63" positionY="-18" width="128" height="208"/>
+        <element name="Selection" positionX="-54" positionY="54" width="128" height="28"/>
+        <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>
     </elements>
 </model>

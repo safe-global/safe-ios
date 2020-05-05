@@ -58,7 +58,7 @@ struct ContentView: View {
         .accentColor(.gnoHold)
         .overlay(
             PopupView(isPresented: $showsInfo) {
-                SafeInfoView().environment(\.managedObjectContext, self.context)
+                SafeInfoView()
             }
         )
         .sheet(isPresented: $showsSwitchSafe) {

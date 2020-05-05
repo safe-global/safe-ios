@@ -11,8 +11,10 @@ import SwiftUI
 struct SwitchSafeView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @FetchRequest(fetchRequest: Safe.allSafes()) var safes: FetchedResults<Safe>
-    @FetchRequest(fetchRequest: AppSettings.settings()) var appSettings: FetchedResults<AppSettings>
+    @FetchRequest(fetchRequest: Safe.fetchRequest().all())
+    var safes: FetchedResults<Safe>
+
+//    @FetchRequest(fetchRequest: AppSettings.settings()) var appSettings: FetchedResults<AppSettings>
 
     @State var addSafe = false
     var body: some View {
@@ -20,7 +22,8 @@ struct SwitchSafeView: View {
             List {
                 AddSafeView(addSafe: $addSafe)
                 ForEach(safes) { safe in
-                    SafeCellView(safe: safe, appSettings: self.appSettings[0], presentationMode: self.presentationMode)
+//                    SafeCellView(safe: safe, appSettings: self.appSettings[0], presentationMode: self.presentationMode)
+                    Text("")
                 }
             }
             .navigationBarTitle(Text("Switch Safes"), displayMode: .inline)
@@ -36,18 +39,18 @@ struct SwitchSafeView: View {
 
     struct SafeCellView: View {
         var safe: Safe
-        @ObservedObject var appSettings: AppSettings
+//        @ObservedObject var appSettings: AppSettings
         var presentationMode: Binding<PresentationMode>
         var body: some View {
             VStack {
                 HStack {
                     SafeCell(safe: safe)
                     Spacer()
-                    if appSettings.selectedSafe == safe {
+//                    if appSettings.selectedSafe == safe {
                         Image(systemName: "checkmark")
                             .font(Font.body.weight(.regular))
                             .foregroundColor(.gnoHold)
-                    }
+//                    }
                 }
                 .frame(height: 46)
                 .padding(.trailing)
@@ -57,7 +60,7 @@ struct SwitchSafeView: View {
             .padding(EdgeInsets(top: 0, leading: -20, bottom: 0, trailing: -20))
             .background(Rectangle().foregroundColor(.white))
             .onTapGesture {
-                self.appSettings.selectedSafe = self.safe
+//                self.appSettings.selectedSafe = self.safe
                 self.presentationMode.wrappedValue.dismiss()
                 CoreDataStack.shared.saveContext()
             }
@@ -119,8 +122,8 @@ struct SwitchSafeView_Previews: PreviewProvider {
         let safe = Safe(context: context)
         safe.name = "Safe 5"
         safe.address = "0x55555555555"
-        let appSettings = AppSettings(context: context)
-        appSettings.selectedSafe = safe
+//        let appSettings = AppSettings(context: context)
+//        appSettings.selectedSafe = safe
 
         return SwitchSafeView()
             .environment(\.managedObjectContext, context)
