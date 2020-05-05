@@ -99,6 +99,6 @@ struct SafeSelector: View {
 
 struct SafeSelector_Previews: PreviewProvider {
     static var previews: some View {
-        return SafeSelector(showInfoHandler: {}).environment(\.managedObjectContext, context)
+        return SafeSelector(showInfoHandler: {})
     }
 }

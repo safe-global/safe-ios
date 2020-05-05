@@ -64,7 +64,7 @@ struct SafeInfoView: View {
         }.cardShadowTooltip()
         .id(updateID)
         .onReceive(appSettings.publisher.first()) { settings in
-            self.safe = Safe.selected(settings)
+            self.safe = settings.selectedSafe
         }
         .onReceive(didSave, perform: { _ in self.updateID = UUID() })
     }
