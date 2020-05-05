@@ -10,13 +10,27 @@ import SwiftUI
 import CoreData
 
 struct SafeInfoView: View {
-    @FetchRequest(fetchRequest: AppSettings.settings()) var appSettings: FetchedResults<AppSettings>
-    @Environment(\.managedObjectContext) var context: NSManagedObjectContext
+    @Environment(\.managedObjectContext)
+    var context: NSManagedObjectContext
+
+    @FetchRequest(fetchRequest: AppSettings.settings())
+    var appSettings: FetchedResults<AppSettings>
+    
+    @State
+    var updateID = UUID()
+    var didSave = NotificationCenter.default
+        .publisher(for: .NSManagedObjectContextDidSave,
+                   object: CoreDataStack.shared.viewContext)
+        .receive(on: RunLoop.main)
+
+    @State
+    var safe: Safe?
+    
+    @State
+    var showsLink: Bool = false
     
     var body: some View {
-        let safe = appSettings[0].selectedSafe
-
-        return VStack (alignment: .center, spacing: 18){
+        VStack (alignment: .center, spacing: 18){
             Identicon(safe?.address ?? "")
                 .frame(width: 56, height: 56)
 
@@ -24,18 +38,23 @@ struct SafeInfoView: View {
                 .font(Font.gnoBody.weight(.medium))
                 .multilineTextAlignment(.center)
 
-            HStack (alignment: .top, spacing: 12) {
-                AddressText(safe?.address ?? "")
-                    .multilineTextAlignment(.center)
-
+            HStack (alignment: .top, spacing: 2) {
+                
                 Button(action: {
-                    UIPasteboard.general.string = safe?.address ?? ""
+                    UIPasteboard.general.string = self.safe?.address ?? ""
                 }) {
+                    AddressText(safe?.address ?? "")
+                    .multilineTextAlignment(.center)
+                }
+                
+                Button(action: { self.showsLink.toggle()}) {
                     Image("icon-external-link")
-                }.foregroundColor(.gnoHold).frame(width: 24, height: 24)
+                }.foregroundColor(.gnoHold)
+                .frame(width: 24, height: 24)
+                .sheet(isPresented: $showsLink, content: browseSafeAddress)
             }
-            .padding(.leading, 60)
-            .padding(.trailing, 24)
+            .padding(.leading, 20)
+            .padding(.trailing, 20)
 
             Text(safe?.ensName ?? "")
                 .font(Font.gnoBody.weight(.medium))
@@ -43,11 +62,21 @@ struct SafeInfoView: View {
 
             QRView(value: safe?.address ?? "").frame(width: 124, height: 124)
         }.cardShadowTooltip()
+        .id(updateID)
+        .onReceive(appSettings.publisher.first()) { settings in
+            self.safe = Safe.selected(settings)
+        }
+        .onReceive(didSave, perform: { _ in self.updateID = UUID() })
+    }
+    
+    func browseSafeAddress() -> some View {
+        let safeURL = URL(string: "https://etherscan.io/address/" + (safe?.address ?? ""))!
+        return SafariViewController(url: safeURL)
     }
 }
 
 struct SafeInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        SafeInfoView().frame(width: 340, height: 340)
+        SafeInfoView()
     }
 }
