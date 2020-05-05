@@ -15,7 +15,7 @@ struct SafeCell: View {
     var body: some View {
         HStack {
             Identicon(safe?.address ?? "")
-                .frame(width: 36, height: 36)
+                .frame(width: 30, height: 30)
                 .padding([.top, .leading, .bottom])
                 .padding(.trailing, 4)
 

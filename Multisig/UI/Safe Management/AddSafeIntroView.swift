@@ -9,49 +9,91 @@
 import SwiftUI
 
 struct AddSafeIntroView: View {
-    @State private var addSafeStarted = false
-    @State private var swithSafeDisplayed = false
+    @Binding var showsSafeInfo: Bool
+    @Binding var showsSwitchSafe: Bool
+
+    @State private var showsLoadSafe = false
 
     var body: some View {
-        FullSize {
+        ZStack {
+            backgroundView
+
             VStack(spacing: 21) {
-                Text("Get started by loading your\nSafe Multisig")
-                    .font(.gnoTitle3)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.gnoDarkBlue)
-
-
-                Button("Load Safe Multisig") {
-                    self.addSafeStarted.toggle()
-                }
-                .buttonStyle(GNOFilledButtonStyle())
-                .sheet(isPresented: self.$addSafeStarted) {
-                    NavigationView {
-                        EnterSafeAddressView()
-                    }
-                }
-
-                Button("Switch Safe") {
-                    self.swithSafeDisplayed = true
-                }
-                .padding()
-                .buttonStyle(GNOFilledButtonStyle())
-                .sheet(isPresented: self.$swithSafeDisplayed) {
-                    // For some reason, this view does not inherit the
-                    // context from the current view.
-                    SwitchSafeView()
-                        .environment(\.managedObjectContext,
-                                     CoreDataStack.shared.persistentContainer.viewContext)
-                }
+                header
+                loadSafeButton
             }
         }
-        .edgesIgnoringSafeArea(.all)
-        .background(Color.gnoWhite)
+        .navigationBarTitle("", displayMode: .inline)
+        .navigationBarItems(leading: safeInfoButton, trailing: selectSafeButton)
+    }
+
+    var backgroundView: some View {
+        Rectangle()
+            .foregroundColor(Color.gnoWhite)
+            .edgesIgnoringSafeArea(.all)
+
+    }
+
+    var header: some View {
+        Text("Get started by loading your\nSafe Multisig")
+            .font(.gnoTitle3)
+            .multilineTextAlignment(.center)
+            .foregroundColor(.gnoDarkBlue)
+    }
+
+    var loadSafeButton: some View {
+        Button("Load Safe Multisig") {
+            self.showsLoadSafe.toggle()
+        }
+        .buttonStyle(GNOFilledButtonStyle())
+        .sheet(isPresented: self.$showsLoadSafe) {
+            NavigationView {
+                EnterSafeAddressView()
+            }
+        }
+    }
+
+    var safeInfoButton: some View {
+        Button(action: { self.showsSafeInfo.toggle() }) {
+            notSelectedView
+                .padding(.bottom)
+        }
+    }
+
+    var notSelectedView: some View {
+        HStack {
+            Image("safe-selector-not-selected-icon")
+                .resizable()
+                .renderingMode(.original)
+                .frame(width: 30, height: 30)
+
+            Text("No Safe loaded")
+                .font(Font.gnoBody.weight(.semibold))
+                .foregroundColor(Color.gnoMediumGrey)
+        }
+    }
+
+
+    var selectSafeButton: some View {
+        Button(action: { self.showsSwitchSafe.toggle() }) {
+            Image(systemName: "chevron.down.circle")
+                .foregroundColor(.gnoMediumGrey)
+                .font(Font.body.weight(.semibold))
+                // increases tappable area
+                .frame(minWidth: 60, idealHeight: 44, alignment: .trailing)
+        }
+
+        .padding(.bottom)
     }
 }
 
 struct AddSafeIntro_Previews: PreviewProvider {
     static var previews: some View {
-        AddSafeIntroView()
+        TabView {
+            NavigationView {
+                AddSafeIntroView(showsSafeInfo: .constant(false),
+                                 showsSwitchSafe: .constant(false))
+            }
+        }
     }
 }

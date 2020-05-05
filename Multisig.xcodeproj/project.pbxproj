@@ -27,6 +27,7 @@
 		0A72AC622453169700840641 /* LinkText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC612453169700840641 /* LinkText.swift */; };
 		0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC652453184C00840641 /* SafeAddressField.swift */; };
 		0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC6924531C0200840641 /* AddressInputSelector.swift */; };
+		0A7AEAD72461D14900014184 /* SafeInfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAD62461D14900014184 /* SafeInfoButton.swift */; };
 		0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD562445CC8A00688050 /* AppDelegate.swift */; };
 		0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD582445CC8A00688050 /* SceneDelegate.swift */; };
 		0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD5D2445CC8A00688050 /* ContentView.swift */; };
@@ -56,7 +57,7 @@
 		0A9BC35E2460582D00EB9C5D /* SafeRelayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4E32449A4FC0067505A /* SafeRelayServiceIntegrationTests.swift */; };
 		0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
 		0A9BC36124605AA800EB9C5D /* ErrorText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC36024605AA800EB9C5D /* ErrorText.swift */; };
-		0A9BC3AC24617C2F00EB9C5D /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3AB24617C2F00EB9C5D /* PopupContainer.swift */; };
+		0A9BC3AC24617C2F00EB9C5D /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */; };
 		0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */; };
 		0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20A24533F1E0066457E /* EnterSafeNameView.swift */; };
 		0ADDA20D24533F860066457E /* BodyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20C24533F860066457E /* BodyText.swift */; };
@@ -137,6 +138,7 @@
 		0A72AC612453169700840641 /* LinkText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkText.swift; sourceTree = "<group>"; };
 		0A72AC652453184C00840641 /* SafeAddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAddressField.swift; sourceTree = "<group>"; };
 		0A72AC6924531C0200840641 /* AddressInputSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInputSelector.swift; sourceTree = "<group>"; };
+		0A7AEAD62461D14900014184 /* SafeInfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoButton.swift; sourceTree = "<group>"; };
 		0A93DD532445CC8A00688050 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,7 +172,7 @@
 		0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A9BC3572460581500EB9C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A9BC36024605AA800EB9C5D /* ErrorText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorText.swift; sourceTree = "<group>"; };
-		0A9BC3AB24617C2F00EB9C5D /* PopupContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
+		0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressViewModel.swift; sourceTree = "<group>"; };
 		0ADDA20A24533F1E0066457E /* EnterSafeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameView.swift; sourceTree = "<group>"; };
 		0ADDA20C24533F860066457E /* BodyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyText.swift; sourceTree = "<group>"; };
@@ -349,7 +351,7 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
-				0A9BC3AB24617C2F00EB9C5D /* PopupContainer.swift */,
+				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
 				0AF6501A24488D280018D070 /* FullSize.swift */,
 				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,
@@ -458,6 +460,7 @@
 			isa = PBXGroup;
 			children = (
 				0A93DDAF2446072900688050 /* AddSafeIntroView.swift */,
+				0A7AEAD62461D14900014184 /* SafeInfoButton.swift */,
 				0A93DDAD2446062F00688050 /* SafeSelector.swift */,
 				0ADDA214245352CF0066457E /* EnterSafeAddress */,
 				0ADDA215245352DB0066457E /* EnterSafeName */,
@@ -879,7 +882,7 @@
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
 				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,
-				0A9BC3AC24617C2F00EB9C5D /* PopupContainer.swift in Sources */,
+				0A9BC3AC24617C2F00EB9C5D /* PopupView.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
@@ -905,6 +908,7 @@
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A72AC5C245312FC00840641 /* FormHeader.swift in Sources */,
 				5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */,
+				0A7AEAD72461D14900014184 /* SafeInfoButton.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0ADDA20D24533F860066457E /* BodyText.swift in Sources */,
 				0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */,
