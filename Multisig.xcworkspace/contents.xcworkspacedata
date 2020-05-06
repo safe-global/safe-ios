@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/dmitry/source/gnosis/safe-ios/Multisig/Logic/Models/Safe+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/dmitry/source/gnosis/safe-ios/Multisig/Logic/Models/Safe+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:Multisig.xcodeproj">
    </FileRef>
    <FileRef
