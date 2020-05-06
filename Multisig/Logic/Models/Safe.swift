@@ -11,7 +11,6 @@ import CoreData
 
 extension Safe: Identifiable {
 
-    var isSelected: Bool { selection != nil }
 
     public override func awakeFromInsert() {
         super.awakeFromInsert()
@@ -48,6 +47,23 @@ extension Safe: Identifiable {
 
         CoreDataStack.shared.saveContext()
     }
+
+}
+
+// Displayable Information
+extension Safe {
+
+    var isSelected: Bool { selection != nil }
+
+    var hasAddress: Bool { address?.isEmpty == false }
+
+    var displayAddress: String { address! }
+
+    var browserURL: URL { URL(string: "https://etherscan.io/address/\(displayAddress)")! }
+
+    var displayName: String { name.flatMap { $0.isEmpty ? nil : $0 } ?? "Untitled Safe" }
+
+    var displayENSName: String { "" }
 
 }
 

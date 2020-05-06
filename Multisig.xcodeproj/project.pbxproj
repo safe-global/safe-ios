@@ -32,6 +32,11 @@
 		0A7AEAE12462F98800014184 /* SafeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAE02462F98800014184 /* SafeRow.swift */; };
 		0A7AEAE32462FA6000014184 /* AddSafeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAE22462FA6000014184 /* AddSafeRow.swift */; };
 		0A7AEAE62462FB0700014184 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAE52462FB0700014184 /* TabItemView.swift */; };
+		0A7AEAF1246315F600014184 /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAEF246315F600014184 /* Safe+CoreDataClass.swift */; };
+		0A7AEAF2246315F600014184 /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF0246315F600014184 /* Safe+CoreDataProperties.swift */; };
+		0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF32463185C00014184 /* ENSNameLoader.swift */; };
+		0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */; };
+		0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF72463190100014184 /* LoadableENSNameText.swift */; };
 		0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD562445CC8A00688050 /* AppDelegate.swift */; };
 		0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD582445CC8A00688050 /* SceneDelegate.swift */; };
 		0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD5D2445CC8A00688050 /* ContentView.swift */; };
@@ -146,6 +151,11 @@
 		0A7AEAE02462F98800014184 /* SafeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeRow.swift; sourceTree = "<group>"; };
 		0A7AEAE22462FA6000014184 /* AddSafeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeRow.swift; sourceTree = "<group>"; };
 		0A7AEAE52462FB0700014184 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
+		0A7AEAEF246315F600014184 /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Safe+CoreDataClass.swift"; path = "/Users/dmitry/source/gnosis/safe-ios/Multisig/Logic/Models/Safe+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		0A7AEAF0246315F600014184 /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Safe+CoreDataProperties.swift"; path = "/Users/dmitry/source/gnosis/safe-ios/Multisig/Logic/Models/Safe+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		0A7AEAF32463185C00014184 /* ENSNameLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSNameLoader.swift; sourceTree = "<group>"; };
+		0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredAddressWithLink.swift; sourceTree = "<group>"; };
+		0A7AEAF72463190100014184 /* LoadableENSNameText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableENSNameText.swift; sourceTree = "<group>"; };
 		0A93DD532445CC8A00688050 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -306,14 +316,22 @@
 			path = "Load Safe";
 			sourceTree = "<group>";
 		};
-		0A7AEAEA24630F3200014184 /* TabItem */ = {
+		0A7AEAF924631CEC00014184 /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				0A7AEAE52462FB0700014184 /* TabItemView.swift */,
+				041C2A572456F4F50044A24C /* SafeInfoView.swift */,
+				0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		0A7AEAFA24631D1100014184 /* Safe Selector */ = {
+			isa = PBXGroup;
+			children = (
 				0A7AEADC2462F92C00014184 /* SelectedSafeButton.swift */,
 				0A7AEADE2462F95100014184 /* SwitchSafeButton.swift */,
 			);
-			path = TabItem;
+			path = "Safe Selector";
 			sourceTree = "<group>";
 		};
 		0A93DD4A2445CC8A00688050 = {
@@ -486,6 +504,8 @@
 		0AF432BC244DF6C900E22E50 /* ENS */ = {
 			isa = PBXGroup;
 			children = (
+				0A7AEAF72463190100014184 /* LoadableENSNameText.swift */,
+				0A7AEAF32463185C00014184 /* ENSNameLoader.swift */,
 				0A9BC33E2460447400EB9C5D /* EnterENSNameView.swift */,
 				0A9BC3402460449E00EB9C5D /* EnterENSNameViewModel.swift */,
 			);
@@ -495,7 +515,8 @@
 		0AF432BF244DF8AD00E22E50 /* Safe Management */ = {
 			isa = PBXGroup;
 			children = (
-				041C2A572456F4F50044A24C /* SafeInfoView.swift */,
+				0A7AEAFA24631D1100014184 /* Safe Selector */,
+				0A7AEAF924631CEC00014184 /* Info */,
 				0A7AEAE9246309BC00014184 /* Load Safe */,
 				0A7AEAE42462FAAD00014184 /* Switch Safe */,
 			);
@@ -508,7 +529,7 @@
 				0A93DD562445CC8A00688050 /* AppDelegate.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
-				0A7AEAEA24630F3200014184 /* TabItem */,
+				0A7AEAE52462FB0700014184 /* TabItemView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -559,6 +580,8 @@
 				0A6C85B1245071510026139E /* Address.swift */,
 				551DDEE8244F183500C719D3 /* Selection.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
+				0A7AEAEF246315F600014184 /* Safe+CoreDataClass.swift */,
+				0A7AEAF0246315F600014184 /* Safe+CoreDataProperties.swift */,
 				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
 			);
 			path = Models;
@@ -913,6 +936,7 @@
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */,
 				04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */,
+				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
@@ -922,6 +946,7 @@
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
+				0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */,
 				0A7AEAE62462FB0700014184 /* TabItemView.swift in Sources */,
 				0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */,
 				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,
@@ -932,8 +957,10 @@
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
+				0A7AEAF1246315F600014184 /* Safe+CoreDataClass.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */,
+				0A7AEAF2246315F600014184 /* Safe+CoreDataProperties.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
@@ -944,6 +971,7 @@
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A72AC5C245312FC00840641 /* BoldText.swift in Sources */,
 				5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */,
+				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0ADDA20D24533F860066457E /* BodyText.swift in Sources */,
 				0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */,
