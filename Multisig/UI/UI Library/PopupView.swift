@@ -36,6 +36,7 @@ struct PopupView<Content>: View where Content: View {
         ZStack(alignment: .center) {
             if isPresented.wrappedValue {
                 backgroundView
+                    .transition(AnyTransition.opacity.animation(.easeInOut))
                 cardView
                     .transition(
                         AnyTransition

@@ -8,53 +8,66 @@
 
 import SwiftUI
 
-struct SafeInfo {
-    var address: String
-    var name: String
-    var ensName: String
+extension Safe {
 
-    var browseURL: URL {
-         URL(string: "https://etherscan.io/address/\(address)")!
-    }
+    var hasAddress: Bool { address?.isEmpty == false }
+    var displayAddress: String { address! }
 
-    static let empty = SafeInfo(address: "", name: "", ensName: "")
+    var displayName: String { name.flatMap { $0.isEmpty ? nil : $0 } ?? "Untitled Safe" }
+
+//    var displayENSName: String { ensName ?? "" }
+
 }
 
 struct SafeInfoView: View {
 
-    var safeInfo: SafeInfo = .empty
+    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
+    var selectedSafe: FetchedResults<Safe>
+
+    var body: some View {
+        Group {
+            if selectedSafe.first == nil {
+                BodyText(label: "No Safe is selected")
+            } else {
+                SafeInfoContentView(safe: selectedSafe.first!)
+            }
+        }
+    }
+}
+
+struct SafeInfoContentView: View {
+
+    @ObservedObject
+    var safe: Safe
 
     @State
     var showsBrowser: Bool = false
-    
+
     var body: some View {
-        VStack (alignment: .center, spacing: 18){
-            Identicon(safeInfo.address)
+        VStack (alignment: .center, spacing: 18) {
+            Identicon(safe.address)
                 .frame(width: 56, height: 56)
 
-            BodyText(label: safeInfo.name)
+            BodyText(label: safe.displayName)
 
             addressView
 
-            if !safeInfo.ensName.isEmpty {
-                BodyText(label: safeInfo.ensName)
-            }
+//            if !safe.ensName.isEmpty {
+//                BodyText(label: safe.ensName)
+//            }
 
-            QRView(value: safeInfo.address)
+            QRView(value: safe.address)
                 .frame(width: 150, height: 150)
         }
         .multilineTextAlignment(.center)
-        .sheet(isPresented: $showsBrowser) {
-            SafariViewController(url: self.safeInfo.browseURL)
-        }
     }
 
     var addressView: some View {
         HStack {
             Button(action: {
-                UIPasteboard.general.string = self.safeInfo.address
+                UIPasteboard.general.string = self.safe.address
             }) {
-                AddressText(safeInfo.address)
+                AddressText(safe.address!)
                     .multilineTextAlignment(.center)
             }
 
@@ -67,20 +80,22 @@ struct SafeInfoView: View {
             .frame(width: 44, height: 44)
 
         }
-            // these two lines make sure that the alignment will be by
-            // the addreses text's center, and
-            .padding([.leading, .trailing], 44)
-            // that 'link button' will be visually attached to the trailnig
-            .padding(.trailing, -44)
+        // these two lines make sure that the alignment will be by
+        // the addreses text's center, and
+        .padding([.leading, .trailing], 44)
+        // that 'link button' will be visually attached to the trailnig
+        .padding(.trailing, -44)
+
+//        .sheet(isPresented: $showsBrowser) {
+//            SafariViewController(url: self.safe.browseURL)
+//        }
     }
     
 }
 
-struct SafeInfoView_Previews: PreviewProvider {
+struct SafeInfoContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SafeInfoView(safeInfo: SafeInfo(address: "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
-                                        name: "My Safe Name",
-                                        ensName: "alice.eth"))
+        SafeInfoContentView(safe: Safe())
         .padding()
     }
 }

@@ -11,6 +11,8 @@ import CoreData
 
 extension Safe: Identifiable {
 
+    var isSelected: Bool { selection != nil }
+
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         additionDate = Date()
@@ -19,6 +21,7 @@ extension Safe: Identifiable {
     func select() {
         let selection = Selection.current()
         selection.safe = self
+        CoreDataStack.shared.saveContext()
     }
 
     static func download(at address: String) throws {
@@ -55,12 +58,14 @@ extension NSFetchRequest where ResultType == Safe {
     }
 
     func by(address: String) -> Self {
+        sortDescriptors = []
         predicate = NSPredicate(format: "address CONTAINS[c] %@", address)
         fetchLimit = 1
         return self
     }
 
     func selected() -> Self {
+        sortDescriptors = []
         predicate = NSPredicate(format: "selection != nil")
         return self
     }

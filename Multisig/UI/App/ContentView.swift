@@ -7,21 +7,17 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext)
-    var context: NSManagedObjectContext
+    @Environment(\.managedObjectContext) var context: CoreDataContext
 
     @State private var selection = 0
     @State var showsInfo: Bool = false
-    @State var showsSwitchSafe: Bool = false
     
     var body: some View {
         TabView(selection: $selection){
-            NavigationView {
-                AddSafeIntroView(showsSafeInfo: $showsInfo,
-                                 showsSwitchSafe: $showsSwitchSafe)
+            TabItemView(showsSafeInfo: $showsInfo) {
+                AddSafeIntroView()
             }
             .tabItem {
                 VStack {
@@ -31,9 +27,8 @@ struct ContentView: View {
             }
             .tag(0)
 
-            NavigationView {
-                Text("Transactions")
-                    .font(.gnoNormal)
+            TabItemView(showsSafeInfo: $showsInfo) {
+                AddSafeIntroView()
             }
             .tabItem {
                 VStack {
@@ -43,9 +38,8 @@ struct ContentView: View {
             }
             .tag(1)
 
-            NavigationView {
-                Text("Settings")
-                    .font(.gnoNormal)
+            TabItemView(showsSafeInfo: $showsInfo) {
+                AddSafeIntroView()
             }
             .tabItem {
                 VStack {
@@ -56,14 +50,12 @@ struct ContentView: View {
             .tag(2)
         }
         .accentColor(.gnoHold)
+        .background(Color.gnoWhite)
         .overlay(
             PopupView(isPresented: $showsInfo) {
-                SafeInfoView()
+                SafeInfoView().environment(\.managedObjectContext, context)
             }
         )
-        .sheet(isPresented: $showsSwitchSafe) {
-            SwitchSafeView().environment(\.managedObjectContext, self.context)
-        }
     }
 }
 
