@@ -18,7 +18,7 @@ struct EnterSafeAddressView: View {
 
     var body: some View {
         VStack(spacing: 23) {
-            FormHeader("Enter your Safe Multisig address.")
+            BoldText("Enter your Safe Multisig address.")
 
             SafeAddressField(title: "Enter Safe address",
                              enteredText: $model.text,

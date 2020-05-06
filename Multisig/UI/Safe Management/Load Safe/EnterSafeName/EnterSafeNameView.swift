@@ -24,7 +24,7 @@ struct EnterSafeNameView: View {
             Group {
                 CorrectAddressView(address: model.address)
 
-                BodyText(label: "Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties.")
+                BodyText("Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties.")
                     .multilineTextAlignment(.center)
             }
             .padding([.leading, .trailing])

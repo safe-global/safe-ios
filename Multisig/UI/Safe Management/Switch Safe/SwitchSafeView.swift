@@ -50,7 +50,7 @@ struct SwitchSafeView: View {
                     .frame(width: 24, height: 24)
                     .foregroundColor(.gnoMediumGrey)
 
-                FormHeader("Switch Safes")
+                BoldText("Switch Safes")
 
                 Spacer()
             }

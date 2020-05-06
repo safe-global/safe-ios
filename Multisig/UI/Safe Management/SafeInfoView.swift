@@ -11,11 +11,14 @@ import SwiftUI
 extension Safe {
 
     var hasAddress: Bool { address?.isEmpty == false }
+
     var displayAddress: String { address! }
+
+    var browserURL: URL { URL(string: "https://etherscan.io/address/\(displayAddress)")! }
 
     var displayName: String { name.flatMap { $0.isEmpty ? nil : $0 } ?? "Untitled Safe" }
 
-//    var displayENSName: String { ensName ?? "" }
+    var displayENSName: String { "" }
 
 }
 
@@ -27,7 +30,7 @@ struct SafeInfoView: View {
     var body: some View {
         Group {
             if selectedSafe.first == nil {
-                BodyText(label: "No Safe is selected")
+                BodyText("No Safe is selected")
             } else {
                 SafeInfoContentView(safe: selectedSafe.first!)
             }
@@ -48,13 +51,15 @@ struct SafeInfoContentView: View {
             Identicon(safe.address)
                 .frame(width: 56, height: 56)
 
-            BodyText(label: safe.displayName)
+            BoldText(safe.displayName)
 
-            addressView
+            if safe.hasAddress {
+                addressView
+            }
 
-//            if !safe.ensName.isEmpty {
-//                BodyText(label: safe.ensName)
-//            }
+            if !safe.displayENSName.isEmpty {
+                BoldText(safe.displayENSName)
+            }
 
             QRView(value: safe.address)
                 .frame(width: 150, height: 150)
@@ -68,6 +73,7 @@ struct SafeInfoContentView: View {
                 UIPasteboard.general.string = self.safe.address
             }) {
                 AddressText(safe.address!)
+                    .font(Font.gnoBody.weight(.medium))
                     .multilineTextAlignment(.center)
             }
 
@@ -78,17 +84,15 @@ struct SafeInfoContentView: View {
                     .foregroundColor(.gnoHold)
             }
             .frame(width: 44, height: 44)
-
+            .sheet(isPresented: $showsBrowser) {
+                SafariViewController(url: self.safe.browserURL)
+            }
         }
         // these two lines make sure that the alignment will be by
         // the addreses text's center, and
         .padding([.leading, .trailing], 44)
         // that 'link button' will be visually attached to the trailnig
         .padding(.trailing, -44)
-
-//        .sheet(isPresented: $showsBrowser) {
-//            SafariViewController(url: self.safe.browseURL)
-//        }
     }
     
 }

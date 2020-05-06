@@ -21,7 +21,7 @@ struct SafeCell: View {
                 .frame(width: iconSize, height: iconSize)
 
             VStack(alignment: .leading, spacing: 2) {
-                FormHeader(safe.name ?? "")
+                BoldText(safe.name ?? "")
                 AddressText(safe.address ?? "", style: .short)
                     .font(Font.gnoBody.weight(.medium))
             }

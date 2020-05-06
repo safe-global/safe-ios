@@ -15,6 +15,9 @@ struct ContentView: View {
     @State var showsInfo: Bool = false
     
     var body: some View {
+        // FIXME: Note, that the tabs "blink" on switching.
+        // This is a performance issue to be fixed.
+        // see https://forums.developer.apple.com/thread/124475
         TabView(selection: $selection){
             TabItemView(showsSafeInfo: $showsInfo) {
                 AddSafeIntroView()

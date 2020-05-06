@@ -22,7 +22,7 @@
 		0A6C85B2245071510026139E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A6C85B4245080620026139E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B3245080620026139E /* App.swift */; };
 		0A72AC5A2453125800840641 /* EnterSafeAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC592453125800840641 /* EnterSafeAddressView.swift */; };
-		0A72AC5C245312FC00840641 /* FormHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC5B245312FC00840641 /* FormHeader.swift */; };
+		0A72AC5C245312FC00840641 /* BoldText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC5B245312FC00840641 /* BoldText.swift */; };
 		0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC5F2453157300840641 /* CreateSafePrompt.swift */; };
 		0A72AC622453169700840641 /* LinkText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC612453169700840641 /* LinkText.swift */; };
 		0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC652453184C00840641 /* SafeAddressField.swift */; };
@@ -136,7 +136,7 @@
 		0A6C85B1245071510026139E /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0A6C85B3245080620026139E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		0A72AC592453125800840641 /* EnterSafeAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressView.swift; sourceTree = "<group>"; };
-		0A72AC5B245312FC00840641 /* FormHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormHeader.swift; sourceTree = "<group>"; };
+		0A72AC5B245312FC00840641 /* BoldText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldText.swift; sourceTree = "<group>"; };
 		0A72AC5F2453157300840641 /* CreateSafePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafePrompt.swift; sourceTree = "<group>"; };
 		0A72AC612453169700840641 /* LinkText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkText.swift; sourceTree = "<group>"; };
 		0A72AC652453184C00840641 /* SafeAddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAddressField.swift; sourceTree = "<group>"; };
@@ -306,6 +306,16 @@
 			path = "Load Safe";
 			sourceTree = "<group>";
 		};
+		0A7AEAEA24630F3200014184 /* TabItem */ = {
+			isa = PBXGroup;
+			children = (
+				0A7AEAE52462FB0700014184 /* TabItemView.swift */,
+				0A7AEADC2462F92C00014184 /* SelectedSafeButton.swift */,
+				0A7AEADE2462F95100014184 /* SwitchSafeButton.swift */,
+			);
+			path = TabItem;
+			sourceTree = "<group>";
+		};
 		0A93DD4A2445CC8A00688050 = {
 			isa = PBXGroup;
 			children = (
@@ -406,7 +416,7 @@
 			children = (
 				0A0256212449F29200C91D73 /* AddressText.swift */,
 				0ADDA20C24533F860066457E /* BodyText.swift */,
-				0A72AC5B245312FC00840641 /* FormHeader.swift */,
+				0A72AC5B245312FC00840641 /* BoldText.swift */,
 				0A9BC36024605AA800EB9C5D /* ErrorText.swift */,
 				0A72AC612453169700840641 /* LinkText.swift */,
 			);
@@ -485,8 +495,6 @@
 		0AF432BF244DF8AD00E22E50 /* Safe Management */ = {
 			isa = PBXGroup;
 			children = (
-				0A7AEADC2462F92C00014184 /* SelectedSafeButton.swift */,
-				0A7AEADE2462F95100014184 /* SwitchSafeButton.swift */,
 				041C2A572456F4F50044A24C /* SafeInfoView.swift */,
 				0A7AEAE9246309BC00014184 /* Load Safe */,
 				0A7AEAE42462FAAD00014184 /* Switch Safe */,
@@ -500,7 +508,7 @@
 				0A93DD562445CC8A00688050 /* AppDelegate.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
-				0A7AEAE52462FB0700014184 /* TabItemView.swift */,
+				0A7AEAEA24630F3200014184 /* TabItem */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -934,7 +942,7 @@
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
-				0A72AC5C245312FC00840641 /* FormHeader.swift in Sources */,
+				0A72AC5C245312FC00840641 /* BoldText.swift in Sources */,
 				5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0ADDA20D24533F860066457E /* BodyText.swift in Sources */,
