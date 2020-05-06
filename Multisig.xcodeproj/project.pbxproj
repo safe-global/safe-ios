@@ -316,13 +316,13 @@
 			path = "Load Safe";
 			sourceTree = "<group>";
 		};
-		0A7AEAF924631CEC00014184 /* Info */ = {
+		0A7AEAF924631CEC00014184 /* Safe Info */ = {
 			isa = PBXGroup;
 			children = (
 				041C2A572456F4F50044A24C /* SafeInfoView.swift */,
 				0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */,
 			);
-			path = Info;
+			path = "Safe Info";
 			sourceTree = "<group>";
 		};
 		0A7AEAFA24631D1100014184 /* Safe Selector */ = {
@@ -516,7 +516,7 @@
 			isa = PBXGroup;
 			children = (
 				0A7AEAFA24631D1100014184 /* Safe Selector */,
-				0A7AEAF924631CEC00014184 /* Info */,
+				0A7AEAF924631CEC00014184 /* Safe Info */,
 				0A7AEAE9246309BC00014184 /* Load Safe */,
 				0A7AEAE42462FAAD00014184 /* Switch Safe */,
 			);

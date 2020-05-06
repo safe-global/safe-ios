@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Safe {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Safe> {
