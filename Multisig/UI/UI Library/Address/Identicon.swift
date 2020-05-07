@@ -14,15 +14,30 @@ struct Identicon: View {
 
     private let blockSize: CGFloat = 8
 
-    private var text: String
+    private var text: String?
 
-    init(_ text: String) {
+    init(_ text: String?) {
         self.text = text
     }
 
     var body: some View {
+        Group {
+            if text == nil || text!.isEmpty {
+                placeholder
+            } else {
+                blockyImage
+            }
+        }
+
+    }
+
+    var placeholder: some View {
+        Circle().foregroundColor(Color.gnoLightGrey)
+    }
+
+    var blockyImage: some View {
         GeometryReader { geometry in
-            Image(uiImage: self.image(geometry.size))
+            Image(uiImage: self.blocky(geometry.size))
             .renderingMode(.original)
             .resizable()
             .aspectRatio(1, contentMode: .fit)
@@ -30,7 +45,8 @@ struct Identicon: View {
         }
     }
 
-    func image(_ size: CGSize) -> UIImage {
+
+    func blocky(_ size: CGSize) -> UIImage {
         Blockies(
             seed: text,
             size: Int(blockSize),

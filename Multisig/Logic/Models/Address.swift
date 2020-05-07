@@ -39,4 +39,7 @@ extension Address {
         try! self.init(hex: "0x" + data.toHexString(), eip55: false)
     }
 
+    init?(_ value: String) {
+        try? self.init(hex: value, eip55: false)
+    }
 }

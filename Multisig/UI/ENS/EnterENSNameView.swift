@@ -26,7 +26,7 @@ struct EnterENSNameView: View {
                              isValidating: $model.isResolving,
                              error: $model.errorMessage)
             if model.address != nil {
-                BodyText(label: "Address found")
+                BodyText("Address found")
                 CorrectAddressView(address: model.address!.hex(eip55: true))
             }
             Spacer()
