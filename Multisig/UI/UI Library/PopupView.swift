@@ -51,10 +51,9 @@ struct PopupView<Content>: View where Content: View {
         .onTapGesture {
             // using withAnimation actually animates the transitioning
             withAnimation {
-                self.isPresented.wrappedValue.toggle()
+                self.isPresented.wrappedValue = false
             }
         }
-
     }
 
     var backgroundView: some View {
@@ -74,7 +73,7 @@ struct PopupView<Content>: View where Content: View {
                     .cardShadowTooltip()
             )
             .padding(screenEdgePadding)
-            .offset(x: 0, y: cardYOffsetFromMiddle)
+//            .offset(x: 0, y: cardYOffsetFromMiddle)
     }
 }
 

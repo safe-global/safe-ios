@@ -11,19 +11,18 @@ import SwiftUI
 struct SelectedSafeButton: View {
 
     @Binding var showsSafeInfo: Bool
-
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selected: FetchedResults<Safe>
 
     var body: some View {
-        Button(action: { self.showsSafeInfo.toggle() }) {
+        Button(action: { self.showsSafeInfo = true }) {
             if selected.first == nil {
                 notSelectedView
             } else {
-                SafeCell(safe: selected.first!)
+                SafeCell(safe: selected.first!, style: .compact)
             }
         }
-        .padding(.bottom)
+        .padding(.bottom, 4)
         .disabled(selected.first == nil)
     }
 
@@ -40,10 +39,4 @@ struct SelectedSafeButton: View {
         }
     }
 
-}
-
-struct SelectedSafeButton_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectedSafeButton(showsSafeInfo: .constant(false))
-    }
 }

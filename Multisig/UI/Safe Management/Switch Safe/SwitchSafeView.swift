@@ -29,16 +29,10 @@ struct SwitchSafeView: View {
                 }
             }
             .navigationBarTitle("", displayMode: .inline)
-            .navigationBarItems(leading: closeButton, trailing: deselectButton)
+            .navigationBarItems(leading: closeButton)
             .onAppear {
                 UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             }
-        }
-    }
-
-    var deselectButton: some View {
-        Button("Deselect") {
-            Selection.current().safe = nil
         }
     }
 

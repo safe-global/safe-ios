@@ -11,21 +11,29 @@ import SwiftUI
 struct SwitchSafeButton: View {
 
     @Environment(\.managedObjectContext) var context: CoreDataContext
+    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
+    var selected: FetchedResults<Safe>
 
     @State var showsSwitchSafe: Bool = false
 
     var body: some View {
-        Button(action: { self.showsSwitchSafe.toggle() }) {
-            Image(systemName: "chevron.down.circle")
-                .foregroundColor(.gnoMediumGrey)
-                .font(Font.body.weight(.semibold))
-                // increases tappable area
-                .frame(minWidth: 60, idealHeight: 44, alignment: .trailing)
-        }
-        .padding(.bottom)
-        .sheet(isPresented: $showsSwitchSafe) {
-            SwitchSafeView()
-                .environment(\.managedObjectContext, self.context)
+        Group {
+            if selected.first == nil {
+                EmptyView()
+            } else {
+                Button(action: { self.showsSwitchSafe.toggle() }) {
+                    Image(systemName: "chevron.down.circle")
+                        .foregroundColor(.gnoMediumGrey)
+                        .font(Font.body.weight(.semibold))
+                        // increases tappable area
+                        .frame(minWidth: 60, idealHeight: 44, alignment: .trailing)
+                }
+                .padding(.bottom, 4)
+                .sheet(isPresented: $showsSwitchSafe) {
+                    SwitchSafeView()
+                        .environment(\.managedObjectContext, self.context)
+                }
+            }
         }
     }
 
