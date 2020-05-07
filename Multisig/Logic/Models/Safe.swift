@@ -40,7 +40,7 @@ extension Safe: Identifiable {
 
     @discardableResult
     static func download(at address: String) throws -> SafeStatusRequest.Response? {
-        return try App.shared.safeRelayService.safeInfo(at: address)
+        return try App.shared.safeTransactionService.safeInfo(at: address)
     }
 
     static func exists(_ address: String) throws -> Bool {

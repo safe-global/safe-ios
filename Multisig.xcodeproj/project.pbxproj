@@ -25,6 +25,7 @@
 		04769164246408D000D73D8B /* SafeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04769160246408D000D73D8B /* SafeSettingsView.swift */; };
 		04769165246408D000D73D8B /* SafeAdvancedSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04769161246408D000D73D8B /* SafeAdvancedSettingsView.swift */; };
 		04769166246408D000D73D8B /* SafeSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04769162246408D000D73D8B /* SafeSettingsViewModel.swift */; };
+		04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04769167246431D000D73D8B /* SafeTransactionService.swift */; };
 		04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BFB55A2459785D00090386 /* KeyboadHandler.swift */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
@@ -152,6 +153,7 @@
 		04769160246408D000D73D8B /* SafeSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeSettingsView.swift; sourceTree = "<group>"; };
 		04769161246408D000D73D8B /* SafeAdvancedSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeAdvancedSettingsView.swift; sourceTree = "<group>"; };
 		04769162246408D000D73D8B /* SafeSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeSettingsViewModel.swift; sourceTree = "<group>"; };
+		04769167246431D000D73D8B /* SafeTransactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionService.swift; sourceTree = "<group>"; };
 		04BFB55A2459785D00090386 /* KeyboadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboadHandler.swift; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
@@ -690,6 +692,7 @@
 				5532D4B72449A17D0067505A /* Networking Utils */,
 				5532D4E02449A4CF0067505A /* SafeRelayService.swift */,
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
+				04769167246431D000D73D8B /* SafeTransactionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1023,6 +1026,7 @@
 				04769164246408D000D73D8B /* SafeSettingsView.swift in Sources */,
 				0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
+				04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */,
 				0ADDA20F245340540066457E /* CorrectAddressView.swift in Sources */,
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,

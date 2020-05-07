@@ -21,6 +21,9 @@ class App {
     // Services
     var safeRelayService = SafeRelayService(url: URL(string: "https://safe-relay.rinkeby.gnosis.io")!,
                                             logger: LogService.shared)
+    
+    var safeTransactionService = SafeTransactionService(url: URL(string: "https://safe-transaction.rinkeby.gnosis.io")!,
+    logger: LogService.shared)
 
     var nodeService = EthereumNodeService(url: URL(string: "https://rinkeby.infura.io/v3/438e11915f8b4834a05e7810b88db4b3")!)
 }
