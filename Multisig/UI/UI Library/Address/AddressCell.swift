@@ -37,9 +37,8 @@ struct AddressCell: View {
         }.padding([.top, .bottom])
     }
     
-    func browseSafeAddress() -> some View {
-        let safeURL = URL(string: "https://etherscan.io/address/\(address)")!
-        return SafariViewController(url: safeURL)
+    func browseSafeAddress() -> some View {        
+        return SafariViewController(url: Safe.browserURL(address: address))
     }
 }
 
