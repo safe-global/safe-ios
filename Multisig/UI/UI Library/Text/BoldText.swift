@@ -11,13 +11,15 @@ import SwiftUI
 struct BoldText: View {
 
     var title: String
+    var font: Font
 
-    init(_ title: String) {
+    init(_ title: String, font: Font = .gnoHeadline) {
         self.title = title
+        self.font = font
     }
 
     var body: some View {
-        Text(title).font(Font.gnoHeadline).foregroundColor(.gnoDarkBlue)
+        Text(title).font(font).foregroundColor(.gnoDarkBlue)
     }
 }
 

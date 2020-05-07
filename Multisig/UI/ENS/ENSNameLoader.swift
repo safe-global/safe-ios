@@ -14,32 +14,32 @@ class ENSNameLoader: ObservableObject {
     private var subscribers = Set<AnyCancellable>()
 
     @Published
-    var isLoading: Bool = false
+    var isLoading: Bool = true
 
-    func load(safe: Safe) {
-        subscribers.forEach { $0.cancel() }
-
-        let atTheBeginning = Just(safe.address)
-
-        atTheBeginning
-            .map { _ in true }
+    init(safe: Safe) {
+        let fork = resolve(address: safe.address)
+            .share()
+            .multicast { PassthroughSubject<String?, Never>() }
+        fork
+            .map { _ in false }
             .assign(to: \.isLoading, on: self)
             .store(in: &subscribers)
+        fork
+            .assign(to: \.ensName, on: safe)
+            .store(in: &subscribers)
+        fork
+            .connect()
+            .store(in: &subscribers)
+    }
 
-        let atTheEnd = atTheBeginning
+    func resolve(address: String?) -> AnyPublisher<String?, Never> {
+        Just(address)
             .compactMap { $0 }
             .compactMap { Address($0) }
             .receive(on: DispatchQueue.global())
             .map { try? App.shared.ens.name(for: $0) }
             .receive(on: RunLoop.main)
-
-        atTheEnd
-            .assign(to: \.ensName, on: safe)
-            .store(in: &subscribers)
-
-        atTheEnd
-            .map { _ in false }
-            .assign(to: \.isLoading, on: self)
-            .store(in: &subscribers)
+            .eraseToAnyPublisher()
     }
+
 }

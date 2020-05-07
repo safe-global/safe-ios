@@ -54,7 +54,6 @@ struct PopupView<Content>: View where Content: View {
                 self.isPresented.wrappedValue.toggle()
             }
         }
-
     }
 
     var backgroundView: some View {
@@ -74,7 +73,6 @@ struct PopupView<Content>: View where Content: View {
                     .cardShadowTooltip()
             )
             .padding(screenEdgePadding)
-            .offset(x: 0, y: cardYOffsetFromMiddle)
     }
 }
 

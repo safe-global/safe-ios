@@ -10,18 +10,36 @@ import SwiftUI
 
 struct SafeCell: View {
 
+    struct Style {
+        var iconSize: CGFloat
+        var iconToTextSpacing: CGFloat
+        var nameToAddressPadding: CGFloat
+
+        static let compact = Style(
+            iconSize: 34,
+            iconToTextSpacing: 6,
+            nameToAddressPadding: -5)
+
+        static let regular = Style(
+            iconSize: 36,
+            iconToTextSpacing: 12,
+            nameToAddressPadding: 0)
+    }
+
     @ObservedObject
     var safe: Safe
 
-    var iconSize: CGFloat = 36
+    var style: Style = .regular
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: style.iconToTextSpacing) {
             Identicon(safe.address ?? "")
-                .frame(width: iconSize, height: iconSize)
+                .frame(width: style.iconSize, height: style.iconSize)
 
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading) {
                 BoldText(safe.name ?? "")
+                    .padding(.bottom, style.nameToAddressPadding)
+
                 AddressText(safe.address ?? "", style: .short)
                     .font(Font.gnoBody.weight(.medium))
             }

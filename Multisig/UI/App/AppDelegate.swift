@@ -18,7 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func configureGloabalAppearance() {
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        // we don't set the image for the navbar (pdf) as it crashes the app;
+        // we don't set the `translucent` property of navbar to false because
+        // it crashes the app (SwiftUI).
+        // but shadow works.
         UINavigationBar.appearance().shadowImage = UIImage(named: "shadow")
         UINavigationBar.appearance().tintColor = UIColor(named: "hold")
 
