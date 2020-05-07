@@ -21,7 +21,7 @@ struct Identicon: View {
     }
 
     var body: some View {
-        Group {
+        ZStack {
             if text == nil || text!.isEmpty {
                 placeholder
             } else {

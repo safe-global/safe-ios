@@ -21,13 +21,13 @@ struct EnterSafeNameView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Group {
+            VStack {
                 CorrectAddressView(address: model.address)
 
                 BodyText("Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties.")
                     .multilineTextAlignment(.center)
             }
-            .padding([.leading, .trailing])
+            .padding(.horizontal)
 
             RoundedTextField(title: "Enter name",
                         text: $model.enteredText,

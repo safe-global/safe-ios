@@ -10,18 +10,20 @@ import SwiftUI
 import CoreData
 
 struct SafeAdvancedSettingsView: View {
-    let safe: Safe?
-    let model: SafeSettingsViewModel?
+
+    @ObservedObject
+    var safe: Safe
+
     var body: some View {
         List {
             Section(header: ListSectionHeader(text: "MASTER COPY ADDRESS")) {
-                AddressCell(address: model?.info?.masterCopy ?? "-")
+                AddressCell(address: safe.masterCopy ?? "-")
             }
             
             fallbackHandlerView
             
             Section(header: ListSectionHeader(text: "NONCE")) {
-                BodyText("\(model?.info?.nonce ?? 0)")
+                BodyText("\(safe.nonce ?? 0)")
             }
              
             modulesSection
@@ -31,12 +33,11 @@ struct SafeAdvancedSettingsView: View {
     
     var fallbackHandlerView : some View {
         Group {
-            if (model?.info?.fallbackHandler ?? "").isEmpty  {
+            if (safe.fallbackHandler ?? "").isEmpty  {
                  EmptyView()
-            }
-            else {
+            } else {
                 Section(header: ListSectionHeader(text:"FALLBACK HANDLER")) {
-                    AddressCell(address: model?.info?.fallbackHandler ?? "Not Set")
+                    AddressCell(address: safe.fallbackHandler ?? "Not Set")
                 }
             }
         }
@@ -44,12 +45,11 @@ struct SafeAdvancedSettingsView: View {
     
     var modulesSection: some View {
         Group {
-            if (model?.info?.modules ?? []).isEmpty {
+            if (safe.modules ?? []).isEmpty {
                  EmptyView()
-            }
-            else {
+            } else {
                 Section(header: ListSectionHeader(text: "ADDRESSES OF ENABLED MODULES")) {
-                    ForEach(model?.info?.modules ?? [], id: \.self, content: { owner in
+                    ForEach(safe.modules ?? [], id: \.self, content: { owner in
                         AddressCell(address: owner)
                     })
                 }
@@ -60,6 +60,6 @@ struct SafeAdvancedSettingsView: View {
 
 struct SafeAdvancedSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SafeAdvancedSettingsView(safe: nil, model: nil)
+        SafeAdvancedSettingsView(safe: Safe())
     }
 }

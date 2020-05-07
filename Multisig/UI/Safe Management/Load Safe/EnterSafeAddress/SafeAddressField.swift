@@ -69,7 +69,7 @@ struct SafeAddressField: View {
     // conform to the opaque type requirement (always return the same
     // concrete type)
     var errorView: some View {
-        Group {
+        ZStack {
             if !error.wrappedValue.isEmpty {
                 ErrorText(label: error.wrappedValue)
             }
@@ -96,7 +96,7 @@ struct SafeAddressField: View {
     }
 
     var contentView: some View {
-        Group {
+        ZStack {
             if isEmpty {
                 Text(title)
             } else if isAddress.wrappedValue {
@@ -108,7 +108,7 @@ struct SafeAddressField: View {
     }
 
     var rightView: some View {
-        Group {
+        ZStack {
             if isValidating.wrappedValue {
                 ActivityIndicator(isAnimating: .constant(true), style: .medium)
             } else if isValid.wrappedValue == true {

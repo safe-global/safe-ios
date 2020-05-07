@@ -14,4 +14,12 @@ public class Safe: NSManagedObject {
 
     var ensName: String?
 
+    var threshold: Int?
+    var owners: [String]?
+    var masterCopy: String?
+    var version: String?
+    var nonce: Int?
+    var modules: [String]?
+    var fallbackHandler: String?
+
 }
