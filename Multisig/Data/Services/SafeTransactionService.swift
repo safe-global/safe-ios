@@ -43,23 +43,5 @@ struct SafeStatusRequest: JSONRequest {
         let modules: [String]
         let fallbackHandler: String
         let version: String
-        
-        init(address: String,
-                    masterCopy: String,
-                    nonce: Int,
-                    threshold: Int,
-                    owners: [String],
-                    modules: [String],
-                    fallbackHandler: String,
-                    version: String) {
-            self.address = address
-            self.masterCopy = masterCopy
-            self.nonce = nonce
-            self.threshold = threshold
-            self.owners = owners
-            self.modules = modules
-            self.fallbackHandler = fallbackHandler
-            self.version = version
-        }
     }
 }

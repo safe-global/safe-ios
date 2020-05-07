@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ListSectionHeader: View {
+    
     var text: String
     
     var body: some View {
@@ -20,11 +21,10 @@ struct ListSectionHeader: View {
                 .padding()
             
             Spacer()
-            }
-            .frame(height: 44)
-            .background(Color.gnoWhite)
-            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-    
+        }
+        .frame(height: 44)
+        .background(Color.gnoWhite)
+        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
 }
 

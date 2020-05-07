@@ -20,7 +20,7 @@ struct SafeSettingsView: View {
     /// when change safe, model object should be changed also 
     var body: some View {
         ZStack(alignment: .center) {
-            if model.isResolving ?? false {
+            if model.isLoading ?? false {
                 ActivityIndicator(isAnimating: .constant(true), style: .large)
             }
             else {
@@ -57,18 +57,12 @@ struct SafeSettingsView: View {
                 }
             }
         }.onAppear(perform: {
-            if self.model.info == nil && !(self.model.isResolving ?? false) {
+            if self.model.info == nil && !(self.model.isLoading ?? false) {
                 self.model.address = self.safe.address ?? ""
-                self.model.resolve()
+                self.model.load()
             }
         })
     }
     
     
 }
-//
-//struct SafeSettingsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SafeSettingsView()
-//    }
-//}

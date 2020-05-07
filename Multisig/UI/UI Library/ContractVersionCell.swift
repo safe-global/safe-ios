@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ContractVersionCell: View {
     
-    
     var address: String
     var version: String
 
@@ -32,7 +31,6 @@ struct ContractVersionCell: View {
             BrowseAddressView(address: address)
         }
     }
-    
 }
 
 struct ContractVersionCell_Previews: PreviewProvider {

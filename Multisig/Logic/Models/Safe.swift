@@ -39,7 +39,7 @@ extension Safe: Identifiable {
     }
 
     @discardableResult
-    static func download(at address: String) throws -> SafeStatusRequest.Response? {
+    static func download(at address: String) throws -> SafeStatusRequest.Response {
         return try App.shared.safeTransactionService.safeInfo(at: address)
     }
 
@@ -64,23 +64,17 @@ extension Safe: Identifiable {
         CoreDataStack.shared.saveContext()
     }
     
-    static func edit(address: String, name: String, selected: Bool = true) {
+    static func edit(address: String, name: String) {
         let context = CoreDataStack.shared.viewContext
 
         let fr = Safe.fetchRequest().by(address: address)
         
-        guard let result = try? context.fetch(fr) else { return }
+        guard let safe = try? context.fetch(fr).first else { return }
         
-        let safe = result[0]
         safe.name = name
-
-        if selected {
-            safe.select()
-        }
 
         CoreDataStack.shared.saveContext()
     }
-
 }
 
 extension NSFetchRequest where ResultType == Safe {

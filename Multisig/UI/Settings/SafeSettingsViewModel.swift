@@ -12,7 +12,7 @@ import Combine
 class SafeSettingsViewModel: ObservableObject {
     
     @Published
-    var isResolving: Bool?
+    var isLoading: Bool?
 
     @Published
     var isValid: Bool?
@@ -28,13 +28,13 @@ class SafeSettingsViewModel: ObservableObject {
     
     private var subscribers = Set<AnyCancellable>()
 
-    func resolve() {
+    func load() {
         subscribers.forEach { $0.cancel() }
 
         $address
             .map { v -> String in
                 self.reset()
-                self.startResolving()
+                self.startLoading()
                 return v
             }
             .receive(on: DispatchQueue.global())
@@ -49,24 +49,24 @@ class SafeSettingsViewModel: ObservableObject {
     }
 
     func reset() {
-        isResolving = nil
+        isLoading = nil
         isValid = nil
         info = nil
         errorMessage = ""
     }
 
-    func startResolving() {
-        isResolving = true
+    func startLoading() {
+        isLoading = true
     }
 
     func setError(_ message: String) {
-        isResolving = false
+        isLoading = false
         isValid = false
         errorMessage = message
     }
 
     func setSuccess(_ info: SafeStatusRequest.Response?) {
-        isResolving = false
+        isLoading = false
         isValid = true
         self.info = info
     }

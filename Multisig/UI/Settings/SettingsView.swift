@@ -13,9 +13,8 @@ struct SettingsView: View {
     @Environment(\.managedObjectContext)
     var context: NSManagedObjectContext
 
-       // workaround to listen to the changes of the Safe object (name, address)
-   @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-   var selected: FetchedResults<Safe>
+    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
+    var selected: FetchedResults<Safe>
     
     var body: some View {
         SafeSettingsView(safe: selected.first!).environment(\.managedObjectContext, self.context)
