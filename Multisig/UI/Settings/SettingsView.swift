@@ -14,15 +14,11 @@ struct SettingsView: View {
     var context: NSManagedObjectContext
 
        // workaround to listen to the changes of the Safe object (name, address)
-   @State
-   var updateID = UUID()
-   var didSave = NotificationCenter.default
-       .publisher(for: .NSManagedObjectContextDidSave,
-                  object: CoreDataStack.shared.viewContext)
-           .receive(on: RunLoop.main)
+   @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
+   var selected: FetchedResults<Safe>
     
     var body: some View {
-        SafeSettingsView().environment(\.managedObjectContext, self.context)
+        SafeSettingsView(safe: selected.first!).environment(\.managedObjectContext, self.context)
     }
 }
 

@@ -10,43 +10,29 @@ import SwiftUI
 import CoreData
 
 struct SafeSettingsView: View {
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    var selectedSafe: FetchedResults<Safe>
-    
+
     @ObservedObject
     var model = SafeSettingsViewModel()
-    
-    @State
-    var updateID = UUID()
-    var didSave = NotificationCenter.default
-        .publisher(for: .NSManagedObjectContextDidSave,
-                   object: CoreDataStack.shared.viewContext)
-        .receive(on: RunLoop.main)
 
-    @State
-    var safe: Safe?
+    @ObservedObject
+    var safe: Safe
     
-    @State
-    var showEditSafeName: Bool = false
-    
-    @State
-    private var showDeleteSafeConfirmation: Bool = false
+    /// when change safe, model object should be changed also 
     var body: some View {
-        let safe = selectedSafe.first
-        return ZStack(alignment: .center) {
+        ZStack(alignment: .center) {
             if model.isResolving ?? false {
                 ActivityIndicator(isAnimating: .constant(true), style: .large)
             }
             else {
                 List {
                     Section(header: ListSectionHeader(text:"SAFE NAME")) {
-                        NavigationLink(destination: EditSafeNameView(address: safe?.address ?? "", name: safe?.name ?? "")) {
-                            BodyText(safe?.name ?? "")
+                        NavigationLink(destination: EditSafeNameView(address: safe.address ?? "", name: safe.name ?? "")) {
+                            BodyText(safe.name ?? "")
                         }
                     }
                     
                     Section(header: ListSectionHeader(text: "REQUIRED CONFIRMATIONS")) {
-                        BodyText("\(0) out of \(model.info?.owners.count ?? 0)")
+                        BodyText("\(model.info?.threshold ?? 0) out of \(model.info?.owners.count ?? 0)")
                     }
                     
                     Section(header: ListSectionHeader(text: "OWNER ADDRESSES")) {
@@ -56,13 +42,12 @@ struct SafeSettingsView: View {
                     }
                     
                     Section(header: ListSectionHeader(text: "CONTRACT VERSION")) {
-                        SafeCell(safe: safe!)
+                        ContractVersionCell(address: safe.address ?? "", version: model.info?.version ?? "")
                     }
                     
                     Section(header: ListSectionHeader(text: "ENS NAME")) {
-                        LoadableENSNameText(safe: safe!, placeholder: "Not Set")
+                        LoadableENSNameText(safe: safe, placeholder: "Not Set")
                     }
-                    
                     
                     Section(header: ListSectionHeader(text: " ")) {
                         NavigationLink(destination: SafeAdvancedSettingsView(safe: safe,model: model)) {
@@ -72,11 +57,8 @@ struct SafeSettingsView: View {
                 }
             }
         }.onAppear(perform: {
-            if self.safe == nil {
-                self.safe = self.selectedSafe.first!
-            }
             if self.model.info == nil && !(self.model.isResolving ?? false) {
-                self.model.address = self.safe?.address ?? ""
+                self.model.address = self.safe.address ?? ""
                 self.model.resolve()
             }
         })
@@ -84,9 +66,9 @@ struct SafeSettingsView: View {
     
     
 }
-
-struct SafeSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SafeSettingsView()
-    }
-}
+//
+//struct SafeSettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SafeSettingsView()
+//    }
+//}
