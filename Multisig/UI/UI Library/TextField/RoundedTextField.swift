@@ -55,7 +55,7 @@ struct RoundedTextField: View {
     }
 
     var rightView: some View {
-        Group {
+        ZStack {
             if isValidating.wrappedValue == true {
                 ActivityIndicator(isAnimating: .constant(true), style: .medium)
             } else if isValid.wrappedValue == true {

@@ -17,7 +17,14 @@ struct SettingsView: View {
     var selected: FetchedResults<Safe>
     
     var body: some View {
-        SafeSettingsView(safe: selected.first!).environment(\.managedObjectContext, self.context)
+        ZStack {
+            if selected.first == nil {
+                AddSafeIntroView()
+            } else {
+                SafeSettingsView(safe: selected.first!)
+                    .environment(\.managedObjectContext, self.context)
+            }
+        }
     }
 }
 

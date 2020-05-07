@@ -21,7 +21,7 @@ struct LoadableENSNameText: View {
     }
 
     var body: some View {
-        Group {
+        ZStack {
             if ensLoader.isLoading {
                 ActivityIndicator(isAnimating: .constant(true), style: .medium)
             } else {

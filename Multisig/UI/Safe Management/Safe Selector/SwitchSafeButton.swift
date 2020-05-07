@@ -17,7 +17,7 @@ struct SwitchSafeButton: View {
     @State var showsSwitchSafe: Bool = false
 
     var body: some View {
-        Group {
+        ZStack {
             if selected.first == nil {
                 EmptyView()
             } else {

@@ -28,7 +28,7 @@ struct AddressInputSelector: View {
     }
 
     var body: some View {
-        Group {
+        ZStack {
             NavigationLink(
                 destination: EnterENSNameView(onConfirm: setText(_:)),
                 tag: InputType.ens,

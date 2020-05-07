@@ -16,7 +16,7 @@ struct SafeInfoView: View {
     var selectedSafe: FetchedResults<Safe>
 
     var body: some View {
-        Group {
+        ZStack {
             if selectedSafe.first == nil {
                 BodyText("No Safe is selected")
             } else {
