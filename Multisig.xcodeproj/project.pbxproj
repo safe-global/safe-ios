@@ -19,7 +19,6 @@
 		047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691542464023300D73D8B /* EditSafeNameViewModel.swift */; };
 		047691572464023300D73D8B /* EditSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691552464023300D73D8B /* EditSafeNameView.swift */; };
 		047691592464026400D73D8B /* ListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691582464026400D73D8B /* ListSectionHeader.swift */; };
-		0476915C2464034D00D73D8B /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */; };
 		0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
 		04769163246408D000D73D8B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915F246408D000D73D8B /* SettingsView.swift */; };
 		04769164246408D000D73D8B /* SafeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04769160246408D000D73D8B /* SafeSettingsView.swift */; };
@@ -44,8 +43,6 @@
 		0A7AEADF2462F95100014184 /* SwitchSafeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEADE2462F95100014184 /* SwitchSafeButton.swift */; };
 		0A7AEAE12462F98800014184 /* SafeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAE02462F98800014184 /* SafeRow.swift */; };
 		0A7AEAE32462FA6000014184 /* AddSafeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAE22462FA6000014184 /* AddSafeRow.swift */; };
-		0A7AEAF1246315F600014184 /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAEF246315F600014184 /* Safe+CoreDataClass.swift */; };
-		0A7AEAF2246315F600014184 /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF0246315F600014184 /* Safe+CoreDataProperties.swift */; };
 		0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF32463185C00014184 /* ENSNameLoader.swift */; };
 		0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */; };
 		0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF72463190100014184 /* LoadableENSNameText.swift */; };
@@ -87,6 +84,7 @@
 		0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */; };
 		0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */; };
 		0AE061D524642F1F00CB60D7 /* RootNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE061D424642F1F00CB60D7 /* RootNavigationView.swift */; };
+		0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */; };
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6500A24485E450018D070 /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6500924485E450018D070 /* Identicon.swift */; };
 		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
@@ -176,8 +174,6 @@
 		0A7AEADE2462F95100014184 /* SwitchSafeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchSafeButton.swift; sourceTree = "<group>"; };
 		0A7AEAE02462F98800014184 /* SafeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeRow.swift; sourceTree = "<group>"; };
 		0A7AEAE22462FA6000014184 /* AddSafeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeRow.swift; sourceTree = "<group>"; };
-		0A7AEAEF246315F600014184 /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Safe+CoreDataClass.swift"; path = "/Users/dmitry/source/gnosis/safe-ios/Multisig/Logic/Models/Safe+CoreDataClass.swift"; sourceTree = "<absolute>"; };
-		0A7AEAF0246315F600014184 /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Safe+CoreDataProperties.swift"; path = "/Users/dmitry/source/gnosis/safe-ios/Multisig/Logic/Models/Safe+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		0A7AEAF32463185C00014184 /* ENSNameLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSNameLoader.swift; sourceTree = "<group>"; };
 		0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredAddressWithLink.swift; sourceTree = "<group>"; };
 		0A7AEAF72463190100014184 /* LoadableENSNameText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableENSNameText.swift; sourceTree = "<group>"; };
@@ -985,6 +981,7 @@
 				0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				0A7AEAE32462FA6000014184 /* AddSafeRow.swift in Sources */,
+				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
 				04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */,
 				0AE061D524642F1F00CB60D7 /* RootNavigationView.swift in Sources */,

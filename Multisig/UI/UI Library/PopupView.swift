@@ -51,7 +51,7 @@ struct PopupView<Content>: View where Content: View {
         .onTapGesture {
             // using withAnimation actually animates the transitioning
             withAnimation {
-                self.isPresented.wrappedValue = false
+                self.isPresented.wrappedValue.toggle()
             }
         }
     }

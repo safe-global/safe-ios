@@ -11,11 +11,12 @@ import SwiftUI
 struct SelectedSafeButton: View {
 
     @Binding var showsSafeInfo: Bool
+    
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selected: FetchedResults<Safe>
 
     var body: some View {
-        Button(action: { self.showsSafeInfo = true }) {
+        Button(action: { self.showsSafeInfo.toggle() }) {
             if selected.first == nil {
                 notSelectedView
             } else {
