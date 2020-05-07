@@ -19,6 +19,8 @@
 		047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691542464023300D73D8B /* EditSafeNameViewModel.swift */; };
 		047691572464023300D73D8B /* EditSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691552464023300D73D8B /* EditSafeNameView.swift */; };
 		047691592464026400D73D8B /* ListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691582464026400D73D8B /* ListSectionHeader.swift */; };
+		0476915C2464034D00D73D8B /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */; };
+		0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
 		04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BFB55A2459785D00090386 /* KeyboadHandler.swift */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
@@ -36,8 +38,6 @@
 		0A7AEAE12462F98800014184 /* SafeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAE02462F98800014184 /* SafeRow.swift */; };
 		0A7AEAE32462FA6000014184 /* AddSafeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAE22462FA6000014184 /* AddSafeRow.swift */; };
 		0A7AEAE62462FB0700014184 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAE52462FB0700014184 /* TabItemView.swift */; };
-		0A7AEAF1246315F600014184 /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAEF246315F600014184 /* Safe+CoreDataClass.swift */; };
-		0A7AEAF2246315F600014184 /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF0246315F600014184 /* Safe+CoreDataProperties.swift */; };
 		0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF32463185C00014184 /* ENSNameLoader.swift */; };
 		0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */; };
 		0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF72463190100014184 /* LoadableENSNameText.swift */; };
@@ -142,6 +142,8 @@
 		047691542464023300D73D8B /* EditSafeNameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSafeNameViewModel.swift; sourceTree = "<group>"; };
 		047691552464023300D73D8B /* EditSafeNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSafeNameView.swift; sourceTree = "<group>"; };
 		047691582464026400D73D8B /* ListSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListSectionHeader.swift; sourceTree = "<group>"; };
+		0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataClass.swift"; sourceTree = "<group>"; };
 		04BFB55A2459785D00090386 /* KeyboadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboadHandler.swift; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
@@ -159,8 +161,6 @@
 		0A7AEAE02462F98800014184 /* SafeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeRow.swift; sourceTree = "<group>"; };
 		0A7AEAE22462FA6000014184 /* AddSafeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeRow.swift; sourceTree = "<group>"; };
 		0A7AEAE52462FB0700014184 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
-		0A7AEAEF246315F600014184 /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Safe+CoreDataClass.swift"; path = "/Users/dmitry/source/gnosis/safe-ios/Multisig/Logic/Models/Safe+CoreDataClass.swift"; sourceTree = "<absolute>"; };
-		0A7AEAF0246315F600014184 /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Safe+CoreDataProperties.swift"; path = "/Users/dmitry/source/gnosis/safe-ios/Multisig/Logic/Models/Safe+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		0A7AEAF32463185C00014184 /* ENSNameLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSNameLoader.swift; sourceTree = "<group>"; };
 		0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredAddressWithLink.swift; sourceTree = "<group>"; };
 		0A7AEAF72463190100014184 /* LoadableENSNameText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableENSNameText.swift; sourceTree = "<group>"; };
@@ -600,8 +600,8 @@
 				0A6C85B1245071510026139E /* Address.swift */,
 				551DDEE8244F183500C719D3 /* Selection.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
-				0A7AEAEF246315F600014184 /* Safe+CoreDataClass.swift */,
-				0A7AEAF0246315F600014184 /* Safe+CoreDataProperties.swift */,
+				0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */,
+				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
 				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
 			);
 			path = Models;
@@ -947,11 +947,13 @@
 				551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
+				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
 				0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				0A7AEAE32462FA6000014184 /* AddSafeRow.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
 				04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */,
+				0476915C2464034D00D73D8B /* Safe+CoreDataProperties.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
 				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
@@ -981,10 +983,8 @@
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
-				0A7AEAF1246315F600014184 /* Safe+CoreDataClass.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */,
-				0A7AEAF2246315F600014184 /* Safe+CoreDataProperties.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
