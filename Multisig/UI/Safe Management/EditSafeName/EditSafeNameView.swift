@@ -10,6 +10,9 @@ import SwiftUI
 import CoreData
 
 struct EditSafeNameView: View {
+    @Environment(\.presentationMode)
+    var presentationMode: Binding<PresentationMode>
+    
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
     
@@ -25,11 +28,9 @@ struct EditSafeNameView: View {
     
     @ObservedObject
     var model: EditSafeNameViewModel
-    var onSubmit: () -> Void
 
-    init(address: String, name: String, onSubmit: @escaping () -> Void = {}) {
+    init(address: String, name: String) {
         model = EditSafeNameViewModel(address: address, name: name)
-        self.onSubmit = onSubmit
     }
 
     var body: some View {
@@ -60,9 +61,8 @@ struct EditSafeNameView: View {
     func submit() {
         guard model.isValid == true else { return }
         model.submit()
-        onSubmit()
+        self.presentationMode.wrappedValue.dismiss()
     }
-
 }
 
 struct EditSafeNameView_Previews: PreviewProvider {
