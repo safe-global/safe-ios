@@ -17,7 +17,7 @@ extension Safe: Identifiable {
 
     var displayAddress: String { address! }
 
-    var browserURL: URL { URL(string: "https://etherscan.io/address/\(displayAddress)")! }
+    var browserURL: URL { Self.browserURL(address: displayAddress) }
 
     var displayName: String { name.flatMap { $0.isEmpty ? nil : $0 } ?? "Untitled Safe" }
 
@@ -32,6 +32,10 @@ extension Safe: Identifiable {
         let selection = Selection.current()
         selection.safe = self
         CoreDataStack.shared.saveContext()
+    }
+
+    static func browserURL(address: String) -> URL {
+        URL(string: "https://etherscan.io/address/\(address)")!
     }
 
     static func download(at address: String) throws {

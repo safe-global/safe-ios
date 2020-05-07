@@ -12,9 +12,11 @@ struct LoadableENSNameText: View {
 
     @ObservedObject var safe: Safe
     @ObservedObject private var ensLoader = ENSNameLoader()
+    private var placeholder: String
 
-    init(safe: Safe) {
+    init(safe: Safe, placeholder: String) {
         self.safe = safe
+        self.placeholder = placeholder
         self.ensLoader.load(safe: self.safe)
     }
 
@@ -22,12 +24,8 @@ struct LoadableENSNameText: View {
         Group {
             if ensLoader.isLoading {
                 ActivityIndicator(isAnimating: .constant(true), style: .medium)
-            } else if safe.displayENSName.isEmpty {
-                Text("Reverse resolved ENS name not found")
-                    .font(Font.gnoCallout)
-                    .foregroundColor(Color.gnoMediumGrey)
             } else {
-                BoldText(safe.displayENSName)
+                BoldText(safe.displayENSName.isEmpty ? placeholder : safe.displayENSName)
             }
         }
     }
