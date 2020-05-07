@@ -1,5 +1,5 @@
 //
-//  FormHeader.swift
+//  BoldText.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 24.04.20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct FormHeader: View {
+struct BoldText: View {
 
     var title: String
 
@@ -21,8 +21,8 @@ struct FormHeader: View {
     }
 }
 
-struct FormHeader_Previews: PreviewProvider {
+struct BoldText_Previews: PreviewProvider {
     static var previews: some View {
-        FormHeader("Hey this is a form header")
+        BoldText("Hey this is a form header")
     }
 }

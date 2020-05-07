@@ -12,6 +12,10 @@ struct BodyText: View {
 
     var label: String
 
+    init(_ value: String) {
+        label = value
+    }
+
     var body: some View {
         Text(label).font(Font.gnoBody.weight(.medium)).foregroundColor(.gnoDarkBlue)
     }
@@ -19,6 +23,6 @@ struct BodyText: View {
 
 struct BodyText_Previews: PreviewProvider {
     static var previews: some View {
-        BodyText(label: "Hello")
+        BodyText("Hello")
     }
 }

@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor(named: "hold")
 
         UITableView.appearance().tableFooterView = UIView()
-        UITableView.appearance().separatorStyle = .none
     }
 
     // MARK: UISceneSession Lifecycle

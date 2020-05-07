@@ -11,6 +11,7 @@ import CoreData
 #if DEBUG
 
 class TestCoreDataStack {
+
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Multisig")
         let description = container.persistentStoreDescriptions.first!
@@ -22,6 +23,24 @@ class TestCoreDataStack {
         }
         return container
     }()
+
+    static let shared = TestCoreDataStack().setUp()
+
+    static var context: NSManagedObjectContext { Self.shared.persistentContainer.viewContext }
+
+    func setUp() -> Self {
+        let context = persistentContainer.viewContext
+        for i in 1...4 {
+            let safe = Safe(context: context)
+            safe.name = "Safe \(i)"
+            safe.address = "0x\(i)"
+        }
+        let safe = Safe(context: context)
+        safe.name = "Safe 5"
+        safe.address = "0x55555555555"
+        safe.select()
+        return self
+    }
 }
 
 #endif

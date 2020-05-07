@@ -10,19 +10,20 @@ import SwiftUI
 
 struct SafeCell: View {
 
-    var safe: Safe?
+    @ObservedObject
+    var safe: Safe
+
+    var iconSize: CGFloat = 36
 
     var body: some View {
-        HStack {
-            Identicon(safe?.address ?? "")
-                .frame(width: 36, height: 36)
-                .padding([.top, .leading, .bottom])
-                .padding(.trailing, 4)
+        HStack(spacing: 12) {
+            Identicon(safe.address ?? "")
+                .frame(width: iconSize, height: iconSize)
 
-            VStack (alignment: .leading){
-                BodyText(label: safe?.name ?? "")
-                AddressText(safe?.address ?? "", style: .short)
-                    .padding(.top, 4)
+            VStack(alignment: .leading, spacing: 2) {
+                BoldText(safe.name ?? "")
+                AddressText(safe.address ?? "", style: .short)
+                    .font(Font.gnoBody.weight(.medium))
             }
         }
     }

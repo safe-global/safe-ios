@@ -33,19 +33,18 @@ struct AddressText: View {
         self.suffixCount = suffixCount
     }
 
-    var body: some View {
-        Group {
-            if style == .long {
-                Text(prefix).foregroundColor(tailColor) +
-                Text(middle).foregroundColor(bodyColor) +
-                Text(suffix).foregroundColor(tailColor)
-            } else {
-                Text("\(prefix)…\(suffix)")
-                    .foregroundColor(bodyColor)
-            }
-        }
-        .font(Font.gnoCallout.weight(.medium))
-        .lineLimit(2)
+    var body: Text {
+        (style == .long ? longText : shortText)
+    }
+
+    var longText: Text {
+        Text(prefix).foregroundColor(tailColor) +
+        Text(middle).foregroundColor(bodyColor) +
+        Text(suffix).foregroundColor(tailColor)
+    }
+
+    var shortText: Text {
+        Text("\(prefix)…\(suffix)").foregroundColor(bodyColor)
     }
 
 }
