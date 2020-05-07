@@ -31,7 +31,7 @@ struct SafeAdvancedSettingsView: View {
 //                    AddressCell(address: owner)
 //                })
 //            }
-        }
+        }.navigationBarTitle("Advanced", displayMode: .inline)
     }
 }
 
