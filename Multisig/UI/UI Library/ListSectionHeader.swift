@@ -12,11 +12,19 @@ struct ListSectionHeader: View {
     var text: String
     
     var body: some View {
-        Text(text)
-        .tracking(2)
-            .font(.gnoCaption2)
-            .foregroundColor(Color.gnoMediumGrey).padding([.top, .bottom])
-            .background(Color.clear)
+        HStack {
+            Text(text)
+                .tracking(2)
+                .font(.gnoCaption2)
+                .foregroundColor(Color.gnoMediumGrey)
+                .padding()
+            
+            Spacer()
+            }
+            .frame(height: 44)
+            .background(Color.gnoWhite)
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+    
     }
 }
 
