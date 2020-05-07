@@ -34,7 +34,6 @@ struct ContentView: View {
                 
 
                 AddSafeIntroView()
-
                     .tabItem {
                         VStack {
                             Image("tab-icon-transactions")
@@ -44,8 +43,7 @@ struct ContentView: View {
                 .tag(1)
                 
 
-                AddSafeIntroView()
-
+                SettingsView()
                     .tabItem {
                         VStack {
                             Image("tab-icon-settings")
