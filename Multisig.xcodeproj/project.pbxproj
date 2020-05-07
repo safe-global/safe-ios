@@ -18,6 +18,7 @@
 		047691372461B2E200D73D8B /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691362461B2E200D73D8B /* AddressCell.swift */; };
 		047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691542464023300D73D8B /* EditSafeNameViewModel.swift */; };
 		047691572464023300D73D8B /* EditSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691552464023300D73D8B /* EditSafeNameView.swift */; };
+		047691592464026400D73D8B /* ListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691582464026400D73D8B /* ListSectionHeader.swift */; };
 		04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BFB55A2459785D00090386 /* KeyboadHandler.swift */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
@@ -140,6 +141,7 @@
 		047691362461B2E200D73D8B /* AddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
 		047691542464023300D73D8B /* EditSafeNameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSafeNameViewModel.swift; sourceTree = "<group>"; };
 		047691552464023300D73D8B /* EditSafeNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSafeNameView.swift; sourceTree = "<group>"; };
+		047691582464026400D73D8B /* ListSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListSectionHeader.swift; sourceTree = "<group>"; };
 		04BFB55A2459785D00090386 /* KeyboadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboadHandler.swift; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,
 				041C2A592456F53E0044A24C /* QRView.swift */,
 				0A628FF4245710260038DC88 /* SafeCell.swift */,
+				047691582464026400D73D8B /* ListSectionHeader.swift */,
 				0A9BC3442460515800EB9C5D /* Address */,
 				0AF432D4244F063800E22E50 /* Styleguide */,
 				0A9BC3432460514B00EB9C5D /* Text */,
@@ -971,6 +974,7 @@
 				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,
 				047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
+				047691592464026400D73D8B /* ListSectionHeader.swift in Sources */,
 				0ADDA21324534F1B0066457E /* EnterSafeNameViewModel.swift in Sources */,
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
 				0A9BC3412460449E00EB9C5D /* EnterENSNameViewModel.swift in Sources */,
