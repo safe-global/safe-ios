@@ -42,7 +42,7 @@ struct ContentView: View {
             .tag(1)
 
             TabItemView(showsSafeInfo: $showsInfo) {
-                AddSafeIntroView()
+                SettingsView()
             }
             .tabItem {
                 VStack {
