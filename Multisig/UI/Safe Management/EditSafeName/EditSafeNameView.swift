@@ -10,11 +10,8 @@ import SwiftUI
 import CoreData
 
 struct EditSafeNameView: View {
-    @Environment(\.managedObjectContext)
-    var context: NSManagedObjectContext
-
-    @FetchRequest(fetchRequest: AppSettings.settings())
-    var appSettings: FetchedResults<AppSettings>
+    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
+    var selectedSafe: FetchedResults<Safe>
     
     @State
     var updateID = UUID()
