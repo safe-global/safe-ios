@@ -27,17 +27,11 @@ struct AddressCell: View {
             
             Spacer()
             
-            Button(action: { self.showsLink.toggle()}) {
-                Image("icon-external-link").resizable()
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            .foregroundColor(.gnoHold)
-            .frame(width: 24, height: 24)
-            .sheet(isPresented: $showsLink, content: browseSafeAddress)
+            BrowseAddressView(address: address)
         }.padding([.top, .bottom])
     }
     
-    func browseSafeAddress() -> some View {        
+    func browseSafeAddress() -> some View {
         return SafariViewController(url: Safe.browserURL(address: address))
     }
 }
