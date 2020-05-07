@@ -38,8 +38,9 @@ extension Safe: Identifiable {
         URL(string: "https://etherscan.io/address/\(address)")!
     }
 
-    static func download(at address: String) throws {
-        _ = try App.shared.safeRelayService.safeInfo(at: address)
+    @discardableResult
+    static func download(at address: String) throws -> SafeStatusRequest.Response? {
+        return try App.shared.safeRelayService.safeInfo(at: address)
     }
 
     static func exists(_ address: String) throws -> Bool {
@@ -54,6 +55,23 @@ extension Safe: Identifiable {
 
         let safe = Safe(context: context)
         safe.address = address
+        safe.name = name
+
+        if selected {
+            safe.select()
+        }
+
+        CoreDataStack.shared.saveContext()
+    }
+    
+    static func edit(address: String, name: String, selected: Bool = true) {
+        let context = CoreDataStack.shared.viewContext
+
+        let fr = Safe.fetchRequest().by(address: address)
+        
+        guard let result = try? context.fetch(fr) else { return }
+        
+        let safe = result[0]
         safe.name = name
 
         if selected {
