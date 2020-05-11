@@ -76,10 +76,10 @@ extension Safe: Identifiable {
         CoreDataStack.shared.saveContext()
     }
     
-    static func delete() {
+    static func delete(safe: Safe) {
         let context = CoreDataStack.shared.viewContext
         
-        context.delete(Selection.current())
+        context.delete(safe)
 
         CoreDataStack.shared.saveContext()
     }

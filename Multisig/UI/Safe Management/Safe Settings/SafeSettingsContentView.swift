@@ -66,7 +66,7 @@ struct SafeSettingsContentView: View {
                 .actionSheet(isPresented: $showDeleteConfirmation) {
                     ActionSheet(title: Text(""), message: Text("Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost."), buttons: [
                         .destructive(Text("Remove")) {
-                            Safe.delete()
+                            Safe.delete(safe: self.safe)
                         },
                         .cancel()
                     ])
