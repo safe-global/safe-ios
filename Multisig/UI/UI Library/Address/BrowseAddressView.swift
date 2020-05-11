@@ -16,7 +16,7 @@ struct BrowseAddressView: View {
     
     var body: some View {
         Button(action: { self.showsLink.toggle()}) {
-            Image("icon-external-link").resizable()
+            Image("ico-browse-address").resizable()
         }
         .buttonStyle(BorderlessButtonStyle())
         .foregroundColor(.gnoHold)
