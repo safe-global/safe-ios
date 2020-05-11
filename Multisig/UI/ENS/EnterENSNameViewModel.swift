@@ -39,12 +39,22 @@ class EnterENSNameViewModel: ObservableObject {
             .filter { !$0.isEmpty }
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .removeDuplicates()
-            .map { v -> String in
+            .tryMap { v -> String in
                 self.startResolving()
                 return v
             }
-            .receive(on: DispatchQueue.global())
-            .tryMap(App.shared.ens.address(for:))
+            .flatMap { ensName in
+                Future { promise in
+                    DispatchQueue.global().async {
+                        do {
+                            let address = try App.shared.ens.address(for: ensName)
+                            promise(.success(address))
+                        } catch {
+                            promise(.failure(error))
+                        }
+                    }
+                }
+            }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {

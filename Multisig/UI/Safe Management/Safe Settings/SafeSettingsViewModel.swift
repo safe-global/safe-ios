@@ -28,15 +28,22 @@ class SafeSettingsViewModel: ObservableObject {
         // assuming that if address exists, it is a valid address
         // which we validated before.
         Just(safe.address)
-            .compactMap { $0 }
-            .receive(on: DispatchQueue.global())
-            .tryMap { address -> SafeStatusRequest.Response? in
-                try Safe.download(at: address)
+            .tryCompactMap { $0 }
+            .flatMap { address in
+                Future { promise in
+                    DispatchQueue.global().async {
+                        do {
+                            let safeInfo = try Safe.download(at: address)
+                            promise(.success(safeInfo))
+                        } catch {
+                            promise(.failure(error))
+                        }
+                    }
+                }
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
-                    print("error: \(error)")
                     self.errorMessage = error.localizedDescription
                 }
                 self.isLoading = false
@@ -50,14 +57,15 @@ class SafeSettingsViewModel: ObservableObject {
 
 extension Safe {
 
-    func update(from safeInfo: SafeStatusRequest.Response?) {
-        threshold = safeInfo?.threshold
-        owners = safeInfo?.owners
-        masterCopy = safeInfo?.masterCopy
-        version = safeInfo?.version
-        nonce = safeInfo?.nonce
-        modules = safeInfo?.modules
-        fallbackHandler = safeInfo?.fallbackHandler
+    func update(from safeInfo: SafeStatusRequest.Response) {
+        objectWillChange.send()
+        threshold = safeInfo.threshold
+        owners = safeInfo.owners
+        masterCopy = safeInfo.masterCopy
+        version = safeInfo.version
+        nonce = safeInfo.nonce
+        modules = safeInfo.modules
+        fallbackHandler = safeInfo.fallbackHandler
     }
 
 }
