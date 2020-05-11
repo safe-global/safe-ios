@@ -22,13 +22,15 @@ struct AddressCell: View {
                 UIPasteboard.general.string = self.address
             }) {
                 AddressText(address)
+                    .font(Font.gnoBody.weight(.medium))
             }
             .buttonStyle(BorderlessButtonStyle())
             
             Spacer()
             
             BrowseAddressView(address: address)
-        }.padding([.top, .bottom])
+        }
+        .padding(EdgeInsets(top: 2, leading: 0, bottom: 6, trailing: 0))
     }
     
     func browseSafeAddress() -> some View {
