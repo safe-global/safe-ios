@@ -75,6 +75,14 @@ extension Safe: Identifiable {
 
         CoreDataStack.shared.saveContext()
     }
+    
+    static func delete() {
+        let context = CoreDataStack.shared.viewContext
+        
+        context.delete(Selection.current())
+
+        CoreDataStack.shared.saveContext()
+    }
 }
 
 extension NSFetchRequest where ResultType == Safe {
