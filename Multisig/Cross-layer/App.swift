@@ -8,10 +8,12 @@
 
 import Foundation
 
-class App {
+class App: ObservableObject {
 
     static let shared = App()
-
+    
+    @Published
+    var state: ViewSate = .balanaces
     // Business Logic Layer
 
     var ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
@@ -26,4 +28,14 @@ class App {
     logger: LogService.shared)
 
     var nodeService = EthereumNodeService(url: URL(string: "https://rinkeby.infura.io/v3/438e11915f8b4834a05e7810b88db4b3")!)
+    
+    private init() {
+        
+    }
+}
+
+enum ViewSate: Hashable {
+    case balanaces
+    case transactions
+    case settings
 }

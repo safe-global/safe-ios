@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct ContentView: View {
-
-    @State private var selection = 0
-    @State private var showsSafeInfo: Bool = false
-    @Environment(\.managedObjectContext) var context: CoreDataContext
+    @EnvironmentObject
+    var appState: App
+    
+    @Environment(\.managedObjectContext)
+    var context: CoreDataContext
 
     var body: some View {
         // Putting the tabview inside a navigation view is the preferred
@@ -21,7 +22,7 @@ struct ContentView: View {
         // status bar (the navigation bar appears beneath the status bar
         // and it looks cropped) - this is seen on a real device (iPhone 6s)
         RootNavigationView {
-            TabView(selection: $selection){
+            TabView(selection: $appState.state){
                 AddSafeIntroView()
                 .tabItem {
                     VStack {
@@ -29,7 +30,7 @@ struct ContentView: View {
                         Text("Balances")
                     }
                 }
-                .tag(0)
+                .tag(ViewSate.balanaces)
 
                 AddSafeIntroView()
                 .tabItem {
@@ -38,7 +39,7 @@ struct ContentView: View {
                         Text("Transactions")
                     }
                 }
-                .tag(1)
+                .tag(ViewSate.transactions)
 
                 SettingsView()
                 .tabItem {
@@ -47,11 +48,10 @@ struct ContentView: View {
                         Text("Settings")
                     }
                 }
-                .tag(2)
+                .tag(ViewSate.settings)
             }
         }
     }
-
 }
 
 struct ContentView_Previews: PreviewProvider {
