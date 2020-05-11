@@ -1245,6 +1245,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.multisig.prerelease;
 				PRODUCT_NAME = Multisig;
 				SWIFT_VERSION = 5.0;
@@ -1266,6 +1267,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.multisig.prerelease;
 				PRODUCT_NAME = Multisig;
 				SWIFT_VERSION = 5.0;
