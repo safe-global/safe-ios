@@ -17,13 +17,14 @@ class SafeSettingsViewModel: ObservableObject {
     @Published
     var errorMessage: String? = nil
 
+    @Published
     var safe: Safe
 
     private var subscribers = Set<AnyCancellable>()
 
     init(safe: Safe) {
-        self.safe = safe
         isLoading = true
+        self.safe = safe
         // assuming that if address exists, it is a valid address
         // which we validated before.
         Just(safe.address)
