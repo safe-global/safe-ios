@@ -83,6 +83,15 @@ extension Safe: Identifiable {
 
         CoreDataStack.shared.saveContext()
     }
+    
+    static func selectFirst() {
+        let context = CoreDataStack.shared.viewContext
+        let fr = Safe.fetchRequest().all()
+        
+        guard let safe = try? context.fetch(fr).first else { return }
+        
+        safe.select()
+    }
 }
 
 extension NSFetchRequest where ResultType == Safe {
