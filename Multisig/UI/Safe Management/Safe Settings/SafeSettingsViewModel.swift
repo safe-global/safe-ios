@@ -41,7 +41,7 @@ class SafeSettingsViewModel: ObservableObject {
                 }
                 self.isLoading = false
             }, receiveValue: { response in
-                safe.safeInfo = response
+                safe.update(from: response)
             })
             .store(in: &subscribers)
     }
@@ -50,17 +50,14 @@ class SafeSettingsViewModel: ObservableObject {
 
 extension Safe {
 
-    var safeInfo: SafeStatusRequest.Response? {
-        get { nil }
-        set {
-            threshold = newValue?.threshold
-            owners = newValue?.owners
-            masterCopy = newValue?.masterCopy
-            version = newValue?.version
-            nonce = newValue?.nonce
-            modules = newValue?.modules
-            fallbackHandler = newValue?.fallbackHandler
-        }
+    func update(from safeInfo: SafeStatusRequest.Response?) {
+        threshold = safeInfo?.threshold
+        owners = safeInfo?.owners
+        masterCopy = safeInfo?.masterCopy
+        version = safeInfo?.version
+        nonce = safeInfo?.nonce
+        modules = safeInfo?.modules
+        fallbackHandler = safeInfo?.fallbackHandler
     }
 
 }
