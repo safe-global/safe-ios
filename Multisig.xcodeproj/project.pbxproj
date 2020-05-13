@@ -14,7 +14,6 @@
 		044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */; };
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
-		04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04764625244F1D7700511113 /* VerifiableTextField.swift */; };
 		047691372461B2E200D73D8B /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691362461B2E200D73D8B /* AddressCell.swift */; };
 		047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691542464023300D73D8B /* EditSafeNameViewModel.swift */; };
 		047691572464023300D73D8B /* EditSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691552464023300D73D8B /* EditSafeNameView.swift */; };
@@ -48,6 +47,7 @@
 		0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF32463185C00014184 /* ENSNameLoader.swift */; };
 		0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */; };
 		0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF72463190100014184 /* LoadableENSNameText.swift */; };
+		0A81E310246C062400425DEF /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A81E30F246C062400425DEF /* Icons.swift */; };
 		0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD562445CC8A00688050 /* AppDelegate.swift */; };
 		0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD582445CC8A00688050 /* SceneDelegate.swift */; };
 		0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD5D2445CC8A00688050 /* ContentView.swift */; };
@@ -147,7 +147,6 @@
 		044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
-		04764625244F1D7700511113 /* VerifiableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifiableTextField.swift; sourceTree = "<group>"; };
 		047691362461B2E200D73D8B /* AddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
 		047691542464023300D73D8B /* EditSafeNameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSafeNameViewModel.swift; sourceTree = "<group>"; };
 		047691552464023300D73D8B /* EditSafeNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSafeNameView.swift; sourceTree = "<group>"; };
@@ -182,6 +181,7 @@
 		0A7AEAF32463185C00014184 /* ENSNameLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSNameLoader.swift; sourceTree = "<group>"; };
 		0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredAddressWithLink.swift; sourceTree = "<group>"; };
 		0A7AEAF72463190100014184 /* LoadableENSNameText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableENSNameText.swift; sourceTree = "<group>"; };
+		0A81E30F246C062400425DEF /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		0A93DD532445CC8A00688050 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -467,8 +467,8 @@
 				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,
 				041C2A592456F53E0044A24C /* QRView.swift */,
 				0A628FF4245710260038DC88 /* SafeCell.swift */,
-				04769169246437C300D73D8B /* ContractVersionCell.swift */,
 				047691582464026400D73D8B /* ListSectionHeader.swift */,
+				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
 				0A9BC3442460515800EB9C5D /* Address */,
 				0AF432D4244F063800E22E50 /* Styleguide */,
 				0A9BC3432460514B00EB9C5D /* Text */,
@@ -512,15 +512,6 @@
 			path = Address;
 			sourceTree = "<group>";
 		};
-		0A9BC3462460526300EB9C5D /* TextField */ = {
-			isa = PBXGroup;
-			children = (
-				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
-				04764625244F1D7700511113 /* VerifiableTextField.swift */,
-			);
-			path = TextField;
-			sourceTree = "<group>";
-		};
 		0A9BC3542460581500EB9C5D /* MultisigIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -560,6 +551,7 @@
 				0AE061D72464591900CB60D7 /* SafeSettingsContentView.swift */,
 				04769161246408D000D73D8B /* SafeAdvancedSettingsView.swift */,
 				04769162246408D000D73D8B /* SafeSettingsViewModel.swift */,
+				04769169246437C300D73D8B /* ContractVersionCell.swift */,
 			);
 			path = "Safe Settings";
 			sourceTree = "<group>";
@@ -635,6 +627,7 @@
 				0A93DDB22446080000688050 /* Colors.swift */,
 				0A93DDB824461C1400688050 /* Fonts.swift */,
 				0A93DDBA24461F4800688050 /* Buttons.swift */,
+				0A81E30F246C062400425DEF /* Icons.swift */,
 			);
 			path = Styleguide;
 			sourceTree = "<group>";
@@ -992,6 +985,7 @@
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
 				551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */,
+				0A81E310246C062400425DEF /* Icons.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
@@ -1006,7 +1000,6 @@
 				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */,
-				04764626244F1D7700511113 /* VerifiableTextField.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,

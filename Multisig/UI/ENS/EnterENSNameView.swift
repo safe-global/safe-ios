@@ -25,9 +25,15 @@ struct EnterENSNameView: View {
                              isValid: $model.isValid,
                              isValidating: $model.isResolving,
                              error: $model.errorMessage)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+                .keyboardType(.URL)
+
             if model.address != nil {
-                BodyText("Address found")
-                CorrectAddressView(address: model.address!.hex(eip55: true))
+                CorrectAddressView(
+                    title: "Address found",
+                    address: model.address!.hex(eip55: true),
+                    checkmarkPosition: .title)
             }
             Spacer()
         }

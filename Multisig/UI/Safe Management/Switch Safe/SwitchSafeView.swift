@@ -39,10 +39,7 @@ struct SwitchSafeView: View {
     var closeButton: some View {
         HStack(spacing: 0) {
             Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-                Image(systemName: "xmark")
-                    .font(Font.gnoNormal)
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.gnoMediumGrey)
+                Image.bigXMark
             }
             .frameForTapping(alignment: .leading)
 

@@ -26,10 +26,7 @@ struct SafeRow: View {
                 Spacer()
 
                 if safe.isSelected {
-                    Image(systemName: "checkmark")
-                        .font(Font.body.weight(.semibold))
-                        .foregroundColor(.gnoHold)
-                        .frame(width: 24, height: 24)
+                    Image.checkmark
                 }
             }
         }

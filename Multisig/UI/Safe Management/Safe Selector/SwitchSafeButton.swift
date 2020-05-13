@@ -22,10 +22,7 @@ struct SwitchSafeButton: View {
                 EmptyView()
             } else {
                 Button(action: { self.showsSwitchSafe.toggle() }) {
-                    Image(systemName: "chevron.down.circle")
-                        .foregroundColor(.gnoMediumGrey)
-                        .font(Font.body.weight(.semibold))
-                        .padding(.bottom, 4)
+                    Image.chevronDownCircle
                 }
                 .frameForTapping(alignment: .trailing)
                 .sheet(isPresented: $showsSwitchSafe) {
