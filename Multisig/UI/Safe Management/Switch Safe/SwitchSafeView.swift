@@ -17,6 +17,9 @@ struct SwitchSafeView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().all())
     var safes: FetchedResults<Safe>
 
+    @ObservedObject
+    var theme: Theme = App.shared.theme
+
     var body: some View {
         NavigationView {
             List {
@@ -29,7 +32,10 @@ struct SwitchSafeView: View {
                 }
             }
             .onAppear {
-                UITableView.appearance().backgroundColor = nil
+                self.theme.setTemporaryTableViewBackground(nil)
+            }
+            .onDisappear {
+                self.theme.resetTemporaryTableViewBackground()
             }
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(leading: closeButton)
@@ -56,5 +62,6 @@ struct SwitchSafeView_Previews: PreviewProvider {
     static var previews: some View {
         SwitchSafeView()
             .environment(\.managedObjectContext, TestCoreDataStack.context)
+            .environmentObject(Theme())
     }
 }

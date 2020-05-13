@@ -11,6 +11,7 @@ import SwiftUI
 struct SwitchSafeButton: View {
 
     @Environment(\.managedObjectContext) var context: CoreDataContext
+
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selected: FetchedResults<Safe>
 

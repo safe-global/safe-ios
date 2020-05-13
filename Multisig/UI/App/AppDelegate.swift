@@ -13,24 +13,10 @@ import SwiftUI
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        configureGloabalAppearance()
+        App.shared.theme.setup()
         return true
     }
 
-    private func configureGloabalAppearance() {
-        // we don't set the image for the navbar (pdf) as it crashes the app;
-        // we don't set the `translucent` property of navbar to false because
-        // it crashes the app (SwiftUI).
-        // but shadow works.
-        UINavigationBar.appearance().shadowImage = UIImage(named: "shadow")
-        UINavigationBar.appearance().tintColor = UIColor(named: "hold")
-
-        // non-zero height view adds the bottom space to the table views
-        UITableView.appearance().tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
-        // makes separators to take full width of the screen
-        // (default is with offset)
-        UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
 
     // MARK: UISceneSession Lifecycle
 
