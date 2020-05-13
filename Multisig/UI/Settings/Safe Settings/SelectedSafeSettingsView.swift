@@ -1,5 +1,5 @@
 //
-//  SettingsView.swift
+//  SelectedSafeSettingsView.swift
 //  Multisig
 //
 //  Created by Moaaz on 5/4/20.
@@ -9,7 +9,7 @@
 import SwiftUI
 import CoreData
 
-struct SettingsView: View {
+struct SelectedSafeSettingsView: View {
     @Environment(\.managedObjectContext)
     var context: NSManagedObjectContext
 
@@ -30,6 +30,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SelectedSafeSettingsView()
     }
 }

@@ -40,7 +40,7 @@ struct ContentView: View {
                 }
                 .tag(1)
 
-                SettingsView()
+                SettingsTopTabView()
                 .tabItem {
                     VStack {
                         Image("tab-icon-settings")
