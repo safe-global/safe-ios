@@ -42,7 +42,8 @@ struct RootNavigationView<Content>: View where Content: View {
     }
 
     var switchButton: some View {
-        SwitchSafeButton().environment(\.managedObjectContext, context)
+        SwitchSafeButton()
+            .environment(\.managedObjectContext, context)
     }
 
 }

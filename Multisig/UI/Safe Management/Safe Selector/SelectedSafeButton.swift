@@ -22,8 +22,11 @@ struct SelectedSafeButton: View {
             } else {
                 SafeCell(safe: selected.first!, style: .compact)
             }
+
+            Spacer()
         }
         .padding(.bottom, 4)
+        .frameForNavigationBar()
         .disabled(selected.first == nil)
     }
 

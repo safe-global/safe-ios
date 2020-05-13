@@ -29,7 +29,7 @@ struct CenteredAddressWithLink: View {
                     .frame(width: 24, height: 24)
                     .foregroundColor(.gnoHold)
             }
-            .frame(width: 44, height: 44)
+            .frameForTapping()
             .sheet(isPresented: $showsBrowser) {
                 SafariViewController(url: self.safe.browserURL)
             }
