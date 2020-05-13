@@ -12,6 +12,7 @@ import CoreData
 extension Selection {
 
     class func selection() -> Selection? {
+        dispatchPrecondition(condition: .onQueue(.main))
         do {
             let fr = Selection.fetchRequest().all()
             let result = try CoreDataStack.shared.viewContext.fetch(fr)
@@ -22,7 +23,8 @@ extension Selection {
     }
 
     class func current() -> Selection {
-        selection() ?? Selection(context: CoreDataStack.shared.viewContext)
+        dispatchPrecondition(condition: .onQueue(.main))
+        return selection() ?? Selection(context: CoreDataStack.shared.viewContext)
     }
 
 }

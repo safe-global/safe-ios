@@ -11,6 +11,6 @@
     </entity>
     <elements>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="Selection" positionX="-54" positionY="54" width="128" height="58"/>
+        <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
     </elements>
 </model>

@@ -437,7 +437,6 @@
 				0AF432BF244DF8AD00E22E50 /* Safe Management */,
 				0476915E246408D000D73D8B /* Settings */,
 				0AF432BC244DF6C900E22E50 /* ENS */,
-				0A9BC3452460523300EB9C5D /* Utils */,
 				0A93DD8B244603DB00688050 /* UI Library */,
 				0AF432CA244DFAFB00E22E50 /* Resources */,
 			);
@@ -447,6 +446,8 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
+				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
+				044A54432448D0B6009CBB80 /* QRCodeScanner */,
 				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
 				0AF6501A24488D280018D070 /* FullSize.swift */,
@@ -495,15 +496,6 @@
 				0476916B24643A2A00D73D8B /* BrowseAddressView.swift */,
 			);
 			path = Address;
-			sourceTree = "<group>";
-		};
-		0A9BC3452460523300EB9C5D /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
-				044A54432448D0B6009CBB80 /* QRCodeScanner */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		0A9BC3462460526300EB9C5D /* TextField */ = {
