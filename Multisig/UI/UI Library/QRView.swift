@@ -12,7 +12,10 @@ import CoreImage.CIFilterBuiltins
 struct QRView: View {
 
     var value: String!
-
+    
+    var width: CGFloat = 124
+    var height: CGFloat = 124
+    
     var body: some View {
         VStack {
             if value != nil && !value!.isEmpty {
@@ -29,6 +32,7 @@ struct QRView: View {
             RoundedRectangle(cornerRadius: 10)
             .strokeBorder(Color.gnoWhitesmoke, lineWidth: 2)
         )
+        .frame(width: width, height: height)
     }
     
     func generateQRCode() -> UIImage {
