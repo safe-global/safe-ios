@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject
-    var appState: App
+    var viewState: ViewState
     
     @Environment(\.managedObjectContext)
     var context: CoreDataContext
@@ -22,7 +22,7 @@ struct ContentView: View {
         // status bar (the navigation bar appears beneath the status bar
         // and it looks cropped) - this is seen on a real device (iPhone 6s)
         RootNavigationView {
-            TabView(selection: $appState.state){
+            TabView(selection: $viewState.state){
                 AddSafeIntroView()
                 .tabItem {
                     VStack {
@@ -30,7 +30,7 @@ struct ContentView: View {
                         Text("Balances")
                     }
                 }
-                .tag(ViewSate.balanaces)
+                .tag(ViewStateMode.balanaces)
 
                 AddSafeIntroView()
                 .tabItem {
@@ -39,7 +39,7 @@ struct ContentView: View {
                         Text("Transactions")
                     }
                 }
-                .tag(ViewSate.transactions)
+                .tag(ViewStateMode.transactions)
 
                 SettingsView()
                 .tabItem {
@@ -48,7 +48,7 @@ struct ContentView: View {
                         Text("Settings")
                     }
                 }
-                .tag(ViewSate.settings)
+                .tag(ViewStateMode.settings)
             }
         }
     }

@@ -12,8 +12,6 @@ class App: ObservableObject {
 
     static let shared = App()
     
-    @Published
-    var state: ViewSate = .balanaces
     // Business Logic Layer
 
     var ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
@@ -32,10 +30,4 @@ class App: ObservableObject {
     private init() {
         
     }
-}
-
-enum ViewSate: Hashable {
-    case balanaces
-    case transactions
-    case settings
 }
