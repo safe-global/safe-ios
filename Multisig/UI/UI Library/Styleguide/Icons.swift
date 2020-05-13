@@ -10,34 +10,42 @@ import SwiftUI
 
 extension Image {
 
-    static let checkmark: some View =
+    // using static let ... = ... is crashing the app when the views are
+    // deiniitialized, so instead we use the computed properties
+    static var checkmark: some View {
         Image(systemName: "checkmark")
             .font(Font.body.weight(.semibold))
             .foregroundColor(.gnoHold)
             .frame(width: 24, height: 24)
+    }
 
-    static let checkmarkCircle: some View =
+    static var checkmarkCircle: some View {
         Image(systemName: "checkmark.circle")
             .font(Font.gnoBody.bold())
             .foregroundColor(Color.gnoHold)
+    }
 
-    static let chevronDownCircle: some View =
+    static var chevronDownCircle: some View {
         Image(systemName: "chevron.down.circle")
             .foregroundColor(.gnoMediumGrey)
             .font(Font.body.weight(.semibold))
+    }
 
-    static let ellipsis = Image(systemName: "ellipsis")
+    static var ellipsis: some View {
+        Image(systemName: "ellipsis")
+    }
 
-    static let bigXMark: some View =
+    static var bigXMark: some View {
         Image(systemName: "xmark")
             .font(Font.gnoNormal)
             .foregroundColor(.gnoMediumGrey)
             .frame(width: 24, height: 24)
+    }
 
-    static let plusCircle: some View =
+    static var plusCircle: some View {
         Image(systemName: "plus.circle")
             .font(Font.body.weight(.medium))
             .frame(width: 24, height: 24)
-
+    }
 
 }
