@@ -38,6 +38,8 @@ struct RootNavigationView<Content>: View where Content: View {
 
     var selectButton: some View {
         SelectedSafeButton(showsSafeInfo: $showsSafeInfo)
+            // fixes unbounded growth of this view when inside the bar
+            .frame(width: 270)
             .environment(\.managedObjectContext, context)
     }
 
