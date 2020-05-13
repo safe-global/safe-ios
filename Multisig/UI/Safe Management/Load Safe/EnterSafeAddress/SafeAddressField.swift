@@ -112,8 +112,7 @@ struct SafeAddressField: View {
             if isValidating.wrappedValue {
                 ActivityIndicator(isAnimating: .constant(true), style: .medium)
             } else if isValid.wrappedValue == true {
-                Image(systemName: "checkmark.circle")
-                    .foregroundColor(.gnoHold)
+                Image.gnoCheckmark
             } else if isValid.wrappedValue == false {
                 Image(systemName: "xmark.circle")
                     .foregroundColor(.gnoTomato)
