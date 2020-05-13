@@ -37,7 +37,7 @@ struct AddressInputSelector: View {
         }
         .actionSheet(isPresented: isPresented, content: selector)
         .sheet(isPresented: $showsQR) {
-            QRCodeScanner(header: "Scan", handler: self.setText(_:))
+            QRCodeScanner(handler: self.setText(_:))
             .edgesIgnoringSafeArea(.all)
         }
     }
