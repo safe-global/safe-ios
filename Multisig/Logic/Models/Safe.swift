@@ -78,18 +78,14 @@ extension Safe: Identifiable {
     
     static func delete(safe: Safe) {
         let context = CoreDataStack.shared.viewContext
-        
         context.delete(safe)
-
         CoreDataStack.shared.saveContext()
     }
     
     static func selectFirst() {
         let context = CoreDataStack.shared.viewContext
         let fr = Safe.fetchRequest().all()
-        
         guard let safe = try? context.fetch(fr).first else { return }
-        
         safe.select()
     }
 }
