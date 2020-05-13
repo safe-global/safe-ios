@@ -43,9 +43,7 @@ struct SafeSettingsContentView: View {
                 NavigationLink(destination: SafeAdvancedSettingsView(safe: safe)) {
                     BodyText("Advanced")
                 }
-            }
-            
-            Section(header: ListSectionHeader(text: " ")) {
+                
                 RemoveSafeButton(safe: self.safe)
             }
         }
