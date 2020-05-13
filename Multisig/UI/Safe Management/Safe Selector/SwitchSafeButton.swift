@@ -25,14 +25,15 @@ struct SwitchSafeButton: View {
                     Image(systemName: "chevron.down.circle")
                         .foregroundColor(.gnoMediumGrey)
                         .font(Font.body.weight(.semibold))
-                        // increases tappable area
-                        .frame(minWidth: 60, idealHeight: 44, alignment: .trailing)
+                        .padding(.bottom, 4)
                 }
-                .padding(.bottom, 4)
+                // otherwise the button is not really tappable
+                .frame(width: 44, height: 44, alignment: .trailing)
                 .sheet(isPresented: $showsSwitchSafe) {
                     SwitchSafeView()
                         .environment(\.managedObjectContext, self.context)
                 }
+
             }
         }
     }

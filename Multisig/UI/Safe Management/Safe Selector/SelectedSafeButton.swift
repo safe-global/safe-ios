@@ -26,6 +26,8 @@ struct SelectedSafeButton: View {
             Spacer()
         }
         .padding(.bottom, 4)
+        // fixes unbounded growth of this view when inside the bar
+        .frame(width: 270, height: 44, alignment: .leading)
         .disabled(selected.first == nil)
     }
 
