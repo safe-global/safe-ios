@@ -26,6 +26,7 @@ struct SelectedSafeButton: View {
             Spacer()
         }
         .padding(.bottom, 4)
+        .frameForNavigationBar()
         .disabled(selected.first == nil)
     }
 

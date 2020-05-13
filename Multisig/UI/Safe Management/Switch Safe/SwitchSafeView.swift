@@ -37,18 +37,22 @@ struct SwitchSafeView: View {
     }
 
     var closeButton: some View {
-        Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-            HStack(spacing: 32) {
+        HStack(spacing: 0) {
+            Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
                 Image(systemName: "xmark")
                     .font(Font.gnoNormal)
                     .frame(width: 24, height: 24)
                     .foregroundColor(.gnoMediumGrey)
-
-                BoldText("Switch Safes")
-
-                Spacer()
             }
+            .frameForTapping(alignment: .leading)
+
+            BoldText("Switch Safes")
+                // otherwise the text is too far to the right
+                .padding(.leading, -10)
+
+            Spacer()
         }
+        .frameForNavigationBar()
     }
 }
 
