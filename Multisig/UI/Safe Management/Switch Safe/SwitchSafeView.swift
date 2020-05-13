@@ -28,6 +28,9 @@ struct SwitchSafeView: View {
                     }
                 }
             }
+            .onAppear {
+                UITableView.appearance().backgroundColor = nil
+            }
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(leading: closeButton)
         }
