@@ -25,7 +25,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().shadowImage = UIImage(named: "shadow")
         UINavigationBar.appearance().tintColor = UIColor(named: "hold")
 
-        UITableView.appearance().tableFooterView = UIView()
+        // non-zero height view adds the bottom space to the table views
+        UITableView.appearance().tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+        // makes separators to take full width of the screen
+        // (default is with offset)
+        UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        // changes SwiftUI's List background color - List.background() does
+        // not work.
+        UITableView.appearance().backgroundColor = UIColor(named: "white")
     }
 
     // MARK: UISceneSession Lifecycle

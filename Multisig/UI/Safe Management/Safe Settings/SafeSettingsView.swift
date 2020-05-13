@@ -21,6 +21,10 @@ struct SafeSettingsView: View {
     /// when change safe, model object should be changed also 
     var body: some View {
         ZStack(alignment: .center) {
+            Rectangle()
+                .edgesIgnoringSafeArea(.all)
+                .foregroundColor(Color.gnoWhite)
+
             if model.isLoading {
                 ActivityIndicator(isAnimating: .constant(true), style: .large)
             } else if model.errorMessage != nil {
