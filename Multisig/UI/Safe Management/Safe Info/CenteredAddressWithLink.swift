@@ -24,7 +24,7 @@ struct CenteredAddressWithLink: View {
             }
 
             Button(action: { self.showsBrowser.toggle() }) {
-                Image("icon-external-link")
+                Image("ico-browse-address")
                     .resizable()
                     .frame(width: 24, height: 24)
                     .foregroundColor(.gnoHold)
