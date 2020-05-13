@@ -62,6 +62,5 @@ struct SwitchSafeView_Previews: PreviewProvider {
     static var previews: some View {
         SwitchSafeView()
             .environment(\.managedObjectContext, TestCoreDataStack.context)
-            .environmentObject(Theme())
     }
 }
