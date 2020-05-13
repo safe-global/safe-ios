@@ -31,16 +31,17 @@ struct SafeInfoContentView: View {
     @ObservedObject var safe: Safe
 
     var body: some View {
-        VStack (alignment: .center, spacing: 18) {
+        VStack (alignment: .center) {
             Identicon(safe.address).frame(width: 56, height: 56)
-            BoldText(safe.displayName)
+            BoldText(safe.displayName).padding(.top, 6)
 
             if safe.hasAddress {
-                CenteredAddressWithLink(safe: safe)
+                CenteredAddressWithLink(safe: safe).padding(.top, 3)
             }
 
             LoadableENSNameText(safe: safe, placeholder: "ENS name is not set")
-            QRView(value: safe.address).frame(width: 150, height: 150)
+            QRView(value: safe.address)
+                .padding(.top, 12)
         }
         .multilineTextAlignment(.center)
     }
