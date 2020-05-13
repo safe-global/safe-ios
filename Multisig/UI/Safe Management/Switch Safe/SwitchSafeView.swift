@@ -44,8 +44,7 @@ struct SwitchSafeView: View {
                     .frame(width: 24, height: 24)
                     .foregroundColor(.gnoMediumGrey)
             }
-            // otherwise the image is not tappable
-            .frame(width: 44, height: 44, alignment: .leading)
+            .frameForTapping(alignment: .leading)
 
             BoldText("Switch Safes")
                 // otherwise the text is too far to the right
@@ -53,8 +52,7 @@ struct SwitchSafeView: View {
 
             Spacer()
         }
-        // to constrain the maximum width when inside the navbar
-        .frame(width: 270, height: 44, alignment: .leading)
+        .frameForNavigationBar()
     }
 }
 

@@ -27,8 +27,7 @@ struct SwitchSafeButton: View {
                         .font(Font.body.weight(.semibold))
                         .padding(.bottom, 4)
                 }
-                // otherwise the button is not really tappable
-                .frame(width: 44, height: 44, alignment: .trailing)
+                .frameForTapping(alignment: .trailing)
                 .sheet(isPresented: $showsSwitchSafe) {
                     SwitchSafeView()
                         .environment(\.managedObjectContext, self.context)
