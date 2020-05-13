@@ -42,7 +42,7 @@ struct CorrectAddressView: View {
     func checkmark(position: CheckmarkPosition) -> some View {
         ZStack {
             if checkmarkPosition == position {
-                Image.gnoCheckmark
+                Image.checkmarkCircle
             } else {
                 EmptyView()
             }

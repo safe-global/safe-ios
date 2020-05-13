@@ -111,13 +111,8 @@ struct SafeAddressField: View {
         ZStack {
             if isValidating.wrappedValue {
                 ActivityIndicator(isAnimating: .constant(true), style: .medium)
-            } else if isValid.wrappedValue == true {
-                Image.gnoCheckmark
-            } else if isValid.wrappedValue == false {
-                Image(systemName: "xmark.circle")
-                    .foregroundColor(.gnoTomato)
             } else {
-                Image(systemName: "ellipsis")
+                Image.ellipsis
             }
         }
     }

@@ -22,9 +22,7 @@ struct SwitchSafeButton: View {
                 EmptyView()
             } else {
                 Button(action: { self.showsSwitchSafe.toggle() }) {
-                    Image(systemName: "chevron.down.circle")
-                        .foregroundColor(.gnoMediumGrey)
-                        .font(Font.body.weight(.semibold))
+                    Image.chevronDownCircle
                         // increases tappable area
                         .frame(minWidth: 60, idealHeight: 44, alignment: .trailing)
                 }
