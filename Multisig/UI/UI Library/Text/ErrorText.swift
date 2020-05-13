@@ -12,16 +12,20 @@ struct ErrorText: View {
 
     var label: String
 
+    init(_ label: String) {
+        self.label = label
+    }
+
     var body: some View {
         Text(label)
-            .font(Font.gnoBody.weight(.medium))
+            .font(Font.gnoBody)
             .foregroundColor(Color.gnoTomato)
-            .padding(.leading)
+            .padding()
     }
 }
 
 struct ErrorText_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorText(label: "Error message")
+        ErrorText("Error message")
     }
 }

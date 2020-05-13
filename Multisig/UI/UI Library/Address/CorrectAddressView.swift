@@ -61,6 +61,8 @@ struct CorrectAddressView_Previews: PreviewProvider {
                 title: "Address found",
                 address: "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
                 checkmarkPosition: .title)
+
+
             CorrectAddressView(address: "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F")
         }
     }

@@ -24,7 +24,7 @@ struct SafeSettingsView: View {
             if model.isLoading {
                 ActivityIndicator(isAnimating: .constant(true), style: .large)
             } else if model.errorMessage != nil {
-                ErrorText(label: model.errorMessage!)
+                ErrorText(model.errorMessage!)
             } else {
                 SafeSettingsContentView(safe: model.safe)
             }
