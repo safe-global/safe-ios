@@ -36,7 +36,7 @@ struct RoundedTextField: View {
             .background(borderView)
 
             if !error.wrappedValue.isEmpty {
-                ErrorText(label: error.wrappedValue)
+                ErrorText(error.wrappedValue)
             }
         }
     }
@@ -58,8 +58,12 @@ struct RoundedTextField: View {
 
 struct MyTextField_Previews: PreviewProvider {
     static var previews: some View {
-        RoundedTextField(title: "Enter name",
-                    text: .constant(""),
+        VStack(alignment: .leading) {
+            RoundedTextField(title: "Enter name",
+                        text: .constant(""),
                     isValid: .constant(false))
+
+            ErrorText("Error occurred")
+        }
     }
 }
