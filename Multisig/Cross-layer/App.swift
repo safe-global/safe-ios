@@ -12,6 +12,10 @@ class App {
 
     static let shared = App()
 
+    // UI layer
+
+    var theme = Theme()
+
     // Business Logic Layer
 
     var ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")

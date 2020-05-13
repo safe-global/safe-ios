@@ -17,6 +17,9 @@ struct SwitchSafeView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().all())
     var safes: FetchedResults<Safe>
 
+    @ObservedObject
+    var theme: Theme = App.shared.theme
+
     var body: some View {
         NavigationView {
             List {
@@ -28,11 +31,14 @@ struct SwitchSafeView: View {
                     }
                 }
             }
+            .onAppear {
+                self.theme.setTemporaryTableViewBackground(nil)
+            }
+            .onDisappear {
+                self.theme.resetTemporaryTableViewBackground()
+            }
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(leading: closeButton)
-            .onAppear {
-                UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            }
         }
     }
 
