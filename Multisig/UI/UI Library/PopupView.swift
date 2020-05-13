@@ -37,6 +37,13 @@ struct PopupView<Content>: View where Content: View {
             if isPresented.wrappedValue {
                 backgroundView
                     .transition(AnyTransition.opacity.animation(.easeInOut))
+                    .onTapGesture {
+                        // using withAnimation actually animates the transitioning
+                        withAnimation {
+                            self.isPresented.wrappedValue.toggle()
+                        }
+                    }
+
                 cardView
                     .transition(
                         AnyTransition
@@ -46,12 +53,6 @@ struct PopupView<Content>: View where Content: View {
                     )
             } else {
                 EmptyView()
-            }
-        }
-        .onTapGesture {
-            // using withAnimation actually animates the transitioning
-            withAnimation {
-                self.isPresented.wrappedValue.toggle()
             }
         }
     }
