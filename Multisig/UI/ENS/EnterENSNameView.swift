@@ -32,7 +32,7 @@ struct EnterENSNameView: View {
             Spacer()
         }
         .padding(.top, 32)
-        .padding([.leading, .trailing])
+        .padding(.horizontal)
         .navigationBarTitle("Enter ENS Name", displayMode: .inline)
         .navigationBarItems(trailing: confirmButton)
         .onReceive(model.$text, perform: model.resolve(name:))
@@ -43,6 +43,7 @@ struct EnterENSNameView: View {
             self.presentationMode.wrappedValue.dismiss()
             self.onConfirm(self.model.address!.hex(eip55: true))
         }
+        .font(Font.body.bold())
         .disabled(model.address == nil)
     }
 }

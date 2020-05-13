@@ -48,6 +48,7 @@ struct EnterSafeAddressView: View {
                 self.presentationMode.wrappedValue.dismiss()
             }
         )
+        .font(Font.body.bold())
         .disabled(model.isValid != true)
     }
 
