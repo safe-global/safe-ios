@@ -116,6 +116,8 @@
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
 		5556A03D24489F5D003EC861 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */; };
+		558FC879246BFED900CA8066 /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558FC878246BFED900CA8066 /* AssetsView.swift */; };
+		558FC87B246C04A200CA8066 /* AssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558FC87A246C04A200CA8066 /* AssetsViewModel.swift */; };
 		9982F1C834FC801EAD7BDFE8 /* libPods-Multisig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */; };
 		EB57A403B3F8709859BA822E /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B81E8C8DC80D2C573D9B6BF /* libPods-MultisigTests.a */; };
 /* End PBXBuildFile section */
@@ -255,6 +257,8 @@
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
+		558FC878246BFED900CA8066 /* AssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
+		558FC87A246C04A200CA8066 /* AssetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsViewModel.swift; sourceTree = "<group>"; };
 		69FE277EF0E99D5C7D51C279 /* Pods-MultisigIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		92B7E305E3E3D34CBC5DB687 /* libPods-MultisigIntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigIntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD6D0510D7AE8BF83C2872E /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.xcconfig"; path = "Pods/Target Support Files/Pods-Multisig/Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
@@ -434,6 +438,7 @@
 			isa = PBXGroup;
 			children = (
 				0AF432C4244DF8FC00E22E50 /* App */,
+				558FC877246BFEB600CA8066 /* Assets */,
 				0AF432BF244DF8AD00E22E50 /* Safe Management */,
 				0476915E246408D000D73D8B /* Settings */,
 				0AF432BC244DF6C900E22E50 /* ENS */,
@@ -722,6 +727,15 @@
 				551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		558FC877246BFEB600CA8066 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				558FC878246BFED900CA8066 /* AssetsView.swift */,
+				558FC87A246C04A200CA8066 /* AssetsViewModel.swift */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		7994340F572ECDF0B5D53E31 /* Pods */ = {
@@ -1029,10 +1043,12 @@
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
+				558FC879246BFED900CA8066 /* AssetsView.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A72AC5C245312FC00840641 /* BoldText.swift in Sources */,
 				5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */,
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
+				558FC87B246C04A200CA8066 /* AssetsViewModel.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0ADDA20D24533F860066457E /* BodyText.swift in Sources */,
 				04769164246408D000D73D8B /* SafeSettingsView.swift in Sources */,

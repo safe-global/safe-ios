@@ -12,7 +12,9 @@ struct ContentView: View {
 
     @State private var selection = 0
     @State private var showsSafeInfo: Bool = false
-    @Environment(\.managedObjectContext) var context: CoreDataContext
+
+    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
+    var selectedSafe: FetchedResults<Safe>
 
     var body: some View {
         // Putting the tabview inside a navigation view is the preferred
@@ -21,33 +23,44 @@ struct ContentView: View {
         // status bar (the navigation bar appears beneath the status bar
         // and it looks cropped) - this is seen on a real device (iPhone 6s)
         RootNavigationView {
-            TabView(selection: $selection){
-                AddSafeIntroView()
-                .tabItem {
-                    VStack {
-                        Image("tab-icon-balances")
-                        Text("Balances")
-                    }
+            TabView(selection: $selection) {
+                if selectedSafe.first != nil {
+                    AssetsView()
+                        .tabItem {
+                            VStack {
+                                Image("tab-icon-balances")
+                                Text("Assets")
+                            }
+                        }
+                        .tag(0)
+                } else {
+                    AddSafeIntroView()
+                        .tabItem {
+                            VStack {
+                                Image("tab-icon-balances")
+                                Text("Assets")
+                            }
+                        }
+                        .tag(0)
                 }
-                .tag(0)
 
                 AddSafeIntroView()
-                .tabItem {
-                    VStack {
-                        Image("tab-icon-transactions")
-                        Text("Transactions")
+                    .tabItem {
+                        VStack {
+                            Image("tab-icon-transactions")
+                            Text("Transactions")
+                        }
                     }
-                }
-                .tag(1)
+                    .tag(1)
 
                 SettingsView()
-                .tabItem {
-                    VStack {
-                        Image("tab-icon-settings")
-                        Text("Settings")
+                    .tabItem {
+                        VStack {
+                            Image("tab-icon-settings")
+                            Text("Settings")
+                        }
                     }
-                }
-                .tag(2)
+                    .tag(2)
             }
         }
     }

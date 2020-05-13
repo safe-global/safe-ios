@@ -81,6 +81,8 @@ public class HTTPClient {
     }
 
     private func send(_ request: URLRequest) -> URLDataTaskResult {
+        dispatchPrecondition(condition: .onQueue(.global()))
+
         var result: URLDataTaskResult!
         let semaphore = DispatchSemaphore(value: 0)
         logger?.debug("Sending request \(request)")

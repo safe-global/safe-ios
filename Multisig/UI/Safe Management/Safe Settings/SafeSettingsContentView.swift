@@ -17,7 +17,7 @@ struct SafeSettingsContentView: View {
     
     var body: some View {
         List {
-            Section(header: ListSectionHeader(text:"SAFE NAME")) {
+            Section(header: ListSectionHeader(text: "SAFE NAME")) {
                 NavigationLink(destination: EditSafeNameView(address: safe.address ?? "", name: safe.name ?? "")) {
                     BodyText(safe.name ?? "")
                 }
