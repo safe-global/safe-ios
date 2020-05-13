@@ -12,7 +12,7 @@ struct SafeSettingsContentView: View {
 
     @ObservedObject
     var safe: Safe
-
+    
     @State
     var showDeleteConfirmation: Bool = false
     
@@ -68,6 +68,7 @@ struct SafeSettingsContentView: View {
                         .destructive(Text("Remove")) {
                             Safe.delete(safe: self.safe)
                             Safe.selectFirst()
+                            App.shared.state = .balanaces
                         },
                         .cancel()
                     ])
