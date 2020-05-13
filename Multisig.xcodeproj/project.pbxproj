@@ -29,6 +29,8 @@
 		04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BFB55A2459785D00090386 /* KeyboadHandler.swift */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
+		0A465C32246C229800AFA467 /* FrameForNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */; };
+		0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C33246C236A00AFA467 /* FrameForTapping.swift */; };
 		0A628FF5245710260038DC88 /* SafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A628FF4245710260038DC88 /* SafeCell.swift */; };
 		0A6C85B2245071510026139E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A6C85B4245080620026139E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B3245080620026139E /* App.swift */; };
@@ -161,6 +163,8 @@
 		04BFB55A2459785D00090386 /* KeyboadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboadHandler.swift; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
+		0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameForNavigationBar.swift; sourceTree = "<group>"; };
+		0A465C33246C236A00AFA467 /* FrameForTapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameForTapping.swift; sourceTree = "<group>"; };
 		0A628FF4245710260038DC88 /* SafeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCell.swift; sourceTree = "<group>"; };
 		0A6C85B1245071510026139E /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0A6C85B3245080620026139E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -326,6 +330,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		0A465C35246C23E800AFA467 /* Frame */ = {
+			isa = PBXGroup;
+			children = (
+				0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */,
+				0A465C33246C236A00AFA467 /* FrameForTapping.swift */,
+			);
+			path = Frame;
+			sourceTree = "<group>";
+		};
 		0A6C85B02450712D0026139E /* Ethereum */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,6 +472,8 @@
 				0A9BC3442460515800EB9C5D /* Address */,
 				0AF432D4244F063800E22E50 /* Styleguide */,
 				0A9BC3432460514B00EB9C5D /* Text */,
+				0A9BC3462460526300EB9C5D /* TextField */,
+				0A465C35246C23E800AFA467 /* Frame */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -993,7 +1008,9 @@
 				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,
 				0A9BC3AC24617C2F00EB9C5D /* PopupView.swift in Sources */,
 				047691572464023300D73D8B /* EditSafeNameView.swift in Sources */,
+				0A465C32246C229800AFA467 /* FrameForNavigationBar.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
+				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
 				04769163246408D000D73D8B /* SettingsView.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,

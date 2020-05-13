@@ -23,14 +23,13 @@ struct SwitchSafeButton: View {
             } else {
                 Button(action: { self.showsSwitchSafe.toggle() }) {
                     Image.chevronDownCircle
-                        // increases tappable area
-                        .frame(minWidth: 60, idealHeight: 44, alignment: .trailing)
                 }
-                .padding(.bottom, 4)
+                .frameForTapping(alignment: .trailing)
                 .sheet(isPresented: $showsSwitchSafe) {
                     SwitchSafeView()
                         .environment(\.managedObjectContext, self.context)
                 }
+
             }
         }
     }
