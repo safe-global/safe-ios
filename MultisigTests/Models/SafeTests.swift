@@ -12,9 +12,9 @@ import XCTest
 class SafeTests: CoreDataTestCase {
 
     func test_removeSafe() throws {
-        Safe.create(address: "0", name: "0")
-        Safe.create(address: "1", name: "1", selected: true)
-        Safe.create(address: "2", name: "2")
+        Safe.create(address: "0", name: "0", selected: false)
+        Safe.create(address: "1", name: "1")
+        Safe.create(address: "2", name: "2", selected: false)
 
         let context = CoreDataStack.shared.viewContext
         var result = try context.fetch(Safe.fetchRequest().all())
@@ -23,9 +23,12 @@ class SafeTests: CoreDataTestCase {
         var safe = result.first!
         Safe.remove(safe: safe)
         result = try context.fetch(Safe.fetchRequest().all())
+
         XCTAssertEqual(result.count, 2)
 
         safe = result.first!
+
+        XCTAssertTrue(safe.isSelected)
         Safe.remove(safe: safe)
         result = try context.fetch(Safe.fetchRequest().all())
         XCTAssertEqual(result.count, 1)
