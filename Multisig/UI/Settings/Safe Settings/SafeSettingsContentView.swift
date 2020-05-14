@@ -49,6 +49,7 @@ struct SafeSettingsContentView: View {
                     BodyText("Advanced")
                 }
                 .frame(height: rowHeight)
+                
 				RemoveSafeButton(safe: self.safe)
             }
         }
