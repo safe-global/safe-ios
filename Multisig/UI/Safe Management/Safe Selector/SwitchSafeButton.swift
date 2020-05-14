@@ -11,6 +11,7 @@ import SwiftUI
 struct SwitchSafeButton: View {
 
     @Environment(\.managedObjectContext) var context: CoreDataContext
+
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selected: FetchedResults<Safe>
 
@@ -22,17 +23,14 @@ struct SwitchSafeButton: View {
                 EmptyView()
             } else {
                 Button(action: { self.showsSwitchSafe.toggle() }) {
-                    Image(systemName: "chevron.down.circle")
-                        .foregroundColor(.gnoMediumGrey)
-                        .font(Font.body.weight(.semibold))
-                        // increases tappable area
-                        .frame(minWidth: 60, idealHeight: 44, alignment: .trailing)
+                    Image.chevronDownCircle
                 }
-                .padding(.bottom, 4)
+                .frameForTapping(alignment: .trailing)
                 .sheet(isPresented: $showsSwitchSafe) {
                     SwitchSafeView()
                         .environment(\.managedObjectContext, self.context)
                 }
+
             }
         }
     }

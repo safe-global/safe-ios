@@ -17,6 +17,9 @@ struct SwitchSafeView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().all())
     var safes: FetchedResults<Safe>
 
+    @ObservedObject
+    var theme: Theme = App.shared.theme
+
     var body: some View {
         NavigationView {
             List {
@@ -28,27 +31,31 @@ struct SwitchSafeView: View {
                     }
                 }
             }
+            .onAppear {
+                self.theme.setTemporaryTableViewBackground(nil)
+            }
+            .onDisappear {
+                self.theme.resetTemporaryTableViewBackground()
+            }
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(leading: closeButton)
-            .onAppear {
-                UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            }
         }
     }
 
     var closeButton: some View {
-        Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-            HStack(spacing: 32) {
-                Image(systemName: "xmark")
-                    .font(Font.gnoNormal)
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.gnoMediumGrey)
-
-                BoldText("Switch Safes")
-
-                Spacer()
+        HStack(spacing: 0) {
+            Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
+                Image.bigXMark
             }
+            .frameForTapping(alignment: .leading)
+
+            BoldText("Switch Safes")
+                // otherwise the text is too far to the right
+                .padding(.leading, -10)
+
+            Spacer()
         }
+        .frameForNavigationBar()
     }
 }
 

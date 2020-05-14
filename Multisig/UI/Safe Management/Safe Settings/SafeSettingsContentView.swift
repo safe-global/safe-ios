@@ -12,6 +12,8 @@ struct SafeSettingsContentView: View {
 
     @ObservedObject
     var safe: Safe
+
+    var rowHeight: CGFloat = 48
     
     var body: some View {
         List {
@@ -19,10 +21,12 @@ struct SafeSettingsContentView: View {
                 NavigationLink(destination: EditSafeNameView(address: safe.address ?? "", name: safe.name ?? "")) {
                     BodyText(safe.name ?? "")
                 }
+                .frame(height: rowHeight)
             }
 
             Section(header: ListSectionHeader(text: "REQUIRED CONFIRMATIONS")) {
                 BodyText("\(safe.threshold ?? 0) out of \(safe.owners?.count ?? 0)")
+                    .frame(height: rowHeight)
             }
 
             Section(header: ListSectionHeader(text: "OWNER ADDRESSES")) {
@@ -36,15 +40,17 @@ struct SafeSettingsContentView: View {
             }
 
             Section(header: ListSectionHeader(text: "ENS NAME")) {
-                LoadableENSNameText(safe: safe, placeholder: "Not Set")
+                LoadableENSNameText(safe: safe, placeholder: "Not set")
+                    .frame(height: rowHeight)
             }
 
             Section(header: ListSectionHeader(text: " ")) {
                 NavigationLink(destination: SafeAdvancedSettingsView(safe: safe)) {
                     BodyText("Advanced")
                 }
-                
-                RemoveSafeButton(safe: self.safe)
+                .frame(height: rowHeight)
+
+				RemoveSafeButton(safe: self.safe)
             }
         }
     }

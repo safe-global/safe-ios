@@ -34,7 +34,7 @@ struct AddressText: View {
     }
 
     var body: Text {
-        (style == .long ? longText : shortText)
+        (style == .long ? longText : shortText).tracking(-0.41)
     }
 
     var longText: Text {

@@ -27,6 +27,9 @@ class EditSafeNameViewModel: ObservableObject {
         
         $enteredText
             .dropFirst()
+            .map { value -> String in
+                value.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
             .sink { value in
                 self.isValid = !value.isEmpty
             }

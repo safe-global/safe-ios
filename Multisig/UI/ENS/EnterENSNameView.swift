@@ -25,14 +25,20 @@ struct EnterENSNameView: View {
                              isValid: $model.isValid,
                              isValidating: $model.isResolving,
                              error: $model.errorMessage)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+                .keyboardType(.URL)
+
             if model.address != nil {
-                BodyText("Address found")
-                CorrectAddressView(address: model.address!.hex(eip55: true))
+                CorrectAddressView(
+                    title: "Address found",
+                    address: model.address!.hex(eip55: true),
+                    checkmarkPosition: .title)
             }
             Spacer()
         }
         .padding(.top, 32)
-        .padding([.leading, .trailing])
+        .padding(.horizontal)
         .navigationBarTitle("Enter ENS Name", displayMode: .inline)
         .navigationBarItems(trailing: confirmButton)
         .onReceive(model.$text, perform: model.resolve(name:))
@@ -43,6 +49,7 @@ struct EnterENSNameView: View {
             self.presentationMode.wrappedValue.dismiss()
             self.onConfirm(self.model.address!.hex(eip55: true))
         }
+        .font(Font.body.bold())
         .disabled(model.address == nil)
     }
 }

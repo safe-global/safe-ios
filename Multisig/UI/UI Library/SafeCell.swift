@@ -10,6 +10,27 @@ import SwiftUI
 
 struct SafeCell: View {
 
+    @ObservedObject
+    var safe: Safe
+
+    var style: Style = .regular
+
+    var body: some View {
+        HStack(spacing: style.iconToTextSpacing) {
+            Identicon(safe.address ?? "")
+                .frame(width: style.iconSize, height: style.iconSize)
+
+            VStack(alignment: .leading) {
+                BoldText(safe.name ?? "")
+                    .padding(.bottom, style.nameToAddressPadding)
+                    .lineLimit(1)
+
+                AddressText(safe.address ?? "", style: .short)
+                    .font(Font.gnoBody.weight(.medium))
+            }
+        }
+    }
+
     struct Style {
         var iconSize: CGFloat
         var iconToTextSpacing: CGFloat
@@ -26,25 +47,6 @@ struct SafeCell: View {
             nameToAddressPadding: 0)
     }
 
-    @ObservedObject
-    var safe: Safe
-
-    var style: Style = .regular
-
-    var body: some View {
-        HStack(spacing: style.iconToTextSpacing) {
-            Identicon(safe.address ?? "")
-                .frame(width: style.iconSize, height: style.iconSize)
-
-            VStack(alignment: .leading) {
-                BoldText(safe.name ?? "")
-                    .padding(.bottom, style.nameToAddressPadding)
-
-                AddressText(safe.address ?? "", style: .short)
-                    .font(Font.gnoBody.weight(.medium))
-            }
-        }
-    }
 }
 
 struct SafeCell_Previews: PreviewProvider {

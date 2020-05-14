@@ -60,10 +60,17 @@ class EnterSafeAddressViewModel: ObservableObject {
                 self.isValidating = true
                 return v
             }
-            .receive(on: DispatchQueue.global())
-            .tryMap { address -> String in
-                try Safe.download(at: address)
-                return address
+            .flatMap { address in
+                Future<String, Error> { promise in
+                    DispatchQueue.global().async {
+                        do {
+                            try Safe.download(at: address)
+                            promise(.success(address))
+                        } catch {
+                            promise(.failure(error))
+                        }
+                    }
+                }
             }
             .receive(on: RunLoop.main)
             .tryMap { address -> String in
