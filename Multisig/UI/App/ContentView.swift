@@ -42,7 +42,7 @@ struct ContentView: View {
                 }
                 .tag(ViewStateMode.transactions)
 
-                SettingsView()
+                SettingsTopTabView()
                 .tabItem {
                     VStack {
                         Image("tab-icon-settings")
