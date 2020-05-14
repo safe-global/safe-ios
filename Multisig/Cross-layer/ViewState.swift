@@ -14,7 +14,6 @@ class ViewState: ObservableObject {
     
     @Published
     var state: ViewStateMode = .balanaces
-    // Business Logic Layer
     
     private init() {
         
