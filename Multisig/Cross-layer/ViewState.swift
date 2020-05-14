@@ -15,9 +15,7 @@ class ViewState: ObservableObject {
     @Published
     var state: ViewStateMode = .balanaces
     
-    private init() {
-        
-    }
+    private init() {}
 }
 
 enum ViewStateMode: Hashable {
