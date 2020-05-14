@@ -10,33 +10,30 @@ import SwiftUI
 
 struct SettingsTopTabView: View {
 
-    @State var selection: Int = 0
-
     var body: some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button("Safe Settings") { self.selection = 0 }
-                Spacer()
-                Divider()
-                Spacer()
-                Button("App Settings") { self.selection = 1 }
-                Spacer()
-            }
-            .frame(height: 60)
+        TopTabView {
+            SelectedSafeSettingsView()
+                .topTabItem {
+                    HStack {
+                        Image("ico-safe-settings")
 
-            ZStack {
-                if selection == 0 {
-                    SelectedSafeSettingsView()
-                } else {
-                    AppSettingsView()
+                        Text("SAFE SETTINGS").font(Font.gnoFootnote.bold())
+                    }
                 }
-            }
+
+            AppSettingsView()
+                .topTabItem {
+                    HStack {
+                        Image("ico-app-settings")
+
+                        Text("APP SETTINGS").font(Font.gnoFootnote.bold())
+                    }
+                }
         }
     }
 }
 
-struct TopTabView_Previews: PreviewProvider {
+struct SettingsTopTabView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsTopTabView()
     }
