@@ -24,25 +24,14 @@ struct ContentView: View {
         // and it looks cropped) - this is seen on a real device (iPhone 6s)
         RootNavigationView {
             TabView(selection: $selection) {
-                if selectedSafe.first != nil {
-                    AssetsView()
-                        .tabItem {
-                            VStack {
-                                Image("tab-icon-balances")
-                                Text("Assets")
-                            }
+                assetsOrAddSafeIntroView
+                    .tabItem {
+                        VStack {
+                            Image("tab-icon-balances")
+                            Text("Assets")
                         }
-                        .tag(0)
-                } else {
-                    AddSafeIntroView()
-                        .tabItem {
-                            VStack {
-                                Image("tab-icon-balances")
-                                Text("Assets")
-                            }
-                        }
-                        .tag(0)
-                }
+                    }
+                    .tag(0)
 
                 AddSafeIntroView()
                     .tabItem {
@@ -61,6 +50,16 @@ struct ContentView: View {
                         }
                     }
                     .tag(2)
+            }
+        }
+    }
+
+    var assetsOrAddSafeIntroView: some View {
+        ZStack {
+            if selectedSafe.first != nil {
+                AssetsView()
+            } else {
+                AddSafeIntroView()
             }
         }
     }
