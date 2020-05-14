@@ -10,9 +10,21 @@ import SwiftUI
 
 struct AssetsView: View {
     @ObservedObject
-    var model = AssetsViewModel(address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+    var model = AssetsViewModel()
 
     var body: some View {
+        ZStack(alignment: .center) {
+            if model.isLoading {
+                ActivityIndicator(isAnimating: .constant(true), style: .large)
+            } else if model.errorMessage != nil {
+                ErrorText(label: model.errorMessage!)
+            } else {
+                balances
+            }
+        }
+    }
+
+    var balances: some View {
         List {
             ForEach(model.balances) { tokenBalance in
                 TokenBalanceCell(tokenBalance: tokenBalance)
@@ -26,7 +38,7 @@ struct TokenBalanceCell: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            BoldText(tokenBalance.address)
+            TokenImage(imageURL: tokenBalance.imageURL)
 
             Spacer()
 

@@ -13,6 +13,9 @@ struct TokenBalance: Identifiable {
     var id: String {
         return address
     }
+    var imageURL: URL {
+        return URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(address).png")!
+    }
     let address: String
     let balance: String
     let balanceUsd: String
@@ -25,9 +28,11 @@ class AssetsViewModel: ObservableObject {
 
     private var subscribers = Set<AnyCancellable>()
 
-    init(address: String) {
+    init() {
+        let request = Safe.fetchRequest().selected()
+        let selectedSafe = try! CoreDataStack.shared.viewContext.fetch(request).first!
         isLoading = true
-        Just(address)
+        Just(selectedSafe.address!)
             .setFailureType(to: Error.self)
             .flatMap { address in
                 Future<[TokenBalance], Error> { promise in

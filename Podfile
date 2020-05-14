@@ -20,6 +20,8 @@ target 'Multisig' do
   pod 'idn2Swift', :git => 'https://github.com/gnosis/pod-idn2.git', :branch => 'master', :testspecs => ['Tests']
   pod 'BigInt', '4.0.0'
   
+  pod 'Kingfisher/SwiftUI'
+  
   target 'MultisigTests' do
     inherit! :search_paths
   end
