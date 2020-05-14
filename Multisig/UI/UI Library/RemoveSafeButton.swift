@@ -10,7 +10,6 @@ import SwiftUI
 
 struct RemoveSafeButton: View {
     
-    @ObservedObject
     var safe: Safe
     
     @State
@@ -21,7 +20,7 @@ struct RemoveSafeButton: View {
             self.showDeleteConfirmation.toggle()
         }) {
             HStack {
-                Image("ico-remove")
+                Image(systemName: "trash").font(Font.gnoBody.bold())
                 Text("Remove Safe").font(.gnoHeadline)
                 Spacer()
             }
@@ -34,8 +33,7 @@ struct RemoveSafeButton: View {
         .actionSheet(isPresented: $showDeleteConfirmation) {
             ActionSheet(title: Text(""), message: Text("Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost."), buttons: [
                 .destructive(Text("Remove")) {
-                    Safe.delete(safe: self.safe)
-                    Safe.selectFirst()
+                    Safe.remove(safe: self.safe)
                     ViewState.shared.state = .balanaces
                 },
                 .cancel()

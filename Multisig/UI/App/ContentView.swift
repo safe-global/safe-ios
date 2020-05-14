@@ -9,11 +9,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject
-    var viewState: ViewState
     
     @Environment(\.managedObjectContext)
     var context: CoreDataContext
+    
+    @ObservedObject
+    var viewState = ViewState.shared
 
     var body: some View {
         // Putting the tabview inside a navigation view is the preferred

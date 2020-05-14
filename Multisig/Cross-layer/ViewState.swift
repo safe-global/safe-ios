@@ -6,7 +6,7 @@
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 class ViewState: ObservableObject {
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class App: ObservableObject {
+class App {
 
     static let shared = App()
     
