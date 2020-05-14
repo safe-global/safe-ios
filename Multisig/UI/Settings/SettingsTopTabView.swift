@@ -16,7 +16,6 @@ struct SettingsTopTabView: View {
                 .topTabItem {
                     HStack {
                         Image("ico-safe-settings")
-
                         Text("SAFE SETTINGS").font(Font.gnoFootnote.bold())
                     }
                 }
@@ -25,7 +24,6 @@ struct SettingsTopTabView: View {
                 .topTabItem {
                     HStack {
                         Image("ico-app-settings")
-
                         Text("APP SETTINGS").font(Font.gnoFootnote.bold())
                     }
                 }

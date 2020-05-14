@@ -32,6 +32,7 @@
 		0A0EFC94246D9D5200D3D8BF /* TopTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */; };
 		0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */; };
 		0A0EFC98246DAABF00D3D8BF /* BottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */; };
+		0A0EFC9A246DAC1A00D3D8BF /* TopTabChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC99246DAC1A00D3D8BF /* TopTabChildView.swift */; };
 		0A465C2E246C196900AFA467 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C2D246C196900AFA467 /* Theme.swift */; };
 		0A465C32246C229800AFA467 /* FrameForNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */; };
 		0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C33246C236A00AFA467 /* FrameForTapping.swift */; };
@@ -175,6 +176,7 @@
 		0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabView.swift; sourceTree = "<group>"; };
 		0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabButton.swift; sourceTree = "<group>"; };
 		0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBorder.swift; sourceTree = "<group>"; };
+		0A0EFC99246DAC1A00D3D8BF /* TopTabChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabChildView.swift; sourceTree = "<group>"; };
 		0A465C2D246C196900AFA467 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameForNavigationBar.swift; sourceTree = "<group>"; };
 		0A465C33246C236A00AFA467 /* FrameForTapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameForTapping.swift; sourceTree = "<group>"; };
@@ -344,14 +346,23 @@
 			isa = PBXGroup;
 			children = (
 				0A946D09246C4C6E00456BD5 /* SettingsTopTabView.swift */,
-				0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */,
-				0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */,
-				0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */,
+				0A0EFC9B246DAD0B00D3D8BF /* TopTabView */,
 				0A946D0B246C4D3A00456BD5 /* AppSettingsView.swift */,
 				0AE061D9246469E200CB60D7 /* Safe Settings */,
 				0A946D08246C4C5F00456BD5 /* Get In Touch */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		0A0EFC9B246DAD0B00D3D8BF /* TopTabView */ = {
+			isa = PBXGroup;
+			children = (
+				0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */,
+				0A0EFC99246DAC1A00D3D8BF /* TopTabChildView.swift */,
+				0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */,
+				0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */,
+			);
+			path = TopTabView;
 			sourceTree = "<group>";
 		};
 		0A465C35246C23E800AFA467 /* Frame */ = {
@@ -1042,6 +1053,7 @@
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
+				0A0EFC9A246DAC1A00D3D8BF /* TopTabChildView.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,

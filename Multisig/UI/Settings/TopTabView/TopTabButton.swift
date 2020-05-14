@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+// TopTabView's tab bar button that spans the full available width.
+// Changes appearance dependinig on the selection.
 struct TopTabButton<Content: View>: View {
 
     var tag: Int
