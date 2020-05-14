@@ -95,7 +95,6 @@
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
 		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
 		551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEEF244F1A0A00C719D3 /* SafeTests.swift */; };
-		551DDEF2244F1B9800C719D3 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEF1244F1B9800C719D3 /* AppSettingsTests.swift */; };
 		551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEF324506B0B00C719D3 /* SwitchSafeView.swift */; };
 		5532D4932448A1960067505A /* Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4922448A1960067505A /* Safe.swift */; };
 		5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4AF2449A17D0067505A /* CrashlyticsProtocol.swift */; };
@@ -234,7 +233,6 @@
 		551DDEE8244F183500C719D3 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
 		551DDEEF244F1A0A00C719D3 /* SafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTests.swift; sourceTree = "<group>"; };
-		551DDEF1244F1B9800C719D3 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
 		551DDEF324506B0B00C719D3 /* SwitchSafeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchSafeView.swift; sourceTree = "<group>"; };
 		5532D4922448A1960067505A /* Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Safe.swift; sourceTree = "<group>"; };
 		5532D4AF2449A17D0067505A /* CrashlyticsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashlyticsProtocol.swift; sourceTree = "<group>"; };
@@ -656,7 +654,6 @@
 			isa = PBXGroup;
 			children = (
 				551DDEEF244F1A0A00C719D3 /* SafeTests.swift */,
-				551DDEF1244F1B9800C719D3 /* AppSettingsTests.swift */,
 				0A9BC34B246053DB00EB9C5D /* DataInitWithHexTests.swift */,
 				0A9BC349246053AD00EB9C5D /* ENSContractsTests.swift */,
 				0A9BC3472460539F00EB9C5D /* ContractTests.swift */,
@@ -1078,7 +1075,6 @@
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
 				551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,
-				551DDEF2244F1B9800C719D3 /* AppSettingsTests.swift in Sources */,
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
 				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
