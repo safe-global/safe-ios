@@ -346,7 +346,6 @@
 			isa = PBXGroup;
 			children = (
 				0A946D09246C4C6E00456BD5 /* SettingsTopTabView.swift */,
-				0A0EFC9B246DAD0B00D3D8BF /* TopTabView */,
 				0A946D0B246C4D3A00456BD5 /* AppSettingsView.swift */,
 				0AE061D9246469E200CB60D7 /* Safe Settings */,
 				0A946D08246C4C5F00456BD5 /* Get In Touch */,
@@ -494,6 +493,7 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
+				0A0EFC9B246DAD0B00D3D8BF /* TopTabView */,
 				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
 				044A54432448D0B6009CBB80 /* QRCodeScanner */,
 				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
