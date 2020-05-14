@@ -23,11 +23,9 @@ class SafeTests: CoreDataTestCase {
         var safe = result.first!
         Safe.remove(safe: safe)
         result = try context.fetch(Safe.fetchRequest().all())
-
         XCTAssertEqual(result.count, 2)
 
         safe = result.first!
-
         XCTAssertTrue(safe.isSelected)
         Safe.remove(safe: safe)
         result = try context.fetch(Safe.fetchRequest().all())
