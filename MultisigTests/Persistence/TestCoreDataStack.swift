@@ -7,7 +7,6 @@
 //
 
 import CoreData
-@testable import Multisig
 
 #if DEBUG
 

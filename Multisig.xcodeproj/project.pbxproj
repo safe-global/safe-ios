@@ -116,7 +116,6 @@
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
-		5556A03D24489F5D003EC861 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */; };
 		9982F1C834FC801EAD7BDFE8 /* libPods-Multisig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */; };
 		EB57A403B3F8709859BA822E /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B81E8C8DC80D2C573D9B6BF /* libPods-MultisigTests.a */; };
 /* End PBXBuildFile section */
@@ -1078,7 +1077,6 @@
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
 				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
-				5556A03D24489F5D003EC861 /* TestCoreDataStack.swift in Sources */,
 				5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */,
 				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
 			);
