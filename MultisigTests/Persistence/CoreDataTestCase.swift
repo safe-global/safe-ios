@@ -8,6 +8,7 @@
 
 import XCTest
 import CoreData
+@testable import Multisig
 
 class CoreDataTestCase: XCTestCase {
     let coreDataStack = TestCoreDataStack()
