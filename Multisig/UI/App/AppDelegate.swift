@@ -13,20 +13,10 @@ import SwiftUI
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        configureGloabalAppearance()
+        App.shared.theme.setup()
         return true
     }
 
-    private func configureGloabalAppearance() {
-        // we don't set the image for the navbar (pdf) as it crashes the app;
-        // we don't set the `translucent` property of navbar to false because
-        // it crashes the app (SwiftUI).
-        // but shadow works.
-        UINavigationBar.appearance().shadowImage = UIImage(named: "shadow")
-        UINavigationBar.appearance().tintColor = UIColor(named: "hold")
-
-        UITableView.appearance().tableFooterView = UIView()
-    }
 
     // MARK: UISceneSession Lifecycle
 

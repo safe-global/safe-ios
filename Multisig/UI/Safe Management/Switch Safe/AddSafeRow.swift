@@ -15,9 +15,7 @@ struct AddSafeRow: View {
     var body: some View {
         Button(action: { self.showsAddSafe.toggle() }) {
             HStack(spacing: 6) {
-                Image(systemName: "plus.circle")
-                    .font(Font.body.weight(.medium))
-                    .frame(width: 24, height: 24)
+                Image.plusCircle
 
                 Text("Add Safe").font(Font.gnoBody.weight(.medium))
 

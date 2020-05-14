@@ -71,7 +71,7 @@ struct SafeAddressField: View {
     var errorView: some View {
         ZStack {
             if !error.wrappedValue.isEmpty {
-                ErrorText(label: error.wrappedValue)
+                ErrorText(error.wrappedValue)
             }
         }
     }
@@ -111,14 +111,8 @@ struct SafeAddressField: View {
         ZStack {
             if isValidating.wrappedValue {
                 ActivityIndicator(isAnimating: .constant(true), style: .medium)
-            } else if isValid.wrappedValue == true {
-                Image(systemName: "checkmark.circle")
-                    .foregroundColor(.gnoHold)
-            } else if isValid.wrappedValue == false {
-                Image(systemName: "xmark.circle")
-                    .foregroundColor(.gnoTomato)
             } else {
-                Image(systemName: "ellipsis")
+                Image.ellipsis
             }
         }
     }
@@ -129,8 +123,8 @@ struct SafeAddressField: View {
     }
 
     var strokeColor: Color {
-        if let isValid = isValid.wrappedValue {
-            return isValid ? Color.gnoHold50 : Color.gnoTomato
+        if isValid.wrappedValue == false {
+            return Color.gnoTomato
         } else {
             return Color.gnoWhitesmoke
         }

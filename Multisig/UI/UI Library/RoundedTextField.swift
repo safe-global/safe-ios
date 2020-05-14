@@ -25,16 +25,18 @@ struct RoundedTextField: View {
                           text: text,
                           onEditingChanged: onEditingChanged,
                           onCommit: onCommit)
+                    .font(Font.gnoBody.weight(.medium))
 
-                rightView
-
+                if isValidating.wrappedValue == true {
+                    ActivityIndicator(isAnimating: .constant(true), style: .medium)
+                }
             }
+            .padding()
             .frame(height: 56)
-            .padding([.leading, .trailing])
             .background(borderView)
 
             if !error.wrappedValue.isEmpty {
-                ErrorText(label: error.wrappedValue)
+                ErrorText(error.wrappedValue)
             }
         }
     }
@@ -45,28 +47,10 @@ struct RoundedTextField: View {
     }
 
     var strokeColor: Color {
-        if isValid.wrappedValue == true {
-            return Color.gnoHold50
-        } else if isValid.wrappedValue == false {
+        if isValid.wrappedValue == false {
             return Color.gnoTomato
         } else {
             return Color.gnoWhitesmoke
-        }
-    }
-
-    var rightView: some View {
-        ZStack {
-            if isValidating.wrappedValue == true {
-                ActivityIndicator(isAnimating: .constant(true), style: .medium)
-            } else if isValid.wrappedValue == true {
-                Image(systemName: "checkmark.circle")
-                    .foregroundColor(.gnoHold)
-            } else if isValid.wrappedValue == false {
-                Image(systemName: "xmark.circle")
-                    .foregroundColor(.gnoTomato)
-            } else {
-                EmptyView()
-            }
         }
     }
 
@@ -74,8 +58,12 @@ struct RoundedTextField: View {
 
 struct MyTextField_Previews: PreviewProvider {
     static var previews: some View {
-        RoundedTextField(title: "Enter name",
-                    text: .constant(""),
+        VStack(alignment: .leading) {
+            RoundedTextField(title: "Enter name",
+                        text: .constant(""),
                     isValid: .constant(false))
+
+            ErrorText("Error occurred")
+        }
     }
 }

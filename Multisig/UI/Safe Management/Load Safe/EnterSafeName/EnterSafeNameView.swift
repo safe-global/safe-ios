@@ -21,34 +21,34 @@ struct EnterSafeNameView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            VStack {
-                CorrectAddressView(address: model.address)
+            CorrectAddressView(address: model.address)
+                .layoutPriority(1)
 
-                BodyText("Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties.")
-                    .multilineTextAlignment(.center)
-            }
-            .padding(.horizontal)
+            BodyText("Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties.")
+                .multilineTextAlignment(.center)
 
-            RoundedTextField(title: "Enter name",
-                        text: $model.enteredText,
-                        isValid: $model.isValid,
-                        onEditingChanged: { ended in
-                            if !ended {
-                                self.model.onEditing()
-                            }
-                        },
-                        onCommit: submit)
+            RoundedTextField(
+            title: "Enter name",
+            text: $model.enteredText,
+            isValid: $model.isValid,
+            onEditingChanged: { ended in
+                if !ended {
+                    self.model.onEditing()
+                }
+            },
+            onCommit: { self.submit() })
 
             Spacer()
         }
         .padding(.top, 24)
-        .padding([.leading, .trailing])
+        .padding(.horizontal)
         .navigationBarTitle("Load Safe Multisig", displayMode: .inline)
         .navigationBarItems(trailing: nextButton)
     }
 
     var nextButton: some View {
         Button("Next", action: submit)
+            .font(Font.body.bold())
             .disabled(model.isValid != true)
     }
 

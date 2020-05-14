@@ -24,12 +24,12 @@ struct CenteredAddressWithLink: View {
             }
 
             Button(action: { self.showsBrowser.toggle() }) {
-                Image("icon-external-link")
+                Image("ico-browse-address")
                     .resizable()
                     .frame(width: 24, height: 24)
                     .foregroundColor(.gnoHold)
             }
-            .frame(width: 44, height: 44)
+            .frameForTapping()
             .sheet(isPresented: $showsBrowser) {
                 SafariViewController(url: self.safe.browserURL)
             }
