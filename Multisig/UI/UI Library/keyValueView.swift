@@ -11,6 +11,7 @@ import SwiftUI
 struct keyValueView: View {
     let key: String
     let value: String
+    
     var body: some View {
         HStack {
             BodyText(key)

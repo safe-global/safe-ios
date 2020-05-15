@@ -11,56 +11,28 @@ import SwiftUI
 struct BasicAppSettingsView: View {
     var rowHeight: CGFloat = 60
 
-    @State
-    var activeURL: IdentifiableByHash<URL>?
-
-
     var body: some View {
         List {
-            NavigationLink(destination: GetInTouchView()) {
-                keyValueView(key: "Fiat currency", value: "test")
+            NavigationLink(destination: FiatCurrenciesView()) {
+                keyValueView(key: "Fiat currency", value: "EUR")
             }
             .frame(height: rowHeight)
 
-            Button(action: {
-                self.activeURL = IdentifiableByHash(App.shared.termOfUseURL)
-            }) {
-                   HStack {
-                       BodyText("Term of use")
-                       Spacer()
-                       Image(systemName: "chevron.right")
-                           .foregroundColor(Color.gnoLightGrey)
-                   }
-               }
+            BrowseLinkButton(title: "Terms of use", url: App.shared.termOfUseURL)
                .frame(height: rowHeight)
 
-            Button(action: {
-                self.activeURL = IdentifiableByHash(App.shared.privacyPolicyURL)
-            }) {
-                   HStack {
-                       BodyText("Privacy policy")
-                       Spacer()
-                       Image(systemName: "chevron.right")
-                        .foregroundColor(Color.gnoLightGrey)
-                   }
-               }
+            BrowseLinkButton(title: "Privacy policy", url: App.shared.privacyPolicyURL)
                .frame(height: rowHeight)
 
-            Button(action: {
-                self.activeURL = IdentifiableByHash(App.shared.licensesURL)
-            }) {
-                   HStack {
-                       BodyText("Licenses")
-                       Spacer()
-                       Image(systemName: "chevron.right")
-                           .foregroundColor(Color.gnoLightGrey)
-                   }
-               }
+            BrowseLinkButton(title: "Licenses", url: App.shared.licensesURL)
                .frame(height: rowHeight)
+
+            NavigationLink("Get in touch", destination: GetInTouchView())
+                .frame(height: rowHeight)
 
             keyValueView(key: "App version", value: App.shared.appVersion)
 
-            keyValueView(key: "Network", value: App.shared.network)
+            keyValueView(key: "Network", value: App.shared.network.rawValue)
 
             Section(header: SectionHeader(" ")) {
                 NavigationLink(destination: AdvancedAppSettings()) {
@@ -68,10 +40,7 @@ struct BasicAppSettingsView: View {
                 }
                 .frame(height: rowHeight)
             }
-
-        }.sheet(item: $activeURL, content: {_ in
-            SafariViewController(url: self.activeURL!.value)
-        })
+        }
     }
 }
 

@@ -32,7 +32,13 @@ class App {
     let privacyPolicyURL = URL(string:"https://gnosis-safe.io/privacy/")!
     let licensesURL = URL(string:"https://gnosis-safe.io/licenses/")!
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-    let network = "Mainnet"
+
+    let network: Network = .rinkeby
     
     private init() {}
+}
+
+enum Network: String {
+    case mainnet = "Mainnet"
+    case rinkeby = "Rinkeby"
 }
