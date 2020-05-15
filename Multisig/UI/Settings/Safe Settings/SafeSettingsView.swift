@@ -1,5 +1,5 @@
 //
-//  SafeSettingsView.swift
+//  SelectedSafeSettingsView.swift
 //  Multisig
 //
 //  Created by Moaaz on 5/4/20.
@@ -10,29 +10,26 @@ import SwiftUI
 import CoreData
 
 struct SafeSettingsView: View {
+    @Environment(\.managedObjectContext)
+    var context: NSManagedObjectContext
 
-    @ObservedObject
-    var model: SafeSettingsViewModel
-
-    init(safe: Safe) {
-        model = SafeSettingsViewModel(safe: safe)
-    }
+    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
+    var selected: FetchedResults<Safe>
     
-    /// when change safe, model object should be changed also 
     var body: some View {
-        ZStack(alignment: .center) {
-            Rectangle()
-                .edgesIgnoringSafeArea(.all)
-                .foregroundColor(Color.gnoWhite)
-
-            if model.isLoading {
-                ActivityIndicator(isAnimating: .constant(true), style: .large)
-            } else if model.errorMessage != nil {
-                ErrorText(model.errorMessage!)
+        ZStack {
+            if selected.first == nil {
+                AddSafeIntroView()
             } else {
-                SafeSettingsContentView(safe: model.safe)
+                LoadableSafeSettingsView(safe: selected.first!)
+                    .environment(\.managedObjectContext, self.context)
             }
         }
     }
-    
+}
+
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SafeSettingsView()
+    }
 }

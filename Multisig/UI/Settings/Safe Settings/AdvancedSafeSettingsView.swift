@@ -1,5 +1,5 @@
 //
-//  SafeAdvancedSettingsView.swift
+//  AdvancedSafeSettingsView.swift
 //  Multisig
 //
 //  Created by Moaaz on 5/5/20.
@@ -9,7 +9,7 @@
 import SwiftUI
 import CoreData
 
-struct SafeAdvancedSettingsView: View {
+struct AdvancedSafeSettingsView: View {
 
     @ObservedObject
     var safe: Safe
@@ -60,6 +60,6 @@ struct SafeAdvancedSettingsView: View {
 
 struct SafeAdvancedSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SafeAdvancedSettingsView(safe: Safe())
+        AdvancedSafeSettingsView(safe: Safe())
     }
 }

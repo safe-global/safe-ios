@@ -1,5 +1,5 @@
 //
-//  TopTabView.swift
+//  SettingsView.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 13.05.20.
@@ -8,11 +8,11 @@
 
 import SwiftUI
 
-struct SettingsTopTabView: View {
+struct SettingsView: View {
 
     var body: some View {
         TopTabView {
-            SelectedSafeSettingsView()
+            SafeSettingsView()
                 .topTabItem {
                     HStack {
                         Image("ico-safe-settings")
@@ -33,6 +33,6 @@ struct SettingsTopTabView: View {
 
 struct SettingsTopTabView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsTopTabView()
+        SettingsView()
     }
 }

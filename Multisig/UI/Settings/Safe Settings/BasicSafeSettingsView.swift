@@ -1,5 +1,5 @@
 //
-//  SafeSettingsContentView.swift
+//  BasicSafeSettingsView.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 07.05.20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SafeSettingsContentView: View {
+struct BasicSafeSettingsView: View {
 
     @ObservedObject
     var safe: Safe
@@ -45,7 +45,7 @@ struct SafeSettingsContentView: View {
             }
 
             Section(header: ListSectionHeader(text: " ")) {
-                NavigationLink(destination: SafeAdvancedSettingsView(safe: safe)) {
+                NavigationLink(destination: AdvancedSafeSettingsView(safe: safe)) {
                     BodyText("Advanced")
                 }
                 .frame(height: rowHeight)
@@ -54,8 +54,8 @@ struct SafeSettingsContentView: View {
     }
 }
 
-struct SafeSettingsContentView_Previews: PreviewProvider {
+struct BasicSafeSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SafeSettingsContentView(safe: Safe())
+        BasicSafeSettingsView(safe: Safe())
     }
 }
