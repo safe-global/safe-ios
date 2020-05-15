@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import UIKit
 
 struct AddressInputSelector: View {
 
@@ -53,7 +52,7 @@ struct AddressInputSelector: View {
             buttons: [
                 .default(Text("Paste From Clipboard")) {
                     self.selection = .clipboard
-                    self.setText(UIPasteboard.general.string ?? "")
+                    self.setText(Pasteboard.string ?? "")
                 },
                 .default(Text("Scan QR Code")) {
                     self.selection = .qr

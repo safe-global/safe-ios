@@ -62,8 +62,8 @@ struct BasicAppSettingsView: View {
 
             keyValueView(key: "Network", value: App.shared.network)
 
-            Section(header: ListSectionHeader(text: " ")) {
-                NavigationLink(destination: GetInTouchView()) {
+            Section(header: SectionHeader(" ")) {
+                NavigationLink(destination: AdvancedAppSettings()) {
                     BodyText("Advanced")
                 }
                 .frame(height: rowHeight)
@@ -75,7 +75,7 @@ struct BasicAppSettingsView: View {
     }
 }
 
-struct AppSettingsView_Previews: PreviewProvider {
+struct BasicSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         BasicAppSettingsView()
     }

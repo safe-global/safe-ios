@@ -9,7 +9,7 @@
 import SwiftUI
 import CoreData
 
-struct SelectedSafeSettingsView: View {
+struct SafeSettingsView: View {
     @Environment(\.managedObjectContext)
     var context: NSManagedObjectContext
 
@@ -21,7 +21,7 @@ struct SelectedSafeSettingsView: View {
             if selected.first == nil {
                 AddSafeIntroView()
             } else {
-                SafeSettingsView(safe: selected.first!)
+                LoadableSafeSettingsView(safe: selected.first!)
                     .environment(\.managedObjectContext, self.context)
             }
         }
@@ -30,6 +30,6 @@ struct SelectedSafeSettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectedSafeSettingsView()
+        SafeSettingsView()
     }
 }

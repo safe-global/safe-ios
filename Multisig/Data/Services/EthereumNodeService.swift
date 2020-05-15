@@ -11,9 +11,11 @@ import Web3
 
 class EthereumNodeService {
 
+    var url: URL
     let web3: Web3
 
     init(url: URL) {
+        self.url = url
         web3 = Web3(rpcURL: url.absoluteString)
     }
 

@@ -1,5 +1,5 @@
 //
-//  SafeAdvancedSettingsView.swift
+//  AdvancedSafeSettingsView.swift
 //  Multisig
 //
 //  Created by Moaaz on 5/5/20.
@@ -9,20 +9,20 @@
 import SwiftUI
 import CoreData
 
-struct SafeAdvancedSettingsView: View {
+struct AdvancedSafeSettingsView: View {
 
     @ObservedObject
     var safe: Safe
 
     var body: some View {
         List {
-            Section(header: ListSectionHeader(text: "MASTER COPY ADDRESS")) {
+            Section(header: SectionHeader("MASTER COPY ADDRESS")) {
                 AddressCell(address: safe.masterCopy ?? "-")
             }
             
             fallbackHandlerView
             
-            Section(header: ListSectionHeader(text: "NONCE")) {
+            Section(header: SectionHeader("NONCE")) {
                 BodyText("\(safe.nonce ?? 0)")
             }
              
@@ -36,7 +36,7 @@ struct SafeAdvancedSettingsView: View {
             if (safe.fallbackHandler ?? "").isEmpty  {
                  EmptyView()
             } else {
-                Section(header: ListSectionHeader(text:"FALLBACK HANDLER")) {
+                Section(header: SectionHeader("FALLBACK HANDLER")) {
                     AddressCell(address: safe.fallbackHandler ?? "Not Set")
                 }
             }
@@ -48,7 +48,7 @@ struct SafeAdvancedSettingsView: View {
             if (safe.modules ?? []).isEmpty {
                  EmptyView()
             } else {
-                Section(header: ListSectionHeader(text: "ADDRESSES OF ENABLED MODULES")) {
+                Section(header: SectionHeader("ADDRESSES OF ENABLED MODULES")) {
                     ForEach(safe.modules ?? [], id: \.self, content: { owner in
                         AddressCell(address: owner)
                     })
@@ -60,6 +60,6 @@ struct SafeAdvancedSettingsView: View {
 
 struct SafeAdvancedSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SafeAdvancedSettingsView(safe: Safe())
+        AdvancedSafeSettingsView(safe: Safe())
     }
 }
