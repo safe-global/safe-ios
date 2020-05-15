@@ -29,26 +29,6 @@ struct AdvancedAppSettings: View {
     }
 }
 
-struct KeyValueRow: View {
-
-    var key: String
-    var value: String
-
-    init(_ key: String, _ value: String) {
-        self.key = key
-        self.value = value
-    }
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            BoldText(key)
-            Text(value)
-                .font(Font.gnoBody.weight(.medium))
-                .foregroundColor(Color.gnoMediumGrey)
-        }
-    }
-}
-
 struct AdvancedAppSettings_Previews: PreviewProvider {
     static var previews: some View {
         AdvancedAppSettings()
