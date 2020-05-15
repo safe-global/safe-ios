@@ -34,8 +34,8 @@ class App {
     let termOfUseURL = URL(string:"https://gnosis-safe.io/terms/")!
     let privacyPolicyURL = URL(string:"https://gnosis-safe.io/privacy/")!
     let licensesURL = URL(string:"https://gnosis-safe.io/licenses/")!
-    var appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    let network = "Mainnet"
     
     private init() {}
 }

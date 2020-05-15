@@ -29,7 +29,7 @@ struct SettingsTopTabView: View {
                 if selection == 0 {
                     SelectedSafeSettingsView()
                 } else {
-                    AppSettingsView()
+                    BasicAppSettingsView()
                 }
             }
         }

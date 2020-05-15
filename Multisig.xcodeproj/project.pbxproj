@@ -29,7 +29,8 @@
 		04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BFB55A2459785D00090386 /* KeyboadHandler.swift */; };
 		04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97A99246C3E5F00EBA0F1 /* ViewState.swift */; };
 		04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97A9B246C511200EBA0F1 /* RemoveSafeButton.swift */; };
-		04C97A9E246DC14700EBA0F1 /* AdvancedAppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97A9D246DC14700EBA0F1 /* AdvancedAppSettingsView.swift */; };
+		04C97AA4246EAB2300EBA0F1 /* keyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97AA3246EAB2300EBA0F1 /* keyValueView.swift */; };
+		04C97AA6246EC3DF00EBA0F1 /* ValueText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97AA5246EC3DF00EBA0F1 /* ValueText.swift */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
 		0A465C2E246C196900AFA467 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C2D246C196900AFA467 /* Theme.swift */; };
@@ -65,7 +66,7 @@
 		0A93DDB924461C1400688050 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB824461C1400688050 /* Fonts.swift */; };
 		0A93DDBB24461F4800688050 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDBA24461F4800688050 /* Buttons.swift */; };
 		0A946D0A246C4C6E00456BD5 /* SettingsTopTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A946D09246C4C6E00456BD5 /* SettingsTopTabView.swift */; };
-		0A946D0C246C4D3A00456BD5 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A946D0B246C4D3A00456BD5 /* AppSettingsView.swift */; };
+		0A946D0C246C4D3A00456BD5 /* BasicAppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A946D0B246C4D3A00456BD5 /* BasicAppSettingsView.swift */; };
 		0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC32E246022BD00EB9C5D /* ENS.swift */; };
 		0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3302460233300EB9C5D /* ENSContracts.swift */; };
 		0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33224602A7400EB9C5D /* Contract.swift */; };
@@ -170,7 +171,8 @@
 		04BFB55A2459785D00090386 /* KeyboadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboadHandler.swift; sourceTree = "<group>"; };
 		04C97A99246C3E5F00EBA0F1 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		04C97A9B246C511200EBA0F1 /* RemoveSafeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveSafeButton.swift; sourceTree = "<group>"; };
-		04C97A9D246DC14700EBA0F1 /* AdvancedAppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAppSettingsView.swift; sourceTree = "<group>"; };
+		04C97AA3246EAB2300EBA0F1 /* keyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyValueView.swift; sourceTree = "<group>"; };
+		04C97AA5246EC3DF00EBA0F1 /* ValueText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueText.swift; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		0A465C2D246C196900AFA467 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -210,7 +212,7 @@
 		0A93DDB824461C1400688050 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		0A93DDBA24461F4800688050 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		0A946D09246C4C6E00456BD5 /* SettingsTopTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTopTabView.swift; sourceTree = "<group>"; };
-		0A946D0B246C4D3A00456BD5 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
+		0A946D0B246C4D3A00456BD5 /* BasicAppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAppSettingsView.swift; sourceTree = "<group>"; };
 		0A9BC32E246022BD00EB9C5D /* ENS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENS.swift; sourceTree = "<group>"; };
 		0A9BC3302460233300EB9C5D /* ENSContracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSContracts.swift; sourceTree = "<group>"; };
 		0A9BC33224602A7400EB9C5D /* Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
@@ -341,8 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				0A946D09246C4C6E00456BD5 /* SettingsTopTabView.swift */,
-				0A946D0B246C4D3A00456BD5 /* AppSettingsView.swift */,
-				04C97A9D246DC14700EBA0F1 /* AdvancedAppSettingsView.swift */,
+				0A946D0B246C4D3A00456BD5 /* BasicAppSettingsView.swift */,
 				0AE061D9246469E200CB60D7 /* Safe Settings */,
 				0A946D08246C4C5F00456BD5 /* Get In Touch */,
 			);
@@ -483,6 +484,7 @@
 				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
 				0AF6501A24488D280018D070 /* FullSize.swift */,
+				04C97AA3246EAB2300EBA0F1 /* keyValueView.swift */,
 				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,
 				041C2A592456F53E0044A24C /* QRView.swift */,
 				0A628FF4245710260038DC88 /* SafeCell.swift */,
@@ -525,6 +527,7 @@
 				0A72AC5B245312FC00840641 /* BoldText.swift */,
 				0A9BC36024605AA800EB9C5D /* ErrorText.swift */,
 				0A72AC612453169700840641 /* LinkText.swift */,
+				04C97AA5246EC3DF00EBA0F1 /* ValueText.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -1017,7 +1020,7 @@
 				551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
-				0A946D0C246C4D3A00456BD5 /* AppSettingsView.swift in Sources */,
+				0A946D0C246C4D3A00456BD5 /* BasicAppSettingsView.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
 				0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */,
@@ -1025,6 +1028,7 @@
 				0A7AEAE32462FA6000014184 /* AddSafeRow.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
+				04C97AA4246EAB2300EBA0F1 /* keyValueView.swift in Sources */,
 				04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */,
 				0AE061D524642F1F00CB60D7 /* RootNavigationView.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
@@ -1076,6 +1080,7 @@
 				0A465C37246C2ECD00AFA467 /* GetInTouchView.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
+				04C97AA6246EC3DF00EBA0F1 /* ValueText.swift in Sources */,
 				0A72AC5C245312FC00840641 /* BoldText.swift in Sources */,
 				5532D4E12449A4CF0067505A /* SafeRelayService.swift in Sources */,
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
@@ -1092,7 +1097,6 @@
 				0A7AEADF2462F95100014184 /* SwitchSafeButton.swift in Sources */,
 				0A72AC5A2453125800840641 /* EnterSafeAddressView.swift in Sources */,
 				0A9BC36124605AA800EB9C5D /* ErrorText.swift in Sources */,
-				04C97A9E246DC14700EBA0F1 /* AdvancedAppSettingsView.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
 				04769166246408D000D73D8B /* SafeSettingsViewModel.swift in Sources */,
 			);
