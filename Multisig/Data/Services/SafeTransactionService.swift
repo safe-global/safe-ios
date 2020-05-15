@@ -9,10 +9,13 @@
 import Foundation
 
 class SafeTransactionService {
+
+    var url: URL
     private let logger: Logger
     private let httpClient: JSONHTTPClient
 
     init(url: URL, logger: Logger) {
+        self.url = url
         self.logger = logger
         httpClient = JSONHTTPClient(url: url, logger: logger)
     }
