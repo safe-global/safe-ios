@@ -13,38 +13,38 @@ struct BasicSafeSettingsView: View {
     @ObservedObject
     var safe: Safe
 
-    var rowHeight: CGFloat = 48
+    let rowHeight: CGFloat = 48
     
     var body: some View {
         List {
-            Section(header: ListSectionHeader(text:"SAFE NAME")) {
+            Section(header: SectionHeader("SAFE NAME")) {
                 NavigationLink(destination: EditSafeNameView(address: safe.address ?? "", name: safe.name ?? "")) {
                     BodyText(safe.name ?? "")
                 }
                 .frame(height: rowHeight)
             }
 
-            Section(header: ListSectionHeader(text: "REQUIRED CONFIRMATIONS")) {
+            Section(header: SectionHeader("REQUIRED CONFIRMATIONS")) {
                 BodyText("\(safe.threshold ?? 0) out of \(safe.owners?.count ?? 0)")
                     .frame(height: rowHeight)
             }
 
-            Section(header: ListSectionHeader(text: "OWNER ADDRESSES")) {
+            Section(header: SectionHeader("OWNER ADDRESSES")) {
                 ForEach(safe.owners ?? [], id: \.self, content: { owner in
                     AddressCell(address: owner)
                 })
             }
 
-            Section(header: ListSectionHeader(text: "CONTRACT VERSION")) {
+            Section(header: SectionHeader("CONTRACT VERSION")) {
                 ContractVersionCell(address: safe.masterCopy ?? "", version: safe.version ?? "")
             }
 
-            Section(header: ListSectionHeader(text: "ENS NAME")) {
+            Section(header: SectionHeader("ENS NAME")) {
                 LoadableENSNameText(safe: safe, placeholder: "Not set")
                     .frame(height: rowHeight)
             }
 
-            Section(header: ListSectionHeader(text: " ")) {
+            Section(header: SectionHeader(" ")) {
                 NavigationLink(destination: AdvancedSafeSettingsView(safe: safe)) {
                     BodyText("Advanced")
                 }

@@ -18,13 +18,10 @@ struct AddressCell: View {
         HStack(alignment: .center, spacing: 12) {
             Identicon(address).frame(width: 36, height: 36)
             
-            Button(action: {
-                UIPasteboard.general.string = self.address
-            }) {
+            CopyButton(address) {
                 AddressText(address)
                     .font(Font.gnoBody.weight(.medium))
             }
-            .buttonStyle(BorderlessButtonStyle())
             
             Spacer()
             

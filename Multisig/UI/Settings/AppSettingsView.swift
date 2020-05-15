@@ -12,6 +12,7 @@ struct AppSettingsView: View {
     var body: some View {
         List {
             NavigationLink("Get In Touch", destination: GetInTouchView())
+            NavigationLink("Advanced", destination: AdvancedAppSettings())
         }
     }
 }
