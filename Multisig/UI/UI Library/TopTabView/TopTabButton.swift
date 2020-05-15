@@ -25,7 +25,7 @@ struct TopTabButton<Content: View>: View {
     var body: some View {
         Button(action: select) {
             if isSelected {
-                label.background(BottomBorder(height: 2))
+                label.background(BottomBorder(width: 2))
             } else {
                 label.accentColor(Color.gnoMediumGrey)
             }

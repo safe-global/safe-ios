@@ -358,7 +358,6 @@
 			children = (
 				0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */,
 				0A0EFC99246DAC1A00D3D8BF /* TopTabChildView.swift */,
-				0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */,
 				0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */,
 			);
 			path = TopTabView;
@@ -497,6 +496,7 @@
 				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
 				044A54432448D0B6009CBB80 /* QRCodeScanner */,
 				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
+				0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */,
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
 				0AF6501A24488D280018D070 /* FullSize.swift */,
 				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,

@@ -1,5 +1,5 @@
 //
-//  BottomBorder.swift
+//  Underline.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 14.05.20.
@@ -8,17 +8,17 @@
 
 import SwiftUI
 
-// Draws a configurable-height bottom border
+// Draws a horizontal underline at the bottom of the frame rectangle.
 struct BottomBorder: Shape {
 
-    var height: CGFloat
+    var width: CGFloat
 
     func path(in rect: CGRect) -> Path {
         var path = Path()
         path.addRect(CGRect(x: rect.minX,
-                            y: rect.maxY - height,
+                            y: rect.maxY - width,
                             width: rect.width,
-                            height: height))
+                            height: width))
         path.closeSubpath()
         return path
     }

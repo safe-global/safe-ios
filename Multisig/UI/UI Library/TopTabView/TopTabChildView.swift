@@ -20,7 +20,8 @@ struct TopTabChildView<Label: View, Content: View>: View {
 }
 
 extension View {
-    func topTabItem<Label>(@ViewBuilder _ label: () -> Label) -> TopTabChildView<Label, Self> where Label: View {
-        TopTabChildView(label: label(), content: self)
+    func topTabItem<Label>(@ViewBuilder _ label: () -> Label)
+        -> TopTabChildView<Label, Self> where Label: View {
+            TopTabChildView(label: label(), content: self)
     }
 }
