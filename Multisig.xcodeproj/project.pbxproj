@@ -538,9 +538,11 @@
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
 				0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */,
 				0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */,
+				0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */,
 				0AF6501A24488D280018D070 /* FullSize.swift */,
 				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,
 				0A0EFCA7246EB13300D3D8BF /* KeyValueRow.swift */,
+				0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */,
 				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
 				041C2A592456F53E0044A24C /* QRView.swift */,
 				04C97A9B246C511200EBA0F1 /* RemoveSafeButton.swift */,
@@ -555,8 +557,6 @@
 				0AF432D4244F063800E22E50 /* Styleguide */,
 				0A9BC3432460514B00EB9C5D /* Text */,
 				0A0EFC9B246DAD0B00D3D8BF /* TopTabView */,
-				0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */,
-				0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
