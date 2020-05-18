@@ -136,6 +136,7 @@
 		55F9A2DF2472D16500ABBA6F /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2DD2472D16500ABBA6F /* AssetsView.swift */; };
 		55F9A2E02472D16500ABBA6F /* AssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2DE2472D16500ABBA6F /* AssetsViewModel.swift */; };
 		55F9A2E22472D1F900ABBA6F /* TokenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2E12472D1F900ABBA6F /* TokenImage.swift */; };
+		55F9A2E42472DA3300ABBA6F /* AssetsOrAddSafeIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2E32472DA3300ABBA6F /* AssetsOrAddSafeIntroView.swift */; };
 		9982F1C834FC801EAD7BDFE8 /* libPods-Multisig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */; };
 		EB57A403B3F8709859BA822E /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B81E8C8DC80D2C573D9B6BF /* libPods-MultisigTests.a */; };
 /* End PBXBuildFile section */
@@ -296,6 +297,7 @@
 		55F9A2DD2472D16500ABBA6F /* AssetsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
 		55F9A2DE2472D16500ABBA6F /* AssetsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsViewModel.swift; sourceTree = "<group>"; };
 		55F9A2E12472D1F900ABBA6F /* TokenImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenImage.swift; sourceTree = "<group>"; };
+		55F9A2E32472DA3300ABBA6F /* AssetsOrAddSafeIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsOrAddSafeIntroView.swift; sourceTree = "<group>"; };
 		69FE277EF0E99D5C7D51C279 /* Pods-MultisigIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		92B7E305E3E3D34CBC5DB687 /* libPods-MultisigIntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigIntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD6D0510D7AE8BF83C2872E /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.xcconfig"; path = "Pods/Target Support Files/Pods-Multisig/Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
@@ -838,6 +840,7 @@
 			children = (
 				55F9A2DD2472D16500ABBA6F /* AssetsView.swift */,
 				55F9A2DE2472D16500ABBA6F /* AssetsViewModel.swift */,
+				55F9A2E32472DA3300ABBA6F /* AssetsOrAddSafeIntroView.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1101,6 +1104,7 @@
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
 				0A0EFC98246DAABF00D3D8BF /* BottomBorder.swift in Sources */,
+				55F9A2E42472DA3300ABBA6F /* AssetsOrAddSafeIntroView.swift in Sources */,
 				0A946D0C246C4D3A00456BD5 /* AppSettingsView.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,

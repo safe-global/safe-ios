@@ -9,15 +9,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @Environment(\.managedObjectContext)
     var context: CoreDataContext
-    
+
     @ObservedObject
     var viewState = ViewState.shared
-
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    var selectedSafe: FetchedResults<Safe>
 
     var body: some View {
         // Putting the tabview inside a navigation view is the preferred
@@ -27,42 +23,33 @@ struct ContentView: View {
         // and it looks cropped) - this is seen on a real device (iPhone 6s)
         RootNavigationView {
             TabView(selection: $viewState.state){
-                assetsOrAddSafeIntroView
-                .tabItem {
-                    VStack {
-                        Image("tab-icon-balances")
-                        Text("Balances")
+                AssetsOrAddSafeIntroView()
+                    .environment(\.managedObjectContext, context)
+                    .tabItem {
+                        VStack {
+                            Image("tab-icon-balances")
+                            Text("Balances")
+                        }
                     }
-                }
-                .tag(ViewStateMode.balanaces)
+                    .tag(ViewStateMode.balanaces)
 
                 AddSafeIntroView()
-                .tabItem {
-                    VStack {
-                        Image("tab-icon-transactions")
-                        Text("Transactions")
+                    .tabItem {
+                        VStack {
+                            Image("tab-icon-transactions")
+                            Text("Transactions")
+                        }
                     }
-                }
-                .tag(ViewStateMode.transactions)
+                    .tag(ViewStateMode.transactions)
 
                 SettingsView()
-                .tabItem {
-                    VStack {
-                        Image("tab-icon-settings")
-                        Text("Settings")
+                    .tabItem {
+                        VStack {
+                            Image("tab-icon-settings")
+                            Text("Settings")
+                        }
                     }
-                }
-                .tag(ViewStateMode.settings)
-            }
-        }
-    }
-
-    var assetsOrAddSafeIntroView: some View {
-        ZStack {
-            if selectedSafe.first != nil {
-                AssetsView()
-            } else {
-                AddSafeIntroView()
+                    .tag(ViewStateMode.settings)
             }
         }
     }

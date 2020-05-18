@@ -11,10 +11,10 @@ import Combine
 
 struct TokenBalance: Identifiable {
     var id: String {
-        return address
+        address
     }
     var imageURL: URL {
-        return URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(address).png")!
+        URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(address).png")!
     }
     let address: String
     let balance: String
