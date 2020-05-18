@@ -28,11 +28,9 @@ class AssetsViewModel: ObservableObject {
 
     private var subscribers = Set<AnyCancellable>()
 
-    init() {
-        let request = Safe.fetchRequest().selected()
-        let selectedSafe = try! CoreDataStack.shared.viewContext.fetch(request).first!
+    init(safe: Safe) {
         isLoading = true
-        Just(selectedSafe.address!)
+        Just(safe.address!)
             .setFailureType(to: Error.self)
             .flatMap { address in
                 Future<[TokenBalance], Error> { promise in

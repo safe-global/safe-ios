@@ -21,7 +21,7 @@ DEPENDENCIES:
   - BlockiesSwift (from `https://github.com/gnosis/BlockiesSwift.git`, branch `0.1.2-gnosis`)
   - idn2Swift (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
   - idn2Swift/Tests (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
-  - Kingfisher/SwiftUI
+  - Kingfisher/SwiftUI (= 5.14.0)
   - secp256k1.swift
   - SwiftCryptoTokenFormatter (from `https://github.com/gnosis/SwiftCryptoTokenFormatter.git`, branch `master`)
   - Web3/Core (= 0.4.2)
@@ -67,6 +67,6 @@ SPEC CHECKSUMS:
   SwiftCryptoTokenFormatter: 416367b31a0bb71e2b4f3928fa92bfc7c9611763
   Web3: 7b2c30f98f24cc290bc671ab525d7a30a2afbc73
 
-PODFILE CHECKSUM: 002e8725365c3746e93e0f8c8964543998e200f9
+PODFILE CHECKSUM: 86e694d4d94739c2d949071bf42bf21801a442a8
 
 COCOAPODS: 1.8.4

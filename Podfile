@@ -20,7 +20,7 @@ target 'Multisig' do
   pod 'idn2Swift', :git => 'https://github.com/gnosis/pod-idn2.git', :branch => 'master', :testspecs => ['Tests']
   
   # Dependency for handling images loaded by url
-  pod 'Kingfisher/SwiftUI'
+  pod 'Kingfisher/SwiftUI', '5.14.0'
 
   # Dependency for formatting tokens in UI
   # Uses BigInt as a dependency

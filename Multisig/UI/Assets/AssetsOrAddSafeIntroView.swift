@@ -15,7 +15,7 @@ struct AssetsOrAddSafeIntroView: View {
     var body: some View {
         ZStack {
             if selectedSafe.first != nil {
-                AssetsView()
+                AssetsView(safe: selectedSafe.first!)
             } else {
                 AddSafeIntroView()
             }

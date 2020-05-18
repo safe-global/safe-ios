@@ -10,7 +10,11 @@ import SwiftUI
 
 struct AssetsView: View {
     @ObservedObject
-    var model = AssetsViewModel()
+    var model: AssetsViewModel
+
+    init(safe: Safe) {
+        self.model = AssetsViewModel(safe: safe)
+    }
 
     var body: some View {
         ZStack(alignment: .center) {
@@ -47,11 +51,5 @@ struct TokenBalanceCell: View {
                 BodyText(tokenBalance.balanceUsd)
             }
         }
-    }
-}
-
-struct AssetsView_Previews: PreviewProvider {
-    static var previews: some View {
-        AssetsView()
     }
 }
