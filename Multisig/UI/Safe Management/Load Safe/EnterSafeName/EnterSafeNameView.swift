@@ -48,8 +48,7 @@ struct EnterSafeNameView: View {
 
     var nextButton: some View {
         Button("Next", action: submit)
-            .font(Font.body.bold())
-            .disabled(model.isValid != true)
+            .barButton(disabled: model.isValid != true)
     }
 
     func submit() {
