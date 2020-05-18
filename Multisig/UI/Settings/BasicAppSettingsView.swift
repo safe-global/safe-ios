@@ -40,6 +40,11 @@ struct BasicAppSettingsView: View {
                 .frame(height: rowHeight)
             }
         }
+        .background(
+          Rectangle()
+            .edgesIgnoringSafeArea(.all)
+            .foregroundColor(Color.gnoWhite)
+        )
     }
 }
 
