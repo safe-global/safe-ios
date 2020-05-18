@@ -18,8 +18,14 @@ target 'Multisig' do
   
   # Dependency for ENS name resolution
   pod 'idn2Swift', :git => 'https://github.com/gnosis/pod-idn2.git', :branch => 'master', :testspecs => ['Tests']
-  pod 'BigInt', '4.0.0'
   
+  # Dependency for handling images loaded by url
+  pod 'Kingfisher/SwiftUI', '5.14.0'
+
+  # Dependency for formatting tokens in UI
+  # Uses BigInt as a dependency
+  pod 'SwiftCryptoTokenFormatter', :git => 'https://github.com/gnosis/SwiftCryptoTokenFormatter.git', :branch => 'master'
+
   target 'MultisigTests' do
     inherit! :search_paths
   end
