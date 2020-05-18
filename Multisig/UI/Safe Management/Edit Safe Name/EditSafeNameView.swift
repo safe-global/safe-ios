@@ -35,26 +35,30 @@ struct EditSafeNameView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            RoundedTextField(title: "Enter name",
-                        text: $model.enteredText,
-                        isValid: $model.isValid,
-                        onEditingChanged: { ended in
-                            if !ended {
-                                self.model.onEditing()
-                            }
-                        },
-                        onCommit: submit)
+            VStack(alignment: .leading) {
+                RoundedTextField(title: "Enter name",
+                            text: $model.enteredText,
+                            isValid: $model.isValid,
+                            onEditingChanged: { ended in
+                                if !ended {
+                                    self.model.onEditing()
+                                }
+                            },
+                            onCommit: submit)
+                ErrorText(model.error)
+            }
 
             Spacer()
         }
         .padding(.top, 24)
-        .padding([.leading, .trailing])
+        .padding(.horizontal)
         .navigationBarTitle("Edit Safe Name", displayMode: .inline)
-        .navigationBarItems(trailing: saveButton)
+        .navigationBarItems(leading: BackButton("Cancel"), trailing: saveButton)
     }
 
     var saveButton: some View {
         Button("Save", action: submit)
+            .font(Font.body.bold())
             .disabled(model.isValid != true && model.enteredText != safe?.name)
     }
 

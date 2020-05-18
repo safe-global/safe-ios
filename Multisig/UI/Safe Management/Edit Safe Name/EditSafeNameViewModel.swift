@@ -17,6 +17,9 @@ class EditSafeNameViewModel: ObservableObject {
     @Published
     var isValid: Bool?
 
+    @Published
+    var error: String = ""
+
     var address: String
 
     private var subscribers = Set<AnyCancellable>()
@@ -32,6 +35,7 @@ class EditSafeNameViewModel: ObservableObject {
             }
             .sink { value in
                 self.isValid = !value.isEmpty
+                self.error = self.isValid == false ? "Name must not be empty" : ""
             }
             .store(in: &subscribers)
     }
