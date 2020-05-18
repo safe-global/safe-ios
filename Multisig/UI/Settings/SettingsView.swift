@@ -20,7 +20,7 @@ struct SettingsView: View {
                     }
                 }
 
-            AppSettingsView()
+            BasicAppSettingsView()
                 .topTabItem {
                     HStack {
                         Image("ico-app-settings")

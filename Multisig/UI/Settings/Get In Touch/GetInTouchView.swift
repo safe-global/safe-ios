@@ -10,75 +10,33 @@ import SwiftUI
 
 struct GetInTouchView: View {
 
-    typealias CommsChannel = (url: String, icon: String, text: String)
+    typealias CommsChannel = (url: URL, icon: String, text: String)
 
+    @ObservedObject
+    var theme: Theme = App.shared.theme
+    
     let channels: [CommsChannel] = [
-        ("safe@gnosis.io", "ico-eMail", "E-mail"),
-        ("https://discord.gg/FPMRAwK", "ico-discord", "Discord"),
-        ("https://twitter.com/gnosisSafe", "ico-twitter", "Twitter"),
-        ("https://help.gnosis-safe.io", "ico-helpCenter", "Help Center"),
-        ("https://safe.cnflx.io/", "ico-featureSuggestion", "Feature suggestion")
+        (URL(string:"https://discord.gg/FPMRAwK")!, "ico-discord", "Discord"),
+        (URL(string:"https://twitter.com/gnosisSafe")!, "ico-twitter", "Twitter"),
+        (URL(string:"https://help.gnosis-safe.io")!, "ico-helpCenter", "Help Center"),
+        (URL(string:"https://safe.cnflx.io/")!, "ico-featureSuggestion", "Feature suggestion")
     ]
-
-    // we have a trigger value for each type of a sheet or alert.
-    // when these values become non-nil, the respective sheet or alert sheet
-    // will be opened.
-    @State var emailURL: IdentifiableByHash<URL>?
-    @State var browserURL: IdentifiableByHash<URL>?
-    @State var error: IdentifiableByHash<String>?
 
     var body: some View {
         List {
+            EmailLink(title: "E-mail", url: URL(string:"safe@gnosis.io")!, iconName: "ico-eMail")
+
             ForEach(channels, id: \.url) { item in
-                Button(action: { self.updateActiveURL(item: item) }) {
-                    HStack {
-                        Image(item.icon)
-                        BodyText(item.text)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(Color.gnoDarkGrey)
-                    }
-                }
-                .frame(height: 60)
-
+                BrowserLink(title: item.text, url: item.url, iconName: item.icon)
             }
-            // to make bottom separator on the last row
-            HStack {
-                // workaround to enable multiple sheet modifiers work
-                // otherwise only the last sheet modifier is working if
-                // all of them attached to the same view.
-                Text("").sheet(item: $emailURL) { url in
-                    EmailSupportViewController(url: url.value)
-                }
-
-                Text("").alert(item: $error) { msg in
-                    Alert(title: Text(msg.value))
-                }
-
-                Text("").sheet(item: $browserURL) { url in
-                    SafariViewController(url: url.value)
-                }
-            }
+        }
+        .onAppear {
+            self.theme.setTemporaryTableViewBackground(nil)
+        }
+        .onDisappear {
+            self.theme.resetTemporaryTableViewBackground()
         }
         .navigationBarTitle("Get In Touch", displayMode: .inline)
-    }
-
-    func updateActiveURL(item: CommsChannel) {
-        emailURL = nil
-        browserURL = nil
-        error = nil
-
-        guard let url = URL(string: item.url) else { return }
-
-        if url.absoluteString.contains("@") {
-            if EmailSupportViewController.isAvailable {
-                emailURL = IdentifiableByHash(url)
-            } else {
-                error = IdentifiableByHash("Mail is not configured.")
-            }
-        } else {
-            browserURL = IdentifiableByHash(url)
-        }
     }
 }
 

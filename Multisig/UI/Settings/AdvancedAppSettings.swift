@@ -10,7 +10,8 @@ import SwiftUI
 
 struct AdvancedAppSettings: View {
 
-    let rowHeight: CGFloat = 68
+    @ObservedObject
+    var theme: Theme = App.shared.theme
 
     var body: some View {
         List {
@@ -24,6 +25,12 @@ struct AdvancedAppSettings: View {
                 KeyValueRow("Transaction service",
                             DisplayURL(App.shared.safeTransactionService.url).absoluteString)
             }
+        }
+        .onAppear {
+            self.theme.setTemporaryTableViewBackground(nil)
+        }
+        .onDisappear {
+            self.theme.resetTemporaryTableViewBackground()
         }
         .navigationBarTitle("Advanced")
     }
