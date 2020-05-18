@@ -106,6 +106,7 @@
 		0AE061D524642F1F00CB60D7 /* RootNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE061D424642F1F00CB60D7 /* RootNavigationView.swift */; };
 		0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */; };
 		0AE061D82464591900CB60D7 /* BasicSafeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE061D72464591900CB60D7 /* BasicSafeSettingsView.swift */; };
+		0AEDCE0724728D7100A1EC80 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEDCE0624728D7100A1EC80 /* BackButton.swift */; };
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6500A24485E450018D070 /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6500924485E450018D070 /* Identicon.swift */; };
 		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
@@ -257,6 +258,7 @@
 		0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		0AE061D424642F1F00CB60D7 /* RootNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationView.swift; sourceTree = "<group>"; };
 		0AE061D72464591900CB60D7 /* BasicSafeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSafeSettingsView.swift; sourceTree = "<group>"; };
+		0AEDCE0624728D7100A1EC80 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF6500924485E450018D070 /* Identicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identicon.swift; sourceTree = "<group>"; };
 		0AF6501A24488D280018D070 /* FullSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSize.swift; sourceTree = "<group>"; };
@@ -557,6 +559,7 @@
 				0AF432D4244F063800E22E50 /* Styleguide */,
 				0A9BC3432460514B00EB9C5D /* Text */,
 				0A0EFC9B246DAD0B00D3D8BF /* TopTabView */,
+				0AEDCE0624728D7100A1EC80 /* BackButton.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -1139,6 +1142,7 @@
 				0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
+				0AEDCE0724728D7100A1EC80 /* BackButton.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
