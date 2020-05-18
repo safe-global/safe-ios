@@ -9,10 +9,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @Environment(\.managedObjectContext)
     var context: CoreDataContext
-    
+
     @ObservedObject
     var viewState = ViewState.shared
 
@@ -24,32 +23,33 @@ struct ContentView: View {
         // and it looks cropped) - this is seen on a real device (iPhone 6s)
         RootNavigationView {
             TabView(selection: $viewState.state){
-                AddSafeIntroView()
-                .tabItem {
-                    VStack {
-                        Image("tab-icon-balances")
-                        Text("Balances")
+                AssetsOrAddSafeIntroView()
+                    .environment(\.managedObjectContext, context)
+                    .tabItem {
+                        VStack {
+                            Image("tab-icon-balances")
+                            Text("Balances")
+                        }
                     }
-                }
-                .tag(ViewStateMode.balanaces)
+                    .tag(ViewStateMode.balanaces)
 
                 AddSafeIntroView()
-                .tabItem {
-                    VStack {
-                        Image("tab-icon-transactions")
-                        Text("Transactions")
+                    .tabItem {
+                        VStack {
+                            Image("tab-icon-transactions")
+                            Text("Transactions")
+                        }
                     }
-                }
-                .tag(ViewStateMode.transactions)
+                    .tag(ViewStateMode.transactions)
 
                 SettingsView()
-                .tabItem {
-                    VStack {
-                        Image("tab-icon-settings")
-                        Text("Settings")
+                    .tabItem {
+                        VStack {
+                            Image("tab-icon-settings")
+                            Text("Settings")
+                        }
                     }
-                }
-                .tag(ViewStateMode.settings)
+                    .tag(ViewStateMode.settings)
             }
         }
     }

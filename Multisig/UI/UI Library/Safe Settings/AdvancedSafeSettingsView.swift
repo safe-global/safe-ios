@@ -14,6 +14,9 @@ struct AdvancedSafeSettingsView: View {
     @ObservedObject
     var safe: Safe
 
+    @ObservedObject
+    var theme: Theme = App.shared.theme
+    
     var body: some View {
         List {
             Section(header: SectionHeader("MASTER COPY ADDRESS")) {
@@ -28,7 +31,14 @@ struct AdvancedSafeSettingsView: View {
              
             modulesSection
         
-        }.navigationBarTitle("Advanced", displayMode: .inline)
+        }
+        .onAppear {
+            self.theme.setTemporaryTableViewBackground(nil)
+        }
+        .onDisappear {
+            self.theme.resetTemporaryTableViewBackground()
+        }
+        .navigationBarTitle("Advanced", displayMode: .inline)
     }
     
     var fallbackHandlerView : some View {
