@@ -31,6 +31,7 @@ extension Color {
     static let gnoWhite = Color("white")
     static let gnoWhitesmoke = Color("whitesmoke")
     static let gnoWhitesmokeTwo = Color("whitesmokeTwo")
+    static let systemGray6Light = Color("systemGray6Light")
 }
 
 extension View {

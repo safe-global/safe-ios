@@ -27,6 +27,18 @@ class App {
     logger: LogService.shared)
 
     var nodeService = EthereumNodeService(url: URL(string: "https://rinkeby.infura.io/v3/438e11915f8b4834a05e7810b88db4b3")!)
+
+    let termOfUseURL = URL(string:"https://gnosis-safe.io/terms/")!
+    let privacyPolicyURL = URL(string:"https://gnosis-safe.io/privacy/")!
+    let licensesURL = URL(string:"https://gnosis-safe.io/licenses/")!
+    let appVersion = "\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String) (\(Bundle.main.infoDictionary?["CFBundleVersion"] as! String))"
+
+    let network: Network = .rinkeby
     
     private init() {}
+}
+
+enum Network: String {
+    case mainnet = "Mainnet"
+    case rinkeby = "Rinkeby"
 }

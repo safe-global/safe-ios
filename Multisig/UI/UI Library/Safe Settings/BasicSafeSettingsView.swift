@@ -21,6 +21,7 @@ struct BasicSafeSettingsView: View {
                 NavigationLink(destination: EditSafeNameView(address: safe.address ?? "", name: safe.name ?? "")) {
                     BodyText(safe.name ?? "")
                 }
+                    
                 .frame(height: rowHeight)
             }
 
