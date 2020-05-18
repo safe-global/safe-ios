@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct ContentView: View {
-
-    @State private var selection = 0
-    @State private var showsSafeInfo: Bool = false
+    
+    @Environment(\.managedObjectContext)
+    var context: CoreDataContext
+    
+    @ObservedObject
+    var viewState = ViewState.shared
 
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
@@ -23,33 +26,33 @@ struct ContentView: View {
         // status bar (the navigation bar appears beneath the status bar
         // and it looks cropped) - this is seen on a real device (iPhone 6s)
         RootNavigationView {
-            TabView(selection: $selection) {
+            TabView(selection: $viewState.state){
                 assetsOrAddSafeIntroView
-                    .tabItem {
-                        VStack {
-                            Image("tab-icon-balances")
-                            Text("Assets")
-                        }
+                .tabItem {
+                    VStack {
+                        Image("tab-icon-balances")
+                        Text("Balances")
                     }
-                    .tag(0)
+                }
+                .tag(ViewStateMode.balanaces)
 
                 AddSafeIntroView()
-                    .tabItem {
-                        VStack {
-                            Image("tab-icon-transactions")
-                            Text("Transactions")
-                        }
+                .tabItem {
+                    VStack {
+                        Image("tab-icon-transactions")
+                        Text("Transactions")
                     }
-                    .tag(1)
+                }
+                .tag(ViewStateMode.transactions)
 
                 SettingsView()
-                    .tabItem {
-                        VStack {
-                            Image("tab-icon-settings")
-                            Text("Settings")
-                        }
+                .tabItem {
+                    VStack {
+                        Image("tab-icon-settings")
+                        Text("Settings")
                     }
-                    .tag(2)
+                }
+                .tag(ViewStateMode.settings)
             }
         }
     }
@@ -63,7 +66,6 @@ struct ContentView: View {
             }
         }
     }
-
 }
 
 struct ContentView_Previews: PreviewProvider {

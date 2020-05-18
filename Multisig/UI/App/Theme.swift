@@ -27,6 +27,7 @@ class Theme: ObservableObject {
         // makes separators to take full width of the screen
         // (default is with offset)
         UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        UITableView.appearance().backgroundColor = UIColor(named: "white")
     }
 
     func setTemporaryTableViewBackground(_ color: UIColor?) {

@@ -1,5 +1,5 @@
 //
-//  SafeSettingsView.swift
+//  LoadableSafeSettingsView.swift
 //  Multisig
 //
 //  Created by Moaaz on 5/4/20.
@@ -9,13 +9,13 @@
 import SwiftUI
 import CoreData
 
-struct SafeSettingsView: View {
+struct LoadableSafeSettingsView: View {
 
     @ObservedObject
-    var model: SafeSettingsViewModel
+    var model: LoadableSafeSettingsViewModel
 
     init(safe: Safe) {
-        model = SafeSettingsViewModel(safe: safe)
+        model = LoadableSafeSettingsViewModel(safe: safe)
     }
     
     /// when change safe, model object should be changed also 
@@ -30,7 +30,7 @@ struct SafeSettingsView: View {
             } else if model.errorMessage != nil {
                 ErrorText(model.errorMessage!)
             } else {
-                SafeSettingsContentView(safe: model.safe)
+                BasicSafeSettingsView(safe: model.safe)
             }
         }
     }

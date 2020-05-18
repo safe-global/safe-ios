@@ -2,33 +2,36 @@
 //  SettingsView.swift
 //  Multisig
 //
-//  Created by Moaaz on 5/4/20.
+//  Created by Dmitry Bespalov on 13.05.20.
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
 import SwiftUI
-import CoreData
 
 struct SettingsView: View {
-    @Environment(\.managedObjectContext)
-    var context: NSManagedObjectContext
 
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    var selected: FetchedResults<Safe>
-    
     var body: some View {
-        ZStack {
-            if selected.first == nil {
-                AddSafeIntroView()
-            } else {
-                SafeSettingsView(safe: selected.first!)
-                    .environment(\.managedObjectContext, self.context)
-            }
+        TopTabView {
+            SafeSettingsView()
+                .topTabItem {
+                    HStack {
+                        Image("ico-safe-settings")
+                        Text("SAFE SETTINGS").font(Font.gnoFootnote.bold())
+                    }
+                }
+
+            AppSettingsView()
+                .topTabItem {
+                    HStack {
+                        Image("ico-app-settings")
+                        Text("APP SETTINGS").font(Font.gnoFootnote.bold())
+                    }
+                }
         }
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
+struct SettingsTopTabView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
     }
