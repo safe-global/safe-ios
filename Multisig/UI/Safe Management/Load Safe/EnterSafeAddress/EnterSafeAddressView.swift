@@ -48,14 +48,11 @@ struct EnterSafeAddressView: View {
                 self.presentationMode.wrappedValue.dismiss()
             }
         )
-        .font(Font.body.bold())
-        .disabled(model.isValid != true)
+        .barButton(disabled: model.isValid != true)
     }
 
     var cancelButton: some View {
-        Button("Cancel") {
-            self.presentationMode.wrappedValue.dismiss()
-        }
+        BackButton("Cancel", presentationMode: presentationMode)
     }
 }
 

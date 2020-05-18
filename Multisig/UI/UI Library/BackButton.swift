@@ -13,15 +13,26 @@ struct BackButton: View {
     @Environment(\.presentationMode)
     var presentationMode: Binding<PresentationMode>
 
+    var customMode: Binding<PresentationMode>?
+
     var label: String
 
     init(_ label: String) {
         self.label = label
     }
 
+    init(_ label: String, presentationMode: Binding<PresentationMode>) {
+        self.label = label
+        self.customMode = presentationMode
+    }
+
     var body: some View {
         Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
+            if self.customMode == nil {
+                self.presentationMode.wrappedValue.dismiss()
+            } else {
+                self.customMode!.wrappedValue.dismiss()
+            }
         }) {
             Image(systemName: "chevron.left").font(.system(size: 25))
             Text(label)

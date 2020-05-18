@@ -18,9 +18,10 @@ struct ErrorText: View {
 
     var body: some View {
         Text(label)
-            .font(Font.gnoBody)
+            .font(Font.gnoCallout)
             .foregroundColor(Color.gnoTomato)
-            .padding()
+            .padding(.trailing)
+            .padding(.top, 12)
     }
 }
 

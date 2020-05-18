@@ -58,8 +58,8 @@ struct EditSafeNameView: View {
 
     var saveButton: some View {
         Button("Save", action: submit)
-            .font(Font.body.bold())
-            .disabled(model.isValid != true && model.enteredText != safe?.name)
+            .barButton(disabled: model.isValid != true &&
+                model.enteredText != safe?.name)
     }
 
     func submit() {

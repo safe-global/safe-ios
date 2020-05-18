@@ -49,8 +49,7 @@ struct EnterENSNameView: View {
             self.presentationMode.wrappedValue.dismiss()
             self.onConfirm(self.model.address!.hex(eip55: true))
         }
-        .font(Font.body.bold())
-        .disabled(model.address == nil)
+        .barButton(disabled: model.address == nil)
     }
 }
 
