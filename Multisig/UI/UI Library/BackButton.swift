@@ -26,6 +26,7 @@ struct BackButton: View {
             Image(systemName: "chevron.left").font(.system(size: 25))
             Text(label)
         }
+        // this makes the chevron position identical to system chevron position
         .offset(x: -7)
     }
 }
