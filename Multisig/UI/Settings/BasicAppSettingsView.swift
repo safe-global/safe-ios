@@ -9,30 +9,29 @@
 import SwiftUI
 
 struct BasicAppSettingsView: View {
-    var rowHeight: CGFloat = 60
+    var rowHeight: CGFloat = 44
 
     var body: some View {
         List {
             NavigationLink(destination: FiatCurrenciesView()) {
-                keyValueView(key: "Fiat currency", value: "EUR")
+                KeyValueView(key: "Fiat currency", value: "USD")
             }
             .frame(height: rowHeight)
 
-            BrowseLinkButton(title: "Terms of use", url: App.shared.termOfUseURL)
-               .frame(height: rowHeight)
+            BrowserLink(title: "Terms of use", url: App.shared.termOfUseURL)
 
-            BrowseLinkButton(title: "Privacy policy", url: App.shared.privacyPolicyURL)
-               .frame(height: rowHeight)
+            BrowserLink(title: "Privacy policy", url: App.shared.privacyPolicyURL)
 
-            BrowseLinkButton(title: "Licenses", url: App.shared.licensesURL)
-               .frame(height: rowHeight)
+            BrowserLink(title: "Licenses", url: App.shared.licensesURL)
 
-            NavigationLink("Get in touch", destination: GetInTouchView())
-                .frame(height: rowHeight)
+            NavigationLink(destination: GetInTouchView()) {
+                BodyText("Get in touch")
+            }
+            .frame(height: rowHeight)
+            
+            KeyValueView(key: "App version", value: App.shared.appVersion)
 
-            keyValueView(key: "App version", value: App.shared.appVersion)
-
-            keyValueView(key: "Network", value: App.shared.network.rawValue)
+            KeyValueView(key: "Network", value: App.shared.network.rawValue)
 
             Section(header: SectionHeader(" ")) {
                 NavigationLink(destination: AdvancedAppSettings()) {
