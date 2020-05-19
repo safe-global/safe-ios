@@ -13,47 +13,98 @@ struct ContentView: View {
     var context: CoreDataContext
 
     @ObservedObject
-    var viewState = ViewState.shared
+    var viewState = App.shared.viewState
+
+    @State
+    private var showsSafeInfo: Bool = false
+
+    private let headerHeight: CGFloat = 116
 
     var body: some View {
-        // Putting the tabview inside a navigation view is the preferred
-        // way for Apple. Switching it around (having each tab to have
-        // its own navigation view) introduces visual glitch in the
-        // status bar (the navigation bar appears beneath the status bar
-        // and it looks cropped) - this is seen on a real device (iPhone 6s)
-        RootNavigationView {
-            TabView(selection: $viewState.state){
-                AssetsOrAddSafeIntroView()
+        NavigationView {
+            VStack(spacing: 0) {
+                SafeHeaderView(showsSafeInfo: $showsSafeInfo)
                     .environment(\.managedObjectContext, context)
-                    .tabItem {
-                        VStack {
-                            Image("tab-icon-balances")
-                            Text("Balances")
-                        }
-                    }
-                    .tag(ViewStateMode.balanaces)
+                    .frame(height: headerHeight)
+                    .zIndex(100)
 
-                AddSafeIntroView()
-                    .tabItem {
-                        VStack {
-                            Image("tab-icon-transactions")
-                            Text("Transactions")
-                        }
-                    }
-                    .tag(ViewStateMode.transactions)
+                GNOTabView($viewState.state) {
 
-                SettingsView()
-                    .tabItem {
-                        VStack {
-                            Image("tab-icon-settings")
-                            Text("Settings")
+                    TempAssets()
+                        .environment(\.managedObjectContext, context)
+                        .gnoTabItem(id: ViewStateMode.balanaces) {
+                            VStack {
+                                Image("tab-icon-balances")
+                                Text("Balances")
+                            }
                         }
-                    }
-                    .tag(ViewStateMode.settings)
+
+                    AddSafeIntroView()
+                        .gnoTabItem(id: ViewStateMode.transactions) {
+                            VStack {
+                                Image("tab-icon-transactions")
+                                Text("Transactions")
+                            }
+                        }
+
+                    SettingsView()
+                        .gnoTabItem(id: ViewStateMode.settings) {
+                            VStack {
+                                Image("tab-icon-settings")
+                                Text("Settings")
+                            }
+                        }
+                }
+                // without it, the NavigationViewController overlays the
+                // invisible navigation bar on top of everything else,
+                // and the header becomes untappable.
+                // Hiding/showing the navigation bar to workaround that.
+                .navigationBarTitle("", displayMode: .inline)
+                .navigationBarHidden(viewState.hidesNavbar)
+                .hidesSystemNavigationBar(true)
             }
+            .edgesIgnoringSafeArea(.top)
         }
+        .accentColor(.gnoHold)
+        .background(Color.gnoWhite)
+        .overlay(
+            PopupView(isPresented: $showsSafeInfo) {
+                SafeInfoView().environment(\.managedObjectContext, context)
+            }
+        )
     }
 }
+
+struct TempAssets: View {
+    @Environment(\.managedObjectContext)
+    var context: CoreDataContext
+
+    @State var selection: Int? = 0
+
+
+    var body: some View {
+        TopTabView($selection) {
+            AssetsOrAddSafeIntroView()
+                .environment(\.managedObjectContext, context)
+                .gnoTabItem(id: 0) {
+                    HStack {
+                        Image(systemName: "circle.fill")
+                        Text("Coins")
+                    }
+                }
+
+            Text("Coming soon")
+                .gnoTabItem(id: 1) {
+                    HStack {
+                        Image(systemName: "star.fill")
+                        Text("Collectibles")
+                    }
+                }
+        }
+        .background(Color.gnoWhite)
+    }
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
