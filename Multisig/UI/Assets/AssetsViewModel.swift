@@ -8,6 +8,8 @@
 
 import Foundation
 import Combine
+import SwiftCryptoTokenFormatter
+import BigInt
 
 struct TokenBalance: Identifiable, Hashable {
     var id: Int {
@@ -19,13 +21,23 @@ struct TokenBalance: Identifiable, Hashable {
         return URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(String(describing: address)).png")!
     }
     let address: String?
+    let symbol: String
     let balance: String
     let balanceUsd: String
 
     init(_ response: SafeBalancesRequest.Response) {
         self.address = response.tokenAddress
-        self.balance = response.balance
-        self.balanceUsd = response.balanceUsd
+        self.symbol = response.token?.symbol ?? "ETH"
+
+        let tokenFormatter = TokenFormatter()
+        let decimals =  response.token?.decimals ?? 18
+        self.balance = tokenFormatter.string(from: BigDecimal(BigInt(response.balance) ?? 0, decimals))
+
+        let currencyFormatter = NumberFormatter()
+        let number = currencyFormatter.number(from: response.balanceUsd) ?? 0
+        currencyFormatter.numberStyle = .currency
+        currencyFormatter.currencyCode = "USD"
+        self.balanceUsd = currencyFormatter.string(from: number)!
     }
 }
 

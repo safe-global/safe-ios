@@ -47,13 +47,13 @@ struct TokenBalanceCell: View {
             } else {
                 EtherImage()
             }
-
+            BoldText(tokenBalance.symbol)
             Spacer()
-
-            VStack(alignment: .leading) {
+            VStack(alignment: .trailing) {
                 BoldText(tokenBalance.balance)
-                BodyText(tokenBalance.balanceUsd)
+                FootnoteText(tokenBalance.balanceUsd)
             }
         }
+        .frame(height: 58)
     }
 }

@@ -25,7 +25,7 @@ struct TokenImage: View {
 }
 
 struct EtherImage: View {
-    let width: CGFloat = 24
+    let width: CGFloat = 28
     let height: CGFloat = 32
 
     var body: some View {
