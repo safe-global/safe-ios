@@ -10,18 +10,26 @@ import SwiftUI
 import struct Kingfisher.KFImage
 
 struct TokenImage: View {
-    var imageURL: URL
-    var size: CGFloat = 28
+    let imageURL: URL
+    let size: CGFloat = 28
 
     var body: some View {
         KFImage(imageURL)
             .placeholder {
-                Image(systemName: "arrow.2.circlepath.circle")
-                    .font(.largeTitle)
-                    .opacity(0.3)
+                Image("ico-token-placeholder")
             }
             .cancelOnDisappear(true)
             .resizable()
             .frame(width: size, height: size)
+    }
+}
+
+struct EtherImage: View {
+    let width: CGFloat = 24
+    let height: CGFloat = 32
+
+    var body: some View {
+        Image("ico-ether")
+            .frame(width: width, height: height)
     }
 }

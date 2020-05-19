@@ -42,7 +42,11 @@ struct TokenBalanceCell: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            TokenImage(imageURL: tokenBalance.imageURL)
+            if tokenBalance.address != nil {
+                TokenImage(imageURL: tokenBalance.imageURL!)
+            } else {
+                EtherImage()
+            }
 
             Spacer()
 

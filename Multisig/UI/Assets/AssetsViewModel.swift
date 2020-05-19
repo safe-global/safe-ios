@@ -9,16 +9,24 @@
 import Foundation
 import Combine
 
-struct TokenBalance: Identifiable {
-    var id: String {
-        address
+struct TokenBalance: Identifiable, Hashable {
+    var id: Int {
+        hashValue
     }
-    var imageURL: URL {
-        URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(address).png")!
+    var imageURL: URL? {
+        // will be replaced when https://github.com/gnosis/safe-transaction-service/issues/86 is ready
+        guard let address = address else { return nil }
+        return URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(String(describing: address)).png")!
     }
-    let address: String
+    let address: String?
     let balance: String
     let balanceUsd: String
+
+    init(_ response: SafeBalancesRequest.Response) {
+        self.address = response.tokenAddress
+        self.balance = response.balance
+        self.balanceUsd = response.balanceUsd
+    }
 }
 
 class AssetsViewModel: ObservableObject {
@@ -37,11 +45,7 @@ class AssetsViewModel: ObservableObject {
                     DispatchQueue.global().async {
                         do {
                             let balancesResponse = try App.shared.safeTransactionService.safeBalances(at: address)
-                            let tokenBalances = balancesResponse.map {
-                                TokenBalance(address: $0.tokenAddress ?? "0x0",
-                                             balance: $0.balance,
-                                             balanceUsd: $0.balanceUsd)
-                            }
+                            let tokenBalances = balancesResponse.map { TokenBalance($0) }
                             promise(.success(tokenBalances))
                         } catch {
                             promise(.failure(error))
