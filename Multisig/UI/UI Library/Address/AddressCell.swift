@@ -9,8 +9,16 @@
 import SwiftUI
 
 struct AddressCell: View {
+
+    enum Style {
+        case shortAddress, normal
+    }
+
     let address: String
-    
+    var title: String = ""
+
+    var style: Style = .normal
+
     @State
     private var showsLink: Bool = false
     
@@ -19,8 +27,13 @@ struct AddressCell: View {
             Identicon(address).frame(width: 36, height: 36)
             
             CopyButton(address) {
-                AddressText(address)
-                    .font(Font.gnoBody.weight(.medium))
+                VStack (alignment: .leading) {
+                    if !title.isEmpty {
+                        BodyText(title)
+                    }
+
+                    addressText
+                }
             }
             
             Spacer()
@@ -28,6 +41,16 @@ struct AddressCell: View {
             BrowseAddressView(address: address)
         }
         .padding(EdgeInsets(top: 2, leading: 0, bottom: 6, trailing: 0))
+    }
+
+    var addressText: some View {
+        var addressStyle: AddressText.Style = .long
+        if style == .shortAddress {
+            addressStyle = .short
+        }
+
+        return AddressText(address, style: addressStyle)
+                .font(Font.gnoBody.weight(.medium))
     }
     
     func browseSafeAddress() -> some View {

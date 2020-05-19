@@ -33,6 +33,8 @@ class App {
     let licensesURL = URL(string:"https://gnosis-safe.io/licenses/")!
     let appVersion = "\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String) (\(Bundle.main.infoDictionary?["CFBundleVersion"] as! String))"
 
+    let defaultFallbackHandler = "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44"
+    
     let network: Network = .rinkeby
     
     private init() {}
