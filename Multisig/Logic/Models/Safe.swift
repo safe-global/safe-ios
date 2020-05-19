@@ -38,6 +38,10 @@ extension Safe: Identifiable {
         URL(string: "https://etherscan.io/address/\(address)")!
     }
 
+    func isDefaultFallbackHandler() -> Bool {
+        return fallbackHandler == App.shared.defaultFallbackHandler?.hex(eip55: true)
+    }
+
     @discardableResult
     static func download(at address: String) throws -> SafeStatusRequest.Response {
         return try App.shared.safeTransactionService.safeInfo(at: address)

@@ -39,7 +39,7 @@ struct AdvancedSafeSettingsView: View {
     
     var fallbackHandlerView : some View {
         let fallbackHandler = safe.fallbackHandler ?? ""
-        let title = fallbackHandler == App.shared.defaultFallbackHandler ? "DefaultFallbackHandler" : "Unknown"
+        let title = safe.isDefaultFallbackHandler() ? "DefaultFallbackHandler" : "Unknown"
         return Group {
             if fallbackHandler.isEmpty || fallbackHandler == "0" {
                  BodyText("Not set")
