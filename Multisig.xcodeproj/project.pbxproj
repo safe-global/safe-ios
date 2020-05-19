@@ -379,9 +379,8 @@
 			isa = PBXGroup;
 			children = (
 				0A946D09246C4C6E00456BD5 /* SettingsView.swift */,
-				04C97AA9246ED32800EBA0F1 /* BasicAppSettingsView.swift */,
-				0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */,
-				04C97AAD246ED43A00EBA0F1 /* FiatCurrenciesView.swift */,
+				0A704A3A2473D772005BDC49 /* App Settings */,
+				0AE061D9246469E200CB60D7 /* Safe Settings */,
 				0A946D08246C4C5F00456BD5 /* Get In Touch */,
 			);
 			path = Settings;
@@ -447,6 +446,16 @@
 				0A9BC3422460501300EB9C5D /* Utils */,
 			);
 			path = Ethereum;
+			sourceTree = "<group>";
+		};
+		0A704A3A2473D772005BDC49 /* App Settings */ = {
+			isa = PBXGroup;
+			children = (
+				04C97AA9246ED32800EBA0F1 /* BasicAppSettingsView.swift */,
+				0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */,
+				04C97AAD246ED43A00EBA0F1 /* FiatCurrenciesView.swift */,
+			);
+			path = "App Settings";
 			sourceTree = "<group>";
 		};
 		0A7AEAE42462FAAD00014184 /* Switch Safe */ = {
@@ -581,7 +590,6 @@
 				0A9BC3442460515800EB9C5D /* Address */,
 				0A465C35246C23E800AFA467 /* Frame */,
 				044A54432448D0B6009CBB80 /* QRCodeScanner */,
-				0AE061D9246469E200CB60D7 /* Safe Settings */,
 				0AF432D4244F063800E22E50 /* Styleguide */,
 				0A9BC3432460514B00EB9C5D /* Text */,
 				0A0EFC9B246DAD0B00D3D8BF /* TopTabView */,
