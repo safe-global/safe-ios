@@ -19,10 +19,6 @@ struct AdvancedSafeSettingsView: View {
     
     var body: some View {
         List {
-            Section(header: SectionHeader("MASTER COPY ADDRESS")) {
-                AddressCell(address: safe.masterCopy ?? "-")
-            }
-            
             fallbackHandlerView
             
             Section(header: SectionHeader("NONCE")) {
@@ -42,12 +38,14 @@ struct AdvancedSafeSettingsView: View {
     }
     
     var fallbackHandlerView : some View {
-        Group {
-            if (safe.fallbackHandler ?? "").isEmpty  {
-                 EmptyView()
+        let fallbackHandler = safe.fallbackHandler ?? ""
+        let title = safe.isDefaultFallbackHandler() ? "DefaultFallbackHandler" : "Unknown"
+        return Group {
+            if fallbackHandler.isEmpty || fallbackHandler == "0" {
+                 BodyText("Not set")
             } else {
                 Section(header: SectionHeader("FALLBACK HANDLER")) {
-                    AddressCell(address: safe.fallbackHandler ?? "Not Set")
+                    AddressCell(address: fallbackHandler, title: title, style: .shortAddress)
                 }
             }
         }
@@ -60,7 +58,7 @@ struct AdvancedSafeSettingsView: View {
             } else {
                 Section(header: SectionHeader("ADDRESSES OF ENABLED MODULES")) {
                     ForEach(safe.modules ?? [], id: \.self, content: { owner in
-                        AddressCell(address: owner)
+                        AddressCell(address: owner, style: .shortAddress)
                     })
                 }
             }

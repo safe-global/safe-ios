@@ -39,7 +39,7 @@ struct SafeInfoContentView: View {
                 CenteredAddressWithLink(safe: safe).padding(.top, 3)
             }
 
-            LoadableENSNameText(safe: safe, placeholder: "ENS name is not set")
+            LoadableENSNameText(safe: safe, showsLoading: false)
             QRView(value: safe.address)
                 .padding(.top, 12)
         }

@@ -37,11 +37,11 @@ struct BasicSafeSettingsView: View {
             }
 
             Section(header: SectionHeader("CONTRACT VERSION")) {
-                ContractVersionCell(address: safe.masterCopy ?? "", version: safe.version ?? "")
+                ContractVersionCell(masterCopy: safe.masterCopy)
             }
 
             Section(header: SectionHeader("ENS NAME")) {
-                LoadableENSNameText(safe: safe, placeholder: "Not set")
+                LoadableENSNameText(safe: safe, placeholder: "Reverse record not set")
                     .frame(height: rowHeight)
             }
 
