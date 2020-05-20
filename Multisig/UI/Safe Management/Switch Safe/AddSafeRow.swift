@@ -24,7 +24,7 @@ struct AddSafeRow: View {
 
                 Spacer()
 
-                NavigationLink(destination: EnterSafeAddressView() {
+                NavigationLink(destination: EnterSafeAddressView {
                     self.presentationMode.wrappedValue.dismiss()
                 }, isActive: $showsAddSafe, label: { EmptyView() })
             }
