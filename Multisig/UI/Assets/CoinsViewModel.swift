@@ -8,20 +8,43 @@
 
 import Foundation
 import Combine
+import SwiftCryptoTokenFormatter
+import BigInt
 
-struct TokenBalance: Identifiable {
-    var id: String {
-        address
+struct TokenBalance: Identifiable, Hashable {
+    var id: Int {
+        hashValue
     }
-    var imageURL: URL {
-        URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(address).png")!
+    var imageURL: URL? {
+        // will be replaced when https://github.com/gnosis/safe-transaction-service/issues/86 is ready
+        guard let address = address else { return nil }
+        return URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(String(describing: address)).png")!
     }
-    let address: String
+    let address: String?
+    let symbol: String
     let balance: String
     let balanceUsd: String
+
+    init(_ response: SafeBalancesRequest.Response) {
+        self.address = response.tokenAddress
+        self.symbol = response.token?.symbol ?? "ETH"
+
+        let tokenFormatter = TokenFormatter()
+        let decimals =  response.token?.decimals ?? 18
+        self.balance = tokenFormatter.string(
+            from: BigDecimal(BigInt(response.balance) ?? 0, decimals),
+            decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
+
+        let currencyFormatter = NumberFormatter()
+        let number = currencyFormatter.number(from: response.balanceUsd) ?? 0
+        currencyFormatter.numberStyle = .currency
+        currencyFormatter.currencyCode = "USD"
+        self.balanceUsd = currencyFormatter.string(from: number)!
+    }
 }
 
-class AssetsViewModel: ObservableObject {
+class CoinsViewModel: ObservableObject {
     @Published var balances = [TokenBalance]()
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
@@ -37,11 +60,7 @@ class AssetsViewModel: ObservableObject {
                     DispatchQueue.global().async {
                         do {
                             let balancesResponse = try App.shared.safeTransactionService.safeBalances(at: address)
-                            let tokenBalances = balancesResponse.map {
-                                TokenBalance(address: $0.tokenAddress ?? "0x0",
-                                             balance: $0.balance,
-                                             balanceUsd: $0.balanceUsd)
-                            }
+                            let tokenBalances = balancesResponse.map { TokenBalance($0) }
                             promise(.success(tokenBalances))
                         } catch {
                             promise(.failure(error))

@@ -20,7 +20,7 @@ struct SelectedSafeButton: View {
             if selected.first == nil {
                 notSelectedView
             } else {
-                SafeCell(safe: selected.first!, style: .compact)
+                SafeCell(safe: selected.first!, style: .regular)
             }
 
             Spacer()

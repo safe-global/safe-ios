@@ -10,13 +10,13 @@ import SwiftUI
 
 // TopTabView's tab bar button that spans the full available width.
 // Changes appearance dependinig on the selection.
-struct TopTabButton<Content: View>: View {
+struct TopTabButton<SelectionValue: Hashable, Content: View>: View {
 
-    var tag: Int
-    var selection: Binding<Int?>
+    var tag: SelectionValue
+    var selection: Binding<SelectionValue?>
     var content: Content
 
-    init(tag: Int, selection: Binding<Int?>, @ViewBuilder _ content: () -> Content) {
+    init(tag: SelectionValue, selection: Binding<SelectionValue?>, @ViewBuilder _ content: () -> Content) {
         self.tag = tag
         self.selection = selection
         self.content = content()
@@ -43,7 +43,6 @@ struct TopTabButton<Content: View>: View {
     var label: some View {
         content
             .padding()
-            .frame(height: 56)
             .frame(maxWidth: .infinity)
     }
 
