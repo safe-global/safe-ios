@@ -35,7 +35,7 @@ extension Safe: Identifiable {
     }
 
     static func browserURL(address: String) -> URL {
-        URL(string: "https://etherscan.io/address/\(address)")!
+        URL(string: App.shared.browseAddressURL + address)!
     }
 
     @discardableResult
