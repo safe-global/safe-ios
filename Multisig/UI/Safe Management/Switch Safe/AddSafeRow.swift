@@ -16,19 +16,18 @@ struct AddSafeRow: View {
     @State var showsAddSafe = false
 
     var body: some View {
-        NavigationLink(destination: EnterSafeAddressView(){
-            self.presentationMode.wrappedValue.dismiss()
-        }) {
+        Button(action: { self.showsAddSafe.toggle() }) {
             HStack(spacing: 6) {
                 Image.plusCircle
 
                 Text("Add Safe").font(Font.gnoBody.weight(.medium))
 
                 Spacer()
+
+                NavigationLink(destination: EnterSafeAddressView(), isActive: $showsAddSafe, label: { EmptyView() })
             }
-            .frame(height: 45)
-            .foregroundColor(.gnoHold)
         }
-        .buttonStyle(PlainButtonStyle())
+        .frame(height: 45)
+        .foregroundColor(.gnoHold)
     }
 }
