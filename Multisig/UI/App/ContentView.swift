@@ -35,7 +35,7 @@ struct ContentView: View {
                         .gnoTabItem(id: ViewStateMode.balanaces) {
                             VStack {
                                 Image("tab-icon-balances")
-                                Text("Balances")
+                                Text("Assets")
                             }
                         }
 
