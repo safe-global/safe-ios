@@ -32,7 +32,7 @@ struct AdvancedAppSettings: View {
         .onDisappear {
             self.theme.resetTemporaryTableViewBackground()
         }
-        .navigationBarTitle("Advanced")
+        .navigationBarTitle("Advanced", displayMode: .inline)
     }
 }
 

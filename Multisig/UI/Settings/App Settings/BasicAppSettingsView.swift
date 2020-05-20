@@ -13,7 +13,7 @@ struct BasicAppSettingsView: View {
 
     var body: some View {
         List {
-            NavigationLink(destination: FiatCurrenciesView()) {
+            NavigationLink(destination: FiatCurrenciesView().hidesSystemNavigationBar(false)) {
                 KeyValueView(key: "Fiat currency", value: "USD")
             }
             .frame(height: rowHeight)
@@ -24,7 +24,7 @@ struct BasicAppSettingsView: View {
 
             BrowserLink(title: "Licenses", url: App.shared.licensesURL)
 
-            NavigationLink(destination: GetInTouchView()) {
+            NavigationLink(destination: GetInTouchView().hidesSystemNavigationBar(false)) {
                 BodyText("Get in touch")
             }
             .frame(height: rowHeight)
@@ -34,7 +34,7 @@ struct BasicAppSettingsView: View {
             KeyValueView(key: "Network", value: App.shared.network.rawValue)
 
             Section(header: SectionHeader(" ")) {
-                NavigationLink(destination: AdvancedAppSettings()) {
+                NavigationLink(destination: AdvancedAppSettings().hidesSystemNavigationBar(false)) {
                     BodyText("Advanced")
                 }
                 .frame(height: rowHeight)

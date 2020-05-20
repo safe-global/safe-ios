@@ -14,6 +14,7 @@ class App {
 
     // UI layer
 
+    var viewState = ViewState()
     var theme = Theme()
 
     // Business Logic Layer

@@ -53,7 +53,7 @@ struct EditSafeNameView: View {
         .padding(.top, 24)
         .padding(.horizontal)
         .navigationBarTitle("Edit Safe Name", displayMode: .inline)
-        .navigationBarItems(leading: BackButton("Cancel"), trailing: saveButton)
+        .navigationBarItems(trailing: saveButton)
     }
 
     var saveButton: some View {
