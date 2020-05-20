@@ -10,15 +10,15 @@ import SwiftUI
 
 class ViewState: ObservableObject {
 
-    static let shared = ViewState()
-    
     @Published
-    var state: ViewStateMode = .balanaces
+    var state: ViewStateMode? = .balanaces
+
+    @Published
+    var hidesNavbar: Bool = true
     
-    private init() {}
 }
 
-enum ViewStateMode: Hashable {
+enum ViewStateMode: Int, Hashable {
     case balanaces
     case transactions
     case settings

@@ -23,6 +23,7 @@ extension Color {
     static let gnoLightGreen = Color("lightGreen")
     static let gnoLightGrey = Color("lightGrey")
     static let gnoMediumGrey = Color("mediumGrey")
+    static let gnoShadow = Color("shadow")
     static let gnoSnowwhite = Color("snowwhite")
     static let gnoSystemBlack = Color("systemBlack")
     static let gnoSystemSelection = Color("systemSelection")
@@ -37,5 +38,9 @@ extension Color {
 extension View {
     func cardShadowTooltip() -> some View {
         shadow(color: .gnoCardShadowTooltip, radius: 10, x: 1, y: 2)
+    }
+
+    func gnoShadow() -> some View {
+        shadow(color: .gnoShadow, radius: 10, x: 1, y: 2)
     }
 }
