@@ -10,7 +10,7 @@ import SwiftUI
 
 extension Image {
 
-    static let regularSize: CGFloat = 24
+    static let regularSize: CGFloat = 20
 
     // using static let ... = ... is crashing the app when the views are
     // deiniitialized, so instead we use the computed properties
