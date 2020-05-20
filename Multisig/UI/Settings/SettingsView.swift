@@ -10,10 +10,13 @@ import SwiftUI
 
 struct SettingsView: View {
 
+    @State
+    private var selection: Int? = 0
+
     var body: some View {
-        TopTabView {
+        TopTabView($selection) {
             SafeSettingsView()
-                .topTabItem {
+                .gnoTabItem(id: 0) {
                     HStack {
                         Image("ico-safe-settings")
                         Text("SAFE SETTINGS").font(Font.gnoFootnote.bold())
@@ -21,7 +24,7 @@ struct SettingsView: View {
                 }
 
             BasicAppSettingsView()
-                .topTabItem {
+                .gnoTabItem(id: 1) {
                     HStack {
                         Image("ico-app-settings")
                         Text("APP SETTINGS").font(Font.gnoFootnote.bold())

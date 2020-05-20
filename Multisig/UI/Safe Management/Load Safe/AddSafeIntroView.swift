@@ -20,6 +20,7 @@ struct AddSafeIntroView: View {
                 header
                 loadSafeButton
             }
+            .padding(.horizontal)
         }
     }
 

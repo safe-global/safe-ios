@@ -38,8 +38,10 @@ extension Image {
 
     static var chevronDownCircle: some View {
         Image(systemName: "chevron.down.circle")
+            .resizable()
+            .font(Font.body.weight(.medium))
             .foregroundColor(.gnoMediumGrey)
-            .font(Font.body.weight(.semibold))
+            .frame(width: 24, height: 24)
     }
 
     static var ellipsis: some View {

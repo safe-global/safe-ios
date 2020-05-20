@@ -18,7 +18,7 @@ struct BasicSafeSettingsView: View {
     var body: some View {
         List {
             Section(header: SectionHeader("SAFE NAME")) {
-                NavigationLink(destination: EditSafeNameView(address: safe.address ?? "", name: safe.name ?? "")) {
+                NavigationLink(destination: EditSafeNameView(address: safe.address ?? "", name: safe.name ?? "").hidesSystemNavigationBar(false)) {
                     BodyText(safe.name ?? "")
                 }
                     
@@ -46,7 +46,7 @@ struct BasicSafeSettingsView: View {
             }
 
             Section(header: SectionHeader(" ")) {
-                NavigationLink(destination: AdvancedSafeSettingsView(safe: safe)) {
+                NavigationLink(destination: AdvancedSafeSettingsView(safe: safe).hidesSystemNavigationBar(false)) {
                     BodyText("Advanced")
                 }
                 .frame(height: rowHeight)

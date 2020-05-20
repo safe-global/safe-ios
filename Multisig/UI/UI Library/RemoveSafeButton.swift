@@ -34,7 +34,7 @@ struct RemoveSafeButton: View {
             ActionSheet(title: Text(""), message: Text("Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost."), buttons: [
                 .destructive(Text("Remove")) {
                     Safe.remove(safe: self.safe)
-                    ViewState.shared.state = .balanaces
+                    App.shared.viewState.state = .balanaces
                 },
                 .cancel()
             ])
