@@ -54,6 +54,6 @@ struct TokenBalanceCell: View {
                 FootnoteText(tokenBalance.balanceUsd)
             }
         }
-        .frame(height: 58)
+        .frame(height: 48)
     }
 }
