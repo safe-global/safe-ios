@@ -28,6 +28,7 @@ struct AssetsView: View {
                     Image("ico-coins")
                     Text("COINS").font(Font.gnoCaption1)
                 }
+                .frame(maxWidth: .infinity)
             }
 
             Text("Coming soon")
