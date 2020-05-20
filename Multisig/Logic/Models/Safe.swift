@@ -39,7 +39,8 @@ extension Safe: Identifiable {
     }
 
     func isDefaultFallbackHandler() -> Bool {
-        return fallbackHandler == App.shared.defaultFallbackHandler?.hex(eip55: true)
+        guard let fallbackHandler = fallbackHandler else { return false }
+        return Address(fallbackHandler) == App.shared.defaultFallbackHandler
     }
 
     @discardableResult
