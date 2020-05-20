@@ -38,6 +38,11 @@ extension Safe: Identifiable {
         URL(string: App.shared.browseAddressURL + address)!
     }
 
+    func isDefaultFallbackHandler() -> Bool {
+        guard let fallbackHandler = fallbackHandler else { return false }
+        return Address(fallbackHandler) == App.shared.defaultFallbackHandler
+    }
+
     @discardableResult
     static func download(at address: String) throws -> SafeStatusRequest.Response {
         return try App.shared.safeTransactionService.safeInfo(at: address)
