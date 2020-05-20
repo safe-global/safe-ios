@@ -98,6 +98,8 @@
 		0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
 		0A9BC36124605AA800EB9C5D /* ErrorText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC36024605AA800EB9C5D /* ErrorText.swift */; };
 		0A9BC3AC24617C2F00EB9C5D /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */; };
+		0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */; };
+		0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */; };
 		0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A45246C38920052F4CD /* EmailSupportViewController.swift */; };
 		0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */; };
 		0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */; };
@@ -262,6 +264,8 @@
 		0A9BC3572460581500EB9C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A9BC36024605AA800EB9C5D /* ErrorText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorText.swift; sourceTree = "<group>"; };
 		0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
+		0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafe.swift; sourceTree = "<group>"; };
+		0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafeTests.swift; sourceTree = "<group>"; };
 		0AD89A45246C38920052F4CD /* EmailSupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSupportViewController.swift; sourceTree = "<group>"; };
 		0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyIdentifiable.swift; sourceTree = "<group>"; };
 		0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressViewModel.swift; sourceTree = "<group>"; };
@@ -444,6 +448,7 @@
 				0A9BC33224602A7400EB9C5D /* Contract.swift */,
 				0A9BC32E246022BD00EB9C5D /* ENS.swift */,
 				0A9BC3302460233300EB9C5D /* ENSContracts.swift */,
+				0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */,
 				0A9BC3422460501300EB9C5D /* Utils */,
 			);
 			path = Ethereum;
@@ -780,6 +785,7 @@
 				0A9BC3472460539F00EB9C5D /* ContractTests.swift */,
 				0A9BC33C24603AE800EB9C5D /* ENSTests.swift */,
 				0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */,
+				0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1148,6 +1154,7 @@
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A0EFC9A246DAC1A00D3D8BF /* TopTabChildView.swift in Sources */,
+				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
 				55F9A2EB2472F3EE00ABBA6F /* AssetsViewModel.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
@@ -1238,6 +1245,7 @@
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
 				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
 				5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */,
+				0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */,
 				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

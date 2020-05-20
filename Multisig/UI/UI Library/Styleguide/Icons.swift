@@ -10,13 +10,24 @@ import SwiftUI
 
 extension Image {
 
+    static let regularSize: CGFloat = 24
+
     // using static let ... = ... is crashing the app when the views are
     // deiniitialized, so instead we use the computed properties
     static var checkmark: some View {
-        Image(systemName: "checkmark")
+        checkmark(size: regularSize)
+    }
+
+    static func checkmark(size: CGFloat) -> some View {
+        icon("checkmark", size: size)
             .font(Font.body.weight(.semibold))
             .foregroundColor(.gnoHold)
-            .frame(width: 24, height: 24)
+    }
+
+    static func icon(_ name: String, size: CGFloat) -> some View {
+        Image(systemName: name)
+            .resizable()
+            .frame(width: size, height: size)
     }
 
     static var checkmarkCircle: some View {
@@ -36,16 +47,20 @@ extension Image {
     }
 
     static var bigXMark: some View {
-        Image(systemName: "xmark")
+        icon("xmark", size: regularSize)
             .font(Font.gnoNormal)
             .foregroundColor(.gnoMediumGrey)
-            .frame(width: 24, height: 24)
     }
 
     static var plusCircle: some View {
-        Image(systemName: "plus.circle")
+        icon("plus.circle", size: regularSize)
             .font(Font.body.weight(.medium))
-            .frame(width: 24, height: 24)
+    }
+
+    static func exclamation(size: CGFloat) -> some View {
+        icon("exclamationmark.circle", size: size)
+            .foregroundColor(.gnoTomato)
+            .font(Font.body.weight(.semibold))
     }
 
 }
