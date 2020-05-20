@@ -9,13 +9,12 @@
 import SwiftUI
 
 struct GNOFilledButtonStyle: ButtonStyle {
-    var width: CGFloat? = nil
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
+            .frame(maxWidth: .infinity)
             .font(Font.gnoBody.bold())
-            .frame(width: width)
             .background(configuration.isPressed ? Color.gnoHoldTwo : .gnoHold)
             .foregroundColor(.gnoSnowwhite)
             .cornerRadius(10)
@@ -53,7 +52,7 @@ struct GNOPlainButtonStyle: ButtonStyle {
 struct Buttons_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 30) {
-            Button("Hello, World!", action: {}).buttonStyle(GNOFilledButtonStyle(width: 150))
+            Button("Hello, World!", action: {}).buttonStyle(GNOFilledButtonStyle())
             Button("Hello, World!", action: {}).buttonStyle(GNOBorderedButtonStyle())
             Button("Hello, World!", action: {}).buttonStyle(GNOPlainButtonStyle())
         }
