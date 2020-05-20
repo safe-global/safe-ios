@@ -45,7 +45,7 @@ struct EnterSafeAddressView: View {
                 // What we need is to dismiss the whole navigation view,
                 // this is controlled by the current view's
                 // presentationMode.
-                App.shared.viewState.state = .balanaces
+                App.shared.viewState.state = .balances
             }
         )
         .barButton(disabled: model.isValid != true)
