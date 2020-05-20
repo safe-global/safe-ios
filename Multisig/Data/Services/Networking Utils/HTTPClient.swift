@@ -24,12 +24,27 @@ public extension HTTPRequest {
 
 /// Synchronous http client
 public class HTTPClient {
-
     /// Client error
     ///
     /// - networkRequestFailed: network request failed for some reason. Provided are request, response and data values.
-    public enum Error: Swift.Error {
+    public enum Error: LocalizedError {
         case networkRequestFailed(URLRequest, URLResponse?, Data?)
+        case entityNotFound(URLRequest, URLResponse?, Data?)
+        case unprocessableEntity(URLRequest, URLResponse?, Data?)
+        case unknownError(URLRequest, URLResponse?, Data?)
+
+        public var errorDescription: String? {
+            switch self {
+            case .networkRequestFailed(_, _, _):
+                return "The network request failed. Please try out later."
+            case .entityNotFound(_, _, _):
+                return "Entity not found"
+            case .unprocessableEntity(_, _, _):
+                return "Unprocessable entity"
+            default:
+                return "Unknown error"
+            }
+        }
     }
 
     private typealias URLDataTaskResult = (data: Data?, response: URLResponse?, error: Swift.Error?)
@@ -104,11 +119,16 @@ public class HTTPClient {
         if let error = result.error {
             throw error
         }
-        guard let httpResponse = result.response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode),
-            let data = result.data else {
-                throw Error.networkRequestFailed(request, result.response, result.data)
+        guard let httpResponse = result.response as? HTTPURLResponse else {
+            throw Error.networkRequestFailed(request, result.response, result.data)
         }
-        return data
+        if (200...299).contains(httpResponse.statusCode) {
+            return result.data ?? Data()
+        } else if httpResponse.statusCode == 404 {
+            throw Error.entityNotFound(request, result.response, result.data)
+        } else if httpResponse.statusCode == 422 {
+            throw Error.unprocessableEntity(request, result.response, result.data)
+        }
+        throw Error.unknownError(request, result.response, result.data)
     }
-
 }
