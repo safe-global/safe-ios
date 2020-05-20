@@ -19,8 +19,6 @@ struct SafeHeaderView: View {
             Rectangle()
                 .foregroundColor(Color.gnoSnowwhite)
                 .gnoShadow()
-
-
             HStack {
                 selectButton
                 Spacer()

@@ -1,5 +1,5 @@
 //
-//  ShowSystemNavigationBarModifier.swift
+//  HideSystemNavigationBarModifier.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 19.05.20.
