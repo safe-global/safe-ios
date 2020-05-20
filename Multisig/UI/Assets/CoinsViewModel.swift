@@ -31,7 +31,10 @@ struct TokenBalance: Identifiable, Hashable {
 
         let tokenFormatter = TokenFormatter()
         let decimals =  response.token?.decimals ?? 18
-        self.balance = tokenFormatter.string(from: BigDecimal(BigInt(response.balance) ?? 0, decimals))
+        self.balance = tokenFormatter.string(
+            from: BigDecimal(BigInt(response.balance) ?? 0, decimals),
+            decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
 
         let currencyFormatter = NumberFormatter()
         let number = currencyFormatter.number(from: response.balanceUsd) ?? 0

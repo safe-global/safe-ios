@@ -140,9 +140,9 @@
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
-		55F9A2E92472F3EE00ABBA6F /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2E62472F3EE00ABBA6F /* AssetsView.swift */; };
+		55F9A2E92472F3EE00ABBA6F /* CoinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2E62472F3EE00ABBA6F /* CoinsView.swift */; };
 		55F9A2EA2472F3EE00ABBA6F /* AssetsOrAddSafeIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2E72472F3EE00ABBA6F /* AssetsOrAddSafeIntroView.swift */; };
-		55F9A2EB2472F3EE00ABBA6F /* AssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2E82472F3EE00ABBA6F /* AssetsViewModel.swift */; };
+		55F9A2EB2472F3EE00ABBA6F /* CoinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2E82472F3EE00ABBA6F /* CoinsViewModel.swift */; };
 		55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */; };
 		55F9A2FA2473F00800ABBA6F /* FootnoteText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2F92473F00800ABBA6F /* FootnoteText.swift */; };
 		9982F1C834FC801EAD7BDFE8 /* libPods-Multisig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */; };
@@ -309,9 +309,9 @@
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
-		55F9A2E62472F3EE00ABBA6F /* AssetsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
+		55F9A2E62472F3EE00ABBA6F /* CoinsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinsView.swift; sourceTree = "<group>"; };
 		55F9A2E72472F3EE00ABBA6F /* AssetsOrAddSafeIntroView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsOrAddSafeIntroView.swift; sourceTree = "<group>"; };
-		55F9A2E82472F3EE00ABBA6F /* AssetsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsViewModel.swift; sourceTree = "<group>"; };
+		55F9A2E82472F3EE00ABBA6F /* CoinsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinsViewModel.swift; sourceTree = "<group>"; };
 		55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenImage.swift; sourceTree = "<group>"; };
 		55F9A2F92473F00800ABBA6F /* FootnoteText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootnoteText.swift; sourceTree = "<group>"; };
 		69FE277EF0E99D5C7D51C279 /* Pods-MultisigIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -862,9 +862,9 @@
 		55F9A2E52472F3EE00ABBA6F /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				55F9A2E62472F3EE00ABBA6F /* AssetsView.swift */,
+				55F9A2E62472F3EE00ABBA6F /* CoinsView.swift */,
 				55F9A2E72472F3EE00ABBA6F /* AssetsOrAddSafeIntroView.swift */,
-				55F9A2E82472F3EE00ABBA6F /* AssetsViewModel.swift */,
+				55F9A2E82472F3EE00ABBA6F /* CoinsViewModel.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1111,7 +1111,7 @@
 			files = (
 				0AF6501B24488D280018D070 /* FullSize.swift in Sources */,
 				0A7AEAE12462F98800014184 /* SafeRow.swift in Sources */,
-				55F9A2E92472F3EE00ABBA6F /* AssetsView.swift in Sources */,
+				55F9A2E92472F3EE00ABBA6F /* CoinsView.swift in Sources */,
 				047691372461B2E200D73D8B /* AddressCell.swift in Sources */,
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				04769165246408D000D73D8B /* AdvancedSafeSettingsView.swift in Sources */,
@@ -1151,7 +1151,7 @@
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A0EFC9A246DAC1A00D3D8BF /* TopTabChildView.swift in Sources */,
-				55F9A2EB2472F3EE00ABBA6F /* AssetsViewModel.swift in Sources */,
+				55F9A2EB2472F3EE00ABBA6F /* CoinsViewModel.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,

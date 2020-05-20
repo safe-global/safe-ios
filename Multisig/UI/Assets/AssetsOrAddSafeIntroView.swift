@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct AssetsOrAddSafeIntroView: View {
+struct AssetsView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
 
     var body: some View {
         ZStack {
             if selectedSafe.first != nil {
-                AssetsView(safe: selectedSafe.first!)
+                CoinsView(safe: selectedSafe.first!)
             } else {
                 AddSafeIntroView()
             }
@@ -25,6 +25,6 @@ struct AssetsOrAddSafeIntroView: View {
 
 struct AssetsOrAddSafeIntroView_Previews: PreviewProvider {
     static var previews: some View {
-        AssetsOrAddSafeIntroView()
+        AssetsView()
     }
 }

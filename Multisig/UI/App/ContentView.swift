@@ -23,7 +23,7 @@ struct ContentView: View {
         // and it looks cropped) - this is seen on a real device (iPhone 6s)
         RootNavigationView {
             TabView(selection: $viewState.state){
-                AssetsOrAddSafeIntroView()
+                AssetsView()
                     .environment(\.managedObjectContext, context)
                     .tabItem {
                         VStack {
