@@ -148,9 +148,9 @@
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
 		55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */; };
 		55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A3092475375B00ABBA6F /* AssetsView.swift */; };
-		55F9A30D2475375B00ABBA6F /* CoinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A30A2475375B00ABBA6F /* CoinsViewModel.swift */; };
-		55F9A30E2475375B00ABBA6F /* CoinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A30B2475375B00ABBA6F /* CoinsView.swift */; };
 		55F9A3102475381800ABBA6F /* FootnoteText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A30F2475381800ABBA6F /* FootnoteText.swift */; };
+		55F9A3202475578C00ABBA6F /* BalancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A31E2475578C00ABBA6F /* BalancesView.swift */; };
+		55F9A3212475578C00ABBA6F /* BalancesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A31F2475578C00ABBA6F /* BalancesViewModel.swift */; };
 		9982F1C834FC801EAD7BDFE8 /* libPods-Multisig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3EDABD33C5D8D6E66ABA0E /* libPods-Multisig.a */; };
 		EB57A403B3F8709859BA822E /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B81E8C8DC80D2C573D9B6BF /* libPods-MultisigTests.a */; };
 /* End PBXBuildFile section */
@@ -323,9 +323,9 @@
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenImage.swift; sourceTree = "<group>"; };
 		55F9A3092475375B00ABBA6F /* AssetsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
-		55F9A30A2475375B00ABBA6F /* CoinsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinsViewModel.swift; sourceTree = "<group>"; };
-		55F9A30B2475375B00ABBA6F /* CoinsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinsView.swift; sourceTree = "<group>"; };
 		55F9A30F2475381800ABBA6F /* FootnoteText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootnoteText.swift; sourceTree = "<group>"; };
+		55F9A31E2475578C00ABBA6F /* BalancesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalancesView.swift; sourceTree = "<group>"; };
+		55F9A31F2475578C00ABBA6F /* BalancesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalancesViewModel.swift; sourceTree = "<group>"; };
 		69FE277EF0E99D5C7D51C279 /* Pods-MultisigIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		92B7E305E3E3D34CBC5DB687 /* libPods-MultisigIntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigIntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD6D0510D7AE8BF83C2872E /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.xcconfig"; path = "Pods/Target Support Files/Pods-Multisig/Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
@@ -904,9 +904,9 @@
 		55F9A2E52472F3EE00ABBA6F /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				55F9A31E2475578C00ABBA6F /* BalancesView.swift */,
+				55F9A31F2475578C00ABBA6F /* BalancesViewModel.swift */,
 				55F9A3092475375B00ABBA6F /* AssetsView.swift */,
-				55F9A30B2475375B00ABBA6F /* CoinsView.swift */,
-				55F9A30A2475375B00ABBA6F /* CoinsViewModel.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1188,6 +1188,7 @@
 				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */,
+				55F9A3212475578C00ABBA6F /* BalancesViewModel.swift in Sources */,
 				55F9A3102475381800ABBA6F /* FootnoteText.swift in Sources */,
 				0A0EFCA8246EB13300D3D8BF /* KeyValueRow.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
@@ -1195,7 +1196,6 @@
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A0EFC9A246DAC1A00D3D8BF /* TabChildView.swift in Sources */,
-				55F9A30D2475375B00ABBA6F /* CoinsViewModel.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
 				0A704A572473F903005BDC49 /* BottomTabView.swift in Sources */,
@@ -1239,10 +1239,10 @@
 				0A704A6C247417B4005BDC49 /* SafeHeaderView.swift in Sources */,
 				0AEDCE0724728D7100A1EC80 /* BackButton.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
+				55F9A3202475578C00ABBA6F /* BalancesView.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
 				04C97AAE246ED43A00EBA0F1 /* FiatCurrenciesView.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
-				55F9A30E2475375B00ABBA6F /* CoinsView.swift in Sources */,
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				04C97AAA246ED32800EBA0F1 /* BasicAppSettingsView.swift in Sources */,

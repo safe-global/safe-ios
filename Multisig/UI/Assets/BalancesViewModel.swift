@@ -37,14 +37,18 @@ struct TokenBalance: Identifiable, Hashable {
             thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
 
         let currencyFormatter = NumberFormatter()
+        // server always sends us number in en_US locale
+        currencyFormatter.locale = Locale(identifier: "en_US")
         let number = currencyFormatter.number(from: response.balanceUsd) ?? 0
+        // Product decision: we display currency in user locale
+        currencyFormatter.locale = Locale.autoupdatingCurrent
         currencyFormatter.numberStyle = .currency
         currencyFormatter.currencyCode = "USD"
         self.balanceUsd = currencyFormatter.string(from: number)!
     }
 }
 
-class CoinsViewModel: ObservableObject {
+class BalancesViewModel: ObservableObject {
     @Published var balances = [TokenBalance]()
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
