@@ -32,7 +32,7 @@ struct ContentView: View {
 
                     AssetsView()
                         .environment(\.managedObjectContext, context)
-                        .gnoTabItem(id: ViewStateMode.balanaces) {
+                        .gnoTabItem(id: ViewStateMode.balances) {
                             VStack {
                                 Image("tab-icon-balances")
                                 Text("Assets")

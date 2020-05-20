@@ -10,6 +10,9 @@ import SwiftUI
 
 struct AddSafeRow: View {
 
+    @Environment(\.presentationMode)
+    var presentationMode: Binding<PresentationMode>
+
     @State var showsAddSafe = false
 
     var body: some View {
@@ -20,14 +23,13 @@ struct AddSafeRow: View {
                 Text("Add Safe").font(Font.gnoBody.weight(.medium))
 
                 Spacer()
+
+                NavigationLink(destination: EnterSafeAddressView {
+                    self.presentationMode.wrappedValue.dismiss()
+                }, isActive: $showsAddSafe, label: { EmptyView() })
             }
         }
         .frame(height: 45)
         .foregroundColor(.gnoHold)
-        .sheet(isPresented: self.$showsAddSafe) {
-            NavigationView {
-                EnterSafeAddressView()
-            }
-        }
     }
 }

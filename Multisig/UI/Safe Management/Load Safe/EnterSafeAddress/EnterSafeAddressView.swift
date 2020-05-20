@@ -16,6 +16,8 @@ struct EnterSafeAddressView: View {
     @ObservedObject
     var model: EnterSafeAddressViewModel = EnterSafeAddressViewModel()
 
+    var onSubmit: () -> Void = {}
+
     var body: some View {
         VStack(spacing: 23) {
             BoldText("Enter your Safe Multisig address.")
@@ -33,7 +35,7 @@ struct EnterSafeAddressView: View {
         .padding(.top, 27)
         .padding([.leading, .trailing])
         .navigationBarTitle("Load Safe Multisig", displayMode: .inline)
-        .navigationBarItems(leading: cancelButton, trailing: nextButton)
+        .navigationBarItems(trailing: nextButton)
         .onReceive(model.$text, perform: model.validate(address:))
     }
 
@@ -45,14 +47,11 @@ struct EnterSafeAddressView: View {
                 // What we need is to dismiss the whole navigation view,
                 // this is controlled by the current view's
                 // presentationMode.
-                self.presentationMode.wrappedValue.dismiss()
+                App.shared.viewState.state = .balances
+                self.onSubmit()
             }
         )
         .barButton(disabled: model.isValid != true)
-    }
-
-    var cancelButton: some View {
-        BackButton("Cancel", presentationMode: presentationMode)
     }
 }
 

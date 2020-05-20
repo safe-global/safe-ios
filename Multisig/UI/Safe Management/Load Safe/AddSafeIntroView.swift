@@ -39,16 +39,10 @@ struct AddSafeIntroView: View {
     }
 
     var loadSafeButton: some View {
-        Button("Load Safe Multisig") {
-            self.showsLoadSafe.toggle()
+        NavigationLink(destination: EnterSafeAddressView()) {
+            Text("Load Safe Multisig")
         }
         .buttonStyle(GNOFilledButtonStyle())
-        .sheet(isPresented: self.$showsLoadSafe) {
-            NavigationView {
-                EnterSafeAddressView()
-            }
-            .environment(\.managedObjectContext, self.context)
-        }
     }
 
 }

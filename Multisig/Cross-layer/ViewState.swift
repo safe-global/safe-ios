@@ -11,7 +11,7 @@ import SwiftUI
 class ViewState: ObservableObject {
 
     @Published
-    var state: ViewStateMode? = .balanaces
+    var state: ViewStateMode? = .balances
 
     @Published
     var hidesNavbar: Bool = true
@@ -19,7 +19,7 @@ class ViewState: ObservableObject {
 }
 
 enum ViewStateMode: Int, Hashable {
-    case balanaces
+    case balances
     case transactions
     case settings
 }
