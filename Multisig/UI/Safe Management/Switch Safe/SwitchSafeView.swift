@@ -32,11 +32,12 @@ struct SwitchSafeView: View {
                 }
             }
             .onAppear {
-                self.theme.setTemporaryTableViewBackground(nil)
+                self.theme.setTemporaryTableViewBackground(UIColor(named: "snowwhite"))
             }
             .onDisappear {
-                self.theme.resetTemporaryTableViewBackground()
+                self.theme.setTemporaryTableViewBackground(nil)
             }
+
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(leading: closeButton)
         }
