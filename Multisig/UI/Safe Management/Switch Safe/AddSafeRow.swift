@@ -24,7 +24,9 @@ struct AddSafeRow: View {
 
                 Spacer()
 
-                NavigationLink(destination: EnterSafeAddressView(), isActive: $showsAddSafe, label: { EmptyView() })
+                NavigationLink(destination: EnterSafeAddressView() {
+                    self.presentationMode.wrappedValue.dismiss()
+                }, isActive: $showsAddSafe, label: { EmptyView() })
             }
         }
         .frame(height: 45)
