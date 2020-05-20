@@ -10,10 +10,15 @@ import SwiftUI
 
 struct AddSafeRow: View {
 
+    @Environment(\.presentationMode)
+    var presentationMode: Binding<PresentationMode>
+
     @State var showsAddSafe = false
 
     var body: some View {
-        Button(action: { self.showsAddSafe.toggle() }) {
+        NavigationLink(destination: EnterSafeAddressView(){
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
             HStack(spacing: 6) {
                 Image.plusCircle
 
@@ -21,13 +26,9 @@ struct AddSafeRow: View {
 
                 Spacer()
             }
+            .frame(height: 45)
+            .foregroundColor(.gnoHold)
         }
-        .frame(height: 45)
-        .foregroundColor(.gnoHold)
-        .sheet(isPresented: self.$showsAddSafe) {
-            NavigationView {
-                EnterSafeAddressView()
-            }
-        }
+        .buttonStyle(PlainButtonStyle())
     }
 }

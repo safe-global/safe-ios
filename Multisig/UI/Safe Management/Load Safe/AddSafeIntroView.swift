@@ -43,7 +43,6 @@ struct AddSafeIntroView: View {
             Text("Load Safe Multisig")
         }
         .buttonStyle(GNOFilledButtonStyle())
-        .environment(\.managedObjectContext, self.context)
     }
 
 }

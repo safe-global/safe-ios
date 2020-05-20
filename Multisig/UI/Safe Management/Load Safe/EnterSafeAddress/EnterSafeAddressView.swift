@@ -16,6 +16,8 @@ struct EnterSafeAddressView: View {
     @ObservedObject
     var model: EnterSafeAddressViewModel = EnterSafeAddressViewModel()
 
+    var onSubmit: () -> Void = {}
+
     var body: some View {
         VStack(spacing: 23) {
             BoldText("Enter your Safe Multisig address.")
@@ -46,6 +48,7 @@ struct EnterSafeAddressView: View {
                 // this is controlled by the current view's
                 // presentationMode.
                 App.shared.viewState.state = .balances
+                self.onSubmit()
             }
         )
         .barButton(disabled: model.isValid != true)
