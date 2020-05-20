@@ -83,7 +83,7 @@ struct TempAssets: View {
 
     var body: some View {
         TopTabView($selection) {
-            AssetsOrAddSafeIntroView()
+            AssetsView()
                 .environment(\.managedObjectContext, context)
                 .gnoTabItem(id: 0) {
                     HStack {
