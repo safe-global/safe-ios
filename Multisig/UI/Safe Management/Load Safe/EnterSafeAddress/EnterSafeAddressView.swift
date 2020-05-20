@@ -33,7 +33,7 @@ struct EnterSafeAddressView: View {
         .padding(.top, 27)
         .padding([.leading, .trailing])
         .navigationBarTitle("Load Safe Multisig", displayMode: .inline)
-        .navigationBarItems(leading: cancelButton, trailing: nextButton)
+        .navigationBarItems(trailing: nextButton)
         .onReceive(model.$text, perform: model.validate(address:))
     }
 
@@ -49,10 +49,6 @@ struct EnterSafeAddressView: View {
             }
         )
         .barButton(disabled: model.isValid != true)
-    }
-
-    var cancelButton: some View {
-        BackButton("Cancel", presentationMode: presentationMode)
     }
 }
 
