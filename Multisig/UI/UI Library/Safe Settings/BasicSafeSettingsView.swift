@@ -41,7 +41,7 @@ struct BasicSafeSettingsView: View {
             }
 
             Section(header: SectionHeader("ENS NAME")) {
-                LoadableENSNameText(safe: safe, placeholder: "Not set")
+                LoadableENSNameText(safe: safe, placeholder: "Reverse record not set")
                     .frame(height: rowHeight)
             }
 

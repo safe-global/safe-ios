@@ -13,20 +13,26 @@ struct LoadableENSNameText: View {
     @ObservedObject var safe: Safe
     @ObservedObject private var ensLoader: ENSNameLoader
     private var placeholder: String
+    private var showsLoading: Bool
 
-    init(safe: Safe, placeholder: String) {
+    init(safe: Safe, placeholder: String = "", showsLoading: Bool = true) {
         self.safe = safe
         self.placeholder = placeholder
+        self.showsLoading = showsLoading
         self.ensLoader = ENSNameLoader(safe: safe)
     }
 
     var body: some View {
         ZStack {
-            if ensLoader.isLoading {
+            if ensLoader.isLoading && showsLoading {
                 ActivityIndicator(isAnimating: .constant(true), style: .medium)
-            } else {
-                BoldText(safe.displayENSName.isEmpty ? placeholder : safe.displayENSName)
+            } else if !ensLoader.isLoading && !displayValue.isEmpty {
+                BoldText(displayValue)
             }
         }
+    }
+
+    var displayValue: String {
+        safe.displayENSName.isEmpty ? placeholder : safe.displayENSName
     }
 }
