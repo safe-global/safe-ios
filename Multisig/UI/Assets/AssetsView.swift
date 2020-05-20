@@ -2,54 +2,49 @@
 //  AssetsView.swift
 //  Multisig
 //
-//  Created by Andrey Scherbovich on 13.05.20.
+//  Created by Andrey Scherbovich on 18.05.20.
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
 import SwiftUI
 
 struct AssetsView: View {
-    @ObservedObject
-    var model: AssetsViewModel
+    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
+    var selectedSafe: FetchedResults<Safe>
 
-    init(safe: Safe) {
-        self.model = AssetsViewModel(safe: safe)
-    }
+    @State var selection: Int? = 0
 
     var body: some View {
-        ZStack(alignment: .center) {
-            if model.isLoading {
-                ActivityIndicator(isAnimating: .constant(true), style: .large)
-            } else if model.errorMessage != nil {
-                ErrorText(model.errorMessage!)
-            } else {
-                balances
+        TopTabView($selection) {
+            ZStack {
+                if selectedSafe.first != nil {
+                    BalancesView(safe: selectedSafe.first!)
+                } else {
+                    AddSafeIntroView()
+                }
             }
-        }
-    }
+            .gnoTabItem(id: 0) {
+                HStack {
+                    Image("ico-coins")
+                    Text("COINS").font(Font.gnoCaption1)
+                }
+                .frame(maxWidth: .infinity)
+            }
 
-    var balances: some View {
-        List {
-            ForEach(model.balances) { tokenBalance in
-                TokenBalanceCell(tokenBalance: tokenBalance)
-            }
+            Text("Coming soon")
+                .gnoTabItem(id: 1) {
+                    HStack {
+                        Image("ico-collectibles")
+                        Text("COLLECTIBLES").font(Font.gnoCaption1)
+                    }
+                }
         }
+        .background(Color.gnoWhite)
     }
 }
 
-struct TokenBalanceCell: View {
-    var tokenBalance: TokenBalance
-
-    var body: some View {
-        HStack(spacing: 12) {
-            TokenImage(imageURL: tokenBalance.imageURL)
-
-            Spacer()
-
-            VStack(alignment: .leading) {
-                BoldText(tokenBalance.balance)
-                BodyText(tokenBalance.balanceUsd)
-            }
-        }
+struct AssetsView_Previews: PreviewProvider {
+    static var previews: some View {
+        AssetsView()
     }
 }
