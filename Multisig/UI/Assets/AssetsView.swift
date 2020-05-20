@@ -12,14 +12,33 @@ struct AssetsView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
 
+    @State var selection: Int? = 0
+
     var body: some View {
-        ZStack {
-            if selectedSafe.first != nil {
-                CoinsView(safe: selectedSafe.first!)
-            } else {
-                AddSafeIntroView()
+        TopTabView($selection) {
+            ZStack {
+                if selectedSafe.first != nil {
+                    BalancesView(safe: selectedSafe.first!)
+                } else {
+                    AddSafeIntroView()
+                }
             }
+            .gnoTabItem(id: 0) {
+                HStack {
+                    Image("ico-coins")
+                    Text("COINS").font(Font.gnoCaption1)
+                }
+            }
+
+            Text("Coming soon")
+                .gnoTabItem(id: 1) {
+                    HStack {
+                        Image("ico-collectibles")
+                        Text("COLLECTIBLES").font(Font.gnoCaption1)
+                    }
+                }
         }
+        .background(Color.gnoWhite)
     }
 }
 

@@ -30,7 +30,7 @@ struct ContentView: View {
 
                 BottomTabView($viewState.state) {
 
-                    TempAssets()
+                    AssetsView()
                         .environment(\.managedObjectContext, context)
                         .gnoTabItem(id: ViewStateMode.balanaces) {
                             VStack {
@@ -74,36 +74,6 @@ struct ContentView: View {
         )
     }
 }
-
-struct TempAssets: View {
-    @Environment(\.managedObjectContext)
-    var context: CoreDataContext
-
-    @State var selection: Int? = 0
-
-    var body: some View {
-        TopTabView($selection) {
-            AssetsView()
-                .environment(\.managedObjectContext, context)
-                .gnoTabItem(id: 0) {
-                    HStack {
-                        Image(systemName: "circle.fill")
-                        Text("Coins")
-                    }
-                }
-
-            Text("Coming soon")
-                .gnoTabItem(id: 1) {
-                    HStack {
-                        Image(systemName: "star.fill")
-                        Text("Collectibles")
-                    }
-                }
-        }
-        .background(Color.gnoWhite)
-    }
-}
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-struct CoinsView: View {
+struct BalancesView: View {
     @ObservedObject
-    var model: CoinsViewModel
+    var model: BalancesViewModel
 
     init(safe: Safe) {
-        self.model = CoinsViewModel(safe: safe)
+        self.model = BalancesViewModel(safe: safe)
     }
 
     var body: some View {
