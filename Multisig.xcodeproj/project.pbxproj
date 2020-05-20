@@ -40,7 +40,7 @@
 		0A0EFC94246D9D5200D3D8BF /* TopTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */; };
 		0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */; };
 		0A0EFC98246DAABF00D3D8BF /* BottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */; };
-		0A0EFC9A246DAC1A00D3D8BF /* GNOTabChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC99246DAC1A00D3D8BF /* GNOTabChildView.swift */; };
+		0A0EFC9A246DAC1A00D3D8BF /* TabChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC99246DAC1A00D3D8BF /* TabChildView.swift */; };
 		0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */; };
 		0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */; };
 		0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */; };
@@ -54,11 +54,11 @@
 		0A628FF5245710260038DC88 /* SafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A628FF4245710260038DC88 /* SafeCell.swift */; };
 		0A6C85B2245071510026139E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A6C85B4245080620026139E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B3245080620026139E /* App.swift */; };
-		0A704A572473F903005BDC49 /* GNOTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A562473F903005BDC49 /* GNOTabView.swift */; };
-		0A704A592473FA04005BDC49 /* GNOTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A582473FA04005BDC49 /* GNOTabButton.swift */; };
-		0A704A5C24740146005BDC49 /* GNOTabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A5B24740146005BDC49 /* GNOTabItem.swift */; };
+		0A704A572473F903005BDC49 /* BottomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A562473F903005BDC49 /* BottomTabView.swift */; };
+		0A704A592473FA04005BDC49 /* BottomTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A582473FA04005BDC49 /* BottomTabButton.swift */; };
+		0A704A5C24740146005BDC49 /* TabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A5B24740146005BDC49 /* TabViewItem.swift */; };
 		0A704A6C247417B4005BDC49 /* SafeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A6B247417B4005BDC49 /* SafeHeaderView.swift */; };
-		0A704A7024742003005BDC49 /* ShowSystemNavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A6F24742003005BDC49 /* ShowSystemNavigationBarModifier.swift */; };
+		0A704A7024742003005BDC49 /* HideSystemNavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A6F24742003005BDC49 /* HideSystemNavigationBarModifier.swift */; };
 		0A72AC5A2453125800840641 /* EnterSafeAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC592453125800840641 /* EnterSafeAddressView.swift */; };
 		0A72AC5C245312FC00840641 /* BoldText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC5B245312FC00840641 /* BoldText.swift */; };
 		0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC5F2453157300840641 /* CreateSafePrompt.swift */; };
@@ -204,7 +204,7 @@
 		0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabView.swift; sourceTree = "<group>"; };
 		0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabButton.swift; sourceTree = "<group>"; };
 		0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBorder.swift; sourceTree = "<group>"; };
-		0A0EFC99246DAC1A00D3D8BF /* GNOTabChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GNOTabChildView.swift; sourceTree = "<group>"; };
+		0A0EFC99246DAC1A00D3D8BF /* TabChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabChildView.swift; sourceTree = "<group>"; };
 		0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAppSettings.swift; sourceTree = "<group>"; };
 		0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayURLTests.swift; sourceTree = "<group>"; };
 		0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayURL.swift; sourceTree = "<group>"; };
@@ -218,11 +218,11 @@
 		0A628FF4245710260038DC88 /* SafeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCell.swift; sourceTree = "<group>"; };
 		0A6C85B1245071510026139E /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0A6C85B3245080620026139E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		0A704A562473F903005BDC49 /* GNOTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GNOTabView.swift; sourceTree = "<group>"; };
-		0A704A582473FA04005BDC49 /* GNOTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GNOTabButton.swift; sourceTree = "<group>"; };
-		0A704A5B24740146005BDC49 /* GNOTabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GNOTabItem.swift; sourceTree = "<group>"; };
+		0A704A562473F903005BDC49 /* BottomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabView.swift; sourceTree = "<group>"; };
+		0A704A582473FA04005BDC49 /* BottomTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabButton.swift; sourceTree = "<group>"; };
+		0A704A5B24740146005BDC49 /* TabViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewItem.swift; sourceTree = "<group>"; };
 		0A704A6B247417B4005BDC49 /* SafeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeHeaderView.swift; sourceTree = "<group>"; };
-		0A704A6F24742003005BDC49 /* ShowSystemNavigationBarModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowSystemNavigationBarModifier.swift; sourceTree = "<group>"; };
+		0A704A6F24742003005BDC49 /* HideSystemNavigationBarModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideSystemNavigationBarModifier.swift; sourceTree = "<group>"; };
 		0A72AC592453125800840641 /* EnterSafeAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressView.swift; sourceTree = "<group>"; };
 		0A72AC5B245312FC00840641 /* BoldText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldText.swift; sourceTree = "<group>"; };
 		0A72AC5F2453157300840641 /* CreateSafePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafePrompt.swift; sourceTree = "<group>"; };
@@ -465,21 +465,21 @@
 			path = "App Settings";
 			sourceTree = "<group>";
 		};
-		0A704A5A2474012B005BDC49 /* GNO Tab View */ = {
+		0A704A5A2474012B005BDC49 /* Bottom Tab View */ = {
 			isa = PBXGroup;
 			children = (
-				0A704A582473FA04005BDC49 /* GNOTabButton.swift */,
-				0A704A562473F903005BDC49 /* GNOTabView.swift */,
+				0A704A582473FA04005BDC49 /* BottomTabButton.swift */,
+				0A704A562473F903005BDC49 /* BottomTabView.swift */,
 			);
-			path = "GNO Tab View";
+			path = "Bottom Tab View";
 			sourceTree = "<group>";
 		};
 		0A704A5D24740163005BDC49 /* Tab Views */ = {
 			isa = PBXGroup;
 			children = (
-				0A0EFC99246DAC1A00D3D8BF /* GNOTabChildView.swift */,
-				0A704A5B24740146005BDC49 /* GNOTabItem.swift */,
-				0A704A5A2474012B005BDC49 /* GNO Tab View */,
+				0A0EFC99246DAC1A00D3D8BF /* TabChildView.swift */,
+				0A704A5B24740146005BDC49 /* TabViewItem.swift */,
+				0A704A5A2474012B005BDC49 /* Bottom Tab View */,
 				0A0EFC9B246DAD0B00D3D8BF /* Top Tab View */,
 			);
 			path = "Tab Views";
@@ -596,7 +596,7 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
-				0A704A6F24742003005BDC49 /* ShowSystemNavigationBarModifier.swift */,
+				0A704A6F24742003005BDC49 /* HideSystemNavigationBarModifier.swift */,
 				55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */,
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
 				0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */,
@@ -1155,7 +1155,7 @@
 				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
-				0A704A5C24740146005BDC49 /* GNOTabItem.swift in Sources */,
+				0A704A5C24740146005BDC49 /* TabViewItem.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				0A0EFC94246D9D5200D3D8BF /* TopTabView.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
@@ -1173,7 +1173,7 @@
 				0A7AEAE32462FA6000014184 /* AddSafeRow.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
-				0A704A592473FA04005BDC49 /* GNOTabButton.swift in Sources */,
+				0A704A592473FA04005BDC49 /* BottomTabButton.swift in Sources */,
 				04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
 				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
@@ -1184,10 +1184,10 @@
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
-				0A0EFC9A246DAC1A00D3D8BF /* GNOTabChildView.swift in Sources */,
+				0A0EFC9A246DAC1A00D3D8BF /* TabChildView.swift in Sources */,
 				55F9A2EB2472F3EE00ABBA6F /* AssetsViewModel.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
-				0A704A572473F903005BDC49 /* GNOTabView.swift in Sources */,
+				0A704A572473F903005BDC49 /* BottomTabView.swift in Sources */,
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
 				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,
@@ -1244,7 +1244,7 @@
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
 				0ADDA20D24533F860066457E /* BodyText.swift in Sources */,
-				0A704A7024742003005BDC49 /* ShowSystemNavigationBarModifier.swift in Sources */,
+				0A704A7024742003005BDC49 /* HideSystemNavigationBarModifier.swift in Sources */,
 				04769164246408D000D73D8B /* LoadableSafeSettingsView.swift in Sources */,
 				0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,

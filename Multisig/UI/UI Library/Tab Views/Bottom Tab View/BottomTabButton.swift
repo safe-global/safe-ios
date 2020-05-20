@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct GNOTabButton<SelectionValue: Hashable, Content: View>: View {
+struct BottomTabButton<SelectionValue: Hashable, Content: View>: View {
     
     var tag: SelectionValue
     var selection: Binding<SelectionValue?>
@@ -47,9 +47,9 @@ struct GNOTabButton<SelectionValue: Hashable, Content: View>: View {
     
 }
 
-struct GNOTabButton_Previews: PreviewProvider {
+struct BottomTabButton_Previews: PreviewProvider {
     static var previews: some View {
-        GNOTabButton(tag: 0, selection: .constant(0)) {
+        BottomTabButton(tag: 0, selection: .constant(0)) {
             VStack {
                 Image(systemName: "star.filled")
                 Text("Button")

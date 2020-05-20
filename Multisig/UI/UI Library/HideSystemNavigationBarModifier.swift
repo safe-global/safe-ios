@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ShowSystemNavigationBarModifier: ViewModifier {
+struct HideSystemNavigationBarModifier: ViewModifier {
 
     var value: Bool = false
 
@@ -30,6 +30,6 @@ struct ShowSystemNavigationBarModifier: ViewModifier {
 
 extension View {
     func hidesSystemNavigationBar(_ value: Bool) -> some View {
-        modifier(ShowSystemNavigationBarModifier(value: value))
+        modifier(HideSystemNavigationBarModifier(value: value))
     }
 }

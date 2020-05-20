@@ -28,7 +28,7 @@ struct ContentView: View {
                     .frame(height: headerHeight)
                     .zIndex(100)
 
-                GNOTabView($viewState.state) {
+                BottomTabView($viewState.state) {
 
                     TempAssets()
                         .environment(\.managedObjectContext, context)

@@ -1,5 +1,5 @@
 //
-//  GNOTabView.swift
+//  BottomTabView.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 19.05.20.
@@ -8,13 +8,13 @@
 
 import SwiftUI
 
-struct GNOTabView<SelectionValue: Hashable>: View {
+struct BottomTabView<SelectionValue: Hashable>: View {
     
-    var items: [GNOTabItem<SelectionValue>]
+    var items: [TabViewItem<SelectionValue>]
 
     var selection: Binding<SelectionValue?>
 
-    init(selection: Binding<SelectionValue?>, items: [GNOTabItem<SelectionValue>])  {
+    init(selection: Binding<SelectionValue?>, items: [TabViewItem<SelectionValue>])  {
         self.selection = selection
         self.items = items
     }
@@ -29,7 +29,7 @@ struct GNOTabView<SelectionValue: Hashable>: View {
 
             HStack(spacing: 0) {
                 ForEach(items) { item in
-                    GNOTabButton(tag: item.id, selection: self.selection) {
+                    BottomTabButton(tag: item.id, selection: self.selection) {
                         item.label
                     }
                 }
@@ -40,7 +40,7 @@ struct GNOTabView<SelectionValue: Hashable>: View {
         .edgesIgnoringSafeArea(.bottom)
     }
 
-    var selectedItem: GNOTabItem<SelectionValue>? {
+    var selectedItem: TabViewItem<SelectionValue>? {
         selection.wrappedValue.flatMap { id in items.first { $0.id == id } }
     }
 
@@ -54,14 +54,14 @@ struct GNOTabView<SelectionValue: Hashable>: View {
 
 }
 
-extension GNOTabView {
+extension BottomTabView {
 
     // note: custom formatting here to make the declaration easier to read
     // and modify.
 
     // 1 child view
     init<L, C>(_ selection: Binding<SelectionValue?>, @ViewBuilder _ contentClosure: () ->
-        GNOTabChildView<SelectionValue, L, C>
+        TabChildView<SelectionValue, L, C>
     )
         where
         L: View, C: View
@@ -69,7 +69,7 @@ extension GNOTabView {
         self.selection = selection
         let content = contentClosure()
         items = [
-            GNOTabItem(content)
+            TabViewItem(content)
         ]
     }
 
@@ -80,8 +80,8 @@ extension GNOTabView {
         >
     (_ selection: Binding<SelectionValue?>, @ViewBuilder _ contentClosure: () ->
         TupleView<(
-        GNOTabChildView<SelectionValue, L0, C0>,
-        GNOTabChildView<SelectionValue, L1, C1>
+        TabChildView<SelectionValue, L0, C0>,
+        TabChildView<SelectionValue, L1, C1>
         )>
     )
         where
@@ -91,8 +91,8 @@ extension GNOTabView {
             self.selection = selection
             let content = contentClosure()
             items = [
-                GNOTabItem(content.value.0),
-                GNOTabItem(content.value.1)
+                TabViewItem(content.value.0),
+                TabViewItem(content.value.1)
             ]
     }
 
@@ -104,9 +104,9 @@ extension GNOTabView {
         >
     (_ selection: Binding<SelectionValue?>, @ViewBuilder _ contentClosure: () ->
         TupleView<(
-        GNOTabChildView<SelectionValue, L0, C0>,
-        GNOTabChildView<SelectionValue, L1, C1>,
-        GNOTabChildView<SelectionValue, L2, C2>
+        TabChildView<SelectionValue, L0, C0>,
+        TabChildView<SelectionValue, L1, C1>,
+        TabChildView<SelectionValue, L2, C2>
         )>
     )
         where
@@ -117,18 +117,18 @@ extension GNOTabView {
             self.selection = selection
             let content = contentClosure()
             items = [
-                GNOTabItem(content.value.0),
-                GNOTabItem(content.value.1),
-                GNOTabItem(content.value.2)
+                TabViewItem(content.value.0),
+                TabViewItem(content.value.1),
+                TabViewItem(content.value.2)
             ]
     }
 
 }
 
 
-struct GNOTabView_Previews: PreviewProvider {
+struct BottomTabView_Previews: PreviewProvider {
     static var previews: some View {
-        GNOTabView(.constant(0)) {
+        BottomTabView(.constant(0)) {
             Text("Hello")
                 .gnoTabItem(id: 0) {
                     Text("One")

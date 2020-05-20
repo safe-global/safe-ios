@@ -12,13 +12,13 @@ import SwiftUI
 // Currently supports 1 or 2 tabs.
 struct TopTabView<SelectionValue: Hashable>: View {
 
-    var items: [GNOTabItem<SelectionValue>]
+    var items: [TabViewItem<SelectionValue>]
 
     var selection: Binding<SelectionValue?>
 
     let tabBarHeight: CGFloat = 56
 
-    init(_ selection: Binding<SelectionValue?>, items: [GNOTabItem<SelectionValue>]) {
+    init(_ selection: Binding<SelectionValue?>, items: [TabViewItem<SelectionValue>]) {
         self.selection = selection
         self.items = items
     }
@@ -43,7 +43,7 @@ struct TopTabView<SelectionValue: Hashable>: View {
         }
     }
 
-    var selectedItem: GNOTabItem<SelectionValue>? {
+    var selectedItem: TabViewItem<SelectionValue>? {
         selection.wrappedValue.flatMap { id in items.first { $0.id == id } }
     }
 
@@ -53,7 +53,7 @@ extension TopTabView {
 
     // 1 child view
     init<L, C>(_ selection: Binding<SelectionValue?>, @ViewBuilder _ contentClosure: () ->
-        GNOTabChildView<SelectionValue, L, C>
+        TabChildView<SelectionValue, L, C>
     )
         where
         L: View, C: View
@@ -61,7 +61,7 @@ extension TopTabView {
         self.selection = selection
         let content = contentClosure()
         items = [
-            GNOTabItem(content)
+            TabViewItem(content)
         ]
     }
 
@@ -74,8 +74,8 @@ extension TopTabView {
         >
     (_ selection: Binding<SelectionValue?>, @ViewBuilder _ contentClosure: () ->
         TupleView<(
-        GNOTabChildView<SelectionValue, L0, C0>,
-        GNOTabChildView<SelectionValue, L1, C1>
+        TabChildView<SelectionValue, L0, C0>,
+        TabChildView<SelectionValue, L1, C1>
         )>
     )
         where
@@ -85,8 +85,8 @@ extension TopTabView {
             self.selection = selection
             let content = contentClosure()
             items = [
-                GNOTabItem(content.value.0),
-                GNOTabItem(content.value.1)
+                TabViewItem(content.value.0),
+                TabViewItem(content.value.1)
             ]
     }
 

@@ -1,5 +1,5 @@
 //
-//  GNOTabItem.swift
+//  TabViewItem.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 19.05.20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct GNOTabItem<SelectionValue: Hashable>: Identifiable {
+struct TabViewItem<SelectionValue: Hashable>: Identifiable {
     var id: SelectionValue
     var label: AnyView
     var content: AnyView
