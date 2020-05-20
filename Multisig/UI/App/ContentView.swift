@@ -81,7 +81,6 @@ struct TempAssets: View {
 
     @State var selection: Int? = 0
 
-
     var body: some View {
         TopTabView($selection) {
             AssetsOrAddSafeIntroView()
