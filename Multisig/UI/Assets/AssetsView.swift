@@ -22,7 +22,9 @@ struct AssetsView: View {
                         .gnoTabItem(id: 0) {
                             HStack {
                                 Image("ico-coins")
-                                Text("COINS").font(Font.gnoCaption1)
+                                Text("COINS")
+									.font(Font.gnoCaption1)
+			                        .tracking(0.45)
                             }
                             .frame(maxWidth: .infinity)
                         }
@@ -31,7 +33,9 @@ struct AssetsView: View {
                         .gnoTabItem(id: 1) {
                             HStack {
                                 Image("ico-collectibles")
-                                Text("COLLECTIBLES").font(Font.gnoCaption1)
+                                Text("COLLECTIBLES")
+									.font(Font.gnoCaption1)
+			                        .tracking(0.45)
                             }
                         }
                 }

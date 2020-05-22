@@ -26,7 +26,7 @@ struct SectionHeader: View {
             
             Spacer()
         }
-        .frame(height: 44)
+        .frame(height: text.isEmpty ? 28 : 44)
         .background(Color.gnoWhite)
         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }

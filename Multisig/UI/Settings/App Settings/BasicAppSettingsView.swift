@@ -28,7 +28,7 @@ struct BasicAppSettingsView: View {
 
             KeyValueView(key: "Network", value: App.shared.network.rawValue)
 
-            Section(header: SectionHeader(" ")) {
+            Section(header: SectionHeader("")) {
                 NavigationLink(destination: AdvancedAppSettings().hidesSystemNavigationBar(false)) {
                     BodyText("Advanced")
                 }

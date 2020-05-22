@@ -45,7 +45,7 @@ struct BasicSafeSettingsView: View {
                     .frame(height: rowHeight)
             }
 
-            Section(header: SectionHeader(" ")) {
+            Section(header: SectionHeader("")) {
                 NavigationLink(destination: AdvancedSafeSettingsView(safe: safe).hidesSystemNavigationBar(false)) {
                     BodyText("Advanced")
                 }
