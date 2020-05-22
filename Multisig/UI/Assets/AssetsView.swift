@@ -15,31 +15,33 @@ struct AssetsView: View {
     @State var selection: Int? = 0
 
     var body: some View {
-        TopTabView($selection) {
-            ZStack {
-                if selectedSafe.first != nil {
+        ZStack {
+            if selectedSafe.first != nil {
+                TopTabView($selection) {
                     BalancesView(safe: selectedSafe.first!)
-                } else {
+                        .gnoTabItem(id: 0) {
+                            HStack {
+                                Image("ico-coins")
+                                Text("COINS").font(Font.gnoCaption1)
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+
+                    Text("Coming soon")
+                        .gnoTabItem(id: 1) {
+                            HStack {
+                                Image("ico-collectibles")
+                                Text("COLLECTIBLES").font(Font.gnoCaption1)
+                            }
+                        }
+                }
+                .background(Color.gnoWhite)
+            } else {
+                VStack(spacing: 0) {                    
                     AddSafeIntroView()
                 }
             }
-            .gnoTabItem(id: 0) {
-                HStack {
-                    Image("ico-coins")
-                    Text("COINS").font(Font.gnoCaption1)
-                }
-                .frame(maxWidth: .infinity)
-            }
-
-            Text("Coming soon")
-                .gnoTabItem(id: 1) {
-                    HStack {
-                        Image("ico-collectibles")
-                        Text("COLLECTIBLES").font(Font.gnoCaption1)
-                    }
-                }
         }
-        .background(Color.gnoWhite)
     }
 }
 
