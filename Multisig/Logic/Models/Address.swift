@@ -43,3 +43,28 @@ extension Address {
         try? self.init(hex: value, eip55: false)
     }
 }
+
+extension Address {
+
+    init(_ value: String, isERC681: Bool) throws {
+        var addressString = value
+        if isERC681 {
+            addressString = Address.addressFromERC681(addressString)
+        }
+
+        try self.init(hex: addressString, eip55: false)
+    }
+
+    // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-681.md
+    private static func addressFromERC681(_ address: String) -> String {
+        let hexPrefix = "0x"
+        let withoutScheme = address.replacingOccurrences(of: "ethereum:pay-", with: "").replacingOccurrences(of: "ethereum:", with: "")
+        let hasPrefix = withoutScheme.hasPrefix(hexPrefix)
+        let withoutPrefix = hasPrefix ? String(withoutScheme.dropFirst(hexPrefix.count)) : withoutScheme
+        let leadingHexChars = withoutPrefix.filter { (c) -> Bool in
+            return !c.unicodeScalars.contains(where: { !CharacterSet.hexadecimals.contains($0)})
+        }
+
+        return hexPrefix + leadingHexChars
+    }
+}
