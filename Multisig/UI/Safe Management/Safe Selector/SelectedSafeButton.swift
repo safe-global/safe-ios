@@ -20,12 +20,10 @@ struct SelectedSafeButton: View {
             if selected.first == nil {
                 notSelectedView
             } else {
-                SafeCell(safe: selected.first!, style: .regular)
+                SafeCell(safe: selected.first!)
             }
-
             Spacer()
         }
-        .padding(.bottom, 4)
         .frameForNavigationBar()
         .disabled(selected.first == nil)
     }
@@ -35,7 +33,7 @@ struct SelectedSafeButton: View {
             Image("safe-selector-not-selected-icon")
                 .resizable()
                 .renderingMode(.original)
-                .frame(width: 30, height: 30)
+                .frame(width: 36, height: 36)
 
             Text("No Safe loaded")
                 .font(Font.gnoBody.weight(.semibold))

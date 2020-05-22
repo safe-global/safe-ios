@@ -27,6 +27,7 @@ struct ContentView: View {
                     .environment(\.managedObjectContext, context)
                     .frame(height: headerHeight)
                     .zIndex(100)
+                    .background(Color.pink)
 
                 BottomTabView($viewState.state) {
 
