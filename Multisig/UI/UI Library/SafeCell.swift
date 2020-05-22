@@ -13,16 +13,18 @@ struct SafeCell: View {
     @ObservedObject
     var safe: Safe
 
-    var style: Style = .regular
+    var iconSize: CGFloat = 36
+    var iconToTextSpacing: CGFloat = 12
+    var nameToAddressPadding: CGFloat = 0
+
 
     var body: some View {
-        HStack(spacing: style.iconToTextSpacing) {
+        HStack(spacing: iconToTextSpacing) {
             Identicon(safe.address ?? "")
-                .frame(width: style.iconSize, height: style.iconSize)
+                .frame(width: iconSize, height: iconSize)
 
             VStack(alignment: .leading) {
                 BoldText(safe.name ?? "")
-                    .padding(.bottom, style.nameToAddressPadding)
                     .lineLimit(1)
 
                 AddressText(safe.address ?? "", style: .short)
@@ -30,23 +32,6 @@ struct SafeCell: View {
             }
         }
     }
-
-    struct Style {
-        var iconSize: CGFloat
-        var iconToTextSpacing: CGFloat
-        var nameToAddressPadding: CGFloat
-
-        static let compact = Style(
-            iconSize: 34,
-            iconToTextSpacing: 6,
-            nameToAddressPadding: -5)
-
-        static let regular = Style(
-            iconSize: 36,
-            iconToTextSpacing: 12,
-            nameToAddressPadding: 0)
-    }
-
 }
 
 struct SafeCell_Previews: PreviewProvider {

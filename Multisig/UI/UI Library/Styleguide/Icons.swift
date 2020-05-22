@@ -15,7 +15,7 @@ extension Image {
     // using static let ... = ... is crashing the app when the views are
     // deiniitialized, so instead we use the computed properties
     static var checkmark: some View {
-        checkmark(size: regularSize)
+        checkmark(size: 16)
     }
 
     static func checkmark(size: CGFloat) -> some View {
@@ -41,7 +41,7 @@ extension Image {
             .resizable()
             .font(Font.body.weight(.medium))
             .foregroundColor(.gnoMediumGrey)
-            .frame(width: 24, height: 24)
+            .frame(width: regularSize, height: regularSize)
     }
 
     static var ellipsis: some View {
