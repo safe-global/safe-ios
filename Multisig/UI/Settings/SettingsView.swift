@@ -19,7 +19,9 @@ struct SettingsView: View {
                 .gnoTabItem(id: 0) {
                     HStack {
                         Image("ico-safe-settings")
-                        Text("SAFE SETTINGS").font(Font.gnoFootnote.bold())
+                        Text("SAFE SETTINGS")
+                            .font(Font.gnoCaption1)
+                            .tracking(0.54)
                     }
                 }
 
@@ -27,7 +29,9 @@ struct SettingsView: View {
                 .gnoTabItem(id: 1) {
                     HStack {
                         Image("ico-app-settings")
-                        Text("APP SETTINGS").font(Font.gnoFootnote.bold())
+                        Text("APP SETTINGS")
+                            .font(Font.gnoCaption1)
+                            .tracking(0.45)
                     }
                 }
         }
