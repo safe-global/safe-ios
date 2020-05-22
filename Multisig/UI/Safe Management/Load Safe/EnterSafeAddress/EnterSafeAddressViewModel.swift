@@ -105,6 +105,5 @@ class EnterSafeAddressViewModel: ObservableObject {
         self.isValid = false
 
         self.errorMessage = message
-        self.displayText = self.text
     }
 }

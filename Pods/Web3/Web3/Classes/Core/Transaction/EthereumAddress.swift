@@ -16,7 +16,6 @@ public struct EthereumAddress {
     /// The raw address bytes
     public let rawAddress: Bytes
 
-    private let hexPrefix = "0x"
     // MARK: - Initialization
 
     /**
@@ -132,7 +131,7 @@ public struct EthereumAddress {
      *            Either lowercased or mixed case (checksumed) depending on the parameter `eip55`.
      */
     public func hex(eip55: Bool) -> String {
-        var hex = hexPrefix
+        var hex = "0x"
         if !eip55 {
             for b in rawAddress {
                 hex += String(format: "%02x", b)
@@ -169,14 +168,15 @@ public struct EthereumAddress {
 
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-681.md
     private static func addressFromERC681(_ address: String) -> String {
+        let hexPrefix = "0x"
         let withoutScheme = address.replacingOccurrences(of: "ethereum:pay-", with: "").replacingOccurrences(of: "ethereum:", with: "")
-        let hasPrefix = withoutScheme.hasPrefix("0x")
-        let withoutPrefix = hasPrefix ? String(withoutScheme.dropFirst("0x".count)) : withoutScheme
+        let hasPrefix = withoutScheme.hasPrefix(hexPrefix)
+        let withoutPrefix = hasPrefix ? String(withoutScheme.dropFirst(hexPrefix.count)) : withoutScheme
         let leadingHexChars = withoutPrefix.filter { (c) -> Bool in
             return !c.unicodeScalars.contains(where: { !CharacterSet.hexadecimals.contains($0)})
         }
 
-        return "0x" + leadingHexChars
+        return hexPrefix + leadingHexChars
     }
 
     // MARK: - Errors
