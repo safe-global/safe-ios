@@ -16,6 +16,7 @@
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
 		0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471D13124728C2C00B22A70 /* EmailLink.swift */; };
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
+		047300FE24781081004F1200 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FD24781081004F1200 /* AddressTests.swift */; };
 		047691372461B2E200D73D8B /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691362461B2E200D73D8B /* AddressCell.swift */; };
 		047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691542464023300D73D8B /* EditSafeNameViewModel.swift */; };
 		047691572464023300D73D8B /* EditSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691552464023300D73D8B /* EditSafeNameView.swift */; };
@@ -183,6 +184,7 @@
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		0471D13124728C2C00B22A70 /* EmailLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLink.swift; sourceTree = "<group>"; };
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
+		047300FD24781081004F1200 /* AddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
 		047691362461B2E200D73D8B /* AddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
 		047691542464023300D73D8B /* EditSafeNameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSafeNameViewModel.swift; sourceTree = "<group>"; };
 		047691552464023300D73D8B /* EditSafeNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSafeNameView.swift; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 		551DDEEA244F192300C719D3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				047300FD24781081004F1200 /* AddressTests.swift */,
 				551DDEEF244F1A0A00C719D3 /* SafeTests.swift */,
 				0A9BC34B246053DB00EB9C5D /* DataInitWithHexTests.swift */,
 				0A9BC349246053AD00EB9C5D /* ENSContractsTests.swift */,
@@ -1294,6 +1297,7 @@
 				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
 				5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */,
 				0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */,
+				047300FE24781081004F1200 /* AddressTests.swift in Sources */,
 				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
