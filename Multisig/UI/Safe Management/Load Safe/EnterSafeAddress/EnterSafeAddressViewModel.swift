@@ -50,7 +50,7 @@ class EnterSafeAddressViewModel: ObservableObject {
                 return v.trimmingCharacters(in: .whitespacesAndNewlines)
             }
             .tryMap { text -> String in
-                let address = try Address(text, true)
+                let address = try Address(text, isERC681: true)
                 return address.hex(eip55: true)
             }
             .map { v -> String in

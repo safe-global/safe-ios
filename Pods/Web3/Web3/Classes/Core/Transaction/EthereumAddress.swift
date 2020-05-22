@@ -163,7 +163,6 @@ public struct EthereumAddress {
         return hex
     }
 
-    
     // MARK: - Errors
 
     public enum Error: Swift.Error {

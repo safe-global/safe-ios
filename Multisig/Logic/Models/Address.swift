@@ -46,7 +46,7 @@ extension Address {
 
 extension Address {
 
-    init(_ value: String, _ isERC681: Bool) throws {
+    init(_ value: String, isERC681: Bool) throws {
         var addressString = value
         if isERC681 {
             addressString = Address.addressFromERC681(addressString)
