@@ -29,7 +29,6 @@ struct ContentView: View {
                     .zIndex(100)
 
                 BottomTabView($viewState.state) {
-
                     AssetsView()
                         .environment(\.managedObjectContext, context)
                         .gnoTabItem(id: ViewStateMode.balances) {
