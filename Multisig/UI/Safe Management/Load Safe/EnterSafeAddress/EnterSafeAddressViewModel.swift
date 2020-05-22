@@ -55,7 +55,7 @@ class EnterSafeAddressViewModel: ObservableObject {
             }
             .map { v -> String in
                 self.isAddress = true
-                self.displayText = address
+                self.displayText = v
 
                 self.isValidating = true
                 return v
