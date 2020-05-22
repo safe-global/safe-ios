@@ -42,6 +42,7 @@ struct EnterSafeNameView: View {
         }
         .padding(.top, 24)
         .padding(.horizontal)
+        .keyboardAdaptive()
         .navigationBarTitle("Load Safe Multisig", displayMode: .inline)
         .navigationBarItems(trailing: nextButton)
     }
