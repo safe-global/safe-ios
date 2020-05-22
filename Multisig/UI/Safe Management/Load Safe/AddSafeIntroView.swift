@@ -39,7 +39,9 @@ struct AddSafeIntroView: View {
     }
 
     var loadSafeButton: some View {
-        NavigationLink(destination: EnterSafeAddressView()) {
+        NavigationLink(destination: EnterSafeAddressView {
+            self.showsLoadSafe.toggle()
+        }, isActive: $showsLoadSafe) {
             Text("Load Safe Multisig")
         }
         .buttonStyle(GNOFilledButtonStyle())
