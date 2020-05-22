@@ -35,6 +35,10 @@ struct EmailSupportViewController: UIViewControllerRepresentable {
         Feedback:
         """
         mailVC.setMessageBody(message, isHTML: false)
+
+        UINavigationBar.appearance(whenContainedInInstancesOf: [MFMailComposeViewController.self])
+            .tintColor = nil
+
         return mailVC
     }
 
