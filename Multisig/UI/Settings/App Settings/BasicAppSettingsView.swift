@@ -13,11 +13,6 @@ struct BasicAppSettingsView: View {
 
     var body: some View {
         List {
-            NavigationLink(destination: FiatCurrenciesView().hidesSystemNavigationBar(false)) {
-                KeyValueView(key: "Fiat currency", value: "USD")
-            }
-            .frame(height: rowHeight)
-
             BrowserLink(title: "Terms of use", url: App.shared.termOfUseURL)
 
             BrowserLink(title: "Privacy policy", url: App.shared.privacyPolicyURL)
