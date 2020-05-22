@@ -34,14 +34,11 @@ public struct EthereumAddress {
      */
     public init(hex: String, eip55: Bool) throws {
         // Check length
-        var hex = hex
-
-        hex = EthereumAddress.addressFromERC681(hex)
         guard hex.count == 40 || hex.count == 42 else {
             throw Error.addressMalformed
         }
 
-
+        var hex = hex
 
         // Check prefix
         if hex.count == 42 {
@@ -166,19 +163,7 @@ public struct EthereumAddress {
         return hex
     }
 
-    // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-681.md
-    private static func addressFromERC681(_ address: String) -> String {
-        let hexPrefix = "0x"
-        let withoutScheme = address.replacingOccurrences(of: "ethereum:pay-", with: "").replacingOccurrences(of: "ethereum:", with: "")
-        let hasPrefix = withoutScheme.hasPrefix(hexPrefix)
-        let withoutPrefix = hasPrefix ? String(withoutScheme.dropFirst(hexPrefix.count)) : withoutScheme
-        let leadingHexChars = withoutPrefix.filter { (c) -> Bool in
-            return !c.unicodeScalars.contains(where: { !CharacterSet.hexadecimals.contains($0)})
-        }
-
-        return hexPrefix + leadingHexChars
-    }
-
+    
     // MARK: - Errors
 
     public enum Error: Swift.Error {
