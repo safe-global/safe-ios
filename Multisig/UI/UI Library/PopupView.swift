@@ -26,8 +26,8 @@ struct PopupView<Content>: View where Content: View {
 
     private let cardBackgroundColor = Color.white
 
-    @inlinable public init(isPresented: Binding<Bool>,
-                           @ViewBuilder content: () -> Content) {
+    public init(isPresented: Binding<Bool>,
+               @ViewBuilder content: () -> Content) {
         self.content = content()
         self.isPresented = isPresented
     }

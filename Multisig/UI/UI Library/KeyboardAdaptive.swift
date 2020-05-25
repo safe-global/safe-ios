@@ -13,6 +13,8 @@ import UIKit
 // Adapted from (thanks to)
 // https://www.vadimbulavin.com/how-to-move-swiftui-view-when-keyboard-covers-text-field/
 struct KeyboardAdaptive: ViewModifier {
+
+    let responderPadding: CGFloat
     @State private var bottomPadding: CGFloat = 0
     @State private var offsetY: CGFloat = 0
 
@@ -22,11 +24,26 @@ struct KeyboardAdaptive: ViewModifier {
                 .padding(.bottom, bottomPadding)
                 .offset(y: offsetY)
         }
-        .onReceive(Publishers.keyboardHeight) { keyboardHeight in
+        .onReceive(Publishers.willShowKeyboard) { keyboardFrame in
+            var visibleRect = UIScreen.main.bounds
+            visibleRect.size.height -= keyboardFrame.height
+
+
+            let adjustedResponderFrame = UIResponder.currentFirstResponder?
+                .globalFrame?.insetBy(dx: -self.responderPadding, dy: -self.responderPadding)
+
+            if let responderFrame = adjustedResponderFrame, !visibleRect.contains(responderFrame) {
+                withAnimation {
+                    self.bottomPadding = keyboardFrame.height
+                    let change = abs(keyboardFrame.minY - responderFrame.maxY)
+                    self.offsetY = -change
+                }
+            }
+        }
+        .onReceive(Publishers.willHideKeyboard) { _ in
             withAnimation {
-                self.bottomPadding = keyboardHeight
-                let focusedTextInputBottom = UIResponder.currentFirstResponder?.globalFrame?.maxY ?? 0
-                self.offsetY = keyboardHeight > 0 ? (keyboardHeight - focusedTextInputBottom) : 0
+                self.bottomPadding = 0
+                self.offsetY = 0
             }
         }
         .onTapGesture {
@@ -36,27 +53,25 @@ struct KeyboardAdaptive: ViewModifier {
 }
 
 extension View {
-    func keyboardAdaptive() -> some View {
-        modifier(KeyboardAdaptive())
+    func keyboardAdaptive(padding: CGFloat = 32) -> some View {
+        modifier(KeyboardAdaptive(responderPadding: padding))
     }
 }
 
 extension Publishers {
-    static var keyboardHeight: AnyPublisher<CGFloat, Never> {
-        let willShow = NotificationCenter.default.publisher(for: UIApplication.keyboardWillShowNotification)
-            .map { $0.keyboardHeight }
 
-        let willHide = NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)
-            .map { _ in CGFloat(0) }
+    static let willShowKeyboard = NotificationCenter.default.publisher(for: UIApplication.keyboardWillShowNotification)
+        .map { $0.keyboardFrame }
+        .eraseToAnyPublisher()
 
-        return MergeMany(willShow, willHide)
-            .eraseToAnyPublisher()
-    }
+    static let willHideKeyboard = NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)
+        .map { $0.keyboardFrame }
+        .eraseToAnyPublisher()
 }
 
 extension Notification {
-    var keyboardHeight: CGFloat {
-        return (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
+    var keyboardFrame: CGRect {
+        (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
     }
 }
 
