@@ -12,7 +12,7 @@ struct FullSize<Content> : View where Content : View {
 
     let content: Content
 
-    @inlinable init(@ViewBuilder content: () -> Content) {
+    init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
 
