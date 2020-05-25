@@ -40,9 +40,14 @@ struct SafeHeaderView: View {
 
 }
 
+// because of the TestCoreDataStack available only in Debug
+#if DEBUG
+
 struct SafeHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         SafeHeaderView(showsSafeInfo: .constant(false))
             .environment(\.managedObjectContext, TestCoreDataStack.context)
     }
 }
+
+#endif
