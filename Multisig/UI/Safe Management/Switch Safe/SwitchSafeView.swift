@@ -60,9 +60,14 @@ struct SwitchSafeView: View {
     }
 }
 
+// because of the TestCoreDataStack available only in Debug
+#if DEBUG
+
 struct SwitchSafeView_Previews: PreviewProvider {
     static var previews: some View {
         SwitchSafeView()
             .environment(\.managedObjectContext, TestCoreDataStack.context)
     }
 }
+
+#endif
