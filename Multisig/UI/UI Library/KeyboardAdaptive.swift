@@ -28,7 +28,6 @@ struct KeyboardAdaptive: ViewModifier {
             var visibleRect = UIScreen.main.bounds
             visibleRect.size.height -= keyboardFrame.height
 
-
             let adjustedResponderFrame = UIResponder.currentFirstResponder?
                 .globalFrame?.insetBy(dx: -self.responderPadding, dy: -self.responderPadding)
 
