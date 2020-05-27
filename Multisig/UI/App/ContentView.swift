@@ -38,7 +38,7 @@ struct ContentView: View {
                             }
                         }
 
-                    AddSafeIntroView()
+                    TransactionsView()
                         .gnoTabItem(id: ViewStateMode.transactions) {
                             VStack {
                                 Image("tab-icon-transactions")
