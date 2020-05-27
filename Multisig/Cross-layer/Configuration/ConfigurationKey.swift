@@ -58,8 +58,8 @@ struct ConfigurationKey<T: InfoPlistValueType> {
 
 }
 
+/// Value type that is used in the Info.plist dictionary
 protocol InfoPlistValueType {
-
     /// Converts value from a plist object to the protocol's implementation type
     /// - Parameter value: a value from Info.plist dictionary
     static func convert(from value: Any) -> Self
