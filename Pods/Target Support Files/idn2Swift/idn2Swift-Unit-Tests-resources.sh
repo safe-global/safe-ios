@@ -96,10 +96,22 @@ EOM
       ;;
   esac
 }
-if [[ "$CONFIGURATION" == "Debug" ]]; then
+if [[ "$CONFIGURATION" == "Debug.Production.Mainnet" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
 fi
-if [[ "$CONFIGURATION" == "Release" ]]; then
+if [[ "$CONFIGURATION" == "Debug.Production.Rinkeby" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
+fi
+if [[ "$CONFIGURATION" == "Debug.Staging.Rinkeby" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
+fi
+if [[ "$CONFIGURATION" == "Release.Production.Mainnet" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
+fi
+if [[ "$CONFIGURATION" == "Release.Production.Rinkeby" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
+fi
+if [[ "$CONFIGURATION" == "Release.Staging.Rinkeby" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
 fi
 
@@ -114,7 +126,7 @@ rm -f "$RESOURCES_TO_COPY"
 if [[ -n "${WRAPPER_EXTENSION}" ]] && [ "`xcrun --find actool`" ] && [ -n "${XCASSET_FILES:-}" ]
 then
   # Find all other xcassets (this unfortunately includes those of path pods and other targets).
-  OTHER_XCASSETS=$(find "$PWD" -iname "*.xcassets" -type d)
+  OTHER_XCASSETS=$(find -L "$PWD" -iname "*.xcassets" -type d)
   while read line; do
     if [[ $line != "${PODS_ROOT}*" ]]; then
       XCASSET_FILES+=("$line")
