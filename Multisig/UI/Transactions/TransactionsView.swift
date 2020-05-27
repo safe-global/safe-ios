@@ -18,8 +18,9 @@ struct TransactionsView: View {
             Rectangle()
                .edgesIgnoringSafeArea(.all)
                .foregroundColor(Color.gnoWhite)
-            if selectedSafe.first == nil { AddSafeIntroView() }
-            else {
+            if selectedSafe.first == nil {
+                AddSafeIntroView()
+            } else {
                 EmptyListPlaceholder(label: "Transactions will appear here", image: "ico-no-transactions")
             }
         }
