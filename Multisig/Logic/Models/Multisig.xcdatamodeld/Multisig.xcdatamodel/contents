@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AppSettings" representedClassName="AppSettings" syncable="YES" codeGenerationType="class">
+        <attribute name="termsAcceptanceDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
     <entity name="Safe" representedClassName="Safe" syncable="YES">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
@@ -12,5 +15,6 @@
     <elements>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
+        <element name="AppSettings" positionX="54" positionY="18" width="128" height="58"/>
     </elements>
 </model>
