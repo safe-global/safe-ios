@@ -56,25 +56,6 @@ struct ConfigurationKey<T: InfoPlistValueType> {
         }
     }
 
-    private func transform(_ value: Any) -> T {
-        if
-                T.self == String.self ||
-                T.self == Int.self ||
-                T.self == Double.self ||
-                T.self == Bool.self ||
-                T.self == Date.self ||
-                T.self == Data.self ||
-                T.self == [String: Any].self ||
-                T.self == [Any].self
-        {
-            return value as! T
-        } else if T.self == URL.self {
-            return URL(string: value as! String)! as! T
-        } else {
-            preconditionFailure("The configuration value type \(T.self) is not supported")
-        }
-    }
-
 }
 
 protocol InfoPlistValueType {
