@@ -14,14 +14,11 @@ struct TransactionsView: View {
     var selectedSafe: FetchedResults<Safe>
 
     var body: some View {
-        let safe = selectedSafe.first
-        return ZStack {
+        ZStack {
             Rectangle()
                .edgesIgnoringSafeArea(.all)
                .foregroundColor(Color.gnoWhite)
-            if safe == nil {
-                AddSafeIntroView()
-            }
+            if selectedSafe.first == nil { AddSafeIntroView() }
             else {
                 EmptyListPlaceholder(label: "Transactions will appear here", image: "ico-no-transactions")
             }
