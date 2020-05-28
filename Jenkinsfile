@@ -21,6 +21,7 @@ pipeline {
                     sh 'ruby -v'
                     sh 'rbenv which bundle'
                     sh 'bundle install --jobs=3 --retry=3'
+                    sh 'cp Multisig/Cross-layer/Configuration/Config.Example.xcconfig Multisig/Cross-layer/Configuration/Config.xcconfig'
                     sh 'bundle exec fastlane development_rinkeby_beta'
                 }
             }
