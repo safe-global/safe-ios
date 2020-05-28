@@ -13,7 +13,13 @@ project 'Multisig',
   'Release.Production.Rinkeby'  => :release,
 
   'Debug.Staging.Rinkeby'       => :debug,
-  'Release.Staging.Rinkeby'     => :release
+  'Release.Staging.Rinkeby'     => :release,
+
+  'Debug.Development.Rinkeby'       => :debug,
+  'Release.Development.Rinkeby'     => :release,
+
+  'Debug.Development.Mainnet'       => :debug,
+  'Release.Development.Mainnet'     => :release
 
 target 'Multisig' do
 

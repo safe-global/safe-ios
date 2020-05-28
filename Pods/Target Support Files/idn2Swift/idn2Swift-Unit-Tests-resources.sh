@@ -105,6 +105,12 @@ fi
 if [[ "$CONFIGURATION" == "Debug.Staging.Rinkeby" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
 fi
+if [[ "$CONFIGURATION" == "Debug.Development.Rinkeby" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
+fi
+if [[ "$CONFIGURATION" == "Debug.Development.Mainnet" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
+fi
 if [[ "$CONFIGURATION" == "Release.Production.Mainnet" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
 fi
@@ -112,6 +118,12 @@ if [[ "$CONFIGURATION" == "Release.Production.Rinkeby" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release.Staging.Rinkeby" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
+fi
+if [[ "$CONFIGURATION" == "Release.Development.Rinkeby" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
+fi
+if [[ "$CONFIGURATION" == "Release.Development.Mainnet" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle"
 fi
 

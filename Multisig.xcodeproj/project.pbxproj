@@ -317,10 +317,16 @@
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF6500924485E450018D070 /* Identicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identicon.swift; sourceTree = "<group>"; };
 		0AF6501A24488D280018D070 /* FullSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSize.swift; sourceTree = "<group>"; };
+		0AF7F765247FC28B00527014 /* Config.Example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.Example.xcconfig; sourceTree = "<group>"; };
+		0AF7F766247FC3FB00527014 /* Development.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.Rinkeby.xcconfig; sourceTree = "<group>"; };
+		0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.Mainnet.xcconfig; sourceTree = "<group>"; };
 		0B8A3C3BAA29C6597476636F /* Pods-MultisigTests.debug.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
+		0E291BAA2C73F78C30D7F7C5 /* Pods-Multisig.debug.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.development.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		107E0800790001BE89C61028 /* Pods-Multisig.releaseproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.releaseproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.releaseproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
 		14872B2D529F4BEFC18D9EF6 /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
 		18004886ADFE8BF763BB398C /* Pods-MultisigIntegrationTests.debugproductionmainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debugproductionmainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debugproductionmainnet.xcconfig"; sourceTree = "<group>"; };
+		1DC4D40AFF970DE2B8C23794 /* Pods-MultisigIntegrationTests.release.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
+		1E6A2132C7C1918686E606C4 /* Pods-MultisigIntegrationTests.release.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.development.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		217CCDA35D82D13261506764 /* Pods-Multisig.releaseproductionmainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.releaseproductionmainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.releaseproductionmainnet.xcconfig"; sourceTree = "<group>"; };
 		2F6F6494CF5E35964FCDCF79 /* Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
 		3F0BD54209C21EA369847E31 /* libPods-Multisig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Multisig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -328,6 +334,8 @@
 		4381F5410C7BD71143EEC67E /* Pods-MultisigIntegrationTests.releaseproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.releaseproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.releaseproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
 		4D3605934C3A6383FED275C4 /* Pods-Multisig.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		4D81EB425537EF34B55365BC /* Pods-MultisigTests.releasestagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.releasestagingrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.releasestagingrinkeby.xcconfig"; sourceTree = "<group>"; };
+		4F1EF30BCA42F3AC80865FBA /* Pods-MultisigTests.debug.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.development.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.development.mainnet.xcconfig"; sourceTree = "<group>"; };
+		50229A8638C363BCFA97A9B1 /* Pods-Multisig.release.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.development.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		54742DDC33F72556636E2FB7 /* Pods-Multisig.debugstagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debugstagingrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debugstagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		551DDEE8244F183500C719D3 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
@@ -367,15 +375,20 @@
 		63491F06110B339CB349CC57 /* Pods-Multisig.debug.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		637466F4437F07F734AED635 /* Pods-MultisigIntegrationTests.releaseproductionmainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.releaseproductionmainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.releaseproductionmainnet.xcconfig"; sourceTree = "<group>"; };
 		68A5BCA0000EF992777453DE /* Pods-MultisigIntegrationTests.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
+		6C333CC5E0C612B3A8367D6E /* Pods-Multisig.release.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		6D76DA7923B9ECA14CFAA867 /* Pods-MultisigIntegrationTests.debug.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		6DC5FE7DA7FFABF025D9C818 /* Pods-MultisigIntegrationTests.debugstagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debugstagingrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debugstagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		7AB63AA4F5F1BF1AE0826E9C /* Pods-MultisigIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		8211A5B13F641BB84866626C /* Pods-MultisigTests.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		83384CF54B9AD34F87646BB3 /* Pods-Multisig.releasestagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.releasestagingrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.releasestagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		84E6C3FA76D931261AF4FFE4 /* Pods-Multisig.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
+		8A52A6ACA9A534E69151138B /* Pods-Multisig.debug.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		91887F63A537F6F1CF5DF13E /* Pods-Multisig.debugproductionmainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debugproductionmainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debugproductionmainnet.xcconfig"; sourceTree = "<group>"; };
+		94765DCDD48919EC9CBD9283 /* Pods-MultisigTests.release.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.development.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		9DC0D30C4B2865FB772F3192 /* Pods-MultisigIntegrationTests.releasestagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.releasestagingrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.releasestagingrinkeby.xcconfig"; sourceTree = "<group>"; };
+		9EEA045E131B8F3F9420B182 /* Pods-MultisigIntegrationTests.debug.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.development.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		A5B7240234825EEE53D7632A /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
+		A94DD038F894246516F275C0 /* Pods-MultisigTests.release.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		AC4990F67333A3FD58C8E3E8 /* Pods-MultisigIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B54E973F7CF37DF3A46AEE36 /* Pods-Multisig.debug.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.production.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		B54F589ED38019702FAF4199 /* Pods-MultisigTests.releaseproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.releaseproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.releaseproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -386,8 +399,10 @@
 		DE6545760BBECBA1EDAD13C5 /* Pods-MultisigTests.debugstagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debugstagingrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debugstagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		E0AF552F5267C3CEE7961DE1 /* Pods-MultisigIntegrationTests.debug.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE56E1B7CA403AC55F313541 /* Pods-MultisigTests.debug.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		F2C3C3D35B07E617DD164D42 /* Pods-MultisigIntegrationTests.debug.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		F445D696552B306F194A8E29 /* Pods-MultisigTests.releaseproductionmainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.releaseproductionmainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.releaseproductionmainnet.xcconfig"; sourceTree = "<group>"; };
+		F50CA63C5082474ABC25793E /* Pods-MultisigIntegrationTests.debug.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		F9E0F374FC480924E4C56474 /* Pods-MultisigTests.debugproductionmainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debugproductionmainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debugproductionmainnet.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -522,9 +537,12 @@
 			children = (
 				0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */,
 				0A6430DB247EC193006FD30A /* Config.xcconfig */,
+				0AF7F765247FC28B00527014 /* Config.Example.xcconfig */,
 				0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */,
 				0A6430DA247EC193006FD30A /* Production.Rinkeby.xcconfig */,
 				0A6430DC247EC193006FD30A /* Staging.Rinkeby.xcconfig */,
+				0AF7F766247FC3FB00527014 /* Development.Rinkeby.xcconfig */,
+				0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -1062,6 +1080,18 @@
 				5CBFF463F4BE8B670E9583FC /* Pods-MultisigTests.release.production.mainnet.xcconfig */,
 				CC9BC91C92832BEA5C00CE3A /* Pods-MultisigTests.release.production.rinkeby.xcconfig */,
 				8211A5B13F641BB84866626C /* Pods-MultisigTests.release.staging.rinkeby.xcconfig */,
+				8A52A6ACA9A534E69151138B /* Pods-Multisig.debug.development.rinkeby.xcconfig */,
+				0E291BAA2C73F78C30D7F7C5 /* Pods-Multisig.debug.development.mainnet.xcconfig */,
+				6C333CC5E0C612B3A8367D6E /* Pods-Multisig.release.development.rinkeby.xcconfig */,
+				50229A8638C363BCFA97A9B1 /* Pods-Multisig.release.development.mainnet.xcconfig */,
+				F50CA63C5082474ABC25793E /* Pods-MultisigIntegrationTests.debug.development.rinkeby.xcconfig */,
+				9EEA045E131B8F3F9420B182 /* Pods-MultisigIntegrationTests.debug.development.mainnet.xcconfig */,
+				1DC4D40AFF970DE2B8C23794 /* Pods-MultisigIntegrationTests.release.development.rinkeby.xcconfig */,
+				1E6A2132C7C1918686E606C4 /* Pods-MultisigIntegrationTests.release.development.mainnet.xcconfig */,
+				EE56E1B7CA403AC55F313541 /* Pods-MultisigTests.debug.development.rinkeby.xcconfig */,
+				4F1EF30BCA42F3AC80865FBA /* Pods-MultisigTests.debug.development.mainnet.xcconfig */,
+				A94DD038F894246516F275C0 /* Pods-MultisigTests.release.development.rinkeby.xcconfig */,
+				94765DCDD48919EC9CBD9283 /* Pods-MultisigTests.release.development.mainnet.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1544,7 +1574,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 63491F06110B339CB349CC57 /* Pods-Multisig.debug.production.rinkeby.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1672,7 +1701,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 02A74BC8CEDDED6CC3D8EDF1 /* Pods-Multisig.debug.staging.rinkeby.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1794,7 +1822,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5EBDB0B79D3FC3A38767F16D /* Pods-Multisig.release.production.rinkeby.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1916,7 +1943,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 84E6C3FA76D931261AF4FFE4 /* Pods-Multisig.release.staging.rinkeby.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2099,7 +2125,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B54E973F7CF37DF3A46AEE36 /* Pods-Multisig.debug.production.mainnet.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2123,7 +2148,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D3605934C3A6383FED275C4 /* Pods-Multisig.release.production.mainnet.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2229,6 +2253,502 @@
 			};
 			name = Release.Production.Mainnet;
 		};
+		0AF7F767247FC43300527014 /* Debug.Development.Rinkeby */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0AF7F766247FC3FB00527014 /* Development.Rinkeby.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug.Development.Rinkeby;
+		};
+		0AF7F768247FC43300527014 /* Debug.Development.Rinkeby */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8A52A6ACA9A534E69151138B /* Pods-Multisig.debug.development.rinkeby.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Multisig/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_NAME = Multisig;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug.Development.Rinkeby;
+		};
+		0AF7F769247FC43300527014 /* Debug.Development.Rinkeby */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE56E1B7CA403AC55F313541 /* Pods-MultisigTests.debug.development.rinkeby.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Debug.Development.Rinkeby;
+		};
+		0AF7F76A247FC43300527014 /* Debug.Development.Rinkeby */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F50CA63C5082474ABC25793E /* Pods-MultisigIntegrationTests.debug.development.rinkeby.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Debug.Development.Rinkeby;
+		};
+		0AF7F76B247FC44300527014 /* Release.Development.Rinkeby */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0AF7F766247FC3FB00527014 /* Development.Rinkeby.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release.Development.Rinkeby;
+		};
+		0AF7F76C247FC44300527014 /* Release.Development.Rinkeby */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C333CC5E0C612B3A8367D6E /* Pods-Multisig.release.development.rinkeby.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Multisig/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_NAME = Multisig;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release.Development.Rinkeby;
+		};
+		0AF7F76D247FC44300527014 /* Release.Development.Rinkeby */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A94DD038F894246516F275C0 /* Pods-MultisigTests.release.development.rinkeby.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Release.Development.Rinkeby;
+		};
+		0AF7F76E247FC44300527014 /* Release.Development.Rinkeby */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1DC4D40AFF970DE2B8C23794 /* Pods-MultisigIntegrationTests.release.development.rinkeby.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Release.Development.Rinkeby;
+		};
+		0AF7F770247FC50400527014 /* Release.Development.Mainnet */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release.Development.Mainnet;
+		};
+		0AF7F771247FC50400527014 /* Release.Development.Mainnet */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50229A8638C363BCFA97A9B1 /* Pods-Multisig.release.development.mainnet.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Multisig/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_NAME = Multisig;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release.Development.Mainnet;
+		};
+		0AF7F772247FC50400527014 /* Release.Development.Mainnet */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94765DCDD48919EC9CBD9283 /* Pods-MultisigTests.release.development.mainnet.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Release.Development.Mainnet;
+		};
+		0AF7F773247FC50400527014 /* Release.Development.Mainnet */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E6A2132C7C1918686E606C4 /* Pods-MultisigIntegrationTests.release.development.mainnet.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Release.Development.Mainnet;
+		};
+		0AF7F774247FC50E00527014 /* Debug.Development.Mainnet */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug.Development.Mainnet;
+		};
+		0AF7F775247FC50E00527014 /* Debug.Development.Mainnet */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E291BAA2C73F78C30D7F7C5 /* Pods-Multisig.debug.development.mainnet.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Multisig/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_NAME = Multisig;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug.Development.Mainnet;
+		};
+		0AF7F776247FC50E00527014 /* Debug.Development.Mainnet */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F1EF30BCA42F3AC80865FBA /* Pods-MultisigTests.debug.development.mainnet.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Debug.Development.Mainnet;
+		};
+		0AF7F777247FC50E00527014 /* Debug.Development.Mainnet */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9EEA045E131B8F3F9420B182 /* Pods-MultisigIntegrationTests.debug.development.mainnet.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
+				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Debug.Development.Mainnet;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2238,9 +2758,13 @@
 				0A93DD732445CC8C00688050 /* Debug.Production.Mainnet */,
 				0A6430E3247EC315006FD30A /* Debug.Production.Rinkeby */,
 				0A6430E7247EC320006FD30A /* Debug.Staging.Rinkeby */,
+				0AF7F767247FC43300527014 /* Debug.Development.Rinkeby */,
+				0AF7F774247FC50E00527014 /* Debug.Development.Mainnet */,
 				0A93DD742445CC8C00688050 /* Release.Production.Mainnet */,
 				0A6430EB247EC32F006FD30A /* Release.Production.Rinkeby */,
 				0A6430EF247EC338006FD30A /* Release.Staging.Rinkeby */,
+				0AF7F76B247FC44300527014 /* Release.Development.Rinkeby */,
+				0AF7F770247FC50400527014 /* Release.Development.Mainnet */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release.Production.Mainnet;
@@ -2251,9 +2775,13 @@
 				0A93DD762445CC8C00688050 /* Debug.Production.Mainnet */,
 				0A6430E4247EC315006FD30A /* Debug.Production.Rinkeby */,
 				0A6430E8247EC320006FD30A /* Debug.Staging.Rinkeby */,
+				0AF7F768247FC43300527014 /* Debug.Development.Rinkeby */,
+				0AF7F775247FC50E00527014 /* Debug.Development.Mainnet */,
 				0A93DD772445CC8C00688050 /* Release.Production.Mainnet */,
 				0A6430EC247EC32F006FD30A /* Release.Production.Rinkeby */,
 				0A6430F0247EC338006FD30A /* Release.Staging.Rinkeby */,
+				0AF7F76C247FC44300527014 /* Release.Development.Rinkeby */,
+				0AF7F771247FC50400527014 /* Release.Development.Mainnet */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release.Production.Mainnet;
@@ -2264,9 +2792,13 @@
 				0A93DD792445CC8C00688050 /* Debug.Production.Mainnet */,
 				0A6430E5247EC315006FD30A /* Debug.Production.Rinkeby */,
 				0A6430E9247EC320006FD30A /* Debug.Staging.Rinkeby */,
+				0AF7F769247FC43300527014 /* Debug.Development.Rinkeby */,
+				0AF7F776247FC50E00527014 /* Debug.Development.Mainnet */,
 				0A93DD7A2445CC8C00688050 /* Release.Production.Mainnet */,
 				0A6430ED247EC32F006FD30A /* Release.Production.Rinkeby */,
 				0A6430F1247EC338006FD30A /* Release.Staging.Rinkeby */,
+				0AF7F76D247FC44300527014 /* Release.Development.Rinkeby */,
+				0AF7F772247FC50400527014 /* Release.Development.Mainnet */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release.Production.Mainnet;
@@ -2277,9 +2809,13 @@
 				0A9BC35B2460581500EB9C5D /* Debug.Production.Mainnet */,
 				0A6430E6247EC315006FD30A /* Debug.Production.Rinkeby */,
 				0A6430EA247EC320006FD30A /* Debug.Staging.Rinkeby */,
+				0AF7F76A247FC43300527014 /* Debug.Development.Rinkeby */,
+				0AF7F777247FC50E00527014 /* Debug.Development.Mainnet */,
 				0A9BC35C2460581500EB9C5D /* Release.Production.Mainnet */,
 				0A6430EE247EC32F006FD30A /* Release.Production.Rinkeby */,
 				0A6430F2247EC338006FD30A /* Release.Staging.Rinkeby */,
+				0AF7F76E247FC44300527014 /* Release.Development.Rinkeby */,
+				0AF7F773247FC50400527014 /* Release.Development.Mainnet */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release.Production.Mainnet;

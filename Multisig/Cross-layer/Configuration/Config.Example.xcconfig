@@ -16,7 +16,7 @@
 // for the variable names of respective services, so that we can use them
 // to specify all of the configurations.
 
-// STAGING | PROD
+// DEV | STAGING | PROD
 SERVICE_ENV = STAGING
 
 // RINKEBY | MAINNET
@@ -32,16 +32,20 @@ INFURA_API_KEY = USE_YOUR_OWN_INFURA_KEY_HERE
 // Configuration Values
 
 // Gnosis Safe Relay Service
+_RELAY_SERVICE_URL_DEV_RINKEBY       = https:/$()/safe-relay.staging.gnosisdev.com/api/
+_RELAY_SERVICE_URL_DEV_MAINNET       = https:/$()/safe-relay.gnosis.io/api/
 _RELAY_SERVICE_URL_STAGING_RINKEBY   = https:/$()/safe-relay.staging.gnosisdev.com/api/
 _RELAY_SERVICE_URL_PROD_RINKEBY      = https:/$()/safe-relay.rinkeby.gnosis.io/api/
 _RELAY_SERVICE_URL_PROD_MAINNET      = https:/$()/safe-relay.gnosis.io/api/
 
 // Gnosis Safe Transaction Service
+_TRANSACTION_SERVICE_URL_DEV_RINKEBY = https:/$()/safe-transaction.staging.gnosisdev.com/api/
+_TRANSACTION_SERVICE_URL_DEV_MAINNET    = https:/$()/safe-transaction.gnosis.io/api/
 _TRANSACTION_SERVICE_URL_STAGING_RINKEBY = https:/$()/safe-transaction.staging.gnosisdev.com/api/
 _TRANSACTION_SERVICE_URL_PROD_RINKEBY    = https:/$()/safe-transaction.rinkeby.gnosis.io/api/
 _TRANSACTION_SERVICE_URL_PROD_MAINNET    = https:/$()/safe-transaction.gnosis.io/api/
 
-
+// Ethereum Node JSONRPC over HTTP Service
 _ETH_RPC_URL_RINKEBY = https:/$()/rinkeby.infura.io/v3/$(INFURA_API_KEY)/
 _ETH_RPC_URL_MAINNET = https:/$()/mainnet.infura.io/v3/$(INFURA_API_KEY)/
 
@@ -59,8 +63,10 @@ _GNOSIS_SAFE_WEB_URL_MAINNET = https:/$()/gnosis-safe.io/
 
 // Apps
 _APP_BUNDLE_ID_PROD_MAINNET     = io.gnosis.multisig.prod.mainnet
-_APP_BUNDLE_ID_PROD_RINKEBY     = io.gnosis.multisig.prod.rinkeby
+_APP_BUNDLE_ID_PROD_RINKEBY     = io.gnosis.multisig.prerelease
 _APP_BUNDLE_ID_STAGING_RINKEBY  = io.gnosis.multisig.staging.rinkeby
+_APP_BUNDLE_ID_DEV_RINKEBY      = io.gnosis.multisig.dev.rinkeby
+_APP_BUNDLE_ID_DEV_MAINNET      = io.gnosis.multisig.dev.mainnet
 
 
 // Configuration variables for the app
