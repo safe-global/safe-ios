@@ -1,10 +1,10 @@
 pipeline {
     agent any
     environment {
-        FASTLANE_USER = credentials('FASTLANE_USER'),
-        FASTLANE_PASSWORD = credentials('FASTLANE_PASSWORD'),
-        FASTLANE_ITC_TEAM_ID = credentials('FASTLANE_ITC_TEAM_ID'),
-        FASTLANE_TEAM_ID = credentials('FASTLANE_TEAM_ID'),
+        FASTLANE_USER = credentials('FASTLANE_USER')
+        FASTLANE_PASSWORD = credentials('FASTLANE_PASSWORD')
+        FASTLANE_ITC_TEAM_ID = credentials('FASTLANE_ITC_TEAM_ID')
+        FASTLANE_TEAM_ID = credentials('FASTLANE_TEAM_ID')
     }
     stages {
         stage('Deploy') {
