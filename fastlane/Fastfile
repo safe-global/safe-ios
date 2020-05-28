@@ -25,7 +25,7 @@ platform :ios do
       scheme: "Multisig - Development Rinkeby",
       include_symbols: true,
       include_bitcode: true,
-      xcargs: "-allowProvisioningUpdates"
+      export_xcargs: "-allowProvisioningUpdates"
     )
     upload_to_testflight
   end
