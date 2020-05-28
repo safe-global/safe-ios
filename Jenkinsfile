@@ -9,7 +9,7 @@ pipeline {
         LANG = "en_US.UTF-8"
         CLICOLOR = "1"
         JAVA_HOME = "/usr/libexec/java_home"
-        PATH = "$HOME/.rbenv/bin:/usr/local/bin:$PATH"
+        PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:$PATH"
     }
     stages {
         stage('Deploy') {
