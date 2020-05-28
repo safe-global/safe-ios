@@ -20,11 +20,13 @@ ENV["DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS"] = "-t DAV"
 platform :ios do
 
   lane :development_rinkeby_beta do
+    update_code_signing_settings(
+      use_automatic_signing: true,
+      path: "Multisig.xcodeproj"
+    )
     gym(
       workspace: "Multisig.xcworkspace",
       scheme: "Multisig - Development Rinkeby",
-      xcargs: "-allowProvisioningUpdates",
-      export_xcargs: "-allowProvisioningUpdates",
       include_symbols: true,
       include_bitcode: true
     )
