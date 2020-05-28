@@ -9,6 +9,20 @@
 import SwiftUI
 
 struct TermsView: View {
+    @Binding var acceptedTerms: Bool
+    @Binding var isAgreeWithTermsPresented: Bool
+
+    @State private var showPrivacyPolicy = false {
+        didSet {
+            displaySafari = showPrivacyPolicy
+        }
+    }
+    @State private var showTerms = false {
+        didSet {
+            displaySafari = showTerms
+        }
+    }
+    @State private var displaySafari = false
 
     var body: some View {
         VStack(spacing: 12) {
@@ -34,14 +48,16 @@ struct TermsView: View {
 
                 HStack {
                     Button(action: {
-                        print("Privacy Policy")
+                        self.showTerms = false
+                        self.showPrivacyPolicy = true
                     }) {
                         Text("Privacy Policy")
                             .underline()
                     }.buttonStyle(GNOPlainButtonStyle())
 
                     Button(action: {
-                        print("Terms of Use")
+                        self.showPrivacyPolicy = false
+                        self.showTerms = true
                     }) {
                         Text("Terms of Use")
                             .underline()
@@ -51,13 +67,14 @@ struct TermsView: View {
 
             VStack(spacing: 12) {
                 Button(action: {
-                    print("Agree")
+                    AppSettings.acceptTerms()
+                    self.acceptedTerms = true
                 }) {
                     Text("Agree")
                 }.buttonStyle(GNOFilledButtonStyle())
 
                 Button(action: {
-                    print("No Thanks")
+                    self.isAgreeWithTermsPresented = false
                 }) {
                     Text("No Thanks")
                 }.buttonStyle(GNOPlainButtonStyle())
@@ -65,11 +82,16 @@ struct TermsView: View {
         }
         .padding(.top, 24)
         .padding([.leading, .trailing, .bottom])
+        .sheet(isPresented: $displaySafari, content: {
+            SafariViewController(url: self.showTerms ? App.shared.termOfUseURL : App.shared.privacyPolicyURL)
+        })
+
     }
 }
 
 struct TermsView_Previews: PreviewProvider {
     static var previews: some View {
-        TermsView()
+        TermsView(acceptedTerms: .constant(false),
+                  isAgreeWithTermsPresented: .constant(true))
     }
 }
