@@ -15,7 +15,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 ansiColor('xterm') {
-                    sh 'echo $PATH'
+                    sh 'echo "PATH=$PATH"'
                     sh 'rbenv versions'
                     sh 'rbenv which ruby'
                     sh 'ruby -v'
