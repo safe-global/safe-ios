@@ -34,6 +34,7 @@ extension Alignment {
 
 struct LaunchView: View {
     @Binding var acceptedTerms: Bool
+    @State var isTermsPresented = false
 
     var body: some View {
         GeometryReader { gp in
@@ -55,8 +56,9 @@ struct LaunchView: View {
                     VStack(spacing: 20) {
                         Rectangle().frame(width: 0, height: 0)
                         Button("Get Started", action: {
-                            AppSettings.acceptTerms()
-                            self.acceptedTerms.toggle()
+                            self.isTermsPresented = true
+//                            AppSettings.acceptTerms()
+//                            self.acceptedTerms.toggle()
                         })
                             .buttonStyle(GNOFilledButtonStyle())
                     }
@@ -64,6 +66,9 @@ struct LaunchView: View {
             }
             .padding(.horizontal)
         }
+        .overlay(BottomOverlayView(isPresented: $isTermsPresented) {
+            TermsView()
+        })
     }
 }
 

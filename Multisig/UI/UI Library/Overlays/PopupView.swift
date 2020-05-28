@@ -13,7 +13,6 @@ struct PopupView<Content>: View where Content: View {
     private var isPresented: Binding<Bool>
     private var content: Content
 
-    private let backgroundOpacity: Double = 0.2
     private let horizontalContentInset: CGFloat = 24
 
     private let onAppearCardScale: CGFloat = 0.95
@@ -35,7 +34,7 @@ struct PopupView<Content>: View where Content: View {
     var body: some View {
         ZStack(alignment: .center) {
             if isPresented.wrappedValue {
-                backgroundView
+                SemitransparentBackgroundView()
                     .transition(AnyTransition.opacity.animation(.easeInOut))
                     .onTapGesture {
                         // using withAnimation actually animates the transitioning
@@ -55,13 +54,6 @@ struct PopupView<Content>: View where Content: View {
                 EmptyView()
             }
         }
-    }
-
-    var backgroundView: some View {
-        Rectangle()
-            .background(Color.black)
-            .edgesIgnoringSafeArea(.all)
-            .opacity(backgroundOpacity)
     }
 
     var cardView: some View {

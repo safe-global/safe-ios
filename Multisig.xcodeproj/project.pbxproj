@@ -152,6 +152,9 @@
 		55B66E52247E478800249E98 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E51247E478800249E98 /* LaunchView.swift */; };
 		55B66E54247E47A900249E98 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E53247E47A900249E98 /* MainView.swift */; };
 		55B66E56247E494000249E98 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E55247E494000249E98 /* AppSettings.swift */; };
+		55B66E87247FDF2C00249E98 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E86247FDF2C00249E98 /* TermsView.swift */; };
+		55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E88247FE09A00249E98 /* BottomOverlayView.swift */; };
+		55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */; };
 		55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */; };
 		55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A3092475375B00ABBA6F /* AssetsView.swift */; };
 		55F9A3102475381800ABBA6F /* FootnoteText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A30F2475381800ABBA6F /* FootnoteText.swift */; };
@@ -333,6 +336,9 @@
 		55B66E51247E478800249E98 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		55B66E53247E47A900249E98 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		55B66E55247E494000249E98 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		55B66E86247FDF2C00249E98 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
+		55B66E88247FE09A00249E98 /* BottomOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOverlayView.swift; sourceTree = "<group>"; };
+		55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemitransparentBackgroundView.swift; sourceTree = "<group>"; };
 		55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenImage.swift; sourceTree = "<group>"; };
 		55F9A3092475375B00ABBA6F /* AssetsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
 		55F9A30F2475381800ABBA6F /* FootnoteText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootnoteText.swift; sourceTree = "<group>"; };
@@ -607,6 +613,7 @@
 				0476915E246408D000D73D8B /* Settings */,
 				0AF432BC244DF6C900E22E50 /* ENS */,
 				0A93DD8B244603DB00688050 /* UI Library */,
+				55B66E85247FC5D900249E98 /* Onboarding */,
 				0AF432CA244DFAFB00E22E50 /* Resources */,
 			);
 			path = UI;
@@ -615,6 +622,7 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
+				55B66E8A247FE0F500249E98 /* Overlays */,
 				0A704A6F24742003005BDC49 /* HideSystemNavigationBarModifier.swift */,
 				0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */,
 				55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */,
@@ -627,7 +635,6 @@
 				0A0EFCA7246EB13300D3D8BF /* KeyValueRow.swift */,
 				04C97AA7246ED31300EBA0F1 /* KeyValueView.swift */,
 				0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */,
-				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
 				041C2A592456F53E0044A24C /* QRView.swift */,
 				04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */,
 				0471D13124728C2C00B22A70 /* EmailLink.swift */,
@@ -768,7 +775,6 @@
 				0A93DD562445CC8A00688050 /* AppDelegate.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
-				55B66E51247E478800249E98 /* LaunchView.swift */,
 				55B66E53247E47A900249E98 /* MainView.swift */,
 				0A465C2D246C196900AFA467 /* Theme.swift */,
 			);
@@ -917,6 +923,25 @@
 				551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		55B66E85247FC5D900249E98 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				55B66E51247E478800249E98 /* LaunchView.swift */,
+				55B66E86247FDF2C00249E98 /* TermsView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		55B66E8A247FE0F500249E98 /* Overlays */ = {
+			isa = PBXGroup;
+			children = (
+				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
+				55B66E88247FE09A00249E98 /* BottomOverlayView.swift */,
+				55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */,
+			);
+			path = Overlays;
 			sourceTree = "<group>";
 		};
 		55F9A2E52472F3EE00ABBA6F /* Assets */ = {
@@ -1229,6 +1254,7 @@
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
 				04769163246408D000D73D8B /* SafeSettingsView.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
+				55B66E87247FDF2C00249E98 /* TermsView.swift in Sources */,
 				0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */,
 				0AE061D82464591900CB60D7 /* BasicSafeSettingsView.swift in Sources */,
 				0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */,
@@ -1247,8 +1273,10 @@
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */,
+				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */,
 				04C97AAC246ED34400EBA0F1 /* ValueText.swift in Sources */,
+				55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */,
 				04C97AA8246ED31300EBA0F1 /* KeyValueView.swift in Sources */,
 				0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */,
 				0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */,
