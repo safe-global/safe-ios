@@ -33,6 +33,10 @@ extension AppSettings {
         let appSettings = current()
         return appSettings.termsAcceptanceDate
     }
+
+    static func hasAcceptedTerms() -> Bool {
+        return termsAcceptedDate() != nil
+    }
 }
 
 extension NSFetchRequest where ResultType == AppSettings {

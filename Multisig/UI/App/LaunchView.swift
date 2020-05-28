@@ -33,22 +33,21 @@ extension Alignment {
 }
 
 struct LaunchView: View {
-    @Binding var updateToggle: Bool
+    @Binding var acceptedTerms: Bool
 
     var body: some View {
         GeometryReader { gp in
             ZStack(alignment: .centerAlignment) {
+                // anchor to position text image in the center of the screen
                 Rectangle()
                     .frame(width: 0, height: 0)
                     .alignmentGuide(.centerVerticalAlignment) { d in d[VerticalAlignment.center] }
                     .position(y: gp.size.height / 2)
 
                 VStack(alignment: .center, spacing: 40) {
-                    // 100 x 153 px
-                    Image("launchscreen-logo")
+                    Image("launchscreen-logo") // 100 x 153 px
 
-                    // 282 × 89 px
-                    Image("ico-splash-text")
+                    Image("ico-splash-text") // 282 × 89 px
                         .alignmentGuide(.centerVerticalAlignment) { d in
                             d[VerticalAlignment.center]
                         }
@@ -57,7 +56,7 @@ struct LaunchView: View {
                         Rectangle().frame(width: 0, height: 0)
                         Button("Get Started", action: {
                             AppSettings.acceptTerms()
-                            self.updateToggle.toggle()                            
+                            self.acceptedTerms.toggle()
                         })
                             .buttonStyle(GNOFilledButtonStyle())
                     }
@@ -71,10 +70,10 @@ struct LaunchView: View {
 struct LaunchView_Previews: PreviewProvider {
     static var previews: some View {
           Group {
-            LaunchView(updateToggle: .constant(false))
+            LaunchView(acceptedTerms: .constant(false))
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE (2nd generation)"))
                 .previewDisplayName("iPhone SE2")
-            LaunchView(updateToggle: .constant(false))
+            LaunchView(acceptedTerms: .constant(false))
                 .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
                 .previewDisplayName("iPhone 11 Pro Max")
          }

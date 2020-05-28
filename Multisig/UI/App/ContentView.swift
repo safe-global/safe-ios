@@ -12,14 +12,14 @@ struct ContentView: View {
     @Environment(\.managedObjectContext)
     var context: CoreDataContext
 
-    @State var updateToggle = false
+    @State var acceptedTerms = AppSettings.hasAcceptedTerms()
 
     var body: some View {
         ZStack {
-            if AppSettings.termsAcceptedDate() != nil {
+            if acceptedTerms {
                 MainView().environment(\.managedObjectContext, context)
             } else {
-                LaunchView(updateToggle: $updateToggle)
+                LaunchView(acceptedTerms: $acceptedTerms)
             }
         }
     }
