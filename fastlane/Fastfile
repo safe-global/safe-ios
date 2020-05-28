@@ -23,6 +23,7 @@ platform :ios do
     gym(
       workspace: "Multisig.xcworkspace",
       scheme: "Multisig - Development Rinkeby",
+      xcargs: "-allowProvisioningUpdates",
       export_xcargs: "-allowProvisioningUpdates",
       include_symbols: true,
       include_bitcode: true
