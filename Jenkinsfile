@@ -11,6 +11,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 ansiColor('xterm') {
+                    sh 'echo $PATH'
+                    sh 'which ruby'
                     sh 'bundle install --jobs=3 --retry=3'
                     sh 'bundle exec fastlane development_rinkeby_beta'
                 }
