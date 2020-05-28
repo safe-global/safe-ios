@@ -17,9 +17,9 @@ pipeline {
                 ansiColor('xterm') {
                     sh 'echo $PATH'
                     sh 'rbenv versions'
-                    sh 'which ruby'
+                    sh 'rbenv which ruby'
                     sh 'ruby -v'
-                    sh 'which bundle'
+                    sh 'rbenv which bundle'
                     sh 'bundle install --jobs=3 --retry=3'
                     sh 'bundle exec fastlane development_rinkeby_beta'
                 }
