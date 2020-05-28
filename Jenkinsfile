@@ -5,7 +5,7 @@ pipeline {
         FASTLANE_PASSWORD = credentials('FASTLANE_PASSWORD')
         FASTLANE_ITC_TEAM_ID = credentials('FASTLANE_ITC_TEAM_ID')
         FASTLANE_TEAM_ID = credentials('FASTLANE_TEAM_ID')
-        PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
+        PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:$PATH"
     }
     stages {
         stage('Deploy') {
