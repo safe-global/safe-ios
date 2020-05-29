@@ -25,8 +25,10 @@ class SafeTransactionServiceIntegrationTests: XCTestCase {
     func test_safeInfo_whenSendingNotASafe_returns404Error() {
         let semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
-            try? XCTAssertThrowsError(try self.service.safeInfo(at: "0xc778417E063141139Fce010982780140Aa0cD5Ab")) {
-                guard case HTTPClient.Error.entityNotFound(_, _, _) = $0 else {
+            do {
+                _ = try self.service.safeInfo(at: "0xc778417E063141139Fce010982780140Aa0cD5Ab")
+            } catch {
+                guard case HTTPClient.Error.entityNotFound(_, _, _) = error else {
                     XCTFail("Wrong error type")
                     return
                 }
@@ -39,8 +41,10 @@ class SafeTransactionServiceIntegrationTests: XCTestCase {
     func test_safeInfo_whenSendingNotNormalizedAddress_returns422Error() {
         let semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
-            try? XCTAssertThrowsError(try self.service.safeInfo(at: "0x728cafe9fb8cc2218fb12a9a2d9335193caa07e0")) {
-                guard case HTTPClient.Error.unprocessableEntity(_, _, _) = $0 else {
+            do {
+                _ = try self.service.safeInfo(at: "0x728cafe9fb8cc2218fb12a9a2d9335193caa07e0")
+            } catch {
+                guard case HTTPClient.Error.unprocessableEntity(_, _, _) = error else {
                     XCTFail("Wrong error type")
                     return
                 }
