@@ -24,18 +24,14 @@ extension AppSettings {
     static func acceptTerms() {
         dispatchPrecondition(condition: .onQueue(.main))
         let appSettings = current()
-        appSettings.termsAcceptanceDate = Date()
+        appSettings.termsAccepted = true
         CoreDataStack.shared.saveContext()
     }
 
-    static func termsAcceptedDate() -> Date? {
+    static func hasAcceptedTerms() -> Bool {
         dispatchPrecondition(condition: .onQueue(.main))
         let appSettings = current()
-        return appSettings.termsAcceptanceDate
-    }
-
-    static func hasAcceptedTerms() -> Bool {
-        return termsAcceptedDate() != nil
+        return appSettings.termsAccepted
     }
 }
 

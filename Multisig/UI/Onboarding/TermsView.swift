@@ -12,17 +12,8 @@ struct TermsView: View {
     @Binding var acceptedTerms: Bool
     @Binding var isAgreeWithTermsPresented: Bool
 
-    @State private var showPrivacyPolicy = false {
-        didSet {
-            displaySafari = showPrivacyPolicy
-        }
-    }
-    @State private var showTerms = false {
-        didSet {
-            displaySafari = showTerms
-        }
-    }
-    @State private var displaySafari = false
+    @State private var showPrivacyPolicy = false
+    @State private var showTerms = false
 
     var body: some View {
         VStack(spacing: 12) {
@@ -48,20 +39,26 @@ struct TermsView: View {
 
                 HStack {
                     Button(action: {
-                        self.showTerms = false
                         self.showPrivacyPolicy = true
                     }) {
                         Text("Privacy Policy")
                             .underline()
-                    }.buttonStyle(GNOPlainButtonStyle())
+                    }
+                        .buttonStyle(GNOPlainButtonStyle())
+                        .sheet(isPresented: $showPrivacyPolicy) {
+                            SafariViewController(url: App.shared.privacyPolicyURL)
+                        }
 
                     Button(action: {
-                        self.showPrivacyPolicy = false
                         self.showTerms = true
                     }) {
                         Text("Terms of Use")
                             .underline()
-                    }.buttonStyle(GNOPlainButtonStyle())
+                    }
+                        .buttonStyle(GNOPlainButtonStyle())
+                        .sheet(isPresented: $showTerms) {
+                            SafariViewController(url: App.shared.termOfUseURL)
+                        }
                 }
             }
 
@@ -82,10 +79,6 @@ struct TermsView: View {
         }
         .padding(.top, 24)
         .padding([.leading, .trailing, .bottom])
-        .sheet(isPresented: $displaySafari, content: {
-            SafariViewController(url: self.showTerms ? App.shared.termOfUseURL : App.shared.privacyPolicyURL)
-        })
-
     }
 }
 
