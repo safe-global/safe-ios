@@ -1,12 +1,29 @@
 pipeline {
     agent any
     stages {
-        stage('Distribute') {
+        stage('Unit Test') {
+            when {
+                expression { BRANCH_NAME ==~ /^(gh-.*)$/ }
+            }
             steps {
                 ansiColor('xterm') {
-                    sh 'xcrun agvtool new-version -all $BUILD_NUMBER'
-                    sh 'xcrun xcodebuild archive -workspace Multisig.xcworkspace -scheme "Multisig - Development Rinkeby" -destination "generic/platform=iOS" -archivePath Build/Multisig.xcarchive -allowProvisioningUpdates'
-                    sh 'xcrun xcodebuild -exportArchive -archivePath Build/Multisig.xcarchive -exportPath Build -exportOptionsPlist Multisig/ExportOptions.plist -allowProvisioningUpdates'
+                    sh 'bin/test.sh "Multisig - Development Rinkeby"'
+                    junit 'Build/reports/**/*.junit'
+                    archiveArtifacts 'Build/Multisig - Development Rinkeby/xcodebuild-test.log'
+                }
+            }
+        }
+        stage('Archive') {
+            when {
+                expression { BRANCH_NAME ==~ /^master$/ }
+            }
+            steps {
+                ansiColor('xterm') {
+                    sh 'bin/archive.sh "Multisig - Development Rinkeby"'
+                    archiveArtifacts 'Build/Multisig - Development Rinkeby/xcodebuild-archive.log'
+                    
+                    sh 'bin/archive.sh "Multisig - Development Mainnet"'
+                    archiveArtifacts 'Build/Multisig - Development Mainnet/xcodebuild-export.log'
                 }
             }
         }
