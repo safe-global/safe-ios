@@ -68,16 +68,17 @@ struct LaunchView: View {
             TermsView(acceptedTerms: $acceptedTerms,
                       isAgreeWithTermsPresented: $isAgreeWithTermsPresented)
         })
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
 struct LaunchView_Previews: PreviewProvider {
     static var previews: some View {
           Group {
-            LaunchView(acceptedTerms: .constant(false))
+            LaunchView(acceptedTerms: .constant(false), isAgreeWithTermsPresented: true)
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE (2nd generation)"))
                 .previewDisplayName("iPhone SE2")
-            LaunchView(acceptedTerms: .constant(false))
+            LaunchView(acceptedTerms: .constant(false), isAgreeWithTermsPresented: true)
                 .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
                 .previewDisplayName("iPhone 11 Pro Max")
          }

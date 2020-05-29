@@ -76,6 +76,8 @@ struct TermsView: View {
                     Text("No Thanks")
                 }.buttonStyle(GNOPlainButtonStyle())
             }
+
+            Rectangle().frame(width: 0, height: 0)
         }
         .padding(.top, 24)
         .padding([.leading, .trailing, .bottom])
