@@ -16,11 +16,11 @@ xcrun xcodebuild archive \
     -destination "generic/platform=iOS" \
     -archivePath "$ARCHIVE_PATH" \
     -allowProvisioningUpdates \
-| tee "$OUTPUT_DIR/xcodebuild-archive.log" | xcpretty && exit ${PIPESTATUS[0]}
+| tee "$OUTPUT_DIR/xcodebuild-archive.log" | xcpretty -c && exit ${PIPESTATUS[0]}
 
 xcrun xcodebuild -exportArchive \
     -archivePath "$ARCHIVE_PATH" \
     -exportPath Build \
     -exportOptionsPlist Multisig/ExportOptions.plist \
     -allowProvisioningUpdates \
-| tee "$OUTPUT_DIR/xcodebuild-export.log" | xcpretty && exit ${PIPESTATUS[0]}
+| tee "$OUTPUT_DIR/xcodebuild-export.log" | xcpretty -c && exit ${PIPESTATUS[0]}

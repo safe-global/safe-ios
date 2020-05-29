@@ -3,8 +3,6 @@ pipeline {
     environment {
         // this enables ruby gem binaries, such as xcpretty
         PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
-        // makes the output colorized
-        CLICOLOR = "1"
     }
     stages {
         stage('Unit Test') {

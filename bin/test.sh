@@ -11,4 +11,4 @@ xcrun xcodebuild test \
     -workspace Multisig.xcworkspace \
     -scheme "$XCODE_SCHEME" \
     -destination "platform=iOS Simulator,name=iPhone 11 Pro" \
-| tee "$OUTPUT_DIR/xcodebuild-test.log" | xcpretty -r junit && exit ${PIPESTATUS[0]}
+| tee "$OUTPUT_DIR/xcodebuild-test.log" | xcpretty -c -r junit && exit ${PIPESTATUS[0]}
