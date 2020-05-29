@@ -6,12 +6,12 @@ pipeline {
     }
     stages {
         stage('Unit Test') {
-            // when {
-            //     expression { BRANCH_NAME ==~ /^gh-.*/ }
-            // }
+            when {
+                // Jenkins checks out PRs with a PR-XXX format
+                expression { BRANCH_NAME ==~ /^(gh|PR)-.*/ }
+            }
             steps {
                 ansiColor('xterm') {
-                    echo "$BRANCH_NAME"
                     sh 'bin/test.sh "Multisig - Development Rinkeby"'
                     junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/Multisig - Development Rinkeby/xcodebuild-test.log'
