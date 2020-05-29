@@ -1,7 +1,10 @@
 pipeline {
     agent any
     environment {
+        // this enables ruby gem binaries, such as xcpretty
         PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
+        // makes the output colorized
+        CLICOLOR = "1"
     }
     stages {
         stage('Unit Test') {
@@ -11,7 +14,7 @@ pipeline {
             steps {
                 ansiColor('xterm') {
                     sh 'bin/test.sh "Multisig - Development Rinkeby"'
-                    junit 'Build/reports/**/*.junit'
+                    junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/Multisig - Development Rinkeby/xcodebuild-test.log'
                 }
             }
