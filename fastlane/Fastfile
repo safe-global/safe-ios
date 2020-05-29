@@ -20,12 +20,12 @@ ENV["DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS"] = "-t DAV"
 platform :ios do
 
   lane :development_rinkeby_beta do
+    
     gym(
       workspace: "Multisig.xcworkspace",
       scheme: "Multisig - Development Rinkeby",
       include_symbols: true,
-      include_bitcode: true,
-      export_xcargs: "-allowProvisioningUpdates"
+      include_bitcode: true
     )
     upload_to_testflight
   end
