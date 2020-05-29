@@ -4,6 +4,8 @@ XCODE_SCHEME=$1
 OUTPUT_DIR="Build/$XCODE_SCHEME"
 ARCHIVE_PATH="$OUTPUT_DIR/Multisig.xcarchive"
 
+mkdir -p "$OUTPUT_DIR"
+
 bin/configure.sh
 
 xcrun agvtool new-version -all $BUILD_NUMBER
