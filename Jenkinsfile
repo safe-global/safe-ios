@@ -14,6 +14,7 @@ pipeline {
                     sh 'bin/test.sh "Multisig - Development Rinkeby"'
                     junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/Multisig - Development Rinkeby/xcodebuild-test.log'
+                    archiveArtifacts 'Build/Multisig - Development Rinkeby/tests-bundle.xcresult.tgz'
                 }
             }
         }
