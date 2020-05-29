@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
+    }
     stages {
         stage('Unit Test') {
             when {
