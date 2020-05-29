@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Unit Test') {
             when {
-                expression { BRANCH_NAME ==~ /^(gh-.*)$/ }
+                expression { BRANCH_NAME ==~ /^gh-.*/ }
             }
             steps {
                 ansiColor('xterm') {
