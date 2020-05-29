@@ -15,14 +15,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 ansiColor('xterm') {
-                    // sh 'echo "PATH=$PATH"'
-                    // sh 'rbenv versions'
-                    // sh 'rbenv which ruby'
-                    // sh 'ruby -v'
-                    // sh 'rbenv which bundle'
-                    // sh 'bundle install --jobs=3 --retry=3'
-                    // sh 'cp Multisig/Cross-layer/Configuration/Config.Example.xcconfig Multisig/Cross-layer/Configuration/Config.xcconfig'
-                    // sh 'bundle exec fastlane development_rinkeby_beta'
                     sh 'xcodebuild -workspace Multisig.xcworkspace -scheme "Multisig - Development Rinkeby" -destination "generic/platform=iOS" -archivePath Build/Multisig.xcarchive -allowProvisioningUpdates archive'
                 }
             }
