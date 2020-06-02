@@ -1,0 +1,101 @@
+//
+//  Config.xcconfig
+//  Multisig
+//
+//  Created by Dmitry Bespalov on 27.05.20.
+//  Copyright © 2020 Gnosis Ltd. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// NOTE: the '//' is always treated as a comment by Xcode, so we
+// insert an empty reference between slashes: /$()/
+
+// These are 2 variables that we care for. They are used as a substitutions
+// for the variable names of respective services, so that we can use them
+// to specify all of the configurations.
+
+// DEV | STAGING | PROD
+SERVICE_ENV = STAGING
+
+// RINKEBY | MAINNET
+NETWORK = RINKEBY
+
+
+// Keys
+
+// Infura - Ethereum Node RPC Service
+INFURA_API_KEY = USE_YOUR_OWN_INFURA_KEY_HERE
+
+
+// Configuration Values
+
+// Gnosis Safe Relay Service
+_RELAY_SERVICE_URL_DEV_RINKEBY       = https:/$()/safe-relay.staging.gnosisdev.com/api/
+_RELAY_SERVICE_URL_DEV_MAINNET       = https:/$()/safe-relay.mainnet.staging.gnosisdev.com/api/
+_RELAY_SERVICE_URL_STAGING_RINKEBY   = https:/$()/safe-relay.staging.gnosisdev.com/api/
+_RELAY_SERVICE_URL_PROD_RINKEBY      = https:/$()/safe-relay.rinkeby.gnosis.io/api/
+_RELAY_SERVICE_URL_PROD_MAINNET      = https:/$()/safe-relay.gnosis.io/api/
+
+// Gnosis Safe Transaction Service
+_TRANSACTION_SERVICE_URL_DEV_RINKEBY        = https:/$()/safe-transaction.staging.gnosisdev.com/api/
+_TRANSACTION_SERVICE_URL_DEV_MAINNET        = https:/$()/safe-transaction.mainnet.staging.gnosisdev.com/api/
+_TRANSACTION_SERVICE_URL_STAGING_RINKEBY    = https:/$()/safe-transaction.staging.gnosisdev.com/api/
+_TRANSACTION_SERVICE_URL_PROD_RINKEBY       = https:/$()/safe-transaction.rinkeby.gnosis.io/api/
+_TRANSACTION_SERVICE_URL_PROD_MAINNET       = https:/$()/safe-transaction.gnosis.io/api/
+
+// Ethereum Node JSONRPC over HTTP Service
+_ETH_RPC_URL_RINKEBY = https:/$()/rinkeby.infura.io/v3/$(INFURA_API_KEY)/
+_ETH_RPC_URL_MAINNET = https:/$()/mainnet.infura.io/v3/$(INFURA_API_KEY)/
+
+// Etherscan -  Ethereum Block Browser
+_ETH_BLOCK_BROWSER_URL_RINKEBY = https:/$()/rinkeby.etherscan.io/
+_ETH_BLOCK_BROWSER_URL_MAINNET = https:/$()/etherscan.io/
+
+// OpenSea - Collectible Service URL
+_COLLECTIBLE_SERVICE_URL_RINKEBY = https:/$()/rinkeby-api.opensea.io/api/
+_COLLECTIBLE_SERVICE_URL_MAINNET = https:/$()/api.opensea.io/api/
+
+// Gnosis Safe Web App
+_GNOSIS_SAFE_WEB_URL_RINKEBY = https:/$()/rinkeby.gnosis-safe.io/
+_GNOSIS_SAFE_WEB_URL_MAINNET = https:/$()/gnosis-safe.io/
+
+// Apps
+_APP_BUNDLE_ID_PROD_MAINNET     = io.gnosis.multisig.prod.mainnet
+_APP_BUNDLE_ID_PROD_RINKEBY     = io.gnosis.multisig.prerelease
+_APP_BUNDLE_ID_STAGING_RINKEBY  = io.gnosis.multisig.staging.rinkeby
+_APP_BUNDLE_ID_DEV_RINKEBY      = io.gnosis.multisig.dev.rinkeby
+_APP_BUNDLE_ID_DEV_MAINNET      = io.gnosis.multisig.dev.mainnet
+
+
+// Configuration variables for the app
+
+RELAY_SERVICE_URL       = $(_RELAY_SERVICE_URL_$(SERVICE_ENV)_$(NETWORK):default=$(_RELAY_SERVICE_URL_PROD_MAINNET))
+TRANSACTION_SERVICE_URL = $(_TRANSACTION_SERVICE_URL_$(SERVICE_ENV)_$(NETWORK):default=$(_TRANSACTION_SERVICE_URL_PROD_MAINNET))
+ETH_RPC_URL             = $(_ETH_RPC_URL_$(NETWORK):default=$(_ETH_RPC_URL_MAINNET))
+ETH_BLOCK_BROWSER_URL   = $(_ETH_BLOCK_BROWSER_URL_$(NETWORK):default=$(_ETH_BLOCK_BROWSER_URL_MAINNET))
+COLLECTIBLE_SERVICE_URL = $(_COLLECTIBLE_SERVICE_URL_$(NETWORK):default=$(_COLLECTIBLE_SERVICE_URL_MAINNET))
+GNOSIS_SAFE_WEB_URL     = $(_GNOSIS_SAFE_WEB_URL_$(NETWORK):default=$(_GNOSIS_SAFE_WEB_URL_MAINNET))
+
+// Legal URLs
+TERMS_URL       = https:/$()/gnosis-safe.io/terms/
+PRIVACY_URL     = https:/$()/gnosis-safe.io/privacy/
+LICENSES_URL    = https:/$()/gnosis-safe.io/licenses/
+
+// Contact Information
+DISCORD_URL             = https:/$()/discord.gg/FPMRAwK
+TWITTER_URL             = https:/$()/twitter.com/gnosisSafe
+HELP_CENTER_URL         = https:/$()/help.gnosis-safe.io/
+FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
+CONTACT_EMAIL           = safe@gnosis.io
+
+
+// Xcode Build Settings
+PRODUCT_BUNDLE_IDENTIFIER           = $(_APP_BUNDLE_ID_$(SERVICE_ENV)_$(NETWORK):default=$(_APP_BUNDLE_ID_PROD_MAINNET))
+
+// Different product names are fixing an iOS bug that disables Touch ID
+// or Face ID when multiple apps with the same executable name are installed.
+PRODUCT_NAME                        = Multisig_$(SERVICE_ENV)_$(NETWORK)
+
+ASSETCATALOG_COMPILER_APPICON_NAME  = AppIcon_$(SERVICE_ENV)_$(NETWORK)

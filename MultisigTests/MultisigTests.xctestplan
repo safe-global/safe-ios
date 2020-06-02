@@ -1,0 +1,44 @@
+{
+  "configurations" : [
+    {
+      "id" : "8F045621-4D55-4BC1-96B3-0096873CABEF",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:Multisig.xcodeproj",
+          "identifier" : "0A93DD522445CC8A00688050",
+          "name" : "Multisig"
+        }
+      ]
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Multisig.xcodeproj",
+      "identifier" : "0A93DD522445CC8A00688050",
+      "name" : "Multisig"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Multisig.xcodeproj",
+        "identifier" : "0A93DD6B2445CC8C00688050",
+        "name" : "MultisigTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Pods\/Pods.xcodeproj",
+        "identifier" : "43E98F16D6931CEB766DA38CADFA01F5",
+        "name" : "idn2Swift-Unit-Tests"
+      }
+    }
+  ],
+  "version" : 1
+}
