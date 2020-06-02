@@ -15,6 +15,8 @@ struct TermsView: View {
     @State private var showPrivacyPolicy = false
     @State private var showTerms = false
 
+    let topPadding: CGFloat = 24
+
     var body: some View {
         VStack(spacing: 12) {
             BoldText("Please review our Terms of Use and Privacy Policy.")
@@ -49,7 +51,7 @@ struct TermsView: View {
 
             Rectangle().frame(width: 0, height: 0)
         }
-        .padding(.top, 24)
+        .padding(.top, topPadding)
         .padding([.leading, .trailing, .bottom])
     }
 

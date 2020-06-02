@@ -21,9 +21,9 @@ struct LinkButton: View {
             Text(name)
                 .underline()
         }
-            .buttonStyle(GNOPlainButtonStyle())
-            .sheet(isPresented: $showSafariController) {
-                SafariViewController(url: self.url)
-            }
+        .buttonStyle(GNOPlainButtonStyle())
+        .sheet(isPresented: $showSafariController) {
+            SafariViewController(url: self.url)
+        }
     }
 }
