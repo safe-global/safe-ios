@@ -49,17 +49,15 @@ struct LaunchView: View {
                     Image("launchscreen-logo") // 100 x 153 px, so no additional framing is required
 
                     Image("ico-splash-text") // 282 × 89 px, so no additional framing is required
-                        .alignmentGuide(.centerVerticalAlignment) { d in
-                            d[VerticalAlignment.center]
-                        }
-
-                    VStack(spacing: 20) {
-                        Rectangle().frame(width: 0, height: 0)
-                        Button("Get Started", action: {
-                            self.showTerms = true
-                        })
-                            .buttonStyle(GNOFilledButtonStyle())
+                    .alignmentGuide(.centerVerticalAlignment) { d in
+                        d[VerticalAlignment.center]
                     }
+
+                    Button("Get Started") {
+                        self.showTerms = true
+                    }
+                    .buttonStyle(GNOFilledButtonStyle())
+                    .padding(.top, 20)
                 }
             }
             .padding(.horizontal)

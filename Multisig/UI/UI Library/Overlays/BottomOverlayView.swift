@@ -22,20 +22,18 @@ struct BottomOverlayView<Content>: View where Content: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            if isPresented.wrappedValue {
-                SemitransparentBackgroundView()
-                    .transition(AnyTransition.opacity.animation(.easeInOut))
-                    .onTapGesture {
-                        withAnimation {
-                            self.isPresented.wrappedValue.toggle()
-                        }
-                    }
+            SemitransparentBackgroundView()
+                .opacity(isPresented.wrappedValue ? 1 : 0)
+                .animation(.easeInOut)
+                .onTapGesture {
+                    self.isPresented.wrappedValue.toggle()
+                }
 
-                content
-                    .background(cardBackgroundColor)
-            } else {
-                EmptyView()
-            }
+            content
+                .background(cardBackgroundColor)
+                .opacity(isPresented.wrappedValue ? 1 : 0)
+                .offset(y: isPresented.wrappedValue ? 0 : 400)
+                .animation(.spring())
         }
     }
 }

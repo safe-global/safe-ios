@@ -16,17 +16,17 @@ struct TermsView: View {
     @State private var showTerms = false
 
     let topPadding: CGFloat = 24
+    let interItemSpacing: CGFloat = 12
 
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: interItemSpacing) {
             BoldText("Please review our Terms of Use and Privacy Policy.")
                 .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
+                .padding(.top, topPadding)
 
             VStack(alignment: .leading) {
                 BulletText(text: "We do not collect demographic data such as age or gender.")
-                BulletText(
-                    text: "We collect anonymized app usage data and crash reports to ensure the quality of our app.")
+                BulletText(text: "We collect anonymized app usage data and crash reports to ensure the quality of our app.")
 
                 HStack {
                     LinkButton(name: "Privacy Policy", url: App.shared.privacyPolicyURL)
@@ -34,24 +34,18 @@ struct TermsView: View {
                 }
             }
 
-            VStack(spacing: 12) {
-                Button(action: {
-                    AppSettings.acceptTerms()
-                    self.acceptedTerms = true
-                }) {
-                    Text("Agree")
-                }.buttonStyle(GNOFilledButtonStyle())
-
-                Button(action: {
-                    self.isAgreeWithTermsPresented = false
-                }) {
-                    Text("No Thanks")
-                }.buttonStyle(GNOPlainButtonStyle())
+            Button("Agree") {
+                AppSettings.acceptTerms()
+                self.acceptedTerms = true
             }
+            .buttonStyle(GNOFilledButtonStyle())
 
-            Rectangle().frame(width: 0, height: 0)
+            Button("No Thanks") {
+                self.isAgreeWithTermsPresented = false
+            }
+            .buttonStyle(GNOPlainButtonStyle())
+            .padding(.bottom, interItemSpacing)
         }
-        .padding(.top, topPadding)
         .padding([.leading, .trailing, .bottom])
     }
 
@@ -65,7 +59,6 @@ struct TermsView: View {
                     .padding(.top, bulletTopPadding)
                 Text(text)
                     .font(Font.gnoHeadline.weight(.medium))
-                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
