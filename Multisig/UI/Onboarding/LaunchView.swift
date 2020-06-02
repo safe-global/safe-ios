@@ -68,7 +68,7 @@ struct LaunchView: View {
             TermsView(acceptedTerms: $acceptedTerms,
                       isAgreeWithTermsPresented: $isAgreeWithTermsPresented)
         })
-        .edgesIgnoringSafeArea(.bottom)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
