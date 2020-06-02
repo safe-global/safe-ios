@@ -22,43 +22,13 @@ struct TermsView: View {
                 .fixedSize(horizontal: false, vertical: true)
 
             VStack(alignment: .leading) {
-                HStack(alignment: .top) {
-                    Image("ico-bullet-point")
-                        .padding(.top, 8)
-                    Text("We do not collect demographic data such as age or gender.")
-                        .font(Font.gnoHeadline.weight(.medium))
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                HStack(alignment: .top) {
-                    Image("ico-bullet-point")
-                        .padding(.top, 8)
-                    Text("We collect anonymized app usage data and crash reports to ensure the quality of our app.")
-                        .font(Font.gnoHeadline.weight(.medium))
-                        .fixedSize(horizontal: false, vertical: true)
-                }
+                BulletText(text: "We do not collect demographic data such as age or gender.")
+                BulletText(
+                    text: "We collect anonymized app usage data and crash reports to ensure the quality of our app.")
 
                 HStack {
-                    Button(action: {
-                        self.showPrivacyPolicy = true
-                    }) {
-                        Text("Privacy Policy")
-                            .underline()
-                    }
-                        .buttonStyle(GNOPlainButtonStyle())
-                        .sheet(isPresented: $showPrivacyPolicy) {
-                            SafariViewController(url: App.shared.privacyPolicyURL)
-                        }
-
-                    Button(action: {
-                        self.showTerms = true
-                    }) {
-                        Text("Terms of Use")
-                            .underline()
-                    }
-                        .buttonStyle(GNOPlainButtonStyle())
-                        .sheet(isPresented: $showTerms) {
-                            SafariViewController(url: App.shared.termOfUseURL)
-                        }
+                    LinkButton(name: "Privacy Policy", url: App.shared.privacyPolicyURL)
+                    LinkButton(name: "Terms of Use", url: App.shared.termOfUseURL)
                 }
             }
 
@@ -81,6 +51,21 @@ struct TermsView: View {
         }
         .padding(.top, 24)
         .padding([.leading, .trailing, .bottom])
+    }
+
+    struct BulletText: View {
+        let text: String
+        let bulletTopPadding: CGFloat = 8
+
+        var body: some View {
+            HStack(alignment: .top) {
+                Image("ico-bullet-point")
+                    .padding(.top, bulletTopPadding)
+                Text(text)
+                    .font(Font.gnoHeadline.weight(.medium))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
     }
 }
 

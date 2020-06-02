@@ -154,6 +154,7 @@
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
+		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55B66E52247E478800249E98 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E51247E478800249E98 /* LaunchView.swift */; };
 		55B66E54247E47A900249E98 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E53247E47A900249E98 /* MainView.swift */; };
 		55B66E56247E494000249E98 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E55247E494000249E98 /* AppSettings.swift */; };
@@ -371,6 +372,7 @@
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
+		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55B66E51247E478800249E98 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		55B66E53247E47A900249E98 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		55B66E55247E494000249E98 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
@@ -757,6 +759,7 @@
 				0A704A5D24740163005BDC49 /* Tab Views */,
 				0AEDCE0624728D7100A1EC80 /* BackButton.swift */,
 				0AEDCE0A2472946600A1EC80 /* BarButton.swift */,
+				55AC9E48248681A100B0BC24 /* LinkButton.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -1366,6 +1369,7 @@
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				04769165246408D000D73D8B /* AdvancedSafeSettingsView.swift in Sources */,
 				55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */,
+				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
 				0AF6500A24485E450018D070 /* Identicon.swift in Sources */,
 				0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,

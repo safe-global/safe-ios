@@ -34,21 +34,21 @@ extension Alignment {
 
 struct LaunchView: View {
     @Binding var acceptedTerms: Bool
-    @State var isAgreeWithTermsPresented = false
+    @State var showTerms = false
 
     var body: some View {
-        GeometryReader { gp in
+        GeometryReader { geometryProxy in
             ZStack(alignment: .centerAlignment) {
                 // anchor to position text image in the center of the screen
                 Rectangle()
                     .frame(width: 0, height: 0)
                     .alignmentGuide(.centerVerticalAlignment) { d in d[VerticalAlignment.center] }
-                    .position(y: gp.size.height / 2)
+                    .position(y: geometryProxy.size.height / 2)
 
                 VStack(alignment: .center, spacing: 40) {
-                    Image("launchscreen-logo") // 100 x 153 px
+                    Image("launchscreen-logo") // 100 x 153 px, so no additional framing is required
 
-                    Image("ico-splash-text") // 282 × 89 px
+                    Image("ico-splash-text") // 282 × 89 px, so no additional framing is required
                         .alignmentGuide(.centerVerticalAlignment) { d in
                             d[VerticalAlignment.center]
                         }
@@ -56,7 +56,7 @@ struct LaunchView: View {
                     VStack(spacing: 20) {
                         Rectangle().frame(width: 0, height: 0)
                         Button("Get Started", action: {
-                            self.isAgreeWithTermsPresented = true
+                            self.showTerms = true
                         })
                             .buttonStyle(GNOFilledButtonStyle())
                     }
@@ -64,9 +64,9 @@ struct LaunchView: View {
             }
             .padding(.horizontal)
         }
-        .overlay(BottomOverlayView(isPresented: $isAgreeWithTermsPresented) {
+        .overlay(BottomOverlayView(isPresented: $showTerms) {
             TermsView(acceptedTerms: $acceptedTerms,
-                      isAgreeWithTermsPresented: $isAgreeWithTermsPresented)
+                      isAgreeWithTermsPresented: $showTerms)
         })
         .edgesIgnoringSafeArea(.all)
     }
@@ -75,11 +75,11 @@ struct LaunchView: View {
 struct LaunchView_Previews: PreviewProvider {
     static var previews: some View {
           Group {
-            LaunchView(acceptedTerms: .constant(false), isAgreeWithTermsPresented: true)
+            LaunchView(acceptedTerms: .constant(false), showTerms: true)
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE (2nd generation)"))
                 .previewDisplayName("iPhone SE2")
-            LaunchView(acceptedTerms: .constant(false), isAgreeWithTermsPresented: true)
-                .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
+            LaunchView(acceptedTerms: .constant(false), showTerms: true)
+                .previewDevice(PreviewDevice(rawValue: "iPhone 11 Pro Max"))
                 .previewDisplayName("iPhone 11 Pro Max")
          }
     }
