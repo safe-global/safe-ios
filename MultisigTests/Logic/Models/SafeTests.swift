@@ -10,13 +10,11 @@ import XCTest
 @testable import Multisig
 
 class SafeTests: CoreDataTestCase {
-
     func test_removeSafe() throws {
         Safe.create(address: "0", name: "0", selected: false)
         Safe.create(address: "1", name: "1")
         Safe.create(address: "2", name: "2", selected: false)
 
-        let context = CoreDataStack.shared.viewContext
         var result = try context.fetch(Safe.fetchRequest().all())
         XCTAssertEqual(result.count, 3)
 

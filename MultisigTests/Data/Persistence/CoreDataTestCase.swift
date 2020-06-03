@@ -11,10 +11,10 @@ import CoreData
 @testable import Multisig
 
 class CoreDataTestCase: XCTestCase {
-    let coreDataStack = TestCoreDataStack()
     var context: NSManagedObjectContext!
 
     override func setUpWithError() throws {
-        context = coreDataStack.persistentContainer.viewContext
+        App.shared.coreDataStack = TestCoreDataStack()
+        context = App.shared.coreDataStack.viewContext
     }
 }

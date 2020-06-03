@@ -154,6 +154,15 @@
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
+		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
+		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
+		55B66E52247E478800249E98 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E51247E478800249E98 /* LaunchView.swift */; };
+		55B66E54247E47A900249E98 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E53247E47A900249E98 /* MainView.swift */; };
+		55B66E56247E494000249E98 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E55247E494000249E98 /* AppSettings.swift */; };
+		55B66E87247FDF2C00249E98 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E86247FDF2C00249E98 /* TermsView.swift */; };
+		55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E88247FE09A00249E98 /* BottomOverlayView.swift */; };
+		55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */; };
+		55B66E8E24810BC800249E98 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8D24810BC800249E98 /* AppSettingsTests.swift */; };
 		55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */; };
 		55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A3092475375B00ABBA6F /* AssetsView.swift */; };
 		55F9A3102475381800ABBA6F /* FootnoteText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A30F2475381800ABBA6F /* FootnoteText.swift */; };
@@ -364,6 +373,15 @@
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
+		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
+		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
+		55B66E51247E478800249E98 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		55B66E53247E47A900249E98 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		55B66E55247E494000249E98 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		55B66E86247FDF2C00249E98 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
+		55B66E88247FE09A00249E98 /* BottomOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOverlayView.swift; sourceTree = "<group>"; };
+		55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemitransparentBackgroundView.swift; sourceTree = "<group>"; };
+		55B66E8D24810BC800249E98 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
 		55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenImage.swift; sourceTree = "<group>"; };
 		55F9A3092475375B00ABBA6F /* AssetsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
 		55F9A30F2475381800ABBA6F /* FootnoteText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootnoteText.swift; sourceTree = "<group>"; };
@@ -704,6 +722,7 @@
 				0476915E246408D000D73D8B /* Settings */,
 				0AF432BC244DF6C900E22E50 /* ENS */,
 				0A93DD8B244603DB00688050 /* UI Library */,
+				55B66E85247FC5D900249E98 /* Onboarding */,
 				0AF432CA244DFAFB00E22E50 /* Resources */,
 			);
 			path = UI;
@@ -712,6 +731,7 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
+				55B66E8A247FE0F500249E98 /* Overlays */,
 				0A704A6F24742003005BDC49 /* HideSystemNavigationBarModifier.swift */,
 				0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */,
 				55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */,
@@ -724,7 +744,6 @@
 				0A0EFCA7246EB13300D3D8BF /* KeyValueRow.swift */,
 				04C97AA7246ED31300EBA0F1 /* KeyValueView.swift */,
 				0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */,
-				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
 				041C2A592456F53E0044A24C /* QRView.swift */,
 				04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */,
 				0471D13124728C2C00B22A70 /* EmailLink.swift */,
@@ -742,6 +761,7 @@
 				0A704A5D24740163005BDC49 /* Tab Views */,
 				0AEDCE0624728D7100A1EC80 /* BackButton.swift */,
 				0AEDCE0A2472946600A1EC80 /* BarButton.swift */,
+				55AC9E48248681A100B0BC24 /* LinkButton.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -868,6 +888,7 @@
 				0A93DD562445CC8A00688050 /* AppDelegate.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
+				55B66E53247E47A900249E98 /* MainView.swift */,
 				0A465C2D246C196900AFA467 /* Theme.swift */,
 				04C97A99246C3E5F00EBA0F1 /* ViewState.swift */,
 			);
@@ -919,6 +940,7 @@
 		0AF432D5244F075800E22E50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				55B66E55247E494000249E98 /* AppSettings.swift */,
 				0A6C85B1245071510026139E /* Address.swift */,
 				551DDEE8244F183500C719D3 /* Selection.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
@@ -951,6 +973,7 @@
 				0A9BC33C24603AE800EB9C5D /* ENSTests.swift */,
 				0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */,
 				0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */,
+				55B66E8D24810BC800249E98 /* AppSettingsTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1013,6 +1036,7 @@
 			isa = PBXGroup;
 			children = (
 				5556A03424489F37003EC861 /* CoreDataStack.swift */,
+				55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -1025,6 +1049,25 @@
 				551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		55B66E85247FC5D900249E98 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				55B66E51247E478800249E98 /* LaunchView.swift */,
+				55B66E86247FDF2C00249E98 /* TermsView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		55B66E8A247FE0F500249E98 /* Overlays */ = {
+			isa = PBXGroup;
+			children = (
+				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
+				55B66E88247FE09A00249E98 /* BottomOverlayView.swift */,
+				55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */,
+			);
+			path = Overlays;
 			sourceTree = "<group>";
 		};
 		55F9A2E52472F3EE00ABBA6F /* Assets */ = {
@@ -1329,9 +1372,11 @@
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				04769165246408D000D73D8B /* AdvancedSafeSettingsView.swift in Sources */,
 				55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */,
+				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
 				0AF6500A24485E450018D070 /* Identicon.swift in Sources */,
 				0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
+				55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */,
 				041C2A5A2456F53E0044A24C /* QRView.swift in Sources */,
 				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
@@ -1359,6 +1404,7 @@
 				04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
 				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
+				55B66E54247E47A900249E98 /* MainView.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */,
 				55F9A3212475578C00ABBA6F /* BalancesViewModel.swift in Sources */,
@@ -1384,6 +1430,7 @@
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
 				04769163246408D000D73D8B /* SafeSettingsView.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
+				55B66E87247FDF2C00249E98 /* TermsView.swift in Sources */,
 				0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */,
 				0AE061D82464591900CB60D7 /* BasicSafeSettingsView.swift in Sources */,
 				0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */,
@@ -1392,6 +1439,7 @@
 				0A946D0A246C4C6E00456BD5 /* SettingsView.swift in Sources */,
 				047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
+				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
 				0ADDA21324534F1B0066457E /* EnterSafeNameViewModel.swift in Sources */,
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,
@@ -1401,8 +1449,10 @@
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */,
+				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */,
 				04C97AAC246ED34400EBA0F1 /* ValueText.swift in Sources */,
+				55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */,
 				04C97AA8246ED31300EBA0F1 /* KeyValueView.swift in Sources */,
 				0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */,
 				0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */,
@@ -1442,6 +1492,7 @@
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
 				0A7AEADF2462F95100014184 /* SwitchSafeButton.swift in Sources */,
+				55B66E56247E494000249E98 /* AppSettings.swift in Sources */,
 				0A72AC5A2453125800840641 /* EnterSafeAddressView.swift in Sources */,
 				0A9BC36124605AA800EB9C5D /* ErrorText.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
@@ -1464,6 +1515,7 @@
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
 				551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,
+				55B66E8E24810BC800249E98 /* AppSettingsTests.swift in Sources */,
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
 				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
