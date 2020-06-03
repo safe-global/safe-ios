@@ -15,22 +15,22 @@ struct TermsView: View {
     @State private var showPrivacyPolicy = false
     @State private var showTerms = false
 
-    let topPadding: CGFloat = 24
+    private let topPadding: CGFloat = 24
+    private let bottomPadding: CGFloat = 20
     let interItemSpacing: CGFloat = 12
 
     var body: some View {
         VStack(spacing: interItemSpacing) {
             BoldText("Please review our Terms of Use and Privacy Policy.")
                 .multilineTextAlignment(.center)
-                .padding(.top, topPadding)
 
             VStack(alignment: .leading) {
-                BulletText(text: "We do not collect demographic data such as age or gender.")
-                BulletText(text: "We collect anonymized app usage data and crash reports to ensure the quality of our app.")
+                BulletText("We do not collect demographic data such as age or gender.")
+                BulletText("We collect anonymized app usage data and crash reports to ensure the quality of our app.")
 
                 HStack {
-                    LinkButton(name: "Privacy Policy", url: App.shared.privacyPolicyURL)
-                    LinkButton(name: "Terms of Use", url: App.shared.termOfUseURL)
+                    LinkButton("Privacy Policy", url: App.shared.privacyPolicyURL)
+                    LinkButton("Terms of Use", url: App.shared.termOfUseURL)
                 }
             }
 
@@ -40,18 +40,21 @@ struct TermsView: View {
             }
             .buttonStyle(GNOFilledButtonStyle())
 
-            Button("No Thanks") {
-                self.isAgreeWithTermsPresented = false
-            }
+            Button("No Thanks") { self.isAgreeWithTermsPresented = false }
             .buttonStyle(GNOPlainButtonStyle())
-            .padding(.bottom, interItemSpacing)
         }
-        .padding([.leading, .trailing, .bottom])
+        .padding(.top, topPadding)
+        .padding(.bottom, bottomPadding)
+        .padding(.horizontal)
     }
 
     struct BulletText: View {
-        let text: String
-        let bulletTopPadding: CGFloat = 8
+        private let text: String
+        private let bulletTopPadding: CGFloat = 8
+
+        init(_ text: String) {
+            self.text = text
+        }
 
         var body: some View {
             HStack(alignment: .top) {
