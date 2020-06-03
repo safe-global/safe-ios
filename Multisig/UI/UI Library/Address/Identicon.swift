@@ -48,7 +48,7 @@ struct Identicon: View {
 
     func blocky(_ size: CGSize) -> UIImage {
         Blockies(
-            seed: text,
+            seed: text?.lowercased(),
             size: Int(blockSize),
             scale: Int(min(size.width, size.height) / blockSize)
         ).createImage()!
