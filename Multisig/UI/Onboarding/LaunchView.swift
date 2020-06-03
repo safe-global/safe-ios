@@ -55,11 +55,11 @@ struct LaunchView: View {
 
                     // 282 × 89 px, so no additional framing is required
                     Image("ico-splash-text")
-                    .alignmentGuide(.centerVerticalAlignment) { $0[VerticalAlignment.center] }
-                    .padding(.bottom, self.textToButtonSpacing)
+                        .alignmentGuide(.centerVerticalAlignment) { $0[VerticalAlignment.center] }
+                        .padding(.bottom, self.textToButtonSpacing)
 
                     Button("Get Started") { self.showTerms = true }
-                    .buttonStyle(GNOFilledButtonStyle())
+                        .buttonStyle(GNOFilledButtonStyle())
                 }
             }
             .padding(.horizontal)
@@ -74,13 +74,13 @@ struct LaunchView: View {
 
 struct LaunchView_Previews: PreviewProvider {
     static var previews: some View {
-          Group {
+        Group {
             LaunchView(acceptedTerms: .constant(false), showTerms: true)
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE (2nd generation)"))
                 .previewDisplayName("iPhone SE2")
             LaunchView(acceptedTerms: .constant(false), showTerms: true)
                 .previewDevice(PreviewDevice(rawValue: "iPhone 11 Pro Max"))
                 .previewDisplayName("iPhone 11 Pro Max")
-         }
+        }
     }
 }

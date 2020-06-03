@@ -41,7 +41,7 @@ struct TermsView: View {
             .buttonStyle(GNOFilledButtonStyle())
 
             Button("No Thanks") { self.isAgreeWithTermsPresented = false }
-            .buttonStyle(GNOPlainButtonStyle())
+                .buttonStyle(GNOPlainButtonStyle())
         }
         .padding(.top, topPadding)
         .padding(.bottom, bottomPadding)

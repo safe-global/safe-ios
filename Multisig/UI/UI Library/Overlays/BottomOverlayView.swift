@@ -13,6 +13,7 @@ struct BottomOverlayView<Content>: View where Content: View {
     private var content: Content
 
     private let cardBackgroundColor = Color.white
+    private let contentHeight: CGFloat = 400
 
     public init(isPresented: Binding<Bool>,
                @ViewBuilder content: () -> Content) {
@@ -32,7 +33,7 @@ struct BottomOverlayView<Content>: View where Content: View {
             content
                 .background(cardBackgroundColor)
                 .opacity(isPresented.wrappedValue ? 1 : 0)
-                .offset(y: isPresented.wrappedValue ? 0 : 400)
+                .offset(y: isPresented.wrappedValue ? 0 : contentHeight)
                 .animation(.spring())
         }
     }
