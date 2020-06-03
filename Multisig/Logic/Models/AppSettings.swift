@@ -14,8 +14,8 @@ extension AppSettings {
         dispatchPrecondition(condition: .onQueue(.main))
         do {
             let fr = AppSettings.fetchRequest().all()
-            let result = try CoreDataStack.shared.viewContext.fetch(fr)
-            return result.first ?? AppSettings(context: CoreDataStack.shared.viewContext)
+            let result = try App.shared.coreDataStack.viewContext.fetch(fr)
+            return result.first ?? AppSettings(context: App.shared.coreDataStack.viewContext)
         } catch {
             fatalError("Error fetching: \(error)")
         }
@@ -25,7 +25,7 @@ extension AppSettings {
         dispatchPrecondition(condition: .onQueue(.main))
         let appSettings = current()
         appSettings.termsAccepted = true
-        CoreDataStack.shared.saveContext()
+        App.shared.coreDataStack.saveContext()
     }
 
     static func hasAcceptedTerms() -> Bool {

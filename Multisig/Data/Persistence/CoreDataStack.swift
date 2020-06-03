@@ -13,13 +13,7 @@ import Combine
 // this typealias helps to not import CoreData in SwiftUI views
 typealias CoreDataContext = NSManagedObjectContext
 
-class CoreDataStack {
-    static let shared = CoreDataStack()
-
-    var viewContext: NSManagedObjectContext { persistentContainer.viewContext }
-
-    private init() {}
-
+class CoreDataStack: CoreDataProtocol {
     private var subscribers = Set<AnyCancellable>()
 
     lazy var persistentContainer: NSPersistentContainer = {

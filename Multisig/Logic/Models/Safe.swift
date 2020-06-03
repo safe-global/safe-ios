@@ -31,7 +31,7 @@ extension Safe: Identifiable {
     func select() {
         let selection = Selection.current()
         selection.safe = self
-        CoreDataStack.shared.saveContext()
+        App.shared.coreDataStack.saveContext()
     }
 
     static func browserURL(address: String) -> URL {
@@ -50,7 +50,7 @@ extension Safe: Identifiable {
 
     static func exists(_ address: String) throws -> Bool {
         dispatchPrecondition(condition: .onQueue(.main))
-        let context = CoreDataStack.shared.viewContext
+        let context = App.shared.coreDataStack.viewContext
         let fr = Safe.fetchRequest().by(address: address)
         let count = try context.count(for: fr)
         return count > 0
@@ -58,7 +58,7 @@ extension Safe: Identifiable {
 
     static func create(address: String, name: String, selected: Bool = true) {
         dispatchPrecondition(condition: .onQueue(.main))
-        let context = CoreDataStack.shared.viewContext
+        let context = App.shared.coreDataStack.viewContext
 
         let safe = Safe(context: context)
         safe.address = address
@@ -68,12 +68,12 @@ extension Safe: Identifiable {
             safe.select()
         }
 
-        CoreDataStack.shared.saveContext()
+        App.shared.coreDataStack.saveContext()
     }
     
     static func edit(address: String, name: String) {
         dispatchPrecondition(condition: .onQueue(.main))
-        let context = CoreDataStack.shared.viewContext
+        let context = App.shared.coreDataStack.viewContext
 
         let fr = Safe.fetchRequest().by(address: address)
         
@@ -81,11 +81,11 @@ extension Safe: Identifiable {
         
         safe.name = name
 
-        CoreDataStack.shared.saveContext()
+        App.shared.coreDataStack.saveContext()
     }
     
     static func remove(safe: Safe) {
-        let context = CoreDataStack.shared.viewContext
+        let context = App.shared.coreDataStack.viewContext
 
         context.delete(safe)
 
@@ -96,7 +96,7 @@ extension Safe: Identifiable {
             }
         }
 
-        CoreDataStack.shared.saveContext()
+        App.shared.coreDataStack.saveContext()
     }
 }
 

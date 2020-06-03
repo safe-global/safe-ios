@@ -27,7 +27,7 @@ struct EmailSupportViewController: UIViewControllerRepresentable {
         let marketingVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "(unknown)"
         let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "unknown"
         let version = "v\(marketingVersion) (\(buildNumber))"
-        let safe = try? CoreDataStack.shared.viewContext.fetch(Safe.fetchRequest().selected()).first
+        let safe = try? App.shared.coreDataStack.viewContext.fetch(Safe.fetchRequest().selected()).first
 
         let message = """
         Safe Multisig \(version)
