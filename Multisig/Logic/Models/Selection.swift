@@ -15,7 +15,7 @@ extension Selection {
         dispatchPrecondition(condition: .onQueue(.main))
         do {
             let fr = Selection.fetchRequest().all()
-            let result = try CoreDataStack.shared.viewContext.fetch(fr)
+            let result = try App.shared.coreDataStack.viewContext.fetch(fr)
             return result.first
         } catch {
             fatalError("Error fetching: \(error)")
@@ -24,7 +24,7 @@ extension Selection {
 
     class func current() -> Selection {
         dispatchPrecondition(condition: .onQueue(.main))
-        return selection() ?? Selection(context: CoreDataStack.shared.viewContext)
+        return selection() ?? Selection(context: App.shared.coreDataStack.viewContext)
     }
 
 }

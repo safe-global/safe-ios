@@ -20,7 +20,7 @@ struct EditSafeNameView: View {
     var updateID = UUID()
     var didSave = NotificationCenter.default
         .publisher(for: .NSManagedObjectContextDidSave,
-                   object: CoreDataStack.shared.viewContext)
+                   object: App.shared.coreDataStack.viewContext)
         .receive(on: RunLoop.main)
 
     @State

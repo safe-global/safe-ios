@@ -10,11 +10,9 @@ import XCTest
 @testable import Multisig
 
 class AppSettingsTests: CoreDataTestCase {
-
-    func disabled_test_appSettings() {
+    func test_appSettings() {
         XCTAssertFalse(AppSettings.hasAcceptedTerms())
         AppSettings.acceptTerms()
         XCTAssertTrue(AppSettings.hasAcceptedTerms())
     }
-
 }

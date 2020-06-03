@@ -46,7 +46,7 @@ struct SafeHeaderView: View {
 struct SafeHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         SafeHeaderView(showsSafeInfo: .constant(false))
-            .environment(\.managedObjectContext, TestCoreDataStack.context)
+            .environment(\.managedObjectContext, TestCoreDataStack().viewContext)
     }
 }
 

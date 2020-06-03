@@ -66,7 +66,7 @@ struct SwitchSafeView: View {
 struct SwitchSafeView_Previews: PreviewProvider {
     static var previews: some View {
         SwitchSafeView()
-            .environment(\.managedObjectContext, TestCoreDataStack.context)
+            .environment(\.managedObjectContext, TestCoreDataStack().viewContext)
     }
 }
 
