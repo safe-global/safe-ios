@@ -43,7 +43,7 @@ struct GNOPlainButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .font(Font.gnoBody.bold())
+            .font(Font.gnoBody.weight(.medium))
             .foregroundColor(
                 configuration.isPressed ? Color.gnoHoldTwo : .gnoHold)
     }
