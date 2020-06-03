@@ -33,6 +33,8 @@ struct AddressInputSelector: View {
                 tag: InputType.ens,
                 selection: $selection,
                 label: { EmptyView() })
+            // otherwise the "pop to root" stops working
+            .isDetailLink(false)
         }
         .actionSheet(isPresented: isPresented, content: selector)
         .sheet(isPresented: $showsQR) {
