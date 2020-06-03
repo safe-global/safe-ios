@@ -17,7 +17,9 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             if acceptedTerms {
-                MainView().environment(\.managedObjectContext, context)
+                MainView()
+                    .environment(\.managedObjectContext, context)
+                    .transition(AnyTransition.opacity.animation(.easeInOut))
             } else {
                 LaunchView(acceptedTerms: $acceptedTerms)
             }

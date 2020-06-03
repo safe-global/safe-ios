@@ -36,30 +36,30 @@ struct LaunchView: View {
     @Binding var acceptedTerms: Bool
     @State var showTerms = false
 
+    private let logoToTextSpacing: CGFloat = 40
+    private let textToButtonSpacing: CGFloat = 60
+
     var body: some View {
         GeometryReader { geometryProxy in
             ZStack(alignment: .centerAlignment) {
                 // anchor to position text image in the center of the screen
                 Rectangle()
-                    .frame(width: 0, height: 0)
-                    .alignmentGuide(.centerVerticalAlignment) { d in d[VerticalAlignment.center] }
+                    .hidden()
+                    .alignmentGuide(.centerVerticalAlignment) { $0[VerticalAlignment.center] }
                     .position(y: geometryProxy.size.height / 2)
 
-                VStack(alignment: .center, spacing: 40) {
-                    Image("launchscreen-logo") // 100 x 153 px, so no additional framing is required
+                VStack(alignment: .center, spacing: 0) {
+                    // 100 x 153 px, so no additional framing is required
+                    Image("launchscreen-logo")
+                        .padding(.bottom,  self.logoToTextSpacing)
 
-                    Image("ico-splash-text") // 282 × 89 px, so no additional framing is required
-                        .alignmentGuide(.centerVerticalAlignment) { d in
-                            d[VerticalAlignment.center]
-                        }
+                    // 282 × 89 px, so no additional framing is required
+                    Image("ico-splash-text")
+                        .alignmentGuide(.centerVerticalAlignment) { $0[VerticalAlignment.center] }
+                        .padding(.bottom, self.textToButtonSpacing)
 
-                    VStack(spacing: 20) {
-                        Rectangle().frame(width: 0, height: 0)
-                        Button("Get Started", action: {
-                            self.showTerms = true
-                        })
-                            .buttonStyle(GNOFilledButtonStyle())
-                    }
+                    Button("Get Started") { self.showTerms = true }
+                        .buttonStyle(GNOFilledButtonStyle())
                 }
             }
             .padding(.horizontal)
@@ -74,13 +74,13 @@ struct LaunchView: View {
 
 struct LaunchView_Previews: PreviewProvider {
     static var previews: some View {
-          Group {
+        Group {
             LaunchView(acceptedTerms: .constant(false), showTerms: true)
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE (2nd generation)"))
                 .previewDisplayName("iPhone SE2")
             LaunchView(acceptedTerms: .constant(false), showTerms: true)
                 .previewDevice(PreviewDevice(rawValue: "iPhone 11 Pro Max"))
                 .previewDisplayName("iPhone 11 Pro Max")
-         }
+        }
     }
 }

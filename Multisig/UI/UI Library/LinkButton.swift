@@ -9,17 +9,19 @@
 import SwiftUI
 
 struct LinkButton: View {
-    let name: String
-    let url: URL
+    private let name: String
+    private let url: URL
+
+    init(_ name: String, url: URL) {
+        self.name = name
+        self.url = url
+    }
 
     @State private var showSafariController = false
 
     var body: some View {
-        Button(action: {
-            self.showSafariController = true
-        }) {
-            Text(name)
-                .underline()
+        Button(action: { self.showSafariController = true }) {
+            Text(name).underline()
         }
         .buttonStyle(GNOPlainButtonStyle())
         .sheet(isPresented: $showSafariController) {
