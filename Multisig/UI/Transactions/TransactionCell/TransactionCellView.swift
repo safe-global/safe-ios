@@ -109,38 +109,6 @@ struct TransactionCellView_Previews: PreviewProvider {
         transaction.nonce = "2"
         transaction.status = .failed
 
-
-//        let transaction = SettingChangeTransaction()
-//        transaction.title = "Add owner"
-//        transaction.confirmationCount = 1
-//        transaction.formattedDate = "Apr 25, 2020 — 1:01:42PM"
-//        transaction.nonce = "2"
-//        transaction.status = .success
-//        transaction.threshold = 2
-
-//        let transaction = TransferTransaction()
-//        transaction.address = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
-//        transaction.confirmationCount = 2
-//        transaction.threshold = 1
-//        transaction.formattedDate = "Apr 25, 2020 — 1:01:42PM"
-//        transaction.nonce = "2"
-//        transaction.amount = "5"
-//        transaction.tokenSymbol = " ETH"
-//        transaction.isOutgoing = true
-//        transaction.status = .waitingExecution
-
-//        let transaction = CustomTransaction()
-//        transaction.address = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
-//        transaction.confirmationCount = 1
-//        transaction.threshold = 2
-//        transaction.formattedDate = "Apr 25, 2020 — 1:01:42PM"
-//        transaction.nonce = "2"
-//        transaction.amount = "5"
-//        transaction.tokenSymbol = " ETH"
-//        transaction.isOutgoing = true
-//        transaction.dataLength = 40
-//        transaction.status = .waitingExecution //bigger dot
-
         //disabled mode
         return TransactionCellView(transaction: transaction)
     }
