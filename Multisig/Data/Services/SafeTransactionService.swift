@@ -27,6 +27,10 @@ class SafeTransactionService {
     func safeBalances(at address: String) throws -> [SafeBalancesRequest.Response] {
         return try httpClient.execute(request: SafeBalancesRequest(address: address))
     }
+
+    func transactions(address: String) throws -> TransactionsRequest.Response {
+        return try httpClient.execute(request: TransactionsRequest(address: address))
+    }
 }
 
 struct SafeStatusRequest: JSONRequest {
@@ -76,5 +80,30 @@ struct SafeBalancesRequest: JSONRequest {
             let symbol: String
             let decimals: Int
         }
+    }
+}
+
+struct TransactionsRequest: JSONRequest {
+    let address: String
+    let limit: Int = 100
+    let offset: Int = 0
+    var httpMethod: String { return "GET" }
+    var urlPath: String { return "/api/v1/safes/\(address)/all-transactions/" }
+
+    typealias ResponseType = Response
+
+    init(address: String) {
+        self.address = address
+    }
+
+    var query: String? {
+        return "limit=\(limit)&offset=\(offset)"
+    }
+
+    struct Response: Decodable {
+        let count: Int
+        let previous: String?
+        let next: String?
+        let results: [Transaction]
     }
 }
