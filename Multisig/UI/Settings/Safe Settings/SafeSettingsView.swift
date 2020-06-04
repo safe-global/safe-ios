@@ -13,24 +13,17 @@ struct SafeSettingsView: View {
     @Environment(\.managedObjectContext)
     var context: NSManagedObjectContext
 
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    var selected: FetchedResults<Safe>
-    
+    @ObservedObject
+    var model = LoadableSafeSettingsViewModel()
+
     var body: some View {
         ZStack {
-            if selected.first == nil {
+            if model.safe == nil {
                 // so it does not jump when switching Assets <-> Settings in the tap bar
                 AddSafeIntroView(padding: .top, -56)
             } else {
-                LoadableSafeSettingsView(safe: selected.first!)
-                    .environment(\.managedObjectContext, self.context)
+                LoadableSafeSettingsView(model: model)
             }
         }
-    }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SafeSettingsView()
     }
 }

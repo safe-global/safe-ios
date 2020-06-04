@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct BasicSafeSettingsView: View {
-
     @ObservedObject
     var safe: Safe
 
@@ -26,7 +25,7 @@ struct BasicSafeSettingsView: View {
             }
 
             Section(header: SectionHeader("REQUIRED CONFIRMATIONS")) {
-                BodyText("\(safe.threshold ?? 0) out of \(safe.owners?.count ?? 0)")
+                BodyText("\(safe.threshold) out of \(safe.owners?.count ?? 0)")
                     .frame(height: rowHeight)
             }
 

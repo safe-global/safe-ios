@@ -21,7 +21,7 @@ class ENSNameLoader: ObservableObject {
             .compactMap { $0 }
             .compactMap { Address($0) }
             .flatMap { address in
-                Future { promise in
+                Future<String?, Never> { promise in
                     DispatchQueue.global().async {
                         let ensName = try? App.shared.ens.name(for: address)
                         promise(.success(ensName))
@@ -32,9 +32,12 @@ class ENSNameLoader: ObservableObject {
             .sink(receiveCompletion: { completion in
                 self.isLoading = false
             }, receiveValue: { ensName in
-                safe.ensName = ensName
+                if safe.ensName != ensName {
+                    // updating safe triggers update cycles of the whole view hierarchy
+                    // and ends up in an infinite loop
+                    safe.ensName = ensName
+                }
             })
             .store(in: &subscribers)
     }
-
 }

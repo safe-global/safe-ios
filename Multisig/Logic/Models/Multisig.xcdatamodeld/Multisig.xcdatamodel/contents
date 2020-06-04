@@ -3,10 +3,18 @@
     <entity name="AppSettings" representedClassName="AppSettings" syncable="YES" codeGenerationType="class">
         <attribute name="termsAccepted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
     </entity>
-    <entity name="Safe" representedClassName="Safe" syncable="YES">
+    <entity name="Safe" representedClassName="Safe" syncable="YES" codeGenerationType="class">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="ensName" optional="YES" transient="YES" attributeType="String"/>
+        <attribute name="fallbackHandler" optional="YES" transient="YES" attributeType="String"/>
+        <attribute name="masterCopy" optional="YES" transient="YES" attributeType="String"/>
+        <attribute name="modulesData" optional="YES" transient="YES" attributeType="Binary"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="nonce" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="ownersData" optional="YES" transient="YES" attributeType="Binary"/>
+        <attribute name="threshold" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="version" optional="YES" transient="YES" attributeType="String"/>
         <relationship name="selection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Selection" inverseName="safe" inverseEntity="Selection"/>
     </entity>
     <entity name="Selection" representedClassName="Selection" syncable="YES" codeGenerationType="class">
@@ -14,7 +22,7 @@
     </entity>
     <elements>
         <element name="AppSettings" positionX="54" positionY="18" width="128" height="58"/>
-        <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="Safe" positionX="-63" positionY="-18" width="128" height="223"/>
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
     </elements>
 </model>

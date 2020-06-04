@@ -21,7 +21,30 @@ extension Safe: Identifiable {
 
     var displayName: String { name.flatMap { $0.isEmpty ? nil : $0 } ?? "Untitled Safe" }
 
-    var displayENSName: String { "" }
+    var displayENSName: String {
+        // TODO: https://github.com/gnosis/safe-ios/issues/202
+        ""
+    }
+
+    var owners: [String]? {
+        get {
+            guard let ownersData = ownersData else { return nil }
+            return try? JSONDecoder().decode([String].self, from: ownersData)
+        }
+        set {
+            ownersData = try? JSONEncoder().encode(newValue)
+        }
+    }
+
+    var modules: [String]? {
+        get {
+            guard let modulesData = modulesData else { return nil }
+            return try? JSONDecoder().decode([String].self, from: modulesData)
+        }
+        set {
+            modulesData = try? JSONEncoder().encode(newValue)
+        }
+    }
 
     public override func awakeFromInsert() {
         super.awakeFromInsert()

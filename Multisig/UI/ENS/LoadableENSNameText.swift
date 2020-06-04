@@ -9,11 +9,12 @@
 import SwiftUI
 
 struct LoadableENSNameText: View {
+    @ObservedObject
+    private var ensLoader: ENSNameLoader
 
-    @ObservedObject var safe: Safe
-    @ObservedObject private var ensLoader: ENSNameLoader
-    private var placeholder: String
-    private var showsLoading: Bool
+    private let safe: Safe
+    private let placeholder: String
+    private let showsLoading: Bool
 
     init(safe: Safe, placeholder: String = "", showsLoading: Bool = true) {
         self.safe = safe

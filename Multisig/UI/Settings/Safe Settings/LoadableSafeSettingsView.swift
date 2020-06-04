@@ -10,15 +10,13 @@ import SwiftUI
 import CoreData
 
 struct LoadableSafeSettingsView: View {
-
     @ObservedObject
     var model: LoadableSafeSettingsViewModel
 
-    init(safe: Safe) {
-        model = LoadableSafeSettingsViewModel(safe: safe)
+    init(model: LoadableSafeSettingsViewModel) {
+        self.model = model
     }
     
-    /// when change safe, model object should be changed also 
     var body: some View {
         ZStack(alignment: .center) {
             Rectangle()
@@ -30,9 +28,8 @@ struct LoadableSafeSettingsView: View {
             } else if model.errorMessage != nil {
                 ErrorText(model.errorMessage!)
             } else {
-                BasicSafeSettingsView(safe: model.safe)
+                BasicSafeSettingsView(safe: model.safe!)
             }
         }
     }
-    
 }

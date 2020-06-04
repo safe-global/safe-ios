@@ -22,7 +22,7 @@ struct AdvancedSafeSettingsView: View {
             fallbackHandlerView
             
             Section(header: SectionHeader("NONCE")) {
-                BodyText("\(safe.nonce ?? 0)")
+                BodyText("\(safe.nonce)")
             }
              
             modulesSection
