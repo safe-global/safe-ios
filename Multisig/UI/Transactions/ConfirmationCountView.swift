@@ -10,18 +10,18 @@ import SwiftUI
 
 struct ConfirmationCountView: View {
     let currentValue: Int
-    let maxValue: Int
+    let threshold: Int
     var body: some View {
-        let color = currentValue == maxValue ? Color.gnoHold : Color.gnoMediumGrey
+        let color = currentValue >= threshold ? Color.gnoHold : Color.gnoMediumGrey
         return HStack(spacing: 6) {
             Image("ico-confirmation-count").foregroundColor(color)
-            FootnoteText("\(currentValue) out of \(maxValue)", color: color)
+            FootnoteText("\(currentValue) out of \(threshold)", color: color)
         }
     }
 }
 
 struct ConfirmationCountView_Previews: PreviewProvider {
     static var previews: some View {
-        ConfirmationCountView(currentValue: 1, maxValue: 2)
+        ConfirmationCountView(currentValue: 1, threshold: 2)
     }
 }

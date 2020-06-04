@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct TransactionDetailsView: View {
-    let transaction: Transaction
+    let transaction: BaseTransactionViewModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        BodyText("Comming soon")
     }
 }
 

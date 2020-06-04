@@ -29,6 +29,7 @@ extension Color {
     static let gnoSystemSelection = Color("systemSelection")
     static let gnoSystemWhite = Color("systemWhite")
     static let gnoTomato = Color("tomato")
+    static let gnoPending = Color("pending")
     static let gnoWhite = Color("white")
     static let gnoWhitesmoke = Color("whitesmoke")
     static let gnoWhitesmokeTwo = Color("whitesmokeTwo")

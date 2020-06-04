@@ -12,12 +12,14 @@ struct BodyText: View {
 
     var label: String
 
-    init(_ value: String) {
+    var color: Color
+    init(_ value: String, textColor: Color = .gnoDarkBlue) {
         label = value
+        color = textColor
     }
 
     var body: some View {
-        Text(label).font(Font.gnoBody.weight(.medium)).foregroundColor(.gnoDarkBlue)
+        Text(label).font(Font.gnoBody.weight(.medium)).foregroundColor(color)
     }
 }
 

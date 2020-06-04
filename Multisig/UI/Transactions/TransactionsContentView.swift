@@ -31,28 +31,17 @@ struct TransactionsContentView: View {
     }
 
     var transactionsList: some View {
-        EmptyView()
-//        List {
-//            if !model.transactionsList.queuedTransactions.isEmpty {
-//                Section(header: SectionHeader("QUEUE")) {
-//                    ForEach(model.transactionsList.queuedTransactions) { transaction in
-//                        NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
-//                            TransactionCellView(transaction: transaction)
-//                        }
-//                    }
-//                }
-//            }
-//
-//            if !model.transactionsList.isEmpty {
-//                Section(header: SectionHeader("HISTORY")) {
-//                    ForEach(model.transactionsList.historyTransactions) { transaction in
-//                        NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
-//                            TransactionCellView(transaction: transaction)
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        List {
+            ForEach(model.transactionsList.sections, id: \.name) { section in
+                Section(header: SectionHeader(section.name)) {
+                    ForEach(section.transactions, id: \.nonce) { transaction in
+                        NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
+                            TransactionCellView(transaction: transaction)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
