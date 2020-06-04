@@ -51,6 +51,8 @@ struct EnterSafeAddressView: View {
                 self.onSubmit()
             }
         )
+        // otherwise the "pop to root" stops working
+        .isDetailLink(false)
         .barButton(disabled: model.isValid != true)
     }
 }

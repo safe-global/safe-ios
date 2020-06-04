@@ -68,6 +68,12 @@ _APP_BUNDLE_ID_STAGING_RINKEBY  = io.gnosis.multisig.staging.rinkeby
 _APP_BUNDLE_ID_DEV_RINKEBY      = io.gnosis.multisig.dev.rinkeby
 _APP_BUNDLE_ID_DEV_MAINNET      = io.gnosis.multisig.dev.mainnet
 
+// User-facing name of the app on the Home screen
+_DISPLAY_NAME_PROD_MAINNET     = Safe Multisig
+_DISPLAY_NAME_PROD_RINKEBY     = Prod Rinkeby
+_DISPLAY_NAME_STAGING_RINKEBY  = Staging Rinkeby
+_DISPLAY_NAME_DEV_RINKEBY      = Dev Rinkeby
+_DISPLAY_NAME_DEV_MAINNET      = Dev Mainnet
 
 // Configuration variables for the app
 
@@ -90,6 +96,8 @@ HELP_CENTER_URL         = https:/$()/help.gnosis-safe.io/
 FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
 CONTACT_EMAIL           = safe@gnosis.io
 
+// App name on the home screen (will be used for CFBundleDisplayName)
+DISPLAY_NAME = $(_DISPLAY_NAME_$(SERVICE_ENV)_$(NETWORK):default=$(_DISPLAY_NAME_PROD_MAINNET))
 
 // Xcode Build Settings
 PRODUCT_BUNDLE_IDENTIFIER           = $(_APP_BUNDLE_ID_$(SERVICE_ENV)_$(NETWORK):default=$(_APP_BUNDLE_ID_PROD_MAINNET))

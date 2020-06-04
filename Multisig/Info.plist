@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Safe Multisig</string>
+	<string>$(DISPLAY_NAME)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -76,35 +76,35 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-    <key>SERVICE_ENV</key>
-    <string>$(SERVICE_ENV)</string>
-    <key>NETWORK</key>
-    <string>$(NETWORK)</string>
-    <key>RELAY_SERVICE_URL</key>
-    <string>$(RELAY_SERVICE_URL)</string>
-    <key>TRANSACTION_SERVICE_URL</key>
-    <string>$(TRANSACTION_SERVICE_URL)</string>
-    <key>ETH_RPC_URL</key>
-    <string>$(ETH_RPC_URL)</string>
-    <key>ETH_BLOCK_BROWSER_URL</key>
-    <string>$(ETH_BLOCK_BROWSER_URL)</string>
-    <key>GNOSIS_SAFE_WEB_URL</key>
-    <string>$(GNOSIS_SAFE_WEB_URL)</string>
-    <key>TERMS_URL</key>
-    <string>$(TERMS_URL)</string>
-    <key>PRIVACY_URL</key>
-    <string>$(PRIVACY_URL)</string>
-    <key>LICENSES_URL</key>
-    <string>$(LICENSES_URL)</string>
-    <key>DISCORD_URL</key>
-    <string>$(DISCORD_URL)</string>
-    <key>TWITTER_URL</key>
-    <string>$(TWITTER_URL)</string>
-    <key>HELP_CENTER_URL</key>
-    <string>$(HELP_CENTER_URL)</string>
-    <key>FEATURE_SUGGESTION_URL</key>
-    <string>$(FEATURE_SUGGESTION_URL)</string>
-    <key>CONTACT_EMAIL</key>
-    <string>$(CONTACT_EMAIL)</string>
+	<key>SERVICE_ENV</key>
+	<string>$(SERVICE_ENV)</string>
+	<key>NETWORK</key>
+	<string>$(NETWORK)</string>
+	<key>RELAY_SERVICE_URL</key>
+	<string>$(RELAY_SERVICE_URL)</string>
+	<key>TRANSACTION_SERVICE_URL</key>
+	<string>$(TRANSACTION_SERVICE_URL)</string>
+	<key>ETH_RPC_URL</key>
+	<string>$(ETH_RPC_URL)</string>
+	<key>ETH_BLOCK_BROWSER_URL</key>
+	<string>$(ETH_BLOCK_BROWSER_URL)</string>
+	<key>GNOSIS_SAFE_WEB_URL</key>
+	<string>$(GNOSIS_SAFE_WEB_URL)</string>
+	<key>TERMS_URL</key>
+	<string>$(TERMS_URL)</string>
+	<key>PRIVACY_URL</key>
+	<string>$(PRIVACY_URL)</string>
+	<key>LICENSES_URL</key>
+	<string>$(LICENSES_URL)</string>
+	<key>DISCORD_URL</key>
+	<string>$(DISCORD_URL)</string>
+	<key>TWITTER_URL</key>
+	<string>$(TWITTER_URL)</string>
+	<key>HELP_CENTER_URL</key>
+	<string>$(HELP_CENTER_URL)</string>
+	<key>FEATURE_SUGGESTION_URL</key>
+	<string>$(FEATURE_SUGGESTION_URL)</string>
+	<key>CONTACT_EMAIL</key>
+	<string>$(CONTACT_EMAIL)</string>
 </dict>
 </plist>
