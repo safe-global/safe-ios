@@ -136,4 +136,21 @@ enum TransactionStatus {
     case failed
     case waitingConfirmation
     case waitingExecution
+
+    var title: String {
+        switch self {
+        case .waitingExecution:
+            return "Awaiting execution"
+        case .waitingConfirmation:
+            return "Awaiting confirmations"
+        case .pending:
+             return "Pending"
+        case .failed:
+            return "Failed"
+        case .canceled:
+            return "Canceled"
+        case .success:
+            return "Success"
+        }
+    }
 }

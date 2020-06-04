@@ -43,15 +43,13 @@ class TransferTransaction: BaseTransactionViewModel {
 
     var address: String
     var isOutgoing: Bool
-    var amount: BigInt
+    var amount: String
     var tokenSymbol: String
-    var tokenDecimals: Int
 
     override init() {
-        self.amount = 0
+        self.amount = "0"
 
         self.tokenSymbol = "ETH"
-        self.tokenDecimals = 18
         isOutgoing = true
         address = ""
         super.init()
