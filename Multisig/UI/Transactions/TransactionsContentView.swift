@@ -31,27 +31,28 @@ struct TransactionsContentView: View {
     }
 
     var transactionsList: some View {
-        List {
-            if !model.transactionsList.queuedTransactions.isEmpty {
-                Section(header: SectionHeader("QUEUE")) {
-                    ForEach(model.transactionsList.queuedTransactions) { transaction in
-                        NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
-                            TransactionCellView(transaction: transaction)
-                        }
-                    }
-                }
-            }
-
-            if !model.transactionsList.isEmpty {
-                Section(header: SectionHeader("HISTORY")) {
-                    ForEach(model.transactionsList.historyTransactions) { transaction in
-                        NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
-                            TransactionCellView(transaction: transaction)
-                        }
-                    }
-                }
-            }
-        }
+        EmptyView()
+//        List {
+//            if !model.transactionsList.queuedTransactions.isEmpty {
+//                Section(header: SectionHeader("QUEUE")) {
+//                    ForEach(model.transactionsList.queuedTransactions) { transaction in
+//                        NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
+//                            TransactionCellView(transaction: transaction)
+//                        }
+//                    }
+//                }
+//            }
+//
+//            if !model.transactionsList.isEmpty {
+//                Section(header: SectionHeader("HISTORY")) {
+//                    ForEach(model.transactionsList.historyTransactions) { transaction in
+//                        NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
+//                            TransactionCellView(transaction: transaction)
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 }
 

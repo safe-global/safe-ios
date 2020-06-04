@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import BigInt
+
 
 
 struct Transaction: Decodable, Identifiable, Hashable {
@@ -77,7 +79,7 @@ struct Transfer: Decodable {
     let from: String?
 }
 
-struct DecodedData {
+struct DecodedData: Decodable {
     let method: String
     let parameters: [DecodedDataParameter]
 

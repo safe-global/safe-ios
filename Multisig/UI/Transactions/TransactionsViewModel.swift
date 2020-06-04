@@ -12,23 +12,102 @@ import SwiftCryptoTokenFormatter
 import BigInt
 
 struct TransactionsList {
-    private var transactions: [Transaction]
-    init(_ response: TransactionsRequest.Response? = nil) {
-        transactions = response?.results ?? []
+    struct Section {
+        var name: String
+        var transactions: [BaseTransactionViewModel]
     }
+
+    var sections: [Section] = []
 
     var isEmpty: Bool {
-        return historyTransactions.isEmpty && queuedTransactions.isEmpty
-    }
-
-    var historyTransactions: [Transaction] {
-        return transactions
-    }
-
-    var queuedTransactions: [Transaction] {
-        return transactions
+        sections.allSatisfy { $0.transactions.isEmpty }
     }
 }
+
+class BaseTransactionViewModel {
+
+    var nonce: String?
+    var status: TransactionStatus
+    var formattedDate: String
+    var confirmationCount: Int?
+    var threshold: Int?
+
+    init() {
+        self.status = .success
+        self.formattedDate = ""
+    }
+}
+
+
+class TransferTransaction: BaseTransactionViewModel {
+
+    var address: String
+    var isOutgoing: Bool
+    var amount: BigInt
+    var tokenSymbol: String
+    var tokenDecimals: Int
+
+    override init() {
+        self.amount = 0
+
+        self.tokenSymbol = "ETH"
+        self.tokenDecimals = 18
+        isOutgoing = true
+        address = ""
+        super.init()
+    }
+}
+
+
+class ChangeMasterCopyTransaction: BaseTransactionViewModel {
+
+    var contractVersion: String
+    var contractAddress: String
+
+    override init() {
+        contractVersion = ""
+        contractAddress = ""
+        super.init()
+    }
+}
+
+
+class SettingChangeTransaction: BaseTransactionViewModel {
+
+    var title: String
+
+    override init() {
+        title = ""
+    }
+
+}
+
+class CustomTransaction: TransferTransaction {
+    var dataLength: Int
+
+    override init() {
+        dataLength  = 98
+        super.init()
+    }
+}
+
+
+//func cellForModel(_ m: BaseTransactionViewModel) {
+//    switch m {
+//    case let x as CustomTransaction:
+//        OneCell(x)
+//        break
+//
+//    case let x as CustomTransaction:
+//        OtherCell(x)
+//        break
+//
+//        case let x as CustomTransaction:
+//        break
+//    }
+//}
+
+
 
 class TransactionsViewModel: ObservableObject {
     @Published var transactionsList = TransactionsList()
@@ -54,7 +133,7 @@ class TransactionsViewModel: ObservableObject {
                     DispatchQueue.global().async {
                         do {
                             let balancesResponse = try App.shared.safeTransactionService.transactions(address: address)
-                            promise(.success(TransactionsList(balancesResponse)))
+                            promise(.success(TransactionsList()))
                         } catch {
                             promise(.failure(error))
                         }
