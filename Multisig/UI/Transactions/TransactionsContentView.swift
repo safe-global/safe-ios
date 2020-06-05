@@ -35,9 +35,7 @@ struct TransactionsContentView: View {
             ForEach(model.transactionsList.sections, id: \.name) { section in
                 Section(header: SectionHeader(section.name)) {
                     ForEach(section.transactions, id: \.nonce) { transaction in
-                        NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
-                            TransactionCellView(transaction: transaction)
-                        }
+                        TransactionCellView(transaction: transaction)
                     }
                     .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16))
                 }
