@@ -32,7 +32,8 @@ class BaseTransactionViewModel {
 
     var nonce: String?
     var status: TransactionStatus
-    var date: Date
+    #warning("Date needs to be nilable")
+    var date: Date?
     var formattedDate: String
     var confirmationCount: Int?
     var threshold: Int?
@@ -156,7 +157,7 @@ class TransactionsViewModel: ObservableObject {
                                 .init(name: "QUEUE",
                                       transactions: models.filter { $0.status.isInQueue }.sorted { a, b in
                                         if a.nonce == b.nonce {
-                                            return a.date > b.date
+                                            return a.date! > b.date!
                                         } else {
                                             return a.nonce! < b.nonce!
                                         }
@@ -164,7 +165,7 @@ class TransactionsViewModel: ObservableObject {
                                 ),
                                 .init(name: "HISTORY",
                                       transactions: models.filter { $0.status.isInHistory }.sorted { a, b in
-                                        a.date > b.date
+                                        a.date! > b.date!
                                 })
                                 ].filter { !$0.isEmpty })
 
@@ -223,8 +224,8 @@ class TransactionsViewModel: ObservableObject {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .medium
 
-        model.date = tx.executionDate ?? tx.submissionDate ?? tx.modified ?? Date()
-        model.formattedDate = dateFormatter.string(from: model.date)
+        model.date = tx.executionDate ?? tx.submissionDate ?? tx.modified
+        model.formattedDate = model.date.map { dateFormatter.string(from: $0) } ?? ""
     }
 
     func ethTransaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel? {
