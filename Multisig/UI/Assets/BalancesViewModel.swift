@@ -30,11 +30,7 @@ struct TokenBalance: Identifiable, Hashable {
         self.symbol = response.token?.symbol ?? "ETH"
 
         let tokenFormatter = TokenFormatter()
-        let decimals =  response.token?.decimals ?? 18
-        self.balance = tokenFormatter.string(
-            from: BigDecimal(BigInt(response.balance) ?? 0, decimals),
-            decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
-            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
+        self.balance = tokenFormatter.safeString(from: response.balance, decimals: response.token?.decimals)
 
         let currencyFormatter = NumberFormatter()
         // server always sends us number in en_US locale
@@ -45,6 +41,17 @@ struct TokenBalance: Identifiable, Hashable {
         currencyFormatter.numberStyle = .currency
         currencyFormatter.currencyCode = "USD"
         self.balanceUsd = currencyFormatter.string(from: number)!
+    }
+}
+
+extension TokenFormatter {
+
+    func safeString(from: String?, decimals: Int? = nil) -> String {
+        string(
+            from: BigDecimal(BigInt(from ?? "0") ?? 0, decimals ?? 18),
+            decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ","
+        )
     }
 }
 

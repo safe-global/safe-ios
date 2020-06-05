@@ -177,3 +177,34 @@ class TransactionsViewModel: ObservableObject {
     }
 
 }
+
+protocol MultisigConvertible {
+
+    func transaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel?
+
+}
+
+extension TransferTransaction: MultisigConvertible {
+
+    func transaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel? {
+        guard
+            tx.data == nil,
+            tx.operation == 0,
+            let to = tx.to,
+            let safe = tx.safe else { return nil }
+        let result = TransferTransaction()
+        result.isOutgoing = to != safe
+        result.address = to
+
+        let formatter = TokenFormatter()
+        result.amount = formatter.safeString(from: tx.value)
+        result.tokenSymbol = "ETH"
+
+        result.nonce = tx.nonce.map { String($0) }
+        result.status = tx.status(safeNonce: info.nonce, safeThreshold: info.threshold)
+        result.confirmationCount = tx.confirmations?.count
+        result.threshold = tx.confirmationsRequired
+
+        return result
+    }
+}
