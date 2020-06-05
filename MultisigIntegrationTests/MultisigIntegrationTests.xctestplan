@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "561D0E2F-B1AB-402E-A97D-D4976ABFFE45",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Multisig.xcodeproj",
+        "identifier" : "0A9BC3522460581500EB9C5D",
+        "name" : "MultisigIntegrationTests"
+      }
+    }
+  ],
+  "version" : 1
+}

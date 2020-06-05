@@ -4,6 +4,23 @@ platform :ios, '13.0'
 
 inhibit_all_warnings!
 
+project 'Multisig',
+
+  'Debug.Production.Mainnet'    => :debug,
+  'Release.Production.Mainnet'  => :release,
+
+  'Debug.Production.Rinkeby'    => :debug,
+  'Release.Production.Rinkeby'  => :release,
+
+  'Debug.Staging.Rinkeby'       => :debug,
+  'Release.Staging.Rinkeby'     => :release,
+
+  'Debug.Development.Rinkeby'       => :debug,
+  'Release.Development.Rinkeby'     => :release,
+
+  'Debug.Development.Mainnet'       => :debug,
+  'Release.Development.Mainnet'     => :release
+
 target 'Multisig' do
 
   # The icon image of the ethereum address
