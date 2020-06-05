@@ -202,7 +202,55 @@ class TransactionsViewModel: ObservableObject {
     }
 
     func transfers(from tx: Transaction, _ info: SafeStatusRequest.Response) -> [BaseTransactionViewModel] {
-        return []
+        var result: [BaseTransactionViewModel] = []
+
+        if tx.transfers?.isEmpty ?? true {
+            if let data = tx.data {
+                result.append(customTransaction(from: tx, info))
+            }
+            else {
+                result.append(multisigTx(from: tx, info))
+            }
+        }
+        else {
+            for transfer in tx.transfers! {
+                let transaction = TransferTransaction()
+
+                let formatter = TokenFormatter()
+                transaction.amount = formatter.safeString(from: tx.value)
+
+                if transfer.to == info.address {
+                    transaction.address = transfer.from ?? "Unknown"
+                    transaction.isOutgoing = false
+                }
+                else {
+                    transaction.address = transfer.to ?? "Unknown"
+                    transaction.isOutgoing = true
+                    transaction.amount = "-" + transaction.amount
+                }
+
+                transaction.tokenSymbol = "ETH"
+
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = .autoupdatingCurrent
+                dateFormatter.dateStyle = .medium
+                dateFormatter.timeStyle = .medium
+
+                transaction.date = tx.executionDate ?? tx.submissionDate ?? tx.modified ?? Date()
+                transaction.formattedDate = dateFormatter.string(from: transaction.date)
+
+                transaction.confirmationCount = transaction.confirmationCount
+                transaction.nonce = tx.nonce.map { String($0) }
+                transaction.threshold = tx.confirmationsRequired
+
+                transaction.status = transfer.transactionHash == nil ? .failed : .success
+
+                result.append(transaction)
+            }
+        }
+
+        return result
     }
 
     func multisigTx(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel {
