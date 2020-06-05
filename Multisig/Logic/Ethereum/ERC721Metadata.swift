@@ -9,19 +9,7 @@
 import Foundation
 import BigInt
 
-class ERC721Metadata: Contract {
-
-    func name() throws -> String? {
-        try decodeString(invoke("name()"))
-    }
-
-    func symbol() throws -> String? {
-        try decodeString(invoke("symbol()"))
-    }
-
-    func decimals() throws -> Int {
-        try Int(clamping: decodeUInt(invoke("decimals()")))
-    }
+class ERC721Metadata: ERC20Metadata {
 
     func tokenURI(tokenId: BigInt) throws -> String? {
         try decodeString(invoke("tokenURI(uint256)", encodeUInt(tokenId)))

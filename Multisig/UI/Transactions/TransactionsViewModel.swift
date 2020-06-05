@@ -32,7 +32,6 @@ class BaseTransactionViewModel {
 
     var nonce: String?
     var status: TransactionStatus
-    #warning("Date needs to be nilable")
     var date: Date?
     var formattedDate: String
     var confirmationCount: Int?
@@ -148,7 +147,6 @@ class TransactionsViewModel: ObservableObject {
                 Future<TransactionsList, Error> { promise in
                     DispatchQueue.global().async {
                         do {
-                            let tokens = try App.shared.safeRelayService.tokens()
                             let info = try App.shared.safeTransactionService.safeInfo(at: address)
                             let transactions = try App.shared.safeTransactionService.transactions(address: address)
 
@@ -215,10 +213,29 @@ class TransactionsViewModel: ObservableObject {
         }
         else {
             for transfer in tx.transfers! {
-                let transaction = TransferTransaction()
+                let transaction: TransferTransaction
 
-                let formatter = TokenFormatter()
-                transaction.amount = formatter.safeString(from: tx.value)
+                let value: String?, tokenAddress: String?
+                switch transfer.type {
+                case .ether:
+                    transaction = TransferTransaction()
+                    value = transfer.value
+                    tokenAddress = nil
+                case .erc20:
+                    transaction = TransferTransaction()
+                    value = transfer.value
+                    tokenAddress = transfer.tokenAddress
+                case .erc721:
+                    transaction = TransferTransaction()
+                    value = "1"
+                    tokenAddress = transfer.tokenAddress
+                case .unknown:
+                    let custom = CustomTransaction()
+                    custom.dataLength = tx.data.map { Data(hex: $0).count } ?? 0
+                    transaction = custom
+                    value = transfer.value
+                    tokenAddress = nil
+                }
 
                 if transfer.to == info.address {
                     transaction.address = transfer.from ?? "Unknown"
@@ -227,11 +244,9 @@ class TransactionsViewModel: ObservableObject {
                 else {
                     transaction.address = transfer.to ?? "Unknown"
                     transaction.isOutgoing = true
-                    transaction.amount = "-" + transaction.amount
                 }
 
-                transaction.tokenSymbol = "ETH"
-
+                (transaction.amount, transaction.tokenSymbol) = formattedAmount(value, tokenAddress, isNegative: transaction.isOutgoing)
 
                 let dateFormatter = DateFormatter()
                 dateFormatter.locale = .autoupdatingCurrent
@@ -253,6 +268,14 @@ class TransactionsViewModel: ObservableObject {
         }
 
         return result
+    }
+
+    func formattedAmount(_ value: String?, _ tokenAddress: String?, isNegative: Bool) -> (amount: String, symbol: String) {
+        let formatter = TokenFormatter()
+        let tokenAddress = tokenAddress ?? Address.zero.hex(eip55: true)
+        let token = App.shared.tokenRegistry[tokenAddress]
+
+        return (formatter.safeString(from: value, decimals: token?.decimals ?? 0, isNegative: isNegative), token?.symbol ?? "")
     }
 
     func multisigTx(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel {
@@ -288,10 +311,7 @@ class TransactionsViewModel: ObservableObject {
         let result = TransferTransaction()
         result.isOutgoing = true
         result.address = to
-
-        let formatter = TokenFormatter()
-        result.amount = formatter.safeString(from: tx.value, isNegative: result.isOutgoing)
-        result.tokenSymbol = "ETH"
+        (result.amount, result.tokenSymbol) = formattedAmount(tx.value, nil, isNegative: result.isOutgoing)
         updateBaseFields(in: result, from: tx, info: info)
         return result
     }
@@ -306,7 +326,8 @@ class TransactionsViewModel: ObservableObject {
             tx.operation == 0,
             let decodedData = tx.dataDecoded,
             let method = ERC20Methods(rawValue: decodedData.method),
-            let safe = tx.safe
+            let safe = tx.safe,
+            let tokenAddress = tx.to
             else { return nil }
 
         let to: String, from: String, amount: String
@@ -336,10 +357,7 @@ class TransactionsViewModel: ObservableObject {
         let result = TransferTransaction()
         result.isOutgoing = from == safe
         result.address = result.isOutgoing ? to : from
-        let formatter = TokenFormatter()
-        #warning("TODO: use token info")
-        result.amount = formatter.safeString(from: amount, decimals: 18, isNegative: result.isOutgoing)
-        result.tokenSymbol = "X20"
+        (result.amount, result.tokenSymbol) = formattedAmount(amount, tokenAddress, isNegative: result.isOutgoing)
         updateBaseFields(in: result, from: tx, info: info)
         return result
     }
@@ -354,7 +372,8 @@ class TransactionsViewModel: ObservableObject {
             tx.operation == 0,
             let decodedData = tx.dataDecoded,
             let _ = ERC721Methods(rawValue: decodedData.method),
-            let safe = tx.safe
+            let safe = tx.safe,
+            let tokenAddress = tx.to
             else { return nil }
 
         let to: String, from: String, amount: String
@@ -372,10 +391,7 @@ class TransactionsViewModel: ObservableObject {
         let result = TransferTransaction()
         result.isOutgoing = from == safe
         result.address = result.isOutgoing ? to : from
-        let formatter = TokenFormatter()
-        #warning("TODO: use token info")
-        result.amount = formatter.safeString(from: amount, decimals: 0, isNegative: result.isOutgoing)
-        result.tokenSymbol = "X721"
+        (result.amount, result.tokenSymbol) = formattedAmount(amount, tokenAddress, isNegative: result.isOutgoing)
         updateBaseFields(in: result, from: tx, info: info)
         return result
     }
@@ -419,8 +435,7 @@ class TransactionsViewModel: ObservableObject {
         let result = CustomTransaction()
         result.isOutgoing = true
         result.address = tx.to ?? Address.zero.hex(eip55: true)
-        result.amount = TokenFormatter().safeString(from: tx.value, isNegative: result.isOutgoing)
-        result.tokenSymbol = "ETH"
+        (result.amount, result.tokenSymbol) = formattedAmount(tx.value, nil, isNegative: result.isOutgoing)
         result.dataLength = tx.data.map { Data(hex: $0).count } ?? 0
         updateBaseFields(in: result, from: tx, info: info)
         return result

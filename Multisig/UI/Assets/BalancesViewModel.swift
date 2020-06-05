@@ -50,7 +50,8 @@ extension TokenFormatter {
         string(
             from: BigDecimal((isNegative ? -1 : 1) * (BigInt(from ?? "0") ?? 0), decimals ?? 18),
             decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
-            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ","
+            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
+            forcePlusSign: true
         )
     }
 }

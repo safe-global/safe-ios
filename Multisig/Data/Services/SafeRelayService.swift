@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import BigInt
 
 class SafeRelayService {
 
@@ -25,24 +26,93 @@ class SafeRelayService {
     }
 }
 
+typealias UInt256 = BigInt
+
 class TokenRegistry {
 
-    let response: TokensRequest.Response
+    private var response: TokensRequest.Response?
+    private var blockchainTokens: [Address: TokensRequest.Token] = [:]
 
-    init(_ response: TokensRequest.Response) {
-        self.response = response
+    init() {
+        blockchainTokens = [Address.zero:
+            .init(address: Address.zero.hex(eip55: true),
+                  logoUri: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(Address.zero.hex(eip55: true)).png",
+                  default: nil,
+                  name: "Ether",
+                  symbol: "ETH",
+                  description: nil,
+                  decimals: 18,
+                  websiteUri: nil,
+                  gas: nil)]
     }
 
-    func cachedToken(address: String) -> TokensRequest.Token? {
-        response.results.first { $0.address == address }
+    func update() {
+        if let tokens = try? App.shared.safeRelayService.tokens() {
+            response = tokens
+        }
     }
 
-//    func
+    private func cachedToken(address: String) -> TokensRequest.Token? {
+        response?.results.first { $0.address == address }
+    }
 
-//
-//    subscript(address: String) -> TokensRequest.Token? {
-//
-//    }
+    private func blockchainToken(address: Address) -> TokensRequest.Token? {
+        let contract = ERC20Metadata(address)
+        let name = try? contract.name()
+        let symbol = try? contract.symbol()
+        let decimals = try? contract.decimals()
+
+        if name == nil && symbol == nil {
+            let registrar = ENSRegistrar(address)
+            if (try? registrar.ens()) != nil {
+            return .init(
+                address: address.hex(eip55: true),
+                logoUri: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(address.hex(eip55: true)).png",
+                default: nil,
+                name: "ENS",
+                symbol: "ENS",
+                description: nil,
+                decimals: 0,
+                websiteUri: nil,
+                gas: nil)
+            }
+        }
+        #warning("TODO: replace with issue #86")
+        return .init(
+            address: address.hex(eip55: true),
+            logoUri: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(address.hex(eip55: true)).png",
+            default: nil,
+            name: name ?? "Unknown",
+            symbol: symbol ?? "",
+            description: nil,
+            decimals: decimals ?? 0,
+            websiteUri: nil,
+            gas: nil)
+
+    }
+
+    subscript(address: String) -> TokensRequest.Token? {
+        guard let address = Address(address) else { return nil }
+
+        if response == nil {
+            update()
+        }
+
+        if let token = cachedToken(address: address.hex(eip55: true)) {
+            return token
+        }
+
+        if let token = blockchainTokens[address] {
+            return token
+        }
+
+        if let token = blockchainToken(address: address) {
+            blockchainTokens[address] = token
+            return token
+        }
+
+        return nil
+    }
 }
 
 struct TokensRequest: JSONRequest {
@@ -62,13 +132,13 @@ struct TokensRequest: JSONRequest {
 
     struct Token: Decodable {
         let address: String
-        let logoUri: URL?
+        let logoUri: String?
         let `default`: Bool?
         let name: String
         let symbol: String
         let description: String?
         let decimals: Int
-        let websiteUri: URL?
+        let websiteUri: String?
         let gas: Bool?
     }
 
@@ -76,7 +146,7 @@ struct TokensRequest: JSONRequest {
 
 struct PagedResponse<Item: Decodable>: Decodable {
     let count: Int
-    let next: URL?
-    let previous: URL?
+    let next: String?
+    let previous: String?
     let results: [Item]
 }
