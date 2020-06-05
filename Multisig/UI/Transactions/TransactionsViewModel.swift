@@ -130,7 +130,12 @@ class TransactionsViewModel: ObservableObject {
                 Future<TransactionsList, Error> { promise in
                     DispatchQueue.global().async {
                         do {
-                            let balancesResponse = try App.shared.safeTransactionService.transactions(address: address)
+
+                            let info = try App.shared.safeTransactionService.safeInfo(at: address)
+                            let transactions = try App.shared.safeTransactionService.transactions(address: address)
+
+                            let models = transactions.results.flatMap { self.viewModel(from: $0, info) }
+
                             promise(.success(TransactionsList()))
                         } catch {
                             promise(.failure(error))
@@ -149,4 +154,26 @@ class TransactionsViewModel: ObservableObject {
             })
             .store(in: &subscribers)
     }
+
+    func viewModel(from tx: Transaction, _ info: SafeStatusRequest.Response) -> [BaseTransactionViewModel] {
+        switch tx.txType {
+        case .some(.module):
+            return []
+        case .some(.ethereum):
+            return transfers(from: tx, info)
+        case .some(.multiSig):
+            return [multisigTx(from: tx, info)]
+        default:
+            return []
+        }
+    }
+
+    func transfers(from tx: Transaction, _ info: SafeStatusRequest.Response) -> [BaseTransactionViewModel] {
+        return []
+    }
+
+    func multisigTx(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel {
+        fatalError()
+    }
+
 }

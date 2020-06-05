@@ -12,16 +12,9 @@ import BigInt
 
 
 struct Transaction: Decodable, Identifiable, Hashable {
-    static func == (lhs: Transaction, rhs: Transaction) -> Bool {
-        return true
-    }
 
     var id: Int {
-        return safeTxHash.hashValue
-    }
-
-    func hash(into hasher: inout Hasher) {
-
+        return hashValue
     }
 
     let safe: String?
@@ -57,7 +50,7 @@ struct Transaction: Decodable, Identifiable, Hashable {
     let txType: TransactionType?
 }
 
-struct TrnasactionConfirmation: Decodable {
+struct TrnasactionConfirmation: Decodable, Hashable {
     let owner: String
     let submissionDate: String
     let transactionHash: String?
@@ -66,7 +59,7 @@ struct TrnasactionConfirmation: Decodable {
     let signatureType: SignatureType?
 }
 
-struct Transfer: Decodable {
+struct Transfer: Decodable, Hashable {
     let type: TransferType
     let executionDate: String?
     let blockNumber: Int?
@@ -79,7 +72,7 @@ struct Transfer: Decodable {
     let from: String?
 }
 
-struct DecodedData: Decodable {
+struct DecodedData: Decodable, Hashable {
     let method: String
     let parameters: [DecodedDataParameter]
 
@@ -89,7 +82,7 @@ struct DecodedData: Decodable {
     }
 }
 
-struct DecodedDataParameter: Decodable {
+struct DecodedDataParameter: Decodable, Hashable {
     let name: String
     let type: String
     let value: String
@@ -115,7 +108,7 @@ enum SignatureType: String, Decodable {
     case ethSignature = "ETH_SIGN"
 }
 
-struct TokenInfo: Decodable {
+struct TokenInfo: Decodable, Hashable {
     let address: String
     let decimals: Int?
     let symbol: String?
