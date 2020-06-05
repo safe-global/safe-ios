@@ -15,12 +15,16 @@ struct TransactionsList {
     struct Section {
         var name: String
         var transactions: [BaseTransactionViewModel]
+
+        var isEmpty: Bool {
+            transactions.isEmpty
+        }
     }
 
     var sections: [Section] = []
 
     var isEmpty: Bool {
-        sections.allSatisfy { $0.transactions.isEmpty }
+        sections.allSatisfy { $0.isEmpty }
     }
 }
 
@@ -149,7 +153,7 @@ class TransactionsViewModel: ObservableObject {
                             let models = transactions.results.flatMap { self.viewModel(from: $0, info) }
 
                             let list = TransactionsList(sections: [
-                                .init(name: "Queue",
+                                .init(name: "QUEUE",
                                       transactions: models.filter { $0.status.isInQueue }.sorted { a, b in
                                         if a.nonce == b.nonce {
                                             return a.date > b.date
@@ -158,11 +162,11 @@ class TransactionsViewModel: ObservableObject {
                                         }
                                     }
                                 ),
-                                .init(name: "History",
+                                .init(name: "HISTORY",
                                       transactions: models.filter { $0.status.isInHistory }.sorted { a, b in
                                         a.date > b.date
                                 })
-                            ])
+                                ].filter { !$0.isEmpty })
 
                             promise(.success(list))
                         } catch {
@@ -282,7 +286,7 @@ class TransactionsViewModel: ObservableObject {
         result.address = to
 
         let formatter = TokenFormatter()
-        result.amount = formatter.safeString(from: tx.value)
+        result.amount = formatter.safeString(from: tx.value, isNegative: result.isOutgoing)
         result.tokenSymbol = "ETH"
         updateBaseFields(in: result, from: tx, info: info)
         return result
@@ -330,7 +334,7 @@ class TransactionsViewModel: ObservableObject {
         result.address = result.isOutgoing ? to : from
         let formatter = TokenFormatter()
         #warning("TODO: use token info")
-        result.amount = formatter.safeString(from: amount, decimals: 18)
+        result.amount = formatter.safeString(from: amount, decimals: 18, isNegative: result.isOutgoing)
         result.tokenSymbol = "X20"
         updateBaseFields(in: result, from: tx, info: info)
         return result
@@ -366,7 +370,7 @@ class TransactionsViewModel: ObservableObject {
         result.address = result.isOutgoing ? to : from
         let formatter = TokenFormatter()
         #warning("TODO: use token info")
-        result.amount = formatter.safeString(from: amount, decimals: 0)
+        result.amount = formatter.safeString(from: amount, decimals: 0, isNegative: result.isOutgoing)
         result.tokenSymbol = "X721"
         updateBaseFields(in: result, from: tx, info: info)
         return result
@@ -411,7 +415,7 @@ class TransactionsViewModel: ObservableObject {
         let result = CustomTransaction()
         result.isOutgoing = true
         result.address = tx.to ?? Address.zero.hex(eip55: true)
-        result.amount = TokenFormatter().safeString(from: tx.value)
+        result.amount = TokenFormatter().safeString(from: tx.value, isNegative: result.isOutgoing)
         result.tokenSymbol = "ETH"
         result.dataLength = tx.data.map { Data(hex: $0).count } ?? 0
         updateBaseFields(in: result, from: tx, info: info)
