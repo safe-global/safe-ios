@@ -28,9 +28,9 @@ struct Transaction: Decodable, Identifiable, Hashable {
     let gasPrice: String?
     let refundReceiver: String?
     let nonce: Int?
-    let executionDate: String?
-    let submissionDate: String?
-    let modified: String?
+    let executionDate: Date?
+    let submissionDate: Date?
+    let modified: Date?
     let blockNumber: Int?
     let transactionHash: String?
     let safeTxHash: String?
@@ -77,7 +77,7 @@ extension Transaction {
 
 struct TrnasactionConfirmation: Decodable, Hashable {
     let owner: String
-    let submissionDate: String
+    let submissionDate: Date
     let transactionHash: String?
     let data: String?
     let signature: String?
@@ -86,12 +86,12 @@ struct TrnasactionConfirmation: Decodable, Hashable {
 
 struct Transfer: Decodable, Hashable {
     let type: TransferType
-    let executionDate: String?
+    let executionDate: Date?
     let blockNumber: Int?
     let transactionHash: String?
     let to: String?
     let value: String?
-    let tokenId: Int?
+    let tokenId: String?
     let tokenAddress: String? // should be removed when tokenInfo implemented https://github.com/gnosis/safe-transaction-service/issues/96
     let tokenInfo: TokenInfo?
     let from: String?

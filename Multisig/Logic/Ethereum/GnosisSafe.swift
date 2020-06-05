@@ -32,4 +32,8 @@ class GnosisSafe {
         return isUpToDate ? .upToDate(version) : .upgradeAvailable(version)
     }
 
+    func versionNumber(masterCopy: Address) -> String? {
+        versions.first { $0.masterCopy == masterCopy }?.version
+    }
+
 }

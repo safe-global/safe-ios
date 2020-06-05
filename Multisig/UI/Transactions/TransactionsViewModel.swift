@@ -28,13 +28,15 @@ class BaseTransactionViewModel {
 
     var nonce: String?
     var status: TransactionStatus
+    var date: Date
     var formattedDate: String
     var confirmationCount: Int?
     var threshold: Int?
 
     init() {
-        self.status = .success
-        self.formattedDate = ""
+        status = .success
+        formattedDate = ""
+        date = Date()
     }
 }
 
@@ -47,9 +49,8 @@ class TransferTransaction: BaseTransactionViewModel {
     var tokenSymbol: String
 
     override init() {
-        self.amount = "0"
-
-        self.tokenSymbol = "ETH"
+        amount = "0"
+        tokenSymbol = "ETH"
         isOutgoing = true
         address = ""
         super.init()
@@ -105,6 +106,18 @@ class CustomTransaction: TransferTransaction {
 //    }
 //}
 
+extension TransactionStatus {
+    static let queueStatuses = [TransactionStatus.pending, .waitingConfirmation, .waitingExecution]
+    static let historyStatuses = [TransactionStatus.success, .failed, .canceled]
+
+    var isInQueue: Bool {
+        Self.queueStatuses.contains(self)
+    }
+
+    var isInHistory: Bool {
+        Self.historyStatuses.contains(self)
+    }
+}
 
 
 class TransactionsViewModel: ObservableObject {
@@ -130,13 +143,28 @@ class TransactionsViewModel: ObservableObject {
                 Future<TransactionsList, Error> { promise in
                     DispatchQueue.global().async {
                         do {
-
                             let info = try App.shared.safeTransactionService.safeInfo(at: address)
                             let transactions = try App.shared.safeTransactionService.transactions(address: address)
 
                             let models = transactions.results.flatMap { self.viewModel(from: $0, info) }
 
-                            promise(.success(TransactionsList()))
+                            let list = TransactionsList(sections: [
+                                .init(name: "Queue",
+                                      transactions: models.filter { $0.status.isInQueue }.sorted { a, b in
+                                        if a.nonce == b.nonce {
+                                            return a.date > b.date
+                                        } else {
+                                            return a.nonce! < b.nonce!
+                                        }
+                                    }
+                                ),
+                                .init(name: "History",
+                                      transactions: models.filter { $0.status.isInHistory }.sorted { a, b in
+                                        a.date > b.date
+                                })
+                            ])
+
+                            promise(.success(list))
                         } catch {
                             promise(.failure(error))
                         }
@@ -173,38 +201,173 @@ class TransactionsViewModel: ObservableObject {
     }
 
     func multisigTx(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel {
-        fatalError()
+        ethTransaction(from: tx, info) ??
+        erc20Transaction(from: tx, info) ??
+        erc721Transaction(from: tx, info) ??
+        settingTransaction(from: tx, info) ??
+        customTransaction(from: tx, info)
     }
 
-}
+    func updateBaseFields(in model: BaseTransactionViewModel, from tx: Transaction, info: SafeStatusRequest.Response) {
+        model.nonce = tx.nonce.map { String($0) }
+        model.status = tx.status(safeNonce: info.nonce, safeThreshold: info.threshold)
+        model.confirmationCount = tx.confirmations?.count
+        model.threshold = tx.confirmationsRequired
 
-protocol MultisigConvertible {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .autoupdatingCurrent
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .medium
 
-    func transaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel?
+        model.date = tx.executionDate ?? tx.submissionDate ?? tx.modified ?? Date()
+        model.formattedDate = dateFormatter.string(from: model.date)
+    }
 
-}
-
-extension TransferTransaction: MultisigConvertible {
-
-    func transaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel? {
+    func ethTransaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel? {
         guard
             tx.data == nil,
             tx.operation == 0,
-            let to = tx.to,
-            let safe = tx.safe else { return nil }
+            let to = tx.to
+            else { return nil }
         let result = TransferTransaction()
-        result.isOutgoing = to != safe
+        result.isOutgoing = true
         result.address = to
 
         let formatter = TokenFormatter()
         result.amount = formatter.safeString(from: tx.value)
         result.tokenSymbol = "ETH"
-
-        result.nonce = tx.nonce.map { String($0) }
-        result.status = tx.status(safeNonce: info.nonce, safeThreshold: info.threshold)
-        result.confirmationCount = tx.confirmations?.count
-        result.threshold = tx.confirmationsRequired
-
+        updateBaseFields(in: result, from: tx, info: info)
         return result
     }
+
+    enum ERC20Methods: String {
+        case transfer
+        case transferFrom
+    }
+
+    func erc20Transaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel? {
+        guard tx.data != nil,
+            tx.operation == 0,
+            let decodedData = tx.dataDecoded,
+            let method = ERC20Methods(rawValue: decodedData.method),
+            let safe = tx.safe
+            else { return nil }
+
+        let to: String, from: String, amount: String
+
+        switch method {
+        case .transfer:
+            guard decodedData.parameters.count == 2,
+                decodedData.parameters[0].type == "address",
+                decodedData.parameters[1].type == "uint256" else {
+                    return nil
+            }
+            to = decodedData.parameters[0].value
+            from = tx.safe ?? info.address
+            amount = decodedData.parameters[1].value
+        case .transferFrom:
+            guard decodedData.parameters.count == 3,
+                decodedData.parameters[0].type == "address",
+                decodedData.parameters[1].type == "address",
+                decodedData.parameters[2].type == "uint256" else {
+                    return nil
+            }
+            from = decodedData.parameters[0].value
+            to = decodedData.parameters[1].value
+            amount = decodedData.parameters[2].value
+        }
+
+        let result = TransferTransaction()
+        result.isOutgoing = from == safe
+        result.address = result.isOutgoing ? to : from
+        let formatter = TokenFormatter()
+        #warning("TODO: use token info")
+        result.amount = formatter.safeString(from: amount, decimals: 18)
+        result.tokenSymbol = "X20"
+        updateBaseFields(in: result, from: tx, info: info)
+        return result
+    }
+
+    enum ERC721Methods: String {
+        case safeTransferFrom
+//        case transferFrom
+    }
+
+    func erc721Transaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel? {
+        guard tx.data != nil,
+            tx.operation == 0,
+            let decodedData = tx.dataDecoded,
+            let _ = ERC721Methods(rawValue: decodedData.method),
+            let safe = tx.safe
+            else { return nil }
+
+        let to: String, from: String, amount: String
+
+        guard decodedData.parameters.count >= 3,
+            decodedData.parameters[0].type == "address",
+            decodedData.parameters[1].type == "address",
+            decodedData.parameters[2].type == "uint256" else {
+                return nil
+        }
+        from = decodedData.parameters[0].value
+        to = decodedData.parameters[1].value
+        amount = "1"
+
+        let result = TransferTransaction()
+        result.isOutgoing = from == safe
+        result.address = result.isOutgoing ? to : from
+        let formatter = TokenFormatter()
+        #warning("TODO: use token info")
+        result.amount = formatter.safeString(from: amount, decimals: 0)
+        result.tokenSymbol = "X721"
+        updateBaseFields(in: result, from: tx, info: info)
+        return result
+    }
+
+    enum SafeSettingMethods: String {
+        case setFallbackHandler
+        case addOwnerWithThreshold
+        case removeOwner
+        case swapOwner
+        case changeThreshold
+        case enableModule
+        case disableModule
+        case changeMasterCopy
+    }
+
+    func settingTransaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel? {
+        guard
+            tx.data != nil,
+            let to = tx.to, to == info.address,
+            tx.operation == 0,
+            let decodedData = tx.dataDecoded,
+            let method = SafeSettingMethods(rawValue: decodedData.method)
+            else { return nil }
+
+        if method == .changeMasterCopy {
+            let result = ChangeMasterCopyTransaction()
+            let address = decodedData.parameters.first.flatMap { Address($0.value) } ?? Address.zero
+            result.contractAddress = address.hex(eip55: true)
+            result.contractVersion = GnosisSafe().versionNumber(masterCopy: address) ?? "Unknown"
+            updateBaseFields(in: result, from: tx, info: info)
+            return result
+        } else {
+            let result = SettingChangeTransaction()
+            result.title = method.rawValue
+            updateBaseFields(in: result, from: tx, info: info)
+            return result
+        }
+    }
+
+    func customTransaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel {
+        let result = CustomTransaction()
+        result.isOutgoing = true
+        result.address = tx.to ?? Address.zero.hex(eip55: true)
+        result.amount = TokenFormatter().safeString(from: tx.value)
+        result.tokenSymbol = "ETH"
+        result.dataLength = tx.data.map { Data(hex: $0).count } ?? 0
+        updateBaseFields(in: result, from: tx, info: info)
+        return result
+    }
+
 }
