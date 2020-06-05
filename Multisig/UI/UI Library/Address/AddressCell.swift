@@ -46,7 +46,16 @@ struct AddressCell: View {
     }
 
     var addressText: some View {
-        let addressStyle: AddressText.Style = style == .normal ? .long : .short
+        var addressStyle: AddressText.Style = .long
+        if style == .normal {
+            addressStyle = .long
+        }
+        else if style == .shortAddress {
+            addressStyle = .short
+        }
+        else {
+            addressStyle = .shortTrailColor
+        }
 
         return AddressText(address, style: addressStyle)
                 .font(Font.gnoBody.weight(.medium))

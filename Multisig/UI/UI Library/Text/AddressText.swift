@@ -11,7 +11,7 @@ import SwiftUI
 struct AddressText: View {
 
     enum Style {
-        case short, long
+        case short, long, shortTrailColor
     }
 
     private let tailColor = Color.gnoDarkBlue
@@ -44,9 +44,8 @@ struct AddressText: View {
     }
 
     var shortText: Text {
-        Text("\(prefix)…\(suffix)").foregroundColor(bodyColor)
+        Text("\(prefix)…\(suffix)").foregroundColor(style == .short ? bodyColor : tailColor)
     }
-
 }
 
 struct AddressText_Previews: PreviewProvider {
