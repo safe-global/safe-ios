@@ -15,12 +15,16 @@ struct TransactionsList {
     struct Section {
         var name: String
         var transactions: [BaseTransactionViewModel]
+
+        var isEmpty: Bool {
+            transactions.isEmpty
+        }
     }
 
     var sections: [Section] = []
 
     var isEmpty: Bool {
-        sections.allSatisfy { $0.transactions.isEmpty }
+        sections.allSatisfy { $0.isEmpty }
     }
 }
 
@@ -149,7 +153,7 @@ class TransactionsViewModel: ObservableObject {
                             let models = transactions.results.flatMap { self.viewModel(from: $0, info) }
 
                             let list = TransactionsList(sections: [
-                                .init(name: "Queue",
+                                .init(name: "QUEUE",
                                       transactions: models.filter { $0.status.isInQueue }.sorted { a, b in
                                         if a.nonce == b.nonce {
                                             return a.date > b.date
@@ -158,11 +162,11 @@ class TransactionsViewModel: ObservableObject {
                                         }
                                     }
                                 ),
-                                .init(name: "History",
+                                .init(name: "HISTORY",
                                       transactions: models.filter { $0.status.isInHistory }.sorted { a, b in
                                         a.date > b.date
                                 })
-                            ])
+                                ].filter { !$0.isEmpty })
 
                             promise(.success(list))
                         } catch {
