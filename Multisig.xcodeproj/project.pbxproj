@@ -64,6 +64,9 @@
 		0A0EFCA8246EB13300D3D8BF /* KeyValueRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCA7246EB13300D3D8BF /* KeyValueRow.swift */; };
 		0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */; };
 		0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */; };
+		0A106285248A84F700C1EE54 /* SafeRelayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106284248A84F700C1EE54 /* SafeRelayService.swift */; };
+		0A106287248A885E00C1EE54 /* E20Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106286248A885D00C1EE54 /* E20Metadata.swift */; };
+		0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106288248A892B00C1EE54 /* ERC721Metadata.swift */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
 		0A465C2E246C196900AFA467 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C2D246C196900AFA467 /* Theme.swift */; };
 		0A465C32246C229800AFA467 /* FrameForNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */; };
@@ -249,6 +252,9 @@
 		0A0EFCA7246EB13300D3D8BF /* KeyValueRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueRow.swift; sourceTree = "<group>"; };
 		0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pasteboard.swift; sourceTree = "<group>"; };
 		0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyButton.swift; sourceTree = "<group>"; };
+		0A106284248A84F700C1EE54 /* SafeRelayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeRelayService.swift; sourceTree = "<group>"; };
+		0A106286248A885D00C1EE54 /* E20Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E20Metadata.swift; sourceTree = "<group>"; };
+		0A106288248A892B00C1EE54 /* ERC721Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC721Metadata.swift; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		0A465C2D246C196900AFA467 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameForNavigationBar.swift; sourceTree = "<group>"; };
@@ -519,6 +525,8 @@
 				0A9BC33224602A7400EB9C5D /* Contract.swift */,
 				0A9BC32E246022BD00EB9C5D /* ENS.swift */,
 				0A9BC3302460233300EB9C5D /* ENSContracts.swift */,
+				0A106286248A885D00C1EE54 /* E20Metadata.swift */,
+				0A106288248A892B00C1EE54 /* ERC721Metadata.swift */,
 				0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */,
 				0A9BC3422460501300EB9C5D /* Utils */,
 			);
@@ -949,6 +957,7 @@
 				5532D4B72449A17D0067505A /* Networking Utils */,
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
 				04769167246431D000D73D8B /* SafeTransactionService.swift */,
+				0A106284248A84F700C1EE54 /* SafeRelayService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1244,6 +1253,7 @@
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
 				0497F6C824858F2D00A1F4DE /* ConfirmationCountView.swift in Sources */,
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
+				0A106287248A885E00C1EE54 /* E20Metadata.swift in Sources */,
 				551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
@@ -1251,6 +1261,7 @@
 				0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
 				0460AB3B247E685E005CA275 /* EmptyListPlaceholder.swift in Sources */,
+				0A106285248A84F700C1EE54 /* SafeRelayService.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
 				55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */,
 				0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */,
@@ -1305,6 +1316,7 @@
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
 				0A9BC3412460449E00EB9C5D /* EnterENSNameViewModel.swift in Sources */,
 				0476916A246437C300D73D8B /* ContractVersionCell.swift in Sources */,
+				0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */,
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */,

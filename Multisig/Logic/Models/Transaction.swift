@@ -142,10 +142,12 @@ struct DecodedDataParameter: Decodable, Hashable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
         type = try container.decode(String.self, forKey: .type)
-        if let intValue = try? container.decode(Int.self, forKey: .value) {
+        if let intValue = try? container.decode(Int64.self, forKey: .value) {
             value = String(intValue)
+        } else if let stringValue = try? container.decode(String.self, forKey: .value) {
+            value = stringValue
         } else {
-            value = try container.decode(String.self, forKey: .value)
+            value = ""
         }
     }
 

@@ -148,6 +148,7 @@ class TransactionsViewModel: ObservableObject {
                 Future<TransactionsList, Error> { promise in
                     DispatchQueue.global().async {
                         do {
+                            let tokens = try App.shared.safeRelayService.tokens()
                             let info = try App.shared.safeTransactionService.safeInfo(at: address)
                             let transactions = try App.shared.safeTransactionService.transactions(address: address)
 

@@ -20,10 +20,15 @@ class SafeTransactionService {
         httpClient = JSONHTTPClient(url: url, logger: logger)
         // 2020-01-22T13:11:59.838510Z
         let formatter1 = DateFormatter()
+        formatter1.timeZone = TimeZone(abbreviation: "UTC")
+        formatter1.locale = Locale(identifier: "en_US_POSIX")
         formatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
         // 2020-01-22T13:11:48Z
         let formatter2 = DateFormatter()
+        formatter2.timeZone = TimeZone(abbreviation: "UTC")
+        formatter2.locale = Locale(identifier: "en_US_POSIX")
         formatter2.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+
         httpClient.jsonDecoder.dateDecodingStrategy = JSONDecoder.DateDecodingStrategy.custom { (decoder) -> Date in
             let c = try decoder.singleValueContainer()
             let str = try c.decode(String.self)
