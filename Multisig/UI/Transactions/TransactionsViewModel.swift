@@ -238,7 +238,7 @@ class TransactionsViewModel: ObservableObject {
         result.address = to
 
         let formatter = TokenFormatter()
-        result.amount = formatter.safeString(from: tx.value)
+        result.amount = formatter.safeString(from: tx.value, isNegative: result.isOutgoing)
         result.tokenSymbol = "ETH"
         updateBaseFields(in: result, from: tx, info: info)
         return result
@@ -286,7 +286,7 @@ class TransactionsViewModel: ObservableObject {
         result.address = result.isOutgoing ? to : from
         let formatter = TokenFormatter()
         #warning("TODO: use token info")
-        result.amount = formatter.safeString(from: amount, decimals: 18)
+        result.amount = formatter.safeString(from: amount, decimals: 18, isNegative: result.isOutgoing)
         result.tokenSymbol = "X20"
         updateBaseFields(in: result, from: tx, info: info)
         return result
@@ -322,7 +322,7 @@ class TransactionsViewModel: ObservableObject {
         result.address = result.isOutgoing ? to : from
         let formatter = TokenFormatter()
         #warning("TODO: use token info")
-        result.amount = formatter.safeString(from: amount, decimals: 0)
+        result.amount = formatter.safeString(from: amount, decimals: 0, isNegative: result.isOutgoing)
         result.tokenSymbol = "X721"
         updateBaseFields(in: result, from: tx, info: info)
         return result
@@ -367,7 +367,7 @@ class TransactionsViewModel: ObservableObject {
         let result = CustomTransaction()
         result.isOutgoing = true
         result.address = tx.to ?? Address.zero.hex(eip55: true)
-        result.amount = TokenFormatter().safeString(from: tx.value)
+        result.amount = TokenFormatter().safeString(from: tx.value, isNegative: result.isOutgoing)
         result.tokenSymbol = "ETH"
         result.dataLength = tx.data.map { Data(hex: $0).count } ?? 0
         updateBaseFields(in: result, from: tx, info: info)
