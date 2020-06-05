@@ -205,7 +205,7 @@ class TransactionsViewModel: ObservableObject {
         var result: [BaseTransactionViewModel] = []
 
         if tx.transfers?.isEmpty ?? true {
-            if let data = tx.data {
+            if tx.data != nil {
                 result.append(customTransaction(from: tx, info))
             }
             else {
@@ -231,20 +231,21 @@ class TransactionsViewModel: ObservableObject {
 
                 transaction.tokenSymbol = "ETH"
 
-                
+
                 let dateFormatter = DateFormatter()
                 dateFormatter.locale = .autoupdatingCurrent
                 dateFormatter.dateStyle = .medium
                 dateFormatter.timeStyle = .medium
 
-                transaction.date = tx.executionDate ?? tx.submissionDate ?? tx.modified ?? Date()
-                transaction.formattedDate = dateFormatter.string(from: transaction.date)
+                transaction.date = transfer.executionDate ?? tx.executionDate ?? tx.submissionDate ?? tx.modified
+                assert(transaction.date != nil)
+                transaction.formattedDate = transaction.date.map { dateFormatter.string(from: $0) } ?? ""
 
                 transaction.confirmationCount = transaction.confirmationCount
                 transaction.nonce = tx.nonce.map { String($0) }
                 transaction.threshold = tx.confirmationsRequired
 
-                transaction.status = transfer.transactionHash == nil ? .failed : .success
+                transaction.status = .success
 
                 result.append(transaction)
             }
@@ -273,6 +274,7 @@ class TransactionsViewModel: ObservableObject {
         dateFormatter.timeStyle = .medium
 
         model.date = tx.executionDate ?? tx.submissionDate ?? tx.modified
+        assert(model.date != nil)
         model.formattedDate = model.date.map { dateFormatter.string(from: $0) } ?? ""
     }
 
