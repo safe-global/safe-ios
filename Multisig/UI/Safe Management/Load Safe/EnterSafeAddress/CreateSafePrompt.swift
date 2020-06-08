@@ -13,7 +13,7 @@ struct CreateSafePrompt: View {
     @State
     var showsLink: Bool = false
 
-    var url: URL = URL(string: "https://gnosis-safe.io")!
+    var url: URL = App.configuration.services.webAppURL
 
     var body: some View {
         VStack(spacing: 0) {

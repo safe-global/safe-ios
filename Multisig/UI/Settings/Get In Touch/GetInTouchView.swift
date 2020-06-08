@@ -14,17 +14,20 @@ struct GetInTouchView: View {
 
     @ObservedObject
     var theme: Theme = App.shared.theme
+
+    private static let contact = App.configuration.contact
+
     
     let channels: [CommsChannel] = [
-        (URL(string:"https://discord.gg/FPMRAwK")!, "ico-discord", "Discord"),
-        (URL(string:"https://twitter.com/gnosisSafe")!, "ico-twitter", "Twitter"),
-        (URL(string:"https://help.gnosis-safe.io")!, "ico-helpCenter", "Help Center"),
-        (URL(string:"https://safe.cnflx.io/")!, "ico-featureSuggestion", "Feature suggestion")
+        (contact.discordURL, "ico-discord", "Discord"),
+        (contact.twitterURL, "ico-twitter", "Twitter"),
+        (contact.helpCenterURL, "ico-helpCenter", "Help Center"),
+        (contact.featureSuggestionURL, "ico-featureSuggestion", "Feature suggestion")
     ]
 
     var body: some View {
         List {
-            EmailLink(title: "E-mail", url: URL(string:"safe@gnosis.io")!, iconName: "ico-eMail")
+            EmailLink(title: "E-mail", url: Self.contact.contactEmail, iconName: "ico-eMail")
 
             ForEach(channels, id: \.url) { item in
                 BrowserLink(title: item.text, url: item.url, iconName: item.icon)

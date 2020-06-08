@@ -46,8 +46,8 @@ _TRANSACTION_SERVICE_URL_PROD_RINKEBY       = https:/$()/safe-transaction.rinkeb
 _TRANSACTION_SERVICE_URL_PROD_MAINNET       = https:/$()/safe-transaction.gnosis.io/api/
 
 // Ethereum Node JSONRPC over HTTP Service
-_ETH_RPC_URL_RINKEBY = https:/$()/rinkeby.infura.io/v3/$(INFURA_API_KEY)/
-_ETH_RPC_URL_MAINNET = https:/$()/mainnet.infura.io/v3/$(INFURA_API_KEY)/
+_ETH_RPC_URL_RINKEBY = https:/$()/rinkeby.infura.io/v3/$(INFURA_API_KEY)
+_ETH_RPC_URL_MAINNET = https:/$()/mainnet.infura.io/v3/$(INFURA_API_KEY)
 
 // Etherscan -  Ethereum Block Browser
 _ETH_BLOCK_BROWSER_URL_RINKEBY = https:/$()/rinkeby.etherscan.io/
