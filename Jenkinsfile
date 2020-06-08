@@ -3,6 +3,7 @@ pipeline {
     environment {
         // this enables ruby gem binaries, such as xcpretty
         PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
+        INFURA_KEY = credentials('INFURA_KEY')
     }
     stages {
         stage('Unit Test') {
