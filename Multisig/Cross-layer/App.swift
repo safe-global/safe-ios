@@ -33,6 +33,15 @@ class App {
 
     var coreDataStack: CoreDataProtocol = CoreDataStack()
 
+    var tokenRegistry = TokenRegistry()
+
+    var browseAddressURL = "https://rinkeby.etherscan.io/address/"
+    
+    let termOfUseURL = URL(string:"https://gnosis-safe.io/terms/")!
+    let privacyPolicyURL = URL(string:"https://gnosis-safe.io/privacy/")!
+    let licensesURL = URL(string:"https://gnosis-safe.io/licenses/")!
+    let appVersion = "\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String) (\(Bundle.main.infoDictionary?["CFBundleVersion"] as! String))"
+
     let defaultFallbackHandler = Address("0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44")
 
     // Cross-layer

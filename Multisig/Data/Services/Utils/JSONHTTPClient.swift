@@ -49,6 +49,10 @@ public class JSONHTTPClient {
         return encoder
     }()
 
+    public lazy var jsonDecoder: JSONDecoder = {
+        JSONDecoder()
+    }()
+
     private struct Request: HTTPRequest {
         var httpMethod: String
         var urlPath: String
@@ -100,7 +104,7 @@ public class JSONHTTPClient {
         }
         let response: T
         do {
-            response = try JSONDecoder().decode(T.self, from: json)
+            response = try jsonDecoder.decode(T.self, from: json)
         } catch let error {
             logger?.error("Failed to decode response: \(error)")
             throw error

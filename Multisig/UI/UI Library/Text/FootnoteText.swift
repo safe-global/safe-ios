@@ -11,12 +11,14 @@ import SwiftUI
 struct FootnoteText: View {
     var label: String
 
-    init(_ value: String) {
+    var foregroundColor: Color
+    init(_ value: String, color: Color = .gnoDarkGrey) {
         label = value
+        foregroundColor = color
     }
 
     var body: some View {
-        Text(label).font(Font.gnoFootnote.weight(.medium)).foregroundColor(.gnoDarkGrey)
+        Text(label).font(Font.gnoFootnote.weight(.medium)).foregroundColor(foregroundColor)
     }
 }
 
