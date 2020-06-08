@@ -11,22 +11,27 @@ import SwiftUI
 struct BasicAppSettingsView: View {
     var rowHeight: CGFloat = 44
 
+    private let legal = App.configuration.legal
+    private let app = App.configuration.app
+
     var body: some View {
         List {
-            BrowserLink(title: "Terms of use", url: App.shared.termOfUseURL)
+            BrowserLink(title: "Terms of use", url: legal.termsURL)
 
-            BrowserLink(title: "Privacy policy", url: App.shared.privacyPolicyURL)
+            BrowserLink(title: "Privacy policy", url: legal.privacyURL)
 
-            BrowserLink(title: "Licenses", url: App.shared.licensesURL)
+            BrowserLink(title: "Licenses", url: legal.licensesURL)
 
             NavigationLink(destination: GetInTouchView().hidesSystemNavigationBar(false)) {
                 BodyText("Get in touch")
             }
             .frame(height: rowHeight)
             
-            KeyValueView(key: "App version", value: App.shared.appVersion)
+            KeyValueView(key: "App version",
+                         value:"\(app.marketingVersion) (\(app.buildVersion))"
+)
 
-            KeyValueView(key: "Network", value: App.shared.network.rawValue)
+            KeyValueView(key: "Network", value: app.network.rawValue)
 
             Section(header: SectionHeader("")) {
                 NavigationLink(destination: AdvancedAppSettings().hidesSystemNavigationBar(false)) {

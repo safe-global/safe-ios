@@ -35,7 +35,8 @@ extension Safe: Identifiable {
     }
 
     static func browserURL(address: String) -> URL {
-        URL(string: App.shared.browseAddressURL + address)!
+        App.configuration.services.etehreumBlockBrowserURL
+            .appendingPathComponent("address").appendingPathComponent(address)
     }
 
     func isDefaultFallbackHandler() -> Bool {

@@ -29,8 +29,8 @@ struct TermsView: View {
                 BulletText("We collect anonymized app usage data and crash reports to ensure the quality of our app.")
 
                 HStack {
-                    LinkButton("Privacy Policy", url: App.shared.privacyPolicyURL)
-                    LinkButton("Terms of Use", url: App.shared.termOfUseURL)
+                    LinkButton("Privacy Policy", url: App.configuration.legal.privacyURL)
+                    LinkButton("Terms of Use", url: App.configuration.legal.termsURL)
                 }
             }
 
