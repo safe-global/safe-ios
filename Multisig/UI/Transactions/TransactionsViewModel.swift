@@ -107,13 +107,10 @@ extension TransactionStatus {
     }
 }
 
-
 class TransactionsViewModel: ObservableObject {
     @Published var transactionsList = TransactionsList()
-
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
-
 
     private let safe: Safe
     private var subscribers = Set<AnyCancellable>()

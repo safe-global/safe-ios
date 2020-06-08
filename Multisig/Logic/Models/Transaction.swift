@@ -9,8 +9,8 @@
 import Foundation
 import BigInt
 
+// Information about structure described in https://github.com/gnosis/safe/issues/324
 struct Transaction: Decodable, Identifiable, Hashable {
-
     var id: Int {
         return hashValue
     }

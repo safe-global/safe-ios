@@ -49,17 +49,13 @@ struct TransactionCellView: View {
         return ZStack {
             if customTransaction != nil {
                 CustomTransactionCellView(transaction: customTransaction!)
-            }
-            else if transferTransaction != nil {
+            } else if transferTransaction != nil {
                 TransferTransactionCellView(transaction: transferTransaction!)
-            }
-            else if settingChangeTransaction != nil {
+            } else if settingChangeTransaction != nil {
                 SettingsChangeTransactionCellView(transaction: settingChangeTransaction!)
-            }
-            else if changeMasterCopyTransaction != nil {
+            } else if changeMasterCopyTransaction != nil {
                 ChangeMasterCopyCellView(transaction: changeMasterCopyTransaction!)
-            }
-            else {
+            } else {
                 EmptyView()
             }
         }
