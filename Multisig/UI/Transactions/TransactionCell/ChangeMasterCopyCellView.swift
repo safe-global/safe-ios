@@ -13,7 +13,7 @@ struct ChangeMasterCopyCellView: View {
     var body: some View {
         HStack {
             Image("ico-settings-tx")
-            AddressCell(address: transaction.contractAddress, title: transaction.contractVersion, style: .shortAddressNoShare)
+            AddressCell(address: transaction.contractAddress, title: transaction.contractVersion, style: .shortAddressNoShareGrayColor)
 
             Spacer()
 
