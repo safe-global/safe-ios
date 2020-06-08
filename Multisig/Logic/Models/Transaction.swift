@@ -9,8 +9,6 @@
 import Foundation
 import BigInt
 
-
-
 struct Transaction: Decodable, Identifiable, Hashable {
 
     var id: Int {
