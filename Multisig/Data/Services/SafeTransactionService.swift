@@ -110,23 +110,17 @@ struct TransactionsRequest: JSONRequest {
     let address: String
     let limit: Int = 100
     let offset: Int = 0
-    var httpMethod: String { return "GET" }
-    var urlPath: String { return "/api/v1/safes/\(address)/all-transactions/" }
-
-    typealias ResponseType = Response
-
-    init(address: String) {
-        self.address = address
-    }
+    var httpMethod: String { "GET" }
+    var urlPath: String { "/api/v1/safes/\(address)/all-transactions/" }
 
     var query: String? {
         return "limit=\(limit)&offset=\(offset)"
     }
+    
+    typealias Response = PagedResponse<Transaction>
+    typealias ResponseType = Response
 
-    struct Response: Decodable {
-        let count: Int
-        let previous: String?
-        let next: String?
-        let results: [Transaction]
+    init(address: String) {
+        self.address = address
     }
 }

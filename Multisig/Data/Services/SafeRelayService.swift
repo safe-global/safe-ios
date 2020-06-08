@@ -143,10 +143,3 @@ struct TokensRequest: JSONRequest {
     }
 
 }
-
-struct PagedResponse<Item: Decodable>: Decodable {
-    let count: Int
-    let next: String?
-    let previous: String?
-    let results: [Item]
-}
