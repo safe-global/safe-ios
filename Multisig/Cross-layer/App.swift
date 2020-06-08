@@ -29,6 +29,11 @@ class App {
         url: configuration.services.transactionServiceURL,
         logger: LogService.shared)
 
+    var safeRelayService = SafeRelayService(
+        url: configuration.services.relayServiceURL,
+        logger: LogService.shared)
+
+
     var nodeService = EthereumNodeService(url: configuration.services.ethereumServiceURL)
 
     var coreDataStack: CoreDataProtocol = CoreDataStack()
