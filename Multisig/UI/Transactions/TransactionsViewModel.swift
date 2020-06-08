@@ -94,22 +94,6 @@ class CustomTransaction: TransferTransaction {
     }
 }
 
-
-//func cellForModel(_ m: BaseTransactionViewModel) {
-//    switch m {
-//    case let x as CustomTransaction:
-//        OneCell(x)
-//        break
-//
-//    case let x as CustomTransaction:
-//        OtherCell(x)
-//        break
-//
-//        case let x as CustomTransaction:
-//        break
-//    }
-//}
-
 extension TransactionStatus {
     static let queueStatuses = [TransactionStatus.pending, .waitingConfirmation, .waitingExecution]
     static let historyStatuses = [TransactionStatus.success, .failed, .canceled]
@@ -275,7 +259,7 @@ class TransactionsViewModel: ObservableObject {
         let tokenAddress = tokenAddress ?? Address.zero.hex(eip55: true)
         let token = App.shared.tokenRegistry[tokenAddress]
 
-        return (formatter.safeString(from: value, decimals: token?.decimals ?? 0, isNegative: isNegative), token?.symbol ?? "")
+        return (formatter.safeString(from: value, decimals: token?.decimals ?? 0, isNegative: isNegative, forcePlusSign: true), token?.symbol ?? "")
     }
 
     func multisigTx(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel {

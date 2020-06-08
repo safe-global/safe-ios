@@ -46,12 +46,12 @@ struct TokenBalance: Identifiable, Hashable {
 
 extension TokenFormatter {
 
-    func safeString(from: String?, decimals: Int? = nil, isNegative: Bool = false) -> String {
+    func safeString(from: String?, decimals: Int? = nil, isNegative: Bool = false, forcePlusSign: Bool = false) -> String {
         string(
             from: BigDecimal((isNegative ? -1 : 1) * (BigInt(from ?? "0") ?? 0), decimals ?? 18),
             decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
             thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
-            forcePlusSign: true
+            forcePlusSign: forcePlusSign
         )
     }
 }
