@@ -32,7 +32,7 @@ pipeline {
                     // After applying it, the first build has to be manually
                     // granted the access to the signing certificates via
                     // the machine's UI (remotely or directly), then
-                    // the uploadgin to AppStoreConnect started to work.
+                    // the uploading to AppStoreConnect started to work.
 
                     sh 'bin/archive.sh "Multisig - Development Rinkeby"'
                     archiveArtifacts 'Build/Multisig - Development Rinkeby/xcodebuild-archive.log'
