@@ -36,3 +36,11 @@ class ENSReverseResolver: Contract {
         try decodeString(invoke("name(bytes32)", encodeFixedBytes(node)))
     }
 }
+
+class ENSRegistrar: Contract {
+
+    func ens() throws -> Address {
+        try decodeAddress(invoke("ens()"))
+    }
+
+}

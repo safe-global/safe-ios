@@ -11,7 +11,7 @@ import SwiftUI
 struct AddressCell: View {
 
     enum Style {
-        case shortAddress, normal
+        case shortAddress, normal, shortAddressNoShare, shortAddressNoShareGrayColor
     }
 
     let address: String
@@ -34,17 +34,28 @@ struct AddressCell: View {
 
                     addressText
                 }
+            }.disabled([.shortAddressNoShare, .shortAddressNoShareGrayColor].contains(style))
+
+            if ![.shortAddressNoShare, .shortAddressNoShareGrayColor].contains(style) {
+                Spacer()
+
+                BrowseAddressView(address: address)
             }
-            
-            Spacer()
-            
-            BrowseAddressView(address: address)
         }
         .padding(EdgeInsets(top: 2, leading: 0, bottom: 6, trailing: 0))
     }
 
     var addressText: some View {
-        let addressStyle: AddressText.Style = style == .shortAddress ? .short : .long
+        var addressStyle: AddressText.Style = .long
+        if style == .normal {
+            addressStyle = .long
+        }
+        else if [.shortAddress, .shortAddressNoShareGrayColor].contains(style) {
+            addressStyle = .short
+        }
+        else {
+            addressStyle = .shortTrailColor
+        }
 
         return AddressText(address, style: addressStyle)
                 .font(Font.gnoBody.weight(.medium))

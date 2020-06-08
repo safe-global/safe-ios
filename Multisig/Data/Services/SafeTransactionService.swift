@@ -18,6 +18,29 @@ class SafeTransactionService {
         self.url = url
         self.logger = logger
         httpClient = JSONHTTPClient(url: url, logger: logger)
+        // 2020-01-22T13:11:59.838510Z
+        let formatter1 = DateFormatter()
+        formatter1.timeZone = TimeZone(abbreviation: "UTC")
+        formatter1.locale = Locale(identifier: "en_US_POSIX")
+        formatter1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+        // 2020-01-22T13:11:48Z
+        let formatter2 = DateFormatter()
+        formatter2.timeZone = TimeZone(abbreviation: "UTC")
+        formatter2.locale = Locale(identifier: "en_US_POSIX")
+        formatter2.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+        httpClient.jsonDecoder.dateDecodingStrategy = JSONDecoder.DateDecodingStrategy.custom { (decoder) -> Date in
+            let c = try decoder.singleValueContainer()
+            let str = try c.decode(String.self)
+            if let date = formatter1.date(from: str) {
+                return date
+            } else if let date = formatter2.date(from: str) {
+                return date
+            } else {
+                throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath,
+                                                                        debugDescription: "Date! \(str)"))
+            }
+        }
     }
 
     func safeInfo(at address: String) throws -> SafeStatusRequest.Response {
@@ -26,6 +49,10 @@ class SafeTransactionService {
 
     func safeBalances(at address: String) throws -> [SafeBalancesRequest.Response] {
         return try httpClient.execute(request: SafeBalancesRequest(address: address))
+    }
+
+    func transactions(address: String) throws -> TransactionsRequest.Response {
+        return try httpClient.execute(request: TransactionsRequest(address: address))
     }
 }
 
@@ -76,5 +103,24 @@ struct SafeBalancesRequest: JSONRequest {
             let symbol: String
             let decimals: Int
         }
+    }
+}
+
+struct TransactionsRequest: JSONRequest {
+    let address: String
+    let limit: Int = 100
+    let offset: Int = 0
+    var httpMethod: String { "GET" }
+    var urlPath: String { "/api/v1/safes/\(address)/all-transactions/" }
+
+    var query: String? {
+        return "limit=\(limit)&offset=\(offset)"
+    }
+    
+    typealias Response = PagedResponse<Transaction>
+    typealias ResponseType = Response
+
+    init(address: String) {
+        self.address = address
     }
 }
