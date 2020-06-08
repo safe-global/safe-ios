@@ -100,57 +100,12 @@ struct Transfer: Decodable, Hashable {
 struct DecodedData: Decodable, Hashable {
     let method: String
     let parameters: [DecodedDataParameter]
-
-    struct Method: CodingKey {
-
-        var stringValue: String
-
-        init?(stringValue: String) {
-            self.stringValue = stringValue
-        }
-
-        var intValue: Int?
-
-        init?(intValue: Int) {
-            nil
-        }
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: Method.self)
-        guard let methodKey = container.allKeys.first else {
-            let context = DecodingError.Context(
-                codingPath: container.codingPath,
-                debugDescription: "Method not found in the decoded data")
-            throw DecodingError.valueNotFound(Method.self, context)
-        }
-        method = methodKey.stringValue
-        parameters = try container.decode([DecodedDataParameter].self, forKey: methodKey)
-    }
 }
 
 struct DecodedDataParameter: Decodable, Hashable {
     let name: String
     let type: String
     let value: String
-
-    enum CodingKeys: CodingKey {
-        case name, value, type
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.decode(String.self, forKey: .name)
-        type = try container.decode(String.self, forKey: .type)
-        if let intValue = try? container.decode(Int64.self, forKey: .value) {
-            value = String(intValue)
-        } else if let stringValue = try? container.decode(String.self, forKey: .value) {
-            value = stringValue
-        } else {
-            value = ""
-        }
-    }
-
 }
 
 enum TransactionType: String, Decodable {
