@@ -35,6 +35,7 @@ INFURA_API_KEY = USE_YOUR_OWN_INFURA_KEY_HERE
 _RELAY_SERVICE_URL_DEV_RINKEBY       = https:/$()/safe-relay.staging.gnosisdev.com/api/
 _RELAY_SERVICE_URL_DEV_MAINNET       = https:/$()/safe-relay.mainnet.staging.gnosisdev.com/api/
 _RELAY_SERVICE_URL_STAGING_RINKEBY   = https:/$()/safe-relay.staging.gnosisdev.com/api/
+_RELAY_SERVICE_URL_STAGING_MAINNET   = https:/$()/safe-relay.mainnet.staging.gnosisdev.com/api/
 _RELAY_SERVICE_URL_PROD_RINKEBY      = https:/$()/safe-relay.rinkeby.gnosis.io/api/
 _RELAY_SERVICE_URL_PROD_MAINNET      = https:/$()/safe-relay.gnosis.io/api/
 
@@ -42,6 +43,7 @@ _RELAY_SERVICE_URL_PROD_MAINNET      = https:/$()/safe-relay.gnosis.io/api/
 _TRANSACTION_SERVICE_URL_DEV_RINKEBY        = https:/$()/safe-transaction.staging.gnosisdev.com/api/
 _TRANSACTION_SERVICE_URL_DEV_MAINNET        = https:/$()/safe-transaction.mainnet.staging.gnosisdev.com/api/
 _TRANSACTION_SERVICE_URL_STAGING_RINKEBY    = https:/$()/safe-transaction.staging.gnosisdev.com/api/
+_TRANSACTION_SERVICE_URL_STAGING_MAINNET    = https:/$()/safe-transaction.mainnet.staging.gnosisdev.com/api/
 _TRANSACTION_SERVICE_URL_PROD_RINKEBY       = https:/$()/safe-transaction.rinkeby.gnosis.io/api/
 _TRANSACTION_SERVICE_URL_PROD_MAINNET       = https:/$()/safe-transaction.gnosis.io/api/
 
@@ -64,16 +66,26 @@ _GNOSIS_SAFE_WEB_URL_MAINNET = https:/$()/gnosis-safe.io/
 // Apps
 _APP_BUNDLE_ID_PROD_MAINNET     = io.gnosis.multisig.prod.mainnet
 _APP_BUNDLE_ID_PROD_RINKEBY     = io.gnosis.multisig.prerelease
+_APP_BUNDLE_ID_STAGING_MAINNET  = io.gnosis.multisig.staging.mainnet
 _APP_BUNDLE_ID_STAGING_RINKEBY  = io.gnosis.multisig.staging.rinkeby
-_APP_BUNDLE_ID_DEV_RINKEBY      = io.gnosis.multisig.dev.rinkeby
 _APP_BUNDLE_ID_DEV_MAINNET      = io.gnosis.multisig.dev.mainnet
+_APP_BUNDLE_ID_DEV_RINKEBY      = io.gnosis.multisig.dev.rinkeby
 
 // User-facing name of the app on the Home screen
 _DISPLAY_NAME_PROD_MAINNET     = Safe Multisig
 _DISPLAY_NAME_PROD_RINKEBY     = Prod Rinkeby
+_DISPLAY_NAME_STAGING_MAINNET  = Staging Mainnet
 _DISPLAY_NAME_STAGING_RINKEBY  = Staging Rinkeby
 _DISPLAY_NAME_DEV_RINKEBY      = Dev Rinkeby
 _DISPLAY_NAME_DEV_MAINNET      = Dev Mainnet
+
+// Firebase Config File Names
+_FIREBASE_CONFIG_PROD_MAINNET       = GoogleService-Info.Production.Mainnet
+_FIREBASE_CONFIG_PROD_RINKEBY       = GoogleService-Info.Production.Rinkeby
+_FIREBASE_CONFIG_STAGING_MAINNET    = GoogleService-Info.Staging.Mainnet
+_FIREBASE_CONFIG_STAGING_RINKEBY    = GoogleService-Info.Staging.Rinkeby
+_FIREBASE_CONFIG_DEV_MAINNET        = GoogleService-Info.Development.Mainnet
+_FIREBASE_CONFIG_DEV_RINKEBY        = GoogleService-Info.Development.Rinkeby
 
 // Configuration variables for the app
 
@@ -83,6 +95,8 @@ ETH_RPC_URL             = $(_ETH_RPC_URL_$(NETWORK):default=$(_ETH_RPC_URL_MAINN
 ETH_BLOCK_BROWSER_URL   = $(_ETH_BLOCK_BROWSER_URL_$(NETWORK):default=$(_ETH_BLOCK_BROWSER_URL_MAINNET))
 COLLECTIBLE_SERVICE_URL = $(_COLLECTIBLE_SERVICE_URL_$(NETWORK):default=$(_COLLECTIBLE_SERVICE_URL_MAINNET))
 GNOSIS_SAFE_WEB_URL     = $(_GNOSIS_SAFE_WEB_URL_$(NETWORK):default=$(_GNOSIS_SAFE_WEB_URL_MAINNET))
+
+FIREBASE_CONFIG         = $(_FIREBASE_CONFIG_$(SERVICE_ENV)_$(NETWORK):default=$(_FIREBASE_CONFIG_PROD_MAINNET))
 
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/
