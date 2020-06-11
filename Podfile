@@ -15,6 +15,9 @@ project 'Multisig',
   'Debug.Staging.Rinkeby'       => :debug,
   'Release.Staging.Rinkeby'     => :release,
 
+  'Debug.Staging.Mainnet'       => :debug,
+  'Release.Staging.Mainnet'     => :release,
+
   'Debug.Development.Rinkeby'       => :debug,
   'Release.Development.Rinkeby'     => :release,
 
