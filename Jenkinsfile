@@ -36,18 +36,22 @@ pipeline {
                         values "Staging"
                     }
                 }
-                steps {
-                    ansiColor('xterm') {
-                        // NOTE: on Xcode 11.5, the keychain is not accessible
-                        // by the xcode, so the Jenkins's builds are failing when
-                        // user is logged out.
-                        // The https://stackoverflow.com/a/55699898 has a fix.
-                        // After applying it, the first build has to be manually
-                        // granted the access to the signing certificates via
-                        // the machine's UI (remotely or directly), then
-                        // the uploading to AppStoreConnect started to work.
-                        sh 'bin/archive.sh "Multisig - ${ENVIRONMENT} ${NETWORK}"'
-                        archiveArtifacts 'Build/*/xcodebuild-*.log'
+                stages {
+                    stage('Archive') {
+                        steps {
+                            ansiColor('xterm') {
+                                // NOTE: on Xcode 11.5, the keychain is not accessible
+                                // by the xcode, so the Jenkins's builds are failing when
+                                // user is logged out.
+                                // The https://stackoverflow.com/a/55699898 has a fix.
+                                // After applying it, the first build has to be manually
+                                // granted the access to the signing certificates via
+                                // the machine's UI (remotely or directly), then
+                                // the uploading to AppStoreConnect started to work.
+                                sh 'bin/archive.sh "Multisig - ${ENVIRONMENT} ${NETWORK}"'
+                                archiveArtifacts 'Build/*/xcodebuild-*.log'
+                            }
+                        }
                     }
                 }
             }
