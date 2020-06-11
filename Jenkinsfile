@@ -12,12 +12,28 @@ pipeline {
                 // Jenkins checks out PRs with a PR-XXX format
                 expression { BRANCH_NAME ==~ /^PR-.*/ }
             }
-            steps {
-                ansiColor('xterm') {
-                    sh 'bin/test.sh "Multisig - Staging Rinkeby"'
-                    junit 'Build/reports/junit.xml'
-                    archiveArtifacts 'Build/*/xcodebuild-test.log'
-                    archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
+            matrix {
+                axes {
+                    axis {
+                        name "NETWORK"
+                        values "Rinkeby", "Mainnet"
+                    }
+                    axis {
+                        name "ENVIRONMENT"
+                        values "Staging"
+                    }
+                }
+                stages {
+                    stage('Test') {
+                        steps {
+                            ansiColor('xterm') {
+                                sh 'bin/test.sh "Multisig - Staging Rinkeby"'
+                                junit 'Build/reports/junit.xml'
+                                archiveArtifacts 'Build/*/xcodebuild-test.log'
+                                archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
+                            }
+                        }
+                    }
                 }
             }
         }
