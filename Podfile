@@ -46,6 +46,9 @@ target 'Multisig' do
   # Uses BigInt as a dependency
   pod 'SwiftCryptoTokenFormatter', :git => 'https://github.com/gnosis/SwiftCryptoTokenFormatter.git', :branch => 'master'
 
+  # For analytics
+  pod 'Firebase/Analytics'
+
   target 'MultisigTests' do
     inherit! :search_paths
   end

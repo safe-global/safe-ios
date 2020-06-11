@@ -2,11 +2,79 @@ PODS:
   - BigInt (4.0.0)
   - BlockiesSwift (0.1.2)
   - CryptoSwift (1.3.1)
+  - Firebase/Analytics (6.25.0):
+    - Firebase/Core
+  - Firebase/Core (6.25.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 6.5.1)
+  - Firebase/CoreOnly (6.25.0):
+    - FirebaseCore (= 6.7.1)
+  - FirebaseAnalytics (6.5.1):
+    - FirebaseCore (~> 6.7)
+    - FirebaseInstallations (~> 1.2)
+    - GoogleAppMeasurement (= 6.5.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 1.30905.0)
+  - FirebaseCore (6.7.1):
+    - FirebaseCoreDiagnostics (~> 1.3)
+    - FirebaseCoreDiagnosticsInterop (~> 1.2)
+    - GoogleUtilities/Environment (~> 6.5)
+    - GoogleUtilities/Logger (~> 6.5)
+  - FirebaseCoreDiagnostics (1.3.0):
+    - FirebaseCoreDiagnosticsInterop (~> 1.2)
+    - GoogleDataTransportCCTSupport (~> 3.1)
+    - GoogleUtilities/Environment (~> 6.5)
+    - GoogleUtilities/Logger (~> 6.5)
+    - nanopb (~> 1.30905.0)
+  - FirebaseCoreDiagnosticsInterop (1.2.0)
+  - FirebaseInstallations (1.2.0):
+    - FirebaseCore (~> 6.6)
+    - GoogleUtilities/Environment (~> 6.6)
+    - GoogleUtilities/UserDefaults (~> 6.6)
+    - PromisesObjC (~> 1.2)
+  - GoogleAppMeasurement (6.5.1):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 1.30905.0)
+  - GoogleDataTransport (6.1.1)
+  - GoogleDataTransportCCTSupport (3.1.0):
+    - GoogleDataTransport (~> 6.1)
+    - nanopb (~> 1.30905.0)
+  - GoogleUtilities/AppDelegateSwizzler (6.6.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.6.0):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (6.6.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.6.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.6.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.6.0)"
+  - GoogleUtilities/Reachability (6.6.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (6.6.0):
+    - GoogleUtilities/Logger
   - idn2Swift (0.0.1)
   - idn2Swift/Tests (0.0.1)
   - Kingfisher/Core (5.14.0)
   - Kingfisher/SwiftUI (5.14.0):
     - Kingfisher/Core
+  - nanopb (1.30905.0):
+    - nanopb/decode (= 1.30905.0)
+    - nanopb/encode (= 1.30905.0)
+  - nanopb/decode (1.30905.0)
+  - nanopb/encode (1.30905.0)
+  - PromisesObjC (1.2.8)
   - secp256k1.swift (0.1.4)
   - SwiftCryptoTokenFormatter (1.0.0):
     - BigInt (~> 4.0)
@@ -19,6 +87,7 @@ PODS:
 
 DEPENDENCIES:
   - BlockiesSwift (from `https://github.com/gnosis/BlockiesSwift.git`, branch `0.1.2-gnosis`)
+  - Firebase/Analytics
   - idn2Swift (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
   - idn2Swift/Tests (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
   - Kingfisher/SwiftUI (= 5.14.0)
@@ -31,7 +100,19 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - BigInt
     - CryptoSwift
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreDiagnosticsInterop
+    - FirebaseInstallations
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleDataTransportCCTSupport
+    - GoogleUtilities
     - Kingfisher
+    - nanopb
+    - PromisesObjC
     - secp256k1.swift
     - Web3
 
@@ -61,12 +142,24 @@ SPEC CHECKSUMS:
   BigInt: 2aad1a9942dc932ec8b84290d2c564a3d76f97ab
   BlockiesSwift: d8fbf236b71552fc1fa85cd23bb26f29dd830156
   CryptoSwift: f12f037f6d0fcd6d48c96db0071b653de64e6c4d
+  Firebase: 5719b4f965f76643241a1bb8244483ff6117db39
+  FirebaseAnalytics: 93565f3f0f0f50a5d8770850bfe6a82eaba5db27
+  FirebaseCore: 6023faeada5afa95a349fccafb40900e32e9ac42
+  FirebaseCoreDiagnostics: 4a773a47bd83bbd5a9b1ccf1ce7caa8b2d535e67
+  FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
+  FirebaseInstallations: 2119fb3e46b0a88bfdbf12562f855ee3252462fa
+  GoogleAppMeasurement: 137afe68bfa406c3f4221b9395253d9e5d4654cf
+  GoogleDataTransport: ad884314b81cdb808fb1d23787b367ff8da4e28a
+  GoogleDataTransportCCTSupport: d70a561f7d236af529fee598835caad5e25f6d3d
+  GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   idn2Swift: d557454abb9872e6e2d5742acf88e04e3b25872c
   Kingfisher: 7b64389a43139c903ec434788344c288217c792d
+  nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
   SwiftCryptoTokenFormatter: 416367b31a0bb71e2b4f3928fa92bfc7c9611763
   Web3: 7b2c30f98f24cc290bc671ab525d7a30a2afbc73
 
-PODFILE CHECKSUM: 2b72f84206f8e0e76132e14034081b19681de124
+PODFILE CHECKSUM: fd209ac6eb60f1bed5e51f304812964ac5f12060
 
 COCOAPODS: 1.9.1

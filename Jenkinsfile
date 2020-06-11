@@ -4,25 +4,36 @@ pipeline {
         // this enables ruby gem binaries, such as xcpretty
         PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
         INFURA_KEY = credentials('INFURA_KEY')
+        ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
     }
     stages {
         stage('Unit Test') {
             when {
                 // Jenkins checks out PRs with a PR-XXX format
-                expression { BRANCH_NAME ==~ /^(gh|PR)-.*/ }
+                expression { BRANCH_NAME ==~ /^PR-.*/ }
             }
             steps {
                 ansiColor('xterm') {
-                    sh 'bin/test.sh "Multisig - Development Rinkeby"'
+                    sh 'bin/test.sh "Multisig - Staging Rinkeby"'
                     junit 'Build/reports/junit.xml'
-                    archiveArtifacts 'Build/Multisig - Development Rinkeby/xcodebuild-test.log'
-                    archiveArtifacts 'Build/Multisig - Development Rinkeby/tests-bundle.xcresult.tgz'
+                    archiveArtifacts 'Build/*/xcodebuild-test.log'
+                    archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
                 }
             }
         }
-        stage('Archive') {
+        stage('Upload to TestFlight') {
             when {
                 expression { BRANCH_NAME ==~ /^master$/ }
+            }
+            axes {
+                axis {
+                    name "NETWORK"
+                    values "Rinkeby", "Mainnet"
+                }
+                axis {
+                    name "ENVIRONMENT"
+                    values "Staging"
+                }
             }
             steps {
                 ansiColor('xterm') {
@@ -34,12 +45,8 @@ pipeline {
                     // granted the access to the signing certificates via
                     // the machine's UI (remotely or directly), then
                     // the uploading to AppStoreConnect started to work.
-
-                    sh 'bin/archive.sh "Multisig - Development Rinkeby"'
-                    archiveArtifacts 'Build/Multisig - Development Rinkeby/xcodebuild-*.log'
-
-                    sh 'bin/archive.sh "Multisig - Development Mainnet"'
-                    archiveArtifacts 'Build/Multisig - Development Mainnet/xcodebuild-*.log'
+                    sh 'bin/archive.sh "Multisig - ${ENVIRONMENT} ${NETWORK}"'
+                    archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
             }
         }

@@ -131,7 +131,7 @@
 		0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */; };
 		0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */; };
 		0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDBFFC248E4C5D002035A2 /* Configuration.swift */; };
-		0ACDC013249253D7002035A2 /* Firebase in Resources */ = {isa = PBXBuildFile; fileRef = 0ACDC012249253D7002035A2 /* Firebase */; };
+		0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDC01424925A96002035A2 /* FirebaseConfig.swift */; };
 		0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A45246C38920052F4CD /* EmailSupportViewController.swift */; };
 		0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */; };
 		0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */; };
@@ -349,6 +349,7 @@
 		0ACDBFFC248E4C5D002035A2 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		0ACDC00924925267002035A2 /* Staging.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.Mainnet.xcconfig; sourceTree = "<group>"; };
 		0ACDC012249253D7002035A2 /* Firebase */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Firebase; sourceTree = "<group>"; };
+		0ACDC01424925A96002035A2 /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		0AD89A45246C38920052F4CD /* EmailSupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSupportViewController.swift; sourceTree = "<group>"; };
 		0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyIdentifiable.swift; sourceTree = "<group>"; };
 		0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressViewModel.swift; sourceTree = "<group>"; };
@@ -625,7 +626,6 @@
 				0A6430DC247EC193006FD30A /* Staging.Rinkeby.xcconfig */,
 				0AF7F766247FC3FB00527014 /* Development.Rinkeby.xcconfig */,
 				0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */,
-				0ACDC012249253D7002035A2 /* Firebase */,
 				0ACDBFFC248E4C5D002035A2 /* Configuration.swift */,
 			);
 			path = Configuration;
@@ -892,6 +892,15 @@
 			path = MultisigIntegrationTests;
 			sourceTree = "<group>";
 		};
+		0ACDC01624925B36002035A2 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				0ACDC01424925A96002035A2 /* FirebaseConfig.swift */,
+				0ACDC012249253D7002035A2 /* Firebase */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
 		0ADDA214245352CF0066457E /* EnterSafeAddress */ = {
 			isa = PBXGroup;
 			children = (
@@ -975,6 +984,7 @@
 			isa = PBXGroup;
 			children = (
 				0A6C85B3245080620026139E /* App.swift */,
+				0ACDC01624925B36002035A2 /* Analytics */,
 				0A6430D8247EC180006FD30A /* Configuration */,
 				044A544C2448E5CF009CBB80 /* Localization */,
 				5532D4AE2449A17D0067505A /* Logger */,
@@ -1228,6 +1238,7 @@
 				0A93DD4F2445CC8A00688050 /* Sources */,
 				0A93DD502445CC8A00688050 /* Frameworks */,
 				0A93DD512445CC8A00688050 /* Resources */,
+				0ACDC01924926081002035A2 /* [FIREBASE] Copy config file */,
 				D3B014DFDC8D88B4BED187D0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -1326,7 +1337,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
-				0ACDC013249253D7002035A2 /* Firebase in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
@@ -1373,6 +1383,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0ACDC01924926081002035A2 /* [FIREBASE] Copy config file */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"",
+			);
+			name = "[FIREBASE] Copy config file";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FIREBASE_SRC=\"${SRCROOT}/Multisig/Cross-layer/Analytics/Firebase/${FIREBASE_CONFIG}.plist\"\nFIREBASE_DST=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nif [ -f \"${FIREBASE_SRC}\" ]; then\n    rsync -a \"${FIREBASE_SRC}\" \"${FIREBASE_DST}/GoogleService-Info.plist\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		C5F344F451DF3989C918E752 /* [CP] Check Pods Manifest.lock */ = {
@@ -1491,6 +1521,7 @@
 				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
 				55B66E54247E47A900249E98 /* MainView.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
+				0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */,
 				55F9A3212475578C00ABBA6F /* BalancesViewModel.swift in Sources */,
 				55F9A3102475381800ABBA6F /* FootnoteText.swift in Sources */,
