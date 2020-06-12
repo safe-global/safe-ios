@@ -15,6 +15,9 @@ project 'Multisig',
   'Debug.Staging.Rinkeby'       => :debug,
   'Release.Staging.Rinkeby'     => :release,
 
+  'Debug.Staging.Mainnet'       => :debug,
+  'Release.Staging.Mainnet'     => :release,
+
   'Debug.Development.Rinkeby'       => :debug,
   'Release.Development.Rinkeby'     => :release,
 
@@ -42,6 +45,9 @@ target 'Multisig' do
   # Dependency for formatting tokens in UI
   # Uses BigInt as a dependency
   pod 'SwiftCryptoTokenFormatter', :git => 'https://github.com/gnosis/SwiftCryptoTokenFormatter.git', :branch => 'master'
+
+  # For analytics
+  pod 'Firebase/Analytics'
 
   target 'MultisigTests' do
     inherit! :search_paths

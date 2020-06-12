@@ -14,7 +14,7 @@ class Theme: ObservableObject {
 
     private var tableViewBackgroundColor: UIColor?
 
-    func setup() {
+    func setUp() {
         // we don't set the image for the navbar (pdf) as it crashes the app;
         // we don't set the `translucent` property of navbar to false because
         // it crashes the app (SwiftUI).
