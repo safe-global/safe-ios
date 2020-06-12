@@ -3,15 +3,12 @@
 //
 
 import Foundation
-import Common
 
 /// Logs all events to the console log.
-public final class ConsoleTracker: TrackingHandler {
-
-    public init() {}
+final class ConsoleTracker: TrackingHandler {
 
     /// You will find the events by the "[TRACKING]" tag in the log.
-    public func track(event: String, parameters: [String: Any]?) {
+    func track(event: String, parameters: [String: Any]?) {
         let parametersString = parameters != nil ? (", parameters: " + String(describing: parameters!)) : ""
         LogService.shared.info("[TRACKING] event: '\(event)'" + parametersString)
     }

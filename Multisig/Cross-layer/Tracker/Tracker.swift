@@ -32,10 +32,10 @@ import Foundation
  the `shared` property.
 
  */
-open class Tracker {
+class Tracker {
 
     /// Singleton instance.
-    public static var shared = Tracker()
+    static var shared = Tracker()
 
     /// All registered objects handling tracking events
     private var trackingHandlers = [TrackingHandler]()
@@ -44,7 +44,7 @@ open class Tracker {
     ///
     /// - Parameter handler: this object will receive all tracking events. The same object will not be added twice.
     ///                      The handler is retained by the Tracker.
-    open func append(handler: TrackingHandler) {
+    func append(handler: TrackingHandler) {
         guard !trackingHandlers.contains(where: { $0 === handler }) else { return }
         trackingHandlers.append(handler)
     }
@@ -53,7 +53,7 @@ open class Tracker {
     /// Deletes a handler, if it is registered. If not, this operation does nothing.
     ///
     /// - Parameter handler: previously registered handler
-    open func remove(handler: TrackingHandler) {
+    func remove(handler: TrackingHandler) {
         if let handlerIndex = trackingHandlers.firstIndex(where: { $0 === handler }) {
             trackingHandlers.remove(at: handlerIndex)
         }
@@ -65,7 +65,7 @@ open class Tracker {
     ///   - event: occurred event
     ///   - parameters: optional parameters that will be combined with the Trackable.parameters. These parameters
     ///                 will override any parameters from Trackable with the same key.
-    open func track(event: Trackable, parameters: [String: Any]? = nil) {
+    func track(event: Trackable, parameters: [String: Any]? = nil) {
         var joinedParameters = event.parameters ?? [:]
         parameters?.forEach { joinedParameters[$0.key] = $0.value }
         let trackedParameters: [String: Any]? = joinedParameters.isEmpty ? nil : joinedParameters
@@ -77,7 +77,7 @@ open class Tracker {
 }
 
 /// Concrete implementations of tracking systems should conform to this protocol to be registered with the Tracker.
-public protocol TrackingHandler: class {
+protocol TrackingHandler: class {
     /// Track event with parameters.
     ///
     /// - Parameters:
@@ -87,7 +87,7 @@ public protocol TrackingHandler: class {
 }
 
 /// Conform your enum to this protocol for it to be tracked with Tracker.
-public protocol Trackable {
+protocol Trackable {
     // Raw value of the enum (String)
     var rawValue: String { get }
     // Event type for tracking. Default value is `rawValue`
@@ -96,23 +96,23 @@ public protocol Trackable {
     var parameters: [String: Any]? { get }
 }
 
-public extension Trackable {
+extension Trackable {
 
     var eventName: String { return rawValue }
     var parameters: [String: Any]? { return nil }
 
 }
 
-public extension Tracker {
+extension Tracker {
 
     static let screenViewEventName = "gnosis_screen_view"
     static let screenNameEventParameterName = "screen_name"
 
 }
 
-public protocol ScreenTrackingEvent: Trackable {}
+protocol ScreenTrackingEvent: Trackable {}
 
-public extension ScreenTrackingEvent {
+extension ScreenTrackingEvent {
 
     var eventName: String { return Tracker.screenViewEventName }
     var parameters: [String: Any]? { return [Tracker.screenNameEventParameterName: rawValue] }

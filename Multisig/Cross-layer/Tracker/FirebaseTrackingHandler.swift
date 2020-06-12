@@ -4,9 +4,8 @@
 
 import Foundation
 import FirebaseAnalytics
-import Common
 
-public final class FirebaseTrackingHandler: TrackingHandler {
+final class FirebaseTrackingHandler: TrackingHandler {
 
     private let reservedNames: [String] = [
         "ad_activeview",
@@ -41,15 +40,13 @@ public final class FirebaseTrackingHandler: TrackingHandler {
     private let maxParameterCount = 25
     private let stringParameterLengthRange = (1...100)
 
-    public init() {}
-
     /// Tracks an event with parameters, verifying that event name, parameter count, parameter names and values
     /// are conforming to Firebase's limitations specified in the FIRAnalytics.h
     ///
     /// - Parameters:
     ///   - event: event name
     ///   - parameters: parameters to supply with the event
-    public func track(event: String, parameters: [String: Any]?) {
+    func track(event: String, parameters: [String: Any]?) {
         // check event name
         assert(!reservedNames.contains(event), "reserved name: \(event)")
         check(name: event)
