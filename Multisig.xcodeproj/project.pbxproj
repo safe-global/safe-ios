@@ -186,6 +186,8 @@
 		55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */; };
 		55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0B24939079003B2B19 /* Tracker.swift */; };
 		55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC102493923A003B2B19 /* TrackerTests.swift */; };
+		55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1D24939503003B2B19 /* View+Tracking.swift */; };
+		55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1F24939525003B2B19 /* TrackingEvent.swift */; };
 		55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */; };
 		55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A3092475375B00ABBA6F /* AssetsView.swift */; };
 		55F9A3102475381800ABBA6F /* FootnoteText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A30F2475381800ABBA6F /* FootnoteText.swift */; };
@@ -432,6 +434,8 @@
 		55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		55CEFC0B24939079003B2B19 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		55CEFC102493923A003B2B19 /* TrackerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerTests.swift; sourceTree = "<group>"; };
+		55CEFC1D24939503003B2B19 /* View+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Tracking.swift"; sourceTree = "<group>"; };
+		55CEFC1F24939525003B2B19 /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
 		55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenImage.swift; sourceTree = "<group>"; };
 		55F9A3092475375B00ABBA6F /* AssetsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
 		55F9A30F2475381800ABBA6F /* FootnoteText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootnoteText.swift; sourceTree = "<group>"; };
@@ -1169,6 +1173,8 @@
 				55CEFC0824939079003B2B19 /* ConsoleTracker.swift */,
 				55CEFC0924939079003B2B19 /* CrashlyticsTrackingHandler.swift */,
 				55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */,
+				55CEFC1D24939503003B2B19 /* View+Tracking.swift */,
+				55CEFC1F24939525003B2B19 /* TrackingEvent.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -1594,6 +1600,7 @@
 				047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
+				55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */,
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
 				0ADDA21324534F1B0066457E /* EnterSafeNameViewModel.swift in Sources */,
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,
@@ -1602,6 +1609,7 @@
 				0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */,
 				0476916A246437C300D73D8B /* ContractVersionCell.swift in Sources */,
 				0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */,
+				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */,

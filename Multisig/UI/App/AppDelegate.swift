@@ -15,9 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         App.shared.firebaseConfig.setUp()
         App.shared.theme.setUp()
+
+        #if DEBUG
+        Tracker.shared.append(handler: ConsoleTracker())
+        #endif
+//        Tracker.shared.append(handler: FirebaseTrackingHandler())
+
         return true
     }
-
 
     // MARK: UISceneSession Lifecycle
 

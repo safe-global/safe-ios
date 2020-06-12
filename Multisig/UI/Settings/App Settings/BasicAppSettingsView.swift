@@ -45,6 +45,9 @@ struct BasicAppSettingsView: View {
             .edgesIgnoringSafeArea(.all)
             .foregroundColor(Color.gnoWhite)
         )
+        .onAppear {
+            self.trackEvent(.appSettings)
+        }
     }
 }
 
