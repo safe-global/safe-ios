@@ -19,8 +19,7 @@ struct TransactionStatusView: View {
 
             if style == .body {
                 BodyText(status.title, textColor: statusColor)
-            }
-            else {
+            } else {
                 FootnoteText(status.title, color: statusColor)
             }
         }

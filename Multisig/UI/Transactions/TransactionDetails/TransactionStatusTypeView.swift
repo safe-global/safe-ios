@@ -16,12 +16,12 @@ struct TransactionStatusTypeView: View {
                 Image(imageName)
                 BodyText(title)
 
-                if !displayStatusOnSecondLine {
+                if !transaction.status.isWaiting {
                     TransactionStatusView(status: transaction.status)
                 }
             }
 
-            if displayStatusOnSecondLine {
+            if transaction.status.isWaiting {
                 TransactionStatusView(status: transaction.status)
             }
         }
@@ -45,14 +45,6 @@ struct TransactionStatusTypeView: View {
         }
 
         return "ico-settings-tx"
-    }
-
-    var displayStatusOnSecondLine: Bool {
-        if [.waitingConfirmation, .waitingExecution].contains(transaction.status) {
-            return true
-        }
-
-        return false
     }
 }
 

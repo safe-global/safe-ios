@@ -21,12 +21,12 @@ struct TransactionCellView: View {
 
                 FootnoteText(transaction.formattedDate, color: .gnoDarkGrey).opacity(opacity)
 
-                if [TransactionStatus.success, TransactionStatus.pending, TransactionStatus.canceled, TransactionStatus.failed].contains(transaction.status)  {
+                if !transaction.status.isWaiting  {
                     TransactionStatusView(status: transaction.status, style: .footnote)
                 }
             }
 
-            if [TransactionStatus.waitingConfirmation, TransactionStatus.waitingExecution].contains(transaction.status) {
+            if transaction.status.isWaiting {
                 HStack {
                     TransactionStatusView(status: transaction.status, style: .footnote)
 
