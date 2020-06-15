@@ -46,7 +46,7 @@ struct BasicAppSettingsView: View {
             .foregroundColor(Color.gnoWhite)
         )
         .onAppear {
-            self.trackEvent(.appSettings)
+//            self.trackEvent(.settingsApp)
         }
     }
 }

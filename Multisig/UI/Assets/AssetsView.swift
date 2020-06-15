@@ -44,6 +44,9 @@ struct AssetsView: View {
                 VStack(spacing: 0) {                    
                     AddSafeIntroView()
                 }
+                .onAppear {
+                    self.trackEvent(.assetsNoSafe)
+                }
             }
         }
     }
