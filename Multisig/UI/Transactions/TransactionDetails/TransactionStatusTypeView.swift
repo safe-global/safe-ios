@@ -30,8 +30,7 @@ struct TransactionStatusTypeView: View {
     var title: String {
         if let _ = transaction as? CustomTransaction {
             return "Custom transaction"
-        }
-        else if let transfer = transaction as? TransferTransaction {
+        } else if let transfer = transaction as? TransferTransaction {
             return transfer.isOutgoing ? "Outgoing transfer" : "Incoming transfer"
         }
 
@@ -41,8 +40,7 @@ struct TransactionStatusTypeView: View {
     var imageName: String {
         if let _ = transaction as? CustomTransaction {
             return "ico-custom-tx"
-        }
-        else if let transfer = transaction as? TransferTransaction {
+        } else if let transfer = transaction as? TransferTransaction {
             return transfer.isOutgoing ? "ico-outgoing-tx" : "ico-incoming-tx"
         }
 
@@ -50,7 +48,7 @@ struct TransactionStatusTypeView: View {
     }
 
     var displayStatusOnSecondLine: Bool {
-        if [TransactionStatus.waitingConfirmation, TransactionStatus.waitingExecution].contains(transaction.status) {
+        if [.waitingConfirmation, .waitingExecution].contains(transaction.status) {
             return true
         }
 

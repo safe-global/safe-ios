@@ -13,7 +13,7 @@ struct TransactionStatusView: View {
     var style: Style = .body
     var body: some View {
         HStack (spacing: 6) {
-            if [TransactionStatus.waitingConfirmation, TransactionStatus.waitingExecution].contains(status) {
+            if [.waitingConfirmation, .waitingExecution].contains(status) {
                 Image("ico-bullet-point").foregroundColor(statusColor)
             }
 
