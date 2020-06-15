@@ -20,7 +20,9 @@ struct SafeSettingsView: View {
         ZStack {
             if selected.first == nil {
                 // so it does not jump when switching Assets <-> Settings in the tap bar
-                AddSafeIntroView(padding: .top, -56)
+                AddSafeIntroView(padding: .top, -56).onAppear {
+                    self.trackEvent(.settingsSafeNoSafe)
+                }
             } else {
                 LoadableSafeSettingsView(safe: selected.first!)
                     .environment(\.managedObjectContext, self.context)

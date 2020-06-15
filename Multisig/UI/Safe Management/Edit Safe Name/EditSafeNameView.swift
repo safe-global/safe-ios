@@ -54,6 +54,9 @@ struct EditSafeNameView: View {
         .padding(.horizontal)
         .navigationBarTitle("Edit Safe Name", displayMode: .inline)
         .navigationBarItems(trailing: saveButton)
+        .onAppear {
+            self.trackEvent(.settingsSafeEditName)
+        }
     }
 
     var saveButton: some View {

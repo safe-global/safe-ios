@@ -33,11 +33,11 @@ struct SwitchSafeView: View {
             }
             .onAppear {
                 self.theme.setTemporaryTableViewBackground(UIColor(named: "snowwhite"))
+                self.trackEvent(.safeSwitch)
             }
             .onDisappear {
                 self.theme.setTemporaryTableViewBackground(nil)
             }
-
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(leading: closeButton)
         }

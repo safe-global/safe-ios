@@ -28,8 +28,7 @@ struct BasicAppSettingsView: View {
             .frame(height: rowHeight)
             
             KeyValueView(key: "App version",
-                         value:"\(app.marketingVersion) (\(app.buildVersion))"
-)
+                         value:"\(app.marketingVersion) (\(app.buildVersion))")
 
             KeyValueView(key: "Network", value: app.network.rawValue)
 
@@ -41,12 +40,12 @@ struct BasicAppSettingsView: View {
             }
         }
         .background(
-          Rectangle()
-            .edgesIgnoringSafeArea(.all)
-            .foregroundColor(Color.gnoWhite)
+            Rectangle()
+                .edgesIgnoringSafeArea(.all)
+                .foregroundColor(Color.gnoWhite)
         )
         .onAppear {
-//            self.trackEvent(.settingsApp)
+            self.trackEvent(.settingsApp)
         }
     }
 }
