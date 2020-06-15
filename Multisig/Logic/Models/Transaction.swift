@@ -46,6 +46,10 @@ struct Transaction: Decodable, Identifiable, Hashable {
     let signatures: String?
     let transfers: [Transfer]?
     let txType: TransactionType?
+
+    var remainingConfirmationsRequired: Int {
+        return max((confirmationsRequired ?? 0) - (confirmations!.count), 0)
+    }
 }
 
 extension Transaction {

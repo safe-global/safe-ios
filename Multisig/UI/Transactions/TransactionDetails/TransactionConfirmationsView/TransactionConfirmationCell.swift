@@ -17,16 +17,15 @@ struct TransactionConfirmationCell: View {
             TransactionConfiramtionStatusView(style: style)
 
             HStack {
-                if [TransactionConfiramtionStatusViewStyle.canceled, TransactionConfiramtionStatusViewStyle.executed].contains(style) {
-                    VerticalBarView().hidden()
-                }
-                else {
-                    VerticalBarView()
-                }
+                VerticalBarView().opacity(hasVerticalBar ? 0 : 1)
 
                 AddressCell(address: address)
             }
         }
+    }
+
+    var hasVerticalBar: Bool {
+        [.canceled, .executed].contains(style)
     }
 }
 

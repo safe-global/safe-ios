@@ -12,7 +12,10 @@ struct TransactionConfirmationsView: View {
     let transaction: BaseTransactionViewModel
     let safe: Safe
 
+    #warning("TODO: update after clarified requirements")
+
     var body: some View {
+        assert(transaction.hasConfirmations)
         return VStack(alignment: .leading, spacing: 1) {
             TransactionConfirmationCell(address: transaction.confirmations!.first!.address, style: .created)
 
@@ -36,11 +39,11 @@ struct TransactionConfirmationsView: View {
             }
 
             if transaction.status == .waitingConfirmation {
-                if !isConfirmed {
+                if !isConfirmedBySelectedSafe {
                     VerticalBarView()
                 }
 
-                TransactionConfiramtionStatusView(style: .waitingConfirmations((transaction.threshold ?? 0) - transaction.confirmations!.count))
+                TransactionConfiramtionStatusView(style: .waitingConfirmations(transaction.remainingConfirmationsRequired))
             }
         }.fixedSize()
     }
@@ -49,23 +52,20 @@ struct TransactionConfirmationsView: View {
         let status = transaction.status
         if transaction.status == .canceled {
             return .canceled
-        }
-        else if transaction.status == .failed {
+        } else if transaction.status == .failed {
             return .failed
-        }
-        else if status == .waitingConfirmation {
-            return isConfirmed ? nil : .confirm
-        }
-        else if status == .waitingExecution {
+        } else if status == .waitingConfirmation {
+            return isConfirmedBySelectedSafe ? nil : .confirm
+        } else if status == .waitingExecution {
             return .execute
         }
 
         return nil
     }
 
-    var isConfirmed: Bool {
-        return transaction.confirmations!.first { (confirmation) -> Bool in
+    var isConfirmedBySelectedSafe: Bool {
+        transaction.confirmations!.first { (confirmation) -> Bool in
             confirmation.address == safe.address
-            } != nil
+        } != nil
     }
 }

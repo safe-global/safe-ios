@@ -38,11 +38,18 @@ class BaseTransactionViewModel: Identifiable {
     var threshold: Int?
     var confirmations: [TransactionConfirmationViewModel]?
 
+    var remainingConfirmationsRequired: Int
+
+    var hasConfirmations: Bool {
+        return !(confirmations?.isEmpty ?? true)
+    }
+
     init() {
         status = .success
         formattedDate = ""
         date = Date()
         confirmations = []
+        remainingConfirmationsRequired = 0
     }
 }
 
@@ -98,7 +105,7 @@ class CustomTransaction: TransferTransaction {
 
 class TransactionConfirmationViewModel: Equatable {
     static func == (lhs: TransactionConfirmationViewModel, rhs: TransactionConfirmationViewModel) -> Bool {
-        return lhs.address == rhs.address && lhs.data == rhs.data && lhs.date == rhs.date
+        (lhs.address, lhs.data, lhs.date) == (rhs.address, rhs.data, rhs.date)
     }
 
     var address: String
@@ -308,6 +315,7 @@ class TransactionsViewModel: ObservableObject {
         }
 
         model.confirmations = confirmations
+        model.remainingConfirmationsRequired = tx.remainingConfirmationsRequired
     }
 
     func ethTransaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel? {
@@ -328,9 +336,7 @@ class TransactionsViewModel: ObservableObject {
         let confirmationModel = TransactionConfirmationViewModel()
         confirmationModel.address = confirmation.owner
         confirmationModel.data = confirmation.data
-
         confirmationModel.date = confirmation.submissionDate
-
         return confirmationModel
     }
 

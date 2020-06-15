@@ -32,8 +32,8 @@ struct TransactionConfiramtionStatusView: View {
             return "Canceled"
         case .failed:
             return "Failed"
-        case .waitingConfirmations(let remining):
-            return "Execute (\(remining) more confirmation needed)"
+        case .waitingConfirmations(let remaining):
+            return "Execute (\(remaining) more confirmation needed)"
         case .confirm:
             return "Confirm"
         case .execute:
@@ -45,44 +45,24 @@ struct TransactionConfiramtionStatusView: View {
         switch style {
         case .created:
             return "ico-create"
-        case .executed:
+        case .executed, .confirmed, .canceled:
             return "ico-confirm"
-        case .confirmed:
-            return "ico-confirm"
-        case .rejected:
+        case .rejected, .failed:
             return "ico-reject"
-        case .canceled:
-            return "ico-confirm"
-        case .failed:
-            return "ico-reject"
-        case .waitingConfirmations(_):
-            return "ico-empty-circle"
-        case .confirm:
-            return "ico-empty-circle"
-        case .execute:
+        default:
             return "ico-empty-circle"
         }
     }
 
     var color: Color {
         switch style {
-        case .created:
-            return .gnoHold
-        case .executed:
-            return .gnoHold
-        case .confirmed:
-            return .gnoHold
-        case .rejected:
-            return .gnoTomato
         case .canceled:
             return .gnoDarkBlue
-        case .failed:
-            return .gnoTomato
         case .waitingConfirmations(_):
             return .gnoMediumGrey
-        case .confirm:
-            return .gnoHold
-        case .execute:
+        case .rejected, .failed:
+            return .gnoTomato
+        default:
             return .gnoHold
         }
     }
