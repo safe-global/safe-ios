@@ -22,13 +22,13 @@ struct TransactionCellView: View {
                 FootnoteText(transaction.formattedDate, color: .gnoDarkGrey).opacity(opacity)
 
                 if [TransactionStatus.success, TransactionStatus.pending, TransactionStatus.canceled, TransactionStatus.failed].contains(transaction.status)  {
-                    FootnoteText(formatedStatusText, color: statusColor)
+                    TransactionStatusView(status: transaction.status, style: .footnote)
                 }
             }
 
             if [TransactionStatus.waitingConfirmation, TransactionStatus.waitingExecution].contains(transaction.status) {
                 HStack {
-                    FootnoteText(formatedStatusText, color: statusColor)
+                    TransactionStatusView(status: transaction.status, style: .footnote)
 
                     Spacer()
 
@@ -58,29 +58,6 @@ struct TransactionCellView: View {
             } else {
                 EmptyView()
             }
-        }
-    }
-
-    var formatedStatusText: String {
-        let statusTitle = transaction.status.title
-        switch transaction.status {
-        case .waitingExecution, .waitingConfirmation, .pending:
-            return "• " + statusTitle
-        case .failed, .canceled, .success:
-            return statusTitle
-        }
-    }
-
-    var statusColor: Color {
-        switch transaction.status {
-        case .waitingExecution, .waitingConfirmation, .pending:
-             return .gnoPending
-        case .failed:
-            return .gnoTomato
-        case .canceled:
-            return .gnoDarkGrey
-        case .success:
-            return .gnoHold
         }
     }
 
