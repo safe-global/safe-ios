@@ -28,7 +28,7 @@ struct TransactionsList {
     }
 }
 
-class BaseTransactionViewModel {
+class BaseTransactionViewModel: Identifiable {
 
     var nonce: String?
     var status: TransactionStatus
@@ -36,11 +36,20 @@ class BaseTransactionViewModel {
     var formattedDate: String
     var confirmationCount: Int?
     var threshold: Int?
+    var confirmations: [TransactionConfirmationViewModel]?
+
+    var remainingConfirmationsRequired: Int
+
+    var hasConfirmations: Bool {
+        return !(confirmations?.isEmpty ?? true)
+    }
 
     init() {
         status = .success
         formattedDate = ""
         date = Date()
+        confirmations = []
+        remainingConfirmationsRequired = 0
     }
 }
 
@@ -89,8 +98,24 @@ class CustomTransaction: TransferTransaction {
     var dataLength: Int
 
     override init() {
-        dataLength  = 98
+        dataLength  = 0
         super.init()
+    }
+}
+
+class TransactionConfirmationViewModel: Equatable {
+    static func == (lhs: TransactionConfirmationViewModel, rhs: TransactionConfirmationViewModel) -> Bool {
+        (lhs.address, lhs.data, lhs.date) == (rhs.address, rhs.data, rhs.date)
+    }
+
+    var address: String
+    var date: Date?
+    var data: String?
+
+    init() {
+        address = ""
+        data = ""
+        date = Date()
     }
 }
 
@@ -243,6 +268,7 @@ class TransactionsViewModel: ObservableObject {
                 transaction.threshold = tx.confirmationsRequired
 
                 transaction.status = .success
+                transaction.confirmations = []
 
                 result.append(transaction)
             }
@@ -281,6 +307,15 @@ class TransactionsViewModel: ObservableObject {
         model.date = tx.executionDate ?? tx.submissionDate ?? tx.modified
         assert(model.date != nil)
         model.formattedDate = model.date.map { dateFormatter.string(from: $0) } ?? ""
+
+        var confirmations: [TransactionConfirmationViewModel] = []
+
+        for confirmation in tx.confirmations ?? [] {
+            confirmations.append(self.confirmation(from: confirmation))
+        }
+
+        model.confirmations = confirmations
+        model.remainingConfirmationsRequired = tx.remainingConfirmationsRequired
     }
 
     func ethTransaction(from tx: Transaction, _ info: SafeStatusRequest.Response) -> BaseTransactionViewModel? {
@@ -295,6 +330,14 @@ class TransactionsViewModel: ObservableObject {
         (result.amount, result.tokenSymbol) = formattedAmount(tx.value, nil, isNegative: result.isOutgoing)
         updateBaseFields(in: result, from: tx, info: info)
         return result
+    }
+
+    func confirmation(from confirmation: TransactionConfirmation) -> TransactionConfirmationViewModel {
+        let confirmationModel = TransactionConfirmationViewModel()
+        confirmationModel.address = confirmation.owner
+        confirmationModel.data = confirmation.data
+        confirmationModel.date = confirmation.submissionDate
+        return confirmationModel
     }
 
     enum ERC20Methods: String {

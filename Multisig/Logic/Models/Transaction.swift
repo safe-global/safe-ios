@@ -42,10 +42,14 @@ struct Transaction: Decodable, Identifiable, Hashable {
     let origin: String?
     let dataDecoded: DecodedData?
     let confirmationsRequired: Int?
-    let confirmations: [TrnasactionConfirmation]?
+    let confirmations: [TransactionConfirmation]?
     let signatures: String?
     let transfers: [Transfer]?
     let txType: TransactionType?
+
+    var remainingConfirmationsRequired: Int {
+        return max((confirmationsRequired ?? 0) - (confirmations!.count), 0)
+    }
 }
 
 extension Transaction {
@@ -73,7 +77,7 @@ extension Transaction {
     }
 }
 
-struct TrnasactionConfirmation: Decodable, Hashable {
+struct TransactionConfirmation: Decodable, Hashable {
     let owner: String
     let submissionDate: Date
     let transactionHash: String?
