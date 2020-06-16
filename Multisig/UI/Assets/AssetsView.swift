@@ -42,7 +42,9 @@ struct AssetsView: View {
                 .background(Color.gnoWhite)
             } else {
                 VStack(spacing: 0) {                    
-                    AddSafeIntroView()
+                    AddSafeIntroView().onAppear {
+                        self.trackEvent(.assetsNoSafe)
+                    }
                 }
             }
         }

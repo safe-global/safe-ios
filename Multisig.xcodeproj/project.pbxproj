@@ -188,6 +188,13 @@
 		55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E88247FE09A00249E98 /* BottomOverlayView.swift */; };
 		55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */; };
 		55B66E8E24810BC800249E98 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8D24810BC800249E98 /* AppSettingsTests.swift */; };
+		55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0824939079003B2B19 /* ConsoleTracker.swift */; };
+		55CEFC0D24939079003B2B19 /* CrashlyticsTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0924939079003B2B19 /* CrashlyticsTrackingHandler.swift */; };
+		55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */; };
+		55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0B24939079003B2B19 /* Tracker.swift */; };
+		55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC102493923A003B2B19 /* TrackerTests.swift */; };
+		55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1D24939503003B2B19 /* View+Tracking.swift */; };
+		55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1F24939525003B2B19 /* TrackingEvent.swift */; };
 		55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */; };
 		55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A3092475375B00ABBA6F /* AssetsView.swift */; };
 		55F9A3102475381800ABBA6F /* FootnoteText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A30F2475381800ABBA6F /* FootnoteText.swift */; };
@@ -436,6 +443,13 @@
 		55B66E88247FE09A00249E98 /* BottomOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOverlayView.swift; sourceTree = "<group>"; };
 		55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemitransparentBackgroundView.swift; sourceTree = "<group>"; };
 		55B66E8D24810BC800249E98 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
+		55CEFC0824939079003B2B19 /* ConsoleTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
+		55CEFC0924939079003B2B19 /* CrashlyticsTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashlyticsTrackingHandler.swift; sourceTree = "<group>"; };
+		55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
+		55CEFC0B24939079003B2B19 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		55CEFC102493923A003B2B19 /* TrackerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerTests.swift; sourceTree = "<group>"; };
+		55CEFC1D24939503003B2B19 /* View+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Tracking.swift"; sourceTree = "<group>"; };
+		55CEFC1F24939525003B2B19 /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
 		55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenImage.swift; sourceTree = "<group>"; };
 		55F9A3092475375B00ABBA6F /* AssetsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
 		55F9A30F2475381800ABBA6F /* FootnoteText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootnoteText.swift; sourceTree = "<group>"; };
@@ -637,6 +651,7 @@
 			children = (
 				0A6430F3247ECB23006FD30A /* Configuration */,
 				5532D4C42449A1980067505A /* Logger */,
+				55CEFC0724938FEC003B2B19 /* Analytics */,
 			);
 			path = "Cross-layer";
 			sourceTree = "<group>";
@@ -949,6 +964,12 @@
 			isa = PBXGroup;
 			children = (
 				0ACDC01424925A96002035A2 /* FirebaseConfig.swift */,
+				55CEFC0B24939079003B2B19 /* Tracker.swift */,
+				55CEFC0824939079003B2B19 /* ConsoleTracker.swift */,
+				55CEFC0924939079003B2B19 /* CrashlyticsTrackingHandler.swift */,
+				55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */,
+				55CEFC1D24939503003B2B19 /* View+Tracking.swift */,
+				55CEFC1F24939525003B2B19 /* TrackingEvent.swift */,
 				0ACDC012249253D7002035A2 /* Firebase */,
 			);
 			path = Analytics;
@@ -1201,6 +1222,14 @@
 				55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */,
 			);
 			path = Overlays;
+			sourceTree = "<group>";
+		};
+		55CEFC0724938FEC003B2B19 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				55CEFC102493923A003B2B19 /* TrackerTests.swift */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		55F9A2E52472F3EE00ABBA6F /* Assets */ = {
@@ -1532,6 +1561,7 @@
 				0497F6E72488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift in Sources */,
 				0460AB3F24807FF5005CA275 /* TransactionDetailsView.swift in Sources */,
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
+				55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */,
 				04769165246408D000D73D8B /* AdvancedSafeSettingsView.swift in Sources */,
 				55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */,
 				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
@@ -1547,6 +1577,7 @@
 				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
+				55CEFC0D24939079003B2B19 /* CrashlyticsTrackingHandler.swift in Sources */,
 				0A704A5C24740146005BDC49 /* TabViewItem.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				0497F6E92488EC5600A1F4DE /* CustomTransactionCellView.swift in Sources */,
@@ -1583,6 +1614,7 @@
 				0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */,
 				55F9A3212475578C00ABBA6F /* BalancesViewModel.swift in Sources */,
 				55F9A3102475381800ABBA6F /* FootnoteText.swift in Sources */,
+				55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */,
 				0A0EFCA8246EB13300D3D8BF /* KeyValueRow.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
@@ -1592,6 +1624,7 @@
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A0EFC9A246DAC1A00D3D8BF /* TabChildView.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
+				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
 				0A704A572473F903005BDC49 /* BottomTabView.swift in Sources */,
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
@@ -1617,6 +1650,7 @@
 				047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
+				55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */,
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
 				0ADDA21324534F1B0066457E /* EnterSafeNameViewModel.swift in Sources */,
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,
@@ -1625,6 +1659,7 @@
 				0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */,
 				0476916A246437C300D73D8B /* ContractVersionCell.swift in Sources */,
 				0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */,
+				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */,
@@ -1697,6 +1732,7 @@
 				0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */,
 				0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */,
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
+				55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */,
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
 				551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,

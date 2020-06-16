@@ -28,6 +28,9 @@ struct TransactionsContentView: View {
                 transactionsList
             }
         }
+        .onAppear {
+            self.trackEvent(.transactions)
+        }
     }
 
     var transactionsList: some View {

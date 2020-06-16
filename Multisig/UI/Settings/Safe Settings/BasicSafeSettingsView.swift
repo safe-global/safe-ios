@@ -54,6 +54,9 @@ struct BasicSafeSettingsView: View {
 				RemoveSafeButton(safe: self.safe)
             }
         }
+        .onAppear {
+            self.trackEvent(.settingsSafe)
+        }
     }
 }
 

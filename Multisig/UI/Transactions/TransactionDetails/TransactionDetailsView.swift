@@ -25,6 +25,10 @@ struct TransactionDetailsView: View {
                 BodyText("Advanced")
             }
             .frame(height: 48)
-        }.navigationBarTitle("Transaction Details", displayMode: .inline)
+        }
+        .navigationBarTitle("Transaction Details", displayMode: .inline)
+        .onAppear {
+            self.trackEvent(.transactionsDetails)
+        }
     }
 }

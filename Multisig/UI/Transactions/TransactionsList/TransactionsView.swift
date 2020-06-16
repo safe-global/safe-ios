@@ -20,7 +20,9 @@ struct TransactionsView: View {
             .foregroundColor(Color.gnoWhite)
 
             if selectedSafe.first == nil {
-                AddSafeIntroView()
+                AddSafeIntroView().onAppear {
+                    self.trackEvent(.transactionsNoSafe)
+                }
             } else {
                 TransactionsContentView(selectedSafe.first!)
             }

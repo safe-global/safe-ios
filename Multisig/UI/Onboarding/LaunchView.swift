@@ -58,7 +58,12 @@ struct LaunchView: View {
                         .alignmentGuide(.centerVerticalAlignment) { $0[VerticalAlignment.center] }
                         .padding(.bottom, self.textToButtonSpacing)
 
-                    Button("Get Started") { self.showTerms = true }
+                    Button("Get Started") {
+                        self.showTerms = true
+                        // overlay view is loaded immediately
+                        // so we can not track on view appear
+                        self.trackEvent(.launchTems)
+                    }
                         .buttonStyle(GNOFilledButtonStyle())
                 }
             }
@@ -69,6 +74,9 @@ struct LaunchView: View {
                       isAgreeWithTermsPresented: $showTerms)
         })
         .edgesIgnoringSafeArea(.all)
+        .onAppear {
+            self.trackEvent(.launch)
+        }
     }
 }
 

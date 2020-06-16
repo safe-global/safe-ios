@@ -37,6 +37,9 @@ struct EnterSafeAddressView: View {
         .navigationBarTitle("Load Safe Multisig", displayMode: .inline)
         .navigationBarItems(trailing: nextButton)
         .onReceive(model.$text, perform: model.validate(address:))
+        .onAppear {
+            self.trackEvent(.safeAddAddress)
+        }
     }
 
     var nextButton: some View {
