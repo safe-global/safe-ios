@@ -26,10 +26,7 @@ extension Safe: Identifiable {
 
     static var count: Int {
         let context = App.shared.coreDataStack.viewContext
-        if let count = try? context.count(for: Safe.fetchRequest().all()) {
-            return count
-        }
-        return 0
+        return (try? context.count(for: Safe.fetchRequest().all())) ?? 0
     }
 
     public override func awakeFromInsert() {

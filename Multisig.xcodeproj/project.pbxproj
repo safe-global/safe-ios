@@ -651,7 +651,7 @@
 			children = (
 				0A6430F3247ECB23006FD30A /* Configuration */,
 				5532D4C42449A1980067505A /* Logger */,
-				55CEFC0724938FEC003B2B19 /* Tracker */,
+				55CEFC0724938FEC003B2B19 /* Analytics */,
 			);
 			path = "Cross-layer";
 			sourceTree = "<group>";
@@ -964,6 +964,12 @@
 			isa = PBXGroup;
 			children = (
 				0ACDC01424925A96002035A2 /* FirebaseConfig.swift */,
+				55CEFC0B24939079003B2B19 /* Tracker.swift */,
+				55CEFC0824939079003B2B19 /* ConsoleTracker.swift */,
+				55CEFC0924939079003B2B19 /* CrashlyticsTrackingHandler.swift */,
+				55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */,
+				55CEFC1D24939503003B2B19 /* View+Tracking.swift */,
+				55CEFC1F24939525003B2B19 /* TrackingEvent.swift */,
 				0ACDC012249253D7002035A2 /* Firebase */,
 			);
 			path = Analytics;
@@ -1056,7 +1062,6 @@
 				0A6430D8247EC180006FD30A /* Configuration */,
 				044A544C2448E5CF009CBB80 /* Localization */,
 				5532D4AE2449A17D0067505A /* Logger */,
-				55CEFC0624938FC0003B2B19 /* Tracker */,
 			);
 			path = "Cross-layer";
 			sourceTree = "<group>";
@@ -1219,25 +1224,12 @@
 			path = Overlays;
 			sourceTree = "<group>";
 		};
-		55CEFC0624938FC0003B2B19 /* Tracker */ = {
-			isa = PBXGroup;
-			children = (
-				55CEFC0B24939079003B2B19 /* Tracker.swift */,
-				55CEFC0824939079003B2B19 /* ConsoleTracker.swift */,
-				55CEFC0924939079003B2B19 /* CrashlyticsTrackingHandler.swift */,
-				55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */,
-				55CEFC1D24939503003B2B19 /* View+Tracking.swift */,
-				55CEFC1F24939525003B2B19 /* TrackingEvent.swift */,
-			);
-			path = Tracker;
-			sourceTree = "<group>";
-		};
-		55CEFC0724938FEC003B2B19 /* Tracker */ = {
+		55CEFC0724938FEC003B2B19 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
 				55CEFC102493923A003B2B19 /* TrackerTests.swift */,
 			);
-			path = Tracker;
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		55F9A2E52472F3EE00ABBA6F /* Assets */ = {
