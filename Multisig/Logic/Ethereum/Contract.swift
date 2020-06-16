@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import BigInt
 
 class Contract {
 
@@ -25,20 +24,20 @@ class Contract {
 
 
     func encodeUInt(_ value: Int) -> Data {
-        return encodeUInt(BigUInt(value))
+        return encodeUInt(UInt256(value))
     }
 
-    func encodeUInt(_ value: BigInt) -> Data {
-        return encodeUInt(BigUInt(value))
+    func encodeUInt(_ value: Int256) -> Data {
+        return encodeUInt(UInt256(value))
     }
 
-    func encodeUInt(_ value: BigUInt) -> Data {
+    func encodeUInt(_ value: UInt256) -> Data {
         return Data(ethHex: String(value, radix: 16)).leftPadded(to: 32).suffix(32)
     }
 
-    func decodeUInt(_ value: Data) -> BigUInt {
+    func decodeUInt(_ value: Data) -> UInt256 {
         let bigEndianValue = value.count > 32 ? value.prefix(32) : value
-        return BigUInt(bigEndianValue)
+        return UInt256(bigEndianValue)
     }
 
     /// NOTE: resulting address is NOT formatted according to EIP-55
@@ -48,10 +47,10 @@ class Contract {
     }
 
     func encodeAddress(_ value: Address) -> Data {
-        return encodeUInt(BigUInt(Data(value.rawAddress)))
+        return encodeUInt(UInt256(Data(value.rawAddress)))
     }
 
-    func decodeArrayUInt(_ value: Data) -> [BigUInt] {
+    func decodeArrayUInt(_ value: Data) -> [UInt256] {
         if value.isEmpty { return [] }
         let offset = decodeUInt(value)
         guard offset < value.count else { return [] }
@@ -62,19 +61,19 @@ class Contract {
         return decodeTupleUInt(data.suffix(from: data.startIndex + 32), Int(count))
     }
 
-    func encodeArrayUInt(_ value: [BigUInt]) -> Data {
-        return encodeUInt(32) + encodeUInt(BigUInt(value.count)) + encodeTupleUInt(value)
+    func encodeArrayUInt(_ value: [UInt256]) -> Data {
+        return encodeUInt(32) + encodeUInt(UInt256(value.count)) + encodeTupleUInt(value)
     }
 
     func encodeArrayAddress(_ value: [Address]) -> Data {
-        return encodeArrayUInt(value.map { BigUInt(Data($0.rawAddress)) })
+        return encodeArrayUInt(value.map { UInt256(Data($0.rawAddress)) })
     }
 
     func decodeArrayAddress(_ value: Data) -> [Address] {
         return decodeArrayUInt(value).map { Address($0) }
     }
 
-    func decodeTupleUInt(_ value: Data, _ count: Int) -> [BigUInt] {
+    func decodeTupleUInt(_ value: Data, _ count: Int) -> [UInt256] {
         if value.count < count * 32 { return [] }
         let rawValues = stride(from: value.startIndex, to: value.startIndex + count * 32, by: 32).map { i in
             value[i..<i + 32]
@@ -82,15 +81,15 @@ class Contract {
         return rawValues.compactMap { decodeUInt($0) }
     }
 
-    func encodeTupleUInt(_ value: [BigUInt]) -> Data {
+    func encodeTupleUInt(_ value: [UInt256]) -> Data {
         return (value.map { headUInt($0) } + value.map { tailUInt($0) }).reduce(into: Data()) { $0.append($1) }
     }
 
-    func headUInt(_ value: BigUInt) -> Data {
+    func headUInt(_ value: UInt256) -> Data {
         return encodeUInt(value)
     }
 
-    func tailUInt(_ value: BigUInt) -> Data {
+    func tailUInt(_ value: UInt256) -> Data {
         return Data()
     }
 
@@ -113,7 +112,7 @@ class Contract {
     func encodeBytes(_ value: Data) -> Data {
         let byteLength = value.count % 32 == 0 ? value.count :
             (value.count + 32 - value.count % 32)
-        return encodeUInt(BigUInt(value.count)) +
+        return encodeUInt(UInt256(value.count)) +
             value.rightPadded(to: byteLength)
     }
 

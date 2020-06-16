@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import BigInt
 
 class ERC721Metadata: ERC20Metadata {
 
-    func tokenURI(tokenId: BigInt) throws -> String? {
+    func tokenURI(tokenId: UInt256) throws -> String? {
         try decodeString(invoke("tokenURI(uint256)", encodeUInt(tokenId)))
     }
 

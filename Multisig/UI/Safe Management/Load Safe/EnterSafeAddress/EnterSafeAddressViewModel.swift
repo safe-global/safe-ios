@@ -49,13 +49,12 @@ class EnterSafeAddressViewModel: ObservableObject {
                 self.reset()
                 return v.trimmingCharacters(in: .whitespacesAndNewlines)
             }
-            .tryMap { text -> String in
-                let address = try Address(text, isERC681: true)
-                return address.hex(eip55: true)
+            .tryMap { text in
+                try Address(text, isERC681: true)
             }
-            .map { v -> String in
+            .map { v -> Address in
                 self.isAddress = true
-                self.displayText = v
+                self.displayText = v.checksummed
 
                 self.isValidating = true
                 return v
@@ -65,7 +64,7 @@ class EnterSafeAddressViewModel: ObservableObject {
                     DispatchQueue.global().async {
                         do {
                             try Safe.download(at: address)
-                            promise(.success(address))
+                            promise(.success(address.checksummed))
                         } catch {
                             promise(.failure(error))
                         }

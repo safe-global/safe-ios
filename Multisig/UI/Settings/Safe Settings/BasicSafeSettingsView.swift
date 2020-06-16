@@ -18,7 +18,12 @@ struct BasicSafeSettingsView: View {
     var body: some View {
         List {
             Section(header: SectionHeader("SAFE NAME")) {
-                NavigationLink(destination: EditSafeNameView(address: safe.address ?? "", name: safe.name ?? "").hidesSystemNavigationBar(false)) {
+                NavigationLink(destination:
+                    EditSafeNameView(
+                        address: safe.address ?? "",
+                        name: safe.name ?? ""
+                    )
+                    .hidesSystemNavigationBar(false)) {
                     BodyText(safe.name ?? "")
                 }
                     
@@ -32,12 +37,12 @@ struct BasicSafeSettingsView: View {
 
             Section(header: SectionHeader("OWNER ADDRESSES")) {
                 ForEach(safe.owners ?? [], id: \.self, content: { owner in
-                    AddressCell(address: owner)
+                    AddressCell(address: owner.checksummed)
                 })
             }
 
             Section(header: SectionHeader("CONTRACT VERSION")) {
-                ContractVersionCell(masterCopy: safe.masterCopy)
+                ContractVersionCell(masterCopy: safe.masterCopy?.checksummed)
             }
 
             Section(header: SectionHeader("ENS NAME")) {
@@ -50,7 +55,7 @@ struct BasicSafeSettingsView: View {
                     BodyText("Advanced")
                 }
                 .frame(height: rowHeight)
-                
+
 				RemoveSafeButton(safe: self.safe)
             }
         }

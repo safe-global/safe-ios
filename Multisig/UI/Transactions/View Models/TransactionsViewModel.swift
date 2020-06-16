@@ -1,35 +1,41 @@
 //
-//  AssetsViewModel.swift
+//  TransactionListViewModel.swift
 //  Multisig
 //
-//  Created by Andrey Scherbovich on 13.05.20.
+//  Created by Moaaz on 5/27/20.
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
 import Foundation
 import Combine
 
-
-
-class BalancesViewModel: ObservableObject {
-    @Published var balances = [TokenBalance]()
+class TransactionsViewModel: ObservableObject {
+    @Published var transactionsList = TransactionsList()
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
 
+    private let safe: Safe
     private var subscribers = Set<AnyCancellable>()
 
     init(safe: Safe) {
+        self.safe = safe
+        loadData()
+    }
+
+    func loadData() {
         isLoading = true
         Just(safe.address!)
             .compactMap { Address($0) }
             .setFailureType(to: Error.self)
             .flatMap { address in
-                Future<[TokenBalance], Error> { promise in
+                Future<TransactionsList, Error> { promise in
                     DispatchQueue.global().async {
                         do {
-                            let balancesResponse = try App.shared.safeTransactionService.safeBalances(at: address)
-                            let tokenBalances = balancesResponse.map { TokenBalance($0) }
-                            promise(.success(tokenBalances))
+                            let info = try App.shared.safeTransactionService.safeInfo(at: address)
+                            let transactions = try App.shared.safeTransactionService.transactions(address: address)
+                            let models = transactions.results.flatMap { BaseTransactionViewModel.create(from: $0, info) }
+                            let list = TransactionsList(models)
+                            promise(.success(list))
                         } catch {
                             promise(.failure(error))
                         }
@@ -42,9 +48,10 @@ class BalancesViewModel: ObservableObject {
                     self.errorMessage = error.localizedDescription
                 }
                 self.isLoading = false
-            }, receiveValue:{ tokenBalances in
-                self.balances = tokenBalances
+            }, receiveValue:{ transactionsList in
+                self.transactionsList = transactionsList
             })
             .store(in: &subscribers)
     }
+
 }
