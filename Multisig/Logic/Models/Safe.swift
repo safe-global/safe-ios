@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import FirebaseAnalytics
 
 extension Safe: Identifiable {
 
@@ -22,6 +23,14 @@ extension Safe: Identifiable {
     var displayName: String { name.flatMap { $0.isEmpty ? nil : $0 } ?? "Untitled Safe" }
 
     var displayENSName: String { "" }
+
+    static var count: Int {
+        let context = App.shared.coreDataStack.viewContext
+        if let count = try? context.count(for: Safe.fetchRequest().all()) {
+            return count
+        }
+        return 0
+    }
 
     public override func awakeFromInsert() {
         super.awakeFromInsert()
@@ -70,6 +79,8 @@ extension Safe: Identifiable {
         }
 
         App.shared.coreDataStack.saveContext()
+        
+        Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
     }
     
     static func edit(address: String, name: String) {
@@ -98,6 +109,8 @@ extension Safe: Identifiable {
         }
 
         App.shared.coreDataStack.saveContext()
+
+        Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
     }
 }
 

@@ -39,6 +39,8 @@ final class FirebaseTrackingHandler: TrackingHandler {
     private let nameHeadCharacterSet = CharacterSet.letters
     private let maxParameterCount = 25
     private let stringParameterLengthRange = (1...100)
+    private let propertyNameLengthRange = (1...24)
+    private let propertyValueLengthRange = (0...36)
 
     /// Tracks an event with parameters, verifying that event name, parameter count, parameter names and values
     /// are conforming to Firebase's limitations specified in the FIRAnalytics.h
@@ -68,6 +70,19 @@ final class FirebaseTrackingHandler: TrackingHandler {
             }
         }
         Analytics.logEvent(event, parameters: parameters)
+    }
+
+    /// Sets user property.
+    ///
+    /// - Parameters:
+    ///   - value: String value
+    ///   - property: UserProperty
+    func setUserProperty(_ value: String, for property: UserProperty) {
+        assert(propertyNameLengthRange.contains(property.rawValue.count), "wrong property name length")
+        assert(propertyValueLengthRange.contains(value.count), "wrong property value length")
+        checkPrefix(value: value)
+
+        Analytics.setUserProperty(value, forName: property.rawValue)
     }
 
     /// Verifies that the name is correct.

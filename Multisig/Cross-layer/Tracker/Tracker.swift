@@ -33,7 +33,6 @@ import Foundation
 
  */
 class Tracker {
-
     /// Singleton instance.
     static var shared = Tracker()
 
@@ -48,7 +47,6 @@ class Tracker {
         guard !trackingHandlers.contains(where: { $0 === handler }) else { return }
         trackingHandlers.append(handler)
     }
-
 
     /// Deletes a handler, if it is registered. If not, this operation does nothing.
     ///
@@ -74,6 +72,16 @@ class Tracker {
         }
     }
 
+    /// Propagates the user property to all registered event handlers.
+    ///
+    /// - Parameters:
+    ///   - value: String value
+    ///   - property: UserProperty
+    func setUserProperty(_ value: String, for property: UserProperty) {
+        for handler in trackingHandlers {
+            handler.setUserProperty(value, for: property)
+        }
+    }
 }
 
 /// Concrete implementations of tracking systems should conform to this protocol to be registered with the Tracker.
@@ -84,6 +92,19 @@ protocol TrackingHandler: class {
     ///   - event: occurred event
     ///   - parameters: optional parameters
     func track(event: String, parameters: [String: Any]?)
+
+    /// Set user property for tracking events.
+    ///
+    /// - Parameters:
+    ///   - value: String value
+    ///   - property: UserProperty
+    func setUserProperty(_ value: String, for property: UserProperty)
+}
+
+/// Conform your enum to this protocol to use it as a user property.
+protocol UserProperty {
+    // Raw value of the enum (String)
+    var rawValue: String { get }
 }
 
 /// Conform your enum to this protocol for it to be tracked with Tracker.
@@ -97,24 +118,8 @@ protocol Trackable {
 }
 
 extension Trackable {
-
     var eventName: String { return rawValue }
     var parameters: [String: Any]? { return nil }
-
-}
-
-extension Tracker {
-
-    static let screenViewEventName = "gnosis_screen_view"
-    static let screenNameEventParameterName = "screen_name"
-
 }
 
 protocol ScreenTrackingEvent: Trackable {}
-
-extension ScreenTrackingEvent {
-
-    var eventName: String { return Tracker.screenViewEventName }
-    var parameters: [String: Any]? { return [Tracker.screenNameEventParameterName: rawValue] }
-
-}

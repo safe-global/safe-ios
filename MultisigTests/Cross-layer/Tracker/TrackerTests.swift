@@ -33,6 +33,13 @@ class TrackerTests: XCTestCase {
         XCTAssertEqual(params?["param"] as? String, "value")
     }
 
+    func test_whenSettingUserProperty_thenPassesItToHandler() {
+        tracker.setUserProperty("test_value", for: TestProperty.test)
+        let props = handler.properties.first
+        XCTAssertEqual(props?.property, TestProperty.test.rawValue)
+        XCTAssertEqual(props?.value, "test_value")
+    }
+
     func test_whenParamsWithDifferentKeys_thenMergesThem() {
         tracker.track(event: TestParamEvent(), parameters: ["other": "otherValue"])
         let params = handler.events.compactMap { $0.parameters }.first
@@ -61,25 +68,28 @@ class TrackerTests: XCTestCase {
 }
 
 enum TestEvent: String, Trackable, Equatable {
-
     case test = "Test"
+}
 
+enum TestProperty: String, UserProperty {
+    case test = "Test"
 }
 
 struct TestParamEvent: Trackable {
-
     var rawValue: String { return "test" }
     var eventName: String { return "param_event" }
     var parameters: [String: Any]? { return ["param": "value"] }
-
 }
 
 class TestHandler: TrackingHandler {
-
     var events: [(event: String, parameters: [String: Any]?)] = []
+    var properties: [(property: String, value: String)] = []
 
     func track(event: String, parameters: [String: Any]?) {
         events.append((event, parameters))
     }
 
+    func setUserProperty(_ value: String, for property: UserProperty) {
+        properties.append((property: property.rawValue, value: value))
+    }
 }

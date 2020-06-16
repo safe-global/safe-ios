@@ -19,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if DEBUG
         Tracker.shared.append(handler: ConsoleTracker())
         #endif
-//        Tracker.shared.append(handler: FirebaseTrackingHandler())
+        Tracker.shared.append(handler: FirebaseTrackingHandler())
+
+        // The requirement is to set num_safes property to "0" when there are no Safes
+        Tracker.shared.setUserProperty("\(Safe.count)", for: TrackingUserProperty.numSafes)
 
         return true
     }

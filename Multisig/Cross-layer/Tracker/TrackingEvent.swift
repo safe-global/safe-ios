@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum TrackingUserProperty: String, UserProperty {
+    case numSafes = "num_safes" // string, number of user safes, "0" on fresh install
+    case pushInfo = "push_info" // string: ["unknown", "disabled", "enabled"]
+}
+
 enum TrackingEvent: String, Trackable {
     case launch = "screen_launch"
     case launchTems = "screen_launch_terms"
