@@ -23,6 +23,8 @@
 		0460AB3F24807FF5005CA275 /* TransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AB3E24807FF5005CA275 /* TransactionDetailsView.swift */; };
 		0460AB412480800D005CA275 /* AdvancedTransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AB402480800D005CA275 /* AdvancedTransactionDetailsView.swift */; };
 		0460AB432480830A005CA275 /* TransactionsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AB422480830A005CA275 /* TransactionsContentView.swift */; };
+		046D0A432497BECE000F4021 /* TransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A422497BECE000F4021 /* TransactionStatusView.swift */; };
+		046D0A452497BED8000F4021 /* TransactionStatusTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A442497BED8000F4021 /* TransactionStatusTypeView.swift */; };
 		0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471D13124728C2C00B22A70 /* EmailLink.swift */; };
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
 		047300FE24781081004F1200 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FD24781081004F1200 /* AddressTests.swift */; };
@@ -232,6 +234,8 @@
 		0460AB3E24807FF5005CA275 /* TransactionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsView.swift; sourceTree = "<group>"; };
 		0460AB402480800D005CA275 /* AdvancedTransactionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTransactionDetailsView.swift; sourceTree = "<group>"; };
 		0460AB422480830A005CA275 /* TransactionsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsContentView.swift; sourceTree = "<group>"; };
+		046D0A422497BECE000F4021 /* TransactionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionStatusView.swift; sourceTree = "<group>"; };
+		046D0A442497BED8000F4021 /* TransactionStatusTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionStatusTypeView.swift; sourceTree = "<group>"; };
 		0471D13124728C2C00B22A70 /* EmailLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLink.swift; sourceTree = "<group>"; };
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
 		047300FD24781081004F1200 /* AddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
@@ -534,6 +538,7 @@
 				04F533602490E7BF00F28099 /* TransactionDetails */,
 				04F533642490E86600F28099 /* TransactionHeaderView.swift */,
 				0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */,
+				046D0A422497BECE000F4021 /* TransactionStatusView.swift */,
 				0497F6DD2487B54600A1F4DE /* DateView.swift */,
 			);
 			path = Transactions;
@@ -593,6 +598,7 @@
 			isa = PBXGroup;
 			children = (
 				04C7C4412490FA0F00D869C1 /* TransactionConfirmationsView */,
+				046D0A442497BED8000F4021 /* TransactionStatusTypeView.swift */,
 				0460AB3E24807FF5005CA275 /* TransactionDetailsView.swift */,
 				0460AB402480800D005CA275 /* AdvancedTransactionDetailsView.swift */,
 			);
@@ -1531,6 +1537,7 @@
 				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
 				04C7C4432490FA3C00D869C1 /* TransactionConfirmationCell.swift in Sources */,
 				0AF6500A24485E450018D070 /* Identicon.swift in Sources */,
+				046D0A432497BECE000F4021 /* TransactionStatusView.swift in Sources */,
 				04F533652490E86600F28099 /* TransactionHeaderView.swift in Sources */,
 				0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
@@ -1549,6 +1556,7 @@
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
 				551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */,
+				046D0A452497BED8000F4021 /* TransactionStatusTypeView.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
 				04EF2AEB2492883A0070ED1A /* TransactionConfiramtionStatusView.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,

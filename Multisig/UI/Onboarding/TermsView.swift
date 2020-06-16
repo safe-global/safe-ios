@@ -61,6 +61,7 @@ struct TermsView: View {
         var body: some View {
             HStack(alignment: .top) {
                 Image("ico-bullet-point")
+                    .foregroundColor(.gnoHold)
                     .padding(.top, bulletTopPadding)
                 Text(text)
                     .font(Font.gnoHeadline.weight(.medium))
