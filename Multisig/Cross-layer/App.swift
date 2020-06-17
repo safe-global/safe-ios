@@ -40,8 +40,6 @@ class App {
 
     var tokenRegistry = TokenRegistry()
 
-    let defaultFallbackHandler = Address("0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44")
-
     // Cross-layer
     static let configuration = AppConfiguration()
 

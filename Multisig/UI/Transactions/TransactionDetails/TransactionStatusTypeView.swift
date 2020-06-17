@@ -11,7 +11,7 @@ import SwiftUI
 struct TransactionStatusTypeView: View {
     let transaction: TransactionViewModel
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             HStack {
                 Image(imageName)
                 BodyText(title)

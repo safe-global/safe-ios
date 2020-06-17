@@ -12,7 +12,7 @@ struct SetFallbackHandlerTransactionDetailsHeaderView: View {
     let address: Address
 
     var body: some View {
-        VStack (alignment: .leading, spacing: 11) {
+        VStack(alignment: .leading, spacing: 11) {
             BoldText("Set fallback handler:")
             AddressCell(address: address.checksummed, title: App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: address), style: .shortAddress)
         }

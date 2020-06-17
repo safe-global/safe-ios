@@ -13,7 +13,7 @@ struct SwapOwnerTransactionDetailsHeaderView: View {
     let addedAddress: Address
 
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             AddRemoveOwnerTransactionDetailsHeaderView(state: .remove, address: removedAddress)
             AddRemoveOwnerTransactionDetailsHeaderView(state: .add, address: addedAddress)
         }

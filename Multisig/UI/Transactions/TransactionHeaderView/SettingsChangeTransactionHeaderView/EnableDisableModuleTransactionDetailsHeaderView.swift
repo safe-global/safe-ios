@@ -13,7 +13,7 @@ struct EnableDisableModuleTransactionDetailsHeaderView: View {
     var address: Address
 
     var body: some View {
-        VStack (alignment: .leading, spacing: 11) {
+        VStack(alignment: .leading, spacing: 11) {
             BoldText(title)
             AddressCell(address: address.checksummed, style: .shortAddress)
         }
