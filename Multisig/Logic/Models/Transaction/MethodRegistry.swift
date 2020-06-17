@@ -23,8 +23,8 @@ enum MethodRegistry {
 
 }
 
-func == (lhs: TransactionData, signature: MethodRegistry.MethodSignature) -> Bool {
-    (lhs.method, lhs.parameters.map { $0.type }) == (signature.name, signature.parameterTypes)
+func == (lhs: TransactionData, rhs: MethodRegistry.MethodSignature) -> Bool {
+    (lhs.method, lhs.parameters.map { $0.type }) == (rhs.name, rhs.parameterTypes)
 }
 
 protocol SmartContractMethodCall {
