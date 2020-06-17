@@ -17,13 +17,12 @@ struct CreateSafePrompt: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Text("Don't have a Safe? Create one first at")
+            BodyText("Don't have a Safe? Create one first at")
 
             Button(action: { self.showsLink.toggle() }) {
                 LinkText(title: url.absoluteString)
             }
         }
-        .font(Font.gnoBody.weight(.medium))
         .foregroundColor(.gnoDarkBlue)
         .sheet(isPresented: $showsLink, content: browser)
     }
