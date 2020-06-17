@@ -24,7 +24,7 @@ struct TransactionsView: View {
                     self.trackEvent(.transactionsNoSafe)
                 }
             } else {
-                TransactionsContentView(selectedSafe.first!)
+                TransactionListView(selectedSafe.first!)
             }
         }
     }

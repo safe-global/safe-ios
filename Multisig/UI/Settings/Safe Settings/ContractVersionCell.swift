@@ -22,7 +22,7 @@ struct ContractVersionCell: View {
     }
 
     var address: String {
-        masterCopy.hex(eip55: true)
+        masterCopy.checksummed
     }
 
     var versionView: some View {

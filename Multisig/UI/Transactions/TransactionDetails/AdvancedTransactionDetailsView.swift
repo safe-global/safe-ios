@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct AdvancedTransactionDetailsView: View {
-    let transaction: BaseTransactionViewModel
+    let transaction: TransactionViewModel
     
     var body: some View {
         Text("Hello, World!").onAppear {

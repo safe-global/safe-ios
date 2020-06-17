@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TransactionHeaderView: View {
-    let transaction: BaseTransactionViewModel
+    let transaction: TransactionViewModel
     var body: some View {
         Text("Header View")
     }
@@ -17,7 +17,7 @@ struct TransactionHeaderView: View {
 
 struct TransactionHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = CustomTransaction()
+        let transaction = CustomTransactionViewModel()
         transaction.address = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.confirmationCount = 1
         transaction.threshold = 2
