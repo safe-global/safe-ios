@@ -39,11 +39,9 @@ struct SettingsChangeTransactionDetailsHeaderView: View {
                 EnableDisableModuleTransactionDetailsHeaderView(state: .enable, address: enableModule!.module)
             } else if disableModule != nil {
                 EnableDisableModuleTransactionDetailsHeaderView(state: .disable, address: disableModule!.module)
-            }
-            else if changeThreshold != nil {
+            } else if changeThreshold != nil {
                 ChangeThresholdTransactionDetailsHeaderView(threshold: changeThreshold!.threshold)
-            }
-            else {
+            } else {
                 EmptyView()
             }
         }
