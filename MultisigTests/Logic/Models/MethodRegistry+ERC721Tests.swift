@@ -203,6 +203,4 @@ class MethodRegistry_ERC721Tests: MethodRegistryTestCase {
         XCTAssertFalse(MethodRegistry.ERC721.isValid(Transaction(operation: .call, dataDecoded: nil)))
     }
 
-
-
 }
