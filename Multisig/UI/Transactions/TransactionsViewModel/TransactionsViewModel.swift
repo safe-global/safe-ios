@@ -31,8 +31,11 @@ struct TransactionsList {
 class BaseTransactionViewModel: Identifiable {
 
     var nonce: String?
+    var hash: String?
     var status: TransactionStatus
     var date: Date?
+    var createdDate: String?
+    var executedDate: String?
     var formattedDate: String
     var confirmationCount: Int?
     var threshold: Int?
@@ -46,6 +49,7 @@ class BaseTransactionViewModel: Identifiable {
 
     init() {
         status = .success
+        hash = nil
         formattedDate = ""
         date = Date()
         confirmations = []
@@ -96,9 +100,12 @@ class SettingChangeTransaction: BaseTransactionViewModel {
 
 class CustomTransaction: TransferTransaction {
     var dataLength: Int
+    var formattedData: String
 
     override init() {
         dataLength  = 0
+        formattedData = ""
+
         super.init()
     }
 }
@@ -238,6 +245,7 @@ class TransactionsViewModel: ObservableObject {
                 case .unknown:
                     let custom = CustomTransaction()
                     custom.dataLength = tx.data.map { Data(hex: $0).count } ?? 0
+                    custom.formattedData = tx.data ?? ""
                     transaction = custom
                     value = transfer.value
                     tokenAddress = nil
@@ -259,12 +267,13 @@ class TransactionsViewModel: ObservableObject {
                 dateFormatter.dateStyle = .medium
                 dateFormatter.timeStyle = .medium
 
-                transaction.date = transfer.executionDate ?? tx.executionDate ?? tx.submissionDate ?? tx.modified
+                transaction.date = transfer.executionDate ?? tx.submissionDate ?? tx.modified
                 assert(transaction.date != nil)
                 transaction.formattedDate = transaction.date.map { dateFormatter.string(from: $0) } ?? ""
 
                 transaction.confirmationCount = transaction.confirmationCount
                 transaction.nonce = tx.nonce.map { String($0) }
+                transaction.hash = tx.transactionHash
                 transaction.threshold = tx.confirmationsRequired
 
                 transaction.status = .success
@@ -295,6 +304,7 @@ class TransactionsViewModel: ObservableObject {
 
     func updateBaseFields(in model: BaseTransactionViewModel, from tx: Transaction, info: SafeStatusRequest.Response) {
         model.nonce = tx.nonce.map { String($0) }
+        model.hash = tx.transactionHash
         model.status = tx.status(safeNonce: info.nonce, safeThreshold: info.threshold)
         model.confirmationCount = tx.confirmations?.count
         model.threshold = tx.confirmationsRequired
@@ -303,6 +313,9 @@ class TransactionsViewModel: ObservableObject {
         dateFormatter.locale = .autoupdatingCurrent
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .medium
+
+        model.createdDate = tx.submissionDate.map { dateFormatter.string(from: $0) } ?? ""
+        model.executedDate = tx.executionDate.map { dateFormatter.string(from: $0) } ?? ""
 
         model.date = tx.executionDate ?? tx.submissionDate ?? tx.modified
         assert(model.date != nil)
@@ -461,6 +474,7 @@ class TransactionsViewModel: ObservableObject {
         result.address = tx.to ?? Address.zero.hex(eip55: true)
         (result.amount, result.tokenSymbol) = formattedAmount(tx.value, nil, isNegative: result.isOutgoing)
         result.dataLength = tx.data.map { Data(hex: $0).count } ?? 0
+        result.formattedData = tx.data ?? ""
         updateBaseFields(in: result, from: tx, info: info)
         return result
     }
