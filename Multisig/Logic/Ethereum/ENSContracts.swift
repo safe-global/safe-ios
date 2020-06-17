@@ -10,16 +10,10 @@ class ENSRegistry: Contract {
     }
 }
 
-class ENSResolver: Contract {
+class ENSResolver: ERC165 {
     enum Selectors {
-        public static let supportsInterface = "supportsInterface(bytes4)"
         public static let address = "addr(bytes32)"
         public static let name = "name(bytes32)"
-    }
-
-    func supportsInterface(_ selector: String) throws -> Bool {
-        try decodeBool(invoke(Selectors.supportsInterface,
-                              encodeFixedBytes(method(selector))))
     }
 
     func address(node: Data) throws -> Address {
@@ -37,10 +31,21 @@ class ENSReverseResolver: Contract {
     }
 }
 
-class ENSRegistrar: Contract {
+class EthRegistrar: Contract {
+
+    static let address: Address = "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85"
 
     func ens() throws -> Address {
         try decodeAddress(invoke("ens()"))
+    }
+
+}
+
+class ERC165: Contract {
+
+    func supportsInterface(_ selector: String) throws -> Bool {
+        try decodeBool(invoke("supportsInterface(bytes4)",
+                              encodeFixedBytes(method(selector))))
     }
 
 }

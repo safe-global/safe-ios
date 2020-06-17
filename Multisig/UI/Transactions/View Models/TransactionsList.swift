@@ -9,7 +9,8 @@
 import Foundation
 
 struct TransactionsList {
-    struct Section {
+    struct Section: Identifiable {
+        let id = UUID()
         var name: String
         var transactions: [BaseTransactionViewModel]
 

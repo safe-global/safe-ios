@@ -10,27 +10,28 @@ import Foundation
 import SwiftCryptoTokenFormatter
 
 struct TokenBalance: Identifiable, Hashable {
-    var id: Int {
-        hashValue
+    var id: String {
+        address
     }
     var imageURL: URL? {
         // will be replaced when https://github.com/gnosis/safe-transaction-service/issues/86 is ready
-        guard let address = address else { return nil }
         return URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(String(describing: address)).png")!
     }
-    let address: String?
+    let address: String
     let symbol: String
     let balance: String
     let balanceUsd: String
 
     init(_ response: SafeBalancesRequest.Response) {
-        self.address = response.tokenAddress?.address.checksummed
+        let tokenAddress = response.tokenAddress?.address ?? AddressRegistry.ether
+        self.address = tokenAddress.checksummed
         self.symbol = response.token?.symbol ?? "ETH"
 
         let tokenFormatter = TokenFormatter()
 
         let amount = Int256(response.balance.value)
-        let precision =  response.token?.decimals.value ?? 0
+
+        let precision =  response.token?.decimals.value ?? 18 // ETH
 
         self.balance = tokenFormatter.string(
             from: BigDecimal(amount, Int(clamping: precision)),

@@ -8,7 +8,23 @@
 
 import Foundation
 
-class ERC721Metadata: ERC20Metadata {
+class ERC721: ERC165 {
+
+    enum Selectors {
+        static let safeTransferFrom = "safeTransferFrom(address,address,uint256)"
+    }
+
+    func name() throws -> String? {
+        try decodeString(invoke("name()"))
+    }
+
+    func symbol() throws -> String? {
+        try decodeString(invoke("symbol()"))
+    }
+
+    func decimals() throws -> Int {
+        try Int(clamping: decodeUInt(invoke("decimals()")))
+    }
 
     func tokenURI(tokenId: UInt256) throws -> String? {
         try decodeString(invoke("tokenURI(uint256)", encodeUInt(tokenId)))

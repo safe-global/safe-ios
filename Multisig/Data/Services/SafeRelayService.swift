@@ -54,38 +54,41 @@ class TokenRegistry {
     }
 
     private func blockchainToken(address: Address) -> TokensRequest.Token? {
-        let contract = ERC20Metadata(address)
-        let name = try? contract.name()
-        let symbol = try? contract.symbol()
-        let decimals = try? contract.decimals()
-
-        if name == nil && symbol == nil {
-            let registrar = ENSRegistrar(address)
-            if (try? registrar.ens()) != nil {
-            return .init(
-                address: .init(address),
-                logoUri: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(address.checksummed).png",
-                default: nil,
-                name: "ENS",
-                symbol: "ENS",
-                description: nil,
-                decimals: .init(0),
-                websiteUri: nil,
-                gas: nil)
-            }
+        if address == EthRegistrar.address {
+            return .init(address: .init(address),
+                         logoUri: nil,
+                         default: nil,
+                         name: "ENS",
+                         symbol: "ENS",
+                         description: nil,
+                         decimals: .init(0),
+                         websiteUri: nil,
+                         gas: nil)
         }
-        #warning("TODO: replace with issue #86")
-        return .init(
-            address: .init(address),
-            logoUri: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(address.checksummed).png",
-            default: nil,
-            name: name ?? "Unknown",
-            symbol: symbol ?? "",
-            description: nil,
-            decimals: .init(decimals ?? 0),
-            websiteUri: nil,
-            gas: nil)
 
+        let erc721 = ERC721(address)
+        if let is721 = try? erc721.supportsInterface(ERC721.Selectors.safeTransferFrom), is721 {
+            return .init(address: .init(address),
+                         logoUri: nil,
+                         default: nil,
+                         name: (try? erc721.name()) ?? "Unknown",
+                         symbol: (try? erc721.symbol()) ?? "",
+                         description: nil,
+                         decimals: .init(0),
+                         websiteUri: nil,
+                         gas: nil)
+        }
+
+        let erc20 = ERC20Metadata(address)
+        return .init(address: .init(address),
+                     logoUri: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(address.checksummed).png",
+                     default: nil,
+                     name: (try? erc20.name()) ?? "Unknown",
+                     symbol: (try? erc20.symbol()) ?? "",
+                     description: nil,
+                     decimals: .init((try? erc20.decimals()) ?? 0),
+                     websiteUri: nil,
+                     gas: nil)
     }
 
     subscript(address: String) -> TokensRequest.Token? {

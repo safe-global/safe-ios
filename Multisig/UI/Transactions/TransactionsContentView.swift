@@ -32,9 +32,9 @@ struct TransactionsContentView: View {
 
     var transactionsList: some View {
         List {
-            ForEach(model.transactionsList.sections, id: \.name) { section in
+            ForEach(model.transactionsList.sections) { section in
                 Section(header: SectionHeader(section.name)) {
-                    ForEach(section.transactions, id: \.nonce) { transaction in
+                    ForEach(section.transactions) { transaction in
                         TransactionCellView(transaction: transaction)
                     }
                     .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16))

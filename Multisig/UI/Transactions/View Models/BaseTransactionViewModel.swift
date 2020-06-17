@@ -8,8 +8,9 @@
 
 import Foundation
 
-class BaseTransactionViewModel {
+class BaseTransactionViewModel: Identifiable {
 
+    let id: UUID
     var nonce: String?
     var status: TransactionStatus
     var date: Date?
@@ -26,11 +27,13 @@ class BaseTransactionViewModel {
     }()
 
     init() {
+        id = UUID()
         status = .success
         formattedDate = ""
     }
 
     init(_ tx: Transaction, _ safe: SafeStatusRequest.Response) {
+        id = UUID()
         date = tx.executionDate ?? tx.submissionDate ?? tx.modified
         formattedDate = date.map { Self.dateFormatter.string(from: $0) } ?? ""
         confirmationCount = tx.confirmations.map { $0.count }

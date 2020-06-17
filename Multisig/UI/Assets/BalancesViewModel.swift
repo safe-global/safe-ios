@@ -9,8 +9,6 @@
 import Foundation
 import Combine
 
-
-
 class BalancesViewModel: ObservableObject {
     @Published var balances = [TokenBalance]()
     @Published var isLoading: Bool = true
