@@ -47,7 +47,7 @@ class MethodRegistry_GnosisSafeMasterCopyTests: MethodRegistryTestCase {
             ]),
 
             ("missing params",
-             "___changeMasterCopy", [
+             "changeMasterCopy", [
                 // empty
             ]),
 
