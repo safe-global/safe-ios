@@ -22,6 +22,10 @@ struct TransactionDataParameter: Decodable, Hashable {
         case name, type, value
     }
 
+    init(name: String, type: String, value: String?) {
+        (self.name, self.type, self.value) = (name, type, value)
+    }
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
