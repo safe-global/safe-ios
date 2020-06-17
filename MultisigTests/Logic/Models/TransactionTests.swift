@@ -9,6 +9,7 @@
 import XCTest
 @testable import Multisig
 
+#warning("TODO: refactor and add more tests")
 class TransactionTests: XCTestCase {
 
     func testAddOwner() {

@@ -14,7 +14,7 @@ struct TokenBalance: Identifiable, Hashable {
         address
     }
     var imageURL: URL? {
-        // will be replaced when https://github.com/gnosis/safe-transaction-service/issues/86 is ready
+        #warning("will be replaced when https://github.com/gnosis/safe-transaction-service/issues/86 is ready")
         return URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(String(describing: address)).png")!
     }
     let address: String
