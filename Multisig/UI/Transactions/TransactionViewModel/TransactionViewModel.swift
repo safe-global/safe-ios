@@ -1,5 +1,5 @@
 //
-//  BaseTransactionViewModel.swift
+//  TransactionViewModel.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 15.06.20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BaseTransactionViewModel: Identifiable {
+class TransactionViewModel: Identifiable {
 
     let id: UUID
     var nonce: String?

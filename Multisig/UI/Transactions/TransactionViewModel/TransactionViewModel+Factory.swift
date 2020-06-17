@@ -1,5 +1,5 @@
 //
-//  BaseTransactionViewModel+Factory.swift
+//  TransactionViewModel+Factory.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 15.06.20.
@@ -8,39 +8,39 @@
 
 import Foundation
 
-extension BaseTransactionViewModel {
+extension TransactionViewModel {
 
-    static func create(from tx: Transaction, _ info: SafeStatusRequest.Response) -> [BaseTransactionViewModel] {
+    static func create(from tx: Transaction, _ info: SafeStatusRequest.Response) -> [TransactionViewModel] {
         switch tx.txType {
         case .some(.ethereum):
 
             if let transfers = tx.transfers, !transfers.isEmpty {
                 return transfers.map {
-                    TransferTransaction(transfer: $0, tx: tx, safe: info)
+                    TransferTransactionViewModel(transfer: $0, tx: tx, safe: info)
                 }
 
             } else if MethodRegistry.Ether.isValid(tx) {
-                return [TransferTransaction(tx, info)]
+                return [TransferTransactionViewModel(tx, info)]
 
             } else {
-                return [CustomTransaction(tx, info)]
+                return [CustomTransactionViewModel(tx, info)]
             }
         case .some(.multiSig):
 
             if MethodRegistry.GnosisSafeSettings.isValid(tx) {
-                return [SettingChangeTransaction(tx, info)]
+                return [SettingChangeTransactionViewModel(tx, info)]
 
             } else if MethodRegistry.GnosisSafeMasterCopy.isValid(tx) {
-                return [ChangeMasterCopyTransaction(tx, info)]
+                return [ChangeMasterCopyTransactionViewModel(tx, info)]
 
             } else if MethodRegistry.ERC20.isValid(tx) ||
                 MethodRegistry.ERC721.isValid(tx) ||
                 MethodRegistry.Ether.isValid(tx) {
-                return [TransferTransaction(tx, info)]
+                return [TransferTransactionViewModel(tx, info)]
             }
             fallthrough
         default:
-            return [CustomTransaction(tx, info)]
+            return [CustomTransactionViewModel(tx, info)]
         }
     }
 

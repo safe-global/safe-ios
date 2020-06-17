@@ -1,5 +1,5 @@
 //
-//  CustomTransaction.swift
+//  CustomTransactionViewModel.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 15.06.20.
@@ -8,8 +8,7 @@
 
 import Foundation
 
-
-class CustomTransaction: TransferTransaction {
+class CustomTransactionViewModel: TransferTransactionViewModel {
     var dataLength: Int
 
     override init() {

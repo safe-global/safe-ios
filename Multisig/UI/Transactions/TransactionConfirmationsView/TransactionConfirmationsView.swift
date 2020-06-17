@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TransactionConfirmationsView: View {
-    let transaction: BaseTransactionViewModel
+    let transaction: TransactionViewModel
     let safe: Safe
 
     #warning("TODO: update after clarified requirements")

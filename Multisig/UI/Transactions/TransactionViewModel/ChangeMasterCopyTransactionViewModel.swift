@@ -1,5 +1,5 @@
 //
-//  ChangeMasterCopyTransaction.swift
+//  ChangeMasterCopyTransactionViewModel.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 15.06.20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChangeMasterCopyTransaction: BaseTransactionViewModel {
+class ChangeMasterCopyTransactionViewModel: TransactionViewModel {
 
     var contractVersion: String
     var contractAddress: String

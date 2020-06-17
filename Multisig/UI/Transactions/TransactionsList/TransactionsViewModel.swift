@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 class TransactionsViewModel: ObservableObject {
-    @Published var transactionsList = TransactionsList()
+    @Published var transactionsList = TransactionsListViewModel()
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
 
@@ -28,13 +28,13 @@ class TransactionsViewModel: ObservableObject {
             .compactMap { Address($0) }
             .setFailureType(to: Error.self)
             .flatMap { address in
-                Future<TransactionsList, Error> { promise in
+                Future<TransactionsListViewModel, Error> { promise in
                     DispatchQueue.global().async {
                         do {
                             let info = try App.shared.safeTransactionService.safeInfo(at: address)
                             let transactions = try App.shared.safeTransactionService.transactions(address: address)
-                            let models = transactions.results.flatMap { BaseTransactionViewModel.create(from: $0, info) }
-                            let list = TransactionsList(models)
+                            let models = transactions.results.flatMap { TransactionViewModel.create(from: $0, info) }
+                            let list = TransactionsListViewModel(models)
                             promise(.success(list))
                         } catch {
                             promise(.failure(error))

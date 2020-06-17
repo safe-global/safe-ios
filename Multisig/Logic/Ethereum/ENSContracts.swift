@@ -43,8 +43,12 @@ class EthRegistrar: Contract {
 
 class ERC165: Contract {
 
+    enum Selectors {
+        public static let supportsInterface = "supportsInterface(bytes4)"
+    }
+
     func supportsInterface(_ selector: String) throws -> Bool {
-        try decodeBool(invoke("supportsInterface(bytes4)",
+        try decodeBool(invoke(Selectors.supportsInterface,
                               encodeFixedBytes(method(selector))))
     }
 

@@ -9,7 +9,7 @@
 import Foundation
 import SwiftCryptoTokenFormatter
 
-class TransferTransaction: BaseTransactionViewModel {
+class TransferTransactionViewModel: TransactionViewModel {
 
     var address: String
     var isOutgoing: Bool

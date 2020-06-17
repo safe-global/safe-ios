@@ -1,5 +1,5 @@
 //
-//  TransactionsContentView.swift
+//  TransactionListView.swift
 //  Multisig
 //
 //  Created by Moaaz on 5/29/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TransactionsContentView: View {
+struct TransactionListView: View {
     @ObservedObject
     var model: TransactionsViewModel
 

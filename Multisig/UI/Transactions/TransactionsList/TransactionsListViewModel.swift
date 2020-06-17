@@ -1,5 +1,5 @@
 //
-//  TransactionsList.swift
+//  TransactionsListViewModel.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 15.06.20.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct TransactionsList {
+struct TransactionsListViewModel {
     struct Section: Identifiable {
         let id = UUID()
         var name: String
-        var transactions: [BaseTransactionViewModel]
+        var transactions: [TransactionViewModel]
 
         var isEmpty: Bool {
             transactions.isEmpty
@@ -25,9 +25,9 @@ struct TransactionsList {
         sections.allSatisfy { $0.isEmpty }
     }
 
-    init(_ models: [BaseTransactionViewModel] = []) {
-        var queued = [BaseTransactionViewModel]()
-        var history = [BaseTransactionViewModel]()
+    init(_ models: [TransactionViewModel] = []) {
+        var queued = [TransactionViewModel]()
+        var history = [TransactionViewModel]()
 
         for model in models {
             if model.status.isInQueue {

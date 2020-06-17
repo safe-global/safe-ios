@@ -102,10 +102,10 @@ class TransactionTests: XCTestCase {
 
                 let page = try service.jsonDecoder.decode(TransactionsRequest.Response.self, from: txJson)
                 let info = try service.jsonDecoder.decode(SafeStatusRequest.Response.self, from: infoJson)
-                let models = page.results.flatMap { tx in BaseTransactionViewModel.create(from: tx, info) }
+                let models = page.results.flatMap { tx in TransactionViewModel.create(from: tx, info) }
                 XCTAssertEqual(page.results.count, models.count)
 
-                guard let tx = models.first as? SettingChangeTransaction else {
+                guard let tx = models.first as? SettingChangeTransactionViewModel else {
                     XCTFail("Unexpected type: \(type(of: models.first))")
                     sema.signal()
 

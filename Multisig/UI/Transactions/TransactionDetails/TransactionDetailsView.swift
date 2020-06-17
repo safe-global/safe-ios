@@ -12,7 +12,7 @@ struct TransactionDetailsView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
 
-    let transaction: BaseTransactionViewModel
+    let transaction: TransactionViewModel
     var body: some View {
         List {
             TransactionHeaderView(transaction: transaction)
