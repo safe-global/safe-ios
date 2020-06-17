@@ -51,18 +51,18 @@ class LogServiceTests: XCTestCase {
 
     func test_constructorWithBundle() {
         assert(bundle: [:], .off)
-        assert(bundle: [LogServiceLogLevelKey: ""], .off)
-        assert(bundle: [LogServiceLogLevelKey: "fatal"], .fatal)
-        assert(bundle: [LogServiceLogLevelKey: "Fatal"], .fatal)
+        assert(bundle: [LogLevelKey: ""], .off)
+        assert(bundle: [LogLevelKey: "fatal"], .fatal)
+        assert(bundle: [LogLevelKey: "Fatal"], .fatal)
 
         let levels: [LogLevel] = [.fatal, .error, .info, .debug]
-        levels.forEach { assert(bundle: [LogServiceLogLevelKey: $0.string], $0) }
+        levels.forEach { assert(bundle: [LogLevelKey: $0.string], $0) }
     }
 
         // TODO: enable tests after setting up Crashlytics
 //    func test_whenBundleSpecifiesLogger_thenAddsTheLogger() {
 //        let validNames = "console, CraSHlytics"
-//        let logger = LogService(bundle: TestBundle(values: [LogServiceEnabledLoggersKey: validNames]))
+//        let logger = LogService(bundle: TestBundle(values: [LoggersKey: validNames]))
 //        XCTAssertTrue(logger.loggers.first is ConsoleLogger)
 //        XCTAssertTrue(logger.loggers.last is CrashlyticsLogger)
 //    }
@@ -70,7 +70,7 @@ class LogServiceTests: XCTestCase {
     func test_whenBundleSpecifiesInvalidLogger_thenNotAdded() {
         let invalidNameAndSeparator = "cAnsole; craSHlytics"
         let logger = LogService(bundle:
-            TestBundle(values: [LogServiceEnabledLoggersKey: invalidNameAndSeparator]))
+            TestBundle(values: [LoggersKey: invalidNameAndSeparator]))
         XCTAssertTrue(logger.loggers.isEmpty)
     }
 

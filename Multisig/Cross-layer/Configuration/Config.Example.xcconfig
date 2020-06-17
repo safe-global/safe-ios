@@ -87,6 +87,15 @@ _FIREBASE_CONFIG_STAGING_RINKEBY    = GoogleService-Info.Staging.Rinkeby
 _FIREBASE_CONFIG_DEV_MAINNET        = GoogleService-Info.Development.Mainnet
 _FIREBASE_CONFIG_DEV_RINKEBY        = GoogleService-Info.Development.Rinkeby
 
+// Loggers (comma-separated). Available options: [crashlytics, console]
+_LOGGERS_PROD               = crashlytics
+_LOGGERS_DEV                = console
+
+// Log level. Available options: [DEBUG, INFO, ERROR, FATAL, OFF]
+// Check LogLevel.swift for more details
+_LOG_LEVEL_PROD             = ERROR
+_LOG_LEVEL_DEV              = DEBUG
+
 // Configuration variables for the app
 
 RELAY_SERVICE_URL       = $(_RELAY_SERVICE_URL_$(SERVICE_ENV)_$(NETWORK):default=$(_RELAY_SERVICE_URL_PROD_MAINNET))
@@ -95,8 +104,9 @@ ETH_RPC_URL             = $(_ETH_RPC_URL_$(NETWORK):default=$(_ETH_RPC_URL_MAINN
 ETH_BLOCK_BROWSER_URL   = $(_ETH_BLOCK_BROWSER_URL_$(NETWORK):default=$(_ETH_BLOCK_BROWSER_URL_MAINNET))
 COLLECTIBLE_SERVICE_URL = $(_COLLECTIBLE_SERVICE_URL_$(NETWORK):default=$(_COLLECTIBLE_SERVICE_URL_MAINNET))
 GNOSIS_SAFE_WEB_URL     = $(_GNOSIS_SAFE_WEB_URL_$(NETWORK):default=$(_GNOSIS_SAFE_WEB_URL_MAINNET))
-
 FIREBASE_CONFIG         = $(_FIREBASE_CONFIG_$(SERVICE_ENV)_$(NETWORK):default=$(_FIREBASE_CONFIG_PROD_MAINNET))
+LOGGERS                 = $(_LOGGERS_$(SERVICE_ENV):default=$(_LOGGERS_PROD))
+LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD))
 
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/

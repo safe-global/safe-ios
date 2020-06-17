@@ -15,9 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         App.shared.firebaseConfig.setUp()
         App.shared.theme.setUp()
+
+        #if DEBUG
+        Tracker.shared.append(handler: ConsoleTracker())
+        #endif
+        Tracker.shared.append(handler: FirebaseTrackingHandler())
+
+        // The requirement is to set num_safes property to "0" when there are no Safes
+        Tracker.shared.setUserProperty("\(Safe.count)", for: TrackingUserProperty.numSafes)
+
         return true
     }
-
 
     // MARK: UISceneSession Lifecycle
 

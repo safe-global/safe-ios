@@ -42,6 +42,9 @@ struct EnterENSNameView: View {
         .navigationBarTitle("Enter ENS Name", displayMode: .inline)
         .navigationBarItems(trailing: confirmButton)
         .onReceive(model.$text, perform: model.resolve(name:))
+        .onAppear {
+            self.trackEvent(.safeAddEns)
+        }
     }
 
     var confirmButton: some View {

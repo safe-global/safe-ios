@@ -44,6 +44,9 @@ struct SafeInfoContentView: View {
                 .padding(.top, 12)
         }
         .multilineTextAlignment(.center)
+        .onAppear {
+            self.trackEvent(.safeReceive)
+        }
     }
 
 }

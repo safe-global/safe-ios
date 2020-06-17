@@ -106,5 +106,9 @@
 	<string>$(FEATURE_SUGGESTION_URL)</string>
 	<key>CONTACT_EMAIL</key>
 	<string>$(CONTACT_EMAIL)</string>
+	<key>LOGGERS</key>
+	<string>$(LOGGERS)</string>
+	<key>LOG_LEVEL</key>
+	<string>$(LOG_LEVEL)</string>
 </dict>
 </plist>

@@ -30,6 +30,7 @@ struct AdvancedSafeSettingsView: View {
         }
         .onAppear {
             self.theme.setTemporaryTableViewBackground(nil)
+            self.trackEvent(.settingsSafeAdvanced)
         }
         .onDisappear {
             self.theme.resetTemporaryTableViewBackground()

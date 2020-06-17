@@ -28,15 +28,15 @@ struct EnterSafeNameView: View {
                 .multilineTextAlignment(.center)
 
             RoundedTextField(
-            title: "Enter name",
-            text: $model.enteredText,
-            isValid: $model.isValid,
-            onEditingChanged: { ended in
-                if !ended {
-                    self.model.onEditing()
-                }
-            },
-            onCommit: { self.submit() })
+                title: "Enter name",
+                text: $model.enteredText,
+                isValid: $model.isValid,
+                onEditingChanged: { ended in
+                    if !ended {
+                        self.model.onEditing()
+                    }
+                },
+                onCommit: { self.submit() })
 
             Spacer()
         }
@@ -45,6 +45,9 @@ struct EnterSafeNameView: View {
         .keyboardAdaptive()
         .navigationBarTitle("Load Safe Multisig", displayMode: .inline)
         .navigationBarItems(trailing: nextButton)
+        .onAppear {
+            self.trackEvent(.safeAddName)
+        }
     }
 
     var nextButton: some View {
