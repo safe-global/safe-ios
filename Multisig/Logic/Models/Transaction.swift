@@ -75,6 +75,11 @@ extension Transaction {
             return .pending
         }
     }
+
+    static func browserURL(hash: String) -> URL {
+        App.configuration.services.etehreumBlockBrowserURL
+            .appendingPathComponent("tx").appendingPathComponent(hash)
+    }
 }
 
 struct TransactionConfirmation: Decodable, Hashable {
