@@ -22,7 +22,7 @@ extension Safe: Identifiable {
 
     var displayName: String { name.flatMap { $0.isEmpty ? nil : $0 } ?? "Untitled Safe" }
 
-    var displayENSName: String { "" }
+    var displayENSName: String { ensName ?? "" }
 
     static var count: Int {
         let context = App.shared.coreDataStack.viewContext
