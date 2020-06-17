@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct TransactionStatusTypeView: View {
-    let transaction: BaseTransactionViewModel
+    let transaction: TransactionViewModel
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 Image(imageName)
                 BodyText(title)
@@ -28,9 +28,9 @@ struct TransactionStatusTypeView: View {
     }
 
     var title: String {
-        if let _ = transaction as? CustomTransaction {
+        if let _ = transaction as? CustomTransactionViewModel {
             return "Custom transaction"
-        } else if let transfer = transaction as? TransferTransaction {
+        } else if let transfer = transaction as? TransferTransactionViewModel {
             return transfer.isOutgoing ? "Outgoing transfer" : "Incoming transfer"
         }
 
@@ -38,9 +38,9 @@ struct TransactionStatusTypeView: View {
     }
 
     var imageName: String {
-        if let _ = transaction as? CustomTransaction {
+        if let _ = transaction as? CustomTransactionViewModel {
             return "ico-custom-tx"
-        } else if let transfer = transaction as? TransferTransaction {
+        } else if let transfer = transaction as? TransferTransactionViewModel {
             return transfer.isOutgoing ? "ico-outgoing-tx" : "ico-incoming-tx"
         }
 
@@ -50,7 +50,7 @@ struct TransactionStatusTypeView: View {
 
 struct TransactionStatusTypeView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = ChangeMasterCopyTransaction()
+        let transaction = ChangeMasterCopyTransactionViewModel()
         transaction.contractAddress = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.contractVersion = "1.1.1"
         transaction.confirmationCount = 1

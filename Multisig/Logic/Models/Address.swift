@@ -7,7 +7,6 @@
 //
 
 import Web3
-import BigInt
 
 typealias Address = EthereumAddress
 
@@ -30,11 +29,15 @@ extension Address {
         self == .zero
     }
 
-}
+    var checksummed: String {
+        hex(eip55: true)
+    }
 
-extension Address {
+    var hexadecimal: String {
+        hex(eip55: false)
+    }
 
-    init(_ value: BigUInt) {
+    init(_ value: UInt256) {
         let data = Data(ethHex: String(value, radix: 16)).endTruncated(to: 20).leftPadded(to: 20)
         try! self.init(hex: "0x" + data.toHexString(), eip55: false)
     }
@@ -42,9 +45,6 @@ extension Address {
     init?(_ value: String) {
         try? self.init(hex: value, eip55: false)
     }
-}
-
-extension Address {
 
     init(_ value: String, isERC681: Bool) throws {
         var addressString = value
@@ -67,4 +67,25 @@ extension Address {
 
         return hexPrefix + leadingHexChars
     }
+}
+
+extension Address: ExpressibleByStringLiteral {
+    public init(stringLiteral value: String) {
+        if let v = Address(value) {
+            self = v
+        } else {
+            assertionFailure("Invalid literal address: \(value)")
+            self = .zero
+        }
+    }
+}
+
+extension Address: CustomStringConvertible {
+    public var description: String {
+        checksummed
+    }
+}
+
+enum AddressRegistry {
+    static let ether = Address.zero
 }

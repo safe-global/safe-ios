@@ -39,8 +39,8 @@ struct AdvancedSafeSettingsView: View {
     }
     
     var fallbackHandlerView : some View {
-        let fallbackHandler = safe.fallbackHandler ?? ""
-        let title = safe.isDefaultFallbackHandler() ? "DefaultFallbackHandler" : "Unknown"
+        let fallbackHandler = safe.fallbackHandler?.checksummed ?? ""
+        let title = App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: safe.fallbackHandler)
         return Group {
             if fallbackHandler.isEmpty || fallbackHandler == "0" {
                  BodyText("Not set")
@@ -59,7 +59,7 @@ struct AdvancedSafeSettingsView: View {
             } else {
                 Section(header: SectionHeader("ADDRESSES OF ENABLED MODULES")) {
                     ForEach(safe.modules ?? [], id: \.self, content: { owner in
-                        AddressCell(address: owner, style: .shortAddress)
+                        AddressCell(address: owner.checksummed, style: .shortAddress)
                     })
                 }
             }

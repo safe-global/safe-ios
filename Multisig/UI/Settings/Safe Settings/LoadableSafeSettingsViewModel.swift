@@ -28,7 +28,9 @@ class LoadableSafeSettingsViewModel: ObservableObject {
         // assuming that if address exists, it is a valid address
         // which we validated before.
         Just(safe.address)
-            .tryCompactMap { $0 }
+            .compactMap { $0 }
+            .compactMap { Address($0) }
+            .setFailureType(to: Error.self)
             .flatMap { address in
                 Future { promise in
                     DispatchQueue.global().async {
@@ -59,13 +61,13 @@ extension Safe {
 
     func update(from safeInfo: SafeStatusRequest.Response) {
         objectWillChange.send()
-        threshold = safeInfo.threshold
-        owners = safeInfo.owners
-        masterCopy = safeInfo.masterCopy
+        threshold = safeInfo.threshold.value
+        owners = safeInfo.owners.map { $0.address }
+        masterCopy = safeInfo.masterCopy.address
         version = safeInfo.version
-        nonce = safeInfo.nonce
-        modules = safeInfo.modules
-        fallbackHandler = safeInfo.fallbackHandler
+        nonce = safeInfo.nonce.value
+        modules = safeInfo.modules.map { $0.address }
+        fallbackHandler = safeInfo.fallbackHandler.address
     }
 
 }

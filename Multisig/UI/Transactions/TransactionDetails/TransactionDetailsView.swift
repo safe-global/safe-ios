@@ -13,7 +13,7 @@ struct TransactionDetailsView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
 
-    let transaction: BaseTransactionViewModel
+    let transaction: TransactionViewModel
 
     @State
     private var showsLink: Bool = false

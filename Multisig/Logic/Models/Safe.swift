@@ -45,13 +45,8 @@ extension Safe: Identifiable {
             .appendingPathComponent("address").appendingPathComponent(address)
     }
 
-    func isDefaultFallbackHandler() -> Bool {
-        guard let fallbackHandler = fallbackHandler else { return false }
-        return Address(fallbackHandler) == App.shared.defaultFallbackHandler
-    }
-
     @discardableResult
-    static func download(at address: String) throws -> SafeStatusRequest.Response {
+    static func download(at address: Address) throws -> SafeStatusRequest.Response {
         return try App.shared.safeTransactionService.safeInfo(at: address)
     }
 
