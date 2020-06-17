@@ -81,6 +81,11 @@
 		0A106285248A84F700C1EE54 /* SafeRelayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106284248A84F700C1EE54 /* SafeRelayService.swift */; };
 		0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106286248A885D00C1EE54 /* ERC20Metadata.swift */; };
 		0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106288248A892B00C1EE54 /* ERC721Metadata.swift */; };
+		0A19D431249A4C5100A316B6 /* MethodSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D430249A4C5100A316B6 /* MethodSignatureTests.swift */; };
+		0A19D433249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D432249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift */; };
+		0A19D435249A557E00A316B6 /* MethodRegistryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D434249A557E00A316B6 /* MethodRegistryTestCase.swift */; };
+		0A19D439249A5B1500A316B6 /* addOwnerWithThreshold_tx.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D438249A5B1500A316B6 /* addOwnerWithThreshold_tx.json */; };
+		0A19D43B249A5BA500A316B6 /* addOwnerWithThreshold_safe.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D43A249A5BA500A316B6 /* addOwnerWithThreshold_safe.json */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
 		0A465C2E246C196900AFA467 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C2D246C196900AFA467 /* Theme.swift */; };
 		0A465C32246C229800AFA467 /* FrameForNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */; };
@@ -334,6 +339,11 @@
 		0A106284248A84F700C1EE54 /* SafeRelayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeRelayService.swift; sourceTree = "<group>"; };
 		0A106286248A885D00C1EE54 /* ERC20Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ERC20Metadata.swift; sourceTree = "<group>"; };
 		0A106288248A892B00C1EE54 /* ERC721Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC721Metadata.swift; sourceTree = "<group>"; };
+		0A19D430249A4C5100A316B6 /* MethodSignatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSignatureTests.swift; sourceTree = "<group>"; };
+		0A19D432249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MethodRegistry+ERC20Tests.swift"; sourceTree = "<group>"; };
+		0A19D434249A557E00A316B6 /* MethodRegistryTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodRegistryTestCase.swift; sourceTree = "<group>"; };
+		0A19D438249A5B1500A316B6 /* addOwnerWithThreshold_tx.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = addOwnerWithThreshold_tx.json; sourceTree = "<group>"; };
+		0A19D43A249A5BA500A316B6 /* addOwnerWithThreshold_safe.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = addOwnerWithThreshold_safe.json; sourceTree = "<group>"; };
 		0A35CC2F24810CF6005E45BA /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		0A465C2D246C196900AFA467 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -758,6 +768,16 @@
 				5532D4DD2449A34A0067505A /* TestUtils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		0A19D43C249A5BF100A316B6 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				0AA9F25824992CB6005BD60F /* TransactionTests.swift */,
+				0A19D43A249A5BA500A316B6 /* addOwnerWithThreshold_safe.json */,
+				0A19D438249A5B1500A316B6 /* addOwnerWithThreshold_tx.json */,
+			);
+			path = Transaction;
 			sourceTree = "<group>";
 		};
 		0A465C35246C23E800AFA467 /* Frame */ = {
@@ -1250,7 +1270,10 @@
 				0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */,
 				0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */,
 				55B66E8D24810BC800249E98 /* AppSettingsTests.swift */,
-				0AA9F25824992CB6005BD60F /* TransactionTests.swift */,
+				0A19D43C249A5BF100A316B6 /* Transaction */,
+				0A19D434249A557E00A316B6 /* MethodRegistryTestCase.swift */,
+				0A19D430249A4C5100A316B6 /* MethodSignatureTests.swift */,
+				0A19D432249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1558,6 +1581,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A19D43B249A5BA500A316B6 /* addOwnerWithThreshold_safe.json in Resources */,
+				0A19D439249A5B1500A316B6 /* addOwnerWithThreshold_tx.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1900,10 +1925,13 @@
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
 				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
+				0A19D433249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift in Sources */,
 				5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */,
 				0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */,
 				047300FE24781081004F1200 /* AddressTests.swift in Sources */,
 				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
+				0A19D435249A557E00A316B6 /* MethodRegistryTestCase.swift in Sources */,
+				0A19D431249A4C5100A316B6 /* MethodSignatureTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

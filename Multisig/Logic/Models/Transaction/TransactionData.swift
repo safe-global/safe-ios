@@ -13,10 +13,13 @@ struct TransactionData: Decodable, Hashable {
     let parameters: [TransactionDataParameter]
 }
 
-struct TransactionDataParameter: Decodable, Hashable {
+struct TransactionDataParameter: Hashable {
     let name: String
     let type: String
     let value: String?
+}
+
+extension TransactionDataParameter: Decodable {
 
     enum CodingKeys: CodingKey {
         case name, type, value

@@ -11,7 +11,7 @@ import Foundation
 /// A namespace for value types representing methods of smart contracts
 enum MethodRegistry {
 
-    struct MethodSignature {
+    struct MethodSignature: Hashable {
         var name: String
         var parameterTypes: [String]
 
