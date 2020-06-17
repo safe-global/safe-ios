@@ -12,20 +12,23 @@ struct KeyValueRow: View {
 
     var key: String
     var value: String
-
-    init(_ key: String, _ value: String) {
+    var enableCopy: Bool
+    var color: Color
+    init(_ key: String, _ value: String, _ enableCopy: Bool = true, _ color: Color = Color.gnoMediumGrey) {
         self.key = key
         self.value = value
+        self.enableCopy = enableCopy
+        self.color = color
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 6) {
             BoldText(key)
             CopyButton(value) {
                 Text(value)
                     .font(Font.gnoBody.weight(.medium))
-                    .foregroundColor(Color.gnoMediumGrey)
-            }
+                    .foregroundColor(color)
+            }.disabled(!enableCopy)
         }
     }
 }

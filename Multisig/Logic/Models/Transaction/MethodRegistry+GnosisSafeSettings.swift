@@ -102,13 +102,28 @@ extension MethodRegistry {
             }
         }
 
+        struct SetFallbackHandler: SmartContractMethodCall {
+            static let signature = MethodSignature("setFallbackHandler", "address")
+            let handler: Address
+
+            init?(data: TransactionData) {
+                guard data == Self.signature,
+                    let fallbackHandler = data.parameters[0].addressValue else {
+                        return nil
+                }
+
+                self.handler = fallbackHandler
+            }
+        }
+
         static let methods: [SmartContractMethodCall.Type] = [
             AddOwnerWithThreshold.self,
             RemoveOwner.self,
             SwapOwner.self,
             ChangeThreshold.self,
             EnableModule.self,
-            DisableModule.self
+            DisableModule.self,
+            SetFallbackHandler.self
         ]
 
         static func method(from data: TransactionData) -> SmartContractMethodCall? {
