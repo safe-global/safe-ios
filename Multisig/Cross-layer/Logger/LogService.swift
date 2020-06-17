@@ -73,13 +73,13 @@ public enum LogLevel: Int {
 
 }
 
-/// "SafeLogServiceLogLevelKey". Value for this key must be a string. Valid values: `LogLevel` names.
-public let LogServiceLogLevelKey = "SafeLogServiceLogLevelKey"
-/// "SafeLogServiceEnabledLoggersKey". The value for this key must be comma-separated string of loggers.
+/// "LogLevelKey". Value for this key must be a string. Valid values: `LogLevel` names.
+public let LogLevelKey = "LOG_LEVEL"
+/// "LoggersKey". The value for this key must be comma-separated string of loggers.
 /// Valid loggers: crashlytics, console - case-insensitive
-public let LogServiceEnabledLoggersKey = "SafeLogServiceEnabledLoggersKey"
-let LogServiceConsoleLoggerIdentifier = "console"
-let LogServiceCrashlyticsLoggerIdentifier = "crashlytics"
+public let LoggersKey = "LOGGERS"
+let ConsoleLoggerIdentifier = "console"
+let CrashlyticsLoggerIdentifier = "crashlytics"
 
 /// Used for testing
 protocol BundleProtocol {
@@ -111,7 +111,7 @@ public final class LogService: Logger {
         self.level = level
     }
 
-    /// Creates new `LogService` and takes log `level` from `bundle`'s `LogServiceLogLevelKey` info dictionary value.
+    /// Creates new `LogService` and takes log `level` from `bundle`'s `LogLevelKey` info dictionary value.
     /// The value of that String must be a comma-separated list of logger identifiers. Currently supported loggers:
     /// "crashlytics", and "console". The values are case-sensitive.
     ///
@@ -119,22 +119,23 @@ public final class LogService: Logger {
     ///
     /// - Parameter bundle: Bundle to initialize the logger with. By default, it is the main bundle.
     init(bundle: BundleProtocol = Bundle.main) {
-        let string = bundle.object(forInfoDictionaryKey: LogServiceLogLevelKey) as? String ?? ""
+        let string = bundle.object(forInfoDictionaryKey: LogLevelKey) as? String ?? ""
         level = LogLevel(string: string)
         addLoggers(from: bundle)
     }
 
     private func addLoggers(from bundle: BundleProtocol) {
-        guard let enabledLoggers = bundle.object(forInfoDictionaryKey: LogServiceEnabledLoggersKey) as? String else {
+        guard let enabledLoggers = bundle.object(forInfoDictionaryKey: LoggersKey) as? String else {
             return
         }
         let normalizedEnabledLoggers = enabledLoggers.split(separator: ",").map {
             $0.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         }
-        if normalizedEnabledLoggers.contains(LogServiceConsoleLoggerIdentifier) {
+        if normalizedEnabledLoggers.contains(ConsoleLoggerIdentifier) {
             add(ConsoleLogger())
         }
-//        if normalizedEnabledLoggers.contains(LogServiceCrashlyticsLoggerIdentifier) {
+        #warning("TODO: re-enable with crashlytics implementation")
+//        if normalizedEnabledLoggers.contains(CrashlyticsLoggerIdentifier) {
 //            add(CrashlyticsLogger())
 //        }
     }

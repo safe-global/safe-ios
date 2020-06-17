@@ -34,6 +34,9 @@ struct BalancesView: View {
                 TokenBalanceCell(tokenBalance: tokenBalance)
             }
         }
+        .onAppear {
+            self.trackEvent(.assetsCoins)
+        }
     }
 }
 

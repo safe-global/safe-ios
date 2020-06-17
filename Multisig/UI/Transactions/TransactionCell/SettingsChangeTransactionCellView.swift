@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SettingsChangeTransactionCellView: View {
-    let transaction: SettingChangeTransaction
+    let transaction: SettingChangeTransactionViewModel
     var body: some View {
         HStack {
             Image("ico-settings-tx")
@@ -21,7 +21,7 @@ struct SettingsChangeTransactionCellView: View {
 
 struct SettingsChangeTransactionCellView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = SettingChangeTransaction()
+        let transaction = SettingChangeTransactionViewModel()
         transaction.title = "Add owner"
         transaction.confirmationCount = 1
         transaction.formattedDate = "Apr 25, 2020 — 1:01:42PM"

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ChangeMasterCopyCellView: View {
-    let transaction: ChangeMasterCopyTransaction
+    let transaction: ChangeMasterCopyTransactionViewModel
     var body: some View {
         HStack {
             Image("ico-settings-tx")
@@ -24,7 +24,7 @@ struct ChangeMasterCopyCellView: View {
 
 struct ChangeMasterCopyCellView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = ChangeMasterCopyTransaction()
+        let transaction = ChangeMasterCopyTransactionViewModel()
         transaction.contractAddress = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.contractVersion = "1.1.1"
         transaction.confirmationCount = 1

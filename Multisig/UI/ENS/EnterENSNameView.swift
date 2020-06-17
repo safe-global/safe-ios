@@ -32,7 +32,7 @@ struct EnterENSNameView: View {
             if model.address != nil {
                 CorrectAddressView(
                     title: "Address found",
-                    address: model.address!.hex(eip55: true),
+                    address: model.address!.checksummed,
                     checkmarkPosition: .title)
             }
             Spacer()
@@ -42,12 +42,15 @@ struct EnterENSNameView: View {
         .navigationBarTitle("Enter ENS Name", displayMode: .inline)
         .navigationBarItems(trailing: confirmButton)
         .onReceive(model.$text, perform: model.resolve(name:))
+        .onAppear {
+            self.trackEvent(.safeAddEns)
+        }
     }
 
     var confirmButton: some View {
         Button("Confirm") {
             self.presentationMode.wrappedValue.dismiss()
-            self.onConfirm(self.model.address!.hex(eip55: true))
+            self.onConfirm(self.model.address!.checksummed)
         }
         .barButton(disabled: model.address == nil)
     }

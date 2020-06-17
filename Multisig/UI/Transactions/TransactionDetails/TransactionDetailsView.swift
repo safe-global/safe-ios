@@ -12,7 +12,7 @@ struct TransactionDetailsView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
 
-    let transaction: BaseTransactionViewModel
+    let transaction: TransactionViewModel
     var body: some View {
         List {
             TransactionHeaderView(transaction: transaction)
@@ -25,6 +25,10 @@ struct TransactionDetailsView: View {
                 BodyText("Advanced")
             }
             .frame(height: 48)
-        }.navigationBarTitle("Transaction Details", displayMode: .inline)
+        }
+        .navigationBarTitle("Transaction Details", displayMode: .inline)
+        .onAppear {
+            self.trackEvent(.transactionsDetails)
+        }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  TransactionsContentView.swift
+//  TransactionListView.swift
 //  Multisig
 //
 //  Created by Moaaz on 5/29/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TransactionsContentView: View {
+struct TransactionListView: View {
     @ObservedObject
     var model: TransactionsViewModel
 
@@ -28,11 +28,14 @@ struct TransactionsContentView: View {
                 transactionsList
             }
         }
+        .onAppear {
+            self.trackEvent(.transactions)
+        }
     }
 
     var transactionsList: some View {
         List {
-            ForEach(model.transactionsList.sections, id: \.name) { section in
+            ForEach(model.transactionsList.sections) { section in
                 Section(header: SectionHeader(section.name)) {
                     ForEach(section.transactions) { transaction in
                         NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {

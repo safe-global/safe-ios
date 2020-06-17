@@ -30,6 +30,7 @@ struct AdvancedSafeSettingsView: View {
         }
         .onAppear {
             self.theme.setTemporaryTableViewBackground(nil)
+            self.trackEvent(.settingsSafeAdvanced)
         }
         .onDisappear {
             self.theme.resetTemporaryTableViewBackground()
@@ -38,7 +39,7 @@ struct AdvancedSafeSettingsView: View {
     }
     
     var fallbackHandlerView : some View {
-        let fallbackHandler = safe.fallbackHandler ?? ""
+        let fallbackHandler = safe.fallbackHandler?.checksummed ?? ""
         let title = safe.isDefaultFallbackHandler() ? "DefaultFallbackHandler" : "Unknown"
         return Group {
             if fallbackHandler.isEmpty || fallbackHandler == "0" {
@@ -58,7 +59,7 @@ struct AdvancedSafeSettingsView: View {
             } else {
                 Section(header: SectionHeader("ADDRESSES OF ENABLED MODULES")) {
                     ForEach(safe.modules ?? [], id: \.self, content: { owner in
-                        AddressCell(address: owner, style: .shortAddress)
+                        AddressCell(address: owner.checksummed, style: .shortAddress)
                     })
                 }
             }

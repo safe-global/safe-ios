@@ -63,7 +63,7 @@ final class ENS {
 
     func name(for address: Address) throws -> String? {
         // construct a reverse node
-        let addressString = address.hex(eip55: false)
+        let addressString = address.hexadecimal
         let reverseName = addressString + ".addr.reverse"
         let node = try namehash(normalized(reverseName))
 

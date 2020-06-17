@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CustomTransactionCellView: View {
-    let transaction: CustomTransaction
+    let transaction: CustomTransactionViewModel
     var body: some View {
         HStack {
             Image("ico-custom-tx")
@@ -30,7 +30,7 @@ struct CustomTransactionCellView: View {
 
 struct CustomTransactionCellView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = CustomTransaction()
+        let transaction = CustomTransactionViewModel()
         transaction.address = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.confirmationCount = 1
         transaction.threshold = 2

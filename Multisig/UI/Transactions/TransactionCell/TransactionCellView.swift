@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TransactionCellView: View {
-    let transaction: BaseTransactionViewModel
+    let transaction: TransactionViewModel
     var body: some View {
         VStack (alignment: .leading, spacing: 4){
             contentView.opacity(opacity)
@@ -41,10 +41,10 @@ struct TransactionCellView: View {
     }
 
     var contentView: some View {
-        let transferTransaction = transaction as? TransferTransaction
-        let settingChangeTransaction = transaction as? SettingChangeTransaction
-        let changeMasterCopyTransaction = transaction as? ChangeMasterCopyTransaction
-        let customTransaction = transaction as? CustomTransaction
+        let transferTransaction = transaction as? TransferTransactionViewModel
+        let settingChangeTransaction = transaction as? SettingChangeTransactionViewModel
+        let changeMasterCopyTransaction = transaction as? ChangeMasterCopyTransactionViewModel
+        let customTransaction = transaction as? CustomTransactionViewModel
 
         return ZStack {
             if customTransaction != nil {
@@ -73,7 +73,7 @@ struct TransactionCellView: View {
 
 struct TransactionCellView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = ChangeMasterCopyTransaction()
+        let transaction = ChangeMasterCopyTransactionViewModel()
         transaction.contractAddress = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.contractVersion = "1.1.1"
         transaction.confirmationCount = 1

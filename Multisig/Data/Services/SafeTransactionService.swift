@@ -14,6 +14,10 @@ class SafeTransactionService {
     private let logger: Logger
     private let httpClient: JSONHTTPClient
 
+    var jsonDecoder: JSONDecoder {
+        httpClient.jsonDecoder
+    }
+
     init(url: URL, logger: Logger) {
         self.url = url
         self.logger = logger
@@ -43,16 +47,16 @@ class SafeTransactionService {
         }
     }
 
-    func safeInfo(at address: String) throws -> SafeStatusRequest.Response {
+    func safeInfo(at address: Address) throws -> SafeStatusRequest.Response {
         return try httpClient.execute(request: SafeStatusRequest(address: address))
     }
 
-    func safeBalances(at address: String) throws -> [SafeBalancesRequest.Response] {
+    func safeBalances(at address: Address) throws -> [SafeBalancesRequest.Response] {
         return try httpClient.execute(request: SafeBalancesRequest(address: address))
     }
 
-    func transactions(address: String) throws -> TransactionsRequest.Response {
-        return try httpClient.execute(request: TransactionsRequest(address: address))
+    func transactions(address: Address, offset: Int = 0, limit: Int = 100) throws -> TransactionsRequest.Response {
+        return try httpClient.execute(request: TransactionsRequest(address: address, limit: limit, offset: offset))
     }
 }
 
@@ -64,18 +68,18 @@ struct SafeStatusRequest: JSONRequest {
 
     typealias ResponseType = Response
 
-    init(address: String) {
-        self.address = address
+    init(address: Address) {
+        self.address = address.checksummed
     }
 
     struct Response: Decodable {
-        let address: String
-        let masterCopy: String
-        let nonce: Int
-        let threshold: Int
-        let owners: [String]
-        let modules: [String]
-        let fallbackHandler: String
+        let address: AddressString
+        let masterCopy: AddressString
+        let nonce: UInt256String
+        let threshold: UInt256String
+        let owners: [AddressString]
+        let modules: [AddressString]
+        let fallbackHandler: AddressString
         let version: String
     }
 }
@@ -88,39 +92,41 @@ struct SafeBalancesRequest: JSONRequest {
 
     typealias ResponseType = [Response]
 
-    init(address: String) {
-        self.address = address
+    init(address: Address) {
+        self.address = address.checksummed
     }
 
     struct Response: Decodable {
-        let tokenAddress: String? // nil == Ether
+        let tokenAddress: AddressString? // nil == Ether
         let token: Token? // nil == Ether
-        let balance: String
+        let balance: UInt256String
         let balanceUsd: String
 
         struct Token: Decodable {
             let name: String
             let symbol: String
-            let decimals: Int
+            let decimals: UInt256String
         }
     }
 }
 
 struct TransactionsRequest: JSONRequest {
     let address: String
-    let limit: Int = 100
-    let offset: Int = 0
+    let limit: Int
+    let offset: Int
     var httpMethod: String { "GET" }
     var urlPath: String { "/api/v1/safes/\(address)/all-transactions/" }
 
     var query: String? {
-        return "limit=\(limit)&offset=\(offset)"
+        return "limit=\(limit)&offset=\(offset)&queued=true"
     }
     
     typealias Response = PagedResponse<Transaction>
     typealias ResponseType = Response
 
-    init(address: String) {
-        self.address = address
+    init(address: Address, limit: Int, offset: Int) {
+        self.address = address.checksummed
+        self.limit = limit
+        self.offset = offset
     }
 }

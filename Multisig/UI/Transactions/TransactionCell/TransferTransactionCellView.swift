@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TransferTransactionCellView: View {
-    let transaction: TransferTransaction
+    let transaction: TransferTransactionViewModel
     var body: some View {
         HStack (alignment: .center) {
             Image(imageName)
@@ -34,7 +34,7 @@ struct TransferTransactionCellView: View {
 
 struct TransferTransactionCellView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = TransferTransaction()
+        let transaction = TransferTransactionViewModel()
         transaction.address = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.confirmationCount = 1
         transaction.threshold = 2
