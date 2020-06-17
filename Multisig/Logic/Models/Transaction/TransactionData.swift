@@ -13,17 +13,16 @@ struct TransactionData: Decodable, Hashable {
     let parameters: [TransactionDataParameter]
 }
 
-struct TransactionDataParameter: Decodable, Hashable {
+struct TransactionDataParameter: Hashable {
     let name: String
     let type: String
     let value: String?
+}
+
+extension TransactionDataParameter: Decodable {
 
     enum CodingKeys: CodingKey {
         case name, type, value
-    }
-
-    init(name: String, type: String, value: String?) {
-        (self.name, self.type, self.value) = (name, type, value)
     }
 
     init(from decoder: Decoder) throws {
