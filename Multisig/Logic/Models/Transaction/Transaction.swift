@@ -35,7 +35,7 @@ struct Transaction: Decodable, Hashable {
     let ethGasPrice: UInt256String?
     let gasUsed: UInt256String?
     let fee: UInt256String?
-//    let origin: AddressString?  // "{\"url\":\"https://gnosis-apps.netlify.com/compound\",\"name\":\"Compound\"}"
+    let origin: String?
     let dataDecoded: TransactionData?
     let confirmationsRequired: UInt256String?
     let confirmations: [TransactionConfirmation]?

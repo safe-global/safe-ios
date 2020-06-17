@@ -32,6 +32,10 @@ enum TransactionStatus {
             return "Success"
         }
     }
+
+    var isWaiting: Bool {
+        [.waitingConfirmation, .waitingExecution].contains(self)
+    }
 }
 
 extension Transaction {
