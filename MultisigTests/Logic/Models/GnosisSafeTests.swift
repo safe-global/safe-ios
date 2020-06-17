@@ -11,7 +11,7 @@ import XCTest
 
 class GnosisSafeTests: XCTestCase {
 
-    let someAddress = Address("0x4995D78E5a672CC035929822E97EAcEB4464f97A")
+    let someAddress: Address = "0x4995D78E5a672CC035929822E97EAcEB4464f97A"
     let safe = GnosisSafe()
 
     func testContractVersions() {

@@ -24,7 +24,6 @@ class TransferTransactionViewModel: TransactionViewModel {
         super.init()
     }
 
-
     convenience init(transfer: TransactionTransfer, tx: Transaction, safe: SafeStatusRequest.Response) {
         self.init(
             from: transfer.from.address,
@@ -89,7 +88,6 @@ class TransferTransactionViewModel: TransactionViewModel {
             self.status = status
         }
     }
-
 
     // typealiases for shorter source code line length
     fileprivate typealias Erc20Transfer = MethodRegistry.ERC20.Transfer

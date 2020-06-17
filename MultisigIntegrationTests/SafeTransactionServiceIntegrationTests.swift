@@ -103,7 +103,6 @@ class SafeTransactionServiceIntegrationTests: XCTestCase {
                 var localCount = 0
                 var pages: [TransactionsRequest.Response] = []
                 repeat {
-                    print("safe", safe.checksummed, "offset", offset, "limit", limit)
                     let page = try self.service.transactions(address: safe, offset: offset, limit: limit)
                     pages.append(page)
                     remoteCount = page.count
