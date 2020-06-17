@@ -93,6 +93,7 @@ class TransferTransactionViewModel: TransactionViewModel {
     fileprivate typealias Erc20Transfer = MethodRegistry.ERC20.Transfer
     fileprivate typealias Erc20TransferFrom = MethodRegistry.ERC20.TransferFrom
     fileprivate typealias Erc721SafeTransferFrom = MethodRegistry.ERC721.SafeTransferFrom
+    fileprivate typealias Erc721SafeTransferFromData = MethodRegistry.ERC721.SafeTransferFromData
 
     override convenience init(_ tx: Transaction, _ safe: SafeStatusRequest.Response) {
         let safeAddress = tx.safe?.address ?? safe.address.address
@@ -111,6 +112,10 @@ class TransferTransactionViewModel: TransactionViewModel {
 
         // ERC721
         } else if let data = tx.dataDecoded, let call = Erc721SafeTransferFrom(data: data) {
+            (from, to, amount) = (call.from, call.to, 1)
+            isERC721 = true
+
+        } else if let data = tx.dataDecoded, let call = Erc721SafeTransferFromData(data: data) {
             (from, to, amount) = (call.from, call.to, 1)
             isERC721 = true
 

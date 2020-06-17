@@ -77,6 +77,7 @@
 		0A19D435249A557E00A316B6 /* MethodRegistryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D434249A557E00A316B6 /* MethodRegistryTestCase.swift */; };
 		0A19D439249A5B1500A316B6 /* addOwnerWithThreshold_tx.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D438249A5B1500A316B6 /* addOwnerWithThreshold_tx.json */; };
 		0A19D43B249A5BA500A316B6 /* addOwnerWithThreshold_safe.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D43A249A5BA500A316B6 /* addOwnerWithThreshold_safe.json */; };
+		0A19D43E249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D43D249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
 		0A465C2E246C196900AFA467 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C2D246C196900AFA467 /* Theme.swift */; };
 		0A465C32246C229800AFA467 /* FrameForNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */; };
@@ -326,6 +327,7 @@
 		0A19D434249A557E00A316B6 /* MethodRegistryTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodRegistryTestCase.swift; sourceTree = "<group>"; };
 		0A19D438249A5B1500A316B6 /* addOwnerWithThreshold_tx.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = addOwnerWithThreshold_tx.json; sourceTree = "<group>"; };
 		0A19D43A249A5BA500A316B6 /* addOwnerWithThreshold_safe.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = addOwnerWithThreshold_safe.json; sourceTree = "<group>"; };
+		0A19D43D249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MethodRegistry+ERC721Tests.swift"; sourceTree = "<group>"; };
 		0A35CC2F24810CF6005E45BA /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		0A465C2D246C196900AFA467 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -1231,6 +1233,7 @@
 				0A19D434249A557E00A316B6 /* MethodRegistryTestCase.swift */,
 				0A19D430249A4C5100A316B6 /* MethodSignatureTests.swift */,
 				0A19D432249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift */,
+				0A19D43D249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1863,6 +1866,7 @@
 				0A6430F5247ECB3E006FD30A /* ConfigurationKeyTests.swift in Sources */,
 				0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */,
 				0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */,
+				0A19D43E249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift in Sources */,
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
 				55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */,
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
