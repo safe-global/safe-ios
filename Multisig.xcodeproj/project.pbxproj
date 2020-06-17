@@ -604,6 +604,7 @@
 				04C7C4412490FA0F00D869C1 /* TransactionConfirmationsView */,
 				04F533602490E7BF00F28099 /* TransactionDetails */,
 				04F533612490E7D800F28099 /* TransactionsList */,
+				0497F6E12488EB6C00A1F4DE /* TransactionCell */,
 				0AA9F26C249A2082005BD60F /* TransactionViewModel */,
 			);
 			path = Transactions;
@@ -669,7 +670,6 @@
 				0460AB3C247EC12B005CA275 /* TransactionsViewModel.swift */,
 				0AA9F265249A18A3005BD60F /* TransactionListView.swift */,
 				0AA9F264249A18A3005BD60F /* TransactionsView.swift */,
-				0497F6E12488EB6C00A1F4DE /* TransactionCell */,
 			);
 			path = TransactionsList;
 			sourceTree = "<group>";
