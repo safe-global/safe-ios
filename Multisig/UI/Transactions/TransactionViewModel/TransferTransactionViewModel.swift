@@ -15,12 +15,14 @@ class TransferTransactionViewModel: TransactionViewModel {
     var isOutgoing: Bool
     var amount: String
     var tokenSymbol: String
+    var tokenLogoURL: String
 
     override init() {
         address = ""
         isOutgoing = true
         amount = ""
         tokenSymbol = ""
+        tokenLogoURL = ""
         super.init()
     }
 
@@ -76,6 +78,7 @@ class TransferTransactionViewModel: TransactionViewModel {
                 thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
                 forcePlusSign: true)
             tokenSymbol = token?.symbol ?? ""
+            tokenLogoURL = token?.logoUri ?? ""
         }
 
         super.init(tx, safeInfo)

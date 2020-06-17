@@ -11,7 +11,7 @@ import Foundation
 class SettingChangeTransactionViewModel: TransactionViewModel {
 
     var title: String
-
+    var method: SmartContractMethodCall?
     override init() {
         title = ""
         super.init()
@@ -19,6 +19,7 @@ class SettingChangeTransactionViewModel: TransactionViewModel {
 
     override init(_ tx: Transaction, _ safe: SafeStatusRequest.Response)  {
         title = tx.dataDecoded!.method
+        method = MethodRegistry.GnosisSafeSettings.method(from: tx.dataDecoded!)
         super.init(tx, safe)
     }
 
