@@ -43,6 +43,7 @@ struct AddressCell: View {
             }
         }
         .padding(EdgeInsets(top: 2, leading: 0, bottom: 6, trailing: 0))
+        .frame(height: 50)
     }
 
     var addressText: some View {
