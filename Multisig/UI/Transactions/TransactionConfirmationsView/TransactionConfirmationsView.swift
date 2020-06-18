@@ -40,7 +40,7 @@ struct TransactionConfirmationsView: View {
             }
 
             if transaction.status == .waitingConfirmation {
-                if !isConfirmed {
+                if !transaction.hasConfirmations {
                     VerticalBarView()
                 }
 
@@ -56,15 +56,11 @@ struct TransactionConfirmationsView: View {
         } else if transaction.status == .failed {
             return .failed
         } else if status == .waitingConfirmation {
-            return isConfirmed ? nil : .confirm
+            return transaction.hasConfirmations ? nil : .confirm
         } else if status == .waitingExecution {
             return .execute
         }
 
         return nil
-    }
-
-    var isConfirmed: Bool {
-        !transaction.confirmations!.isEmpty
     }
 }
