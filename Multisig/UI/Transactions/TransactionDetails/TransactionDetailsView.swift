@@ -31,9 +31,7 @@ struct TransactionDetailsView: View {
             }
 
             TransactionStatusTypeView(transaction: transaction)
-            if !(transaction.confirmations?.isEmpty ?? true) {
-                TransactionConfirmationsView(transaction: transaction, safe: selectedSafe.first!).padding(.vertical, padding)
-            }
+            TransactionConfirmationsView(transaction: transaction, safe: selectedSafe.first!).padding(.vertical, padding)
 
             if transaction.formattedCreatedDate != nil {
                 KeyValueRow("Created", transaction.formattedCreatedDate!, false, .gnoDarkGrey).padding(.vertical, padding)
