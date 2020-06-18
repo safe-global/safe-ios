@@ -10,38 +10,37 @@ import Foundation
 
 // Information about structure described in https://github.com/gnosis/safe/issues/324
 struct Transaction: Decodable, Hashable {
-
     var safe: AddressString?
-    let to: AddressString?
-    let value: UInt256String?
-    let data: DataString?
-    let operation: GnosisSafeOperation?
-    let gasToken: AddressString?
-    let safeTxGas: UInt256String?
-    let baseGas: UInt256String?
-    let gasPrice: UInt256String?
-    let refundReceiver: AddressString?
-    let nonce: UInt256String?
-    let executionDate: Date?
-    let submissionDate: Date?
-    let modified: Date?
-    let blockNumber: UInt256String?
-    let transactionHash: DataString?
-    let safeTxHash: DataString?
-    let executor: AddressString?
-    let isExecuted: Bool?
-    let isSuccessful: Bool?
-    let tokenAddress: AddressString?
-    let ethGasPrice: UInt256String?
-    let gasUsed: UInt256String?
-    let fee: UInt256String?
-    let origin: String?
-    let dataDecoded: TransactionData?
-    let confirmationsRequired: UInt256String?
-    let confirmations: [TransactionConfirmation]?
-    let signatures: DataString?
-    let transfers: [TransactionTransfer]?
-    let txType: TransactionType?
+    var to: AddressString?
+    var value: UInt256String?
+    var data: DataString?
+    var operation: GnosisSafeOperation?
+    var gasToken: AddressString?
+    var safeTxGas: UInt256String?
+    var baseGas: UInt256String?
+    var gasPrice: UInt256String?
+    var refundReceiver: AddressString?
+    var nonce: UInt256String?
+    var executionDate: Date?
+    var submissionDate: Date?
+    var modified: Date?
+    var blockNumber: UInt256String?
+    var transactionHash: DataString?
+    var safeTxHash: DataString?
+    var executor: AddressString?
+    var isExecuted: Bool?
+    var isSuccessful: Bool?
+    var tokenAddress: AddressString?
+    var ethGasPrice: UInt256String?
+    var gasUsed: UInt256String?
+    var fee: UInt256String?
+    var origin: String?
+    var dataDecoded: TransactionData?
+    var confirmationsRequired: UInt256String?
+    var confirmations: [TransactionConfirmation]?
+    var signatures: DataString?
+    var transfers: [TransactionTransfer]?
+    var txType: TransactionType?
 }
 
 enum TransactionType: String, Decodable {

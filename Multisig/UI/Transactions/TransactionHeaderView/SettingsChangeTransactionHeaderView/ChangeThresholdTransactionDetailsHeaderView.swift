@@ -1,0 +1,22 @@
+//
+//  ChangeThresholdTransactionDetailsHeaderView.swift
+//  Multisig
+//
+//  Created by Moaaz on 6/17/20.
+//  Copyright © 2020 Gnosis Ltd. All rights reserved.
+//
+
+import SwiftUI
+
+struct ChangeThresholdTransactionDetailsHeaderView: View {
+    var threshold: UInt256
+    var body: some View {
+        KeyValueRow("Change required confirmations:", "\(threshold)", false, Color.gnoDarkGrey)
+    }
+}
+
+struct ChangeThresholdTransactionDetailsHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChangeThresholdTransactionDetailsHeaderView(threshold: 1)
+    }
+}

@@ -44,9 +44,9 @@ extension MethodRegistry {
             }
         }
 
+        #warning("TODO: tx.contractInfo.type == ContractInfoType.ERC20")
         static func isValid(_ tx: Transaction) -> Bool {
-            #warning("TODO: tx.contractInfo.type == ContractInfoType.ERC20")
-            return tx.operation == .call &&
+            tx.operation == .call &&
                 tx.dataDecoded != nil &&
                 (Transfer(data: tx.dataDecoded!) != nil ||
                     TransferFrom(data: tx.dataDecoded!) != nil)

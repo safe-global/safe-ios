@@ -23,6 +23,20 @@ class GnosisSafe {
         ("0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F", "1.1.1")
     ]
 
+    var fallbackHandlers:[(fallbackHandler: Address, label: String)] = [("0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44", "DefaultFallbackHandler")]
+
+    func fallbackHandlerLabel(fallbackHandler: Address?) -> String {
+        guard let fallbackHandler = fallbackHandler else {
+            return "Not set"
+        }
+
+        guard let handler = fallbackHandlers.first(where: { $0.fallbackHandler == fallbackHandler }) else {
+            return "Unknown"
+        }
+
+        return handler.label
+    }
+
     func version(masterCopy: Address) -> VersionStatus {
         guard let versionIndex = versions.firstIndex(where: { $0.masterCopy == masterCopy }) else {
             return .unknown

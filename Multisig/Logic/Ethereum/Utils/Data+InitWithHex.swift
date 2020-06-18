@@ -21,4 +21,15 @@ public extension Data {
         self.init(hex: value)
     }
 
+    init?(exactlyHex hex: String) {
+        var value = hex.lowercased()
+        if value.hasPrefix("0x") {
+            value.removeFirst(2)
+        }
+        guard value.rangeOfCharacter(from: CharacterSet.hexadecimals.inverted) == nil else {
+            return nil
+        }
+        self.init(hex: hex)
+    }
+
 }

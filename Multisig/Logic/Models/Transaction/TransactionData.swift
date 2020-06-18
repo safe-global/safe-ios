@@ -13,10 +13,13 @@ struct TransactionData: Decodable, Hashable {
     let parameters: [TransactionDataParameter]
 }
 
-struct TransactionDataParameter: Decodable, Hashable {
+struct TransactionDataParameter: Hashable {
     let name: String
     let type: String
     let value: String?
+}
+
+extension TransactionDataParameter: Decodable {
 
     enum CodingKeys: CodingKey {
         case name, type, value
@@ -40,4 +43,8 @@ struct TransactionDataParameter: Decodable, Hashable {
         return UInt256(value)
     }
 
+    var bytesValue: Data? {
+        guard let value = value else { return nil }
+        return Data(exactlyHex: value)
+    }
 }
