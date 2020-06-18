@@ -30,9 +30,9 @@ struct SettingsChangeTransactionDetailsHeaderView: View {
             if addOwnerWithThreshold != nil {
                 AddRemoveOwnerTransactionDetailsHeaderView(state: .add, address: addOwnerWithThreshold!.address, threshold: addOwnerWithThreshold!.threshold)
             } else if removeOwner != nil {
-                AddRemoveOwnerTransactionDetailsHeaderView(state: .remove, address: removeOwner!.prevOwner, threshold: removeOwner!.threshold)
+                AddRemoveOwnerTransactionDetailsHeaderView(state: .remove, address: removeOwner!.owner, threshold: removeOwner!.threshold)
             } else if swapOwner != nil {
-                SwapOwnerTransactionDetailsHeaderView(removedAddress: swapOwner!.prevOwner, addedAddress: swapOwner!.newOwner)
+                SwapOwnerTransactionDetailsHeaderView(removedAddress: swapOwner!.oldOwner, addedAddress: swapOwner!.newOwner)
             } else if setFallbackHandler != nil {
                 SetFallbackHandlerTransactionDetailsHeaderView(address: setFallbackHandler!.handler)
             } else if enableModule != nil {
