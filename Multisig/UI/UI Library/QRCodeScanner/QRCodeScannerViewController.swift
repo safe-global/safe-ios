@@ -159,8 +159,21 @@ extension QRCodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
             .first
         
         if let code = scannedValue {
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-            scannerDidScan(code: code)
+            if Address(code) != nil {
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                scannerDidScan(code: code)
+            } else {
+                captureSession.stopRunning()
+                let alert = UIAlertController(title: "Error",
+                                              message: "Incorrect QR Code",
+                                              preferredStyle: .alert)
+                let retryButton = UIAlertAction(title: "Retry", style: .default) { [unowned self] _ in
+                    self.captureSession.startRunning()
+                }
+                alert.addAction(retryButton)
+                present(alert, animated: true)
+            }
+
         }
     }
 }
