@@ -29,11 +29,31 @@ extension MethodRegistry {
             }
         }
 
+        struct SafeTransferFromData: SmartContractMethodCall {
+            static let signature = MethodSignature("safeTransferFrom", "address", "address", "uint256", "bytes")
+            let from: Address
+            let to: Address
+            let tokenId: UInt256
+            let data: Data
+
+            init?(data: TransactionData) {
+                guard data == Self.signature,
+                    let from = data.parameters[0].addressValue,
+                    let to = data.parameters[1].addressValue,
+                    let tokenId = data.parameters[2].uint256Value,
+                    let data = data.parameters[3].bytesValue else {
+                        return nil
+                }
+                (self.from, self.to, self.tokenId, self.data) = (from, to, tokenId, data)
+            }
+        }
+
+        #warning("TODO: tx.contractInfo.type == ContractInfoType.ERC721")
         static func isValid(_ tx: Transaction) -> Bool {
-            #warning("TODO: tx.contractInfo.type == ContractInfoType.ERC721")
-            return tx.operation == .call &&
+            tx.operation == .call &&
                 tx.dataDecoded != nil &&
-                SafeTransferFrom(data: tx.dataDecoded!) != nil
+                (SafeTransferFrom(data: tx.dataDecoded!) != nil ||
+                    SafeTransferFromData(data: tx.dataDecoded!) != nil)
         }
 
     }

@@ -43,4 +43,8 @@ extension TransactionDataParameter: Decodable {
         return UInt256(value)
     }
 
+    var bytesValue: Data? {
+        guard let value = value else { return nil }
+        return Data(exactlyHex: value)
+    }
 }
