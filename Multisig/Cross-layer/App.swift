@@ -13,7 +13,6 @@ class App {
     static let shared = App()
 
     // UI layer
-
     var viewState = ViewState()
     var theme = Theme()
 

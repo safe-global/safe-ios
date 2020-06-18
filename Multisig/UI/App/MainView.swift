@@ -11,7 +11,7 @@ import SwiftUI
 struct MainView: View {
     @Environment(\.managedObjectContext)
     var context: CoreDataContext
-    
+
     @ObservedObject
     var viewState = App.shared.viewState
 
@@ -28,39 +28,15 @@ struct MainView: View {
                     .frame(height: headerHeight)
                     .zIndex(100)
 
-                BottomTabView($viewState.state) {
-                    AssetsView()
-                        .environment(\.managedObjectContext, context)
-                        .gnoTabItem(id: ViewStateMode.balances) {
-                            VStack {
-                                Image("tab-icon-balances")
-                                Text("Assets")
-                            }
-                        }
-
-                    TransactionsView()
-                        .gnoTabItem(id: ViewStateMode.transactions) {
-                            VStack {
-                                Image("tab-icon-transactions")
-                                Text("Transactions")
-                            }
-                        }
-
-                    SettingsView()
-                        .gnoTabItem(id: ViewStateMode.settings) {
-                            VStack {
-                                Image("tab-icon-settings")
-                                Text("Settings")
-                            }
-                        }
-                }
-                // without it, the NavigationViewController overlays the
-                // invisible navigation bar on top of everything else,
-                // and the header becomes untappable.
-                // Hiding/showing the navigation bar to workaround that.
-                .navigationBarTitle("", displayMode: .inline)
-                .navigationBarHidden(viewState.hidesNavbar)
-                .hidesSystemNavigationBar(true)
+                MainTabView()
+                    .environment(\.managedObjectContext, context)
+                    // without it, the NavigationViewController overlays the
+                    // invisible navigation bar on top of everything else,
+                    // and the header becomes untappable.
+                    // Hiding/showing the navigation bar to workaround that.
+                    .navigationBarTitle("", displayMode: .inline)
+                    .navigationBarHidden(viewState.hidesNavbar)
+                    .hidesSystemNavigationBar(true)
             }
             .edgesIgnoringSafeArea(.top)
         }
