@@ -19,7 +19,7 @@ struct AddRemoveOwnerTransactionDetailsHeaderView: View {
             AddressCell(address: address.checksummed)
 
             if threshold != nil {
-                KeyValueRow("Change required confirmations:", "\(threshold!)", false, Color.gnoDarkGrey)
+                KeyValueRow("Change required confirmations:", value: "\(threshold!)", enableCopy: false, color: Color.gnoDarkGrey)
             }
         }
     }

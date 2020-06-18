@@ -51,7 +51,7 @@ class TransactionViewModel: Identifiable {
         formattedCreatedDate = tx.submissionDate.map { Self.dateFormatter.string(from: $0) }
         formattedExecutedDate = tx.executionDate.map { Self.dateFormatter.string(from: $0) }
         formattedDate = date.map { Self.dateFormatter.string(from: $0) } ?? ""
-        operation = tx.operation?.description
+        operation = tx.operation?.name
         confirmations = tx.confirmations.map { $0.map(TransactionConfirmationViewModel.init(confirmation:)) }
         // computing confirmation counters
         do {
@@ -70,4 +70,15 @@ class TransactionViewModel: Identifiable {
         executor = tx.executor?.address.checksummed
     }
 
+}
+
+extension GnosisSafeOperation {
+    var name: String {
+        switch self {
+        case .call:
+            return "call"
+        case .delegateCall:
+            return "delegateCall"
+        }
+    }
 }
