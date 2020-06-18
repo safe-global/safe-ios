@@ -14,7 +14,7 @@ struct KeyValueRow: View {
     var value: String
     var enableCopy: Bool
     var color: Color
-    init(_ key: String, _ value: String, _ enableCopy: Bool = true, _ color: Color = Color.gnoMediumGrey) {
+    init(_ key: String, value: String, enableCopy: Bool = true, color: Color = Color.gnoMediumGrey) {
         self.key = key
         self.value = value
         self.enableCopy = enableCopy
@@ -35,6 +35,6 @@ struct KeyValueRow: View {
 
 struct KeyValueRow_Previews: PreviewProvider {
     static var previews: some View {
-        KeyValueRow("Key", "Value")
+        KeyValueRow("Key", value: "Value")
     }
 }

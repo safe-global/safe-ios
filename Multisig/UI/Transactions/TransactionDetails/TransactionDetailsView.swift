@@ -36,17 +36,20 @@ struct TransactionDetailsView: View {
             }
 
             if transaction.formattedCreatedDate != nil {
-                KeyValueRow("Created", transaction.formattedCreatedDate!, false, .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Created", value: transaction.formattedCreatedDate!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
             }
 
             if transaction.formattedExecutedDate != nil {
-                KeyValueRow("Executed", transaction.formattedExecutedDate!, false, .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Executed", value: transaction.formattedExecutedDate!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
+            }
+
+            if transaction.hasAdvancedDetails {
+                NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transaction)) {
+                    BodyText("Advanced")
+                }
+                .frame(height: 48)
             }
             
-            NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transaction)) {
-                BodyText("Advanced")
-            }
-            .frame(height: 48)
             if transaction.hash != nil {
                 Button(action: { self.showsLink.toggle() }) {
                     LinkText(title: "View transaction on Etherscan")

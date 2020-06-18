@@ -21,11 +21,11 @@ struct AdvancedAppSettings: View {
 
             Section(header: SectionHeader("ENDPOINTS")) {
                 KeyValueRow("RPC endpoint",
-                            DisplayURL(App.shared.nodeService.url).absoluteString)
+                            value: DisplayURL(App.shared.nodeService.url).absoluteString)
                 KeyValueRow("Transaction service",
-                            DisplayURL(App.shared.safeTransactionService.url).absoluteString)
+                            value: DisplayURL(App.shared.safeTransactionService.url).absoluteString)
                 KeyValueRow("Relay service",
-                            DisplayURL(App.shared.safeRelayService.url).absoluteString)
+                            value: DisplayURL(App.shared.safeRelayService.url).absoluteString)
             }
         }
         .onAppear {
