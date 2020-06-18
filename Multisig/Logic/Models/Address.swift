@@ -37,6 +37,10 @@ extension Address {
         hex(eip55: false)
     }
 
+    var data: Data {
+        Data(rawAddress)
+    }
+
     init(_ value: UInt256) {
         let data = Data(ethHex: String(value, radix: 16)).endTruncated(to: 20).leftPadded(to: 20)
         try! self.init(hex: "0x" + data.toHexString(), eip55: false)
