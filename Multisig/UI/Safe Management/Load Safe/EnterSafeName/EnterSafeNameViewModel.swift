@@ -17,6 +17,10 @@ class EnterSafeNameViewModel: ObservableObject {
     @Published
     var isValid: Bool?
 
+    var validatedText: String {
+        enteredText.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
     var address: String
 
     private var subscribers = Set<AnyCancellable>()
@@ -26,6 +30,7 @@ class EnterSafeNameViewModel: ObservableObject {
         
         $enteredText
             .dropFirst()
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .sink { value in
                 self.isValid = !value.isEmpty
             }
@@ -33,12 +38,12 @@ class EnterSafeNameViewModel: ObservableObject {
     }
 
     func onEditing() {
-        self.isValid = enteredText.isEmpty ? nil : true
+        self.isValid = validatedText.isEmpty ? nil : true
     }
 
     func submit() {
         guard isValid == true else { return }
-        Safe.create(address: address, name: enteredText)
+        Safe.create(address: address, name: validatedText)
     }
 
 }

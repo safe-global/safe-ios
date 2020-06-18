@@ -20,6 +20,10 @@ class EditSafeNameViewModel: ObservableObject {
     @Published
     var error: String = ""
 
+    var validatedText: String {
+        enteredText.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
     var address: String
 
     private var subscribers = Set<AnyCancellable>()
@@ -30,9 +34,7 @@ class EditSafeNameViewModel: ObservableObject {
         
         $enteredText
             .dropFirst()
-            .map { value -> String in
-                value.trimmingCharacters(in: .whitespacesAndNewlines)
-            }
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .sink { value in
                 self.isValid = !value.isEmpty
                 self.error = self.isValid == false ? "Name must not be empty" : ""
@@ -41,12 +43,12 @@ class EditSafeNameViewModel: ObservableObject {
     }
 
     func onEditing() {
-        self.isValid = enteredText.isEmpty ? nil : true
+        self.isValid = validatedText.isEmpty ? nil : true
     }
 
     func submit() {
         guard isValid == true else { return }
-        Safe.edit(address: address, name: enteredText)
+        Safe.edit(address: address, name: validatedText)
     }
 
 }
