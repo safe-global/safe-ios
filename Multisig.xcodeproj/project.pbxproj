@@ -26,11 +26,12 @@
 		046D0A6E249A446D000F4021 /* ChangeMastercopyTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A69249A446D000F4021 /* ChangeMastercopyTransactionDetailsHeaderView.swift */; };
 		046D0A6F249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A6A249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift */; };
 		046D0A70249A446D000F4021 /* TransferValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A6B249A446D000F4021 /* TransferValueView.swift */; };
-		046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A72249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift */; };
 		046D0A75249A5EE5000F4021 /* SwapOwnerTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A74249A5EE5000F4021 /* SwapOwnerTransactionDetailsHeaderView.swift */; };
+		046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A72249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift */; };
 		046D0A77249A5F57000F4021 /* EnableDisableModuleTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A76249A5F57000F4021 /* EnableDisableModuleTransactionDetailsHeaderView.swift */; };
 		046D0A79249A603B000F4021 /* SetFallbackHandlerTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A78249A603B000F4021 /* SetFallbackHandlerTransactionDetailsHeaderView.swift */; };
 		046D0A7B249A7248000F4021 /* ChangeThresholdTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A7A249A7248000F4021 /* ChangeThresholdTransactionDetailsHeaderView.swift */; };
+		046D0A5A249A1C64000F4021 /* ExpandableButton .swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A59249A1C64000F4021 /* ExpandableButton .swift */; };
 		0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471D13124728C2C00B22A70 /* EmailLink.swift */; };
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
 		047300FE24781081004F1200 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FD24781081004F1200 /* AddressTests.swift */; };
@@ -290,6 +291,7 @@
 		046D0A76249A5F57000F4021 /* EnableDisableModuleTransactionDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableDisableModuleTransactionDetailsHeaderView.swift; sourceTree = "<group>"; };
 		046D0A78249A603B000F4021 /* SetFallbackHandlerTransactionDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFallbackHandlerTransactionDetailsHeaderView.swift; sourceTree = "<group>"; };
 		046D0A7A249A7248000F4021 /* ChangeThresholdTransactionDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeThresholdTransactionDetailsHeaderView.swift; sourceTree = "<group>"; };
+		046D0A59249A1C64000F4021 /* ExpandableButton .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExpandableButton .swift"; sourceTree = "<group>"; };
 		0471D13124728C2C00B22A70 /* EmailLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLink.swift; sourceTree = "<group>"; };
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
 		047300FD24781081004F1200 /* AddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
@@ -1009,6 +1011,7 @@
 				0AEDCE0A2472946600A1EC80 /* BarButton.swift */,
 				55AC9E48248681A100B0BC24 /* LinkButton.swift */,
 				04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */,
+				046D0A59249A1C64000F4021 /* ExpandableButton .swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -1714,6 +1717,7 @@
 			files = (
 				0AF6501B24488D280018D070 /* FullSize.swift in Sources */,
 				0A7AEAE12462F98800014184 /* SafeRow.swift in Sources */,
+				046D0A5A249A1C64000F4021 /* ExpandableButton .swift in Sources */,
 				047691372461B2E200D73D8B /* AddressCell.swift in Sources */,
 				0497F6E72488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift in Sources */,
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,

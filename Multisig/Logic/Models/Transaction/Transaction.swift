@@ -41,6 +41,11 @@ struct Transaction: Decodable, Hashable {
     var signatures: DataString?
     var transfers: [TransactionTransfer]?
     var txType: TransactionType?
+
+    static func browserURL(hash: String) -> URL {
+        App.configuration.services.etehreumBlockBrowserURL
+            .appendingPathComponent("tx").appendingPathComponent(hash)
+    }
 }
 
 enum TransactionType: String, Decodable {

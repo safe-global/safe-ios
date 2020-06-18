@@ -9,24 +9,67 @@
 import SwiftUI
 
 struct TransactionDetailsView: View {
+    
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
 
     let transaction: TransactionViewModel
+
+    @State
+    private var showsLink: Bool = false
+    private let padding: CGFloat = 11
+
     var body: some View {
         List {
             TransactionHeaderView(transaction: transaction)
+
+            if data != nil {
+                VStack (alignment: .leading) {
+                    BoldText("Data")
+                    ExpandableButton(title: "\(data!.length) Bytes", value: data!.data)
+                }.padding(.vertical, 11)
+            }
+
             TransactionStatusTypeView(transaction: transaction)
-            TransactionConfirmationsView(transaction: transaction, safe: selectedSafe.first!)
+            TransactionConfirmationsView(transaction: transaction, safe: selectedSafe.first!).padding(.vertical, padding)
+
+            if transaction.formattedCreatedDate != nil {
+                KeyValueRow("Created", transaction.formattedCreatedDate!, false, .gnoDarkGrey).padding(.vertical, padding)
+            }
+
+            if transaction.formattedExecutedDate != nil {
+                KeyValueRow("Executed", transaction.formattedExecutedDate!, false, .gnoDarkGrey).padding(.vertical, padding)
+            }
             
             NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transaction)) {
                 BodyText("Advanced")
             }
             .frame(height: 48)
+            if transaction.hash != nil {
+                Button(action: { self.showsLink.toggle() }) {
+                    LinkText(title: "View transaction on Etherscan")
+                }
+                .buttonStyle(BorderlessButtonStyle())
+                .foregroundColor(.gnoHold)
+                .sheet(isPresented: $showsLink, content: browseTransaction)
+                .padding(.vertical, padding)
+            }
         }
         .navigationBarTitle("Transaction Details", displayMode: .inline)
         .onAppear {
             self.trackEvent(.transactionsDetails)
         }
+    }
+
+    func browseTransaction() -> some View {
+        return SafariViewController(url: Transaction.browserURL(hash: transaction.hash!))
+    }
+
+    var data: (length: Int, data: String)? {
+        guard let customTransaction = transaction as? CustomTransactionViewModel else {
+            return nil
+        }
+
+        return (length: customTransaction.dataLength, data: customTransaction.data)
     }
 }

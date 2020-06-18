@@ -40,8 +40,24 @@ extension Image {
         Image(systemName: "chevron.down.circle")
             .resizable()
             .font(Font.body.weight(.medium))
-            .foregroundColor(.gnoMediumGrey)
+            .foregroundColor(.gnoDarkGrey)
             .frame(width: regularSize, height: regularSize)
+    }
+
+    static var chevronDown: some View {
+        Image(systemName: "chevron.down")
+            .resizable()
+            .font(Font.body.weight(.medium))
+            .foregroundColor(.gnoDarkGrey)
+            .frame(width: 12, height: 7)
+    }
+
+    static var chevronUp: some View {
+        Image(systemName: "chevron.up")
+            .resizable()
+            .font(Font.body.weight(.medium))
+            .foregroundColor(.gnoDarkGrey)
+            .frame(width: 12, height: 7)
     }
 
     static var ellipsis: some View {

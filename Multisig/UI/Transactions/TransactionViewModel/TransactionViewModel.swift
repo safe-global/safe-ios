@@ -12,9 +12,12 @@ class TransactionViewModel: Identifiable {
 
     let id: UUID
     var nonce: String?
+    var hash: String?
     var executor: String?
     var status: TransactionStatus
     var date: Date?
+    var formattedCreatedDate: String?
+    var formattedExecutedDate: String?
     var formattedDate: String
     var confirmationCount: Int?
     var threshold: Int?
@@ -42,7 +45,10 @@ class TransactionViewModel: Identifiable {
 
     init(_ tx: Transaction, _ safe: SafeStatusRequest.Response) {
         id = UUID()
+        hash = tx.transactionHash?.description
         date = tx.executionDate ?? tx.submissionDate ?? tx.modified
+        formattedCreatedDate = tx.submissionDate.map { Self.dateFormatter.string(from: $0) }
+        formattedExecutedDate = tx.executionDate.map { Self.dateFormatter.string(from: $0) }
         formattedDate = date.map { Self.dateFormatter.string(from: $0) } ?? ""
         confirmations = tx.confirmations.map { $0.map(TransactionConfirmationViewModel.init(confirmation:)) }
         // computing confirmation counters
