@@ -12,6 +12,7 @@ class TransactionViewModel: Identifiable {
 
     let id: UUID
     var nonce: String?
+    var executor: String?
     var status: TransactionStatus
     var date: Date?
     var formattedDate: String
@@ -57,6 +58,8 @@ class TransactionViewModel: Identifiable {
         status = tx.status(safeNonce: safe.nonce.value,
                            safeThreshold: safe.threshold.value)
         nonce = tx.nonce.map { String($0.value) }
+
+        executor = tx.executor?.address.checksummed
     }
 
 }

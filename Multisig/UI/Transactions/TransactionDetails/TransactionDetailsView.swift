@@ -17,9 +17,7 @@ struct TransactionDetailsView: View {
         List {
             TransactionHeaderView(transaction: transaction)
             TransactionStatusTypeView(transaction: transaction)
-            if !(transaction.confirmations?.isEmpty ?? true) {
-                TransactionConfirmationsView(transaction: transaction, safe: selectedSafe.first!)
-            }
+            TransactionConfirmationsView(transaction: transaction, safe: selectedSafe.first!)
             
             NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transaction)) {
                 BodyText("Advanced")

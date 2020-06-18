@@ -12,21 +12,22 @@ struct TransactionConfirmationsView: View {
     let transaction: TransactionViewModel
     let safe: Safe
 
-    #warning("TODO: update after clarified requirements")
-
     var body: some View {
-        assert(transaction.hasConfirmations)
-        return VStack(alignment: .leading, spacing: 1) {
-            TransactionConfirmationCell(address: transaction.confirmations!.first!.address, style: .created)
+        VStack(alignment: .leading, spacing: 1) {
+            TransactionConfiramtionStatusView(style: .created)
+            VerticalBarView()
 
             ForEach(transaction.confirmations ?? [], id: \.address) { confirmation in
                 TransactionConfirmationCell(address: confirmation.address, style: .confirmed)
             }
 
             if transaction.status == .success {
-                TransactionConfirmationCell(address: transaction.confirmations!.last!.address, style: .executed)
-            }
-            else {
+                if transaction.executor != nil {
+                    TransactionConfirmationCell(address: transaction.executor!, style: .executed)
+                } else {
+                    TransactionConfiramtionStatusView(style: .executed)
+                }
+            } else {
                 actionsView
             }
         }
@@ -39,7 +40,7 @@ struct TransactionConfirmationsView: View {
             }
 
             if transaction.status == .waitingConfirmation {
-                if !isConfirmedBySelectedSafe {
+                if !transaction.hasConfirmations {
                     VerticalBarView()
                 }
 
@@ -55,17 +56,11 @@ struct TransactionConfirmationsView: View {
         } else if transaction.status == .failed {
             return .failed
         } else if status == .waitingConfirmation {
-            return isConfirmedBySelectedSafe ? nil : .confirm
+            return transaction.hasConfirmations ? nil : .confirm
         } else if status == .waitingExecution {
             return .execute
         }
 
         return nil
-    }
-
-    var isConfirmedBySelectedSafe: Bool {
-        transaction.confirmations!.first { (confirmation) -> Bool in
-            confirmation.address == safe.address
-        } != nil
     }
 }
