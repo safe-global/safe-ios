@@ -57,4 +57,13 @@ enum TransactionType: String, Decodable {
 enum GnosisSafeOperation: Int, Decodable {
     case call = 0
     case delegateCall = 1
+
+    var description: String {
+        switch self {
+        case .call:
+            return "call"
+        case .delegateCall:
+            return "delegateCall"
+        }
+    }
 }
