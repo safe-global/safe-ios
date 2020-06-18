@@ -40,11 +40,14 @@ struct TransactionDetailsView: View {
             if transaction.formattedExecutedDate != nil {
                 KeyValueRow("Executed", transaction.formattedExecutedDate!, false, .gnoDarkGrey).padding(.vertical, padding)
             }
-            
-            NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transaction)) {
-                BodyText("Advanced")
+
+            if transaction.hasAdvancedDetails {
+                NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transaction)) {
+                    BodyText("Advanced")
+                }
+                .frame(height: 48)
             }
-            .frame(height: 48)
+            
             if transaction.hash != nil {
                 Button(action: { self.showsLink.toggle() }) {
                     LinkText(title: "View transaction on Etherscan")

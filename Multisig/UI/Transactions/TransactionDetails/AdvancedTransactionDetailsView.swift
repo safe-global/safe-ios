@@ -18,15 +18,15 @@ struct AdvancedTransactionDetailsView: View {
     var body: some View {
         List {
             if transaction.nonce != nil {
-                KeyValueRow("Nonce", transaction.nonce!, false, .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Nonce", transaction.nonce!, true, .gnoDarkGrey).padding(.vertical, padding)
             }
 
             if transaction.operation != nil {
-                KeyValueRow("Type of operation", transaction.operation!, false, .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Type of operation", transaction.operation!, true, .gnoDarkGrey).padding(.vertical, padding)
             }
 
             if transaction.hash != nil {
-                KeyValueRow("Transaction hash", transaction.hash!, false, .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Transaction hash", transaction.hash!, true, .gnoDarkGrey).padding(.vertical, padding)
             }
         }
         .navigationBarTitle("Advanced", displayMode: .inline)
@@ -37,5 +37,11 @@ struct AdvancedTransactionDetailsView: View {
         .onDisappear {
             self.theme.resetTemporaryTableViewBackground()
         }
+    }
+}
+
+extension TransactionViewModel {
+    var hasAdvancedDetails: Bool {
+        nonce != nil && operation != nil && hash != nil
     }
 }
