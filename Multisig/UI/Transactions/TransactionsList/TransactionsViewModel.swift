@@ -14,17 +14,20 @@ class TransactionsViewModel: ObservableObject {
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
 
-    private let safe: Safe
-    private var subscribers = Set<AnyCancellable>()
-
-    init(safe: Safe) {
-        self.safe = safe
-        loadData()
+    var safe: Safe? {
+        didSet {
+            guard oldValue != safe && safe != nil else {
+                return
+            }
+            loadData()
+        }
     }
+
+    var subscribers = Set<AnyCancellable>()
 
     func loadData() {
         isLoading = true
-        Just(safe.address!)
+        Just(safe!.address!)
             .compactMap { Address($0) }
             .setFailureType(to: Error.self)
             .flatMap { address in

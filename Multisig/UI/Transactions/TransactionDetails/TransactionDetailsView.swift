@@ -31,7 +31,9 @@ struct TransactionDetailsView: View {
             }
 
             TransactionStatusTypeView(transaction: transaction)
-            TransactionConfirmationsView(transaction: transaction, safe: selectedSafe.first!).padding(.vertical, padding)
+            if displayConfirmations {
+                TransactionConfirmationsView(transaction: transaction, safe: selectedSafe.first!).padding(.vertical, padding)
+            }
 
             if transaction.formattedCreatedDate != nil {
                 KeyValueRow("Created", transaction.formattedCreatedDate!, false, .gnoDarkGrey).padding(.vertical, padding)
@@ -74,5 +76,13 @@ struct TransactionDetailsView: View {
         }
 
         return (length: customTransaction.dataLength, data: customTransaction.data)
+    }
+
+    var displayConfirmations: Bool {
+        guard let transferTransaction = transaction as? TransferTransactionViewModel else {
+            return true
+        }
+
+        return transferTransaction.isOutgoing
     }
 }
