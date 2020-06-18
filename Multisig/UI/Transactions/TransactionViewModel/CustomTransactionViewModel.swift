@@ -10,14 +10,17 @@ import Foundation
 
 class CustomTransactionViewModel: TransferTransactionViewModel {
     var dataLength: Int
+    var data: String
 
     override init() {
         dataLength = 0
+        data = ""
         super.init()
     }
 
     init(_ tx: Transaction, _ safe: SafeStatusRequest.Response) {
         dataLength = tx.data.map { $0.data.count } ?? 0
+        data = tx.data?.description ?? ""
         let safeAddress = tx.safe?.address ?? safe.address.address
         let from = safeAddress
         let to = tx.to?.address ?? .zero

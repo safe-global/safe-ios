@@ -19,7 +19,7 @@ struct ExpandableButton: View {
         Button(action: {
             self.expanded.toggle()
         }) {
-            VStack (alignment: .leading){
+            VStack(alignment: .leading) {
                 HStack {
                     ValueText(title)
                     if self.expanded {
@@ -33,7 +33,7 @@ struct ExpandableButton: View {
                 }
             }
         }
-        .animation(.linear(duration: 0.2))
+        .animation(.linear(duration: 0.1))
         .buttonStyle(PlainButtonStyle())
     }
 }
