@@ -173,7 +173,6 @@ extension QRCodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                 alert.addAction(retryButton)
                 present(alert, animated: true)
             }
-
         }
     }
 }
