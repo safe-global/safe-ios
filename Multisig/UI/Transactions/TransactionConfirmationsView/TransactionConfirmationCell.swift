@@ -17,7 +17,7 @@ struct TransactionConfirmationCell: View {
             TransactionConfiramtionStatusView(style: style)
 
             HStack {
-                VerticalBarView().opacity(hasVerticalBar ? 0 : 1)
+                VerticalBarView().opacity(hasVerticalBar ? 0 : 1).frame(height : 50)
 
                 AddressCell(address: address)
             }
