@@ -11,7 +11,11 @@ import SwiftUI
 class ViewState: ObservableObject {
 
     @Published
-    var state: ViewStateMode? = .balances
+    private(set) var state: ViewStateMode? = .balances
+
+    func switchTab(_ to: ViewStateMode?) {
+        state = to
+    }
 
     @Published
     var hidesNavbar: Bool = true

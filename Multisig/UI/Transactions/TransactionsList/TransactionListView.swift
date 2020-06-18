@@ -12,10 +12,6 @@ struct TransactionListView: View {
     @ObservedObject
     var model: TransactionsViewModel
 
-    init(_ safe: Safe) {
-        model = TransactionsViewModel(safe: safe)
-    }
-    
     var body: some View {
         ZStack {
             if model.isLoading {
@@ -48,9 +44,3 @@ struct TransactionListView: View {
         }
     }
 }
-
-//struct TransactionsContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TransactionsContentView()
-//    }
-//}
