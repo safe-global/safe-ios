@@ -15,8 +15,8 @@ class TransactionViewModel: Identifiable {
     var hash: String?
     var status: TransactionStatus
     var date: Date?
-    var createdDate: String?
-    var executedDate: String?
+    var formattedCreatedDate: String?
+    var formattedExecutedDate: String?
     var formattedDate: String
     var confirmationCount: Int?
     var threshold: Int?
@@ -46,8 +46,8 @@ class TransactionViewModel: Identifiable {
         id = UUID()
         hash = tx.transactionHash?.description
         date = tx.executionDate ?? tx.submissionDate ?? tx.modified
-        createdDate = tx.submissionDate.map { Self.dateFormatter.string(from: $0) } ?? ""
-        executedDate = tx.executionDate.map { Self.dateFormatter.string(from: $0) } ?? ""
+        formattedCreatedDate = tx.submissionDate.map { Self.dateFormatter.string(from: $0) }
+        formattedExecutedDate = tx.executionDate.map { Self.dateFormatter.string(from: $0) }
         formattedDate = date.map { Self.dateFormatter.string(from: $0) } ?? ""
         confirmations = tx.confirmations.map { $0.map(TransactionConfirmationViewModel.init(confirmation:)) }
         // computing confirmation counters

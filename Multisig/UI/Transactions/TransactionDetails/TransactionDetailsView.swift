@@ -17,7 +17,7 @@ struct TransactionDetailsView: View {
 
     @State
     private var showsLink: Bool = false
-    private let padding:CGFloat = 11
+    private let padding: CGFloat = 11
 
     var body: some View {
         List {
@@ -26,7 +26,7 @@ struct TransactionDetailsView: View {
             if data != nil {
                 VStack (alignment: .leading) {
                     BoldText("Data")
-                    ExpandableButton(title: "\(data!.0) Bytes", value: data!.1)
+                    ExpandableButton(title: "\(data!.length) Bytes", value: data!.data)
                 }.padding(.vertical, 11)
             }
 
@@ -35,12 +35,12 @@ struct TransactionDetailsView: View {
                 TransactionConfirmationsView(transaction: transaction, safe: selectedSafe.first!).padding(.vertical, padding)
             }
 
-            if transaction.createdDate != nil {
-                KeyValueRow("Created", transaction.createdDate!, false, .gnoDarkGrey).padding(.vertical, padding)
+            if transaction.formattedCreatedDate != nil {
+                KeyValueRow("Created", transaction.formattedCreatedDate!, false, .gnoDarkGrey).padding(.vertical, padding)
             }
 
-            if transaction.executedDate != nil {
-                KeyValueRow("Executed", transaction.executedDate!, false, .gnoDarkGrey).padding(.vertical, padding)
+            if transaction.formattedExecutedDate != nil {
+                KeyValueRow("Executed", transaction.formattedExecutedDate!, false, .gnoDarkGrey).padding(.vertical, padding)
             }
             
             NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transaction)) {
@@ -48,7 +48,7 @@ struct TransactionDetailsView: View {
             }
             .frame(height: 48)
             if transaction.hash != nil {
-                Button(action: { self.showsLink.toggle()}) {
+                Button(action: { self.showsLink.toggle() }) {
                     LinkText(title: "View transaction on Etherscan")
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -67,11 +67,11 @@ struct TransactionDetailsView: View {
         return SafariViewController(url: Transaction.browserURL(hash: transaction.hash!))
     }
 
-    var data: (Int, String)? {
+    var data: (length: Int, data: String)? {
         guard let customTransaction = transaction as? CustomTransactionViewModel else {
             return nil
         }
 
-        return (customTransaction.dataLength, customTransaction.data)
+        return (length: customTransaction.dataLength, data: customTransaction.data)
     }
 }
