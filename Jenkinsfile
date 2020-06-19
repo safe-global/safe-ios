@@ -5,6 +5,7 @@ pipeline {
         PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
         INFURA_KEY = credentials('INFURA_KEY')
         ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
+        CODECOV_TOKEN = credentials('CODECOV_TOKEN')
     }
     stages {
         stage('Unit Test') {
