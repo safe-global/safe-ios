@@ -46,9 +46,9 @@ struct TokenBalanceCell: View {
     var body: some View {
         HStack(spacing: 12) {
             if tokenBalance.address != AddressRegistry.ether.checksummed {
-                TokenImage(imageURL: tokenBalance.imageURL!)
+                TokenImage(url: tokenBalance.imageURL)
             } else {
-                EtherImage()
+                TokenImage.ether
             }
             BoldText(tokenBalance.symbol)
             Spacer()

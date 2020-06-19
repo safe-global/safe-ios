@@ -16,9 +16,11 @@ struct TransferValueView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
             if transaction.tokenSymbol == App.shared.tokenRegistry.ether.symbol {
-                EtherImage().frame(width: dimension, height: dimension)
+                TokenImage.ether.frame(width: dimension, height: dimension)
+            } else if logoURL != nil  {
+                TokenImage(url: logoURL).frame(width: dimension, height: dimension)
             } else {
-                TokenImage(imageURL: URL(string: transaction.tokenLogoURL)!).frame(width: dimension, height: dimension)
+                TokenImage.placeholder.frame(width: dimension, height: dimension)
             }
 
             VStack (alignment: .leading) {
@@ -28,6 +30,10 @@ struct TransferValueView: View {
                 }
             }.opacity(opactiy)
         }
+    }
+
+    var logoURL: URL? {
+        URL(string: transaction.tokenLogoURL)
     }
 
     var amountColor: Color {

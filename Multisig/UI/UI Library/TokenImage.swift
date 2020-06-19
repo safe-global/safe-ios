@@ -10,26 +10,33 @@ import SwiftUI
 import struct Kingfisher.KFImage
 
 struct TokenImage: View {
-    let imageURL: URL
-    let size: CGFloat = 28
+    var width: CGFloat = 28
+    var height: CGFloat = 28
+    var url: URL?
+    var name: String?
 
-    var body: some View {
-        KFImage(imageURL)
-            .placeholder {
-                Image("ico-token-placeholder")
-            }
-            .cancelOnDisappear(true)
-            .resizable()
-            .frame(width: size, height: size)
+    static var ether: TokenImage {
+        Self.init(width: 28, height: 32, name: "ico-ether")
     }
-}
 
-struct EtherImage: View {
-    let width: CGFloat = 28
-    let height: CGFloat = 32
+    static var placeholder: TokenImage {
+        self.init(name: "ico-token-placeholder")
+    }
 
     var body: some View {
-        Image("ico-ether")
-            .frame(width: width, height: height)
+        VStack {
+            if url != nil {
+                KFImage(url!)
+                    .placeholder {
+                        Image("ico-token-placeholder")
+                }
+                .cancelOnDisappear(true)
+                .resizable()
+                .frame(width: width, height: height)
+            } else {
+                Image(name!)
+                    .frame(width: width, height: height)
+            }
+        }
     }
 }
