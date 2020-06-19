@@ -26,6 +26,7 @@ class TransactionsViewModel: ObservableObject {
     var subscribers = Set<AnyCancellable>()
 
     func loadData() {
+        subscribers.forEach { $0.cancel() }
         isLoading = true
         Just(safe!.address!)
             .compactMap { Address($0) }

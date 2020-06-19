@@ -30,10 +30,14 @@ class TokenRegistry {
     private var response: TokensRequest.Response?
     private var blockchainTokens: [Address: TokensRequest.Token] = [:]
 
+    var ether: TokensRequest.Token {
+        self[AddressRegistry.ether]!
+    }
+
     init() {
-        blockchainTokens = [Address.zero:
-            .init(address: .init(.zero),
-                  logoUri: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(Address.zero.checksummed).png",
+        blockchainTokens = [AddressRegistry.ether:
+            .init(address: .init(AddressRegistry.ether),
+                  logoUri: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(AddressRegistry.ether.checksummed).png",
                   default: nil,
                   name: "Ether",
                   symbol: "ETH",

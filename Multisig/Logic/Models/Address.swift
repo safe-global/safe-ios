@@ -43,7 +43,7 @@ extension Address {
 
     init(_ value: UInt256) {
         let data = Data(ethHex: String(value, radix: 16)).endTruncated(to: 20).leftPadded(to: 20)
-        try! self.init(hex: "0x" + data.toHexString(), eip55: false)
+        try! self.init(hex: data.toHexStringWithPrefix(), eip55: false)
     }
 
     init?(_ value: String) {
