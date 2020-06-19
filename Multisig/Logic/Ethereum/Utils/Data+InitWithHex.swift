@@ -32,4 +32,7 @@ public extension Data {
         self.init(hex: hex)
     }
 
+    func toHexStringWithPrefix() -> String {
+        "0x" + toHexString()
+    }
 }

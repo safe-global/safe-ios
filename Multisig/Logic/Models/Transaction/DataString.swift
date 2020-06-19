@@ -29,6 +29,6 @@ struct DataString: Hashable, Decodable {
 
 extension DataString: CustomStringConvertible {
     var description: String {
-        data.toHexString()
+        data.toHexStringWithPrefix()
     }
 }

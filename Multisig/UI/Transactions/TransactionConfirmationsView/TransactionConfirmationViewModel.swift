@@ -27,7 +27,7 @@ class TransactionConfirmationViewModel: Equatable {
     init(confirmation: TransactionConfirmation) {
         address = confirmation.owner.address.checksummed
         date = confirmation.submissionDate
-        data = confirmation.data.map { "0x" + $0.data.toHexString() }
+        data = confirmation.data.map { $0.data.toHexStringWithPrefix() }
     }
 
     static func == (lhs: TransactionConfirmationViewModel, rhs: TransactionConfirmationViewModel) -> Bool {
