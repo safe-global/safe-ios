@@ -37,6 +37,8 @@ pipeline {
                     // the uploading to AppStoreConnect started to work.
                     sh 'bin/archive.sh "Multisig - Staging Rinkeby"'
                     sh 'bin/archive.sh "Multisig - Staging Mainnet"'
+                    sh 'bin/archive.sh "Multisig - Production Rinkeby"'
+                    sh 'bin/archive.sh "Multisig - Production Mainnet"'
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
             }
