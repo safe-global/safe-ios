@@ -25,5 +25,5 @@ xcrun xccov view --report --only-targets "$TEST_BUNDLE_PATH"
 # archive the test results
 tar -czf "$TEST_BUNDLE_PATH".tgz "$TEST_BUNDLE_PATH"
 
-# codecov does not support new Xcode coverage format (Test Plan) for now.
+# upload code coverage report
 bash <(curl -s https://codecov.io/bash) -D Build
