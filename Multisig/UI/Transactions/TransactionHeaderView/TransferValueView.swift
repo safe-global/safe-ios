@@ -11,14 +11,14 @@ import SwiftUI
 struct TransferValueView: View {
     let transaction: TransferTransactionViewModel
 
-    private let dimention: CGFloat = 36
+    private let dimension: CGFloat = 36
 
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            if !transaction.tokenLogoURL.isEmpty {
-                TokenImage(imageURL: URL(string: transaction.tokenLogoURL)!).frame(width: dimention, height: dimention)
+            if transaction.tokenSymbol == App.shared.tokenRegistry.ether.symbol {
+                EtherImage().frame(width: dimension, height: dimension)
             } else {
-                EtherImage().frame(width: dimention, height: dimention)
+                TokenImage(imageURL: URL(string: transaction.tokenLogoURL)!).frame(width: dimension, height: dimension)
             }
 
             VStack (alignment: .leading) {

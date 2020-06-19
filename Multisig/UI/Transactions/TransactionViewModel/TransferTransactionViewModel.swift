@@ -33,7 +33,7 @@ class TransferTransactionViewModel: TransactionViewModel {
             safe: tx.safe?.address ?? safe.address.address,
             erc721: transfer.type == .erc721,
             value: transfer.value?.value,
-            tokenAddress: transfer.tokenAddress?.address,
+            tokenAddress: transfer.tokenAddress?.address ?? AddressRegistry.ether,
             date: transfer.executionDate,
             status: .success,
             tx: tx,
