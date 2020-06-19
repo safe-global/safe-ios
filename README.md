@@ -1,4 +1,7 @@
 # safe-multisig-ios
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b89dec9e0b5b486c9d1c53d28d546605)](https://app.codacy.com/manual/DmitryBespalov/safe-ios?utm_source=github.com&utm_medium=referral&utm_content=gnosis/safe-ios&utm_campaign=Badge_Grade_Settings)
+
 Gnosis Safe Multisig iOS app.
 
 # Configuration
