@@ -45,9 +45,9 @@ struct TransactionConfiramtionStatusView: View {
         switch style {
         case .created:
             return "ico-create"
-        case .executed, .confirmed, .canceled:
+        case .executed, .confirmed:
             return "ico-confirm"
-        case .rejected, .failed:
+        case .rejected, .failed, .canceled:
             return "ico-reject"
         default:
             return "ico-empty-circle"

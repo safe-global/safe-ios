@@ -27,9 +27,9 @@ struct AddRemoveOwnerTransactionDetailsHeaderView: View {
     var title: String {
         switch state {
         case .add:
-            return "Add owners:"
+            return "Add owner:"
         case .remove:
-            return "Remove owners:"
+            return "Remove owner:"
         }
     }
 

@@ -18,15 +18,15 @@ struct AdvancedTransactionDetailsView: View {
     var body: some View {
         List {
             if transaction.nonce != nil {
-                KeyValueRow("Nonce", value: transaction.nonce!, enableCopy: true, color: .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Nonce:", value: transaction.nonce!, enableCopy: true, color: .gnoDarkGrey).padding(.vertical, padding)
             }
 
             if transaction.operation != nil {
-                KeyValueRow("Type of operation", value: transaction.operation!, enableCopy: true, color: .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Type of operation:", value: transaction.operation!, enableCopy: true, color: .gnoDarkGrey).padding(.vertical, padding)
             }
 
             if transaction.hash != nil {
-                KeyValueRow("Transaction hash", value: transaction.hash!, enableCopy: true, color: .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Transaction hash:", value: transaction.hash!, enableCopy: true, color: .gnoDarkGrey).padding(.vertical, padding)
             }
         }
         .navigationBarTitle("Advanced", displayMode: .inline)
