@@ -9,15 +9,6 @@
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : {
-      "targets" : [
-        {
-          "containerPath" : "container:Multisig.xcodeproj",
-          "identifier" : "0A93DD522445CC8A00688050",
-          "name" : "Multisig"
-        }
-      ]
-    },
     "targetForVariableExpansion" : {
       "containerPath" : "container:Multisig.xcodeproj",
       "identifier" : "0A93DD522445CC8A00688050",
