@@ -36,11 +36,11 @@ struct TransactionDetailsView: View {
             }
 
             if transaction.formattedCreatedDate != nil {
-                KeyValueRow("Created", value: transaction.formattedCreatedDate!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Created:", value: transaction.formattedCreatedDate!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
             }
 
             if transaction.formattedExecutedDate != nil {
-                KeyValueRow("Executed", value: transaction.formattedExecutedDate!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Executed:", value: transaction.formattedExecutedDate!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
             }
 
             if transaction.hasAdvancedDetails {
