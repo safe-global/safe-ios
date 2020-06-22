@@ -36,6 +36,7 @@ class TransferTransactionViewModel: TransactionViewModel {
             tokenAddress: transfer.tokenAddress?.address ?? AddressRegistry.ether,
             date: transfer.executionDate,
             status: .success,
+            hash: transfer.transactionHash,
             tx: tx,
             safeInfo: safe)
     }
@@ -48,6 +49,7 @@ class TransferTransactionViewModel: TransactionViewModel {
          tokenAddress: Address?,
          date: Date?,
          status: TransactionStatus?,
+         hash: DataString? = nil,
          tx: Transaction,
          safeInfo: SafeStatusRequest.Response) {
 
@@ -89,6 +91,10 @@ class TransferTransactionViewModel: TransactionViewModel {
         }
         if let status = status {
             self.status = status
+        }
+
+        if let hash = hash {
+            self.hash = hash.description
         }
     }
 
