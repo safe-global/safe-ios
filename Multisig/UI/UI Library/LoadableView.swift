@@ -46,11 +46,14 @@ struct Loadable<V: LoadableView>: View {
     }
 
     var noDataView: some View {
-        ZStack(alignment: .center) {
+        VStack {
             HStack {
                 Image("ico-server-error")
                 Text("Data cannot be loaded").font(Font.gnoTitle3).foregroundColor(.gnoMediumGrey)
             }
+            .padding(.top, 135)
+
+            Spacer()
         }
     }
 }
