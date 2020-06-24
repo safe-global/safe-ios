@@ -11,6 +11,7 @@ import SwiftUI
 protocol LoadableViewModel: ObservableObject {
     var isLoading: Bool { get set }
     var errorMessage: String? { get set }
+    func reloadData()
 }
 
 protocol LoadableView: View {
@@ -38,6 +39,9 @@ struct Loadable<V: LoadableView>: View {
             } else {
                 view
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            self.model.reloadData()
         }
     }
 }

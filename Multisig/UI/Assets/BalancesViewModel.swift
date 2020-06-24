@@ -16,7 +16,14 @@ class BalancesViewModel: LoadableViewModel {
 
     private var subscribers = Set<AnyCancellable>()
 
+    private let safe: Safe
+
     init(safe: Safe) {
+        self.safe = safe
+        reloadData()
+    }
+
+    func reloadData() {
         isLoading = true
         Just(safe.address!)
             .compactMap { Address($0) }
