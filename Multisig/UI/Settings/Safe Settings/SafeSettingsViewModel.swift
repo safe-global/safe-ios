@@ -1,5 +1,5 @@
 //
-//  LoadableSafeSettingsViewModel.swift
+//  SafeSettingsViewModel.swift
 //  Multisig
 //
 //  Created by Moaaz on 5/6/20.
@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class LoadableSafeSettingsViewModel: ObservableObject {
+class SafeSettingsViewModel: LoadableViewModel {
     
     @Published
     var isLoading: Bool = true

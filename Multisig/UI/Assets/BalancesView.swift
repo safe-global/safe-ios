@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct BalancesView: View {
+struct BalancesView: LoadableView {
     @ObservedObject
     var model: BalancesViewModel
 
@@ -17,19 +17,7 @@ struct BalancesView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .center) {
-            if model.isLoading {
-                ActivityIndicator(isAnimating: .constant(true), style: .large)
-            } else if model.errorMessage != nil {
-                ErrorText(model.errorMessage!)
-            } else {
-                balances
-            }
-        }
-    }
-
-    var balances: some View {
-        List {
+         List {
             ForEach(model.balances) { tokenBalance in
                 TokenBalanceCell(tokenBalance: tokenBalance)
             }

@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class BalancesViewModel: ObservableObject {
+class BalancesViewModel: LoadableViewModel {
     @Published var balances = [TokenBalance]()
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil

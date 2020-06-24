@@ -10,9 +10,6 @@ import SwiftUI
 import CoreData
 
 struct SafeSettingsView: View {
-    @Environment(\.managedObjectContext)
-    var context: NSManagedObjectContext
-
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selected: FetchedResults<Safe>
     
@@ -24,8 +21,13 @@ struct SafeSettingsView: View {
                     self.trackEvent(.settingsSafeNoSafe)
                 }
             } else {
-                LoadableSafeSettingsView(safe: selected.first!)
-                    .environment(\.managedObjectContext, self.context)
+                ZStack(alignment: .center) {
+                    Rectangle()
+                        .edgesIgnoringSafeArea(.all)
+                        .foregroundColor(Color.gnoWhite)
+
+                    Loadable(BasicSafeSettingsView(safe: selected.first!))
+                }
             }
         }
     }

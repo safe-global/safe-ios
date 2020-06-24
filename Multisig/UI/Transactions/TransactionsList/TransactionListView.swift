@@ -8,17 +8,13 @@
 
 import SwiftUI
 
-struct TransactionListView: View {
+struct TransactionListView: LoadableView {
     @ObservedObject
     var model: TransactionsViewModel
 
     var body: some View {
         ZStack {
-            if model.isLoading {
-                ActivityIndicator(isAnimating: .constant(true), style: .large)
-            } else if model.errorMessage != nil {
-                ErrorText(model.errorMessage!)
-            } else if model.transactionsList.isEmpty {
+            if model.transactionsList.isEmpty {
                 EmptyListPlaceholder(label: "Transactions will appear here", image: "ico-no-transactions")
             } else {
                 transactionsList

@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class TransactionsViewModel: ObservableObject {
+class TransactionsViewModel: LoadableViewModel {
     @Published var transactionsList = TransactionsListViewModel()
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
