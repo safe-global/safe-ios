@@ -24,24 +24,22 @@ struct SnackbarView<T: View>: View {
     var content: T
 
     var body: some View {
-        GeometryReader { proxy in
-            ZStack(alignment: .bottom) {
-                Rectangle().opacity(0)
+        ZStack(alignment: .bottom) {
+            Rectangle().opacity(0)
 
-                VStack {
-                    self.content
-                }
-                .padding(.horizontal, SnackbarViewMetrics.textPadding.width)
-                .padding(.vertical, SnackbarViewMetrics.textPadding.height)
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.gnoSnowwhite)
-                .background(Color.gnoDarkBlue)
-                .cornerRadius(SnackbarViewMetrics.cornerRadius)
-                .padding(.horizontal, SnackbarViewMetrics.screenPadding.width)
-                .gnoShadow()
-                .offset(y: self.isPresented ?
-                    -self.bottomSpacing : SnackbarViewMetrics.offscreenOffset)
+            VStack {
+                self.content
             }
+            .padding(.horizontal, SnackbarViewMetrics.textPadding.width)
+            .padding(.vertical, SnackbarViewMetrics.textPadding.height)
+            .frame(maxWidth: .infinity)
+            .foregroundColor(.gnoSnowwhite)
+            .background(Color.gnoDarkBlue)
+            .cornerRadius(SnackbarViewMetrics.cornerRadius)
+            .padding(.horizontal, SnackbarViewMetrics.screenPadding.width)
+            .gnoShadow()
+            .offset(y: self.isPresented ?
+                -self.bottomSpacing : SnackbarViewMetrics.offscreenOffset)
         }
         .opacity(isPresented ? 1 : 0)
         .animation(.spring())
