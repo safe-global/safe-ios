@@ -55,6 +55,12 @@ struct MainTabView: View {
                     }
                 }
         }
+        .onAppear {
+            App.shared.viewState.bottomBarHeight = BottomTabViewMetrics.barHeight
+        }
+        .onDisappear {
+            App.shared.viewState.bottomBarHeight = 0
+        }
         .onReceive(globalSelection.$state) { newValue in
             if newValue != self.localSelection {
                 self.localSelection = newValue

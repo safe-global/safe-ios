@@ -34,7 +34,7 @@ struct BottomTabView<SelectionValue: Hashable>: View {
                     }
                 }
             }
-            .frame(height: barHeight, alignment: .top)
+            .frame(height: BottomTabViewMetrics.barHeight, alignment: .top)
             .background(Color.gnoSnowwhite)
         }
         .edgesIgnoringSafeArea(.bottom)
@@ -44,14 +44,17 @@ struct BottomTabView<SelectionValue: Hashable>: View {
         selection.wrappedValue.flatMap { id in items.first { $0.id == id } }
     }
 
-    let bigScreenHeight: CGFloat = 812 // 5.8 inch phones and higher
-    let bigScreenBarHeight: CGFloat = 84
-    let smallerScreenBarHeight: CGFloat = 64
+}
 
-    var barHeight: CGFloat {
-        UIScreen.main.bounds.height >= bigScreenHeight ? bigScreenBarHeight : smallerScreenBarHeight
+// extracted from the generic struct because Swift does not support
+// static constants on generic structs.
+enum BottomTabViewMetrics {
+    static let bigScreenHeight: CGFloat = 812 // 5.8 inch phones and higher
+    static let bigScreenBarHeight: CGFloat = 84
+    static let smallerScreenBarHeight: CGFloat = 64
+    static var barHeight: CGFloat {
+        (UIScreen.main.bounds.height >= bigScreenHeight) ? bigScreenBarHeight : smallerScreenBarHeight
     }
-
 }
 
 extension BottomTabView {

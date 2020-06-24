@@ -14,6 +14,9 @@ struct AssetsView: View {
 
     @State var selection: Int? = 0
 
+    @ObservedObject
+    var viewState: ViewState = App.shared.viewState
+
     var body: some View {
         ZStack {
             if selectedSafe.first != nil {
@@ -29,15 +32,21 @@ struct AssetsView: View {
                             .frame(maxWidth: .infinity)
                         }
 
-                    Text("Coming soon")
-                        .gnoTabItem(id: 1) {
-                            HStack {
-                                Image("ico-collectibles")
-                                Text("COLLECTIBLES")
-									.font(Font.gnoCaption1)
-			                        .tracking(0.45)
-                            }
+                    VStack(spacing: 35) {
+                        Text("Coming soon")
+                        Button(viewState.showsSnackbar ? "Unsnack" : "Snack") {
+                            self.viewState.toggle(message: "Snacky snack!🍿")
                         }
+                        .buttonStyle(GNOBorderedButtonStyle())
+                    }
+                    .gnoTabItem(id: 1) {
+                        HStack {
+                            Image("ico-collectibles")
+                            Text("COLLECTIBLES")
+                                .font(Font.gnoCaption1)
+                                .tracking(0.45)
+                        }
+                    }
                 }
                 .background(Color.gnoWhite)
             } else {

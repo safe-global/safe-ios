@@ -90,6 +90,7 @@
 		0A19D43E249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D43D249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift */; };
 		0A19D440249A719700A316B6 /* MethodRegistry+GnosisSafeMasterCopyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D43F249A719700A316B6 /* MethodRegistry+GnosisSafeMasterCopyTests.swift */; };
 		0A19D442249BB66D00A316B6 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D441249BB66D00A316B6 /* MainTabView.swift */; };
+		0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
 		0A465C2E246C196900AFA467 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C2D246C196900AFA467 /* Theme.swift */; };
 		0A465C32246C229800AFA467 /* FrameForNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */; };
@@ -352,6 +353,7 @@
 		0A19D43D249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MethodRegistry+ERC721Tests.swift"; sourceTree = "<group>"; };
 		0A19D43F249A719700A316B6 /* MethodRegistry+GnosisSafeMasterCopyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MethodRegistry+GnosisSafeMasterCopyTests.swift"; sourceTree = "<group>"; };
 		0A19D441249BB66D00A316B6 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
 		0A35CC2F24810CF6005E45BA /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		0A465C2D246C196900AFA467 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -1380,6 +1382,7 @@
 				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
 				55B66E88247FE09A00249E98 /* BottomOverlayView.swift */,
 				55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */,
+				0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */,
 			);
 			path = Overlays;
 			sourceTree = "<group>";
@@ -1881,6 +1884,7 @@
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */,
 				04C97AAA246ED32800EBA0F1 /* BasicAppSettingsView.swift in Sources */,
+				0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */,
 				0AA9F267249A18A3005BD60F /* TransactionListView.swift in Sources */,
 				0AA9F24B2497DB79005BD60F /* SettingChangeTransactionViewModel.swift in Sources */,
 				0A465C37246C2ECD00AFA467 /* GetInTouchView.swift in Sources */,
