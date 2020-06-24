@@ -40,10 +40,7 @@ struct SnackbarView<T: View>: View {
                 .padding(.horizontal, SnackbarViewMetrics.screenPadding.width)
                 .gnoShadow()
                 .offset(y: self.isPresented ?
-                    -(self.bottomSpacing -
-                        proxy.safeAreaInsets.bottom +
-                        SnackbarViewMetrics.screenPadding.height) :
-                    SnackbarViewMetrics.offscreenOffset)
+                    -self.bottomSpacing : SnackbarViewMetrics.offscreenOffset)
             }
         }
         .opacity(isPresented ? 1 : 0)

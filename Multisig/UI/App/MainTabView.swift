@@ -28,6 +28,8 @@ struct MainTabView: View {
 
     var globalSelection = App.shared.viewState
 
+    let tabBarSpacing: CGFloat = 8
+
     var body: some View {
         BottomTabView($localSelection) {
             AssetsView()
@@ -56,7 +58,9 @@ struct MainTabView: View {
                 }
         }
         .onAppear {
-            App.shared.viewState.bottomBarHeight = BottomTabViewMetrics.barHeight
+            // this adjusts the snack bar position
+            App.shared.viewState.bottomBarHeight =
+                BottomTabViewMetrics.tabBarHeight + self.tabBarSpacing
         }
         .onDisappear {
             App.shared.viewState.bottomBarHeight = 0

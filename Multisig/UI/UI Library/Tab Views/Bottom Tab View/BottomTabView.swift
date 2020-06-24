@@ -52,6 +52,7 @@ enum BottomTabViewMetrics {
     static let bigScreenHeight: CGFloat = 812 // 5.8 inch phones and higher
     static let bigScreenBarHeight: CGFloat = 84
     static let smallerScreenBarHeight: CGFloat = 64
+    static let tabBarHeight: CGFloat = 44
     static var barHeight: CGFloat {
         (UIScreen.main.bounds.height >= bigScreenHeight) ? bigScreenBarHeight : smallerScreenBarHeight
     }
