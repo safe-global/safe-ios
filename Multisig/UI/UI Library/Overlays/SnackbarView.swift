@@ -45,7 +45,6 @@ struct SnackbarView<T: View>: View {
         .animation(.spring())
     }
 
-
 }
 
 struct SnackbarView_Previews: PreviewProvider {
