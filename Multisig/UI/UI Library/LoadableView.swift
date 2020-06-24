@@ -35,13 +35,22 @@ struct Loadable<V: LoadableView>: View {
             if model.isLoading {
                 ActivityIndicator(isAnimating: .constant(true), style: .large)
             } else if model.errorMessage != nil {
-                ErrorText(model.errorMessage!)
+                noDataView
             } else {
                 view
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             self.model.reloadData()
+        }
+    }
+
+    var noDataView: some View {
+        ZStack(alignment: .center) {
+            HStack {
+                Image("ico-server-error")
+                Text("Data cannot be loaded").font(Font.gnoTitle3).foregroundColor(.gnoMediumGrey)
+            }
         }
     }
 }
