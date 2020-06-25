@@ -19,15 +19,15 @@ protocol Loadable: View {
     var model: LoadableModel { get }
 }
 
-struct LoadableView<V: Loadable>: View {
-    private let view: V
+struct LoadableView<Content: Loadable>: View {
+    private let content: Content
 
     @ObservedObject
-    private var model: V.LoadableModel
+    private var model: Content.LoadableModel
 
-    init(_ view: V) {
-        self.view = view
-        self.model = view.model
+    init(_ content: Content) {
+        self.content = content
+        self.model = content.model
     }
 
     var body: some View {
@@ -37,7 +37,7 @@ struct LoadableView<V: Loadable>: View {
             } else if model.errorMessage != nil {
                 noDataView
             } else {
-                view
+                content
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
