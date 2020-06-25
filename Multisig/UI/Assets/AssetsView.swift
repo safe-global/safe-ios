@@ -21,7 +21,7 @@ struct AssetsView: View {
         ZStack {
             if selectedSafe.first != nil {
                 TopTabView($selection) {
-                    BalancesView(safe: selectedSafe.first!)
+                    LoadableView(BalancesView(safe: selectedSafe.first!))
                         .gnoTabItem(id: 0) {
                             HStack {
                                 Image("ico-coins")

@@ -8,10 +8,15 @@
 
 import SwiftUI
 
-struct BasicSafeSettingsView: View {
-
+struct BasicSafeSettingsView: Loadable {
     @ObservedObject
-    var safe: Safe
+    var model: SafeSettingsViewModel
+
+    var safe: Safe { return model.safe }
+
+    init(safe: Safe) {
+        model = SafeSettingsViewModel(safe: safe)
+    }
 
     let rowHeight: CGFloat = 48
     

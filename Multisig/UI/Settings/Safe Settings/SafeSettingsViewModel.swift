@@ -1,5 +1,5 @@
 //
-//  LoadableSafeSettingsViewModel.swift
+//  SafeSettingsViewModel.swift
 //  Multisig
 //
 //  Created by Moaaz on 5/6/20.
@@ -9,8 +9,7 @@
 import Foundation
 import Combine
 
-class LoadableSafeSettingsViewModel: ObservableObject {
-    
+class SafeSettingsViewModel: LoadableViewModel {
     @Published
     var isLoading: Bool = true
 
@@ -23,10 +22,12 @@ class LoadableSafeSettingsViewModel: ObservableObject {
     private var subscribers = Set<AnyCancellable>()
 
     init(safe: Safe) {
-        isLoading = true
         self.safe = safe
-        // assuming that if address exists, it is a valid address
-        // which we validated before.
+        reloadData()
+    }
+
+    func reloadData() {
+        isLoading = true
         Just(safe.address)
             .compactMap { $0 }
             .compactMap { Address($0) }
@@ -50,11 +51,10 @@ class LoadableSafeSettingsViewModel: ObservableObject {
                 }
                 self.isLoading = false
             }, receiveValue: { response in
-                safe.update(from: response)
+                self.safe.update(from: response)
             })
             .store(in: &subscribers)
     }
-    
 }
 
 extension Safe {
