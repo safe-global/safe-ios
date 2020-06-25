@@ -11,6 +11,7 @@ import SwiftUI
 protocol LoadableViewModel: ObservableObject {
     var isLoading: Bool { get set }
     var errorMessage: String? { get set }
+    func reloadData()
 }
 
 protocol LoadableView: View {
@@ -34,10 +35,25 @@ struct Loadable<V: LoadableView>: View {
             if model.isLoading {
                 ActivityIndicator(isAnimating: .constant(true), style: .large)
             } else if model.errorMessage != nil {
-                ErrorText(model.errorMessage!)
+                noDataView
             } else {
                 view
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            self.model.reloadData()
+        }
+    }
+
+    var noDataView: some View {
+        VStack {
+            HStack {
+                Image("ico-server-error")
+                TitleText("Data cannot be loaded", color: .gnoMediumGrey)
+            }
+            .padding(.top, 135)
+
+            Spacer()
         }
     }
 }

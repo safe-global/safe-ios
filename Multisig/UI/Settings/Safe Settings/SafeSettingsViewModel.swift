@@ -10,7 +10,6 @@ import Foundation
 import Combine
 
 class SafeSettingsViewModel: LoadableViewModel {
-    
     @Published
     var isLoading: Bool = true
 
@@ -23,10 +22,12 @@ class SafeSettingsViewModel: LoadableViewModel {
     private var subscribers = Set<AnyCancellable>()
 
     init(safe: Safe) {
-        isLoading = true
         self.safe = safe
-        // assuming that if address exists, it is a valid address
-        // which we validated before.
+        reloadData()
+    }
+
+    func reloadData() {
+        isLoading = true
         Just(safe.address)
             .compactMap { $0 }
             .compactMap { Address($0) }
@@ -50,11 +51,10 @@ class SafeSettingsViewModel: LoadableViewModel {
                 }
                 self.isLoading = false
             }, receiveValue: { response in
-                safe.update(from: response)
+                self.safe.update(from: response)
             })
             .store(in: &subscribers)
     }
-    
 }
 
 extension Safe {

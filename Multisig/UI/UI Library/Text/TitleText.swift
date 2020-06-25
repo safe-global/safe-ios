@@ -9,14 +9,16 @@
 import SwiftUI
 
 struct TitleText: View {
-    var label: String
+    let label: String
+    let color: Color
 
-    init(_ value: String) {
-        label = value
+    init(_ label: String, color: Color = .gnoDarkBlue) {
+        self.label = label
+        self.color = color
     }
 
     var body: some View {
-        Text(label).font(Font.gnoTitle3).foregroundColor(.gnoDarkBlue)
+        Text(label).font(Font.gnoTitle3).foregroundColor(color)
     }
 }
 

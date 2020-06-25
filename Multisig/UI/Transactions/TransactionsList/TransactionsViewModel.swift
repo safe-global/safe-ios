@@ -19,13 +19,13 @@ class TransactionsViewModel: LoadableViewModel {
             guard oldValue != safe && safe != nil else {
                 return
             }
-            loadData()
+            reloadData()
         }
     }
 
     var subscribers = Set<AnyCancellable>()
 
-    func loadData() {
+    func reloadData() {
         subscribers.forEach { $0.cancel() }
         isLoading = true
         Just(safe!.address!)
