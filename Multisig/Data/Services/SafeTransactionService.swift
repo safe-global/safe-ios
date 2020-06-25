@@ -55,12 +55,16 @@ class SafeTransactionService {
         return try httpClient.execute(request: SafeBalancesRequest(address: address))
     }
 
-    func transactions(address: Address?, offset: Int? = 0, limit: Int? = 20, url: String? = nil) throws -> TransactionsRequest.Response {
-        if let request = PagedRequest<Transaction>(url) {
-            return try httpClient.execute(request: request)
-        }
+    func transactions(address: Address?, offset: Int = 0, limit: Int = 20, url: String? = nil) throws -> TransactionsRequest.Response {
+        return try httpClient.execute(request: TransactionsRequest(address: address!, limit: limit, offset: offset))
+    }
 
-        return try httpClient.execute(request: TransactionsRequest(address: address, limit: limit, offset: offset))
+    func loadTransactionsPage(url: String) throws -> TransactionsRequest.Response {
+        let request = PagedRequest<Transaction>(url)
+
+        assert(request != nil)
+
+        return try httpClient.execute(request: request!)
     }
 }
 
@@ -115,18 +119,16 @@ struct SafeBalancesRequest: JSONRequest {
 }
 
 struct TransactionsRequest: JSONRequest {
-    let address: String?
-    let limit: Int?
-    let offset: Int?
+    let address: String
+    let limit: Int
+    let offset: Int
     var httpMethod: String { "GET" }
     var urlPath: String {
-        guard let address = address else { return "" }
-        return "/api/v1/safes/\(address)/all-transactions/"
+        "/api/v1/safes/\(address)/all-transactions/"
     }
 
     var query: String? {
-        guard let limit = limit, let offset = offset else { return nil }
-        return "limit=\(limit)&offset=\(offset)&queued=true"
+        "limit=\(limit)&offset=\(offset)&queued=true"
     }
 
     var url: String?
@@ -134,10 +136,9 @@ struct TransactionsRequest: JSONRequest {
     typealias Response = PagedResponse<Transaction>
     typealias ResponseType = Response
 
-    init(address: Address?, limit: Int?, offset: Int?, url: String? = nil) {
-        self.address = address?.checksummed
+    init(address: Address, limit: Int, offset: Int) {
+        self.address = address.checksummed
         self.limit = limit
         self.offset = offset
-        self.url = url
     }
 }
