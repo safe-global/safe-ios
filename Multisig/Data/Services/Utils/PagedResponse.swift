@@ -13,4 +13,12 @@ struct PagedResponse<Item: Decodable>: Decodable {
     let next: String?
     let previous: String?
     let results: [Item]
+
+    var nextPageRequest: PagedRequest<Item>? {
+        PagedRequest<Item>(next)
+    }
+
+    var previousPageRequest: PagedRequest<Item>? {
+        PagedRequest<Item>(previous)
+    }
 }

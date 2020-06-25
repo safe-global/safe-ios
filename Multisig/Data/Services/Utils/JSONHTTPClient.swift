@@ -14,7 +14,6 @@ public protocol JSONRequest: Encodable {
     /// Query parameters
     var query: String? { get }
 
-    var url: String? { get }
     /// Response associated with this JSON request
     associatedtype ResponseType: Decodable
 
@@ -22,7 +21,6 @@ public protocol JSONRequest: Encodable {
 
 public extension JSONRequest {
     var query: String? { return nil }
-    var url: String? { return nil }
 }
 
 public extension DateFormatter {
@@ -60,7 +58,6 @@ public class JSONHTTPClient {
         var urlPath: String
         var query: String?
         var body: Data?
-        var url: String?
         var headers: [String: String]
     }
 
@@ -97,7 +94,6 @@ public class JSONHTTPClient {
                                   urlPath: request.urlPath,
                                   query: request.query,
                                   body: requestData,
-                                  url: request.url,
                                   headers: requestHeaders)
         return httpRequest
     }

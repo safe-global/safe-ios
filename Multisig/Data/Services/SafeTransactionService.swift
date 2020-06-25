@@ -56,7 +56,11 @@ class SafeTransactionService {
     }
 
     func transactions(address: Address?, offset: Int? = 0, limit: Int? = 20, url: String? = nil) throws -> TransactionsRequest.Response {
-        return try httpClient.execute(request: TransactionsRequest(address: address, limit: limit, offset: offset, url: url))
+        if let request = PagedRequest<Transaction>(url) {
+            return try httpClient.execute(request: request)
+        }
+
+        return try httpClient.execute(request: TransactionsRequest(address: address, limit: limit, offset: offset))
     }
 }
 
