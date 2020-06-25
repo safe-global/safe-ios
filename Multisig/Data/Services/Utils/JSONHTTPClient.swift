@@ -14,6 +14,7 @@ public protocol JSONRequest: Encodable {
     /// Query parameters
     var query: String? { get }
 
+    var url: String? { get }
     /// Response associated with this JSON request
     associatedtype ResponseType: Decodable
 
@@ -21,6 +22,7 @@ public protocol JSONRequest: Encodable {
 
 public extension JSONRequest {
     var query: String? { return nil }
+    var url: String? { return nil }
 }
 
 public extension DateFormatter {
@@ -58,6 +60,7 @@ public class JSONHTTPClient {
         var urlPath: String
         var query: String?
         var body: Data?
+        var url: String?
         var headers: [String: String]
     }
 
@@ -86,6 +89,7 @@ public class JSONHTTPClient {
         return try response(from: data)
     }
 
+
     private func request<T: JSONRequest>(from request: T) throws -> Request {
         let requestData = request.httpMethod != "GET" ? (try jsonEncoder.encode(request)) : nil
         let requestHeaders = request.httpMethod != "GET" ? ["Content-Type": "application/json"] : [:]
@@ -93,6 +97,7 @@ public class JSONHTTPClient {
                                   urlPath: request.urlPath,
                                   query: request.query,
                                   body: requestData,
+                                  url: request.url,
                                   headers: requestHeaders)
         return httpRequest
     }

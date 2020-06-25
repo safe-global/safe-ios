@@ -11,7 +11,7 @@ public protocol HTTPRequest {
     var query: String? { get }
     var body: Data? { get }
     var headers: [String: String] { get }
-
+    var url: String? { get }
 }
 
 public extension HTTPRequest {
@@ -19,6 +19,7 @@ public extension HTTPRequest {
     var query: String? { return nil }
     var body: Data? { return nil }
     var headers: [String: String] { return [:] }
+    var url: String? { return nil }
 
 }
 
@@ -78,6 +79,10 @@ public class HTTPClient {
     }
 
     private func urlRequest<T: HTTPRequest>(from request: T) throws -> URLRequest {
+        if let stringURL = request.url, let url = URL(string: stringURL)  {
+            return URLRequest(url: url)
+        }
+
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)!
         urlComponents.path = request.urlPath
         urlComponents.query = request.query
