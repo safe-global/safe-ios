@@ -55,7 +55,7 @@ class SafeTransactionService {
         return try httpClient.execute(request: SafeBalancesRequest(address: address))
     }
 
-    func transactions(address: Address?, offset: Int = 0, limit: Int = 20, url: String? = nil) throws -> TransactionsRequest.Response {
+    func transactions(address: Address?, offset: Int = 0, limit: Int = 20) throws -> TransactionsRequest.Response {
         return try httpClient.execute(request: TransactionsRequest(address: address!, limit: limit, offset: offset))
     }
 
