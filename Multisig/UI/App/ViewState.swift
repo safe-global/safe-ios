@@ -19,7 +19,26 @@ class ViewState: ObservableObject {
 
     @Published
     var hidesNavbar: Bool = true
-    
+
+    @Published
+    var showsSnackbar: Bool = false
+
+    @Published
+    var bottomBarHeight: CGFloat = 0
+
+    @Published
+    private(set) var snackbarMessge: String?
+
+    func toggle(message: String) {
+        if snackbarMessge == nil || message != snackbarMessge {
+            snackbarMessge = message
+            showsSnackbar = true
+        } else {
+            snackbarMessge = nil
+            showsSnackbar = false
+        }
+    }
+
 }
 
 enum ViewStateMode: Int, Hashable {

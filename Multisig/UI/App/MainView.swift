@@ -43,6 +43,11 @@ struct MainView: View {
         .accentColor(.gnoHold)
         .background(Color.gnoWhite)
         .overlay(
+            SnackbarView(isPresented: $viewState.showsSnackbar,
+                         bottomSpacing: $viewState.bottomBarHeight,
+                         content: Text(viewState.snackbarMessge ?? ""))
+        )
+        .overlay(
             PopupView(isPresented: $showsSafeInfo) {
                 SafeInfoView().environment(\.managedObjectContext, context)
             }
