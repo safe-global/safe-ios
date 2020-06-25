@@ -14,12 +14,12 @@ protocol LoadableViewModel: ObservableObject {
     func reloadData()
 }
 
-protocol LoadableView: View {
+protocol Loadable: View {
     associatedtype LoadableModel: LoadableViewModel
     var model: LoadableModel { get }
 }
 
-struct Loadable<V: LoadableView>: View {
+struct LoadableView<V: Loadable>: View {
     private let view: V
 
     @ObservedObject

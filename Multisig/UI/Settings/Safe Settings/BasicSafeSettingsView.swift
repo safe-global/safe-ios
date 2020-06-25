@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct BasicSafeSettingsView: LoadableView {
+struct BasicSafeSettingsView: Loadable {
     @ObservedObject
     var model: SafeSettingsViewModel
 

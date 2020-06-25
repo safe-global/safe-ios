@@ -26,7 +26,7 @@ struct SafeSettingsView: View {
                         .edgesIgnoringSafeArea(.all)
                         .foregroundColor(Color.gnoWhite)
 
-                    Loadable(BasicSafeSettingsView(safe: selected.first!))
+                    LoadableView(BasicSafeSettingsView(safe: selected.first!))
                 }
             }
         }

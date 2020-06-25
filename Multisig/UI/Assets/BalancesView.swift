@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct BalancesView: LoadableView {
+struct BalancesView: Loadable {
     @ObservedObject
     var model: BalancesViewModel
 

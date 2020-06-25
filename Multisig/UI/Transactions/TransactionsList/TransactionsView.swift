@@ -26,7 +26,7 @@ struct TransactionsView: View {
                     self.trackEvent(.transactionsNoSafe)
                 }
             } else {
-                Loadable(TransactionListView(model: model))
+                LoadableView(TransactionListView(model: model))
             }
         }
         .onReceive(selectedSafe.publisher) { safe in

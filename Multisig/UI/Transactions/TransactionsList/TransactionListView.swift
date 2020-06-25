@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TransactionListView: LoadableView {
+struct TransactionListView: Loadable {
     @ObservedObject
     var model: TransactionsViewModel
 
