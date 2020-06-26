@@ -46,11 +46,3 @@ struct SnackbarView<T: View>: View {
     }
 
 }
-
-struct SnackbarView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnackbarView(isPresented: .constant(true),
-                     bottomSpacing: .constant(30),
-                     content: Text("Hello, world!"))
-    }
-}
