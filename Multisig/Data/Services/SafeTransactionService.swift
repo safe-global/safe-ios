@@ -59,12 +59,9 @@ class SafeTransactionService {
         return try httpClient.execute(request: TransactionsRequest(address: address!, limit: limit, offset: offset))
     }
 
-    func loadTransactionsPage(url: String) throws -> TransactionsRequest.Response {
-        let request = PagedRequest<Transaction>(url)
-
-        assert(request != nil)
-
-        return try httpClient.execute(request: request!)
+    func loadTransactionsPage(url: String) throws -> TransactionsRequest.Response? {
+        guard let request = PagedRequest<Transaction>(url) else { return nil }
+        return try httpClient.execute(request: request)
     }
 }
 
@@ -130,8 +127,6 @@ struct TransactionsRequest: JSONRequest {
     var query: String? {
         "limit=\(limit)&offset=\(offset)&queued=true"
     }
-
-    var url: String?
     
     typealias Response = PagedResponse<Transaction>
     typealias ResponseType = Response

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TransactionViewModel: Identifiable {
+class TransactionViewModel: Identifiable, Equatable {
 
     let id: UUID
     var nonce: String?
@@ -68,6 +68,10 @@ class TransactionViewModel: Identifiable {
         nonce = tx.nonce.map { String($0.value) }
 
         executor = tx.executor?.address.checksummed
+    }
+
+    static func == (lhs: TransactionViewModel, rhs: TransactionViewModel) -> Bool {
+        lhs.id == rhs.id
     }
 
 }

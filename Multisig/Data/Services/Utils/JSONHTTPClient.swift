@@ -86,7 +86,6 @@ public class JSONHTTPClient {
         return try response(from: data)
     }
 
-
     private func request<T: JSONRequest>(from request: T) throws -> Request {
         let requestData = request.httpMethod != "GET" ? (try jsonEncoder.encode(request)) : nil
         let requestHeaders = request.httpMethod != "GET" ? ["Content-Type": "application/json"] : [:]

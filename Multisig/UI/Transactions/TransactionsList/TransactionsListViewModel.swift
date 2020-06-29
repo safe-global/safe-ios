@@ -36,9 +36,24 @@ struct TransactionsListViewModel {
                 history.append(model)
             }
         }
+
         sections = [
             Section(name: "QUEUE", transactions: queued),
             Section(name: "HISTORY", transactions: history)
         ].filter { !$0.isEmpty }
+    }
+
+    mutating func add(_ models: [TransactionViewModel] = []) {
+        for model in models {
+            if model.status.isInQueue {
+                sections[0].transactions.append(model)
+            } else {
+                sections[1].transactions.append(model)
+            }
+        }
+    }
+
+    var lastTransaction: TransactionViewModel? {
+        sections.last?.transactions.last
     }
 }
