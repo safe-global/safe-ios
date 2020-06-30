@@ -13,7 +13,11 @@ class TransactionsViewModel: LoadableViewModel {
     @Published var transactionsList = TransactionsListViewModel()
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
+    @Published var isLoadingNextPage: Bool = true
 
+    var viewState = App.shared.viewState
+
+    
     private var prevURL: String?
     private var nextURL: String?
 
@@ -67,6 +71,7 @@ class TransactionsViewModel: LoadableViewModel {
 
     func loadNextPage() {
         subscribers.forEach { $0.cancel() }
+        isLoadingNextPage = true
         Just(nextURL)
             .setFailureType(to: Error.self)
             .flatMap { url in
@@ -87,8 +92,10 @@ class TransactionsViewModel: LoadableViewModel {
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
-                    // Error should be displayed here
+                    self.nextURL = nil
+                    self.viewState.show(message: error.localizedDescription)
                 }
+                self.isLoadingNextPage = false
             }, receiveValue:{ transactionsList in
                 self.transactionsList.add(transactionsList)
             })

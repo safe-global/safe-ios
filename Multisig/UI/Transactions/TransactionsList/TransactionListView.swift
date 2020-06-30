@@ -42,7 +42,7 @@ struct TransactionListView: Loadable {
                 }
             }
 
-            if model.canLoadNext {
+            if model.isLoadingNextPage {
                 ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
             }
         }
