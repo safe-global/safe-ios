@@ -7,8 +7,11 @@
 //
 
 import SwiftUI
+import Combine
 
 class ViewState: ObservableObject {
+
+    // Active tab
 
     @Published
     private(set) var state: ViewStateMode? = .balances
@@ -17,8 +20,12 @@ class ViewState: ObservableObject {
         state = to
     }
 
+    // Navigation bar
+
     @Published
     var hidesNavbar: Bool = true
+
+    // Snackbar
 
     @Published
     var showsSnackbar: Bool = false
@@ -29,14 +36,24 @@ class ViewState: ObservableObject {
     @Published
     private(set) var snackbarMessge: String?
 
-    func toggle(message: String) {
-        if snackbarMessge == nil || message != snackbarMessge {
-            snackbarMessge = message
-            showsSnackbar = true
-        } else {
-            snackbarMessge = nil
-            showsSnackbar = false
-        }
+    private let messageHiding = PassthroughSubject<Void, Never>()
+    private var subscribers = Set<AnyCancellable>()
+    private let messageDuration: TimeInterval = 4
+
+    init() {
+        messageHiding
+            .debounce(for: .seconds(messageDuration), scheduler: RunLoop.main)
+            .sink {
+                self.showsSnackbar = false
+                self.snackbarMessge = nil
+            }
+            .store(in: &subscribers)
+    }
+
+    func show(message: String) {
+        snackbarMessge = message
+        showsSnackbar = true
+        messageHiding.send()
     }
 
 }

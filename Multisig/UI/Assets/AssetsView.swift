@@ -34,10 +34,10 @@ struct AssetsView: View {
 
                     VStack(spacing: 35) {
                         Text("Coming soon")
-                        Button(viewState.showsSnackbar ? "Unsnack" : "Snack") {
-                            self.viewState.toggle(message: "Snacky snack!🍿")
+                        Button("Show") {
+                            self.viewState.show(message: "Snacky snack!🍿")
                         }
-                        .buttonStyle(GNOBorderedButtonStyle())
+                        .disabled(self.viewState.showsSnackbar)
                     }
                     .gnoTabItem(id: 1) {
                         HStack {
