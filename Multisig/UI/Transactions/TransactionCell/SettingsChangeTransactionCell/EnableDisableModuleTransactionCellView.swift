@@ -17,7 +17,6 @@ struct EnableDisableModuleTransactionCellView: View {
             Image("ico-settings-tx")
             AddressCell(address: address.checksummed, style: .shortAddressNoShare)
             Spacer()
-
             BodyText(title).multilineTextAlignment(.trailing).fixedSize()
         }
     }
