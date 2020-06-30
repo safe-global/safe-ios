@@ -9,10 +9,8 @@
 import Foundation
 import Combine
 
-class TransactionsViewModel: LoadableViewModel {
-    @Published var transactionsList = TransactionsListViewModel()
-    @Published var isLoading: Bool = true
-    @Published var errorMessage: String? = nil
+class TransactionsViewModel: BasicLoadableViewModel {
+    var transactionsList = TransactionsListViewModel()
 
     var safe: Safe? {
         didSet {
@@ -23,11 +21,7 @@ class TransactionsViewModel: LoadableViewModel {
         }
     }
 
-    var subscribers = Set<AnyCancellable>()
-
-    func reloadData() {
-        subscribers.forEach { $0.cancel() }
-        isLoading = true
+    override func reload() {
         Just(safe!.address!)
             .compactMap { Address($0) }
             .setFailureType(to: Error.self)
@@ -52,10 +46,11 @@ class TransactionsViewModel: LoadableViewModel {
                     self.errorMessage = error.localizedDescription
                 }
                 self.isLoading = false
+                self.isRefreshing = false
             }, receiveValue:{ transactionsList in
                 self.transactionsList = transactionsList
+                self.errorMessage = nil
             })
             .store(in: &subscribers)
     }
-
 }

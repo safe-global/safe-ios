@@ -222,6 +222,7 @@
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
+		558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */; };
 		55AB394024A3454100148BEA /* LoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB393F24A3454100148BEA /* LoadableView.swift */; };
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
@@ -521,6 +522,7 @@
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
+		558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		55AB393F24A3454100148BEA /* LoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableView.swift; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
@@ -983,40 +985,41 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
-				55B66E8A247FE0F500249E98 /* Overlays */,
-				0A704A6F24742003005BDC49 /* HideSystemNavigationBarModifier.swift */,
-				0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */,
-				55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */,
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
+				0A9BC3442460515800EB9C5D /* Address */,
 				0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */,
+				0AEDCE0624728D7100A1EC80 /* BackButton.swift */,
+				0AEDCE0A2472946600A1EC80 /* BarButton.swift */,
 				0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */,
+				04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */,
 				0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */,
+				0471D13124728C2C00B22A70 /* EmailLink.swift */,
+				0460AB3A247E685E005CA275 /* EmptyListPlaceholder.swift */,
+				046D0A59249A1C64000F4021 /* ExpandableButton .swift */,
+				0A465C35246C23E800AFA467 /* Frame */,
 				0AF6501A24488D280018D070 /* FullSize.swift */,
+				0A704A6F24742003005BDC49 /* HideSystemNavigationBarModifier.swift */,
 				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,
+				0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */,
 				0A0EFCA7246EB13300D3D8BF /* KeyValueRow.swift */,
 				04C97AA7246ED31300EBA0F1 /* KeyValueView.swift */,
+				55AC9E48248681A100B0BC24 /* LinkButton.swift */,
 				55AB393F24A3454100148BEA /* LoadableView.swift */,
+				55B66E8A247FE0F500249E98 /* Overlays */,
 				0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */,
+				044A54432448D0B6009CBB80 /* QRCodeScanner */,
 				041C2A592456F53E0044A24C /* QRView.swift */,
-				04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */,
-				0471D13124728C2C00B22A70 /* EmailLink.swift */,
+				558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */,
 				04C97A9B246C511200EBA0F1 /* RemoveSafeButton.swift */,
 				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
 				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
 				0A628FF4245710260038DC88 /* SafeCell.swift */,
 				047691582464026400D73D8B /* SectionHeader.swift */,
-				0460AB3A247E685E005CA275 /* EmptyListPlaceholder.swift */,
-				0A9BC3442460515800EB9C5D /* Address */,
-				0A465C35246C23E800AFA467 /* Frame */,
-				044A54432448D0B6009CBB80 /* QRCodeScanner */,
 				0AF432D4244F063800E22E50 /* Styleguide */,
-				0A9BC3432460514B00EB9C5D /* Text */,
 				0A704A5D24740163005BDC49 /* Tab Views */,
-				0AEDCE0624728D7100A1EC80 /* BackButton.swift */,
-				0AEDCE0A2472946600A1EC80 /* BarButton.swift */,
-				55AC9E48248681A100B0BC24 /* LinkButton.swift */,
+				0A9BC3432460514B00EB9C5D /* Text */,
+				55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */,
 				04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */,
-				046D0A59249A1C64000F4021 /* ExpandableButton .swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -1820,6 +1823,7 @@
 				04769163246408D000D73D8B /* SafeSettingsView.swift in Sources */,
 				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
 				55B66E87247FDF2C00249E98 /* TermsView.swift in Sources */,
+				558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */,
 				0AA9F1FC2497BD5F005BD60F /* MethodRegistry+ERC20.swift in Sources */,
 				0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */,
 				0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */,

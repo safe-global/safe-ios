@@ -9,31 +9,22 @@
 import Foundation
 import Combine
 
-class SafeSettingsViewModel: LoadableViewModel {
-    @Published
-    var isLoading: Bool = true
-
-    @Published
-    var errorMessage: String? = nil
-
-    @Published
+class SafeSettingsViewModel: BasicLoadableViewModel {
     var safe: Safe
-
-    private var subscribers = Set<AnyCancellable>()
 
     init(safe: Safe) {
         self.safe = safe
+        super.init()
         reloadData()
     }
 
-    func reloadData() {
-        isLoading = true
+    override func reload() {
         Just(safe.address)
             .compactMap { $0 }
             .compactMap { Address($0) }
             .setFailureType(to: Error.self)
             .flatMap { address in
-                Future { promise in
+                Future<SafeStatusRequest.Response, Error> { promise in
                     DispatchQueue.global().async {
                         do {
                             let safeInfo = try Safe.download(at: address)
@@ -50,11 +41,15 @@ class SafeSettingsViewModel: LoadableViewModel {
                     self.errorMessage = error.localizedDescription
                 }
                 self.isLoading = false
+                self.isRefreshing = false
             }, receiveValue: { response in
                 self.safe.update(from: response)
+                self.errorMessage = nil
             })
             .store(in: &subscribers)
     }
+
+    func refreshData() {}
 }
 
 extension Safe {

@@ -7,9 +7,11 @@
 //
 
 import SwiftUI
+import Combine
 
 protocol LoadableViewModel: ObservableObject {
     var isLoading: Bool { get set }
+    var isRefreshing: Bool { get set }
     var errorMessage: String? { get set }
     func reloadData()
 }
@@ -31,13 +33,18 @@ struct LoadableView<Content: Loadable>: View {
     }
 
     var body: some View {
-        ZStack(alignment: .center) {
-            if model.isLoading {
-                ActivityIndicator(isAnimating: .constant(true), style: .large)
-            } else if model.errorMessage != nil {
-                noDataView
-            } else {
-                content
+        GeometryReader { geometryProxy in
+            RefreshableScrollView(refreshing: self.$model.isRefreshing) {
+                ZStack(alignment: .center) {
+                    if self.model.isLoading {
+                        ActivityIndicator(isAnimating: .constant(true), style: .large)
+                    } else if self.model.errorMessage != nil {
+                        self.noDataView
+                    } else {
+                        self.content
+                    }
+                }
+                .frame(height: geometryProxy.size.height)
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
@@ -55,5 +62,31 @@ struct LoadableView<Content: Loadable>: View {
 
             Spacer()
         }
+    }
+}
+
+class BasicLoadableViewModel: LoadableViewModel {
+    @Published var isLoading: Bool = true
+
+    @Published var isRefreshing: Bool = false {
+        didSet {
+            if oldValue == false && isRefreshing == true {
+                self.reloadData()
+            }
+        }
+    }
+
+    @Published var errorMessage: String? = nil
+
+    var subscribers = Set<AnyCancellable>()
+
+    final func reloadData() {
+        subscribers.forEach { $0.cancel() }
+        isLoading = !isRefreshing
+        reload()
+    }
+
+    func reload() {
+        preconditionFailure("Should be overriden")
     }
 }
