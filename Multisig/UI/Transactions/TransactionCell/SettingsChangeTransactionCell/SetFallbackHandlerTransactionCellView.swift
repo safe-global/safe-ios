@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SetFallbackHandlerTransactionCellView: View {
-    let transaction: ChangeMasterCopyTransactionViewModel
+    let address: Address
     var body: some View {
         HStack {
             Image("ico-settings-tx")
@@ -24,6 +24,6 @@ struct SetFallbackHandlerTransactionCellView: View {
 
 struct SetFallbackHandlerTransactionCellView_Previews: PreviewProvider {
     static var previews: some View {
-        SetFallbackHandlerTransactionCellView()
+        SetFallbackHandlerTransactionCellView(address: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2")
     }
 }

@@ -700,15 +700,23 @@
 		0497F6E12488EB6C00A1F4DE /* TransactionCell */ = {
 			isa = PBXGroup;
 			children = (
+				04A1F7DB24AB809D0024DFF5 /* SettingsChangeTransactionCell */,
 				0497F6EA2489168B00A1F4DE /* TransactionCellView.swift */,
 				0497F6E22488EB9500A1F4DE /* TransferTransactionCellView.swift */,
-				0497F6E42488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift */,
 				0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift */,
 				0497F6E82488EC5600A1F4DE /* CustomTransactionCellView.swift */,
+			);
+			path = TransactionCell;
+			sourceTree = "<group>";
+		};
+		04A1F7DB24AB809D0024DFF5 /* SettingsChangeTransactionCell */ = {
+			isa = PBXGroup;
+			children = (
+				0497F6E42488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift */,
 				04A1F7D724AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift */,
 				04A1F7D924AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift */,
 			);
-			path = TransactionCell;
+			path = SettingsChangeTransactionCell;
 			sourceTree = "<group>";
 		};
 		04C7C4412490FA0F00D869C1 /* TransactionConfirmationsView */ = {
