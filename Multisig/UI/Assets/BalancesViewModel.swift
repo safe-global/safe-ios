@@ -9,14 +9,21 @@
 import Foundation
 import Combine
 
-class BalancesViewModel: ObservableObject {
+class BalancesViewModel: LoadableViewModel {
     @Published var balances = [TokenBalance]()
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
 
     private var subscribers = Set<AnyCancellable>()
 
+    private let safe: Safe
+
     init(safe: Safe) {
+        self.safe = safe
+        reloadData()
+    }
+
+    func reloadData() {
         isLoading = true
         Just(safe.address!)
             .compactMap { Address($0) }

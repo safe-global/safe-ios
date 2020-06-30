@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class TransactionsViewModel: ObservableObject {
+class TransactionsViewModel: LoadableViewModel {
     @Published var transactionsList = TransactionsListViewModel()
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
@@ -22,7 +22,7 @@ class TransactionsViewModel: ObservableObject {
             guard oldValue != safe && safe != nil else {
                 return
             }
-            loadData()
+            reloadData()
         }
     }
 
@@ -30,7 +30,7 @@ class TransactionsViewModel: ObservableObject {
 
     var subscribers = Set<AnyCancellable>()
 
-    func loadData() {
+    func reloadData() {
         subscribers.forEach { $0.cancel() }
         isLoading = true
         Just(safe!.address!)

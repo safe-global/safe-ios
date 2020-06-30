@@ -14,11 +14,14 @@ struct AssetsView: View {
 
     @State var selection: Int? = 0
 
+    @ObservedObject
+    var viewState: ViewState = App.shared.viewState
+
     var body: some View {
         ZStack {
             if selectedSafe.first != nil {
                 TopTabView($selection) {
-                    BalancesView(safe: selectedSafe.first!)
+                    LoadableView(BalancesView(safe: selectedSafe.first!))
                         .gnoTabItem(id: 0) {
                             HStack {
                                 Image("ico-coins")
@@ -29,15 +32,21 @@ struct AssetsView: View {
                             .frame(maxWidth: .infinity)
                         }
 
-                    Text("Coming soon")
-                        .gnoTabItem(id: 1) {
-                            HStack {
-                                Image("ico-collectibles")
-                                Text("COLLECTIBLES")
-									.font(Font.gnoCaption1)
-			                        .tracking(0.45)
-                            }
+                    VStack(spacing: 35) {
+                        Text("Coming soon")
+                        Button("Show") {
+                            self.viewState.show(message: "Snacky snack!🍿")
                         }
+                        .disabled(self.viewState.showsSnackbar)
+                    }
+                    .gnoTabItem(id: 1) {
+                        HStack {
+                            Image("ico-collectibles")
+                            Text("COLLECTIBLES")
+                                .font(Font.gnoCaption1)
+                                .tracking(0.45)
+                        }
+                    }
                 }
                 .background(Color.gnoWhite)
             } else {

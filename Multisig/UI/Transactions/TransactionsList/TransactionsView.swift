@@ -18,15 +18,15 @@ struct TransactionsView: View {
     var body: some View {
         ZStack(alignment: .center) {
             Rectangle()
-            .edgesIgnoringSafeArea(.all)
-            .foregroundColor(Color.gnoWhite)
+                .edgesIgnoringSafeArea(.all)
+                .foregroundColor(Color.gnoWhite)
 
             if selectedSafe.first == nil {
                 AddSafeIntroView().onAppear {
                     self.trackEvent(.transactionsNoSafe)
                 }
             } else {
-                TransactionListView(model: model)
+                LoadableView(TransactionListView(model: model))
             }
         }
         .onReceive(selectedSafe.publisher) { safe in
