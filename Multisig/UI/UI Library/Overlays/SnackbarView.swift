@@ -27,7 +27,7 @@ struct SnackbarView<T: View>: View {
         ZStack(alignment: .bottom) {
             Rectangle().opacity(0)
 
-            VStack {
+            VStack(alignment: .leading) {
                 self.content
             }
             .padding(.horizontal, SnackbarViewMetrics.textPadding.width)
