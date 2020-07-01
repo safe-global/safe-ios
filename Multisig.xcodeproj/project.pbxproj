@@ -16,6 +16,7 @@
 		044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */; };
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
+		0456BF6924A4D054000C3C1D /* PagedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0456BF6824A4D054000C3C1D /* PagedRequest.swift */; };
 		0460AB39247E6548005CA275 /* TitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AB38247E6548005CA275 /* TitleText.swift */; };
 		0460AB3B247E685E005CA275 /* EmptyListPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AB3A247E685E005CA275 /* EmptyListPlaceholder.swift */; };
 		0460AB3D247EC12B005CA275 /* TransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AB3C247EC12B005CA275 /* TransactionsViewModel.swift */; };
@@ -280,6 +281,7 @@
 		044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		0456BF6824A4D054000C3C1D /* PagedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedRequest.swift; sourceTree = "<group>"; };
 		0460AB38247E6548005CA275 /* TitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleText.swift; sourceTree = "<group>"; };
 		0460AB3A247E685E005CA275 /* EmptyListPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListPlaceholder.swift; sourceTree = "<group>"; };
 		0460AB3C247EC12B005CA275 /* TransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewModel.swift; sourceTree = "<group>"; };
@@ -1335,6 +1337,7 @@
 				5532D4B82449A17D0067505A /* JSONHTTPClient.swift */,
 				5532D4B92449A17D0067505A /* HTTPClient.swift */,
 				04061608248E4868000F9C52 /* PagedResponse.swift */,
+				0456BF6824A4D054000C3C1D /* PagedRequest.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1915,6 +1918,7 @@
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
 				0ADDA20D24533F860066457E /* BodyText.swift in Sources */,
+				0456BF6924A4D054000C3C1D /* PagedRequest.swift in Sources */,
 				0AA9F25D249A174E005BD60F /* TransactionConfirmationViewModel.swift in Sources */,
 				0A704A7024742003005BDC49 /* HideSystemNavigationBarModifier.swift in Sources */,
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,

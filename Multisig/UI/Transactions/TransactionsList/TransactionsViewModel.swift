@@ -13,6 +13,10 @@ class TransactionsViewModel: LoadableViewModel {
     @Published var transactionsList = TransactionsListViewModel()
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
+    @Published var isLoadingNextPage: Bool = false
+
+    var viewState = App.shared.viewState
+    private var nextURL: String?
 
     var safe: Safe? {
         didSet {
@@ -22,6 +26,8 @@ class TransactionsViewModel: LoadableViewModel {
             reloadData()
         }
     }
+
+    var safeInfo: SafeStatusRequest.Response?
 
     var subscribers = Set<AnyCancellable>()
 
@@ -35,9 +41,10 @@ class TransactionsViewModel: LoadableViewModel {
                 Future<TransactionsListViewModel, Error> { promise in
                     DispatchQueue.global().async {
                         do {
-                            let info = try App.shared.safeTransactionService.safeInfo(at: address)
+                            self.safeInfo = try App.shared.safeTransactionService.safeInfo(at: address)
                             let transactions = try App.shared.safeTransactionService.transactions(address: address)
-                            let models = transactions.results.flatMap { TransactionViewModel.create(from: $0, info) }
+                            self.nextURL = transactions.next
+                            let models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
                             let list = TransactionsListViewModel(models)
                             promise(.success(list))
                         } catch {
@@ -58,4 +65,45 @@ class TransactionsViewModel: LoadableViewModel {
             .store(in: &subscribers)
     }
 
+    func loadNextPage() {
+        subscribers.forEach { $0.cancel() }
+        isLoadingNextPage = true
+        Just(nextURL)
+            .compactMap { $0 }
+            .setFailureType(to: Error.self)
+            .flatMap { url in
+                Future<[TransactionViewModel], Error> { promise in
+                    DispatchQueue.global().async {
+                        do {
+                            if let transactions = try App.shared.safeTransactionService.loadTransactionsPage(url: url) {
+                                self.nextURL = transactions.next
+                                let models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
+                                promise(.success(models))
+                            }
+                        } catch {
+                            promise(.failure(error))
+                        }
+                    }
+                }
+            }
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    self.nextURL = nil
+                    self.viewState.show(message: error.localizedDescription)
+                }
+                self.isLoadingNextPage = false
+            }, receiveValue:{ transactionsList in
+                self.transactionsList.add(transactionsList)
+            })
+            .store(in: &subscribers)
+    }
+
+    var canLoadNext: Bool {
+        nextURL != nil
+    }
+
+    func isLast(transaction: TransactionViewModel) -> Bool {
+        transactionsList.lastTransaction == transaction
+    }
 }

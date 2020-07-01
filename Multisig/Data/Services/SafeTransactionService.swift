@@ -55,8 +55,13 @@ class SafeTransactionService {
         return try httpClient.execute(request: SafeBalancesRequest(address: address))
     }
 
-    func transactions(address: Address, offset: Int = 0, limit: Int = 100) throws -> TransactionsRequest.Response {
-        return try httpClient.execute(request: TransactionsRequest(address: address, limit: limit, offset: offset))
+    func transactions(address: Address?, offset: Int = 0, limit: Int = 20) throws -> TransactionsRequest.Response {
+        return try httpClient.execute(request: TransactionsRequest(address: address!, limit: limit, offset: offset))
+    }
+
+    func loadTransactionsPage(url: String) throws -> TransactionsRequest.Response? {
+        guard let request = PagedRequest<Transaction>(url) else { return nil }
+        return try httpClient.execute(request: request)
     }
 }
 
@@ -115,10 +120,12 @@ struct TransactionsRequest: JSONRequest {
     let limit: Int
     let offset: Int
     var httpMethod: String { "GET" }
-    var urlPath: String { "/api/v1/safes/\(address)/all-transactions/" }
+    var urlPath: String {
+        "/api/v1/safes/\(address)/all-transactions/"
+    }
 
     var query: String? {
-        return "limit=\(limit)&offset=\(offset)&queued=true"
+        "limit=\(limit)&offset=\(offset)&queued=true"
     }
     
     typealias Response = PagedResponse<Transaction>

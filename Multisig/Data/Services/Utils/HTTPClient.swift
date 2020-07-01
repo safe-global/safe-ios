@@ -11,7 +11,6 @@ public protocol HTTPRequest {
     var query: String? { get }
     var body: Data? { get }
     var headers: [String: String] { get }
-
 }
 
 public extension HTTPRequest {
