@@ -15,6 +15,7 @@ class App {
     // UI layer
     var viewState = ViewState()
     var theme = Theme()
+    var snackbar = SnackbarCenter()
 
     // Business Logic Layer
 

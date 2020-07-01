@@ -15,7 +15,7 @@ struct AssetsView: View {
     @State var selection: Int? = 0
 
     @ObservedObject
-    var viewState: ViewState = App.shared.viewState
+    var snackbar = App.shared.snackbar
 
     var body: some View {
         ZStack {
@@ -35,9 +35,8 @@ struct AssetsView: View {
                     VStack(spacing: 35) {
                         Text("Coming soon")
                         Button("Show") {
-                            self.viewState.show(message: "Snacky snack!🍿")
+                            self.snackbar.show(message: "\(Int.random(in: 0...99)) Snacky snack!🍿")
                         }
-                        .disabled(self.viewState.showsSnackbar)
                     }
                     .gnoTabItem(id: 1) {
                         HStack {

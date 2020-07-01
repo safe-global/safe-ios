@@ -59,11 +59,11 @@ struct MainTabView: View {
         }
         .onAppear {
             // this adjusts the snack bar position
-            App.shared.viewState.bottomBarHeight =
+            App.shared.snackbar.bottomEdgeSpacing =
                 BottomTabViewMetrics.tabBarHeight + self.tabBarSpacing
         }
         .onDisappear {
-            App.shared.viewState.bottomBarHeight = 0
+            App.shared.snackbar.bottomEdgeSpacing = 0
         }
         .onReceive(globalSelection.$state) { newValue in
             if newValue != self.localSelection {
