@@ -32,10 +32,18 @@ struct TransactionListView: Loadable {
                     ForEach(section.transactions) { transaction in
                         NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
                             TransactionCellView(transaction: transaction)
+                        }.onAppear {
+                            if self.model.isLast(transaction: transaction) && self.model.canLoadNext {
+                                self.model.loadNextPage()
+                            }
                         }
                     }
                     .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16))
                 }
+            }
+
+            if model.isLoadingNextPage {
+                ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
             }
         }
     }
