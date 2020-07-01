@@ -45,6 +45,14 @@ class SnackbarCenter: ObservableObject {
         triggerMessagePresentation()
     }
 
+    func hide() {
+        if let message = presentedMessage {
+            hide(message)
+            recreatePipeline()
+            triggerMessagePresentation()
+        }
+    }
+
     private func triggerMessagePresentation() {
         pipeline.send()
     }
@@ -108,14 +116,6 @@ class SnackbarCenter: ObservableObject {
         presentedMessage = message
         snackbarMessge = message.content
         isPresented = true
-    }
-
-    func hide() {
-        if let message = presentedMessage {
-            hide(message)
-            recreatePipeline()
-            triggerMessagePresentation()
-        }
     }
 
     private func hide(_ message: Message) {
