@@ -67,7 +67,6 @@ struct LoadableView<Content: Loadable>: View {
 
 class BasicLoadableViewModel: LoadableViewModel {
     @Published var isLoading: Bool = true
-
     @Published var isRefreshing: Bool = false {
         didSet {
             if oldValue == false && isRefreshing == true {
@@ -75,7 +74,6 @@ class BasicLoadableViewModel: LoadableViewModel {
             }
         }
     }
-
     @Published var errorMessage: String? = nil
 
     var subscribers = Set<AnyCancellable>()
