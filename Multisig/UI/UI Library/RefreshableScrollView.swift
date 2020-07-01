@@ -20,7 +20,7 @@ struct RefreshableScrollView<Content: View>: View {
     @Binding var refreshing: Bool
     let content: Content
 
-    init(height: CGFloat = 80, refreshing: Binding<Bool>, @ViewBuilder content: () -> Content) {
+    init(height: CGFloat = 70, refreshing: Binding<Bool>, @ViewBuilder content: () -> Content) {
         self.threshold = height
         self._refreshing = refreshing
         self.content = content()
@@ -119,6 +119,7 @@ struct RefreshableScrollView<Content: View>: View {
                         .padding(height * 0.375)
                         .rotationEffect(rotation)
                         .offset(y: -height + (loading && frozen ? +height : 0.0))
+                        .foregroundColor(.gray)
                 }
             }
         }

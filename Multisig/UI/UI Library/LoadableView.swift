@@ -12,6 +12,7 @@ import Combine
 protocol LoadableViewModel: ObservableObject {
     var isLoading: Bool { get set }
     var isRefreshing: Bool { get set }
+    var contentWasLoadedOnce: Bool { get set }
     var errorMessage: String? { get set }
     func reloadData()
 }
@@ -38,10 +39,10 @@ struct LoadableView<Content: Loadable>: View {
                 ZStack(alignment: .center) {
                     if self.model.isLoading {
                         ActivityIndicator(isAnimating: .constant(true), style: .large)
-                    } else if self.model.errorMessage != nil {
+                    } else if self.model.errorMessage != nil && !self.model.contentWasLoadedOnce {
                         self.noDataView
                     } else {
-                        self.content
+                        self.contentView
                     }
                 }
                 .frame(height: geometryProxy.size.height)
@@ -63,10 +64,16 @@ struct LoadableView<Content: Loadable>: View {
             Spacer()
         }
     }
+
+    var contentView: some View {
+        self.model.contentWasLoadedOnce = true
+        return content
+    }
 }
 
 class BasicLoadableViewModel: LoadableViewModel {
     @Published var isLoading: Bool = true
+
     @Published var isRefreshing: Bool = false {
         didSet {
             if oldValue == false && isRefreshing == true {
@@ -74,7 +81,10 @@ class BasicLoadableViewModel: LoadableViewModel {
             }
         }
     }
+
     @Published var errorMessage: String? = nil
+
+    var contentWasLoadedOnce: Bool = false
 
     var subscribers = Set<AnyCancellable>()
 
