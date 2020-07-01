@@ -13,12 +13,9 @@ class TransactionsViewModel: LoadableViewModel {
     @Published var transactionsList = TransactionsListViewModel()
     @Published var isLoading: Bool = true
     @Published var errorMessage: String? = nil
-    @Published var isLoadingNextPage: Bool = true
+    @Published var isLoadingNextPage: Bool = false
 
     var viewState = App.shared.viewState
-
-    
-    private var prevURL: String?
     private var nextURL: String?
 
     var safe: Safe? {
@@ -46,7 +43,6 @@ class TransactionsViewModel: LoadableViewModel {
                         do {
                             self.safeInfo = try App.shared.safeTransactionService.safeInfo(at: address)
                             let transactions = try App.shared.safeTransactionService.transactions(address: address)
-                            self.prevURL = transactions.previous
                             self.nextURL = transactions.next
                             let models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
                             let list = TransactionsListViewModel(models)
@@ -73,12 +69,13 @@ class TransactionsViewModel: LoadableViewModel {
         subscribers.forEach { $0.cancel() }
         isLoadingNextPage = true
         Just(nextURL)
+            .compactMap { $0 }
             .setFailureType(to: Error.self)
             .flatMap { url in
                 Future<[TransactionViewModel], Error> { promise in
                     DispatchQueue.global().async {
                         do {
-                            if let transactions = try App.shared.safeTransactionService.loadTransactionsPage(url: url!) {
+                            if let transactions = try App.shared.safeTransactionService.loadTransactionsPage(url: url) {
                                 self.nextURL = transactions.next
                                 let models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
                                 promise(.success(models))
