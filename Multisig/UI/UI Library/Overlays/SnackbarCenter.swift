@@ -58,8 +58,6 @@ class SnackbarCenter: ObservableObject {
     }
 
     private func recreatePipeline() {
-        // NOTE: the blank lines added for better visual grouping
-
         // cancels all existing subscribers (on deinit)
         subscribers = []
         working = false
@@ -102,7 +100,7 @@ class SnackbarCenter: ObservableObject {
                 return message
             }
 
-            // restart the cyce if needed
+            // restart the cycle if needed
             .sink { message in
                 self.working = false
                 if !self.messageQueue.isEmpty {
