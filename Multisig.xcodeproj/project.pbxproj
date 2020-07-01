@@ -54,6 +54,8 @@
 		0497F6E72488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift */; };
 		0497F6E92488EC5600A1F4DE /* CustomTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E82488EC5600A1F4DE /* CustomTransactionCellView.swift */; };
 		0497F6EB2489168B00A1F4DE /* TransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6EA2489168B00A1F4DE /* TransactionCellView.swift */; };
+		04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1F7D724AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift */; };
+		04A1F7DA24AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1F7D924AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift */; };
 		04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BFB55A2459785D00090386 /* KeyboadHandler.swift */; };
 		04C7C4432490FA3C00D869C1 /* TransactionConfirmationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7C4422490FA3C00D869C1 /* TransactionConfirmationCell.swift */; };
 		04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97A99246C3E5F00EBA0F1 /* ViewState.swift */; };
@@ -317,6 +319,8 @@
 		0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMasterCopyCellView.swift; sourceTree = "<group>"; };
 		0497F6E82488EC5600A1F4DE /* CustomTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransactionCellView.swift; sourceTree = "<group>"; };
 		0497F6EA2489168B00A1F4DE /* TransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCellView.swift; sourceTree = "<group>"; };
+		04A1F7D724AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFallbackHandlerTransactionCellView.swift; sourceTree = "<group>"; };
+		04A1F7D924AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableDisableModuleTransactionCellView.swift; sourceTree = "<group>"; };
 		04BFB55A2459785D00090386 /* KeyboadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboadHandler.swift; sourceTree = "<group>"; };
 		04C7C4422490FA3C00D869C1 /* TransactionConfirmationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfirmationCell.swift; sourceTree = "<group>"; };
 		04C97A99246C3E5F00EBA0F1 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
@@ -696,13 +700,23 @@
 		0497F6E12488EB6C00A1F4DE /* TransactionCell */ = {
 			isa = PBXGroup;
 			children = (
+				04A1F7DB24AB809D0024DFF5 /* SettingsChangeTransactionCell */,
 				0497F6EA2489168B00A1F4DE /* TransactionCellView.swift */,
 				0497F6E22488EB9500A1F4DE /* TransferTransactionCellView.swift */,
-				0497F6E42488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift */,
 				0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift */,
 				0497F6E82488EC5600A1F4DE /* CustomTransactionCellView.swift */,
 			);
 			path = TransactionCell;
+			sourceTree = "<group>";
+		};
+		04A1F7DB24AB809D0024DFF5 /* SettingsChangeTransactionCell */ = {
+			isa = PBXGroup;
+			children = (
+				0497F6E42488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift */,
+				04A1F7D724AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift */,
+				04A1F7D924AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift */,
+			);
+			path = SettingsChangeTransactionCell;
 			sourceTree = "<group>";
 		};
 		04C7C4412490FA0F00D869C1 /* TransactionConfirmationsView */ = {
@@ -1735,6 +1749,7 @@
 				04C7C4432490FA3C00D869C1 /* TransactionConfirmationCell.swift in Sources */,
 				0AF6500A24485E450018D070 /* Identicon.swift in Sources */,
 				046D0A432497BECE000F4021 /* TransactionStatusView.swift in Sources */,
+				04A1F7DA24AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift in Sources */,
 				0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */,
 				046D0A70249A446D000F4021 /* TransferValueView.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
@@ -1882,6 +1897,7 @@
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
 				046D0A6F249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift in Sources */,
+				04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */,
 				04C97AAA246ED32800EBA0F1 /* BasicAppSettingsView.swift in Sources */,
