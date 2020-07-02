@@ -34,22 +34,38 @@ struct LoadableView<Content: Loadable>: View {
     }
 
     var body: some View {
-        GeometryReader { geometryProxy in
-            RefreshableScrollView(refreshing: self.$model.isRefreshing) {
-                ZStack(alignment: .center) {
-                    if self.model.isLoading {
-                        ActivityIndicator(isAnimating: .constant(true), style: .large)
-                    } else if self.model.errorMessage != nil && !self.model.contentWasLoadedOnce {
-                        self.noDataView
-                    } else {
-                        self.contentView
+        ZStack(alignment: .center) {
+            if model.isLoading {
+                loadingView
+            } else {
+                GeometryReader { geometryProxy in
+                    RefreshableScrollView(refreshing: self.$model.isRefreshing) {
+                        ZStack(alignment: .center) {
+                            if self.model.errorMessage != nil && !self.model.contentWasLoadedOnce {
+                                self.noDataView
+                            } else {
+                                self.contentView
+                            }
+                        }
+                        .frame(height: geometryProxy.size.height)
                     }
                 }
-                .frame(height: geometryProxy.size.height)
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             self.model.reloadData()
+        }
+    }
+
+    var loadingView: some View {
+        GeometryReader { geometryProxy in
+            ScrollView {
+                ZStack(alignment: .center) {
+                    ActivityIndicator(isAnimating: .constant(true), style: .large)
+
+                }
+                .frame(width: geometryProxy.size.width, height: geometryProxy.size.height)
+            }
         }
     }
 

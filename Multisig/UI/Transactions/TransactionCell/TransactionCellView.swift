@@ -11,7 +11,7 @@ import SwiftUI
 struct TransactionCellView: View {
     let transaction: TransactionViewModel
     var body: some View {
-        VStack (alignment: .leading, spacing: 4){
+        VStack (alignment: .leading, spacing: 4) {
             contentView.opacity(opacity)
 
             HStack{
@@ -37,7 +37,11 @@ struct TransactionCellView: View {
                     }
                 }
             }
-        }.padding()
+        }
+        .padding()
+        .onAppear {
+            App.shared.theme.resetRowsSelection()
+        }
     }
 
     var contentView: some View {
