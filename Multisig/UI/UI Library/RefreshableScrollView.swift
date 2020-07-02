@@ -87,16 +87,20 @@ struct RefreshableScrollView<Content: View>: View {
     }
 
     func symbolRotation(_ scrollOffset: CGFloat) -> Angle {
-        // We will begin rotation, only after we have passed
-        // 60% of the way of reaching the threshold.
         if scrollOffset < threshold * CGFloat(thresholdRubicon) {
             return .degrees(0)
         } else {
             // Calculate rotation, based on the amount of scroll offset
-            let h = Double(threshold)
-            let d = Double(scrollOffset)
-            let v = max(min(d - (h * thresholdRubicon), h * (1 - thresholdRubicon)), 0)
-            return .degrees(180 * v / (h * (1 - thresholdRubicon)))
+            let t = Double(threshold)
+            let tr = t * thresholdRubicon
+            let tri = t * (1 - thresholdRubicon)
+            let offset = Double(scrollOffset)
+            // v == 0 until scroll offset reaches threshold Rubicon
+            // then it starts increasing when offset is in range [tr...t]
+            // v == tri for offset > t
+            // thus the rotation angle increases from 0 to 180 degrees when the offset is in range [tr...t]
+            let v = max(min(offset - tr, tri), 0)
+            return .degrees(180 * v / tri)
         }
     }
 
