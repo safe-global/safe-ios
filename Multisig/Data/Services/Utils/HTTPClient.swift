@@ -42,7 +42,7 @@ class HTTPClient {
         case unknownError(URLRequest, URLResponse?, Data?)
 
         enum Message: String {
-            case networkRequestFailed = "No internet connection."
+            case networkRequestFailed = "The network request failed. Please try out later."
             case entityNotFound = "Entity not found."
             case invalidSafeChecksum = "Safe address checksum is not valid."
             case unexpectedError = "Unexpected error. We are notified and will try to fix it asap."
@@ -74,11 +74,7 @@ class HTTPClient {
                 }
                 do {
                     let details = try JSONDecoder().decode(ErrorDetails.self, from: data)
-                    guard let code = details.code else {
-                        #warning("TODO: Crashlytics")
-                        return Message.unexpectedError.rawValue
-                    }
-                    return Message(code: code).rawValue
+                    return Message(code: details.code).rawValue
                 } catch {
                     #warning("TODO: Crashlytics")
                     return Message.unexpectedError.rawValue
@@ -90,7 +86,7 @@ class HTTPClient {
         }
 
         struct ErrorDetails: Decodable {
-            let code: Int?
+            let code: Int
             let message: String?
         }
     }

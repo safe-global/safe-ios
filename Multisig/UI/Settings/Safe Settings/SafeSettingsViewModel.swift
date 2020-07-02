@@ -49,8 +49,6 @@ class SafeSettingsViewModel: BasicLoadableViewModel {
             })
             .store(in: &subscribers)
     }
-
-    func refreshData() {}
 }
 
 extension Safe {

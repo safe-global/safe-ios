@@ -16,7 +16,12 @@ struct RefreshableScrollView<Content: View>: View {
     @State private var frozen: Bool = false
     @State private var rotation: Angle = .degrees(0)
 
-    var threshold: CGFloat = 80
+    var threshold: CGFloat = 70
+
+    // We will begin rotation, only after we have passed
+    // 60% of the way of reaching the threshold.
+    var thresholdRubicon = 0.6
+
     @Binding var refreshing: Bool
     let content: Content
 
@@ -54,8 +59,8 @@ struct RefreshableScrollView<Content: View>: View {
     func refreshLogic(values: [RefreshableKeyTypes.PrefData]) {
         DispatchQueue.main.async {
             // Calculate scroll offset
-            let movingBounds = values.first { $0.vType == .movingView }?.bounds ?? .zero
-            let fixedBounds = values.first { $0.vType == .fixedView }?.bounds ?? .zero
+            let movingBounds = values.first { $0.viewType == .movingView }?.bounds ?? .zero
+            let fixedBounds = values.first { $0.viewType == .fixedView }?.bounds ?? .zero
 
             self.scrollOffset  = movingBounds.minY - fixedBounds.minY
 
@@ -72,7 +77,7 @@ struct RefreshableScrollView<Content: View>: View {
                     self.frozen = true
                 }
             } else {
-                // remove the sapce at the top of the scroll view
+                // remove the space at the top of the scroll view
                 self.frozen = false
             }
 
@@ -84,14 +89,14 @@ struct RefreshableScrollView<Content: View>: View {
     func symbolRotation(_ scrollOffset: CGFloat) -> Angle {
         // We will begin rotation, only after we have passed
         // 60% of the way of reaching the threshold.
-        if scrollOffset < self.threshold * 0.60 {
+        if scrollOffset < threshold * CGFloat(thresholdRubicon) {
             return .degrees(0)
         } else {
             // Calculate rotation, based on the amount of scroll offset
-            let h = Double(self.threshold)
+            let h = Double(threshold)
             let d = Double(scrollOffset)
-            let v = max(min(d - (h * 0.6), h * 0.4), 0)
-            return .degrees(180 * v / (h * 0.4))
+            let v = max(min(d - (h * thresholdRubicon), h * (1 - thresholdRubicon)), 0)
+            return .degrees(180 * v / (h * (1 - thresholdRubicon)))
         }
     }
 
@@ -106,7 +111,7 @@ struct RefreshableScrollView<Content: View>: View {
                 if self.loading { // If loading, show the activity control
                     VStack {
                         Spacer()
-                        ActivityRep()
+                        ActivityIndicator(isAnimating: .constant(true), style: .medium)
                         Spacer()
                     }
                     .frame(height: height).fixedSize()
@@ -118,7 +123,7 @@ struct RefreshableScrollView<Content: View>: View {
                         .frame(width: height * 0.25, height: height * 0.25).fixedSize()
                         .padding(height * 0.375)
                         .rotationEffect(rotation)
-                        .offset(y: -height + (loading && frozen ? +height : 0.0))
+                        .offset(y: -height + (loading && frozen ? height : 0.0))
                         .foregroundColor(.gray)
                 }
             }
@@ -130,7 +135,7 @@ struct RefreshableScrollView<Content: View>: View {
             GeometryReader { proxy in
                 Color.clear.preference(
                     key: RefreshableKeyTypes.PrefKey.self,
-                    value: [RefreshableKeyTypes.PrefData(vType: .movingView, bounds: proxy.frame(in: .global))])
+                    value: [RefreshableKeyTypes.PrefData(viewType: .movingView, bounds: proxy.frame(in: .global))])
             }.frame(height: 0)
         }
     }
@@ -140,7 +145,7 @@ struct RefreshableScrollView<Content: View>: View {
             GeometryReader { proxy in
                 Color.clear.preference(
                     key: RefreshableKeyTypes.PrefKey.self,
-                    value: [RefreshableKeyTypes.PrefData(vType: .fixedView, bounds: proxy.frame(in: .global))])
+                    value: [RefreshableKeyTypes.PrefData(viewType: .fixedView, bounds: proxy.frame(in: .global))])
             }
         }
     }
@@ -153,7 +158,7 @@ struct RefreshableKeyTypes {
     }
 
     struct PrefData: Equatable {
-        let vType: ViewType
+        let viewType: ViewType
         let bounds: CGRect
     }
 
@@ -167,14 +172,3 @@ struct RefreshableKeyTypes {
         typealias Value = [PrefData]
     }
 }
-
-struct ActivityRep: UIViewRepresentable {
-    func makeUIView(context: UIViewRepresentableContext<ActivityRep>) -> UIActivityIndicatorView {
-        return UIActivityIndicatorView()
-    }
-
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityRep>) {
-        uiView.startAnimating()
-    }
-}
-
