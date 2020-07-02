@@ -53,7 +53,7 @@ class TransactionsViewModel: BasicLoadableViewModel {
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     self.errorMessage = error.localizedDescription
-                    App.shared.viewState.show(message: error.localizedDescription)
+                    App.shared.snackbar.show(message: error.localizedDescription)
                 }
                 self.isLoading = false
                 self.isRefreshing = false
@@ -89,7 +89,7 @@ class TransactionsViewModel: BasicLoadableViewModel {
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     self.nextURL = nil
-                    App.shared.viewState.show(message: error.localizedDescription)
+                    App.shared.snackbar.show(message: error.localizedDescription)
                 }
                 self.isLoadingNextPage = false
             }, receiveValue:{ transactionsList in
