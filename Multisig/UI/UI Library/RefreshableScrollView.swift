@@ -16,17 +16,17 @@ struct RefreshableScrollView<Content: View>: View {
     @State private var frozen: Bool = false
     @State private var rotation: Angle = .degrees(0)
 
-    var threshold: CGFloat = 70
+    var refreshTresholdInPoints: CGFloat = 70
 
     // We will begin rotation, only after we have passed
     // 60% of the way of reaching the threshold.
-    var thresholdRubicon = 0.6
+    var relativeRotationThreshold = 0.6
 
     @Binding var refreshing: Bool
     let content: Content
 
     init(height: CGFloat = 70, refreshing: Binding<Bool>, @ViewBuilder content: () -> Content) {
-        self.threshold = height
+        self.refreshTresholdInPoints = height
         self._refreshing = refreshing
         self.content = content()
 
@@ -40,10 +40,10 @@ struct RefreshableScrollView<Content: View>: View {
 
                     VStack { self.content }
                         .alignmentGuide(.top, computeValue: { d in
-                            (self.refreshing && self.frozen) ? -self.threshold : 0.0
+                            (self.refreshing && self.frozen) ? -self.refreshTresholdInPoints : 0.0
                         })
 
-                    SymbolView(height: self.threshold,
+                    SymbolView(height: self.refreshTresholdInPoints,
                                loading: self.refreshing,
                                frozen: self.frozen,
                                rotation: self.rotation)
@@ -67,13 +67,16 @@ struct RefreshableScrollView<Content: View>: View {
             self.rotation = self.symbolRotation(self.scrollOffset)
 
             // Crossing the threshold on the way down, we start the refresh process
-            if !self.refreshing && (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold) {
+            if !self.refreshing &&
+                self.scrollOffset > self.refreshTresholdInPoints &&
+                self.previousScrollOffset <= self.refreshTresholdInPoints {
                 self.refreshing = true
             }
 
             if self.refreshing {
                 // Crossing the threshold on the way up, we add a space at the top of the scrollview
-                if self.previousScrollOffset > self.threshold && self.scrollOffset <= self.threshold {
+                if self.previousScrollOffset > self.refreshTresholdInPoints &&
+                    self.scrollOffset <= self.refreshTresholdInPoints {
                     self.frozen = true
                 }
             } else {
@@ -87,20 +90,17 @@ struct RefreshableScrollView<Content: View>: View {
     }
 
     func symbolRotation(_ scrollOffset: CGFloat) -> Angle {
-        if scrollOffset < threshold * CGFloat(thresholdRubicon) {
+        if scrollOffset < refreshTresholdInPoints * CGFloat(relativeRotationThreshold) {
             return .degrees(0)
         } else {
-            // Calculate rotation, based on the amount of scroll offset
-            let t = Double(threshold)
-            let tr = t * thresholdRubicon
-            let tri = t * (1 - thresholdRubicon)
-            let offset = Double(scrollOffset)
-            // v == 0 until scroll offset reaches threshold Rubicon
-            // then it starts increasing when offset is in range [tr...t]
-            // v == tri for offset > t
-            // thus the rotation angle increases from 0 to 180 degrees when the offset is in range [tr...t]
-            let v = max(min(offset - tr, tri), 0)
-            return .degrees(180 * v / tri)
+            let rotationStartInPoints = Double(refreshTresholdInPoints) * relativeRotationThreshold
+            let rotationEndInPoints = Double(refreshTresholdInPoints) * (1 - relativeRotationThreshold)
+            if scrollOffset < CGFloat(rotationStartInPoints) {
+                return .degrees(0)
+            } else {
+                let rotationOffset = max(min(Double(scrollOffset) - rotationStartInPoints, rotationEndInPoints), 0)
+                return .degrees(180 * rotationOffset / rotationEndInPoints)
+            }
         }
     }
 
