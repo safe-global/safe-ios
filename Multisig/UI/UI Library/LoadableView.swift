@@ -7,9 +7,12 @@
 //
 
 import SwiftUI
+import Combine
 
 protocol LoadableViewModel: ObservableObject {
     var isLoading: Bool { get set }
+    var isRefreshing: Bool { get set }
+    var contentWasLoadedOnce: Bool { get set }
     var errorMessage: String? { get set }
     func reloadData()
 }
@@ -33,15 +36,36 @@ struct LoadableView<Content: Loadable>: View {
     var body: some View {
         ZStack(alignment: .center) {
             if model.isLoading {
-                ActivityIndicator(isAnimating: .constant(true), style: .large)
-            } else if model.errorMessage != nil {
-                noDataView
+                loadingView
             } else {
-                content
+                GeometryReader { geometryProxy in
+                    RefreshableScrollView(refreshing: self.$model.isRefreshing) {
+                        ZStack(alignment: .center) {
+                            if self.model.errorMessage != nil && !self.model.contentWasLoadedOnce {
+                                self.noDataView
+                            } else {
+                                self.contentView
+                            }
+                        }
+                        .frame(height: geometryProxy.size.height)
+                    }
+                }
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             self.model.reloadData()
+        }
+    }
+
+    var loadingView: some View {
+        GeometryReader { geometryProxy in
+            ScrollView {
+                ZStack(alignment: .center) {
+                    ActivityIndicator(isAnimating: .constant(true), style: .large)
+
+                }
+                .frame(width: geometryProxy.size.width, height: geometryProxy.size.height)
+            }
         }
     }
 
@@ -55,5 +79,38 @@ struct LoadableView<Content: Loadable>: View {
 
             Spacer()
         }
+    }
+
+    var contentView: some View {
+        self.model.contentWasLoadedOnce = true
+        return content
+    }
+}
+
+class BasicLoadableViewModel: LoadableViewModel {
+    @Published var isLoading: Bool = true
+
+    @Published var isRefreshing: Bool = false {
+        didSet {
+            if oldValue == false && isRefreshing == true {
+                self.reloadData()
+            }
+        }
+    }
+
+    @Published var errorMessage: String? = nil
+
+    var contentWasLoadedOnce: Bool = false
+
+    var subscribers = Set<AnyCancellable>()
+
+    final func reloadData() {
+        subscribers.forEach { $0.cancel() }
+        isLoading = !isRefreshing
+        reload()
+    }
+
+    func reload() {
+        preconditionFailure("Should be overriden")
     }
 }

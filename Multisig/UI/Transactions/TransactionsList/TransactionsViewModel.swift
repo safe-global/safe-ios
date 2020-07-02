@@ -9,14 +9,16 @@
 import Foundation
 import Combine
 
-class TransactionsViewModel: LoadableViewModel {
-    @Published var transactionsList = TransactionsListViewModel()
-    @Published var isLoading: Bool = true
-    @Published var errorMessage: String? = nil
-    @Published var isLoadingNextPage: Bool = false
-
-    var viewState = App.shared.viewState
+class TransactionsViewModel: BasicLoadableViewModel {
+    var transactionsList = TransactionsListViewModel()
+    private var safeInfo: SafeStatusRequest.Response?
     private var nextURL: String?
+
+    var canLoadNext: Bool {
+        nextURL != nil
+    }
+
+    @Published var isLoadingNextPage: Bool = false
 
     var safe: Safe? {
         didSet {
@@ -27,13 +29,7 @@ class TransactionsViewModel: LoadableViewModel {
         }
     }
 
-    var safeInfo: SafeStatusRequest.Response?
-
-    var subscribers = Set<AnyCancellable>()
-
-    func reloadData() {
-        subscribers.forEach { $0.cancel() }
-        isLoading = true
+    override func reload() {
         Just(safe!.address!)
             .compactMap { Address($0) }
             .setFailureType(to: Error.self)
@@ -57,10 +53,13 @@ class TransactionsViewModel: LoadableViewModel {
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     self.errorMessage = error.localizedDescription
+                    App.shared.snackbar.show(message: error.localizedDescription)
                 }
                 self.isLoading = false
+                self.isRefreshing = false
             }, receiveValue:{ transactionsList in
                 self.transactionsList = transactionsList
+                self.errorMessage = nil
             })
             .store(in: &subscribers)
     }
@@ -90,17 +89,14 @@ class TransactionsViewModel: LoadableViewModel {
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     self.nextURL = nil
-                    self.viewState.show(message: error.localizedDescription)
+                    App.shared.snackbar.show(message: error.localizedDescription)
                 }
                 self.isLoadingNextPage = false
             }, receiveValue:{ transactionsList in
                 self.transactionsList.add(transactionsList)
+                self.errorMessage = nil
             })
             .store(in: &subscribers)
-    }
-
-    var canLoadNext: Bool {
-        nextURL != nil
     }
 
     func isLast(transaction: TransactionViewModel) -> Bool {

@@ -4,8 +4,7 @@
 
 import Foundation
 
-public protocol HTTPRequest {
-
+protocol HTTPRequest {
     var httpMethod: String { get }
     var urlPath: String { get }
     var query: String? { get }
@@ -13,52 +12,83 @@ public protocol HTTPRequest {
     var headers: [String: String] { get }
 }
 
-public extension HTTPRequest {
-
+extension HTTPRequest {
     var query: String? { return nil }
     var body: Data? { return nil }
     var headers: [String: String] { return [:] }
-
 }
 
 /// Synchronous http client
-public class HTTPClient {
-    /// Client error
-    ///
-    /// - networkRequestFailed: network request failed for some reason. Provided are request, response and data values.
-    public enum Error: LocalizedError {
-        case networkRequestFailed(URLRequest, URLResponse?, Data?)
-        case entityNotFound(URLRequest, URLResponse?, Data?)
-        case unprocessableEntity(URLRequest, URLResponse?, Data?)
-        case unknownError(URLRequest, URLResponse?, Data?)
-
-        public var errorDescription: String? {
-            switch self {
-            case .networkRequestFailed(_, _, _):
-                return "The network request failed. Please try out later."
-            case .entityNotFound(_, _, _):
-                return "Entity not found"
-            case .unprocessableEntity(_, _, _):
-                return "Unprocessable entity"
-            default:
-                return "Unknown error"
-            }
-        }
-    }
-
-    private typealias URLDataTaskResult = (data: Data?, response: URLResponse?, error: Swift.Error?)
-
+class HTTPClient {
     private let baseURL: URL
     private let logger: Logger?
+
+    private typealias URLDataTaskResult = (data: Data?, response: URLResponse?, error: Swift.Error?)
 
     /// Creates new client with baseURL and logger
     ///
     /// - Parameters:
     ///   - url: base url for creating all request urls
     ///   - logger: logger for debugging and error purposes
-    public init(url: URL, logger: Logger? = nil) {
+    init(url: URL, logger: Logger? = nil) {
         baseURL = url
         self.logger = logger
+    }
+
+    enum Error: LocalizedError {
+        case networkRequestFailed(URLRequest, URLResponse?, Data?)
+        case entityNotFound(URLRequest, URLResponse?, Data?)
+        case unprocessableEntity(URLRequest, URLResponse?, Data?)
+        case unknownError(URLRequest, URLResponse?, Data?)
+
+        enum Message: String {
+            case networkRequestFailed = "The network request failed. Please try out later."
+            case entityNotFound = "Entity not found."
+            case invalidSafeChecksum = "Safe address checksum is not valid."
+            case unexpectedError = "Unexpected error. We are notified and will try to fix it asap."
+
+            /// Create a proper message from our backend internal code.
+            /// - Parameter code: backend internal code of error.
+            init(code: Int) {
+                #warning("TODO: this is a placeholder. Need to use real codes.")
+                switch code {
+                case 1000:
+                    self = .invalidSafeChecksum
+                default:
+                    #warning("TODO: Crashlytics.")
+                    self = .unexpectedError
+                }
+            }
+        }
+
+        var errorDescription: String? {
+            switch self {
+            case .networkRequestFailed(_, _, _):
+                return Message.networkRequestFailed.rawValue
+            case .entityNotFound(_, _, _):
+                return Message.entityNotFound.rawValue
+            case .unprocessableEntity(_, _, let data):
+                guard let data = data else {
+                    #warning("TODO: Crashlytics")
+                    return Message.unexpectedError.rawValue
+                }
+                do {
+                    let details = try JSONDecoder().decode(ErrorDetails.self, from: data)
+                    return Message(code: details.code).rawValue
+                } catch {
+                    #warning("TODO: Crashlytics")
+                    return Message.unexpectedError.rawValue
+                }
+            default:
+                #warning("TODO: Crashlytics")
+                return Message.unexpectedError.rawValue
+            }
+        }
+
+        struct ErrorDetails: Decodable {
+            let code: Int
+            let message: String?
+        }
     }
 
     /// Executes request and returns server response. The call is synchronous.
@@ -69,7 +99,7 @@ public class HTTPClient {
     ///     - `HTTPClient.Error.networkRequestFailed` in case request fails
     ///     - Network errors are rethrown (URLSession errors, for example)
     @discardableResult
-    public func execute<T: HTTPRequest>(request: T) throws -> Data {
+    func execute<T: HTTPRequest>(request: T) throws -> Data {
         logger?.debug("Preparing to send \(request)")
         let urlRequest = try self.urlRequest(from: request)
         let result = send(urlRequest)

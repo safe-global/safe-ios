@@ -9,22 +9,17 @@
 import Foundation
 import Combine
 
-class BalancesViewModel: LoadableViewModel {
-    @Published var balances = [TokenBalance]()
-    @Published var isLoading: Bool = true
-    @Published var errorMessage: String? = nil
-
-    private var subscribers = Set<AnyCancellable>()
-
+class BalancesViewModel: BasicLoadableViewModel {
+    var balances = [TokenBalance]()
     private let safe: Safe
 
     init(safe: Safe) {
         self.safe = safe
+        super.init()
         reloadData()
     }
 
-    func reloadData() {
-        isLoading = true
+    override func reload() {
         Just(safe.address!)
             .compactMap { Address($0) }
             .setFailureType(to: Error.self)
@@ -45,10 +40,13 @@ class BalancesViewModel: LoadableViewModel {
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     self.errorMessage = error.localizedDescription
+                    App.shared.snackbar.show(message: error.localizedDescription)
                 }
                 self.isLoading = false
+                self.isRefreshing = false
             }, receiveValue:{ tokenBalances in
                 self.balances = tokenBalances
+                self.errorMessage = nil
             })
             .store(in: &subscribers)
     }

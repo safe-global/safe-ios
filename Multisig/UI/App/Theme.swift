@@ -39,4 +39,9 @@ class Theme: ObservableObject {
         UITableView.appearance().backgroundColor = tableViewBackgroundColor
     }
 
+    func resetRowsSelection() {
+        UITableViewCell.appearance().selectionStyle = .none
+        UITableViewCell.appearance().selectionStyle = .default
+    }
+
 }
