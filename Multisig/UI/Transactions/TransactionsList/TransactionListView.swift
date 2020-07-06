@@ -12,6 +12,10 @@ struct TransactionListView: Loadable {
     @ObservedObject
     var model: TransactionsViewModel
 
+    init(safe: Safe) {
+        model = TransactionsViewModel(safe: safe)
+    }
+
     var body: some View {
         ZStack {
             if model.transactionsList.isEmpty {

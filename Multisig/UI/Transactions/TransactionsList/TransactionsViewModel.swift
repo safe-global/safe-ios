@@ -20,17 +20,16 @@ class TransactionsViewModel: BasicLoadableViewModel {
 
     @Published var isLoadingNextPage: Bool = false
 
-    var safe: Safe? {
-        didSet {
-            guard oldValue != safe && safe != nil else {
-                return
-            }
-            reloadData()
-        }
+    let safe: Safe
+
+    init(safe: Safe) {
+        self.safe = safe
+        super.init()
+        reloadData()
     }
 
     override func reload() {
-        Just(safe!.address!)
+        Just(safe.address!)
             .compactMap { Address($0) }
             .setFailureType(to: Error.self)
             .flatMap { address in
