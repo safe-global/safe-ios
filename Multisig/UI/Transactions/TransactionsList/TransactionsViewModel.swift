@@ -13,25 +13,25 @@ class TransactionsViewModel: BasicLoadableViewModel {
     var transactionsList = TransactionsListViewModel()
     private var safeInfo: SafeStatusRequest.Response?
     private var nextURL: String?
-    @Published var isLoadingNextPage: Bool = false {
-        willSet { self.objectWillChange.send() }
-    }
 
     var canLoadNext: Bool {
         nextURL != nil
     }
 
-    var safe: Safe? {
-        didSet {
-            guard oldValue != safe && safe != nil else {
-                return
-            }
-            reloadData()
-        }
+    @Published var isLoadingNextPage: Bool = false {
+        willSet { self.objectWillChange.send() }
+    }
+
+    let safe: Safe
+
+    init(safe: Safe) {
+        self.safe = safe
+        super.init()
+        reloadData()
     }
 
     override func reload() {
-        Just(safe!.address!)
+        Just(safe.address!)
             .compactMap { Address($0) }
             .setFailureType(to: Error.self)
             .flatMap { address in
@@ -95,7 +95,6 @@ class TransactionsViewModel: BasicLoadableViewModel {
                 self.isLoadingNextPage = false
             }, receiveValue:{ transactionsList in
                 self.transactionsList.add(transactionsList)
-                self.isLoadingNextPage = false
             })
             .store(in: &subscribers)
     }

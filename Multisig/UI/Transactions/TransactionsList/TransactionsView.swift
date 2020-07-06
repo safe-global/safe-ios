@@ -9,11 +9,8 @@
 import SwiftUI
 
 struct TransactionsView: View {
-
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
-
-    var model = TransactionsViewModel()
 
     var body: some View {
         ZStack(alignment: .center) {
@@ -26,15 +23,8 @@ struct TransactionsView: View {
                     self.trackEvent(.transactionsNoSafe)
                 }
             } else {
-                LoadableView(TransactionListView(model: model))
+                LoadableView(TransactionListView(safe: selectedSafe.first!))
             }
-        }
-        .onReceive(selectedSafe.publisher) { safe in
-            // instead of re-creating the model, we re-assign the safe
-            // when it changes, because the body of this view is redrawn,
-            // and that is causing the unneeded reloading of the
-            // network request.
-            self.model.safe = safe
         }
     }
 }
