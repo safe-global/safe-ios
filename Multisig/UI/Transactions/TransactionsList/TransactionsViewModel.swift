@@ -13,12 +13,13 @@ class TransactionsViewModel: BasicLoadableViewModel {
     var transactionsList = TransactionsListViewModel()
     private var safeInfo: SafeStatusRequest.Response?
     private var nextURL: String?
+    @Published var isLoadingNextPage: Bool = false {
+        willSet { self.objectWillChange.send() }
+    }
 
     var canLoadNext: Bool {
         nextURL != nil
     }
-
-    @Published var isLoadingNextPage: Bool = false
 
     var safe: Safe? {
         didSet {
@@ -94,7 +95,7 @@ class TransactionsViewModel: BasicLoadableViewModel {
                 self.isLoadingNextPage = false
             }, receiveValue:{ transactionsList in
                 self.transactionsList.add(transactionsList)
-                self.errorMessage = nil
+                self.isLoadingNextPage = false
             })
             .store(in: &subscribers)
     }
