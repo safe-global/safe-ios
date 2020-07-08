@@ -41,7 +41,7 @@ struct TransferValueView: View {
     }
 
     var opactiy: Double {
-        [.canceled, .failed].contains(transaction.status) ? 0.5 : 1
+        [.cancelled, .failed].contains(transaction.status) ? 0.5 : 1
     }
 
     var dataLength: Int {

@@ -31,7 +31,7 @@ struct TransactionStatusView: View {
              return .gnoPending
         case .failed:
             return .gnoTomato
-        case .canceled:
+        case .cancelled:
             return .gnoDarkGrey
         case .success:
             return .gnoHold
