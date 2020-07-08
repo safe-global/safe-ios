@@ -29,17 +29,15 @@ struct AssetsView: View {
                             .frame(maxWidth: .infinity)
                         }
 
-                    VStack(spacing: 35) {
-                        Text("Coming soon")
-                    }
-                    .gnoTabItem(id: 1) {
-                        HStack {
-                            Image("ico-collectibles")
-                            Text("COLLECTIBLES")
-                                .font(Font.gnoCaption1)
-                                .tracking(0.45)
+                    CollectiblesView()
+                        .gnoTabItem(id: 1) {
+                            HStack {
+                                Image("ico-collectibles")
+                                Text("COLLECTIBLES")
+                                    .font(Font.gnoCaption1)
+                                    .tracking(0.45)
+                            }
                         }
-                    }
                 }
                 .background(Color.gnoWhite)
             } else {

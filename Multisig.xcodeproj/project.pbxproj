@@ -66,6 +66,7 @@
 		04C97AAC246ED34400EBA0F1 /* ValueText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97AAB246ED34400EBA0F1 /* ValueText.swift */; };
 		04C97AAE246ED43A00EBA0F1 /* FiatCurrenciesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97AAD246ED43A00EBA0F1 /* FiatCurrenciesView.swift */; };
 		04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */; };
+		04CE3F8F24B5F67100826AEE /* CollectiblesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F8E24B5F67100826AEE /* CollectiblesView.swift */; };
 		04EF2AEB2492883A0070ED1A /* TransactionConfiramtionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */; };
 		04EF2AED2492B5AF0070ED1A /* VerticalBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */; };
 		04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F533622490E83B00F28099 /* TransactionConfirmationsView.swift */; };
@@ -334,6 +335,7 @@
 		04C97AAB246ED34400EBA0F1 /* ValueText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueText.swift; sourceTree = "<group>"; };
 		04C97AAD246ED43A00EBA0F1 /* FiatCurrenciesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatCurrenciesView.swift; sourceTree = "<group>"; };
 		04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserLink.swift; sourceTree = "<group>"; };
+		04CE3F8E24B5F67100826AEE /* CollectiblesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesView.swift; sourceTree = "<group>"; };
 		04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfiramtionStatusView.swift; sourceTree = "<group>"; };
 		04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalBarView.swift; sourceTree = "<group>"; };
 		04F533622490E83B00F28099 /* TransactionConfirmationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfirmationsView.swift; sourceTree = "<group>"; };
@@ -734,6 +736,23 @@
 				04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */,
 			);
 			path = TransactionConfirmationsView;
+			sourceTree = "<group>";
+		};
+		04CE3F8D24B5F58000826AEE /* Collectibles */ = {
+			isa = PBXGroup;
+			children = (
+				04CE3F8E24B5F67100826AEE /* CollectiblesView.swift */,
+			);
+			path = Collectibles;
+			sourceTree = "<group>";
+		};
+		04CE3F9024B5F8F300826AEE /* Balances */ = {
+			isa = PBXGroup;
+			children = (
+				55F9A31E2475578C00ABBA6F /* BalancesView.swift */,
+				55F9A31F2475578C00ABBA6F /* BalancesViewModel.swift */,
+			);
+			path = Balances;
 			sourceTree = "<group>";
 		};
 		04F533602490E7BF00F28099 /* TransactionDetails */ = {
@@ -1421,10 +1440,10 @@
 		55F9A2E52472F3EE00ABBA6F /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				55F9A31E2475578C00ABBA6F /* BalancesView.swift */,
-				55F9A31F2475578C00ABBA6F /* BalancesViewModel.swift */,
-				0AA9F25624991988005BD60F /* TokenBalance.swift */,
+				04CE3F9024B5F8F300826AEE /* Balances */,
+				04CE3F8D24B5F58000826AEE /* Collectibles */,
 				55F9A3092475375B00ABBA6F /* AssetsView.swift */,
+				0AA9F25624991988005BD60F /* TokenBalance.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1908,6 +1927,7 @@
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
 				046D0A6F249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift in Sources */,
+				04CE3F8F24B5F67100826AEE /* CollectiblesView.swift in Sources */,
 				04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */,
