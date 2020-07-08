@@ -19,10 +19,7 @@ struct TransactionsListViewModel {
         }
     }
 
-    private var queued = [TransactionViewModel]()
-    private var history = [TransactionViewModel]()
-
-    var allSections: [Section] = []
+    private var allSections: [Section] = []
 
     var sections: [Section] {
         allSections.filter { !$0.isEmpty }
