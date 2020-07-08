@@ -134,10 +134,9 @@ public final class LogService: Logger {
         if normalizedEnabledLoggers.contains(ConsoleLoggerIdentifier) {
             add(ConsoleLogger())
         }
-        #warning("TODO: re-enable with crashlytics implementation")
-//        if normalizedEnabledLoggers.contains(CrashlyticsLoggerIdentifier) {
-//            add(CrashlyticsLogger())
-//        }
+        if normalizedEnabledLoggers.contains(CrashlyticsLoggerIdentifier) {
+            add(CrashlyticsLogger())
+        }
     }
 
     public func fatal(_ message: String,

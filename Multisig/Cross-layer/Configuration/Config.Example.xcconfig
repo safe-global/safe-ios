@@ -88,7 +88,7 @@ _FIREBASE_CONFIG_DEV_MAINNET        = GoogleService-Info.Development.Mainnet
 _FIREBASE_CONFIG_DEV_RINKEBY        = GoogleService-Info.Development.Rinkeby
 
 // Loggers (comma-separated). Available options: [crashlytics, console]
-_LOGGERS_PROD               = crashlytics
+_LOGGERS_PROD               = crashlytics,console
 _LOGGERS_DEV                = console
 
 // Log level. Available options: [DEBUG, INFO, ERROR, FATAL, OFF]
