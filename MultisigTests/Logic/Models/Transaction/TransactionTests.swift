@@ -22,7 +22,8 @@ class TransactionTests: XCTestCase {
         let sema = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
             do {
-                let service = SafeTransactionService(url: App.configuration.services.transactionServiceURL, logger: LogService.shared)
+                let service = SafeTransactionService(url: App.configuration.services.transactionServiceURL,
+                                                     logger: LogService.shared)
 
                 let page = try service.jsonDecoder.decode(TransactionsRequest.Response.self, from: txJson)
                 let info = try service.jsonDecoder.decode(SafeStatusRequest.Response.self, from: infoJson)
