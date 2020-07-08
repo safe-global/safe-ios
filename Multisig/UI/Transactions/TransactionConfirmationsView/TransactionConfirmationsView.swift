@@ -51,8 +51,8 @@ struct TransactionConfirmationsView: View {
 
     var style: TransactionConfiramtionStatusViewStyle? {
         let status = transaction.status
-        if transaction.status == .canceled {
-            return .canceled
+        if transaction.status == .cancelled {
+            return .cancelled
         } else if transaction.status == .failed {
             return .failed
         } else if status == .waitingConfirmation {

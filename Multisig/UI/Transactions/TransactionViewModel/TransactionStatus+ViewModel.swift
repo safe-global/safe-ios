@@ -11,7 +11,7 @@ import Foundation
 extension TransactionStatus {
 
     static let queueStatuses = [TransactionStatus.pending, .waitingConfirmation, .waitingExecution]
-    static let historyStatuses = [TransactionStatus.success, .failed, .canceled]
+    static let historyStatuses = [TransactionStatus.success, .failed, .cancelled]
 
     var isInQueue: Bool {
         Self.queueStatuses.contains(self)
@@ -35,8 +35,8 @@ extension TransactionStatus {
              return "Pending"
         case .failed:
             return "Failed"
-        case .canceled:
-            return "Canceled"
+        case .cancelled:
+            return "Cancelled"
         case .success:
             return "Success"
         }
