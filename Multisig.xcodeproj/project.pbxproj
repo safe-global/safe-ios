@@ -67,6 +67,9 @@
 		04C97AAE246ED43A00EBA0F1 /* FiatCurrenciesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97AAD246ED43A00EBA0F1 /* FiatCurrenciesView.swift */; };
 		04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */; };
 		04CE3F8F24B5F67100826AEE /* CollectiblesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F8E24B5F67100826AEE /* CollectiblesView.swift */; };
+		04CE3F9624B6115200826AEE /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9524B6115200826AEE /* Collectible.swift */; };
+		04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9824B6120F00826AEE /* CollectibleMetaData.swift */; };
+		04CE3F9D24B62F0800826AEE /* CollectibleMetaDataAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9C24B62F0800826AEE /* CollectibleMetaDataAttribute.swift */; };
 		04EF2AEB2492883A0070ED1A /* TransactionConfiramtionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */; };
 		04EF2AED2492B5AF0070ED1A /* VerticalBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */; };
 		04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F533622490E83B00F28099 /* TransactionConfirmationsView.swift */; };
@@ -336,6 +339,9 @@
 		04C97AAD246ED43A00EBA0F1 /* FiatCurrenciesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatCurrenciesView.swift; sourceTree = "<group>"; };
 		04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserLink.swift; sourceTree = "<group>"; };
 		04CE3F8E24B5F67100826AEE /* CollectiblesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesView.swift; sourceTree = "<group>"; };
+		04CE3F9524B6115200826AEE /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
+		04CE3F9824B6120F00826AEE /* CollectibleMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleMetaData.swift; sourceTree = "<group>"; };
+		04CE3F9C24B62F0800826AEE /* CollectibleMetaDataAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleMetaDataAttribute.swift; sourceTree = "<group>"; };
 		04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfiramtionStatusView.swift; sourceTree = "<group>"; };
 		04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalBarView.swift; sourceTree = "<group>"; };
 		04F533622490E83B00F28099 /* TransactionConfirmationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfirmationsView.swift; sourceTree = "<group>"; };
@@ -751,8 +757,19 @@
 			children = (
 				55F9A31E2475578C00ABBA6F /* BalancesView.swift */,
 				55F9A31F2475578C00ABBA6F /* BalancesViewModel.swift */,
+				0AA9F25624991988005BD60F /* TokenBalance.swift */,
 			);
 			path = Balances;
+			sourceTree = "<group>";
+		};
+		04CE3F9724B611FC00826AEE /* Collectible */ = {
+			isa = PBXGroup;
+			children = (
+				04CE3F9524B6115200826AEE /* Collectible.swift */,
+				04CE3F9824B6120F00826AEE /* CollectibleMetaData.swift */,
+				04CE3F9C24B62F0800826AEE /* CollectibleMetaDataAttribute.swift */,
+			);
+			path = Collectible;
 			sourceTree = "<group>";
 		};
 		04F533602490E7BF00F28099 /* TransactionDetails */ = {
@@ -1286,6 +1303,7 @@
 		0AF432D5244F075800E22E50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				04CE3F9724B611FC00826AEE /* Collectible */,
 				55B66E55247E494000249E98 /* AppSettings.swift */,
 				0AA9F2062497BE9B005BD60F /* UInt256.swift */,
 				0A6C85B1245071510026139E /* Address.swift */,
@@ -1443,7 +1461,6 @@
 				04CE3F9024B5F8F300826AEE /* Balances */,
 				04CE3F8D24B5F58000826AEE /* Collectibles */,
 				55F9A3092475375B00ABBA6F /* AssetsView.swift */,
-				0AA9F25624991988005BD60F /* TokenBalance.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1846,6 +1863,7 @@
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
+				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,
 				0A704A572473F903005BDC49 /* BottomTabView.swift in Sources */,
 				0A0256222449F29200C91D73 /* AddressText.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
@@ -1883,6 +1901,7 @@
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
 				0AA9F1F62497BCE0005BD60F /* TransactionData.swift in Sources */,
 				0ADDA21324534F1B0066457E /* EnterSafeNameViewModel.swift in Sources */,
+				04CE3F9D24B62F0800826AEE /* CollectibleMetaDataAttribute.swift in Sources */,
 				0AA9F1FA2497BD3A005BD60F /* MethodRegistry+GnosisSafeMasterCopy.swift in Sources */,
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
@@ -1913,6 +1932,7 @@
 				04EF2AED2492B5AF0070ED1A /* VerticalBarView.swift in Sources */,
 				04061609248E4868000F9C52 /* PagedResponse.swift in Sources */,
 				0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */,
+				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
 				046D0A77249A5F57000F4021 /* EnableDisableModuleTransactionDetailsHeaderView.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,

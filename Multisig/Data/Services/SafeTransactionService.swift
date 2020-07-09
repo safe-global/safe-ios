@@ -63,6 +63,10 @@ class SafeTransactionService {
         guard let request = PagedRequest<Transaction>(url) else { return nil }
         return try httpClient.execute(request: request)
     }
+
+    func collectibles(at address: Address) throws -> SafeCollectiblesRequest.Response {
+        return try httpClient.execute(request: SafeCollectiblesRequest(address: address))
+    }
 }
 
 struct SafeStatusRequest: JSONRequest {
@@ -135,5 +139,19 @@ struct TransactionsRequest: JSONRequest {
         self.address = address.checksummed
         self.limit = limit
         self.offset = offset
+    }
+}
+
+struct SafeCollectiblesRequest: JSONRequest {
+    let address: String
+
+    var httpMethod: String { return "GET" }
+    var urlPath: String { return "/api/v1/safes/\(address)/collectibles/" }
+
+    typealias Response = [Collectible]
+    typealias ResponseType = Response
+
+    init(address: Address) {
+        self.address = address.checksummed
     }
 }
