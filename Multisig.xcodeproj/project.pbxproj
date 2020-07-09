@@ -1682,8 +1682,6 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			name = Crashlytics;
 			outputFileListPaths = (
@@ -1693,6 +1691,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+			showEnvVarsInLog = 0;
 		};
 		C5F344F451DF3989C918E752 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2104,7 +2103,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -2231,7 +2230,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -2352,7 +2351,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -2473,7 +2472,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -2655,7 +2654,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -2678,7 +2677,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -2848,7 +2847,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -2969,7 +2968,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -3096,7 +3095,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -3217,7 +3216,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -3338,7 +3337,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -3465,7 +3464,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
