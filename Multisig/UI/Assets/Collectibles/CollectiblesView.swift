@@ -14,7 +14,7 @@ struct CollectiblesView: View {
             EmptyListPlaceholder(label: "Collectibles will appear here", image: "ico-no-collectibles")
         }
         .onAppear {
-            self.trackEvent(.transactions)
+            self.trackEvent(.assetsCollectibles)
         }
     }
 }
