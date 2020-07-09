@@ -48,21 +48,26 @@ class SafeTransactionService {
     }
 
     func safeInfo(at address: Address) throws -> SafeStatusRequest.Response {
-        return try httpClient.execute(request: SafeStatusRequest(address: address))
+        try httpClient.execute(request: SafeStatusRequest(address: address))
     }
 
     func safeBalances(at address: Address) throws -> [SafeBalancesRequest.Response] {
-        return try httpClient.execute(request: SafeBalancesRequest(address: address))
+        try httpClient.execute(request: SafeBalancesRequest(address: address))
     }
 
     func transactions(address: Address?, offset: Int = 0, limit: Int = 20) throws -> TransactionsRequest.Response {
-        return try httpClient.execute(request: TransactionsRequest(address: address!, limit: limit, offset: offset))
+        try httpClient.execute(request: TransactionsRequest(address: address!, limit: limit, offset: offset))
     }
 
     func loadTransactionsPage(url: String) throws -> TransactionsRequest.Response? {
         guard let request = PagedRequest<Transaction>(url) else { return nil }
         return try httpClient.execute(request: request)
     }
+
+    func tokens() throws -> TokensRequest.Response {
+        try httpClient.execute(request: TokensRequest())
+    }
+
 }
 
 struct SafeStatusRequest: JSONRequest {
@@ -136,4 +141,30 @@ struct TransactionsRequest: JSONRequest {
         self.limit = limit
         self.offset = offset
     }
+}
+
+struct TokensRequest: JSONRequest {
+
+    let limit: Int = 3000
+    let offset: Int = 0
+
+    var httpMethod: String { "GET" }
+    var urlPath: String { "/api/v1/tokens/" }
+
+    var query: String? {
+        return "limit=\(limit)&offset=\(offset)"
+    }
+
+    typealias Response = PagedResponse<Token>
+    typealias ResponseType = Response
+
+    struct Token: Decodable {
+        var address: AddressString
+        var logoUri: String?
+        var name: String
+        var symbol: String
+        var decimals: UInt256String
+        var trusted: Bool?
+    }
+
 }
