@@ -85,7 +85,6 @@
 		0A0EFCA8246EB13300D3D8BF /* KeyValueRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCA7246EB13300D3D8BF /* KeyValueRow.swift */; };
 		0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */; };
 		0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */; };
-		0A106285248A84F700C1EE54 /* SafeRelayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106284248A84F700C1EE54 /* SafeRelayService.swift */; };
 		0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106286248A885D00C1EE54 /* ERC20Metadata.swift */; };
 		0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106288248A892B00C1EE54 /* ERC721Metadata.swift */; };
 		0A19D431249A4C5100A316B6 /* MethodSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D430249A4C5100A316B6 /* MethodSignatureTests.swift */; };
@@ -185,6 +184,7 @@
 		0AA9F266249A18A3005BD60F /* TransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F264249A18A3005BD60F /* TransactionsView.swift */; };
 		0AA9F267249A18A3005BD60F /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F265249A18A3005BD60F /* TransactionListView.swift */; };
 		0AA9F26B249A2003005BD60F /* TransactionStatus+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F26A249A2003005BD60F /* TransactionStatus+ViewModel.swift */; };
+		0AB34D5C24B7161000A43988 /* TokenRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5B24B7161000A43988 /* TokenRegistry.swift */; };
 		0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */; };
 		0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */; };
 		0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */; };
@@ -357,7 +357,6 @@
 		0A0EFCA7246EB13300D3D8BF /* KeyValueRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueRow.swift; sourceTree = "<group>"; };
 		0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pasteboard.swift; sourceTree = "<group>"; };
 		0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyButton.swift; sourceTree = "<group>"; };
-		0A106284248A84F700C1EE54 /* SafeRelayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeRelayService.swift; sourceTree = "<group>"; };
 		0A106286248A885D00C1EE54 /* ERC20Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ERC20Metadata.swift; sourceTree = "<group>"; };
 		0A106288248A892B00C1EE54 /* ERC721Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC721Metadata.swift; sourceTree = "<group>"; };
 		0A19D430249A4C5100A316B6 /* MethodSignatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSignatureTests.swift; sourceTree = "<group>"; };
@@ -468,6 +467,7 @@
 		0AA9F264249A18A3005BD60F /* TransactionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsView.swift; sourceTree = "<group>"; };
 		0AA9F265249A18A3005BD60F /* TransactionListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
 		0AA9F26A249A2003005BD60F /* TransactionStatus+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionStatus+ViewModel.swift"; sourceTree = "<group>"; };
+		0AB34D5B24B7161000A43988 /* TokenRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRegistry.swift; sourceTree = "<group>"; };
 		0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarCenter.swift; sourceTree = "<group>"; };
 		0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafe.swift; sourceTree = "<group>"; };
 		0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafeTests.swift; sourceTree = "<group>"; };
@@ -1313,6 +1313,7 @@
 				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
 				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
 				0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */,
+				0AB34D5B24B7161000A43988 /* TokenRegistry.swift */,
 				0AA9F2052497BDF0005BD60F /* Transaction */,
 			);
 			path = Models;
@@ -1402,7 +1403,6 @@
 				5532D4B72449A17D0067505A /* Utils */,
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
 				04769167246431D000D73D8B /* SafeTransactionService.swift */,
-				0A106284248A84F700C1EE54 /* SafeRelayService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1824,10 +1824,10 @@
 				0AA9F266249A18A3005BD60F /* TransactionsView.swift in Sources */,
 				0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
+				0AB34D5C24B7161000A43988 /* TokenRegistry.swift in Sources */,
 				0AA9F1F22497BC5F005BD60F /* TransactionStatus.swift in Sources */,
 				0460AB3B247E685E005CA275 /* EmptyListPlaceholder.swift in Sources */,
 				046D0A6E249A446D000F4021 /* ChangeMastercopyTransactionDetailsHeaderView.swift in Sources */,
-				0A106285248A84F700C1EE54 /* SafeRelayService.swift in Sources */,
 				0AA9F2402497DB18005BD60F /* TransactionsListViewModel.swift in Sources */,
 				046D0A6C249A446D000F4021 /* SettingsChangeTransactionDetailsHeaderView.swift in Sources */,
 				0AA9F24D2497DB85005BD60F /* CustomTransactionViewModel.swift in Sources */,
