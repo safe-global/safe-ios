@@ -185,6 +185,12 @@
 		0AA9F267249A18A3005BD60F /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F265249A18A3005BD60F /* TransactionListView.swift */; };
 		0AA9F26B249A2003005BD60F /* TransactionStatus+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F26A249A2003005BD60F /* TransactionStatus+ViewModel.swift */; };
 		0AB34D5C24B7161000A43988 /* TokenRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5B24B7161000A43988 /* TokenRegistry.swift */; };
+		0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */; };
+		0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5F24B71D2400A43988 /* SafeStatusRequest.swift */; };
+		0AB34D6224B71DB200A43988 /* SafeBalancesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6124B71DB200A43988 /* SafeBalancesRequest.swift */; };
+		0AB34D6424B71DCD00A43988 /* TransactionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6324B71DCD00A43988 /* TransactionsRequest.swift */; };
+		0AB34D6624B71DE300A43988 /* SafeCollectiblesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */; };
+		0AB34D6824B71DF700A43988 /* TokensRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6724B71DF700A43988 /* TokensRequest.swift */; };
 		0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */; };
 		0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */; };
 		0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */; };
@@ -468,6 +474,12 @@
 		0AA9F265249A18A3005BD60F /* TransactionListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
 		0AA9F26A249A2003005BD60F /* TransactionStatus+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionStatus+ViewModel.swift"; sourceTree = "<group>"; };
 		0AB34D5B24B7161000A43988 /* TokenRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRegistry.swift; sourceTree = "<group>"; };
+		0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateDecodingStrategy+GnosisSafeServices.swift"; sourceTree = "<group>"; };
+		0AB34D5F24B71D2400A43988 /* SafeStatusRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeStatusRequest.swift; sourceTree = "<group>"; };
+		0AB34D6124B71DB200A43988 /* SafeBalancesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBalancesRequest.swift; sourceTree = "<group>"; };
+		0AB34D6324B71DCD00A43988 /* TransactionsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsRequest.swift; sourceTree = "<group>"; };
+		0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCollectiblesRequest.swift; sourceTree = "<group>"; };
+		0AB34D6724B71DF700A43988 /* TokensRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensRequest.swift; sourceTree = "<group>"; };
 		0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarCenter.swift; sourceTree = "<group>"; };
 		0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafe.swift; sourceTree = "<group>"; };
 		0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafeTests.swift; sourceTree = "<group>"; };
@@ -1172,6 +1184,19 @@
 			path = TransactionViewModel;
 			sourceTree = "<group>";
 		};
+		0AB34D6924B71E4F00A43988 /* Safe Transaction Service */ = {
+			isa = PBXGroup;
+			children = (
+				04769167246431D000D73D8B /* SafeTransactionService.swift */,
+				0AB34D6124B71DB200A43988 /* SafeBalancesRequest.swift */,
+				0AB34D6324B71DCD00A43988 /* TransactionsRequest.swift */,
+				0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */,
+				0AB34D6724B71DF700A43988 /* TokensRequest.swift */,
+				0AB34D5F24B71D2400A43988 /* SafeStatusRequest.swift */,
+			);
+			path = "Safe Transaction Service";
+			sourceTree = "<group>";
+		};
 		0ACDC01624925B36002035A2 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1377,6 +1402,7 @@
 		5532D4B72449A17D0067505A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */,
 				5532D4B82449A17D0067505A /* JSONHTTPClient.swift */,
 				5532D4B92449A17D0067505A /* HTTPClient.swift */,
 				04061608248E4868000F9C52 /* PagedResponse.swift */,
@@ -1402,7 +1428,7 @@
 			children = (
 				5532D4B72449A17D0067505A /* Utils */,
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
-				04769167246431D000D73D8B /* SafeTransactionService.swift */,
+				0AB34D6924B71E4F00A43988 /* Safe Transaction Service */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1825,6 +1851,7 @@
 				0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
 				0AB34D5C24B7161000A43988 /* TokenRegistry.swift in Sources */,
+				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,
 				0AA9F1F22497BC5F005BD60F /* TransactionStatus.swift in Sources */,
 				0460AB3B247E685E005CA275 /* EmptyListPlaceholder.swift in Sources */,
 				046D0A6E249A446D000F4021 /* ChangeMastercopyTransactionDetailsHeaderView.swift in Sources */,
@@ -1846,6 +1873,7 @@
 				0AA9F2042497BDD6005BD60F /* TransactionConfirmation.swift in Sources */,
 				55B66E54247E47A900249E98 /* MainView.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
+				0AB34D6824B71DF700A43988 /* TokensRequest.swift in Sources */,
 				0AA9F2532498CC70005BD60F /* UInt256String.swift in Sources */,
 				0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */,
@@ -1875,7 +1903,9 @@
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0A465C32246C229800AFA467 /* FrameForNavigationBar.swift in Sources */,
 				0AA9F1FE2497BD77005BD60F /* MethodRegistry+ERC721.swift in Sources */,
+				0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
+				0AB34D6424B71DCD00A43988 /* TransactionsRequest.swift in Sources */,
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
 				0AA9F2492497DB64005BD60F /* ChangeMasterCopyTransactionViewModel.swift in Sources */,
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
@@ -1966,6 +1996,7 @@
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
 				0ADDA20D24533F860066457E /* BodyText.swift in Sources */,
+				0AB34D6224B71DB200A43988 /* SafeBalancesRequest.swift in Sources */,
 				0456BF6924A4D054000C3C1D /* PagedRequest.swift in Sources */,
 				0AA9F25D249A174E005BD60F /* TransactionConfirmationViewModel.swift in Sources */,
 				0A704A7024742003005BDC49 /* HideSystemNavigationBarModifier.swift in Sources */,
@@ -1973,6 +2004,7 @@
 				0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */,
+				0AB34D6624B71DE300A43988 /* SafeCollectiblesRequest.swift in Sources */,
 				04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */,
 				046D0A6D249A446D000F4021 /* TransactionHeaderView.swift in Sources */,
 				0ADDA20F245340540066457E /* CorrectAddressView.swift in Sources */,
