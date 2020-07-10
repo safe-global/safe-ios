@@ -25,7 +25,7 @@ struct TransactionConfirmationCell: View {
     }
 
     var hasVerticalBar: Bool {
-        [.canceled, .executed].contains(style)
+        [.cancelled, .executed].contains(style)
     }
 }
 

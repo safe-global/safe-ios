@@ -69,7 +69,7 @@ struct TransactionCellView: View {
         switch transaction.status {
         case .waitingExecution, .waitingConfirmation, .pending, .success:
              return 1
-        case .failed, .canceled:
+        case .failed, .cancelled:
             return 0.5
         }
     }

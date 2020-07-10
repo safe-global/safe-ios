@@ -18,7 +18,9 @@ class TransactionsViewModel: BasicLoadableViewModel {
         nextURL != nil
     }
 
-    @Published var isLoadingNextPage: Bool = false
+    @Published var isLoadingNextPage: Bool = false {
+        willSet { self.objectWillChange.send() }
+    }
 
     let safe: Safe
 
@@ -93,7 +95,6 @@ class TransactionsViewModel: BasicLoadableViewModel {
                 self.isLoadingNextPage = false
             }, receiveValue:{ transactionsList in
                 self.transactionsList.add(transactionsList)
-                self.errorMessage = nil
             })
             .store(in: &subscribers)
     }

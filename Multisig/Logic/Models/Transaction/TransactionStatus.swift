@@ -11,7 +11,7 @@ import Foundation
 enum TransactionStatus {
     case success
     case pending
-    case canceled
+    case cancelled
     case failed
     case waitingConfirmation
     case waitingExecution
@@ -31,7 +31,7 @@ extension Transaction {
         } else if isExecuted == true && isSuccessful != true {
             return .failed
         } else if isExecuted != true && nonce < safeNonce {
-            return .canceled
+            return .cancelled
         } else if isExecuted != true && nonce >= safeNonce && confirmationCount < threshold {
             return .waitingConfirmation
         } else if isExecuted != true && nonce >= safeNonce && confirmationCount >= threshold {

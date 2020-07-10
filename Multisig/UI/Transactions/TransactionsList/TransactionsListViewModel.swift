@@ -19,13 +19,10 @@ struct TransactionsListViewModel {
         }
     }
 
-    private var queued = [TransactionViewModel]()
-    private var history = [TransactionViewModel]()
+    private var allSections: [Section] = []
 
     var sections: [Section] {
-        [Section(name: "QUEUE", transactions: queued),
-         Section(name: "HISTORY", transactions: history)
-        ].filter { !$0.isEmpty }
+        allSections.filter { !$0.isEmpty }
     }
 
     var isEmpty: Bool {
@@ -33,23 +30,31 @@ struct TransactionsListViewModel {
     }
 
     init(_ models: [TransactionViewModel] = []) {
+        var queued = [TransactionViewModel]()
+        var history = [TransactionViewModel]()
+
         for model in models {
-            if model.status.isInQueue {
-                queued.append(model)
-            } else {
-                history.append(model)
-            }
+           if model.status.isInQueue {
+               queued.append(model)
+           } else {
+               history.append(model)
+           }
         }
+
+        allSections = [
+           Section(name: "QUEUE", transactions: queued),
+           Section(name: "HISTORY", transactions: history)
+        ]
     }
 
     mutating func add(_ models: [TransactionViewModel] = []) {
-        for model in models {
-            if model.status.isInQueue {
-                queued.append(model)
-            } else {
-                history.append(model)
-            }
-        }
+       for model in models {
+           if model.status.isInQueue {
+               allSections[0].transactions.append(model)
+           } else {
+               allSections[1].transactions.append(model)
+           }
+       }
     }
 
     var lastTransaction: TransactionViewModel? {

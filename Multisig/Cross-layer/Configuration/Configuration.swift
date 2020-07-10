@@ -14,9 +14,6 @@ struct AppConfiguration {
         @ConfigurationKey("SERVICE_ENV")
         var environment: ServiceEnvironment
 
-        @ConfigurationKey("RELAY_SERVICE_URL")
-        var relayServiceURL: URL
-
         @ConfigurationKey("TRANSACTION_SERVICE_URL")
         var transactionServiceURL: URL
 

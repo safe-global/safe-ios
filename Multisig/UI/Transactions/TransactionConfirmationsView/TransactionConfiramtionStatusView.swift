@@ -28,8 +28,8 @@ struct TransactionConfiramtionStatusView: View {
             return "Confirmed"
         case .rejected:
             return "Rejected"
-        case .canceled:
-            return "Canceled"
+        case .cancelled:
+            return "Cancelled"
         case .failed:
             return "Failed"
         case .waitingConfirmations(let remaining):
@@ -47,7 +47,7 @@ struct TransactionConfiramtionStatusView: View {
             return "ico-create"
         case .executed, .confirmed:
             return "ico-confirm"
-        case .rejected, .failed, .canceled:
+        case .rejected, .failed, .cancelled:
             return "ico-reject"
         default:
             return "ico-empty-circle"
@@ -56,7 +56,7 @@ struct TransactionConfiramtionStatusView: View {
 
     var color: Color {
         switch style {
-        case .canceled:
+        case .cancelled:
             return .gnoDarkBlue
         case .waitingConfirmations(_):
             return .gnoMediumGrey
@@ -74,7 +74,7 @@ enum TransactionConfiramtionStatusViewStyle: Hashable {
     case failed
     case confirmed
     case rejected
-    case canceled
+    case cancelled
     case waitingConfirmations(Int)
     case confirm
     case execute
