@@ -6,7 +6,6 @@ import XCTest
 @testable import Multisig
 
 class LogServiceTests: XCTestCase {
-
     func test_logLevels() {
         assert(.off, allowsOnly: "")
         assert(.fatal, allowsOnly: "fatal")
@@ -48,36 +47,9 @@ class LogServiceTests: XCTestCase {
     func test_hasSharedInstance() {
         XCTAssertNotNil(LogService.shared)
     }
-
-    func test_constructorWithBundle() {
-        assert(bundle: [:], .off)
-        assert(bundle: [LogLevelKey: ""], .off)
-        assert(bundle: [LogLevelKey: "fatal"], .fatal)
-        assert(bundle: [LogLevelKey: "Fatal"], .fatal)
-
-        let levels: [LogLevel] = [.fatal, .error, .info, .debug]
-        levels.forEach { assert(bundle: [LogLevelKey: $0.string], $0) }
-    }
-
-        // TODO: enable tests after setting up Crashlytics
-//    func test_whenBundleSpecifiesLogger_thenAddsTheLogger() {
-//        let validNames = "console, CraSHlytics"
-//        let logger = LogService(bundle: TestBundle(values: [LoggersKey: validNames]))
-//        XCTAssertTrue(logger.loggers.first is ConsoleLogger)
-//        XCTAssertTrue(logger.loggers.last is CrashlyticsLogger)
-//    }
-
-    func test_whenBundleSpecifiesInvalidLogger_thenNotAdded() {
-        let invalidNameAndSeparator = "cAnsole; craSHlytics"
-        let logger = LogService(bundle:
-            TestBundle(values: [LoggersKey: invalidNameAndSeparator]))
-        XCTAssertTrue(logger.loggers.isEmpty)
-    }
-
 }
 
 extension LogServiceTests {
-
     private func assert(_ level: LogLevel, allowsOnly expectedLog: String) {
         let logger = LogService(level: level)
         let mockLog = MockLogWriter()
@@ -88,16 +60,9 @@ extension LogServiceTests {
         logger.debug("debug")
         XCTAssertEqual(mockLog.loggedMessages, expectedLog)
     }
-
-    private func assert(bundle: [String: Any], _ logLevel: LogLevel) {
-        let logger = LogService(bundle: TestBundle(values: bundle))
-        XCTAssertEqual(logger.level, logLevel)
-    }
-
 }
 
 class MockLogWriter: LogWriter {
-
     var detailed = false
     var loggedMessages: String { return log.joined(separator: " ") }
     private var log = [String]()
@@ -115,19 +80,4 @@ class MockLogWriter: LogWriter {
             log.append(message)
         }
     }
-
-}
-
-class TestBundle: BundleProtocol {
-
-    private let values: [String: Any]
-
-    init(values: [String: Any]) {
-        self.values = values
-    }
-
-    func object(forInfoDictionaryKey key: String) -> Any? {
-        return values[key]
-    }
-
 }
