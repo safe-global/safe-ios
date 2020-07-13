@@ -18,11 +18,12 @@ class TokenRegistry {
     // added for thread safety
     private var queue = DispatchQueue(label: "SerialTokenRegistry")
 
-    func load() {
+    func load(completion: @escaping () -> Void = {}) {
         dispatchPrecondition(condition: .notOnQueue(queue))
         queue.async { [unowned self] in
             let tokens = self.backend.tokens()
             tokens.forEach { self.cache.add($0) }
+            completion()
         }
     }
 

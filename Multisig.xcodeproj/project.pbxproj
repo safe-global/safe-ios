@@ -81,6 +81,11 @@
 		0A0983A224BC5C82009EE296 /* BackendTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983A124BC5C82009EE296 /* BackendTokenStore.swift */; };
 		0A0983A424BC5C93009EE296 /* BlockchainTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983A324BC5C93009EE296 /* BlockchainTokenStore.swift */; };
 		0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983A524BC5CA1009EE296 /* HardcodedTokenStore.swift */; };
+		0A0983A924BC6222009EE296 /* InMemoryTokenStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */; };
+		0A0983AB24BC638C009EE296 /* HardcodedTokenStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */; };
+		0A0983AD24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AC24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift */; };
+		0A0983AF24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AE24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift */; };
+		0A0983B124BC67E6009EE296 /* TokenRegistryIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */; };
 		0A0EFC94246D9D5200D3D8BF /* TopTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */; };
 		0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */; };
 		0A0EFC98246DAABF00D3D8BF /* BottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */; };
@@ -365,6 +370,11 @@
 		0A0983A124BC5C82009EE296 /* BackendTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendTokenStore.swift; sourceTree = "<group>"; };
 		0A0983A324BC5C93009EE296 /* BlockchainTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainTokenStore.swift; sourceTree = "<group>"; };
 		0A0983A524BC5CA1009EE296 /* HardcodedTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedTokenStore.swift; sourceTree = "<group>"; };
+		0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryTokenStoreTests.swift; sourceTree = "<group>"; };
+		0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedTokenStoreTests.swift; sourceTree = "<group>"; };
+		0A0983AC24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainTokenStoreIntegrationTests.swift; sourceTree = "<group>"; };
+		0A0983AE24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendTokenStoreIntegrationTests.swift; sourceTree = "<group>"; };
+		0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRegistryIntegrationTests.swift; sourceTree = "<group>"; };
 		0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabView.swift; sourceTree = "<group>"; };
 		0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabButton.swift; sourceTree = "<group>"; };
 		0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBorder.swift; sourceTree = "<group>"; };
@@ -1169,6 +1179,9 @@
 				5532D4D02449A1E40067505A /* MockLogger.swift */,
 				0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */,
 				0A9BC3572460581500EB9C5D /* Info.plist */,
+				0A0983AC24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift */,
+				0A0983AE24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift */,
+				0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */,
 			);
 			path = MultisigIntegrationTests;
 			sourceTree = "<group>";
@@ -1398,6 +1411,8 @@
 				0A19D432249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift */,
 				0A19D43F249A719700A316B6 /* MethodRegistry+GnosisSafeMasterCopyTests.swift */,
 				0A19D43D249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift */,
+				0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */,
+				0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2059,6 +2074,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A0983AB24BC638C009EE296 /* HardcodedTokenStoreTests.swift in Sources */,
 				0A9BC33D24603AE800EB9C5D /* ENSTests.swift in Sources */,
 				0A9BC34C246053DB00EB9C5D /* DataInitWithHexTests.swift in Sources */,
 				5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */,
@@ -2084,6 +2100,7 @@
 				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
 				0A19D435249A557E00A316B6 /* MethodRegistryTestCase.swift in Sources */,
 				0A19D431249A4C5100A316B6 /* MethodSignatureTests.swift in Sources */,
+				0A0983A924BC6222009EE296 /* InMemoryTokenStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2091,7 +2108,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A0983AD24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift in Sources */,
 				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,
+				0A0983AF24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift in Sources */,
+				0A0983B124BC67E6009EE296 /* TokenRegistryIntegrationTests.swift in Sources */,
 				0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */,
 				0A9BC35E2460582D00EB9C5D /* SafeTransactionServiceIntegrationTests.swift in Sources */,
 			);

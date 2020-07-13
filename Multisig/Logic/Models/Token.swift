@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Token {
+struct Token: Hashable {
     var type: TokenType
     var address: Address
     var logo: URL?
