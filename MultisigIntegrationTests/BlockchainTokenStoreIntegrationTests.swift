@@ -14,6 +14,7 @@ class BlockchainTokenStoreIntegrationTests: XCTestCase {
     let store = BlockchainTokenStore()
 
     func testERC20Token() {
+        XCTAssertEqual(App.configuration.app.network, .rinkeby, "Rinkeby network expected")
         let aqer: Address = "0x63704b63ac04f3a173dfe677c7e3d330c347cd88"
         let token = store.token(address: aqer)
         XCTAssertNotNil(token)
