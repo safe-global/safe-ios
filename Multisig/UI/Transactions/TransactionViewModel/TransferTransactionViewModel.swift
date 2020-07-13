@@ -70,7 +70,7 @@ class TransferTransactionViewModel: TransactionViewModel {
             let token = App.shared.tokenRegistry[addr]
 
             let sign: Int256 = isOutgoing ? -1 : +1
-            let precision = token?.decimals.value ?? 0
+            let precision = token?.decimals ?? 0
             let amountDecimal = BigDecimal(sign * amountInt,
                                            Int(clamping: precision))
 
@@ -80,7 +80,7 @@ class TransferTransactionViewModel: TransactionViewModel {
                 thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
                 forcePlusSign: true)
             tokenSymbol = token?.symbol ?? ""
-            tokenLogoURL = token?.logoUri ?? ""
+            tokenLogoURL = token?.logo?.absoluteString ?? ""
         }
 
         super.init(tx, safeInfo)

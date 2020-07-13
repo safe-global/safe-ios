@@ -75,6 +75,12 @@
 		04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F533622490E83B00F28099 /* TransactionConfirmationsView.swift */; };
 		0A0256222449F29200C91D73 /* AddressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256212449F29200C91D73 /* AddressText.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
+		0A09839C24BC522B009EE296 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839B24BC522B009EE296 /* Token.swift */; };
+		0A09839E24BC5301009EE296 /* InMemoryTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839D24BC5301009EE296 /* InMemoryTokenStore.swift */; };
+		0A0983A024BC55ED009EE296 /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839F24BC55ED009EE296 /* TokenRequest.swift */; };
+		0A0983A224BC5C82009EE296 /* BackendTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983A124BC5C82009EE296 /* BackendTokenStore.swift */; };
+		0A0983A424BC5C93009EE296 /* BlockchainTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983A324BC5C93009EE296 /* BlockchainTokenStore.swift */; };
+		0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983A524BC5CA1009EE296 /* HardcodedTokenStore.swift */; };
 		0A0EFC94246D9D5200D3D8BF /* TopTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */; };
 		0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */; };
 		0A0EFC98246DAABF00D3D8BF /* BottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */; };
@@ -353,6 +359,12 @@
 		04F533622490E83B00F28099 /* TransactionConfirmationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfirmationsView.swift; sourceTree = "<group>"; };
 		0A0256212449F29200C91D73 /* AddressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressText.swift; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
+		0A09839B24BC522B009EE296 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		0A09839D24BC5301009EE296 /* InMemoryTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryTokenStore.swift; sourceTree = "<group>"; };
+		0A09839F24BC55ED009EE296 /* TokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
+		0A0983A124BC5C82009EE296 /* BackendTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendTokenStore.swift; sourceTree = "<group>"; };
+		0A0983A324BC5C93009EE296 /* BlockchainTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainTokenStore.swift; sourceTree = "<group>"; };
+		0A0983A524BC5CA1009EE296 /* HardcodedTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedTokenStore.swift; sourceTree = "<group>"; };
 		0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabView.swift; sourceTree = "<group>"; };
 		0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabButton.swift; sourceTree = "<group>"; };
 		0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBorder.swift; sourceTree = "<group>"; };
@@ -805,6 +817,18 @@
 			path = TransactionsList;
 			sourceTree = "<group>";
 		};
+		0A0983A724BC5CC8009EE296 /* TokenRegistry */ = {
+			isa = PBXGroup;
+			children = (
+				0AB34D5B24B7161000A43988 /* TokenRegistry.swift */,
+				0A09839D24BC5301009EE296 /* InMemoryTokenStore.swift */,
+				0A0983A524BC5CA1009EE296 /* HardcodedTokenStore.swift */,
+				0A0983A324BC5C93009EE296 /* BlockchainTokenStore.swift */,
+				0A0983A124BC5C82009EE296 /* BackendTokenStore.swift */,
+			);
+			path = TokenRegistry;
+			sourceTree = "<group>";
+		};
 		0A0EFC9B246DAD0B00D3D8BF /* Top Tab View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1192,6 +1216,7 @@
 				0AB34D6324B71DCD00A43988 /* TransactionsRequest.swift */,
 				0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */,
 				0AB34D6724B71DF700A43988 /* TokensRequest.swift */,
+				0A09839F24BC55ED009EE296 /* TokenRequest.swift */,
 				0AB34D5F24B71D2400A43988 /* SafeStatusRequest.swift */,
 			);
 			path = "Safe Transaction Service";
@@ -1338,7 +1363,8 @@
 				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
 				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
 				0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */,
-				0AB34D5B24B7161000A43988 /* TokenRegistry.swift */,
+				0A09839B24BC522B009EE296 /* Token.swift */,
+				0A0983A724BC5CC8009EE296 /* TokenRegistry */,
 				0AA9F2052497BDF0005BD60F /* Transaction */,
 			);
 			path = Models;
@@ -1842,6 +1868,7 @@
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
 				0AA9F2432497DB36005BD60F /* TransactionViewModel.swift in Sources */,
 				551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */,
+				0A0983A424BC5C93009EE296 /* BlockchainTokenStore.swift in Sources */,
 				046D0A452497BED8000F4021 /* TransactionStatusTypeView.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
 				04EF2AEB2492883A0070ED1A /* TransactionConfiramtionStatusView.swift in Sources */,
@@ -1871,6 +1898,7 @@
 				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
 				0AA9F2472497DB56005BD60F /* TransferTransactionViewModel.swift in Sources */,
 				0AA9F2042497BDD6005BD60F /* TransactionConfirmation.swift in Sources */,
+				0A09839E24BC5301009EE296 /* InMemoryTokenStore.swift in Sources */,
 				55B66E54247E47A900249E98 /* MainView.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
 				0AB34D6824B71DF700A43988 /* TokensRequest.swift in Sources */,
@@ -1902,6 +1930,7 @@
 				047691572464023300D73D8B /* EditSafeNameView.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0A465C32246C229800AFA467 /* FrameForNavigationBar.swift in Sources */,
+				0A09839C24BC522B009EE296 /* Token.swift in Sources */,
 				0AA9F1FE2497BD77005BD60F /* MethodRegistry+ERC721.swift in Sources */,
 				0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
@@ -1939,6 +1968,7 @@
 				0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */,
 				0476916A246437C300D73D8B /* ContractVersionCell.swift in Sources */,
 				0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */,
+				0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
@@ -1946,6 +1976,7 @@
 				04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */,
+				0A0983A024BC55ED009EE296 /* TokenRequest.swift in Sources */,
 				0460AB3D247EC12B005CA275 /* TransactionsViewModel.swift in Sources */,
 				04C97AAC246ED34400EBA0F1 /* ValueText.swift in Sources */,
 				55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */,
@@ -1987,6 +2018,7 @@
 				0AA9F24B2497DB79005BD60F /* SettingChangeTransactionViewModel.swift in Sources */,
 				0A465C37246C2ECD00AFA467 /* GetInTouchView.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
+				0A0983A224BC5C82009EE296 /* BackendTokenStore.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
 				0AA9F2022497BDA3005BD60F /* MethodRegistry.swift in Sources */,
