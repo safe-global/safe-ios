@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct TransactionStatusView: View {
+
     let status: TransactionStatus
     var style: Style = .body
+
     var body: some View {
         HStack (spacing: 6) {
             if [.waitingConfirmation, .waitingExecution].contains(status) {
