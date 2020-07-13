@@ -21,35 +21,37 @@ class CrashlyticsLoggerTests: XCTestCase {
         XCTAssertNil(mockCrashlytics.loggedError)
     }
 
-    // TODO: enable tests after setting up Crashlytics
-//    func test_whenLoggingWithError_thenLogged() {
-//        logger.log(testMessage, level: .error, error: TestLoggableError.error, file: "", line: 0, function: "")
-//        XCTAssertEqual(mockCrashlytics.loggedError?.localizedDescription, TestLoggableError.error.localizedDescription)
-//    }
-//
-//    func test_whenLoggingWithError_thenUserInfoHasMessage() {
-//        logger.log(testMessage, level: .error, error: TestLoggableError.error, file: "", line: 0, function: "")
-//        XCTAssertEqual((mockCrashlytics.loggedError as NSError?)?.userInfo["message"] as? String, testMessage)
-//    }
-//
-//    func test_whenLoggingLoggableError_thenUserInfoHasLoggableKeys() {
-//        logger.log(testMessage, level: .error, error: TestLoggableError.error, file: "", line: 0, function: "")
-//        XCTAssertEqual((mockCrashlytics.loggedError as NSError?)?.userInfo[LoggableErrorDescriptionKey] as? String,
-//                       "error")
-//    }
+    func test_whenLoggingWithError_thenLogged() {
+        logger.log(testMessage, level: .error, error: TestLoggableError.error, file: "", line: 0, function: "")
+        XCTAssertEqual(mockCrashlytics.loggedError?.localizedDescription, TestLoggableError.error.localizedDescription)
+    }
+
+    func test_whenLoggingWithError_thenUserInfoHasMessage() {
+        logger.log(testMessage, level: .error, error: TestLoggableError.error, file: "", line: 0, function: "")
+        XCTAssertEqual((mockCrashlytics.loggedError as NSError?)?.userInfo["message"] as? String, testMessage)
+    }
+
+    func test_whenLoggingLoggableError_thenUserInfoHasLoggableKeys() {
+        logger.log(testMessage, level: .error, error: TestLoggableError.error, file: "", line: 0, function: "")
+        XCTAssertEqual((mockCrashlytics.loggedError as NSError?)?.userInfo[LoggableErrorDescriptionKey] as? String,
+                       "error")
+    }
 
 }
 
 class MockCrashlytics: CrashlyticsProtocol {
+    var loggedError: Error?
 
-    func setUserIdentifier(_ identifier: String?) {
+    func record(error: Error) {
+        loggedError = error
+    }
+
+    func setUserID(_ identifier: String) {
         // empty
     }
 
-    var loggedError: Error?
-
-    func recordError(_ error: Error) {
-        loggedError = error
+    func log(format: String, arguments: CVaListPointer) {
+        // empty
     }
 
 }

@@ -118,26 +118,21 @@ public final class LogService: Logger {
     /// See `CrashlyticsLogger` and `ConsoleLogger` for details.
     ///
     /// - Parameter bundle: Bundle to initialize the logger with. By default, it is the main bundle.
-    init(bundle: BundleProtocol = Bundle.main) {
-        let string = bundle.object(forInfoDictionaryKey: LogLevelKey) as? String ?? ""
-        level = LogLevel(string: string)
-        addLoggers(from: bundle)
+    init() {
+        level = LogLevel(string: App.configuration.app.logLevel)
+        addLoggers()
     }
 
-    private func addLoggers(from bundle: BundleProtocol) {
-        guard let enabledLoggers = bundle.object(forInfoDictionaryKey: LoggersKey) as? String else {
-            return
-        }
-        let normalizedEnabledLoggers = enabledLoggers.split(separator: ",").map {
+    private func addLoggers() {
+        let normalizedEnabledLoggers = App.configuration.app.loggers.split(separator: ",").map {
             $0.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         }
         if normalizedEnabledLoggers.contains(ConsoleLoggerIdentifier) {
             add(ConsoleLogger())
         }
-        #warning("TODO: re-enable with crashlytics implementation")
-//        if normalizedEnabledLoggers.contains(CrashlyticsLoggerIdentifier) {
-//            add(CrashlyticsLogger())
-//        }
+        if normalizedEnabledLoggers.contains(CrashlyticsLoggerIdentifier) {
+            add(CrashlyticsLogger())
+        }
     }
 
     public func fatal(_ message: String,

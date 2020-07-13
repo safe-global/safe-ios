@@ -31,14 +31,6 @@ INFURA_API_KEY = USE_YOUR_OWN_INFURA_KEY_HERE
 
 // Configuration Values
 
-// Gnosis Safe Relay Service
-_RELAY_SERVICE_URL_DEV_RINKEBY       = https:/$()/safe-relay.staging.gnosisdev.com/api/
-_RELAY_SERVICE_URL_DEV_MAINNET       = https:/$()/safe-relay.mainnet.staging.gnosisdev.com/api/
-_RELAY_SERVICE_URL_STAGING_RINKEBY   = https:/$()/safe-relay.staging.gnosisdev.com/api/
-_RELAY_SERVICE_URL_STAGING_MAINNET   = https:/$()/safe-relay.mainnet.staging.gnosisdev.com/api/
-_RELAY_SERVICE_URL_PROD_RINKEBY      = https:/$()/safe-relay.rinkeby.gnosis.io/api/
-_RELAY_SERVICE_URL_PROD_MAINNET      = https:/$()/safe-relay.gnosis.io/api/
-
 // Gnosis Safe Transaction Service
 _TRANSACTION_SERVICE_URL_DEV_RINKEBY        = https:/$()/safe-transaction.staging.gnosisdev.com/api/
 _TRANSACTION_SERVICE_URL_DEV_MAINNET        = https:/$()/safe-transaction.mainnet.staging.gnosisdev.com/api/
@@ -88,7 +80,7 @@ _FIREBASE_CONFIG_DEV_MAINNET        = GoogleService-Info.Development.Mainnet
 _FIREBASE_CONFIG_DEV_RINKEBY        = GoogleService-Info.Development.Rinkeby
 
 // Loggers (comma-separated). Available options: [crashlytics, console]
-_LOGGERS_PROD               = crashlytics
+_LOGGERS_PROD               = crashlytics,console
 _LOGGERS_DEV                = console
 
 // Log level. Available options: [DEBUG, INFO, ERROR, FATAL, OFF]
@@ -97,8 +89,6 @@ _LOG_LEVEL_PROD             = ERROR
 _LOG_LEVEL_DEV              = DEBUG
 
 // Configuration variables for the app
-
-RELAY_SERVICE_URL       = $(_RELAY_SERVICE_URL_$(SERVICE_ENV)_$(NETWORK):default=$(_RELAY_SERVICE_URL_PROD_MAINNET))
 TRANSACTION_SERVICE_URL = $(_TRANSACTION_SERVICE_URL_$(SERVICE_ENV)_$(NETWORK):default=$(_TRANSACTION_SERVICE_URL_PROD_MAINNET))
 ETH_RPC_URL             = $(_ETH_RPC_URL_$(NETWORK):default=$(_ETH_RPC_URL_MAINNET))
 ETH_BLOCK_BROWSER_URL   = $(_ETH_BLOCK_BROWSER_URL_$(NETWORK):default=$(_ETH_BLOCK_BROWSER_URL_MAINNET))

@@ -125,7 +125,7 @@ class HTTPClient {
     }
 
     private func send(_ request: URLRequest) -> URLDataTaskResult {
-        dispatchPrecondition(condition: .onQueue(.global()))
+        dispatchPrecondition(condition: .notOnQueue(.main))
 
         var result: URLDataTaskResult!
         let semaphore = DispatchSemaphore(value: 0)

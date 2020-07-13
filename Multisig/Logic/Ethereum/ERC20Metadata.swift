@@ -15,8 +15,8 @@ class ERC20Metadata: Contract {
         try decodeString(invoke("symbol()"))
     }
 
-    func decimals() throws -> Int {
-        try Int(clamping: decodeUInt(invoke("decimals()")))
+    func decimals() throws -> UInt256 {
+        try decodeUInt(invoke("decimals()"))
     }
 
 }

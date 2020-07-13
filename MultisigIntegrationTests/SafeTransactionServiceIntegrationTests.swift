@@ -1,5 +1,5 @@
 //
-//  SafeRelayServiceTests.swift
+//  SafeTransactionServiceIntegrationTests.swift
 //  MultisigTests
 //
 //  Created by Andrey Scherbovich on 17.04.20.

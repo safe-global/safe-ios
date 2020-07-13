@@ -24,8 +24,6 @@ struct AdvancedAppSettings: View {
                             value: DisplayURL(App.shared.nodeService.url).absoluteString)
                 KeyValueRow("Transaction service",
                             value: DisplayURL(App.shared.safeTransactionService.url).absoluteString)
-                KeyValueRow("Relay service",
-                            value: DisplayURL(App.shared.safeRelayService.url).absoluteString)
             }
         }
         .onAppear {
