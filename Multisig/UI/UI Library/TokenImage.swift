@@ -14,7 +14,6 @@ struct TokenImage: View {
     var height: CGFloat = 28
     var url: URL?
     var name: String?
-    var backgroundColor: Color = .clear
 
     static var ether: TokenImage {
         Self.init(width: 28, height: 32, name: "ico-ether")
@@ -30,9 +29,6 @@ struct TokenImage: View {
                 KFImage(url!)
                     .placeholder {
                         Image(name ?? "ico-token-placeholder")
-                        .background(
-                            backgroundView
-                        )
                 }
                 .cancelOnDisappear(true)
                 .resizable()
@@ -40,15 +36,7 @@ struct TokenImage: View {
             } else {
                 Image(name ?? "ico-token-placeholder")
                     .frame(width: width, height: height)
-                .background(
-                    backgroundView
-                )
             }
         }
-    }
-
-    var backgroundView: some View {
-        Rectangle()
-        .foregroundColor(backgroundColor)
     }
 }
