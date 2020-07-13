@@ -49,7 +49,6 @@
 		0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476916B24643A2A00D73D8B /* BrowseAddressView.swift */; };
 		0497F6C62485520D00A1F4DE /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6C52485520D00A1F4DE /* Transaction.swift */; };
 		0497F6C824858F2D00A1F4DE /* ConfirmationCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */; };
-		0497F6DE2487B54600A1F4DE /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6DD2487B54600A1F4DE /* DateView.swift */; };
 		0497F6E32488EB9500A1F4DE /* TransferTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E22488EB9500A1F4DE /* TransferTransactionCellView.swift */; };
 		0497F6E52488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E42488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift */; };
 		0497F6E72488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift */; };
@@ -343,7 +342,6 @@
 		0476916B24643A2A00D73D8B /* BrowseAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseAddressView.swift; sourceTree = "<group>"; };
 		0497F6C52485520D00A1F4DE /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationCountView.swift; sourceTree = "<group>"; };
-		0497F6DD2487B54600A1F4DE /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
 		0497F6E22488EB9500A1F4DE /* TransferTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTransactionCellView.swift; sourceTree = "<group>"; };
 		0497F6E42488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsChangeTransactionCellView.swift; sourceTree = "<group>"; };
 		0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMasterCopyCellView.swift; sourceTree = "<group>"; };
@@ -698,7 +696,6 @@
 			isa = PBXGroup;
 			children = (
 				0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */,
-				0497F6DD2487B54600A1F4DE /* DateView.swift */,
 				046D0A422497BECE000F4021 /* TransactionStatusView.swift */,
 				0AA9F261249A188C005BD60F /* AdvancedTransactionDetailsView.swift */,
 				04F533602490E7BF00F28099 /* TransactionDetails */,
@@ -2017,7 +2014,6 @@
 				55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */,
 				04C97AA8246ED31300EBA0F1 /* KeyValueView.swift in Sources */,
 				0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */,
-				0497F6DE2487B54600A1F4DE /* DateView.swift in Sources */,
 				0AA9F1F42497BCA9005BD60F /* TransactionTransfer.swift in Sources */,
 				0A19D442249BB66D00A316B6 /* MainTabView.swift in Sources */,
 				0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */,

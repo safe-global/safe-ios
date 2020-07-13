@@ -48,7 +48,6 @@ extension TransactionDetailsView {
             return transferTransaction.isOutgoing
         }
 
-
         var actionsView: some View {
             VStack (alignment: .leading, spacing: 1) {
                 if style != nil {
