@@ -24,12 +24,12 @@ struct TokensRequest: JSONRequest {
     typealias ResponseType = Response
 
     struct Token: Decodable {
+        var type: TokenType?
         var address: AddressString
-        var logoUri: String?
         var name: String
         var symbol: String
         var decimals: UInt256String
-        var trusted: Bool?
+        var logoUri: String?
     }
 
 }
@@ -38,4 +38,17 @@ extension SafeTransactionService {
     func tokens() throws -> TokensRequest.Response {
         try execute(request: TokensRequest())
     }
+}
+
+extension Token {
+
+    init(_ token: TokensRequest.Token) {
+        type = token.type ?? .erc20
+        address = token.address.address
+        logo = token.logoUri.flatMap { URL(string: $0) }
+        name = token.name
+        symbol = token.symbol
+        decimals = token.decimals.value
+    }
+
 }
