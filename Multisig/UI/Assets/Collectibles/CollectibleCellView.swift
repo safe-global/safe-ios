@@ -13,7 +13,7 @@ struct CollectibleCellView: View {
 
     var body: some View {
         HStack (alignment: .top){
-            TokenImage(width: 144, height: 144, url: viewModel.imageURL, name: "ico-collectible-placeholder", backgroundColor: viewModel.imageURL == nil ? .gnoWhitesmokeTwo : .clear )
+            TokenImage(width: 144, height: 144, url: viewModel.imageURL, name: "ico-collectible-placeholder")
                 
 
             VStack (alignment: .leading, spacing: 10) {
