@@ -13,13 +13,11 @@ struct CollectibleCellView: View {
 
     var body: some View {
         HStack (alignment: .top){
-            TokenImage(width: 144, height: 144, url: viewModel.imageURL, name: "ico-collectible-placeholder")
-                .background(
-                    Rectangle()
-                        .foregroundColor(Color.gnoWhitesmokeTwo)
-                )
+            TokenImage(width: 144, height: 144, url: viewModel.imageURL, name: "ico-collectible-placeholder", backgroundColor: viewModel.imageURL == nil ? .gnoWhitesmokeTwo : .clear )
+                
+
             VStack (alignment: .leading, spacing: 10) {
-                BodyText(viewModel.name).font(Font.gnoBody.weight(.semibold))
+                BodyText(viewModel.name, textColor: viewModel.hasName ? .gnoDarkBlue : .gnoLightGrey).font(Font.gnoBody.weight(.semibold))
                 BodyText(viewModel.description)
             }.padding(.vertical)
 

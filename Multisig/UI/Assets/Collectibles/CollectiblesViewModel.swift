@@ -67,8 +67,8 @@ class CollectiblesViewModel: BasicLoadableViewModel {
         return groupedCollectibles.map { (key, value) in
             let token = App.shared.tokenRegistry[key!]
             let name = token?.name ?? "Unknown"
-            let logoURL = token?.logoUri ?? value.first?.uri ?? ""
-            return Section(name: name , imageURL: URL(string: logoURL), collectibles: value.compactMap { CollectibleViewModel(collectible: $0) })
+            let logoURL = token?.logo
+            return Section(name: name , imageURL: logoURL, collectibles: value.compactMap { CollectibleViewModel(collectible: $0) })
         }
     }
 }
