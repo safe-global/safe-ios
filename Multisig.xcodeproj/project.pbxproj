@@ -218,7 +218,6 @@
 		551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEEF244F1A0A00C719D3 /* SafeTests.swift */; };
 		551DDEF424506B0B00C719D3 /* SwitchSafeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEF324506B0B00C719D3 /* SwitchSafeView.swift */; };
 		5532D4932448A1960067505A /* Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4922448A1960067505A /* Safe.swift */; };
-		5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4AF2449A17D0067505A /* CrashlyticsProtocol.swift */; };
 		5532D4BB2449A17D0067505A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4B02449A17D0067505A /* Logger.swift */; };
 		5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4B22449A17D0067505A /* LogFormatter.swift */; };
 		5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4B32449A17D0067505A /* CrashlyticsLogger.swift */; };
@@ -529,7 +528,6 @@
 		551DDEEF244F1A0A00C719D3 /* SafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTests.swift; sourceTree = "<group>"; };
 		551DDEF324506B0B00C719D3 /* SwitchSafeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchSafeView.swift; sourceTree = "<group>"; };
 		5532D4922448A1960067505A /* Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Safe.swift; sourceTree = "<group>"; };
-		5532D4AF2449A17D0067505A /* CrashlyticsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashlyticsProtocol.swift; sourceTree = "<group>"; };
 		5532D4B02449A17D0067505A /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		5532D4B22449A17D0067505A /* LogFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
 		5532D4B32449A17D0067505A /* CrashlyticsLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashlyticsLogger.swift; sourceTree = "<group>"; };
@@ -1388,7 +1386,6 @@
 		5532D4AE2449A17D0067505A /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				5532D4AF2449A17D0067505A /* CrashlyticsProtocol.swift */,
 				5532D4B02449A17D0067505A /* Logger.swift */,
 				5532D4B22449A17D0067505A /* LogFormatter.swift */,
 				5532D4B32449A17D0067505A /* CrashlyticsLogger.swift */,
@@ -1571,6 +1568,7 @@
 				0A93DD512445CC8A00688050 /* Resources */,
 				0ACDC01924926081002035A2 /* [FIREBASE] Copy config file */,
 				D3B014DFDC8D88B4BED187D0 /* [CP] Copy Pods Resources */,
+				555EA87024B58E350060E2F7 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1736,6 +1734,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "FIREBASE_SRC=\"${SRCROOT}/Multisig/Cross-layer/Analytics/Firebase/${FIREBASE_CONFIG}.plist\"\nFIREBASE_DST=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nif [ -f \"${FIREBASE_SRC}\" ]; then\n    rsync -a \"${FIREBASE_SRC}\" \"${FIREBASE_DST}/GoogleService-Info.plist\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		555EA87024B58E350060E2F7 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C5F344F451DF3989C918E752 /* [CP] Check Pods Manifest.lock */ = {
@@ -1910,7 +1927,6 @@
 				0AA9F2492497DB64005BD60F /* ChangeMasterCopyTransactionViewModel.swift in Sources */,
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
 				04769163246408D000D73D8B /* SafeSettingsView.swift in Sources */,
-				5532D4BA2449A17D0067505A /* CrashlyticsProtocol.swift in Sources */,
 				55B66E87247FDF2C00249E98 /* TermsView.swift in Sources */,
 				558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */,
 				0AA9F1FC2497BD5F005BD60F /* MethodRegistry+ERC20.swift in Sources */,

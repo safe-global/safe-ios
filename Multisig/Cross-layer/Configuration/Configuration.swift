@@ -74,6 +74,12 @@ struct AppConfiguration {
 
         @ConfigurationKey("NETWORK")
         var network: Network
+
+        @ConfigurationKey("LOGGERS")
+        var loggers: String
+
+        @ConfigurationKey("LOG_LEVEL")
+        var logLevel: String
     }
 
     let services = Services()
