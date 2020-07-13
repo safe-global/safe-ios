@@ -18,7 +18,8 @@ extension TransactionDetailsView {
                 VStack (alignment: .leading) {
                     BoldText("Data")
                     ExpandableButton(title: "\(data!.length) Bytes", value: data!.data)
-                }.padding(.vertical, 11)
+                }
+                .padding(.vertical, TransactionDetailsView.verticalContentPadding)
             } else {
                 EmptyView()
             }

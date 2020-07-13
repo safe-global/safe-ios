@@ -56,6 +56,6 @@ struct TransactionHeaderView_Previews: PreviewProvider {
         transaction.dataLength = 40
         transaction.status = .success
 
-        return TransactionHeaderView(transaction: transaction)
+        return TransactionDetailsView.HeaderView(transaction: transaction)
     }
 }
