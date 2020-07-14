@@ -30,7 +30,7 @@ extension TransactionDetailsView {
             }
         }
 
-        func browseTransaction() -> some View {
+        private func browseTransaction() -> some View {
              SafariViewController(url: Transaction.browserURL(hash: transaction.hash!))
         }
     }

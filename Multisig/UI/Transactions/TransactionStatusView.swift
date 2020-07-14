@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct TransactionStatusView: View {
-
     let status: TransactionStatus
     var style: Style = .body
 
