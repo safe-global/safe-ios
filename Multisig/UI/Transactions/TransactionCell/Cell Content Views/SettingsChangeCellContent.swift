@@ -1,5 +1,5 @@
 //
-//  SettingsTransactionCellView.swift
+//  SettingsTransactionCell.swift
 //  Multisig
 //
 //  Created by Moaaz on 6/4/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SettingsChangeTransactionCellView: View {
+struct SettingsChangeCellContent: View {
     let transaction: SettingChangeTransactionViewModel
     var body: some View {
         contentView
@@ -21,11 +21,11 @@ struct SettingsChangeTransactionCellView: View {
 
         return ZStack {
             if setFallbackHandler != nil {
-                SetFallbackHandlerTransactionCellView(address: setFallbackHandler!.handler)
+                SetFallbackHandlerCellContent(address: setFallbackHandler!.handler)
             } else if enableModule != nil {
-                EnableDisableModuleTransactionCellView(state: .enable, address: enableModule!.module)
+                EnableDisableModuleCellContent(state: .enable, address: enableModule!.module)
             } else if disableModule != nil {
-                EnableDisableModuleTransactionCellView(state: .disable, address: disableModule!.module)
+                EnableDisableModuleCellContent(state: .disable, address: disableModule!.module)
             } else {
                 defaultContent
             }
@@ -41,7 +41,7 @@ struct SettingsChangeTransactionCellView: View {
     }
 }
 
-struct SettingsChangeTransactionCellView_Previews: PreviewProvider {
+struct SettingsChangeTransactionCell_Previews: PreviewProvider {
     static var previews: some View {
         let transaction = SettingChangeTransactionViewModel()
         transaction.title = "Add owner"
@@ -50,6 +50,6 @@ struct SettingsChangeTransactionCellView_Previews: PreviewProvider {
         transaction.nonce = "2"
         transaction.status = .success
         transaction.threshold = 2
-        return SettingsChangeTransactionCellView(transaction: transaction)
+        return SettingsChangeCellContent(transaction: transaction)
     }
 }

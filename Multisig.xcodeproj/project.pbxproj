@@ -23,16 +23,16 @@
 		046D0A432497BECE000F4021 /* TransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A422497BECE000F4021 /* TransactionStatusView.swift */; };
 		046D0A452497BED8000F4021 /* TransactionDetailsView+TypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A442497BED8000F4021 /* TransactionDetailsView+TypeView.swift */; };
 		046D0A5A249A1C64000F4021 /* ExpandableButton .swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A59249A1C64000F4021 /* ExpandableButton .swift */; };
-		046D0A6C249A446D000F4021 /* SettingsChangeTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A67249A446D000F4021 /* SettingsChangeTransactionDetailsHeaderView.swift */; };
+		046D0A6C249A446D000F4021 /* SettingsChangeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A67249A446D000F4021 /* SettingsChangeHeaderView.swift */; };
 		046D0A6D249A446D000F4021 /* TransactionDetailsView+HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A68249A446D000F4021 /* TransactionDetailsView+HeaderView.swift */; };
-		046D0A6E249A446D000F4021 /* ChangeMastercopyTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A69249A446D000F4021 /* ChangeMastercopyTransactionDetailsHeaderView.swift */; };
-		046D0A6F249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A6A249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift */; };
+		046D0A6E249A446D000F4021 /* ChangeMastercopyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A69249A446D000F4021 /* ChangeMastercopyHeaderView.swift */; };
+		046D0A6F249A446D000F4021 /* TransferHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A6A249A446D000F4021 /* TransferHeaderView.swift */; };
 		046D0A70249A446D000F4021 /* TransferValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A6B249A446D000F4021 /* TransferValueView.swift */; };
-		046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A72249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift */; };
-		046D0A75249A5EE5000F4021 /* SwapOwnerTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A74249A5EE5000F4021 /* SwapOwnerTransactionDetailsHeaderView.swift */; };
-		046D0A77249A5F57000F4021 /* EnableDisableModuleTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A76249A5F57000F4021 /* EnableDisableModuleTransactionDetailsHeaderView.swift */; };
-		046D0A79249A603B000F4021 /* SetFallbackHandlerTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A78249A603B000F4021 /* SetFallbackHandlerTransactionDetailsHeaderView.swift */; };
-		046D0A7B249A7248000F4021 /* ChangeThresholdTransactionDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A7A249A7248000F4021 /* ChangeThresholdTransactionDetailsHeaderView.swift */; };
+		046D0A73249A5ED5000F4021 /* AddRemoveOwnerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A72249A5ED5000F4021 /* AddRemoveOwnerHeaderView.swift */; };
+		046D0A75249A5EE5000F4021 /* SwapOwnerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A74249A5EE5000F4021 /* SwapOwnerHeaderView.swift */; };
+		046D0A77249A5F57000F4021 /* EnableDisableModuleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A76249A5F57000F4021 /* EnableDisableModuleHeaderView.swift */; };
+		046D0A79249A603B000F4021 /* SetFallbackHandlerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A78249A603B000F4021 /* SetFallbackHandlerHeaderView.swift */; };
+		046D0A7B249A7248000F4021 /* ChangeThresholdHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A7A249A7248000F4021 /* ChangeThresholdHeaderView.swift */; };
 		0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471D13124728C2C00B22A70 /* EmailLink.swift */; };
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
 		047300FE24781081004F1200 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FD24781081004F1200 /* AddressTests.swift */; };
@@ -49,13 +49,13 @@
 		0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476916B24643A2A00D73D8B /* BrowseAddressView.swift */; };
 		0497F6C62485520D00A1F4DE /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6C52485520D00A1F4DE /* Transaction.swift */; };
 		0497F6C824858F2D00A1F4DE /* ConfirmationCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */; };
-		0497F6E32488EB9500A1F4DE /* TransferTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E22488EB9500A1F4DE /* TransferTransactionCellView.swift */; };
-		0497F6E52488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E42488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift */; };
-		0497F6E72488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift */; };
-		0497F6E92488EC5600A1F4DE /* CustomTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E82488EC5600A1F4DE /* CustomTransactionCellView.swift */; };
-		0497F6EB2489168B00A1F4DE /* TransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6EA2489168B00A1F4DE /* TransactionCellView.swift */; };
-		04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1F7D724AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift */; };
-		04A1F7DA24AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1F7D924AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift */; };
+		0497F6E32488EB9500A1F4DE /* TransferCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E22488EB9500A1F4DE /* TransferCellContent.swift */; };
+		0497F6E52488EBBF00A1F4DE /* SettingsChangeCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E42488EBBF00A1F4DE /* SettingsChangeCellContent.swift */; };
+		0497F6E72488EBFA00A1F4DE /* ChangeMasterCopyCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellContent.swift */; };
+		0497F6E92488EC5600A1F4DE /* CustomTransactionCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E82488EC5600A1F4DE /* CustomTransactionCellContent.swift */; };
+		0497F6EB2489168B00A1F4DE /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6EA2489168B00A1F4DE /* TransactionCell.swift */; };
+		04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1F7D724AB73F60024DFF5 /* SetFallbackHandlerCellContent.swift */; };
+		04A1F7DA24AB742F0024DFF5 /* EnableDisableModuleCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1F7D924AB742F0024DFF5 /* EnableDisableModuleCellContent.swift */; };
 		04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BFB55A2459785D00090386 /* KeyboadHandler.swift */; };
 		04C7C4432490FA3C00D869C1 /* TransactionConfirmationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7C4422490FA3C00D869C1 /* TransactionConfirmationCell.swift */; };
 		04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97A99246C3E5F00EBA0F1 /* ViewState.swift */; };
@@ -228,6 +228,8 @@
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6500A24485E450018D070 /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6500924485E450018D070 /* Identicon.swift */; };
 		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
+		0AFA728C24BD9AFD00A370EE /* TransactionCell+CellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA728B24BD9AFD00A370EE /* TransactionCell+CellContent.swift */; };
+		0AFA728E24BD9B6300A370EE /* TransactionCell+StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA728D24BD9B6300A370EE /* TransactionCell+StatusView.swift */; };
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
 		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
 		551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEEF244F1A0A00C719D3 /* SafeTests.swift */; };
@@ -315,16 +317,16 @@
 		046D0A422497BECE000F4021 /* TransactionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionStatusView.swift; sourceTree = "<group>"; };
 		046D0A442497BED8000F4021 /* TransactionDetailsView+TypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionDetailsView+TypeView.swift"; sourceTree = "<group>"; };
 		046D0A59249A1C64000F4021 /* ExpandableButton .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExpandableButton .swift"; sourceTree = "<group>"; };
-		046D0A67249A446D000F4021 /* SettingsChangeTransactionDetailsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsChangeTransactionDetailsHeaderView.swift; sourceTree = "<group>"; };
+		046D0A67249A446D000F4021 /* SettingsChangeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsChangeHeaderView.swift; sourceTree = "<group>"; };
 		046D0A68249A446D000F4021 /* TransactionDetailsView+HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionDetailsView+HeaderView.swift"; sourceTree = "<group>"; };
-		046D0A69249A446D000F4021 /* ChangeMastercopyTransactionDetailsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeMastercopyTransactionDetailsHeaderView.swift; sourceTree = "<group>"; };
-		046D0A6A249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTransactionDetailsHeaderView.swift; sourceTree = "<group>"; };
+		046D0A69249A446D000F4021 /* ChangeMastercopyHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeMastercopyHeaderView.swift; sourceTree = "<group>"; };
+		046D0A6A249A446D000F4021 /* TransferHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferHeaderView.swift; sourceTree = "<group>"; };
 		046D0A6B249A446D000F4021 /* TransferValueView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferValueView.swift; sourceTree = "<group>"; };
-		046D0A72249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRemoveOwnerTransactionDetailsHeaderView.swift; sourceTree = "<group>"; };
-		046D0A74249A5EE5000F4021 /* SwapOwnerTransactionDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapOwnerTransactionDetailsHeaderView.swift; sourceTree = "<group>"; };
-		046D0A76249A5F57000F4021 /* EnableDisableModuleTransactionDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableDisableModuleTransactionDetailsHeaderView.swift; sourceTree = "<group>"; };
-		046D0A78249A603B000F4021 /* SetFallbackHandlerTransactionDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFallbackHandlerTransactionDetailsHeaderView.swift; sourceTree = "<group>"; };
-		046D0A7A249A7248000F4021 /* ChangeThresholdTransactionDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeThresholdTransactionDetailsHeaderView.swift; sourceTree = "<group>"; };
+		046D0A72249A5ED5000F4021 /* AddRemoveOwnerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRemoveOwnerHeaderView.swift; sourceTree = "<group>"; };
+		046D0A74249A5EE5000F4021 /* SwapOwnerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapOwnerHeaderView.swift; sourceTree = "<group>"; };
+		046D0A76249A5F57000F4021 /* EnableDisableModuleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableDisableModuleHeaderView.swift; sourceTree = "<group>"; };
+		046D0A78249A603B000F4021 /* SetFallbackHandlerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFallbackHandlerHeaderView.swift; sourceTree = "<group>"; };
+		046D0A7A249A7248000F4021 /* ChangeThresholdHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeThresholdHeaderView.swift; sourceTree = "<group>"; };
 		0471D13124728C2C00B22A70 /* EmailLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLink.swift; sourceTree = "<group>"; };
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
 		047300FD24781081004F1200 /* AddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
@@ -342,13 +344,13 @@
 		0476916B24643A2A00D73D8B /* BrowseAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseAddressView.swift; sourceTree = "<group>"; };
 		0497F6C52485520D00A1F4DE /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationCountView.swift; sourceTree = "<group>"; };
-		0497F6E22488EB9500A1F4DE /* TransferTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTransactionCellView.swift; sourceTree = "<group>"; };
-		0497F6E42488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsChangeTransactionCellView.swift; sourceTree = "<group>"; };
-		0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMasterCopyCellView.swift; sourceTree = "<group>"; };
-		0497F6E82488EC5600A1F4DE /* CustomTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransactionCellView.swift; sourceTree = "<group>"; };
-		0497F6EA2489168B00A1F4DE /* TransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCellView.swift; sourceTree = "<group>"; };
-		04A1F7D724AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFallbackHandlerTransactionCellView.swift; sourceTree = "<group>"; };
-		04A1F7D924AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableDisableModuleTransactionCellView.swift; sourceTree = "<group>"; };
+		0497F6E22488EB9500A1F4DE /* TransferCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferCellContent.swift; sourceTree = "<group>"; };
+		0497F6E42488EBBF00A1F4DE /* SettingsChangeCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsChangeCellContent.swift; sourceTree = "<group>"; };
+		0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMasterCopyCellContent.swift; sourceTree = "<group>"; };
+		0497F6E82488EC5600A1F4DE /* CustomTransactionCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransactionCellContent.swift; sourceTree = "<group>"; };
+		0497F6EA2489168B00A1F4DE /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		04A1F7D724AB73F60024DFF5 /* SetFallbackHandlerCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFallbackHandlerCellContent.swift; sourceTree = "<group>"; };
+		04A1F7D924AB742F0024DFF5 /* EnableDisableModuleCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableDisableModuleCellContent.swift; sourceTree = "<group>"; };
 		04BFB55A2459785D00090386 /* KeyboadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboadHandler.swift; sourceTree = "<group>"; };
 		04C7C4422490FA3C00D869C1 /* TransactionConfirmationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfirmationCell.swift; sourceTree = "<group>"; };
 		04C97A99246C3E5F00EBA0F1 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
@@ -535,6 +537,8 @@
 		0AF7F765247FC28B00527014 /* Config.Example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.Example.xcconfig; sourceTree = "<group>"; };
 		0AF7F766247FC3FB00527014 /* Development.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.Rinkeby.xcconfig; sourceTree = "<group>"; };
 		0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0AFA728B24BD9AFD00A370EE /* TransactionCell+CellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionCell+CellContent.swift"; sourceTree = "<group>"; };
+		0AFA728D24BD9B6300A370EE /* TransactionCell+StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionCell+StatusView.swift"; sourceTree = "<group>"; };
 		0B8A3C3BAA29C6597476636F /* Pods-MultisigTests.debug.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		0E291BAA2C73F78C30D7F7C5 /* Pods-Multisig.debug.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.development.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		107E0800790001BE89C61028 /* Pods-Multisig.releaseproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.releaseproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.releaseproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -709,25 +713,17 @@
 		046D0A66249A446D000F4021 /* Header Views */ = {
 			isa = PBXGroup;
 			children = (
-				046D0A71249A5A73000F4021 /* SettingsChangeTransactionHeaderView */,
-				046D0A69249A446D000F4021 /* ChangeMastercopyTransactionDetailsHeaderView.swift */,
-				046D0A6A249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift */,
+				046D0A72249A5ED5000F4021 /* AddRemoveOwnerHeaderView.swift */,
+				046D0A69249A446D000F4021 /* ChangeMastercopyHeaderView.swift */,
+				046D0A7A249A7248000F4021 /* ChangeThresholdHeaderView.swift */,
+				046D0A76249A5F57000F4021 /* EnableDisableModuleHeaderView.swift */,
+				046D0A78249A603B000F4021 /* SetFallbackHandlerHeaderView.swift */,
+				046D0A67249A446D000F4021 /* SettingsChangeHeaderView.swift */,
+				046D0A74249A5EE5000F4021 /* SwapOwnerHeaderView.swift */,
+				046D0A6A249A446D000F4021 /* TransferHeaderView.swift */,
 				046D0A6B249A446D000F4021 /* TransferValueView.swift */,
 			);
 			path = "Header Views";
-			sourceTree = "<group>";
-		};
-		046D0A71249A5A73000F4021 /* SettingsChangeTransactionHeaderView */ = {
-			isa = PBXGroup;
-			children = (
-				046D0A67249A446D000F4021 /* SettingsChangeTransactionDetailsHeaderView.swift */,
-				046D0A72249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift */,
-				046D0A74249A5EE5000F4021 /* SwapOwnerTransactionDetailsHeaderView.swift */,
-				046D0A76249A5F57000F4021 /* EnableDisableModuleTransactionDetailsHeaderView.swift */,
-				046D0A78249A603B000F4021 /* SetFallbackHandlerTransactionDetailsHeaderView.swift */,
-				046D0A7A249A7248000F4021 /* ChangeThresholdTransactionDetailsHeaderView.swift */,
-			);
-			path = SettingsChangeTransactionHeaderView;
 			sourceTree = "<group>";
 		};
 		047691532464023300D73D8B /* Edit Safe Name */ = {
@@ -753,32 +749,34 @@
 		0497F6E12488EB6C00A1F4DE /* TransactionCell */ = {
 			isa = PBXGroup;
 			children = (
-				04C7C4422490FA3C00D869C1 /* TransactionConfirmationCell.swift */,
-				04A1F7DB24AB809D0024DFF5 /* SettingsChangeTransactionCell */,
-				0497F6EA2489168B00A1F4DE /* TransactionCellView.swift */,
-				0497F6E22488EB9500A1F4DE /* TransferTransactionCellView.swift */,
-				0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift */,
-				0497F6E82488EC5600A1F4DE /* CustomTransactionCellView.swift */,
+				0497F6EA2489168B00A1F4DE /* TransactionCell.swift */,
+				0AFA728B24BD9AFD00A370EE /* TransactionCell+CellContent.swift */,
+				0AFA728D24BD9B6300A370EE /* TransactionCell+StatusView.swift */,
+				04A1F7DB24AB809D0024DFF5 /* Cell Content Views */,
 			);
 			path = TransactionCell;
 			sourceTree = "<group>";
 		};
-		04A1F7DB24AB809D0024DFF5 /* SettingsChangeTransactionCell */ = {
+		04A1F7DB24AB809D0024DFF5 /* Cell Content Views */ = {
 			isa = PBXGroup;
 			children = (
-				0497F6E42488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift */,
-				04A1F7D724AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift */,
-				04A1F7D924AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift */,
+				0497F6E62488EBFA00A1F4DE /* ChangeMasterCopyCellContent.swift */,
+				0497F6E82488EC5600A1F4DE /* CustomTransactionCellContent.swift */,
+				04A1F7D924AB742F0024DFF5 /* EnableDisableModuleCellContent.swift */,
+				04A1F7D724AB73F60024DFF5 /* SetFallbackHandlerCellContent.swift */,
+				0497F6E42488EBBF00A1F4DE /* SettingsChangeCellContent.swift */,
+				0497F6E22488EB9500A1F4DE /* TransferCellContent.swift */,
 			);
-			path = SettingsChangeTransactionCell;
+			path = "Cell Content Views";
 			sourceTree = "<group>";
 		};
 		04C7C4412490FA0F00D869C1 /* TransactionDetailsView+ConfirmationsView */ = {
 			isa = PBXGroup;
 			children = (
-				04F533622490E83B00F28099 /* TransactionDetailsView+ConfirmationsView.swift */,
-				0AA9F25C249A174E005BD60F /* TransactionConfirmationViewModel.swift */,
 				04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */,
+				04C7C4422490FA3C00D869C1 /* TransactionConfirmationCell.swift */,
+				0AA9F25C249A174E005BD60F /* TransactionConfirmationViewModel.swift */,
+				04F533622490E83B00F28099 /* TransactionDetailsView+ConfirmationsView.swift */,
 			);
 			path = "TransactionDetailsView+ConfirmationsView";
 			sourceTree = "<group>";
@@ -814,16 +812,16 @@
 		04F533602490E7BF00F28099 /* TransactionDetails */ = {
 			isa = PBXGroup;
 			children = (
-				046D0A66249A446D000F4021 /* Header Views */,
 				0AA9F260249A188C005BD60F /* TransactionDetailsView.swift */,
 				0A62F85224BCB39C00B8483F /* TransactionDetailsView+AdvancedView.swift */,
 				0A62F85024BCB33900B8483F /* TransactionDetailsView+BrowseView.swift */,
-				04C7C4412490FA0F00D869C1 /* TransactionDetailsView+ConfirmationsView */,
 				0A62F85624BCB3C400B8483F /* TransactionDetailsView+CreatedDateView.swift */,
 				0A62F85824BCB3D700B8483F /* TransactionDetailsView+DataView.swift */,
 				0A62F85424BCB3B200B8483F /* TransactionDetailsView+ExecutedDateView.swift */,
 				046D0A68249A446D000F4021 /* TransactionDetailsView+HeaderView.swift */,
 				046D0A442497BED8000F4021 /* TransactionDetailsView+TypeView.swift */,
+				046D0A66249A446D000F4021 /* Header Views */,
+				04C7C4412490FA0F00D869C1 /* TransactionDetailsView+ConfirmationsView */,
 			);
 			path = TransactionDetails;
 			sourceTree = "<group>";
@@ -1864,7 +1862,7 @@
 				046D0A5A249A1C64000F4021 /* ExpandableButton .swift in Sources */,
 				047691372461B2E200D73D8B /* AddressCell.swift in Sources */,
 				0A62F85524BCB3B200B8483F /* TransactionDetailsView+ExecutedDateView.swift in Sources */,
-				0497F6E72488EBFA00A1F4DE /* ChangeMasterCopyCellView.swift in Sources */,
+				0497F6E72488EBFA00A1F4DE /* ChangeMasterCopyCellContent.swift in Sources */,
 				0A62F85124BCB33900B8483F /* TransactionDetailsView+BrowseView.swift in Sources */,
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */,
@@ -1876,21 +1874,21 @@
 				04C7C4432490FA3C00D869C1 /* TransactionConfirmationCell.swift in Sources */,
 				0AF6500A24485E450018D070 /* Identicon.swift in Sources */,
 				046D0A432497BECE000F4021 /* TransactionStatusView.swift in Sources */,
-				04A1F7DA24AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift in Sources */,
+				04A1F7DA24AB742F0024DFF5 /* EnableDisableModuleCellContent.swift in Sources */,
 				0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */,
 				046D0A70249A446D000F4021 /* TransferValueView.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
 				55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */,
 				041C2A5A2456F53E0044A24C /* QRView.swift in Sources */,
 				0497F6C62485520D00A1F4DE /* Transaction.swift in Sources */,
-				046D0A7B249A7248000F4021 /* ChangeThresholdTransactionDetailsHeaderView.swift in Sources */,
+				046D0A7B249A7248000F4021 /* ChangeThresholdHeaderView.swift in Sources */,
 				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
 				55CEFC0D24939079003B2B19 /* CrashlyticsTrackingHandler.swift in Sources */,
 				0A704A5C24740146005BDC49 /* TabViewItem.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
-				0497F6E92488EC5600A1F4DE /* CustomTransactionCellView.swift in Sources */,
+				0497F6E92488EC5600A1F4DE /* CustomTransactionCellContent.swift in Sources */,
 				0A0EFC94246D9D5200D3D8BF /* TopTabView.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
 				0497F6C824858F2D00A1F4DE /* ConfirmationCountView.swift in Sources */,
@@ -1911,9 +1909,9 @@
 				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,
 				0AA9F1F22497BC5F005BD60F /* TransactionStatus.swift in Sources */,
 				0460AB3B247E685E005CA275 /* EmptyListPlaceholder.swift in Sources */,
-				046D0A6E249A446D000F4021 /* ChangeMastercopyTransactionDetailsHeaderView.swift in Sources */,
+				046D0A6E249A446D000F4021 /* ChangeMastercopyHeaderView.swift in Sources */,
 				0AA9F2402497DB18005BD60F /* TransactionsListViewModel.swift in Sources */,
-				046D0A6C249A446D000F4021 /* SettingsChangeTransactionDetailsHeaderView.swift in Sources */,
+				046D0A6C249A446D000F4021 /* SettingsChangeHeaderView.swift in Sources */,
 				0AA9F24D2497DB85005BD60F /* CustomTransactionViewModel.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
 				55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */,
@@ -1943,7 +1941,7 @@
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
-				0497F6EB2489168B00A1F4DE /* TransactionCellView.swift in Sources */,
+				0497F6EB2489168B00A1F4DE /* TransactionCell.swift in Sources */,
 				55AB394024A3454100148BEA /* LoadableView.swift in Sources */,
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A0EFC9A246DAC1A00D3D8BF /* TabChildView.swift in Sources */,
@@ -1982,13 +1980,13 @@
 				0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */,
 				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,
 				0A946D0A246C4C6E00456BD5 /* SettingsView.swift in Sources */,
-				0497F6E52488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift in Sources */,
+				0497F6E52488EBBF00A1F4DE /* SettingsChangeCellContent.swift in Sources */,
 				047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
-				046D0A79249A603B000F4021 /* SetFallbackHandlerTransactionDetailsHeaderView.swift in Sources */,
+				046D0A79249A603B000F4021 /* SetFallbackHandlerHeaderView.swift in Sources */,
 				55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */,
-				046D0A75249A5EE5000F4021 /* SwapOwnerTransactionDetailsHeaderView.swift in Sources */,
+				046D0A75249A5EE5000F4021 /* SwapOwnerHeaderView.swift in Sources */,
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
 				0AA9F1F62497BCE0005BD60F /* TransactionData.swift in Sources */,
 				0ADDA21324534F1B0066457E /* EnterSafeNameViewModel.swift in Sources */,
@@ -2025,11 +2023,12 @@
 				04061609248E4868000F9C52 /* PagedResponse.swift in Sources */,
 				0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */,
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
+				0AFA728E24BD9B6300A370EE /* TransactionCell+StatusView.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
-				046D0A77249A5F57000F4021 /* EnableDisableModuleTransactionDetailsHeaderView.swift in Sources */,
+				046D0A77249A5F57000F4021 /* EnableDisableModuleHeaderView.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
 				0A704A6C247417B4005BDC49 /* SafeHeaderView.swift in Sources */,
-				0497F6E32488EB9500A1F4DE /* TransferTransactionCellView.swift in Sources */,
+				0497F6E32488EB9500A1F4DE /* TransferCellContent.swift in Sources */,
 				0AEDCE0724728D7100A1EC80 /* BackButton.swift in Sources */,
 				0AA9F1F82497BD15005BD60F /* MethodRegistry+GnosisSafeSettings.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
@@ -2038,9 +2037,9 @@
 				04C97AAE246ED43A00EBA0F1 /* FiatCurrenciesView.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
-				046D0A6F249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift in Sources */,
+				046D0A6F249A446D000F4021 /* TransferHeaderView.swift in Sources */,
 				04CE3F8F24B5F67100826AEE /* CollectiblesView.swift in Sources */,
-				04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift in Sources */,
+				04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerCellContent.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				04F533632490E83B00F28099 /* TransactionDetailsView+ConfirmationsView.swift in Sources */,
 				04C97AAA246ED32800EBA0F1 /* BasicAppSettingsView.swift in Sources */,
@@ -2066,7 +2065,7 @@
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,
 				0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
-				046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */,
+				046D0A73249A5ED5000F4021 /* AddRemoveOwnerHeaderView.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* SafeCollectiblesRequest.swift in Sources */,
 				04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */,
 				046D0A6D249A446D000F4021 /* TransactionDetailsView+HeaderView.swift in Sources */,
@@ -2076,6 +2075,7 @@
 				0AA9F25724991988005BD60F /* TokenBalance.swift in Sources */,
 				0A7AEADF2462F95100014184 /* SwitchSafeButton.swift in Sources */,
 				55B66E56247E494000249E98 /* AppSettings.swift in Sources */,
+				0AFA728C24BD9AFD00A370EE /* TransactionCell+CellContent.swift in Sources */,
 				0A72AC5A2453125800840641 /* EnterSafeAddressView.swift in Sources */,
 				0A9BC36124605AA800EB9C5D /* ErrorText.swift in Sources */,
 				0AA9F2002497BD89005BD60F /* MethodRegistry+Ether.swift in Sources */,

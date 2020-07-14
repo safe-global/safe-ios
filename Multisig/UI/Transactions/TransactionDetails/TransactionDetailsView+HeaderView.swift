@@ -26,13 +26,13 @@ extension TransactionDetailsView {
 
             return ZStack {
                 if customTransaction != nil {
-                    TransferTransactionDetailsHeaderView(transaction: customTransaction!)
+                    TransferHeaderView(transaction: customTransaction!)
                 } else if transferTransaction != nil {
-                    TransferTransactionDetailsHeaderView(transaction: transferTransaction!)
+                    TransferHeaderView(transaction: transferTransaction!)
                 } else if settingChangeTransaction != nil {
-                    SettingsChangeTransactionDetailsHeaderView(transaction: settingChangeTransaction!)
+                    SettingsChangeHeaderView(transaction: settingChangeTransaction!)
                 } else if changeMasterCopyTransaction != nil {
-                    ChangeMastercopyTransactionDetailsHeaderView(transaction: changeMasterCopyTransaction!)
+                    ChangeMastercopyHeaderView(transaction: changeMasterCopyTransaction!)
                 } else {
                     EmptyView()
                 }

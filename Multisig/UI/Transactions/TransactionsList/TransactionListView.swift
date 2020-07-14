@@ -35,7 +35,7 @@ struct TransactionListView: Loadable {
                 Section(header: SectionHeader(section.name)) {
                     ForEach(section.transactions) { transaction in
                         NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
-                            TransactionCellView(transaction: transaction)
+                            TransactionCell(transaction: transaction)
                         }.onAppear {
                             if self.model.isLast(transaction: transaction) && self.model.canLoadNext {
                                 self.model.loadNextPage()

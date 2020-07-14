@@ -8,20 +8,20 @@
 
 import SwiftUI
 
-struct SwapOwnerTransactionDetailsHeaderView: View {
+struct SwapOwnerHeaderView: View {
     let removedAddress: Address
     let addedAddress: Address
 
     var body: some View {
         VStack(alignment: .leading) {
-            AddRemoveOwnerTransactionDetailsHeaderView(state: .remove, address: removedAddress)
-            AddRemoveOwnerTransactionDetailsHeaderView(state: .add, address: addedAddress)
+            AddRemoveOwnerHeaderView(state: .remove, address: removedAddress)
+            AddRemoveOwnerHeaderView(state: .add, address: addedAddress)
         }
     }
 }
 
 struct SwapOwnerTransactionHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        SwapOwnerTransactionDetailsHeaderView(removedAddress: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2", addedAddress: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2")
+        SwapOwnerHeaderView(removedAddress: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2", addedAddress: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2")
     }
 }

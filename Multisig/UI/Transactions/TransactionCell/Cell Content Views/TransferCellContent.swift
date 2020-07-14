@@ -1,5 +1,5 @@
 //
-//  TransferTransactionView.swift
+//  TransferCellContent.swift
 //  Multisig
 //
 //  Created by Moaaz on 6/4/20.
@@ -8,16 +8,18 @@
 
 import SwiftUI
 
-struct TransferTransactionCellView: View {
+struct TransferCellContent: View {
     let transaction: TransferTransactionViewModel
     var body: some View {
         HStack (alignment: .center) {
             Image(imageName)
-            AddressCell(address: transaction.address, style: .shortAddressNoShare)
+            AddressCell(address: transaction.address,
+                        style: .shortAddressNoShare)
 
             Spacer()
 
-            BodyText("\(transaction.amount) \(transaction.tokenSymbol)", textColor: amountColor)
+            BodyText("\(transaction.amount) \(transaction.tokenSymbol)",
+                textColor: amountColor)
         }
     }
 
@@ -32,7 +34,7 @@ struct TransferTransactionCellView: View {
 
 
 
-struct TransferTransactionCellView_Previews: PreviewProvider {
+struct TransferCellContent_Previews: PreviewProvider {
     static var previews: some View {
         let transaction = TransferTransactionViewModel()
         transaction.address = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
@@ -45,6 +47,6 @@ struct TransferTransactionCellView_Previews: PreviewProvider {
         transaction.isOutgoing = true
         transaction.status = .success
 
-        return TransferTransactionCellView(transaction: transaction)
+        return TransferCellContent(transaction: transaction)
     }
 }

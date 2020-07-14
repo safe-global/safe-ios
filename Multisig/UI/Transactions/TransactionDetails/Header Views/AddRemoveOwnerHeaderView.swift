@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AddRemoveOwnerTransactionDetailsHeaderView: View {
+struct AddRemoveOwnerHeaderView: View {
     let state: State
     var address: Address
     var threshold: UInt256?
@@ -41,6 +41,6 @@ struct AddRemoveOwnerTransactionDetailsHeaderView: View {
 
 struct AddRemoveOwnerTransactionHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        AddRemoveOwnerTransactionDetailsHeaderView(state: .add, address: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2", threshold: 1)
+        AddRemoveOwnerHeaderView(state: .add, address: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2", threshold: 1)
     }
 }

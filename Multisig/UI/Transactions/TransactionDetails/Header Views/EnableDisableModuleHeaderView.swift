@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct EnableDisableModuleTransactionDetailsHeaderView: View {
+struct EnableDisableModuleHeaderView: View {
     let state: State
     var address: Address
 
@@ -36,6 +36,6 @@ struct EnableDisableModuleTransactionDetailsHeaderView: View {
 
 struct EnableDisableModuleTransactionDetailsHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        EnableDisableModuleTransactionDetailsHeaderView(state: .enable, address: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2")
+        EnableDisableModuleHeaderView(state: .enable, address: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2")
     }
 }

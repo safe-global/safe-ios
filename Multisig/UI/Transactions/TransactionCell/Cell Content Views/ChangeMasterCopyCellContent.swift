@@ -1,25 +1,32 @@
 //
-//  ChangeMastercopyTransactionHeaderView.swift
+//  ChangeMasterCopyCellContent.swift
 //  Multisig
 //
-//  Created by Moaaz on 6/16/20.
+//  Created by Moaaz on 6/4/20.
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
 import SwiftUI
 
-struct ChangeMastercopyTransactionDetailsHeaderView: View {
+struct ChangeMasterCopyCellContent: View {
     let transaction: ChangeMasterCopyTransactionViewModel
-
     var body: some View {
-        VStack (alignment: .leading) {
-            BodyText("New mastercopy:")
-            AddressCell(address: transaction.contractAddress, title: transaction.contractVersion, style: .shortAddress)
+        HStack {
+            Image("ico-settings-tx")
+            AddressCell(address: transaction.contractAddress,
+                        title: transaction.contractVersion,
+                        style: .shortAddressNoShareGrayColor)
+
+            Spacer()
+
+            BodyText("Change \n mastercopy")
+                .multilineTextAlignment(.trailing)
+                .fixedSize()
         }
     }
 }
 
-struct ChangeMastercopyTransactionHeaderView_Previews: PreviewProvider {
+struct ChangeMasterCopyCell_Previews: PreviewProvider {
     static var previews: some View {
         let transaction = ChangeMasterCopyTransactionViewModel()
         transaction.contractAddress = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
@@ -29,7 +36,6 @@ struct ChangeMastercopyTransactionHeaderView_Previews: PreviewProvider {
         transaction.formattedDate = "Apr 25, 2020 — 1:01:42PM"
         transaction.nonce = "2"
         transaction.status = .success
-        
-        return ChangeMastercopyTransactionDetailsHeaderView(transaction: transaction)
+        return ChangeMasterCopyCellContent(transaction: transaction)
     }
 }

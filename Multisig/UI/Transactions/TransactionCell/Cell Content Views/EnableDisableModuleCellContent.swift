@@ -1,5 +1,5 @@
 //
-//  EnableDisableModuleTransactionCellView.swift
+//  EnableDisableModuleCellContent.swift
 //  Multisig
 //
 //  Created by Moaaz on 6/30/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct EnableDisableModuleTransactionCellView: View {
+struct EnableDisableModuleCellContent: View {
     let state: State
     var address: Address
     
@@ -36,8 +36,8 @@ struct EnableDisableModuleTransactionCellView: View {
     }
 }
 
-struct EnableDisableModuleTransactionCellView_Previews: PreviewProvider {
+struct EnableDisableModuleTransactionCell_Previews: PreviewProvider {
     static var previews: some View {
-        EnableDisableModuleTransactionCellView(state: .enable, address: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2")
+        EnableDisableModuleCellContent(state: .enable, address: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2")
     }
 }

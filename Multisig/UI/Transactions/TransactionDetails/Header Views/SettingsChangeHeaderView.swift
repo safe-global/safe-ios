@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SettingsChangeTransactionDetailsHeaderView: View {
+struct SettingsChangeHeaderView: View {
     let transaction: SettingChangeTransactionViewModel
 
     var body: some View {
@@ -28,19 +28,19 @@ struct SettingsChangeTransactionDetailsHeaderView: View {
 
         return ZStack {
             if addOwnerWithThreshold != nil {
-                AddRemoveOwnerTransactionDetailsHeaderView(state: .add, address: addOwnerWithThreshold!.address, threshold: addOwnerWithThreshold!.threshold)
+                AddRemoveOwnerHeaderView(state: .add, address: addOwnerWithThreshold!.address, threshold: addOwnerWithThreshold!.threshold)
             } else if removeOwner != nil {
-                AddRemoveOwnerTransactionDetailsHeaderView(state: .remove, address: removeOwner!.owner, threshold: removeOwner!.threshold)
+                AddRemoveOwnerHeaderView(state: .remove, address: removeOwner!.owner, threshold: removeOwner!.threshold)
             } else if swapOwner != nil {
-                SwapOwnerTransactionDetailsHeaderView(removedAddress: swapOwner!.oldOwner, addedAddress: swapOwner!.newOwner)
+                SwapOwnerHeaderView(removedAddress: swapOwner!.oldOwner, addedAddress: swapOwner!.newOwner)
             } else if setFallbackHandler != nil {
-                SetFallbackHandlerTransactionDetailsHeaderView(address: setFallbackHandler!.handler)
+                SetFallbackHandlerHeaderView(address: setFallbackHandler!.handler)
             } else if enableModule != nil {
-                EnableDisableModuleTransactionDetailsHeaderView(state: .enable, address: enableModule!.module)
+                EnableDisableModuleHeaderView(state: .enable, address: enableModule!.module)
             } else if disableModule != nil {
-                EnableDisableModuleTransactionDetailsHeaderView(state: .disable, address: disableModule!.module)
+                EnableDisableModuleHeaderView(state: .disable, address: disableModule!.module)
             } else if changeThreshold != nil {
-                ChangeThresholdTransactionDetailsHeaderView(threshold: changeThreshold!.threshold)
+                ChangeThresholdHeaderView(threshold: changeThreshold!.threshold)
             } else {
                 EmptyView()
             }

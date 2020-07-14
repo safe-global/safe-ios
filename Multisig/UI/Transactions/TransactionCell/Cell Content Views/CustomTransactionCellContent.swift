@@ -1,5 +1,5 @@
 //
-//  CustomTransactionCellView.swift
+//  CustomTransactionCell.swift
 //  Multisig
 //
 //  Created by Moaaz on 6/4/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CustomTransactionCellView: View {
+struct CustomTransactionCellContent: View {
     let transaction: CustomTransactionViewModel
     var body: some View {
         HStack {
@@ -28,7 +28,7 @@ struct CustomTransactionCellView: View {
     }
 }
 
-struct CustomTransactionCellView_Previews: PreviewProvider {
+struct CustomTransactionCell_Previews: PreviewProvider {
     static var previews: some View {
         let transaction = CustomTransactionViewModel()
         transaction.address = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
@@ -41,6 +41,6 @@ struct CustomTransactionCellView_Previews: PreviewProvider {
         transaction.isOutgoing = true
         transaction.dataLength = 40
         transaction.status = .success
-        return CustomTransactionCellView(transaction: transaction)
+        return CustomTransactionCellContent(transaction: transaction)
     }
 }

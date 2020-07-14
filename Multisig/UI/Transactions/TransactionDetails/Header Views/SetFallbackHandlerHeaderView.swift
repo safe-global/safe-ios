@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SetFallbackHandlerTransactionDetailsHeaderView: View {
+struct SetFallbackHandlerHeaderView: View {
     let address: Address
 
     var body: some View {
@@ -21,6 +21,6 @@ struct SetFallbackHandlerTransactionDetailsHeaderView: View {
 
 struct SetFallbackHandlerTransactionDetailsHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        SetFallbackHandlerTransactionDetailsHeaderView(address: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2")
+        SetFallbackHandlerHeaderView(address: "0xb35Ac2DF4f0D0231C5dF37C1f21e65569600bdd2")
     }
 }

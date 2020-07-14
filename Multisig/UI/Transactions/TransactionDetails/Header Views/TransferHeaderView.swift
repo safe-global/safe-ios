@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TransferTransactionDetailsHeaderView: View {
+struct TransferHeaderView: View {
     let transaction: TransferTransactionViewModel
 
     private let dimention: CGFloat = 36
@@ -60,6 +60,6 @@ struct TransferTransactionHeaderView_Previews: PreviewProvider {
         transaction.dataLength = 40
         transaction.status = .success
 
-        return TransferTransactionDetailsHeaderView(transaction: transaction)
+        return TransferHeaderView(transaction: transaction)
     }
 }

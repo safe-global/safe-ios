@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ChangeThresholdTransactionDetailsHeaderView: View {
+struct ChangeThresholdHeaderView: View {
     var threshold: UInt256
     var body: some View {
         KeyValueRow("Change required confirmations:", value: "\(threshold)", enableCopy: false, color: Color.gnoDarkGrey)
@@ -17,6 +17,6 @@ struct ChangeThresholdTransactionDetailsHeaderView: View {
 
 struct ChangeThresholdTransactionDetailsHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ChangeThresholdTransactionDetailsHeaderView(threshold: 1)
+        ChangeThresholdHeaderView(threshold: 1)
     }
 }
