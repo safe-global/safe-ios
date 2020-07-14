@@ -9,12 +9,13 @@
 import SwiftUI
 
 struct CollectiblesSectionView: View {
-    let section: CollectiblesViewModel.Section
+    let section: CollectiblesListViewModel.Section
 
+    private let imageDimention: CGFloat = 28
     var body: some View {
         VStack (alignment: .leading, spacing: 12) {
             HStack {
-                TokenImage(width: 28, height: 28, url: section.imageURL, name: "ico-nft-placeholder")
+                TokenImage(width: imageDimention, height: imageDimention, url: section.imageURL, name: "ico-nft-placeholder")
                 BodyText(section.name).font(Font.gnoBody.weight(.semibold))
             }
 

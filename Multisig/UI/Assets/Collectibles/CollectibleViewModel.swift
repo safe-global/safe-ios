@@ -13,21 +13,20 @@ struct CollectibleViewModel: Identifiable {
     let name: String
     let description: String
     let imageURL: URL?
-    let hasName: Bool
+    var hasName: Bool {
+        !["", "Unknown"].contains(name)
+    }
     
     init() {
         id = UUID()
         name = ""
         description = ""
         imageURL = nil
-        hasName = false
     }
 
     init(collectible: Collectible) {
         id = UUID()
-
         name = collectible.name ?? "Unknown"
-        hasName = !(collectible.name == nil || collectible.name!.isEmpty)
         description = collectible.description ?? ""
         imageURL = URL(string: collectible.imageUri ?? "")
     }

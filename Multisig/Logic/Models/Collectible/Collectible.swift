@@ -9,7 +9,7 @@
 import Foundation
 
 struct Collectible: Decodable, Hashable {
-    let address: Address?
+    let address: AddressString?
     let tokenName: String?
     let tokenSymbol:String?
     let id: String?

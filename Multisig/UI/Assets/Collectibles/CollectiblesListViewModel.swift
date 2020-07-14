@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class CollectiblesViewModel: BasicLoadableViewModel {
+class CollectiblesListViewModel: BasicLoadableViewModel {
     struct Section: Identifiable {
         let id = UUID()
         var name: String
@@ -65,7 +65,7 @@ class CollectiblesViewModel: BasicLoadableViewModel {
     private func createModels(collectibles: [Collectible]) -> [Section] {
         let groupedCollectibles = Dictionary(grouping: collectibles, by: { $0.address })
         return groupedCollectibles.map { (key, value) in
-            let token = App.shared.tokenRegistry[key!]
+            let token = App.shared.tokenRegistry[key!.address]
             let name = token?.name ?? "Unknown"
             let logoURL = token?.logo
             return Section(name: name , imageURL: logoURL, collectibles: value.compactMap { CollectibleViewModel(collectible: $0) })

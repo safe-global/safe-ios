@@ -72,7 +72,7 @@
 		04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9824B6120F00826AEE /* CollectibleMetaData.swift */; };
 		04CE3F9D24B62F0800826AEE /* CollectibleMetaDataAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9C24B62F0800826AEE /* CollectibleMetaDataAttribute.swift */; };
 		04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9E24B7191E00826AEE /* CollectibleViewModel.swift */; };
-		04CE3FA124B7191E00826AEE /* CollectiblesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9F24B7191E00826AEE /* CollectiblesViewModel.swift */; };
+		04CE3FA124B7191E00826AEE /* CollectiblesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9F24B7191E00826AEE /* CollectiblesListViewModel.swift */; };
 		04CE3FA324B7281B00826AEE /* CollectibleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3FA224B7281B00826AEE /* CollectibleCellView.swift */; };
 		04EF2AEB2492883A0070ED1A /* TransactionConfiramtionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */; };
 		04EF2AED2492B5AF0070ED1A /* VerticalBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */; };
@@ -364,7 +364,7 @@
 		04CE3F9824B6120F00826AEE /* CollectibleMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleMetaData.swift; sourceTree = "<group>"; };
 		04CE3F9C24B62F0800826AEE /* CollectibleMetaDataAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleMetaDataAttribute.swift; sourceTree = "<group>"; };
 		04CE3F9E24B7191E00826AEE /* CollectibleViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectibleViewModel.swift; sourceTree = "<group>"; };
-		04CE3F9F24B7191E00826AEE /* CollectiblesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectiblesViewModel.swift; sourceTree = "<group>"; };
+		04CE3F9F24B7191E00826AEE /* CollectiblesListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectiblesListViewModel.swift; sourceTree = "<group>"; };
 		04CE3FA224B7281B00826AEE /* CollectibleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleCellView.swift; sourceTree = "<group>"; };
 		04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfiramtionStatusView.swift; sourceTree = "<group>"; };
 		04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalBarView.swift; sourceTree = "<group>"; };
@@ -788,7 +788,7 @@
 			isa = PBXGroup;
 			children = (
 				04CE3F8E24B5F67100826AEE /* CollectiblesView.swift */,
-				04CE3F9F24B7191E00826AEE /* CollectiblesViewModel.swift */,
+				04CE3F9F24B7191E00826AEE /* CollectiblesListViewModel.swift */,
 				04CE3F9E24B7191E00826AEE /* CollectibleViewModel.swift */,
 				04CE3FA224B7281B00826AEE /* CollectibleCellView.swift */,
 				0457AB9924BBB2C5007C884E /* CollectiblesSectionView.swift */,
@@ -2054,7 +2054,7 @@
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
 				046D0A6F249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift in Sources */,
 				04CE3F8F24B5F67100826AEE /* CollectiblesView.swift in Sources */,
-				04CE3FA124B7191E00826AEE /* CollectiblesViewModel.swift in Sources */,
+				04CE3FA124B7191E00826AEE /* CollectiblesListViewModel.swift in Sources */,
 				04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */,

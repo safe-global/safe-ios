@@ -10,10 +10,10 @@ import SwiftUI
 
 struct CollectiblesView: Loadable {
     @ObservedObject
-    var model: CollectiblesViewModel
+    var model: CollectiblesListViewModel
 
     init(safe: Safe) {
-        self.model = CollectiblesViewModel(safe: safe)
+        self.model = CollectiblesListViewModel(safe: safe)
     }
 
     var body: some View {
