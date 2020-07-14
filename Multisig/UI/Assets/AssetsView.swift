@@ -28,8 +28,7 @@ struct AssetsView: View {
                             }
                             .frame(maxWidth: .infinity)
                         }
-
-                    CollectiblesView()
+                    LoadableView(CollectiblesView(safe: selectedSafe.first!))
                         .gnoTabItem(id: 1) {
                             HStack {
                                 Image("ico-collectibles")

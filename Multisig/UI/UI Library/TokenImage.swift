@@ -24,17 +24,17 @@ struct TokenImage: View {
     }
 
     var body: some View {
-        VStack {
+        ZStack {
             if url != nil {
                 KFImage(url!)
                     .placeholder {
-                        Image("ico-token-placeholder")
+                        Image(name ?? "ico-token-placeholder")
                 }
                 .cancelOnDisappear(true)
                 .resizable()
                 .frame(width: width, height: height)
             } else {
-                Image(name!)
+                Image(name ?? "ico-token-placeholder")
                     .frame(width: width, height: height)
             }
         }

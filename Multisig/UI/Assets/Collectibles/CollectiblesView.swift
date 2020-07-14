@@ -8,13 +8,32 @@
 
 import SwiftUI
 
-struct CollectiblesView: View {
+struct CollectiblesView: Loadable {
+    @ObservedObject
+    var model: CollectiblesListViewModel
+
+    init(safe: Safe) {
+        self.model = CollectiblesListViewModel(safe: safe)
+    }
+
     var body: some View {
         ZStack {
-            EmptyListPlaceholder(label: "Collectibles will appear here", image: "ico-no-collectibles")
+            if model.sections.isEmpty {
+                EmptyListPlaceholder(label: "Collectibles will appear here", image: "ico-no-collectibles")
+            } else {
+                collectiblesList
+            }
         }
         .onAppear {
             self.trackEvent(.assetsCollectibles)
+        }
+    }
+
+    var collectiblesList: some View {
+        List {
+            ForEach(model.sections) { section in
+                CollectiblesSectionView(section: section)
+            }
         }
     }
 }

@@ -9,8 +9,7 @@
 import Foundation
 
 struct CollectibleMetaData: Decodable, Hashable {
-    let name: String
-    let description: String
+    let name: String?
+    let description: String?
     let image: String?
-    let attributes: [CollectibleMetaDataAttribute]
 }

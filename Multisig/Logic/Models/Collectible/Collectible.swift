@@ -17,5 +17,5 @@ struct Collectible: Decodable, Hashable {
     let name: String?
     let description: String?
     let imageUri: String?
-    let metadata: CollectibleMetaData
+    let metadata: CollectibleMetaData?
 }
