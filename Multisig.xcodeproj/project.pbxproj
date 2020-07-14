@@ -699,7 +699,6 @@
 		0460AB35247E61DE005CA275 /* Transactions */ = {
 			isa = PBXGroup;
 			children = (
-				0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */,
 				046D0A422497BECE000F4021 /* TransactionStatusView.swift */,
 				0AA9F261249A188C005BD60F /* AdvancedTransactionDetailsView.swift */,
 				04F533602490E7BF00F28099 /* TransactionDetails */,
@@ -752,6 +751,7 @@
 				0497F6EA2489168B00A1F4DE /* TransactionCell.swift */,
 				0AFA728B24BD9AFD00A370EE /* TransactionCell+CellContent.swift */,
 				0AFA728D24BD9B6300A370EE /* TransactionCell+StatusView.swift */,
+				0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */,
 				04A1F7DB24AB809D0024DFF5 /* Cell Content Views */,
 			);
 			path = TransactionCell;
