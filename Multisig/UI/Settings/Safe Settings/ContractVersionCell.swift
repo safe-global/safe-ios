@@ -67,7 +67,8 @@ struct ContractVersionCell: View {
                     versionView
                     upgradeStatusView
                 }
-                AddressText(address, style: .short)
+                SlicedText(address)
+                    .style(.addressShortLight)
                     .font(Font.gnoBody.weight(.medium))
             }
             

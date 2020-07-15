@@ -22,7 +22,8 @@ struct AddressView: View {
                 Identicon(text).frame(width: 32, height: 32)
             }
 
-            AddressText(text)
+            SlicedText(text)
+                .style(.addressLong)
         }
     }
 }

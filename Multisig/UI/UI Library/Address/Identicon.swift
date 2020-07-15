@@ -20,6 +20,10 @@ struct Identicon: View {
         self.text = text
     }
 
+    init(_ address: Address) {
+        self.text = address.hexadecimal
+    }
+
     var body: some View {
         ZStack {
             if text == nil || text!.isEmpty {

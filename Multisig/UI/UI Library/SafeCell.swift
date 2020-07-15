@@ -27,7 +27,8 @@ struct SafeCell: View {
                 BoldText(safe.name ?? "")
                     .lineLimit(1)
 
-                AddressText(safe.address ?? "", style: .short)
+                SlicedText(safe.address ?? "")
+                    .style(.addressShortLight)
                     .font(Font.gnoBody.weight(.medium))
             }
         }
