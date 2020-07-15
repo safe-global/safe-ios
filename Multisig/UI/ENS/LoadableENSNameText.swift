@@ -27,7 +27,8 @@ struct LoadableENSNameText: View {
             if ensLoader.isLoading && showsLoading {
                 ActivityIndicator(isAnimating: .constant(true), style: .medium)
             } else if !ensLoader.isLoading && !displayValue.isEmpty {
-                BoldText(displayValue)
+                Text(displayValue)
+                    .headline()
             }
         }
     }

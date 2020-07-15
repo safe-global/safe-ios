@@ -28,7 +28,7 @@ struct BottomTabButton<SelectionValue: Hashable, Content: View>: View {
                 label.accentColor(Color.gnoDarkGrey)
             }
         }
-        .font(Font.gnoCaption2.weight(.medium))
+        .font(.gnoCaption3)
     }
 
     var isSelected: Bool {

@@ -15,7 +15,7 @@ struct SetFallbackHandlerTransactionCellView: View {
             Image("ico-settings-tx")
             AddressCell(address: address.checksummed, title: App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: address), style: .shortAddressNoShareGrayColor)
             Spacer()
-            BodyText("Set fallback \n handler").multilineTextAlignment(.trailing).fixedSize()
+            Text("Set fallback \n handler").body().multilineTextAlignment(.trailing).fixedSize()
         }
     }
 }

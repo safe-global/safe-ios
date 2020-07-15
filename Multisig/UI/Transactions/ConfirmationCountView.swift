@@ -11,11 +11,16 @@ import SwiftUI
 struct ConfirmationCountView: View {
     let currentValue: Int
     let threshold: Int
+
+    var color: Color {
+        currentValue >= threshold ? Color.gnoHold : Color.gnoMediumGrey
+    }
     var body: some View {
-        let color = currentValue >= threshold ? Color.gnoHold : Color.gnoMediumGrey
-        return HStack(spacing: 6) {
+        HStack(spacing: 6) {
             Image("ico-confirmation-count").foregroundColor(color)
-            FootnoteText("\(currentValue) out of \(threshold)", color: color)
+
+            Text("\(currentValue) out of \(threshold)")
+                .footnote(color)
         }
     }
 }

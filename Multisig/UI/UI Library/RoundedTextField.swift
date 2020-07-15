@@ -25,7 +25,7 @@ struct RoundedTextField: View {
                           text: text,
                           onEditingChanged: onEditingChanged,
                           onCommit: onCommit)
-                    .font(Font.gnoBody.weight(.medium))
+                    .font(.gnoBody)
 
                 if isValidating.wrappedValue == true {
                     ActivityIndicator(isAnimating: .constant(true), style: .medium)
@@ -36,7 +36,7 @@ struct RoundedTextField: View {
             .background(borderView)
 
             if !error.wrappedValue.isEmpty {
-                ErrorText(error.wrappedValue)
+                Text(error.wrappedValue).error()
             }
         }
     }
@@ -63,7 +63,7 @@ struct MyTextField_Previews: PreviewProvider {
                         text: .constant(""),
                     isValid: .constant(false))
 
-            ErrorText("Error occurred")
+            Text("Error occurred").error()
         }
     }
 }

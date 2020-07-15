@@ -38,11 +38,11 @@ struct TokenBalanceCell: View {
             } else {
                 TokenImage.ether
             }
-            BoldText(tokenBalance.symbol)
+            Text(tokenBalance.symbol).headline()
             Spacer()
             VStack(alignment: .trailing) {
-                BoldText(tokenBalance.balance)
-                FootnoteText(tokenBalance.balanceUsd)
+                Text(tokenBalance.balance).headline()
+                Text(tokenBalance.balanceUsd).footnote()
             }
         }
         .frame(height: 48)

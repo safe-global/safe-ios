@@ -42,9 +42,8 @@ struct AddSafeIntroView: View {
 
     var header: some View {
         Text("Get started by loading your\nSafe Multisig")
-            .font(.gnoTitle3)
+            .title()
             .multilineTextAlignment(.center)
-            .foregroundColor(.gnoDarkBlue)
     }
 
     var loadSafeButton: some View {

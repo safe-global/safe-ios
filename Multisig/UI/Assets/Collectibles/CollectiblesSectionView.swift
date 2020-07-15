@@ -15,8 +15,11 @@ struct CollectiblesSectionView: View {
     var body: some View {
         VStack (alignment: .leading, spacing: 12) {
             HStack {
-                TokenImage(width: imageDimention, height: imageDimention, url: section.imageURL, name: "ico-nft-placeholder")
-                BodyText(section.name).font(Font.gnoBody.weight(.semibold))
+                TokenImage(width: imageDimention,
+                           height: imageDimention,
+                           url: section.imageURL,
+                           name: "ico-nft-placeholder")
+                Text(section.name).headline()
             }
 
             ForEach(section.collectibles) { collectible in

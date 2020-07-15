@@ -13,8 +13,11 @@ struct ChangeMastercopyTransactionDetailsHeaderView: View {
 
     var body: some View {
         VStack (alignment: .leading) {
-            BodyText("New mastercopy:")
-            AddressCell(address: transaction.contractAddress, title: transaction.contractVersion, style: .shortAddress)
+            Text("New mastercopy:")
+                .body()
+            AddressCell(address: transaction.contractAddress,
+                        title: transaction.contractVersion,
+                        style: .shortAddress)
         }
     }
 }

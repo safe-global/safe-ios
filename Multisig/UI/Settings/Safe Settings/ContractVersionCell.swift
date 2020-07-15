@@ -25,10 +25,12 @@ struct ContractVersionCell: View {
         masterCopy.checksummed
     }
 
-    var versionView: some View {
+    var versionView: Text {
         switch versionStatus {
-        case .unknown: return BoldText("Unknown")
-        case .upToDate(let v), .upgradeAvailable(let v): return BoldText(v)
+        case .unknown:
+            return Text("Unknown")
+        case .upToDate(let v), .upgradeAvailable(let v):
+            return Text(v)
         }
     }
 
@@ -41,8 +43,7 @@ struct ContractVersionCell: View {
                 HStack {
                     Image.checkmark(size: statusIconSize)
                     Text("Up to date")
-                        .font(Font.gnoBody.weight(.medium))
-                        .foregroundColor(.gnoHold)
+                        .body(.gnoHold)
                 }
             )
         case .upgradeAvailable:
@@ -50,8 +51,7 @@ struct ContractVersionCell: View {
                 HStack {
                     Image.exclamation(size: statusIconSize)
                     Text("Upgrade available")
-                        .font(Font.gnoBody.weight(.medium))
-                        .foregroundColor(.gnoTomato)
+                        .body(.gnoTomato)
                 }
             )
         }
@@ -65,11 +65,11 @@ struct ContractVersionCell: View {
             VStack(alignment: .leading, spacing: 2) {
                 HStack {
                     versionView
+                        .headline()
                     upgradeStatusView
                 }
                 SlicedText(address)
                     .style(.addressShortLight)
-                    .font(Font.gnoBody.weight(.medium))
             }
             
             Spacer()

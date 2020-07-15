@@ -23,11 +23,9 @@ struct KeyValueRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            BoldText(key)
+            Text(key).headline()
             CopyButton(value) {
-                Text(value)
-                    .font(Font.gnoBody.weight(.medium))
-                    .foregroundColor(color)
+                Text(value).body(color)
             }.disabled(!enableCopy)
         }
     }

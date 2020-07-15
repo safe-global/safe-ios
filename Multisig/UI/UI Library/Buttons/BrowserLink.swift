@@ -25,7 +25,7 @@ struct BrowserLink: View {
                     Image(iconName!)
                 }
                 
-                BodyText(title)
+                Text(title).body()
                 Spacer()
                 Image(systemName: "chevron.right")
                     .font(Font.footnote.bold())

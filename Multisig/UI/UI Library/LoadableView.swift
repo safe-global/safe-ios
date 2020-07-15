@@ -73,7 +73,7 @@ struct LoadableView<Content: Loadable>: View {
         VStack {
             HStack {
                 Image("ico-server-error")
-                TitleText("Data cannot be loaded", color: .gnoMediumGrey)
+                Text("Data cannot be loaded").title(.gnoMediumGrey)
             }
             .padding(.top, 135)
 

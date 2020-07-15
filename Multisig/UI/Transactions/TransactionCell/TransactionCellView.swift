@@ -16,10 +16,14 @@ struct TransactionCellView: View {
 
             HStack{
                 if transaction.nonce != nil {
-                    FootnoteText(transaction.nonce!, color: .gnoDarkGrey).opacity(opacity)
+                    Text(transaction.nonce!)
+                        .footnote()
+                        .opacity(opacity)
                 }
 
-                FootnoteText(transaction.formattedDate, color: .gnoDarkGrey).opacity(opacity)
+                Text(transaction.formattedDate)
+                    .footnote()
+                    .opacity(opacity)
 
                 if !transaction.status.isWaiting  {
                     TransactionStatusView(status: transaction.status, style: .footnote)

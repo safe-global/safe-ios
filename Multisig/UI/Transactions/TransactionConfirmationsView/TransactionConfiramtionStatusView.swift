@@ -14,7 +14,7 @@ struct TransactionConfiramtionStatusView: View {
     var body: some View {
         HStack {
             Image(imageName).foregroundColor(color)
-            BodyText(title, textColor: color)
+            Text(title).body(color)
         }
     }
 

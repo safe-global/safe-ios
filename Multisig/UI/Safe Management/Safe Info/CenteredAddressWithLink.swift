@@ -18,7 +18,6 @@ struct CenteredAddressWithLink: View {
             CopyButton(safe.address) {
                 SlicedText(safe.address!)
                     .style(.addressLong)
-                    .font(Font.gnoBody.weight(.medium))
                     .multilineTextAlignment(.center)
             }
 

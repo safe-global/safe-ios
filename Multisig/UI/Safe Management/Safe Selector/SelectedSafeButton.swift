@@ -36,8 +36,7 @@ struct SelectedSafeButton: View {
                 .frame(width: 36, height: 36)
 
             Text("No Safe loaded")
-                .font(Font.gnoBody.weight(.semibold))
-                .foregroundColor(Color.gnoMediumGrey)
+                .headline(.gnoMediumGrey)
         }
     }
 

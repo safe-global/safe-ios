@@ -23,7 +23,7 @@ struct AssetsView: View {
                             HStack {
                                 Image("ico-coins")
                                 Text("COINS")
-									.font(Font.gnoCaption1)
+									.font(.gnoCaption1)
 			                        .tracking(0.45)
                             }
                             .frame(maxWidth: .infinity)
@@ -33,7 +33,7 @@ struct AssetsView: View {
                             HStack {
                                 Image("ico-collectibles")
                                 Text("COLLECTIBLES")
-                                    .font(Font.gnoCaption1)
+                                    .font(.gnoCaption1)
                                     .tracking(0.45)
                             }
                         }

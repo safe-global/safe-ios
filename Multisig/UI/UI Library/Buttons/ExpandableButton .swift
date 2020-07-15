@@ -21,7 +21,7 @@ struct ExpandableButton: View {
         }) {
             VStack(alignment: .leading) {
                 HStack {
-                    ValueText(title)
+                    Text(title).body(.gnoDarkGrey)
                     if expanded {
                         Image.chevronUp
                     } else {
@@ -29,7 +29,7 @@ struct ExpandableButton: View {
                     }
                 }
                 if expanded {
-                    BodyText(value)
+                    Text(value).body()
                 }
             }
         }

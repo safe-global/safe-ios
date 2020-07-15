@@ -22,7 +22,9 @@ struct SlicedText: View {
             Text(truncated.start).foregroundColor(style.startColor) +
             Text(truncated.middle).foregroundColor(style.middleColor) +
             Text(truncated.end).foregroundColor(style.endColor)
-        ).tracking(-0.41)
+        )
+        .font(.gnoBody)
+        .tracking(-0.41)
     }
 
     struct Style {

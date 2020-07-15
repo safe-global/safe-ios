@@ -17,7 +17,7 @@ struct CreateSafePrompt: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            BodyText("Don't have a Safe? Create one first at")
+            Text("Don't have a Safe? Create one first at").body()
 
             Button(action: { self.showsLink.toggle() }) {
                 LinkText(title: url.absoluteString)

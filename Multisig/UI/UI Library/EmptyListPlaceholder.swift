@@ -14,7 +14,7 @@ struct EmptyListPlaceholder: View {
     var body: some View {
         VStack (spacing: 15) {
             Image(image)
-            TitleText(label)
+            Text(label).title()
         }.offset(y: -100)
     }
 }

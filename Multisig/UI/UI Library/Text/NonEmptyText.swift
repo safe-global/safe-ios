@@ -15,7 +15,7 @@ struct NonEmptyText: View {
         if text.isEmpty {
             EmptyView()
         } else {
-            BodyText(text)
+            Text(text)
         }
     }
 }
