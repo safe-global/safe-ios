@@ -131,11 +131,12 @@ extension MethodRegistry {
         }
 
         static func isValid(_ tx: Transaction) -> Bool {
-            return tx.to != nil &&
-                tx.to == tx.safe &&
-                tx.operation == .call &&
-                tx.dataDecoded != nil &&
-                method(from: tx.dataDecoded!) != nil
+            tx.txType == .multiSig &&
+            tx.to != nil &&
+            tx.to == tx.safe &&
+            tx.operation == .call &&
+            tx.dataDecoded != nil &&
+            method(from: tx.dataDecoded!) != nil
         }
 
     }

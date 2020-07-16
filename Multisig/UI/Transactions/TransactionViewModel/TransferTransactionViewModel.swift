@@ -53,7 +53,7 @@ class TransferTransactionViewModel: TransactionViewModel {
         var result = [TransactionViewModel]()
 
         // ether transaction
-        if tx.data == nil && tx.operation == .call {
+        if (tx.txType == .ethereum || tx.txType == .multiSig) && tx.data == nil && tx.operation == .call {
             let token = App.shared.tokenRegistry.token(address: AddressRegistry.ether)!
             let transferInfo = TransferInfo(ether: tx, info: info, token: token)
 
@@ -72,6 +72,7 @@ class TransferTransactionViewModel: TransactionViewModel {
         // safe-initiated transaction that is transferring some token
         } else if tx.txType == .multiSig,
             tx.operation == .call,
+            tx.to?.address != tx.safeAddress(info),
             let call = MethodRegistry.method(from: tx.dataDecoded, candidates: transferMethods) {
 
             result = [
@@ -84,7 +85,7 @@ class TransferTransactionViewModel: TransactionViewModel {
                     tx,
                     info)]
         } else {
-            // custom transaction, do nothing
+            // not a transfer transaction, do nothing
             result = []
         }
         return result
@@ -140,7 +141,7 @@ class TransferTransactionViewModel: TransactionViewModel {
     }
 
     fileprivate class func tokenViewModel(_ token: Token, _ transfer: TransactionTransfer, _ tx: Transaction, _ info: SafeStatusRequest.Response) -> TransactionViewModel {
-        if transfer.type != token.type {
+        if !((transfer.type == .ether && token.type == .erc20) || (transfer.type == token.type)) {
             assertionFailure("Invalid combination of transfer type and tokenInfo type")
             LogService.shared.error("Transfer transaction has invalid transfer and tokenInfo combination in safe: \(tx.safeAddress(info))")
             // continuing to still display this transfer

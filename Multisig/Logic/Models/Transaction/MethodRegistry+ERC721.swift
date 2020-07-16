@@ -48,14 +48,6 @@ extension MethodRegistry {
             }
         }
 
-        #warning("TODO: tx.contractInfo.type == ContractInfoType.ERC721")
-        static func isValid(_ tx: Transaction) -> Bool {
-            tx.operation == .call &&
-                tx.dataDecoded != nil &&
-                (SafeTransferFrom(data: tx.dataDecoded!) != nil ||
-                    SafeTransferFromData(data: tx.dataDecoded!) != nil)
-        }
-
     }
 
     private static let transferMethods: [SmartContractMethodCall.Type] = [
