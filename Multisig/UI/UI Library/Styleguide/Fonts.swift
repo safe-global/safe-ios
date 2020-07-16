@@ -47,6 +47,10 @@ extension Text {
         font(.gnoTitle3).foregroundColor(color)
     }
 
+    func caption() -> Self {
+        font(.gnoCaption1)
+    }
+
     func error() -> some View {
         font(.gnoCallout)
             .foregroundColor(.gnoTomato)
