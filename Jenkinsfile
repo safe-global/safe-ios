@@ -16,7 +16,7 @@ pipeline {
             }
             steps {
                 ansiColor('xterm') {
-                    sh 'bin/test.sh "Multisig - Staging Rinkeby"'
+                    sh 'INFURA_KEY="${INFURA_STAGING_KEY}" bin/test.sh "Multisig - Staging Rinkeby"'
                     junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/*/xcodebuild-test.log'
                     archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
