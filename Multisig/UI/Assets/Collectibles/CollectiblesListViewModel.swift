@@ -68,7 +68,9 @@ class CollectiblesListViewModel: BasicLoadableViewModel {
             let token = App.shared.tokenRegistry[key!.address]
             let name = token?.name ?? "Unknown"
             let logoURL = token?.logo
-            return Section(name: name , imageURL: logoURL, collectibles: value.compactMap { CollectibleViewModel(collectible: $0) }.sorted { $0.name < $1.name })
+            let collectibles = value.compactMap { CollectibleViewModel(collectible: $0) }.sorted { $0.name < $1.name }
+            
+            return Section(name: name , imageURL: logoURL, collectibles: collectibles)
         }.sorted { $0.name < $1.name }
     }
 }
