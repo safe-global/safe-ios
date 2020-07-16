@@ -29,12 +29,11 @@ struct AddressCell: View {
             CopyButton(address) {
                 VStack (alignment: .leading) {
                     if !title.isEmpty {
-                        BodyText(title)
+                        Text(title).body()
                     }
 
                     SlicedText(address)
                         .style(addressStyle)
-                        .font(Font.gnoBody.weight(.medium))
                 }
             }.disabled([.shortAddressNoShare, .shortAddressNoShareGrayColor].contains(style))
 

@@ -14,7 +14,7 @@ struct TransactionStatusTypeView: View {
         VStack(alignment: .leading) {
             HStack {
                 Image(imageName)
-                BodyText(title)
+                Text(title).body()
 
                 if !transaction.status.isWaiting {
                     TransactionStatusView(status: transaction.status)

@@ -23,7 +23,8 @@ struct TermsView: View {
 
     var body: some View {
         VStack(spacing: interItemSpacing) {
-            BoldText("Please review our Terms of Use and Privacy Policy.")
+            Text("Please review our Terms of Use and Privacy Policy.")
+                .headline()
                 .multilineTextAlignment(.center)
 
             VStack(alignment: .leading) {
@@ -64,7 +65,7 @@ struct TermsView: View {
                     .foregroundColor(.gnoHold)
                     .padding(.top, bulletTopPadding)
                 Text(text)
-                    .font(Font.gnoHeadline.weight(.medium))
+                    .font(.gnoBody)
             }
         }
     }

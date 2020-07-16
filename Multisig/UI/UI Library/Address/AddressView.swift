@@ -24,6 +24,7 @@ struct AddressView: View {
 
             SlicedText(text)
                 .style(.addressLong)
+                .font(nil)
         }
     }
 }

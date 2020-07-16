@@ -25,7 +25,6 @@ struct CorrectAddressView: View {
 
                 SlicedText(address)
                     .style(.addressLong)
-                    .font(Font.gnoBody.weight(.medium))
                     .multilineTextAlignment(.center)
             }
         }
@@ -33,7 +32,7 @@ struct CorrectAddressView: View {
     }
 
     var titleView: some View {
-        BodyText(title!)
+        Text(title!).body()
             .background(
                 checkmark(position: .title).offset(x: -25),
                 alignment: .leading)

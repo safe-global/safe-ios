@@ -45,7 +45,7 @@ struct EditSafeNameView: View {
                                 }
                             },
                             onCommit: submit)
-                ErrorText(model.error)
+                Text(model.error).error()
             }
 
             Spacer()

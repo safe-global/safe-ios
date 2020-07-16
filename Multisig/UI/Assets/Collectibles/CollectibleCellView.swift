@@ -14,11 +14,18 @@ struct CollectibleCellView: View {
     private let imageDimention: CGFloat = 144
     var body: some View {
         HStack (alignment: .top) {
-            TokenImage(width: imageDimention, height: imageDimention, url: viewModel.imageURL, name: "ico-collectible-placeholder")
+            TokenImage(
+                width: imageDimention,
+                height: imageDimention,
+                url: viewModel.imageURL,
+                name: "ico-collectible-placeholder")
 
             VStack (alignment: .leading, spacing: 10) {
-                BodyText(viewModel.name, textColor: nameTextColor).font(Font.gnoBody.weight(.semibold))
-                BodyText(viewModel.description)
+                Text(viewModel.name)
+                    .headline(nameTextColor)
+
+                Text(viewModel.description)
+                    .body()
             }.padding(.vertical)
 
             Spacer()

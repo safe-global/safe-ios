@@ -24,9 +24,11 @@ struct TransferValueView: View {
             }
 
             VStack (alignment: .leading) {
-                BodyText("\(transaction.amount) \(transaction.tokenSymbol)", textColor: amountColor)
+                Text("\(transaction.amount) \(transaction.tokenSymbol)")
+                    .body(amountColor)
                 if dataLength != 0 {
-                    FootnoteText("\(dataLength) bytes")
+                    Text("\(dataLength) bytes")
+                        .footnote()
                 }
             }.opacity(opactiy)
         }

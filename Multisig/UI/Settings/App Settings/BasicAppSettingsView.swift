@@ -23,7 +23,7 @@ struct BasicAppSettingsView: View {
             BrowserLink(title: "Licenses", url: legal.licensesURL)
 
             NavigationLink(destination: GetInTouchView().hidesSystemNavigationBar(false)) {
-                BodyText("Get in touch")
+                Text("Get in touch").body()
             }
             .frame(height: rowHeight)
             
@@ -34,7 +34,7 @@ struct BasicAppSettingsView: View {
 
             Section(header: SectionHeader("")) {
                 NavigationLink(destination: AdvancedAppSettings().hidesSystemNavigationBar(false)) {
-                    BodyText("Advanced")
+                    Text("Advanced").body()
                 }
                 .frame(height: rowHeight)
             }

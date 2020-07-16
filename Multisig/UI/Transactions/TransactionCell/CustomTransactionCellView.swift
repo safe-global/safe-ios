@@ -18,10 +18,12 @@ struct CustomTransactionCellView: View {
             Spacer()
 
             VStack {
-                BodyText("\(transaction.amount) \(transaction.tokenSymbol)")
+                Text("\(transaction.amount) \(transaction.tokenSymbol)")
+                    .body()
 
                 if transaction.dataLength != 0 {
-                    FootnoteText("\(transaction.dataLength) bytes")
+                    Text("\(transaction.dataLength) bytes")
+                        .footnote()
                 }
             }
         }

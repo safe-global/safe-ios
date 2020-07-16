@@ -18,7 +18,7 @@ struct SafeInfoView: View {
     var body: some View {
         ZStack {
             if selectedSafe.first == nil {
-                BodyText("No Safe is selected")
+                Text("No Safe is selected").body()
             } else {
                 SafeInfoContentView(safe: selectedSafe.first!)
             }
@@ -33,7 +33,7 @@ struct SafeInfoContentView: View {
     var body: some View {
         VStack (alignment: .center) {
             Identicon(safe.address).frame(width: 56, height: 56)
-            BoldText(safe.displayName).padding(.top, 6)
+            Text(safe.displayName).headline().padding(.top, 6)
 
             if safe.hasAddress {
                 CenteredAddressWithLink(safe: safe).padding(.top, 3)

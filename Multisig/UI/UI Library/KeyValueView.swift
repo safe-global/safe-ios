@@ -14,9 +14,9 @@ struct KeyValueView: View {
     
     var body: some View {
         HStack {
-            BodyText(key)
+            Text(key).body()
             Spacer()
-            ValueText(value)
+            Text(value).body(.gnoDarkGrey)
         }
     }
 }

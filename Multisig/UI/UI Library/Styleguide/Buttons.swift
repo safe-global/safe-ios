@@ -14,7 +14,7 @@ struct GNOFilledButtonStyle: ButtonStyle {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
-            .font(Font.gnoBody.bold())
+            .font(.gnoHeadline2)
             .background(configuration.isPressed ? Color.gnoHoldTwo : .gnoHold)
             .foregroundColor(.gnoSnowwhite)
             .cornerRadius(10)
@@ -26,7 +26,7 @@ struct GNOBorderedButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .font(Font.gnoBody.bold())
+            .font(.gnoHeadline2)
             .foregroundColor(color(configuration))
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
@@ -43,7 +43,7 @@ struct GNOPlainButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .font(Font.gnoBody.weight(.medium))
+            .font(.gnoBody)
             .foregroundColor(
                 configuration.isPressed ? Color.gnoHoldTwo : .gnoHold)
     }
