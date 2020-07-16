@@ -47,7 +47,8 @@ struct TransactionListView: Loadable {
             }
 
             if model.isLoadingNextPage {
-                ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
+                ActivityIndicator(isAnimating: .constant(true), style: .medium)
+                    .frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
             }
         }
     }

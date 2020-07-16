@@ -89,7 +89,6 @@ class TransactionsViewModel: BasicLoadableViewModel {
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
-                    self.nextURL = nil
                     App.shared.snackbar.show(message: error.localizedDescription)
                 }
                 self.isLoadingNextPage = false
