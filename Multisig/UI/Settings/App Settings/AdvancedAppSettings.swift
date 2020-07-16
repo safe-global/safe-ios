@@ -27,7 +27,7 @@ struct AdvancedAppSettings: View {
             }
 
             if !(App.configuration.services.environment == .production) {
-                Section(header: SectionHeader("DUBUG")) {
+                Section(header: SectionHeader("DEBUG")) {
                     Button(action: {
                         fatalError()
                     }) {

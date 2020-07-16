@@ -83,8 +83,8 @@ class HTTPClient {
                 }
             case .unknownError(let request, let response, let data):
                 let requestStr = String(describing: request)
-                let responseStr = response != nil ? String(describing: response!) : ""
-                let dataStr = data != nil ? String(describing: data!) : ""
+                let responseStr = response.map { String(describing: $0) } ?? ""
+                let dataStr = data.map { String(describing: $0) } ?? ""
                 LogService.shared.error(
                     "Unknown HTTP error. Request: \(requestStr); Response: \(responseStr); Data: \(dataStr)")
                 return Message.unexpectedError.rawValue
