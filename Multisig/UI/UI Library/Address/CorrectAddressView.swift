@@ -23,7 +23,8 @@ struct CorrectAddressView: View {
             HStack(alignment: .firstTextBaseline, spacing: 2) {
                 checkmark(position: .address)
 
-                AddressText(address)
+                SlicedText(address)
+                    .style(.addressLong)
                     .font(Font.gnoBody.weight(.medium))
                     .multilineTextAlignment(.center)
             }
