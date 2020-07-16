@@ -13,15 +13,25 @@ struct CollectiblesSectionView: View {
 
     private let imageDimention: CGFloat = 28
     var body: some View {
-        VStack (alignment: .leading, spacing: 12) {
-            HStack {
-                TokenImage(width: imageDimention, height: imageDimention, url: section.imageURL, name: "ico-nft-placeholder")
-                BodyText(section.name).font(Font.gnoBody.weight(.semibold))
-            }
-
+        Section (header: header) {
             ForEach(section.collectibles) { collectible in
-                CollectibleCellView(viewModel: collectible)
+                NavigationLink(destination: CollectibleDetailsView(viewModel: collectible)) {
+                    CollectibleCellView(viewModel: collectible)
+                }
+                .buttonStyle(PlainButtonStyle())
             }
-        }.padding(.vertical)
+        }
+    }
+
+    var header: some View {
+        HStack {
+            TokenImage(width: imageDimention, height: imageDimention, url: section.imageURL, name: "ico-nft-placeholder")
+            BodyText(section.name).font(Font.gnoBody.weight(.semibold))
+            Spacer()
+        }
+        .padding(.horizontal)
+        .frame(height: 44)
+        .background(Color.white)
+        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
 }

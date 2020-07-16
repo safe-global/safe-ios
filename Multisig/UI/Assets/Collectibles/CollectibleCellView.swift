@@ -27,7 +27,7 @@ struct CollectibleCellView: View {
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .foregroundColor(Color.white)
-                .cardShadowTooltip()
+                .gnoShadow()
         )
     }
 
