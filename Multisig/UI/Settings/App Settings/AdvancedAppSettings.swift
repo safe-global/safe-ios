@@ -25,6 +25,16 @@ struct AdvancedAppSettings: View {
                 KeyValueRow("Transaction service",
                             value: DisplayURL(App.shared.safeTransactionService.url).absoluteString)
             }
+
+            if !(App.configuration.services.environment == .production) {
+                Section(header: SectionHeader("DEBUG")) {
+                    Button(action: {
+                        fatalError()
+                    }) {
+                        BodyText("Crash the App")
+                    }
+                }
+            }
         }
         .onAppear {
             self.theme.setTemporaryTableViewBackground(nil)
