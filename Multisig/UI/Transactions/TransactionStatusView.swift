@@ -14,15 +14,18 @@ struct TransactionStatusView: View {
     var body: some View {
         HStack (spacing: 6) {
             if [.waitingConfirmation, .waitingExecution].contains(status) {
-                Image("ico-bullet-point").foregroundColor(statusColor)
+                Image("ico-bullet-point")
             }
 
             if style == .body {
-                BodyText(status.title, textColor: statusColor)
+                Text(status.title)
+                    .body(statusColor)
             } else {
-                FootnoteText(status.title, color: statusColor)
+                Text(status.title)
+                    .footnote(statusColor)
             }
         }
+        .foregroundColor(statusColor)
     }
     
     var statusColor: Color {

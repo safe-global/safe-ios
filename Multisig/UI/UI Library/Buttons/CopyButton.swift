@@ -28,6 +28,12 @@ struct CopyButton<Content: View>: View {
     }
 }
 
+extension CopyButton {
+    init(_ address: Address, @ViewBuilder _ content: () -> Content) {
+        self.init(address.checksummed, content)
+    }
+}
+
 struct CopyButton_Previews: PreviewProvider {
     static var previews: some View {
         CopyButton("Paste") {

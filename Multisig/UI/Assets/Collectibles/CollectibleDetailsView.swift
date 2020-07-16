@@ -29,13 +29,13 @@ struct CollectibleDetailsView: View {
                             .gnoShadow()
                     )
                 
-                BodyText(viewModel.name)
+                Text(viewModel.name).body()
 
                 if viewModel.tokenID != nil {
-                    FootnoteText(viewModel.tokenID!)
+                    Text(viewModel.tokenID!).footnote()
                 }
 
-                BodyText(viewModel.description)
+                Text(viewModel.description).body()
             }
 
             AddressCell(address: viewModel.address, title: "Asset Contract", style: .shortAddress)

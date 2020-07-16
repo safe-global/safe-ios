@@ -29,6 +29,12 @@ struct BrowseAddressView: View {
     }
 }
 
+extension BrowseAddressView {
+    init(address: Address) {
+        self.address = address.checksummed
+    }
+}
+
 struct BrowseAddressView_Previews: PreviewProvider {
     static var previews: some View {
         BrowseAddressView(address: "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F")

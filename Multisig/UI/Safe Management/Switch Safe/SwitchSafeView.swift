@@ -50,7 +50,8 @@ struct SwitchSafeView: View {
             }
             .frameForTapping(alignment: .leading)
 
-            BoldText("Switch Safes")
+            Text("Switch Safes")
+                .headline()
                 // otherwise the text is too far to the right
                 .padding(.leading, -10)
 

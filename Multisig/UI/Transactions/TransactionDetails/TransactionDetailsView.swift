@@ -25,7 +25,7 @@ struct TransactionDetailsView: View {
 
             if data != nil {
                 VStack (alignment: .leading) {
-                    BoldText("Data")
+                    Text("Data").headline()
                     ExpandableButton(title: "\(data!.length) Bytes", value: data!.data)
                 }.padding(.vertical, 11)
             }
@@ -45,7 +45,7 @@ struct TransactionDetailsView: View {
 
             if transaction.hasAdvancedDetails {
                 NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transaction)) {
-                    BodyText("Advanced")
+                    Text("Advanced").body()
                 }
                 .frame(height: 48)
             }

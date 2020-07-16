@@ -29,14 +29,15 @@ struct BasicSafeSettingsView: Loadable {
                         name: safe.name ?? ""
                     )
                     .hidesSystemNavigationBar(false)) {
-                    BodyText(safe.name ?? "")
+                    Text(safe.name ?? "").body()
                 }
                     
                 .frame(height: rowHeight)
             }
 
             Section(header: SectionHeader("REQUIRED CONFIRMATIONS")) {
-                BodyText("\(safe.threshold ?? 0) out of \(safe.owners?.count ?? 0)")
+                Text("\(String(describing: safe.threshold ?? 0)) out of \(safe.owners?.count ?? 0)")
+                    .body()
                     .frame(height: rowHeight)
             }
 
@@ -57,7 +58,7 @@ struct BasicSafeSettingsView: Loadable {
 
             Section(header: SectionHeader("")) {
                 NavigationLink(destination: AdvancedSafeSettingsView(safe: safe).hidesSystemNavigationBar(false)) {
-                    BodyText("Advanced")
+                    Text("Advanced").body()
                 }
                 .frame(height: rowHeight)
 

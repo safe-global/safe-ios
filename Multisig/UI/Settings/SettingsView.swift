@@ -20,7 +20,7 @@ struct SettingsView: View {
                     HStack {
                         Image("ico-safe-settings").frame(width: 24, height: 24)
                         Text("SAFE SETTINGS")
-							.font(Font.gnoCaption1)
+                            .caption()
                             .tracking(0.54)
                     }
                 }
@@ -30,7 +30,7 @@ struct SettingsView: View {
                     HStack {
                         Image("ico-app-settings")
                         Text("APP SETTINGS")
-                            .font(Font.gnoCaption1)
+                            .caption()
                             .tracking(0.45)
                     }
                 }

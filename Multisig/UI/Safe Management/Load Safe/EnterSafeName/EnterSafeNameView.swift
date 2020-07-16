@@ -24,7 +24,8 @@ struct EnterSafeNameView: View {
             CorrectAddressView(address: model.address)
                 .layoutPriority(1)
 
-            BodyText("Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties.")
+            Text("Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties.")
+                .body()
                 .multilineTextAlignment(.center)
 
             RoundedTextField(

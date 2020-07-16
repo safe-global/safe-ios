@@ -24,11 +24,12 @@ struct SafeCell: View {
                 .frame(width: iconSize, height: iconSize)
 
             VStack(alignment: .leading) {
-                BoldText(safe.name ?? "")
+                Text(safe.name ?? "")
+                    .headline()
                     .lineLimit(1)
 
-                AddressText(safe.address ?? "", style: .short)
-                    .font(Font.gnoBody.weight(.medium))
+                SlicedText(safe.address ?? "")
+                    .style(.addressShortLight)
             }
         }
     }

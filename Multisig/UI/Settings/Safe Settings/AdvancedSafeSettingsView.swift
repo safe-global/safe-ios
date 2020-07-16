@@ -22,7 +22,7 @@ struct AdvancedSafeSettingsView: View {
             fallbackHandlerView
             
             Section(header: SectionHeader("NONCE")) {
-                BodyText("\(safe.nonce ?? 0)")
+                Text("\(String(describing: safe.nonce ?? 0))").body()
             }
              
             modulesSection
@@ -44,7 +44,7 @@ struct AdvancedSafeSettingsView: View {
         let title = App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: safe.fallbackHandler)
         return Group {
             if fallbackHandler.isEmpty || fallbackHandler == "0" {
-                 BodyText("Not set")
+                 Text("Not set").body()
             } else {
                 Section(header: SectionHeader("FALLBACK HANDLER")) {
                     AddressCell(address: fallbackHandler, title: title, style: .shortAddress)

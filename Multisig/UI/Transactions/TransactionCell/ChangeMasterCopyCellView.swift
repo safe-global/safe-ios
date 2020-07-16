@@ -17,7 +17,7 @@ struct ChangeMasterCopyCellView: View {
 
             Spacer()
 
-            BodyText("Change \n mastercopy").multilineTextAlignment(.trailing).fixedSize()
+            Text("Change \n mastercopy").body().multilineTextAlignment(.trailing).fixedSize()
         }
     }
 }

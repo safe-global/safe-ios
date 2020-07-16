@@ -71,7 +71,7 @@ struct SafeAddressField: View {
     var errorView: some View {
         ZStack {
             if !error.wrappedValue.isEmpty {
-                ErrorText(error.wrappedValue)
+                Text(error.wrappedValue).error()
             }
         }
     }
@@ -88,7 +88,7 @@ struct SafeAddressField: View {
                 AddressInputSelector(isPresented: $showsSelector, text: enteredText)
             }
         }
-        .font(Font.gnoBody.weight(.medium))
+        .font(.gnoBody)
         .padding()
         .frame(height: isEmpty ? 56 : 74)
         .background(borderView)

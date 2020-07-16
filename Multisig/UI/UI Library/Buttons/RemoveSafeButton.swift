@@ -20,7 +20,7 @@ struct RemoveSafeButton: View {
             self.showDeleteConfirmation.toggle()
         }) {
             HStack {
-                Image(systemName: "trash").font(Font.gnoBody.bold())
+                Image(systemName: "trash").font(.gnoHeadline2)
                 Text("Remove Safe").font(.gnoHeadline)
                 Spacer()
             }

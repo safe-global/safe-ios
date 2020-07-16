@@ -29,16 +29,16 @@ struct AddressCell: View {
             CopyButton(address) {
                 VStack (alignment: .leading) {
                     if !title.isEmpty {
-                        BodyText(title)
+                        Text(title).body()
                     }
 
-                    addressText
+                    SlicedText(address)
+                        .style(addressStyle)
                 }
             }.disabled([.shortAddressNoShare, .shortAddressNoShareGrayColor].contains(style))
 
             if ![.shortAddressNoShare, .shortAddressNoShareGrayColor].contains(style) {
                 Spacer()
-
                 BrowseAddressView(address: address)
             }
         }
@@ -46,22 +46,17 @@ struct AddressCell: View {
         .frame(height: 50)
     }
 
-    var addressText: some View {
-        var addressStyle: AddressText.Style = .long
-        if style == .normal {
-            addressStyle = .long
+    var addressStyle: SlicedText.Style {
+        switch style {
+        case .normal:
+            return .addressLong
+        case .shortAddress, .shortAddressNoShareGrayColor:
+            return .addressShortLight
+        case .shortAddressNoShare:
+            return .addressShortDark
         }
-        else if [.shortAddress, .shortAddressNoShareGrayColor].contains(style) {
-            addressStyle = .short
-        }
-        else {
-            addressStyle = .shortTrailColor
-        }
-
-        return AddressText(address, style: addressStyle)
-                .font(Font.gnoBody.weight(.medium))
     }
-    
+
     func browseSafeAddress() -> some View {
         return SafariViewController(url: Safe.browserURL(address: address))
     }

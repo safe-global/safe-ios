@@ -26,7 +26,7 @@ struct CollectiblesSectionView: View {
     var header: some View {
         HStack {
             TokenImage(width: imageDimention, height: imageDimention, url: section.imageURL, name: "ico-nft-placeholder")
-            BodyText(section.name).font(Font.gnoBody.weight(.semibold))
+            Text(section.name).body().font(Font.gnoBody.weight(.semibold))
             Spacer()
         }
         .padding(.horizontal)

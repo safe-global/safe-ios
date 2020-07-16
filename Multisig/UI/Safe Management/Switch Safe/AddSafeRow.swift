@@ -20,7 +20,7 @@ struct AddSafeRow: View {
             HStack(spacing: 6) {
                 Image.plusCircle
 
-                Text("Add Safe").font(Font.gnoBody.weight(.medium))
+                Text("Add Safe").font(.gnoBody)
 
                 Spacer()
 

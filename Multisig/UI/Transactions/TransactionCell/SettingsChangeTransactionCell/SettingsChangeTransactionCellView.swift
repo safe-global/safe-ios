@@ -35,7 +35,7 @@ struct SettingsChangeTransactionCellView: View {
     var defaultContent: some View {
         HStack {
             Image("ico-settings-tx")
-            BodyText(transaction.title)
+            Text(transaction.title).body()
             Spacer()
         }
     }
