@@ -110,7 +110,7 @@ extension TransferMethod {
 }
 
 struct TransferInfo {
-    var safe, from, to: Address
+    var from, to: Address
     var amount: UInt256
     var token: Token
 }
@@ -126,7 +126,6 @@ extension TransferInfo {
 
     init(ether tx: Transaction, info: SafeInfo, token: Token) {
         self.init(
-            safe: tx.safeAddress(info),
             from: tx.safeAddress(info),
             to: tx.to?.address ?? .zero,
             amount: tx.value?.value ?? 0,
@@ -139,7 +138,6 @@ extension TransferInfo {
 
     init(erc20 transfer: TransactionTransfer, tx: Transaction, info: SafeInfo, token: Token) {
         self.init(
-            safe: tx.safeAddress(info),
             from: transfer.from.address,
             to: transfer.to.address,
             amount: transfer.value?.value ?? 0,
@@ -148,7 +146,6 @@ extension TransferInfo {
 
     init(erc20 method: TransferMethod,  tx: Transaction, info: SafeInfo, token: Token) {
         self.init(
-            safe: tx.safeAddress(info),
             from: method.from ?? tx.safeAddress(info),
             to: method.to,
             amount: method.amount,
@@ -157,7 +154,6 @@ extension TransferInfo {
 
     init(erc721 transfer: TransactionTransfer, tx: Transaction, info: SafeInfo, token: Token) {
         self.init(
-            safe: tx.safeAddress(info),
             from: transfer.from.address,
             to: transfer.to.address,
             amount: 1,
@@ -166,7 +162,6 @@ extension TransferInfo {
 
     init(erc721 method: TransferMethod,  tx: Transaction, info: SafeInfo, token: Token) {
         self.init(
-        safe: tx.safeAddress(info),
         from: method.from ?? tx.safeAddress(info),
         to: method.to,
         amount: 1,
