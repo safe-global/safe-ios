@@ -25,7 +25,7 @@ struct CollectibleDetailsView: View {
                     .cornerRadius(cornerRadius)
                     .background(
                         RoundedRectangle(cornerRadius: cornerRadius)
-                            .foregroundColor(Color.gnoWhite)
+                            .foregroundColor(Color.gnoSnowwhite)
                             .gnoShadow()
                     )
                 

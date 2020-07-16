@@ -33,7 +33,7 @@ struct CollectibleCellView: View {
         .cornerRadius(10, antialiased: true)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(Color.white)
+                .foregroundColor(Color.gnoSnowwhite)
                 .gnoShadow()
         )
     }
