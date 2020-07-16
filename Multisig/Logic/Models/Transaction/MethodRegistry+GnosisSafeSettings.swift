@@ -127,12 +127,7 @@ extension MethodRegistry {
         ]
 
         static func method(from data: TransactionData) -> SmartContractMethodCall? {
-            for method in methods {
-                if let value = method.init(data: data) {
-                    return value
-                }
-            }
-            return nil
+            MethodRegistry.method(from: data, candidates: methods)
         }
 
         static func isValid(_ tx: Transaction) -> Bool {
@@ -143,6 +138,15 @@ extension MethodRegistry {
                 method(from: tx.dataDecoded!) != nil
         }
 
+    }
+
+    static func method(from data: TransactionData?, candidates: [SmartContractMethodCall.Type]) -> SmartContractMethodCall? {
+        data.flatMap { d in
+            candidates.compactMap { method in
+                method.init(data: d)
+            }
+            .first
+        }
     }
 
 }

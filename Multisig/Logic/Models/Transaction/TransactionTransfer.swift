@@ -29,15 +29,37 @@ enum TransactionTransferType: String, Decodable {
 }
 
 struct TokenInfo: Decodable, Hashable {
+    let type: TokenType
     let address: AddressString
-    let decimals: UInt256String?
-    let symbol: String?
     let name: String?
+    let symbol: String?
+    let decimals: UInt256String?
     let logoUri: String?
-    let tokenType: TokenType?
 }
 
 enum TokenType: String, Decodable {
     case erc20 = "ERC20"
     case erc721 = "ERC721"
+}
+
+func == (lhs: TransactionTransferType, rhs: TokenType) -> Bool {
+    lhs == TransactionTransferType.erc20 && rhs == TokenType.erc20 ||
+        lhs == TransactionTransferType.erc721 && rhs == TokenType.erc721
+}
+
+func != (lhs: TransactionTransferType, rhs: TokenType) -> Bool {
+    !(lhs == rhs)
+}
+
+extension Token {
+
+    init(_ token: TokenInfo) {
+        type = token.type
+        address = token.address.address
+        logo = token.logoUri.flatMap { URL(string: $0) }
+        name = token.name ?? (token.type == .erc20 ? "ERC20" : "ERC721")
+        symbol = token.symbol ?? (token.type == .erc20 ? "ERC20" : "NFT")
+        decimals = token.decimals?.value ?? 0
+    }
+
 }
