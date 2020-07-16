@@ -31,7 +31,7 @@ struct AdvancedAppSettings: View {
                     Button(action: {
                         fatalError()
                     }) {
-                        BodyText("Crash the App")
+                        Text("Crash the App").body()
                     }
                 }
             }

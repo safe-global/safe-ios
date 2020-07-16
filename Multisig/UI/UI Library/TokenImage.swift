@@ -10,8 +10,8 @@ import SwiftUI
 import struct Kingfisher.KFImage
 
 struct TokenImage: View {
-    var width: CGFloat = 28
-    var height: CGFloat = 28
+    var width: CGFloat? = 28
+    var height: CGFloat? = 28
     var url: URL?
     var name: String?
 
