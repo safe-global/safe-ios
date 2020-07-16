@@ -222,6 +222,8 @@
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6500A24485E450018D070 /* Identicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6500924485E450018D070 /* Identicon.swift */; };
 		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
+		0AF66E9D24C0B65F004B7863 /* TransferMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF66E9C24C0B65F004B7863 /* TransferMethod.swift */; };
+		0AF66E9F24C0B672004B7863 /* TransferInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF66E9E24C0B672004B7863 /* TransferInfo.swift */; };
 		0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729B24BF361600A370EE /* SlicedString.swift */; };
 		0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729D24BF363400A370EE /* SlicedText.swift */; };
 		0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729F24BF368900A370EE /* SlicedText+Address.swift */; };
@@ -521,6 +523,8 @@
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF6500924485E450018D070 /* Identicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identicon.swift; sourceTree = "<group>"; };
 		0AF6501A24488D280018D070 /* FullSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSize.swift; sourceTree = "<group>"; };
+		0AF66E9C24C0B65F004B7863 /* TransferMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferMethod.swift; sourceTree = "<group>"; };
+		0AF66E9E24C0B672004B7863 /* TransferInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferInfo.swift; sourceTree = "<group>"; };
 		0AF7F765247FC28B00527014 /* Config.Example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.Example.xcconfig; sourceTree = "<group>"; };
 		0AF7F766247FC3FB00527014 /* Development.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.Rinkeby.xcconfig; sourceTree = "<group>"; };
 		0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.Mainnet.xcconfig; sourceTree = "<group>"; };
@@ -1187,6 +1191,8 @@
 				0AA9F2012497BDA3005BD60F /* MethodRegistry.swift */,
 				0AA9F1FB2497BD5F005BD60F /* MethodRegistry+ERC20.swift */,
 				0AA9F1FD2497BD77005BD60F /* MethodRegistry+ERC721.swift */,
+				0AF66E9E24C0B672004B7863 /* TransferInfo.swift */,
+				0AF66E9C24C0B65F004B7863 /* TransferMethod.swift */,
 				0AA9F1FF2497BD89005BD60F /* MethodRegistry+Ether.swift */,
 				0AA9F1F92497BD3A005BD60F /* MethodRegistry+GnosisSafeMasterCopy.swift */,
 				0AA9F1F72497BD15005BD60F /* MethodRegistry+GnosisSafeSettings.swift */,
@@ -1929,6 +1935,7 @@
 				55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */,
 				0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
+				0AF66E9D24C0B65F004B7863 /* TransferMethod.swift in Sources */,
 				0A7AEAE32462FA6000014184 /* AddSafeRow.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
@@ -2045,6 +2052,7 @@
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
 				04C97AAE246ED43A00EBA0F1 /* FiatCurrenciesView.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
+				0AF66E9F24C0B672004B7863 /* TransferInfo.swift in Sources */,
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
 				046D0A6F249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift in Sources */,
 				04CE3F8F24B5F67100826AEE /* CollectiblesView.swift in Sources */,
