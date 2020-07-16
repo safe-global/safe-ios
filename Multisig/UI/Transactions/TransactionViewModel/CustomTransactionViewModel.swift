@@ -18,25 +18,15 @@ class CustomTransactionViewModel: TransferTransactionViewModel {
         super.init()
     }
 
-    init(_ tx: Transaction, _ safe: SafeStatusRequest.Response) {
+    override init(outgoing: Bool? = nil, transfer: TransferInfo, tx: Transaction, safe: SafeInfo) {
         dataLength = tx.data.map { $0.data.count } ?? 0
         data = tx.data?.description ?? ""
-        let safeAddress = tx.safe?.address ?? safe.address.address
-        let from = safeAddress
-        let to = tx.to?.address ?? .zero
-        let amount = tx.value?.value ?? 0
-        let tokenAddress = AddressRegistry.ether
-        super.init(
-            from: from,
-            to: to,
-            safe: safeAddress,
-            erc721: false,
-            value: amount,
-            tokenAddress: tokenAddress,
-            date: nil,
-            status: nil,
-            tx: tx,
-            safeInfo: safe)
+        super.init(outgoing: outgoing ?? true, transfer: transfer, tx: tx, safe: safe)
     }
 
+    override class func viewModels(from tx: Transaction, info: SafeStatusRequest.Response) -> [TransactionViewModel] {
+        let token =  App.shared.tokenRegistry.token(address: AddressRegistry.ether)!
+        let transfer = TransferInfo(ether: tx, info: info, token: token)
+        return [CustomTransactionViewModel(transfer: transfer, tx: tx, safe: info)]
+    }
 }

@@ -78,18 +78,6 @@ class TransactionViewModel: Identifiable, Equatable {
         []
     }
 
-    static func classify(tx: Transaction, info: SafeStatusRequest.Response) -> [TransactionViewModel] {
-        [
-            TransferTransactionViewModel.self,
-            SettingChangeTransactionViewModel.self,
-            ChangeMasterCopyTransactionViewModel.self,
-            CustomTransactionViewModel.self
-        ]
-        .map { $0.viewModels(from: tx, info: info) }
-        .first { !$0.isEmpty }
-        ?? []
-    }
-
 }
 
 extension GnosisSafeOperation {

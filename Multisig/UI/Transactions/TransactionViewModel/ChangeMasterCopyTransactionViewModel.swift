@@ -31,4 +31,11 @@ class ChangeMasterCopyTransactionViewModel: TransactionViewModel {
         super.init(tx, safe)
     }
 
+    override class func viewModels(from tx: Transaction, info: SafeStatusRequest.Response) -> [TransactionViewModel] {
+        guard MethodRegistry.GnosisSafeMasterCopy.isValid(tx) else {
+            return []
+        }
+        return [ChangeMasterCopyTransactionViewModel(tx, info)]
+    }
+
 }
