@@ -14,18 +14,18 @@ struct CollectibleDetailsView: View {
 
     let viewModel: CollectibleViewModel
 
-    private let imageDimention: CGFloat = 100
+    private let cornerRadius: CGFloat = 10
     
     var body: some View {
         List {
             VStack (alignment: .leading, spacing: 7) {
                 TokenImage(width: nil, height: nil, url: viewModel.imageURL, name: "ico-collectible-placeholder")
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .aspectRatio(1.0, contentMode: .fill)
-                    .cornerRadius(10, antialiased: true)
+                    .cornerRadius(cornerRadius)
                     .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(Color.white)
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .foregroundColor(Color.gnoWhite)
                             .gnoShadow()
                     )
                 
@@ -43,8 +43,8 @@ struct CollectibleDetailsView: View {
             if viewModel.website != nil && viewModel.websiteName != nil {
                 BrowseLinkButton(title: "View on " + viewModel.websiteName!, url: viewModel.website!)
             }
-
-        }.padding()
+        }
+        .padding()
 
         .onAppear {
             self.theme.setTemporaryTableViewBackground(nil)
