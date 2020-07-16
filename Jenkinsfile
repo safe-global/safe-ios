@@ -3,7 +3,8 @@ pipeline {
     environment {
         // this enables ruby gem binaries, such as xcpretty
         PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
-        INFURA_KEY = credentials('INFURA_KEY')
+        INFURA_STAGING_KEY = credentials('INFURA_STAGING_KEY')
+        INFURA_PROD_KEY = credentials('INFURA_PROD_KEY')
         ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
         CODECOV_TOKEN = credentials('CODECOV_TOKEN')
     }
@@ -36,10 +37,10 @@ pipeline {
                     // granted the access to the signing certificates via
                     // the machine's UI (remotely or directly), then
                     // the uploading to AppStoreConnect started to work.
-                    sh 'bin/archive.sh "Multisig - Staging Rinkeby"'
-                    sh 'bin/archive.sh "Multisig - Staging Mainnet"'
-                    sh 'bin/archive.sh "Multisig - Production Rinkeby"'
-                    sh 'bin/archive.sh "Multisig - Production Mainnet"'
+                    sh 'INFURA_KEY="${INFURA_STAGING_KEY}" bin/archive.sh "Multisig - Staging Rinkeby"'
+                    sh 'INFURA_KEY="${INFURA_STAGING_KEY}" bin/archive.sh "Multisig - Staging Mainnet"'
+                    sh 'INFURA_KEY="${INFURA_PROD_KEY}" bin/archive.sh "Multisig - Production Rinkeby"'
+                    sh 'INFURA_KEY="${INFURA_PROD_KEY}" bin/archive.sh "Multisig - Production Mainnet"'
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
             }
