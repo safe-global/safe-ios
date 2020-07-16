@@ -149,11 +149,4 @@ class MethodRegistry_ERC20Tests: MethodRegistryTestCase {
         }
     }
 
-    func testIsValidTransfer() {
-        XCTAssertTrue(MethodRegistry.ERC20.isValid(Transaction(operation: .call, dataDecoded: validTransferData)))
-        XCTAssertTrue(MethodRegistry.ERC20.isValid(Transaction(operation: .call, dataDecoded: validTransferFromData)))
-        XCTAssertFalse(MethodRegistry.ERC20.isValid(Transaction(operation: .delegateCall, dataDecoded: validTransferData)))
-        XCTAssertFalse(MethodRegistry.ERC20.isValid(Transaction(operation: .call, dataDecoded: nil)))
-    }
-
 }
