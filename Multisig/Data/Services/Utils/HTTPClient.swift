@@ -44,18 +44,20 @@ class HTTPClient {
         enum Message: String {
             case networkRequestFailed = "The network request failed. Please try out later."
             case entityNotFound = "Entity not found."
-            case invalidSafeChecksum = "Safe address checksum is not valid."
+            case invalidChecksum = "Checksum address validation failed."
+            case safeInfoNotFound = "Safe info is not found."
             case unexpectedError = "Unexpected error. We are notified and will try to fix it asap."
 
             /// Create a proper message from our backend internal code.
             /// - Parameter code: backend internal code of error.
             init(code: Int) {
-                #warning("TODO: this is a placeholder. Need to use real codes.")
                 switch code {
-                case 1000:
-                    self = .invalidSafeChecksum
+                case 1:
+                    self = .invalidChecksum
+                case 50:
+                    self = .safeInfoNotFound
                 default:
-                    #warning("TODO: Crashlytics.")
+                    LogService.shared.error("Unrecognised error code: \(code)")
                     self = .unexpectedError
                 }
             }
@@ -69,18 +71,22 @@ class HTTPClient {
                 return Message.entityNotFound.rawValue
             case .unprocessableEntity(_, _, let data):
                 guard let data = data else {
-                    #warning("TODO: Crashlytics")
+                    LogService.shared.error("Missing data in unprocessableEntity error")
                     return Message.unexpectedError.rawValue
                 }
                 do {
                     let details = try JSONDecoder().decode(ErrorDetails.self, from: data)
                     return Message(code: details.code).rawValue
                 } catch {
-                    #warning("TODO: Crashlytics")
+                    LogService.shared.error("Could not decode error details from the data: \(data)")
                     return Message.unexpectedError.rawValue
                 }
-            default:
-                #warning("TODO: Crashlytics")
+            case .unknownError(let request, let response, let data):
+                let requestStr = String(describing: request)
+                let responseStr = response.map { String(describing: $0) } ?? ""
+                let dataStr = data.map { String(describing: $0) } ?? ""
+                LogService.shared.error(
+                    "Unknown HTTP error. Request: \(requestStr); Response: \(responseStr); Data: \(dataStr)")
                 return Message.unexpectedError.rawValue
             }
         }

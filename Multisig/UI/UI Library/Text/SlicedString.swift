@@ -9,24 +9,19 @@
 import Foundation
 
 struct SlicedString {
-
     let value: String
-
     let start: String
     let middle: String
     let end: String
-
 }
 
 extension SlicedString {
-
     init(text: String, prefix prefixCount: Int = 4, suffix suffixCount: Int = 4) {
         value = text
         start = String(text.prefix(prefixCount))
         middle = String(text.dropFirst(prefixCount).dropLast(suffixCount))
         end = String(text.dropFirst(prefixCount).suffix(suffixCount))
     }
-
 }
 
 extension SlicedString {
