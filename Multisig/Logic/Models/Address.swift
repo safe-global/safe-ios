@@ -35,7 +35,7 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
     }
 
     init(exactly value: UInt256) {
-        let data =  Data(ethHex: String(value, radix: 16))
+        let data =  Data(ethHex: String(value, radix: 16)).endTruncated(to: 20).leftPadded(to: 20)
         self.init(exactly: data)
     }
 

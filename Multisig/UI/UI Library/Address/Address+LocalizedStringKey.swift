@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+// This allows to use interpolated address inside Text views, like
+//      Text("\(address)")
 extension LocalizedStringKey.StringInterpolation {
     mutating func appendInterpolation(_ value: Address) {
         appendLiteral(value.description)
