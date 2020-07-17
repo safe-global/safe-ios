@@ -127,22 +127,27 @@ extension MethodRegistry {
         ]
 
         static func method(from data: TransactionData) -> SmartContractMethodCall? {
-            for method in methods {
-                if let value = method.init(data: data) {
-                    return value
-                }
-            }
-            return nil
+            MethodRegistry.method(from: data, candidates: methods)
         }
 
         static func isValid(_ tx: Transaction) -> Bool {
-            return tx.to != nil &&
-                tx.to == tx.safe &&
-                tx.operation == .call &&
-                tx.dataDecoded != nil &&
-                method(from: tx.dataDecoded!) != nil
+            tx.txType == .multiSig &&
+            tx.to != nil &&
+            tx.to == tx.safe &&
+            tx.operation == .call &&
+            tx.dataDecoded != nil &&
+            method(from: tx.dataDecoded!) != nil
         }
 
+    }
+
+    static func method(from data: TransactionData?, candidates: [SmartContractMethodCall.Type]) -> SmartContractMethodCall? {
+        data.flatMap { d in
+            candidates.compactMap { method in
+                method.init(data: d)
+            }
+            .first
+        }
     }
 
 }

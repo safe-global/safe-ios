@@ -196,11 +196,4 @@ class MethodRegistry_ERC721Tests: MethodRegistryTestCase {
         }
     }
 
-    func testIsValidTransfer() {
-        XCTAssertTrue(MethodRegistry.ERC721.isValid(Transaction(operation: .call, dataDecoded: validSafeTransferFromData)))
-        XCTAssertTrue(MethodRegistry.ERC721.isValid(Transaction(operation: .call, dataDecoded: validSafeTransferFromDataData)))
-        XCTAssertFalse(MethodRegistry.ERC721.isValid(Transaction(operation: .delegateCall, dataDecoded: validSafeTransferFromData)))
-        XCTAssertFalse(MethodRegistry.ERC721.isValid(Transaction(operation: .call, dataDecoded: nil)))
-    }
-
 }

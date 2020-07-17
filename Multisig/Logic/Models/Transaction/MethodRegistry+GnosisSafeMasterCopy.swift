@@ -26,11 +26,12 @@ extension MethodRegistry {
         }
         
         static func isValid(_ tx: Transaction) -> Bool {
+            tx.txType == .multiSig &&
             tx.to != nil &&
-                tx.to == tx.safe &&
-                tx.operation == .call &&
-                tx.dataDecoded != nil &&
-                ChangeMasterCopy(data: tx.dataDecoded!) != nil
+            tx.to == tx.safe &&
+            tx.operation == .call &&
+            tx.dataDecoded != nil &&
+            ChangeMasterCopy(data: tx.dataDecoded!) != nil
         }
     }
     

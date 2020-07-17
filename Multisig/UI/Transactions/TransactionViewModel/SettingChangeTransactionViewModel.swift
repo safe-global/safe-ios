@@ -23,4 +23,10 @@ class SettingChangeTransactionViewModel: TransactionViewModel {
         super.init(tx, safe)
     }
 
+    override class func viewModels(from tx: Transaction, info: SafeStatusRequest.Response) -> [TransactionViewModel] {
+        guard MethodRegistry.GnosisSafeSettings.isValid(tx) else {
+            return []
+        }
+        return [SettingChangeTransactionViewModel(tx, info)]
+    }
 }

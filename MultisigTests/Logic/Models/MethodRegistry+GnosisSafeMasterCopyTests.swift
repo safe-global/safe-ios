@@ -78,43 +78,50 @@ class MethodRegistry_GnosisSafeMasterCopyTests: MethodRegistryTestCase {
             safe: safe,
             to: safe,
             operation: .call,
-            dataDecoded: validData)))
+            dataDecoded: validData,
+            txType: .multiSig)))
 
         XCTAssertFalse(isValid(Transaction(
             safe: safe,
             to: notSafe,
             operation: .call,
-            dataDecoded: validData)))
+            dataDecoded: validData,
+            txType: .multiSig)))
 
         XCTAssertFalse(isValid(Transaction(
             safe: safe,
             to: nil,
             operation: .call,
-            dataDecoded: validData)))
+            dataDecoded: validData,
+            txType: .multiSig)))
 
         XCTAssertFalse(isValid(Transaction(
             safe: nil,
             to: notSafe,
             operation: .call,
-            dataDecoded: validData)))
+            dataDecoded: validData,
+            txType: .multiSig)))
 
         XCTAssertFalse(isValid(Transaction(
             safe: safe,
             to: safe,
             operation: .delegateCall,
-            dataDecoded: validData)))
+            dataDecoded: validData,
+            txType: .multiSig)))
 
         XCTAssertFalse(isValid(Transaction(
             safe: safe,
             to: safe,
             operation: .call,
-            dataDecoded: nil)))
+            dataDecoded: nil,
+            txType: .multiSig)))
 
         XCTAssertFalse(isValid(Transaction(
             safe: safe,
             to: notSafe,
             operation: .call,
-            dataDecoded: invalidData)))
+            dataDecoded: invalidData,
+            txType: .multiSig)))
     }
 
 }
