@@ -20,7 +20,7 @@ struct SafeCell: View {
 
     var body: some View {
         HStack(spacing: iconToTextSpacing) {
-            Identicon(safe.address ?? "")
+            AddressImage(safe.address)
                 .frame(width: iconSize, height: iconSize)
 
             VStack(alignment: .leading) {

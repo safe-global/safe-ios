@@ -19,7 +19,7 @@ struct AddressView: View {
     var body: some View {
         HStack {
             if !text.isEmpty {
-                Identicon(text).frame(width: 32, height: 32)
+                AddressImage(text).frame(width: 32, height: 32)
             }
 
             SlicedText(text)

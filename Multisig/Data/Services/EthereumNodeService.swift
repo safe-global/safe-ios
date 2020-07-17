@@ -23,7 +23,7 @@ class EthereumNodeService {
         let semaphore = DispatchSemaphore(value: 0)
 
         var result: Web3Response<EthereumData>!
-        web3.eth.call(call: EthereumCall(to: to, data: EthereumData(Array(data))),
+        web3.eth.call(call: EthereumCall(to: try EthereumAddress(to.data), data: EthereumData(Array(data))),
                       block: EthereumQuantityTag(tagType: .latest),
                       response: { result = $0; semaphore.signal() })
         semaphore.wait()

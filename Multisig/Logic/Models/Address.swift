@@ -8,55 +8,81 @@
 
 import Web3
 
-typealias Address = EthereumAddress
+struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConvertible {
 
-extension Address.Error: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .addressMalformed:
-            return "The address is malformed. Please provide an Ethereum address."
-        case .checksumWrong:
-            return "The address is typed incorrectly. Please double-check it."
-        }
+    fileprivate var _store: EthereumAddress
+
+    init(exactly data: Data) {
+        _store = try! EthereumAddress(data)
     }
-}
 
-extension Address {
+    init?(_ data: Data) {
+        guard let v = try? EthereumAddress(data) else { return nil }
+        _store = v
+    }
 
-    static let zero = try! Address(Bytes(repeating: 0, count: 20))
+    init(exactly value: String) {
+        _store = try! EthereumAddress(hex: value, eip55: false)
+    }
+
+    init?(_ value: String) {
+        guard let value = try? EthereumAddress(hex: value, eip55: false) else { return nil }
+        _store = value
+    }
+
+    init(from value: String) throws {
+        _store = try EthereumAddress(hex: value, eip55: false)
+    }
+
+    init(exactly value: UInt256) {
+        let data =  Data(ethHex: String(value, radix: 16))
+        self.init(exactly: data)
+    }
+
+    init?(_ value: UInt256) {
+        let data = Data(ethHex: String(value, radix: 16)).endTruncated(to: 20).leftPadded(to: 20)
+        guard let v = try? EthereumAddress(hex: data.toHexStringWithPrefix(), eip55: false) else { return nil }
+        _store = v
+    }
+
+    var checksummed: String {
+        _store.hex(eip55: true)
+    }
+
+    var hexadecimal: String {
+        _store.hex(eip55: false)
+    }
+
+    var data: Data {
+        Data(_store.rawAddress)
+    }
+
+    var count: Int {
+        _store.rawAddress.count
+    }
+
+    static let zero = Self(exactly: Data(repeating: 0, count: 20))
+    static let ether = Self.zero
 
     var isZero: Bool {
         self == .zero
     }
 
-    var checksummed: String {
-        hex(eip55: true)
+    init(stringLiteral value: StringLiteralType) {
+        self.init(exactly: value)
     }
 
-    var hexadecimal: String {
-        hex(eip55: false)
-    }
-
-    var data: Data {
-        Data(rawAddress)
-    }
-
-    init(_ value: UInt256) {
-        let data = Data(ethHex: String(value, radix: 16)).endTruncated(to: 20).leftPadded(to: 20)
-        try! self.init(hex: data.toHexStringWithPrefix(), eip55: false)
-    }
-
-    init?(_ value: String) {
-        try? self.init(hex: value, eip55: false)
+    var description: String {
+        checksummed
     }
 
     init(_ value: String, isERC681: Bool) throws {
         var addressString = value
         if isERC681 {
-            addressString = Address.addressFromERC681(addressString)
+            addressString = Self.addressFromERC681(addressString)
         }
 
-        try self.init(hex: addressString, eip55: false)
+        _store = try EthereumAddress(hex: addressString, eip55: false)
     }
 
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-681.md
@@ -73,23 +99,13 @@ extension Address {
     }
 }
 
-extension Address: ExpressibleByStringLiteral {
-    public init(stringLiteral value: String) {
-        if let v = Address(value) {
-            self = v
-        } else {
-            assertionFailure("Invalid literal address: \(value)")
-            self = .zero
+extension EthereumAddress.Error: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .addressMalformed:
+            return "The address is malformed. Please provide an Ethereum address."
+        case .checksumWrong:
+            return "The address is typed incorrectly. Please double-check it."
         }
     }
-}
-
-extension Address: CustomStringConvertible {
-    public var description: String {
-        checksummed
-    }
-}
-
-enum AddressRegistry {
-    static let ether = Address.zero
 }

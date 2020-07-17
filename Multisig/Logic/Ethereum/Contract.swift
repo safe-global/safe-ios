@@ -43,11 +43,11 @@ class Contract {
     /// NOTE: resulting address is NOT formatted according to EIP-55
     func decodeAddress(_ value: Data) -> Address {
         let uintValue = decodeUInt(value)
-        return Address(uintValue)
+        return Address(exactly: uintValue)
     }
 
     func encodeAddress(_ value: Address) -> Data {
-        return encodeUInt(UInt256(Data(value.rawAddress)))
+        return encodeUInt(UInt256(value.data))
     }
 
     func decodeArrayUInt(_ value: Data) -> [UInt256] {
@@ -66,11 +66,11 @@ class Contract {
     }
 
     func encodeArrayAddress(_ value: [Address]) -> Data {
-        return encodeArrayUInt(value.map { UInt256(Data($0.rawAddress)) })
+        return encodeArrayUInt(value.map { UInt256($0.data) })
     }
 
     func decodeArrayAddress(_ value: Data) -> [Address] {
-        return decodeArrayUInt(value).map { Address($0) }
+        return decodeArrayUInt(value).map { Address(exactly: $0) }
     }
 
     func decodeTupleUInt(_ value: Data, _ count: Int) -> [UInt256] {

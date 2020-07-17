@@ -32,7 +32,7 @@ struct SafeInfoContentView: View {
 
     var body: some View {
         VStack (alignment: .center) {
-            Identicon(safe.address).frame(width: 56, height: 56)
+            AddressImage(safe.address).frame(width: 56, height: 56)
             Text(safe.displayName).headline().padding(.top, 6)
 
             if safe.hasAddress {

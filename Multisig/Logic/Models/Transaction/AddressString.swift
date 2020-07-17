@@ -24,7 +24,7 @@ struct AddressString: Hashable, Decodable {
         let container = try decoder.singleValueContainer()
         let value = try container.decode(String.self)
         do {
-            address = try Address.init(hex: value, eip55: false)
+            address = try Address(from: value)
         } catch {
             let message = "Failed to decode address: \(error.localizedDescription): \(value)"
             let context = DecodingError.Context.init(codingPath: container.codingPath, debugDescription: message)
