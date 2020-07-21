@@ -24,7 +24,7 @@ struct AddressCell: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            Identicon(address).frame(width: 36, height: 36)
+            AddressImage(address).frame(width: 36, height: 36)
             
             CopyButton(address) {
                 VStack (alignment: .leading) {

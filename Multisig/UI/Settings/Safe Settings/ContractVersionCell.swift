@@ -59,7 +59,7 @@ struct ContractVersionCell: View {
 
     var body: some View {
         HStack(spacing: lineSpacing) {
-            Identicon(address)
+            AddressImage(address)
                 .frame(width: iconSize, height: iconSize)
 
             VStack(alignment: .leading, spacing: 2) {

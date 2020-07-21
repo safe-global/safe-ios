@@ -18,7 +18,7 @@ struct CorrectAddressView: View {
         VStack(spacing: 11) {
             if title != nil { titleView }
 
-            Identicon(address).frame(width: 40, height: 40)
+            AddressImage(address).frame(width: 40, height: 40)
 
             HStack(alignment: .firstTextBaseline, spacing: 2) {
                 checkmark(position: .address)

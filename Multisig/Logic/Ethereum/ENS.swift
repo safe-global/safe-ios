@@ -31,7 +31,7 @@ final class ENS {
     let registryAddress: Address
 
     init(registryAddress: String) {
-        self.registryAddress = try! Address(hex: registryAddress, eip55: false)
+        self.registryAddress = Address(exactly: registryAddress)
     }
 
     init(registryAddress: Address) {

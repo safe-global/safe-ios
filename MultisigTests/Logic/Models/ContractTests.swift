@@ -71,18 +71,18 @@ class ContractTests: XCTestCase {
     }
 
     func test_whenEncodesDecodesAddress_thenUsesUInt() {
-        let values = [Address(1), Address(2)]
+        let values = [Address(exactly: 1), Address(exactly: 2)]
         let uints: [UInt256] = [1, 2]
         XCTAssertEqual(contract.encodeArrayAddress(values), contract.encodeArrayUInt(uints))
     }
 
     func test_whenDecodesAddress_thenReturnsIt() {
         let rawValue = contract.encodeUInt(1)
-        XCTAssertEqual(contract.decodeAddress(rawValue), Address(1))
+        XCTAssertEqual(contract.decodeAddress(rawValue), Address(exactly: 1))
     }
 
     func test_whenEncodesAddress_thenReturnsData() {
-        XCTAssertEqual(contract.encodeAddress(Address(1)), contract.encodeUInt(1))
+        XCTAssertEqual(contract.encodeAddress(Address(exactly: 1)), contract.encodeUInt(1))
     }
 
     func test_whenEncodesDecodesBool_thenDoesItCorrectly() {

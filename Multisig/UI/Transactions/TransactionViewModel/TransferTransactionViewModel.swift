@@ -54,7 +54,7 @@ class TransferTransactionViewModel: TransactionViewModel {
 
         // ether transaction
         if (tx.txType == .ethereum || tx.txType == .multiSig) && tx.data == nil && tx.operation == .call {
-            let token = App.shared.tokenRegistry.token(address: AddressRegistry.ether)!
+            let token = App.shared.tokenRegistry.token(address: .ether)!
             let transferInfo = TransferInfo(ether: tx, info: info, token: token)
 
             result = [etherViewModel(transferInfo, tx, info)]
@@ -79,7 +79,7 @@ class TransferTransactionViewModel: TransactionViewModel {
                 transferViewModel(
                     TransferMethod(call),
                     token(
-                        address: tx.to?.address ?? AddressRegistry.ether,
+                        address: tx.to?.address ?? .ether,
                         data: tx.dataDecoded,
                         safe: tx.safeAddress(info)),
                     tx,
@@ -107,7 +107,7 @@ class TransferTransactionViewModel: TransactionViewModel {
 
         // nil token address, i.e. ether
         } else {
-            token = App.shared.tokenRegistry.token(address: AddressRegistry.ether)!
+            token = App.shared.tokenRegistry.token(address: .ether)!
         }
         return token
     }
@@ -169,7 +169,7 @@ class TransferTransactionViewModel: TransactionViewModel {
 
     fileprivate class func etherViewModel(_ transfer: TransactionTransfer, _ tx: Transaction, _ info: SafeStatusRequest.Response) -> TransactionViewModel {
         // ether
-        let token = App.shared.tokenRegistry.token(address: AddressRegistry.ether)!
+        let token = App.shared.tokenRegistry.token(address: .ether)!
 
         if transfer.type != .ether {
             assertionFailure("Expected to see ether transfer")

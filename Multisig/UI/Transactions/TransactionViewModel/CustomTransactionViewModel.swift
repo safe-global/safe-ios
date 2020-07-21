@@ -25,7 +25,7 @@ class CustomTransactionViewModel: TransferTransactionViewModel {
     }
 
     override class func viewModels(from tx: Transaction, info: SafeStatusRequest.Response) -> [TransactionViewModel] {
-        let token =  App.shared.tokenRegistry.token(address: AddressRegistry.ether)!
+        let token =  App.shared.tokenRegistry.token(address: .ether)!
         let transfer = TransferInfo(ether: tx, info: info, token: token)
         return [CustomTransactionViewModel(transfer: transfer, tx: tx, safe: info)]
     }

@@ -13,19 +13,17 @@ struct TokenBalance: Identifiable, Hashable {
     var id: String {
         address
     }
-    var imageURL: URL? {
-        #warning("will be replaced when https://github.com/gnosis/safe-transaction-service/issues/86 is ready")
-        return URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(String(describing: address)).png")!
-    }
+    var imageURL: URL?
     let address: String
     let symbol: String
     let balance: String
     let balanceUsd: String
 
     init(_ response: SafeBalancesRequest.Response) {
-        let tokenAddress = response.tokenAddress?.address ?? AddressRegistry.ether
+        let tokenAddress = response.tokenAddress?.address ?? .ether
         self.address = tokenAddress.checksummed
         self.symbol = response.token?.symbol ?? "ETH"
+        self.imageURL = response.token.flatMap { URL(string: $0.logoUri) }
 
         let tokenFormatter = TokenFormatter()
 

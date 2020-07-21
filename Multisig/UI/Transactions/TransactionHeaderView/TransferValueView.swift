@@ -15,7 +15,7 @@ struct TransferValueView: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            if transaction.tokenSymbol == App.shared.tokenRegistry.token(address: AddressRegistry.ether)?.symbol {
+            if transaction.tokenSymbol == App.shared.tokenRegistry.token(address: .ether)?.symbol {
                 TokenImage.ether.frame(width: dimension, height: dimension)
             } else if logoURL != nil  {
                 TokenImage(url: logoURL).frame(width: dimension, height: dimension)

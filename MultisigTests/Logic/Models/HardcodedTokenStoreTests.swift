@@ -13,7 +13,7 @@ class HardcodedTokenStoreTests: XCTestCase {
 
     func testHardcoded() {
         let store = HardcodedTokenStore()
-        let eth = store.token(address: AddressRegistry.ether)
+        let eth = store.token(address: .ether)
         XCTAssertNotNil(eth)
         XCTAssertEqual(eth?.type, .erc20)
         XCTAssertEqual(eth?.decimals, 18)

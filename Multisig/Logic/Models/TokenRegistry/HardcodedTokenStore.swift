@@ -15,8 +15,8 @@ struct HardcodedTokenStore {
     init() {
         store.add(
             Token(type: .erc20,
-                  address: AddressRegistry.ether,
-                  logo: BackendTokenStore.logo(AddressRegistry.ether),
+                  address: .ether,
+                  logo: BackendTokenStore.logo(.ether),
                   name: "Ether",
                   symbol: "ETH",
                   decimals: 18)
