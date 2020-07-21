@@ -47,7 +47,6 @@ extension Image {
 }
 
 struct Image_Blockies_Previews: PreviewProvider {
-
     static let addresses: [Address] = [
         "0x0000000000000000000000000000000000000000",
         "0x2333b4CC1F89a0B4C43e9e733123C124aAE977EE",
