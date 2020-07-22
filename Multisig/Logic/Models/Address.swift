@@ -68,10 +68,6 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         self == .zero
     }
 
-    var isEmpty: Bool {
-        isZero || checksummed.isEmpty || checksummed == "0"
-    }
-
     init(stringLiteral value: StringLiteralType) {
         self.init(exactly: value)
     }
