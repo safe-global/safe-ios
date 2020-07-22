@@ -206,6 +206,7 @@
 		0AB34D6624B71DE300A43988 /* SafeCollectiblesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */; };
 		0AB34D6824B71DF700A43988 /* TokensRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6724B71DF700A43988 /* TokensRequest.swift */; };
 		0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */; };
+		0AC7368624C87B3100BD7B47 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC7368524C87B3100BD7B47 /* Tooltip.swift */; };
 		0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */; };
 		0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */; };
 		0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDBFFC248E4C5D002035A2 /* Configuration.swift */; };
@@ -511,6 +512,7 @@
 		0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCollectiblesRequest.swift; sourceTree = "<group>"; };
 		0AB34D6724B71DF700A43988 /* TokensRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensRequest.swift; sourceTree = "<group>"; };
 		0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarCenter.swift; sourceTree = "<group>"; };
+		0AC7368524C87B3100BD7B47 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
 		0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafe.swift; sourceTree = "<group>"; };
 		0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafeTests.swift; sourceTree = "<group>"; };
 		0ACDBFFC248E4C5D002035A2 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -1399,6 +1401,7 @@
 				0AEDCE0A2472946600A1EC80 /* BarButton.swift */,
 				04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */,
 				0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */,
+				0AC7368524C87B3100BD7B47 /* Tooltip.swift */,
 				046D0A59249A1C64000F4021 /* ExpandableButton .swift */,
 				0471D13124728C2C00B22A70 /* EmailLink.swift */,
 				55AC9E48248681A100B0BC24 /* LinkButton.swift */,
@@ -2083,6 +2086,7 @@
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
 				0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */,
 				0A0983A224BC5C82009EE296 /* BackendTokenStore.swift in Sources */,
+				0AC7368624C87B3100BD7B47 /* Tooltip.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
 				0AA9F2022497BDA3005BD60F /* MethodRegistry.swift in Sources */,
