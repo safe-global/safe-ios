@@ -32,11 +32,10 @@ struct CorrectAddressView: View {
     }
 
     var titleView: some View {
-        Text(title!).body()
-            .background(
-                checkmark(position: .title).offset(x: -25),
-                alignment: .leading)
-            .padding(.bottom)
+        HStack {
+            checkmark(position: .title)
+            Text(title!).body()
+        }
     }
 
     func checkmark(position: CheckmarkPosition) -> some View {
