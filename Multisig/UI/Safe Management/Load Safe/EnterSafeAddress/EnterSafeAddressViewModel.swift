@@ -89,7 +89,7 @@ class EnterSafeAddressViewModel: ObservableObject {
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     if case HTTPClient.Error.entityNotFound(_, _, _) = error {
-                        self.setError("We could not find a safe with this address.")
+                        self.setError("Safe not found.")
                     } else {
                         self.setError(error.localizedDescription)
                     }
