@@ -19,12 +19,15 @@ struct CopyButton<Content: View>: View {
     }
 
     var body: some View {
-        Button(action: {
-            Pasteboard.string = self.value
-        }) {
+        Button(action: copyToPasteboard) {
             content
         }
         .buttonStyle(BorderlessButtonStyle())
+    }
+
+    func copyToPasteboard() {
+        Pasteboard.string = value
+        App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 }
 
@@ -36,7 +39,7 @@ extension CopyButton {
 
 struct CopyButton_Previews: PreviewProvider {
     static var previews: some View {
-        CopyButton("Paste") {
+        CopyButton("This is copied text 📜") {
             Text("Copy")
         }
     }

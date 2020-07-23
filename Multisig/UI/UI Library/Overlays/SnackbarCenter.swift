@@ -30,6 +30,7 @@ class SnackbarCenter: ObservableObject {
     private struct Message: Hashable, CustomStringConvertible {
         var id = UUID()
         var content: String
+        var duration: TimeInterval
 
         var description: String {
             id.uuidString + " " + content
@@ -40,8 +41,8 @@ class SnackbarCenter: ObservableObject {
         recreatePipeline()
     }
 
-    func show(message: String) {
-        messageQueue.append(Message(content: message))
+    func show(message: String, duration: TimeInterval? = nil) {
+        messageQueue.append(Message(content: message, duration: duration ?? displayDuration))
         triggerMessagePresentation()
     }
 
@@ -83,14 +84,16 @@ class SnackbarCenter: ObservableObject {
 
             // in case of multiple messages, this gives time for the
             // hiding animation of the previous message to complete
-            .delay(for: .seconds(0.25), scheduler: RunLoop.main)
+            .delay(for: .seconds(0.1), scheduler: RunLoop.main)
 
             .map { message -> Message in
                 self.present(message)
                 return message
             }
-
-            .delay(for: .seconds(self.displayDuration), scheduler: RunLoop.main)
+            .flatMap { message in
+                Just(message)
+                    .delay(for: .seconds(message.duration), scheduler: RunLoop.main)
+            }
 
             // check because user could hide the current message via `hide()`
             .filter { $0 == self.presentedMessage }
