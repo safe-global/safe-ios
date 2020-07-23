@@ -54,7 +54,7 @@ class TransferTransactionViewModel: TransactionViewModel {
 
         // ether transaction
         if (tx.txType == .ethereum || tx.txType == .multiSig) && tx.data == nil && tx.operation == .call {
-            let token = App.shared.tokenRegistry.token(address: .ether)!
+            let token = ether()
             let transferInfo = TransferInfo(ether: tx, info: info, token: token)
 
             result = [etherViewModel(transferInfo, tx, info)]
@@ -94,11 +94,10 @@ class TransferTransactionViewModel: TransactionViewModel {
     fileprivate class func token(from transfer: TransactionTransfer) -> Token {
         let token: Token
 
-        let ether = App.shared.tokenRegistry.token(address: .ether)!
 
         switch transfer.type {
         case .ether, .unknown:
-            token = ether
+            token = ether()
         case .erc20, .erc721:
             if let info = transfer.tokenInfo {
                 token = Token(info)
@@ -113,7 +112,7 @@ class TransferTransactionViewModel: TransactionViewModel {
             } else {
                 assertionFailure("ERC20 or ERC721 token w/o address. Backend issue?")
                 LogService.shared.error("Transfer w/o address: \(transfer.transactionHash)")
-                token = ether
+                token = ether()
             }
 
             assert(
@@ -181,9 +180,13 @@ class TransferTransactionViewModel: TransactionViewModel {
         return transferViewModel(transferInfo, tx, info)
     }
 
+    fileprivate static func ether() -> Token {
+        App.shared.tokenRegistry.token(address: .ether)!
+    }
+
     fileprivate class func etherViewModel(_ transfer: TransactionTransfer, _ tx: Transaction, _ info: SafeStatusRequest.Response) -> TransactionViewModel {
         // ether
-        let token = App.shared.tokenRegistry.token(address: .ether)!
+        let token = ether()
 
         if transfer.type != .ether {
             assertionFailure("Expected to see ether transfer")
@@ -198,11 +201,16 @@ class TransferTransactionViewModel: TransactionViewModel {
         return transferViewModel(transfer, tx, info)
     }
 
+
     fileprivate class func transferViewModel(_ transfer: TransferInfo, _ tx: Transaction, _ info: SafeStatusRequest.Response) -> TransactionViewModel {
         // populate transfer from decoded data
         let safeAddress = tx.safeAddress(info)
         if transfer.to != safeAddress && transfer.from != safeAddress {
-            return CustomTransactionViewModel(transfer: transfer, tx: tx, safe: info)
+            // this is a transfer not involving the safe, so it is a
+            // custom transaction for the safe.
+            // Therefore, we re-create a transfer info as an ETH
+            let cusomtTransfer = TransferInfo(ether: tx, info: info, token: ether())
+            return CustomTransactionViewModel(transfer: cusomtTransfer, tx: tx, safe: info)
         }
         return TransferTransactionViewModel(transfer: transfer, tx: tx, safe: info)
     }
