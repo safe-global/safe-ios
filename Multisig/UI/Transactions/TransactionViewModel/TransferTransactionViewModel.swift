@@ -142,7 +142,7 @@ class TransferTransactionViewModel: TransactionViewModel {
 
     fileprivate class func tokenViewModel(_ token: Token, _ transfer: TransactionTransfer, _ tx: Transaction, _ info: SafeStatusRequest.Response) -> TransactionViewModel {
         if !((transfer.type == .ether && token.type == .erc20) || (transfer.type == token.type)) {
-//            assertionFailure("Invalid combination of transfer type and tokenInfo type")
+            assertionFailure("Invalid combination of transfer type and tokenInfo type")
             LogService.shared.error("Transfer transaction has invalid transfer and tokenInfo combination in safe: \(tx.safeAddress(info))")
             // continuing to still display this transfer
         }

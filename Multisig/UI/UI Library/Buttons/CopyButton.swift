@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-fileprivate var timers: [UUID: Timer] = [:]
-
 struct CopyButton<Content: View>: View {
 
     var value: String?
