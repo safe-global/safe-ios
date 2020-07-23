@@ -40,15 +40,12 @@ struct AdvancedSafeSettingsView: View {
     }
     
     var fallbackHandlerView : some View {
-        let fallbackHandler = safe.fallbackHandler?.checksummed ?? ""
         let title = App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: safe.fallbackHandler)
-        return Group {
-            if fallbackHandler.isEmpty || fallbackHandler == "0" {
-                 Text("Not set").body()
+        return Section(header: SectionHeader("FALLBACK HANDLER")) {
+            if App.shared.gnosisSafe.hasFallbackHandler(safe: safe) {
+                AddressCell(address: safe.fallbackHandler!.checksummed, title: title, style: .shortAddress)
             } else {
-                Section(header: SectionHeader("FALLBACK HANDLER")) {
-                    AddressCell(address: fallbackHandler, title: title, style: .shortAddress)
-                }
+                Text("Not set").body()
             }
         }
     }
