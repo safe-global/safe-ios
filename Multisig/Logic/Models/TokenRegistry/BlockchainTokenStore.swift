@@ -24,20 +24,19 @@ struct BlockchainTokenStore {
                          symbol: symbol ?? "NFT",
                          decimals: 0)
         }
-        // treat everything else as ERC20 because it is a common case
-        // and because there's no way to dected if some method exists
-        // or not on an ERC20 contract
-
+        // treating as erc20 because assumming it is most common case
         let erc20 = ERC20Metadata(address)
-        let name = try? erc20.name()
-        let symbol = try? erc20.symbol()
-        let decimals = try? erc20.decimals()
-        return Token(type: .erc20,
-                     address: address,
-                     logo: BackendTokenStore.logo(address),
-                     name: name ?? "ERC20",
-                     symbol: symbol ?? "ERC20",
-                     decimals: decimals ?? 0)
+        if let name = try? erc20.name(),
+            let symbol = try? erc20.symbol(),
+            let decimals = try? erc20.decimals() {
+            return Token(type: .erc20,
+                         address: address,
+                         logo: BackendTokenStore.logo(address),
+                         name: name,
+                         symbol: symbol,
+                         decimals: decimals)
+        }
+        return nil
     }
 
     func add(_ token: Token) {

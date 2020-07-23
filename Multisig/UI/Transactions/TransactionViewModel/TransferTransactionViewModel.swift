@@ -94,20 +94,34 @@ class TransferTransactionViewModel: TransactionViewModel {
     fileprivate class func token(from transfer: TransactionTransfer) -> Token {
         let token: Token
 
-        if let tokenFromData = transfer.tokenInfo {
-            token = Token(tokenFromData)
+        let ether = App.shared.tokenRegistry.token(address: .ether)!
 
-        } else if let tokenAddress = transfer.tokenAddress?.address,
-            let knownToken = App.shared.tokenRegistry.token(address: tokenAddress) {
-            token = knownToken
+        switch transfer.type {
+        case .ether, .unknown:
+            token = ether
+        case .erc20, .erc721:
+            if let info = transfer.tokenInfo {
+                token = Token(info)
+            } else if let address = transfer.tokenAddress?.address {
+                if let known = App.shared.tokenRegistry.token(address: address) {
+                    token = known
+                } else if transfer.type == .erc20 {
+                    token = Token(erc20: address)
+                } else {
+                    token = Token(erc721: address)
+                }
+            } else {
+                assertionFailure("ERC20 or ERC721 token w/o address. Backend issue?")
+                LogService.shared.error("Transfer w/o address: \(transfer.transactionHash)")
+                token = ether
+            }
 
-        // treating unknown tokens as erc20 tokens
-        } else if let tokenAddress = transfer.tokenAddress?.address {
-            token = Token(erc20: tokenAddress)
-
-        // nil token address, i.e. ether
-        } else {
-            token = App.shared.tokenRegistry.token(address: .ether)!
+            assert(
+                transfer.type == .erc20 && token.type == .erc20 ||
+                    transfer.type == .erc721 && token.type == .erc721,
+                "Expected to recognize token according to the transfer type. " +
+                "Transfer \(transfer.transactionHash), token type: \(token.type)"
+            )
         }
         return token
     }
