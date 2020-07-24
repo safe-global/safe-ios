@@ -58,4 +58,11 @@ class TokenRegistry {
         return self[address]
     }
 
+    func update(token: Token) {
+        dispatchPrecondition(condition: .notOnQueue(queue))
+        queue.sync { [unowned self] in
+            self.cache.add(token)
+        }
+    }
+
 }
