@@ -92,8 +92,7 @@ class TransferTransactionViewModel: TransactionViewModel {
     }
 
     fileprivate class func token(from transfer: TransactionTransfer) -> Token {
-        let token: Token
-
+        var token: Token
 
         switch transfer.type {
         case .ether, .unknown:
@@ -104,6 +103,13 @@ class TransferTransactionViewModel: TransactionViewModel {
             } else if let address = transfer.tokenAddress?.address {
                 if let known = App.shared.tokenRegistry.token(address: address) {
                     token = known
+                    // Token type may be invalid because TokenRegistry
+                    // assumes "erc20" when it doesn't know the actual
+                    // type.
+                    // Now, with the information from the transfer, we
+                    // can enhance the cached token
+                    token.type = transfer.type == .erc20 ? .erc20 : .erc721
+                    App.shared.tokenRegistry.update(token: token)
                 } else if transfer.type == .erc20 {
                     token = Token(erc20: address)
                 } else {
