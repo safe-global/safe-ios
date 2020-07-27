@@ -26,6 +26,7 @@ struct CollectibleCellView: View {
 
                 Text(viewModel.description)
                     .body()
+                    .lineLimit(3)
             }.padding(.vertical)
 
             Spacer()
