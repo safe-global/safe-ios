@@ -16,14 +16,14 @@ class ENSIntegrationTests: XCTestCase {
     func test_forwardResolution() {
         XCTAssertNoThrow(try {
             let address = try ensService.address(for: "gnosissafeios.test")
-            XCTAssertEqual(address, try! Address(hex: "0x2333b4CC1F89a0B4C43e9e733123C124aAE977EE", eip55: false))
+            XCTAssertEqual(address, "0x2333b4CC1F89a0B4C43e9e733123C124aAE977EE")
         }())
     }
 
     // the resolver is expired.
     func disabled_test_reverseResolution() {
         XCTAssertNoThrow(try {
-            let name = try ensService.name(for: Address(hex: "0x2333b4CC1F89a0B4C43e9e733123C124aAE977EE", eip55: false))
+            let name = try ensService.name(for: "0x2333b4CC1F89a0B4C43e9e733123C124aAE977EE")
             XCTAssertEqual(name, "gnosissafeios.test")
         }())
     }
