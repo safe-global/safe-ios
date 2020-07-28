@@ -16,7 +16,7 @@ class SafeTransactionServiceIntegrationTests: XCTestCase {
         let semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
             let result = try? self.service.safeInfo(at: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
-            XCTAssertEqual(result?.masterCopy, "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F")
+            XCTAssertEqual(result?.implementation, "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F")
             semaphore.signal()
         }
         semaphore.wait()

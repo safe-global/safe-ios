@@ -48,7 +48,7 @@ struct BasicSafeSettingsView: Loadable {
             }
 
             Section(header: SectionHeader("CONTRACT VERSION")) {
-                ContractVersionCell(masterCopy: safe.masterCopy?.checksummed)
+                ContractVersionCell(implementation: safe.implementation?.checksummed)
             }
 
             Section(header: SectionHeader("ENS NAME")) {

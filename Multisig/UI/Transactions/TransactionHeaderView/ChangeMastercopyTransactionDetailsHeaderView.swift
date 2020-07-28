@@ -1,5 +1,5 @@
 //
-//  ChangeMastercopyTransactionHeaderView.swift
+//  ChangeImplementationTransactionHeaderView.swift
 //  Multisig
 //
 //  Created by Moaaz on 6/16/20.
@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct ChangeMastercopyTransactionDetailsHeaderView: View {
-    let transaction: ChangeMasterCopyTransactionViewModel
+struct ChangeImplementationTransactionDetailsHeaderView: View {
+    let transaction: ChangeImplementationTransactionViewModel
 
     var body: some View {
         VStack (alignment: .leading) {
@@ -22,9 +22,9 @@ struct ChangeMastercopyTransactionDetailsHeaderView: View {
     }
 }
 
-struct ChangeMastercopyTransactionHeaderView_Previews: PreviewProvider {
+struct ChangeImplementationTransactionHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = ChangeMasterCopyTransactionViewModel()
+        let transaction = ChangeImplementationTransactionViewModel()
         transaction.contractAddress = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.contractVersion = "1.1.1"
         transaction.confirmationCount = 1
@@ -33,6 +33,6 @@ struct ChangeMastercopyTransactionHeaderView_Previews: PreviewProvider {
         transaction.nonce = "2"
         transaction.status = .success
         
-        return ChangeMastercopyTransactionDetailsHeaderView(transaction: transaction)
+        return ChangeImplementationTransactionDetailsHeaderView(transaction: transaction)
     }
 }

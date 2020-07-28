@@ -10,19 +10,19 @@ import SwiftUI
 
 struct ContractVersionCell: View {
 
-    private let masterCopy: Address
+    private let implementation: Address
     private let versionStatus: GnosisSafe.VersionStatus
     private let iconSize: CGFloat = 36
     private let lineSpacing: CGFloat = 12
     private let statusIconSize: CGFloat = 14
 
-    init(masterCopy: String?) {
-        self.masterCopy = masterCopy.flatMap { Address($0) } ?? .zero
-        versionStatus = App.shared.gnosisSafe.version(masterCopy: self.masterCopy)
+    init(implementation: String?) {
+        self.implementation = implementation.flatMap { Address($0) } ?? .zero
+        versionStatus = App.shared.gnosisSafe.version(implementation: self.implementation)
     }
 
     var address: String {
-        masterCopy.checksummed
+        implementation.checksummed
     }
 
     var versionView: Text {
@@ -82,8 +82,8 @@ struct ContractVersionCell: View {
 struct ContractVersionCell_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            ContractVersionCell(masterCopy: "0xb6029EA3B2c51D09a50B53CA8012FeEB05bDa35A")
-            ContractVersionCell(masterCopy: "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F")
+            ContractVersionCell(implementation: "0xb6029EA3B2c51D09a50B53CA8012FeEB05bDa35A")
+            ContractVersionCell(implementation: "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F")
         }
     }
 }

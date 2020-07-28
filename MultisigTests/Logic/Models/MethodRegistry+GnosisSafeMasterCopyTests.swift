@@ -1,5 +1,5 @@
 //
-//  MethodRegistry+GnosisSafeMasterCopyTests.swift
+//  MethodRegistry+GnosisSafeImplementationTests.swift
 //  MultisigTests
 //
 //  Created by Dmitry Bespalov on 17.06.20.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Multisig
 
-class MethodRegistry_GnosisSafeMasterCopyTests: MethodRegistryTestCase {
+class MethodRegistry_GnosisSafeImplementationTests: MethodRegistryTestCase {
 
     var validData: TransactionData!
 
@@ -23,12 +23,12 @@ class MethodRegistry_GnosisSafeMasterCopyTests: MethodRegistryTestCase {
         )
     }
 
-    func testChangeMasterCopyValid() {
-        let call = MethodRegistry.GnosisSafeMasterCopy.ChangeMasterCopy(data: validData)
-        XCTAssertEqual(call?.masterCopy, "0xaD86EecCbaC5e47848649936cf1efE78D56b1F66")
+    func testChangeImplementationValid() {
+        let call = MethodRegistry.GnosisSafeImplementation.ChangeImplementation(data: validData)
+        XCTAssertEqual(call?.implementation, "0xaD86EecCbaC5e47848649936cf1efE78D56b1F66")
     }
 
-    func testChangeMasterCopyInvalidData() {
+    func testChangeImplementationInvalidData() {
         let dataSet: [RawTxData] = [
 
             ("invalid method name",
@@ -59,12 +59,12 @@ class MethodRegistry_GnosisSafeMasterCopyTests: MethodRegistryTestCase {
         ]
 
         for data in dataSet {
-            XCTAssertNil(MethodRegistry.GnosisSafeMasterCopy.ChangeMasterCopy(data: txData(data)), "Data: \(data)")
+            XCTAssertNil(MethodRegistry.GnosisSafeImplementation.ChangeImplementation(data: txData(data)), "Data: \(data)")
         }
     }
 
     func testIsValid() {
-        let isValid = MethodRegistry.GnosisSafeMasterCopy.isValid
+        let isValid = MethodRegistry.GnosisSafeImplementation.isValid
         let safe: AddressString = "0xaD86EecCbaC5e47848649936cf1efE78D56b1F66"
         let notSafe: AddressString = "0x37d037a9b66a323fBD38E9e2ae65e04C7C049488"
 

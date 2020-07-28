@@ -15,25 +15,25 @@ class GnosisSafeTests: XCTestCase {
     let safe = GnosisSafe()
 
     func testContractVersions() {
-        XCTAssertEqual(safe.version(masterCopy: Address.zero), .unknown)
-        XCTAssertEqual(safe.version(masterCopy: someAddress), .unknown)
+        XCTAssertEqual(safe.version(implementation: Address.zero), .unknown)
+        XCTAssertEqual(safe.version(implementation: someAddress), .unknown)
 
         let oldVersion = safe.versions.first!
-        XCTAssertEqual(safe.version(masterCopy: oldVersion.masterCopy), .upgradeAvailable(oldVersion.version))
+        XCTAssertEqual(safe.version(implementation: oldVersion.implementation), .upgradeAvailable(oldVersion.version))
 
         let newestVersion = safe.versions.last!
-        XCTAssertEqual(safe.version(masterCopy: newestVersion.masterCopy), .upToDate(newestVersion.version))
+        XCTAssertEqual(safe.version(implementation: newestVersion.implementation), .upToDate(newestVersion.version))
     }
 
     func testSingleVersionsArray() {
         safe.versions = [(someAddress, "0.1.0")]
         let singleVersion = safe.versions.first!
-        XCTAssertEqual(safe.version(masterCopy: singleVersion.masterCopy), .upToDate(singleVersion.version))
+        XCTAssertEqual(safe.version(implementation: singleVersion.implementation), .upToDate(singleVersion.version))
     }
 
     func testEmpty() {
         safe.versions = []
-        XCTAssertEqual(safe.version(masterCopy: someAddress), .unknown)
+        XCTAssertEqual(safe.version(implementation: someAddress), .unknown)
     }
 
     func testSupportedVersions() {

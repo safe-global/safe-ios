@@ -16,7 +16,7 @@ class GnosisSafe {
         case unknown
     }
 
-    var versions: [(masterCopy: Address, version: String)] = [
+    var versions: [(implementation: Address, version: String)] = [
         ("0xAC6072986E985aaBE7804695EC2d8970Cf7541A2", "0.0.2"),
         ("0x8942595A2dC5181Df0465AF0D7be08c8f23C93af", "0.1.0"),
         ("0xb6029EA3B2c51D09a50B53CA8012FeEB05bDa35A", "1.0.0"),
@@ -44,8 +44,8 @@ class GnosisSafe {
         return handler.label
     }
 
-    func version(masterCopy: Address) -> VersionStatus {
-        guard let versionIndex = versions.firstIndex(where: { $0.masterCopy == masterCopy }) else {
+    func version(implementation: Address) -> VersionStatus {
+        guard let versionIndex = versions.firstIndex(where: { $0.implementation == implementation }) else {
             return .unknown
         }
         let version = versions[versionIndex].version
@@ -53,12 +53,12 @@ class GnosisSafe {
         return isUpToDate ? .upToDate(version) : .upgradeAvailable(version)
     }
 
-    func versionNumber(masterCopy: Address) -> String? {
-        versions.first { $0.masterCopy == masterCopy }?.version
+    func versionNumber(implementation: Address) -> String? {
+        versions.first { $0.implementation == implementation }?.version
     }
 
-    func isSupported(_ masterCopy: Address) -> Bool {
-        guard let version = versionNumber(masterCopy: masterCopy) else {
+    func isSupported(_ implementation: Address) -> Bool {
+        guard let version = versionNumber(implementation: implementation) else {
             return false
         }
         return supportedVersions.contains(version)
