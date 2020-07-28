@@ -11,12 +11,12 @@ import SwiftUI
 struct CollectibleCellView: View {
     let viewModel: CollectibleViewModel
 
-    private let imageDimention: CGFloat = 144
+    private let imageDimension: CGFloat = 144
     var body: some View {
         HStack (alignment: .top) {
             TokenImage(
-                width: imageDimention,
-                height: imageDimention,
+                width: imageDimension,
+                height: imageDimension,
                 url: viewModel.imageURL,
                 name: "ico-collectible-placeholder")
 
@@ -26,6 +26,7 @@ struct CollectibleCellView: View {
 
                 Text(viewModel.description)
                     .body()
+                    .lineLimit(3)
             }.padding(.vertical)
 
             Spacer()
