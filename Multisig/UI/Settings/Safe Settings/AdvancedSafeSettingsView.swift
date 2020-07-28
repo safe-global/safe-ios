@@ -57,7 +57,7 @@ struct AdvancedSafeSettingsView: View {
             } else {
                 Section(header: SectionHeader("ADDRESSES OF ENABLED MODULES")) {
                     ForEach(safe.modules ?? [], id: \.self, content: { owner in
-                        AddressCell(address: owner.checksummed, style: .shortAddress)
+                        AddressCell(address: owner.checksummed, title: "Unknown", style: .shortAddress)
                     })
                 }
             }
