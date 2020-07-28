@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Upload to TestFlight') {
             when {
-                expression { BRANCH_NAME ==~ /^master$/ }
+                expression { BRANCH_NAME ==~ /^main$/ }
             }
             steps {
                 ansiColor('xterm') {
