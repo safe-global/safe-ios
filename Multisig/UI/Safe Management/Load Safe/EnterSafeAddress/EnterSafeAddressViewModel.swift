@@ -13,13 +13,13 @@ class EnterSafeAddressViewModel: ObservableObject {
 
     enum FormError: LocalizedError {
         case safeExists
-        case unsupportedMasterCopy(Address)
+        case unsupportedImplementation(Address)
 
         var errorDescription: String? {
             switch self {
             case .safeExists:
                 return "There is already a Safe with this address in the app. Please use another address."
-            case .unsupportedMasterCopy(let address):
+            case .unsupportedImplementation(let address):
                 return "This safe's master copy contract is not supported: \(address.checksummed)."
             }
         }
@@ -70,8 +70,8 @@ class EnterSafeAddressViewModel: ObservableObject {
                     DispatchQueue.global().async {
                         do {
                             let safeInfo = try Safe.download(at: address)
-                            guard App.shared.gnosisSafe.isSupported(safeInfo.masterCopy.address) else {
-                                throw FormError.unsupportedMasterCopy(safeInfo.masterCopy.address)
+                            guard App.shared.gnosisSafe.isSupported(safeInfo.implementation.address) else {
+                                throw FormError.unsupportedImplementation(safeInfo.implementation.address)
                             }
                             promise(.success(address.checksummed))
                         } catch {

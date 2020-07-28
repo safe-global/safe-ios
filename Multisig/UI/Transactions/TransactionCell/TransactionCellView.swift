@@ -51,7 +51,7 @@ struct TransactionCellView: View {
     var contentView: some View {
         let transferTransaction = transaction as? TransferTransactionViewModel
         let settingChangeTransaction = transaction as? SettingChangeTransactionViewModel
-        let changeMasterCopyTransaction = transaction as? ChangeMasterCopyTransactionViewModel
+        let changeImplementationTransaction = transaction as? ChangeImplementationTransactionViewModel
         let customTransaction = transaction as? CustomTransactionViewModel
 
         return ZStack {
@@ -61,8 +61,8 @@ struct TransactionCellView: View {
                 TransferTransactionCellView(transaction: transferTransaction!)
             } else if settingChangeTransaction != nil {
                 SettingsChangeTransactionCellView(transaction: settingChangeTransaction!)
-            } else if changeMasterCopyTransaction != nil {
-                ChangeMasterCopyCellView(transaction: changeMasterCopyTransaction!)
+            } else if changeImplementationTransaction != nil {
+                ChangeImplementationCellView(transaction: changeImplementationTransaction!)
             } else {
                 EmptyView()
             }
@@ -81,7 +81,7 @@ struct TransactionCellView: View {
 
 struct TransactionCellView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = ChangeMasterCopyTransactionViewModel()
+        let transaction = ChangeImplementationTransactionViewModel()
         transaction.contractAddress = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.contractVersion = "1.1.1"
         transaction.confirmationCount = 1

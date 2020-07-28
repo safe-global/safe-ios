@@ -16,7 +16,7 @@ public class Safe: NSManagedObject {
 
     var threshold: UInt256?
     var owners: [Address]?
-    var masterCopy: Address?
+    var implementation: Address?
     var version: String?
     var nonce: UInt256?
     var modules: [Address]?

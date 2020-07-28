@@ -1,5 +1,5 @@
 //
-//  ChangeMasterCopyTransactionViewModel.swift
+//  ChangeImplementationTransactionViewModel.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 15.06.20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChangeMasterCopyTransactionViewModel: TransactionViewModel {
+class ChangeImplementationTransactionViewModel: TransactionViewModel {
 
     var contractVersion: String
     var contractAddress: String
@@ -21,9 +21,9 @@ class ChangeMasterCopyTransactionViewModel: TransactionViewModel {
 
     override init(_ tx: Transaction, _ safe: SafeStatusRequest.Response)  {
         if let data = tx.dataDecoded,
-            let call = MethodRegistry.GnosisSafeMasterCopy.ChangeMasterCopy(data: data) {
-            contractAddress = call.masterCopy.checksummed
-            contractVersion = GnosisSafe().versionNumber(masterCopy: call.masterCopy) ?? "Unknown"
+            let call = MethodRegistry.GnosisSafeImplementation.ChangeImplementation(data: data) {
+            contractAddress = call.implementation.checksummed
+            contractVersion = GnosisSafe().versionNumber(implementation: call.implementation) ?? "Unknown"
         } else {
             contractAddress = Address.zero.checksummed
             contractVersion = "Unknown"
@@ -32,10 +32,10 @@ class ChangeMasterCopyTransactionViewModel: TransactionViewModel {
     }
 
     override class func viewModels(from tx: Transaction, info: SafeStatusRequest.Response) -> [TransactionViewModel] {
-        guard MethodRegistry.GnosisSafeMasterCopy.isValid(tx) else {
+        guard MethodRegistry.GnosisSafeImplementation.isValid(tx) else {
             return []
         }
-        return [ChangeMasterCopyTransactionViewModel(tx, info)]
+        return [ChangeImplementationTransactionViewModel(tx, info)]
     }
 
 }

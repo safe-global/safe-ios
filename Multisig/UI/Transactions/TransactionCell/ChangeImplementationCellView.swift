@@ -1,5 +1,5 @@
 //
-//  ChangeMasterCopyViewCell.swift
+//  ChangeImplementationViewCell.swift
 //  Multisig
 //
 //  Created by Moaaz on 6/4/20.
@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct ChangeMasterCopyCellView: View {
-    let transaction: ChangeMasterCopyTransactionViewModel
+struct ChangeImplementationCellView: View {
+    let transaction: ChangeImplementationTransactionViewModel
     var body: some View {
         HStack {
             Image("ico-settings-tx")
@@ -22,9 +22,9 @@ struct ChangeMasterCopyCellView: View {
     }
 }
 
-struct ChangeMasterCopyCellView_Previews: PreviewProvider {
+struct ChangeImplementationCellView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = ChangeMasterCopyTransactionViewModel()
+        let transaction = ChangeImplementationTransactionViewModel()
         transaction.contractAddress = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.contractVersion = "1.1.1"
         transaction.confirmationCount = 1
@@ -32,6 +32,6 @@ struct ChangeMasterCopyCellView_Previews: PreviewProvider {
         transaction.formattedDate = "Apr 25, 2020 — 1:01:42PM"
         transaction.nonce = "2"
         transaction.status = .success
-        return ChangeMasterCopyCellView(transaction: transaction)
+        return ChangeImplementationCellView(transaction: transaction)
     }
 }

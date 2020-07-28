@@ -1,5 +1,5 @@
 //
-//  MethodRegistry+GnosisSafeMasterCopy.swift
+//  MethodRegistry+GnosisSafeImplementation.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 15.06.20.
@@ -10,18 +10,18 @@ import Foundation
 
 extension MethodRegistry {
     
-    enum GnosisSafeMasterCopy {
+    enum GnosisSafeImplementation {
         
-        struct ChangeMasterCopy: SmartContractMethodCall {
+        struct ChangeImplementation: SmartContractMethodCall {
             static let signature = MethodSignature("changeMasterCopy", "address")
-            let masterCopy: Address
+            let implementation: Address
             
             init?(data: TransactionData) {
                 guard data == Self.signature,
-                    let masterCopy = data.parameters[0].addressValue else {
+                    let implementation = data.parameters[0].addressValue else {
                         return nil
                 }
-                self.masterCopy = masterCopy
+                self.implementation = implementation
             }
         }
         
@@ -31,7 +31,7 @@ extension MethodRegistry {
             tx.to == tx.safe &&
             tx.operation == .call &&
             tx.dataDecoded != nil &&
-            ChangeMasterCopy(data: tx.dataDecoded!) != nil
+            ChangeImplementation(data: tx.dataDecoded!) != nil
         }
     }
     

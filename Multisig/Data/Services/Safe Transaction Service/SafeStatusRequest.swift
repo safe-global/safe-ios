@@ -22,13 +22,19 @@ struct SafeStatusRequest: JSONRequest {
 
     struct Response: Decodable {
         let address: AddressString
-        let masterCopy: AddressString
+        let implementation: AddressString
         let nonce: UInt256String
         let threshold: UInt256String
         let owners: [AddressString]
         let modules: [AddressString]
         let fallbackHandler: AddressString
         let version: String
+
+        enum CodingKeys: String, CodingKey {
+            case address
+            case implementation = "masterCopy"
+            case nonce, threshold, owners, modules, fallbackHandler, version
+        }
     }
 }
 

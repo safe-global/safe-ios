@@ -16,7 +16,7 @@ extension TransactionViewModel {
         [
             TransferTransactionViewModel.self,
             SettingChangeTransactionViewModel.self,
-            ChangeMasterCopyTransactionViewModel.self,
+            ChangeImplementationTransactionViewModel.self,
             CustomTransactionViewModel.self
         ]
         .map { $0.viewModels(from: tx, info: info) }

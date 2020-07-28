@@ -17,7 +17,7 @@ struct TransactionHeaderView: View {
     var contentView: some View {
         let transferTransaction = transaction as? TransferTransactionViewModel
         let settingChangeTransaction = transaction as? SettingChangeTransactionViewModel
-        let changeMasterCopyTransaction = transaction as? ChangeMasterCopyTransactionViewModel
+        let changeImplementationTransaction = transaction as? ChangeImplementationTransactionViewModel
         let customTransaction = transaction as? CustomTransactionViewModel
 
         return ZStack {
@@ -27,8 +27,8 @@ struct TransactionHeaderView: View {
                 TransferTransactionDetailsHeaderView(transaction: transferTransaction!)
             } else if settingChangeTransaction != nil {
                 SettingsChangeTransactionDetailsHeaderView(transaction: settingChangeTransaction!)
-            } else if changeMasterCopyTransaction != nil {
-                ChangeMastercopyTransactionDetailsHeaderView(transaction: changeMasterCopyTransaction!)
+            } else if changeImplementationTransaction != nil {
+                ChangeImplementationTransactionDetailsHeaderView(transaction: changeImplementationTransaction!)
             } else {
                 EmptyView()
             }

@@ -1,7 +1,7 @@
 # safe-multisig-ios
 Gnosis Safe Multisig iOS app.
 
-[![codecov](https://codecov.io/gh/gnosis/safe-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/gnosis/safe-ios)
+[![codecov](https://codecov.io/gh/gnosis/safe-ios/branch/main/graph/badge.svg)](https://codecov.io/gh/gnosis/safe-ios)
 
 # Configuration
 
