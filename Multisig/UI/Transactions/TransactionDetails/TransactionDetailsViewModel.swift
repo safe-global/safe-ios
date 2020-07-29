@@ -14,7 +14,6 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
     var transaction: TransactionViewModel?
     var hash: Data?
 
-
     init(transaction: TransactionViewModel) {
         self.transaction = transaction
         super.init()
