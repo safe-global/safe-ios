@@ -119,4 +119,57 @@ class SafeTransactionServiceIntegrationTests: XCTestCase {
 
         XCTAssertNil(receivedError, "Safe \(safe.checksummed): \(String(describing: receivedError))", line: line)
     }
+
+    func testTransactionByHash() {
+        let safeTxHash = "0xa2a1079e3856e0ef817a8a5279fc967b9a7a4ddecd8e6bb654c0551a0b0b56f4"
+        let safeTx = fetchTransaction(hash: safeTxHash)
+        switch safeTx {
+        case .success(let tx):
+            XCTAssertEqual(tx.safe?.address, "0x1230B3d59858296A31053C1b8562Ecf89A2f888b")
+        case .failure(let error):
+            XCTFail("Unexpected error: \(error)")
+        }
+
+        let ethTxHash = "0x48e31efdd79cd6689f0e42c3aa02993a2f6906662671a72e646dc28c8935422a"
+        let ethTx = fetchTransaction(hash: ethTxHash)
+        switch ethTx {
+        case .success(let tx):
+            XCTAssertEqual(tx.safe?.address, "0x1230B3d59858296A31053C1b8562Ecf89A2f888b")
+            XCTAssertEqual(tx.safeTxHash?.data, Data(hex: safeTxHash))
+        case .failure(let error):
+            XCTFail("Existing transaction not found: \(error)")
+        }
+
+        let invalidHash = "0x0000000000000000000042c3aa02993a2f6906662671a72e646dc28c8935422a"
+        let invalidTx = fetchTransaction(hash: invalidHash)
+        switch invalidTx {
+        case .success(let tx):
+            XCTFail("Unexpected transaction: \(tx)")
+        case .failure(let error):
+            switch error {
+            case HTTPClient.Error.entityNotFound:
+                // good!
+                break
+            default:
+                XCTFail("Expected 'not found' error, got this: \(error)")
+            }
+        }
+    }
+
+    func fetchTransaction(hash: String) -> Result<Transaction, Error> {
+        var result: Result<Transaction, Error>?
+        let semaphore = DispatchSemaphore(value: 0)
+        DispatchQueue.global().async {
+            do {
+                let tx = try self.service.transaction(hash: Data(hex: hash))
+                result = .success(tx)
+            } catch {
+                result = .failure(error)
+            }
+            semaphore.signal()
+        }
+        semaphore.wait()
+
+        return result!
+    }
 }

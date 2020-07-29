@@ -18,19 +18,24 @@ class TokenRegistryIntegrationTests: XCTestCase {
     let notAToken: Address = "0x9bcd3162694994f67d49a8ead6e5a196c9dd2fd2"
 
     override func setUpWithError() throws {
-        XTAssertEqual(App.configuration.app.network, .rinkeby,
+        XCTAssertEqual(App.configuration.app.network, .rinkeby,
                       "The test users rinkeby addresses")
     }
 
     func testLoad() {
-        XCTAssertNil(registry[cryptoKitties])
-
         let exp = expectation(description: "Wait")
         registry.load {
             exp.fulfill()
         }
+        waitForExpectations(timeout: 3, handler: nil)
 
-        XCTAssertNotNil(registry[cryptoKitties])
+        let sema = DispatchSemaphore(value: 0)
+        DispatchQueue.global().async {
+
+            XCTAssertNotNil(self.registry["0x2FDFfE9Cad323d3922195292E8806987B1fc1AAD"])
+            sema.signal()
+        }
+        sema.wait()
     }
 
     func testFetch() {
@@ -38,20 +43,19 @@ class TokenRegistryIntegrationTests: XCTestCase {
 
         let exp = expectation(description: "Wait")
         DispatchQueue.global().async { [unowned self] in
-            // hardcoded
-            tokens.append(self.registry[AddressRegistry.ether])
-            // pull from backend (AQER)
-            tokens.append(self.registry[cryptoKitties])
-            // same token, cached
-            tokens.append(self.registry[cryptoKitties])
-            // pull from blockchain (LINK)
-            tokens.append(self.registry[chainLinkNotInBackend])
-            // not a token -- should be recognized as ERC20 (this is a fallback logic)
-            tokens.append(self.registry[notAToken])
+            tokens.append(self.registry[.ether])
+            tokens.append(self.registry[self.cryptoKitties])
+            let notInBackend = self.registry[self.chainLinkNotInBackend]
+            tokens.append(notInBackend)
+            XCTAssertNotNil(notInBackend)
+
+            // not a token -- should not be added
+            let shouldBeNil = self.registry[self.notAToken]
+            XCTAssertNil(shouldBeNil)
             exp.fulfill()
         }
         waitForExpectations(timeout: 3)
 
-        XCTAssertEqual(tokens.compactMap { $0 }.count, 5)
+        XCTAssertEqual(tokens.compactMap { $0 }.count, 3)
     }
 }
