@@ -1,5 +1,5 @@
 //
-//  GetTransactionRequest.swift
+//  TransactionDetailsRequest.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 28.07.20.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct GetTransactionRequest: JSONRequest {
+struct TransactionDetailsRequest: JSONRequest {
     let transactionHash: String
     var httpMethod: String { "GET" }
     var urlPath: String { "/api/v1/transactions/\(transactionHash)/" }
     typealias ResponseType = Transaction
 }
 
-extension GetTransactionRequest {
+extension TransactionDetailsRequest {
     init(transactionHash: Data) {
         self.transactionHash = transactionHash.toHexStringWithPrefix()
     }
@@ -26,7 +26,7 @@ extension GetTransactionRequest {
 }
 
 extension SafeTransactionService {
-    func transaction(hash: Data) throws -> GetTransactionRequest.ResponseType {
-        try execute(request: GetTransactionRequest(transactionHash: hash))
+    func transaction(hash: Data) throws -> TransactionDetailsRequest.ResponseType {
+        try execute(request: TransactionDetailsRequest(transactionHash: hash))
     }
 }
