@@ -27,6 +27,9 @@ extension TransactionDetailsRequest {
 
 extension SafeTransactionService {
     func transaction(hash: Data) throws -> TransactionDetailsRequest.ResponseType {
-        try execute(request: TransactionDetailsRequest(transactionHash: hash))
+        var tx = try execute(request: TransactionDetailsRequest(transactionHash: hash))
+        assert(tx.txType == nil, "Remove the line below when backend adds the txType")
+        tx.txType = .multiSig
+        return tx
     }
 }

@@ -8,12 +8,20 @@
 
 import SwiftUI
 
-struct TransactionDetailsView: View {
+struct TransactionDetailsView: Loadable {
+    @ObservedObject
+    var model: TransactionDetailsViewModel
     
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
 
-    let transaction: TransactionViewModel
+    var transaction: TransactionViewModel {
+        model.transaction!
+    }
+
+    init(transaction: TransactionViewModel) {
+        model = TransactionDetailsViewModel(transaction: transaction)
+    }
 
     @State
     private var showsLink: Bool = false
