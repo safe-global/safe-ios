@@ -114,6 +114,7 @@
 		0A339C5D24C1D16E00DAD84B /* Image+Blockies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
 		0A42C25424D0696D00ACA770 /* TransactionDetailsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42C25324D0696D00ACA770 /* TransactionDetailsRequest.swift */; };
+		0A42C25624D18F6400ACA770 /* TransactionDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42C25524D18F6400ACA770 /* TransactionDetailsViewModel.swift */; };
 		0A465C2E246C196900AFA467 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C2D246C196900AFA467 /* Theme.swift */; };
 		0A465C32246C229800AFA467 /* FrameForNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */; };
 		0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C33246C236A00AFA467 /* FrameForTapping.swift */; };
@@ -410,6 +411,7 @@
 		0A35CC2F24810CF6005E45BA /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		0A42C25324D0696D00ACA770 /* TransactionDetailsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsRequest.swift; sourceTree = "<group>"; };
+		0A42C25524D18F6400ACA770 /* TransactionDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewModel.swift; sourceTree = "<group>"; };
 		0A465C2D246C196900AFA467 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0A465C31246C229800AFA467 /* FrameForNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameForNavigationBar.swift; sourceTree = "<group>"; };
 		0A465C33246C236A00AFA467 /* FrameForTapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameForTapping.swift; sourceTree = "<group>"; };
@@ -829,6 +831,7 @@
 				046D0A442497BED8000F4021 /* TransactionStatusTypeView.swift */,
 				0AA9F261249A188C005BD60F /* AdvancedTransactionDetailsView.swift */,
 				0AA9F260249A188C005BD60F /* TransactionDetailsView.swift */,
+				0A42C25524D18F6400ACA770 /* TransactionDetailsViewModel.swift */,
 			);
 			path = TransactionDetails;
 			sourceTree = "<group>";
@@ -2017,6 +2020,7 @@
 				0497F6E52488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift in Sources */,
 				047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
+				0A42C25624D18F6400ACA770 /* TransactionDetailsViewModel.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
 				046D0A79249A603B000F4021 /* SetFallbackHandlerTransactionDetailsHeaderView.swift in Sources */,
 				55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */,

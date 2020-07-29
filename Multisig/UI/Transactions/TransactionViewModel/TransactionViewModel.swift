@@ -13,6 +13,7 @@ class TransactionViewModel: Identifiable, Equatable {
     let id: UUID
     var nonce: String?
     var hash: String?
+    var safeHash: String?
     var executor: String?
     var status: TransactionStatus
     var date: Date?
@@ -47,6 +48,7 @@ class TransactionViewModel: Identifiable, Equatable {
     init(_ tx: Transaction, _ safe: SafeStatusRequest.Response) {
         id = UUID()
         hash = tx.transactionHash?.description
+        safeHash = tx.safeTxHash?.description
         date = tx.executionDate ?? tx.submissionDate ?? tx.modified
         formattedCreatedDate = tx.submissionDate.map { Self.dateFormatter.string(from: $0) }
         formattedExecutedDate = tx.executionDate.map { Self.dateFormatter.string(from: $0) }

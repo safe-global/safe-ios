@@ -12,6 +12,7 @@ import Combine
 protocol LoadableViewModel: ObservableObject {
     var isLoading: Bool { get set }
     var isRefreshing: Bool { get set }
+    var isRefreshingEnabled: Bool { get set }
     var contentWasLoadedOnce: Bool { get set }
     var errorMessage: String? { get set }
     func reloadData()
@@ -37,7 +38,7 @@ struct LoadableView<Content: Loadable>: View {
         ZStack(alignment: .center) {
             if model.isLoading {
                 loadingView
-            } else {
+            } else if model.isRefreshingEnabled {
                 GeometryReader { geometryProxy in
                     RefreshableScrollView(refreshing: self.$model.isRefreshing) {
                         ZStack(alignment: .center) {
@@ -49,6 +50,17 @@ struct LoadableView<Content: Loadable>: View {
                         }
                         .frame(height: geometryProxy.size.height)
                     }
+                }
+            } else {
+                GeometryReader { geometryProxy in
+                    ZStack(alignment: .center) {
+                        if self.model.errorMessage != nil && !self.model.contentWasLoadedOnce {
+                            self.noDataView
+                        } else {
+                            self.contentView
+                        }
+                    }
+                    .frame(height: geometryProxy.size.height)
                 }
             }
         }
@@ -97,6 +109,8 @@ class BasicLoadableViewModel: LoadableViewModel {
             }
         }
     }
+
+    @Published var isRefreshingEnabled: Bool = true
 
     @Published var errorMessage: String? = nil
 
