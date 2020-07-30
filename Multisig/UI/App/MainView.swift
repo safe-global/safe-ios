@@ -17,8 +17,6 @@ struct MainView: View {
 
     @State
     private var showsSafeInfo: Bool = false
-
-    private let headerHeight: CGFloat = 116
     
     var body: some View {
         NavigationView {
