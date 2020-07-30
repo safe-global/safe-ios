@@ -38,3 +38,20 @@ class EthereumNodeService {
     }
 
 }
+
+extension Web3Response.Error : LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .connectionFailed(let error):
+            return error?.localizedDescription ?? "Connection Failed"
+        case .emptyResponse:
+            return "Empty response"
+        case .requestFailed(let error):
+            return error?.localizedDescription ?? "Request failed"
+        case .serverError(let error):
+            return error?.localizedDescription ?? "Server Error"
+        case .decodingError(let error):
+            return error?.localizedDescription ?? "Decoding Error"
+        }
+    }
+}
