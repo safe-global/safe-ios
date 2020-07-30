@@ -26,7 +26,10 @@ extension TransferMethod {
         } else if let t = t as? MethodRegistry.ERC20.Transfer {
             self.init(t)
         } else {
-            LogService.shared.error("Unexpected method call \(t) in transfer method")
+            LogService.shared.error(
+                "Unexpected method call \(t) in transfer method",
+                error: MethodDecodingError.unexpectedMethod(String(describing: t))
+            )
             fatalError("Unexpected type of the method call")
         }
     }

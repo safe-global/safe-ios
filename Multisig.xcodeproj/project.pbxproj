@@ -134,6 +134,9 @@
 		0A72AC622453169700840641 /* LinkText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC612453169700840641 /* LinkText.swift */; };
 		0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC652453184C00840641 /* SafeAddressField.swift */; };
 		0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC6924531C0200840641 /* AddressInputSelector.swift */; };
+		0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */; };
+		0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */; };
+		0A791D9B24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9A24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift */; };
 		0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEADC2462F92C00014184 /* SelectedSafeButton.swift */; };
 		0A7AEADF2462F95100014184 /* SwitchSafeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEADE2462F95100014184 /* SwitchSafeButton.swift */; };
 		0A7AEAE12462F98800014184 /* SafeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAE02462F98800014184 /* SafeRow.swift */; };
@@ -437,6 +440,9 @@
 		0A72AC612453169700840641 /* LinkText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkText.swift; sourceTree = "<group>"; };
 		0A72AC652453184C00840641 /* SafeAddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAddressField.swift; sourceTree = "<group>"; };
 		0A72AC6924531C0200840641 /* AddressInputSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInputSelector.swift; sourceTree = "<group>"; };
+		0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDecodingError.swift; sourceTree = "<group>"; };
+		0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodDecodingError.swift; sourceTree = "<group>"; };
+		0A791D9A24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientUnexpectedError.swift; sourceTree = "<group>"; };
 		0A7AEADC2462F92C00014184 /* SelectedSafeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSafeButton.swift; sourceTree = "<group>"; };
 		0A7AEADE2462F95100014184 /* SwitchSafeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchSafeButton.swift; sourceTree = "<group>"; };
 		0A7AEAE02462F98800014184 /* SafeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeRow.swift; sourceTree = "<group>"; };
@@ -990,6 +996,16 @@
 			path = "Tab Views";
 			sourceTree = "<group>";
 		};
+		0A791D9524D2E36400D70DA9 /* Crashlytics Non-fatal Errors */ = {
+			isa = PBXGroup;
+			children = (
+				0A791D9A24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift */,
+				0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */,
+				0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */,
+			);
+			path = "Crashlytics Non-fatal Errors";
+			sourceTree = "<group>";
+		};
 		0A7AEAE42462FAAD00014184 /* Switch Safe */ = {
 			isa = PBXGroup;
 			children = (
@@ -1350,6 +1366,7 @@
 				0A6C85B3245080620026139E /* App.swift */,
 				0ACDC01624925B36002035A2 /* Analytics */,
 				0A6430D8247EC180006FD30A /* Configuration */,
+				0A791D9524D2E36400D70DA9 /* Crashlytics Non-fatal Errors */,
 				044A544C2448E5CF009CBB80 /* Localization */,
 				5532D4AE2449A17D0067505A /* Logger */,
 			);
@@ -1966,6 +1983,7 @@
 				0AA9F2042497BDD6005BD60F /* TransactionConfirmation.swift in Sources */,
 				0A09839E24BC5301009EE296 /* InMemoryTokenStore.swift in Sources */,
 				55B66E54247E47A900249E98 /* MainView.swift in Sources */,
+				0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
 				0AB34D6824B71DF700A43988 /* TokensRequest.swift in Sources */,
 				0AA9F2532498CC70005BD60F /* UInt256String.swift in Sources */,
@@ -2017,6 +2035,7 @@
 				0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */,
 				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,
 				0A946D0A246C4C6E00456BD5 /* SettingsView.swift in Sources */,
+				0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */,
 				0497F6E52488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift in Sources */,
 				047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
@@ -2082,6 +2101,7 @@
 				04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift in Sources */,
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
+				0A791D9B24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift in Sources */,
 				04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */,
 				04C97AAA246ED32800EBA0F1 /* BasicAppSettingsView.swift in Sources */,
 				0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */,
