@@ -35,6 +35,13 @@ class HTTPClient {
         self.logger = logger
     }
 
+    fileprivate enum UnexpectedError: LoggableError {
+        case unrecognizedErrorCode(Int)
+        case missingDataInUnprocessableEntity
+        case errorDetailsDecodingFailed(String)
+        case unknownHTTPError(String)
+    }
+
     enum Error: LocalizedError {
         case networkRequestFailed(URLRequest, URLResponse?, Data?)
         case entityNotFound(URLRequest, URLResponse?, Data?)
@@ -57,7 +64,10 @@ class HTTPClient {
                 case 50:
                     self = .safeInfoNotFound
                 default:
-                    LogService.shared.error("Unrecognised error code: \(code)")
+                    LogService.shared.error(
+                        "Unrecognised error code: \(code)",
+                        error: UnexpectedError.unrecognizedErrorCode(code)
+                    )
                     self = .unexpectedError
                 }
             }
@@ -71,22 +81,32 @@ class HTTPClient {
                 return Message.entityNotFound.rawValue
             case .unprocessableEntity(_, _, let data):
                 guard let data = data else {
-                    LogService.shared.error("Missing data in unprocessableEntity error")
+                    LogService.shared.error(
+                        "Missing data in unprocessableEntity error",
+                        error: UnexpectedError.missingDataInUnprocessableEntity
+                    )
                     return Message.unexpectedError.rawValue
                 }
                 do {
                     let details = try JSONDecoder().decode(ErrorDetails.self, from: data)
                     return Message(code: details.code).rawValue
                 } catch {
-                    LogService.shared.error("Could not decode error details from the data: \(data)")
+                    let dataString = String(data: data, encoding: .utf8) ?? data.base64EncodedString()
+                    LogService.shared.error(
+                        "Could not decode error details from the data: \(dataString)",
+                        error: UnexpectedError.errorDetailsDecodingFailed(dataString)
+                    )
                     return Message.unexpectedError.rawValue
                 }
             case .unknownError(let request, let response, let data):
                 let requestStr = String(describing: request)
-                let responseStr = response.map { String(describing: $0) } ?? ""
-                let dataStr = data.map { String(describing: $0) } ?? ""
+                let responseStr = response.map { String(describing: $0) } ?? "<no response>"
+                let dataStr = data.map { String(data: $0, encoding: .utf8) ?? $0.base64EncodedString() } ?? "<no data>"
+                let msg = "Unknown HTTP error. Request: \(requestStr); Response: \(responseStr); Data: \(dataStr)"
                 LogService.shared.error(
-                    "Unknown HTTP error. Request: \(requestStr); Response: \(responseStr); Data: \(dataStr)")
+                    msg,
+                    error: UnexpectedError.unknownHTTPError(msg)
+                )
                 return Message.unexpectedError.rawValue
             }
         }

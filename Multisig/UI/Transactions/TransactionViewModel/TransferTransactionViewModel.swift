@@ -91,6 +91,13 @@ class TransferTransactionViewModel: TransactionViewModel {
         return result
     }
 
+    fileprivate enum ConversionError: LoggableError {
+        case transferWithoutTokenAddress(String)
+        case transferClassificationFailed(String)
+        case transferWithInvalidTokenAndInfoType(String)
+        case transferWithInvalidNonEtherType(String)
+    }
+
     fileprivate class func token(from transfer: TransactionTransfer) -> Token {
         var token: Token
 
@@ -117,7 +124,10 @@ class TransferTransactionViewModel: TransactionViewModel {
                 }
             } else {
                 assertionFailure("ERC20 or ERC721 token w/o address. Backend issue?")
-                LogService.shared.error("Transfer w/o address: \(transfer.transactionHash)")
+                LogService.shared.error(
+                    "Transfer w/o address: \(transfer.transactionHash)",
+                    error: ConversionError.transferWithoutTokenAddress(transfer.transactionHash.description)
+                )
                 token = ether()
             }
 
@@ -153,7 +163,10 @@ class TransferTransactionViewModel: TransactionViewModel {
             // were not decoded, which must be true, becuase the outer 'else if' condition
             // is true
             assertionFailure("Should not get here")
-            LogService.shared.error("Transfer transaction classification failed in safe:\(safe)")
+            LogService.shared.error(
+                "Transfer transaction classification failed in safe:\(safe)",
+                error: ConversionError.transferClassificationFailed(safe.checksummed)
+            )
             token = Token(erc20: address)
         }
         return token
@@ -162,7 +175,10 @@ class TransferTransactionViewModel: TransactionViewModel {
     fileprivate class func tokenViewModel(_ token: Token, _ transfer: TransactionTransfer, _ tx: Transaction, _ info: SafeStatusRequest.Response) -> TransactionViewModel {
         if !((transfer.type == .ether && token.type == .erc20) || (transfer.type == token.type)) {
             assertionFailure("Invalid combination of transfer type and tokenInfo type")
-            LogService.shared.error("Transfer transaction has invalid transfer and tokenInfo combination in safe: \(tx.safeAddress(info))")
+            LogService.shared.error(
+                "Transfer transaction has invalid transfer and tokenInfo combination in safe: \(tx.safeAddress(info))",
+                error: ConversionError.transferWithInvalidTokenAndInfoType(tx.safeAddress(info).checksummed)
+            )
             // continuing to still display this transfer
         }
         let transferInfo: TransferInfo
@@ -196,7 +212,10 @@ class TransferTransactionViewModel: TransactionViewModel {
 
         if transfer.type != .ether {
             assertionFailure("Expected to see ether transfer")
-            LogService.shared.error("Transfer transaction has invalid (not ether) transfer type: \(tx.safeAddress(info))")
+            LogService.shared.error(
+                "Transfer transaction has invalid (not ether) transfer type: \(tx.safeAddress(info))",
+                error: ConversionError.transferWithInvalidNonEtherType(tx.safeAddress(info).checksummed)
+            )
             // continuing to still display this transfer
         }
         let transferInfo = TransferInfo(ether: transfer, tx: tx, info: info, token: token)
