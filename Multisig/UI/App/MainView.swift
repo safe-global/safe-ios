@@ -25,7 +25,7 @@ struct MainView: View {
             VStack(spacing: 0) {
                 SafeHeaderView(showsSafeInfo: $showsSafeInfo)
                     .environment(\.managedObjectContext, context)
-                    .frame(height: headerHeight)
+                    .frame(height: ScreenMetrics.safeHeaderHeight)
                     .zIndex(100)
 
                 MainTabView()

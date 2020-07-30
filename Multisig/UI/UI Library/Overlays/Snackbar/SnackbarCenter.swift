@@ -42,13 +42,12 @@ class SnackbarCenter: ObservableObject {
         recreatePipeline()
     }
 
-    func pushBottomPadding(_ value: CGFloat? = nil) {
-        let space = value ?? ScreenMetrics.aboveBottomEdge
-        bottomPaddingStack.append(space)
+    func setBottomPadding(_ value: CGFloat = ScreenMetrics.aboveBottomEdge) {
+        bottomPaddingStack.append(value)
         updateBottomEdgeSpacing()
     }
 
-    func popBottomPadding() {
+    func resetBottomPadding() {
         bottomPaddingStack.removeLast()
         updateBottomEdgeSpacing()
     }

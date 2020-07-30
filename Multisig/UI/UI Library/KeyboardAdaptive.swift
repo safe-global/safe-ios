@@ -38,14 +38,14 @@ struct KeyboardAdaptive: ViewModifier {
                     self.offsetY = -change
                 }
             }
-            App.shared.snackbar.pushBottomPadding(ScreenMetrics.aboveKeyboard(keyboardFrame))
+            App.shared.snackbar.setBottomPadding(ScreenMetrics.aboveKeyboard(keyboardFrame))
         }
         .onReceive(Publishers.willHideKeyboard) { _ in
             withAnimation {
                 self.bottomPadding = 0
                 self.offsetY = 0
             }
-            App.shared.snackbar.popBottomPadding()
+            App.shared.snackbar.resetBottomPadding()
         }
         .onTapGesture {
             UIResponder.resignCurrentFirstResponder()

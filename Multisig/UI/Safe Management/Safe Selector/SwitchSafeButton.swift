@@ -30,10 +30,10 @@ struct SwitchSafeButton: View {
                     SwitchSafeView()
                         .environment(\.managedObjectContext, self.context)
                         .onAppear {
-                                App.shared.snackbar.pushBottomPadding()
+                                App.shared.snackbar.setBottomPadding()
                             }
                         .onDisappear {
-                            App.shared.snackbar.popBottomPadding()
+                            App.shared.snackbar.resetBottomPadding()
                         }
                         .hostSnackbar()
 
