@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct SnackbarHostView<Content: View>: View {
-
     let content: Content
 
     @ObservedObject

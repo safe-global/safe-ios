@@ -23,15 +23,15 @@ enum ScreenMetrics {
     }
 
     static var aboveTabBar: CGFloat {
-        Spacing.XS + (isBigScreen ? 52 : 64)
+        Spacing.extraSmall + (isBigScreen ? 52 : 64)
     }
 
     static func aboveKeyboard(_ frame: CGRect) -> CGFloat {
-        frame.height + (isBigScreen ? -Spacing.M : Spacing.M)
+        frame.height + (isBigScreen ? -Spacing.medium : Spacing.medium)
     }
 
     static var aboveBottomEdge: CGFloat {
-        isBigScreen ? 0 : Spacing.M
+        isBigScreen ? 0 : Spacing.medium
     }
 
     static var safeHeaderHeight: CGFloat {

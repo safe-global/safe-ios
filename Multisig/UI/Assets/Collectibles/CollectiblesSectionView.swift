@@ -11,7 +11,7 @@ import SwiftUI
 struct CollectiblesSectionView: View {
     let section: CollectiblesListViewModel.Section
 
-    private let imageDimension: CGFloat = Spacing.XXL
+    private let imageDimension: CGFloat = Spacing.extraExtraLarge
 
     var body: some View {
         Section (header: header) {

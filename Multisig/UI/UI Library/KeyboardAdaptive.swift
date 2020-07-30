@@ -54,7 +54,7 @@ struct KeyboardAdaptive: ViewModifier {
 }
 
 extension View {
-    func keyboardAdaptive(padding: CGFloat = Spacing.XXL) -> some View {
+    func keyboardAdaptive(padding: CGFloat = Spacing.extraExtraLarge) -> some View {
         modifier(KeyboardAdaptive(responderPadding: padding))
     }
 }

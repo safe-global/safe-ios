@@ -10,13 +10,13 @@ import Foundation
 import SwiftUI
 
 enum Spacing {
-    static let XXS: CGFloat     = 4
-    static let XS: CGFloat      = 8
-    static let S: CGFloat       = 12
-    static let M: CGFloat       = 16
-    static let L: CGFloat       = 20
-    static let XL: CGFloat      = 24
-    static let XXL: CGFloat     = 28
-    static let XXXL: CGFloat    = 32
+    static let extraExtraSmall: CGFloat         = 4
+    static let extraSmall: CGFloat              = 8
+    static let small: CGFloat                   = 12
+    static let medium: CGFloat                  = 16
+    static let large: CGFloat                   = 20
+    static let extraLarge: CGFloat              = 24
+    static let extraExtraLarge: CGFloat         = 28
+    static let extraExtraExtraLarge: CGFloat    = 32
 }
 

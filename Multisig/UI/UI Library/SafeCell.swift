@@ -14,7 +14,7 @@ struct SafeCell: View {
     var safe: Safe
 
     var iconSize: CGFloat = 36
-    var iconToTextSpacing: CGFloat = Spacing.S
+    var iconToTextSpacing: CGFloat = Spacing.small
     var nameToAddressPadding: CGFloat = 0
 
 
