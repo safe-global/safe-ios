@@ -56,13 +56,7 @@ struct MainTabView: View {
                     }
                 }
         }
-        .onAppear {
-            // this adjusts the snack bar position
-            App.shared.snackbar.setBottomPadding(ScreenMetrics.aboveTabBar)
-        }
-        .onDisappear {
-            App.shared.snackbar.resetBottomPadding()
-        }
+        .snackbarBottomPadding(ScreenMetrics.aboveTabBar)
         .onReceive(globalSelection.$state) { newValue in
             if newValue != self.localSelection {
                 self.localSelection = newValue

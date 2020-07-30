@@ -17,7 +17,7 @@ struct MainView: View {
 
     @State
     private var showsSafeInfo: Bool = false
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
