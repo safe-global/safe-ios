@@ -52,6 +52,7 @@ struct EditSafeNameView: View {
         }
         .padding(.top, 24)
         .padding(.horizontal)
+        .keyboardAdaptive()
         .navigationBarTitle("Edit Safe Name", displayMode: .inline)
         .navigationBarItems(trailing: saveButton)
         .onAppear {

@@ -20,7 +20,7 @@ struct EnterSafeNameView: View {
     }
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: Spacing.extraLarge) {
             CorrectAddressView(address: model.address)
                 .layoutPriority(1)
 
@@ -41,7 +41,7 @@ struct EnterSafeNameView: View {
 
             Spacer()
         }
-        .padding(.top, 24)
+        .padding(.top, Spacing.extraLarge)
         .padding(.horizontal)
         .keyboardAdaptive()
         .navigationBarTitle("Load Safe Multisig", displayMode: .inline)

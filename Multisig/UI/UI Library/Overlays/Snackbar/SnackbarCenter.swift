@@ -15,7 +15,7 @@ class SnackbarCenter: ObservableObject {
     var isPresented: Bool = false
 
     @Published
-    var bottomEdgeSpacing: CGFloat = 0
+    var bottomEdgeSpacing: CGFloat = ScreenMetrics.aboveBottomEdge
 
     @Published
     private(set) var snackbarMessge: String?
@@ -26,6 +26,7 @@ class SnackbarCenter: ObservableObject {
     private var pipeline = PassthroughSubject<Void, Never>()
     private var subscribers = Set<AnyCancellable>()
     private let displayDuration: TimeInterval = 4
+    private var bottomPaddingStack: [CGFloat] = []
 
     private struct Message: Hashable, CustomStringConvertible {
         var id = UUID()
@@ -39,6 +40,22 @@ class SnackbarCenter: ObservableObject {
 
     init() {
         recreatePipeline()
+    }
+
+    func setBottomPadding(_ value: CGFloat = ScreenMetrics.aboveBottomEdge) {
+        bottomPaddingStack.append(value)
+        updateBottomEdgeSpacing()
+    }
+
+    func resetBottomPadding() {
+        bottomPaddingStack.removeLast()
+        updateBottomEdgeSpacing()
+    }
+
+    private func updateBottomEdgeSpacing() {
+        withAnimation {
+            bottomEdgeSpacing = bottomPaddingStack.last ?? ScreenMetrics.aboveBottomEdge
+        }
     }
 
     func show(message: String, duration: TimeInterval? = nil) {

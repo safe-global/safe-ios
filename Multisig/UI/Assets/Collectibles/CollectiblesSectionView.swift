@@ -11,7 +11,8 @@ import SwiftUI
 struct CollectiblesSectionView: View {
     let section: CollectiblesListViewModel.Section
 
-    private let imageDimention: CGFloat = 28
+    private let imageDimension: CGFloat = Spacing.extraExtraLarge
+
     var body: some View {
         Section (header: header) {
             ForEach(section.collectibles) { collectible in
@@ -25,7 +26,7 @@ struct CollectiblesSectionView: View {
 
     var header: some View {
         HStack {
-            TokenImage(width: imageDimention, height: imageDimention, url: section.imageURL, name: "ico-nft-placeholder")
+            TokenImage(width: imageDimension, height: imageDimension, url: section.imageURL, name: "ico-nft-placeholder")
             Text(section.name).headline()
             Spacer()
         }

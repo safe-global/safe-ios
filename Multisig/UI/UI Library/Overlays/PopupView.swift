@@ -13,13 +13,13 @@ struct PopupView<Content>: View where Content: View {
     private var isPresented: Binding<Bool>
     private var content: Content
 
-    private let horizontalContentInset: CGFloat = 24
+    private let horizontalContentInset: CGFloat = Spacing.extraLarge
 
     private let onAppearCardScale: CGFloat = 0.95
     private let cardYOffsetFromMiddle: CGFloat = -90
 
-    private let verticalContentInset: CGFloat = 16
-    private let screenEdgePadding: CGFloat = 16
+    private let verticalContentInset: CGFloat = Spacing.medium
+    private let screenEdgePadding: CGFloat = Spacing.medium
 
     private let cardCornerRadius: CGFloat = 10
 

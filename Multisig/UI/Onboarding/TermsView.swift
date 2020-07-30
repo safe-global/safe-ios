@@ -15,9 +15,9 @@ struct TermsView: View {
     @State private var showPrivacyPolicy = false
     @State private var showTerms = false
 
-    private let topPadding: CGFloat = 24
-    private let bottomPadding: CGFloat = 20
-    let interItemSpacing: CGFloat = 12
+    private let topPadding: CGFloat = Spacing.extraLarge
+    private let bottomPadding: CGFloat = Spacing.large
+    let interItemSpacing: CGFloat = Spacing.small
 
     private let legal = App.configuration.legal
 
@@ -53,7 +53,7 @@ struct TermsView: View {
 
     struct BulletText: View {
         private let text: String
-        private let bulletTopPadding: CGFloat = 8
+        private let bulletTopPadding: CGFloat = Spacing.extraSmall
 
         init(_ text: String) {
             self.text = text

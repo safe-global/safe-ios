@@ -38,12 +38,14 @@ struct KeyboardAdaptive: ViewModifier {
                     self.offsetY = -change
                 }
             }
+            App.shared.snackbar.setBottomPadding(ScreenMetrics.aboveKeyboard(keyboardFrame))
         }
         .onReceive(Publishers.willHideKeyboard) { _ in
             withAnimation {
                 self.bottomPadding = 0
                 self.offsetY = 0
             }
+            App.shared.snackbar.resetBottomPadding()
         }
         .onTapGesture {
             UIResponder.resignCurrentFirstResponder()
@@ -52,7 +54,7 @@ struct KeyboardAdaptive: ViewModifier {
 }
 
 extension View {
-    func keyboardAdaptive(padding: CGFloat = 32) -> some View {
+    func keyboardAdaptive(padding: CGFloat = Spacing.extraExtraLarge) -> some View {
         modifier(KeyboardAdaptive(responderPadding: padding))
     }
 }

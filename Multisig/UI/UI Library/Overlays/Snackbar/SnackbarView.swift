@@ -9,9 +9,9 @@
 import SwiftUI
 
 enum SnackbarViewMetrics {
-    static let textPadding = CGSize(width: 16, height: 14)
+    static let textPadding = CGSize(width: Spacing.medium, height: 14)
     static let cornerRadius: CGFloat = 8
-    static let screenPadding = CGSize(width: 16, height: 10)
+    static let screenPadding = CGSize(width: Spacing.medium, height: 10)
     static let offscreenOffset: CGFloat = 300
 }
 
