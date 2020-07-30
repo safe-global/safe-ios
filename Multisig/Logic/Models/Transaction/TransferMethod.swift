@@ -16,10 +16,6 @@ struct TransferMethod {
 
 extension TransferMethod {
 
-    fileprivate enum MethodDecodingError: LoggableError {
-        case unexpectedMethod(String)
-    }
-
     init(_ t: SmartContractMethodCall) {
         if let t = t as? MethodRegistry.ERC721.SafeTransferFromData {
             self.init(t)

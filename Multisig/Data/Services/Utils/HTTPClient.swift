@@ -35,13 +35,6 @@ class HTTPClient {
         self.logger = logger
     }
 
-    fileprivate enum UnexpectedError: LoggableError {
-        case unrecognizedErrorCode(Int)
-        case missingDataInUnprocessableEntity
-        case errorDetailsDecodingFailed(String)
-        case unknownHTTPError(String)
-    }
-
     enum Error: LocalizedError {
         case networkRequestFailed(URLRequest, URLResponse?, Data?)
         case entityNotFound(URLRequest, URLResponse?, Data?)
@@ -66,7 +59,7 @@ class HTTPClient {
                 default:
                     LogService.shared.error(
                         "Unrecognised error code: \(code)",
-                        error: UnexpectedError.unrecognizedErrorCode(code)
+                        error: HTTPClientUnexpectedError.unrecognizedErrorCode(code)
                     )
                     self = .unexpectedError
                 }
@@ -83,7 +76,7 @@ class HTTPClient {
                 guard let data = data else {
                     LogService.shared.error(
                         "Missing data in unprocessableEntity error",
-                        error: UnexpectedError.missingDataInUnprocessableEntity
+                        error: HTTPClientUnexpectedError.missingDataInUnprocessableEntity
                     )
                     return Message.unexpectedError.rawValue
                 }
@@ -94,7 +87,7 @@ class HTTPClient {
                     let dataString = String(data: data, encoding: .utf8) ?? data.base64EncodedString()
                     LogService.shared.error(
                         "Could not decode error details from the data: \(dataString)",
-                        error: UnexpectedError.errorDetailsDecodingFailed(dataString)
+                        error: HTTPClientUnexpectedError.errorDetailsDecodingFailed(dataString)
                     )
                     return Message.unexpectedError.rawValue
                 }
@@ -105,7 +98,7 @@ class HTTPClient {
                 let msg = "Unknown HTTP error. Request: \(requestStr); Response: \(responseStr); Data: \(dataStr)"
                 LogService.shared.error(
                     msg,
-                    error: UnexpectedError.unknownHTTPError(msg)
+                    error: HTTPClientUnexpectedError.unknownHTTPError(msg)
                 )
                 return Message.unexpectedError.rawValue
             }
