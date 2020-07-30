@@ -110,7 +110,7 @@ class SnackbarCenter: ObservableObject {
             }
             .flatMap { message in
                 Just(message)
-                    .delay(for: .seconds(60 /*message.duration*/), scheduler: RunLoop.main)
+                    .delay(for: .seconds(message.duration), scheduler: RunLoop.main)
             }
 
             // check because user could hide the current message via `hide()`

@@ -1012,6 +1012,16 @@
 			path = "Crashlytics Non-fatal Errors";
 			sourceTree = "<group>";
 		};
+		0A791DA224D3129B00D70DA9 /* Snackbar */ = {
+			isa = PBXGroup;
+			children = (
+				0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */,
+				0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */,
+				0A791D9C24D2FD5C00D70DA9 /* SnackbarHostView.swift */,
+			);
+			path = Snackbar;
+			sourceTree = "<group>";
+		};
 		0A7AEAE42462FAAD00014184 /* Switch Safe */ = {
 			isa = PBXGroup;
 			children = (
@@ -1350,7 +1360,6 @@
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
 				55B66E53247E47A900249E98 /* MainView.swift */,
-				0A791D9C24D2FD5C00D70DA9 /* SnackbarHostView.swift */,
 				0A19D441249BB66D00A316B6 /* MainTabView.swift */,
 				0A465C2D246C196900AFA467 /* Theme.swift */,
 				04C97A99246C3E5F00EBA0F1 /* ViewState.swift */,
@@ -1563,8 +1572,7 @@
 				0A9BC3AB24617C2F00EB9C5D /* PopupView.swift */,
 				55B66E88247FE09A00249E98 /* BottomOverlayView.swift */,
 				55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */,
-				0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */,
-				0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */,
+				0A791DA224D3129B00D70DA9 /* Snackbar */,
 			);
 			path = Overlays;
 			sourceTree = "<group>";
