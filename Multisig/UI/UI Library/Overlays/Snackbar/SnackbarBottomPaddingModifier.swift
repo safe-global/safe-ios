@@ -1,5 +1,5 @@
 //
-//  SnackbarAdjustingModifier.swift
+//  SnackbarBottomPaddingModifier.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 30.07.20.
