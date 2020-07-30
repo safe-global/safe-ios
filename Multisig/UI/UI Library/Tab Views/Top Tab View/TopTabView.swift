@@ -16,8 +16,6 @@ struct TopTabView<SelectionValue: Hashable>: View {
 
     var selection: Binding<SelectionValue?>
 
-    let tabBarHeight: CGFloat = 56
-
     init(_ selection: Binding<SelectionValue?>, items: [TabViewItem<SelectionValue>]) {
         self.selection = selection
         self.items = items
@@ -32,7 +30,7 @@ struct TopTabView<SelectionValue: Hashable>: View {
                     }
                 }
             }
-            .frame(height: tabBarHeight)
+            .frame(height: ScreenMetrics.topTabHeight)
             .background(Color.gnoWhite)
 
             if selectedItem != nil {

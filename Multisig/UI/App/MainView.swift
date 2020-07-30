@@ -14,8 +14,6 @@ struct MainView: View {
 
     @ObservedObject
     var viewState = App.shared.viewState
-    @ObservedObject
-    var snackbar = App.shared.snackbar
 
     @State
     private var showsSafeInfo: Bool = false
@@ -45,20 +43,11 @@ struct MainView: View {
         .accentColor(.gnoHold)
         .background(Color.gnoWhite)
         .overlay(
-            SnackbarView(isPresented: $snackbar.isPresented,
-                         bottomSpacing: $snackbar.bottomEdgeSpacing,
-                         content: Text(snackbar.snackbarMessge ?? "")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-            )
-            .onTapGesture {
-                self.snackbar.hide()
-            }
-        )
-        .overlay(
             PopupView(isPresented: $showsSafeInfo) {
                 SafeInfoView().environment(\.managedObjectContext, context)
             }
         )
+        .hostSnackbar()
     }
 }
 

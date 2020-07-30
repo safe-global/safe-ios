@@ -28,7 +28,6 @@ struct MainTabView: View {
 
     var globalSelection = App.shared.viewState
 
-    let tabBarSpacing: CGFloat = 8
 
     var body: some View {
         BottomTabView($localSelection) {
@@ -59,11 +58,10 @@ struct MainTabView: View {
         }
         .onAppear {
             // this adjusts the snack bar position
-            App.shared.snackbar.bottomEdgeSpacing =
-                BottomTabViewMetrics.tabBarHeight + self.tabBarSpacing
+            App.shared.snackbar.pushBottomPadding(ScreenMetrics.aboveTabBar)
         }
         .onDisappear {
-            App.shared.snackbar.bottomEdgeSpacing = 0
+            App.shared.snackbar.popBottomPadding()
         }
         .onReceive(globalSelection.$state) { newValue in
             if newValue != self.localSelection {

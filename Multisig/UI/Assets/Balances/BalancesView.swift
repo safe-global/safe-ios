@@ -32,7 +32,7 @@ struct TokenBalanceCell: View {
     var tokenBalance: TokenBalance
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: Spacing.S) {
             if tokenBalance.address != Address.ether.checksummed {
                 TokenImage(url: tokenBalance.imageURL)
             } else {

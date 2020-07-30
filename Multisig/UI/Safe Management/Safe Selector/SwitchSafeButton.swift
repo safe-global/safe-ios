@@ -29,6 +29,14 @@ struct SwitchSafeButton: View {
                 .sheet(isPresented: $showsSwitchSafe) {
                     SwitchSafeView()
                         .environment(\.managedObjectContext, self.context)
+                        .onAppear {
+                                App.shared.snackbar.pushBottomPadding()
+                            }
+                        .onDisappear {
+                            App.shared.snackbar.popBottomPadding()
+                        }
+                        .hostSnackbar()
+
                 }
 
             }

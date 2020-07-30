@@ -13,7 +13,7 @@ struct ContractVersionCell: View {
     private let implementation: Address
     private let versionStatus: GnosisSafe.VersionStatus
     private let iconSize: CGFloat = 36
-    private let lineSpacing: CGFloat = 12
+    private let lineSpacing: CGFloat = Spacing.S
     private let statusIconSize: CGFloat = 14
 
     init(implementation: String?) {

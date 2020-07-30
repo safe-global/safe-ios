@@ -15,7 +15,7 @@ class SnackbarCenter: ObservableObject {
     var isPresented: Bool = false
 
     @Published
-    var bottomEdgeSpacing: CGFloat = 0
+    var bottomEdgeSpacing: CGFloat = ScreenMetrics.aboveBottomEdge
 
     @Published
     private(set) var snackbarMessge: String?
@@ -26,6 +26,7 @@ class SnackbarCenter: ObservableObject {
     private var pipeline = PassthroughSubject<Void, Never>()
     private var subscribers = Set<AnyCancellable>()
     private let displayDuration: TimeInterval = 4
+    private var bottomPaddingStack: [CGFloat] = []
 
     private struct Message: Hashable, CustomStringConvertible {
         var id = UUID()
@@ -39,6 +40,23 @@ class SnackbarCenter: ObservableObject {
 
     init() {
         recreatePipeline()
+    }
+
+    func pushBottomPadding(_ value: CGFloat? = nil) {
+        let space = value ?? ScreenMetrics.aboveBottomEdge
+        bottomPaddingStack.append(space)
+        updateBottomEdgeSpacing()
+    }
+
+    func popBottomPadding() {
+        bottomPaddingStack.removeLast()
+        updateBottomEdgeSpacing()
+    }
+
+    private func updateBottomEdgeSpacing() {
+        withAnimation {
+            bottomEdgeSpacing = bottomPaddingStack.last ?? ScreenMetrics.aboveBottomEdge
+        }
     }
 
     func show(message: String, duration: TimeInterval? = nil) {
@@ -92,7 +110,7 @@ class SnackbarCenter: ObservableObject {
             }
             .flatMap { message in
                 Just(message)
-                    .delay(for: .seconds(message.duration), scheduler: RunLoop.main)
+                    .delay(for: .seconds(60 /*message.duration*/), scheduler: RunLoop.main)
             }
 
             // check because user could hide the current message via `hide()`

@@ -11,12 +11,12 @@ import SwiftUI
 struct TransferTransactionDetailsHeaderView: View {
     let transaction: TransferTransactionViewModel
 
-    private let dimention: CGFloat = 36
+    private let dimension: CGFloat = 36
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             fromView
-            Image("ico-arrow-down").frame(width: dimention, height: dimention)
+            Image("ico-arrow-down").frame(width: dimension, height: dimension)
             toView
         }
     }
