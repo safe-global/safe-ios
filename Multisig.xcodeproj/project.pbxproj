@@ -547,6 +547,7 @@
 		0AE061D72464591900CB60D7 /* BasicSafeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSafeSettingsView.swift; sourceTree = "<group>"; };
 		0AEDCE0624728D7100A1EC80 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		0AEDCE0A2472946600A1EC80 /* BarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButton.swift; sourceTree = "<group>"; };
+		0AF2730E24DAAAB6007E4012 /* Multisig.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Multisig.entitlements; sourceTree = "<group>"; };
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF6501A24488D280018D070 /* FullSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSize.swift; sourceTree = "<group>"; };
 		0AF66E9C24C0B65F004B7863 /* TransferMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferMethod.swift; sourceTree = "<group>"; };
@@ -1089,6 +1090,7 @@
 		0A93DD552445CC8A00688050 /* Multisig */ = {
 			isa = PBXGroup;
 			children = (
+				0AF2730E24DAAAB6007E4012 /* Multisig.entitlements */,
 				0A93DD88244603A400688050 /* UI */,
 				5532D4912448A1960067505A /* Logic */,
 				0AF432C5244DFA0200E22E50 /* Data */,
@@ -2309,6 +2311,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 63491F06110B339CB349CC57 /* Pods-Multisig.debug.production.rinkeby.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2436,6 +2439,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 02A74BC8CEDDED6CC3D8EDF1 /* Pods-Multisig.debug.staging.rinkeby.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2557,6 +2561,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5EBDB0B79D3FC3A38767F16D /* Pods-Multisig.release.production.rinkeby.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2678,6 +2683,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 84E6C3FA76D931261AF4FFE4 /* Pods-Multisig.release.staging.rinkeby.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2860,6 +2866,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B54E973F7CF37DF3A46AEE36 /* Pods-Multisig.debug.production.mainnet.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2883,6 +2890,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D3605934C3A6383FED275C4 /* Pods-Multisig.release.production.mainnet.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3053,6 +3061,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F1ECF2E152DB5E7E7E7C72A /* Pods-Multisig.debug.staging.mainnet.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3174,6 +3183,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1675C2C67EF0580774966A4D /* Pods-Multisig.release.staging.mainnet.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3301,6 +3311,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8A52A6ACA9A534E69151138B /* Pods-Multisig.debug.development.rinkeby.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3424,6 +3435,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6C333CC5E0C612B3A8367D6E /* Pods-Multisig.release.development.rinkeby.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3547,6 +3559,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 50229A8638C363BCFA97A9B1 /* Pods-Multisig.release.development.mainnet.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3674,6 +3687,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0E291BAA2C73F78C30D7F7C5 /* Pods-Multisig.debug.development.mainnet.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
