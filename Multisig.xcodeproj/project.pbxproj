@@ -235,6 +235,9 @@
 		0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEDCE0A2472946600A1EC80 /* BarButton.swift */; };
 		0AF2731624DAABDC007E4012 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2731524DAABDC007E4012 /* NotificationService.swift */; };
 		0AF2731A24DAABDC007E4012 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2733C24DABAAF007E4012 /* AppDelegate+Messaging.swift */; };
+		0AF2733F24DAC9FE007E4012 /* RemoteNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2733E24DAC9FE007E4012 /* RemoteNotificationHandler.swift */; };
+		0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */; };
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
 		0AF66E9D24C0B65F004B7863 /* TransferMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF66E9C24C0B65F004B7863 /* TransferMethod.swift */; };
@@ -581,6 +584,9 @@
 		0AF2733924DAB0B5007E4012 /* NotificationService.Staging.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Staging.Mainnet.xcconfig; sourceTree = "<group>"; };
 		0AF2733A24DAB0B5007E4012 /* NotificationService.Production.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Production.Mainnet.xcconfig; sourceTree = "<group>"; };
 		0AF2733B24DAB0B6007E4012 /* NotificationService.Development.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Development.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0AF2733C24DABAAF007E4012 /* AppDelegate+Messaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Messaging.swift"; sourceTree = "<group>"; };
+		0AF2733E24DAC9FE007E4012 /* RemoteNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationHandler.swift; sourceTree = "<group>"; };
+		0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultPropertyWrapper.swift; sourceTree = "<group>"; };
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF6501A24488D280018D070 /* FullSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSize.swift; sourceTree = "<group>"; };
 		0AF66E9C24C0B65F004B7863 /* TransferMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferMethod.swift; sourceTree = "<group>"; };
@@ -1420,6 +1426,9 @@
 			isa = PBXGroup;
 			children = (
 				0A93DD562445CC8A00688050 /* AppDelegate.swift */,
+				0AF2733C24DABAAF007E4012 /* AppDelegate+Messaging.swift */,
+				0AF2733E24DAC9FE007E4012 /* RemoteNotificationHandler.swift */,
+				0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
 				55B66E53247E47A900249E98 /* MainView.swift */,
@@ -2090,6 +2099,7 @@
 				04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
 				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
+				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
 				0AA9F2472497DB56005BD60F /* TransferTransactionViewModel.swift in Sources */,
 				0AA9F2042497BDD6005BD60F /* TransactionConfirmation.swift in Sources */,
 				0A09839E24BC5301009EE296 /* InMemoryTokenStore.swift in Sources */,
@@ -2109,6 +2119,7 @@
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				0497F6EB2489168B00A1F4DE /* TransactionCellView.swift in Sources */,
 				55AB394024A3454100148BEA /* LoadableView.swift in Sources */,
+				0AF2733F24DAC9FE007E4012 /* RemoteNotificationHandler.swift in Sources */,
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A0EFC9A246DAC1A00D3D8BF /* TabChildView.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
@@ -2121,6 +2132,7 @@
 				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,
 				0AFA72A224BF36A800A370EE /* NonEmptyText.swift in Sources */,
 				0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */,
+				0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */,
 				0A9BC3AC24617C2F00EB9C5D /* PopupView.swift in Sources */,
 				0AA9F262249A188C005BD60F /* TransactionDetailsView.swift in Sources */,
 				047691572464023300D73D8B /* EditSafeNameView.swift in Sources */,

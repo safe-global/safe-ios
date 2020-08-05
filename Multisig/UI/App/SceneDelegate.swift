@@ -33,6 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+
+        App.shared.notificationHandler.appStarted()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -55,6 +57,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        App.shared.notificationHandler.appEnteredForeground()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

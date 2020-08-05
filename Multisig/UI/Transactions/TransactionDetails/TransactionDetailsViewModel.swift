@@ -19,7 +19,6 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
         super.init()
         isLoading = false
         isRefreshing = false
-        #warning("TODO: also use transactionHash when it is supported by the backend")
         if let hash = transaction.safeHash {
             self.hash = Data(hex: hash)
         } else {

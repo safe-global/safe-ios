@@ -36,6 +36,8 @@ class App {
 
     var tokenRegistry = TokenRegistry()
 
+    var notificationHandler = RemoteNotificationHandler()
+
     // Cross-layer
     static let configuration = AppConfiguration()
 

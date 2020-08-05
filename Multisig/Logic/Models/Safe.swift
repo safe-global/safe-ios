@@ -71,8 +71,8 @@ extension Safe: Identifiable {
         }
 
         App.shared.coreDataStack.saveContext()
-        
         Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
+        App.shared.notificationHandler.safeAdded(address: Address(exactly: address))
     }
     
     static func edit(address: String, name: String) {
@@ -89,6 +89,7 @@ extension Safe: Identifiable {
     }
     
     static func remove(safe: Safe) {
+        let deletedSafeAddress = safe.address
         let context = App.shared.coreDataStack.viewContext
 
         context.delete(safe)
@@ -101,8 +102,11 @@ extension Safe: Identifiable {
         }
 
         App.shared.coreDataStack.saveContext()
-
         Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
+
+        if let addressString = deletedSafeAddress, let address = Address(addressString) {
+            App.shared.notificationHandler.safeRemoved(address: address)
+        }
     }
 }
 

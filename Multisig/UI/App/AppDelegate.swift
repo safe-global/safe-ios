@@ -22,8 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.shared.append(handler: FirebaseTrackingHandler())
 
         // The requirement is to set num_safes property to "0" when there are no Safes
+        #warning("TODO: refactor this is everywhere around the app")
         Tracker.shared.setUserProperty("\(Safe.count)", for: TrackingUserProperty.numSafes)
 
+        App.shared.notificationHandler.setUpMessaging(delegate: self)
         return true
     }
 
@@ -39,5 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        LogService.shared.error("Failed to registed to remote notifications \(error)")
     }
 }

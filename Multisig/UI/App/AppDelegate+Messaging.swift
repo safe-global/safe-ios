@@ -7,3 +7,40 @@
 //
 
 import Foundation
+import UIKit
+import UserNotifications
+import Firebase
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        LogService.shared.debug("willPresent notification with userInfo: \(userInfo)")
+        App.shared.notificationHandler.received(notification: userInfo)
+        completionHandler([])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        LogService.shared.debug("didReceive notification with userInfo: \(userInfo)")
+        App.shared.notificationHandler.received(notification: userInfo)
+        completionHandler()
+    }
+
+}
+
+extension AppDelegate: MessagingDelegate {
+
+    // Firebase calls it on every app restart.
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        LogService.shared.debug("Firebase registration token: \(fcmToken)")
+        App.shared.notificationHandler.pushTokenUpdated(fcmToken)
+    }
+
+}
+
