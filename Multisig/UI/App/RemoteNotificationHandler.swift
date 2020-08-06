@@ -25,8 +25,7 @@ extension UNAuthorizationStatus: CustomStringConvertible {
         case .denied: return "Denied"
         case .notDetermined: return "Not Determined"
         case .provisional: return "Provisional (granted)"
-        @unknown default:
-            return "Unknown: \(rawValue)"
+        @unknown default: return "Unknown: \(rawValue)"
         }
     }
 }
