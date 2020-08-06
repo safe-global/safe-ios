@@ -90,12 +90,10 @@ NS_SWIFT_NAME(Analytics)
 /// Must be called on the main thread.
 ///
 /// Note that screen reporting is enabled automatically and records the class name of the current
-/// UIViewController for you without requiring you to call this method. If you implement
-/// viewDidAppear in your UIViewController but do not call [super viewDidAppear:], that screen class
-/// will not be automatically tracked. The class name can optionally be overridden by calling this
-/// method in the viewDidAppear callback of your UIViewController and specifying the
-/// screenClassOverride parameter. setScreenName:screenClass: must be called after
-/// [super viewDidAppear:].
+/// UIViewController for you without requiring you to call this method. The class name can
+/// optionally be overridden by calling this method in the viewDidAppear callback of your
+/// UIViewController and specifying the screenClassOverride parameter.
+/// `setScreenName:screenClass:` must be called after `[super viewDidAppear:]`.
 ///
 /// If your app does not use a distinct UIViewController for each screen, you should call this
 /// method and specify a distinct screenName each time a new screen is presented to the user.
@@ -103,13 +101,18 @@ NS_SWIFT_NAME(Analytics)
 /// The screen name and screen class remain in effect until the current UIViewController changes or
 /// a new call to setScreenName:screenClass: is made.
 ///
+/// @warning If you override `viewDidAppear:` in your UIViewController but do not call
+///     `[super viewDidAppear:]`, that screen class will not be tracked.
+///
 /// @param screenName The name of the current screen. Should contain 1 to 100 characters. Set to nil
 ///     to clear the current screen name.
 /// @param screenClassOverride The name of the screen class. Should contain 1 to 100 characters. By
 ///     default this is the class name of the current UIViewController. Set to nil to revert to the
 ///     default class name.
 + (void)setScreenName:(nullable NSString *)screenName
-          screenClass:(nullable NSString *)screenClassOverride;
+          screenClass:(nullable NSString *)screenClassOverride
+    DEPRECATED_MSG_ATTRIBUTE(
+        "Use +[FIRAnalytics logEventWithName:kFIREventScreenView parameters:] instead.");
 
 /// Sets whether analytics collection is enabled for this app on this device. This setting is
 /// persisted across app sessions. By default it is enabled.
@@ -130,6 +133,20 @@ NS_SWIFT_NAME(Analytics)
 /// Clears all analytics data for this instance from the device and resets the app instance ID.
 /// FIRAnalyticsConfiguration values will be reset to the default values.
 + (void)resetAnalyticsData;
+
+/// Adds parameters that will be set on every event logged from the SDK, including automatic ones.
+/// The values passed in the parameters dictionary will be added to the dictionary of default event
+/// parameters. These parameters persist across app runs. They are of lower precedence than event
+/// parameters, so if an event parameter and a parameter set using this API have the same name, the
+/// value of the event parameter will be used. The same limitations on event parameters apply to
+/// default event parameters.
+///
+/// @param parameters Parameters to be added to the dictionary of parameters added to every event.
+///     They will be added to the dictionary of default event parameters, replacing any existing
+///     parameter with the same name. Valid parameters are NSString and NSNumber (signed 64-bit
+///     integer and 64-bit floating-point number). Setting a key's value to [NSNull null] will clear
+///     that parameter. Passing in a nil dictionary will clear all parameters.
++ (void)setDefaultEventParameters:(nullable NSDictionary<NSString *, id> *)parameters;
 
 @end
 
