@@ -17,9 +17,24 @@ extension UNAuthorizationStatus {
     }
 }
 
+extension UNAuthorizationStatus: CustomStringConvertible {
+
+    public var description: String {
+        switch self {
+        case .authorized: return "Authorized (granted)"
+        case .denied: return "Denied"
+        case .notDetermined: return "Not Determined"
+        case .provisional: return "Provisional (granted)"
+        @unknown default:
+            return "Unknown: \(rawValue)"
+        }
+    }
+}
+
 class RemoteNotificationHandler {
 
     func setUpMessaging(delegate: MessagingDelegate & UNUserNotificationCenterDelegate) {
+        log("Setting up notification handling")
         Messaging.messaging().delegate = delegate
 
         // https://firebase.google.com/docs/cloud-messaging/ios/client
@@ -29,45 +44,47 @@ class RemoteNotificationHandler {
         UNUserNotificationCenter.current().delegate = delegate
     }
 
-    // events
+    // MARK: - Esvents
 
     func appStarted() {
+        log("App started")
         monitorAuthorizationStatus()
     }
 
     func appEnteredForeground() {
-        processDeliveredNotifications()
+        log("App Entered Foreground")
+        cleanUpDeliveredNotifications()
     }
 
     func pushTokenUpdated(_ token: String) {
-        LogService.shared.info("MOCK: registering the push token \(token)")
+        log("Push token updated")
+        if authorizationStatus != nil {
+            log("Registering the push token \(token)")
+        } else {
+            log("Did not receive user permission, save the token for the future: \(token)")
+        }
     }
 
     func safeAdded(address: Address) {
+        log("Safe added: \(address)")
         if authorizationStatus == nil {
             requestUserPermissionAndRegister()
         } else {
-            LogService.shared.info("MOCK: registering notifications for one newly added safe \(address)")
+            log("Registering notifications for one newly added safe \(address)")
         }
     }
 
     func safeRemoved(address: Address) {
-        LogService.shared.info("MOCK: unregistering notifications for one removed safe \(address)")
+        log("Safe removed: \(address)")
+        log("Unregistering notifications for one removed safe \(address)")
     }
 
     func received(notification payload: [AnyHashable: Any]) {
+        log("Received notification: \(payload)")
         assert(Thread.isMainThread)
+        log("Clearing badge and opening screens")
         UIApplication.shared.applicationIconBadgeNumber = 0
-
-        LogService.shared.info("MOCK: received notification: \(payload)")
-        // convert to a notification struct
-        // if such safe exists
-            // switch to the safe
-            // open Transaction List
-            // if safeHash present
-                // push TransactionDetails and pass the transaction hash
-        // else
-            // ignore
+        #warning("TODO: open appropriate screen")
     }
 
     // MARK: - implementation
@@ -75,8 +92,9 @@ class RemoteNotificationHandler {
     @EnumDefault(key: "io.gnosis.multisig.authorizationStatus")
     var authorizationStatus: UNAuthorizationStatus?
 
-    private func processDeliveredNotifications() {
+    private func cleanUpDeliveredNotifications() {
         UNUserNotificationCenter.current().getDeliveredNotifications { notifications in
+            log("Cleaning up delivered notifications")
             UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         }
     }
@@ -84,16 +102,17 @@ class RemoteNotificationHandler {
     private func monitorAuthorizationStatus() {
         if let previousAuthorization = authorizationStatus {
             UNUserNotificationCenter.current().getNotificationSettings { settings in
-                // authorization changed: granted
+                log("Old permission: \(previousAuthorization), new permission: \(settings.authorizationStatus)")
                 if settings.authorizationStatus.hasPermission && !previousAuthorization.hasPermission {
+                    log("Granted permission")
+                    // authorization changed to granted
                     self.requestUserPermissionAndRegister()
                 } else {
                     // authorization either not changed or not granted
                     self.setStatus(settings.authorizationStatus)
 
-                    // if authorized, we can register  all safes
                     if settings.authorizationStatus.hasPermission {
-                        LogService.shared.info("MOCK: registering all the safes that currently exist")
+                        log("registering all the safes that currently exist")
                     }
                 }
             }
@@ -107,15 +126,16 @@ class RemoteNotificationHandler {
             DispatchQueue.main.async { self.requestUserPermissionAndRegister() }
             return
         }
-        LogService.shared.info("MOCK: requesting permissions for notifications")
+        log("requesting permissions for notifications")
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             if let error = error {
                 LogService.shared.error("Notification authorization error: \(error)")
                 return
             }
             if granted {
+                log("User gave permission for notifications")
                 DispatchQueue.main.async {
-                    LogService.shared.info("MOCK: registering remote notifications")
+                    log("registering remote notifications")
                     UIApplication.shared.registerForRemoteNotifications()
                 }
             }
@@ -125,16 +145,20 @@ class RemoteNotificationHandler {
 
     private func setStatus(_ status: UNAuthorizationStatus) {
         DispatchQueue.main.async {
-            LogService.shared.info("Saving authorization status")
+            log("Saving authorization status")
             self.authorizationStatus = status
         }
     }
 
     private func updateAuthorizationStatus() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
+            log("Got current notification settings")
             self.setStatus(settings.authorizationStatus)
         }
     }
 
 }
 
+fileprivate func log(_ msg: String) {
+    LogService.shared.debug("PUSH: " + msg)
+}

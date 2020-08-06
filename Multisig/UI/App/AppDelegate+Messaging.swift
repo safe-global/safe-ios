@@ -38,7 +38,6 @@ extension AppDelegate: MessagingDelegate {
 
     // Firebase calls it on every app restart.
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        LogService.shared.debug("Firebase registration token: \(fcmToken)")
         App.shared.notificationHandler.pushTokenUpdated(fcmToken)
     }
 
