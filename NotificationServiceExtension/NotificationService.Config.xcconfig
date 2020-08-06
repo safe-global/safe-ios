@@ -1,0 +1,27 @@
+//
+//  NotificationServiceConfig.xcconfig
+//  Multisig
+//
+//  Created by Dmitry Bespalov on 05.08.20.
+//  Copyright © 2020 Gnosis Ltd. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// DEV | STAGING | PROD
+SERVICE_ENV = STAGING
+
+// RINKEBY | MAINNET
+NETWORK = RINKEBY
+
+// Bundle Identifier
+_APP_BUNDLE_ID_PROD_MAINNET    = io.gnosis.multisig.prod.mainnet.NotificationServiceExtension
+_APP_BUNDLE_ID_PROD_RINKEBY    = io.gnosis.multisig.prerelease.NotificationServiceExtension
+_APP_BUNDLE_ID_STAGING_MAINNET = io.gnosis.multisig.staging.mainnet.NotificationServiceExtension
+_APP_BUNDLE_ID_STAGING_RINKEBY = io.gnosis.multisig.staging.rinkeby.NotificationServiceExtension
+_APP_BUNDLE_ID_DEV_MAINNET     = io.gnosis.multisig.dev.mainnet.NotificationServiceExtension
+_APP_BUNDLE_ID_DEV_RINKEBY     = io.gnosis.multisig.dev.rinkeby.NotificationServiceExtension
+
+// Xcode Build Settings
+PRODUCT_BUNDLE_IDENTIFIER           = $(_APP_BUNDLE_ID_$(SERVICE_ENV)_$(NETWORK):default=$(_APP_BUNDLE_ID_PROD_MAINNET))
