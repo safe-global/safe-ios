@@ -44,7 +44,7 @@ class RemoteNotificationHandler {
         UNUserNotificationCenter.current().delegate = delegate
     }
 
-    // MARK: - Esvents
+    // MARK: - Events
 
     func appStarted() {
         log("App started")
