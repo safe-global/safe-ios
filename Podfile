@@ -62,3 +62,7 @@ target 'Multisig' do
   end
 
 end
+
+target 'NotificationServiceExtension' do
+  pod 'SwiftCryptoTokenFormatter', :git => 'https://github.com/gnosis/SwiftCryptoTokenFormatter.git', :branch => 'master'
+end
