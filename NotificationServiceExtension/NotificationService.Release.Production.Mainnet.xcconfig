@@ -1,5 +1,5 @@
 //
-//  Production.xcconfig
+//  ProductionMainnet.xcconfig
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 27.05.20.
@@ -10,6 +10,7 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 
 #include "NotificationService.Config.xcconfig"
+#include "../Pods/Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.production.mainnet.xcconfig"
 
 SERVICE_ENV = PROD
-NETWORK = RINKEBY
+NETWORK = MAINNET

@@ -240,6 +240,12 @@
 		0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2733C24DABAAF007E4012 /* AppDelegate+Messaging.swift */; };
 		0AF2733F24DAC9FE007E4012 /* RemoteNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2733E24DAC9FE007E4012 /* RemoteNotificationHandler.swift */; };
 		0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */; };
+		0AF2736B24DC57C6007E4012 /* NotificationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2736A24DC57C6007E4012 /* NotificationPayload.swift */; };
+		0AF2736D24DC57D5007E4012 /* PlainAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2736C24DC57D5007E4012 /* PlainAddress.swift */; };
+		0AF2736F24DC57E8007E4012 /* MultisigNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2736E24DC57E8007E4012 /* MultisigNotification.swift */; };
+		0AF2737124DC57FA007E4012 /* IncomingEtherNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2737024DC57FA007E4012 /* IncomingEtherNotification.swift */; };
+		0AF2737324DC580D007E4012 /* IncomingTokenNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2737224DC580D007E4012 /* IncomingTokenNotification.swift */; };
+		0AF2737524DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2737424DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift */; };
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
 		0AF66E9D24C0B65F004B7863 /* TransferMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF66E9C24C0B65F004B7863 /* TransferMethod.swift */; };
@@ -248,6 +254,7 @@
 		0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729D24BF363400A370EE /* SlicedText.swift */; };
 		0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729F24BF368900A370EE /* SlicedText+Address.swift */; };
 		0AFA72A224BF36A800A370EE /* NonEmptyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA72A124BF36A800A370EE /* NonEmptyText.swift */; };
+		365E14708DF5691BB6E9EC71 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A2D1302E48BEDF6A6DF4AEE /* libPods-NotificationServiceExtension.a */; };
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
 		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
 		551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEEF244F1A0A00C719D3 /* SafeTests.swift */; };
@@ -410,6 +417,7 @@
 		04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfiramtionStatusView.swift; sourceTree = "<group>"; };
 		04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalBarView.swift; sourceTree = "<group>"; };
 		04F533622490E83B00F28099 /* TransactionConfirmationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfirmationsView.swift; sourceTree = "<group>"; };
+		0832A1B307963B8AEAC28441 /* Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		0A09839B24BC522B009EE296 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		0A09839D24BC5301009EE296 /* InMemoryTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryTokenStore.swift; sourceTree = "<group>"; };
@@ -443,6 +451,7 @@
 		0A19D43F249A719700A316B6 /* MethodRegistry+GnosisSafeImplementationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MethodRegistry+GnosisSafeImplementationTests.swift"; sourceTree = "<group>"; };
 		0A19D441249BB66D00A316B6 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
+		0A257D5C6A06DFC04313FC55 /* Pods-NotificationServiceExtension.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		0A29ECA924C1EBFD00CE28FD /* Address+LocalizedStringKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address+LocalizedStringKey.swift"; sourceTree = "<group>"; };
 		0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Blockies.swift"; sourceTree = "<group>"; };
 		0A35CC2F24810CF6005E45BA /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
@@ -582,15 +591,27 @@
 		0AF2731524DAABDC007E4012 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		0AF2731724DAABDC007E4012 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AF2732924DAAD67007E4012 /* NotificationService.Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Config.xcconfig; sourceTree = "<group>"; };
-		0AF2733624DAB0B5007E4012 /* NotificationService.Development.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Development.Rinkeby.xcconfig; sourceTree = "<group>"; };
-		0AF2733724DAB0B5007E4012 /* NotificationService.Staging.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Staging.Rinkeby.xcconfig; sourceTree = "<group>"; };
-		0AF2733824DAB0B5007E4012 /* NotificationService.Production.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Production.Rinkeby.xcconfig; sourceTree = "<group>"; };
-		0AF2733924DAB0B5007E4012 /* NotificationService.Staging.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Staging.Mainnet.xcconfig; sourceTree = "<group>"; };
-		0AF2733A24DAB0B5007E4012 /* NotificationService.Production.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Production.Mainnet.xcconfig; sourceTree = "<group>"; };
-		0AF2733B24DAB0B6007E4012 /* NotificationService.Development.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Development.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0AF2733624DAB0B5007E4012 /* NotificationService.Debug.Development.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Development.Rinkeby.xcconfig; sourceTree = "<group>"; };
+		0AF2733724DAB0B5007E4012 /* NotificationService.Debug.Staging.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Staging.Rinkeby.xcconfig; sourceTree = "<group>"; };
+		0AF2733824DAB0B5007E4012 /* NotificationService.Debug.Production.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Production.Rinkeby.xcconfig; sourceTree = "<group>"; };
+		0AF2733924DAB0B5007E4012 /* NotificationService.Debug.Staging.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Staging.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0AF2733A24DAB0B5007E4012 /* NotificationService.Debug.Production.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Production.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0AF2733B24DAB0B6007E4012 /* NotificationService.Debug.Development.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Development.Mainnet.xcconfig; sourceTree = "<group>"; };
 		0AF2733C24DABAAF007E4012 /* AppDelegate+Messaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Messaging.swift"; sourceTree = "<group>"; };
 		0AF2733E24DAC9FE007E4012 /* RemoteNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationHandler.swift; sourceTree = "<group>"; };
 		0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultPropertyWrapper.swift; sourceTree = "<group>"; };
+		0AF2735924DC4910007E4012 /* NotificationService.Release.Development.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Development.Rinkeby.xcconfig; sourceTree = "<group>"; };
+		0AF2735A24DC4A10007E4012 /* NotificationService.Release.Production.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Production.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0AF2735B24DC4A10007E4012 /* NotificationService.Release.Development.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Development.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0AF2735C24DC4A10007E4012 /* NotificationService.Release.Staging.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Staging.Rinkeby.xcconfig; sourceTree = "<group>"; };
+		0AF2735D24DC4A10007E4012 /* NotificationService.Release.Staging.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Staging.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0AF2735E24DC4A10007E4012 /* NotificationService.Release.Production.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Production.Rinkeby.xcconfig; sourceTree = "<group>"; };
+		0AF2736A24DC57C6007E4012 /* NotificationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPayload.swift; sourceTree = "<group>"; };
+		0AF2736C24DC57D5007E4012 /* PlainAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainAddress.swift; sourceTree = "<group>"; };
+		0AF2736E24DC57E8007E4012 /* MultisigNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigNotification.swift; sourceTree = "<group>"; };
+		0AF2737024DC57FA007E4012 /* IncomingEtherNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingEtherNotification.swift; sourceTree = "<group>"; };
+		0AF2737224DC580D007E4012 /* IncomingTokenNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingTokenNotification.swift; sourceTree = "<group>"; };
+		0AF2737424DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutedMultisigTransactionNotification.swift; sourceTree = "<group>"; };
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF6501A24488D280018D070 /* FullSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSize.swift; sourceTree = "<group>"; };
 		0AF66E9C24C0B65F004B7863 /* TransferMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferMethod.swift; sourceTree = "<group>"; };
@@ -605,17 +626,22 @@
 		0B8A3C3BAA29C6597476636F /* Pods-MultisigTests.debug.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		0E291BAA2C73F78C30D7F7C5 /* Pods-Multisig.debug.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.development.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		107E0800790001BE89C61028 /* Pods-Multisig.releaseproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.releaseproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.releaseproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
+		127FF1C354B7FF93C41A3629 /* Pods-NotificationServiceExtension.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		14872B2D529F4BEFC18D9EF6 /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1675C2C67EF0580774966A4D /* Pods-Multisig.release.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
 		18004886ADFE8BF763BB398C /* Pods-MultisigIntegrationTests.debugproductionmainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debugproductionmainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debugproductionmainnet.xcconfig"; sourceTree = "<group>"; };
+		1DC3F896F5E326A2D78C8FC3 /* Pods-NotificationServiceExtension.debug.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		1DC4D40AFF970DE2B8C23794 /* Pods-MultisigIntegrationTests.release.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		1E6A2132C7C1918686E606C4 /* Pods-MultisigIntegrationTests.release.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.development.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.development.mainnet.xcconfig"; sourceTree = "<group>"; };
+		20B9ADA49FA3E195F33EBA30 /* Pods-NotificationServiceExtension.debug.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
 		217CCDA35D82D13261506764 /* Pods-Multisig.releaseproductionmainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.releaseproductionmainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.releaseproductionmainnet.xcconfig"; sourceTree = "<group>"; };
+		2C365CA996B348BFB09D4C51 /* Pods-NotificationServiceExtension.release.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		2F1ECF2E152DB5E7E7E7C72A /* Pods-Multisig.debug.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
 		2F6F6494CF5E35964FCDCF79 /* Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
 		3F0BD54209C21EA369847E31 /* libPods-Multisig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Multisig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3CD6C427A69FE15D6F6EB7 /* Pods-MultisigTests.debug.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		4381F5410C7BD71143EEC67E /* Pods-MultisigIntegrationTests.releaseproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.releaseproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.releaseproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
+		4486C02A70DEEE3115B2AAA4 /* Pods-NotificationServiceExtension.release.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		4D3605934C3A6383FED275C4 /* Pods-Multisig.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		4D81EB425537EF34B55365BC /* Pods-MultisigTests.releasestagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.releasestagingrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.releasestagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		4F1EF30BCA42F3AC80865FBA /* Pods-MultisigTests.debug.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.development.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.development.mainnet.xcconfig"; sourceTree = "<group>"; };
@@ -678,20 +704,25 @@
 		6C35DE8864C388521CDF31F9 /* Pods-MultisigIntegrationTests.debug.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
 		6D76DA7923B9ECA14CFAA867 /* Pods-MultisigIntegrationTests.debug.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		6DC5FE7DA7FFABF025D9C818 /* Pods-MultisigIntegrationTests.debugstagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debugstagingrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debugstagingrinkeby.xcconfig"; sourceTree = "<group>"; };
+		7A2D1302E48BEDF6A6DF4AEE /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB63AA4F5F1BF1AE0826E9C /* Pods-MultisigIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		8211A5B13F641BB84866626C /* Pods-MultisigTests.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		83384CF54B9AD34F87646BB3 /* Pods-Multisig.releasestagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.releasestagingrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.releasestagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		84E6C3FA76D931261AF4FFE4 /* Pods-Multisig.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		8A52A6ACA9A534E69151138B /* Pods-Multisig.debug.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
+		8ACA4DD80A78F702A64D219D /* Pods-NotificationServiceExtension.debug.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		91887F63A537F6F1CF5DF13E /* Pods-Multisig.debugproductionmainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debugproductionmainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debugproductionmainnet.xcconfig"; sourceTree = "<group>"; };
 		94765DCDD48919EC9CBD9283 /* Pods-MultisigTests.release.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.development.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		9DC0D30C4B2865FB772F3192 /* Pods-MultisigIntegrationTests.releasestagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.releasestagingrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.releasestagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		9E0547A2A871182A3EF535E6 /* Pods-MultisigTests.debug.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
 		9EEA045E131B8F3F9420B182 /* Pods-MultisigIntegrationTests.debug.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.development.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		A183D32A6C13E2C6D8277ED7 /* Pods-MultisigIntegrationTests.release.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
+		A1A47C330C0E89BE150488F7 /* Pods-NotificationServiceExtension.release.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
+		A50A0656796418A38EA8DAD8 /* Pods-NotificationServiceExtension.debug.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		A5B7240234825EEE53D7632A /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
 		A94DD038F894246516F275C0 /* Pods-MultisigTests.release.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		AC4990F67333A3FD58C8E3E8 /* Pods-MultisigIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B149B07117E0844551395785 /* Pods-NotificationServiceExtension.debug.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.development.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		B54E973F7CF37DF3A46AEE36 /* Pods-Multisig.debug.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.production.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		B54F589ED38019702FAF4199 /* Pods-MultisigTests.releaseproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.releaseproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.releaseproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
 		BFA8AD3274B5172C5C91E594 /* Pods-Multisig.debugproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debugproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debugproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -701,6 +732,7 @@
 		DE6545760BBECBA1EDAD13C5 /* Pods-MultisigTests.debugstagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debugstagingrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debugstagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		E0AF552F5267C3CEE7961DE1 /* Pods-MultisigIntegrationTests.debug.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		E5705F68D1929BD247E3EBFC /* Pods-MultisigTests.release.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
+		E6246C893799D053F9CDEFCC /* Pods-NotificationServiceExtension.release.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.development.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE56E1B7CA403AC55F313541 /* Pods-MultisigTests.debug.development.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.development.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.development.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		F2C3C3D35B07E617DD164D42 /* Pods-MultisigIntegrationTests.debug.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -738,6 +770,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				365E14708DF5691BB6E9EC71 /* libPods-NotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1392,15 +1425,27 @@
 		0AF2731424DAABDC007E4012 /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
-				0AF2731524DAABDC007E4012 /* NotificationService.swift */,
-				0AF2732924DAAD67007E4012 /* NotificationService.Config.xcconfig */,
-				0AF2733B24DAB0B6007E4012 /* NotificationService.Development.Mainnet.xcconfig */,
-				0AF2733624DAB0B5007E4012 /* NotificationService.Development.Rinkeby.xcconfig */,
-				0AF2733A24DAB0B5007E4012 /* NotificationService.Production.Mainnet.xcconfig */,
-				0AF2733824DAB0B5007E4012 /* NotificationService.Production.Rinkeby.xcconfig */,
-				0AF2733924DAB0B5007E4012 /* NotificationService.Staging.Mainnet.xcconfig */,
-				0AF2733724DAB0B5007E4012 /* NotificationService.Staging.Rinkeby.xcconfig */,
 				0AF2731724DAABDC007E4012 /* Info.plist */,
+				0AF2737424DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift */,
+				0AF2737024DC57FA007E4012 /* IncomingEtherNotification.swift */,
+				0AF2737224DC580D007E4012 /* IncomingTokenNotification.swift */,
+				0AF2736E24DC57E8007E4012 /* MultisigNotification.swift */,
+				0AF2736A24DC57C6007E4012 /* NotificationPayload.swift */,
+				0AF2731524DAABDC007E4012 /* NotificationService.swift */,
+				0AF2736C24DC57D5007E4012 /* PlainAddress.swift */,
+				0AF2732924DAAD67007E4012 /* NotificationService.Config.xcconfig */,
+				0AF2733B24DAB0B6007E4012 /* NotificationService.Debug.Development.Mainnet.xcconfig */,
+				0AF2733624DAB0B5007E4012 /* NotificationService.Debug.Development.Rinkeby.xcconfig */,
+				0AF2733A24DAB0B5007E4012 /* NotificationService.Debug.Production.Mainnet.xcconfig */,
+				0AF2733824DAB0B5007E4012 /* NotificationService.Debug.Production.Rinkeby.xcconfig */,
+				0AF2733924DAB0B5007E4012 /* NotificationService.Debug.Staging.Mainnet.xcconfig */,
+				0AF2733724DAB0B5007E4012 /* NotificationService.Debug.Staging.Rinkeby.xcconfig */,
+				0AF2735B24DC4A10007E4012 /* NotificationService.Release.Development.Mainnet.xcconfig */,
+				0AF2735924DC4910007E4012 /* NotificationService.Release.Development.Rinkeby.xcconfig */,
+				0AF2735A24DC4A10007E4012 /* NotificationService.Release.Production.Mainnet.xcconfig */,
+				0AF2735E24DC4A10007E4012 /* NotificationService.Release.Production.Rinkeby.xcconfig */,
+				0AF2735D24DC4A10007E4012 /* NotificationService.Release.Staging.Mainnet.xcconfig */,
+				0AF2735C24DC4A10007E4012 /* NotificationService.Release.Staging.Rinkeby.xcconfig */,
 			);
 			path = NotificationServiceExtension;
 			sourceTree = "<group>";
@@ -1532,6 +1577,7 @@
 				3F0BD54209C21EA369847E31 /* libPods-Multisig.a */,
 				037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */,
 				E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */,
+				7A2D1302E48BEDF6A6DF4AEE /* libPods-NotificationServiceExtension.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1736,6 +1782,18 @@
 				A183D32A6C13E2C6D8277ED7 /* Pods-MultisigIntegrationTests.release.staging.mainnet.xcconfig */,
 				9E0547A2A871182A3EF535E6 /* Pods-MultisigTests.debug.staging.mainnet.xcconfig */,
 				E5705F68D1929BD247E3EBFC /* Pods-MultisigTests.release.staging.mainnet.xcconfig */,
+				0832A1B307963B8AEAC28441 /* Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig */,
+				A50A0656796418A38EA8DAD8 /* Pods-NotificationServiceExtension.debug.production.rinkeby.xcconfig */,
+				1DC3F896F5E326A2D78C8FC3 /* Pods-NotificationServiceExtension.debug.staging.rinkeby.xcconfig */,
+				20B9ADA49FA3E195F33EBA30 /* Pods-NotificationServiceExtension.debug.staging.mainnet.xcconfig */,
+				8ACA4DD80A78F702A64D219D /* Pods-NotificationServiceExtension.debug.development.rinkeby.xcconfig */,
+				B149B07117E0844551395785 /* Pods-NotificationServiceExtension.debug.development.mainnet.xcconfig */,
+				0A257D5C6A06DFC04313FC55 /* Pods-NotificationServiceExtension.release.production.mainnet.xcconfig */,
+				2C365CA996B348BFB09D4C51 /* Pods-NotificationServiceExtension.release.production.rinkeby.xcconfig */,
+				127FF1C354B7FF93C41A3629 /* Pods-NotificationServiceExtension.release.staging.rinkeby.xcconfig */,
+				A1A47C330C0E89BE150488F7 /* Pods-NotificationServiceExtension.release.staging.mainnet.xcconfig */,
+				4486C02A70DEEE3115B2AAA4 /* Pods-NotificationServiceExtension.release.development.rinkeby.xcconfig */,
+				E6246C893799D053F9CDEFCC /* Pods-NotificationServiceExtension.release.development.mainnet.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1808,6 +1866,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AF2731B24DAABDC007E4012 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
 			buildPhases = (
+				9329A8390C0135BD7FFC594E /* [CP] Check Pods Manifest.lock */,
 				0AF2730F24DAABDC007E4012 /* Sources */,
 				0AF2731024DAABDC007E4012 /* Frameworks */,
 				0AF2731124DAABDC007E4012 /* Resources */,
@@ -1968,6 +2027,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "FIREBASE_SRC=\"${SRCROOT}/Multisig/Cross-layer/Analytics/Firebase/${FIREBASE_CONFIG}.plist\"\nif [[ $CONFIGURATION == Release* ]] && [ -f \"${FIREBASE_SRC}\" ]; then\n    \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9329A8390C0135BD7FFC594E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C5F344F451DF3989C918E752 /* [CP] Check Pods Manifest.lock */ = {
@@ -2331,7 +2412,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AF2737324DC580D007E4012 /* IncomingTokenNotification.swift in Sources */,
 				0AF2731624DAABDC007E4012 /* NotificationService.swift in Sources */,
+				0AF2736B24DC57C6007E4012 /* NotificationPayload.swift in Sources */,
+				0AF2737524DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift in Sources */,
+				0AF2736F24DC57E8007E4012 /* MultisigNotification.swift in Sources */,
+				0AF2736D24DC57D5007E4012 /* PlainAddress.swift in Sources */,
+				0AF2737124DC57FA007E4012 /* IncomingEtherNotification.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2432,7 +2519,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 63491F06110B339CB349CC57 /* Pods-Multisig.debug.production.rinkeby.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -2561,7 +2647,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 02A74BC8CEDDED6CC3D8EDF1 /* Pods-Multisig.debug.staging.rinkeby.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -2684,7 +2769,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5EBDB0B79D3FC3A38767F16D /* Pods-Multisig.release.production.rinkeby.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -2807,7 +2891,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 84E6C3FA76D931261AF4FFE4 /* Pods-Multisig.release.staging.rinkeby.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -2991,7 +3074,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B54E973F7CF37DF3A46AEE36 /* Pods-Multisig.debug.production.mainnet.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -3016,7 +3098,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D3605934C3A6383FED275C4 /* Pods-Multisig.release.production.mainnet.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -3188,7 +3269,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F1ECF2E152DB5E7E7E7C72A /* Pods-Multisig.debug.staging.mainnet.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -3311,7 +3391,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1675C2C67EF0580774966A4D /* Pods-Multisig.release.staging.mainnet.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -3377,7 +3456,7 @@
 		};
 		0AF2731C24DAABDC007E4012 /* Debug.Production.Mainnet */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733A24DAB0B5007E4012 /* NotificationService.Production.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2733A24DAB0B5007E4012 /* NotificationService.Debug.Production.Mainnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3451,7 +3530,7 @@
 		};
 		0AF2731D24DAABDC007E4012 /* Debug.Production.Rinkeby */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733824DAB0B5007E4012 /* NotificationService.Production.Rinkeby.xcconfig */;
+			baseConfigurationReference = 0AF2733824DAB0B5007E4012 /* NotificationService.Debug.Production.Rinkeby.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3525,7 +3604,7 @@
 		};
 		0AF2731E24DAABDC007E4012 /* Debug.Staging.Rinkeby */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733724DAB0B5007E4012 /* NotificationService.Staging.Rinkeby.xcconfig */;
+			baseConfigurationReference = 0AF2733724DAB0B5007E4012 /* NotificationService.Debug.Staging.Rinkeby.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3599,7 +3678,7 @@
 		};
 		0AF2731F24DAABDC007E4012 /* Debug.Staging.Mainnet */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733924DAB0B5007E4012 /* NotificationService.Staging.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2733924DAB0B5007E4012 /* NotificationService.Debug.Staging.Mainnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3673,7 +3752,7 @@
 		};
 		0AF2732024DAABDC007E4012 /* Debug.Development.Rinkeby */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733624DAB0B5007E4012 /* NotificationService.Development.Rinkeby.xcconfig */;
+			baseConfigurationReference = 0AF2733624DAB0B5007E4012 /* NotificationService.Debug.Development.Rinkeby.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3747,7 +3826,7 @@
 		};
 		0AF2732124DAABDC007E4012 /* Debug.Development.Mainnet */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733B24DAB0B6007E4012 /* NotificationService.Development.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2733B24DAB0B6007E4012 /* NotificationService.Debug.Development.Mainnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3821,7 +3900,7 @@
 		};
 		0AF2732224DAABDC007E4012 /* Release.Production.Mainnet */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733A24DAB0B5007E4012 /* NotificationService.Production.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2735A24DC4A10007E4012 /* NotificationService.Release.Production.Mainnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3889,7 +3968,7 @@
 		};
 		0AF2732324DAABDC007E4012 /* Release.Production.Rinkeby */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733824DAB0B5007E4012 /* NotificationService.Production.Rinkeby.xcconfig */;
+			baseConfigurationReference = 0AF2735E24DC4A10007E4012 /* NotificationService.Release.Production.Rinkeby.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3957,7 +4036,7 @@
 		};
 		0AF2732424DAABDC007E4012 /* Release.Staging.Rinkeby */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733724DAB0B5007E4012 /* NotificationService.Staging.Rinkeby.xcconfig */;
+			baseConfigurationReference = 0AF2735C24DC4A10007E4012 /* NotificationService.Release.Staging.Rinkeby.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4025,7 +4104,7 @@
 		};
 		0AF2732524DAABDC007E4012 /* Release.Staging.Mainnet */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733924DAB0B5007E4012 /* NotificationService.Staging.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2735D24DC4A10007E4012 /* NotificationService.Release.Staging.Mainnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4093,7 +4172,7 @@
 		};
 		0AF2732624DAABDC007E4012 /* Release.Development.Rinkeby */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733624DAB0B5007E4012 /* NotificationService.Development.Rinkeby.xcconfig */;
+			baseConfigurationReference = 0AF2735924DC4910007E4012 /* NotificationService.Release.Development.Rinkeby.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4161,7 +4240,7 @@
 		};
 		0AF2732724DAABDC007E4012 /* Release.Development.Mainnet */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733B24DAB0B6007E4012 /* NotificationService.Development.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2735B24DC4A10007E4012 /* NotificationService.Release.Development.Mainnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4292,7 +4371,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8A52A6ACA9A534E69151138B /* Pods-Multisig.debug.development.rinkeby.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -4417,7 +4495,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6C333CC5E0C612B3A8367D6E /* Pods-Multisig.release.development.rinkeby.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -4542,7 +4619,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 50229A8638C363BCFA97A9B1 /* Pods-Multisig.release.development.mainnet.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -4671,7 +4747,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0E291BAA2C73F78C30D7F7C5 /* Pods-Multisig.debug.development.mainnet.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;

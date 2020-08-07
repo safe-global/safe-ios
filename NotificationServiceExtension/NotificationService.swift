@@ -18,9 +18,19 @@ class NotificationService: UNNotificationServiceExtension {
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
         if let bestAttemptContent = bestAttemptContent {
-            // Modify the notification content here...
-            bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
-            
+            let payload = NotificationPayload(userInfo: bestAttemptContent.userInfo)
+            guard let notification = ([
+                ExecutedMultisigTransactionNotification.self,
+                IncomingTokenNotification.self,
+                IncomingEtherNotification.self
+            ] as [MultisigNotification.Type])
+                .compactMap({ $0.init(payload: payload) })
+                .first
+            else {
+                return
+            }
+            bestAttemptContent.title = notification.localizedMessage
+            bestAttemptContent.badge = 1
             contentHandler(bestAttemptContent)
         }
     }
