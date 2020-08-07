@@ -23,6 +23,10 @@ struct TransactionDetailsView: Loadable {
         model = TransactionDetailsViewModel(transaction: transaction)
     }
 
+    init(hash: String) {
+        model = TransactionDetailsViewModel(hash: hash)
+    }
+
     @State
     private var showsLink: Bool = false
     private let padding: CGFloat = 11

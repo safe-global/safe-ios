@@ -18,16 +18,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
-        LogService.shared.debug("willPresent notification with userInfo: \(userInfo)")
-        App.shared.notificationHandler.received(notification: userInfo)
-        completionHandler([])
+        LogService.shared.debug("PUSH: App is in foreground, willPresent notification with userInfo: \(userInfo)")
+        completionHandler([.alert, .badge, .sound])
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        LogService.shared.debug("didReceive notification with userInfo: \(userInfo)")
+        LogService.shared.debug("PUSH: didReceive notification with userInfo: \(userInfo)")
         App.shared.notificationHandler.received(notification: userInfo)
         completionHandler()
     }

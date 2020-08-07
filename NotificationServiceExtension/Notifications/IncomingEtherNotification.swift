@@ -32,7 +32,11 @@ struct IncomingEtherNotification: MultisigNotification {
         self.value = value
     }
 
-    var localizedMessage: String {
+    var localizedTitle: String {
+        "Incoming ETH"
+    }
+
+    var localizedBody: String {
         let safe = address.truncatedInMiddle
         let formatter = TokenFormatter()
         let etherPrecision = 18

@@ -10,20 +10,31 @@ import Foundation
 
 struct ExecutedMultisigTransactionNotification: MultisigNotification {
     let address: PlainAddress
+    let failed: Bool
 
     init?(payload: NotificationPayload) {
         guard
             let rawType = payload.type,
             let type = NotificationType(rawValue: rawType),
             type == .executedMultisigTx,
-            let address = PlainAddress(payload.address)
+            let address = PlainAddress(payload.address),
+            let failed = payload.failed
         else {
             return nil
         }
         self.address = address
+        self.failed = failed == "true"
     }
 
-    var localizedMessage: String {
-        "\(address.truncatedInMiddle): Transaction executed"
+    var status: String {
+        failed ? "failed" : "successful"
+    }
+
+    var localizedTitle: String {
+        "Transaction \(status)"
+    }
+
+    var localizedBody: String {
+        "\(address.truncatedInMiddle): Transaction \(status)"
     }
 }

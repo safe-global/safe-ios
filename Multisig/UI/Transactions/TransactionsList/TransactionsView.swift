@@ -12,6 +12,12 @@ struct TransactionsView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
 
+    @ObservedObject
+    var viewState = App.shared.viewState
+
+    @State
+    var pushesTransactionDetails: Bool = false
+
     var body: some View {
         ZStack(alignment: .center) {
             Rectangle()
@@ -24,7 +30,23 @@ struct TransactionsView: View {
                 }
             } else {
                 LoadableView(TransactionListView(safe: selectedSafe.first!))
+
+                if viewState.presentedSafeTxHash != nil {
+                    NavigationLink(
+                        destination: LoadableView(
+                            TransactionDetailsView(
+                                hash: viewState.presentedSafeTxHash!
+                        )).onDisappear {
+                            self.viewState.presentedSafeTxHash = nil
+                        },
+                        isActive: $pushesTransactionDetails) {
+                            EmptyView()
+                    }
+                }
             }
+        }
+        .onReceive(viewState.$presentedSafeTxHash) { value in
+            self.pushesTransactionDetails = value != nil
         }
     }
 }

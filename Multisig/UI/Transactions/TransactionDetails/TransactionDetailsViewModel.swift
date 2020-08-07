@@ -30,6 +30,7 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
         self.transaction = nil
         self.hash = Data(hex: hash)
         super.init()
+        reloadData()
     }
 
     enum Failure: LocalizedError {
