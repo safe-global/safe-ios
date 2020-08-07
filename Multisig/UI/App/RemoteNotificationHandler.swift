@@ -58,9 +58,9 @@ class RemoteNotificationHandler {
     func pushTokenUpdated(_ token: String) {
         log("Push token updated")
         if authorizationStatus != nil {
-            log("Registering the push token \(token)")
+            register(token: token)
         } else {
-            log("Did not receive user permission, save the token for the future: \(token)")
+            save(token: token)
         }
     }
 
@@ -69,21 +69,43 @@ class RemoteNotificationHandler {
         if authorizationStatus == nil {
             requestUserPermissionAndRegister()
         } else {
-            log("Registering notifications for one newly added safe \(address)")
+            register(safe: address)
         }
     }
 
+
     func safeRemoved(address: Address) {
         log("Safe removed: \(address)")
-        log("Unregistering notifications for one removed safe \(address)")
+        unregister(safe: address)
     }
 
-    func received(notification payload: [AnyHashable: Any]) {
-        log("Received notification: \(payload)")
+    func received(notification userInfo: [AnyHashable: Any]) {
+        log("Received notification: \(userInfo)")
         assert(Thread.isMainThread)
         log("Clearing badge and opening screens")
         UIApplication.shared.applicationIconBadgeNumber = 0
-        #warning("TODO: open appropriate screen")
+        let payload = NotificationPayload(userInfo: userInfo)
+        do {
+            // is safe exists?
+            guard let rawAddress = payload.address, Address(rawAddress) != nil,
+                try Safe.exists(rawAddress) else {
+                    return
+            }
+            
+            // switch to that safe
+            Safe.select(address: rawAddress)
+
+            // open tx list
+            App.shared.viewState.switchTab(.transactions)
+
+            // if multisig and has safeTxHash, then open tx details
+            if payload.type == "EXECUTED_MULTISIG_TRANSACTION",
+                let hash = payload.safeTxHash {
+                App.shared.viewState.presentedSafeTxHash = hash
+            }
+        } catch {
+            LogService.shared.error("Error during opening notification: \(error)")
+        }
     }
 
     // MARK: - implementation
@@ -111,7 +133,7 @@ class RemoteNotificationHandler {
                     self.setStatus(settings.authorizationStatus)
 
                     if settings.authorizationStatus.hasPermission {
-                        log("registering all the safes that currently exist")
+                        self.registerAll()
                     }
                 }
             }
@@ -154,6 +176,27 @@ class RemoteNotificationHandler {
             log("Got current notification settings")
             self.setStatus(settings.authorizationStatus)
         }
+    }
+
+    // MARK: - Registering in the service
+    func register(token: String) {
+        log("Registering the push token \(token)")
+    }
+
+    func save(token: String) {
+        log("Did not receive user permission, save the token for the future: \(token)")
+    }
+
+    func register(safe address: Address) {
+        log("Registering notifications for one newly added safe \(address)")
+    }
+
+    func unregister(safe address: Address) {
+        log("Unregistering notifications for one removed safe \(address)")
+    }
+
+    func registerAll() {
+        log("registering all the safes that currently exist")
     }
 
 }
