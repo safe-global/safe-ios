@@ -65,11 +65,9 @@ class RemoteNotificationHandler {
             log("Did not receive user permission, save the token for the future: \(token)")
         }
 
-        self.token = token
+        save(token: token)
 
-        let addresses = Safe.all.map { Address(exactly: $0.address ?? "") }
-
-        registerToken(addresses: addresses)
+        registerAll()
     }
 
     func safeAdded(address: Address) {
@@ -78,7 +76,7 @@ class RemoteNotificationHandler {
             requestUserPermissionAndRegister()
         } else {
             log("Registering notifications for one newly added safe \(address)")
-            registerToken(addresses: [address])
+            register(addresses: [address])
         }
     }
 
@@ -86,7 +84,7 @@ class RemoteNotificationHandler {
         log("Safe removed: \(address)")
         log("Unregistering notifications for one removed safe \(address)")
 
-        unregisterToken(address: address)
+        unregister(address: address)
     }
 
     func received(notification payload: [AnyHashable: Any]) {
@@ -167,8 +165,12 @@ class RemoteNotificationHandler {
         }
     }
 
-    func registerToken(addresses: [Address]) {
-        guard let token = token else { return }
+    func save(token: String) {
+        self.token = token
+    }
+
+    func register(addresses: [Address]) {
+        guard let token = token, authorizationStatus?.hasPermission ?? false else { return }
         let appConfig = App.configuration.app
         do {
             let response = try App.shared.safeTransactionService.register(deviceID: deviceID, safes: addresses, token: token, bundle: appConfig.bundleIdentifier, version: appConfig.marketingVersion, buildNumber: appConfig.buildVersion)
@@ -178,13 +180,18 @@ class RemoteNotificationHandler {
         }
     }
 
-    func unregisterToken(address: Address) {
+    func unregister(address: Address) {
         guard let deviceID = deviceID else { return }
         do {
             try App.shared.safeTransactionService.unregister(deviceID: deviceID, address: address)
         } catch {
             log("Failed to unregister device")
         }
+    }
+
+    func registerAll() {
+        let addresses = Safe.all.map { Address(exactly: $0.address ?? "") }
+        register(addresses: addresses)
     }
 }
 
