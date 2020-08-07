@@ -32,6 +32,8 @@ extension UNAuthorizationStatus: CustomStringConvertible {
 
 class RemoteNotificationHandler {
     var token: String?
+    var deviceID: UUID?
+
     func setUpMessaging(delegate: MessagingDelegate & UNUserNotificationCenterDelegate) {
         log("Setting up notification handling")
         Messaging.messaging().delegate = delegate
@@ -59,10 +61,15 @@ class RemoteNotificationHandler {
         log("Push token updated")
         if authorizationStatus != nil {
             log("Registering the push token \(token)")
-            self.token = token
         } else {
             log("Did not receive user permission, save the token for the future: \(token)")
         }
+
+        self.token = token
+
+        let addresses = Safe.all.map { Address(exactly: $0.address ?? "") }
+
+        registerToken(addresses: addresses)
     }
 
     func safeAdded(address: Address) {
@@ -164,15 +171,15 @@ class RemoteNotificationHandler {
         guard let token = token else { return }
         let appConfig = App.configuration.app
         do {
-            let response = try App.shared.safeTransactionService.register(deviceID: AppSettings.deviceID(), safes: addresses, token: token, bundle: appConfig.bundleIdentifier, version: appConfig.marketingVersion, buildNumber: appConfig.buildVersion)
-            AppSettings.save(deviceID: response.uuid)
+            let response = try App.shared.safeTransactionService.register(deviceID: deviceID, safes: addresses, token: token, bundle: appConfig.bundleIdentifier, version: appConfig.marketingVersion, buildNumber: appConfig.buildVersion)
+            deviceID = response.uuid
         } catch {
             log("Failed to register device")
         }
     }
 
     func unregisterToken(address: Address) {
-        guard let deviceID = AppSettings.deviceID() else { return }
+        guard let deviceID = deviceID else { return }
         do {
             try App.shared.safeTransactionService.unregister(deviceID: deviceID, address: address)
         } catch {

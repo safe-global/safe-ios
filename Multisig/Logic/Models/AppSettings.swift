@@ -21,19 +21,6 @@ extension AppSettings {
         }
     }
 
-    static func save(deviceID: UUID) {
-        dispatchPrecondition(condition: .onQueue(.main))
-        let appSettings = current()
-        appSettings.deviceID = deviceID
-        App.shared.coreDataStack.saveContext()
-    }
-
-    static func deviceID() -> UUID? {
-        dispatchPrecondition(condition: .onQueue(.main))
-        let appSettings = current()
-        return appSettings.deviceID
-    }
-
     static func acceptTerms() {
         dispatchPrecondition(condition: .onQueue(.main))
         let appSettings = current()

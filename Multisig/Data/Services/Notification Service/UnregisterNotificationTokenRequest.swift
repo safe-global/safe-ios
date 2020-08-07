@@ -15,15 +15,15 @@ struct UnregisterNotificationTokenRequest: JSONRequest {
     var httpMethod: String { return "DELETE" }
     var urlPath: String { return "/api/v1/notifications/devices/\(deviceID)/safes/\(address)/" }
 
-    typealias ResponseType = Response
+    typealias ResponseType = EmptyResponse
 
     init(deviceID: UUID, address: Address) {
         self.address = address.checksummed
         self.deviceID = deviceID
     }
 
-    struct Response: Decodable {
-        
+    struct EmptyResponse: Decodable {
+        // empty
     }
 }
 
