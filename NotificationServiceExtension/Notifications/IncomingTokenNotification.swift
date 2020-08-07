@@ -35,7 +35,11 @@ struct IncomingTokenNotification: MultisigNotification {
         }
     }
 
-    var localizedMessage: String {
+    var localizedTitle: String {
+        "Incoming token"
+    }
+
+    var localizedBody: String {
         switch tokenType {
         case .erc20:
             return "\(address.truncatedInMiddle): ERC20 tokens received"

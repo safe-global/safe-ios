@@ -84,22 +84,16 @@ class RemoteNotificationHandler {
         assert(Thread.isMainThread)
         log("Clearing badge and opening screens")
         UIApplication.shared.applicationIconBadgeNumber = 0
+
         let payload = NotificationPayload(userInfo: userInfo)
         do {
-            // is safe exists?
-            guard let rawAddress = payload.address, Address(rawAddress) != nil,
-                try Safe.exists(rawAddress) else {
-                    return
-            }
-            
-            // switch to that safe
+            guard let rawAddress = payload.address,
+                Address(rawAddress) != nil,
+                try Safe.exists(rawAddress) else { return }
             Safe.select(address: rawAddress)
-
-            // open tx list
             App.shared.viewState.switchTab(.transactions)
 
-            // if multisig and has safeTxHash, then open tx details
-            if payload.type == "EXECUTED_MULTISIG_TRANSACTION",
+            if payload.type == "EXECUTED_MULTISIG_TRANSACTION" || payload.type == "NEW_CONFIRMATION",
                 let hash = payload.safeTxHash {
                 Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
                     App.shared.viewState.presentedSafeTxHash = hash
@@ -116,6 +110,7 @@ class RemoteNotificationHandler {
     var authorizationStatus: UNAuthorizationStatus?
 
     private func cleanUpDeliveredNotifications() {
+        UIApplication.shared.applicationIconBadgeNumber = 0
         UNUserNotificationCenter.current().getDeliveredNotifications { notifications in
             log("Cleaning up delivered notifications")
             UNUserNotificationCenter.current().removeAllDeliveredNotifications()

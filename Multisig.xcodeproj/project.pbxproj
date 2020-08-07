@@ -245,6 +245,7 @@
 		0AF2737324DC580D007E4012 /* IncomingTokenNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2737224DC580D007E4012 /* IncomingTokenNotification.swift */; };
 		0AF2737524DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2737424DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift */; };
 		0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2736A24DC57C6007E4012 /* NotificationPayload.swift */; };
+		0AF2739A24DD8D42007E4012 /* NewConfirmationNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2739924DD8D42007E4012 /* NewConfirmationNotification.swift */; };
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF6501B24488D280018D070 /* FullSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6501A24488D280018D070 /* FullSize.swift */; };
 		0AF66E9D24C0B65F004B7863 /* TransferMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF66E9C24C0B65F004B7863 /* TransferMethod.swift */; };
@@ -609,6 +610,7 @@
 		0AF2737024DC57FA007E4012 /* IncomingEtherNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingEtherNotification.swift; sourceTree = "<group>"; };
 		0AF2737224DC580D007E4012 /* IncomingTokenNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingTokenNotification.swift; sourceTree = "<group>"; };
 		0AF2737424DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutedMultisigTransactionNotification.swift; sourceTree = "<group>"; };
+		0AF2739924DD8D42007E4012 /* NewConfirmationNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConfirmationNotification.swift; sourceTree = "<group>"; };
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF6501A24488D280018D070 /* FullSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSize.swift; sourceTree = "<group>"; };
 		0AF66E9C24C0B65F004B7863 /* TransferMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferMethod.swift; sourceTree = "<group>"; };
@@ -1421,10 +1423,7 @@
 			isa = PBXGroup;
 			children = (
 				0AF2731724DAABDC007E4012 /* Info.plist */,
-				0AF2737424DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift */,
-				0AF2737024DC57FA007E4012 /* IncomingEtherNotification.swift */,
-				0AF2737224DC580D007E4012 /* IncomingTokenNotification.swift */,
-				0AF2736E24DC57E8007E4012 /* MultisigNotification.swift */,
+				0AF2739B24DD8EB7007E4012 /* Notifications */,
 				0AF2736A24DC57C6007E4012 /* NotificationPayload.swift */,
 				0AF2731524DAABDC007E4012 /* NotificationService.swift */,
 				0AF2736C24DC57D5007E4012 /* PlainAddress.swift */,
@@ -1451,6 +1450,18 @@
 				0AF2735C24DC4A10007E4012 /* NotificationService.Release.Staging.Rinkeby.xcconfig */,
 			);
 			name = Configuration;
+			sourceTree = "<group>";
+		};
+		0AF2739B24DD8EB7007E4012 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				0AF2737424DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift */,
+				0AF2739924DD8D42007E4012 /* NewConfirmationNotification.swift */,
+				0AF2737024DC57FA007E4012 /* IncomingEtherNotification.swift */,
+				0AF2737224DC580D007E4012 /* IncomingTokenNotification.swift */,
+				0AF2736E24DC57E8007E4012 /* MultisigNotification.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		0AF432BC244DF6C900E22E50 /* ENS */ = {
@@ -2416,6 +2427,7 @@
 			files = (
 				0AF2737324DC580D007E4012 /* IncomingTokenNotification.swift in Sources */,
 				0AF2731624DAABDC007E4012 /* NotificationService.swift in Sources */,
+				0AF2739A24DD8D42007E4012 /* NewConfirmationNotification.swift in Sources */,
 				0AF2736B24DC57C6007E4012 /* NotificationPayload.swift in Sources */,
 				0AF2737524DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift in Sources */,
 				0AF2736F24DC57E8007E4012 /* MultisigNotification.swift in Sources */,

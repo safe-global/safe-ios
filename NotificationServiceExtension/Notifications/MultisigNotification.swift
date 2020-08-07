@@ -12,9 +12,11 @@ enum NotificationType: String {
     case incomingEther = "INCOMING_ETHER"
     case incomingToken = "INCOMING_TOKEN"
     case executedMultisigTx = "EXECUTED_MULTISIG_TRANSACTION"
+    case newConfirmation = "NEW_CONFIRMATION"
 }
 
 protocol MultisigNotification {
-    var localizedMessage: String { get }
+    var localizedTitle: String { get }
+    var localizedBody: String { get }
     init?(payload: NotificationPayload)
 }
