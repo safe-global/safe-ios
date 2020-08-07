@@ -12,9 +12,6 @@ struct TransactionListView: Loadable {
     @ObservedObject
     var model: TransactionsViewModel
 
-    @ObservedObject
-    var viewState = App.shared.viewState
-
     init(safe: Safe) {
         model = TransactionsViewModel(safe: safe)
     }
@@ -52,20 +49,6 @@ struct TransactionListView: Loadable {
             if model.isLoadingNextPage {
                 ActivityIndicator(isAnimating: .constant(true), style: .medium)
                     .frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
-            }
-
-            if viewState.presentedSafeTxHash != nil {
-                NavigationLink(
-                    destination: LoadableView(
-                        TransactionDetailsView(
-                            hash: viewState.presentedSafeTxHash!
-                    ))
-                        .onAppear {
-                            self.viewState.presentedSafeTxHash = nil
-                    },
-                    isActive: .constant(true)) {
-                        EmptyView()
-                }
             }
         }
     }

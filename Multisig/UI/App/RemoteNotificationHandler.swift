@@ -101,7 +101,9 @@ class RemoteNotificationHandler {
             // if multisig and has safeTxHash, then open tx details
             if payload.type == "EXECUTED_MULTISIG_TRANSACTION",
                 let hash = payload.safeTxHash {
-                App.shared.viewState.presentedSafeTxHash = hash
+                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+                    App.shared.viewState.presentedSafeTxHash = hash
+                }
             }
         } catch {
             LogService.shared.error("Error during opening notification: \(error)")
