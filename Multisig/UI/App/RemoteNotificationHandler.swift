@@ -31,7 +31,7 @@ extension UNAuthorizationStatus: CustomStringConvertible {
 }
 
 class RemoteNotificationHandler {
-
+    var token: String?
     func setUpMessaging(delegate: MessagingDelegate & UNUserNotificationCenterDelegate) {
         log("Setting up notification handling")
         Messaging.messaging().delegate = delegate
@@ -59,6 +59,7 @@ class RemoteNotificationHandler {
         log("Push token updated")
         if authorizationStatus != nil {
             log("Registering the push token \(token)")
+            self.token = token
         } else {
             log("Did not receive user permission, save the token for the future: \(token)")
         }
@@ -70,12 +71,15 @@ class RemoteNotificationHandler {
             requestUserPermissionAndRegister()
         } else {
             log("Registering notifications for one newly added safe \(address)")
+            registerToken(addresses: [address])
         }
     }
 
     func safeRemoved(address: Address) {
         log("Safe removed: \(address)")
         log("Unregistering notifications for one removed safe \(address)")
+
+        unregisterToken(address: address)
     }
 
     func received(notification payload: [AnyHashable: Any]) {
@@ -156,6 +160,25 @@ class RemoteNotificationHandler {
         }
     }
 
+    func registerToken(addresses: [Address]) {
+        guard let token = token else { return }
+        let appConfig = App.configuration.app
+        do {
+            let response = try App.shared.safeTransactionService.register(deviceID: AppSettings.deviceID(), safes: addresses, token: token, bundle: appConfig.bundleIdentifier, version: appConfig.marketingVersion, buildNumber: appConfig.buildVersion)
+            AppSettings.save(deviceID: response.uuid)
+        } catch {
+            log("Failed to register device")
+        }
+    }
+
+    func unregisterToken(address: Address) {
+        guard let deviceID = AppSettings.deviceID() else { return }
+        do {
+            try App.shared.safeTransactionService.unregister(deviceID: deviceID, address: address)
+        } catch {
+            log("Failed to unregister device")
+        }
+    }
 }
 
 fileprivate func log(_ msg: String) {

@@ -10,15 +10,15 @@ import Foundation
 
 struct UnregisterNotificationTokenRequest: JSONRequest {
     let deviceID: UUID
-    let addresses: [String]
+    let address: String
 
-    var httpMethod: String { return "POST" }
-    var urlPath: String { return "/api/v1/notifications/unregister" }
+    var httpMethod: String { return "DELETE" }
+    var urlPath: String { return "/api/v1/notifications/devices/\(deviceID)/safes/\(address)/" }
 
-    typealias ResponseType = [Response]
+    typealias ResponseType = Response
 
-    init(deviceID: UUID, addresses: [Address]) {
-        self.addresses = addresses.map {$0.checksummed }
+    init(deviceID: UUID, address: Address) {
+        self.address = address.checksummed
         self.deviceID = deviceID
     }
 
@@ -28,10 +28,7 @@ struct UnregisterNotificationTokenRequest: JSONRequest {
 }
 
 extension SafeTransactionService {
-    
-    @discardableResult
-    func unregister(deviceID: UUID, addresses: [Address]) throws -> [UnregisterNotificationTokenRequest.Response] {
-        try execute(request: UnregisterNotificationTokenRequest(deviceID: deviceID, addresses: addresses))
+    func unregister(deviceID: UUID, address: Address) throws  {
+        try execute(request: UnregisterNotificationTokenRequest(deviceID: deviceID, address: address))
     }
-
 }
