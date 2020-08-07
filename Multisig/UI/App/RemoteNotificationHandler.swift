@@ -170,7 +170,7 @@ class RemoteNotificationHandler {
     }
 
     func register(addresses: [Address]) {
-        guard let token = token, authorizationStatus?.hasPermission ?? false else { return }
+        guard let token = token else { return }
         let appConfig = App.configuration.app
         do {
             let response = try App.shared.safeTransactionService.register(deviceID: deviceID, safes: addresses, token: token, bundle: appConfig.bundleIdentifier, version: appConfig.marketingVersion, buildNumber: appConfig.buildVersion)
