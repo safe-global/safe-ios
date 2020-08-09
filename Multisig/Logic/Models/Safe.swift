@@ -83,14 +83,18 @@ extension Safe: Identifiable {
     static func edit(address: String, name: String) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-
         let fr = Safe.fetchRequest().by(address: address)
-        
         guard let safe = try? context.fetch(fr).first else { return }
-        
         safe.name = name
-
         App.shared.coreDataStack.saveContext()
+    }
+
+    static func select(address: String) {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let context = App.shared.coreDataStack.viewContext
+        let fr = Safe.fetchRequest().by(address: address)
+        guard let safe = try? context.fetch(fr).first else { return }
+        safe.select()
     }
     
     static func remove(safe: Safe) {

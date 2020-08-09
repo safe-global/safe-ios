@@ -16,10 +16,12 @@ class NotificationService: UNNotificationServiceExtension {
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
-        
+
+
         if let bestAttemptContent = bestAttemptContent {
             let payload = NotificationPayload(userInfo: bestAttemptContent.userInfo)
             guard let notification = ([
+                NewConfirmationNotification.self,
                 ExecutedMultisigTransactionNotification.self,
                 IncomingTokenNotification.self,
                 IncomingEtherNotification.self
@@ -29,7 +31,8 @@ class NotificationService: UNNotificationServiceExtension {
             else {
                 return
             }
-            bestAttemptContent.title = notification.localizedMessage
+            bestAttemptContent.title = notification.localizedTitle
+            bestAttemptContent.body = notification.localizedBody
             bestAttemptContent.badge = 1
             contentHandler(bestAttemptContent)
         }

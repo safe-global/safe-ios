@@ -60,9 +60,8 @@ class RemoteNotificationHandler {
     func pushTokenUpdated(_ token: String) {
         log("Push token updated")
         if authorizationStatus != nil {
-            log("Registering the push token \(token)")
         } else {
-            log("Did not receive user permission, save the token for the future: \(token)")
+            save(token: token)
         }
 
         save(token: token)
@@ -75,24 +74,38 @@ class RemoteNotificationHandler {
         if authorizationStatus == nil {
             requestUserPermissionAndRegister()
         } else {
-            log("Registering notifications for one newly added safe \(address)")
-            register(addresses: [address])
+            register(safe: address)
         }
     }
 
     func safeRemoved(address: Address) {
         log("Safe removed: \(address)")
-        log("Unregistering notifications for one removed safe \(address)")
-
-        unregister(address: address)
+        unregister(safe: address)
     }
 
-    func received(notification payload: [AnyHashable: Any]) {
-        log("Received notification: \(payload)")
+    func received(notification userInfo: [AnyHashable: Any]) {
+        log("Received notification: \(userInfo)")
         assert(Thread.isMainThread)
         log("Clearing badge and opening screens")
         UIApplication.shared.applicationIconBadgeNumber = 0
-        #warning("TODO: open appropriate screen")
+
+        let payload = NotificationPayload(userInfo: userInfo)
+        do {
+            guard let rawAddress = payload.address,
+                Address(rawAddress) != nil,
+                try Safe.exists(rawAddress) else { return }
+            Safe.select(address: rawAddress)
+            App.shared.viewState.switchTab(.transactions)
+
+            if payload.type == "EXECUTED_MULTISIG_TRANSACTION" || payload.type == "NEW_CONFIRMATION",
+                let hash = payload.safeTxHash {
+                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+                    App.shared.viewState.presentedSafeTxHash = hash
+                }
+            }
+        } catch {
+            LogService.shared.error("Error during opening notification: \(error)")
+        }
     }
 
     // MARK: - implementation
@@ -101,6 +114,7 @@ class RemoteNotificationHandler {
     var authorizationStatus: UNAuthorizationStatus?
 
     private func cleanUpDeliveredNotifications() {
+        UIApplication.shared.applicationIconBadgeNumber = 0
         UNUserNotificationCenter.current().getDeliveredNotifications { notifications in
             log("Cleaning up delivered notifications")
             UNUserNotificationCenter.current().removeAllDeliveredNotifications()
@@ -120,7 +134,7 @@ class RemoteNotificationHandler {
                     self.setStatus(settings.authorizationStatus)
 
                     if settings.authorizationStatus.hasPermission {
-                        log("registering all the safes that currently exist")
+                        self.registerAll()
                     }
                 }
             }
@@ -165,11 +179,16 @@ class RemoteNotificationHandler {
         }
     }
 
+	// MARK: - Registering in the service
+    func register(token: String) {
+        log("Registering the push token \(token)")
+    }
+
     func save(token: String) {
         self.token = token
     }
-
     func register(addresses: [Address]) {
+
         guard let token = token else { return }
         let appConfig = App.configuration.app
         do {
@@ -188,12 +207,12 @@ class RemoteNotificationHandler {
             log("Failed to unregister device")
         }
     }
-
     func registerAll() {
+
         let addresses = Safe.all.map { Address(exactly: $0.address ?? "") }
         register(addresses: addresses)
     }
-}
+ }
 
 fileprivate func log(_ msg: String) {
     LogService.shared.debug("PUSH: " + msg)

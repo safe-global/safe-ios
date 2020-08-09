@@ -32,7 +32,7 @@ INFURA_API_KEY = USE_YOUR_OWN_INFURA_KEY_HERE
 // Configuration Values
 
 // Gnosis Safe Transaction Service
-_TRANSACTION_SERVICE_URL_DEV_RINKEBY        = https:/$()/safe-transaction.staging.gnosisdev.com/api/
+_TRANSACTION_SERVICE_URL_DEV_RINKEBY        = https:/$()/safe-transaction.dev.gnosisdev.com/api/
 _TRANSACTION_SERVICE_URL_DEV_MAINNET        = https:/$()/safe-transaction.mainnet.staging.gnosisdev.com/api/
 _TRANSACTION_SERVICE_URL_STAGING_RINKEBY    = https:/$()/safe-transaction.staging.gnosisdev.com/api/
 _TRANSACTION_SERVICE_URL_STAGING_MAINNET    = https:/$()/safe-transaction.mainnet.staging.gnosisdev.com/api/

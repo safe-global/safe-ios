@@ -20,6 +20,9 @@ class ViewState: ObservableObject {
         state = to
     }
 
+    @Published
+    var presentedSafeTxHash: String?
+
     // Navigation bar
 
     @Published
