@@ -171,9 +171,7 @@ class RemoteNotificationHandler {
                 }
 
                 // At the time when permission granted the token will be already set so we need to register all stored safes
-                if self.authorizationStatus != nil {
-                    self.registerAll()
-                }
+                self.registerAll()
             }
             self.updateAuthorizationStatus()
         }
