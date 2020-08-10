@@ -169,6 +169,11 @@ class RemoteNotificationHandler {
                     log("registering remote notifications")
                     UIApplication.shared.registerForRemoteNotifications()
                 }
+
+                // At the time when permission granted the token will be already set so we need to register all stored safes
+                if self.authorizationStatus != nil {
+                    self.registerAll()
+                }
             }
             self.updateAuthorizationStatus()
         }
@@ -178,11 +183,6 @@ class RemoteNotificationHandler {
         DispatchQueue.main.async {
             log("Saving authorization status")
             self.authorizationStatus = status
-
-            // At the time when permission granted the token will be already set so we need to register all stored safes
-            if self.authorizationStatus != nil {
-                self.registerAll()
-            }
         }
     }
 
