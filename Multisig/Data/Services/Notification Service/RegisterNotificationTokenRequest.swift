@@ -36,8 +36,8 @@ struct RegisterNotificationTokenRequest: JSONRequest {
         let cloudMessagingToken: String
         let bundle: String
         let version: String
-        let deviceType: String = "IOS"
-        let buildNumber: String
+        let deviceType: String
+        let buildNumber: Int
     }
 }
 

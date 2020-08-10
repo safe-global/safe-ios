@@ -32,7 +32,20 @@ extension UNAuthorizationStatus: CustomStringConvertible {
 
 class RemoteNotificationHandler {
     var token: String?
-    var deviceID: UUID?
+    // This is temporary, will be removed when we store device id in database
+    var deviceID: UUID? {
+        set {
+            storedDeviceID = newValue?.uuidString
+        }
+        get {
+            guard let storedDeviceID = storedDeviceID else { return nil }
+
+            return UUID(uuidString: storedDeviceID)
+        }
+    }
+
+    @UserDefault(key: "deviceID")
+    var storedDeviceID: String?
 
     func setUpMessaging(delegate: MessagingDelegate & UNUserNotificationCenterDelegate) {
         log("Setting up notification handling")
@@ -59,14 +72,10 @@ class RemoteNotificationHandler {
 
     func pushTokenUpdated(_ token: String) {
         log("Push token updated")
-        if authorizationStatus != nil {
-        } else {
-            save(token: token)
-        }
-
         save(token: token)
-
-        registerAll()
+        if authorizationStatus != nil {
+            registerAll()
+        }
     }
 
     func safeAdded(address: Address) {
@@ -74,13 +83,13 @@ class RemoteNotificationHandler {
         if authorizationStatus == nil {
             requestUserPermissionAndRegister()
         } else {
-            register(safe: address)
+            register(addresses: [address])
         }
     }
 
     func safeRemoved(address: Address) {
         log("Safe removed: \(address)")
-        unregister(safe: address)
+        unregister(address: address)
     }
 
     func received(notification userInfo: [AnyHashable: Any]) {
@@ -169,6 +178,11 @@ class RemoteNotificationHandler {
         DispatchQueue.main.async {
             log("Saving authorization status")
             self.authorizationStatus = status
+
+            // At the time when permission granted the token will be already set so we need to register all stored safes
+            if self.authorizationStatus != nil {
+                self.registerAll()
+            }
         }
     }
 
@@ -179,36 +193,37 @@ class RemoteNotificationHandler {
         }
     }
 
-	// MARK: - Registering in the service
-    func register(token: String) {
-        log("Registering the push token \(token)")
-    }
-
     func save(token: String) {
         self.token = token
     }
     func register(addresses: [Address]) {
-
-        guard let token = token else { return }
-        let appConfig = App.configuration.app
-        do {
-            let response = try App.shared.safeTransactionService.register(deviceID: deviceID, safes: addresses, token: token, bundle: appConfig.bundleIdentifier, version: appConfig.marketingVersion, buildNumber: appConfig.buildVersion)
-            deviceID = response.uuid
-        } catch {
-            log("Failed to register device")
+        guard let token = self.token else { return }
+        DispatchQueue.global(qos: .background).async {
+            let appConfig = App.configuration.app
+            do {
+                let response = try App.shared.safeTransactionService.register(deviceID: self.deviceID,
+                                                                              safes: addresses, token: token,
+                                                                              bundle: appConfig.bundleIdentifier,
+                                                                              version: appConfig.marketingVersion,
+                                                                              buildNumber: appConfig.buildVersion)
+                self.deviceID = response.uuid
+            } catch {
+                log("Failed to register device")
+            }
         }
     }
 
     func unregister(address: Address) {
         guard let deviceID = deviceID else { return }
-        do {
-            try App.shared.safeTransactionService.unregister(deviceID: deviceID, address: address)
-        } catch {
-            log("Failed to unregister device")
+        DispatchQueue.global(qos: .background).async {
+            do {
+                try App.shared.safeTransactionService.unregister(deviceID: deviceID, address: address)
+            } catch {
+                log("Failed to unregister device")
+            }
         }
     }
     func registerAll() {
-
         let addresses = Safe.all.map { Address(exactly: $0.address ?? "") }
         register(addresses: addresses)
     }
