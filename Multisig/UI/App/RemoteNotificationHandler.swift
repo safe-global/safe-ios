@@ -31,6 +31,21 @@ extension UNAuthorizationStatus: CustomStringConvertible {
 }
 
 class RemoteNotificationHandler {
+    var token: String?
+    // This is temporary, will be removed when we store device id in database
+    var deviceID: UUID? {
+        set {
+            storedDeviceID = newValue?.uuidString
+        }
+        get {
+            guard let storedDeviceID = storedDeviceID else { return nil }
+
+            return UUID(uuidString: storedDeviceID)
+        }
+    }
+
+    @UserDefault(key: "deviceID")
+    var storedDeviceID: String?
 
     func setUpMessaging(delegate: MessagingDelegate & UNUserNotificationCenterDelegate) {
         log("Setting up notification handling")
@@ -57,10 +72,9 @@ class RemoteNotificationHandler {
 
     func pushTokenUpdated(_ token: String) {
         log("Push token updated")
+        save(token: token)
         if authorizationStatus != nil {
-            register(token: token)
-        } else {
-            save(token: token)
+            registerAll()
         }
     }
 
@@ -69,14 +83,13 @@ class RemoteNotificationHandler {
         if authorizationStatus == nil {
             requestUserPermissionAndRegister()
         } else {
-            register(safe: address)
+            register(addresses: [address])
         }
     }
 
-
     func safeRemoved(address: Address) {
         log("Safe removed: \(address)")
-        unregister(safe: address)
+        unregister(address: address)
     }
 
     func received(notification userInfo: [AnyHashable: Any]) {
@@ -156,6 +169,9 @@ class RemoteNotificationHandler {
                     log("registering remote notifications")
                     UIApplication.shared.registerForRemoteNotifications()
                 }
+
+                // At the time when permission granted the token will be already set so we need to register all stored safes
+                self.registerAll()
             }
             self.updateAuthorizationStatus()
         }
@@ -175,28 +191,41 @@ class RemoteNotificationHandler {
         }
     }
 
-    // MARK: - Registering in the service
-    func register(token: String) {
-        log("Registering the push token \(token)")
-    }
-
     func save(token: String) {
-        log("Did not receive user permission, save the token for the future: \(token)")
+        self.token = token
+    }
+    func register(addresses: [Address]) {
+        guard let token = self.token else { return }
+        DispatchQueue.global(qos: .background).async {
+            let appConfig = App.configuration.app
+            do {
+                let response = try App.shared.safeTransactionService.register(deviceID: self.deviceID,
+                                                                              safes: addresses, token: token,
+                                                                              bundle: appConfig.bundleIdentifier,
+                                                                              version: appConfig.marketingVersion,
+                                                                              buildNumber: appConfig.buildVersion)
+                self.deviceID = response.uuid
+            } catch {
+                log("Failed to register device")
+            }
+        }
     }
 
-    func register(safe address: Address) {
-        log("Registering notifications for one newly added safe \(address)")
+    func unregister(address: Address) {
+        guard let deviceID = deviceID else { return }
+        DispatchQueue.global(qos: .background).async {
+            do {
+                try App.shared.safeTransactionService.unregister(deviceID: deviceID, address: address)
+            } catch {
+                log("Failed to unregister device")
+            }
+        }
     }
-
-    func unregister(safe address: Address) {
-        log("Unregistering notifications for one removed safe \(address)")
-    }
-
     func registerAll() {
-        log("registering all the safes that currently exist")
+        let addresses = Safe.all.map { Address(exactly: $0.address ?? "") }
+        register(addresses: addresses)
     }
-
-}
+ }
 
 fileprivate func log(_ msg: String) {
     LogService.shared.debug("PUSH: " + msg)
