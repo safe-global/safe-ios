@@ -173,7 +173,7 @@ class RemoteNotificationHandler {
                               buildNumber: appConfig.buildVersion)
                 self.deviceID = response.uuid
             } catch {
-                logError("Failed to register device: \(error)")
+                logError("Failed to register device", error)
             }
         }
     }
@@ -184,7 +184,7 @@ class RemoteNotificationHandler {
             do {
                 try App.shared.safeTransactionService.unregister(deviceID: deviceID, address: address)
             } catch {
-                logError("Failed to unregister device: \(error)")
+                logError("Failed to unregister device", error)
             }
         }
     }
@@ -211,7 +211,7 @@ class RemoteNotificationHandler {
                 }
             }
         } catch {
-            logError("Error during opening notification: \(error)")
+            logError("Error during opening notification", error)
         }
     }
 
@@ -221,8 +221,8 @@ fileprivate func logDebug(_ msg: String) {
     LogService.shared.debug("PUSH: " + msg)
 }
 
-fileprivate func logError(_ msg: String) {
-    LogService.shared.error(msg)
+fileprivate func logError(_ msg: String, _ error: Error) {
+    LogService.shared.error(msg + ": \(error)", error: error)
 }
 
 extension UNAuthorizationStatus {
