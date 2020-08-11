@@ -43,7 +43,6 @@ struct RegisterNotificationTokenRequest: JSONRequest {
 
 extension SafeTransactionService {
 
-    @discardableResult
     func register(deviceID: UUID? = nil, safes: [Address], token: String, bundle: String, version: String, buildNumber: String) throws -> RegisterNotificationTokenRequest.Response {
         return try execute(request: RegisterNotificationTokenRequest(deviceID: deviceID, safes: safes, token: token, bundle: bundle, version: version, buildNumber: buildNumber))
     }
