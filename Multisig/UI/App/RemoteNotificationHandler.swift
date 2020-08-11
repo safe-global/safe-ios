@@ -19,7 +19,7 @@ class RemoteNotificationHandler {
     @EnumDefault(key: "io.gnosis.multisig.authorizationStatus")
     private var authorizationStatus: UNAuthorizationStatus?
 
-    @UserDefault(key: "io.gnosis.multiSig.pushToken")
+    @UserDefault(key: "io.gnosis.multisig.pushToken")
     private var token: String?
 
     private var queue = DispatchQueue(label: "RemoteNotificationHandlerQueue")
