@@ -11,44 +11,31 @@ import UIKit
 import UserNotifications
 import Firebase
 
-extension UNAuthorizationStatus {
-    var hasPermission: Bool {
-        self == .authorized || self == .provisional
-    }
-}
-
-extension UNAuthorizationStatus: CustomStringConvertible {
-
-    public var description: String {
-        switch self {
-        case .authorized: return "Authorized (granted)"
-        case .denied: return "Denied"
-        case .notDetermined: return "Not Determined"
-        case .provisional: return "Provisional (granted)"
-        @unknown default: return "Unknown: \(rawValue)"
-        }
-    }
-}
-
 class RemoteNotificationHandler {
-    var token: String?
+
+    @UserDefault(key: "io.gnosis.multisig.deviceID")
+    private var storedDeviceID: String?
+
+    @EnumDefault(key: "io.gnosis.multisig.authorizationStatus")
+    private var authorizationStatus: UNAuthorizationStatus?
+
+    @UserDefault(key: "io.gnosis.multisig.pushToken")
+    private var token: String?
+
+    private var queue = DispatchQueue(label: "RemoteNotificationHandlerQueue")
+
     // This is temporary, will be removed when we store device id in database
-    var deviceID: UUID? {
+    private var deviceID: UUID? {
+        get {
+            storedDeviceID.flatMap { UUID(uuidString: $0) }
+        }
         set {
             storedDeviceID = newValue?.uuidString
         }
-        get {
-            guard let storedDeviceID = storedDeviceID else { return nil }
-
-            return UUID(uuidString: storedDeviceID)
-        }
     }
 
-    @UserDefault(key: "deviceID")
-    var storedDeviceID: String?
-
     func setUpMessaging(delegate: MessagingDelegate & UNUserNotificationCenterDelegate) {
-        log("Setting up notification handling")
+        logDebug("Setting up notification handling")
         Messaging.messaging().delegate = delegate
 
         // https://firebase.google.com/docs/cloud-messaging/ios/client
@@ -61,25 +48,25 @@ class RemoteNotificationHandler {
     // MARK: - Events
 
     func appStarted() {
-        log("App started")
+        logDebug("App started")
         monitorAuthorizationStatus()
     }
 
     func appEnteredForeground() {
-        log("App Entered Foreground")
+        logDebug("App Entered Foreground")
         cleanUpDeliveredNotifications()
     }
 
     func pushTokenUpdated(_ token: String) {
-        log("Push token updated")
-        save(token: token)
+        logDebug("Push token updated")
+        self.token = token
         if authorizationStatus != nil {
             registerAll()
         }
     }
 
     func safeAdded(address: Address) {
-        log("Safe added: \(address)")
+        logDebug("Safe added: \(address)")
         if authorizationStatus == nil {
             requestUserPermissionAndRegister()
         } else {
@@ -88,44 +75,22 @@ class RemoteNotificationHandler {
     }
 
     func safeRemoved(address: Address) {
-        log("Safe removed: \(address)")
+        logDebug("Safe removed: \(address)")
         unregister(address: address)
     }
 
     func received(notification userInfo: [AnyHashable: Any]) {
-        log("Received notification: \(userInfo)")
         assert(Thread.isMainThread)
-        log("Clearing badge and opening screens")
-        UIApplication.shared.applicationIconBadgeNumber = 0
-
-        let payload = NotificationPayload(userInfo: userInfo)
-        do {
-            guard let rawAddress = payload.address,
-                Address(rawAddress) != nil,
-                try Safe.exists(rawAddress) else { return }
-            Safe.select(address: rawAddress)
-            App.shared.viewState.switchTab(.transactions)
-
-            if payload.type == "EXECUTED_MULTISIG_TRANSACTION" || payload.type == "NEW_CONFIRMATION",
-                let hash = payload.safeTxHash {
-                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-                    App.shared.viewState.presentedSafeTxHash = hash
-                }
-            }
-        } catch {
-            LogService.shared.error("Error during opening notification: \(error)")
-        }
+        logDebug("Received notification: \(userInfo)")
+        showDetails(userInfo)
     }
 
     // MARK: - implementation
 
-    @EnumDefault(key: "io.gnosis.multisig.authorizationStatus")
-    var authorizationStatus: UNAuthorizationStatus?
-
     private func cleanUpDeliveredNotifications() {
         UIApplication.shared.applicationIconBadgeNumber = 0
         UNUserNotificationCenter.current().getDeliveredNotifications { notifications in
-            log("Cleaning up delivered notifications")
+            logDebug("Cleaning up delivered notifications")
             UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         }
     }
@@ -133,9 +98,8 @@ class RemoteNotificationHandler {
     private func monitorAuthorizationStatus() {
         if let previousAuthorization = authorizationStatus {
             UNUserNotificationCenter.current().getNotificationSettings { settings in
-                log("Old permission: \(previousAuthorization), new permission: \(settings.authorizationStatus)")
+                logDebug("Old permission: \(previousAuthorization), new permission: \(settings.authorizationStatus)")
                 if settings.authorizationStatus.hasPermission && !previousAuthorization.hasPermission {
-                    log("Granted permission")
                     // authorization changed to granted
                     self.requestUserPermissionAndRegister()
                 } else {
@@ -157,20 +121,23 @@ class RemoteNotificationHandler {
             DispatchQueue.main.async { self.requestUserPermissionAndRegister() }
             return
         }
-        log("requesting permissions for notifications")
+        logDebug("requesting permissions for notifications")
+
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             if let error = error {
                 LogService.shared.error("Notification authorization error: \(error)")
                 return
             }
             if granted {
-                log("User gave permission for notifications")
+                logDebug("User gave permission for notifications")
+
                 DispatchQueue.main.async {
-                    log("registering remote notifications")
+                    logDebug("registering remote notifications")
                     UIApplication.shared.registerForRemoteNotifications()
                 }
 
-                // At the time when permission granted the token will be already set so we need to register all stored safes
+                // At the time when permission granted, the token will be
+                // already set, so we need to register all stored safes
                 self.registerAll()
             }
             self.updateAuthorizationStatus()
@@ -179,54 +146,119 @@ class RemoteNotificationHandler {
 
     private func setStatus(_ status: UNAuthorizationStatus) {
         DispatchQueue.main.async {
-            log("Saving authorization status")
+            logDebug("Saving authorization status")
             self.authorizationStatus = status
+            self.track(status)
         }
     }
 
     private func updateAuthorizationStatus() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
-            log("Got current notification settings")
+            logDebug("Got current notification settings")
             self.setStatus(settings.authorizationStatus)
         }
     }
 
-    func save(token: String) {
-        self.token = token
+    private func track(_ status: UNAuthorizationStatus) {
+        Tracker.shared.setUserProperty(status.trackingStatus.rawValue,
+                                       for: TrackingUserProperty.pushInfo)
     }
-    func register(addresses: [Address]) {
+
+    private func register(addresses: [Address]) {
         guard let token = self.token else { return }
-        DispatchQueue.global(qos: .background).async {
+        queue.async {
             let appConfig = App.configuration.app
             do {
-                let response = try App.shared.safeTransactionService.register(deviceID: self.deviceID,
-                                                                              safes: addresses, token: token,
-                                                                              bundle: appConfig.bundleIdentifier,
-                                                                              version: appConfig.marketingVersion,
-                                                                              buildNumber: appConfig.buildVersion)
+                let response = try App.shared.safeTransactionService
+                    .register(deviceID: self.deviceID,
+                              safes: addresses,
+                              token: token,
+                              bundle: appConfig.bundleIdentifier,
+                              version: appConfig.marketingVersion,
+                              buildNumber: appConfig.buildVersion)
                 self.deviceID = response.uuid
             } catch {
-                log("Failed to register device")
+                logError("Failed to register device", error)
             }
         }
     }
 
-    func unregister(address: Address) {
+    private func unregister(address: Address) {
         guard let deviceID = deviceID else { return }
-        DispatchQueue.global(qos: .background).async {
+        queue.async {
             do {
                 try App.shared.safeTransactionService.unregister(deviceID: deviceID, address: address)
             } catch {
-                log("Failed to unregister device")
+                logError("Failed to unregister device", error)
             }
         }
     }
-    func registerAll() {
+
+    private func registerAll() {
         let addresses = Safe.all.map { Address(exactly: $0.address ?? "") }
         register(addresses: addresses)
     }
+
+    private func showDetails(_ userInfo: [AnyHashable : Any]) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        let payload = NotificationPayload(userInfo: userInfo)
+        do {
+            guard let rawAddress = payload.address,
+                Address(rawAddress) != nil,
+                try Safe.exists(rawAddress) else { return }
+            Safe.select(address: rawAddress)
+            App.shared.viewState.switchTab(.transactions)
+
+            if payload.type == "EXECUTED_MULTISIG_TRANSACTION" || payload.type == "NEW_CONFIRMATION",
+                let hash = payload.safeTxHash {
+                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+                    App.shared.viewState.presentedSafeTxHash = hash
+                }
+            }
+        } catch {
+            logError("Error during opening notification", error)
+        }
+    }
+
  }
 
-fileprivate func log(_ msg: String) {
+fileprivate func logDebug(_ msg: String) {
     LogService.shared.debug("PUSH: " + msg)
+}
+
+fileprivate func logError(_ msg: String, _ error: Error) {
+    LogService.shared.error(msg + ": \(error)", error: error)
+}
+
+extension UNAuthorizationStatus {
+    var hasPermission: Bool {
+        self == .authorized || self == .provisional
+    }
+}
+
+extension UNAuthorizationStatus: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .authorized: return "Authorized (granted)"
+        case .denied: return "Denied"
+        case .notDetermined: return "Not Determined"
+        case .provisional: return "Provisional (granted)"
+        @unknown default: return "Unknown: \(rawValue)"
+        }
+    }
+}
+
+extension UNAuthorizationStatus {
+    fileprivate var trackingStatus: TrackingPushState {
+        switch self {
+        case .authorized, .provisional:
+            return .enabled
+        case .denied:
+            return .disabled
+        case .notDetermined:
+            return .unknown
+        @unknown default:
+            return .unknown
+        }
+    }
 }
