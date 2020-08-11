@@ -99,7 +99,6 @@ class RemoteNotificationHandler {
         if let previousAuthorization = authorizationStatus {
             UNUserNotificationCenter.current().getNotificationSettings { settings in
                 logDebug("Old permission: \(previousAuthorization), new permission: \(settings.authorizationStatus)")
-
                 if settings.authorizationStatus.hasPermission && !previousAuthorization.hasPermission {
                     // authorization changed to granted
                     self.requestUserPermissionAndRegister()
@@ -149,6 +148,7 @@ class RemoteNotificationHandler {
         DispatchQueue.main.async {
             logDebug("Saving authorization status")
             self.authorizationStatus = status
+            self.track(status)
         }
     }
 
@@ -157,6 +157,11 @@ class RemoteNotificationHandler {
             logDebug("Got current notification settings")
             self.setStatus(settings.authorizationStatus)
         }
+    }
+
+    private func track(_ status: UNAuthorizationStatus) {
+        Tracker.shared.setUserProperty(status.trackingStatus.rawValue,
+                                       for: TrackingUserProperty.pushInfo)
     }
 
     private func register(addresses: [Address]) {
@@ -239,6 +244,21 @@ extension UNAuthorizationStatus: CustomStringConvertible {
         case .notDetermined: return "Not Determined"
         case .provisional: return "Provisional (granted)"
         @unknown default: return "Unknown: \(rawValue)"
+        }
+    }
+}
+
+extension UNAuthorizationStatus {
+    fileprivate var trackingStatus: TrackingPushState {
+        switch self {
+        case .authorized, .provisional:
+            return .enabled
+        case .denied:
+            return .disabled
+        case .notDetermined:
+            return .unknown
+        @unknown default:
+            return .unknown
         }
     }
 }
