@@ -49,6 +49,9 @@
 		04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04769167246431D000D73D8B /* SafeTransactionService.swift */; };
 		0476916A246437C300D73D8B /* ContractVersionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04769169246437C300D73D8B /* ContractVersionCell.swift */; };
 		0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476916B24643A2A00D73D8B /* BrowseAddressView.swift */; };
+		048643CF24E179E6003DD966 /* CreationTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643CE24E179E6003DD966 /* CreationTransactionRequest.swift */; };
+		048643D324E19A26003DD966 /* CreationTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643D224E19A26003DD966 /* CreationTransactionViewModel.swift */; };
+		048643D924E3E241003DD966 /* CreationTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643D824E3E241003DD966 /* CreationTransaction.swift */; };
 		0497F6C62485520D00A1F4DE /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6C52485520D00A1F4DE /* Transaction.swift */; };
 		0497F6C824858F2D00A1F4DE /* ConfirmationCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */; };
 		0497F6DE2487B54600A1F4DE /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6DD2487B54600A1F4DE /* DateView.swift */; };
@@ -387,6 +390,9 @@
 		04769167246431D000D73D8B /* SafeTransactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionService.swift; sourceTree = "<group>"; };
 		04769169246437C300D73D8B /* ContractVersionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractVersionCell.swift; sourceTree = "<group>"; };
 		0476916B24643A2A00D73D8B /* BrowseAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseAddressView.swift; sourceTree = "<group>"; };
+		048643CE24E179E6003DD966 /* CreationTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransactionRequest.swift; sourceTree = "<group>"; };
+		048643D224E19A26003DD966 /* CreationTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransactionViewModel.swift; sourceTree = "<group>"; };
+		048643D824E3E241003DD966 /* CreationTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransaction.swift; sourceTree = "<group>"; };
 		0497F6C52485520D00A1F4DE /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationCountView.swift; sourceTree = "<group>"; };
 		0497F6DD2487B54600A1F4DE /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
@@ -1335,6 +1341,7 @@
 				0AA9F1F92497BD3A005BD60F /* MethodRegistry+GnosisSafeImplementation.swift */,
 				0AA9F1F72497BD15005BD60F /* MethodRegistry+GnosisSafeSettings.swift */,
 				0497F6C52485520D00A1F4DE /* Transaction.swift */,
+				048643D824E3E241003DD966 /* CreationTransaction.swift */,
 				0AA9F2032497BDD6005BD60F /* TransactionConfirmation.swift */,
 				0AA9F1F52497BCE0005BD60F /* TransactionData.swift */,
 				0AA9F1F12497BC5F005BD60F /* TransactionStatus.swift */,
@@ -1353,6 +1360,7 @@
 				0AA9F24C2497DB85005BD60F /* CustomTransactionViewModel.swift */,
 				0AA9F24A2497DB79005BD60F /* SettingChangeTransactionViewModel.swift */,
 				0AA9F2462497DB56005BD60F /* TransferTransactionViewModel.swift */,
+				048643D224E19A26003DD966 /* CreationTransactionViewModel.swift */,
 			);
 			path = TransactionViewModel;
 			sourceTree = "<group>";
@@ -1363,6 +1371,7 @@
 				04769167246431D000D73D8B /* SafeTransactionService.swift */,
 				0AB34D6124B71DB200A43988 /* SafeBalancesRequest.swift */,
 				0AB34D6324B71DCD00A43988 /* TransactionsRequest.swift */,
+				048643CE24E179E6003DD966 /* CreationTransactionRequest.swift */,
 				0A42C25324D0696D00ACA770 /* TransactionDetailsRequest.swift */,
 				0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */,
 				0AB34D6724B71DF700A43988 /* TokensRequest.swift */,
@@ -2142,6 +2151,7 @@
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */,
 				04769165246408D000D73D8B /* AdvancedSafeSettingsView.swift in Sources */,
+				048643CF24E179E6003DD966 /* CreationTransactionRequest.swift in Sources */,
 				0AA9F263249A188C005BD60F /* AdvancedTransactionDetailsView.swift in Sources */,
 				55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */,
 				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
@@ -2193,6 +2203,7 @@
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				0AF66E9D24C0B65F004B7863 /* TransferMethod.swift in Sources */,
 				0A7AEAE32462FA6000014184 /* AddSafeRow.swift in Sources */,
+				048643D324E19A26003DD966 /* CreationTransactionViewModel.swift in Sources */,
 				0457AB9E24BDCA45007C884E /* CollectibleDetailsView.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
@@ -2352,6 +2363,7 @@
 				0A704A7024742003005BDC49 /* HideSystemNavigationBarModifier.swift in Sources */,
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,
 				0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */,
+				048643D924E3E241003DD966 /* CreationTransaction.swift in Sources */,
 				0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */,

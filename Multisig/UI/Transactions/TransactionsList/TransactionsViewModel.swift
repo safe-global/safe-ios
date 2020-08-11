@@ -41,7 +41,10 @@ class TransactionsViewModel: BasicLoadableViewModel {
                             self.safeInfo = try App.shared.safeTransactionService.safeInfo(at: address)
                             let transactions = try App.shared.safeTransactionService.transactions(address: address)
                             self.nextURL = transactions.next
-                            let models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
+                            var models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
+                            if let creationTransaction = try self.creationTransaction() {
+                                models.append(creationTransaction)
+                            }
                             let list = TransactionsListViewModel(models)
                             promise(.success(list))
                         } catch {
@@ -77,7 +80,12 @@ class TransactionsViewModel: BasicLoadableViewModel {
                         do {
                             if let transactions = try App.shared.safeTransactionService.loadTransactionsPage(url: url) {
                                 self.nextURL = transactions.next
-                                let models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
+                                var models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
+
+                                // This should means that we are on the last page on list
+                                if let creationTransaction = try self.creationTransaction() {
+                                    models.append(creationTransaction)
+                                }
                                 promise(.success(models))
                             }
                         } catch {
@@ -100,5 +108,12 @@ class TransactionsViewModel: BasicLoadableViewModel {
 
     func isLast(transaction: TransactionViewModel) -> Bool {
         transactionsList.lastTransaction == transaction
+    }
+
+    func creationTransaction() throws -> CreationTransactionViewModel? {
+        if self.nextURL == nil {
+            let transaction = try App.shared.safeTransactionService.creationTransaction(address: Address(self.safe.address!)!)
+            return CreationTransactionViewModel(transaction, self.safeInfo!)
+        } else { return nil }
     }
 }
