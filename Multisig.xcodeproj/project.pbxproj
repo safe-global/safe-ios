@@ -54,7 +54,6 @@
 		048643CF24E179E6003DD966 /* CreationTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643CE24E179E6003DD966 /* CreationTransactionRequest.swift */; };
 		048643D324E19A26003DD966 /* CreationTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643D224E19A26003DD966 /* CreationTransactionViewModel.swift */; };
 		048643D924E3E241003DD966 /* CreationTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643D824E3E241003DD966 /* CreationTransaction.swift */; };
-		048643DB24E42196003DD966 /* CeationTransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643DA24E42196003DD966 /* CeationTransactionDetailsView.swift */; };
 		048643DD24E4490A003DD966 /* CreationTransactionBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643DC24E4490A003DD966 /* CreationTransactionBodyView.swift */; };
 		0497F6C62485520D00A1F4DE /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6C52485520D00A1F4DE /* Transaction.swift */; };
 		0497F6C824858F2D00A1F4DE /* ConfirmationCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */; };
@@ -399,7 +398,6 @@
 		048643CE24E179E6003DD966 /* CreationTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransactionRequest.swift; sourceTree = "<group>"; };
 		048643D224E19A26003DD966 /* CreationTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransactionViewModel.swift; sourceTree = "<group>"; };
 		048643D824E3E241003DD966 /* CreationTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransaction.swift; sourceTree = "<group>"; };
-		048643DA24E42196003DD966 /* CeationTransactionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CeationTransactionDetailsView.swift; sourceTree = "<group>"; };
 		048643DC24E4490A003DD966 /* CreationTransactionBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransactionBodyView.swift; sourceTree = "<group>"; };
 		0497F6C52485520D00A1F4DE /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationCountView.swift; sourceTree = "<group>"; };
@@ -943,7 +941,6 @@
 				0AA9F261249A188C005BD60F /* AdvancedTransactionDetailsView.swift */,
 				0AA9F260249A188C005BD60F /* TransactionDetailsView.swift */,
 				0A42C25524D18F6400ACA770 /* TransactionDetailsViewModel.swift */,
-				048643DA24E42196003DD966 /* CeationTransactionDetailsView.swift */,
 				048643DC24E4490A003DD966 /* CreationTransactionBodyView.swift */,
 			);
 			path = TransactionDetails;
@@ -2160,7 +2157,6 @@
 				046D0A5A249A1C64000F4021 /* ExpandableButton .swift in Sources */,
 				047691372461B2E200D73D8B /* AddressCell.swift in Sources */,
 				0497F6E72488EBFA00A1F4DE /* ChangeImplementationCellView.swift in Sources */,
-				048643DB24E42196003DD966 /* CeationTransactionDetailsView.swift in Sources */,
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */,
 				04769165246408D000D73D8B /* AdvancedSafeSettingsView.swift in Sources */,
