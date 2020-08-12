@@ -204,8 +204,13 @@ class RemoteNotificationHandler {
         let payload = NotificationPayload(userInfo: userInfo)
         do {
             guard let rawAddress = payload.address,
-                Address(rawAddress) != nil,
-                try Safe.exists(rawAddress) else { return }
+                let safeAddress = Address(rawAddress) else { return }
+
+            guard try Safe.exists(safeAddress.checksummed) else {
+                unregister(address: safeAddress)
+                return
+            }
+
             Safe.select(address: rawAddress)
             App.shared.viewState.switchTab(.transactions)
 
