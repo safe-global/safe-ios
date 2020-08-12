@@ -55,7 +55,7 @@ enum HTTPClientError {
                 "Could not decode error details from the data: \(dataString)",
                 error: HTTPClientUnexpectedError.errorDetailsDecodingFailed(dataString)
             )
-            return UnexpectedError(code: UnexpectedError.failedToDecodeErrorDetails) // code Z
+            return UnexpectedError(code: UnexpectedError.failedToDecodeErrorDetails)
         }
     }
 
