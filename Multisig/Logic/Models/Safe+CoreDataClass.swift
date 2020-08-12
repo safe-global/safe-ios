@@ -22,4 +22,7 @@ public class Safe: NSManagedObject {
     var modules: [Address]?
     var fallbackHandler: Address?
 
+    var safeAddress: Address? {
+        address.flatMap { Address($0) }
+    }
 }
