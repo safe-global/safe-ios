@@ -82,7 +82,7 @@ class TransactionsViewModel: BasicLoadableViewModel {
                                 self.nextURL = transactions.next
                                 var models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
 
-                                // This should means that we are on the last page on list
+                                // This should mean that we are on the last page on list
                                 if let creationTransaction = try self.creationTransaction() {
                                     models.append(creationTransaction)
                                 }
@@ -111,9 +111,9 @@ class TransactionsViewModel: BasicLoadableViewModel {
     }
 
     func creationTransaction() throws -> CreationTransactionViewModel? {
-        if self.nextURL == nil {
-            let transaction = try App.shared.safeTransactionService.creationTransaction(address: Address(self.safe.address!)!)
-            return CreationTransactionViewModel(transaction, self.safeInfo!)
-        } else { return nil }
+        guard nextURL == nil else { return nil }
+
+        let transaction = try App.shared.safeTransactionService.creationTransaction(address: Address(exactly: safe.address!))
+        return CreationTransactionViewModel(transaction, self.safeInfo!)
     }
 }
