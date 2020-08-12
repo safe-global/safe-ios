@@ -72,6 +72,9 @@ struct AppConfiguration {
         @ConfigurationKey("CFBundleVersion")
         var buildVersion: String
 
+        @ConfigurationKey("CFBundleIdentifier")
+        var bundleIdentifier: String
+
         @ConfigurationKey("NETWORK")
         var network: Network
 

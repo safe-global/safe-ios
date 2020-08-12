@@ -29,6 +29,11 @@ extension Safe: Identifiable {
         return (try? context.count(for: Safe.fetchRequest().all())) ?? 0
     }
 
+    static var all: [Safe] {
+        let context = App.shared.coreDataStack.viewContext
+        return (try? context.fetch(Safe.fetchRequest().all())) ?? []
+    }
+
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         additionDate = Date()
