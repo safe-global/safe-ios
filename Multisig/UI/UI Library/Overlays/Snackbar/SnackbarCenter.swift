@@ -58,8 +58,10 @@ class SnackbarCenter: ObservableObject {
         }
     }
 
-    func show(message: String, duration: TimeInterval? = nil) {
-        messageQueue.append(Message(content: message, duration: duration ?? displayDuration))
+    func show(message content: String, duration: TimeInterval? = nil) {
+        let message = Message(content: content,
+                              duration: duration ?? displayDuration)
+        messageQueue.append(message)
         triggerMessagePresentation()
     }
 
@@ -96,7 +98,8 @@ class SnackbarCenter: ObservableObject {
                     return nil
                 }
                 self.working = true
-                return self.messageQueue.removeFirst()
+                let message = self.messageQueue.removeFirst()
+                return message
             }
 
             // in case of multiple messages, this gives time for the
@@ -123,6 +126,14 @@ class SnackbarCenter: ObservableObject {
             // restart the cycle if needed
             .sink { message in
                 self.working = false
+
+                // Removing duplicate messages from the queue in case
+                // multiple similar errors appeared (multiple requests
+                // failed with "Internet connection failed" error)
+                while self.messageQueue.first?.content == message.content {
+                    self.messageQueue.removeFirst()
+                }
+
                 if !self.messageQueue.isEmpty {
                     self.pipeline.send()
                 }

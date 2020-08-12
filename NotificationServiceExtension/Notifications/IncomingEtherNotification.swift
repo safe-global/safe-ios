@@ -12,7 +12,6 @@ import BigInt
 
 struct IncomingEtherNotification: MultisigNotification {
     let address: PlainAddress
-    let txHash: String
     let value: BigInt
 
     init?(payload: NotificationPayload) {
@@ -21,14 +20,12 @@ struct IncomingEtherNotification: MultisigNotification {
             let type = NotificationType(rawValue: rawType),
             type == .incomingEther,
             let address = PlainAddress(payload.address),
-            let txHash = payload.txHash,
             let rawValue = payload.value,
             let value = BigInt(rawValue)
         else {
             return nil
         }
         self.address = address
-        self.txHash = txHash
         self.value = value
     }
 
