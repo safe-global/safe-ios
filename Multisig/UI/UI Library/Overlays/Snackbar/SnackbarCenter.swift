@@ -124,7 +124,8 @@ class SnackbarCenter: ObservableObject {
             }
 
             // restart the cycle if needed
-            .sink { message in
+            .sink { [weak self] message in
+                guard let `self` = self else { return }
                 self.working = false
 
                 // Removing duplicate messages from the queue in case

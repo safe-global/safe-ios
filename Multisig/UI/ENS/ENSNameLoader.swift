@@ -29,9 +29,9 @@ class ENSNameLoader: ObservableObject {
                 }
             }
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
-                self.isLoading = false
-            }, receiveValue: { ensName in
+            .sink(receiveCompletion: { [weak self] completion in
+                self?.isLoading = false
+            }, receiveValue: { [unowned safe] ensName in
                 safe.ensName = ensName
             })
             .store(in: &subscribers)
