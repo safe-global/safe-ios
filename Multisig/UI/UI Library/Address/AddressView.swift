@@ -22,7 +22,7 @@ struct AddressView: View {
                 AddressImage(text).frame(width: 32, height: 32)
             }
 
-            SlicedText(text)
+            SlicedText(Address(exactly: text))
                 .style(.addressLong)
                 .font(nil)
         }

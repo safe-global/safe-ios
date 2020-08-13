@@ -14,7 +14,7 @@ struct TransferTransactionCellView: View {
         HStack (alignment: .center) {
             Image(imageName)
             AddressCell(address: transaction.address, style: .shortAddressNoShare)
-
+                .layoutPriority(1)
             Spacer()
 
             Text("\(transaction.amount) \(transaction.tokenSymbol)")
