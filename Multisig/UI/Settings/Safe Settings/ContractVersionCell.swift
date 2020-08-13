@@ -68,7 +68,7 @@ struct ContractVersionCell: View {
                         .headline()
                     upgradeStatusView
                 }
-                SlicedText(address)
+                SlicedText(implementation)
                     .style(.addressShortLight)
             }
             
