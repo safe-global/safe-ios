@@ -35,7 +35,7 @@ class EditSafeNameViewModel: ObservableObject {
         $enteredText
             .dropFirst()
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .sink { value in
+            .sink { [unowned self] value in
                 self.isValid = !value.isEmpty
                 self.error = self.isValid == false ? "Name must not be empty" : ""
             }

@@ -33,6 +33,30 @@ struct TransactionDetailsView: Loadable {
 
     var body: some View {
         List {
+            if transaction as? CreationTransactionViewModel == nil {
+                transactionDetailsBodyView
+            } else {
+                CreationTransactionBodyView(transaction: transaction as! CreationTransactionViewModel)
+            }
+            
+            if transaction.hash != nil {
+                Button(action: { self.showsLink.toggle() }) {
+                    LinkText(title: "View transaction on Etherscan")
+                }
+                .buttonStyle(BorderlessButtonStyle())
+                .foregroundColor(.gnoHold)
+                .sheet(isPresented: $showsLink, content: browseTransaction)
+                .padding(.vertical, padding)
+            }
+        }
+        .navigationBarTitle("Transaction Details", displayMode: .inline)
+        .onAppear {
+            self.trackEvent(.transactionsDetails)
+        }
+    }
+
+    var transactionDetailsBodyView: some View {
+        Group {
             TransactionHeaderView(transaction: transaction)
 
             if data != nil {
@@ -61,20 +85,6 @@ struct TransactionDetailsView: Loadable {
                 }
                 .frame(height: 48)
             }
-            
-            if transaction.hash != nil {
-                Button(action: { self.showsLink.toggle() }) {
-                    LinkText(title: "View transaction on Etherscan")
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .foregroundColor(.gnoHold)
-                .sheet(isPresented: $showsLink, content: browseTransaction)
-                .padding(.vertical, padding)
-            }
-        }
-        .navigationBarTitle("Transaction Details", displayMode: .inline)
-        .onAppear {
-            self.trackEvent(.transactionsDetails)
         }
     }
 

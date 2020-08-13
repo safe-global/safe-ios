@@ -36,81 +36,6 @@ class HTTPClient {
         self.logger = logger
     }
 
-    enum Error: LocalizedError {
-        case networkRequestFailed(URLRequest, URLResponse?, Data?)
-        case entityNotFound(URLRequest, URLResponse?, Data?)
-        case unprocessableEntity(URLRequest, URLResponse?, Data?)
-        case unknownError(URLRequest, URLResponse?, Data?)
-
-        enum Message: String {
-            case networkRequestFailed = "The network request failed. Please try out later."
-            case entityNotFound = "Entity not found."
-            case invalidChecksum = "Checksum address validation failed."
-            case safeInfoNotFound = "Safe info is not found."
-            case unexpectedError = "Unexpected error. We are notified and will try to fix it asap."
-
-            /// Create a proper message from our backend internal code.
-            /// - Parameter code: backend internal code of error.
-            init(code: Int) {
-                switch code {
-                case 1:
-                    self = .invalidChecksum
-                case 50:
-                    self = .safeInfoNotFound
-                default:
-                    LogService.shared.error(
-                        "Unrecognised error code: \(code)",
-                        error: HTTPClientUnexpectedError.unrecognizedErrorCode(code)
-                    )
-                    self = .unexpectedError
-                }
-            }
-        }
-
-        var errorDescription: String? {
-            switch self {
-            case .networkRequestFailed(_, _, _):
-                return Message.networkRequestFailed.rawValue
-            case .entityNotFound(_, _, _):
-                return Message.entityNotFound.rawValue
-            case .unprocessableEntity(_, _, let data):
-                guard let data = data else {
-                    LogService.shared.error(
-                        "Missing data in unprocessableEntity error",
-                        error: HTTPClientUnexpectedError.missingDataInUnprocessableEntity
-                    )
-                    return Message.unexpectedError.rawValue
-                }
-                do {
-                    let details = try JSONDecoder().decode(ErrorDetails.self, from: data)
-                    return Message(code: details.code).rawValue
-                } catch {
-                    let dataString = String(data: data, encoding: .utf8) ?? data.base64EncodedString()
-                    LogService.shared.error(
-                        "Could not decode error details from the data: \(dataString)",
-                        error: HTTPClientUnexpectedError.errorDetailsDecodingFailed(dataString)
-                    )
-                    return Message.unexpectedError.rawValue
-                }
-            case .unknownError(let request, let response, let data):
-                let requestStr = String(describing: request)
-                let responseStr = response.map { String(describing: $0) } ?? "<no response>"
-                let dataStr = data.map { String(data: $0, encoding: .utf8) ?? $0.base64EncodedString() } ?? "<no data>"
-                let msg = "Unknown HTTP error. Request: \(requestStr); Response: \(responseStr); Data: \(dataStr)"
-                LogService.shared.error(
-                    msg,
-                    error: HTTPClientUnexpectedError.unknownHTTPError(msg)
-                )
-                return Message.unexpectedError.rawValue
-            }
-        }
-
-        struct ErrorDetails: Decodable {
-            let code: Int
-            let message: String?
-        }
-    }
-
     /// Executes request and returns server response. The call is synchronous.
     ///
     /// - Parameter request: a request to send
@@ -171,19 +96,14 @@ class HTTPClient {
         if let data = result.data, let rawResponse = String(data: data, encoding: .utf8) {
             logger?.debug(rawResponse)
         }
-        if let error = result.error {
-            throw error
+        if let resultError = result.error {
+            throw resultError
         }
-        guard let httpResponse = result.response as? HTTPURLResponse else {
-            throw Error.networkRequestFailed(request, result.response, result.data)
-        }
-        if (200...299).contains(httpResponse.statusCode) {
+        if let httpResponse = result.response as? HTTPURLResponse,
+            (200...299).contains(httpResponse.statusCode) {
             return result.data ?? Data()
-        } else if httpResponse.statusCode == 404 {
-            throw Error.entityNotFound(request, result.response, result.data)
-        } else if httpResponse.statusCode == 422 {
-            throw Error.unprocessableEntity(request, result.response, result.data)
         }
-        throw Error.unknownError(request, result.response, result.data)
+        let error = HTTPClientError.error(request, result.response, result.data)
+        throw error
     }
 }

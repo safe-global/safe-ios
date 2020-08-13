@@ -56,11 +56,13 @@ class EnterENSNameViewModel: ObservableObject {
                 }
             }
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
                 if case .failure(let error) = completion {
-                    self.setError(error.localizedDescription)
+                    self?.setError(error.localizedDescription)
                 }
-            }, receiveValue: setSuccess(_:))
+            }, receiveValue: { [weak self] address in
+                    self?.setSuccess(address)
+            })
             .store(in: &subscribers)
     }
 

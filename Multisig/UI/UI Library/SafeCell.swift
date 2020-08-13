@@ -28,8 +28,10 @@ struct SafeCell: View {
                     .headline()
                     .lineLimit(1)
 
-                SlicedText(safe.address ?? "")
-                    .style(.addressShortLight)
+                if safe.safeAddress != nil {
+                    SlicedText(safe.safeAddress!)
+                        .style(.addressShortLight)
+                }
             }
         }
     }

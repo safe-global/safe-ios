@@ -16,7 +16,7 @@ extension SlicedText.Style {
 
 extension SlicedText {
     init(_ address: Address) {
-        self.init(string: SlicedString(text: address.checksummed),
+        self.init(string: SlicedString(text: address.checksummed, prefix: 6, suffix: 4),
                   style: .addressLong)
     }
 }

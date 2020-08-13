@@ -32,7 +32,7 @@ struct AddressCell: View {
                         Text(title).body()
                     }
 
-                    SlicedText(address)
+                    SlicedText(Address(exactly: address))
                         .style(addressStyle)
                 }
             }.disabled([.shortAddressNoShare, .shortAddressNoShareGrayColor].contains(style))

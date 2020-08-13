@@ -36,14 +36,16 @@ class SafeSettingsViewModel: BasicLoadableViewModel {
                 }
             }
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
+                guard let `self` = self else { return }
                 if case .failure(let error) = completion {
                     self.errorMessage = error.localizedDescription
                     App.shared.snackbar.show(message: error.localizedDescription)
                 }
                 self.isLoading = false
                 self.isRefreshing = false
-            }, receiveValue: { response in
+            }, receiveValue: { [weak self] response in
+                guard let `self` = self else { return }
                 self.safe.update(from: response)
                 self.errorMessage = nil
             })

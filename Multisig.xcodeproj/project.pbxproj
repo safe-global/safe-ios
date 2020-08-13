@@ -54,6 +54,7 @@
 		048643CF24E179E6003DD966 /* CreationTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643CE24E179E6003DD966 /* CreationTransactionRequest.swift */; };
 		048643D324E19A26003DD966 /* CreationTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643D224E19A26003DD966 /* CreationTransactionViewModel.swift */; };
 		048643D924E3E241003DD966 /* CreationTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643D824E3E241003DD966 /* CreationTransaction.swift */; };
+		048643DD24E4490A003DD966 /* CreationTransactionBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643DC24E4490A003DD966 /* CreationTransactionBodyView.swift */; };
 		0497F6C62485520D00A1F4DE /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6C52485520D00A1F4DE /* Transaction.swift */; };
 		0497F6C824858F2D00A1F4DE /* ConfirmationCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */; };
 		0497F6DE2487B54600A1F4DE /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6DD2487B54600A1F4DE /* DateView.swift */; };
@@ -152,6 +153,7 @@
 		0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF32463185C00014184 /* ENSNameLoader.swift */; };
 		0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */; };
 		0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF72463190100014184 /* LoadableENSNameText.swift */; };
+		0A802B8124E413450001790F /* HTTPClientErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8024E413450001790F /* HTTPClientErrors.swift */; };
 		0A802B8724E534DF0001790F /* SCGModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8624E534DF0001790F /* SCGModels.swift */; };
 		0A802B8924E5765F0001790F /* SafeClientGatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8824E5765F0001790F /* SafeClientGatewayService.swift */; };
 		0A802B8B24E5769E0001790F /* SCGTransactionSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8A24E5769E0001790F /* SCGTransactionSummaryListRequest.swift */; };
@@ -403,6 +405,7 @@
 		048643CE24E179E6003DD966 /* CreationTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransactionRequest.swift; sourceTree = "<group>"; };
 		048643D224E19A26003DD966 /* CreationTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransactionViewModel.swift; sourceTree = "<group>"; };
 		048643D824E3E241003DD966 /* CreationTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransaction.swift; sourceTree = "<group>"; };
+		048643DC24E4490A003DD966 /* CreationTransactionBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransactionBodyView.swift; sourceTree = "<group>"; };
 		0497F6C52485520D00A1F4DE /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationCountView.swift; sourceTree = "<group>"; };
 		0497F6DD2487B54600A1F4DE /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
@@ -510,6 +513,7 @@
 		0A7AEAF32463185C00014184 /* ENSNameLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSNameLoader.swift; sourceTree = "<group>"; };
 		0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredAddressWithLink.swift; sourceTree = "<group>"; };
 		0A7AEAF72463190100014184 /* LoadableENSNameText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableENSNameText.swift; sourceTree = "<group>"; };
+		0A802B8024E413450001790F /* HTTPClientErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientErrors.swift; sourceTree = "<group>"; };
 		0A802B8624E534DF0001790F /* SCGModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCGModels.swift; sourceTree = "<group>"; };
 		0A802B8824E5765F0001790F /* SafeClientGatewayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClientGatewayService.swift; sourceTree = "<group>"; };
 		0A802B8A24E5769E0001790F /* SCGTransactionSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCGTransactionSummaryListRequest.swift; sourceTree = "<group>"; };
@@ -951,6 +955,7 @@
 				0AA9F261249A188C005BD60F /* AdvancedTransactionDetailsView.swift */,
 				0AA9F260249A188C005BD60F /* TransactionDetailsView.swift */,
 				0A42C25524D18F6400ACA770 /* TransactionDetailsViewModel.swift */,
+				048643DC24E4490A003DD966 /* CreationTransactionBodyView.swift */,
 			);
 			path = TransactionDetails;
 			sourceTree = "<group>";
@@ -1688,6 +1693,7 @@
 				0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */,
 				5532D4B82449A17D0067505A /* JSONHTTPClient.swift */,
 				5532D4B92449A17D0067505A /* HTTPClient.swift */,
+				0A802B8024E413450001790F /* HTTPClientErrors.swift */,
 				04061608248E4868000F9C52 /* PagedResponse.swift */,
 				0456BF6824A4D054000C3C1D /* PagedRequest.swift */,
 			);
@@ -2247,6 +2253,7 @@
 				04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */,
 				044A54472448D0B6009CBB80 /* QRCodeScanner.swift in Sources */,
 				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
+				048643DD24E4490A003DD966 /* CreationTransactionBodyView.swift in Sources */,
 				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
 				0AA9F2472497DB56005BD60F /* TransferTransactionViewModel.swift in Sources */,
 				0AA9F2042497BDD6005BD60F /* TransactionConfirmation.swift in Sources */,
@@ -2272,6 +2279,7 @@
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A0EFC9A246DAC1A00D3D8BF /* TabChildView.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
+				0A802B8124E413450001790F /* HTTPClientErrors.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,
