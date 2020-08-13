@@ -29,8 +29,12 @@ class App {
         url: configuration.services.transactionServiceURL,
         logger: LogService.shared)
 
+    var clientGatewayService = SafeClientGatewayService(
+        url: configuration.services.clientGatewayURL,
+        logger: LogService.shared)
 
-    var nodeService = EthereumNodeService(url: configuration.services.ethereumServiceURL)
+    var nodeService = EthereumNodeService(
+        url: configuration.services.ethereumServiceURL)
 
     var coreDataStack: CoreDataProtocol = CoreDataStack()
 

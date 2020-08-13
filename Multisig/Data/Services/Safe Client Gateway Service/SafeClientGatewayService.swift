@@ -1,15 +1,14 @@
 //
-//  SafTransactionService.swift
+//  SafeClientGatewayService.swift
 //  Multisig
 //
-//  Created by Moaaz on 5/7/20.
+//  Created by Dmitry Bespalov on 13.08.20.
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
 import Foundation
 
-class SafeTransactionService {
-
+class SafeClientGatewayService {
     var url: URL
     private let httpClient: JSONHTTPClient
 
@@ -20,7 +19,7 @@ class SafeTransactionService {
     init(url: URL, logger: Logger) {
         self.url = url
         httpClient = JSONHTTPClient(url: url, logger: logger)
-        httpClient.jsonDecoder.dateDecodingStrategy = .backendDateDecodingStrategy
+        httpClient.jsonDecoder.dateDecodingStrategy = .millisecondsSince1970
     }
 
     @discardableResult

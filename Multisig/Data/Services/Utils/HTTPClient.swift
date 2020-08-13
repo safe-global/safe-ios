@@ -9,6 +9,7 @@ protocol HTTPRequest {
     var urlPath: String { get }
     var query: String? { get }
     var body: Data? { get }
+    var url: URL? { get }
     var headers: [String: String] { get }
 }
 
@@ -126,10 +127,16 @@ class HTTPClient {
     }
 
     private func urlRequest<T: HTTPRequest>(from request: T) throws -> URLRequest {
-        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)!
-        urlComponents.path = request.urlPath
-        urlComponents.query = request.query
-        var urlRequest = URLRequest(url: urlComponents.url!)
+        let url: URL
+        if let requestURL = request.url {
+            url = requestURL
+        } else {
+            var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)!
+            urlComponents.path = request.urlPath
+            urlComponents.query = request.query
+            url = urlComponents.url!
+        }
+        var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.httpMethod
         if request.httpMethod != "GET" {
             urlRequest.httpBody = request.body

@@ -130,6 +130,7 @@ class SafeTransactionServiceIntegrationTests: XCTestCase {
             XCTFail("Unexpected error: \(error)")
         }
 
+        // currently unsupported by the server
         let ethTxHash = "0x48e31efdd79cd6689f0e42c3aa02993a2f6906662671a72e646dc28c8935422a"
         let ethTx = fetchTransaction(hash: ethTxHash)
         switch ethTx {

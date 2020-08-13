@@ -13,6 +13,8 @@ public protocol JSONRequest: Encodable {
     var urlPath: String { get }
     /// Query parameters
     var query: String? { get }
+    /// URL that overrides the urlPath and query
+    var url: URL? { get }
 
     /// Response associated with this JSON request
     associatedtype ResponseType: Decodable
@@ -21,6 +23,9 @@ public protocol JSONRequest: Encodable {
 
 public extension JSONRequest {
     var query: String? { return nil }
+    var url: URL? { return nil }
+    var urlPath: String { "/" }
+    var httpMethod: String { "GET" }
 }
 
 public extension DateFormatter {
@@ -59,6 +64,7 @@ public class JSONHTTPClient {
         var query: String?
         var body: Data?
         var headers: [String: String]
+        var url: URL?
     }
 
     /// Creates new client with baseURL and logger
@@ -93,7 +99,8 @@ public class JSONHTTPClient {
                                   urlPath: request.urlPath,
                                   query: request.query,
                                   body: requestData,
-                                  headers: requestHeaders)
+                                  headers: requestHeaders,
+                                  url: request.url)
         return httpRequest
     }
 
