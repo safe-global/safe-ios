@@ -48,14 +48,16 @@ class CollectiblesListViewModel: BasicLoadableViewModel {
                 }
             }
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
+                guard let `self` = self else { return }
                 if case .failure(let error) = completion {
                     self.errorMessage = error.localizedDescription
                     App.shared.snackbar.show(message: error.localizedDescription)
                 }
                 self.isLoading = false
                 self.isRefreshing = false
-            }, receiveValue:{ collectibles in
+            }, receiveValue:{ [weak self] collectibles in
+                guard let `self` = self else { return }
                 self.sections = collectibles
                 self.errorMessage = nil
             })

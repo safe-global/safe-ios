@@ -86,7 +86,8 @@ class EnterSafeAddressViewModel: ObservableObject {
                 if exists  { throw FormError.safeExists }
                 return address
             }
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
+                guard let `self` = self else { return }
                 if case .failure(let error) = completion {
                     if case HTTPClient.Error.entityNotFound(_, _, _) = error {
                         self.setError("Safe not found.")
@@ -94,7 +95,8 @@ class EnterSafeAddressViewModel: ObservableObject {
                         self.setError(error.localizedDescription)
                     }
                 }
-            }, receiveValue: { address in
+            }, receiveValue: { [weak self] address in
+                guard let `self` = self else { return }
                 self.isValidating = false
                 self.isValid = true
             })

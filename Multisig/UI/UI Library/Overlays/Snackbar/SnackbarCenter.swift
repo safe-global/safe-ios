@@ -121,7 +121,8 @@ class SnackbarCenter: ObservableObject {
             }
 
             // restart the cycle if needed
-            .sink { message in
+            .sink { [weak self] message in
+                guard let `self` = self else { return }
                 self.working = false
                 if !self.messageQueue.isEmpty {
                     self.pipeline.send()
