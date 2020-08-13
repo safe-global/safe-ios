@@ -32,6 +32,8 @@ struct TransactionStatusTypeView: View {
             return "Custom transaction"
         } else if let transfer = transaction as? TransferTransactionViewModel {
             return transfer.isOutgoing ? "Outgoing transfer" : "Incoming transfer"
+        } else if let _ = transaction as? CreationTransactionViewModel {
+            return "Safe created"
         }
 
         return "Modify settings"

@@ -11,6 +11,7 @@ import Foundation
 class CreationTransactionViewModel: SettingChangeTransactionViewModel {
     var creator: String?
     var implementationUsed: String?
+    var contractVersion: String?
     var factoryUsed: String?
 
     init(_ tx: CreationTransaction, _ safe: SafeStatusRequest.Response)  {
@@ -18,10 +19,13 @@ class CreationTransactionViewModel: SettingChangeTransactionViewModel {
         title = "Safe created"
         creator = tx.creator?.address.checksummed
         implementationUsed = tx.masterCopy?.address.checksummed
+        if let implementationUsed = implementationUsed {
+            contractVersion = GnosisSafe().versionNumber(implementation: Address(exactly: implementationUsed)) ?? "Unknown"
+        }
         factoryUsed = tx.factoryAddress?.address.checksummed
         hash = tx.transactionHash?.description
         date = tx.created
-        formattedDate = date.map { Self.dateFormatter.string(from: $0) } ?? ""
+        formattedCreatedDate = date.map { Self.dateFormatter.string(from: $0) } ?? ""
     }
 }
 
