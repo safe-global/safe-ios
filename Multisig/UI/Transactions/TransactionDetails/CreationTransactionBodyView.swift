@@ -17,7 +17,7 @@ struct CreationTransactionBodyView: View {
             TransactionStatusTypeView(transaction: transaction)
 
             if transaction.hash != nil {
-                KeyValueRow("Transaction hash", value: transaction.hash!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Transaction hash", value: transaction.hash!, enableCopy: true, color: .gnoDarkGrey).padding(.vertical, padding)
             }
 
             VStack (alignment: .leading, spacing: padding) {
