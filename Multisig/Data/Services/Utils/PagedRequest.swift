@@ -2,7 +2,7 @@
 //  PagedRequest.swift
 //  Multisig
 //
-//  Created by Moaaz on 6/25/20.
+//  Created by Dmitry Bespalov on 13.08.20.
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
@@ -10,27 +10,19 @@ import Foundation
 
 struct PagedRequest<T: Decodable>: JSONRequest {
 
-    var url: URL
+    var url: URL?
 
-    // the next/previous only works with GET requests
-    var httpMethod: String {
-        "GET"
+    typealias ResponseType = Page<T>
+
+    struct InvalidURL: LocalizedError {
+        var errorDescription: String? {
+            "Invalid next page URL"
+        }
     }
 
-    var query: String? {
-        url.query
-    }
-
-    var urlPath: String {
-        url.path
-    }
-
-    typealias Response = PagedResponse<T>
-    typealias ResponseType = Response
-
-    init?(_ urlString: String?) {
-        guard let string = urlString, let url = URL(string: string) else {
-            return nil
+    init(_ urlString: String) throws {
+        guard let url = URL(string: urlString) else {
+            throw InvalidURL()
         }
         self.url = url
     }

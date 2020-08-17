@@ -20,7 +20,7 @@ struct TokensRequest: JSONRequest {
         return "limit=\(limit)&offset=\(offset)"
     }
 
-    typealias Response = PagedResponse<Token>
+    typealias Response = Page<Token>
     typealias ResponseType = Response
 
     struct Token: Decodable {

@@ -17,6 +17,9 @@ struct AppConfiguration {
         @ConfigurationKey("TRANSACTION_SERVICE_URL")
         var transactionServiceURL: URL
 
+        @ConfigurationKey("CLIENT_GATEWAY_URL")
+        var clientGatewayURL: URL
+
         @ConfigurationKey("ETH_RPC_URL")
         var ethereumServiceURL: URL
 

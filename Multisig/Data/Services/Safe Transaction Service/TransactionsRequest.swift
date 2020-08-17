@@ -21,7 +21,7 @@ struct TransactionsRequest: JSONRequest {
         "limit=\(limit)&offset=\(offset)&queued=true"
     }
 
-    typealias Response = PagedResponse<Transaction>
+    typealias Response = Page<Transaction>
     typealias ResponseType = Response
 
     init(address: Address, limit: Int, offset: Int) {
@@ -37,7 +37,9 @@ extension SafeTransactionService {
     }
 
     func loadTransactionsPage(url: String) throws -> TransactionsRequest.Response? {
-        guard let request = PagedRequest<Transaction>(url) else { return nil }
+        guard let request = (try? PagedRequest<Transaction>(url)) else {
+            return nil
+        }
         return try execute(request: request)
     }
 }

@@ -39,6 +39,13 @@ _TRANSACTION_SERVICE_URL_STAGING_MAINNET    = https:/$()/safe-transaction.mainne
 _TRANSACTION_SERVICE_URL_PROD_RINKEBY       = https:/$()/safe-transaction.rinkeby.gnosis.io/api/
 _TRANSACTION_SERVICE_URL_PROD_MAINNET       = https:/$()/safe-transaction.gnosis.io/api/
 
+_CLIENT_GATEWAY_URL_DEV_RINKEBY        = https:/$()/safe-client-rinkeby.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_DEV_MAINNET        = https:/$()/safe-client-rinkeby.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_STAGING_RINKEBY    = https:/$()/safe-client-rinkeby.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_STAGING_MAINNET    = https:/$()/safe-client-rinkeby.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_PROD_RINKEBY       = https:/$()/safe-client-rinkeby.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_PROD_MAINNET       = https:/$()/safe-client-rinkeby.staging.gnosisdev.com/
+
 // Ethereum Node JSONRPC over HTTP Service
 _ETH_RPC_URL_RINKEBY = https:/$()/rinkeby.infura.io/v3/$(INFURA_API_KEY)
 _ETH_RPC_URL_MAINNET = https:/$()/mainnet.infura.io/v3/$(INFURA_API_KEY)
@@ -80,7 +87,7 @@ _FIREBASE_CONFIG_DEV_MAINNET        = GoogleService-Info.Development.Mainnet
 _FIREBASE_CONFIG_DEV_RINKEBY        = GoogleService-Info.Development.Rinkeby
 
 // Loggers (comma-separated). Available options: [crashlytics, console]
-_LOGGERS_PROD               = crashlytics,console
+_LOGGERS_PROD               = crashlytics
 _LOGGERS_DEV                = console
 
 // Log level. Available options: [DEBUG, INFO, ERROR, FATAL, OFF]
@@ -89,7 +96,9 @@ _LOG_LEVEL_PROD             = ERROR
 _LOG_LEVEL_DEV              = DEBUG
 
 // Configuration variables for the app
+
 TRANSACTION_SERVICE_URL = $(_TRANSACTION_SERVICE_URL_$(SERVICE_ENV)_$(NETWORK):default=$(_TRANSACTION_SERVICE_URL_PROD_MAINNET))
+CLIENT_GATEWAY_URL = $(_CLIENT_GATEWAY_URL_$(SERVICE_ENV)_$(NETWORK):default=$(_CLIENT_GATEWAY_URL_PROD_MAINNET))
 ETH_RPC_URL             = $(_ETH_RPC_URL_$(NETWORK):default=$(_ETH_RPC_URL_MAINNET))
 ETH_BLOCK_BROWSER_URL   = $(_ETH_BLOCK_BROWSER_URL_$(NETWORK):default=$(_ETH_BLOCK_BROWSER_URL_MAINNET))
 COLLECTIBLE_SERVICE_URL = $(_COLLECTIBLE_SERVICE_URL_$(NETWORK):default=$(_COLLECTIBLE_SERVICE_URL_MAINNET))
