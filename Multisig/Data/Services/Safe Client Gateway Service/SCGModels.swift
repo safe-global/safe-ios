@@ -8,21 +8,21 @@
 
 import Foundation
 
-struct SCGPage<T: Decodable>: Decodable {
+struct Page<T: Decodable>: Decodable {
     let next: String?
     let previous: String?
     let results: [T]
 }
 
-struct SCGTransactionSummary: Decodable {
-    let id: SCGTransactionID
+struct TransactionSummary: Decodable {
+    let id: TransactionID
     let timestamp: Date
     let txStatus: SCGTransactionStatus
-    let txInfo: SCGTransactionInfo
-    let executionInfo: SCGExecutionInfo?
+    let txInfo: TransactionInfo
+    let executionInfo: ExecutionInfo?
 }
 
-extension SCGTransactionSummary {
+extension TransactionSummary {
 
     enum Key: String, CodingKey {
         case id, timestamp, txStatus, txInfo, executionInfo
@@ -30,19 +30,19 @@ extension SCGTransactionSummary {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-        id = try container.decode(SCGTransactionID.self, forKey: .id)
+        id = try container.decode(TransactionID.self, forKey: .id)
         timestamp = try container.decode(Date.self, forKey: .timestamp)
         txStatus = try container.decode(SCGTransactionStatus.self, forKey: .txStatus)
-        txInfo = try container.decode(SCGTransactionInfoWrapper.self, forKey: .txInfo).value
-        executionInfo = try container.decodeIfPresent(SCGExecutionInfo.self, forKey: .executionInfo)
+        txInfo = try container.decode(TransactionInfoWrapper.self, forKey: .txInfo).value
+        executionInfo = try container.decodeIfPresent(ExecutionInfo.self, forKey: .executionInfo)
     }
 }
 
-struct SCGTransactionID: Decodable, CustomStringConvertible {
+struct TransactionID: Decodable, CustomStringConvertible {
     let value: String
 }
 
-extension SCGTransactionID {
+extension TransactionID {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -55,47 +55,47 @@ extension SCGTransactionID {
 }
 
 enum SCGTransactionStatus: String, Decodable {
-    case AWAITING_CONFIRMATIONS
-    case AWAITING_EXECUTION
-    case CANCELLED
-    case FAILED
-    case SUCCESS
+    case awaitingConfirmations = "AWAITING_CONFIRMATIONS"
+    case awaitingExecution = "AWAITING_EXECUTION"
+    case cancelled = "CANCELLED"
+    case failed = "FAILED"
+    case success = "SUCCESS"
 }
 
-struct SCGExecutionInfo: Decodable {
+struct ExecutionInfo: Decodable {
     let nonce: UInt64
     let confirmationsRequired: UInt64
     let confirmationsSubmitted: UInt64
 }
 
-protocol SCGTransactionInfo: Decodable {}
+protocol TransactionInfo: Decodable {}
 
-enum SCGTransactionInfoType: String, Decodable {
-    case Transfer
-    case SettingsChange
-    case Custom
-    case Creation
-    case Unknown
+enum TransactionInfoType: String, Decodable {
+    case transfer
+    case settingsChange
+    case custom
+    case creation
+    case unknown
 }
 
-enum SCGTransactionInfoWrapper: Decodable {
-    case Transfer(SCGTransfer)
-    case SettingsChange(SCGSettingsChange)
-    case Custom(SCGCustom)
-    case Creation(SCGCreation)
-    case Unknown(SCGUnknown)
+enum TransactionInfoWrapper: Decodable {
+    case transfer(TransferTransactionInfo)
+    case settingsChange(SettingsChangeTransactionInfo)
+    case custom(CustomTransactionInfo)
+    case creation(CreationTransactionInfo)
+    case unknown(UnknownTransactionInfo)
 
-    var value: SCGTransactionInfo {
+    var value: TransactionInfo {
         switch self {
-        case .Transfer(let value):
+        case .transfer(let value):
             return value
-        case .SettingsChange(let value):
+        case .settingsChange(let value):
             return value
-        case .Custom(let value):
+        case .custom(let value):
             return value
-        case .Creation(let value):
+        case .creation(let value):
             return value
-        case .Unknown(let value):
+        case .unknown(let value):
             return value
         }
     }
@@ -106,50 +106,50 @@ enum SCGTransactionInfoWrapper: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-        let type = try container.decode(SCGTransactionInfoType.self, forKey: .type)
+        let type = try container.decode(TransactionInfoType.self, forKey: .type)
         switch type {
-        case .Transfer:
-            self = try .Transfer(SCGTransfer(from: decoder))
-        case .SettingsChange:
-            self = try .SettingsChange(SCGSettingsChange(from: decoder))
-        case .Custom:
-            self = try .Custom(SCGCustom(from: decoder))
-        case .Creation:
-            self = try .Creation(SCGCreation(from: decoder))
-        case .Unknown:
-            self = try .Unknown(SCGUnknown(from: decoder))
+        case .transfer:
+            self = try .transfer(TransferTransactionInfo(from: decoder))
+        case .settingsChange:
+            self = try .settingsChange(SettingsChangeTransactionInfo(from: decoder))
+        case .custom:
+            self = try .custom(CustomTransactionInfo(from: decoder))
+        case .creation:
+            self = try .creation(CreationTransactionInfo(from: decoder))
+        case .unknown:
+            self = try .unknown(UnknownTransactionInfo(from: decoder))
         }
     }
 }
 
-struct SCGSettingsChange: SCGTransactionInfo {
-    let dataDecoded: SCGDataDecoded
+struct SettingsChangeTransactionInfo: TransactionInfo {
+    let dataDecoded: DataDecoded
 }
 
-struct SCGCustom: SCGTransactionInfo {
+struct CustomTransactionInfo: TransactionInfo {
     let to: AddressString
     let dataSize: UInt256String
     let value: UInt256String
 }
 
-struct  SCGUnknown: SCGTransactionInfo {
+struct  UnknownTransactionInfo: TransactionInfo {
 }
 
-struct SCGCreation: SCGTransactionInfo {
+struct CreationTransactionInfo: TransactionInfo {
     let creator: AddressString
     let transactionHash: DataString
     let masterCopy: AddressString?
     let factory: AddressString?
 }
 
-struct SCGTransfer: SCGTransactionInfo {
+struct TransferTransactionInfo: TransactionInfo {
     let sender: AddressString
     let recipient: AddressString
-    let direction: SCGTransferDirection
+    let direction: TransferDirection
     let transferInfo: SCGTransferInfo
 }
 
-extension SCGTransfer {
+extension TransferTransactionInfo {
     enum Key: String, CodingKey {
         case sender, recipient, direction, transferInfo
     }
@@ -158,29 +158,29 @@ extension SCGTransfer {
         let container = try decoder.container(keyedBy: Key.self)
         sender = try container.decode(AddressString.self, forKey: .sender)
         recipient = try container.decode(AddressString.self, forKey: .recipient)
-        direction = try container.decode(SCGTransferDirection.self, forKey: .direction)
-        transferInfo = try container.decode(SCGTransferInfoWrapper.self, forKey: .transferInfo).value
+        direction = try container.decode(TransferDirection.self, forKey: .direction)
+        transferInfo = try container.decode(TransferInfoWrapper.self, forKey: .transferInfo).value
     }
 }
 
-enum SCGTransferDirection: String, Decodable {
-    case INCOMING
-    case OUTGOING
-    case UNKNOWN
+enum TransferDirection: String, Decodable {
+    case incoming = "INCOMING"
+    case outgoing = "OUTGOING"
+    case unknown = "UNKNOWN"
 }
 
 protocol SCGTransferInfo: Decodable {}
 
-enum SCGTransferInfoType: String, Decodable {
-    case ERC20
-    case ERC721
-    case ETHER
+enum TransferInfoType: String, Decodable {
+    case erc20 = "ERC20"
+    case erc721 = "ERC721"
+    case ether = "ETHER"
 }
 
-enum SCGTransferInfoWrapper: Decodable {
-    case erc20(SCGErc20Transfer)
-    case erc721(SCGErc721Transfer)
-    case ether(SCGEtherTransfer)
+enum TransferInfoWrapper: Decodable {
+    case erc20(Erc20TransferInfo)
+    case erc721(Erc721TransferInfo)
+    case ether(EtherTransferInfo)
 
     var value: SCGTransferInfo {
         switch self {
@@ -199,19 +199,19 @@ enum SCGTransferInfoWrapper: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-        let type = try container.decode(SCGTransferInfoType.self, forKey: .type)
+        let type = try container.decode(TransferInfoType.self, forKey: .type)
         switch type {
-        case .ERC20:
-            self = try .erc20(SCGErc20Transfer(from: decoder))
-        case .ERC721:
-            self = try .erc721(SCGErc721Transfer(from: decoder))
-        case .ETHER:
-            self = try .ether(SCGEtherTransfer(from: decoder))
+        case .erc20:
+            self = try .erc20(Erc20TransferInfo(from: decoder))
+        case .erc721:
+            self = try .erc721(Erc721TransferInfo(from: decoder))
+        case .ether:
+            self = try .ether(EtherTransferInfo(from: decoder))
         }
     }
 }
 
-struct SCGErc20Transfer: SCGTransferInfo {
+struct Erc20TransferInfo: SCGTransferInfo {
     let tokenAddress: AddressString
     let tokenName: String?
     let tokenSymbol: String?
@@ -220,7 +220,7 @@ struct SCGErc20Transfer: SCGTransferInfo {
     let value: UInt256String
 }
 
-struct SCGErc721Transfer: SCGTransferInfo {
+struct Erc721TransferInfo: SCGTransferInfo {
     let tokenAddress: AddressString
     let tokenId: UInt256String
     let tokenName: String?
@@ -228,27 +228,27 @@ struct SCGErc721Transfer: SCGTransferInfo {
     let logoUri: String?
 }
 
-struct SCGEtherTransfer: SCGTransferInfo {
+struct EtherTransferInfo: SCGTransferInfo {
     let value: UInt256String
 }
 
-enum SCGOperation: Int, Decodable {
+enum Operation: Int, Decodable {
     case call = 0
     case delegate = 1
 }
 
-struct SCGDataDecoded: Decodable {
+struct DataDecoded: Decodable {
     let method: String
-    let parameters: [SCGParameter]?
+    let parameters: [DataDecodedParameter]?
 }
 
-struct SCGParameter: Decodable {
+struct DataDecodedParameter: Decodable {
     let name: String
     let type: String
-    let value: SCGParamValue
+    let value: DataDecodedParameterValue
 }
 
-extension SCGParameter {
+extension DataDecodedParameter {
     enum Key: String, CodingKey {
         case name, type, value
     }
@@ -257,21 +257,21 @@ extension SCGParameter {
         let container = try decoder.container(keyedBy: Key.self)
         name = try container.decode(String.self, forKey: .name)
         type = try container.decode(String.self, forKey: .type)
-        value = try container.decode(SCGParamValueWrapper.self, forKey: .value).value
+        value = try container.decode(DataDecodedParameterValueWrapper.self, forKey: .value).value
     }
 }
 
-protocol SCGParamValue {}
+protocol DataDecodedParameterValue {}
 
-extension String: SCGParamValue {}
+extension String: DataDecodedParameterValue {}
 
-extension Array: SCGParamValue where Element == SCGParamValue {}
+extension Array: DataDecodedParameterValue where Element == DataDecodedParameterValue {}
 
-enum SCGParamValueWrapper: Decodable {
+enum DataDecodedParameterValueWrapper: Decodable {
     case stringValue(String)
-    case arrayValue([SCGParamValueWrapper])
+    case arrayValue([DataDecodedParameterValueWrapper])
 
-    var value: SCGParamValue {
+    var value: DataDecodedParameterValue {
         switch self {
         case .stringValue(let value):
             return value
@@ -285,23 +285,23 @@ enum SCGParamValueWrapper: Decodable {
         if let string = (try? container.decode(String.self)) {
             self = .stringValue(string)
         } else {
-            self = try .arrayValue(container.decode([SCGParamValueWrapper].self))
+            self = try .arrayValue(container.decode([DataDecodedParameterValueWrapper].self))
         }
     }
 }
 
 // MARK: - Details
 
-struct SCGTransactionDetails: Decodable {
+struct TransactionDetails: Decodable {
     let executedAt: Date
     let txStatus: SCGTransactionStatus
-    let txInfo: SCGTransactionInfo
-    let txData: SCGTransactionData
-    let detailedExecutionInfo: SCGDetailedExecutionInfo?
+    let txInfo: TransactionInfo
+    let txData: TransactionDetailsData
+    let detailedExecutionInfo: DetailedExecutionInfo?
     let txHash: DataString?
 }
 
-extension SCGTransactionDetails {
+extension TransactionDetails {
     enum Key: String, CodingKey {
         case executedAt, txStatus, txInfo, txData, detailedExecutionInfo, txHash
     }
@@ -310,37 +310,37 @@ extension SCGTransactionDetails {
         let container = try decoder.container(keyedBy: Key.self)
         executedAt = try container.decode(Date.self, forKey: .executedAt)
         txStatus = try container.decode(SCGTransactionStatus.self, forKey: .txStatus)
-        txInfo = try container.decode(SCGTransactionInfoWrapper.self, forKey: .txInfo).value
-        txData = try container.decode(SCGTransactionData.self, forKey: .txData)
-        detailedExecutionInfo = try container.decodeIfPresent(SCGDetailedExecutionInfoWrapper.self, forKey: .detailedExecutionInfo)?.value
+        txInfo = try container.decode(TransactionInfoWrapper.self, forKey: .txInfo).value
+        txData = try container.decode(TransactionDetailsData.self, forKey: .txData)
+        detailedExecutionInfo = try container.decodeIfPresent(DetailedExecutionInfoWrapper.self, forKey: .detailedExecutionInfo)?.value
         txHash = try container.decodeIfPresent(DataString.self, forKey: .txHash)
     }
 }
 
-struct SCGTransactionData: Decodable {
+struct TransactionDetailsData: Decodable {
     let hexData: DataString?
-    let dataDecoded: SCGDataDecoded?
+    let dataDecoded: DataDecoded?
     let to: AddressString
     let value: UInt256String
-    let operation: SCGOperation
+    let operation: Operation
 }
 
-protocol SCGDetailedExecutionInfo: Decodable {}
+protocol DetailedExecutionInfo: Decodable {}
 
-enum SCGDetailedExecutionInfoType: String, Decodable {
-    case MODULE
-    case MULTISIG
+enum DetailedExecutionInfoType: String, Decodable {
+    case module = "MODULE"
+    case multisig = "MULTISIG"
 }
 
-enum SCGDetailedExecutionInfoWrapper: Decodable {
-    case Module(SCGModuleExecutionDetails)
-    case Multisig(SCGMultisigExecutionDetails)
+enum DetailedExecutionInfoWrapper: Decodable {
+    case module(ModuleExecutionDetails)
+    case multisig(MultisigExecutionDetails)
 
-    var value: SCGDetailedExecutionInfo {
+    var value: DetailedExecutionInfo {
         switch self {
-        case .Module(let value):
+        case .module(let value):
             return value
-        case .Multisig(let value):
+        case .multisig(let value):
             return value
         }
     }
@@ -351,30 +351,30 @@ enum SCGDetailedExecutionInfoWrapper: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-        let type = try container.decode(SCGDetailedExecutionInfoType.self, forKey: .type)
+        let type = try container.decode(DetailedExecutionInfoType.self, forKey: .type)
         switch type {
-        case .MODULE:
-            self = try .Module(SCGModuleExecutionDetails(from: decoder))
-        case .MULTISIG:
-            self = try .Multisig(SCGMultisigExecutionDetails(from: decoder))
+        case .module:
+            self = try .module(ModuleExecutionDetails(from: decoder))
+        case .multisig:
+            self = try .multisig(MultisigExecutionDetails(from: decoder))
         }
     }
 }
 
-struct SCGModuleExecutionDetails: SCGDetailedExecutionInfo {
+struct ModuleExecutionDetails: DetailedExecutionInfo {
     let address: AddressString
 }
 
-struct SCGMultisigExecutionDetails: SCGDetailedExecutionInfo {
+struct MultisigExecutionDetails: DetailedExecutionInfo {
     let submittedAt: Date
     let nonce: UInt64
     let safeTxHash: DataString
     let signers: [AddressString]
     let confirmationsRequired: UInt64
-    let confirmations: [SCGMultisigConfirmation]
+    let confirmations: [MultisigConfirmation]
 }
 
-struct SCGMultisigConfirmation: Decodable {
+struct MultisigConfirmation: Decodable {
     let signer: AddressString
     let signature: DataString
 }

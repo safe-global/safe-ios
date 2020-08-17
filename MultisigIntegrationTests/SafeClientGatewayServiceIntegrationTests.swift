@@ -45,7 +45,7 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         DispatchQueue.global().async {
             do {
                 var page = try self.service.transactionSummaryList(address: safe)
-                var pages: [SCGTransactionSummaryListRequest.ResponseType] = [page]
+                var pages: [TransactionSummaryListRequest.ResponseType] = [page]
                 while let nextPageUri = page.next {
                     page = try self.service.transactionSummaryList(pageUri: nextPageUri)
                     pages.append(page)
@@ -64,7 +64,7 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         let safeTx = fetchTransaction(safeTxHash: safeTxHash)
         switch safeTx {
         case .success(let tx):
-            if let info = tx.detailedExecutionInfo as? SCGMultisigExecutionDetails {
+            if let info = tx.detailedExecutionInfo as? MultisigExecutionDetails {
                 XCTAssertEqual(info.safeTxHash.data, Data(hex: safeTxHash))
             } else {
                 XCTFail("Unexpected tx: \(tx)")
@@ -79,7 +79,7 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         let ethTx = fetchTransaction(safeTxHash: ethTxHash)
         switch ethTx {
         case .success(let tx):
-            if let info = tx.detailedExecutionInfo as? SCGMultisigExecutionDetails {
+            if let info = tx.detailedExecutionInfo as? MultisigExecutionDetails {
                 XCTAssertEqual(info.safeTxHash.data, Data(hex: safeTxHash))
             } else {
                 XCTFail("Unexpected tx: \(tx)")
@@ -108,7 +108,7 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         let idTx = fetchTransaction(id: id)
         switch idTx {
         case .success(let tx):
-            if let info = tx.txInfo as? SCGCustom {
+            if let info = tx.txInfo as? CustomTransactionInfo {
                 XCTAssertEqual(info.dataSize.value, 36)
             } else {
                 XCTFail("Unexpected tx: \(tx)")
@@ -119,9 +119,9 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         }
     }
 
-    func fetchTransaction(safeTxHash: String) -> Result<SCGTransactionDetails, Error> {
+    func fetchTransaction(safeTxHash: String) -> Result<TransactionDetails, Error> {
         let hash = Data(hex: safeTxHash)
-        var result: Result<SCGTransactionDetails, Error>?
+        var result: Result<TransactionDetails, Error>?
         let semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
             do {
@@ -137,9 +137,9 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         return result!
     }
 
-    func fetchTransaction(id: String) -> Result<SCGTransactionDetails, Error> {
-        let txID = SCGTransactionID(value: id)
-        var result: Result<SCGTransactionDetails, Error>?
+    func fetchTransaction(id: String) -> Result<TransactionDetails, Error> {
+        let txID = TransactionID(value: id)
+        var result: Result<TransactionDetails, Error>?
         let semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
             do {

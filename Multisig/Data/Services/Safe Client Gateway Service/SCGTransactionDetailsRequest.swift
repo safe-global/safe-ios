@@ -14,11 +14,11 @@ struct SCGTransactionDetailsRequest: JSONRequest {
     var urlPath: String {
         "/v1/transactions/\(id)"
     }
-    typealias ResponseType = SCGTransactionDetails
+    typealias ResponseType = TransactionDetails
 }
 
 extension SCGTransactionDetailsRequest {
-    init(transactionID: SCGTransactionID) {
+    init(transactionID: TransactionID) {
         id = transactionID.value
     }
 
@@ -28,7 +28,7 @@ extension SCGTransactionDetailsRequest {
 }
 
 extension SafeClientGatewayService {
-    func transactionDetails(id: SCGTransactionID) throws -> SCGTransactionDetailsRequest.ResponseType {
+    func transactionDetails(id: TransactionID) throws -> SCGTransactionDetailsRequest.ResponseType {
         try execute(request: SCGTransactionDetailsRequest(transactionID: id))
     }
 

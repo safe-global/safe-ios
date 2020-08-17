@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		02EE291F3EA9B66FF632F61F /* libPods-Multisig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0BD54209C21EA369847E31 /* libPods-Multisig.a */; };
-		04061609248E4868000F9C52 /* PagedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04061608248E4868000F9C52 /* PagedResponse.swift */; };
 		041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A572456F4F50044A24C /* SafeInfoView.swift */; };
 		041C2A5A2456F53E0044A24C /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A592456F53E0044A24C /* QRView.swift */; };
 		043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043913A024BF4E480006517D /* BrowseLinkButton.swift */; };
@@ -17,7 +16,6 @@
 		044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */; };
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
-		0456BF6924A4D054000C3C1D /* PagedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0456BF6824A4D054000C3C1D /* PagedRequest.swift */; };
 		0457AB9A24BBB2C5007C884E /* CollectiblesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0457AB9924BBB2C5007C884E /* CollectiblesSectionView.swift */; };
 		0457AB9E24BDCA45007C884E /* CollectibleDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0457AB9D24BDCA45007C884E /* CollectibleDetailsView.swift */; };
 		0460AB3B247E685E005CA275 /* EmptyListPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AB3A247E685E005CA275 /* EmptyListPlaceholder.swift */; };
@@ -156,10 +154,10 @@
 		0A802B8124E413450001790F /* HTTPClientErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8024E413450001790F /* HTTPClientErrors.swift */; };
 		0A802B8724E534DF0001790F /* SCGModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8624E534DF0001790F /* SCGModels.swift */; };
 		0A802B8924E5765F0001790F /* SafeClientGatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8824E5765F0001790F /* SafeClientGatewayService.swift */; };
-		0A802B8B24E5769E0001790F /* SCGTransactionSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8A24E5769E0001790F /* SCGTransactionSummaryListRequest.swift */; };
+		0A802B8B24E5769E0001790F /* TransactionSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8A24E5769E0001790F /* TransactionSummaryListRequest.swift */; };
 		0A802B8D24E577F50001790F /* SCGTransactionDetailsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8C24E577F50001790F /* SCGTransactionDetailsRequest.swift */; };
 		0A802B9024E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */; };
-		0A802B9224E5843B0001790F /* SCGPagedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B9124E5843B0001790F /* SCGPagedRequest.swift */; };
+		0A802B9224E5843B0001790F /* PagedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B9124E5843B0001790F /* PagedRequest.swift */; };
 		0A81E310246C062400425DEF /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A81E30F246C062400425DEF /* Icons.swift */; };
 		0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD562445CC8A00688050 /* AppDelegate.swift */; };
 		0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD582445CC8A00688050 /* SceneDelegate.swift */; };
@@ -358,7 +356,6 @@
 		02A74BC8CEDDED6CC3D8EDF1 /* Pods-Multisig.debug.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		02E52A6B83E46789583B84C6 /* Pods-MultisigTests.debugproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debugproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debugproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
 		037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigIntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		04061608248E4868000F9C52 /* PagedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedResponse.swift; sourceTree = "<group>"; };
 		041C2A572456F4F50044A24C /* SafeInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeInfoView.swift; sourceTree = "<group>"; };
 		041C2A592456F53E0044A24C /* QRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
 		043913A024BF4E480006517D /* BrowseLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLinkButton.swift; sourceTree = "<group>"; };
@@ -367,7 +364,6 @@
 		044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
-		0456BF6824A4D054000C3C1D /* PagedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedRequest.swift; sourceTree = "<group>"; };
 		0457AB9924BBB2C5007C884E /* CollectiblesSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesSectionView.swift; sourceTree = "<group>"; };
 		0457AB9D24BDCA45007C884E /* CollectibleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleDetailsView.swift; sourceTree = "<group>"; };
 		0460AB3A247E685E005CA275 /* EmptyListPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListPlaceholder.swift; sourceTree = "<group>"; };
@@ -516,10 +512,10 @@
 		0A802B8024E413450001790F /* HTTPClientErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientErrors.swift; sourceTree = "<group>"; };
 		0A802B8624E534DF0001790F /* SCGModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCGModels.swift; sourceTree = "<group>"; };
 		0A802B8824E5765F0001790F /* SafeClientGatewayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClientGatewayService.swift; sourceTree = "<group>"; };
-		0A802B8A24E5769E0001790F /* SCGTransactionSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCGTransactionSummaryListRequest.swift; sourceTree = "<group>"; };
+		0A802B8A24E5769E0001790F /* TransactionSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSummaryListRequest.swift; sourceTree = "<group>"; };
 		0A802B8C24E577F50001790F /* SCGTransactionDetailsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCGTransactionDetailsRequest.swift; sourceTree = "<group>"; };
 		0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClientGatewayServiceIntegrationTests.swift; sourceTree = "<group>"; };
-		0A802B9124E5843B0001790F /* SCGPagedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCGPagedRequest.swift; sourceTree = "<group>"; };
+		0A802B9124E5843B0001790F /* PagedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedRequest.swift; sourceTree = "<group>"; };
 		0A81E30F246C062400425DEF /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		0A93DD532445CC8A00688050 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1179,8 +1175,7 @@
 			children = (
 				0A802B8824E5765F0001790F /* SafeClientGatewayService.swift */,
 				0A802B8624E534DF0001790F /* SCGModels.swift */,
-				0A802B9124E5843B0001790F /* SCGPagedRequest.swift */,
-				0A802B8A24E5769E0001790F /* SCGTransactionSummaryListRequest.swift */,
+				0A802B8A24E5769E0001790F /* TransactionSummaryListRequest.swift */,
 				0A802B8C24E577F50001790F /* SCGTransactionDetailsRequest.swift */,
 			);
 			path = "Safe Client Gateway Service";
@@ -1694,8 +1689,7 @@
 				5532D4B82449A17D0067505A /* JSONHTTPClient.swift */,
 				5532D4B92449A17D0067505A /* HTTPClient.swift */,
 				0A802B8024E413450001790F /* HTTPClientErrors.swift */,
-				04061608248E4868000F9C52 /* PagedResponse.swift */,
-				0456BF6824A4D054000C3C1D /* PagedRequest.swift */,
+				0A802B9124E5843B0001790F /* PagedRequest.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2230,7 +2224,7 @@
 				0AA9F266249A18A3005BD60F /* TransactionsView.swift in Sources */,
 				0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
-				0A802B8B24E5769E0001790F /* SCGTransactionSummaryListRequest.swift in Sources */,
+				0A802B8B24E5769E0001790F /* TransactionSummaryListRequest.swift in Sources */,
 				0AB34D5C24B7161000A43988 /* TokenRegistry.swift in Sources */,
 				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,
 				0AA9F1F22497BC5F005BD60F /* TransactionStatus.swift in Sources */,
@@ -2268,7 +2262,7 @@
 				55F9A3212475578C00ABBA6F /* BalancesViewModel.swift in Sources */,
 				04CE3FA324B7281B00826AEE /* CollectibleCellView.swift in Sources */,
 				55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */,
-				0A802B9224E5843B0001790F /* SCGPagedRequest.swift in Sources */,
+				0A802B9224E5843B0001790F /* PagedRequest.swift in Sources */,
 				0A0EFCA8246EB13300D3D8BF /* KeyValueRow.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
@@ -2361,7 +2355,6 @@
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */,
 				04EF2AED2492B5AF0070ED1A /* VerticalBarView.swift in Sources */,
-				04061609248E4868000F9C52 /* PagedResponse.swift in Sources */,
 				0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */,
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
@@ -2403,7 +2396,6 @@
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
 				0AB34D6224B71DB200A43988 /* SafeBalancesRequest.swift in Sources */,
-				0456BF6924A4D054000C3C1D /* PagedRequest.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
 				0AA9F25D249A174E005BD60F /* TransactionConfirmationViewModel.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
