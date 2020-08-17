@@ -26,6 +26,7 @@ class CreationTransactionViewModel: SettingChangeTransactionViewModel {
         hash = tx.transactionHash?.description
         date = tx.created
         formattedCreatedDate = date.map { Self.dateFormatter.string(from: $0) } ?? ""
+        formattedDate = formattedCreatedDate ?? ""
     }
 }
 
