@@ -39,7 +39,6 @@ NS_SWIFT_NAME(Analytics)
 ///     <li>notification_open</li>
 ///     <li>notification_receive</li>
 ///     <li>os_update</li>
-///     <li>screen_view</li>
 ///     <li>session_start</li>
 ///     <li>user_engagement</li>
 /// </ul>
@@ -49,7 +48,7 @@ NS_SWIFT_NAME(Analytics)
 ///     reserved. See FIREventNames.h for the list of reserved event names. The "firebase_",
 ///     "google_", and "ga_" prefixes are reserved and should not be used. Note that event names are
 ///     case-sensitive and that logging two events whose names differ only in case will result in
-///     two distinct events.
+///     two distinct events. To manually log screen view events, use the `screen_view` event name.
 /// @param parameters The dictionary of event parameters. Passing nil indicates that the event has
 ///     no parameters. Parameter names can be up to 40 characters long and must start with an
 ///     alphabetic character and contain only alphanumeric characters and underscores. Only NSString
@@ -85,6 +84,8 @@ NS_SWIFT_NAME(Analytics)
 ///     non-empty and no more than 256 characters long. Setting userID to nil removes the user ID.
 + (void)setUserID:(nullable NSString *)userID;
 
+/// This method was deprecated in Firebase 6.29.0.
+///
 /// Sets the current screen name, which specifies the current visual context in your app. This helps
 /// identify the areas in your app where users spend their time and how they interact with your app.
 /// Must be called on the main thread.

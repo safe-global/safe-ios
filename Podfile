@@ -44,7 +44,7 @@ target 'Multisig' do
 
   # Dependency for formatting tokens in UI
   # Uses BigInt as a dependency
-  pod 'SwiftCryptoTokenFormatter', :git => 'https://github.com/gnosis/SwiftCryptoTokenFormatter.git', :branch => 'master'
+  pod 'SwiftCryptoTokenFormatter', '1.0.0'
 
   # Tracking of events of interest
   pod 'Firebase/Analytics'
@@ -64,5 +64,5 @@ target 'Multisig' do
 end
 
 target 'NotificationServiceExtension' do
-  pod 'SwiftCryptoTokenFormatter', :git => 'https://github.com/gnosis/SwiftCryptoTokenFormatter.git', :branch => 'master'
+  pod 'SwiftCryptoTokenFormatter', '1.0.0'
 end

@@ -5,6 +5,7 @@ Formatter for crypto token amounts.
 - Cut off after the 5th decimal, no matter how many decimals there are: 0.12345
 - Remove trailing zeroes, i.e. display 0.10000 as 0.1
 - Use the 5 decimals up until 999.99999
+- Display '< 0.00001' for values less than 0.00001
 - Use 1 decimal less from 1,000.0001 until 9,999.9999
 - Use 1 decimal less from 10,000.001 until 99,999.999
 - Use 1 decimal less from 100,000.01 until 999,999.99
@@ -13,7 +14,7 @@ Formatter for crypto token amounts.
 - Then Use 10.001M until 999.999M
 - Then 1.001B until 999.999B
 - Then 1.001T until 999.999T
-- Then just > 1000T
+- Then just > 999T
 - Thousands and decimal separators are used according to user's locale.
 - M, B, T is localized
 
