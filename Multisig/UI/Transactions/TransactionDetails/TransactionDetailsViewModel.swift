@@ -50,28 +50,18 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
         guard isRefreshingEnabled else { return }
         Just(hash)
             .compactMap { $0 }
-            .setFailureType(to: Error.self)
-            .flatMap { hash in
-                Future<TransactionViewModel, Error> { promise in
-                    DispatchQueue.global().async {
-                        do {
-                            let transaction = try App.shared.safeTransactionService.transaction(hash: hash)
-                            guard let safe = transaction.safe?.address else {
-                                promise(.failure(Failure.safeInfoMissing))
-                                return
-                            }
-                            let safeInfo = try App.shared.safeTransactionService.safeInfo(at: safe)
-                            let models = TransactionViewModel.create(from: transaction, safeInfo)
-                            guard models.count == 1, let model = models.first else {
-                                promise(.failure(Failure.unsupportedTransaction))
-                                return
-                            }
-                            promise(.success(model))
-                        } catch {
-                            promise(.failure(error))
-                        }
-                    }
+            .receive(on: DispatchQueue.global())
+            .tryMap { hash -> TransactionViewModel in
+                let transaction = try App.shared.safeTransactionService.transaction(hash: hash)
+                guard let safe = transaction.safe?.address else {
+                    throw Failure.safeInfoMissing
                 }
+                let safeInfo = try App.shared.safeTransactionService.safeInfo(at: safe)
+                let models = TransactionViewModel.create(from: transaction, safeInfo)
+                guard models.count == 1, let model = models.first else {
+                    throw Failure.unsupportedTransaction
+                }
+                return model
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in

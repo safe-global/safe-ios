@@ -20,21 +20,15 @@ class BalancesViewModel: BasicLoadableViewModel {
     }
 
     override func reload() {
-        Just(safe.address!)
+        Just(safe.address)
+            .compactMap { $0 }
             .compactMap { Address($0) }
             .setFailureType(to: Error.self)
-            .flatMap { address in
-                Future<[TokenBalance], Error> { promise in
-                    DispatchQueue.global().async {
-                        do {
-                            let balancesResponse = try App.shared.safeTransactionService.safeBalances(at: address)
-                            let tokenBalances = balancesResponse.map { TokenBalance($0) }
-                            promise(.success(tokenBalances))
-                        } catch {
-                            promise(.failure(error))
-                        }
-                    }
-                }
+            .receive(on: DispatchQueue.global())
+            .tryMap { address -> [TokenBalance] in
+                let balancesResponse = try App.shared.safeTransactionService.safeBalances(at: address)
+                let tokenBalances = balancesResponse.map { TokenBalance($0) }
+                return tokenBalances
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in

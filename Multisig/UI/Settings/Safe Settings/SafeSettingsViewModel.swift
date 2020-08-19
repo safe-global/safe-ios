@@ -22,18 +22,10 @@ class SafeSettingsViewModel: BasicLoadableViewModel {
         Just(safe.address)
             .compactMap { $0 }
             .compactMap { Address($0) }
-            .setFailureType(to: Error.self)
-            .flatMap { address in
-                Future<SafeStatusRequest.Response, Error> { promise in
-                    DispatchQueue.global().async {
-                        do {
-                            let safeInfo = try Safe.download(at: address)
-                            promise(.success(safeInfo))
-                        } catch {
-                            promise(.failure(error))
-                        }
-                    }
-                }
+            .receive(on: DispatchQueue.global())
+            .tryMap {  address -> SafeStatusRequest.Response in
+                let safeInfo = try Safe.download(at: address)
+                return safeInfo
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in

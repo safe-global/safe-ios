@@ -33,19 +33,11 @@ class CollectiblesListViewModel: BasicLoadableViewModel {
     override func reload() {
         Just(safe.address!)
             .compactMap { Address($0) }
-            .setFailureType(to: Error.self)
-            .flatMap { address in
-                Future<[Section], Error> { promise in
-                    DispatchQueue.global().async {
-                        do {
-                            let collectibles = try App.shared.safeTransactionService.collectibles(at: address)
-                            let models = self.createModels(collectibles: collectibles)
-                            promise(.success(models))
-                        } catch {
-                            promise(.failure(error))
-                        }
-                    }
-                }
+            .receive(on: DispatchQueue.global())
+            .tryMap { address -> [Section] in
+                let collectibles = try App.shared.safeTransactionService.collectibles(at: address)
+                let models = Self.createModels(collectibles: collectibles)
+                return models
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
@@ -64,7 +56,7 @@ class CollectiblesListViewModel: BasicLoadableViewModel {
             .store(in: &subscribers)
     }
 
-    private func createModels(collectibles: [Collectible]) -> [Section] {
+    private static func createModels(collectibles: [Collectible]) -> [Section] {
         let groupedCollectibles = Dictionary(grouping: collectibles, by: { $0.address })
         return groupedCollectibles.map { (key, value) in
             let token = App.shared.tokenRegistry[key!.address]
