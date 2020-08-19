@@ -265,7 +265,6 @@
 		0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729D24BF363400A370EE /* SlicedText.swift */; };
 		0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729F24BF368900A370EE /* SlicedText+Address.swift */; };
 		0AFA72A224BF36A800A370EE /* NonEmptyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA72A124BF36A800A370EE /* NonEmptyText.swift */; };
-		365E14708DF5691BB6E9EC71 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A2D1302E48BEDF6A6DF4AEE /* libPods-NotificationServiceExtension.a */; };
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
 		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
 		551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEEF244F1A0A00C719D3 /* SafeTests.swift */; };
@@ -309,6 +308,7 @@
 		55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A3092475375B00ABBA6F /* AssetsView.swift */; };
 		55F9A3202475578C00ABBA6F /* BalancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A31E2475578C00ABBA6F /* BalancesView.swift */; };
 		55F9A3212475578C00ABBA6F /* BalancesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A31F2475578C00ABBA6F /* BalancesViewModel.swift */; };
+		68F2F299ED7EA791697FFE29 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */; };
 		D041FEDD6C712A3A8AC1BA71 /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */; };
 		E30B69A86F7709B130B3D0B0 /* libPods-MultisigIntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */; };
 /* End PBXBuildFile section */
@@ -667,6 +667,7 @@
 		4D81EB425537EF34B55365BC /* Pods-MultisigTests.releasestagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.releasestagingrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.releasestagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		4F1EF30BCA42F3AC80865FBA /* Pods-MultisigTests.debug.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.development.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		50229A8638C363BCFA97A9B1 /* Pods-Multisig.release.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.development.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.development.mainnet.xcconfig"; sourceTree = "<group>"; };
+		52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54742DDC33F72556636E2FB7 /* Pods-Multisig.debugstagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debugstagingrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debugstagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		551DDEE8244F183500C719D3 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
@@ -725,7 +726,6 @@
 		6C35DE8864C388521CDF31F9 /* Pods-MultisigIntegrationTests.debug.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
 		6D76DA7923B9ECA14CFAA867 /* Pods-MultisigIntegrationTests.debug.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debug.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debug.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		6DC5FE7DA7FFABF025D9C818 /* Pods-MultisigIntegrationTests.debugstagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debugstagingrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debugstagingrinkeby.xcconfig"; sourceTree = "<group>"; };
-		7A2D1302E48BEDF6A6DF4AEE /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB63AA4F5F1BF1AE0826E9C /* Pods-MultisigIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		8211A5B13F641BB84866626C /* Pods-MultisigTests.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		83384CF54B9AD34F87646BB3 /* Pods-Multisig.releasestagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.releasestagingrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.releasestagingrinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -791,7 +791,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				365E14708DF5691BB6E9EC71 /* libPods-NotificationServiceExtension.a in Frameworks */,
+				68F2F299ED7EA791697FFE29 /* libPods-NotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1631,7 +1631,7 @@
 				3F0BD54209C21EA369847E31 /* libPods-Multisig.a */,
 				037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */,
 				E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */,
-				7A2D1302E48BEDF6A6DF4AEE /* libPods-NotificationServiceExtension.a */,
+				52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1921,7 +1921,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AF2731B24DAABDC007E4012 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
 			buildPhases = (
-				9329A8390C0135BD7FFC594E /* [CP] Check Pods Manifest.lock */,
+				00F60E2C1F7DFEEC034D5FCE /* [CP] Check Pods Manifest.lock */,
 				0AF2730F24DAABDC007E4012 /* Sources */,
 				0AF2731024DAABDC007E4012 /* Frameworks */,
 				0AF2731124DAABDC007E4012 /* Resources */,
@@ -2023,6 +2023,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		00F60E2C1F7DFEEC034D5FCE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		0603367589E5F2F0796DECAD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2082,28 +2104,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "FIREBASE_SRC=\"${SRCROOT}/Multisig/Cross-layer/Analytics/Firebase/${FIREBASE_CONFIG}.plist\"\nif [[ $CONFIGURATION == Release* ]] && [ -f \"${FIREBASE_SRC}\" ]; then\n    \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		9329A8390C0135BD7FFC594E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NotificationServiceExtension-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C5F344F451DF3989C918E752 /* [CP] Check Pods Manifest.lock */ = {
