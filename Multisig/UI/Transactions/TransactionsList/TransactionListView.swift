@@ -35,7 +35,10 @@ struct TransactionListView: Loadable {
                 Section(header: SectionHeader(section.name)) {
                     ForEach(section.transactions) { transaction in
                         // avoid reloading details on app open in order to
-                        // avoid crashing
+                        // avoid crashing. The crash is caused by using
+                        // the "List" in this detail screen. When
+                        // details is reloading and user taps back, the
+                        // list somehow gets overreleased and the  app crashes
                         NavigationLink(destination: LoadableView(TransactionDetailsView(transaction: transaction), reloadsOnAppOpen: false)) {
                             TransactionCellView(transaction: transaction)
                         }.onAppear {
