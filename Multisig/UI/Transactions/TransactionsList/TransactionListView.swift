@@ -34,7 +34,9 @@ struct TransactionListView: Loadable {
             ForEach(model.transactionsList.sections) { section in
                 Section(header: SectionHeader(section.name)) {
                     ForEach(section.transactions) { transaction in
-                        NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
+                        // avoid reloading details on app open in order to
+                        // avoid crashing
+                        NavigationLink(destination: LoadableView(TransactionDetailsView(transaction: transaction), reloadsOnAppOpen: false)) {
                             TransactionCellView(transaction: transaction)
                         }.onAppear {
                             if self.model.isLast(transaction: transaction) && self.model.canLoadNext {
