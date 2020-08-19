@@ -19,7 +19,7 @@ struct QRView: View {
     var body: some View {
         VStack {
             if value != nil && !value!.isEmpty {
-                Image(uiImage: generateQRCode())
+                Image(uiImage: Self.generateQRCode(value: value))
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
@@ -35,7 +35,7 @@ struct QRView: View {
         .frame(width: width, height: height)
     }
     
-    func generateQRCode() -> UIImage {
+    static func generateQRCode(value: String) -> UIImage {
         let data = Data(value.utf8)
         let context = CIContext()
         let filter = CIFilter.qrCodeGenerator()

@@ -33,25 +33,20 @@ class TransactionsViewModel: BasicLoadableViewModel {
     override func reload() {
         Just(safe.address!)
             .compactMap { Address($0) }
-            .setFailureType(to: Error.self)
-            .flatMap { address in
-                Future<TransactionsListViewModel, Error> { promise in
-                    DispatchQueue.global().async {
-                        do {
-                            self.safeInfo = try App.shared.safeTransactionService.safeInfo(at: address)
-                            let transactions = try App.shared.safeTransactionService.transactions(address: address)
-                            self.nextURL = transactions.next
-                            var models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
-                            if let creationTransaction = try self.creationTransaction() {
-                                models.append(creationTransaction)
-                            }
-                            let list = TransactionsListViewModel(models)
-                            promise(.success(list))
-                        } catch {
-                            promise(.failure(error))
-                        }
+            .receive(on: DispatchQueue.global())
+            .tryMap { [weak self] address -> TransactionsListViewModel in
+                let safeInfo = try App.shared.safeTransactionService.safeInfo(at: address)
+                let transactions = try App.shared.safeTransactionService.transactions(address: address)
+                var models = transactions.results.flatMap { TransactionViewModel.create(from: $0, safeInfo) }
+                if let `self` = self {
+                    self.safeInfo = safeInfo
+                    self.nextURL = transactions.next
+                    if let creationTransaction = try self.creationTransaction() {
+                        models.append(creationTransaction)
                     }
                 }
+                let list = TransactionsListViewModel(models)
+                return list
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
@@ -75,26 +70,20 @@ class TransactionsViewModel: BasicLoadableViewModel {
         isLoadingNextPage = true
         Just(nextURL)
             .compactMap { $0 }
-            .setFailureType(to: Error.self)
-            .flatMap { url in
-                Future<[TransactionViewModel], Error> { promise in
-                    DispatchQueue.global().async {
-                        do {
-                            if let transactions = try App.shared.safeTransactionService.loadTransactionsPage(url: url) {
-                                self.nextURL = transactions.next
-                                var models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
+            .receive(on: DispatchQueue.global())
+            .tryMap { [weak self] url -> [TransactionViewModel] in
+                var models = [TransactionViewModel]()
+                if let transactions = try App.shared.safeTransactionService.loadTransactionsPage(url: url),
+                    let `self` = self {
+                    self.nextURL = transactions.next
+                    models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
 
-                                // This should mean that we are on the last page on list
-                                if let creationTransaction = try self.creationTransaction() {
-                                    models.append(creationTransaction)
-                                }
-                                promise(.success(models))
-                            }
-                        } catch {
-                            promise(.failure(error))
-                        }
+                    // This should mean that we are on the last page on list
+                    if let creationTransaction = try self.creationTransaction() {
+                        models.append(creationTransaction)
                     }
                 }
+                return models
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in

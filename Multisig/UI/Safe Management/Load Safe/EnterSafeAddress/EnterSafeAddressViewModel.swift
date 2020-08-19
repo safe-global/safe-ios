@@ -65,20 +65,13 @@ class EnterSafeAddressViewModel: ObservableObject {
                 self.isValidating = true
                 return v
             }
-            .flatMap { address in
-                Future<String, Error> { promise in
-                    DispatchQueue.global().async {
-                        do {
-                            let safeInfo = try Safe.download(at: address)
-                            guard App.shared.gnosisSafe.isSupported(safeInfo.implementation.address) else {
-                                throw FormError.unsupportedImplementation(safeInfo.implementation.address)
-                            }
-                            promise(.success(address.checksummed))
-                        } catch {
-                            promise(.failure(error))
-                        }
-                    }
+            .receive(on: DispatchQueue.global())
+            .tryMap { address -> String in
+                let safeInfo = try Safe.download(at: address)
+                guard App.shared.gnosisSafe.isSupported(safeInfo.implementation.address) else {
+                    throw FormError.unsupportedImplementation(safeInfo.implementation.address)
                 }
+                return address.checksummed
             }
             .receive(on: RunLoop.main)
             .tryMap { address -> String in

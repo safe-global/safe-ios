@@ -20,13 +20,10 @@ class ENSNameLoader: ObservableObject {
         Just(safe.address)
             .compactMap { $0 }
             .compactMap { Address($0) }
-            .flatMap { address in
-                Future { promise in
-                    DispatchQueue.global().async {
-                        let ensName = try? App.shared.ens.name(for: address)
-                        promise(.success(ensName))
-                    }
-                }
+            .receive(on: DispatchQueue.global())
+            .map { address -> String? in
+                let ensName = try? App.shared.ens.name(for: address)
+                return ensName
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
