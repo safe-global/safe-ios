@@ -9,8 +9,8 @@ class LoggableErrorTests: XCTestCase {
 
     func test_loggableError() {
         let nsError = TestLoggableError.error.nsError()
-        XCTAssertEqual(nsError.domain, String(describing: TestLoggableError.self))
-        XCTAssertEqual(nsError.code, 0)
+        XCTAssertEqual(nsError.domain, "TestLoggableError")
+        XCTAssertEqual(nsError.code, 1)
         XCTAssertEqual(nsError.userInfo[NSLocalizedDescriptionKey] as? String,
                        TestLoggableError.error.localizedDescription)
         XCTAssertEqual(nsError.userInfo[LoggableErrorDescriptionKey] as? String, "\(TestLoggableError.error)")

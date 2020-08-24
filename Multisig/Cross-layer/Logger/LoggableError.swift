@@ -41,4 +41,7 @@ public extension LoggableError {
 public enum TestLoggableError: LoggableError {
     /// Test error
     case error
+
+    public var domain: String { "TestLoggableError" }
+    public var code: Int { 1 }
 }
