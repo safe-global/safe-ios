@@ -20,7 +20,7 @@ struct TransactionDataParameter: Hashable {
     let decodedData: DataDecodedParameterValue?
 
     static func == (lhs: TransactionDataParameter, rhs: TransactionDataParameter) -> Bool {
-        return lhs.name == rhs.name && lhs.type == rhs.type && lhs.value == rhs.value
+        (lhs.name, lhs.type, lhs.value)  == (rhs.name, rhs.type, rhs.value)
     }
 
     func hash(into hasher: inout Hasher) {

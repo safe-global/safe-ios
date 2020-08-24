@@ -59,8 +59,8 @@ struct TransactionDetailsView: Loadable {
         Group {
             TransactionHeaderView(transaction: transaction)
 
-            if transaction.dataDecoded != nil {
-                TransactionActionView(dataDecoded: transaction.dataDecoded!)
+            if dataDecoded != nil {
+                TransactionActionView(dataDecoded: dataDecoded!)
             }
 
             if data != nil {
@@ -102,6 +102,14 @@ struct TransactionDetailsView: Loadable {
         }
 
         return (length: customTransaction.dataLength, data: customTransaction.data)
+    }
+
+    var dataDecoded: TransactionData? {
+        guard let customTransaction = transaction as? CustomTransactionViewModel else {
+            return nil
+        }
+
+        return customTransaction.dataDecoded
     }
 
     var displayConfirmations: Bool {

@@ -265,7 +265,7 @@ protocol DataDecodedParameterValue {}
 
 extension DataDecodedParameterValue {
     var stringValue: String? {
-        return self as? String
+        self as? String
     }
 
     var addressValue: Address? {
@@ -274,7 +274,7 @@ extension DataDecodedParameterValue {
     }
 
     var arrayValue: [DataDecodedParameterValue]? {
-        return self as? [DataDecodedParameterValue]
+        self as? [DataDecodedParameterValue]
     }
 }
 
