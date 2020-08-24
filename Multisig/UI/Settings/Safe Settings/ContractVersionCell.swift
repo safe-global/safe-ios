@@ -59,18 +59,20 @@ struct ContractVersionCell: View {
 
     var body: some View {
         HStack(spacing: lineSpacing) {
-            AddressImage(address)
-                .frame(width: iconSize, height: iconSize)
+            CopyButton(implementation.checksummed) {
+                AddressImage(address)
+                    .frame(width: iconSize, height: iconSize)
 
-            VStack(alignment: .leading, spacing: 2) {
-                HStack {
-                    versionView
-                        .headline()
-                    upgradeStatusView
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack {
+                        versionView
+                            .headline()
+                        upgradeStatusView
+                    }
+                    SlicedText(implementation)
+                        .style(.addressShortLight)
                 }
-                SlicedText(implementation)
-                    .style(.addressShortLight)
-            }
+            }.disabled(implementation == .zero)
             
             Spacer()
             
