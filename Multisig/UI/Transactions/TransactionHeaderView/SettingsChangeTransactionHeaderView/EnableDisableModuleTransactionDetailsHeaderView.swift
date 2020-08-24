@@ -15,7 +15,7 @@ struct EnableDisableModuleTransactionDetailsHeaderView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 11) {
             Text(title).headline()
-            AddressCell(address: address.checksummed, style: .shortAddress)
+            AddressCell(address: address.checksummed, style: .normal)
         }
     }
 
