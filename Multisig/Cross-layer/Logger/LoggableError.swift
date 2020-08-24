@@ -14,9 +14,15 @@ public protocol LoggableError: Error {
     /// - Parameter causedBy: Underlying error
     /// - Returns: new NSError with `causedBy` underlying error inside.
     func nsError(causedBy: Error?) -> NSError
+
+    var domain: String { get }
+    var code: Int { get }
 }
 
 public extension LoggableError {
+
+    var domain: String { "LoggableError" }
+    var code: Int { 0 }
 
     func nsError(causedBy underlyingError: Error? = nil) -> NSError {
         var userInfo: [String: Any] = [NSLocalizedDescriptionKey: localizedDescription,
@@ -24,8 +30,8 @@ public extension LoggableError {
         if let error = underlyingError {
             userInfo[NSUnderlyingErrorKey] = error as NSError
         }
-        return NSError(domain: String(describing: type(of: self)),
-                       code: (self as NSError).code,
+        return NSError(domain: domain,
+                       code: code,
                        userInfo: userInfo)
     }
 

@@ -8,6 +8,8 @@
 
 import Foundation
 
+fileprivate let errorDomain = "HTTPClientError"
+
 enum HTTPClientError {
 
     static func error(_ request: URLRequest, _ response: URLResponse?, _ data: Data?) -> Error {
@@ -29,11 +31,12 @@ enum HTTPClientError {
 
     private static func unprocessableEntity(_ request: URLRequest, _ response: URLResponse?, _ data: Data?) -> Error {
         guard let data = data else {
+            let error = UnexpectedError(code: UnexpectedError.unprocessableEntityMissingData)
             LogService.shared.error(
                 "Missing data in unprocessableEntity error",
-                error: HTTPClientUnexpectedError.missingDataInUnprocessableEntity
+                error: error
             )
-            return UnexpectedError(code: UnexpectedError.unprocessableEntityMissingData)
+            return error
         }
         do {
             let error = try JSONDecoder().decode(BackendError.self, from: data)
@@ -43,19 +46,21 @@ enum HTTPClientError {
             case 50:
                 return SafeInfoNotFound()
             default:
+                let error = UnexpectedError(code: error.code)
                 LogService.shared.error(
                     "Unrecognised error code: \(error.code)",
-                    error: HTTPClientUnexpectedError.unrecognizedErrorCode(error.code)
+                    error: error
                 )
-                return UnexpectedError(code: error.code)
+                return error
             }
         } catch {
             let dataString = String(data: data, encoding: .utf8) ?? data.base64EncodedString()
+            let error = UnexpectedError(code: UnexpectedError.failedToDecodeErrorDetails)
             LogService.shared.error(
                 "Could not decode error details from the data: \(dataString)",
-                error: HTTPClientUnexpectedError.errorDetailsDecodingFailed(dataString)
+                error: error
             )
-            return UnexpectedError(code: UnexpectedError.failedToDecodeErrorDetails)
+            return error
         }
     }
 
@@ -64,11 +69,9 @@ enum HTTPClientError {
         let responseStr = response.map { String(describing: $0) } ?? "<no response>"
         let dataStr = data.map { String(data: $0, encoding: .utf8) ?? $0.base64EncodedString() } ?? "<no data>"
         let msg = "Unknown HTTP error. Request: \(requestStr); Response: \(responseStr); Data: \(dataStr)"
-        LogService.shared.error(
-            msg,
-            error: HTTPClientUnexpectedError.unknownHTTPError(msg)
-        )
-        return UnexpectedError(code: UnexpectedError.unknownError)
+        let error = UnexpectedError(code: UnexpectedError.unknownError)
+        LogService.shared.error(msg, error: error)
+        return error
     }
 
     fileprivate struct BackendError: Decodable {
@@ -76,32 +79,41 @@ enum HTTPClientError {
         let message: String
     }
 
-    struct NetworkRequestFailed: LocalizedError {
+    struct NetworkRequestFailed: LocalizedError, LoggableError {
         var errorDescription: String? {
             "The network request failed. Please try out later."
         }
+        let domain = errorDomain
+        let code = -80001
     }
 
-    struct EntityNotFound: LocalizedError {
+    struct EntityNotFound: LocalizedError, LoggableError {
         var errorDescription: String? {
             "Entity not found."
         }
+        let domain = errorDomain
+        let code = -80404
     }
 
-    struct InvalidChecksum: LocalizedError {
+    struct InvalidChecksum: LocalizedError, LoggableError {
         var errorDescription: String? {
             "Checksum address validation failed."
         }
+        let domain = errorDomain
+        let code = -80402
     }
 
-    struct SafeInfoNotFound: LocalizedError {
+    struct SafeInfoNotFound: LocalizedError, LoggableError {
         var errorDescription: String? {
             "Safe info is not found."
         }
+        let domain = errorDomain
+        let code = -80004
     }
 
-    struct UnexpectedError: LocalizedError {
-        let code: Int
+    struct UnexpectedError: LocalizedError, LoggableError {
+        var code: Int
+        let domain = errorDomain
 
         var errorDescription: String? {
             "Unexpected error \(code). We are notified and will try to fix it asap."

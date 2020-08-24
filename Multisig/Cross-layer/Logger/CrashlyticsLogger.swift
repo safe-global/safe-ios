@@ -44,7 +44,8 @@ final class CrashlyticsLogger: LogWriter {
         }
         var userInfo = nsError.userInfo
         userInfo["message"] = message
-        crashlytics.record(error: NSError(domain: nsError.domain, code: nsError.code, userInfo: userInfo))
+        let recordedError = NSError(domain: nsError.domain, code: nsError.code, userInfo: userInfo)
+        crashlytics.record(error: recordedError)
     }
 
 }
