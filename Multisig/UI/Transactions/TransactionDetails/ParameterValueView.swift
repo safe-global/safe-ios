@@ -18,10 +18,9 @@ struct ParameterValueView: View {
 
     @ViewBuilder
     var valueView: some View {
-        if value?.addressValue != nil  {
+        if value?.addressValue != nil {
             AddressCell(address: value!.addressValue!.checksummed)
-        }
-        else if stringValue != nil  {
+        } else if stringValue != nil {
             Text(stringValue!).body(.gnoDarkGrey)
         } else {
             Group {
@@ -34,7 +33,7 @@ struct ParameterValueView: View {
     }
 
     var stringValue: String? {
-        guard let value = value else { return "-"}
+        guard let value = value else { return "-" }
         if value.arrayValue == nil && value.stringValue == nil {
             return "Unsupported type of value"
         } else if let array = value.arrayValue, array.isEmpty {
