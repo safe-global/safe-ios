@@ -17,6 +17,17 @@ struct TransactionDataParameter: Hashable {
     let name: String
     let type: String
     let value: String?
+    let decodedData: DataDecodedParameterValue?
+
+    static func == (lhs: TransactionDataParameter, rhs: TransactionDataParameter) -> Bool {
+        return lhs.name == rhs.name && lhs.type == rhs.type && lhs.value == rhs.value
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(type)
+        hasher.combine(value)
+    }
 }
 
 extension TransactionDataParameter: Decodable {
@@ -31,6 +42,7 @@ extension TransactionDataParameter: Decodable {
         type = try container.decode(String.self, forKey: .type)
         // only String values are currently supported in the app
         value = try? container.decode(String.self, forKey: .value)
+        decodedData = try container.decode(DataDecodedParameterValueWrapper.self, forKey: .value).value
     }
 
     var addressValue: Address? {

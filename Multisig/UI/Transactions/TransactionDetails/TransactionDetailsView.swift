@@ -59,6 +59,10 @@ struct TransactionDetailsView: Loadable {
         Group {
             TransactionHeaderView(transaction: transaction)
 
+            if transaction.dataDecoded != nil {
+                TransactionActionView(dataDecoded: transaction.dataDecoded!)
+            }
+
             if data != nil {
                 VStack (alignment: .leading) {
                     Text("Data").headline()

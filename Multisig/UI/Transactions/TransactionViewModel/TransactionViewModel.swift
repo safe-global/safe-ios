@@ -23,6 +23,7 @@ class TransactionViewModel: Identifiable, Equatable {
     var operation: String?
     var confirmationCount: Int?
     var threshold: Int?
+    var dataDecoded: TransactionData?
     var confirmations: [TransactionConfirmationViewModel]?
     var remainingConfirmationsRequired: Int
     var hasConfirmations: Bool {
@@ -54,6 +55,7 @@ class TransactionViewModel: Identifiable, Equatable {
         formattedExecutedDate = tx.executionDate.map { Self.dateFormatter.string(from: $0) }
         formattedDate = date.map { Self.dateFormatter.string(from: $0) } ?? ""
         operation = tx.operation?.name
+        dataDecoded = tx.dataDecoded
         confirmations = tx.confirmations.map { $0.map(TransactionConfirmationViewModel.init(confirmation:)) }
         // computing confirmation counters
         do {

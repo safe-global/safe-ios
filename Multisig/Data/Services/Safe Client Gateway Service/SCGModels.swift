@@ -263,6 +263,21 @@ extension DataDecodedParameter {
 
 protocol DataDecodedParameterValue {}
 
+extension DataDecodedParameterValue {
+    var stringValue: String? {
+        return self as? String
+    }
+
+    var addressValue: Address? {
+        guard let stringValue = stringValue else { return nil }
+        return Address(stringValue)
+    }
+
+    var arrayValue: [DataDecodedParameterValue]? {
+        return self as? [DataDecodedParameterValue]
+    }
+}
+
 extension String: DataDecodedParameterValue {}
 
 extension Array: DataDecodedParameterValue where Element == DataDecodedParameterValue {}
