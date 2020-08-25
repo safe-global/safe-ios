@@ -77,6 +77,7 @@ public class TokenFormatter {
     /// ## Short
     /// Short format cuts decimal digits based on the following rules, based on the number's magnitude:
     ///
+    ///   - N < 0.00001 - display '< 0.00001'
     ///   - N < 1000 - displays 5 decimal digits (without rounding)
     ///   - N < 10 thousands - displays 4 decimal digits
     ///   - N < 100 thousands - displays 3 decimal digits
@@ -119,6 +120,8 @@ public class TokenFormatter {
         // the log10() function for the BigInt type, which we do not have. That is why the String-based
         // operations have been chosen.
 
+        if number.value == 0 { return "0" }
+
         var numberString = String(abs(number.value))
         let leadingZeroesForSmallNumbers = String(repeating: "0",
                                                   count: max(0, number.precision - numberString.count + 1))
@@ -135,7 +138,6 @@ public class TokenFormatter {
         var degree = 0
 
         if shortFormat {
-
             switch integer.count {
             case (0...8):
                 let fractionalDigitCount = min(max(0, 8 - integer.count), 5)
@@ -178,7 +180,6 @@ public class TokenFormatter {
             }
 
             if degree > 0 {
-
                 let cutoffFractional = String(integer.suffix(degree).prefix(3))
                 let newInteger = String(integer.prefix(integer.count - degree))
 
@@ -208,6 +209,15 @@ public class TokenFormatter {
         let integerGroupped = groups(string: integer, size: 3).joined(separator: thousandSeparator)
         let magnitude = fractional.isEmpty ? integerGroupped : integerGroupped + decimalSeparator + fractional
         let sign = magnitude != "0" ? (isNegative ? negativeSign : positiveSign) : ""
+
+        if magnitude == "0" {
+            if isNegative {
+                return "> -0\(decimalSeparator)00001"
+            } else {
+                return "< \(positiveSign)0\(decimalSeparator)00001"
+            }
+        }
+
         return sign + magnitude + literal
     }
 
