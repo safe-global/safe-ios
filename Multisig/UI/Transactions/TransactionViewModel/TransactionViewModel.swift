@@ -80,6 +80,9 @@ class TransactionViewModel: Identifiable, Equatable {
         []
     }
 
+    var hasAdvancedDetails: Bool {
+        nonce != nil || operation != nil || hash != nil
+    }
 }
 
 extension GnosisSafeOperation {
