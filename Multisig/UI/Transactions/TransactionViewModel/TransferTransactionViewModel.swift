@@ -17,6 +17,10 @@ class TransferTransactionViewModel: TransactionViewModel {
     var tokenSymbol: String
     var tokenLogoURL: String
 
+    override var hasAdvancedDetails: Bool {
+        super.hasAdvancedDetails && isOutgoing
+    }
+
     override init() {
         address = ""
         isOutgoing = true
