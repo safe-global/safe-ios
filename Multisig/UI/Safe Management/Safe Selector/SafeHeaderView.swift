@@ -9,9 +9,6 @@
 import SwiftUI
 
 struct SafeHeaderView: View {
-    @Environment(\.managedObjectContext)
-    var context: CoreDataContext
-
     @Binding var showsSafeInfo: Bool
 
     var body: some View {
@@ -30,14 +27,11 @@ struct SafeHeaderView: View {
 
     var selectButton: some View {
         SelectedSafeButton(showsSafeInfo: $showsSafeInfo)
-            .environment(\.managedObjectContext, context)
     }
 
     var switchButton: some View {
         SwitchSafeButton()
-            .environment(\.managedObjectContext, context)
     }
-
 }
 
 // because of the TestCoreDataStack available only in Debug

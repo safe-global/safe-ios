@@ -9,58 +9,56 @@
 import SwiftUI
 
 struct MainTabView: View {
-
     @Environment(\.managedObjectContext)
     var context: CoreDataContext
 
-    // NOTE: the local/global state to prevent
-    // view from redrawing itself when the global state
-    // changes due to the change in the selected tab,
-    // which causes complete redraw and has a side effect of
-    // unnecessary network requests in the sub views
-
-    // Other alternatives that did not work:
-    //  - observing global state and using it in the BottomTabView selector
-    //  - just the local state, since we want to change the tab
-    //    from some other place in the app
     @State
-    var localSelection: ViewStateMode? = ViewStateMode.balances
+    private var selection = 0
 
-    var globalSelection = App.shared.viewState
-
+    @State
+    private var showsSafesList = false
 
     var body: some View {
-        BottomTabView($localSelection) {
-            AssetsView()
-                .environment(\.managedObjectContext, context)
-                .gnoTabItem(id: ViewStateMode.balances) {
+        TabView(selection: $selection) {
+            MainContentView(AssetsView())
+                .tabItem {
                     VStack {
                         Image("tab-icon-balances")
                         Text("Assets")
                     }
                 }
+                .tag(0)
 
-            TransactionsView()
-                .gnoTabItem(id: ViewStateMode.transactions) {
+            MainContentView(TransactionsView())
+                .tabItem {
                     VStack {
                         Image("tab-icon-transactions")
                         Text("Transactions")
                     }
                 }
+                .tag(1)
 
-            SettingsView()
-                .gnoTabItem(id: ViewStateMode.settings) {
+            MainContentView(SettingsView())
+                .tabItem {
                     VStack {
                         Image("tab-icon-settings")
                         Text("Settings")
                     }
                 }
+                .tag(2)
         }
-        .snackbarBottomPadding(ScreenMetrics.aboveTabBar)
-        .onReceive(globalSelection.$state) { newValue in
-            if newValue != self.localSelection {
-                self.localSelection = newValue
-            }
+        .accentColor(.gnoHold)
+        .sheet(isPresented: $showsSafesList) {
+            SwitchSafeView()
+                .environment(\.managedObjectContext, self.context)
+                .snackbarBottomPadding()
+                .hostSnackbar()
+        }
+        .onReceive(App.shared.viewState.$showsSafesList) { newValue in
+            self.showsSafesList = newValue
+        }
+        .onReceive(App.shared.viewState.$state) { newValue in
+            self.selection = newValue.rawValue
         }
     }
 }

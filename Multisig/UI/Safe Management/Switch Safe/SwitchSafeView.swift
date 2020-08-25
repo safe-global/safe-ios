@@ -10,7 +10,6 @@ import SwiftUI
 import UIKit
 
 struct SwitchSafeView: View {
-    
     @Environment(\.presentationMode)
     var presentationMode: Binding<PresentationMode>
 
