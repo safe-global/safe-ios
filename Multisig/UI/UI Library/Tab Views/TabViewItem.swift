@@ -13,5 +13,3 @@ struct TabViewItem<SelectionValue: Hashable>: Identifiable {
     var label: AnyView
     var content: AnyView
 }
-
-

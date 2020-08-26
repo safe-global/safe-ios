@@ -136,7 +136,6 @@
 		0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC5F2453157300840641 /* CreateSafePrompt.swift */; };
 		0A72AC622453169700840641 /* LinkText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC612453169700840641 /* LinkText.swift */; };
 		0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC652453184C00840641 /* SafeAddressField.swift */; };
-		0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC6924531C0200840641 /* AddressInputSelector.swift */; };
 		0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */; };
 		0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */; };
 		0A791D9B24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9A24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift */; };
@@ -494,7 +493,6 @@
 		0A72AC5F2453157300840641 /* CreateSafePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafePrompt.swift; sourceTree = "<group>"; };
 		0A72AC612453169700840641 /* LinkText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkText.swift; sourceTree = "<group>"; };
 		0A72AC652453184C00840641 /* SafeAddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAddressField.swift; sourceTree = "<group>"; };
-		0A72AC6924531C0200840641 /* AddressInputSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInputSelector.swift; sourceTree = "<group>"; };
 		0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDecodingError.swift; sourceTree = "<group>"; };
 		0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodDecodingError.swift; sourceTree = "<group>"; };
 		0A791D9A24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientUnexpectedError.swift; sourceTree = "<group>"; };
@@ -1433,7 +1431,6 @@
 				0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */,
 				0A72AC5F2453157300840641 /* CreateSafePrompt.swift */,
 				0A72AC652453184C00840641 /* SafeAddressField.swift */,
-				0A72AC6924531C0200840641 /* AddressInputSelector.swift */,
 			);
 			path = EnterSafeAddress;
 			sourceTree = "<group>";
@@ -2354,7 +2351,6 @@
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */,
 				04EF2AED2492B5AF0070ED1A /* VerticalBarView.swift in Sources */,
-				0A72AC6A24531C0200840641 /* AddressInputSelector.swift in Sources */,
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
 				046D0A77249A5F57000F4021 /* EnableDisableModuleTransactionDetailsHeaderView.swift in Sources */,
@@ -2601,7 +2597,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug.Production.Rinkeby;
 		};
@@ -2729,7 +2725,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug.Staging.Rinkeby;
 		};
@@ -2851,7 +2847,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release.Production.Rinkeby;
 		};
@@ -2973,7 +2969,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release.Staging.Rinkeby;
 		};
@@ -3156,7 +3152,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug.Production.Mainnet;
 		};
@@ -3180,7 +3176,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release.Production.Mainnet;
 		};
@@ -3351,7 +3347,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug.Staging.Mainnet;
 		};
@@ -3473,7 +3469,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release.Staging.Mainnet;
 		};
@@ -4453,7 +4449,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug.Development.Rinkeby;
 		};
@@ -4577,7 +4573,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release.Development.Rinkeby;
 		};
@@ -4701,7 +4697,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release.Development.Mainnet;
 		};
@@ -4829,7 +4825,7 @@
 				PRODUCT_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug.Development.Mainnet;
 		};

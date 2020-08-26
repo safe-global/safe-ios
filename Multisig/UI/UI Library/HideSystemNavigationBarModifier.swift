@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+#warning("TODO: do we need this modifier?")
 struct HideSystemNavigationBarModifier: ViewModifier {
 
     var value: Bool = false

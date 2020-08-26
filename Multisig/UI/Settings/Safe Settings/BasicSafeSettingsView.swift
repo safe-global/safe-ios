@@ -28,10 +28,10 @@ struct BasicSafeSettingsView: Loadable {
                         address: safe.address ?? "",
                         name: safe.name ?? ""
                     )
-                    .hidesSystemNavigationBar(false)) {
+                        .hidesSystemNavigationBar(false)
+                ) {
                     Text(safe.name ?? "").body()
                 }
-                    
                 .frame(height: rowHeight)
             }
 

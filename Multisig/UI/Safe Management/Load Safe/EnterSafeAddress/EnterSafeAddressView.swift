@@ -9,10 +9,6 @@
 import SwiftUI
 
 struct EnterSafeAddressView: View {
-
-    @Environment(\.presentationMode)
-    var presentationMode: Binding<PresentationMode>
-
     @ObservedObject
     var model: EnterSafeAddressViewModel = EnterSafeAddressViewModel()
 
@@ -50,8 +46,14 @@ struct EnterSafeAddressView: View {
                 // What we need is to dismiss the whole navigation view,
                 // this is controlled by the current view's
                 // presentationMode.
-                App.shared.viewState.switchTab(.balances)
                 self.onSubmit()
+
+                // TODO: do we need it UX-wise?
+                // Right now, after we add the first safe, somehow "wrong index" exception appears.
+                // It could be connected with that we add a new Safe, that triggers UI updates, and switching the
+                // tab the same time leads to some inconsistancy.
+                // Probably it is possible to fix it, but I did not dig down too much here.
+//                App.shared.viewState.switchTab(.balances)
             }
         )
         // otherwise the "pop to root" stops working

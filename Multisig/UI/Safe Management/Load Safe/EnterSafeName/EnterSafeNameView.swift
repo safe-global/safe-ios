@@ -59,6 +59,9 @@ struct EnterSafeNameView: View {
     func submit() {
         guard model.isValid == true else { return }
         model.submit()
+        // otherwise there is a UI glitch with empty nav bar when pressing 'Next'
+        // without hiding a keyboard
+        UIResponder.resignCurrentFirstResponder()
         onSubmit()
     }
 

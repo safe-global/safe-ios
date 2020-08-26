@@ -10,9 +10,6 @@ import SwiftUI
 import Combine
 
 class ViewState: ObservableObject {
-
-    // Active tab
-
     @Published
     private(set) var state: ViewStateMode = .balances
 
@@ -28,7 +25,6 @@ class ViewState: ObservableObject {
 
     @Published
     var hidesNavbar = true
-
 }
 
 enum ViewStateMode: Int, Hashable {
