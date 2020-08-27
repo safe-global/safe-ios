@@ -11,10 +11,10 @@ import SwiftUI
 import Combine
 
 class TransactionDetailsViewModel: BasicLoadableViewModel {
-    var transaction: TransactionViewModel?
+    var transaction: TransactionDetailsViewModel?
     var hash: Data?
 
-    init(transaction: TransactionViewModel) {
+    init(transaction: TransactionDetailsViewModel) {
         self.transaction = transaction
         super.init()
         isLoading = false
@@ -88,6 +88,24 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
                 self.errorMessage = nil
             })
             .store(in: &subscribers)
+    }
+
+}
+
+extension TransactionDetailsViewModel {
+
+    static func create(from tx: TransactionDetails, _ info: SafeStatusRequest.Response) -> TransactionDetailsViewModel {
+        // ask each class to create view models
+        // and take the first recognized result
+        [
+            TransferTransactionViewModel.self,
+            SettingChangeTransactionViewModel.self,
+            ChangeImplementationTransactionViewModel.self,
+            CustomTransactionViewModel.self
+        ]
+        .map { $0.viewModels(from: tx, info: info) }
+        .first { !$0.isEmpty }
+        ?? []
     }
 
 }

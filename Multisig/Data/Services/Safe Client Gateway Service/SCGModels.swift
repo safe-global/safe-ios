@@ -14,15 +14,15 @@ struct Page<T: Decodable>: Decodable {
     let results: [T]
 }
 
-struct TransactionSummary: Decodable {
+struct TransactionSummary {
     let id: TransactionID
-    let timestamp: Date
+    let date: Date
     let txStatus: SCGTransactionStatus
     let txInfo: TransactionInfo
     let executionInfo: ExecutionInfo?
 }
 
-extension TransactionSummary {
+extension TransactionSummary: Decodable {
 
     enum Key: String, CodingKey {
         case id, timestamp, txStatus, txInfo, executionInfo
@@ -31,7 +31,7 @@ extension TransactionSummary {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
         id = try container.decode(TransactionID.self, forKey: .id)
-        timestamp = try container.decode(Date.self, forKey: .timestamp)
+        date = try container.decode(Date.self, forKey: .timestamp)
         txStatus = try container.decode(SCGTransactionStatus.self, forKey: .txStatus)
         txInfo = try container.decode(TransactionInfoWrapper.self, forKey: .txInfo).value
         executionInfo = try container.decodeIfPresent(ExecutionInfo.self, forKey: .executionInfo)
@@ -60,6 +60,7 @@ enum SCGTransactionStatus: String, Decodable {
     case cancelled = "CANCELLED"
     case failed = "FAILED"
     case success = "SUCCESS"
+    case pending = "PENDING"
 }
 
 struct ExecutionInfo: Decodable {

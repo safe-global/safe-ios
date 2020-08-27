@@ -15,11 +15,11 @@ struct TransactionDetailsView: Loadable {
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
 
-    var transaction: TransactionViewModel {
+    var transaction: TransactionDetailsViewModel {
         model.transaction!
     }
 
-    init(transaction: TransactionViewModel) {
+    init(transaction: TransactionDetailsViewModel) {
         model = TransactionDetailsViewModel(transaction: transaction)
     }
 
