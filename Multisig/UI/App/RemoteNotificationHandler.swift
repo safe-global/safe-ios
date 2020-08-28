@@ -82,7 +82,11 @@ class RemoteNotificationHandler {
     func received(notification userInfo: [AnyHashable: Any]) {
         assert(Thread.isMainThread)
         logDebug("Received notification: \(userInfo)")
-        showDetails(userInfo)
+        // delaying because otherwise the  views are switch too fast
+        // and app is crashing
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
+            self?.showDetails(userInfo)
+        }
     }
 
     // MARK: - implementation
