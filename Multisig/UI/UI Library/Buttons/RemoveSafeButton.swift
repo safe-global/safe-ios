@@ -34,9 +34,6 @@ struct RemoveSafeButton: View {
             ActionSheet(title: Text(""), message: Text("Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost."), buttons: [
                 .destructive(Text("Remove")) {
                     Safe.remove(safe: self.safe)
-                    // TODO: do we need it? For me it is better staying at the same place. Probably I want to remove
-                    // several safes.
-//                    App.shared.viewState.switchTab(.balances)
                 },
                 .cancel()
             ])

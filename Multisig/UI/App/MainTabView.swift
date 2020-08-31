@@ -51,7 +51,6 @@ struct MainTabView: View {
         .sheet(isPresented: $showsSafesList) {
             SwitchSafeView()
                 .environment(\.managedObjectContext, self.context)
-                .snackbarBottomPadding()
                 .hostSnackbar()
         }
         .onReceive(App.shared.viewState.$showsSafesList) { newValue in
