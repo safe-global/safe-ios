@@ -59,6 +59,10 @@ struct TransactionDetailsView: Loadable {
         Group {
             TransactionHeaderView(transaction: transaction)
 
+            if dataDecoded != nil {
+                TransactionActionView(dataDecoded: dataDecoded!)
+            }
+
             if data != nil {
                 VStack (alignment: .leading) {
                     Text("Data").headline()
@@ -98,6 +102,14 @@ struct TransactionDetailsView: Loadable {
         }
 
         return (length: customTransaction.dataLength, data: customTransaction.data)
+    }
+
+    var dataDecoded: TransactionData? {
+        guard let customTransaction = transaction as? CustomTransactionViewModel else {
+            return nil
+        }
+
+        return customTransaction.dataDecoded
     }
 
     var displayConfirmations: Bool {
