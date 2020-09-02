@@ -139,7 +139,6 @@
 		0A704A592473FA04005BDC49 /* BottomTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A582473FA04005BDC49 /* BottomTabButton.swift */; };
 		0A704A5C24740146005BDC49 /* TabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A5B24740146005BDC49 /* TabViewItem.swift */; };
 		0A704A6C247417B4005BDC49 /* SafeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A6B247417B4005BDC49 /* SafeHeaderView.swift */; };
-		0A704A7024742003005BDC49 /* HideSystemNavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A6F24742003005BDC49 /* HideSystemNavigationBarModifier.swift */; };
 		0A72AC5A2453125800840641 /* EnterSafeAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC592453125800840641 /* EnterSafeAddressView.swift */; };
 		0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC5F2453157300840641 /* CreateSafePrompt.swift */; };
 		0A72AC622453169700840641 /* LinkText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC612453169700840641 /* LinkText.swift */; };
@@ -500,7 +499,6 @@
 		0A704A582473FA04005BDC49 /* BottomTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabButton.swift; sourceTree = "<group>"; };
 		0A704A5B24740146005BDC49 /* TabViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewItem.swift; sourceTree = "<group>"; };
 		0A704A6B247417B4005BDC49 /* SafeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeHeaderView.swift; sourceTree = "<group>"; };
-		0A704A6F24742003005BDC49 /* HideSystemNavigationBarModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideSystemNavigationBarModifier.swift; sourceTree = "<group>"; };
 		0A72AC592453125800840641 /* EnterSafeAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressView.swift; sourceTree = "<group>"; };
 		0A72AC5F2453157300840641 /* CreateSafePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafePrompt.swift; sourceTree = "<group>"; };
 		0A72AC612453169700840641 /* LinkText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkText.swift; sourceTree = "<group>"; };
@@ -1275,7 +1273,6 @@
 				0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */,
 				0460AB3A247E685E005CA275 /* EmptyListPlaceholder.swift */,
 				0AF6501A24488D280018D070 /* FullSize.swift */,
-				0A704A6F24742003005BDC49 /* HideSystemNavigationBarModifier.swift */,
 				04BFB55A2459785D00090386 /* KeyboadHandler.swift */,
 				0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */,
 				0A0EFCA7246EB13300D3D8BF /* KeyValueRow.swift */,
@@ -2407,7 +2404,6 @@
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
 				0AA9F25D249A174E005BD60F /* TransactionConfirmationViewModel.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
-				0A704A7024742003005BDC49 /* HideSystemNavigationBarModifier.swift in Sources */,
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,
 				0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */,
 				043ABD0E24EF0C33008826D5 /* SCGTransactionDetailsRequest.swift in Sources */,

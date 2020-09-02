@@ -13,7 +13,7 @@ struct MainTabView: View {
     var context: CoreDataContext
 
     @State
-    private var selection = 0
+    private var selection = ViewStateMode.balances
 
     @State
     private var showsSafesList = false
@@ -27,7 +27,7 @@ struct MainTabView: View {
                         Text("Assets")
                     }
                 }
-                .tag(0)
+                .tag(ViewStateMode.balances)
 
             MainContentView(TransactionsView())
                 .tabItem {
@@ -36,7 +36,7 @@ struct MainTabView: View {
                         Text("Transactions")
                     }
                 }
-                .tag(1)
+                .tag(ViewStateMode.transactions)
 
             MainContentView(SettingsView())
                 .tabItem {
@@ -45,7 +45,7 @@ struct MainTabView: View {
                         Text("Settings")
                     }
                 }
-                .tag(2)
+                .tag(ViewStateMode.settings)
         }
         .accentColor(.gnoHold)
         .sheet(isPresented: $showsSafesList) {
@@ -57,7 +57,7 @@ struct MainTabView: View {
             self.showsSafesList = newValue
         }
         .onReceive(App.shared.viewState.$state) { newValue in
-            self.selection = newValue.rawValue
+            self.selection = newValue
         }
     }
 }
