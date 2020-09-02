@@ -10,25 +10,22 @@ import SwiftUI
 import Combine
 
 class ViewState: ObservableObject {
-
-    // Active tab
-
     @Published
-    private(set) var state: ViewStateMode? = .balances
+    private(set) var state: ViewStateMode = .balances
 
-    func switchTab(_ to: ViewStateMode?) {
+    func switchTab(_ to: ViewStateMode) {
         state = to
     }
 
     @Published
-    var presentedSafeTxHash: String?
-
-    // Navigation bar
+    var showsSafesList = false
 
     @Published
-    var hidesNavbar: Bool = true
+    var presentedSafeTxHash: String?
 
-}    
+    @Published
+    var hidesNavbar = true
+}
 
 enum ViewStateMode: Int, Hashable {
     case balances

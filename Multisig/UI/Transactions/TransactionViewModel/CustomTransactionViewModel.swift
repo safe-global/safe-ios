@@ -11,6 +11,7 @@ import Foundation
 class CustomTransactionViewModel: TransferTransactionViewModel {
     var dataLength: Int
     var data: String
+    var dataDecoded: TransactionData?
 
     override init() {
         dataLength = 0
@@ -21,6 +22,7 @@ class CustomTransactionViewModel: TransferTransactionViewModel {
     override init(outgoing: Bool? = nil, transfer: TransferInfo, tx: Transaction, safe: SafeInfo) {
         dataLength = tx.data.map { $0.data.count } ?? 0
         data = tx.data?.description ?? ""
+        dataDecoded = tx.dataDecoded
         super.init(outgoing: outgoing ?? true, transfer: transfer, tx: tx, safe: safe)
     }
 

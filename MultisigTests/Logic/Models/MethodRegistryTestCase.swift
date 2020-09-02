@@ -16,7 +16,7 @@ class MethodRegistryTestCase: XCTestCase {
     func txData(_ d: RawTxData) -> TransactionData {
         TransactionData(
             method: d.method,
-            parameters: d.params.map(TransactionDataParameter.init(name:type:value:))  )
+            parameters: d.params.map { TransactionDataParameter(name: $0.name, type: $0.type, value: $0.value, decodedData: nil) }  )
     }
 
 }

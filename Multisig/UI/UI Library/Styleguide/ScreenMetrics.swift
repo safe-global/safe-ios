@@ -31,7 +31,7 @@ enum ScreenMetrics {
     }
 
     static var aboveBottomEdge: CGFloat {
-        isBigScreen ? 0 : Spacing.medium
+        isBigScreen ? Spacing.extraSmall : Spacing.medium
     }
 
     static var safeHeaderHeight: CGFloat {

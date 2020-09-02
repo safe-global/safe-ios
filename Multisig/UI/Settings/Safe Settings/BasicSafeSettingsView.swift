@@ -23,16 +23,10 @@ struct BasicSafeSettingsView: Loadable {
     var body: some View {
         List {
             Section(header: SectionHeader("SAFE NAME")) {
-                NavigationLink(destination:
-                    EditSafeNameView(
-                        address: safe.address ?? "",
-                        name: safe.name ?? ""
-                    )
-                    .hidesSystemNavigationBar(false)) {
-                    Text(safe.name ?? "").body()
-                }
-                    
-                .frame(height: rowHeight)
+                NavigationLink(destination: EditSafeNameView(
+                    address: safe.address ?? "",
+                    name: safe.name ?? "")) { Text(safe.name ?? "").body() }
+                    .frame(height: rowHeight)
             }
 
             Section(header: SectionHeader("REQUIRED CONFIRMATIONS")) {
@@ -57,7 +51,7 @@ struct BasicSafeSettingsView: Loadable {
             }
 
             Section(header: SectionHeader("")) {
-                NavigationLink(destination: AdvancedSafeSettingsView(safe: safe).hidesSystemNavigationBar(false)) {
+                NavigationLink(destination: AdvancedSafeSettingsView(safe: safe)) {
                     Text("Advanced").body()
                 }
                 .frame(height: rowHeight)
