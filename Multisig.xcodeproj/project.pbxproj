@@ -290,6 +290,11 @@
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
 		558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */; };
+		55A58534250140B1005E778B /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A58533250140B1005E778B /* PrivateKey.swift */; };
+		55A5853D2501479C005E778B /* BIP39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853C2501479C005E778B /* BIP39.swift */; };
+		55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853E25014AD7005E778B /* BIP39+WordLists.swift */; };
+		55A5854125014B1B005E778B /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5854025014B1B005E778B /* Data+Extension.swift */; };
+		55A5854325014E05005E778B /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5854225014E05005E778B /* String+Extension.swift */; };
 		55AB394024A3454100148BEA /* LoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB393F24A3454100148BEA /* LoadableView.swift */; };
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
@@ -698,6 +703,11 @@
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
+		55A58533250140B1005E778B /* PrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
+		55A5853C2501479C005E778B /* BIP39.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP39.swift; sourceTree = "<group>"; };
+		55A5853E25014AD7005E778B /* BIP39+WordLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BIP39+WordLists.swift"; sourceTree = "<group>"; };
+		55A5854025014B1B005E778B /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
+		55A5854225014E05005E778B /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		55AB393F24A3454100148BEA /* LoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableView.swift; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
@@ -1596,6 +1606,7 @@
 		0AF432D5244F075800E22E50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				55A585352501417E005E778B /* PrivateKey */,
 				04CE3F9724B611FC00826AEE /* Collectible */,
 				55B66E55247E494000249E98 /* AppSettings.swift */,
 				0AA9F2062497BE9B005BD60F /* UInt256.swift */,
@@ -1737,6 +1748,26 @@
 				551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		55A585352501417E005E778B /* PrivateKey */ = {
+			isa = PBXGroup;
+			children = (
+				55A58533250140B1005E778B /* PrivateKey.swift */,
+				55A5854425015013005E778B /* web3swift */,
+			);
+			path = PrivateKey;
+			sourceTree = "<group>";
+		};
+		55A5854425015013005E778B /* web3swift */ = {
+			isa = PBXGroup;
+			children = (
+				55A5853C2501479C005E778B /* BIP39.swift */,
+				55A5853E25014AD7005E778B /* BIP39+WordLists.swift */,
+				55A5854025014B1B005E778B /* Data+Extension.swift */,
+				55A5854225014E05005E778B /* String+Extension.swift */,
+			);
+			path = web3swift;
 			sourceTree = "<group>";
 		};
 		55B66E85247FC5D900249E98 /* Onboarding */ = {
@@ -2312,6 +2343,7 @@
 				0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */,
 				0AE061D82464591900CB60D7 /* BasicSafeSettingsView.swift in Sources */,
 				0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */,
+				55A5854125014B1B005E778B /* Data+Extension.swift in Sources */,
 				0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */,
 				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,
 				0A946D0A246C4C6E00456BD5 /* SettingsView.swift in Sources */,
@@ -2336,6 +2368,7 @@
 				0476916A246437C300D73D8B /* ContractVersionCell.swift in Sources */,
 				0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */,
 				0A791DA124D30FE100D70DA9 /* Spacing.swift in Sources */,
+				55A58534250140B1005E778B /* PrivateKey.swift in Sources */,
 				0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
@@ -2381,6 +2414,7 @@
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */,
 				04C97AAA246ED32800EBA0F1 /* BasicAppSettingsView.swift in Sources */,
+				55A5854325014E05005E778B /* String+Extension.swift in Sources */,
 				0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */,
 				0AA9F267249A18A3005BD60F /* TransactionListView.swift in Sources */,
 				0AA9F24B2497DB79005BD60F /* SettingChangeTransactionViewModel.swift in Sources */,
@@ -2399,6 +2433,7 @@
 				0AB34D6224B71DB200A43988 /* SafeBalancesRequest.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
 				0AA9F25D249A174E005BD60F /* TransactionConfirmationViewModel.swift in Sources */,
+				55A5853D2501479C005E778B /* BIP39.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,
 				0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */,
@@ -2410,6 +2445,7 @@
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* SafeCollectiblesRequest.swift in Sources */,
+				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				550A0ACD24F3BEE800B839E9 /* MainContentView.swift in Sources */,
 				04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */,
 				046D0A6D249A446D000F4021 /* TransactionHeaderView.swift in Sources */,
