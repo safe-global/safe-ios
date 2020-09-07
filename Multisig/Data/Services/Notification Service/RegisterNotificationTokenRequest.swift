@@ -9,7 +9,7 @@
 import Foundation
 
 struct RegisterNotificationTokenRequest: JSONRequest {
-    let uuid: UUID?
+    let uuid: String?
     let safes: [String]
     let cloudMessagingToken: String
     let bundle: String
@@ -22,7 +22,7 @@ struct RegisterNotificationTokenRequest: JSONRequest {
     typealias ResponseType = Response
 
     init(deviceID: UUID? = nil, safes: [Address], token: String, bundle: String, version: String, buildNumber: String) {
-        self.uuid = deviceID
+        self.uuid = deviceID?.uuidString.lowercased()
         self.safes = safes.map { $0.checksummed }
         self.cloudMessagingToken = token
         self.bundle = bundle

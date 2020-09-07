@@ -10,4 +10,7 @@ import Foundation
 
 enum MethodDecodingError: LoggableError {
     case unexpectedMethod(String)
+
+    var domain: String { "MethodDecodingError" }
+    var code: Int { -1 }
 }

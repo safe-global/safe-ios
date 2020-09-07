@@ -43,17 +43,10 @@ class EnterENSNameViewModel: ObservableObject {
                 self.startResolving()
                 return v
             }
-            .flatMap { ensName in
-                Future { promise in
-                    DispatchQueue.global().async {
-                        do {
-                            let address = try App.shared.ens.address(for: ensName)
-                            promise(.success(address))
-                        } catch {
-                            promise(.failure(error))
-                        }
-                    }
-                }
+            .receive(on: DispatchQueue.global())
+            .tryMap { ensName -> Address in
+                let address = try App.shared.ens.address(for: ensName)
+                return address
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in

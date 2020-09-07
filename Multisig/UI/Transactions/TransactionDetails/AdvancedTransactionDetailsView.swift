@@ -39,9 +39,3 @@ struct AdvancedTransactionDetailsView: View {
         }
     }
 }
-
-extension TransactionViewModel {
-    var hasAdvancedDetails: Bool {
-        nonce != nil || operation != nil || hash != nil
-    }
-}

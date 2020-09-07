@@ -145,7 +145,6 @@
 		0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC652453184C00840641 /* SafeAddressField.swift */; };
 		0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */; };
 		0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */; };
-		0A791D9B24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9A24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift */; };
 		0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9C24D2FD5C00D70DA9 /* SnackbarHostView.swift */; };
 		0A791D9F24D309CE00D70DA9 /* ScreenMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9E24D309CE00D70DA9 /* ScreenMetrics.swift */; };
 		0A791DA124D30FE100D70DA9 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791DA024D30FE100D70DA9 /* Spacing.swift */; };
@@ -505,7 +504,6 @@
 		0A72AC652453184C00840641 /* SafeAddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAddressField.swift; sourceTree = "<group>"; };
 		0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDecodingError.swift; sourceTree = "<group>"; };
 		0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodDecodingError.swift; sourceTree = "<group>"; };
-		0A791D9A24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientUnexpectedError.swift; sourceTree = "<group>"; };
 		0A791D9C24D2FD5C00D70DA9 /* SnackbarHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarHostView.swift; sourceTree = "<group>"; };
 		0A791D9E24D309CE00D70DA9 /* ScreenMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenMetrics.swift; sourceTree = "<group>"; };
 		0A791DA024D30FE100D70DA9 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
@@ -1132,7 +1130,6 @@
 		0A791D9524D2E36400D70DA9 /* Crashlytics Non-fatal Errors */ = {
 			isa = PBXGroup;
 			children = (
-				0A791D9A24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift */,
 				0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */,
 				0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */,
 			);
@@ -2382,7 +2379,6 @@
 				04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift in Sources */,
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
-				0A791D9B24D2E3E300D70DA9 /* HTTPClientUnexpectedError.swift in Sources */,
 				04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */,
 				04C97AAA246ED32800EBA0F1 /* BasicAppSettingsView.swift in Sources */,
 				0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */,

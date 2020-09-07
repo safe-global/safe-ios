@@ -12,6 +12,7 @@ struct TransferInfo {
     var from, to: Address
     var amount: UInt256
     var token: Token
+    var transactionHash: String?
 }
 
 typealias SafeInfo = SafeStatusRequest.Response
@@ -29,7 +30,8 @@ extension TransferInfo {
             from: tx.safeAddress(info),
             to: tx.to?.address ?? .zero,
             amount: tx.value?.value ?? 0,
-            token: token)
+            token: token,
+            transactionHash: tx.transactionHash?.description)
     }
 
     init(ether transfer: TransactionTransfer, tx: Transaction, info: SafeInfo, token: Token) {
@@ -41,15 +43,17 @@ extension TransferInfo {
             from: transfer.from.address,
             to: transfer.to.address,
             amount: transfer.value?.value ?? 0,
-            token: token)
+            token: token,
+            transactionHash: transfer.transactionHash.description)
     }
 
-    init(erc20 method: TransferMethod,  tx: Transaction, info: SafeInfo, token: Token) {
+    init(erc20 method: TransferMethod, tx: Transaction, info: SafeInfo, token: Token) {
         self.init(
             from: method.from ?? tx.safeAddress(info),
             to: method.to,
             amount: method.amount,
-            token: token)
+            token: token,
+            transactionHash: tx.transactionHash?.description)
     }
 
     init(erc721 transfer: TransactionTransfer, tx: Transaction, info: SafeInfo, token: Token) {
@@ -57,15 +61,17 @@ extension TransferInfo {
             from: transfer.from.address,
             to: transfer.to.address,
             amount: 1,
-            token: token)
+            token: token,
+            transactionHash: transfer.transactionHash.description)
     }
 
-    init(erc721 method: TransferMethod,  tx: Transaction, info: SafeInfo, token: Token) {
+    init(erc721 method: TransferMethod, tx: Transaction, info: SafeInfo, token: Token) {
         self.init(
         from: method.from ?? tx.safeAddress(info),
         to: method.to,
         amount: 1,
-        token: token)
+        token: token,
+        transactionHash: tx.transactionHash?.description)
     }
 }
 

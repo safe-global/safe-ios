@@ -9,7 +9,7 @@
 import Foundation
 
 struct UnregisterNotificationTokenRequest: JSONRequest {
-    let deviceID: UUID
+    let deviceID: String
     let address: String
 
     var httpMethod: String { return "DELETE" }
@@ -19,7 +19,7 @@ struct UnregisterNotificationTokenRequest: JSONRequest {
 
     init(deviceID: UUID, address: Address) {
         self.address = address.checksummed
-        self.deviceID = deviceID
+        self.deviceID = deviceID.uuidString.lowercased()
     }
 
     struct EmptyResponse: Decodable {

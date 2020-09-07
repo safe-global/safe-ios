@@ -17,6 +17,10 @@ class TransferTransactionViewModel: TransactionViewModel {
     var tokenSymbol: String
     var tokenLogoURL: String
 
+    override var hasAdvancedDetails: Bool {
+        super.hasAdvancedDetails && isOutgoing
+    }
+
     override init() {
         address = ""
         isOutgoing = true
@@ -43,6 +47,9 @@ class TransferTransactionViewModel: TransactionViewModel {
         tokenSymbol = transfer.token.symbol
         tokenLogoURL = transfer.token.logo?.absoluteString ?? ""
         super.init(tx, safe)
+        if hash == nil, let hash = transfer.transactionHash {
+            self.hash = hash
+        }
     }
 
     static let erc20Methods: [SmartContractMethodCall.Type] = [MethodRegistry.ERC20.Transfer.self, MethodRegistry.ERC20.TransferFrom.self]
