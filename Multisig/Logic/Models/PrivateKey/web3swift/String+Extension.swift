@@ -1,8 +1,4 @@
 //
-//  String+Extension.swift
-//  Multisig
-//
-//  Created by Andrey Scherbovich on 03.09.20.
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
@@ -50,5 +46,13 @@ extension String {
         let start = index(self.startIndex, offsetBy: bounds.lowerBound)
         let end = index(self.startIndex, offsetBy: bounds.upperBound)
         return String(self[start..<end])
+    }
+
+    func stripHexPrefix() -> String {
+        if self.hasPrefix("0x") {
+            let indexStart = self.index(self.startIndex, offsetBy: 2)
+            return String(self[indexStart...])
+        }
+        return self
     }
 }

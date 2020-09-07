@@ -1,8 +1,4 @@
 //
-//  String+Extension.swift
-//  Multisig
-//
-//  Created by Andrey Scherbovich on 03.09.20.
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
@@ -43,5 +39,22 @@ public extension Data {
         uintRepresentation = uintRepresentation << (startingBit % 8)
         uintRepresentation = uintRepresentation >> UInt64(64 - length)
         return uintRepresentation
+    }
+
+    func setLengthLeft(_ toBytes: UInt64, isNegative:Bool = false ) -> Data? {
+        let existingLength = UInt64(self.count)
+        if (existingLength == toBytes) {
+            return self
+        } else if (existingLength > toBytes) {
+            return nil
+        }
+        var data:Data
+        if (isNegative) {
+            data = Data(repeating: UInt8(255), count: Int(toBytes - existingLength))
+        } else {
+            data = Data(repeating: UInt8(0), count: Int(toBytes - existingLength))
+        }
+        data.append(self)
+        return data
     }
 }

@@ -1,8 +1,4 @@
 //
-//  String+Extension.swift
-//  Multisig
-//
-//  Created by Andrey Scherbovich on 03.09.20.
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 

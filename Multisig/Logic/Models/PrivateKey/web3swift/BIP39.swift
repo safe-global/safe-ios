@@ -1,8 +1,4 @@
 //
-//  String+Extension.swift
-//  Multisig
-//
-//  Created by Andrey Scherbovich on 03.09.20.
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
@@ -73,12 +69,12 @@ public enum BIP39Language {
     }
 }
 
+enum BIP39Error: String, Error {
+    case noEntropyError = "Entropy can not be calculated"
+    case dataError = "Data error"
+}
+
 public class BIP39 {
-
-    enum BIP93Error: String, Error {
-        case noEntropyError = "Entropy can not be calculated"
-    }
-
     static public func generateMnemonicsFromEntropy(entropy: Data,
                                                     language: BIP39Language = BIP39Language.english) -> String?  {
         guard entropy.count >= 16, entropy.count & 4 == 0 else { return nil }
@@ -114,7 +110,7 @@ public class BIP39 {
     static public func generateMnemonics(bitsOfEntropy: Int,
                                          language: BIP39Language = BIP39Language.english) throws -> String? {
         guard bitsOfEntropy >= 128 && bitsOfEntropy <= 256 && bitsOfEntropy.isMultiple(of: 32) else { return nil }
-        guard let entropy = Data.randomBytes(length: bitsOfEntropy/8) else { throw BIP93Error.noEntropyError }
+        guard let entropy = Data.randomBytes(length: bitsOfEntropy/8) else { throw BIP39Error.noEntropyError }
         return BIP39.generateMnemonicsFromEntropy(entropy: entropy, language: language)
     }
 
@@ -166,5 +162,4 @@ public class BIP39 {
         let seed = Data(seedArray)
         return seed
     }
-
 }
