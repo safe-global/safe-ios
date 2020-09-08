@@ -16,6 +16,10 @@ struct BasicAppSettingsView: View {
 
     var body: some View {
         List {
+            NavigationLink(destination: EnterSeedPhrase()) {
+                Text("Import owner wallet").body()
+            }
+
             BrowserLink(title: "Terms of use", url: legal.termsURL)
 
             BrowserLink(title: "Privacy policy", url: legal.privacyURL)

@@ -316,6 +316,8 @@
 		55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC102493923A003B2B19 /* TrackerTests.swift */; };
 		55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1D24939503003B2B19 /* View+Tracking.swift */; };
 		55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1F24939525003B2B19 /* TrackingEvent.swift */; };
+		55D3654125077F23004D5047 /* EnterSeedPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654025077F23004D5047 /* EnterSeedPhrase.swift */; };
+		55D3654325078560004D5047 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654225078560004D5047 /* TextView.swift */; };
 		55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */; };
 		55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A3092475375B00ABBA6F /* AssetsView.swift */; };
 		55F9A3202475578C00ABBA6F /* BalancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A31E2475578C00ABBA6F /* BalancesView.swift */; };
@@ -735,6 +737,8 @@
 		55CEFC102493923A003B2B19 /* TrackerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerTests.swift; sourceTree = "<group>"; };
 		55CEFC1D24939503003B2B19 /* View+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Tracking.swift"; sourceTree = "<group>"; };
 		55CEFC1F24939525003B2B19 /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
+		55D3654025077F23004D5047 /* EnterSeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSeedPhrase.swift; sourceTree = "<group>"; };
+		55D3654225078560004D5047 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenImage.swift; sourceTree = "<group>"; };
 		55F9A3092475375B00ABBA6F /* AssetsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
 		55F9A31E2475578C00ABBA6F /* BalancesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalancesView.swift; sourceTree = "<group>"; };
@@ -1122,6 +1126,7 @@
 		0A704A3A2473D772005BDC49 /* App Settings */ = {
 			isa = PBXGroup;
 			children = (
+				55D3653F25077F07004D5047 /* Owner Wallet Management */,
 				04C97AA9246ED32800EBA0F1 /* BasicAppSettingsView.swift */,
 				0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */,
 				04C97AAD246ED43A00EBA0F1 /* FiatCurrenciesView.swift */,
@@ -1346,6 +1351,7 @@
 				0AFA729B24BF361600A370EE /* SlicedString.swift */,
 				0AFA729D24BF363400A370EE /* SlicedText.swift */,
 				0A72AC612453169700840641 /* LinkText.swift */,
+				55D3654225078560004D5047 /* TextView.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -1824,6 +1830,14 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
+		55D3653F25077F07004D5047 /* Owner Wallet Management */ = {
+			isa = PBXGroup;
+			children = (
+				55D3654025077F23004D5047 /* EnterSeedPhrase.swift */,
+			);
+			path = "Owner Wallet Management";
+			sourceTree = "<group>";
+		};
 		55F9A2E52472F3EE00ABBA6F /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -2264,6 +2278,7 @@
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
 				0A704A5C24740146005BDC49 /* TabViewItem.swift in Sources */,
+				55D3654325078560004D5047 /* TextView.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				047EE9F424EF014C00AEB2D1 /* TransactionActionDetailsView.swift in Sources */,
 				0497F6E92488EC5600A1F4DE /* CustomTransactionCellView.swift in Sources */,
@@ -2358,6 +2373,7 @@
 				0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				0AB34D6424B71DCD00A43988 /* TransactionsRequest.swift in Sources */,
+				55D3654125077F23004D5047 /* EnterSeedPhrase.swift in Sources */,
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
 				0AA9F2492497DB64005BD60F /* ChangeImplementationTransactionViewModel.swift in Sources */,
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
