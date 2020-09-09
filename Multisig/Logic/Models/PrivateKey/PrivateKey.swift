@@ -9,14 +9,10 @@
 import Foundation
 import Web3
 
-
-
 struct PrivateKey {
-
     private var _store: EthereumPrivateKey
 
     init(mnemonic: [String], pathIndex: Int) throws {
         try _store = EthereumPrivateKey(hexPrivateKey: "")
     }
-
 }
