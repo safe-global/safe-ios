@@ -14,11 +14,15 @@ struct BasicAppSettingsView: View {
     private let legal = App.configuration.legal
     private let app = App.configuration.app
 
+    @State var addOwnerIsActive = false
+
     var body: some View {
         List {
-            NavigationLink(destination: EnterSeedPhrase()) {
+            NavigationLink(destination: EnterSeedPhraseView(rootIsActive: $addOwnerIsActive),
+                           isActive: $addOwnerIsActive) {
                 Text("Import owner wallet").body()
             }
+            .isDetailLink(false)
 
             BrowserLink(title: "Terms of use", url: legal.termsURL)
 

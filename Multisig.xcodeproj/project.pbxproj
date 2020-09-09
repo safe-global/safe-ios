@@ -310,13 +310,14 @@
 		55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E88247FE09A00249E98 /* BottomOverlayView.swift */; };
 		55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */; };
 		55B66E8E24810BC800249E98 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8D24810BC800249E98 /* AppSettingsTests.swift */; };
+		55CA3EAB2508D3670080DF7F /* SelectOwnerAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */; };
 		55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0824939079003B2B19 /* ConsoleTracker.swift */; };
 		55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */; };
 		55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0B24939079003B2B19 /* Tracker.swift */; };
 		55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC102493923A003B2B19 /* TrackerTests.swift */; };
 		55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1D24939503003B2B19 /* View+Tracking.swift */; };
 		55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1F24939525003B2B19 /* TrackingEvent.swift */; };
-		55D3654125077F23004D5047 /* EnterSeedPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654025077F23004D5047 /* EnterSeedPhrase.swift */; };
+		55D3654125077F23004D5047 /* EnterSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */; };
 		55D3654325078560004D5047 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654225078560004D5047 /* TextView.swift */; };
 		55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */; };
 		55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9A3092475375B00ABBA6F /* AssetsView.swift */; };
@@ -731,13 +732,14 @@
 		55B66E88247FE09A00249E98 /* BottomOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOverlayView.swift; sourceTree = "<group>"; };
 		55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemitransparentBackgroundView.swift; sourceTree = "<group>"; };
 		55B66E8D24810BC800249E98 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
+		55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOwnerAddressView.swift; sourceTree = "<group>"; };
 		55CEFC0824939079003B2B19 /* ConsoleTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
 		55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		55CEFC0B24939079003B2B19 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		55CEFC102493923A003B2B19 /* TrackerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerTests.swift; sourceTree = "<group>"; };
 		55CEFC1D24939503003B2B19 /* View+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Tracking.swift"; sourceTree = "<group>"; };
 		55CEFC1F24939525003B2B19 /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
-		55D3654025077F23004D5047 /* EnterSeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSeedPhrase.swift; sourceTree = "<group>"; };
+		55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSeedPhraseView.swift; sourceTree = "<group>"; };
 		55D3654225078560004D5047 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		55F9A2EC2472F3FE00ABBA6F /* TokenImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenImage.swift; sourceTree = "<group>"; };
 		55F9A3092475375B00ABBA6F /* AssetsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
@@ -1833,7 +1835,8 @@
 		55D3653F25077F07004D5047 /* Owner Wallet Management */ = {
 			isa = PBXGroup;
 			children = (
-				55D3654025077F23004D5047 /* EnterSeedPhrase.swift */,
+				55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */,
+				55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */,
 			);
 			path = "Owner Wallet Management";
 			sourceTree = "<group>";
@@ -2373,7 +2376,7 @@
 				0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				0AB34D6424B71DCD00A43988 /* TransactionsRequest.swift in Sources */,
-				55D3654125077F23004D5047 /* EnterSeedPhrase.swift in Sources */,
+				55D3654125077F23004D5047 /* EnterSeedPhraseView.swift in Sources */,
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
 				0AA9F2492497DB64005BD60F /* ChangeImplementationTransactionViewModel.swift in Sources */,
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
@@ -2475,6 +2478,7 @@
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
+				55CA3EAB2508D3670080DF7F /* SelectOwnerAddressView.swift in Sources */,
 				0AB34D6224B71DB200A43988 /* SafeBalancesRequest.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
 				0AA9F25D249A174E005BD60F /* TransactionConfirmationViewModel.swift in Sources */,
