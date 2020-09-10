@@ -33,8 +33,11 @@ extension Alignment {
 }
 
 struct LaunchView: View {
-    @Binding var acceptedTerms: Bool
-    @State var showTerms = false
+    @Binding
+    var acceptedTerms: Bool
+
+    @State
+    var showTerms = false
 
     private let logoToTextSpacing: CGFloat = 40
     private let textToButtonSpacing: CGFloat = 60

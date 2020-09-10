@@ -10,8 +10,11 @@ import SwiftUI
 
 struct CenteredAddressWithLink: View {
 
-    @ObservedObject var safe: Safe
-    @State private var showsBrowser: Bool = false
+    @ObservedObject
+    var safe: Safe
+    
+    @State
+    private var showsBrowser: Bool = false
 
     var body: some View {
         HStack {

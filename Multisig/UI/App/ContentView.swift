@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var acceptedTerms = AppSettings.hasAcceptedTerms()
+    @State
+    var acceptedTerms = AppSettings.hasAcceptedTerms()
 
     var body: some View {
         ZStack {

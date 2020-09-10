@@ -9,14 +9,26 @@
 import SwiftUI
 
 struct EnterSeedPhraseView: View {
-    @Binding var rootIsActive: Bool
+    @Binding
+    var rootIsActive: Bool
 
-    @State var seed = ""
-    @State var isEditing = false
-    @State var isValid = true
-    @State var errorMessage = ""
-    @State var rootNode: HDNode?
-    @State var goNext = false
+    @State
+    var seed = ""
+
+    @State
+    var isEditing = false
+
+    @State
+    var isValid = true
+
+    @State
+    var errorMessage = ""
+
+    @State
+    var rootNode: HDNode?
+
+    @State
+    var goNext = false
 
     var body: some View {
         VStack(spacing: 24) {
@@ -58,10 +70,17 @@ struct EnterSeedPhraseView: View {
 }
 
 struct EnterSeedView: View {
-    @Binding var seed: String
-    @Binding var isEditing: Bool
-    @Binding var isValid: Bool
-    @Binding var errorMessage: String
+    @Binding
+    var seed: String
+
+    @Binding
+    var isEditing: Bool
+
+    @Binding
+    var isValid: Bool
+
+    @Binding
+    var errorMessage: String
 
     var body: some View {
         VStack(alignment: .leading) {

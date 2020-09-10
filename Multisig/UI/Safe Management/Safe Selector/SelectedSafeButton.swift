@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct SelectedSafeButton: View {
-
-    @Binding var showsSafeInfo: Bool
+    @Binding
+    var showsSafeInfo: Bool
     
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selected: FetchedResults<Safe>

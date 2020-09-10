@@ -9,8 +9,11 @@
 import SwiftUI
 
 struct AddSafeIntroView: View {
-    @Environment(\.managedObjectContext) var context: CoreDataContext
-    @State private var showsLoadSafe = false
+    @Environment(\.managedObjectContext)
+    var context: CoreDataContext
+
+    @State
+    private var showsLoadSafe = false
 
     let paddingEdge: Edge.Set
     let paddingLength: CGFloat

@@ -10,12 +10,16 @@ import SwiftUI
 import Web3
 
 struct SelectOwnerAddressView: View {
-    @Binding var rootIsActive: Bool
+    @Binding
+    var rootIsActive: Bool
 
     private var rootNode: HDNode?
 
-    @State private var addresses = [Address]()
-    @State private var selected = 0
+    @State
+    private var addresses = [Address]()
+
+    @State
+    private var selected = 0
 
     init(rootNode: HDNode?, rootIsActive: Binding<Bool>) {
         self.rootNode = rootNode

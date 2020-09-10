@@ -17,7 +17,8 @@ struct LinkButton: View {
         self.url = url
     }
 
-    @State private var showSafariController = false
+    @State
+    private var showSafariController = false
 
     var body: some View {
         Button(action: { self.showSafariController = true }) {

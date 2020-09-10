@@ -11,10 +11,17 @@
 import SwiftUI
 
 struct RefreshableScrollView<Content: View>: View {
-    @State private var previousScrollOffset: CGFloat = 0
-    @State private var scrollOffset: CGFloat = 0
-    @State private var frozen: Bool = false
-    @State private var rotation: Angle = .degrees(0)
+    @State
+    private var previousScrollOffset: CGFloat = 0
+
+    @State
+    private var scrollOffset: CGFloat = 0
+
+    @State
+    private var frozen: Bool = false
+
+    @State
+    private var rotation: Angle = .degrees(0)
 
     var refreshTresholdInPoints: CGFloat = 70
 
@@ -22,7 +29,9 @@ struct RefreshableScrollView<Content: View>: View {
     // 60% of the way of reaching the threshold.
     var relativeRotationThreshold = 0.6
 
-    @Binding var refreshing: Bool
+    @Binding
+    var refreshing: Bool
+    
     let content: Content
 
     init(height: CGFloat = 70, refreshing: Binding<Bool>, @ViewBuilder content: () -> Content) {
