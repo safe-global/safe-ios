@@ -28,7 +28,7 @@ class SafeTransactionServiceIntegrationTests: XCTestCase {
             do {
                 _ = try self.service.safeInfo(at: "0xc778417E063141139Fce010982780140Aa0cD5Ab")
             } catch {
-                guard case HTTPClient.Error.entityNotFound(_, _, _) = error else {
+                guard error is HTTPClientError.EntityNotFound else {
                     XCTFail("Wrong error type \(error)")
                     semaphore.signal()
                     return
@@ -45,7 +45,7 @@ class SafeTransactionServiceIntegrationTests: XCTestCase {
             do {
                 _ = try self.service.safeInfo(at: "0x728cafe9fb8cc2218fb12a9a2d9335193caa07e0")
             } catch {
-                guard case HTTPClient.Error.entityNotFound(_, _, _) = error else {
+                guard error is HTTPClientError.EntityNotFound else {
                     XCTFail("Wrong error type \(error)")
                     semaphore.signal()
                     return
@@ -105,8 +105,8 @@ class SafeTransactionServiceIntegrationTests: XCTestCase {
                 repeat {
                     let page = try self.service.transactions(address: safe, offset: offset, limit: limit)
                     pages.append(page)
-                    remoteCount = page.count
-                    localCount = pages.map { $0.count }.reduce(0, +)
+                    remoteCount = page.results.count
+                    localCount = pages.map { $0.results.count }.reduce(0, +)
                     offset += page.results.count
                 } while localCount < remoteCount
 
@@ -147,12 +147,9 @@ class SafeTransactionServiceIntegrationTests: XCTestCase {
         case .success(let tx):
             XCTFail("Unexpected transaction: \(tx)")
         case .failure(let error):
-            switch error {
-            case HTTPClient.Error.entityNotFound:
-                // good!
-                break
-            default:
+            guard error is HTTPClientError.EntityNotFound else {
                 XCTFail("Expected 'not found' error, got this: \(error)")
+                return
             }
         }
     }

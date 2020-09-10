@@ -33,6 +33,13 @@ extension AppSettings {
         let appSettings = current()
         return appSettings.termsAccepted
     }
+
+    static func setSigningKeyAddress(_ key: String?) {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let appSettings = current()
+        appSettings.signingKeyAddress = key
+        App.shared.coreDataStack.saveContext()
+    }
 }
 
 extension NSFetchRequest where ResultType == AppSettings {

@@ -26,7 +26,6 @@ struct SelectOwnerAddressView: View {
         _rootIsActive = rootIsActive
         let addresses: [Address] = (0..<20).compactMap { self.addressAt($0) }
         _addresses = State(initialValue: addresses)
-
     }
 
     private func addressAt(_ index: Int) -> Address? {
@@ -57,6 +56,14 @@ struct SelectOwnerAddressView: View {
     }
 
     private func importWallet() {
+        guard let pkData = rootNode?.derive(index: UInt32(selected),
+                                            derivePrivateKey: true)?.privateKey else { return }
+        do {
+            try App.shared.keychainService.save(data: pkData, forKey: KeychainKey.ownerPrivateKey.rawValue)
+        } catch {
+            App.shared.snackbar.show(message: error.localizedDescription)
+        }
+        AppSettings.setSigningKeyAddress(addresses[selected].checksummed)
         rootIsActive = false
     }
 

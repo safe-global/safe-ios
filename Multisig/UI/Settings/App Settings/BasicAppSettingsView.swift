@@ -14,22 +14,41 @@ struct BasicAppSettingsView: View {
     private let legal = App.configuration.legal
     private let app = App.configuration.app
 
+    @FetchRequest(fetchRequest: AppSettings.fetchRequest().all())
+    var appSettings: FetchedResults<AppSettings>
+
+    var signingKeyAddress: String? {
+        return appSettings.first?.signingKeyAddress
+    }
+
     @State
     var addOwnerIsActive = false
 
     var body: some View {
         List {
-            ForEach(0..<1) { _ in
-                NavigationLink(destination: EnterSeedPhraseView(rootIsActive: self.$addOwnerIsActive),
-                               isActive: self.$addOwnerIsActive) {
-                    Text("Import owner wallet").body()
-                }
-                .isDetailLink(false)
-            }
-            .onDelete { _ in
-                // Do nothing for now
-            }
-
+//            if signingKeyAddress != nil {
+//                ForEach(0..<1) { _ in
+//                    VStack(alignment: .leading, spacing: 4) {
+//                        Text("Signing key").bold()
+//                        AddressView(self.signingKeyAddress!)
+//                    }
+//                    .padding()
+//                }
+//                .onDelete { _ in
+//                    do {
+//                        try App.shared.keychainService.removeData(forKey: KeychainKey.ownerPrivateKey.rawValue)
+//                        AppSettings.setSigningKeyAddress(nil)
+//                    } catch {
+//                        App.shared.snackbar.show(message: error.localizedDescription)
+//                    }
+//                }
+//            } else {
+//                NavigationLink(destination: EnterSeedPhraseView(rootIsActive: self.$addOwnerIsActive),
+//                               isActive: self.$addOwnerIsActive) {
+//                                Text("Import signing key").body()
+//                }
+//                .isDetailLink(false)
+//            }
 
             BrowserLink(title: "Terms of use", url: legal.termsURL)
 
