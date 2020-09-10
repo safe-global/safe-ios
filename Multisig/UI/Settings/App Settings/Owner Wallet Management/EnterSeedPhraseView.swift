@@ -8,11 +8,27 @@
 
 import SwiftUI
 
-struct EnterSeedPhrase: View {
-    @State var seed = ""
-    @State var isEditing = false
-    @State var isValid = true
-    @State var errorMessage = ""
+struct EnterSeedPhraseView: View {
+    @Binding
+    var rootIsActive: Bool
+
+    @State
+    var seed = ""
+
+    @State
+    var isEditing = false
+
+    @State
+    var isValid = true
+
+    @State
+    var errorMessage = ""
+
+    @State
+    var rootNode: HDNode?
+
+    @State
+    var goNext = false
 
     var body: some View {
         VStack(spacing: 24) {
@@ -23,6 +39,9 @@ struct EnterSeedPhrase: View {
                 .multilineTextAlignment(.center)
             EnterSeedView(seed: $seed, isEditing: $isEditing, isValid: $isValid, errorMessage: $errorMessage)
             Spacer()
+            NavigationLink(destination: SelectOwnerAddressView(rootNode: rootNode, rootIsActive: $rootIsActive),
+                           isActive: $goNext,
+                           label: { EmptyView() })
         }
         .padding()
         .navigationBarTitle("Import Wallet", displayMode: .inline)
@@ -35,7 +54,9 @@ struct EnterSeedPhrase: View {
     }
 
     // TODO: handle return button on the keyboard
+    #warning("FIXME: BIP39.seedFromMmemonics takes several seconds")
     func submit() {
+        UIResponder.resignCurrentFirstResponder()
         guard let seedData = BIP39.seedFromMmemonics(seed),
             let rootNode = HDNode(seed: seedData)?.derive(path: HDNode.defaultPathMetamaskPrefix,
                                                           derivePrivateKey: true) else {
@@ -43,15 +64,23 @@ struct EnterSeedPhrase: View {
             errorMessage = "Seed phrase is not valid"
             return
         }
-        // TODO: pass rootNode to the next screen
+        self.rootNode = rootNode
+        self.goNext = true
     }
 }
 
 struct EnterSeedView: View {
-    @Binding var seed: String
-    @Binding var isEditing: Bool
-    @Binding var isValid: Bool
-    @Binding var errorMessage: String
+    @Binding
+    var seed: String
+
+    @Binding
+    var isEditing: Bool
+
+    @Binding
+    var isValid: Bool
+
+    @Binding
+    var errorMessage: String
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -89,7 +118,7 @@ struct EnterSeedView: View {
 struct EnterSeedPhrase_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EnterSeedPhrase()
+            EnterSeedPhraseView(rootIsActive: .constant(true))
         }
     }
 }

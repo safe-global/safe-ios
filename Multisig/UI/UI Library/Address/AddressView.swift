@@ -16,6 +16,10 @@ struct AddressView: View {
         self.text = text
     }
 
+    init(_ address: Address) {
+        self.text = address.checksummed
+    }
+
     var body: some View {
         HStack {
             if !text.isEmpty {

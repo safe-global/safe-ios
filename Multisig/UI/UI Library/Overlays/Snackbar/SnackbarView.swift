@@ -17,9 +17,12 @@ enum SnackbarViewMetrics {
 
 struct SnackbarView<T: View>: View {
 
-    @Binding var isPresented: Bool
+    @Binding
+    var isPresented: Bool
+
     // this is to dynamically react to the bottom bar appearance
-    @Binding var bottomSpacing: CGFloat
+    @Binding
+    var bottomSpacing: CGFloat
 
     var content: T
 

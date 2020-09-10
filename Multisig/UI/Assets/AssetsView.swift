@@ -12,7 +12,8 @@ struct AssetsView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
 
-    @State var selection: Int? = 0
+    @State
+    var selection: Int? = 0
 
     var body: some View {
         ZStack {

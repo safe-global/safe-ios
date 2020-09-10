@@ -45,8 +45,11 @@ public struct TextView: View {
             }
         }
 
-        @Binding private var text: String
-        @Binding private var isEditing: Bool
+        @Binding
+        private var text: String
+
+        @Binding
+        private var isEditing: Bool
 
         private let textAlignment: TextAlignment
         private let textHorizontalPadding: CGFloat
@@ -170,8 +173,11 @@ public struct TextView: View {
 
     public static let defaultFont = UIFont.preferredFont(forTextStyle: .body)
 
-    @Binding private var text: String
-    @Binding private var isEditing: Bool
+    @Binding
+    private var text: String
+
+    @Binding
+    private var isEditing: Bool
 
     private let placeholder: String?
     private let textAlignment: TextAlignment

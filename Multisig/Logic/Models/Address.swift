@@ -8,9 +8,10 @@
 
 import Web3
 
-struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConvertible {
+struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConvertible, Identifiable {
 
     fileprivate var _store: EthereumAddress
+    private(set) var index = 0
 
     init(exactly data: Data) {
         _store = try! EthereumAddress(data)
@@ -43,6 +44,15 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         let data = Data(ethHex: String(value, radix: 16)).endTruncated(to: 20).leftPadded(to: 20)
         guard let v = try? EthereumAddress(hex: data.toHexStringWithPrefix(), eip55: false) else { return nil }
         _store = v
+    }
+
+    init(_ ethereumAddress: EthereumAddress, index: Int) {
+        _store = ethereumAddress
+        self.index = index
+    }
+
+    var id: String {
+        return checksummed
     }
 
     var checksummed: String {

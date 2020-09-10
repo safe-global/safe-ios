@@ -9,11 +9,17 @@
 import SwiftUI
 
 struct TermsView: View {
-    @Binding var acceptedTerms: Bool
-    @Binding var isAgreeWithTermsPresented: Bool
+    @Binding
+    var acceptedTerms: Bool
+    
+    @Binding
+    var isAgreeWithTermsPresented: Bool
 
-    @State private var showPrivacyPolicy = false
-    @State private var showTerms = false
+    @State
+    private var showPrivacyPolicy = false
+
+    @State
+    private var showTerms = false
 
     private let topPadding: CGFloat = Spacing.extraLarge
     private let bottomPadding: CGFloat = Spacing.large

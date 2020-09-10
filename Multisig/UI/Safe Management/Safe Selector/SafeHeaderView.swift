@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct SafeHeaderView: View {
-    @Binding var showsSafeInfo: Bool
+    @Binding
+    var showsSafeInfo: Bool
 
     var body: some View {
         ZStack(alignment: .bottom) {
