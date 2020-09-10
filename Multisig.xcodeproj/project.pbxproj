@@ -295,6 +295,7 @@
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
+		555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */; };
 		558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */; };
 		55A58534250140B1005E778B /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A58533250140B1005E778B /* PrivateKey.swift */; };
 		55A5853D2501479C005E778B /* BIP39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853C2501479C005E778B /* BIP39.swift */; };
@@ -311,6 +312,8 @@
 		55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */; };
 		55B66E8E24810BC800249E98 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8D24810BC800249E98 /* AppSettingsTests.swift */; };
 		55CA3EAB2508D3670080DF7F /* SelectOwnerAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */; };
+		55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EB8250A234F0080DF7F /* SecureStore.swift */; };
+		55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBA250A237C0080DF7F /* KeychainService.swift */; };
 		55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0824939079003B2B19 /* ConsoleTracker.swift */; };
 		55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */; };
 		55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0B24939079003B2B19 /* Tracker.swift */; };
@@ -733,6 +736,9 @@
 		55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemitransparentBackgroundView.swift; sourceTree = "<group>"; };
 		55B66E8D24810BC800249E98 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
 		55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOwnerAddressView.swift; sourceTree = "<group>"; };
+		55CA3EB8250A234F0080DF7F /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
+		55CA3EBA250A237C0080DF7F /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceIntegrationTests.swift; sourceTree = "<group>"; };
 		55CEFC0824939079003B2B19 /* ConsoleTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
 		55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		55CEFC0B24939079003B2B19 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
@@ -1385,6 +1391,7 @@
 				0A0983AC24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift */,
 				0A0983AE24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift */,
 				0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */,
+				55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */,
 			);
 			path = MultisigIntegrationTests;
 			sourceTree = "<group>";
@@ -1763,6 +1770,7 @@
 		5556A03324489F37003EC861 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				55CA3EB7250A23280080DF7F /* Secure Store */,
 				5556A03424489F37003EC861 /* CoreDataStack.swift */,
 				55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */,
 			);
@@ -1822,6 +1830,15 @@
 				0A791DA224D3129B00D70DA9 /* Snackbar */,
 			);
 			path = Overlays;
+			sourceTree = "<group>";
+		};
+		55CA3EB7250A23280080DF7F /* Secure Store */ = {
+			isa = PBXGroup;
+			children = (
+				55CA3EB8250A234F0080DF7F /* SecureStore.swift */,
+				55CA3EBA250A237C0080DF7F /* KeychainService.swift */,
+			);
+			path = "Secure Store";
 			sourceTree = "<group>";
 		};
 		55CEFC0724938FEC003B2B19 /* Analytics */ = {
@@ -2366,6 +2383,7 @@
 				0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */,
 				0A9BC3AC24617C2F00EB9C5D /* PopupView.swift in Sources */,
 				048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */,
+				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
 				0AA9F262249A188C005BD60F /* TransactionDetailsView.swift in Sources */,
 				047691572464023300D73D8B /* EditSafeNameView.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
@@ -2442,6 +2460,7 @@
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
 				046D0A77249A5F57000F4021 /* EnableDisableModuleTransactionDetailsHeaderView.swift in Sources */,
+				55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
 				0A704A6C247417B4005BDC49 /* SafeHeaderView.swift in Sources */,
 				0497F6E32488EB9500A1F4DE /* TransferTransactionCellView.swift in Sources */,
@@ -2559,6 +2578,7 @@
 				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,
 				0A0983AF24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift in Sources */,
 				0A0983B124BC67E6009EE296 /* TokenRegistryIntegrationTests.swift in Sources */,
+				555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */,
 				0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */,
 				0A9BC35E2460582D00EB9C5D /* SafeTransactionServiceIntegrationTests.swift in Sources */,
 				0A802B9024E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift in Sources */,

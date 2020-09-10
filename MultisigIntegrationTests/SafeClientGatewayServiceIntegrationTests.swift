@@ -94,13 +94,10 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         case .success(let tx):
             XCTFail("Unexpected transaction: \(tx)")
         case .failure(let error):
-            switch error {
-            case HTTPClient.Error.entityNotFound:
-                // good!
-                break
-            default:
+            guard error is HTTPClientError.EntityNotFound else {
                 XCTFail("Expected 'not found' error, got this: \(error)")
-            }
+                return
+            }            
         }
 
 
