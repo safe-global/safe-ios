@@ -27,7 +27,7 @@ class App {
 
     let keychainService = KeychainService(identifier: App.configuration.app.bundleIdentifier)
 
-    // Services    ∫
+    // Services
     let safeTransactionService = SafeTransactionService(
         url: configuration.services.transactionServiceURL,
         logger: LogService.shared)
