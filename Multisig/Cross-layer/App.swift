@@ -9,43 +9,44 @@
 import Foundation
 
 class App {
-
     static let shared = App()
 
     // UI layer
-    var viewState = ViewState()
-    var theme = Theme()
-    var snackbar = SnackbarCenter()
+    let viewState = ViewState()
+    let theme = Theme()
+    let snackbar = SnackbarCenter()
 
     // Business Logic Layer
 
-    var ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
-    var gnosisSafe = GnosisSafe()
+    let ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
+    let gnosisSafe = GnosisSafe()
 
     // Data Layer
 
-    // Services    
-    var safeTransactionService = SafeTransactionService(
+    let keychainService = KeychainService(identifier: App.configuration.app.bundleIdentifier)
+
+    // Services    ∫
+    let safeTransactionService = SafeTransactionService(
         url: configuration.services.transactionServiceURL,
         logger: LogService.shared)
 
-    var clientGatewayService = SafeClientGatewayService(
+    let clientGatewayService = SafeClientGatewayService(
         url: configuration.services.clientGatewayURL,
         logger: LogService.shared)
 
-    var nodeService = EthereumNodeService(
+    let nodeService = EthereumNodeService(
         url: configuration.services.ethereumServiceURL)
 
-    var coreDataStack: CoreDataProtocol = CoreDataStack()
+    let coreDataStack: CoreDataProtocol = CoreDataStack()
 
-    var tokenRegistry = TokenRegistry()
+    let tokenRegistry = TokenRegistry()
 
-    var notificationHandler = RemoteNotificationHandler()
+    let notificationHandler = RemoteNotificationHandler()
 
     // Cross-layer
     static let configuration = AppConfiguration()
 
-    var firebaseConfig = FirebaseConfig()
+    let firebaseConfig = FirebaseConfig()
 
     private init() {}
 }

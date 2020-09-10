@@ -296,6 +296,7 @@
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
 		555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */; };
+		555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555DA310250A4C7C00C3A0BE /* KeychainKey.swift */; };
 		558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */; };
 		55A58534250140B1005E778B /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A58533250140B1005E778B /* PrivateKey.swift */; };
 		55A5853D2501479C005E778B /* BIP39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853C2501479C005E778B /* BIP39.swift */; };
@@ -720,6 +721,7 @@
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
+		555DA310250A4C7C00C3A0BE /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
 		558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		55A58533250140B1005E778B /* PrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
 		55A5853C2501479C005E778B /* BIP39.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP39.swift; sourceTree = "<group>"; };
@@ -1837,6 +1839,7 @@
 			children = (
 				55CA3EB8250A234F0080DF7F /* SecureStore.swift */,
 				55CA3EBA250A237C0080DF7F /* KeychainService.swift */,
+				555DA310250A4C7C00C3A0BE /* KeychainKey.swift */,
 			);
 			path = "Secure Store";
 			sourceTree = "<group>";
@@ -2491,6 +2494,7 @@
 				0A0983A224BC5C82009EE296 /* BackendTokenStore.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
+				555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */,
 				0AA9F2022497BDA3005BD60F /* MethodRegistry.swift in Sources */,
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
