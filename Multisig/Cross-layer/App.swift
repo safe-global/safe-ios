@@ -23,6 +23,8 @@ class App {
 
     // Data Layer
 
+    var coreDataStack: CoreDataProtocol = CoreDataStack()
+
     let keychainService = KeychainService(identifier: App.configuration.app.bundleIdentifier)
 
     // Services    ∫
@@ -36,8 +38,6 @@ class App {
 
     let nodeService = EthereumNodeService(
         url: configuration.services.ethereumServiceURL)
-
-    let coreDataStack: CoreDataProtocol = CoreDataStack()
 
     let tokenRegistry = TokenRegistry()
 
