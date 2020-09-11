@@ -1,9 +1,17 @@
+---
+name: Release New Version
+about: Release a new version
+title: Release x.y.z
+labels: infrastructure
+assignees: ''
+---
+
 
 - [ ] Create a release task in GitHub using the “New Release” template.
 - [ ] Create and push the release branch
 ```
-git checkout main -b release/X.Y.Z
-git push -u origin release/X.Y.Z
+git checkout main -b release/x.y.z
+git push -u origin release/x.y.z
 ```
 - [ ] Marketing version is updated (x.y.z) 
 ```
