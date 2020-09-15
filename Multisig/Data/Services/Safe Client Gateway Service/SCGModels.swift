@@ -64,7 +64,7 @@ enum SCGTransactionStatus: String, Decodable {
 }
 
 struct ExecutionInfo: Decodable {
-    let nonce: UInt64
+    let nonce: UInt256String
     let confirmationsRequired: UInt64
     let confirmationsSubmitted: UInt64
 }
@@ -72,11 +72,11 @@ struct ExecutionInfo: Decodable {
 protocol TransactionInfo: Decodable {}
 
 enum TransactionInfoType: String, Decodable {
-    case transfer
-    case settingsChange
-    case custom
-    case creation
-    case unknown
+    case transfer = "Transfer"
+    case settingsChange = "SettingsChange"
+    case custom = "Custom"
+    case creation = "Creation"
+    case unknown = "Unknown"
 }
 
 enum TransactionInfoWrapper: Decodable {
@@ -125,6 +125,126 @@ enum TransactionInfoWrapper: Decodable {
 
 struct SettingsChangeTransactionInfo: TransactionInfo {
     let dataDecoded: DataDecoded
+    let settingsInfo: SettingsChangeTransactionSammaryInfo?
+}
+
+extension SettingsChangeTransactionInfo {
+    enum Key: String, CodingKey {
+        case dataDecoded, settingsInfo
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        dataDecoded = try container.decode(DataDecoded.self, forKey: .dataDecoded)
+        settingsInfo = try container.decode(SettingsChangeTransactionInfoWrapper.self, forKey: .settingsInfo).value
+    }
+}
+
+protocol SettingsChangeTransactionSammaryInfo: Decodable {}
+
+enum SettingsChangeTransactionInfoType: String, Decodable {
+    case setFallbackHandler = "SET_FALLBACK_HANDLER"
+    case addOwner = "ADD_OWNER"
+    case removeOwner = "REMOVE_OWNER"
+    case swapOwner = "SWAP_OWNER"
+    case changeThreshold = "CHANGE_THRESHOLD"
+    case changeImplementation = "CHANGE_IMPLEMENTATION"
+    case enableModule = "ENABLE_MODULE"
+    case disableModule = "DISABLE_MODULE"
+}
+
+enum SettingsChangeTransactionInfoWrapper: Decodable {
+    case setFallbackHandler(SetFallbackHandlerSettingsChangeTransactionSammaryInfo)
+    case addOwner(AddOwnerSettingsChangeTransactionSammaryInfo)
+    case removeOwner(RemoveOwnerSettingsChangeTransactionSammaryInfo)
+    case swapOwner(SwapOwnerSettingsChangeTransactionSammaryInfo)
+    case changeThreshold(ChangeThresholdSettingsChangeTransactionSammaryInfo)
+    case changeImplementation(ChangeImplementationSettingsChangeTransactionSammaryInfo)
+    case enableModule(EnableModuleSettingsChangeTransactionSammaryInfo)
+    case disableModule(DisableModuleSettingsChangeTransactionSammaryInfo)
+
+    var value: SettingsChangeTransactionSammaryInfo {
+        switch self {
+        case .setFallbackHandler(let value):
+            return value
+        case .addOwner(let value):
+            return value
+        case .removeOwner(let value):
+            return value
+        case .swapOwner(let value):
+            return value
+        case .changeThreshold(let value):
+            return value
+        case .changeImplementation(let value):
+            return value
+        case .enableModule(let value):
+            return value
+        case .disableModule(let value):
+            return value
+        }
+    }
+
+    enum Key: String, CodingKey {
+        case type
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        let type = try container.decode(SettingsChangeTransactionInfoType.self, forKey: .type)
+        switch type {
+        case .setFallbackHandler:
+            self = try .setFallbackHandler(SetFallbackHandlerSettingsChangeTransactionSammaryInfo(from: decoder))
+        case .addOwner:
+            self = try .addOwner(AddOwnerSettingsChangeTransactionSammaryInfo(from: decoder))
+        case .removeOwner:
+            self = try .removeOwner(RemoveOwnerSettingsChangeTransactionSammaryInfo(from: decoder))
+        case .swapOwner:
+            self = try .swapOwner(SwapOwnerSettingsChangeTransactionSammaryInfo(from: decoder))
+        case .changeThreshold:
+            self = try .changeThreshold(ChangeThresholdSettingsChangeTransactionSammaryInfo(from: decoder))
+        case .changeImplementation:
+            self = try .changeImplementation(ChangeImplementationSettingsChangeTransactionSammaryInfo(from: decoder))
+        case .enableModule:
+            self = try .enableModule(EnableModuleSettingsChangeTransactionSammaryInfo(from: decoder))
+        case .disableModule:
+            self = try .disableModule(DisableModuleSettingsChangeTransactionSammaryInfo(from: decoder))
+        }
+    }
+}
+
+struct SetFallbackHandlerSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+    let handler: AddressString
+}
+
+struct AddOwnerSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+    let owner: AddressString
+    let threshold: UInt64
+}
+
+struct RemoveOwnerSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+    let owner: AddressString
+    let threshold: UInt64
+}
+
+struct SwapOwnerSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+    let newOwner: AddressString
+    let oldOwner: AddressString
+}
+
+struct ChangeThresholdSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+    let threshold: UInt64
+}
+
+struct ChangeImplementationSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+    let implementation: AddressString
+}
+
+struct EnableModuleSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+    let module: AddressString
+}
+
+struct DisableModuleSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+    let module: AddressString
 }
 
 struct CustomTransactionInfo: TransactionInfo {
@@ -236,6 +356,15 @@ struct EtherTransferInfo: SCGTransferInfo {
 enum Operation: Int, Decodable {
     case call = 0
     case delegate = 1
+
+    var name: String {
+        switch self {
+        case .call:
+            return "call"
+        case .delegate:
+            return "delegateCall"
+        }
+    }
 }
 
 struct DataDecoded: Decodable {
@@ -277,6 +406,11 @@ extension DataDecodedParameterValue {
     var arrayValue: [DataDecodedParameterValue]? {
         self as? [DataDecodedParameterValue]
     }
+
+    var uint256Value: UInt256? {
+        guard let stringValue = stringValue else { return nil }
+        return UInt256(stringValue)
+    }
 }
 
 extension String: DataDecodedParameterValue {}
@@ -309,10 +443,10 @@ enum DataDecodedParameterValueWrapper: Decodable {
 // MARK: - Details
 
 struct TransactionDetails: Decodable {
-    let executedAt: Date
+    let executedAt: Date?
     let txStatus: SCGTransactionStatus
     let txInfo: TransactionInfo
-    let txData: TransactionDetailsData
+    let txData: TransactionDetailsData?
     let detailedExecutionInfo: DetailedExecutionInfo?
     let txHash: DataString?
 }

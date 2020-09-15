@@ -38,10 +38,9 @@ class TransactionsViewModel: BasicLoadableViewModel {
                 Future<TransactionsListViewModel, Error> { promise in
                     DispatchQueue.global().async {
                         do {
-                            self.safeInfo = try App.shared.safeTransactionService.safeInfo(at: address)
                             let transactions = try App.shared.clientGatewayService.transactionSummaryList(address: address)
                             self.nextURL = transactions.next
-                            let models = transactions.results.flatMap { TransactionSummaryViewModel.create(from: $0, self.safeInfo!) }
+                            let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
                             let list = TransactionsListViewModel(models)
                             promise(.success(list))
                         } catch {
@@ -74,12 +73,12 @@ class TransactionsViewModel: BasicLoadableViewModel {
             .compactMap { $0 }
             .setFailureType(to: Error.self)
             .flatMap { url in
-                Future<[TransactionSummaryViewModel], Error> { promise in
+                Future<[TransactionViewModel], Error> { promise in
                     DispatchQueue.global().async {
                         do {
                             let transactions = try App.shared.clientGatewayService.transactionSummaryList(pageUri: url)
                             self.nextURL = transactions.next
-                            let models = transactions.results.flatMap { TransactionSummaryViewModel.create(from: $0, self.safeInfo!) }
+                            let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
                             promise(.success(models))
                         } catch {
                             promise(.failure(error))
@@ -99,7 +98,7 @@ class TransactionsViewModel: BasicLoadableViewModel {
             .store(in: &subscribers)
     }
 
-    func isLast(transaction: TransactionSummaryViewModel) -> Bool {
+    func isLast(transaction: TransactionViewModel) -> Bool {
         transactionsList.lastTransaction == transaction
     }
 }

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TransactionCellView: View {
-    let transaction: TransactionSummaryViewModel
+    let transaction: TransactionViewModel
     var body: some View {
         VStack (alignment: .leading, spacing: 4) {
             contentView.opacity(opacity)
@@ -53,6 +53,7 @@ struct TransactionCellView: View {
         let settingChangeTransaction = transaction as? SettingChangeTransactionViewModel
         let changeImplementationTransaction = transaction as? ChangeImplementationTransactionViewModel
         let customTransaction = transaction as? CustomTransactionViewModel
+        let creationTransaction = transaction as? CreationTransactionViewModel
 
         return ZStack {
             if customTransaction != nil {
@@ -63,6 +64,8 @@ struct TransactionCellView: View {
                 SettingsChangeTransactionCellView(transaction: settingChangeTransaction!)
             } else if changeImplementationTransaction != nil {
                 ChangeImplementationCellView(transaction: changeImplementationTransaction!)
+            } else if creationTransaction != nil {
+                CreationTransactionCellView(transaction: creationTransaction!)
             } else {
                 EmptyView()
             }

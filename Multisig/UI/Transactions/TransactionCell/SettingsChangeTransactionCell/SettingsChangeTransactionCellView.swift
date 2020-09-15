@@ -15,17 +15,17 @@ struct SettingsChangeTransactionCellView: View {
     }
 
     var contentView: some View {
-        let setFallbackHandler = transaction.method as? MethodRegistry.GnosisSafeSettings.SetFallbackHandler
-        let enableModule = transaction.method as? MethodRegistry.GnosisSafeSettings.EnableModule
-        let disableModule = transaction.method as? MethodRegistry.GnosisSafeSettings.DisableModule
+        let setFallbackHandler = transaction.info as? SetFallbackHandlerSettingsChangeTransactionSammaryInfo
+        let enableModule = transaction.info as? EnableModuleSettingsChangeTransactionSammaryInfo
+        let disableModule = transaction.info as? DisableModuleSettingsChangeTransactionSammaryInfo
 
         return ZStack {
             if setFallbackHandler != nil {
-                SetFallbackHandlerTransactionCellView(address: setFallbackHandler!.handler)
+                SetFallbackHandlerTransactionCellView(address: setFallbackHandler!.handler.address)
             } else if enableModule != nil {
-                EnableDisableModuleTransactionCellView(state: .enable, address: enableModule!.module)
+                EnableDisableModuleTransactionCellView(state: .enable, address: enableModule!.module.address)
             } else if disableModule != nil {
-                EnableDisableModuleTransactionCellView(state: .disable, address: disableModule!.module)
+                EnableDisableModuleTransactionCellView(state: .disable, address: disableModule!.module.address)
             } else {
                 defaultContent
             }

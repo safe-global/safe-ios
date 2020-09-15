@@ -11,7 +11,7 @@ import SwiftUI
 struct AddRemoveOwnerTransactionDetailsHeaderView: View {
     let state: State
     var address: Address
-    var threshold: UInt256?
+    var threshold: UInt64?
 
     var body: some View {
         VStack (alignment: .leading, spacing: 11) {

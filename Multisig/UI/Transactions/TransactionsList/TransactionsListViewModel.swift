@@ -12,7 +12,7 @@ struct TransactionsListViewModel {
     struct Section: Identifiable {
         let id = UUID()
         var name: String
-        var transactions: [TransactionSummaryViewModel]
+        var transactions: [TransactionViewModel]
 
         var isEmpty: Bool {
             transactions.isEmpty
@@ -29,9 +29,9 @@ struct TransactionsListViewModel {
         sections.allSatisfy { $0.isEmpty }
     }
 
-    init(_ models: [TransactionSummaryViewModel] = []) {
-        var queued = [TransactionSummaryViewModel]()
-        var history = [TransactionSummaryViewModel]()
+    init(_ models: [TransactionViewModel] = []) {
+        var queued = [TransactionViewModel]()
+        var history = [TransactionViewModel]()
 
         for model in models {
            if model.status.isInQueue {
@@ -47,7 +47,7 @@ struct TransactionsListViewModel {
         ]
     }
 
-    mutating func add(_ models: [TransactionSummaryViewModel] = []) {
+    mutating func add(_ models: [TransactionViewModel] = []) {
        for model in models {
            if model.status.isInQueue {
                allSections[0].transactions.append(model)
@@ -57,7 +57,7 @@ struct TransactionsListViewModel {
        }
     }
 
-    var lastTransaction: TransactionSummaryViewModel? {
+    var lastTransaction: TransactionViewModel? {
         sections.last?.transactions.last
     }
 }

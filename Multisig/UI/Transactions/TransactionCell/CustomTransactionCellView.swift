@@ -13,16 +13,16 @@ struct CustomTransactionCellView: View {
     var body: some View {
         HStack {
             Image("ico-custom-tx")
-            AddressCell(address: transaction.address, style: .shortAddressNoShare)
+            AddressCell(address: transaction.to, style: .shortAddressNoShare)
 
             Spacer()
 
             VStack {
-                Text("\(transaction.amount) \(transaction.tokenSymbol)")
+                Text(transaction.amount + " \(transaction.tokenSymbol)")
                     .body()
 
                 if transaction.dataLength != 0 {
-                    Text("\(transaction.dataLength) bytes")
+                    Text("\(String(transaction.dataLength)) bytes")
                         .footnote()
                 }
             }
@@ -33,14 +33,13 @@ struct CustomTransactionCellView: View {
 struct CustomTransactionCellView_Previews: PreviewProvider {
     static var previews: some View {
         let transaction = CustomTransactionViewModel()
-        transaction.address = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
+        transaction.to = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.confirmationCount = 1
         transaction.threshold = 2
         transaction.formattedDate = "Apr 25, 2020 — 1:01:42PM"
         transaction.nonce = "2"
         transaction.amount = "5"
         transaction.tokenSymbol = " ETH"
-        transaction.isOutgoing = true
         transaction.dataLength = 40
         transaction.status = .success
         return CustomTransactionCellView(transaction: transaction)

@@ -14,7 +14,7 @@ struct TransactionSummaryListRequest: JSONRequest {
     var urlPath: String {
         "/v1/safes/\(safeAddress)/transactions"
     }
-    typealias ResponseType = Page<TransactionSummary>
+    typealias ResponseType =  Page<TransactionSummary>
 }
 
 extension TransactionSummaryListRequest {

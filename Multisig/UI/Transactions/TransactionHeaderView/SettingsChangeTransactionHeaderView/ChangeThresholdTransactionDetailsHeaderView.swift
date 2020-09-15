@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ChangeThresholdTransactionDetailsHeaderView: View {
-    var threshold: UInt256
+    var threshold: UInt64
     var body: some View {
         KeyValueRow("Change required confirmations:", value: "\(threshold)", enableCopy: false, color: Color.gnoDarkGrey)
     }

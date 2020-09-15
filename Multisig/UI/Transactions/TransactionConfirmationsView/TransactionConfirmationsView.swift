@@ -39,7 +39,7 @@ struct TransactionConfirmationsView: View {
                 TransactionConfiramtionStatusView(style: style!)
             }
 
-            if transaction.status == .waitingConfirmation {
+            if transaction.status == .awaitingConfirmations {
                 if !transaction.hasConfirmations {
                     VerticalBarView()
                 }
@@ -55,9 +55,9 @@ struct TransactionConfirmationsView: View {
             return .cancelled
         } else if transaction.status == .failed {
             return .failed
-        } else if status == .waitingConfirmation {
+        } else if status == .awaitingConfirmations {
             return transaction.hasConfirmations ? nil : .confirm
-        } else if status == .waitingExecution {
+        } else if status == .awaitingExecution {
             return .execute
         }
 

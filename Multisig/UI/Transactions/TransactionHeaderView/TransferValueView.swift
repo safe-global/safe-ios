@@ -9,29 +9,33 @@
 import SwiftUI
 
 struct TransferValueView: View {
-    let transaction: TransferTransactionViewModel
+    let transaction: TransferAmmountViewModel
 
     private let dimension: CGFloat = 36
 
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            if transaction.tokenSymbol == App.shared.tokenRegistry.token(address: .ether)?.symbol {
-                TokenImage.ether.frame(width: dimension, height: dimension)
-            } else if logoURL != nil  {
-                TokenImage(url: logoURL).frame(width: dimension, height: dimension)
-            } else {
-                TokenImage.placeholder.frame(width: dimension, height: dimension)
-            }
+            tokenImage.frame(width: dimension, height: dimension)
 
             VStack (alignment: .leading) {
                 Text("\(transaction.amount) \(transaction.tokenSymbol)")
                     .body(amountColor)
                 if dataLength != 0 {
-                    Text("\(dataLength) bytes")
+                    Text("\(String(dataLength)) bytes")
                         .footnote()
                 }
-            }.opacity(opactiy)
+            }
         }
+    }
+
+    var tokenImage: some View {
+        if transaction.tokenSymbol == App.shared.tokenRegistry.token(address: .ether)?.symbol {
+            return TokenImage.ether
+        } else if logoURL != nil  {
+            return TokenImage(url: logoURL)
+        }
+
+        return TokenImage.placeholder
     }
 
     var logoURL: URL? {
@@ -42,11 +46,7 @@ struct TransferValueView: View {
         return transaction.isOutgoing ? .gnoDarkBlue : .gnoHold
     }
 
-    var opactiy: Double {
-        [.cancelled, .failed].contains(transaction.status) ? 0.5 : 1
-    }
-
-    var dataLength: Int {
+    var dataLength: UInt256 {
         return (transaction as? CustomTransactionViewModel)?.dataLength ?? 0
     }
 }
