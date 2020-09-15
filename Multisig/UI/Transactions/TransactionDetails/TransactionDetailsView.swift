@@ -39,7 +39,7 @@ struct TransactionDetailsView: Loadable {
                 transactionDetailsBodyView
             }
             
-            if transactionDetails.hash != nil {
+            if transactionDetails.browserURL != nil {
                 Button(action: { self.showsLink.toggle() }) {
                     LinkText(title: "View transaction on Etherscan")
                 }
@@ -93,7 +93,7 @@ struct TransactionDetailsView: Loadable {
     }
 
     func browseTransaction() -> some View {
-        return SafariViewController(url: Transaction.browserURL(hash: transactionDetails.hash!))
+        SafariViewController(url: transactionDetails.browserURL!)
     }
 
     var data: (length: UInt256, data: String)? {

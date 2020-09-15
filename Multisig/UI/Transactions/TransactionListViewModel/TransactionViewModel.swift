@@ -30,6 +30,12 @@ class TransactionViewModel: Identifiable, Equatable {
         confirmationCount ?? 0 > 0
     }
 
+    var browserURL: URL? {
+        guard let hash = hash else { return nil }
+        return App.configuration.services.etehreumBlockBrowserURL
+            .appendingPathComponent("tx").appendingPathComponent(hash)
+    }
+
     static let dateFormatter: DateFormatter = {
         let d = DateFormatter()
         d.locale = .autoupdatingCurrent
