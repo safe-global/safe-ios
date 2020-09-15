@@ -9,10 +9,6 @@
 import SwiftUI
 
 struct EnterSafeAddressView: View {
-
-    @Environment(\.presentationMode)
-    var presentationMode: Binding<PresentationMode>
-
     @ObservedObject
     var model: EnterSafeAddressViewModel = EnterSafeAddressViewModel()
 
@@ -50,7 +46,6 @@ struct EnterSafeAddressView: View {
                 // What we need is to dismiss the whole navigation view,
                 // this is controlled by the current view's
                 // presentationMode.
-                App.shared.viewState.switchTab(.balances)
                 self.onSubmit()
             }
         )

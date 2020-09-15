@@ -1,0 +1,6 @@
+Files in the web3swift folder are taken from https://github.com/matter-labs/web3swift project (Apache License 2.0). Some of them are slightly modified.
+
+The decision was not to include this project as a pod because:
+1. The pod required usage of frameworks
+2. There are dependencies that we do not need (PromiseKit, Starscream)
+3. We needed it only for the mnemonic to private key logic, but for the other Ethereum-related operations we already use Web3 dependency

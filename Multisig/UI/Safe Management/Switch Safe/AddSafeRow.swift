@@ -13,7 +13,8 @@ struct AddSafeRow: View {
     @Environment(\.presentationMode)
     var presentationMode: Binding<PresentationMode>
 
-    @State var showsAddSafe = false
+    @State
+    var showsAddSafe = false
 
     var body: some View {
         Button(action: { self.showsAddSafe.toggle() }) {

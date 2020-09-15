@@ -11,9 +11,9 @@ import XCTest
 
 class SafeTests: CoreDataTestCase {
     func test_removeSafe() throws {
-        Safe.create(address: "0", name: "0", selected: false)
-        Safe.create(address: "1", name: "1")
-        Safe.create(address: "2", name: "2", selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1")
+        Safe.create(address: "0x0000000000000000000000000000000000000002", name: "2", selected: false)
 
         var result = try context.fetch(Safe.fetchRequest().all())
         XCTAssertEqual(result.count, 3)

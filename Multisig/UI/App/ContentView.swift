@@ -9,16 +9,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext)
-    var context: CoreDataContext
-
-    @State var acceptedTerms = AppSettings.hasAcceptedTerms()
+    @State
+    var acceptedTerms = AppSettings.hasAcceptedTerms()
 
     var body: some View {
         ZStack {
             if acceptedTerms {
-                MainView()
-                    .environment(\.managedObjectContext, context)
+                MainTabView()
                     .transition(AnyTransition.opacity.animation(.easeInOut))
             } else {
                 LaunchView(acceptedTerms: $acceptedTerms)

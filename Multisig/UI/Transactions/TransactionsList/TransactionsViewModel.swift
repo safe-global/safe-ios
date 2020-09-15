@@ -33,21 +33,15 @@ class TransactionsViewModel: BasicLoadableViewModel {
     override func reload() {
         Just(safe.address!)
             .compactMap { Address($0) }
-            .setFailureType(to: Error.self)
-            .flatMap { address in
-                Future<TransactionsListViewModel, Error> { promise in
-                    DispatchQueue.global().async {
-                        do {
-                            let transactions = try App.shared.clientGatewayService.transactionSummaryList(address: address)
-                            self.nextURL = transactions.next
-                            let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
-                            let list = TransactionsListViewModel(models)
-                            promise(.success(list))
-                        } catch {
-                            promise(.failure(error))
-                        }
-                    }
+            .receive(on: DispatchQueue.global())
+            .tryMap { [weak self] address -> TransactionsListViewModel in
+                let transactions = try App.shared.clientGatewayService.transactionSummaryList(address: address)
+                let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
+                if let `self` = self {
+                    self.nextURL = transactions.next
                 }
+                let list = TransactionsListViewModel(models)
+                return list
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
@@ -71,20 +65,14 @@ class TransactionsViewModel: BasicLoadableViewModel {
         isLoadingNextPage = true
         Just(nextURL)
             .compactMap { $0 }
-            .setFailureType(to: Error.self)
-            .flatMap { url in
-                Future<[TransactionViewModel], Error> { promise in
-                    DispatchQueue.global().async {
-                        do {
-                            let transactions = try App.shared.clientGatewayService.transactionSummaryList(pageUri: url)
-                            self.nextURL = transactions.next
-                            let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
-                            promise(.success(models))
-                        } catch {
-                            promise(.failure(error))
-                        }
-                    }
+            .receive(on: DispatchQueue.global())
+            .tryMap { [weak self] url -> [TransactionViewModel] in
+                let transactions = try App.shared.clientGatewayService.transactionSummaryList(pageUri: url)
+                let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
+                if let `self` = self {
+                    self.nextURL = transactions.next
                 }
+                return models
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in

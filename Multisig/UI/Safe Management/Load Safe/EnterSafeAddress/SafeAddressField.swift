@@ -53,6 +53,22 @@ struct SafeAddressField: View {
     @State
     private var showsSelector: Bool = false
 
+    enum InputType {
+        case clipboard
+        case qr
+        case ens
+    }
+
+    @State
+    private var selection: InputType? {
+        didSet {
+            showsQR = selection == .qr
+        }
+    }
+
+    @State
+    private var showsQR = false
+
     var body: some View {
         VStack(spacing: 15) {
             VStack(alignment: .leading) {
@@ -85,7 +101,14 @@ struct SafeAddressField: View {
 
                 rightView
 
-                AddressInputSelector(isPresented: $showsSelector, text: enteredText)
+                NavigationLink(
+                    destination: EnterENSNameView(onConfirm: setText(_:)),
+                    tag: InputType.ens,
+                    selection: $selection,
+                    label: { EmptyView() }
+                )
+                    // otherwise the "pop to root" stops working
+                    .isDetailLink(false)
             }
         }
         .font(.gnoBody)
@@ -93,6 +116,15 @@ struct SafeAddressField: View {
         .frame(height: isEmpty ? 56 : 74)
         .background(borderView)
         .foregroundColor(.gnoMediumGrey)
+        .actionSheet(isPresented: $showsSelector, content: selector)
+        .sheet(isPresented: $showsQR) {
+            QRCodeScanner(handler: self.setText(_:))
+                .edgesIgnoringSafeArea(.all)
+        }
+    }
+
+    func setText(_ value: String) {
+        enteredText.wrappedValue = value
     }
 
     var contentView: some View {
@@ -130,6 +162,24 @@ struct SafeAddressField: View {
         }
     }
 
+    func selector() -> ActionSheet {
+        ActionSheet(
+            title: Text("Select how to enter address"),
+            message: nil,
+            buttons: [
+                .default(Text("Paste From Clipboard")) {
+                    self.selection = .clipboard
+                    self.setText(Pasteboard.string ?? "")
+                },
+                .default(Text("Scan QR Code")) {
+                    self.selection = .qr
+                },
+                .default(Text("Enter ENS Name")) {
+                    self.selection = .ens
+                },
+                .cancel()
+        ])
+    }
 }
 
 struct SafeAddressInput_Previews: PreviewProvider {

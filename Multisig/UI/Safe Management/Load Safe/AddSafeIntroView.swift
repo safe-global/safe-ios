@@ -9,8 +9,11 @@
 import SwiftUI
 
 struct AddSafeIntroView: View {
-    @Environment(\.managedObjectContext) var context: CoreDataContext
-    @State private var showsLoadSafe = false
+    @Environment(\.managedObjectContext)
+    var context: CoreDataContext
+
+    @State
+    private var showsLoadSafe = false
 
     let paddingEdge: Edge.Set
     let paddingLength: CGFloat
@@ -47,14 +50,11 @@ struct AddSafeIntroView: View {
     }
 
     var loadSafeButton: some View {
-        NavigationLink(destination: EnterSafeAddressView {
-            self.showsLoadSafe.toggle()
-        }, isActive: $showsLoadSafe) {
+        NavigationLink(destination: EnterSafeAddressView(), isActive: $showsLoadSafe) {
             Text("Load Safe Multisig")
         }
         .buttonStyle(GNOFilledButtonStyle())
     }
-
 }
 
 struct AddSafeIntro_Previews: PreviewProvider {

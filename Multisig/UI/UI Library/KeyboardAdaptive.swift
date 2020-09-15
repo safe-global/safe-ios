@@ -15,8 +15,12 @@ import UIKit
 struct KeyboardAdaptive: ViewModifier {
 
     let responderPadding: CGFloat
-    @State private var bottomPadding: CGFloat = 0
-    @State private var offsetY: CGFloat = 0
+
+    @State
+    private var bottomPadding: CGFloat = 0
+
+    @State
+    private var offsetY: CGFloat = 0
 
     func body(content: Content) -> some View {
         ScrollView {

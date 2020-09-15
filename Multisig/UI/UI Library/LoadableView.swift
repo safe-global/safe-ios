@@ -24,14 +24,16 @@ protocol Loadable: View {
 }
 
 struct LoadableView<Content: Loadable>: View {
+    var reloadsOnAppOpen = true
     private let content: Content
 
     @ObservedObject
     private var model: Content.LoadableModel
 
-    init(_ content: Content) {
+    init(_ content: Content, reloadsOnAppOpen: Bool = true) {
         self.content = content
         self.model = content.model
+        self.reloadsOnAppOpen = reloadsOnAppOpen
     }
 
     var body: some View {
@@ -65,7 +67,9 @@ struct LoadableView<Content: Loadable>: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            self.model.reloadData()
+            if self.reloadsOnAppOpen {
+                self.model.reloadData()
+            }
         }
     }
 

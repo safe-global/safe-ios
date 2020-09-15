@@ -104,6 +104,10 @@ class TransactionViewModel: Identifiable, Equatable {
     class func viewModels(from tx: TransactionDetails) -> [TransactionViewModel] {
         []
     }
+
+    var hasAdvancedDetails: Bool {
+        nonce != nil || operation != nil || hash != nil
+    }
 }
 
 protocol TransferAmmountViewModel {
