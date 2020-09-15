@@ -45,23 +45,14 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
         if let hash = hash {
             Just(hash)
                 .compactMap { $0 }
-                .setFailureType(to: Error.self)
-                .flatMap { hash in
-                    Future<TransactionViewModel, Error> { promise in
-                        DispatchQueue.global().async {
-                            do {
-                                let transaction = try App.shared.clientGatewayService.transactionDetails(safeTxHash: hash)
-                                let viewModels = TransactionViewModel.create(from: transaction)
-                                guard viewModels.count == 1, let viewModel = viewModels.first else {
-                                    promise(.failure(Failure.unsupportedTransaction))
-                                    return
-                                }
-                                promise(.success(viewModel))
-                            } catch {
-                                promise(.failure(error))
-                            }
-                        }
+                .receive(on: DispatchQueue.global())
+                .tryMap { hash -> TransactionViewModel in
+                    let transaction = try App.shared.clientGatewayService.transactionDetails(safeTxHash: hash)
+                    let viewModels = TransactionViewModel.create(from: transaction)
+                    guard viewModels.count == 1, let viewModel = viewModels.first else {
+                        throw Failure.unsupportedTransaction
                     }
+                    return viewModel
                 }
                 .receive(on: RunLoop.main)
                 .sink(receiveCompletion: { [weak self] completion in
@@ -80,23 +71,14 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
                 .store(in: &subscribers)
         } else if let id = id {
             Just(id)
-            .setFailureType(to: Error.self)
-            .flatMap { id in
-                Future<TransactionViewModel, Error> { promise in
-                    DispatchQueue.global().async {
-                        do {
-                            let transaction = try App.shared.clientGatewayService.transactionDetails(id: id)
-                            let viewModels = TransactionViewModel.create(from: transaction)
-                            guard viewModels.count == 1, let viewModel = viewModels.first else {
-                                promise(.failure(Failure.unsupportedTransaction))
-                                return
-                            }
-                            promise(.success(viewModel))
-                        } catch {
-                            promise(.failure(error))
-                        }
-                    }
+            .receive(on: DispatchQueue.global())
+            .tryMap { id -> TransactionViewModel in
+                let transaction = try App.shared.clientGatewayService.transactionDetails(id: id)
+                let viewModels = TransactionViewModel.create(from: transaction)
+                guard viewModels.count == 1, let viewModel = viewModels.first else {
+                    throw Failure.unsupportedTransaction
                 }
+                return viewModel
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
