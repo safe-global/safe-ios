@@ -26,13 +26,6 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
         }
     }
 
-    init(hash: String) {
-        self.transaction = nil
-        self.hash = Data(hex: hash)
-        super.init()
-        reloadData()
-    }
-
     enum Failure: LocalizedError {
         case safeInfoMissing, unsupportedTransaction
 

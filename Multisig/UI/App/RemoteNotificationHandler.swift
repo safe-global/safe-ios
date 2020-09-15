@@ -82,11 +82,7 @@ class RemoteNotificationHandler {
     func received(notification userInfo: [AnyHashable: Any]) {
         assert(Thread.isMainThread)
         logDebug("Received notification: \(userInfo)")
-        // delaying because otherwise the  views are switch too fast
-        // and app is crashing
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) { [weak self] in
-            self?.showDetails(userInfo)
-        }
+        self.showDetails(userInfo)
     }
 
     // MARK: - implementation
@@ -217,13 +213,6 @@ class RemoteNotificationHandler {
 
             Safe.select(address: rawAddress)
             App.shared.viewState.switchTab(.transactions)
-
-            if payload.type == "EXECUTED_MULTISIG_TRANSACTION" || payload.type == "NEW_CONFIRMATION",
-                let hash = payload.safeTxHash {
-                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-                    App.shared.viewState.presentedSafeTxHash = hash
-                }
-            }
         } catch {
             logError("Error during opening notification", error)
         }
