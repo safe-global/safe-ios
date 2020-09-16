@@ -117,13 +117,8 @@
 		0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */; };
 		0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106286248A885D00C1EE54 /* ERC20Metadata.swift */; };
 		0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106288248A892B00C1EE54 /* ERC721Metadata.swift */; };
-		0A19D431249A4C5100A316B6 /* MethodSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D430249A4C5100A316B6 /* MethodSignatureTests.swift */; };
-		0A19D433249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D432249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift */; };
-		0A19D435249A557E00A316B6 /* MethodRegistryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D434249A557E00A316B6 /* MethodRegistryTestCase.swift */; };
 		0A19D439249A5B1500A316B6 /* addOwnerWithThreshold_tx.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D438249A5B1500A316B6 /* addOwnerWithThreshold_tx.json */; };
 		0A19D43B249A5BA500A316B6 /* addOwnerWithThreshold_safe.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D43A249A5BA500A316B6 /* addOwnerWithThreshold_safe.json */; };
-		0A19D43E249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D43D249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift */; };
-		0A19D440249A719700A316B6 /* MethodRegistry+GnosisSafeImplementationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19D43F249A719700A316B6 /* MethodRegistry+GnosisSafeImplementationTests.swift */; };
 		0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */; };
 		0A29ECAA24C1EBFD00CE28FD /* Address+LocalizedStringKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29ECA924C1EBFD00CE28FD /* Address+LocalizedStringKey.swift */; };
 		0A339C5D24C1D16E00DAD84B /* Image+Blockies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */; };
@@ -471,13 +466,8 @@
 		0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyButton.swift; sourceTree = "<group>"; };
 		0A106286248A885D00C1EE54 /* ERC20Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ERC20Metadata.swift; sourceTree = "<group>"; };
 		0A106288248A892B00C1EE54 /* ERC721Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC721Metadata.swift; sourceTree = "<group>"; };
-		0A19D430249A4C5100A316B6 /* MethodSignatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSignatureTests.swift; sourceTree = "<group>"; };
-		0A19D432249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MethodRegistry+ERC20Tests.swift"; sourceTree = "<group>"; };
-		0A19D434249A557E00A316B6 /* MethodRegistryTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodRegistryTestCase.swift; sourceTree = "<group>"; };
 		0A19D438249A5B1500A316B6 /* addOwnerWithThreshold_tx.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = addOwnerWithThreshold_tx.json; sourceTree = "<group>"; };
 		0A19D43A249A5BA500A316B6 /* addOwnerWithThreshold_safe.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = addOwnerWithThreshold_safe.json; sourceTree = "<group>"; };
-		0A19D43D249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MethodRegistry+ERC721Tests.swift"; sourceTree = "<group>"; };
-		0A19D43F249A719700A316B6 /* MethodRegistry+GnosisSafeImplementationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MethodRegistry+GnosisSafeImplementationTests.swift"; sourceTree = "<group>"; };
 		0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
 		0A257D5C6A06DFC04313FC55 /* Pods-NotificationServiceExtension.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		0A29ECA924C1EBFD00CE28FD /* Address+LocalizedStringKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address+LocalizedStringKey.swift"; sourceTree = "<group>"; };
@@ -1648,11 +1638,6 @@
 				0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */,
 				55B66E8D24810BC800249E98 /* AppSettingsTests.swift */,
 				0A19D43C249A5BF100A316B6 /* Transaction */,
-				0A19D434249A557E00A316B6 /* MethodRegistryTestCase.swift */,
-				0A19D430249A4C5100A316B6 /* MethodSignatureTests.swift */,
-				0A19D432249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift */,
-				0A19D43F249A719700A316B6 /* MethodRegistry+GnosisSafeImplementationTests.swift */,
-				0A19D43D249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift */,
 				0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */,
 				0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */,
 			);
@@ -2491,7 +2476,6 @@
 				0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */,
 				0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */,
 				555312F2250673AD0008206B /* BIP39Tests.swift in Sources */,
-				0A19D43E249A66C400A316B6 /* MethodRegistry+ERC721Tests.swift in Sources */,
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
 				55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */,
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
@@ -2502,14 +2486,10 @@
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
 				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
-				0A19D433249A4E0500A316B6 /* MethodRegistry+ERC20Tests.swift in Sources */,
 				5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */,
 				0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */,
 				047300FE24781081004F1200 /* AddressTests.swift in Sources */,
-				0A19D440249A719700A316B6 /* MethodRegistry+GnosisSafeImplementationTests.swift in Sources */,
 				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
-				0A19D435249A557E00A316B6 /* MethodRegistryTestCase.swift in Sources */,
-				0A19D431249A4C5100A316B6 /* MethodSignatureTests.swift in Sources */,
 				0A0983A924BC6222009EE296 /* InMemoryTokenStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
