@@ -12,18 +12,26 @@ struct TransactionDetailsView: View {
     @FetchRequest(fetchRequest: AppSettings.fetchRequest().all())
     private var appSettings: FetchedResults<AppSettings>
 
+    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
+    private var selected: FetchedResults<Safe>
+
+    private var safeOwners: [Address] {
+        selected.first!.owners ?? []
+    }
+
     let transaction: TransactionViewModel
 
     private var signingKeyAddress: String? {
         return appSettings.first?.signingKeyAddress
     }
 
-    #warning("TODO: store safe owners on app launch and check if the tx can be signed")
     var body: some View {
         ZStack {
             LoadableView(TransactionDetailsBodyView(transaction: transaction), reloadsOnAppOpen: false)
 
-            if transaction.status == .waitingConfirmation && signingKeyAddress != nil { // TODO: check agains safe owners
+            if transaction.status == .waitingConfirmation &&
+                signingKeyAddress != nil &&
+                safeOwners.contains(Address(exactly: signingKeyAddress!)) {
                 confirmButtonView
             }
         }
