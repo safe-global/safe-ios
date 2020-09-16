@@ -29,20 +29,7 @@ struct TransactionsView: View {
                     self.trackEvent(.transactionsNoSafe)
                 }
             } else {
-                LoadableView(TransactionListView(safe: selectedSafe.first!))
-
-                if viewState.presentedSafeTxHash != nil {
-                    NavigationLink(
-                        destination: LoadableView(
-                            TransactionDetailsView(
-                                hash: viewState.presentedSafeTxHash!
-                        )).onDisappear {
-                            self.viewState.presentedSafeTxHash = nil
-                        },
-                        isActive: $pushesTransactionDetails) {
-                            EmptyView()
-                    }
-                }
+                LoadableView(TransactionListView(safe: selectedSafe.first!))                
             }
         }
         .onReceive(viewState.$presentedSafeTxHash) { value in

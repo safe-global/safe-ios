@@ -8,14 +8,59 @@
 
 import SwiftUI
 
-struct TransactionDetailsView: Loadable {
+struct TransactionDetailsView: View {
+    @FetchRequest(fetchRequest: AppSettings.fetchRequest().all())
+    private var appSettings: FetchedResults<AppSettings>
+
+    let transaction: TransactionViewModel
+
+    private var signingKeyAddress: String? {
+        return appSettings.first?.signingKeyAddress
+    }
+
+    #warning("TODO: store safe owners on app launch and check if the tx can be signed")
+    var body: some View {
+        ZStack {
+            LoadableView(TransactionDetailsBodyView(transaction: transaction), reloadsOnAppOpen: false)
+
+            if transaction.status == .waitingConfirmation && signingKeyAddress != nil { // TODO: check agains safe owners
+                confirmButtonView
+            }
+        }
+        .navigationBarTitle("Transaction Details", displayMode: .inline)
+        .background(Color.gnoWhite)
+        .onAppear {
+            self.trackEvent(.transactionsDetails)
+        }
+    }
+
+    private var confirmButtonView: some View {
+        VStack {
+            Spacer()
+
+            Button(action: {
+                self.confirmTransaction()
+            }) {
+                Text("Confirm")
+            }
+            .buttonStyle(GNOFilledButtonStyle())
+            .padding()
+        }
+    }
+
+    private func confirmTransaction() {
+        print("Confirm")
+    }
+}
+
+fileprivate struct TransactionDetailsBodyView: Loadable {
     @ObservedObject
     var model: TransactionDetailsViewModel
-    
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    var selectedSafe: FetchedResults<Safe>
 
-    var transaction: TransactionViewModel {
+    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
+    private var selectedSafe: FetchedResults<Safe>
+
+    private var transaction: TransactionViewModel {
         model.transaction!
     }
 
@@ -34,28 +79,18 @@ struct TransactionDetailsView: Loadable {
     var body: some View {
         List {
             if transaction as? CreationTransactionViewModel == nil {
-                transactionDetailsBodyView
+                detailsBodyView
             } else {
                 CreationTransactionBodyView(transaction: transaction as! CreationTransactionViewModel)
             }
-            
+
             if transaction.hash != nil {
-                Button(action: { self.showsLink.toggle() }) {
-                    LinkText(title: "View transaction on Etherscan")
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .foregroundColor(.gnoHold)
-                .sheet(isPresented: $showsLink, content: browseTransaction)
-                .padding(.vertical, padding)
+                viewTxOnEtherscan
             }
-        }
-        .navigationBarTitle("Transaction Details", displayMode: .inline)
-        .onAppear {
-            self.trackEvent(.transactionsDetails)
         }
     }
 
-    var transactionDetailsBodyView: some View {
+    private var detailsBodyView: some View {
         Group {
             TransactionHeaderView(transaction: transaction)
 
@@ -67,7 +102,7 @@ struct TransactionDetailsView: Loadable {
                 VStack (alignment: .leading) {
                     Text("Data").headline()
                     ExpandableButton(title: "\(data!.length) Bytes", value: data!.data)
-                }.padding(.vertical, 11)
+                }.padding(.vertical, padding)
             }
 
             TransactionStatusTypeView(transaction: transaction)
@@ -92,11 +127,21 @@ struct TransactionDetailsView: Loadable {
         }
     }
 
-    func browseTransaction() -> some View {
+    private var viewTxOnEtherscan: some View {
+        Button(action: { self.showsLink.toggle() }) {
+            LinkText(title: "View transaction on Etherscan")
+        }
+        .buttonStyle(BorderlessButtonStyle())
+        .foregroundColor(.gnoHold)
+        .sheet(isPresented: $showsLink, content: browseTransaction)
+        .padding(.vertical, padding)
+    }
+
+    private func browseTransaction() -> some View {
         return SafariViewController(url: Transaction.browserURL(hash: transaction.hash!))
     }
 
-    var data: (length: Int, data: String)? {
+    private var data: (length: Int, data: String)? {
         guard let customTransaction = transaction as? CustomTransactionViewModel else {
             return nil
         }
@@ -104,7 +149,7 @@ struct TransactionDetailsView: Loadable {
         return (length: customTransaction.dataLength, data: customTransaction.data)
     }
 
-    var dataDecoded: TransactionData? {
+    private var dataDecoded: TransactionData? {
         guard let customTransaction = transaction as? CustomTransactionViewModel else {
             return nil
         }
@@ -112,7 +157,7 @@ struct TransactionDetailsView: Loadable {
         return customTransaction.dataDecoded
     }
 
-    var displayConfirmations: Bool {
+    private var displayConfirmations: Bool {
         guard let transferTransaction = transaction as? TransferTransactionViewModel else {
             return true
         }
