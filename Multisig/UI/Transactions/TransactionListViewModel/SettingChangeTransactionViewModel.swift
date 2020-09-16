@@ -10,7 +10,7 @@ import UIKit
 
 class SettingChangeTransactionViewModel: TransactionViewModel {
     var title: String = ""
-    var info: SettingsChangeTransactionSammaryInfo?
+    var info: SettingsChangeTransactionSummaryInfo?
 
     override func bind(info: TransactionInfo) {
         let settingsChangeTransactionInfo = info as! SettingsChangeTransactionInfo
@@ -22,19 +22,7 @@ class SettingChangeTransactionViewModel: TransactionViewModel {
         info is SettingsChangeTransactionInfo
     }
     
-    override class func viewModels(from tx: TransactionSummary) -> [TransactionViewModel] {
-        guard isValid(info: tx.txInfo) else {
-            return []
-        }
-
-        return [SettingChangeTransactionViewModel(tx)]
-    }
-    
-    override class func viewModels(from tx: TransactionDetails) -> [TransactionViewModel] {
-        guard isValid(info: tx.txInfo) else {
-            return []
-        }
-
-        return [SettingChangeTransactionViewModel(tx)]
+    override class func viewModels(from tx: Transaction) -> [TransactionViewModel] {
+        isValid(info: tx.txInfo) ? [SettingChangeTransactionViewModel(tx)] : []
     }
 }

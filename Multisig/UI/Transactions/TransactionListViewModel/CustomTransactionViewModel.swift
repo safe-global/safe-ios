@@ -39,19 +39,7 @@ class CustomTransactionViewModel: TransactionViewModel, TransferAmmountViewModel
         info is CustomTransactionInfo
     }
 
-    override class func viewModels(from tx: TransactionSummary) -> [TransactionViewModel] {
-        guard isValid(info: tx.txInfo) else {
-            return []
-        }
-
-        return [CustomTransactionViewModel(tx)]
-    }
-
-    override class func viewModels(from tx: TransactionDetails) -> [TransactionViewModel] {
-        guard isValid(info: tx.txInfo) else {
-            return []
-        }
-        
-        return [CustomTransactionViewModel(tx)]
+    override class func viewModels(from tx: Transaction) -> [TransactionViewModel] {
+        isValid(info: tx.txInfo) ? [CustomTransactionViewModel(tx)] : []
     }
 }

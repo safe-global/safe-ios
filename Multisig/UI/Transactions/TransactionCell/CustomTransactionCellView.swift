@@ -18,7 +18,7 @@ struct CustomTransactionCellView: View {
             Spacer()
 
             VStack {
-                Text(transaction.amount + " \(transaction.tokenSymbol)")
+                Text(transaction.formattedAmount)
                     .body()
 
                 if transaction.dataLength != 0 {

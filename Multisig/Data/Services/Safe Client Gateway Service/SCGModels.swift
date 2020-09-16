@@ -14,11 +14,16 @@ struct Page<T: Decodable>: Decodable {
     let results: [T]
 }
 
-struct TransactionSummary {
+protocol Transaction {
+    var txInfo: TransactionInfo { get set }
+    var txStatus: SCGTransactionStatus { get set }
+}
+
+struct TransactionSummary: Transaction {
     let id: TransactionID
     let date: Date
-    let txStatus: SCGTransactionStatus
-    let txInfo: TransactionInfo
+    var txStatus: SCGTransactionStatus
+    var txInfo: TransactionInfo
     let executionInfo: ExecutionInfo?
 }
 
@@ -125,7 +130,7 @@ enum TransactionInfoWrapper: Decodable {
 
 struct SettingsChangeTransactionInfo: TransactionInfo {
     let dataDecoded: DataDecoded
-    let settingsInfo: SettingsChangeTransactionSammaryInfo?
+    let settingsInfo: SettingsChangeTransactionSummaryInfo?
 }
 
 extension SettingsChangeTransactionInfo {
@@ -140,7 +145,7 @@ extension SettingsChangeTransactionInfo {
     }
 }
 
-protocol SettingsChangeTransactionSammaryInfo: Decodable {}
+protocol SettingsChangeTransactionSummaryInfo: Decodable {}
 
 enum SettingsChangeTransactionInfoType: String, Decodable {
     case setFallbackHandler = "SET_FALLBACK_HANDLER"
@@ -154,16 +159,16 @@ enum SettingsChangeTransactionInfoType: String, Decodable {
 }
 
 enum SettingsChangeTransactionInfoWrapper: Decodable {
-    case setFallbackHandler(SetFallbackHandlerSettingsChangeTransactionSammaryInfo)
-    case addOwner(AddOwnerSettingsChangeTransactionSammaryInfo)
-    case removeOwner(RemoveOwnerSettingsChangeTransactionSammaryInfo)
-    case swapOwner(SwapOwnerSettingsChangeTransactionSammaryInfo)
-    case changeThreshold(ChangeThresholdSettingsChangeTransactionSammaryInfo)
-    case changeImplementation(ChangeImplementationSettingsChangeTransactionSammaryInfo)
-    case enableModule(EnableModuleSettingsChangeTransactionSammaryInfo)
-    case disableModule(DisableModuleSettingsChangeTransactionSammaryInfo)
+    case setFallbackHandler(SetFallbackHandlerSettingsChangeTransactionSummaryInfo)
+    case addOwner(AddOwnerSettingsChangeTransactionSummaryInfo)
+    case removeOwner(RemoveOwnerSettingsChangeTransactionSummaryInfo)
+    case swapOwner(SwapOwnerSettingsChangeTransactionSummaryInfo)
+    case changeThreshold(ChangeThresholdSettingsChangeTransactionSummaryInfo)
+    case changeImplementation(ChangeImplementationSettingsChangeTransactionSummaryInfo)
+    case enableModule(EnableModuleSettingsChangeTransactionSummaryInfo)
+    case disableModule(DisableModuleSettingsChangeTransactionSummaryInfo)
 
-    var value: SettingsChangeTransactionSammaryInfo {
+    var value: SettingsChangeTransactionSummaryInfo {
         switch self {
         case .setFallbackHandler(let value):
             return value
@@ -193,57 +198,57 @@ enum SettingsChangeTransactionInfoWrapper: Decodable {
         let type = try container.decode(SettingsChangeTransactionInfoType.self, forKey: .type)
         switch type {
         case .setFallbackHandler:
-            self = try .setFallbackHandler(SetFallbackHandlerSettingsChangeTransactionSammaryInfo(from: decoder))
+            self = try .setFallbackHandler(SetFallbackHandlerSettingsChangeTransactionSummaryInfo(from: decoder))
         case .addOwner:
-            self = try .addOwner(AddOwnerSettingsChangeTransactionSammaryInfo(from: decoder))
+            self = try .addOwner(AddOwnerSettingsChangeTransactionSummaryInfo(from: decoder))
         case .removeOwner:
-            self = try .removeOwner(RemoveOwnerSettingsChangeTransactionSammaryInfo(from: decoder))
+            self = try .removeOwner(RemoveOwnerSettingsChangeTransactionSummaryInfo(from: decoder))
         case .swapOwner:
-            self = try .swapOwner(SwapOwnerSettingsChangeTransactionSammaryInfo(from: decoder))
+            self = try .swapOwner(SwapOwnerSettingsChangeTransactionSummaryInfo(from: decoder))
         case .changeThreshold:
-            self = try .changeThreshold(ChangeThresholdSettingsChangeTransactionSammaryInfo(from: decoder))
+            self = try .changeThreshold(ChangeThresholdSettingsChangeTransactionSummaryInfo(from: decoder))
         case .changeImplementation:
-            self = try .changeImplementation(ChangeImplementationSettingsChangeTransactionSammaryInfo(from: decoder))
+            self = try .changeImplementation(ChangeImplementationSettingsChangeTransactionSummaryInfo(from: decoder))
         case .enableModule:
-            self = try .enableModule(EnableModuleSettingsChangeTransactionSammaryInfo(from: decoder))
+            self = try .enableModule(EnableModuleSettingsChangeTransactionSummaryInfo(from: decoder))
         case .disableModule:
-            self = try .disableModule(DisableModuleSettingsChangeTransactionSammaryInfo(from: decoder))
+            self = try .disableModule(DisableModuleSettingsChangeTransactionSummaryInfo(from: decoder))
         }
     }
 }
 
-struct SetFallbackHandlerSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+struct SetFallbackHandlerSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
     let handler: AddressString
 }
 
-struct AddOwnerSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+struct AddOwnerSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
     let owner: AddressString
     let threshold: UInt64
 }
 
-struct RemoveOwnerSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+struct RemoveOwnerSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
     let owner: AddressString
     let threshold: UInt64
 }
 
-struct SwapOwnerSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+struct SwapOwnerSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
     let newOwner: AddressString
     let oldOwner: AddressString
 }
 
-struct ChangeThresholdSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+struct ChangeThresholdSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
     let threshold: UInt64
 }
 
-struct ChangeImplementationSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+struct ChangeImplementationSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
     let implementation: AddressString
 }
 
-struct EnableModuleSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+struct EnableModuleSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
     let module: AddressString
 }
 
-struct DisableModuleSettingsChangeTransactionSammaryInfo: SettingsChangeTransactionSammaryInfo {
+struct DisableModuleSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
     let module: AddressString
 }
 
@@ -442,10 +447,10 @@ enum DataDecodedParameterValueWrapper: Decodable {
 
 // MARK: - Details
 
-struct TransactionDetails: Decodable {
+struct TransactionDetails: Decodable, Transaction {
     let executedAt: Date?
-    let txStatus: SCGTransactionStatus
-    let txInfo: TransactionInfo
+    var txStatus: SCGTransactionStatus
+    var txInfo: TransactionInfo
     let txData: TransactionDetailsData?
     let detailedExecutionInfo: DetailedExecutionInfo?
     let txHash: DataString?

@@ -29,19 +29,7 @@ class CreationTransactionViewModel: TransactionViewModel {
         info is CreationTransactionInfo
     }
 
-    override class func viewModels(from tx: TransactionSummary) -> [TransactionViewModel] {
-        guard isValid(info: tx.txInfo) else {
-            return []
-        }
-
-        return [CreationTransactionViewModel(tx)]
-    }
-
-    override class func viewModels(from tx: TransactionDetails) -> [TransactionViewModel] {
-        guard isValid(info: tx.txInfo) else {
-            return []
-        }
-        
-        return [CreationTransactionViewModel(tx)]
+    override class func viewModels(from tx: Transaction) -> [TransactionViewModel] {
+        isValid(info: tx.txInfo) ? [CreationTransactionViewModel(tx)] : []
     }
 }

@@ -18,7 +18,7 @@ struct TransferValueView: View {
             tokenImage.frame(width: dimension, height: dimension)
 
             VStack (alignment: .leading) {
-                Text("\(transaction.amount) \(transaction.tokenSymbol)")
+                Text(transaction.formattedAmount)
                     .body(amountColor)
                 if dataLength != 0 {
                     Text("\(String(dataLength)) bytes")

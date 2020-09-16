@@ -93,6 +93,15 @@ class TransactionViewModel: Identifiable, Equatable {
         bind(info: tx.txInfo)
     }
 
+    convenience init (_ tx: Transaction) {
+        if let transactionSummary = tx as? TransactionSummary {
+            self.init(transactionSummary)
+        } else {
+            let transactionDetails = tx as! TransactionDetails
+            self.init(transactionDetails)
+        }
+    }
+
     func bind(info: TransactionInfo) { }
 
     func bind(status: SCGTransactionStatus) {
@@ -103,11 +112,7 @@ class TransactionViewModel: Identifiable, Equatable {
         lhs.id == rhs.id
     }
 
-    class func viewModels(from tx: TransactionSummary) -> [TransactionViewModel] {
-        []
-    }
-
-    class func viewModels(from tx: TransactionDetails) -> [TransactionViewModel] {
+    class func viewModels(from tx: Transaction) -> [TransactionViewModel] {
         []
     }
 
@@ -121,4 +126,12 @@ protocol TransferAmmountViewModel {
     var amount: String { get set }
     var tokenSymbol: String { get set }
     var tokenLogoURL: String { get set }
+
+    var formattedAmount: String { get }
+}
+
+extension TransferAmmountViewModel {
+    var formattedAmount: String {
+        [amount, tokenSymbol].joined(separator: " ")
+    }
 }

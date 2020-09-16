@@ -15,9 +15,9 @@ struct SettingsChangeTransactionCellView: View {
     }
 
     var contentView: some View {
-        let setFallbackHandler = transaction.info as? SetFallbackHandlerSettingsChangeTransactionSammaryInfo
-        let enableModule = transaction.info as? EnableModuleSettingsChangeTransactionSammaryInfo
-        let disableModule = transaction.info as? DisableModuleSettingsChangeTransactionSammaryInfo
+        let setFallbackHandler = transaction.info as? SetFallbackHandlerSettingsChangeTransactionSummaryInfo
+        let enableModule = transaction.info as? EnableModuleSettingsChangeTransactionSummaryInfo
+        let disableModule = transaction.info as? DisableModuleSettingsChangeTransactionSummaryInfo
 
         return ZStack {
             if setFallbackHandler != nil {
