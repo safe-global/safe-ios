@@ -8,6 +8,7 @@
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="ownersData" optional="YES" attributeType="Binary"/>
         <relationship name="selection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Selection" inverseName="safe" inverseEntity="Selection"/>
     </entity>
     <entity name="Selection" representedClassName="Selection" syncable="YES" codeGenerationType="class">
@@ -15,7 +16,7 @@
     </entity>
     <elements>
         <element name="AppSettings" positionX="54" positionY="18" width="128" height="73"/>
-        <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="Safe" positionX="-63" positionY="-18" width="128" height="118"/>
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
     </elements>
 </model>
