@@ -13,13 +13,17 @@ struct TransactionDetailsView: View {
     private var appSettings: FetchedResults<AppSettings>
 
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    private var selected: FetchedResults<Safe>
+    private var selectedSafe: FetchedResults<Safe>
 
-    private var safeOwners: [Address] {
-        selected.first!.owners ?? []
+    private var safe: Safe { selectedSafe.first! }
+    private var safeOwners: [Address] { safe.owners ?? [] }
+
+    @ObservedObject
+    var model: TransactionDetailsViewModel
+
+    init(transaction: TransactionViewModel) {
+        model = TransactionDetailsViewModel(transaction: transaction)
     }
-
-    let transaction: TransactionViewModel
 
     private var signingKeyAddress: String? {
         return appSettings.first?.signingKeyAddress
@@ -27,9 +31,9 @@ struct TransactionDetailsView: View {
 
     var body: some View {
         ZStack {
-            LoadableView(TransactionDetailsBodyView(transaction: transaction), reloadsOnAppOpen: false)
+            LoadableView(TransactionDetailsBodyView(model: model, safe: safe), reloadsOnAppOpen: false)
 
-            if transaction.status == .waitingConfirmation &&
+            if model.transaction!.status == .waitingConfirmation &&
                 signingKeyAddress != nil &&
                 safeOwners.contains(Address(exactly: signingKeyAddress!)) {
                 confirmButtonView
@@ -62,22 +66,11 @@ struct TransactionDetailsView: View {
 }
 
 fileprivate struct TransactionDetailsBodyView: Loadable {
-    @ObservedObject
-    var model: TransactionDetailsViewModel
-
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    private var selectedSafe: FetchedResults<Safe>
+    let model: TransactionDetailsViewModel
+    let safe: Safe
 
     private var transaction: TransactionViewModel {
         model.transaction!
-    }
-
-    init(transaction: TransactionViewModel) {
-        model = TransactionDetailsViewModel(transaction: transaction)
-    }
-
-    init(hash: String) {
-        model = TransactionDetailsViewModel(hash: hash)
     }
 
     @State
@@ -115,15 +108,24 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
 
             TransactionStatusTypeView(transaction: transaction)
             if displayConfirmations {
-                TransactionConfirmationsView(transaction: transaction, safe: selectedSafe.first!).padding(.vertical, padding)
+                TransactionConfirmationsView(transaction: transaction, safe: safe)
+                    .padding(.vertical, padding)
             }
 
             if transaction.formattedCreatedDate != nil {
-                KeyValueRow("Created:", value: transaction.formattedCreatedDate!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Created:",
+                            value: transaction.formattedCreatedDate!,
+                            enableCopy: false,
+                            color: .gnoDarkGrey)
+                    .padding(.vertical, padding)
             }
 
             if transaction.formattedExecutedDate != nil {
-                KeyValueRow("Executed:", value: transaction.formattedExecutedDate!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
+                KeyValueRow("Executed:",
+                            value: transaction.formattedExecutedDate!,
+                            enableCopy: false,
+                            color: .gnoDarkGrey)
+                    .padding(.vertical, padding)
             }
 
             if transaction.hasAdvancedDetails {
