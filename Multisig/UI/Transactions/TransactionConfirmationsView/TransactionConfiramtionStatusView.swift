@@ -75,7 +75,7 @@ enum TransactionConfiramtionStatusViewStyle: Hashable {
     case confirmed
     case rejected
     case cancelled
-    case waitingConfirmations(Int)
+    case waitingConfirmations(UInt64)
     case confirm
     case execute
 }

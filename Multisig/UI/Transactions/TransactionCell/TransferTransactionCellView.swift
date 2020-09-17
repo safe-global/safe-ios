@@ -17,7 +17,7 @@ struct TransferTransactionCellView: View {
                 .layoutPriority(1)
             Spacer()
 
-            Text("\(transaction.amount) \(transaction.tokenSymbol)")
+            Text(transaction.formattedAmount)
                 .body(amountColor)
         }
     }

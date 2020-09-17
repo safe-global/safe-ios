@@ -42,13 +42,17 @@ struct TransferTransactionDetailsHeaderView: View {
     }
 
     var valueView: some View {
-        TransferValueView(transaction: transaction)
+        TransferValueView(transaction: transaction).opacity(opactiy)
+    }
+
+    var opactiy: Double {
+        [.cancelled, .failed].contains(transaction.status) ? 0.5 : 1
     }
 }
 
 struct TransferTransactionHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = CustomTransactionViewModel()
+        let transaction = TransferTransactionViewModel()
         transaction.address = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.confirmationCount = 1
         transaction.threshold = 2
@@ -57,7 +61,6 @@ struct TransferTransactionHeaderView_Previews: PreviewProvider {
         transaction.amount = "5"
         transaction.tokenSymbol = " ETH"
         transaction.isOutgoing = true
-        transaction.dataLength = 40
         transaction.status = .success
 
         return TransferTransactionDetailsHeaderView(transaction: transaction)

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TransactionActionView: View {
-    var dataDecoded: TransactionData
+    var dataDecoded: DataDecoded
 
     @ViewBuilder
     var body: some View {
