@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SCGTransactionDetailsRequest: JSONRequest {
+struct TransactionDetailsRequest: JSONRequest {
     private let id: String
     var httpMethod: String { "GET" }
     var urlPath: String {
@@ -17,7 +17,7 @@ struct SCGTransactionDetailsRequest: JSONRequest {
     typealias ResponseType = TransactionDetails
 }
 
-extension SCGTransactionDetailsRequest {
+extension TransactionDetailsRequest {
     init(transactionID: TransactionID) {
         id = transactionID.value
     }
@@ -28,11 +28,11 @@ extension SCGTransactionDetailsRequest {
 }
 
 extension SafeClientGatewayService {
-    func transactionDetails(id: TransactionID) throws -> SCGTransactionDetailsRequest.ResponseType {
-        try execute(request: SCGTransactionDetailsRequest(transactionID: id))
+    func transactionDetails(id: TransactionID) throws -> TransactionDetailsRequest.ResponseType {
+        try execute(request: TransactionDetailsRequest(transactionID: id))
     }
 
-    func transactionDetails(safeTxHash: Data) throws -> SCGTransactionDetailsRequest.ResponseType {
-        try execute(request: SCGTransactionDetailsRequest(safeTxHash: safeTxHash))
+    func transactionDetails(safeTxHash: Data) throws -> TransactionDetailsRequest.ResponseType {
+        try execute(request: TransactionDetailsRequest(safeTxHash: safeTxHash))
     }
 }

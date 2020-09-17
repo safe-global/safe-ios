@@ -16,13 +16,13 @@ struct Page<T: Decodable>: Decodable {
 
 protocol Transaction {
     var txInfo: TransactionInfo { get set }
-    var txStatus: SCGTransactionStatus { get set }
+    var txStatus: TransactionStatus { get set }
 }
 
 struct TransactionSummary: Transaction {
     let id: TransactionID
     let date: Date
-    var txStatus: SCGTransactionStatus
+    var txStatus: TransactionStatus
     var txInfo: TransactionInfo
     let executionInfo: ExecutionInfo?
 }
@@ -37,7 +37,7 @@ extension TransactionSummary: Decodable {
         let container = try decoder.container(keyedBy: Key.self)
         id = try container.decode(TransactionID.self, forKey: .id)
         date = try container.decode(Date.self, forKey: .timestamp)
-        txStatus = try container.decode(SCGTransactionStatus.self, forKey: .txStatus)
+        txStatus = try container.decode(TransactionStatus.self, forKey: .txStatus)
         txInfo = try container.decode(TransactionInfoWrapper.self, forKey: .txInfo).value
         executionInfo = try container.decodeIfPresent(ExecutionInfo.self, forKey: .executionInfo)
     }
@@ -59,7 +59,7 @@ extension TransactionID {
     }
 }
 
-enum SCGTransactionStatus: String, Decodable {
+enum TransactionStatus: String, Decodable {
     case awaitingConfirmations = "AWAITING_CONFIRMATIONS"
     case awaitingExecution = "AWAITING_EXECUTION"
     case cancelled = "CANCELLED"
@@ -272,7 +272,7 @@ struct TransferTransactionInfo: TransactionInfo {
     let sender: AddressString
     let recipient: AddressString
     let direction: TransferDirection
-    let transferInfo: SCGTransferInfo
+    let transferInfo: TransferInfo
 }
 
 extension TransferTransactionInfo {
@@ -295,7 +295,7 @@ enum TransferDirection: String, Decodable {
     case unknown = "UNKNOWN"
 }
 
-protocol SCGTransferInfo: Decodable {}
+protocol TransferInfo: Decodable {}
 
 enum TransferInfoType: String, Decodable {
     case erc20 = "ERC20"
@@ -308,7 +308,7 @@ enum TransferInfoWrapper: Decodable {
     case erc721(Erc721TransferInfo)
     case ether(EtherTransferInfo)
 
-    var value: SCGTransferInfo {
+    var value: TransferInfo {
         switch self {
         case .erc20(let value):
             return value
@@ -337,7 +337,7 @@ enum TransferInfoWrapper: Decodable {
     }
 }
 
-struct Erc20TransferInfo: SCGTransferInfo {
+struct Erc20TransferInfo: TransferInfo {
     let tokenAddress: AddressString
     let tokenName: String?
     let tokenSymbol: String?
@@ -346,7 +346,7 @@ struct Erc20TransferInfo: SCGTransferInfo {
     let value: UInt256String
 }
 
-struct Erc721TransferInfo: SCGTransferInfo {
+struct Erc721TransferInfo: TransferInfo {
     let tokenAddress: AddressString
     let tokenId: UInt256String
     let tokenName: String?
@@ -354,7 +354,7 @@ struct Erc721TransferInfo: SCGTransferInfo {
     let logoUri: String?
 }
 
-struct EtherTransferInfo: SCGTransferInfo {
+struct EtherTransferInfo: TransferInfo {
     let value: UInt256String
 }
 
@@ -449,7 +449,7 @@ enum DataDecodedParameterValueWrapper: Decodable {
 
 struct TransactionDetails: Decodable, Transaction {
     let executedAt: Date?
-    var txStatus: SCGTransactionStatus
+    var txStatus: TransactionStatus
     var txInfo: TransactionInfo
     let txData: TransactionDetailsData?
     let detailedExecutionInfo: DetailedExecutionInfo?
@@ -463,10 +463,10 @@ extension TransactionDetails {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-        executedAt = try container.decode(Date.self, forKey: .executedAt)
-        txStatus = try container.decode(SCGTransactionStatus.self, forKey: .txStatus)
+        executedAt = try container.decodeIfPresent(Date.self, forKey: .executedAt)
+        txStatus = try container.decode(TransactionStatus.self, forKey: .txStatus)
         txInfo = try container.decode(TransactionInfoWrapper.self, forKey: .txInfo).value
-        txData = try container.decode(TransactionDetailsData.self, forKey: .txData)
+        txData = try container.decodeIfPresent(TransactionDetailsData.self, forKey: .txData)
         detailedExecutionInfo = try container.decodeIfPresent(DetailedExecutionInfoWrapper.self, forKey: .detailedExecutionInfo)?.value
         txHash = try container.decodeIfPresent(DataString.self, forKey: .txHash)
     }
@@ -522,7 +522,7 @@ struct ModuleExecutionDetails: DetailedExecutionInfo {
 
 struct MultisigExecutionDetails: DetailedExecutionInfo {
     let submittedAt: Date
-    let nonce: UInt64
+    let nonce: UInt256String
     let safeTxHash: DataString
     let signers: [AddressString]
     let confirmationsRequired: UInt64

@@ -8,10 +8,10 @@
 
 import Foundation
 
-extension SCGTransactionStatus {
+extension TransactionStatus {
 
-    static let queueStatuses = [SCGTransactionStatus.awaitingConfirmations, .awaitingExecution]
-    static let historyStatuses = [SCGTransactionStatus.success, .failed, .cancelled]
+    static let queueStatuses = [awaitingConfirmations, .awaitingExecution]
+    static let historyStatuses = [success, .failed, .cancelled]
 
     var isInQueue: Bool {
         Self.queueStatuses.contains(self)

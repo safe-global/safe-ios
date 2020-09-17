@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TransactionStatusView: View {
-    let status: SCGTransactionStatus
+    let status: TransactionStatus
     var style: Style = .body
     var body: some View {
         HStack (spacing: 6) {

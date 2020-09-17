@@ -11,7 +11,7 @@ import Foundation
 class TransactionViewModel: Identifiable, Equatable {
     var id: String = ""
     var nonce: String?
-    var status: SCGTransactionStatus = .success
+    var status: TransactionStatus = .success
     var formattedDate: String = ""
     var formattedCreatedDate: String?
     var formattedExecutedDate: String?
@@ -104,7 +104,7 @@ class TransactionViewModel: Identifiable, Equatable {
 
     func bind(info: TransactionInfo) { }
 
-    func bind(status: SCGTransactionStatus) {
+    func bind(status: TransactionStatus) {
         self.status = status
     }
 

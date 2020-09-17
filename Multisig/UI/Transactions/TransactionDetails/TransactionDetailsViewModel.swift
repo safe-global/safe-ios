@@ -79,7 +79,7 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
         }
     }
 
-    func transaction() throws -> SCGTransactionDetailsRequest.ResponseType  {
+    func transaction() throws -> TransactionDetailsRequest.ResponseType  {
         guard canLoadTransaction else { throw Failure.transactionDetailsNotFound }
         if let hash = hash {
             return try App.shared.clientGatewayService.transactionDetails(safeTxHash: hash)
