@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct ParameterView: View {
-    let parameter: TransactionDataParameter
+    let parameter: DataDecodedParameter
     var body: some View {
         VStack (alignment: .leading, spacing: 6) {
             Text("\(parameter.name)(\(parameter.type)):").body()
-            ParameterValueView(value: parameter.decodedData)
+            ParameterValueView(value: parameter.value)
         }
     }
 }

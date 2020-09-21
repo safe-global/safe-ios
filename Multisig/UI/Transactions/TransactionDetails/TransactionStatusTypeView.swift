@@ -28,11 +28,11 @@ struct TransactionStatusTypeView: View {
     }
 
     var title: String {
-        if let _ = transaction as? CustomTransactionViewModel {
+        if transaction is CustomTransactionViewModel {
             return "Custom transaction"
         } else if let transfer = transaction as? TransferTransactionViewModel {
             return transfer.isOutgoing ? "Outgoing transfer" : "Incoming transfer"
-        } else if let _ = transaction as? CreationTransactionViewModel {
+        } else if transaction is CreationTransactionViewModel {
             return "Safe created"
         }
 
@@ -40,7 +40,7 @@ struct TransactionStatusTypeView: View {
     }
 
     var imageName: String {
-        if let _ = transaction as? CustomTransactionViewModel {
+        if transaction is CustomTransactionViewModel {
             return "ico-custom-tx"
         } else if let transfer = transaction as? TransferTransactionViewModel {
             return transfer.isOutgoing ? "ico-outgoing-tx" : "ico-incoming-tx"

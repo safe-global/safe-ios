@@ -22,7 +22,7 @@ struct TransactionHeaderView: View {
 
         return ZStack {
             if customTransaction != nil {
-                TransferTransactionDetailsHeaderView(transaction: customTransaction!)
+                CustomTransactionDetailsHeaderView(transaction: customTransaction!)
             } else if transferTransaction != nil {
                 TransferTransactionDetailsHeaderView(transaction: transferTransaction!)
             } else if settingChangeTransaction != nil {
@@ -38,7 +38,7 @@ struct TransactionHeaderView: View {
 
 struct TransactionHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = CustomTransactionViewModel()
+        let transaction = TransferTransactionViewModel()
         transaction.address = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         transaction.confirmationCount = 1
         transaction.threshold = 2
@@ -47,7 +47,6 @@ struct TransactionHeaderView_Previews: PreviewProvider {
         transaction.amount = "5"
         transaction.tokenSymbol = " ETH"
         transaction.isOutgoing = true
-        transaction.dataLength = 40
         transaction.status = .success
 
         return TransactionHeaderView(transaction: transaction)

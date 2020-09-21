@@ -35,15 +35,10 @@ class TransactionsViewModel: BasicLoadableViewModel {
             .compactMap { Address($0) }
             .receive(on: DispatchQueue.global())
             .tryMap { [weak self] address -> TransactionsListViewModel in
-                let safeInfo = try App.shared.safeTransactionService.safeInfo(at: address)
-                let transactions = try App.shared.safeTransactionService.transactions(address: address)
-                var models = transactions.results.flatMap { TransactionViewModel.create(from: $0, safeInfo) }
+                let transactions = try App.shared.clientGatewayService.transactionSummaryList(address: address)
+                let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
                 if let `self` = self {
-                    self.safeInfo = safeInfo
                     self.nextURL = transactions.next
-                    if let creationTransaction = try self.creationTransaction() {
-                        models.append(creationTransaction)
-                    }
                 }
                 let list = TransactionsListViewModel(models)
                 return list
@@ -72,16 +67,10 @@ class TransactionsViewModel: BasicLoadableViewModel {
             .compactMap { $0 }
             .receive(on: DispatchQueue.global())
             .tryMap { [weak self] url -> [TransactionViewModel] in
-                var models = [TransactionViewModel]()
-                if let transactions = try App.shared.safeTransactionService.loadTransactionsPage(url: url),
-                    let `self` = self {
+                let transactions = try App.shared.clientGatewayService.transactionSummaryList(pageUri: url)
+                let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
+                if let `self` = self {
                     self.nextURL = transactions.next
-                    models = transactions.results.flatMap { TransactionViewModel.create(from: $0, self.safeInfo!) }
-
-                    // This should mean that we are on the last page on list
-                    if let creationTransaction = try self.creationTransaction() {
-                        models.append(creationTransaction)
-                    }
                 }
                 return models
             }
@@ -99,12 +88,5 @@ class TransactionsViewModel: BasicLoadableViewModel {
 
     func isLast(transaction: TransactionViewModel) -> Bool {
         transactionsList.lastTransaction == transaction
-    }
-
-    func creationTransaction() throws -> CreationTransactionViewModel? {
-        guard nextURL == nil else { return nil }
-
-        let transaction = try App.shared.safeTransactionService.creationTransaction(address: Address(exactly: safe.address!))
-        return CreationTransactionViewModel(transaction, self.safeInfo!)
     }
 }

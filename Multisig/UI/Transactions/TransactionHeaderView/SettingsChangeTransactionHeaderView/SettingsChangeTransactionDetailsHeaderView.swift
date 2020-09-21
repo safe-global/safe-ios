@@ -18,27 +18,27 @@ struct SettingsChangeTransactionDetailsHeaderView: View {
     }
 
     var contentView: some View {
-        let addOwnerWithThreshold = transaction.method as? MethodRegistry.GnosisSafeSettings.AddOwnerWithThreshold
-        let removeOwner = transaction.method as? MethodRegistry.GnosisSafeSettings.RemoveOwner
-        let swapOwner = transaction.method as? MethodRegistry.GnosisSafeSettings.SwapOwner
-        let setFallbackHandler = transaction.method as? MethodRegistry.GnosisSafeSettings.SetFallbackHandler
-        let enableModule = transaction.method as? MethodRegistry.GnosisSafeSettings.EnableModule
-        let disableModule = transaction.method as? MethodRegistry.GnosisSafeSettings.DisableModule
-        let changeThreshold = transaction.method as? MethodRegistry.GnosisSafeSettings.ChangeThreshold
+        let addOwnerWithThreshold = transaction.info as? AddOwnerSettingsChangeTransactionSummaryInfo
+        let removeOwner = transaction.info as? RemoveOwnerSettingsChangeTransactionSummaryInfo
+        let swapOwner = transaction.info as? SwapOwnerSettingsChangeTransactionSummaryInfo
+        let setFallbackHandler = transaction.info as? SetFallbackHandlerSettingsChangeTransactionSummaryInfo
+        let enableModule = transaction.info as? EnableModuleSettingsChangeTransactionSummaryInfo
+        let disableModule = transaction.info as? DisableModuleSettingsChangeTransactionSummaryInfo
+        let changeThreshold = transaction.info as? ChangeThresholdSettingsChangeTransactionSummaryInfo
 
         return ZStack {
             if addOwnerWithThreshold != nil {
-                AddRemoveOwnerTransactionDetailsHeaderView(state: .add, address: addOwnerWithThreshold!.address, threshold: addOwnerWithThreshold!.threshold)
+                AddRemoveOwnerTransactionDetailsHeaderView(state: .add, address: addOwnerWithThreshold!.owner.address, threshold: addOwnerWithThreshold!.threshold)
             } else if removeOwner != nil {
-                AddRemoveOwnerTransactionDetailsHeaderView(state: .remove, address: removeOwner!.owner, threshold: removeOwner!.threshold)
+                AddRemoveOwnerTransactionDetailsHeaderView(state: .remove, address: removeOwner!.owner.address, threshold: removeOwner!.threshold)
             } else if swapOwner != nil {
-                SwapOwnerTransactionDetailsHeaderView(removedAddress: swapOwner!.oldOwner, addedAddress: swapOwner!.newOwner)
+                SwapOwnerTransactionDetailsHeaderView(removedAddress: swapOwner!.oldOwner.address, addedAddress: swapOwner!.newOwner.address)
             } else if setFallbackHandler != nil {
-                SetFallbackHandlerTransactionDetailsHeaderView(address: setFallbackHandler!.handler)
+                SetFallbackHandlerTransactionDetailsHeaderView(address: setFallbackHandler!.handler.address)
             } else if enableModule != nil {
-                EnableDisableModuleTransactionDetailsHeaderView(state: .enable, address: enableModule!.module)
+                EnableDisableModuleTransactionDetailsHeaderView(state: .enable, address: enableModule!.module.address)
             } else if disableModule != nil {
-                EnableDisableModuleTransactionDetailsHeaderView(state: .disable, address: disableModule!.module)
+                EnableDisableModuleTransactionDetailsHeaderView(state: .disable, address: disableModule!.module.address)
             } else if changeThreshold != nil {
                 ChangeThresholdTransactionDetailsHeaderView(threshold: changeThreshold!.threshold)
             } else {

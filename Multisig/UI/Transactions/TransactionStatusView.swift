@@ -13,7 +13,7 @@ struct TransactionStatusView: View {
     var style: Style = .body
     var body: some View {
         HStack (spacing: 6) {
-            if [.waitingConfirmation, .waitingExecution].contains(status) {
+            if [.awaitingExecution, .awaitingConfirmations].contains(status) {
                 Image("ico-bullet-point")
             }
 
@@ -30,8 +30,8 @@ struct TransactionStatusView: View {
     
     var statusColor: Color {
         switch status {
-        case .waitingExecution, .waitingConfirmation, .pending:
-             return .gnoPending
+        case .awaitingExecution, .awaitingConfirmations, .pending:
+            return .gnoPending
         case .failed:
             return .gnoTomato
         case .cancelled:

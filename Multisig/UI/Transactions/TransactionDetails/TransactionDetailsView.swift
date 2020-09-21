@@ -8,69 +8,23 @@
 
 import SwiftUI
 
-struct TransactionDetailsView: View {
-    @FetchRequest(fetchRequest: AppSettings.fetchRequest().all())
-    private var appSettings: FetchedResults<AppSettings>
-
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    private var selectedSafe: FetchedResults<Safe>
-
-    private var safe: Safe { selectedSafe.first! }
-    private var safeOwners: [Address] { safe.owners ?? [] }
-
+struct TransactionDetailsView: Loadable {
     @ObservedObject
     var model: TransactionDetailsViewModel
+    
+    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
+    var selectedSafe: FetchedResults<Safe>
+
+    var transactionDetails: TransactionViewModel {
+        model.transactionDetails
+    }
 
     init(transaction: TransactionViewModel) {
         model = TransactionDetailsViewModel(transaction: transaction)
     }
 
-    private var signingKeyAddress: String? {
-        return appSettings.first?.signingKeyAddress
-    }
-
-    var body: some View {
-        ZStack {
-            LoadableView(TransactionDetailsBodyView(model: model, safe: safe), reloadsOnAppOpen: false)
-
-            if model.transaction!.status == .waitingConfirmation &&
-                signingKeyAddress != nil &&
-                safeOwners.contains(Address(exactly: signingKeyAddress!)) {
-                confirmButtonView
-            }
-        }
-        .navigationBarTitle("Transaction Details", displayMode: .inline)
-        .background(Color.gnoWhite)
-        .onAppear {
-            self.trackEvent(.transactionsDetails)
-        }
-    }
-
-    private var confirmButtonView: some View {
-        VStack {
-            Spacer()
-
-            Button(action: {
-                self.confirmTransaction()
-            }) {
-                Text("Confirm")
-            }
-            .buttonStyle(GNOFilledButtonStyle())
-            .padding()
-        }
-    }
-
-    private func confirmTransaction() {
-        print("Confirm")
-    }
-}
-
-fileprivate struct TransactionDetailsBodyView: Loadable {
-    let model: TransactionDetailsViewModel
-    let safe: Safe
-
-    private var transaction: TransactionViewModel {
-        model.transaction!
+    init(hash: String) {
+        model = TransactionDetailsViewModel(hash: hash)
     }
 
     @State
@@ -79,21 +33,31 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
 
     var body: some View {
         List {
-            if transaction as? CreationTransactionViewModel == nil {
-                detailsBodyView
+            if transactionDetails is CreationTransactionViewModel {
+                CreationTransactionBodyView(transaction: transactionDetails as! CreationTransactionViewModel)
             } else {
-                CreationTransactionBodyView(transaction: transaction as! CreationTransactionViewModel)
+                transactionDetailsBodyView
             }
-
-            if transaction.hash != nil {
-                viewTxOnEtherscan
+            
+            if transactionDetails.browserURL != nil {
+                Button(action: { self.showsLink.toggle() }) {
+                    LinkText(title: "View transaction on Etherscan")
+                }
+                .buttonStyle(BorderlessButtonStyle())
+                .foregroundColor(.gnoHold)
+                .sheet(isPresented: $showsLink, content: browseTransaction)
+                .padding(.vertical, padding)
             }
+        }
+        .navigationBarTitle("Transaction Details", displayMode: .inline)
+        .onAppear {
+            self.trackEvent(.transactionsDetails)
         }
     }
 
-    private var detailsBodyView: some View {
+    var transactionDetailsBodyView: some View {
         Group {
-            TransactionHeaderView(transaction: transaction)
+            TransactionHeaderView(transaction: transactionDetails)
 
             if dataDecoded != nil {
                 TransactionActionView(dataDecoded: dataDecoded!)
@@ -103,33 +67,24 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
                 VStack (alignment: .leading) {
                     Text("Data").headline()
                     ExpandableButton(title: "\(data!.length) Bytes", value: data!.data)
-                }.padding(.vertical, padding)
+                }.padding(.vertical, 11)
             }
 
-            TransactionStatusTypeView(transaction: transaction)
+            TransactionStatusTypeView(transaction: transactionDetails)
             if displayConfirmations {
-                TransactionConfirmationsView(transaction: transaction, safe: safe)
-                    .padding(.vertical, padding)
+                TransactionConfirmationsView(transaction: transactionDetails, safe: selectedSafe.first!).padding(.vertical, padding)
             }
 
-            if transaction.formattedCreatedDate != nil {
-                KeyValueRow("Created:",
-                            value: transaction.formattedCreatedDate!,
-                            enableCopy: false,
-                            color: .gnoDarkGrey)
-                    .padding(.vertical, padding)
+            if transactionDetails.formattedCreatedDate != nil {
+                KeyValueRow("Created:", value: transactionDetails.formattedCreatedDate!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
             }
 
-            if transaction.formattedExecutedDate != nil {
-                KeyValueRow("Executed:",
-                            value: transaction.formattedExecutedDate!,
-                            enableCopy: false,
-                            color: .gnoDarkGrey)
-                    .padding(.vertical, padding)
+            if transactionDetails.formattedExecutedDate != nil {
+                KeyValueRow("Executed:", value: transactionDetails.formattedExecutedDate!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
             }
 
-            if transaction.hasAdvancedDetails {
-                NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transaction)) {
+            if transactionDetails.hasAdvancedDetails {
+                NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transactionDetails)) {
                     Text("Advanced").body()
                 }
                 .frame(height: 48)
@@ -137,38 +92,28 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
         }
     }
 
-    private var viewTxOnEtherscan: some View {
-        Button(action: { self.showsLink.toggle() }) {
-            LinkText(title: "View transaction on Etherscan")
-        }
-        .buttonStyle(BorderlessButtonStyle())
-        .foregroundColor(.gnoHold)
-        .sheet(isPresented: $showsLink, content: browseTransaction)
-        .padding(.vertical, padding)
+    func browseTransaction() -> some View {
+        SafariViewController(url: transactionDetails.browserURL!)
     }
 
-    private func browseTransaction() -> some View {
-        return SafariViewController(url: Transaction.browserURL(hash: transaction.hash!))
-    }
-
-    private var data: (length: Int, data: String)? {
-        guard let customTransaction = transaction as? CustomTransactionViewModel else {
+    var data: (length: UInt256, data: String)? {
+        guard let customTransaction = transactionDetails as? CustomTransactionViewModel, let data = customTransaction.data else {
             return nil
         }
 
-        return (length: customTransaction.dataLength, data: customTransaction.data)
+        return (length: customTransaction.dataLength, data: data)
     }
 
-    private var dataDecoded: TransactionData? {
-        guard let customTransaction = transaction as? CustomTransactionViewModel else {
+    var dataDecoded: DataDecoded? {
+        guard let customTransaction = transactionDetails as? CustomTransactionViewModel else {
             return nil
         }
 
         return customTransaction.dataDecoded
     }
 
-    private var displayConfirmations: Bool {
-        guard let transferTransaction = transaction as? TransferTransactionViewModel else {
+    var displayConfirmations: Bool {
+        guard let transferTransaction = transactionDetails as? TransferTransactionViewModel else {
             return true
         }
 
