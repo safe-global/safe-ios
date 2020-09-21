@@ -13,7 +13,7 @@ struct TransactionActionDetailsView: View {
     var body: some View {
         List {
             if hasParamters {
-                ForEach(dataDecoded.parameters!, id: \.name) { paramter in
+                ForEach(dataDecoded.parameters!) { paramter in
                     ParameterView(parameter: paramter)
                 }
             } else {

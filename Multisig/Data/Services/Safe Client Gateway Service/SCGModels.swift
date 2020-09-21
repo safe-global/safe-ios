@@ -377,7 +377,8 @@ struct DataDecoded: Decodable {
     let parameters: [DataDecodedParameter]?
 }
 
-struct DataDecodedParameter: Decodable {
+struct DataDecodedParameter: Decodable, Identifiable {
+    let id = UUID()
     let name: String
     let type: String
     let value: DataDecodedParameterValue
