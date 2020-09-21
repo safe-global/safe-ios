@@ -18,7 +18,6 @@ extension Safe {
     @NSManaged public var additionDate: Date?
     @NSManaged public var address: String?
     @NSManaged public var name: String?
-    @NSManaged public var ownersData: Data?
     @NSManaged public var selection: Selection?
 
 }
