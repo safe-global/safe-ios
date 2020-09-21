@@ -21,6 +21,9 @@ struct TransactionActionDetailsView: View {
             }
         }
         .navigationBarTitle(dataDecoded.method)
+        .onAppear {
+            self.trackEvent(.transactionsDetailsAction)
+        }
     }
 
     var hasParamters: Bool {
