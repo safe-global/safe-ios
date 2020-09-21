@@ -47,16 +47,9 @@ class SafeSettingsViewModel: BasicLoadableViewModel {
 
 extension Safe {
     func update(from safeInfo: SafeStatusRequest.Response) {
-        // check if we need to update owners
-        // always updating owners will cause an infinite loop
-        let newOwners = safeInfo.owners.map { $0.address }
-        if owners != newOwners {
-            owners = newOwners
-            App.shared.coreDataStack.saveContext()
-        }
-
         objectWillChange.send()
         threshold = safeInfo.threshold.value
+        owners = safeInfo.owners.map { $0.address }
         implementation = safeInfo.implementation.address
         version = safeInfo.version
         nonce = safeInfo.nonce.value

@@ -16,7 +16,13 @@ struct TransactionDetailsView: View {
     private var selectedSafe: FetchedResults<Safe>
 
     private var safe: Safe { selectedSafe.first! }
-    private var safeOwners: [Address] { safe.owners ?? [] }
+
+    private var canSign: Bool {
+        model.transactionDetails.status == .awaitingConfirmations &&
+            signingKeyAddress != nil &&
+            model.transactionDetails.signers!.contains(signingKeyAddress!) &&
+            !model.transactionDetails.confirmations!.map { $0.address }.contains(signingKeyAddress!)
+    }
 
     @ObservedObject
     var model: TransactionDetailsViewModel
@@ -33,12 +39,9 @@ struct TransactionDetailsView: View {
         ZStack {
             LoadableView(TransactionDetailsBodyView(model: model, safe: safe), reloadsOnAppOpen: false)
 
-            if model.transactionDetails.status == .awaitingConfirmations &&
-                signingKeyAddress != nil &&
-                safeOwners.contains(Address(exactly: signingKeyAddress!)) {
+            if canSign {
                 confirmButtonView
             }
-
         }
         .navigationBarTitle("Transaction Details", displayMode: .inline)
         .background(Color.gnoWhite)

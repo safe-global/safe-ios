@@ -109,19 +109,6 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
     }
 }
 
-extension Address: Codable {
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        let string = try container.decode(String.self)
-        try self.init(from: string)
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(_store.hex(eip55: true))
-    }
-}
-
 extension EthereumAddress.Error: LocalizedError {
     public var errorDescription: String? {
         switch self {

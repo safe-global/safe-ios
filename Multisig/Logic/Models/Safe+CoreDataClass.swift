@@ -13,6 +13,7 @@ import CoreData
 public class Safe: NSManagedObject {
     var ensName: String?
     var threshold: UInt256?
+    var owners: [Address]?
     var implementation: Address?
     var version: String?
     var nonce: UInt256?
@@ -21,15 +22,5 @@ public class Safe: NSManagedObject {
 
     var safeAddress: Address? {
         address.flatMap { Address($0) }
-    }
-
-    var owners: [Address]? {
-        get {
-            guard let ownersData = ownersData else { return nil }
-            return try? JSONDecoder().decode([Address].self, from: ownersData)
-        }
-        set {
-            ownersData = try? JSONEncoder().encode(newValue)
-        }
     }
 }
