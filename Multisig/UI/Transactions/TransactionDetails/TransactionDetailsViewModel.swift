@@ -21,9 +21,15 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
     }
 
     init(transaction: TransactionViewModel) {
-        id = TransactionID(value: transaction.id)
         super.init()
-        reloadData()
+        if transaction is CreationTransactionViewModel {
+            transactionDetails = transaction
+            self.isLoading = false
+            self.isRefreshing = false
+        } else {
+            id = TransactionID(value: transaction.id)
+            reloadData()
+        }
     }
 
     init(hash: String) {
