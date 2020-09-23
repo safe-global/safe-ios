@@ -32,13 +32,6 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
         }
     }
 
-    init(hash: String) {
-        self.hash = Data(hex: hash)
-
-        super.init()
-        reloadData()
-    }
-
     enum Failure: LocalizedError {
         case transactionDetailsNotFound, unsupportedTransaction
         var errorDescription: String? {
