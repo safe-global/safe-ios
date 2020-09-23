@@ -15,29 +15,44 @@ class TransactionTests: XCTestCase {
         try! Data(contentsOf: Bundle(for: Self.self).url(forResource: name, withExtension: "json")!)
     }
 
-    func testAddOwner() {
-        let txJson = jsonData("addOwnerWithThreshold_tx")
-        let infoJson = jsonData("addOwnerWithThreshold_safe")
+    func testTransactionSummary() {
+        let txJson = jsonData("Transactions")
 
         let sema = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
             do {
-                let service = SafeTransactionService(url: App.configuration.services.transactionServiceURL,
+                let clientGateway = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL,
+                                                     logger: LogService.shared)
+                let page = try clientGateway.jsonDecoder.decode(TransactionSummaryListRequest.ResponseType.self, from: txJson)
+                let models = page.results.flatMap { tx in TransactionViewModel.create(from: tx) }
+                XCTAssertEqual(page.results.count, models.count)
+            } catch {
+                XCTFail("Failure in transactions: \(error)")
+            }
+            sema.signal()
+        }
+        sema.wait()
+    }
+
+    func testTransactionDetails() {
+        let txJson = jsonData("TransferTransaction")
+
+        let sema = DispatchSemaphore(value: 0)
+        DispatchQueue.global().async {
+            do {
+                let clientGateway = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL,
                                                      logger: LogService.shared)
 
-                let page = try service.jsonDecoder.decode(TransactionsRequest.Response.self, from: txJson)
-                let info = try service.jsonDecoder.decode(SafeStatusRequest.Response.self, from: infoJson)
-                let models = page.results.flatMap { tx in TransactionViewModel.create(from: tx, info) }
-                XCTAssertEqual(page.results.count, models.count)
+                let transaction = try clientGateway.jsonDecoder.decode(TransactionDetailsRequest.ResponseType.self, from: txJson)
+                let models = TransactionViewModel.create(from: transaction)
+                XCTAssertEqual(models.count, 1)
 
-                guard let tx = models.first as? SettingChangeTransactionViewModel else {
+                guard models.first! is TransferTransactionViewModel else {
                     XCTFail("Unexpected type: \(type(of: models.first))")
                     sema.signal()
 
                     return
                 }
-
-                XCTAssertEqual(tx.title, MethodRegistry.GnosisSafeSettings.AddOwnerWithThreshold.signature.name)
             } catch {
                 XCTFail("Failure in transactions: \(error)")
             }

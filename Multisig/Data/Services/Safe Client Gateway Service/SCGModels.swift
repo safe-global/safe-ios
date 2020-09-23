@@ -14,15 +14,20 @@ struct Page<T: Decodable>: Decodable {
     let results: [T]
 }
 
-struct TransactionSummary: Decodable {
+protocol Transaction {
+    var txInfo: TransactionInfo { get set }
+    var txStatus: TransactionStatus { get set }
+}
+
+struct TransactionSummary: Transaction {
     let id: TransactionID
-    let timestamp: Date
-    let txStatus: SCGTransactionStatus
-    let txInfo: TransactionInfo
+    let date: Date
+    var txStatus: TransactionStatus
+    var txInfo: TransactionInfo
     let executionInfo: ExecutionInfo?
 }
 
-extension TransactionSummary {
+extension TransactionSummary: Decodable {
 
     enum Key: String, CodingKey {
         case id, timestamp, txStatus, txInfo, executionInfo
@@ -31,8 +36,8 @@ extension TransactionSummary {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
         id = try container.decode(TransactionID.self, forKey: .id)
-        timestamp = try container.decode(Date.self, forKey: .timestamp)
-        txStatus = try container.decode(SCGTransactionStatus.self, forKey: .txStatus)
+        date = try container.decode(Date.self, forKey: .timestamp)
+        txStatus = try container.decode(TransactionStatus.self, forKey: .txStatus)
         txInfo = try container.decode(TransactionInfoWrapper.self, forKey: .txInfo).value
         executionInfo = try container.decodeIfPresent(ExecutionInfo.self, forKey: .executionInfo)
     }
@@ -54,16 +59,17 @@ extension TransactionID {
     }
 }
 
-enum SCGTransactionStatus: String, Decodable {
+enum TransactionStatus: String, Decodable {
     case awaitingConfirmations = "AWAITING_CONFIRMATIONS"
     case awaitingExecution = "AWAITING_EXECUTION"
     case cancelled = "CANCELLED"
     case failed = "FAILED"
     case success = "SUCCESS"
+    case pending = "PENDING"
 }
 
 struct ExecutionInfo: Decodable {
-    let nonce: UInt64
+    let nonce: UInt256String
     let confirmationsRequired: UInt64
     let confirmationsSubmitted: UInt64
 }
@@ -71,11 +77,11 @@ struct ExecutionInfo: Decodable {
 protocol TransactionInfo: Decodable {}
 
 enum TransactionInfoType: String, Decodable {
-    case transfer
-    case settingsChange
-    case custom
-    case creation
-    case unknown
+    case transfer = "Transfer"
+    case settingsChange = "SettingsChange"
+    case custom = "Custom"
+    case creation = "Creation"
+    case unknown = "Unknown"
 }
 
 enum TransactionInfoWrapper: Decodable {
@@ -124,6 +130,126 @@ enum TransactionInfoWrapper: Decodable {
 
 struct SettingsChangeTransactionInfo: TransactionInfo {
     let dataDecoded: DataDecoded
+    let settingsInfo: SettingsChangeTransactionSummaryInfo?
+}
+
+extension SettingsChangeTransactionInfo {
+    enum Key: String, CodingKey {
+        case dataDecoded, settingsInfo
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        dataDecoded = try container.decode(DataDecoded.self, forKey: .dataDecoded)
+        settingsInfo = try container.decode(SettingsChangeTransactionInfoWrapper.self, forKey: .settingsInfo).value
+    }
+}
+
+protocol SettingsChangeTransactionSummaryInfo: Decodable {}
+
+enum SettingsChangeTransactionInfoType: String, Decodable {
+    case setFallbackHandler = "SET_FALLBACK_HANDLER"
+    case addOwner = "ADD_OWNER"
+    case removeOwner = "REMOVE_OWNER"
+    case swapOwner = "SWAP_OWNER"
+    case changeThreshold = "CHANGE_THRESHOLD"
+    case changeImplementation = "CHANGE_IMPLEMENTATION"
+    case enableModule = "ENABLE_MODULE"
+    case disableModule = "DISABLE_MODULE"
+}
+
+enum SettingsChangeTransactionInfoWrapper: Decodable {
+    case setFallbackHandler(SetFallbackHandlerSettingsChangeTransactionSummaryInfo)
+    case addOwner(AddOwnerSettingsChangeTransactionSummaryInfo)
+    case removeOwner(RemoveOwnerSettingsChangeTransactionSummaryInfo)
+    case swapOwner(SwapOwnerSettingsChangeTransactionSummaryInfo)
+    case changeThreshold(ChangeThresholdSettingsChangeTransactionSummaryInfo)
+    case changeImplementation(ChangeImplementationSettingsChangeTransactionSummaryInfo)
+    case enableModule(EnableModuleSettingsChangeTransactionSummaryInfo)
+    case disableModule(DisableModuleSettingsChangeTransactionSummaryInfo)
+
+    var value: SettingsChangeTransactionSummaryInfo {
+        switch self {
+        case .setFallbackHandler(let value):
+            return value
+        case .addOwner(let value):
+            return value
+        case .removeOwner(let value):
+            return value
+        case .swapOwner(let value):
+            return value
+        case .changeThreshold(let value):
+            return value
+        case .changeImplementation(let value):
+            return value
+        case .enableModule(let value):
+            return value
+        case .disableModule(let value):
+            return value
+        }
+    }
+
+    enum Key: String, CodingKey {
+        case type
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        let type = try container.decode(SettingsChangeTransactionInfoType.self, forKey: .type)
+        switch type {
+        case .setFallbackHandler:
+            self = try .setFallbackHandler(SetFallbackHandlerSettingsChangeTransactionSummaryInfo(from: decoder))
+        case .addOwner:
+            self = try .addOwner(AddOwnerSettingsChangeTransactionSummaryInfo(from: decoder))
+        case .removeOwner:
+            self = try .removeOwner(RemoveOwnerSettingsChangeTransactionSummaryInfo(from: decoder))
+        case .swapOwner:
+            self = try .swapOwner(SwapOwnerSettingsChangeTransactionSummaryInfo(from: decoder))
+        case .changeThreshold:
+            self = try .changeThreshold(ChangeThresholdSettingsChangeTransactionSummaryInfo(from: decoder))
+        case .changeImplementation:
+            self = try .changeImplementation(ChangeImplementationSettingsChangeTransactionSummaryInfo(from: decoder))
+        case .enableModule:
+            self = try .enableModule(EnableModuleSettingsChangeTransactionSummaryInfo(from: decoder))
+        case .disableModule:
+            self = try .disableModule(DisableModuleSettingsChangeTransactionSummaryInfo(from: decoder))
+        }
+    }
+}
+
+struct SetFallbackHandlerSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
+    let handler: AddressString
+}
+
+struct AddOwnerSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
+    let owner: AddressString
+    let threshold: UInt64
+}
+
+struct RemoveOwnerSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
+    let owner: AddressString
+    let threshold: UInt64
+}
+
+struct SwapOwnerSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
+    let newOwner: AddressString
+    let oldOwner: AddressString
+}
+
+struct ChangeThresholdSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
+    let threshold: UInt64
+}
+
+struct ChangeImplementationSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
+    let implementation: AddressString
+}
+
+struct EnableModuleSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
+    let module: AddressString
+}
+
+struct DisableModuleSettingsChangeTransactionSummaryInfo: SettingsChangeTransactionSummaryInfo {
+    let module: AddressString
 }
 
 struct CustomTransactionInfo: TransactionInfo {
@@ -138,7 +264,7 @@ struct  UnknownTransactionInfo: TransactionInfo {
 struct CreationTransactionInfo: TransactionInfo {
     let creator: AddressString
     let transactionHash: DataString
-    let masterCopy: AddressString?
+    let implementation: AddressString?
     let factory: AddressString?
 }
 
@@ -146,7 +272,7 @@ struct TransferTransactionInfo: TransactionInfo {
     let sender: AddressString
     let recipient: AddressString
     let direction: TransferDirection
-    let transferInfo: SCGTransferInfo
+    let transferInfo: TransferInfo
 }
 
 extension TransferTransactionInfo {
@@ -169,7 +295,7 @@ enum TransferDirection: String, Decodable {
     case unknown = "UNKNOWN"
 }
 
-protocol SCGTransferInfo: Decodable {}
+protocol TransferInfo: Decodable {}
 
 enum TransferInfoType: String, Decodable {
     case erc20 = "ERC20"
@@ -182,7 +308,7 @@ enum TransferInfoWrapper: Decodable {
     case erc721(Erc721TransferInfo)
     case ether(EtherTransferInfo)
 
-    var value: SCGTransferInfo {
+    var value: TransferInfo {
         switch self {
         case .erc20(let value):
             return value
@@ -211,7 +337,7 @@ enum TransferInfoWrapper: Decodable {
     }
 }
 
-struct Erc20TransferInfo: SCGTransferInfo {
+struct Erc20TransferInfo: TransferInfo {
     let tokenAddress: AddressString
     let tokenName: String?
     let tokenSymbol: String?
@@ -220,7 +346,7 @@ struct Erc20TransferInfo: SCGTransferInfo {
     let value: UInt256String
 }
 
-struct Erc721TransferInfo: SCGTransferInfo {
+struct Erc721TransferInfo: TransferInfo {
     let tokenAddress: AddressString
     let tokenId: UInt256String
     let tokenName: String?
@@ -228,13 +354,22 @@ struct Erc721TransferInfo: SCGTransferInfo {
     let logoUri: String?
 }
 
-struct EtherTransferInfo: SCGTransferInfo {
+struct EtherTransferInfo: TransferInfo {
     let value: UInt256String
 }
 
 enum Operation: Int, Decodable {
     case call = 0
     case delegate = 1
+
+    var name: String {
+        switch self {
+        case .call:
+            return "call"
+        case .delegate:
+            return "delegateCall"
+        }
+    }
 }
 
 struct DataDecoded: Decodable {
@@ -242,7 +377,8 @@ struct DataDecoded: Decodable {
     let parameters: [DataDecodedParameter]?
 }
 
-struct DataDecodedParameter: Decodable {
+struct DataDecodedParameter: Decodable, Identifiable {
+    let id = UUID()
     let name: String
     let type: String
     let value: DataDecodedParameterValue
@@ -276,6 +412,11 @@ extension DataDecodedParameterValue {
     var arrayValue: [DataDecodedParameterValue]? {
         self as? [DataDecodedParameterValue]
     }
+
+    var uint256Value: UInt256? {
+        guard let stringValue = stringValue else { return nil }
+        return UInt256(stringValue)
+    }
 }
 
 extension String: DataDecodedParameterValue {}
@@ -307,11 +448,11 @@ enum DataDecodedParameterValueWrapper: Decodable {
 
 // MARK: - Details
 
-struct TransactionDetails: Decodable {
-    let executedAt: Date
-    let txStatus: SCGTransactionStatus
-    let txInfo: TransactionInfo
-    let txData: TransactionDetailsData
+struct TransactionDetails: Decodable, Transaction {
+    let executedAt: Date?
+    var txStatus: TransactionStatus
+    var txInfo: TransactionInfo
+    let txData: TransactionDetailsData?
     let detailedExecutionInfo: DetailedExecutionInfo?
     let txHash: DataString?
 }
@@ -323,10 +464,10 @@ extension TransactionDetails {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-        executedAt = try container.decode(Date.self, forKey: .executedAt)
-        txStatus = try container.decode(SCGTransactionStatus.self, forKey: .txStatus)
+        executedAt = try container.decodeIfPresent(Date.self, forKey: .executedAt)
+        txStatus = try container.decode(TransactionStatus.self, forKey: .txStatus)
         txInfo = try container.decode(TransactionInfoWrapper.self, forKey: .txInfo).value
-        txData = try container.decode(TransactionDetailsData.self, forKey: .txData)
+        txData = try container.decodeIfPresent(TransactionDetailsData.self, forKey: .txData)
         detailedExecutionInfo = try container.decodeIfPresent(DetailedExecutionInfoWrapper.self, forKey: .detailedExecutionInfo)?.value
         txHash = try container.decodeIfPresent(DataString.self, forKey: .txHash)
     }
@@ -382,7 +523,7 @@ struct ModuleExecutionDetails: DetailedExecutionInfo {
 
 struct MultisigExecutionDetails: DetailedExecutionInfo {
     let submittedAt: Date
-    let nonce: UInt64
+    let nonce: UInt256String
     let safeTxHash: DataString
     let signers: [AddressString]
     let confirmationsRequired: UInt64

@@ -14,7 +14,7 @@ struct TransactionCellView: View {
         VStack (alignment: .leading, spacing: 4) {
             contentView.opacity(opacity)
 
-            HStack{
+            HStack {
                 if transaction.nonce != nil {
                     Text(transaction.nonce!)
                         .footnote()
@@ -53,6 +53,7 @@ struct TransactionCellView: View {
         let settingChangeTransaction = transaction as? SettingChangeTransactionViewModel
         let changeImplementationTransaction = transaction as? ChangeImplementationTransactionViewModel
         let customTransaction = transaction as? CustomTransactionViewModel
+        let creationTransaction = transaction as? CreationTransactionViewModel
 
         return ZStack {
             if customTransaction != nil {
@@ -63,6 +64,8 @@ struct TransactionCellView: View {
                 SettingsChangeTransactionCellView(transaction: settingChangeTransaction!)
             } else if changeImplementationTransaction != nil {
                 ChangeImplementationCellView(transaction: changeImplementationTransaction!)
+            } else if creationTransaction != nil {
+                CreationTransactionCellView(transaction: creationTransaction!)
             } else {
                 EmptyView()
             }
@@ -71,26 +74,10 @@ struct TransactionCellView: View {
 
     var opacity: Double {
         switch transaction.status {
-        case .waitingExecution, .waitingConfirmation, .pending, .success:
+        case .awaitingExecution, .awaitingConfirmations, .pending, .success:
              return 1
         case .failed, .cancelled:
             return 0.5
         }
-    }
-}
-
-struct TransactionCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        let transaction = ChangeImplementationTransactionViewModel()
-        transaction.contractAddress = "0x71592E6Cbe7779D480C1D029e70904041F8f602A"
-        transaction.contractVersion = "1.1.1"
-        transaction.confirmationCount = 1
-        transaction.threshold = 2
-        transaction.formattedDate = "Apr 25, 2020 — 1:01:42PM"
-        transaction.nonce = "2"
-        transaction.status = .failed
-
-        //disabled mode
-        return TransactionCellView(transaction: transaction)
     }
 }

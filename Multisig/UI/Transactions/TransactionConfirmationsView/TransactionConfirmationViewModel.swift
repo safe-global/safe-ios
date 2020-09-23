@@ -10,28 +10,20 @@ import Foundation
 
 class TransactionConfirmationViewModel: Equatable {
 
-    var address: String
-    var date: Date?
+    var address: String = ""
     var data: String?
 
-    init() {
-        address = ""
-        data = ""
-        date = Date()
+    init(address: String, data: String?) {
+        (self.address, self.data) = (address, data)
     }
 
-    init(address: String, date: Date?, data: String?) {
-        (self.address, self.date, self.data) = (address, date, data)
-    }
-
-    init(confirmation: TransactionConfirmation) {
-        address = confirmation.owner.address.checksummed
-        date = confirmation.submissionDate
-        data = confirmation.data.map { $0.data.toHexStringWithPrefix() }
+    init(confirmation: MultisigConfirmation) {
+        address = confirmation.signer.address.checksummed
+        data = confirmation.signature.data.toHexStringWithPrefix()
     }
 
     static func == (lhs: TransactionConfirmationViewModel, rhs: TransactionConfirmationViewModel) -> Bool {
-        (lhs.address, lhs.data, lhs.date) == (rhs.address, rhs.data, rhs.date)
+        (lhs.address, lhs.data) == (rhs.address, rhs.data)
     }
 
 }

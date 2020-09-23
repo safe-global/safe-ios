@@ -9,13 +9,24 @@
 import SwiftUI
 
 struct TransactionActionDetailsView: View {
-    var dataDecoded: TransactionData
+    var dataDecoded: DataDecoded
     var body: some View {
         List {
-            ForEach(dataDecoded.parameters, id: \.name) { paramter in
-                ParameterView(parameter: paramter)
+            if hasParamters {
+                ForEach(dataDecoded.parameters!) { paramter in
+                    ParameterView(parameter: paramter)
+                }
+            } else {
+                Text("No parameters").body()
             }
         }
         .navigationBarTitle(dataDecoded.method)
+        .onAppear {
+            self.trackEvent(.transactionsDetailsAction)
+        }
+    }
+
+    var hasParamters: Bool {
+        !(dataDecoded.parameters ?? []).isEmpty
     }
 }

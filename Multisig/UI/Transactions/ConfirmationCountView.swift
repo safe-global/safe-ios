@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct ConfirmationCountView: View {
-    let currentValue: Int
-    let threshold: Int
+    let currentValue: UInt64
+    let threshold: UInt64
 
     var color: Color {
         currentValue >= threshold ? Color.gnoHold : Color.gnoMediumGrey

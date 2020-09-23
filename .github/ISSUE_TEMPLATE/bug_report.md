@@ -18,6 +18,8 @@ assignees: ''
 **Device & App version**
  - Device/OS: [e.g. iPhone8/iOS13.4.1]
  - App version:
+ 
+**Environment**
 
 **Additional info**
 (Optional)

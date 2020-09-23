@@ -14,7 +14,8 @@ struct ExpandableButton: View {
 
     var title: String
     var value: String
-
+    var enableCopy: Bool = true
+    
     var body: some View {
         Button(action: {
             self.expanded.toggle()
@@ -28,9 +29,12 @@ struct ExpandableButton: View {
                         Image.chevronDown
                     }
                 }
-                if expanded {
-                    Text(value).body()
-                }
+                CopyButton(value) {
+                    if expanded {
+                        Text(value).body()
+                    }
+                }.disabled(!enableCopy)
+
             }
         }
         .animation(.linear(duration: 0.1))

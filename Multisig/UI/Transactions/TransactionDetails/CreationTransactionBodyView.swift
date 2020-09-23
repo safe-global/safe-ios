@@ -52,9 +52,7 @@ struct CreationTransactionBodyView: View {
                 }
             }
 
-            if transaction.formattedCreatedDate != nil {
-                KeyValueRow("Created", value: transaction.formattedCreatedDate!, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
-            }
+            KeyValueRow("Created", value: transaction.formattedDate, enableCopy: false, color: .gnoDarkGrey).padding(.vertical, padding)
         }
     }
 }
