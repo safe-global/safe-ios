@@ -17,12 +17,13 @@ class CreationTransactionViewModel: TransactionViewModel {
     override func bind(info: TransactionInfo) {
         let creattionTransactionInfo = info as! CreationTransactionInfo
         creator = creattionTransactionInfo.creator.address.checksummed
-        implementationUsed = creattionTransactionInfo.masterCopy?.address.checksummed
+        implementationUsed = creattionTransactionInfo.implementation?.address.checksummed
         if let implementationUsed = implementationUsed {
             contractVersion = GnosisSafe().versionNumber(implementation: Address(exactly: implementationUsed)) ?? "Unknown"
         }
 
         factoryUsed = creattionTransactionInfo.factory?.address.checksummed
+        hash = creattionTransactionInfo.transactionHash.description
     }
 
     class func isValid(info: TransactionInfo) -> Bool {

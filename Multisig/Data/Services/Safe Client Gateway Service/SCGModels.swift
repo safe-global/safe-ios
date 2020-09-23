@@ -264,7 +264,7 @@ struct  UnknownTransactionInfo: TransactionInfo {
 struct CreationTransactionInfo: TransactionInfo {
     let creator: AddressString
     let transactionHash: DataString
-    let masterCopy: AddressString?
+    let implementation: AddressString?
     let factory: AddressString?
 }
 
