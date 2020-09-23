@@ -22,6 +22,7 @@ class TransactionViewModel: Identifiable, Equatable {
     var safeHash: String?
     var executor: String?
     var operation: String?
+    var signers: [String]?
     var confirmations: [TransactionConfirmationViewModel]?
     var dataDecoded: DataDecoded?
     var data: String?
@@ -74,6 +75,7 @@ class TransactionViewModel: Identifiable, Equatable {
             confirmations = multiSigTxInfo.confirmations.map { TransactionConfirmationViewModel(confirmation:$0) }
             safeHash = multiSigTxInfo.safeTxHash.description
             threshold = multiSigTxInfo.confirmationsRequired
+            signers = multiSigTxInfo.signers.map { $0.address.checksummed }
             confirmationCount = UInt64(multiSigTxInfo.confirmations.count)
             remainingConfirmationsRequired = confirmationCount! > threshold! ? 0 : threshold! - confirmationCount!
         } else {

@@ -29,7 +29,7 @@ struct TransactionListView: Loadable {
         }
     }
 
-    var transactionsList: some View {
+    private var transactionsList: some View {
         List {
             ForEach(model.transactionsList.sections) { section in
                 Section(header: SectionHeader(section.name)) {
@@ -39,7 +39,7 @@ struct TransactionListView: Loadable {
                         // the "List" in this detail screen. When
                         // details is reloading and user taps back, the
                         // list somehow gets overreleased and the  app crashes
-                        NavigationLink(destination: LoadableView(TransactionDetailsView(transaction: transaction), reloadsOnAppOpen: false)) {
+                        NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
                             TransactionCellView(transaction: transaction)
                         }.onAppear {
                             if self.model.isLast(transaction: transaction) && self.model.canLoadNext {

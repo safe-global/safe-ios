@@ -48,7 +48,9 @@ class SnackbarCenter: ObservableObject {
     }
 
     func resetBottomPadding() {
-        bottomPaddingStack.removeLast()
+        if !bottomPaddingStack.isEmpty {
+            bottomPaddingStack.removeLast()
+        }
         updateBottomEdgeSpacing()
     }
 

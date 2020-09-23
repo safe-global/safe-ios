@@ -46,7 +46,6 @@ class SafeSettingsViewModel: BasicLoadableViewModel {
 }
 
 extension Safe {
-
     func update(from safeInfo: SafeStatusRequest.Response) {
         objectWillChange.send()
         threshold = safeInfo.threshold.value
@@ -57,5 +56,4 @@ extension Safe {
         modules = safeInfo.modules.map { $0.address }
         fallbackHandler = safeInfo.fallbackHandler.address
     }
-
 }
