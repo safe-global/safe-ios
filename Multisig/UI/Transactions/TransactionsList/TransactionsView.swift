@@ -15,7 +15,6 @@ struct TransactionsView: View {
     @ObservedObject
     var viewState = App.shared.viewState
 
-
     var body: some View {
         ZStack(alignment: .center) {
             Rectangle()

@@ -11,9 +11,7 @@ import CoreData
 
 @objc(Safe)
 public class Safe: NSManagedObject {
-
     var ensName: String?
-
     var threshold: UInt256?
     var owners: [Address]?
     var implementation: Address?

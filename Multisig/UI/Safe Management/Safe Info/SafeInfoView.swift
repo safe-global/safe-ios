@@ -11,7 +11,6 @@ import SwiftUI
 // Info view split into two objects so that the content view would track
 // changes to the safe, but the parent view tracks changes to the selection.
 struct SafeInfoView: View {
-
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selectedSafe: FetchedResults<Safe>
 
@@ -27,7 +26,6 @@ struct SafeInfoView: View {
 }
 
 struct SafeInfoContentView: View {
-
     @ObservedObject var safe: Safe
 
     var body: some View {
