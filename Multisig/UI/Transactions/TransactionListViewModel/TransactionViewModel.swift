@@ -11,6 +11,11 @@ import Foundation
 class TransactionViewModel: Identifiable, Equatable {
     var id: String = ""
     var nonce: String?
+    var safeTxGas: String?
+    var baseGas: String?
+    var gasPrice: String?
+    var gasToken: String?
+    var refundReceiver: String?
     var status: TransactionStatus = .success
     var formattedDate: String = ""
     var formattedCreatedDate: String?
@@ -22,10 +27,14 @@ class TransactionViewModel: Identifiable, Equatable {
     var safeHash: String?
     var executor: String?
     var operation: String?
+    var operationRaw: Int?
     var signers: [String]?
     var confirmations: [TransactionConfirmationViewModel]?
     var dataDecoded: DataDecoded?
     var data: String?
+
+    var recipient: String?
+    var value: String?
 
     var hasConfirmations: Bool {
         confirmationCount ?? 0 > 0
@@ -71,6 +80,11 @@ class TransactionViewModel: Identifiable, Equatable {
         hash = tx.txHash?.description
         if let multiSigTxInfo = tx.detailedExecutionInfo as? MultisigExecutionDetails {
             nonce = "\(multiSigTxInfo.nonce)"
+            safeTxGas = "\(multiSigTxInfo.safeTxGas)"
+            baseGas = "\(multiSigTxInfo.baseGas)"
+            gasPrice = "\(multiSigTxInfo.gasPrice)"
+            gasToken = "\(multiSigTxInfo.gasToken)"
+            refundReceiver = "\(multiSigTxInfo.refundReceiver)"
             formattedCreatedDate = Self.dateFormatter.string(from: multiSigTxInfo.submittedAt)
             confirmations = multiSigTxInfo.confirmations.map { TransactionConfirmationViewModel(confirmation:$0) }
             safeHash = multiSigTxInfo.safeTxHash.description
@@ -87,8 +101,11 @@ class TransactionViewModel: Identifiable, Equatable {
 
         if let txData = tx.txData {
             operation = txData.operation.name
+            operationRaw = txData.operation.rawValue
             dataDecoded = txData.dataDecoded
             data = txData.hexData?.description
+            value = txData.value.description
+            recipient = txData.to.description
         }
 
         bind(status: tx.txStatus)

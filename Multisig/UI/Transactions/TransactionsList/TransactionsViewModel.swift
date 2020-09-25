@@ -35,7 +35,7 @@ class TransactionsViewModel: BasicLoadableViewModel {
             .compactMap { Address($0) }
             .receive(on: DispatchQueue.global())
             .tryMap { [weak self] address -> TransactionsListViewModel in
-                let transactions = try App.shared.clientGatewayService.transactionSummaryList(address: address)
+                let transactions = try App.shared.clientGatewayService.transactionSummaryList(address: address)                
                 let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
                 if let `self` = self {
                     self.nextURL = transactions.next

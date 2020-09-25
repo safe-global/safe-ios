@@ -66,7 +66,7 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
                     }
                     self.isLoading = false
                     self.isRefreshing = false
-                }, receiveValue:{ [weak self] transaction in
+                }, receiveValue: { [weak self] transaction in
                     guard let `self` = self else { return }
                     self.transactionDetails = transaction
                     self.errorMessage = nil
@@ -86,5 +86,27 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
         } else {
             return try App.shared.clientGatewayService.transactionDetails(id: id!)
         }
+    }
+
+    func sign(safeAddress: Address) {
+        guard let transferTx = transactionDetails as? TransferTransactionViewModel else { return }
+        Just(safeAddress)
+            .receive(on: DispatchQueue.global())
+            .tryMap { _ in
+                try App.shared.safeTransactionService.sign(transaction: transferTx,
+                                                           safeAddress: safeAddress)
+            }
+            .receive(on: RunLoop.main)
+            .sink(
+                receiveCompletion: { completion in
+                    if case .failure(let error) = completion {
+                        App.shared.snackbar.show(message: error.localizedDescription)
+                    }
+                },
+                receiveValue: { [weak self] _ in
+                    self?.reloadData()
+                }
+            )
+            .store(in: &subscribers)
     }
 }

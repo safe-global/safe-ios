@@ -65,7 +65,7 @@ struct TransactionDetailsView: View {
     }
 
     private func confirmTransaction() {
-        print("Confirm")
+        model.sign(safeAddress: safe.safeAddress!)
     }
 }
 

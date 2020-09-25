@@ -523,6 +523,11 @@ struct ModuleExecutionDetails: DetailedExecutionInfo {
 struct MultisigExecutionDetails: DetailedExecutionInfo {
     let submittedAt: Date
     let nonce: UInt256String
+    let safeTxGas: UInt256String
+    let baseGas: UInt256String
+    let gasPrice: UInt256String
+    let gasToken: AddressString
+    let refundReceiver: AddressString
     let safeTxHash: DataString
     let signers: [AddressString]
     let confirmationsRequired: UInt64
