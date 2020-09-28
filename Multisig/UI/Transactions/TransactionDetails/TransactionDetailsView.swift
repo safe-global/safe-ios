@@ -39,7 +39,7 @@ struct TransactionDetailsView: View {
         ZStack {
             LoadableView(TransactionDetailsBodyView(model: model, safe: safe), reloadsOnAppOpen: false)
 
-            if canSign {
+            if App.configuration.toggles.signing && canSign {
                 confirmButtonView
             }
         }

@@ -88,10 +88,15 @@ struct AppConfiguration {
         var logLevel: String
     }
 
+    struct FeatureToggles {
+        let signing: Bool = false
+    }
+
     let services = Services()
     let legal = Legal()
     let contact = Contact()
     let app = App()
+    let toggles = FeatureToggles()
 }
 
 enum Network: String, InfoPlistValueType {
