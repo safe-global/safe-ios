@@ -14,10 +14,6 @@ struct BasicSafeSettingsView: Loadable {
 
     var safe: Safe { return model.safe }
 
-    init(safe: Safe) {
-        model = SafeSettingsViewModel(safe: safe)
-    }
-
     let rowHeight: CGFloat = 48
     
     var body: some View {
@@ -72,6 +68,6 @@ struct BasicSafeSettingsView: Loadable {
 
 struct BasicSafeSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        BasicSafeSettingsView(safe: Safe())
+        BasicSafeSettingsView(model: SafeSettingsViewModel(safe: Safe()))
     }
 }
