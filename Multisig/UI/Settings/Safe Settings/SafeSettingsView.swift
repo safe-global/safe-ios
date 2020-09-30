@@ -10,12 +10,17 @@ import SwiftUI
 import CoreData
 
 struct SafeSettingsView: View {
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    var selected: FetchedResults<Safe>
-    
+    var model: SafeSettingsViewModel?
+
+    init(safe: Safe?) {
+        if let safe = safe {
+            model = SafeSettingsViewModel(safe: safe)
+        }
+    }
+
     var body: some View {
         ZStack {
-            if selected.first == nil {
+            if model == nil {
                 // so it does not jump when switching Assets <-> Settings in the tap bar
                 AddSafeIntroView(padding: .top, -56).onAppear {
                     self.trackEvent(.settingsSafeNoSafe)
@@ -26,7 +31,7 @@ struct SafeSettingsView: View {
                         .edgesIgnoringSafeArea(.all)
                         .foregroundColor(Color.gnoWhite)
 
-                    LoadableView(BasicSafeSettingsView(safe: selected.first!))
+                    LoadableView(BasicSafeSettingsView(model: model!))
                 }
             }
         }
@@ -35,6 +40,6 @@ struct SafeSettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SafeSettingsView()
+        SafeSettingsView(safe: nil)
     }
 }

@@ -14,18 +14,19 @@ struct BasicSafeSettingsView: Loadable {
 
     var safe: Safe { return model.safe }
 
-    init(safe: Safe) {
-        model = SafeSettingsViewModel(safe: safe)
-    }
-
     let rowHeight: CGFloat = 48
     
     var body: some View {
         List {
             Section(header: SectionHeader("SAFE NAME")) {
-                NavigationLink(destination: EditSafeNameView(
-                    address: safe.address ?? "",
-                    name: safe.name ?? "")) { Text(safe.name ?? "").body() }
+                NavigationLink(
+                    destination:
+                        EditSafeNameView(
+                            address: safe.address ?? "",
+                            name: safe.name ?? ""),
+                    label: {
+                        Text(safe.name ?? "").body()
+                    })
                     .frame(height: rowHeight)
             }
 
@@ -67,6 +68,6 @@ struct BasicSafeSettingsView: Loadable {
 
 struct BasicSafeSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        BasicSafeSettingsView(safe: Safe())
+        BasicSafeSettingsView(model: SafeSettingsViewModel(safe: Safe()))
     }
 }
