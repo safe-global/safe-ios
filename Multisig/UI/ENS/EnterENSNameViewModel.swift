@@ -28,34 +28,44 @@ class EnterENSNameViewModel: ObservableObject {
 
     private var subscribers = Set<AnyCancellable>()
 
-    func resolve(name: String) {
-        subscribers.forEach { $0.cancel() }
-
+    init() {
         $text
-            .map { v -> String in
-                self.reset()
+            .map { [weak self] v -> String in
+                self?.reset()
                 return v.trimmingCharacters(in: .whitespacesAndNewlines)
             }
             .filter { !$0.isEmpty }
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .removeDuplicates()
-            .tryMap { v -> String in
-                self.startResolving()
-                return v
+            .eraseToAnyPublisher()
+
+            // flatMap allows to run this pipeline multiple times by
+            // transforming every text value into a new publisher that
+            // loads the ENS for that text value.
+            .flatMap { input in
+                Just(input)
+                    .tryMap { [weak self] v -> String in
+                        self?.startResolving()
+                        return v
+                    }
+                    .receive(on: DispatchQueue.global())
+                    .tryMap { ensName -> Result<Address, Error> in
+                        let address = try App.shared.ens.address(for: ensName)
+                        return .success(address)
+                    }
+                    .receive(on: RunLoop.main)
+                    .catch {
+                        Just(.failure($0))
+                    }
             }
-            .receive(on: DispatchQueue.global())
-            .tryMap { ensName -> Address in
-                let address = try App.shared.ens.address(for: ensName)
-                return address
-            }
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                if case .failure(let error) = completion {
+            .sink { [weak self] result in
+                switch result {
+                case .success(let address):
+                    self?.setSuccess(address)
+                case .failure(let error):
                     self?.setError(error.localizedDescription)
                 }
-            }, receiveValue: { [weak self] address in
-                    self?.setSuccess(address)
-            })
+            }
             .store(in: &subscribers)
     }
 
