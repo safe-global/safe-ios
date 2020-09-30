@@ -99,10 +99,8 @@ struct LoadableView<Content: Loadable>: View {
     }
 
     var contentView: some View {
-        content
-            .onAppear {
-                self.model.firstTimeLoad()
-            }
+        self.model.firstTimeLoad()
+        return content
     }
 }
 
