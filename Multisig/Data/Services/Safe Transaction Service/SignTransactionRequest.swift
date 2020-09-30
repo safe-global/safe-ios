@@ -12,18 +12,19 @@ import Web3
 struct SignTransactionRequest: JSONRequest {
     let safe: String
 
-    let sender: String
-    let to: String
-    let nonce: String
+
+    let to: String?
+    let value: String
+    let data: String?
+    let operation: Int
     let safeTxGas: String
     let baseGas: String
     let gasPrice: String
-    let gasToken: String
+    let gasToken: String?
     let refundReceiver: String
+    let nonce: String
     let contractTransactionHash: String
-    let data: String
-    let operation: String
-    let value: String
+    let sender: String
     let signature: String?
 
     enum CodingKeys: String, CodingKey {
@@ -35,19 +36,19 @@ struct SignTransactionRequest: JSONRequest {
         case couldNotVerifySafeTxHash
     }
 
-    init(transaction: TransferTransactionViewModel, safeAddress: Address) throws {
+    init(transaction: Transaction, safeAddress: Address) throws {
         safe = safeAddress.checksummed
-        to = transaction.recipient!
-        nonce = transaction.nonce!
-        safeTxGas = transaction.safeTxGas!
-        baseGas = transaction.baseGas!
-        gasPrice = transaction.gasPrice!
-        gasToken = transaction.gasToken!
-        refundReceiver = transaction.refundReceiver!
-        data = transaction.data ?? ""
-        contractTransactionHash = transaction.safeHash!
-        operation = String(transaction.operationRaw!)
-        value = transaction.value!
+        to = transaction.to?.description
+        value = transaction.value.description
+        data = transaction.data?.description
+        operation = transaction.operation.rawValue
+        safeTxGas = transaction.safeTxGas.description
+        baseGas = transaction.baseGas.description
+        gasPrice = transaction.gasPrice.description
+        gasToken = transaction.gasToken?.description
+        refundReceiver = transaction.refundReceiver.description
+        nonce = transaction.nonce.description
+        contractTransactionHash = transaction.safeTxHash.description
 
         // Calculating safeTxHash (we will need to refactor it properly)
 
@@ -122,8 +123,7 @@ struct SignTransactionRequest: JSONRequest {
 }
 
 extension SafeTransactionService {
-    func sign(transaction: TransferTransactionViewModel,
-              safeAddress: Address) throws -> SignTransactionRequest.Response {
+    func sign(transaction: Transaction, safeAddress: Address) throws -> SignTransactionRequest.Response {
         let request = try SignTransactionRequest(transaction: transaction, safeAddress: safeAddress)
         return try execute(request: request)
     }

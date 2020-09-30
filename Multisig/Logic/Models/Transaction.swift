@@ -19,12 +19,26 @@ struct Transaction {
     let safeTxGas: UInt256String
     let baseGas: UInt256String
     let gasPrice: UInt256String
-    let gasToken: UInt256String?
-    let refundReceiver: AddressString?
+    let gasToken: AddressString?
+    let refundReceiver: AddressString // zero address if no refund receiver is set
     let nonce: UInt256String
+    // computed based on other properties
+    let safeTxHash: HashString // can be computed from the
+}
 
-    // required by a transaction service
-    let safeTxHash: HashString
-    let sender: AddressString
-    let signature: SignatureString
+#warning("TODO: make a validatione of safeTxHash here")
+extension Transaction {
+    init(txData: TransactionDetailsData, multiSigTxInfo: MultisigExecutionDetails) {
+        to = txData.to
+        value = txData.value
+        data = txData.hexData
+        operation = txData.operation
+        safeTxGas = multiSigTxInfo.safeTxGas
+        baseGas = multiSigTxInfo.baseGas
+        gasPrice = multiSigTxInfo.gasPrice
+        gasToken = multiSigTxInfo.gasToken
+        refundReceiver = multiSigTxInfo.refundReceiver
+        nonce = multiSigTxInfo.nonce
+        safeTxHash = multiSigTxInfo.safeTxHash
+    }
 }

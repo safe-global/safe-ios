@@ -529,10 +529,11 @@ struct MultisigExecutionDetails: DetailedExecutionInfo {
     let gasPrice: UInt256String
     let gasToken: AddressString
     let refundReceiver: AddressString
-    let safeTxHash: DataString
+    let safeTxHash: HashString
     let signers: [AddressString]
     let confirmationsRequired: UInt64
     let confirmations: [MultisigConfirmation]
+    let executor: AddressString?
 }
 
 struct MultisigConfirmation: Decodable {

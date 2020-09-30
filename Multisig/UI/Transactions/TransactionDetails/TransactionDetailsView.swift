@@ -74,7 +74,7 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
     let model: TransactionDetailsViewModel
     let safe: Safe
 
-    private var transactionDetails: TransactionViewModel {
+    private var transactionViewModel: TransactionViewModel {
         model.transactionDetails
     }
 
@@ -84,13 +84,13 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
 
     var body: some View {
         List {
-            if transactionDetails is CreationTransactionViewModel {
-                CreationTransactionBodyView(transaction: transactionDetails as! CreationTransactionViewModel)
+            if transactionViewModel is CreationTransactionViewModel {
+                CreationTransactionBodyView(transaction: transactionViewModel as! CreationTransactionViewModel)
             } else {
                 detailsBodyView
             }
             
-            if transactionDetails.browserURL != nil {
+            if transactionViewModel.browserURL != nil {
                 viewTxOnEtherscan
             }
         }
@@ -102,7 +102,7 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
 
     var detailsBodyView: some View {
         Group {
-            TransactionHeaderView(transaction: transactionDetails)
+            TransactionHeaderView(transaction: transactionViewModel)
 
             if dataDecoded != nil {
                 TransactionActionView(dataDecoded: dataDecoded!)
@@ -115,28 +115,31 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
                 }.padding(.vertical, padding)
             }
 
-            TransactionStatusTypeView(transaction: transactionDetails)
+            TransactionStatusTypeView(transaction: transactionViewModel)
+
             if displayConfirmations {
-                TransactionConfirmationsView(transaction: transactionDetails, safe: safe).padding(.vertical, padding)
+                TransactionConfirmationsView(transaction: transactionViewModel, safe: safe).padding(.vertical, padding)
             }
 
-            if transactionDetails.formattedCreatedDate != nil {
+            if transactionViewModel.formattedCreatedDate != nil {
                 KeyValueRow("Created:",
-                            value: transactionDetails.formattedCreatedDate!,
+                            value: transactionViewModel.formattedCreatedDate!,
                             enableCopy: false,
                             color: .gnoDarkGrey).padding(.vertical, padding)
             }
 
-            if transactionDetails.formattedExecutedDate != nil {
+            if transactionViewModel.formattedExecutedDate != nil {
                 KeyValueRow("Executed:",
-                            value: transactionDetails.formattedExecutedDate!,
+                            value: transactionViewModel.formattedExecutedDate!,
                             enableCopy: false,
                             color: .gnoDarkGrey).padding(.vertical, padding)
             }
 
-            if transactionDetails.hasAdvancedDetails {
-                NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transactionDetails)) {
-                    Text("Advanced").body()
+            if transactionViewModel.hasAdvancedDetails {
+                NavigationLink(
+                    destination: AdvancedTransactionDetailsView(transactionViewModel: transactionViewModel)
+                ) {
+                    Text("Advanced").body()                    
                 }
                 .frame(height: 48)
             }
@@ -155,11 +158,11 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
 
 
     private func browseTransaction() -> some View {
-        SafariViewController(url: transactionDetails.browserURL!)
+        SafariViewController(url: transactionViewModel.browserURL!)
     }
 
     private var data: (length: UInt256, data: String)? {
-        guard let customTransaction = transactionDetails as? CustomTransactionViewModel,
+        guard let customTransaction = transactionViewModel as? CustomTransactionViewModel,
               let data = customTransaction.data else {
             return nil
         }
@@ -168,7 +171,7 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
     }
 
     private var dataDecoded: DataDecoded? {
-        guard let customTransaction = transactionDetails as? CustomTransactionViewModel else {
+        guard let customTransaction = transactionViewModel as? CustomTransactionViewModel else {
             return nil
         }
 
@@ -176,7 +179,7 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
     }
 
     private var displayConfirmations: Bool {
-        guard let transferTransaction = transactionDetails as? TransferTransactionViewModel else {
+        guard let transferTransaction = transactionViewModel as? TransferTransactionViewModel else {
             return true
         }
 

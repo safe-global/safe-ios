@@ -88,12 +88,12 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
     }
 
     func sign(safeAddress: Address) {
-        guard let transferTx = transactionDetails as? TransferTransactionViewModel else { return }
+        guard let transferTx = transactionDetails as? TransferTransactionViewModel,
+              let transaction = transferTx.transaction else { return }
         Just(safeAddress)
             .receive(on: DispatchQueue.global())
             .tryMap { _ in
-                try App.shared.safeTransactionService.sign(transaction: transferTx,
-                                                           safeAddress: safeAddress)
+                try App.shared.safeTransactionService.sign(transaction: transaction, safeAddress: safeAddress)
             }
             .receive(on: RunLoop.main)
             .sink(

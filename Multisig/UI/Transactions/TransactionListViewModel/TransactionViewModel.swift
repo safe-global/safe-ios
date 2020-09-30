@@ -10,12 +10,15 @@ import Foundation
 
 class TransactionViewModel: Identifiable, Equatable {
     var id: String = ""
+
+    var transaction: Transaction?
+
+    // MARK: - Common fields for TransactionSummary and TransactionDetails
     var nonce: String?
-    var safeTxGas: String?
-    var baseGas: String?
-    var gasPrice: String?
-    var gasToken: String?
-    var refundReceiver: String?
+    var data: String?
+
+    // MARK: - Transaction Meta Info
+
     var status: TransactionStatus = .success
     var formattedDate: String = ""
     var formattedCreatedDate: String?
@@ -24,17 +27,10 @@ class TransactionViewModel: Identifiable, Equatable {
     var threshold: UInt64?
     var remainingConfirmationsRequired: UInt64 = 0
     var hash: String?
-    var safeHash: String?
     var executor: String?
-    var operation: String?
-    var operationRaw: Int?
     var signers: [String]?
     var confirmations: [TransactionConfirmationViewModel]?
     var dataDecoded: DataDecoded?
-    var data: String?
-
-    var recipient: String?
-    var value: String?
 
     var hasConfirmations: Bool {
         confirmationCount ?? 0 > 0
@@ -54,7 +50,7 @@ class TransactionViewModel: Identifiable, Equatable {
         return d
     }()
 
-    init() { }
+    init() {}
 
     init(_ tx: TransactionSummary) {
         id = tx.id.value
@@ -78,20 +74,19 @@ class TransactionViewModel: Identifiable, Equatable {
 
     init(_ tx: TransactionDetails) {
         hash = tx.txHash?.description
+
         if let multiSigTxInfo = tx.detailedExecutionInfo as? MultisigExecutionDetails {
+            let txData = tx.txData!
+            transaction = Transaction(txData: txData, multiSigTxInfo: multiSigTxInfo)
             nonce = "\(multiSigTxInfo.nonce)"
-            safeTxGas = "\(multiSigTxInfo.safeTxGas)"
-            baseGas = "\(multiSigTxInfo.baseGas)"
-            gasPrice = "\(multiSigTxInfo.gasPrice)"
-            gasToken = "\(multiSigTxInfo.gasToken)"
-            refundReceiver = "\(multiSigTxInfo.refundReceiver)"
             formattedCreatedDate = Self.dateFormatter.string(from: multiSigTxInfo.submittedAt)
             confirmations = multiSigTxInfo.confirmations.map { TransactionConfirmationViewModel(confirmation:$0) }
-            safeHash = multiSigTxInfo.safeTxHash.description
+            executor = multiSigTxInfo.executor?.description
             threshold = multiSigTxInfo.confirmationsRequired
             signers = multiSigTxInfo.signers.map { $0.address.checksummed }
             confirmationCount = UInt64(multiSigTxInfo.confirmations.count)
             remainingConfirmationsRequired = confirmationCount! > threshold! ? 0 : threshold! - confirmationCount!
+            
         } else {
             // Module Transaction, we do nothing so far
         }
@@ -100,12 +95,8 @@ class TransactionViewModel: Identifiable, Equatable {
         formattedDate = formattedExecutedDate ?? formattedCreatedDate ?? ""
 
         if let txData = tx.txData {
-            operation = txData.operation.name
-            operationRaw = txData.operation.rawValue
             dataDecoded = txData.dataDecoded
             data = txData.hexData?.description
-            value = txData.value.description
-            recipient = txData.to.description
         }
 
         bind(status: tx.txStatus)
@@ -136,7 +127,8 @@ class TransactionViewModel: Identifiable, Equatable {
     }
 
     var hasAdvancedDetails: Bool {
-        nonce != nil || operation != nil || hash != nil
+        // hash can be for incoming transaction
+        nonce != nil || hash != nil
     }
 }
 
