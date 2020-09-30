@@ -116,8 +116,8 @@ DEPENDENCIES:
   - Kingfisher/SwiftUI (= 5.14.0)
   - secp256k1.swift
   - SwiftCryptoTokenFormatter (= 1.0.0)
-  - Web3/Core (= 0.4.2)
-  - Web3/HTTPExtension (= 0.4.2)
+  - Web3/Core (from `https://github.com/gnosis/Web3.swift.git`, branch `enhance-signing`)
+  - Web3/HTTPExtension (from `https://github.com/gnosis/Web3.swift.git`, branch `enhance-signing`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -140,7 +140,6 @@ SPEC REPOS:
     - Protobuf
     - secp256k1.swift
     - SwiftCryptoTokenFormatter
-    - Web3
 
 EXTERNAL SOURCES:
   BlockiesSwift:
@@ -149,6 +148,9 @@ EXTERNAL SOURCES:
   idn2Swift:
     :branch: master
     :git: https://github.com/gnosis/pod-idn2.git
+  Web3:
+    :branch: enhance-signing
+    :git: https://github.com/gnosis/Web3.swift.git
 
 CHECKOUT OPTIONS:
   BlockiesSwift:
@@ -157,6 +159,9 @@ CHECKOUT OPTIONS:
   idn2Swift:
     :commit: 4b4a820a104fbc3f2c168c1a7ca56ff25bc7b671
     :git: https://github.com/gnosis/pod-idn2.git
+  Web3:
+    :commit: 6c97155b5c09d42694d0db617ebaf04855980ae4
+    :git: https://github.com/gnosis/Web3.swift.git
 
 SPEC CHECKSUMS:
   BigInt: 2aad1a9942dc932ec8b84290d2c564a3d76f97ab
@@ -182,6 +187,6 @@ SPEC CHECKSUMS:
   SwiftCryptoTokenFormatter: 416367b31a0bb71e2b4f3928fa92bfc7c9611763
   Web3: 7b2c30f98f24cc290bc671ab525d7a30a2afbc73
 
-PODFILE CHECKSUM: a34194c38fa51040f03a4617c441c1d715b667db
+PODFILE CHECKSUM: aa8113fc594b33e4eaffbd6ea3e9519348a2031c
 
 COCOAPODS: 1.8.4

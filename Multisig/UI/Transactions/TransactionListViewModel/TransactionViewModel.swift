@@ -10,15 +10,15 @@ import Foundation
 
 class TransactionViewModel: Identifiable, Equatable {
     var id: String = ""
-
+    // only in MULTISIG tranasctions
     var transaction: Transaction?
-
-    // MARK: - Common fields for TransactionSummary and TransactionDetails
-    var nonce: String?
+    
     var data: String?
 
-    // MARK: - Transaction Meta Info
+    // MARK: - Common fields for TransactionSummary
+    var nonce: String?
 
+    // MARK: - Transaction Meta Info
     var status: TransactionStatus = .success
     var formattedDate: String = ""
     var formattedCreatedDate: String?
