@@ -30,7 +30,7 @@ class CreationTransactionViewModel: TransactionViewModel {
         info is CreationTransactionInfo
     }
 
-    override class func viewModels(from tx: Transaction) -> [TransactionViewModel] {
+    override class func viewModels(from tx: SCGTransaction) -> [TransactionViewModel] {
         isValid(info: tx.txInfo) ? [CreationTransactionViewModel(tx)] : []
     }
 }

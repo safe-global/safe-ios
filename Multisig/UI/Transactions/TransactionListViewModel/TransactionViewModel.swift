@@ -112,7 +112,7 @@ class TransactionViewModel: Identifiable, Equatable {
         bind(info: tx.txInfo)
     }
 
-    convenience init (_ tx: Transaction) {
+    convenience init (_ tx: SCGTransaction) {
         if let transactionSummary = tx as? TransactionSummary {
             self.init(transactionSummary)
         } else {
@@ -131,7 +131,7 @@ class TransactionViewModel: Identifiable, Equatable {
         lhs.id == rhs.id
     }
 
-    class func viewModels(from tx: Transaction) -> [TransactionViewModel] {
+    class func viewModels(from tx: SCGTransaction) -> [TransactionViewModel] {
         []
     }
 

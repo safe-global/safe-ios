@@ -39,7 +39,7 @@ class CustomTransactionViewModel: TransactionViewModel, TransferAmmountViewModel
         info is CustomTransactionInfo
     }
 
-    override class func viewModels(from tx: Transaction) -> [TransactionViewModel] {
+    override class func viewModels(from tx: SCGTransaction) -> [TransactionViewModel] {
         isValid(info: tx.txInfo) ? [CustomTransactionViewModel(tx)] : []
     }
 }

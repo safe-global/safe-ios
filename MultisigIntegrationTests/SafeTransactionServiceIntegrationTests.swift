@@ -154,8 +154,8 @@ class SafeTransactionServiceIntegrationTests: XCTestCase {
         }
     }
 
-    func fetchTransaction(hash: String) -> Result<Transaction, Error> {
-        var result: Result<Transaction, Error>?
+    func fetchTransaction(hash: String) -> Result<CGSTransaction, Error> {
+        var result: Result<CGSTransaction, Error>?
         let semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
             do {

@@ -14,12 +14,12 @@ struct Page<T: Decodable>: Decodable {
     let results: [T]
 }
 
-protocol Transaction {
+protocol SCGTransaction {
     var txInfo: TransactionInfo { get set }
     var txStatus: TransactionStatus { get set }
 }
 
-struct TransactionSummary: Transaction {
+struct TransactionSummary: SCGTransaction {
     let id: TransactionID
     let date: Date
     var txStatus: TransactionStatus
@@ -448,7 +448,7 @@ enum DataDecodedParameterValueWrapper: Decodable {
 
 // MARK: - Details
 
-struct TransactionDetails: Decodable, Transaction {
+struct TransactionDetails: Decodable, SCGTransaction {
     let executedAt: Date?
     var txStatus: TransactionStatus
     var txInfo: TransactionInfo

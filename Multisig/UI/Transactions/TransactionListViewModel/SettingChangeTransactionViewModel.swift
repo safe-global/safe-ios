@@ -22,7 +22,7 @@ class SettingChangeTransactionViewModel: TransactionViewModel {
         info is SettingsChangeTransactionInfo
     }
     
-    override class func viewModels(from tx: Transaction) -> [TransactionViewModel] {
+    override class func viewModels(from tx: SCGTransaction) -> [TransactionViewModel] {
         isValid(info: tx.txInfo) ? [SettingChangeTransactionViewModel(tx)] : []
     }
 }
