@@ -28,7 +28,6 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
             self.isRefreshing = false
         } else {
             id = TransactionID(value: transaction.id)
-            reloadData()
         }
     }
 
@@ -48,7 +47,8 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
         if canLoadTransaction {
             Just(canLoadTransaction)
                 .receive(on: DispatchQueue.global())
-                .tryMap { canLoadTransaction -> TransactionViewModel in
+                .tryMap { [weak self] canLoadTransaction -> TransactionViewModel in
+                    guard let `self` = self else { return TransactionViewModel() }
                     let transaction = try self.transaction()
                     let viewModels = TransactionViewModel.create(from: transaction)
                     guard viewModels.count == 1, let viewModel = viewModels.first else {

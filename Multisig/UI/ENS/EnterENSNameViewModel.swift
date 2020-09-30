@@ -32,14 +32,16 @@ class EnterENSNameViewModel: ObservableObject {
         subscribers.forEach { $0.cancel() }
 
         $text
-            .map { v -> String in
+            .map { [weak self] v -> String in
+                guard let `self` = self else { return "" }
                 self.reset()
                 return v.trimmingCharacters(in: .whitespacesAndNewlines)
             }
             .filter { !$0.isEmpty }
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .removeDuplicates()
-            .tryMap { v -> String in
+            .tryMap { [weak self] v -> String in
+                guard let `self` = self else { return "" }
                 self.startResolving()
                 return v
             }

@@ -15,7 +15,6 @@ class SafeSettingsViewModel: BasicLoadableViewModel {
     init(safe: Safe) {
         self.safe = safe
         super.init()
-        reloadData()
     }
 
     override func reload() {
