@@ -12,7 +12,6 @@ struct SettingsView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     var selected: FetchedResults<Safe>
 
-
     @State
     private var selection: Int? = 0
 
