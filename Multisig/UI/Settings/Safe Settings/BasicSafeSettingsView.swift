@@ -23,9 +23,14 @@ struct BasicSafeSettingsView: Loadable {
     var body: some View {
         List {
             Section(header: SectionHeader("SAFE NAME")) {
-                NavigationLink(destination: EditSafeNameView(
-                    address: safe.address ?? "",
-                    name: safe.name ?? "")) { Text(safe.name ?? "").body() }
+                NavigationLink(
+                    destination:
+                        EditSafeNameView(
+                            address: safe.address ?? "",
+                            name: safe.name ?? ""),
+                    label: {
+                        Text(safe.name ?? "").body()
+                    })
                     .frame(height: rowHeight)
             }
 

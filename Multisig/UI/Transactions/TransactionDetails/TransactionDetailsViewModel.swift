@@ -28,7 +28,7 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
             self.isRefreshing = false
         } else {
             id = TransactionID(value: transaction.id)
-            reloadData()
+//            reloadData()
         }
     }
 
