@@ -31,7 +31,8 @@ class EnterENSNameViewModel: ObservableObject {
     init() {
         $text
             .map { [weak self] v -> String in
-                self?.reset()
+                guard let `self` = self else { return "" }
+                self.reset()
                 return v.trimmingCharacters(in: .whitespacesAndNewlines)
             }
             .filter { !$0.isEmpty }
@@ -45,7 +46,8 @@ class EnterENSNameViewModel: ObservableObject {
             .flatMap { input in
                 Just(input)
                     .tryMap { [weak self] v -> String in
-                        self?.startResolving()
+                        guard let `self` = self else { return "" }
+                        self.startResolving()
                         return v
                     }
                     .receive(on: DispatchQueue.global())
@@ -59,11 +61,12 @@ class EnterENSNameViewModel: ObservableObject {
                     }
             }
             .sink { [weak self] result in
+                guard let `self` = self else { return }
                 switch result {
                 case .success(let address):
-                    self?.setSuccess(address)
+                    self.setSuccess(address)
                 case .failure(let error):
-                    self?.setError(error.localizedDescription)
+                    self.setError(error.localizedDescription)
                 }
             }
             .store(in: &subscribers)
