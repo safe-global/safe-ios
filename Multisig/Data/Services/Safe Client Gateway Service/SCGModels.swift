@@ -264,7 +264,7 @@ struct  UnknownTransactionInfo: TransactionInfo {
 struct CreationTransactionInfo: TransactionInfo {
     let creator: AddressString
     let transactionHash: DataString
-    let masterCopy: AddressString?
+    let implementation: AddressString?
     let factory: AddressString?
 }
 
@@ -377,7 +377,8 @@ struct DataDecoded: Decodable {
     let parameters: [DataDecodedParameter]?
 }
 
-struct DataDecodedParameter: Decodable {
+struct DataDecodedParameter: Decodable, Identifiable {
+    let id = UUID()
     let name: String
     let type: String
     let value: DataDecodedParameterValue

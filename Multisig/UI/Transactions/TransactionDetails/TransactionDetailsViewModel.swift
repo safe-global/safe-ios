@@ -21,16 +21,15 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
     }
 
     init(transaction: TransactionViewModel) {
-        id = TransactionID(value: transaction.id)
         super.init()
-        reloadData()
-    }
-
-    init(hash: String) {
-        self.hash = Data(hex: hash)
-
-        super.init()
-        reloadData()
+        if transaction is CreationTransactionViewModel {
+            transactionDetails = transaction
+            self.isLoading = false
+            self.isRefreshing = false
+        } else {
+            id = TransactionID(value: transaction.id)
+            reloadData()
+        }
     }
 
     enum Failure: LocalizedError {

@@ -13,7 +13,7 @@ struct TransactionActionDetailsView: View {
     var body: some View {
         List {
             if hasParamters {
-                ForEach(dataDecoded.parameters!, id: \.name) { paramter in
+                ForEach(dataDecoded.parameters!) { paramter in
                     ParameterView(parameter: paramter)
                 }
             } else {
@@ -21,6 +21,9 @@ struct TransactionActionDetailsView: View {
             }
         }
         .navigationBarTitle(dataDecoded.method)
+        .onAppear {
+            self.trackEvent(.transactionsDetailsAction)
+        }
     }
 
     var hasParamters: Bool {

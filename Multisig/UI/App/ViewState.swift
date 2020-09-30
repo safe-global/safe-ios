@@ -21,9 +21,6 @@ class ViewState: ObservableObject {
     var showsSafesList = false
 
     @Published
-    var presentedSafeTxHash: String?
-
-    @Published
     var hidesNavbar = true
 }
 

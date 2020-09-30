@@ -15,9 +15,6 @@ struct TransactionsView: View {
     @ObservedObject
     var viewState = App.shared.viewState
 
-    @State
-    var pushesTransactionDetails: Bool = false
-
     var body: some View {
         ZStack(alignment: .center) {
             Rectangle()
@@ -29,11 +26,8 @@ struct TransactionsView: View {
                     self.trackEvent(.transactionsNoSafe)
                 }
             } else {
-                LoadableView(TransactionListView(safe: selectedSafe.first!))                
+                LoadableView(TransactionListView(safe: selectedSafe.first!))
             }
-        }
-        .onReceive(viewState.$presentedSafeTxHash) { value in
-            self.pushesTransactionDetails = value != nil
         }
     }
 }
