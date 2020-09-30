@@ -42,7 +42,6 @@ struct EnterENSNameView: View {
         .keyboardAdaptive()
         .navigationBarTitle("Enter ENS Name", displayMode: .inline)
         .navigationBarItems(trailing: confirmButton)
-        .onReceive(model.$text, perform: model.resolve(name:))
         .onAppear {
             self.trackEvent(.safeAddEns)
         }
