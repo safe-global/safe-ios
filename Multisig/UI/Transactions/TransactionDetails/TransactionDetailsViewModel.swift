@@ -89,7 +89,10 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
 
     func sign(safeAddress: Address) {
         guard let transferTx = transactionDetails as? TransferTransactionViewModel,
-              let transaction = transferTx.transaction else { return }
+              let transaction = transferTx.transaction else {
+            assertionFailure("We have a technical problem. You need to restart the app.")
+            return
+        }
         Just(safeAddress)
             .receive(on: DispatchQueue.global())
             .tryMap { address in
@@ -100,6 +103,7 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
                 receiveCompletion: { completion in
                     if case .failure(let error) = completion {
                         App.shared.snackbar.show(message: error.localizedDescription)
+                        LogService.shared.error("Could not sign a transaction for safe: \(safeAddress.description)")
                     }
                 },
                 receiveValue: { [weak self] _ in

@@ -11,6 +11,10 @@ import Foundation
 struct UInt256String: Hashable, Decodable {
     let value: UInt256
 
+    var data32: Data {
+        value.data32
+    }
+
     init<T>(_ value: T) where T: BinaryInteger {
         self.value = UInt256(value)
     }
@@ -40,6 +44,17 @@ struct UInt256String: Hashable, Decodable {
                 codingPath: decoder.codingPath,
                 debugDescription: "Could not convert value to UInt256")
             throw DecodingError.valueNotFound(UInt256.self, context)
+        }
+    }
+}
+
+extension UInt256String: ExpressibleByStringLiteral {
+    init(stringLiteral value: StringLiteralType) {
+        if let uint256Value = UInt256(value) {
+            self = UInt256String(uint256Value)
+        } else {
+            assertionFailure("Invalid literal UInt256 value: \(value)")
+            self = .init(0)
         }
     }
 }

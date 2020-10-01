@@ -11,6 +11,10 @@ import Foundation
 struct AddressString: Hashable, Decodable {
     let address: Address
 
+    var data32: Data {
+        return address.data.leftPadded(to: 32)
+    }
+
     init?(_ string: String) {
         guard let value = Address(string) else { return nil }
         address = value

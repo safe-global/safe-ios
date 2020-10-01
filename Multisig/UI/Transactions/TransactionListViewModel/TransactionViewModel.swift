@@ -12,7 +12,7 @@ class TransactionViewModel: Identifiable, Equatable {
     var id: String = ""
     // only in MULTISIG tranasctions
     var transaction: Transaction?
-    
+
     var data: String?
 
     // MARK: - Common fields for TransactionSummary

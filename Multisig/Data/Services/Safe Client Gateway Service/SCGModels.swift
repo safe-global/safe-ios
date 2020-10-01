@@ -362,6 +362,10 @@ enum Operation: Int, Decodable {
     case call = 0
     case delegate = 1
 
+    var data32: Data {
+        UInt256(self.rawValue).data32
+    }
+
     var name: String {
         switch self {
         case .call:
