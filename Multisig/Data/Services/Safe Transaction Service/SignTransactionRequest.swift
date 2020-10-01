@@ -9,6 +9,7 @@
 import Foundation
 import Web3
 
+#warning("Figure out how to handle the case if private key can not be extracted from the keychain")
 struct SignTransactionRequest: JSONRequest {
     let safe: String
 
