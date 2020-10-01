@@ -89,7 +89,7 @@ struct AppConfiguration {
     }
 
     struct FeatureToggles {
-        let signing: Bool = false
+        let signing: Bool = true
     }
 
     let services = Services()
