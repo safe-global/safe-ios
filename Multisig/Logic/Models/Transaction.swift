@@ -20,13 +20,14 @@ struct Transaction {
     let baseGas: UInt256String
     let gasPrice: UInt256String
     let gasToken: AddressString?
-    let refundReceiver: AddressString // zero address if no refund receiver is set
+    // zero address if no refund receiver is set
+    let refundReceiver: AddressString
     let nonce: UInt256String
     // computed based on other properties
-    let safeTxHash: HashString // can be computed from the
+    let safeTxHash: HashString
 }
 
-#warning("TODO: make a validatione of safeTxHash here")
+#warning("TODO: make a validation of safeTxHash here")
 extension Transaction {
     init(txData: TransactionDetailsData, multiSigTxInfo: MultisigExecutionDetails) {
         to = txData.to

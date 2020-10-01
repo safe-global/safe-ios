@@ -52,15 +52,15 @@ struct SignTransactionRequest: JSONRequest {
         let hashToSign = Data(ethHex: contractTransactionHash)
 
         guard let pkData = try? App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue),
-              let pk = try? EthereumPrivateKey(pkData.bytes),
-              let sig = try? pk.sign(hash: hashToSign.bytes) else {
+              let privateKey = try? EthereumPrivateKey(pkData.bytes),
+              let sig = try? privateKey.sign(hash: hashToSign.bytes) else {
             sender = ""
             signature = ""
             return
         }
-        sender = pk.address.hex(eip55: true)
+        sender = privateKey.address.hex(eip55: true)
 
-        let v = String(format:"%02X", sig.v + 27)
+        let v = String(sig.v + 27, radix: 16)
         signature = "\(sig.r.toHexString())\(sig.s.toHexString())\(v)"
     }
 

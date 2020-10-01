@@ -92,8 +92,8 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
               let transaction = transferTx.transaction else { return }
         Just(safeAddress)
             .receive(on: DispatchQueue.global())
-            .tryMap { _ in
-                try App.shared.safeTransactionService.sign(transaction: transaction, safeAddress: safeAddress)
+            .tryMap { address in
+                try App.shared.safeTransactionService.sign(transaction: transaction, safeAddress: address)
             }
             .receive(on: RunLoop.main)
             .sink(
