@@ -40,12 +40,14 @@ struct AssetsView: View {
                         }
                 }
                 .background(Color.gnoWhite)
+                .navigationBarTitle("Assets")
             } else {
                 VStack(spacing: 0) {                    
                     AddSafeIntroView().onAppear {
                         self.trackEvent(.assetsNoSafe)
                     }
                 }
+                .navigationBarTitle("Assets")
             }
         }
     }

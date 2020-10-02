@@ -34,6 +34,7 @@ struct MainContentView<Content: View>: View {
 //            }
 //            .edgesIgnoringSafeArea(.top)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .overlay(
             PopupView(isPresented: $showsSafeInfo) {
                 SafeInfoView()

@@ -16,13 +16,15 @@ struct TransactionsTabView: View {
     var body: some View {
         if selectedSafe.first != nil {
             LoadingTransactionListView(address: selectedSafe.first?.address)
-                .background(Color.gnoWhite)
+//                .background(Color.gnoWhite) // this makes the navigation bar transparent on iOS 13.4
+                .navigationBarTitle("Transactions")
         } else {
             VStack(spacing: 0) {
                 AddSafeIntroView().onAppear {
                     self.trackEvent(.assetsNoSafe)
                 }
             }
+            .navigationBarTitle("Transactions")
         }
     }
 }
@@ -95,7 +97,7 @@ struct AnotherTransactionListView: View {
                 }
             }
         }
-//        .listStyle(GroupedListStyle())
+        .listStyle(GroupedListStyle())
     }
 
 }
