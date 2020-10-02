@@ -9,15 +9,12 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    var selected: FetchedResults<Safe>
-
     @State
     private var selection: Int? = 0
 
     var body: some View {
         TopTabView($selection) {
-            SafeSettingsView(safe: selected.first)
+            SafeSettingsContent()
                 .gnoTabItem(id: 0) {
                     HStack {
                         Image("ico-safe-settings").frame(width: 24, height: 24)

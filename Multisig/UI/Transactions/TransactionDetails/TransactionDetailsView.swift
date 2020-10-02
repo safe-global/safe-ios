@@ -153,7 +153,6 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
         .padding(.vertical, padding)
     }
 
-
     private func browseTransaction() -> some View {
         SafariViewController(url: transactionDetails.browserURL!)
     }

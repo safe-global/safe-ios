@@ -19,7 +19,7 @@ struct AssetsView: View {
         ZStack {
             if selectedSafe.first != nil {
                 TopTabView($selection) {
-                    LoadableView(BalancesView(safe: selectedSafe.first!))
+                    CoinBalancesView(address: selectedSafe.first?.address)
                         .gnoTabItem(id: 0) {
                             HStack {
                                 Image("ico-coins")
@@ -29,7 +29,7 @@ struct AssetsView: View {
                             }
                             .frame(maxWidth: .infinity)
                         }
-                    LoadableView(CollectiblesView(safe: selectedSafe.first!))
+                    CollectibleBalancesView(address: selectedSafe.first?.address)
                         .gnoTabItem(id: 1) {
                             HStack {
                                 Image("ico-collectibles")

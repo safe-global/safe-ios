@@ -212,6 +212,11 @@
 		0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDBFFC248E4C5D002035A2 /* Configuration.swift */; };
 		0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDC01424925A96002035A2 /* FirebaseConfig.swift */; };
 		0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACEF00024C1DE620040A058 /* AddressImage.swift */; };
+		0AD1D8F7252619E700B8EEFF /* CoinBalances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D8F6252619E700B8EEFF /* CoinBalances.swift */; };
+		0AD1D8FD252620D500B8EEFF /* CollectibleBalancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D8FC252620D500B8EEFF /* CollectibleBalancesView.swift */; };
+		0AD1D9032526238A00B8EEFF /* LoadingTransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D9022526238A00B8EEFF /* LoadingTransactionListView.swift */; };
+		0AD1D909252632CC00B8EEFF /* LoadingSafeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D908252632CC00B8EEFF /* LoadingSafeSettingsView.swift */; };
+		0AD1D930252720EC00B8EEFF /* LoadingTransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D92F252720EC00B8EEFF /* LoadingTransactionDetailsView.swift */; };
 		0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A45246C38920052F4CD /* EmailSupportViewController.swift */; };
 		0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */; };
 		0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */; };
@@ -575,6 +580,11 @@
 		0ACDC012249253D7002035A2 /* Firebase */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Firebase; sourceTree = "<group>"; };
 		0ACDC01424925A96002035A2 /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		0ACEF00024C1DE620040A058 /* AddressImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressImage.swift; sourceTree = "<group>"; };
+		0AD1D8F6252619E700B8EEFF /* CoinBalances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinBalances.swift; sourceTree = "<group>"; };
+		0AD1D8FC252620D500B8EEFF /* CollectibleBalancesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleBalancesView.swift; sourceTree = "<group>"; };
+		0AD1D9022526238A00B8EEFF /* LoadingTransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTransactionListView.swift; sourceTree = "<group>"; };
+		0AD1D908252632CC00B8EEFF /* LoadingSafeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSafeSettingsView.swift; sourceTree = "<group>"; };
+		0AD1D92F252720EC00B8EEFF /* LoadingTransactionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTransactionDetailsView.swift; sourceTree = "<group>"; };
 		0AD89A45246C38920052F4CD /* EmailSupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSupportViewController.swift; sourceTree = "<group>"; };
 		0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyIdentifiable.swift; sourceTree = "<group>"; };
 		0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarBottomPaddingModifier.swift; sourceTree = "<group>"; };
@@ -925,6 +935,7 @@
 			isa = PBXGroup;
 			children = (
 				04CE3F8E24B5F67100826AEE /* CollectiblesView.swift */,
+				0AD1D8FC252620D500B8EEFF /* CollectibleBalancesView.swift */,
 				04CE3F9F24B7191E00826AEE /* CollectiblesListViewModel.swift */,
 				04CE3F9E24B7191E00826AEE /* CollectibleViewModel.swift */,
 				04CE3FA224B7281B00826AEE /* CollectibleCellView.swift */,
@@ -938,6 +949,7 @@
 			isa = PBXGroup;
 			children = (
 				55F9A31E2475578C00ABBA6F /* BalancesView.swift */,
+				0AD1D8F6252619E700B8EEFF /* CoinBalances.swift */,
 				55F9A31F2475578C00ABBA6F /* BalancesViewModel.swift */,
 				0AA9F25624991988005BD60F /* TokenBalance.swift */,
 			);
@@ -961,6 +973,7 @@
 				0AA9F261249A188C005BD60F /* AdvancedTransactionDetailsView.swift */,
 				0AA9F260249A188C005BD60F /* TransactionDetailsView.swift */,
 				0A42C25524D18F6400ACA770 /* TransactionDetailsViewModel.swift */,
+				0AD1D92F252720EC00B8EEFF /* LoadingTransactionDetailsView.swift */,
 				048643DC24E4490A003DD966 /* CreationTransactionBodyView.swift */,
 				047EE9F524EF015C00AEB2D1 /* TransactionActionView.swift */,
 				047EE9F324EF014C00AEB2D1 /* TransactionActionDetailsView.swift */,
@@ -977,6 +990,7 @@
 				0460AB3C247EC12B005CA275 /* TransactionsViewModel.swift */,
 				0AA9F265249A18A3005BD60F /* TransactionListView.swift */,
 				0AA9F264249A18A3005BD60F /* TransactionsView.swift */,
+				0AD1D9022526238A00B8EEFF /* LoadingTransactionListView.swift */,
 			);
 			path = TransactionsList;
 			sourceTree = "<group>";
@@ -1427,6 +1441,7 @@
 			isa = PBXGroup;
 			children = (
 				0476915F246408D000D73D8B /* SafeSettingsView.swift */,
+				0AD1D908252632CC00B8EEFF /* LoadingSafeSettingsView.swift */,
 				04769169246437C300D73D8B /* ContractVersionCell.swift */,
 				04769162246408D000D73D8B /* SafeSettingsViewModel.swift */,
 				04769161246408D000D73D8B /* AdvancedSafeSettingsView.swift */,
@@ -2232,11 +2247,13 @@
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
 				0A704A5C24740146005BDC49 /* TabViewItem.swift in Sources */,
 				55D3654325078560004D5047 /* TextView.swift in Sources */,
+				0AD1D9032526238A00B8EEFF /* LoadingTransactionListView.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				047EE9F424EF014C00AEB2D1 /* TransactionActionDetailsView.swift in Sources */,
 				0497F6E92488EC5600A1F4DE /* CustomTransactionCellView.swift in Sources */,
 				0A0EFC94246D9D5200D3D8BF /* TopTabView.swift in Sources */,
 				0A29ECAA24C1EBFD00CE28FD /* Address+LocalizedStringKey.swift in Sources */,
+				0AD1D909252632CC00B8EEFF /* LoadingSafeSettingsView.swift in Sources */,
 				043ABD1524EFE541008826D5 /* ParameterView.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
 				0497F6C824858F2D00A1F4DE /* ConfirmationCountView.swift in Sources */,
@@ -2285,6 +2302,7 @@
 				0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */,
 				55F9A3212475578C00ABBA6F /* BalancesViewModel.swift in Sources */,
+				0AD1D930252720EC00B8EEFF /* LoadingTransactionDetailsView.swift in Sources */,
 				04CE3FA324B7281B00826AEE /* CollectibleCellView.swift in Sources */,
 				55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */,
 				0A802B9224E5843B0001790F /* PagedRequest.swift in Sources */,
@@ -2373,6 +2391,7 @@
 				55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */,
 				04C97AA8246ED31300EBA0F1 /* KeyValueView.swift in Sources */,
 				0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */,
+				0AD1D8F7252619E700B8EEFF /* CoinBalances.swift in Sources */,
 				0AA9F1F42497BCA9005BD60F /* TokenInfo.swift in Sources */,
 				0A72AC602453157300840641 /* CreateSafePrompt.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
@@ -2435,6 +2454,7 @@
 				043ABD1024EF0C33008826D5 /* TransactionSummaryListRequest.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */,
+				0AD1D8FD252620D500B8EEFF /* CollectibleBalancesView.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* SafeCollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				550A0ACD24F3BEE800B839E9 /* MainContentView.swift in Sources */,
