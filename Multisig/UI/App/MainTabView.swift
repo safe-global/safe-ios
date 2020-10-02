@@ -20,7 +20,7 @@ struct MainTabView: View {
 
     var body: some View {
         TabView(selection: $selection) {
-            MainContentView(AssetsView())
+            MainContentView(AssetsView().navigationBarTitle("Assets"))
                 .tabItem {
                     VStack {
                         Image("tab-icon-balances")
@@ -29,7 +29,7 @@ struct MainTabView: View {
                 }
                 .tag(ViewStateMode.balances)
 
-            MainContentView(TransactionsTabView())
+            MainContentView(TransactionsTabView().navigationBarTitle("Transactions"))
                 .tabItem {
                     VStack {
                         Image("tab-icon-transactions")
@@ -38,7 +38,7 @@ struct MainTabView: View {
                 }
                 .tag(ViewStateMode.transactions)
 
-            MainContentView(SettingsView())
+            MainContentView(SettingsView().navigationBarTitle("Settings"))
                 .tabItem {
                     VStack {
                         Image("tab-icon-settings")

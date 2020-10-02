@@ -20,24 +20,55 @@ struct SelectedSafeButton: View {
             if selected.first == nil {
                 notSelectedView
             } else {
-                SafeCell(safe: selected.first!)
+                SafeCell1(safe: selected.first!, iconSize: iconSize)
             }
             Spacer()
         }
-        .frameForNavigationBar()
+        .frame(width: 140, height: 44, alignment: .leading)
         .disabled(selected.first == nil)
     }
+
+    let iconSize: CGFloat = 24
 
     var notSelectedView: some View {
         HStack {
             Image("safe-selector-not-selected-icon")
                 .resizable()
                 .renderingMode(.original)
-                .frame(width: 36, height: 36)
+                .frame(width: iconSize, height: iconSize)
 
             Text("No Safe loaded")
                 .headline(.gnoMediumGrey)
         }
     }
 
+}
+
+struct SafeCell1: View {
+
+    @ObservedObject
+    var safe: Safe
+
+    var iconSize: CGFloat = 36
+    var iconToTextSpacing: CGFloat = Spacing.small
+    var nameToAddressPadding: CGFloat = 0
+
+
+    var body: some View {
+        HStack(spacing: iconToTextSpacing) {
+            AddressImage(safe.address)
+                .frame(width: iconSize, height: iconSize)
+
+            VStack(alignment: .leading) {
+                Text(safe.name ?? "")
+                    .caption()
+                    .lineLimit(1)
+
+                if safe.safeAddress != nil {
+                    SlicedText(safe.safeAddress!)
+                        .style(.addressShortLight, font: .gnoCaption1)
+                }
+            }
+        }
+    }
 }

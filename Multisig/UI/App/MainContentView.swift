@@ -20,21 +20,29 @@ struct MainContentView<Content: View>: View {
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                SafeHeaderView(showsSafeInfo: $showsSafeInfo)
-                    .frame(height: ScreenMetrics.safeHeaderHeight)
+//            VStack(spacing: 0) {
+//                SafeHeaderView(showsSafeInfo: $showsSafeInfo)
+//                    .frame(height: ScreenMetrics.safeHeaderHeight)
 
-                content
-            }
-            .edgesIgnoringSafeArea(.top)
-            .navigationBarTitle("", displayMode: .inline)
-            .navigationBarHidden(true)
-            .overlay(
-                PopupView(isPresented: $showsSafeInfo) {
-                    SafeInfoView()
-                }
-            )
-            .hostSnackbar()
+            content
+                .navigationBarItems(leading: selectButton, trailing: switchButton)
+//            }
+//            .edgesIgnoringSafeArea(.top)
         }
+        .overlay(
+            PopupView(isPresented: $showsSafeInfo) {
+                SafeInfoView()
+            }
+        )
+        .hostSnackbar()
     }
+
+    var selectButton: some View {
+        SelectedSafeButton(showsSafeInfo: $showsSafeInfo)
+    }
+
+    var switchButton: some View {
+        SwitchSafeButton()
+    }
+
 }

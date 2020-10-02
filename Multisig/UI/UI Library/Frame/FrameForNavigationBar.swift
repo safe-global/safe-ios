@@ -13,7 +13,7 @@ struct FrameForNavigationBar: ViewModifier {
     func body(content: Content) -> some View {
         // fixes unbounded growth of this view when inside the bar
         content
-            .frame(width: 250, height: 44, alignment: .leading)
+            .frame(width: 150, height: 44, alignment: .leading)
     }
 
 }
