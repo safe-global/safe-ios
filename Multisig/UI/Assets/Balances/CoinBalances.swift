@@ -19,7 +19,7 @@ struct CoinBalancesView: View {
     //  TODO: Tracking
 
     var address: String?
-    @ObservedObject var model = CoinBalancesModel()
+    @EnvironmentObject var model: CoinBalancesModel
     var status: ViewLoadingStatus { model.status }
 
     @ViewBuilder

@@ -15,7 +15,8 @@ struct LoadingTransactionDetailsView: View {
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
     private var selectedSafe: FetchedResults<Safe>
 
-    @ObservedObject var model = LoadingTransactionDetailsViewModel()
+    @ObservedObject var model: LoadingTransactionDetailsViewModel
+
     var status: ViewLoadingStatus { model.status }
 
     @ViewBuilder
@@ -27,7 +28,7 @@ struct LoadingTransactionDetailsView: View {
         } else if status == .failure {
             NoDataView(reload: reload)
         } else if status == .success {
-            TransactionDetailsOuterBodyView(transactionModel: model.transactionDetails, safe: selectedSafe.first!)
+            TransactionDetailsOuterBodyView(transactionModel: model.transactionDetails, safe: selectedSafe.first!, reload: reload)
         }
     }
 
@@ -36,13 +37,22 @@ struct LoadingTransactionDetailsView: View {
     }
 }
 
+extension LoadingTransactionDetailsView {
+    init(transaction: TransactionViewModel) {
+        self.transaction = transaction
+        model = AppViewModel.shared.details(transaction)
+    }
+}
+
 
 struct TransactionDetailsOuterBodyView: View {
     var transactionModel: TransactionViewModel
     var safe: Safe
-
+    var reload: () -> Void = { }
     var body: some View {
         List {
+            ReloadButton(reload: reload)
+
             if transactionModel is CreationTransactionViewModel {
                 CreationTransactionBodyView(transaction: transactionModel as! CreationTransactionViewModel)
             } else {

@@ -29,7 +29,7 @@ struct TransactionsTabView: View {
 
 struct LoadingTransactionListView: View {
     var address: String?
-    @ObservedObject var model = LoadingTransactionListViewModel()
+    @EnvironmentObject var model: LoadingTransactionListViewModel
     var status: ViewLoadingStatus { model.status }
 
     @ViewBuilder
@@ -95,7 +95,7 @@ struct AnotherTransactionListView: View {
                 }
             }
         }
-        .listStyle(GroupedListStyle())
+//        .listStyle(GroupedListStyle())
     }
 
 }

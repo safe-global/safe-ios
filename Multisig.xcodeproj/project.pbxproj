@@ -217,6 +217,7 @@
 		0AD1D9032526238A00B8EEFF /* LoadingTransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D9022526238A00B8EEFF /* LoadingTransactionListView.swift */; };
 		0AD1D909252632CC00B8EEFF /* LoadingSafeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D908252632CC00B8EEFF /* LoadingSafeSettingsView.swift */; };
 		0AD1D930252720EC00B8EEFF /* LoadingTransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D92F252720EC00B8EEFF /* LoadingTransactionDetailsView.swift */; };
+		0AD1D943252748D800B8EEFF /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D942252748D800B8EEFF /* AppViewModel.swift */; };
 		0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A45246C38920052F4CD /* EmailSupportViewController.swift */; };
 		0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */; };
 		0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */; };
@@ -585,6 +586,7 @@
 		0AD1D9022526238A00B8EEFF /* LoadingTransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTransactionListView.swift; sourceTree = "<group>"; };
 		0AD1D908252632CC00B8EEFF /* LoadingSafeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSafeSettingsView.swift; sourceTree = "<group>"; };
 		0AD1D92F252720EC00B8EEFF /* LoadingTransactionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTransactionDetailsView.swift; sourceTree = "<group>"; };
+		0AD1D942252748D800B8EEFF /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		0AD89A45246C38920052F4CD /* EmailSupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSupportViewController.swift; sourceTree = "<group>"; };
 		0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyIdentifiable.swift; sourceTree = "<group>"; };
 		0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarBottomPaddingModifier.swift; sourceTree = "<group>"; };
@@ -1526,6 +1528,7 @@
 				0AF2733E24DAC9FE007E4012 /* RemoteNotificationHandler.swift */,
 				0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
+				0AD1D942252748D800B8EEFF /* AppViewModel.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
 				550A0ACE24F3C19B00B839E9 /* MainTabView.swift */,
 				0A465C2D246C196900AFA467 /* Theme.swift */,
@@ -2464,6 +2467,7 @@
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
 				0457AB9A24BBB2C5007C884E /* CollectiblesSectionView.swift in Sources */,
+				0AD1D943252748D800B8EEFF /* AppViewModel.swift in Sources */,
 				0AA9F25724991988005BD60F /* TokenBalance.swift in Sources */,
 				0A7AEADF2462F95100014184 /* SwitchSafeButton.swift in Sources */,
 				555312ED250663420008206B /* SECP256K1.swift in Sources */,

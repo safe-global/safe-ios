@@ -35,7 +35,7 @@ struct SafeSettingsContent: View {
 struct LoadingSafeSettingsView: View {
     @ObservedObject
     var safe: Safe
-    @ObservedObject var model = LoadingSafeSettingsViewModel()
+    @EnvironmentObject var model: LoadingSafeSettingsViewModel
     var status: ViewLoadingStatus { model.status }
 
     @ViewBuilder

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CollectibleBalancesView: View {
     var address: String?
-    @ObservedObject var model = CollectibleBalancesModel()
+    @EnvironmentObject var model: CollectibleBalancesModel
     var status: ViewLoadingStatus { model.status }
 
     @ViewBuilder

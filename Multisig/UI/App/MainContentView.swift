@@ -12,6 +12,10 @@ struct MainContentView<Content: View>: View {
     @State
     private var showsSafeInfo: Bool = false
 
+    @Environment(\.managedObjectContext)
+    var context: CoreDataContext
+
+
     private let content: Content
 
     init(_ content: Content) {
@@ -25,6 +29,7 @@ struct MainContentView<Content: View>: View {
 //                    .frame(height: ScreenMetrics.safeHeaderHeight)
 
             content
+                .environment(\.managedObjectContext, self.context)
                 .navigationBarItems(leading: selectButton, trailing: switchButton)
 //            }
 //            .edgesIgnoringSafeArea(.top)
@@ -39,10 +44,14 @@ struct MainContentView<Content: View>: View {
 
     var selectButton: some View {
         SelectedSafeButton(showsSafeInfo: $showsSafeInfo)
+            .environment(\.managedObjectContext, self.context)
+
     }
 
     var switchButton: some View {
         SwitchSafeButton()
+            .environment(\.managedObjectContext, self.context)
+
     }
 
 }
