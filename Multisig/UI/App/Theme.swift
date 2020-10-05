@@ -19,29 +19,29 @@ class Theme: ObservableObject {
         // we don't set the `translucent` property of navbar to false because
         // it crashes the app (SwiftUI).
         // but shadow works.
-//        UINavigationBar.appearance().shadowImage = UIImage(named: "shadow")
-//        UINavigationBar.appearance().tintColor = UIColor(named: "hold")
+        UINavigationBar.appearance().shadowImage = UIImage(named: "shadow")
+        UINavigationBar.appearance().tintColor = UIColor(named: "hold")
 
         // non-zero height view adds the bottom space to the table views
-//        UITableView.appearance().tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
-//        // makes separators to take full width of the screen
-//        // (default is with offset)
-//        UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//        UITableView.appearance().backgroundColor = UIColor(named: "white")
+        UITableView.appearance().tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+        // makes separators to take full width of the screen
+        // (default is with offset)
+        UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        UITableView.appearance().backgroundColor = UIColor(named: "white")
     }
 
     func setTemporaryTableViewBackground(_ color: UIColor?) {
-//        tableViewBackgroundColor = UITableView.appearance().backgroundColor
-//        UITableView.appearance().backgroundColor = color
+        tableViewBackgroundColor = UITableView.appearance().backgroundColor
+        UITableView.appearance().backgroundColor = color
     }
 
     func resetTemporaryTableViewBackground() {
-//        UITableView.appearance().backgroundColor = tableViewBackgroundColor
+        UITableView.appearance().backgroundColor = tableViewBackgroundColor
     }
 
     func resetRowsSelection() {
-//        UITableViewCell.appearance().selectionStyle = .none
-//        UITableViewCell.appearance().selectionStyle = .default
+        UITableViewCell.appearance().selectionStyle = .none
+        UITableViewCell.appearance().selectionStyle = .default
     }
 
 }

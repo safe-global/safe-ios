@@ -39,7 +39,11 @@ struct CollectibleListView: View {
 
     var body: some View {
         List {
-            ReloadButton(reload: reload)
+            // For some reason, SwiftUI crashes after scrolling to top.
+            // Wrapping into section fixed it.
+            Section {
+                ReloadButton(reload: reload)
+            }
 
             ForEach(sections) { section in
                 CollectiblesSectionView(section: section)
