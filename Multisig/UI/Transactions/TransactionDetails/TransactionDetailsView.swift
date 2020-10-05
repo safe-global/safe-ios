@@ -9,21 +9,6 @@
 import SwiftUI
 
 struct TransactionDetailsView: View {
-    @FetchRequest(fetchRequest: AppSettings.fetchRequest().all())
-    private var appSettings: FetchedResults<AppSettings>
-
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    private var selectedSafe: FetchedResults<Safe>
-
-    private var safe: Safe { selectedSafe.first! }
-
-    private var canSign: Bool {
-        model.transactionDetails.status == .awaitingConfirmations &&
-            signingKeyAddress != nil &&
-            model.transactionDetails.signers!.contains(signingKeyAddress!) &&
-            !model.transactionDetails.confirmations!.map { $0.address }.contains(signingKeyAddress!)
-    }
-
     @ObservedObject
     var model: TransactionDetailsViewModel
 
@@ -31,15 +16,11 @@ struct TransactionDetailsView: View {
         model = TransactionDetailsViewModel(transaction: transaction)
     }
 
-    private var signingKeyAddress: String? {
-        return appSettings.first?.signingKeyAddress
-    }
-
     var body: some View {
         ZStack {
-            LoadableView(TransactionDetailsBodyView(model: model, safe: safe), reloadsOnAppOpen: false)
+            LoadableView(TransactionDetailsBodyView(model: model), reloadsOnAppOpen: false)
 
-            if App.configuration.toggles.signing && canSign {
+            if App.configuration.toggles.signing && model.canSign {
                 confirmButtonView
             }
         }
@@ -65,14 +46,13 @@ struct TransactionDetailsView: View {
     }
 
     private func confirmTransaction() {
-        model.sign(safeAddress: safe.safeAddress!)
+        model.sign()
     }
 }
 
 
 fileprivate struct TransactionDetailsBodyView: Loadable {
     let model: TransactionDetailsViewModel
-    let safe: Safe
 
     private var transactionViewModel: TransactionViewModel {
         model.transactionDetails
@@ -118,7 +98,7 @@ fileprivate struct TransactionDetailsBodyView: Loadable {
             TransactionStatusTypeView(transaction: transactionViewModel)
 
             if displayConfirmations {
-                TransactionConfirmationsView(transaction: transactionViewModel, safe: safe).padding(.vertical, padding)
+                TransactionConfirmationsView(transaction: transactionViewModel, safe: model.safe).padding(.vertical, padding)
             }
 
             if transactionViewModel.formattedCreatedDate != nil {

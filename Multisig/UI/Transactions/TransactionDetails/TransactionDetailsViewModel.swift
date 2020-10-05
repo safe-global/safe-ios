@@ -11,10 +11,22 @@ import SwiftUI
 import Combine
 
 class TransactionDetailsViewModel: BasicLoadableViewModel {
+    private let appSettings: AppSettings = AppSettings.current()
+    let safe = Selection.current().safe!
     var hash: Data?
     var id: TransactionID?
-    
     var transactionDetails: TransactionViewModel = TransactionViewModel()
+
+    private var signingKeyAddress: String? {
+        return appSettings.signingKeyAddress
+    }
+
+    var canSign: Bool {
+        transactionDetails.status == .awaitingConfirmations &&
+            signingKeyAddress != nil &&
+            transactionDetails.signers!.contains(signingKeyAddress!) &&
+            !transactionDetails.confirmations!.map { $0.address }.contains(signingKeyAddress!)
+    }
 
     var canLoadTransaction: Bool {
         hash != nil || id != nil
@@ -87,23 +99,24 @@ class TransactionDetailsViewModel: BasicLoadableViewModel {
         }
     }
 
-    func sign(safeAddress: Address) {
+    func sign() {
         guard let transferTx = transactionDetails as? TransferTransactionViewModel,
               let transaction = transferTx.transaction else {
             assertionFailure("We have a technical problem. You need to restart the app.")
             return
         }
-        Just(safeAddress)
+        Just(safe.address!)
             .receive(on: DispatchQueue.global())
             .tryMap { address in
-                try App.shared.safeTransactionService.sign(transaction: transaction, safeAddress: address)
+                try App.shared.safeTransactionService.sign(transaction: transaction, safeAddress: Address(address)!)
             }
             .receive(on: RunLoop.main)
             .sink(
-                receiveCompletion: { completion in
+                receiveCompletion: { [weak self] completion in
                     if case .failure(let error) = completion {
                         App.shared.snackbar.show(message: error.localizedDescription)
-                        LogService.shared.error("Could not sign a transaction for safe: \(safeAddress.description)")
+                        guard let `self` = self else { return }
+                        LogService.shared.error("Could not sign a transaction for safe: \(self.safe.address!)")
                     }
                 },
                 receiveValue: { [weak self] _ in
