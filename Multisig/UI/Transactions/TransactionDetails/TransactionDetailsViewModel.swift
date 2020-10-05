@@ -11,21 +11,13 @@ import SwiftUI
 import Combine
 
 class TransactionDetailsViewModel: BasicLoadableViewModel {
-    private let appSettings: AppSettings = AppSettings.current()
     let safe = Selection.current().safe!
     var hash: Data?
     var id: TransactionID?
     var transactionDetails: TransactionViewModel = TransactionViewModel()
 
-    private var signingKeyAddress: String? {
-        return appSettings.signingKeyAddress
-    }
-
     var canSign: Bool {
-        transactionDetails.status == .awaitingConfirmations &&
-            signingKeyAddress != nil &&
-            transactionDetails.signers!.contains(signingKeyAddress!) &&
-            !transactionDetails.confirmations!.map { $0.address }.contains(signingKeyAddress!)
+        transactionDetails.status == .awaitingYourConfirmation
     }
 
     var canLoadTransaction: Bool {

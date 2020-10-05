@@ -14,11 +14,11 @@ struct BasicAppSettingsView: View {
     private let legal = App.configuration.legal
     private let app = App.configuration.app
 
-    @FetchRequest(fetchRequest: AppSettings.fetchRequest().all())
-    var appSettings: FetchedResults<AppSettings>
+    @ObservedObject
+    var appSettings = App.shared.settings
 
     var signingKeyAddress: String? {
-        return appSettings.first?.signingKeyAddress
+        return appSettings.signingKeyAddress
     }
 
     @State

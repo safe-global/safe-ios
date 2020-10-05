@@ -74,7 +74,7 @@ struct TransactionCellView: View {
 
     var opacity: Double {
         switch transaction.status {
-        case .awaitingExecution, .awaitingConfirmations, .pending, .success:
+        case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending, .success:
              return 1
         case .failed, .cancelled:
             return 0.5

@@ -61,6 +61,7 @@ extension TransactionID {
 
 enum TransactionStatus: String, Decodable {
     case awaitingConfirmations = "AWAITING_CONFIRMATIONS"
+    case awaitingYourConfirmation = "AWAITING_YOUR_CONFIRMATION"
     case awaitingExecution = "AWAITING_EXECUTION"
     case cancelled = "CANCELLED"
     case failed = "FAILED"
@@ -72,6 +73,8 @@ struct ExecutionInfo: Decodable {
     let nonce: UInt256String
     let confirmationsRequired: UInt64
     let confirmationsSubmitted: UInt64
+    let signers: [AddressString]?
+    let confirmations: [MultisigConfirmation]?
 }
 
 protocol TransactionInfo: Decodable {}

@@ -53,6 +53,7 @@
 		04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04769167246431D000D73D8B /* SafeTransactionService.swift */; };
 		0476916A246437C300D73D8B /* ContractVersionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04769169246437C300D73D8B /* ContractVersionCell.swift */; };
 		0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476916B24643A2A00D73D8B /* BrowseAddressView.swift */; };
+		047AE350252B4BE600810710 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047AE34F252B4BE600810710 /* Settings.swift */; };
 		047EE9F424EF014C00AEB2D1 /* TransactionActionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047EE9F324EF014C00AEB2D1 /* TransactionActionDetailsView.swift */; };
 		047EE9F624EF015C00AEB2D1 /* TransactionActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047EE9F524EF015C00AEB2D1 /* TransactionActionView.swift */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
@@ -405,6 +406,7 @@
 		04769167246431D000D73D8B /* SafeTransactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionService.swift; sourceTree = "<group>"; };
 		04769169246437C300D73D8B /* ContractVersionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractVersionCell.swift; sourceTree = "<group>"; };
 		0476916B24643A2A00D73D8B /* BrowseAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseAddressView.swift; sourceTree = "<group>"; };
+		047AE34F252B4BE600810710 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		047EE9F324EF014C00AEB2D1 /* TransactionActionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionActionDetailsView.swift; sourceTree = "<group>"; };
 		047EE9F524EF015C00AEB2D1 /* TransactionActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionActionView.swift; sourceTree = "<group>"; };
 		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterNotificationTokenRequest.swift; path = "../Notification Service/RegisterNotificationTokenRequest.swift"; sourceTree = "<group>"; };
@@ -1525,6 +1527,7 @@
 				0A465C2D246C196900AFA467 /* Theme.swift */,
 				04C97A99246C3E5F00EBA0F1 /* ViewState.swift */,
 				550A0ACC24F3BEE800B839E9 /* MainContentView.swift */,
+				047AE34F252B4BE600810710 /* Settings.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -2304,6 +2307,7 @@
 				0A0EFCA8246EB13300D3D8BF /* KeyValueRow.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
+				047AE350252B4BE600810710 /* Settings.swift in Sources */,
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				0497F6EB2489168B00A1F4DE /* TransactionCellView.swift in Sources */,
 				55AB394024A3454100148BEA /* LoadableView.swift in Sources */,
