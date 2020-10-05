@@ -24,11 +24,11 @@ struct SelectedSafeButton: View {
             }
             Spacer()
         }
-        .frame(width: 140, height: 44, alignment: .leading)
+        .frame(width: 170, height: 44, alignment: .leading)
         .disabled(selected.first == nil)
     }
 
-    let iconSize: CGFloat = 24
+    let iconSize: CGFloat = 36
 
     var notSelectedView: some View {
         HStack {
@@ -61,12 +61,12 @@ struct SafeCell1: View {
 
             VStack(alignment: .leading) {
                 Text(safe.name ?? "")
-                    .caption()
+                    .body()
                     .lineLimit(1)
 
                 if safe.safeAddress != nil {
                     SlicedText(safe.safeAddress!)
-                        .style(.addressShortLight, font: .gnoCaption1)
+                        .style(.addressShortLight, font: .gnoBody)
                 }
             }
         }
