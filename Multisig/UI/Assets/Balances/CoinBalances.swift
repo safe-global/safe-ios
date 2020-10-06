@@ -13,12 +13,7 @@ enum ViewLoadingStatus {
 }
 
 struct CoinBalancesView: View {
-    // fixes not reloading after switching the safe
-//    @ObservedObject
-//    var safe: Safe
     //  TODO: Tracking
-
-    var address: String?
     @EnvironmentObject var model: CoinBalancesModel
     var status: ViewLoadingStatus { model.status }
 
@@ -36,7 +31,7 @@ struct CoinBalancesView: View {
     }
 
     func reload() {
-        model.reload(address: address)
+        model.reload()
     }
 }
 
@@ -58,16 +53,22 @@ struct BalanceListView: View {
 }
 
 struct ReloadButton: View {
+    var height: CGFloat = 30
+    var iconRotation = Angle(degrees: 135)
     var reload: () -> Void = {}
 
     var body: some View  {
-        HStack {
-            Spacer()
             Button(action: reload, label: {
-                Text("Reload").caption()
+                HStack {
+                    Spacer()
+                    Image(systemName: "arrow.2.circlepath")
+                        .rotationEffect(iconRotation)
+                    Text("Reload").font(.gnoBody)
+                    Spacer()
+                }
             })
-            .buttonStyle(GNOPlainButtonStyle())
-        }
+            .buttonStyle(GNOCustomButtonStyle(color: .gnoMediumGrey))
+            .frame(height: height)
     }
 }
 
@@ -115,11 +116,31 @@ class CoinBalancesModel: ObservableObject {
     var status: ViewLoadingStatus = .initial
     var subscribers = Set<AnyCancellable>()
 
-    func reload(address: String?) {
-        guard status != .loading else { return }
+    let coreDataPublisher = NotificationCenter.default
+        .publisher(for: .NSManagedObjectContextDidSave,
+                   object: App.shared.coreDataStack.viewContext)
+        .receive(on: RunLoop.main)
+
+    var reactOnCoreData: AnyCancellable!
+
+    init() {
+        reactOnCoreData = coreDataPublisher
+            .sink { [weak self] _ in
+                guard let `self` = self else { return }
+                self.status = .initial
+            }
+    }
+
+    func reload() {
+        subscribers.removeAll()
         status = .loading
-        Just(address)
-            .compactMap { $0 }
+        Just(())
+            .tryCompactMap { _ -> String? in
+                let context = App.shared.coreDataStack.viewContext
+                let fr = Safe.fetchRequest().selected()
+                let safe = try context.fetch(fr).first
+                return safe?.address
+            }
             .compactMap { Address($0) }
             .receive(on: DispatchQueue.global())
             .tryMap { address -> [TokenBalance] in

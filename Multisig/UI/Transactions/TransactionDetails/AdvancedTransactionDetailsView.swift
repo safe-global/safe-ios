@@ -31,11 +31,7 @@ struct AdvancedTransactionDetailsView: View {
         }
         .navigationBarTitle("Advanced", displayMode: .inline)
         .onAppear {
-            self.theme.setTemporaryTableViewBackground(nil)
             self.trackEvent(.transactionsDetailsAdvanced)
-        }
-        .onDisappear {
-            self.theme.resetTemporaryTableViewBackground()
         }
     }
 }

@@ -25,7 +25,7 @@ struct SafeSettingsContent: View {
                         .edgesIgnoringSafeArea(.all)
                         .foregroundColor(Color.gnoWhite)
 
-                    LoadingSafeSettingsView(safe: selected.first!)
+                    LoadingSafeSettingsView()
                 }
             }
         }
@@ -33,8 +33,6 @@ struct SafeSettingsContent: View {
 }
 
 struct LoadingSafeSettingsView: View {
-    @ObservedObject
-    var safe: Safe
     @EnvironmentObject var model: LoadingSafeSettingsViewModel
     var status: ViewLoadingStatus { model.status }
 
@@ -52,7 +50,7 @@ struct LoadingSafeSettingsView: View {
     }
 
     func reload() {
-        model.reload(safe: safe)
+        model.reload()
     }
 }
 
@@ -130,16 +128,39 @@ class LoadingSafeSettingsViewModel: ObservableObject {
 
     var subscribers = Set<AnyCancellable>()
 
-    func reload(safe: Safe) {
-        guard status != .loading else { return }
+    let coreDataPublisher = NotificationCenter.default
+        .publisher(for: .NSManagedObjectContextDidSave,
+                   object: App.shared.coreDataStack.viewContext)
+        .receive(on: RunLoop.main)
+
+    var reactOnCoreData: AnyCancellable!
+
+    init() {
+        reactOnCoreData = coreDataPublisher
+            .sink { [weak self] _ in
+                guard let `self` = self else { return }
+                self.status = .initial
+            }
+    }
+
+    func reload() {
+        subscribers.removeAll()
         status = .loading
-        Just(safe.address)
-            .compactMap { $0 }
-            .compactMap { Address($0) }
+        Just(())
+            .tryCompactMap { _ -> Safe? in
+                let context = App.shared.coreDataStack.viewContext
+                let fr = Safe.fetchRequest().selected()
+                let safe = try context.fetch(fr).first
+                return safe
+            }
             .receive(on: DispatchQueue.global())
-            .tryMap {  address -> SafeStatusRequest.Response in
+            .tryMap {  safe -> (SafeStatusRequest.Response, Safe) in
+                guard let addressString = safe.address else {
+                    throw "Error: safe does not have address. Please reload."
+                }
+                let address = try Address(from: addressString)
                 let safeInfo = try Safe.download(at: address)
-                return safeInfo
+                return (safeInfo, safe)
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
@@ -150,12 +171,10 @@ class LoadingSafeSettingsViewModel: ObservableObject {
                 } else {
                     self.status = .success
                 }
-            }, receiveValue: { [weak self, weak safe] response in
-                guard let `self` = self, let safe = safe else { return }
+            }, receiveValue: { [weak self] (response, safe) in
+                guard let `self` = self else { return }
                 safe.update(from: response)
-                if self.safe == nil {
-                    self.safe = safe
-                }
+                self.safe = safe
             })
             .store(in: &subscribers)
     }

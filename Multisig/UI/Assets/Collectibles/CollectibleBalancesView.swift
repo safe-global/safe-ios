@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct CollectibleBalancesView: View {
-    var address: String?
     @EnvironmentObject var model: CollectibleBalancesModel
     var status: ViewLoadingStatus { model.status }
 
@@ -27,7 +26,7 @@ struct CollectibleBalancesView: View {
     }
 
     func reload() {
-        model.reload(address: address)
+        model.reload()
     }
 }
 
@@ -62,11 +61,31 @@ class CollectibleBalancesModel: ObservableObject {
     var status: ViewLoadingStatus = .initial
     var subscribers = Set<AnyCancellable>()
 
-    func reload(address: String?) {
-        guard status != .loading else { return }
+    let coreDataPublisher = NotificationCenter.default
+        .publisher(for: .NSManagedObjectContextDidSave,
+                   object: App.shared.coreDataStack.viewContext)
+        .receive(on: RunLoop.main)
+
+    var reactOnCoreData: AnyCancellable!
+
+    init() {
+        reactOnCoreData = coreDataPublisher
+            .sink { [weak self] _ in
+                guard let `self` = self else { return }
+                self.status = .initial
+            }
+    }
+
+    func reload() {
+        subscribers.removeAll()
         status = .loading
-        Just(address)
-            .compactMap { $0 }
+        Just(())
+            .tryCompactMap { _ -> String? in
+                let context = App.shared.coreDataStack.viewContext
+                let fr = Safe.fetchRequest().selected()
+                let safe = try context.fetch(fr).first
+                return safe?.address
+            }
             .compactMap { Address($0) }
             .receive(on: DispatchQueue.global())
             .tryMap { address -> [CollectibleListSection] in

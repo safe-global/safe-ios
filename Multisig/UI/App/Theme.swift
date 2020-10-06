@@ -27,21 +27,8 @@ class Theme: ObservableObject {
         // makes separators to take full width of the screen
         // (default is with offset)
         UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        UITableView.appearance().backgroundColor = UIColor(named: "white")
-    }
-
-    func setTemporaryTableViewBackground(_ color: UIColor?) {
-        tableViewBackgroundColor = UITableView.appearance().backgroundColor
-        UITableView.appearance().backgroundColor = color
-    }
-
-    func resetTemporaryTableViewBackground() {
-        UITableView.appearance().backgroundColor = tableViewBackgroundColor
-    }
-
-    func resetRowsSelection() {
-        UITableViewCell.appearance().selectionStyle = .none
-        UITableViewCell.appearance().selectionStyle = .default
+        // we don't touch the UITableView appearance background color
+        // because it messes up the backgrounds when navigating in the app
     }
 
 }

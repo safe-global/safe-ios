@@ -30,7 +30,9 @@ extension Color {
     static let gnoSystemWhite = Color("systemWhite")
     static let gnoTomato = Color("tomato")
     static let gnoPending = Color("pending")
-    static let gnoWhite = Color("white")
+    // This was replaced from Color("white") because of issues
+    // with custom background of tables in SwiftUI.
+    static let gnoWhite = Color(UIColor.systemGray6)
     static let gnoWhitesmoke = Color("whitesmoke")
     static let gnoWhitesmokeTwo = Color("whitesmokeTwo")
     static let systemGray6Light = Color("systemGray6Light")
