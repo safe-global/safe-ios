@@ -17,19 +17,14 @@ struct LoadingTransactionDetailsView: View {
 
     @ObservedObject var model: LoadingTransactionDetailsViewModel
 
-    var status: ViewLoadingStatus { model.status }
-
-    @ViewBuilder
     var body: some View {
-        if status == .initial {
-            Text("Loading...").onAppear(perform: reload)
-        } else if status == .loading {
-            FullScreenLoadingView()
-        } else if status == .failure {
-            NoDataView(reload: reload)
-        } else if status == .success {
+        NetworkContentView(status: model.status, reload: reload) {
             TransactionDetailsOuterBodyView(transactionModel: model.transactionDetails, safe: selectedSafe.first!, reload: reload)
         }
+        .onAppear {
+            trackEvent(.transactionsDetails)
+        }
+        .navigationBarTitle("Transaction Details")
     }
 
     func reload() {
@@ -49,6 +44,10 @@ struct TransactionDetailsOuterBodyView: View {
     var transactionModel: TransactionViewModel
     var safe: Safe
     var reload: () -> Void = { }
+    @State
+    private var showsLink: Bool = false
+    private let padding: CGFloat = 11
+
     var body: some View {
         List {
             ReloadButton(reload: reload)
@@ -63,14 +62,7 @@ struct TransactionDetailsOuterBodyView: View {
                 viewTxOnEtherscan
             }
         }
-        .navigationBarTitle("Transaction Details", displayMode: .inline)
     }
-
-
-
-    @State
-    private var showsLink: Bool = false
-    private let padding: CGFloat = 11
 
     private var viewTxOnEtherscan: some View {
         Button(action: { self.showsLink.toggle() }) {
@@ -161,68 +153,4 @@ struct TransactionDetailsInnerBodyView: View {
             }
         }
     }
-}
-
-class LoadingTransactionDetailsViewModel: ObservableObject {
-
-    // input; will load details
-    var id: TransactionID?
-    // default output
-    var transactionDetails: TransactionViewModel = TransactionViewModel()
-
-    @Published
-    var status: ViewLoadingStatus = .initial
-
-    var subscribers = Set<AnyCancellable>()
-
-    enum Failure: LocalizedError {
-        case transactionDetailsNotFound, unsupportedTransaction
-        var errorDescription: String? {
-            switch self {
-            case .transactionDetailsNotFound:
-                return "Information about this transaction can't be loaded"
-            case .unsupportedTransaction:
-                return "Information about this transaction type is not supported"
-            }
-        }
-    }
-
-    func reload(transaction: TransactionViewModel) {
-        guard status != .loading else { return }
-        if transaction is CreationTransactionViewModel {
-            transactionDetails = transaction
-            self.status = .success
-        } else {
-            id = TransactionID(value: transaction.id)
-            status = .loading
-
-            Just(id)
-                .compactMap { $0 }
-                .receive(on: DispatchQueue.global())
-                .tryMap { id -> TransactionViewModel in
-                    let transaction = try App.shared.clientGatewayService.transactionDetails(id: id)
-                    let viewModels = TransactionViewModel.create(from: transaction)
-                    guard viewModels.count == 1, let viewModel = viewModels.first else {
-                        throw Failure.unsupportedTransaction
-                    }
-                    return viewModel
-                }
-                .receive(on: RunLoop.main)
-                .sink(receiveCompletion: { [weak self] completion in
-                    guard let `self` = self else { return }
-                    if case .failure(let error) = completion {
-                        App.shared.snackbar.show(message: error.localizedDescription)
-                        self.status = .failure
-                    } else {
-                        self.status = .success
-                    }
-                }, receiveValue:{ [weak self] transaction in
-                    guard let `self` = self else { return }
-                    self.transactionDetails = transaction
-                })
-                .store(in: &subscribers)
-
-        }
-    }
-
 }

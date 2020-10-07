@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CollectiblesSectionView: View {
-    let section: CollectiblesListViewModel.Section
+    let section: CollectibleListSection
 
     private let imageDimension: CGFloat = Spacing.extraExtraLarge
 

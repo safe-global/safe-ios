@@ -9,47 +9,41 @@
 import SwiftUI
 
 struct AssetsView: View {
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    var selectedSafe: FetchedResults<Safe>
+    var body: some View {
+        WhenSafeSelected(noSafeEvent: .assetsNoSafe) {
+            AssetsTopTabView()
+        }
+        .navigationBarTitle("Assets")
+    }
+}
 
+struct AssetsTopTabView: View {
     @State
     var selection: Int? = 0
 
     var body: some View {
-        ZStack {
-            if selectedSafe.first != nil {
-                TopTabView($selection) {
-                    CoinBalancesView()
-                        .gnoTabItem(id: 0) {
-                            HStack {
-                                Image("ico-coins")
-                                Text("COINS")
-									.caption()
-			                        .tracking(0.45)
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
-                    CollectibleBalancesView()
-                        .gnoTabItem(id: 1) {
-                            HStack {
-                                Image("ico-collectibles")
-                                Text("COLLECTIBLES")
-                                    .caption()
-                                    .tracking(0.45)
-                            }
-                        }
+        TopTabView($selection) {
+            CoinBalancesView()
+                .gnoTabItem(id: 0) {
+                    HStack {
+                        Image("ico-coins")
+                        Text("COINS")
+                            .caption()
+                            .tracking(0.45)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
-                .background(Color.gnoWhite)
-                .navigationBarTitle("Assets")
-            } else {
-                VStack(spacing: 0) {                    
-                    AddSafeIntroView().onAppear {
-                        self.trackEvent(.assetsNoSafe)
+            CollectibleBalancesView()
+                .gnoTabItem(id: 1) {
+                    HStack {
+                        Image("ico-collectibles")
+                        Text("COLLECTIBLES")
+                            .caption()
+                            .tracking(0.45)
                     }
                 }
-                .navigationBarTitle("Assets")
-            }
         }
+        .background(Color.gnoWhite)
     }
 }
 

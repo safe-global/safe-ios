@@ -9,48 +9,22 @@
 import SwiftUI
 
 struct SafeSettingsContent: View {
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    var selected: FetchedResults<Safe>
-
     var body: some View {
-        ZStack {
-            if selected.first == nil {
-                // so it does not jump when switching Assets <-> Settings in the tap bar
-                AddSafeIntroView(padding: .top, -56).onAppear {
-                    self.trackEvent(.settingsSafeNoSafe)
-                }
-            } else {
-                ZStack(alignment: .center) {
-                    Rectangle()
-                        .edgesIgnoringSafeArea(.all)
-                        .foregroundColor(Color.gnoWhite)
-
-                    LoadingSafeSettingsView()
-                }
-            }
+        // so it does not jump when switching Assets <-> Settings in the tap bar
+        WhenSafeSelected(padding: (.top, -56), noSafeEvent: .settingsSafeNoSafe) {
+            LoadingSafeSettingsView()
+                .fullScreenBackground()
         }
     }
 }
 
 struct LoadingSafeSettingsView: View {
     @EnvironmentObject var model: LoadingSafeSettingsViewModel
-    var status: ViewLoadingStatus { model.status }
 
-    @ViewBuilder
     var body: some View {
-        if status == .initial {
-            Text("Loading...").onAppear(perform: reload)
-        } else if status == .loading {
-            FullScreenLoadingView()
-        } else if status == .failure {
-            NoDataView(reload: reload)
-        } else if status == .success {
-            SafeSettingListView(safe: $model.safe, reload: reload)
+        NetworkContentView(status: model.status, reload: model.reload) {
+            SafeSettingListView(safe: $model.safe, reload: model.reload)
         }
-    }
-
-    func reload() {
-        model.reload()
     }
 }
 
@@ -66,117 +40,98 @@ struct SafeSettingListView: View {
         } else {
             List {
                 ReloadButton(reload: reload)
-
-                Section(header: SectionHeader("SAFE NAME")) {
-                    NavigationLink(
-                        destination:
-                            EditSafeNameView(
-                                address: safe.address ?? "",
-                                name: safe.name ?? ""),
-                        label: {
-                            Text(safe.name ?? "").body()
-                        })
-                        .frame(height: rowHeight)
-                }
-
-                Section(header: SectionHeader("REQUIRED CONFIRMATIONS")) {
-                    Text("\(String(describing: safe.threshold ?? 0)) out of \(safe.owners?.count ?? 0)")
-                        .body()
-                        .frame(height: rowHeight)
-                }
-
-                Section(header: SectionHeader("OWNER ADDRESSES")) {
-                    ForEach(safe.owners ?? [], id: \.self, content: { owner in
-                        AddressCell(address: owner.checksummed)
-                    })
-                }
-
-                Section(header: SectionHeader("CONTRACT VERSION")) {
-                    ContractVersionCell(implementation: safe.implementation?.checksummed)
-                }
-
-                Section(header: SectionHeader("ENS NAME")) {
-                    LoadableENSNameText(safe: safe, placeholder: "Reverse record not set")
-                        .frame(height: rowHeight)
-                }
-
-                Section(header: SectionHeader("")) {
-                    NavigationLink(destination: AdvancedSafeSettingsView(safe: safe)) {
-                        Text("Advanced").body()
-                    }
-                    .frame(height: rowHeight)
-
-                    RemoveSafeButton(safe: self.safe)
-                }
+                SafeName(safe: safe, rowHeight: rowHeight)
+                Confirmations(safe: safe, rowHeight: rowHeight)
+                OwnerAddress(safe: safe)
+                ContractVersion(safe: safe)
+                ENSName(safe: safe, rowHeight: rowHeight)
+                Advanced(safe: safe, rowHeight: rowHeight)
             }
             .listStyle(GroupedListStyle())
+        }
+    }
+}
 
+extension SafeSettingListView {
+
+    struct SafeName: View {
+        var safe: Safe
+        var rowHeight: CGFloat
+
+        var body: some View {
+            Section(header: SectionHeader("SAFE NAME")) {
+                NavigationLink(
+                    destination:
+                        EditSafeNameView(
+                            address: safe.address ?? "",
+                            name: safe.name ?? ""),
+                    label: {
+                        Text(safe.name ?? "").body()
+                    })
+                    .frame(height: rowHeight)
+            }
         }
     }
 
-}
+    struct Confirmations: View {
+        var safe: Safe
+        var rowHeight: CGFloat
 
-
-import Combine
-class LoadingSafeSettingsViewModel: ObservableObject {
-
-    @Published
-    var safe: Safe?
-
-    @Published
-    var status: ViewLoadingStatus = .initial
-
-    var subscribers = Set<AnyCancellable>()
-
-    let coreDataPublisher = NotificationCenter.default
-        .publisher(for: .NSManagedObjectContextDidSave,
-                   object: App.shared.coreDataStack.viewContext)
-        .receive(on: RunLoop.main)
-
-    var reactOnCoreData: AnyCancellable!
-
-    init() {
-        reactOnCoreData = coreDataPublisher
-            .sink { [weak self] _ in
-                guard let `self` = self else { return }
-                self.status = .initial
+        var body: some View {
+            Section(header: SectionHeader("REQUIRED CONFIRMATIONS")) {
+                Text("\(String(describing: safe.threshold ?? 0)) out of \(safe.owners?.count ?? 0)")
+                    .body()
+                    .frame(height: rowHeight)
             }
+        }
     }
 
-    func reload() {
-        subscribers.removeAll()
-        status = .loading
-        Just(())
-            .tryCompactMap { _ -> Safe? in
-                let context = App.shared.coreDataStack.viewContext
-                let fr = Safe.fetchRequest().selected()
-                let safe = try context.fetch(fr).first
-                return safe
+    struct OwnerAddress: View {
+        var safe: Safe
+        var body: some View {
+            Section(header: SectionHeader("OWNER ADDRESSES")) {
+                ForEach(safe.owners ?? [], id: \.self, content: { owner in
+                    AddressCell(address: owner.checksummed)
+                })
             }
-            .receive(on: DispatchQueue.global())
-            .tryMap {  safe -> (SafeStatusRequest.Response, Safe) in
-                guard let addressString = safe.address else {
-                    throw "Error: safe does not have address. Please reload."
-                }
-                let address = try Address(from: addressString)
-                let safeInfo = try Safe.download(at: address)
-                return (safeInfo, safe)
-            }
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                guard let `self` = self else { return }
-                if case .failure(let error) = completion {
-                    App.shared.snackbar.show(message: error.localizedDescription)
-                    self.status = .failure
-                } else {
-                    self.status = .success
-                }
-            }, receiveValue: { [weak self] (response, safe) in
-                guard let `self` = self else { return }
-                safe.update(from: response)
-                self.safe = safe
-            })
-            .store(in: &subscribers)
+        }
     }
 
+    struct ContractVersion: View {
+        var safe: Safe
+
+        var body: some View {
+            Section(header: SectionHeader("CONTRACT VERSION")) {
+                ContractVersionCell(implementation: safe.implementation?.checksummed)
+            }
+        }
+    }
+
+    struct ENSName: View {
+        var safe: Safe
+        var rowHeight: CGFloat
+
+        var body: some View {
+            Section(header: SectionHeader("ENS NAME")) {
+                LoadableENSNameText(safe: safe, placeholder: "Reverse record not set")
+                    .frame(height: rowHeight)
+            }
+        }
+    }
+
+    struct Advanced: View {
+        var safe: Safe
+        var rowHeight: CGFloat
+
+        var body: some View {
+            Section(header: SectionHeader("")) {
+                NavigationLink(destination: AdvancedSafeSettingsView(safe: safe)) {
+                    Text("Advanced").body()
+                }
+                .frame(height: rowHeight)
+
+                RemoveSafeButton(safe: self.safe)
+            }
+        }
+    }
 }
