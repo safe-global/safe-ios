@@ -24,7 +24,7 @@ struct LoadingTransactionDetailsView: View {
         .onAppear {
             trackEvent(.transactionsDetails)
         }
-        .navigationBarTitle("Transaction Details")
+        .navigationBarTitle("Transaction Details", displayMode: .inline)
     }
 
     func reload() {
