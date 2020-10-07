@@ -9,28 +9,62 @@
 import SwiftUI
 import Combine
 
-class LoadingTransactionListViewModel: NetworkContentViewModel {
+class LoadingTransactionListViewModel: ObservableObject {
     var list = TransactionsListViewModel()
     @Published
+    var status: ViewLoadingStatus = .initial
+    @Published
     var loadMoreStatus: ViewLoadingStatus = .initial
-    private var otherSubscribers = Set<AnyCancellable>()
+    var subscribers = Set<AnyCancellable>()
+
+    let coreDataPublisher = NotificationCenter.default
+        .publisher(for: .NSManagedObjectContextDidSave,
+                   object: App.shared.coreDataStack.viewContext)
+        .receive(on: RunLoop.main)
+
+    var reactOnCoreData: AnyCancellable!
+
+    init() {
+        reactOnCoreData = coreDataPublisher
+            .sink { [weak self] _ in
+                guard let `self` = self else { return }
+                self.status = .initial
+            }
+    }
 
     func reload() {
-        super.reload { safe -> TransactionsListViewModel in
-            guard let addressString = safe.address else {
-                throw "Error: safe does not have address. Please reload."
+        subscribers.removeAll()
+        status = .loading
+        Just(())
+            .tryCompactMap { _ -> String? in
+                let context = App.shared.coreDataStack.viewContext
+                let fr = Safe.fetchRequest().selected()
+                let safe = try context.fetch(fr).first
+                return safe?.address
             }
-            let address = try Address(from: addressString)
-            let transactions = try App.shared.clientGatewayService.transactionSummaryList(address: address)
-            let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
-            var list = TransactionsListViewModel(models)
-            list.next =  transactions.next
-            return list
-
-        } receive: { [weak self] value in
-            guard let `self` = self else { return }
-            self.list = value
-        }
+            .compactMap { Address($0) }
+            .receive(on: DispatchQueue.global())
+            .tryMap { address -> TransactionsListViewModel in
+                let transactions = try App.shared.clientGatewayService.transactionSummaryList(address: address)
+                let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
+                var list = TransactionsListViewModel(models)
+                list.next =  transactions.next
+                return list
+            }
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                guard let `self` = self else { return }
+                if case .failure(let error) = completion {
+                    App.shared.snackbar.show(message: error.localizedDescription)
+                    self.status = .failure
+                } else {
+                    self.status = .success
+                }
+            }, receiveValue:{ [weak self] value in
+                guard let `self` = self else { return }
+                self.list = value
+            })
+            .store(in: &subscribers)
     }
 
     func loadMore() {
@@ -59,8 +93,7 @@ class LoadingTransactionListViewModel: NetworkContentViewModel {
                 guard let `self` = self else { return }
                 self.list.append(from: value)
             })
-            .store(in: &otherSubscribers)
+            .store(in: &subscribers)
     }
 
 }
-
