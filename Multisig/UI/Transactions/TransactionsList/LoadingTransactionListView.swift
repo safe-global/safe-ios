@@ -17,13 +17,14 @@ struct TransactionsTabView: View {
     }
 }
 
+
 struct LoadingTransactionListView: View {
     @EnvironmentObject var model: LoadingTransactionListViewModel
-
+    
     var body: some View {
         NetworkContentView(status: model.status, reload: model.reload) {
-            TransactionListView(list: $model.list,
-                                       loadMoreStatus: $model.loadMoreStatus,
+            TransactionListView(list: model.list,
+                                       loadMoreStatus: model.loadMoreStatus,
                                        reload: model.reload,
                                        loadMore: model.loadMore)
         }
@@ -34,9 +35,7 @@ struct LoadingTransactionListView: View {
 }
 
 struct TransactionListView: View {
-    @Binding
     var list: TransactionsListViewModel
-    @Binding
     var loadMoreStatus: ViewLoadingStatus
     var reload: () -> Void = {}
     var loadMore: () -> Void = {}

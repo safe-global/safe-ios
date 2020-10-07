@@ -9,91 +9,265 @@
 import SwiftUI
 import Combine
 
+import Combine
+
 class LoadingTransactionListViewModel: ObservableObject {
-    var list = TransactionsListViewModel()
-    @Published
-    var status: ViewLoadingStatus = .initial
-    @Published
-    var loadMoreStatus: ViewLoadingStatus = .initial
-    var subscribers = Set<AnyCancellable>()
 
-    let coreDataPublisher = NotificationCenter.default
-        .publisher(for: .NSManagedObjectContextDidSave,
-                   object: App.shared.coreDataStack.viewContext)
-        .receive(on: RunLoop.main)
+    // Inputs
+    // signals that reload is needed
+    var reloadSubject: PassthroughSubject<Void, Never>
 
-    var reactOnCoreData: AnyCancellable!
+    // url of the next page to load
+    var loadMoreSubject: PassthroughSubject<String?, Never>
+
+    // Outputs
+    @Published var status: ViewLoadingStatus = .initial
+    @Published var loadMoreStatus: ViewLoadingStatus = .initial
+    @Published var list: TransactionsListViewModel = .init()
+
+    // reload subject with Void output
+
+    // reload ->
+    //   assign status to loading subscriber
+
+    // fetch from core data ->
+    //   transform safe to address
+    //   load tx list
+    //   transform to list view model
+
+    //  catch failure publisher
+    //      subscriber snackbar message
+    //      assign status to failure
+
+    //  assign to list subscriber
+    //  assign status to success
+
+
+    var cancellables: Set<AnyCancellable> = .init()
 
     init() {
-        reactOnCoreData = coreDataPublisher
-            .sink { [weak self] _ in
-                guard let `self` = self else { return }
-                self.status = .initial
-            }
-    }
+        // This sets up 3 pipelines according to the 3 possible input actions
+        // I. on Core Data save() -> update outputs: status (reset status to .initial to trigger the reload() action automatically)
+        // II. on reload() -> load first page of transactions for the selected safe -> update outputs: status, list
+        // III. on loadMore() -> load next page of transactions -> update outputs: loadMoreStatus, list
 
-    func reload() {
-        subscribers.removeAll()
-        status = .loading
-        Just(())
-            .tryCompactMap { _ -> String? in
+        // require inits
+        reloadSubject = .init()
+        loadMoreSubject = .init()
+
+        // I. on Core Data save() ->
+        //   a) set status = .initial to trigger the reload() on appearance
+        NotificationCenter.default
+            .publisher(for: .NSManagedObjectContextDidSave,
+                       object: App.shared.coreDataStack.viewContext)
+            .map { notification -> Void in
+                ()
+            }
+            .receive(on: RunLoop.main)
+            .map { ViewLoadingStatus.initial }
+            .assign(to: \.status, on: self)
+            .store(in: &cancellables)
+
+
+        // II. on reload() ->
+        //   fork into 2 streams:
+        //   a) status = .loading
+        //   b) load first page of transactions of the selected safe
+        //      i. fetch selected safe from Core Data
+        //      ii. get its address
+        //      iii. get transaction list by address
+        //      iv. transform response list to success<view model list>
+        //      v. transform response error to failure<error>
+        //      vi. update outputs
+        //          fork into 3 subscribers:
+        //          1. on success<list>: status = .success
+        //          2. on succes<list>: self.list = list
+        //          3. on failure<error>: show error; set status = .failure
+
+        let inputPublisher = reloadSubject
+
+        let inputSubject = inputPublisher
+            .receive(on: RunLoop.main)
+            .multicast { PassthroughSubject<Void, Never>() }
+
+        inputSubject
+            .map { ViewLoadingStatus.loading }
+            .assign(to: \.status, on: self)
+            .store(in: &cancellables)
+
+        let getSelectedSafePublisher = inputSubject
+            .tryCompactMap { status -> Safe? in
                 let context = App.shared.coreDataStack.viewContext
                 let fr = Safe.fetchRequest().selected()
                 let safe = try context.fetch(fr).first
-                return safe?.address
+                return safe
             }
-            .compactMap { Address($0) }
+
+        inputSubject
+            .connect()
+            .store(in: &cancellables)
+
+        let getSafeAddressPublisher = getSelectedSafePublisher
+            .compactMap { safe in safe.address }
+            .tryMap { try Address(from: $0) }
+
+        let getTransactionListPublisher = getSafeAddressPublisher
             .receive(on: DispatchQueue.global())
-            .tryMap { address -> TransactionsListViewModel in
-                let transactions = try App.shared.clientGatewayService.transactionSummaryList(address: address)
+            .tryMap { address in
+                try App.shared.clientGatewayService.transactionSummaryList(address: address)
+            }
+            .map { transactions -> TransactionsListViewModel in
                 let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
                 var list = TransactionsListViewModel(models)
                 list.next =  transactions.next
                 return list
             }
+            .map { list -> Result<TransactionsListViewModel, Error> in
+                .success(list)
+            }
+            .catch { error in
+                Just(.failure(error))
+            }
+
+        let listSubject = getTransactionListPublisher
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                guard let `self` = self else { return }
-                if case .failure(let error) = completion {
-                    App.shared.snackbar.show(message: error.localizedDescription)
-                    self.status = .failure
-                } else {
-                    self.status = .success
+            .multicast {
+                PassthroughSubject<Result<TransactionsListViewModel, Error>, Never>()
+            }
+
+        listSubject
+            .compactMap { result -> Error? in
+                switch result {
+                case .failure(let error): return error
+                default: return nil
                 }
-            }, receiveValue:{ [weak self] value in
+            }
+            .map { error -> ViewLoadingStatus in
+                App.shared.snackbar.show(message: error.localizedDescription)
+                return .failure
+            }
+            .assign(to: \.status, on: self)
+            .store(in: &cancellables)
+
+        let successPublisher = listSubject
+            .compactMap { result -> TransactionsListViewModel? in
+                switch result {
+                case .success(let value): return value
+                default: return nil
+                }
+            }
+
+        successPublisher
+            .assign(to: \.list, on: self)
+            .store(in: &cancellables)
+
+        successPublisher
+            .map { value -> ViewLoadingStatus in
+                .success
+            }
+            .assign(to: \.status, on: self)
+            .store(in: &cancellables)
+
+
+        listSubject
+            .connect()
+            .store(in: &cancellables)
+
+        // III. on loadMore(nextPageURL) ->
+        //   fork into 2 streams:
+        //  a) loadMoreStatus = .loading
+        //  b) load next page of transactions using nextPageURL
+        //      i. get next page of transactions
+        //      ii. transform response list to success<view model list>
+        //      iii. transform response error to failure<error>
+        //      iv. update outputs
+        //          fork into 3 subscribers:
+        //          1. on success<list>: loadMoreStatus = .success
+        //          2. on success<list>: append list to self.list
+        //          3. on failure<error>: show error; loadMoreStatus = .failure
+
+        let loadMoreInputSubject = loadMoreSubject
+            .compactMap { $0 }
+            .receive(on: RunLoop.main)
+            .multicast { PassthroughSubject<String, Never>() }
+
+        loadMoreInputSubject
+            .map { url -> ViewLoadingStatus in .loading }
+            .assign(to: \.loadMoreStatus, on: self)
+            .store(in: &cancellables)
+
+
+        let loadMorResultSubject = loadMoreInputSubject
+            .receive(on: DispatchQueue.global())
+            .tryMap { url in
+                try App.shared.clientGatewayService.transactionSummaryList(pageUri: url)
+            }
+            .map { transactions -> TransactionsListViewModel in
+                let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
+                var list = TransactionsListViewModel(models)
+                list.next =  transactions.next
+                return list
+            }
+            .map { list -> Result<TransactionsListViewModel, Error> in
+                .success(list)
+            }
+            .catch { error in
+                Just(.failure(error))
+            }
+            .receive(on: RunLoop.main)
+            .multicast { PassthroughSubject<Result<TransactionsListViewModel, Error>, Never>() }
+
+        loadMoreInputSubject
+            .connect()
+            .store(in: &cancellables)
+
+        loadMorResultSubject
+            .compactMap { result -> Error? in
+                switch result {
+                case .failure(let error): return error
+                default: return nil
+                }
+            }
+            .map { error -> ViewLoadingStatus in
+                App.shared.snackbar.show(message: error.localizedDescription)
+                return .failure
+            }
+            .assign(to: \.loadMoreStatus, on: self)
+            .store(in: &cancellables)
+
+        let loadMorResultPublisher = loadMorResultSubject
+            .compactMap { result -> TransactionsListViewModel? in
+                switch result {
+                case .success(let value): return value
+                default: return nil
+                }
+            }
+
+        loadMorResultPublisher
+            .sink { [weak self] list in
                 guard let `self` = self else { return }
-                self.list = value
-            })
-            .store(in: &subscribers)
+                self.list.append(from: list)
+            }
+            .store(in: &cancellables)
+
+        loadMorResultPublisher
+            .map { value -> ViewLoadingStatus in
+                .success
+            }
+            .assign(to: \.loadMoreStatus, on: self)
+            .store(in: &cancellables)
+
+        loadMorResultSubject
+            .connect()
+            .store(in: &cancellables)
+    }
+
+    // actions
+    func reload() {
+        reloadSubject.send()
     }
 
     func loadMore() {
-        guard loadMoreStatus != .loading else { return }
-        loadMoreStatus = .loading
-        Just(list.next)
-            .compactMap { $0 }
-            .receive(on: DispatchQueue.global())
-            .tryMap { url -> TransactionsListViewModel in
-                let transactions = try App.shared.clientGatewayService.transactionSummaryList(pageUri: url)
-                let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
-                var list = TransactionsListViewModel(models)
-                list.next =  transactions.next
-                return list
-            }
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                guard let `self` = self else { return }
-                if case .failure(let error) = completion {
-                    App.shared.snackbar.show(message: error.localizedDescription)
-                    self.loadMoreStatus = .failure
-                } else {
-                    self.loadMoreStatus = .success
-                }
-            }, receiveValue:{ [weak self] value in
-                guard let `self` = self else { return }
-                self.list.append(from: value)
-            })
-            .store(in: &subscribers)
+        loadMoreSubject.send(list.next)
     }
-
 }
