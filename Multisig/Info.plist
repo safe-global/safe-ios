@@ -112,5 +112,41 @@
 	<string>$(LOGGERS)</string>
 	<key>LOG_LEVEL</key>
 	<string>$(LOG_LEVEL)</string>
+	<key>TSKConfiguration</key>
+	<dict>
+		<key>TSKSwizzleNetworkDelegates</key>
+		<false/>
+		<key>TSKPinnedDomains</key>
+		<dict>
+			<key>gnosis.io</key>
+			<dict>
+				<key>TSKPublicKeyHashes</key>
+				<array>
+					<string>JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=</string>
+					<string>++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</string>
+				</array>
+				<key>TSKIncludeSubdomains</key>
+				<true/>
+				<key>TSKEnforcePinning</key>
+				<true/>
+				<key>TSKDisableDefaultReportUri</key>
+				<true/>
+			</dict>
+			<key>gnosisdev.com</key>
+			<dict>
+				<key>TSKPublicKeyHashes</key>
+				<array>
+					<string>JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=</string>
+					<string>++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</string>
+				</array>
+				<key>TSKIncludeSubdomains</key>
+				<true/>
+				<key>TSKEnforcePinning</key>
+				<true/>
+				<key>TSKDisableDefaultReportUri</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>
