@@ -82,11 +82,10 @@ struct BasicAppSettingsView: View {
                 }
             }
         } else {
-            NavigationLink(destination: EnterSeedPhraseView(rootIsActive: self.$addOwnerIsActive),
+            NavigationLink(destination: EnterSeedPhraseView(),
                            isActive: self.$addOwnerIsActive) {
                             Text("Import signing key").body()
             }
-            .isDetailLink(false)
         }
     }
 }
