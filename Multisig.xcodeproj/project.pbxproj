@@ -118,7 +118,7 @@
 		0A29ECAA24C1EBFD00CE28FD /* Address+LocalizedStringKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29ECA924C1EBFD00CE28FD /* Address+LocalizedStringKey.swift */; };
 		0A339C5D24C1D16E00DAD84B /* Image+Blockies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
-		0A451BD2252DC1D5001DB7D2 /* WhenSafeSelected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BD1252DC1D5001DB7D2 /* WhenSafeSelected.swift */; };
+		0A451BD2252DC1D5001DB7D2 /* WithSelectedSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BD1252DC1D5001DB7D2 /* WithSelectedSafe.swift */; };
 		0A451BD8252DDAF3001DB7D2 /* NetworkContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BD7252DDAF3001DB7D2 /* NetworkContentViewModel.swift */; };
 		0A451BDE252DDB17001DB7D2 /* String+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BDD252DDB17001DB7D2 /* String+Error.swift */; };
 		0A451BE4252DDB25001DB7D2 /* CoinBalancesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BE3252DDB25001DB7D2 /* CoinBalancesModel.swift */; };
@@ -478,7 +478,7 @@
 		0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Blockies.swift"; sourceTree = "<group>"; };
 		0A35CC2F24810CF6005E45BA /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
-		0A451BD1252DC1D5001DB7D2 /* WhenSafeSelected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhenSafeSelected.swift; sourceTree = "<group>"; };
+		0A451BD1252DC1D5001DB7D2 /* WithSelectedSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithSelectedSafe.swift; sourceTree = "<group>"; };
 		0A451BD7252DDAF3001DB7D2 /* NetworkContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkContentViewModel.swift; sourceTree = "<group>"; };
 		0A451BDD252DDB17001DB7D2 /* String+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Error.swift"; sourceTree = "<group>"; };
 		0A451BE3252DDB25001DB7D2 /* CoinBalancesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinBalancesModel.swift; sourceTree = "<group>"; };
@@ -1280,7 +1280,7 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
-				0A451BD1252DC1D5001DB7D2 /* WhenSafeSelected.swift */,
+				0A451BD1252DC1D5001DB7D2 /* WithSelectedSafe.swift */,
 				0A451C43252DF7E4001DB7D2 /* FullScreenBackground.swift */,
 				0A451C05252DDB93001DB7D2 /* NetworkContentView.swift */,
 				0A451BFF252DDB67001DB7D2 /* ReloadButton.swift */,
@@ -2402,7 +2402,7 @@
 				0A0983A024BC55ED009EE296 /* TokenRequest.swift in Sources */,
 				55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */,
 				04C97AA8246ED31300EBA0F1 /* KeyValueView.swift in Sources */,
-				0A451BD2252DC1D5001DB7D2 /* WhenSafeSelected.swift in Sources */,
+				0A451BD2252DC1D5001DB7D2 /* WithSelectedSafe.swift in Sources */,
 				0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */,
 				0AD1D8F7252619E700B8EEFF /* CoinBalances.swift in Sources */,
 				0AA9F1F42497BCA9005BD60F /* TokenInfo.swift in Sources */,

@@ -11,15 +11,12 @@ import Combine
 
 struct LoadingTransactionDetailsView: View {
     var transaction: TransactionViewModel
-
-    @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
-    private var selectedSafe: FetchedResults<Safe>
-
-    @ObservedObject var model: LoadingTransactionDetailsViewModel
+    @ObservedObject
+    var model: LoadingTransactionDetailsViewModel
 
     var body: some View {
         NetworkContentView(status: model.status, reload: reload) {
-            TransactionDetailsOuterBodyView(transactionModel: model.transactionDetails, safe: selectedSafe.first!, reload: reload)
+            TransactionDetailsOuterBodyView(transactionModel: model.transactionDetails, reload: reload)
         }
         .onAppear {
             trackEvent(.transactionsDetails)
@@ -42,7 +39,6 @@ extension LoadingTransactionDetailsView {
 
 struct TransactionDetailsOuterBodyView: View {
     var transactionModel: TransactionViewModel
-    var safe: Safe
     var reload: () -> Void = { }
     @State
     private var showsLink: Bool = false
@@ -55,7 +51,7 @@ struct TransactionDetailsOuterBodyView: View {
             if transactionModel is CreationTransactionViewModel {
                 CreationTransactionBodyView(transaction: transactionModel as! CreationTransactionViewModel)
             } else {
-                TransactionDetailsInnerBodyView(transactionModel: transactionModel, safe: safe)
+                TransactionDetailsInnerBodyView(transactionModel: transactionModel)
             }
 
             if transactionModel.browserURL != nil {
@@ -82,7 +78,6 @@ struct TransactionDetailsOuterBodyView: View {
 
 struct TransactionDetailsInnerBodyView: View {
     var transactionModel: TransactionViewModel
-    var safe: Safe
 
     private let padding: CGFloat = 11
 
@@ -128,7 +123,7 @@ struct TransactionDetailsInnerBodyView: View {
 
             TransactionStatusTypeView(transaction: transactionModel)
             if displayConfirmations {
-                TransactionConfirmationsView(transaction: transactionModel, safe: safe).padding(.vertical, padding)
+                TransactionConfirmationsView(transaction: transactionModel).padding(.vertical, padding)
             }
 
             if transactionModel.formattedCreatedDate != nil {

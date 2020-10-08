@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct SlicedText: View {
-
     var string: SlicedString
     var style: Style = .default
     var font: Font = .gnoBody

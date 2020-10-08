@@ -10,7 +10,6 @@ import SwiftUI
 
 struct TransactionConfirmationsView: View {
     let transaction: TransactionViewModel
-    let safe: Safe
 
     var body: some View {
         VStack(alignment: .leading, spacing: 1) {

@@ -30,8 +30,11 @@ extension Color {
     static let gnoSystemWhite = Color("systemWhite")
     static let gnoTomato = Color("tomato")
     static let gnoPending = Color("pending")
-    // This was replaced from Color("white") because of issues
-    // with custom background of tables in SwiftUI.
+    // This was replaced from Color("white") because
+    // table view section header and the TopTabView background
+    // colors were different from the UITableView background color.
+    // Combined with removing fighting with UITableView.appearance() and
+    // SwiftUI that produced different background color stripes.
     static let gnoWhite = Color(UIColor.systemGray6)
     static let gnoWhitesmoke = Color("whitesmoke")
     static let gnoWhitesmokeTwo = Color("whitesmokeTwo")

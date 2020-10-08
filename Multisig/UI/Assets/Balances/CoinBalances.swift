@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct CoinBalancesView: View {
-    @EnvironmentObject var model: CoinBalancesModel
-
+    @EnvironmentObject
+    var model: CoinBalancesModel
     var body: some View {
         NetworkContentView(status: model.status, reload: model.reload) {
             BalanceListView(balances: model.balances, reload: model.reload)
@@ -19,13 +19,11 @@ struct CoinBalancesView: View {
             trackEvent(.assetsCoins)
         }
     }
-
 }
 
 struct BalanceListView: View {
     var balances: [TokenBalance]
     var reload: () -> Void = {}
-
     var body: some View {
         List {
             ReloadButton(reload: reload)
@@ -35,6 +33,5 @@ struct BalanceListView: View {
             }
        }
         .listStyle(GroupedListStyle())
-
     }
 }

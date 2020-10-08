@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TransactionsTabView: View {
     var body: some View {
-        WhenSafeSelected(noSafeEvent: .transactionsNoSafe) {
+        WithSelectedSafe(safeNotSelectedEvent: .transactionsNoSafe) {
             LoadingTransactionListView()
         }
         .navigationBarTitle("Transactions")
@@ -24,9 +24,9 @@ struct LoadingTransactionListView: View {
     var body: some View {
         NetworkContentView(status: model.status, reload: model.reload) {
             TransactionListView(list: model.list,
-                                       loadMoreStatus: model.loadMoreStatus,
-                                       reload: model.reload,
-                                       loadMore: model.loadMore)
+                                loadMoreStatus: model.loadMoreStatus,
+                                reload: model.reload,
+                                loadMore: model.loadMore)
         }
         .onAppear {
             trackEvent(.transactions)

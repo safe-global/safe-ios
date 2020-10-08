@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AssetsView: View {
     var body: some View {
-        WhenSafeSelected(noSafeEvent: .assetsNoSafe) {
+        WithSelectedSafe(safeNotSelectedEvent: .assetsNoSafe) {
             AssetsTopTabView()
         }
         .navigationBarTitle("Assets")

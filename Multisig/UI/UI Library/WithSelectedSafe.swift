@@ -1,5 +1,5 @@
 //
-//  WhenSafeSelected.swift
+//  WithSelectedSafe.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 07.10.20.
@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct WhenSafeSelected<Content: View>: View {
+struct WithSelectedSafe<Content: View>: View {
     var padding: (edge: Edge.Set, length: CGFloat) = (.all, 0)
-    var noSafeEvent: TrackingEvent
+    var safeNotSelectedEvent: TrackingEvent
     var content: () -> Content
 
     @FetchRequest(fetchRequest: Safe.fetchRequest().selected())
@@ -25,7 +25,7 @@ struct WhenSafeSelected<Content: View>: View {
             content()
         } else {
             AddSafeIntroView(padding: padding).onAppear {
-                trackEvent(noSafeEvent)
+                trackEvent(safeNotSelectedEvent)
             }
         }
     }

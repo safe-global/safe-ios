@@ -72,28 +72,27 @@ class LoadingTransactionListViewModel: ObservableObject {
             .store(in: &cancellables)
 
         //   b) load first page of transactions of the selected safe
-        //      i. fetch selected safe from Core Data
-        let getSelectedSafe = reloadInputFork
-            .tryCompactMap { status -> Safe? in
+        let getTransactionList = reloadInputFork
+
+            //      i. fetch selected safe from Core Data
+            .tryCompactMap { _ -> Safe? in
                 let context = App.shared.coreDataStack.viewContext
                 let fr = Safe.fetchRequest().selected()
                 let safe = try context.fetch(fr).first
                 return safe
             }
 
-        //      ii. get its address
-        let getSafeAddress = getSelectedSafe
+            //      ii. get its address
             .compactMap { safe in safe.address }
             .tryMap { try Address(from: $0) }
 
-        //      iii. get transaction list by address
-        let getTransactionList = getSafeAddress
+            //      iii. get transaction list by address
             .receive(on: DispatchQueue.global())
             .tryMap { address in
                 try App.shared.clientGatewayService.transactionSummaryList(address: address)
             }
 
-        //      iv. transform response list to success<view model list>
+            //      iv. transform response list to success<view model list>
             .map { transactions -> TransactionsListViewModel in
                 let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
                 var list = TransactionsListViewModel(models)
@@ -104,7 +103,7 @@ class LoadingTransactionListViewModel: ObservableObject {
                 .success(list)
             }
 
-        //      v. transform response error to failure<error>
+            //      v. transform response error to failure<error>
             .catch { error in
                 Just(.failure(error))
             }
@@ -133,7 +132,7 @@ class LoadingTransactionListViewModel: ObservableObject {
             }
 
         reloadSuccess
-            .map { value -> ViewLoadingStatus in
+            .map { _ -> ViewLoadingStatus in
                 .success
             }
             .assign(to: \.status, on: self)

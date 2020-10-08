@@ -13,19 +13,18 @@ struct NetworkContentView<Content: View>: View {
     var status: ViewLoadingStatus
     var reload: () -> Void = { }
     var content: () -> Content
-
     var body: some View {
-        if status == .initial {
+        switch status {
+        case .initial:
             Text("Loading...").onAppear(perform: reload)
-        } else if status == .loading {
+        case .loading:
             FullScreenLoadingView()
-        } else if status == .failure {
+        case .failure:
             NoDataView(reload: reload)
-        } else if status == .success {
+        case .success:
             content()
         }
     }
-
 }
 
 enum ViewLoadingStatus {

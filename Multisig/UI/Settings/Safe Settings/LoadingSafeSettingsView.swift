@@ -11,7 +11,7 @@ import SwiftUI
 struct SafeSettingsContent: View {
     var body: some View {
         // Padding to prevent jumping when switching Assets <-> Settings
-        WhenSafeSelected(padding: (.top, -56), noSafeEvent: .settingsSafeNoSafe) {
+        WithSelectedSafe(padding: (.top, -56), safeNotSelectedEvent: .settingsSafeNoSafe) {
             LoadingSafeSettingsView()
                 .fullScreenBackground()
         }
@@ -22,19 +22,17 @@ struct LoadingSafeSettingsView: View {
     @EnvironmentObject var model: LoadingSafeSettingsViewModel
     var body: some View {
         NetworkContentView(status: model.status, reload: model.reload) {
-            SafeSettingListView(safe: $model.safe, reload: model.reload)
+            SafeSettingListView(safe: model.safe, reload: model.reload)
         }
     }
 }
 
 struct SafeSettingListView: View {
-    @Binding var safe: Safe!
+    var safe: Safe!
     var reload: () -> Void = {}
     let rowHeight: CGFloat = 48
     var body: some View {
-        if safe == nil {
-            Text("Loading...")
-        } else {
+        if let safe = safe {
             List {
                 ReloadButton(reload: reload)
                 SafeName(safe: safe, rowHeight: rowHeight)
@@ -45,6 +43,8 @@ struct SafeSettingListView: View {
                 Advanced(safe: safe, rowHeight: rowHeight)
             }
             .listStyle(GroupedListStyle())
+        } else {
+            Text("No safe to display")
         }
     }
 }
