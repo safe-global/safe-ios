@@ -10,22 +10,26 @@ import SwiftUI
 import Web3
 
 struct SelectOwnerAddressView: View {
-    @Binding
-    var rootIsActive: Bool
-
+    @Environment(\.presentationMode)
+    var presentationMode: Binding<PresentationMode>
+    
     private var rootNode: HDNode?
-
+    var onSubmit: (() -> Void)?
+    
     @State
     private var addresses = [Address]()
 
     @State
     private var selected = 0
 
-    init(rootNode: HDNode?, rootIsActive: Binding<Bool>) {
+    private var maxAddressesCount = 100
+    private var pageSize = 20
+
+    init(rootNode: HDNode?, onSubmit: (() -> Void)? = nil ) {
         self.rootNode = rootNode
-        _rootIsActive = rootIsActive
-        let addresses: [Address] = (0..<20).compactMap { self.addressAt($0) }
+        let addresses: [Address] = generateAddressesPage()
         _addresses = State(initialValue: addresses)
+        self.onSubmit = onSubmit
     }
 
     private func addressAt(_ index: Int) -> Address? {
@@ -38,12 +42,14 @@ struct SelectOwnerAddressView: View {
 
     var body: some View {
         VStack {
-            headerView
             List {
+                headerView
                 ForEach(addresses) { address in
                     self.addressView(address)
                 }
-                showMoreView
+                if addresses.count < maxAddressesCount {
+                    showMoreView
+                }
             }
         }
         .navigationBarTitle("Import Wallet", displayMode: .inline)
@@ -60,11 +66,17 @@ struct SelectOwnerAddressView: View {
                                             derivePrivateKey: true)?.privateKey else { return }
         do {
             try App.shared.keychainService.save(data: pkData, forKey: KeychainKey.ownerPrivateKey.rawValue)
+            App.shared.snackbar.show(message: "Owner key successfully imported")
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
         }
         AppSettings.setSigningKeyAddress(addresses[selected].checksummed)
-        rootIsActive = false
+        // not needed in iOS less than 14
+        if #available(iOS 14.0, *) {
+            self.presentationMode.wrappedValue.dismiss()
+        } else {
+            onSubmit?()
+        }
     }
 
     private var headerView: some View {
@@ -104,7 +116,11 @@ struct SelectOwnerAddressView: View {
     }
 
     private func showMore() {
-        addresses += (addresses.count..<addresses.count + 20).compactMap { addressAt($0) }
+        addresses += generateAddressesPage()
+    }
+
+    private func generateAddressesPage() -> [Address] {
+        return (1...pageSize).compactMap { addressAt($0 + addresses.count) }
     }
 }
 
@@ -114,7 +130,7 @@ struct SelectOwnerAddressView_Previews: PreviewProvider {
         let rootNode = HDNode(seed: seed)!.derive(path: HDNode.defaultPathMetamaskPrefix, derivePrivateKey: true)!
 
         return NavigationView {
-            SelectOwnerAddressView(rootNode: rootNode, rootIsActive: .constant(true))
+            SelectOwnerAddressView(rootNode: rootNode)
         }
     }
 }
