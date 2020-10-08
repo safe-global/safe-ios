@@ -34,11 +34,7 @@ struct GetInTouchView: View {
             }
         }
         .onAppear {
-            self.theme.setTemporaryTableViewBackground(nil)
             self.trackEvent(.settingsAppSupport)
-        }
-        .onDisappear {
-            self.theme.resetTemporaryTableViewBackground()
         }
         .navigationBarTitle("Get In Touch", displayMode: .inline)
     }

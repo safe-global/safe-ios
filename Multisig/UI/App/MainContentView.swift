@@ -12,6 +12,9 @@ struct MainContentView<Content: View>: View {
     @State
     private var showsSafeInfo: Bool = false
 
+    @Environment(\.managedObjectContext)
+    var context: CoreDataContext
+
     private let content: Content
 
     init(_ content: Content) {
@@ -20,21 +23,26 @@ struct MainContentView<Content: View>: View {
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                SafeHeaderView(showsSafeInfo: $showsSafeInfo)
-                    .frame(height: ScreenMetrics.safeHeaderHeight)
-
-                content
-            }
-            .edgesIgnoringSafeArea(.top)
-            .navigationBarTitle("", displayMode: .inline)
-            .navigationBarHidden(true)
-            .overlay(
-                PopupView(isPresented: $showsSafeInfo) {
-                    SafeInfoView()
-                }
-            )
-            .hostSnackbar()
+            content
+                .navigationBarItems(leading: selectButton, trailing: switchButton)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .overlay(
+            PopupView(isPresented: $showsSafeInfo) {
+                SafeInfoView()
+            }
+        )
+        .hostSnackbar()
     }
+
+    var selectButton: some View {
+        SelectedSafeButton(showsSafeInfo: $showsSafeInfo)
+            .environment(\.managedObjectContext, self.context)
+    }
+
+    var switchButton: some View {
+        SwitchSafeButton()
+            .environment(\.managedObjectContext, self.context)
+    }
+
 }

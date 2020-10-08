@@ -43,9 +43,6 @@ struct TransactionCellView: View {
             }
         }
         .padding()
-        .onAppear {
-            App.shared.theme.resetRowsSelection()
-        }
     }
 
     var contentView: some View {

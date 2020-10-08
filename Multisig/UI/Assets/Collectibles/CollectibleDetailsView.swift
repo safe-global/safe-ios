@@ -45,13 +45,8 @@ struct CollectibleDetailsView: View {
             }
         }
         .padding()
-
         .onAppear {
-            self.theme.setTemporaryTableViewBackground(nil)
             self.trackEvent(.assetsCollectiblesDetails)
-        }
-        .onDisappear {
-            self.theme.resetTemporaryTableViewBackground()
         }
         .navigationBarTitle("Collectible Details", displayMode: .inline)
     }

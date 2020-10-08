@@ -20,20 +20,22 @@ struct SelectedSafeButton: View {
             if selected.first == nil {
                 notSelectedView
             } else {
-                SafeCell(safe: selected.first!)
+                SafeCell(safe: selected.first!, iconSize: iconSize)
             }
             Spacer()
         }
-        .frameForNavigationBar()
+        .frame(width: 170, height: 44, alignment: .leading)
         .disabled(selected.first == nil)
     }
+
+    let iconSize: CGFloat = 36
 
     var notSelectedView: some View {
         HStack {
             Image("safe-selector-not-selected-icon")
                 .resizable()
                 .renderingMode(.original)
-                .frame(width: 36, height: 36)
+                .frame(width: iconSize, height: iconSize)
 
             Text("No Safe loaded")
                 .headline(.gnoMediumGrey)

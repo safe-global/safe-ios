@@ -49,6 +49,33 @@ struct GNOPlainButtonStyle: ButtonStyle {
     }
 }
 
+
+struct GNOCustomButtonStyle: ButtonStyle {
+    var color: Color
+
+    func makeBody(configuration: Configuration) -> some View {
+        CustomButton(normalColor: color,
+                     disabledColor: .gnoWhitesmoke,
+                     configuration: configuration)
+    }
+
+    struct CustomButton: View {
+        var normalColor: Color
+        var disabledColor: Color
+        var configuration: GNOCustomButtonStyle.Configuration
+        @Environment(\.isEnabled) var isEnabled: Bool
+
+        var body: some View {
+            configuration.label
+                .padding()
+                .font(.gnoBody)
+                .foregroundColor(isEnabled ? normalColor : disabledColor)
+                .opacity(configuration.isPressed ? 0.5 : 1)
+        }
+    }
+
+}
+
 struct Buttons_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 30) {
