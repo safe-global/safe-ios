@@ -12,42 +12,25 @@ import Web3
 struct SelectOwnerAddressView: View {
     @Environment(\.presentationMode)
     var presentationMode: Binding<PresentationMode>
+
+    @ObservedObject
+    var model: SelectOwnerAddressViewModel
     
-    private var rootNode: HDNode?
-    var onSubmit: (() -> Void)?
+    private var onSubmit: (() -> Void)?
     
-    @State
-    private var addresses = [Address]()
-
-    @State
-    private var selected = 0
-
-    private var maxAddressesCount = 100
-    private var pageSize = 20
-
     init(rootNode: HDNode?, onSubmit: (() -> Void)? = nil ) {
-        self.rootNode = rootNode
-        let addresses: [Address] = generateAddressesPage()
-        _addresses = State(initialValue: addresses)
+        model = SelectOwnerAddressViewModel(rootNode: rootNode)
         self.onSubmit = onSubmit
-    }
-
-    private func addressAt(_ index: Int) -> Address? {
-        guard let pkData = rootNode?.derive(index: UInt32(index), derivePrivateKey: true)?.privateKey else {
-            return nil
-        }
-        let address = try! EthereumPrivateKey(hexPrivateKey: pkData.toHexString()).address
-        return Address(address, index: index)
     }
 
     var body: some View {
         VStack {
             List {
                 headerView
-                ForEach(addresses) { address in
+                ForEach(model.addresses) { address in
                     self.addressView(address)
                 }
-                if addresses.count < maxAddressesCount {
+                if model.canLoadMoreAddresses {
                     showMoreView
                 }
             }
@@ -57,26 +40,8 @@ struct SelectOwnerAddressView: View {
     }
 
     private var importButton: some View {
-        Button("Import", action: importWallet)
+        Button("Import", action: submit)
             .barButton()
-    }
-
-    private func importWallet() {
-        guard let pkData = rootNode?.derive(index: UInt32(selected),
-                                            derivePrivateKey: true)?.privateKey else { return }
-        do {
-            try App.shared.keychainService.save(data: pkData, forKey: KeychainKey.ownerPrivateKey.rawValue)
-            App.shared.snackbar.show(message: "Owner key successfully imported")
-        } catch {
-            App.shared.snackbar.show(message: error.localizedDescription)
-        }
-        AppSettings.setSigningKeyAddress(addresses[selected].checksummed)
-        // not needed in iOS less than 14
-        if #available(iOS 14.0, *) {
-            self.presentationMode.wrappedValue.dismiss()
-        } else {
-            onSubmit?()
-        }
     }
 
     private var headerView: some View {
@@ -92,13 +57,13 @@ struct SelectOwnerAddressView: View {
 
     private func addressView(_ address: Address) -> some View {
         Button(action: {
-            self.selected = address.index
+            model.selectedIndex = address.index
         }) {
             HStack(spacing: 12) {
                 Text("#\(address.index)")
                     .frame(minWidth: 24)
                 AddressView(address)
-                if address.index == selected {
+                if address.index == model.selectedIndex {
                     Image.checkmark.frame(width: 24)
                 } else {
                     Spacer().frame(width: 24)
@@ -108,19 +73,21 @@ struct SelectOwnerAddressView: View {
     }
 
     private var showMoreView: some View {
-        Button("Show more", action: showMore)
+        Button("Show more", action: model.generateAddressesPage)
             .foregroundColor(.gnoHold)
             .font(Font.body.bold())
             .padding()
             .frame(maxWidth: .infinity)
     }
 
-    private func showMore() {
-        addresses += generateAddressesPage()
-    }
-
-    private func generateAddressesPage() -> [Address] {
-        return (1...pageSize).compactMap { addressAt($0 + addresses.count) }
+    func submit() {
+        guard model.importWallet() else { return }
+        //not needed in iOS less than 14
+        if #available(iOS 14.0, *) {
+            self.presentationMode.wrappedValue.dismiss()
+        } else {
+            onSubmit?()
+        }
     }
 }
 
