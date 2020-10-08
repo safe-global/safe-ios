@@ -24,7 +24,6 @@ struct MainContentView<Content: View>: View {
     var body: some View {
         NavigationView {
             content
-                .environment(\.managedObjectContext, self.context)
                 .navigationBarItems(leading: selectButton, trailing: switchButton)
         }
         .navigationViewStyle(StackNavigationViewStyle())
@@ -39,13 +38,11 @@ struct MainContentView<Content: View>: View {
     var selectButton: some View {
         SelectedSafeButton(showsSafeInfo: $showsSafeInfo)
             .environment(\.managedObjectContext, self.context)
-
     }
 
     var switchButton: some View {
         SwitchSafeButton()
             .environment(\.managedObjectContext, self.context)
-
     }
 
 }
