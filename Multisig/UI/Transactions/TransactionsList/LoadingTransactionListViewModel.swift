@@ -13,38 +13,23 @@ import Combine
 
 class LoadingTransactionListViewModel: ObservableObject {
 
-    // Inputs
+    // MARK: - Inputs
+
     // signals that reload is needed
-    var reloadSubject: PassthroughSubject<Void, Never>
+    private var reloadSubject: PassthroughSubject<Void, Never>
 
     // url of the next page to load
-    var loadMoreSubject: PassthroughSubject<String?, Never>
+    private var loadMoreSubject: PassthroughSubject<String?, Never>
 
-    // Outputs
+    // Storage for subscribers
+    private var cancellables: Set<AnyCancellable> = .init()
+
+    // MARK: - Outputs
     @Published var status: ViewLoadingStatus = .initial
     @Published var loadMoreStatus: ViewLoadingStatus = .initial
     @Published var list: TransactionsListViewModel = .init()
 
-    // reload subject with Void output
-
-    // reload ->
-    //   assign status to loading subscriber
-
-    // fetch from core data ->
-    //   transform safe to address
-    //   load tx list
-    //   transform to list view model
-
-    //  catch failure publisher
-    //      subscriber snackbar message
-    //      assign status to failure
-
-    //  assign to list subscriber
-    //  assign status to success
-
-
-    var cancellables: Set<AnyCancellable> = .init()
-
+    // MARK: - Pipeline
     init() {
         // This sets up 3 pipelines according to the 3 possible input actions
         // I. on Core Data save() -> update outputs: status (reset status to .initial to trigger the reload() action automatically)
@@ -262,7 +247,8 @@ class LoadingTransactionListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    // actions
+    // MARK: - Actions
+
     func reload() {
         reloadSubject.send()
     }
