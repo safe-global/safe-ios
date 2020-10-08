@@ -17,7 +17,6 @@ struct TransactionsTabView: View {
     }
 }
 
-
 struct LoadingTransactionListView: View {
     @EnvironmentObject var model: LoadingTransactionListViewModel
     

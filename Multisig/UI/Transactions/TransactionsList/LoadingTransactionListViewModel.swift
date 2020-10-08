@@ -52,7 +52,6 @@ class LoadingTransactionListViewModel: ObservableObject {
             .assign(to: \.status, on: self)
             .store(in: &cancellables)
 
-
         // II. on reload() ->
         //   fork into 2 streams:
         let reloadInputFork = reloadSubject

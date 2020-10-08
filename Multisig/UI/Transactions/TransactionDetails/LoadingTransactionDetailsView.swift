@@ -75,7 +75,6 @@ struct TransactionDetailsOuterBodyView: View {
     }
 }
 
-
 struct TransactionDetailsInnerBodyView: View {
     var transactionModel: TransactionViewModel
 
