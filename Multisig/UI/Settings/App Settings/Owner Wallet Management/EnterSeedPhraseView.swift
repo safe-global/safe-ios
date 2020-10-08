@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct EnterSeedPhraseView: View {
-    @Binding
-    var rootIsActive: Bool
+    @Environment(\.presentationMode)
+    var presentationMode: Binding<PresentationMode>
 
     @State
     var seed = ""
@@ -39,9 +39,11 @@ struct EnterSeedPhraseView: View {
                 .multilineTextAlignment(.center)
             EnterSeedView(seed: $seed, isEditing: $isEditing, isValid: $isValid, errorMessage: $errorMessage)
             Spacer()
-            NavigationLink(destination: SelectOwnerAddressView(rootNode: rootNode, rootIsActive: $rootIsActive),
+            NavigationLink(destination: SelectOwnerAddressView(rootNode: rootNode, onSubmit: {
+                self.presentationMode.wrappedValue.dismiss()
+            }),
                            isActive: $goNext,
-                           label: { EmptyView() })
+                           label: { EmptyView() }).isDetailLink(false)
         }
         .padding()
         .navigationBarTitle("Import Wallet", displayMode: .inline)
@@ -118,7 +120,7 @@ struct EnterSeedView: View {
 struct EnterSeedPhrase_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EnterSeedPhraseView(rootIsActive: .constant(true))
+            EnterSeedPhraseView()
         }
     }
 }
