@@ -56,31 +56,25 @@ class LoadingTransactionListViewModel: ObservableObject {
 
         // II. on reload() ->
         //   fork into 2 streams:
-        //   a) status = .loading
-        //   b) load first page of transactions of the selected safe
-        //      i. fetch selected safe from Core Data
-        //      ii. get its address
-        //      iii. get transaction list by address
-        //      iv. transform response list to success<view model list>
-        //      v. transform response error to failure<error>
-        //      vi. update outputs
-        //          fork into 3 subscribers:
-        //          1. on success<list>: status = .success
-        //          2. on succes<list>: self.list = list
-        //          3. on failure<error>: show error; set status = .failure
-
-        let inputPublisher = reloadSubject
-
-        let inputSubject = inputPublisher
+        let reloadInputFork = reloadSubject
             .receive(on: RunLoop.main)
             .multicast { PassthroughSubject<Void, Never>() }
 
-        inputSubject
+        defer {
+            reloadInputFork
+                .connect()
+                .store(in: &cancellables)
+        }
+
+        //   a) status = .loading
+        reloadInputFork
             .map { ViewLoadingStatus.loading }
             .assign(to: \.status, on: self)
             .store(in: &cancellables)
 
-        let getSelectedSafePublisher = inputSubject
+        //   b) load first page of transactions of the selected safe
+        //      i. fetch selected safe from Core Data
+        let getSelectedSafe = reloadInputFork
             .tryCompactMap { status -> Safe? in
                 let context = App.shared.coreDataStack.viewContext
                 let fr = Safe.fetchRequest().selected()
@@ -88,19 +82,19 @@ class LoadingTransactionListViewModel: ObservableObject {
                 return safe
             }
 
-        inputSubject
-            .connect()
-            .store(in: &cancellables)
-
-        let getSafeAddressPublisher = getSelectedSafePublisher
+        //      ii. get its address
+        let getSafeAddress = getSelectedSafe
             .compactMap { safe in safe.address }
             .tryMap { try Address(from: $0) }
 
-        let getTransactionListPublisher = getSafeAddressPublisher
+        //      iii. get transaction list by address
+        let getTransactionList = getSafeAddress
             .receive(on: DispatchQueue.global())
             .tryMap { address in
                 try App.shared.clientGatewayService.transactionSummaryList(address: address)
             }
+
+        //      iv. transform response list to success<view model list>
             .map { transactions -> TransactionsListViewModel in
                 let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
                 var list = TransactionsListViewModel(models)
@@ -110,17 +104,50 @@ class LoadingTransactionListViewModel: ObservableObject {
             .map { list -> Result<TransactionsListViewModel, Error> in
                 .success(list)
             }
+
+        //      v. transform response error to failure<error>
             .catch { error in
                 Just(.failure(error))
             }
 
-        let listSubject = getTransactionListPublisher
+        //      vi. update outputs
+        //          fork into 3 subscribers:
+        let reloadOutputFork = getTransactionList
             .receive(on: RunLoop.main)
             .multicast {
                 PassthroughSubject<Result<TransactionsListViewModel, Error>, Never>()
             }
 
-        listSubject
+        defer {
+            reloadOutputFork
+                .connect()
+                .store(in: &cancellables)
+        }
+
+        //          1. on success<list>: status = .success
+        let reloadSuccess = reloadOutputFork
+            .compactMap { result -> TransactionsListViewModel? in
+                switch result {
+                case .success(let value): return value
+                default: return nil
+                }
+            }
+
+        reloadSuccess
+            .map { value -> ViewLoadingStatus in
+                .success
+            }
+            .assign(to: \.status, on: self)
+            .store(in: &cancellables)
+
+        //          2. on succes<list>: self.list = list
+        reloadSuccess
+            .assign(to: \.list, on: self)
+            .store(in: &cancellables)
+
+
+        //          3. on failure<error>: show error; set status = .failure
+        reloadOutputFork
             .compactMap { result -> Error? in
                 switch result {
                 case .failure(let error): return error
@@ -134,55 +161,33 @@ class LoadingTransactionListViewModel: ObservableObject {
             .assign(to: \.status, on: self)
             .store(in: &cancellables)
 
-        let successPublisher = listSubject
-            .compactMap { result -> TransactionsListViewModel? in
-                switch result {
-                case .success(let value): return value
-                default: return nil
-                }
-            }
-
-        successPublisher
-            .assign(to: \.list, on: self)
-            .store(in: &cancellables)
-
-        successPublisher
-            .map { value -> ViewLoadingStatus in
-                .success
-            }
-            .assign(to: \.status, on: self)
-            .store(in: &cancellables)
-
-
-        listSubject
-            .connect()
-            .store(in: &cancellables)
 
         // III. on loadMore(nextPageURL) ->
-        //   fork into 2 streams:
-        //  a) loadMoreStatus = .loading
-        //  b) load next page of transactions using nextPageURL
-        //      i. get next page of transactions
-        //      ii. transform response list to success<view model list>
-        //      iii. transform response error to failure<error>
-        //      iv. update outputs
-        //          fork into 3 subscribers:
-        //          1. on success<list>: loadMoreStatus = .success
-        //          2. on success<list>: append list to self.list
-        //          3. on failure<error>: show error; loadMoreStatus = .failure
 
-        let loadMoreInputSubject = loadMoreSubject
+        //   fork into 2 streams:
+        let loadMoreInputFork = loadMoreSubject
             .compactMap { $0 }
             .receive(on: RunLoop.main)
             .multicast { PassthroughSubject<String, Never>() }
 
-        loadMoreInputSubject
+        defer {
+            loadMoreInputFork
+                .connect()
+                .store(in: &cancellables)
+        }
+
+        //  a) loadMoreStatus = .loading
+        loadMoreInputFork
             .map { url -> ViewLoadingStatus in .loading }
             .assign(to: \.loadMoreStatus, on: self)
             .store(in: &cancellables)
 
 
-        let loadMorResultSubject = loadMoreInputSubject
+        //  b) load next page of transactions using nextPageURL
+        //      i. get next page of transactions
+        //      ii. transform response list to success<view model list>
+        //      iii. transform response error to failure<error>
+        let loadMoreResults = loadMoreInputFork
             .receive(on: DispatchQueue.global())
             .tryMap { url in
                 try App.shared.clientGatewayService.transactionSummaryList(pageUri: url)
@@ -200,13 +205,44 @@ class LoadingTransactionListViewModel: ObservableObject {
                 Just(.failure(error))
             }
             .receive(on: RunLoop.main)
+
+        //      iv. update outputs
+        //          fork into 3 subscribers:
+        let loadMoreOutputFork = loadMoreResults
             .multicast { PassthroughSubject<Result<TransactionsListViewModel, Error>, Never>() }
 
-        loadMoreInputSubject
-            .connect()
+        defer {
+            loadMoreOutputFork
+                .connect()
+                .store(in: &cancellables)
+        }
+
+        let loadMoreSuccess = loadMoreOutputFork
+            .compactMap { result -> TransactionsListViewModel? in
+                switch result {
+                case .success(let value): return value
+                default: return nil
+                }
+            }
+
+        //          1. on success<list>: loadMoreStatus = .success
+        loadMoreSuccess
+            .map { value -> ViewLoadingStatus in
+                .success
+            }
+            .assign(to: \.loadMoreStatus, on: self)
             .store(in: &cancellables)
 
-        loadMorResultSubject
+        //          2. on success<list>: append list to self.list
+        loadMoreSuccess
+            .sink { [weak self] list in
+                guard let `self` = self else { return }
+                self.list.append(from: list)
+            }
+            .store(in: &cancellables)
+
+        //          3. on failure<error>: show error; loadMoreStatus = .failure
+        loadMoreOutputFork
             .compactMap { result -> Error? in
                 switch result {
                 case .failure(let error): return error
@@ -218,32 +254,6 @@ class LoadingTransactionListViewModel: ObservableObject {
                 return .failure
             }
             .assign(to: \.loadMoreStatus, on: self)
-            .store(in: &cancellables)
-
-        let loadMorResultPublisher = loadMorResultSubject
-            .compactMap { result -> TransactionsListViewModel? in
-                switch result {
-                case .success(let value): return value
-                default: return nil
-                }
-            }
-
-        loadMorResultPublisher
-            .sink { [weak self] list in
-                guard let `self` = self else { return }
-                self.list.append(from: list)
-            }
-            .store(in: &cancellables)
-
-        loadMorResultPublisher
-            .map { value -> ViewLoadingStatus in
-                .success
-            }
-            .assign(to: \.loadMoreStatus, on: self)
-            .store(in: &cancellables)
-
-        loadMorResultSubject
-            .connect()
             .store(in: &cancellables)
     }
 
