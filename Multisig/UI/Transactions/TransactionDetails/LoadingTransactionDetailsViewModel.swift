@@ -11,7 +11,7 @@ import Combine
 
 class LoadingTransactionDetailsViewModel: ObservableObject {
 
-    // input; will load details
+    // input: the model will load details by id
     var id: TransactionID?
     // default output
     var transactionDetails: TransactionViewModel = TransactionViewModel()

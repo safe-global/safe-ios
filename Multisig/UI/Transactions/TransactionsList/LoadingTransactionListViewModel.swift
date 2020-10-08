@@ -36,7 +36,7 @@ class LoadingTransactionListViewModel: ObservableObject {
         // II. on reload() -> load first page of transactions for the selected safe -> update outputs: status, list
         // III. on loadMore() -> load next page of transactions -> update outputs: loadMoreStatus, list
 
-        // require inits
+        // required inits
         reloadSubject = .init()
         loadMoreSubject = .init()
 
@@ -45,11 +45,10 @@ class LoadingTransactionListViewModel: ObservableObject {
         NotificationCenter.default
             .publisher(for: .NSManagedObjectContextDidSave,
                        object: App.shared.coreDataStack.viewContext)
-            .map { notification -> Void in
-                ()
+            .map { notification -> ViewLoadingStatus in
+                .initial
             }
             .receive(on: RunLoop.main)
-            .map { ViewLoadingStatus.initial }
             .assign(to: \.status, on: self)
             .store(in: &cancellables)
 

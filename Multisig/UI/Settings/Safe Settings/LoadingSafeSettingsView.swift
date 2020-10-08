@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SafeSettingsContent: View {
     var body: some View {
-        // so it does not jump when switching Assets <-> Settings in the tap bar
+        // Padding to prevent jumping when switching Assets <-> Settings
         WhenSafeSelected(padding: (.top, -56), noSafeEvent: .settingsSafeNoSafe) {
             LoadingSafeSettingsView()
                 .fullScreenBackground()
@@ -20,7 +20,6 @@ struct SafeSettingsContent: View {
 
 struct LoadingSafeSettingsView: View {
     @EnvironmentObject var model: LoadingSafeSettingsViewModel
-
     var body: some View {
         NetworkContentView(status: model.status, reload: model.reload) {
             SafeSettingListView(safe: $model.safe, reload: model.reload)
@@ -31,9 +30,7 @@ struct LoadingSafeSettingsView: View {
 struct SafeSettingListView: View {
     @Binding var safe: Safe!
     var reload: () -> Void = {}
-
     let rowHeight: CGFloat = 48
-
     var body: some View {
         if safe == nil {
             Text("Loading...")
@@ -57,7 +54,6 @@ extension SafeSettingListView {
     struct SafeName: View {
         var safe: Safe
         var rowHeight: CGFloat
-
         var body: some View {
             Section(header: SectionHeader("SAFE NAME")) {
                 NavigationLink(
@@ -76,7 +72,6 @@ extension SafeSettingListView {
     struct Confirmations: View {
         var safe: Safe
         var rowHeight: CGFloat
-
         var body: some View {
             Section(header: SectionHeader("REQUIRED CONFIRMATIONS")) {
                 Text("\(String(describing: safe.threshold ?? 0)) out of \(safe.owners?.count ?? 0)")
@@ -99,7 +94,6 @@ extension SafeSettingListView {
 
     struct ContractVersion: View {
         var safe: Safe
-
         var body: some View {
             Section(header: SectionHeader("CONTRACT VERSION")) {
                 ContractVersionCell(implementation: safe.implementation?.checksummed)
@@ -110,7 +104,6 @@ extension SafeSettingListView {
     struct ENSName: View {
         var safe: Safe
         var rowHeight: CGFloat
-
         var body: some View {
             Section(header: SectionHeader("ENS NAME")) {
                 LoadableENSNameText(safe: safe, placeholder: "Reverse record not set")
@@ -122,7 +115,6 @@ extension SafeSettingListView {
     struct Advanced: View {
         var safe: Safe
         var rowHeight: CGFloat
-
         var body: some View {
             Section(header: SectionHeader("")) {
                 NavigationLink(destination: AdvancedSafeSettingsView(safe: safe)) {

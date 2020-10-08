@@ -20,7 +20,7 @@ struct SelectedSafeButton: View {
             if selected.first == nil {
                 notSelectedView
             } else {
-                SafeCell1(safe: selected.first!, iconSize: iconSize)
+                SafeCell(safe: selected.first!, iconSize: iconSize)
             }
             Spacer()
         }
@@ -42,33 +42,4 @@ struct SelectedSafeButton: View {
         }
     }
 
-}
-
-struct SafeCell1: View {
-
-    @ObservedObject
-    var safe: Safe
-
-    var iconSize: CGFloat = 36
-    var iconToTextSpacing: CGFloat = Spacing.small
-    var nameToAddressPadding: CGFloat = 0
-
-
-    var body: some View {
-        HStack(spacing: iconToTextSpacing) {
-            AddressImage(safe.address)
-                .frame(width: iconSize, height: iconSize)
-
-            VStack(alignment: .leading) {
-                Text(safe.name ?? "")
-                    .body()
-                    .lineLimit(1)
-
-                if safe.safeAddress != nil {
-                    SlicedText(safe.safeAddress!)
-                        .style(.addressShortLight, font: .gnoBody)
-                }
-            }
-        }
-    }
 }

@@ -27,7 +27,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .environmentObject(AppViewModel.shared.collectibles)
             .environmentObject(AppViewModel.shared.transactions)
             .environmentObject(AppViewModel.shared.safeSettings)
-            .environmentObject(AppViewModel.shared.txDetails)
 
         App.shared.tokenRegistry.load()
 
