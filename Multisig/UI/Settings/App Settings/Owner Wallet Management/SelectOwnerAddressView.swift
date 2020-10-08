@@ -60,7 +60,7 @@ struct SelectOwnerAddressView: View {
             model.selectedIndex = address.index
         }) {
             HStack(spacing: 12) {
-                Text("#\(address.index)")
+                Text("#\(address.index + 1)")
                     .frame(minWidth: 24)
                 AddressView(address)
                 if address.index == model.selectedIndex {

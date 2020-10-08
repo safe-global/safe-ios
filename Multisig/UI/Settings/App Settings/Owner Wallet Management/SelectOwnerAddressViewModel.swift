@@ -30,7 +30,7 @@ class SelectOwnerAddressViewModel: ObservableObject {
     }
 
     private func addressAt(_ index: Int) -> Address? {
-        guard let pkData = rootNode?.derive(index: UInt32(index), derivePrivateKey: true)?.privateKey else {
+        guard let pkData = privateKeyData(index) else {
             return nil
         }
 
@@ -38,17 +38,21 @@ class SelectOwnerAddressViewModel: ObservableObject {
             let address = try EthereumPrivateKey(hexPrivateKey: pkData.toHexString()).address
             return Address(address, index: index)
         } catch {
+            App.shared.snackbar.show(message: error.localizedDescription)
             return nil
         }
     }
+
+    private func privateKeyData(_ index: Int) -> Data? {
+        rootNode?.derive(index: UInt32(index), derivePrivateKey: true)?.privateKey
+    }
     
     func generateAddressesPage() {
-        addresses += (1...pageSize).compactMap { addressAt($0 + addresses.count) }
+        addresses += (0..<pageSize).compactMap { addressAt($0 + addresses.count) }
     }
 
     func importWallet() -> Bool {
-        guard let pkData = rootNode?.derive(index: UInt32(selectedIndex),
-                                            derivePrivateKey: true)?.privateKey else { return false }
+        guard let pkData = privateKeyData(selectedIndex) else { return false }
         do {
             try App.shared.keychainService.removeData(forKey: KeychainKey.ownerPrivateKey.rawValue)
             try App.shared.keychainService.save(data: pkData, forKey: KeychainKey.ownerPrivateKey.rawValue)
