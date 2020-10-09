@@ -52,7 +52,7 @@ struct SignTransactionRequest: JSONRequest {
             throw "Could not verify provided safeTxHash"
         }
         guard let pkData = try App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) else {
-            throw "Private key now found"
+            throw "Private key not found"
         }
         let privateKey = try EthereumPrivateKey(pkData.bytes)
         let signature = try privateKey.sign(hash: hashToSign.bytes)

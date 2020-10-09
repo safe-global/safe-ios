@@ -10,7 +10,6 @@ import Foundation
 import Combine
 
 class LoadingTransactionDetailsViewModel: ObservableObject {
-    let safe = Selection.current().safe!
     // input: the model will load details by id
     var id: TransactionID?
     // default output
@@ -38,6 +37,7 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
     }
 
     func reload(transaction: TransactionViewModel) {
+        guard status != .loading else { return }
         if transaction is CreationTransactionViewModel {
             transactionDetails = transaction
             self.status = .success
@@ -76,8 +76,10 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
 
     func sign() {
         guard let transferTx = transactionDetails as? TransferTransactionViewModel,
-              let transaction = transferTx.transaction else {
-            preconditionFailure("We have a technical problem. You need to restart the app.")            
+              let transaction = transferTx.transaction,
+              let safe = Selection.current().safe else {
+            preconditionFailure(
+                "Failed to sign: either transaction is not a transfer or the internal transaction does not exist.")
         }
         status = .loading
         Just(safe.address!)
@@ -85,6 +87,7 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
             .tryMap { address in
                 try App.shared.safeTransactionService.sign(transaction: transaction, safeAddress: Address(address)!)
             }
+            .delay(for: .milliseconds(1500), scheduler: RunLoop.main)
             .receive(on: RunLoop.main)
             .sink(
                 receiveCompletion: { [weak self] completion in
@@ -92,7 +95,7 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
                     if case .failure(let error) = completion {
                         App.shared.snackbar.show(message: error.localizedDescription)
                         self.status = .failure
-                        LogService.shared.error("Could not sign a transaction for safe: \(self.safe.address!)")
+                        LogService.shared.error("Could not sign a transaction for safe: \(safe.address!)")
                     } else {
                         self.status = .initial
                     }
