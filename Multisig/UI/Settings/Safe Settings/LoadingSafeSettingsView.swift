@@ -24,6 +24,9 @@ struct LoadingSafeSettingsView: View {
         NetworkContentView(status: model.status, reload: model.reload) {
             SafeSettingListView(safe: model.safe, reload: model.reload)
         }
+        .onAppear {
+            trackEvent(.settingsSafe)
+        }
     }
 }
 
