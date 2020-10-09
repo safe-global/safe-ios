@@ -29,12 +29,7 @@ struct AdvancedSafeSettingsView: View {
         
         }
         .onAppear {
-            self.theme.setTemporaryTableViewBackground(nil)
-            self.theme.resetRowsSelection()
             self.trackEvent(.settingsSafeAdvanced)
-        }
-        .onDisappear {
-            self.theme.resetTemporaryTableViewBackground()
         }
         .navigationBarTitle("Advanced", displayMode: .inline)
     }

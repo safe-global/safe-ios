@@ -23,6 +23,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         let contentView = ContentView()
             .environment(\.managedObjectContext, context)
+            .environmentObject(AppViewModel.shared.coins)
+            .environmentObject(AppViewModel.shared.collectibles)
+            .environmentObject(AppViewModel.shared.transactions)
+            .environmentObject(AppViewModel.shared.safeSettings)
 
         App.shared.tokenRegistry.load()
 

@@ -31,13 +31,9 @@ struct SwitchSafeView: View {
                 }
             }
             .onAppear {
-                self.theme.setTemporaryTableViewBackground(UIColor(named: "snowwhite"))
                 self.trackEvent(.safeSwitch)
             }
-            .onDisappear {
-                self.theme.setTemporaryTableViewBackground(nil)
-            }
-            .navigationBarTitle("", displayMode: .inline)
+            .navigationBarTitle("Switch Safes")
             .navigationBarItems(leading: closeButton)
         }
     }
@@ -47,16 +43,11 @@ struct SwitchSafeView: View {
             Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
                 Image.bigXMark
             }
-            .frameForTapping(alignment: .leading)
-
-            Text("Switch Safes")
-                .headline()
-                // otherwise the text is too far to the right
-                .padding(.leading, -10)
-
+            .buttonStyle(GNOPlainButtonStyle())
+            .padding(.leading, -10)
             Spacer()
         }
-        .frameForNavigationBar()
+        .frame(width: 140, height: 44, alignment: .leading)
     }
 }
 

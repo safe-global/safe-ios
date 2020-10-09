@@ -57,7 +57,6 @@ struct EditSafeNameView: View {
         .navigationBarItems(trailing: saveButton)
         .onAppear {
             self.trackEvent(.settingsSafeEditName)
-            App.shared.theme.resetRowsSelection()
         }
     }
 
