@@ -21,9 +21,6 @@ struct BasicAppSettingsView: View {
         return appSettings.first?.signingKeyAddress
     }
 
-    @State
-    var addOwnerIsActive = false
-
     var body: some View {
         List {
             if App.configuration.toggles.signing {
@@ -82,11 +79,9 @@ struct BasicAppSettingsView: View {
                 }
             }
         } else {
-            NavigationLink(destination: EnterSeedPhraseView(rootIsActive: self.$addOwnerIsActive),
-                           isActive: self.$addOwnerIsActive) {
-                            Text("Import signing key").body()
+            NavigationLink(destination: EnterSeedPhraseView()) {
+                Text("Import signing key").body()
             }
-            .isDetailLink(false)
         }
     }
 }
