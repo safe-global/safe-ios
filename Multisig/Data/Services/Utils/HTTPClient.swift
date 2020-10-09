@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import TrustKit
 
 protocol HTTPRequest {
     var httpMethod: String { get }
@@ -23,6 +24,8 @@ extension HTTPRequest {
 class HTTPClient {
     private let baseURL: URL
     private let logger: Logger?
+    private let session: URLSession
+    private let sessionDelegate: PinningURLSessionDelegate
 
     private typealias URLDataTaskResult = (data: Data?, response: URLResponse?, error: Swift.Error?)
 
@@ -34,6 +37,12 @@ class HTTPClient {
     init(url: URL, logger: Logger? = nil) {
         baseURL = url
         self.logger = logger
+        sessionDelegate = PinningURLSessionDelegate()
+        session = URLSession(configuration: .default, delegate: sessionDelegate, delegateQueue: nil)
+    }
+
+    deinit {
+        session.invalidateAndCancel()
     }
 
     /// Executes request and returns server response. The call is synchronous.
@@ -82,7 +91,7 @@ class HTTPClient {
         let semaphore = DispatchSemaphore(value: 0)
         logger?.debug("Sending request \(request)")
 
-        let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+        let dataTask = session.dataTask(with: request) { data, response, error in
             result = (data, response, error)
             semaphore.signal()
         }
@@ -105,5 +114,16 @@ class HTTPClient {
         }
         let error = HTTPClientError.error(request, result.response, result.data)
         throw error
+    }
+}
+
+class PinningURLSessionDelegate: NSObject, URLSessionDelegate {
+    func urlSession(_ session: URLSession,
+                    didReceive challenge: URLAuthenticationChallenge,
+                    completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        let validator = TrustKit.sharedInstance().pinningValidator
+        if !validator.handle(challenge, completionHandler: completionHandler) {
+            completionHandler(.performDefaultHandling, nil)
+        }
     }
 }

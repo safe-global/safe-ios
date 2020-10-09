@@ -10,40 +10,29 @@ import SwiftUI
 import Web3
 
 struct SelectOwnerAddressView: View {
-    @Binding
-    var rootIsActive: Bool
+    @Environment(\.presentationMode)
+    var presentationMode: Binding<PresentationMode>
 
-    private var rootNode: HDNode?
-
-    @State
-    private var addresses = [Address]()
-
-    @State
-    private var selected = 0
-
-    init(rootNode: HDNode?, rootIsActive: Binding<Bool>) {
-        self.rootNode = rootNode
-        _rootIsActive = rootIsActive
-        let addresses: [Address] = (0..<20).compactMap { self.addressAt($0) }
-        _addresses = State(initialValue: addresses)
-    }
-
-    private func addressAt(_ index: Int) -> Address? {
-        guard let pkData = rootNode?.derive(index: UInt32(index), derivePrivateKey: true)?.privateKey else {
-            return nil
-        }
-        let address = try! EthereumPrivateKey(hexPrivateKey: pkData.toHexString()).address
-        return Address(address, index: index)
+    @ObservedObject
+    var model: SelectOwnerAddressViewModel
+    
+    private var onSubmit: (() -> Void)?
+    
+    init(rootNode: HDNode?, onSubmit: (() -> Void)? = nil ) {
+        model = SelectOwnerAddressViewModel(rootNode: rootNode)
+        self.onSubmit = onSubmit
     }
 
     var body: some View {
         VStack {
-            headerView
             List {
-                ForEach(addresses) { address in
+                headerView
+                ForEach(model.addresses) { address in
                     self.addressView(address)
                 }
-                showMoreView
+                if model.canLoadMoreAddresses {
+                    showMoreView
+                }
             }
         }
         .navigationBarTitle("Import Wallet", displayMode: .inline)
@@ -51,20 +40,8 @@ struct SelectOwnerAddressView: View {
     }
 
     private var importButton: some View {
-        Button("Import", action: importWallet)
+        Button("Import", action: submit)
             .barButton()
-    }
-
-    private func importWallet() {
-        guard let pkData = rootNode?.derive(index: UInt32(selected),
-                                            derivePrivateKey: true)?.privateKey else { return }
-        do {
-            try App.shared.keychainService.save(data: pkData, forKey: KeychainKey.ownerPrivateKey.rawValue)
-        } catch {
-            App.shared.snackbar.show(message: error.localizedDescription)
-        }
-        AppSettings.setSigningKeyAddress(addresses[selected].checksummed)
-        rootIsActive = false
     }
 
     private var headerView: some View {
@@ -80,13 +57,13 @@ struct SelectOwnerAddressView: View {
 
     private func addressView(_ address: Address) -> some View {
         Button(action: {
-            self.selected = address.index
+            model.selectedIndex = address.index
         }) {
             HStack(spacing: 12) {
-                Text("#\(address.index)")
+                Text("#\(address.index + 1)")
                     .frame(minWidth: 24)
                 AddressView(address)
-                if address.index == selected {
+                if address.index == model.selectedIndex {
                     Image.checkmark.frame(width: 24)
                 } else {
                     Spacer().frame(width: 24)
@@ -96,15 +73,21 @@ struct SelectOwnerAddressView: View {
     }
 
     private var showMoreView: some View {
-        Button("Show more", action: showMore)
+        Button("Show more", action: model.generateAddressesPage)
             .foregroundColor(.gnoHold)
             .font(Font.body.bold())
             .padding()
             .frame(maxWidth: .infinity)
     }
 
-    private func showMore() {
-        addresses += (addresses.count..<addresses.count + 20).compactMap { addressAt($0) }
+    func submit() {
+        guard model.importWallet() else { return }
+        //not needed in iOS less than 14
+        if #available(iOS 14.0, *) {
+            self.presentationMode.wrappedValue.dismiss()
+        } else {
+            onSubmit?()
+        }
     }
 }
 
@@ -114,7 +97,7 @@ struct SelectOwnerAddressView_Previews: PreviewProvider {
         let rootNode = HDNode(seed: seed)!.derive(path: HDNode.defaultPathMetamaskPrefix, derivePrivateKey: true)!
 
         return NavigationView {
-            SelectOwnerAddressView(rootNode: rootNode, rootIsActive: .constant(true))
+            SelectOwnerAddressView(rootNode: rootNode)
         }
     }
 }

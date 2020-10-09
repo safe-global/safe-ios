@@ -26,6 +26,7 @@
 		0457AB9E24BDCA45007C884E /* CollectibleDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0457AB9D24BDCA45007C884E /* CollectibleDetailsView.swift */; };
 		0460AB3B247E685E005CA275 /* EmptyListPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AB3A247E685E005CA275 /* EmptyListPlaceholder.swift */; };
 		0460AB3D247EC12B005CA275 /* TransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AB3C247EC12B005CA275 /* TransactionsViewModel.swift */; };
+		04693BC0252F3926007D37F7 /* SelectOwnerAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04693BBF252F3926007D37F7 /* SelectOwnerAddressViewModel.swift */; };
 		046D0A432497BECE000F4021 /* TransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A422497BECE000F4021 /* TransactionStatusView.swift */; };
 		046D0A452497BED8000F4021 /* TransactionStatusTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A442497BED8000F4021 /* TransactionStatusTypeView.swift */; };
 		046D0A5A249A1C64000F4021 /* ExpandableButton .swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D0A59249A1C64000F4021 /* ExpandableButton .swift */; };
@@ -378,6 +379,7 @@
 		0457AB9D24BDCA45007C884E /* CollectibleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleDetailsView.swift; sourceTree = "<group>"; };
 		0460AB3A247E685E005CA275 /* EmptyListPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListPlaceholder.swift; sourceTree = "<group>"; };
 		0460AB3C247EC12B005CA275 /* TransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewModel.swift; sourceTree = "<group>"; };
+		04693BBF252F3926007D37F7 /* SelectOwnerAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOwnerAddressViewModel.swift; sourceTree = "<group>"; };
 		046D0A422497BECE000F4021 /* TransactionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionStatusView.swift; sourceTree = "<group>"; };
 		046D0A442497BED8000F4021 /* TransactionStatusTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionStatusTypeView.swift; sourceTree = "<group>"; };
 		046D0A59249A1C64000F4021 /* ExpandableButton .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExpandableButton .swift"; sourceTree = "<group>"; };
@@ -1803,6 +1805,7 @@
 			isa = PBXGroup;
 			children = (
 				55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */,
+				04693BBF252F3926007D37F7 /* SelectOwnerAddressViewModel.swift */,
 				55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */,
 			);
 			path = "Owner Wallet Management";
@@ -2315,6 +2318,7 @@
 				049ECFFA250843DE004FF02F /* TransactionViewModel+Factory.swift in Sources */,
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A0EFC9A246DAC1A00D3D8BF /* TabChildView.swift in Sources */,
+				04693BC0252F3926007D37F7 /* SelectOwnerAddressViewModel.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
 				0A802B8124E413450001790F /* HTTPClientErrors.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,

@@ -53,6 +53,9 @@ target 'Multisig' do
   # Push notifications
   pod 'Firebase/Messaging'
 
+  # Dependency for SSL pinning
+  pod 'TrustKit'
+
   target 'MultisigTests' do
     inherit! :search_paths
   end
