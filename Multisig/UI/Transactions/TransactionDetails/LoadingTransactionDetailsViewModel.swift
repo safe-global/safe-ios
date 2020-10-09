@@ -10,6 +10,7 @@ import Foundation
 import Combine
 
 class LoadingTransactionDetailsViewModel: ObservableObject {
+    let safe = Selection.current().safe!
     // input: the model will load details by id
     var id: TransactionID?
     // default output
@@ -37,7 +38,6 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
     }
 
     func reload(transaction: TransactionViewModel) {
-        guard status != .loading else { return }
         if transaction is CreationTransactionViewModel {
             transactionDetails = transaction
             self.status = .success
@@ -72,5 +72,32 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
                 .store(in: &subscribers)
 
         }
+    }
+
+    func sign() {
+        guard let transferTx = transactionDetails as? TransferTransactionViewModel,
+              let transaction = transferTx.transaction else {
+            preconditionFailure("We have a technical problem. You need to restart the app.")            
+        }
+        status = .loading
+        Just(safe.address!)
+            .receive(on: DispatchQueue.global())
+            .tryMap { address in
+                try App.shared.safeTransactionService.sign(transaction: transaction, safeAddress: Address(address)!)
+            }
+            .receive(on: RunLoop.main)
+            .sink(
+                receiveCompletion: { [weak self] completion in
+                    guard let `self` = self else { return }
+                    if case .failure(let error) = completion {
+                        App.shared.snackbar.show(message: error.localizedDescription)
+                        self.status = .failure
+                        LogService.shared.error("Could not sign a transaction for safe: \(self.safe.address!)")
+                    } else {
+                        self.status = .initial
+                    }
+                }, receiveValue: {}
+            )
+            .store(in: &subscribers)
     }
 }

@@ -61,9 +61,11 @@ extension Transaction {
     }
 
     func encodeTransactionData(for safe: AddressString) -> Data {
+        let ERC191MagicByte = Data([0x19])
+        let ERC191Version1Byte = Data([0x01])
         return [
-            Data([0x19]),
-            Data([0x01]),
+            ERC191MagicByte,
+            ERC191Version1Byte,
             EthHasher.hash(Safe.domainData(for: safe)),
             EthHasher.hash(safeEncodedTxData)
         ].reduce(Data()) { $0 + $1 }

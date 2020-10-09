@@ -53,8 +53,7 @@ extension UInt256String: ExpressibleByStringLiteral {
         if let uint256Value = UInt256(value) {
             self = UInt256String(uint256Value)
         } else {
-            assertionFailure("Invalid literal UInt256 value: \(value)")
-            self = .init(0)
+            preconditionFailure("Invalid literal UInt256 value: \(value)")            
         }
     }
 }

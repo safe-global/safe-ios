@@ -9,7 +9,6 @@
 import Foundation
 import Web3
 
-#warning("Figure out how to handle the case if private key can not be extracted from the keychain")
 struct SignTransactionRequest: JSONRequest {
     let safe: String
 
@@ -32,10 +31,6 @@ struct SignTransactionRequest: JSONRequest {
              contractTransactionHash, data, operation, value, signature
     }
 
-    enum RequestError: String, Error {
-        case couldNotVerifySafeTxHash = "Could not verify provided safeTxHash"
-    }
-
     init(transaction: Transaction, safeAddress: Address) throws {
         safe = safeAddress.checksummed
         to = transaction.to.description
@@ -54,18 +49,14 @@ struct SignTransactionRequest: JSONRequest {
         let data = transaction.encodeTransactionData(for: AddressString(safeAddress))
         guard EthHasher.hash(data) == hashToSign else {
             // log error in the crashlytics
-            throw RequestError.couldNotVerifySafeTxHash
+            throw "Could not verify provided safeTxHash"
         }
-
-        guard let pkData = try? App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue),
-              let privateKey = try? EthereumPrivateKey(pkData.bytes),
-              let signature = try? privateKey.sign(hash: hashToSign.bytes) else {
-            sender = ""
-            self.signature = ""
-            return
+        guard let pkData = try App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) else {
+            throw "Private key now found"
         }
+        let privateKey = try EthereumPrivateKey(pkData.bytes)
+        let signature = try privateKey.sign(hash: hashToSign.bytes)
         sender = privateKey.address.hex(eip55: true)
-
         let v = String(signature.v + 27, radix: 16)
         self.signature = "\(signature.r.toHexString())\(signature.s.toHexString())\(v)"
     }
@@ -79,6 +70,7 @@ struct SignTransactionRequest: JSONRequest {
 }
 
 extension SafeTransactionService {
+    @discardableResult
     func sign(transaction: Transaction, safeAddress: Address) throws -> SignTransactionRequest.Response {
         let request = try SignTransactionRequest(transaction: transaction, safeAddress: safeAddress)
         return try execute(request: request)

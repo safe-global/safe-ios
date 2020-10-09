@@ -16,7 +16,8 @@ struct LoadingTransactionDetailsView: View {
 
     var body: some View {
         NetworkContentView(status: model.status, reload: reload) {
-            TransactionDetailsOuterBodyView(transactionModel: model.transactionDetails, reload: reload)
+            TransactionDetailsOuterBodyView(
+                transactionModel: model.transactionDetails, reload: reload, confirm: confirm, canSign: model.canSign)
         }
         .onAppear {
             trackEvent(.transactionsDetails)
@@ -24,8 +25,12 @@ struct LoadingTransactionDetailsView: View {
         .navigationBarTitle("Transaction Details", displayMode: .inline)
     }
 
-    func reload() {
+    private func reload() {
         model.reload(transaction: transaction)
+    }
+
+    private func confirm() {
+        model.sign()
     }
 }
 
@@ -36,27 +41,46 @@ extension LoadingTransactionDetailsView {
     }
 }
 
-
 struct TransactionDetailsOuterBodyView: View {
     var transactionModel: TransactionViewModel
-    var reload: () -> Void = { }
+    var reload: () -> Void
+    var confirm: () -> Void
+    var canSign: Bool
     @State
     private var showsLink: Bool = false
     private let padding: CGFloat = 11
 
     var body: some View {
-        List {
-            ReloadButton(reload: reload)
+        ZStack {
+            List {
+                ReloadButton(reload: reload)
 
-            if transactionModel is CreationTransactionViewModel {
-                CreationTransactionBodyView(transaction: transactionModel as! CreationTransactionViewModel)
-            } else {
-                TransactionDetailsInnerBodyView(transactionModel: transactionModel)
+                if transactionModel is CreationTransactionViewModel {
+                    CreationTransactionBodyView(transaction: transactionModel as! CreationTransactionViewModel)
+                } else {
+                    TransactionDetailsInnerBodyView(transactionModel: transactionModel)
+                }
+
+                if transactionModel.browserURL != nil {
+                    viewTxOnEtherscan
+                }
             }
 
-            if transactionModel.browserURL != nil {
-                viewTxOnEtherscan
+            if App.configuration.toggles.signing && canSign {
+                confirmButtonView
             }
+        }
+    }
+
+    private var confirmButtonView: some View {
+        VStack {
+            Spacer()
+
+            Button(action: confirm) {
+                Text("Confirm")
+            }
+            .buttonStyle(GNOFilledButtonStyle())
+            .padding()
         }
     }
 

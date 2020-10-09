@@ -10,7 +10,6 @@ import XCTest
 @testable import Multisig
 
 class TransactionTests: XCTestCase {
-
     func jsonData(_ name: String) -> Data {
         try! Data(contentsOf: Bundle(for: Self.self).url(forResource: name, withExtension: "json")!)
     }
@@ -94,8 +93,8 @@ ef8553f949acc5f0cb8002523b7a4f8e02664b6637eddc74ad72bb8e38588309
 00000000000000000000000000000000000000000000000000000002DD7A9A70
 """)
         let valueHash = EthHasher.hash(Data(ethHex: valueHashInput))
-
-        let txHashInput = "1901" + domainHash.toHexString() + valueHash.toHexString()
+        let ERC191MagicNumber = "1901"
+        let txHashInput = ERC191MagicNumber + domainHash.toHexString() + valueHash.toHexString()
 
         XCTAssertEqual(tx.safeEncodedTxData.toHexString().lowercased(), valueHashInput.lowercased())
         XCTAssertEqual(
@@ -111,5 +110,4 @@ ef8553f949acc5f0cb8002523b7a4f8e02664b6637eddc74ad72bb8e38588309
     private func oneline(_ str: String) -> String {
         return str.replacingOccurrences(of: "\n", with: "")
     }
-
 }
