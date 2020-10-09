@@ -10,7 +10,6 @@ import Foundation
 import Combine
 
 class LoadingTransactionDetailsViewModel: ObservableObject {
-
     // input: the model will load details by id
     var id: TransactionID?
     // default output
@@ -20,6 +19,10 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
     var status: ViewLoadingStatus = .initial
 
     var subscribers = Set<AnyCancellable>()
+
+    var canSign: Bool {
+        transactionDetails.status == .awaitingYourConfirmation
+    }
 
     enum Failure: LocalizedError {
         case transactionDetailsNotFound, unsupportedTransaction
@@ -70,5 +73,4 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
 
         }
     }
-
 }

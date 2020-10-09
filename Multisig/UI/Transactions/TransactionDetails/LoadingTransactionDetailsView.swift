@@ -140,7 +140,7 @@ struct TransactionDetailsInnerBodyView: View {
             }
 
             if transactionModel.hasAdvancedDetails {
-                NavigationLink(destination: AdvancedTransactionDetailsView(transaction: transactionModel)) {
+                NavigationLink(destination: AdvancedTransactionDetailsView(transactionViewModel: transactionModel)) {
                     Text("Advanced").body()
                 }
                 .frame(height: 48)
