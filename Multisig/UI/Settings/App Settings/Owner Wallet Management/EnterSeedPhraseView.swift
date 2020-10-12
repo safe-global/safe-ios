@@ -48,6 +48,9 @@ struct EnterSeedPhraseView: View {
         .padding()
         .navigationBarTitle("Import Wallet", displayMode: .inline)
         .navigationBarItems(trailing: nextButton)
+        .onAppear {
+            self.trackEvent(.ownerEnterSeed)
+        }
     }
 
     var nextButton: some View {
