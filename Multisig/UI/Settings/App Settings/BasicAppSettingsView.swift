@@ -17,6 +17,9 @@ struct BasicAppSettingsView: View {
     @ObservedObject
     var appSettings = App.shared.settings
 
+    @State
+    var showDeleteSigningKeyConfirmation: Bool = false
+
     var signingKeyAddress: String? {
         return appSettings.signingKeyAddress
     }
@@ -63,24 +66,37 @@ struct BasicAppSettingsView: View {
     @ViewBuilder
     var signingWalletView: some View {
         if signingKeyAddress != nil {
-            ForEach(0..<1) { _ in
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Signing key").bold()
-                    AddressView(self.signingKeyAddress!)
-                }
-                .padding()
-            }
-            .onDelete { _ in
-                do {
-                    try App.shared.keychainService.removeData(forKey: KeychainKey.ownerPrivateKey.rawValue)
-                    AppSettings.setSigningKeyAddress(nil)
-                } catch {
-                    App.shared.snackbar.show(message: error.localizedDescription)
+            HStack {
+                AddressCell(address: signingKeyAddress!,
+                            title: "Imported owner key",
+                            style: .shortAddressNoShareGrayColor)
+                Spacer()
+                Button(action: {
+                    showDeleteSigningKeyConfirmation = true
+                }, label: {
+                    Image(systemName: "trash").font(.gnoBody).foregroundColor(.gnoTomato)
+                })
+                .actionSheet(isPresented: $showDeleteSigningKeyConfirmation) {
+                    ActionSheet(
+                        title: Text(""),
+                        message: Text("Removing the owner key only removes it from this app. It doesn't delete any Safes from this app or from blockchain. For Safes controlled by this owner key, you will no longer be able to sign transactions in this app"),
+                        buttons: [
+                            .destructive(Text("Remove")) {
+                                do {
+                                    try App.shared.keychainService.removeData(
+                                        forKey: KeychainKey.ownerPrivateKey.rawValue)
+                                    AppSettings.setSigningKeyAddress(nil)
+                                } catch {
+                                    App.shared.snackbar.show(message: error.localizedDescription)
+                                }
+                            },
+                            .cancel()
+                        ])
                 }
             }
         } else {
             NavigationLink(destination: EnterSeedPhraseView()) {
-                Text("Import signing key").body()
+                Text("Import owner key").body()
             }
         }
     }
