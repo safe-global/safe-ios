@@ -37,6 +37,9 @@ struct SelectOwnerAddressView: View {
         }
         .navigationBarTitle("Import Wallet", displayMode: .inline)
         .navigationBarItems(trailing: importButton)
+        .onAppear {
+            self.trackEvent(.ownerSelectAccount)
+        }
     }
 
     private var importButton: some View {
