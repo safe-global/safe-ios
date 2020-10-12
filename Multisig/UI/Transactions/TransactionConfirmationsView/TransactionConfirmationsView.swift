@@ -10,7 +10,6 @@ import SwiftUI
 
 struct TransactionConfirmationsView: View {
     let transaction: TransactionViewModel
-    let safe: Safe
 
     var body: some View {
         VStack(alignment: .leading, spacing: 1) {
@@ -39,7 +38,7 @@ struct TransactionConfirmationsView: View {
                 TransactionConfiramtionStatusView(style: style!)
             }
 
-            if transaction.status == .awaitingConfirmations {
+            if transaction.status == .awaitingConfirmations || transaction.status == .awaitingYourConfirmation {
                 if !transaction.hasConfirmations {
                     VerticalBarView()
                 }

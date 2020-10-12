@@ -31,7 +31,8 @@ class EnterSafeNameViewModel: ObservableObject {
         $enteredText
             .dropFirst()
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .sink { [unowned self] value in
+            .sink { [weak self] value in
+                guard let `self` = self else { return }
                 self.isValid = !value.isEmpty
             }
             .store(in: &subscribers)

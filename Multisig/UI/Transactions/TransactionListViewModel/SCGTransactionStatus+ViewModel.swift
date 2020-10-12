@@ -22,7 +22,7 @@ extension TransactionStatus {
     }
 
     var isWaiting: Bool {
-        [.awaitingConfirmations, .awaitingExecution].contains(self)
+        [.awaitingConfirmations, .awaitingExecution, .awaitingYourConfirmation].contains(self)
     }
 
     var title: String {
@@ -31,6 +31,8 @@ extension TransactionStatus {
             return "Awaiting execution"
         case .awaitingConfirmations:
             return "Awaiting confirmations"
+        case .awaitingYourConfirmation:
+            return "Awaiting your confirmation"
         case .pending:
              return "Pending"
         case .failed:

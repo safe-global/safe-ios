@@ -22,7 +22,6 @@ class App {
     let gnosisSafe = GnosisSafe()
 
     // Data Layer
-
     var coreDataStack: CoreDataProtocol = CoreDataStack()
 
     let keychainService = KeychainService(identifier: App.configuration.app.bundleIdentifier)
@@ -47,6 +46,8 @@ class App {
     static let configuration = AppConfiguration()
 
     let firebaseConfig = FirebaseConfig()
+
+    lazy var settings = Settings()
 
     private init() {}
 }

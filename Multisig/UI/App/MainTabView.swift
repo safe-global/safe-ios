@@ -29,7 +29,7 @@ struct MainTabView: View {
                 }
                 .tag(ViewStateMode.balances)
 
-            MainContentView(TransactionsView())
+            MainContentView(TransactionsTabView())
                 .tabItem {
                     VStack {
                         Image("tab-icon-transactions")

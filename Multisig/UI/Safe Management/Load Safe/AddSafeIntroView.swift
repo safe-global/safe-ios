@@ -9,19 +9,10 @@
 import SwiftUI
 
 struct AddSafeIntroView: View {
-    @Environment(\.managedObjectContext)
-    var context: CoreDataContext
+    var padding: (edge: Edge.Set, length: CGFloat) = (.all, 0)
 
     @State
     private var showsLoadSafe = false
-
-    let paddingEdge: Edge.Set
-    let paddingLength: CGFloat
-
-    init(padding: Edge.Set = .all, _ length: CGFloat = 0) {
-        self.paddingEdge = padding
-        self.paddingLength = length
-    }
 
     var body: some View {
         ZStack {
@@ -32,7 +23,7 @@ struct AddSafeIntroView: View {
                 loadSafeButton
             }
             .padding(.horizontal)
-            .padding(paddingEdge, paddingLength)
+            .padding(padding.edge, padding.length)
         }
     }
 

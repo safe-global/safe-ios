@@ -37,11 +37,7 @@ struct AdvancedAppSettings: View {
             }
         }
         .onAppear {
-            self.theme.setTemporaryTableViewBackground(nil)
             self.trackEvent(.settingsAppAdvanced)
-        }
-        .onDisappear {
-            self.theme.resetTemporaryTableViewBackground()
         }
         .navigationBarTitle("Advanced", displayMode: .inline)
     }

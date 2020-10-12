@@ -19,6 +19,8 @@ struct TransactionsListViewModel {
         }
     }
 
+    var next: String?
+
     private var allSections: [Section] = []
 
     var sections: [Section] {
@@ -45,6 +47,12 @@ struct TransactionsListViewModel {
            Section(name: "QUEUE", transactions: queued),
            Section(name: "HISTORY", transactions: history)
         ]
+    }
+
+    mutating func append(from list: Self) {
+        self.next = list.next
+        self.allSections[0].transactions.append(contentsOf: list.allSections[0].transactions)
+        self.allSections[1].transactions.append(contentsOf: list.allSections[1].transactions)
     }
 
     mutating func add(_ models: [TransactionViewModel] = []) {

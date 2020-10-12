@@ -12,14 +12,14 @@ import Web3
 struct SignTransactionRequest: JSONRequest {
     let safe: String
 
-    let to: String?
+    let to: String
     let value: String
-    let data: String?
+    let data: String
     let operation: Int
     let safeTxGas: String
     let baseGas: String
     let gasPrice: String
-    let gasToken: String?
+    let gasToken: String
     let refundReceiver: String
     let nonce: String
     let contractTransactionHash: String
@@ -31,37 +31,34 @@ struct SignTransactionRequest: JSONRequest {
              contractTransactionHash, data, operation, value, signature
     }
 
-    enum RequestError: String, Error {
-        case couldNotVerifySafeTxHash
-    }
-
     init(transaction: Transaction, safeAddress: Address) throws {
         safe = safeAddress.checksummed
-        to = transaction.to?.description
+        to = transaction.to.description
         value = transaction.value.description
-        data = transaction.data?.description
+        data = transaction.data.description
         operation = transaction.operation.rawValue
         safeTxGas = transaction.safeTxGas.description
         baseGas = transaction.baseGas.description
         gasPrice = transaction.gasPrice.description
-        gasToken = transaction.gasToken?.description
+        gasToken = transaction.gasToken.description
         refundReceiver = transaction.refundReceiver.description
         nonce = transaction.nonce.description
-        contractTransactionHash = transaction.safeTxHash.description
+        contractTransactionHash = transaction.safeTxHash!.description
 
         let hashToSign = Data(ethHex: contractTransactionHash)
-
-        guard let pkData = try? App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue),
-              let privateKey = try? EthereumPrivateKey(pkData.bytes),
-              let sig = try? privateKey.sign(hash: hashToSign.bytes) else {
-            sender = ""
-            signature = ""
-            return
+        let data = transaction.encodeTransactionData(for: AddressString(safeAddress))
+        guard EthHasher.hash(data) == hashToSign else {
+            // log error in the crashlytics
+            throw "Could not verify provided safeTxHash"
         }
+        guard let pkData = try App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) else {
+            throw "Private key not found"
+        }
+        let privateKey = try EthereumPrivateKey(pkData.bytes)
+        let signature = try privateKey.sign(hash: hashToSign.bytes)
         sender = privateKey.address.hex(eip55: true)
-
-        let v = String(sig.v + 27, radix: 16)
-        signature = "\(sig.r.toHexString())\(sig.s.toHexString())\(v)"
+        let v = String(signature.v + 27, radix: 16)
+        self.signature = "\(signature.r.toHexString())\(signature.s.toHexString())\(v)"
     }
 
     var httpMethod: String { return "POST" }
@@ -73,6 +70,7 @@ struct SignTransactionRequest: JSONRequest {
 }
 
 extension SafeTransactionService {
+    @discardableResult
     func sign(transaction: Transaction, safeAddress: Address) throws -> SignTransactionRequest.Response {
         let request = try SignTransactionRequest(transaction: transaction, safeAddress: safeAddress)
         return try execute(request: request)

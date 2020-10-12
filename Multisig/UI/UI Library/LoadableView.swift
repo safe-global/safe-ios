@@ -16,6 +16,7 @@ protocol LoadableViewModel: ObservableObject {
     var contentWasLoadedOnce: Bool { get set }
     var errorMessage: String? { get set }
     func reloadData()
+    func firstTimeLoad()
 }
 
 protocol Loadable: View {
@@ -98,13 +99,13 @@ struct LoadableView<Content: Loadable>: View {
     }
 
     var contentView: some View {
-        self.model.contentWasLoadedOnce = true
+        self.model.firstTimeLoad()
         return content
     }
 }
 
 class BasicLoadableViewModel: LoadableViewModel {
-    @Published var isLoading: Bool = true
+    @Published var isLoading: Bool = false
 
     @Published var isRefreshing: Bool = false {
         didSet {
@@ -121,6 +122,12 @@ class BasicLoadableViewModel: LoadableViewModel {
     var contentWasLoadedOnce: Bool = false
 
     var subscribers = Set<AnyCancellable>()
+
+    final func firstTimeLoad() {
+        if contentWasLoadedOnce { return }
+        contentWasLoadedOnce = true
+        reloadData()
+    }
 
     final func reloadData() {
         subscribers.forEach { $0.cancel() }

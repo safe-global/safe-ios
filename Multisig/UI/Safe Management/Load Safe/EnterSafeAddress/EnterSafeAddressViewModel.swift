@@ -51,14 +51,16 @@ class EnterSafeAddressViewModel: ObservableObject {
         $text
             .filter { !$0.isEmpty }
             .removeDuplicates()
-            .map { v -> String in
+            .map { [weak self] v -> String in
+                guard let `self` = self else { return "" }
                 self.reset()
                 return v.trimmingCharacters(in: .whitespacesAndNewlines)
             }
             .tryMap { text in
                 try Address(text, isERC681: true)
             }
-            .map { v -> Address in
+            .map { [weak self] v -> Address in
+                guard let `self` = self else { return .zero }
                 self.isAddress = true
                 self.displayText = v.checksummed
 

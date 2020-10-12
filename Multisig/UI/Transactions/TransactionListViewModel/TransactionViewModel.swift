@@ -12,7 +12,7 @@ class TransactionViewModel: Identifiable, Equatable {
     var id: String = ""
     // only in MULTISIG tranasctions
     var transaction: Transaction?
-    
+
     var data: String?
 
     // MARK: - Common fields for TransactionSummary
@@ -99,7 +99,7 @@ class TransactionViewModel: Identifiable, Equatable {
             data = txData.hexData?.description
         }
 
-        bind(status: tx.txStatus)
+        bind(status: tx.txStatus, confirmations: confirmations ?? [], signers: signers ?? [])
         bind(info: tx.txInfo)
     }
 
@@ -114,8 +114,16 @@ class TransactionViewModel: Identifiable, Equatable {
 
     func bind(info: TransactionInfo) { }
 
-    func bind(status: TransactionStatus) {
+    func bind(status: TransactionStatus, confirmations: [TransactionConfirmationViewModel] = [], signers: [String] = []) {
         self.status = status
+        if status == .awaitingConfirmations {
+            let signingKeyAddress = App.shared.settings.signingKeyAddress
+            if signingKeyAddress != nil &&
+                signers.contains(signingKeyAddress!) &&
+                !confirmations.map({ $0.address }).contains(signingKeyAddress!) {
+                self.status = .awaitingYourConfirmation
+            }
+        }
     }
 
     static func == (lhs: TransactionViewModel, rhs: TransactionViewModel) -> Bool {
