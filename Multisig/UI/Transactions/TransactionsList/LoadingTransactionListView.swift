@@ -22,7 +22,7 @@ struct LoadingTransactionListView: View {
     
     var body: some View {
         NetworkContentView(status: model.status, reload: model.reload) {
-            TransactionListView(list: model.list,
+            TransactionListView(list: model.result,
                                 loadMoreStatus: model.loadMoreStatus,
                                 reload: model.reload,
                                 loadMore: model.loadMore)

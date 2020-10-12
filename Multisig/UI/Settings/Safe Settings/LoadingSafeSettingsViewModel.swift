@@ -9,25 +9,26 @@
 import Foundation
 import Combine
 
-class LoadingSafeSettingsViewModel: NetworkContentViewModel {
-    @Published
-    var safe: Safe?
+class LoadingSafeSettingsViewModel: ObservableObject, LoadingModel {
+    var reloadSubject = PassthroughSubject<Void, Never>()
+    var cancellables = Set<AnyCancellable>()
+    @Published var status: ViewLoadingStatus = .initial
+    @Published var result: Safe?
 
-    func reload() {
-        super.reload {  safe -> (SafeStatusRequest.Response, Safe) in
+    init() {
+        buildCoreDataPipeline()
+        buildReloadPipelineFromSafe { safe in
             guard let addressString = safe.address else {
                 throw "Error: safe does not have address. Please reload."
             }
             let address = try Address(from: addressString)
             let safeInfo = try Safe.download(at: address)
-            return (safeInfo, safe)
-        } receive: { [weak self] (response, safe) in
-            guard let `self` = self else { return }
-            safe.update(from: response)
-            self.safe = safe
+            safe.update(from: safeInfo)
+            return safe
         }
     }
 }
+
 
 extension Safe {
     func update(from safeInfo: SafeStatusRequest.Response) {

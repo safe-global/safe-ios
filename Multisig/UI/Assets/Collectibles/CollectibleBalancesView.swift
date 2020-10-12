@@ -14,7 +14,7 @@ struct CollectibleBalancesView: View {
 
     var body: some View {
         NetworkContentView(status: model.status, reload: model.reload) {
-            CollectibleListView(sections: model.sections, reload: model.reload)
+            CollectibleListView(sections: model.result, reload: model.reload)
         }
         .onAppear {
             trackEvent(.assetsCollectibles)
@@ -27,18 +27,22 @@ struct CollectibleListView: View {
     var reload: () -> Void = {}
 
     var body: some View {
-        List {
-            // For some reason, SwiftUI crashes after scrolling to top.
-            // Wrapping into section fixed it.
-            Section {
-                ReloadButton(reload: reload)
-            }
+        if sections.isEmpty {
+             EmptyListPlaceholder(label: "Collectibles will appear here",
+                                  image: "ico-no-collectibles")
+         } else {
+            List {
+                // For some reason, SwiftUI crashes after scrolling to top.
+                // Wrapping into section fixed it.
+                Section {
+                    ReloadButton(reload: reload)
+                }
 
-            ForEach(sections) { section in
-                CollectiblesSectionView(section: section)
-            }
-       }
-        .listStyle(GroupedListStyle())
-
+                ForEach(sections) { section in
+                    CollectiblesSectionView(section: section)
+                }
+           }
+            .listStyle(GroupedListStyle())
+         }
     }
 }

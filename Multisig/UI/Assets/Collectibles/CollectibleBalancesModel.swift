@@ -20,21 +20,18 @@ struct CollectibleListSection: Identifiable {
     }
 }
 
-class CollectibleBalancesModel: NetworkContentViewModel {
-    var sections = [CollectibleListSection]()
+class CollectibleBalancesModel: ObservableObject, LoadingModel {
+    var reloadSubject = PassthroughSubject<Void, Never>()
+    var cancellables = Set<AnyCancellable>()
+    @Published var status: ViewLoadingStatus = .initial
+    @Published var result = [CollectibleListSection]()
 
-    func reload() {
-        super.reload { safe -> [CollectibleListSection] in
-            guard let addressString = safe.address else {
-                throw "Error: safe does not have address. Please reload."
-            }
-            let address = try Address(from: addressString)
+    init() {
+        buildCoreDataPipeline()
+        buildReloadPipeline { address in
             let collectibles = try App.shared.safeTransactionService.collectibles(at: address)
             let models = CollectibleListSection.create(collectibles)
             return models
-        } receive: { [weak self] values in
-            guard let `self` = self else { return }
-            self.sections = values
         }
     }
 }
