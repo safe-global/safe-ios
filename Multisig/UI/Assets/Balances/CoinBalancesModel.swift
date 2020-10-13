@@ -12,15 +12,29 @@ import Combine
 class CoinBalancesModel: ObservableObject, LoadingModel {
     var reloadSubject = PassthroughSubject<Void, Never>()
     var cancellables = Set<AnyCancellable>()
+    var coreDataCancellable: AnyCancellable?
     @Published var status: ViewLoadingStatus = .initial
     @Published var result = [TokenBalance]()
 
     init() {
         buildCoreDataPipeline()
-        buildReloadPipeline { address in
-            let balancesResponse = try App.shared.safeTransactionService.safeBalances(at: address)
-            let tokenBalances = balancesResponse.map { TokenBalance($0) }
-            return tokenBalances
+        buildReload()
+    }
+
+    func buildReload() {
+        buildReloadPipelineWith { upstream in
+            upstream
+                .selectedSafe()
+                .safeToAddress()
+                .receive(on: DispatchQueue.global())
+                .tryMap { address in
+                    try App.shared.safeTransactionService.safeBalances(at: address)
+                }
+                .map {
+                    $0.map { TokenBalance($0) }
+                }
+                .receive(on: RunLoop.main)
+                .eraseToAnyPublisher()
         }
     }
 }

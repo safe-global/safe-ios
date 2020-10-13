@@ -31,7 +31,7 @@ struct CollectiblesSectionView: View {
             Spacer()
         }
         .padding(.horizontal)
-        .frame(height: 44)
+        .frame(height: 60)
         .background(Color.white)
         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }

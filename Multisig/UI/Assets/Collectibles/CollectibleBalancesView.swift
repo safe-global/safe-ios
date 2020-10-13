@@ -42,7 +42,7 @@ struct CollectibleListView: View {
                     CollectiblesSectionView(section: section)
                 }
            }
-            .listStyle(GroupedListStyle())
+            .listStyle(PlainListStyle())
          }
     }
 }

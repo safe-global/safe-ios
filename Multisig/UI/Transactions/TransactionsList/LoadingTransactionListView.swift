@@ -63,7 +63,7 @@ struct TransactionListView: View {
                 }
             }
         }
-        .listStyle(GroupedListStyle())
+        .listStyle(PlainListStyle())
     }
 
 }

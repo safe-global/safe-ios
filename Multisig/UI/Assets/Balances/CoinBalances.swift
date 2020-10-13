@@ -32,6 +32,6 @@ struct BalanceListView: View {
                 TokenBalanceCell(tokenBalance: tokenBalance)
             }
        }
-        .listStyle(GroupedListStyle())
+        .listStyle(PlainListStyle())
     }
 }

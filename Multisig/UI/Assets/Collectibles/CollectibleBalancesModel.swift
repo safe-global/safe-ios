@@ -23,16 +23,31 @@ struct CollectibleListSection: Identifiable {
 class CollectibleBalancesModel: ObservableObject, LoadingModel {
     var reloadSubject = PassthroughSubject<Void, Never>()
     var cancellables = Set<AnyCancellable>()
+    var coreDataCancellable: AnyCancellable?
     @Published var status: ViewLoadingStatus = .initial
     @Published var result = [CollectibleListSection]()
 
     init() {
         buildCoreDataPipeline()
-        buildReloadPipeline { address in
-            let collectibles = try App.shared.safeTransactionService.collectibles(at: address)
-            let models = CollectibleListSection.create(collectibles)
-            return models
+        buildReload()
+    }
+
+    func buildReload() {
+        buildReloadPipelineWith { upstream in
+            upstream
+                .selectedSafe()
+                .safeToAddress()
+                .receive(on: DispatchQueue.global())
+                .tryMap { address in
+                    try App.shared.safeTransactionService.collectibles(at: address)
+                }
+                .map {
+                    CollectibleListSection.create($0)
+                }
+                .receive(on: RunLoop.main)
+                .eraseToAnyPublisher()
         }
+
     }
 }
 
@@ -41,12 +56,22 @@ extension CollectibleListSection {
         let groupedCollectibles = Dictionary(grouping: collectibles, by: { $0.address })
         return groupedCollectibles.map { (key, value) in
             let token = App.shared.tokenRegistry[key!.address]
-            let name = token?.name ?? "Unknown"
-            let logoURL = token?.logo
+            let name = token?.name ?? value.first(where: { $0.tokenName != nil })?.tokenName ?? "Unknown"
+            let logoURL = token?.logo ?? value.first(where: { $0.logoUri != nil })?.logoUri.flatMap { URL(string: $0) }
             let collectibles = value.compactMap { CollectibleViewModel(collectible: $0) }.sorted { $0.name < $1.name }
-
             return Self.init(name: name , imageURL: logoURL, collectibles: collectibles)
         }.sorted { $0.name < $1.name }
     }
 }
 
+extension Safe {
+    static func selectedSafeAddress() -> Address? {
+        assert(Thread.isMainThread)
+        let context = App.shared.coreDataStack.viewContext
+        let fr = Safe.fetchRequest().selected()
+        guard let safe = (try? context.fetch(fr))?.first,
+              let string = safe.address,
+              let address = Address(string) else { return nil }
+        return address
+    }
+}

@@ -28,7 +28,6 @@ struct RemoveSafeButton: View {
         }
         .foregroundColor(Color.gnoTomato)
         .buttonStyle(BorderlessButtonStyle())
-        .background(Color.gnoWhite)
         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         .actionSheet(isPresented: $showDeleteConfirmation) {
             ActionSheet(title: Text(""), message: Text("Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost."), buttons: [

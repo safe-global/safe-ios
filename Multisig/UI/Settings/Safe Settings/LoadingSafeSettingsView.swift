@@ -45,7 +45,7 @@ struct SafeSettingListView: View {
                 ENSName(safe: safe, rowHeight: rowHeight)
                 Advanced(safe: safe, rowHeight: rowHeight)
             }
-            .listStyle(GroupedListStyle())
+            .listStyle(PlainListStyle())
         } else {
             Text("No safe to display")
         }

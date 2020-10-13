@@ -12,51 +12,51 @@ import Combine
 class LoadingTransactionListViewModel: ObservableObject, LoadingModel {
     var reloadSubject = PassthroughSubject<Void, Never>()
     var cancellables = Set<AnyCancellable>()
-    @Published var status = ViewLoadingStatus.initial
+    var coreDataCancellable: AnyCancellable?
+    @Published var status: ViewLoadingStatus = .initial
     @Published var result = TransactionsListViewModel()
 
     var loadMoreSubject = PassthroughSubject<String?, Never>()
+    @Published var loadMoreStatus: ViewLoadingStatus = .initial
 
     init() {
         buildCoreDataPipeline()
-        buildReloadPipeline { address in
-            let transactions = try App.shared.clientGatewayService.transactionSummaryList(address: address)
-            let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
-            var list = TransactionsListViewModel(models)
-            list.next =  transactions.next
-            return list
+        buildLoadMorePipeline()
+        buildReload()
+    }
+
+    func buildCoreDataPipeline() {
+        coreDataCancellable =
+            Publishers
+            .onCoreDataSave
+            .sink { [weak self] _ in
+                guard let `self` = self else { return }
+                self.cancellables = .init()
+                self.reloadSubject = .init()
+                self.loadMoreSubject = .init()
+                self.loadMoreStatus = .initial
+                self.status = .initial
+                self.buildReload()
+                self.buildLoadMorePipeline()
+            }
+    }
+
+    func buildReload() {
+        buildReloadPipelineWith { upstream in
+            upstream
+                .selectedSafe()
+                .safeToAddress()
+                .receive(on: DispatchQueue.global())
+                .tryMap { address in
+                    try App.shared.clientGatewayService.transactionSummaryList(address: address)
+                }
+                .transformPageToList()
+                .receive(on: RunLoop.main)
+                .eraseToAnyPublisher()
         }
     }
-    
-}
 
-class LoadingTransactionListViewModel1: ObservableObject {
-
-    // MARK: - Inputs
-
-    // signals that reload is needed
-    private var reloadSubject = PassthroughSubject<Void, Never>()
-
-    // url of the next page to load
-    private var loadMoreSubject = PassthroughSubject<String?, Never>()
-
-    // Storage for subscribers
-    private var cancellables: Set<AnyCancellable> = .init()
-
-    // MARK: - Outputs
-    @Published var status: ViewLoadingStatus = .initial
-    @Published var loadMoreStatus: ViewLoadingStatus = .initial
-    @Published var list: TransactionsListViewModel = .init()
-
-    // MARK: - Pipeline
-    fileprivate func buildCoreDataPipeline() {
-        Publishers
-            .onCoreDataSave
-            .status(.initial, path: \.status, object: self, set: &cancellables)
-    }
-
-
-    fileprivate func buildLoadMorePipeline() {
+    private func buildLoadMorePipeline() {
         let inputFork = loadMoreSubject
             .compactMap { $0 }
 
@@ -82,7 +82,7 @@ class LoadingTransactionListViewModel1: ObservableObject {
 
         outputFork
             .onSuccessResult()
-            .sink { [weak self] in self?.list.append(from: $0) }
+            .sink { [weak self] in self?.result.append(from: $0) }
             .store(in: &cancellables)
 
         outputFork
@@ -90,16 +90,8 @@ class LoadingTransactionListViewModel1: ObservableObject {
             .store(in: &cancellables)
     }
 
-    init() {
-        buildCoreDataPipeline()
-        buildReloadPipeline()
-        buildLoadMorePipeline()
-    }
-
-    // MARK: - Actions
-
-    func reload() {
-        reloadSubject.send()
+    func loadMore() {
+        loadMoreSubject.send(result.next)
     }
 
 }
@@ -133,6 +125,15 @@ extension Publisher {
             .eraseToAnyPublisher()
     }
 
+    func safeToAddress() -> AnyPublisher<Address, Error> where Output == Safe {
+        self
+            .tryCompactMap { safe in
+                guard let address = safe.address else { return nil }
+                return try Address(from: address)
+            }
+            .eraseToAnyPublisher()
+    }
+
 }
 
 
@@ -153,7 +154,9 @@ extension Publisher {
     func transformToResult() -> AnyPublisher<Result<Output, Failure>, Never> {
         self
             .map { value -> Result<Output, Failure> in .success(value) }
-            .catch { error in Just(.failure(error)) }
+            .catch { error in
+                Just(.failure(error))
+            }
             .eraseToAnyPublisher()
     }
 }
@@ -214,40 +217,36 @@ protocol LoadingModel: class {
     associatedtype ResultType
     var status: ViewLoadingStatus { get set }
     var result: ResultType { get set }
-    var reloadSubject: PassthroughSubject<Void, Never> { get }
+    var reloadSubject: PassthroughSubject<Void, Never> { get set }
     var cancellables: Set<AnyCancellable> { get set }
+    var coreDataCancellable: AnyCancellable? { get set }
 
-    func reload()
+    func buildReload()
 }
 
 extension LoadingModel {
+
     func buildCoreDataPipeline() {
-        Publishers
+        coreDataCancellable =
+            Publishers
             .onCoreDataSave
-            .status(.initial, path: \.status, object: self, set: &cancellables)
-    }
-
-    func buildReloadPipeline(_ reload: @escaping (Address) throws -> ResultType) {
-        buildReloadPipelineFromSafe { safe in
-            guard let addressString = safe.address else {
-                throw "Error: safe does not have address. Please reload."
+            .sink { [weak self] _ in
+                guard let `self` = self else { return }
+                self.cancellables = .init()
+                self.reloadSubject = .init()
+                self.status = .initial
+                self.buildReload()
             }
-            let address = try Address(from: addressString)
-            return try reload(address)
-        }
     }
 
-    func buildReloadPipelineFromSafe(_ reload: @escaping (Safe) throws -> ResultType) {
+    func buildReloadPipelineWith<Failure>(loadData: (AnyPublisher<Void, Never>) -> AnyPublisher<ResultType, Failure>) {
         reloadSubject
             .status(.loading, path: \.status, object: self, set: &cancellables)
 
-        let outputFork = reloadSubject
-            .selectedSafe()
-            .receive(on: DispatchQueue.global())
-            .tryMap(reload)
+        let outputFork =
+            loadData(reloadSubject.eraseToAnyPublisher())
             .transformToResult()
-            .receive(on: RunLoop.main)
-            .multicast { PassthroughSubject<Result<ResultType, Error>, Never>() }
+            .multicast { PassthroughSubject<Result<ResultType, Failure>, Never>() }
 
         outputFork
             .onSuccessResult()
@@ -264,10 +263,6 @@ extension LoadingModel {
         outputFork
             .connect()
             .store(in: &cancellables)
-    }
-
-    func buildPipeline() {
-        
     }
 
 

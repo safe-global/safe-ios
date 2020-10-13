@@ -16,7 +16,7 @@ struct LoadingTransactionDetailsView: View {
 
     var body: some View {
         NetworkContentView(status: model.status, reload: reload) {
-            TransactionDetailsOuterBodyView(transactionModel: model.transactionDetails, reload: reload)
+            TransactionDetailsOuterBodyView(transactionModel: model.result, reload: reload)
         }
         .onAppear {
             trackEvent(.transactionsDetails)
