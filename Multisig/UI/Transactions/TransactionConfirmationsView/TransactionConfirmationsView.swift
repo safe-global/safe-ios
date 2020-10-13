@@ -38,7 +38,7 @@ struct TransactionConfirmationsView: View {
                 TransactionConfiramtionStatusView(style: style!)
             }
 
-            if transaction.status == .awaitingConfirmations {
+            if transaction.status == .awaitingConfirmations || transaction.status == .awaitingYourConfirmation {
                 if !transaction.hasConfirmations {
                     VerticalBarView()
                 }

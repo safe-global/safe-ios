@@ -296,6 +296,12 @@
 		55AB394024A3454100148BEA /* LoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB393F24A3454100148BEA /* LoadableView.swift */; };
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
+		55B6464E25304F9B0050BD95 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6464D25304F9B0050BD95 /* Settings.swift */; };
+		55B6465A253050200050BD95 /* HashString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64657253050200050BD95 /* HashString.swift */; };
+		55B6465B253050200050BD95 /* SignatureString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64658253050200050BD95 /* SignatureString.swift */; };
+		55B6465C253050200050BD95 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64659253050200050BD95 /* Transaction.swift */; };
+		55B64666253051630050BD95 /* SelectOwnerAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64665253051630050BD95 /* SelectOwnerAddressViewModel.swift */; };
+		55B6466C2530562F0050BD95 /* SignTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6466B2530562F0050BD95 /* SignTransactionRequest.swift */; };
 		55B66E52247E478800249E98 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E51247E478800249E98 /* LaunchView.swift */; };
 		55B66E56247E494000249E98 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E55247E494000249E98 /* AppSettings.swift */; };
 		55B66E87247FDF2C00249E98 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E86247FDF2C00249E98 /* TermsView.swift */; };
@@ -709,6 +715,12 @@
 		55AB393F24A3454100148BEA /* LoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableView.swift; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
+		55B6464D25304F9B0050BD95 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		55B64657253050200050BD95 /* HashString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashString.swift; sourceTree = "<group>"; };
+		55B64658253050200050BD95 /* SignatureString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureString.swift; sourceTree = "<group>"; };
+		55B64659253050200050BD95 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		55B64665253051630050BD95 /* SelectOwnerAddressViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectOwnerAddressViewModel.swift; sourceTree = "<group>"; };
+		55B6466B2530562F0050BD95 /* SignTransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignTransactionRequest.swift; sourceTree = "<group>"; };
 		55B66E51247E478800249E98 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		55B66E55247E494000249E98 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		55B66E86247FDF2C00249E98 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
@@ -1401,6 +1413,7 @@
 		0AB34D6924B71E4F00A43988 /* Safe Transaction Service */ = {
 			isa = PBXGroup;
 			children = (
+				55B6466B2530562F0050BD95 /* SignTransactionRequest.swift */,
 				04769167246431D000D73D8B /* SafeTransactionService.swift */,
 				0AB34D6124B71DB200A43988 /* SafeBalancesRequest.swift */,
 				0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */,
@@ -1557,6 +1570,7 @@
 			isa = PBXGroup;
 			children = (
 				0A6C85B3245080620026139E /* App.swift */,
+				55B6464D25304F9B0050BD95 /* Settings.swift */,
 				0ACDC01624925B36002035A2 /* Analytics */,
 				0A6430D8247EC180006FD30A /* Configuration */,
 				0A791D9524D2E36400D70DA9 /* Crashlytics Non-fatal Errors */,
@@ -1593,22 +1607,25 @@
 		0AF432D5244F075800E22E50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				55A585352501417E005E778B /* PrivateKey */,
-				04CE3F9724B611FC00826AEE /* Collectible */,
-				55B66E55247E494000249E98 /* AppSettings.swift */,
-				0AA9F2062497BE9B005BD60F /* UInt256.swift */,
-				0AA9F2522498CC70005BD60F /* UInt256String.swift */,
-				0AA9F2542498CC82005BD60F /* DataString.swift */,
-				0AA9F2502498CC62005BD60F /* AddressString.swift */,
 				0A6C85B1245071510026139E /* Address.swift */,
-				551DDEE8244F183500C719D3 /* Selection.swift */,
+				0AA9F2502498CC62005BD60F /* AddressString.swift */,
+				55B66E55247E494000249E98 /* AppSettings.swift */,
+				0AA9F2542498CC82005BD60F /* DataString.swift */,
+				0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */,
+				55B64657253050200050BD95 /* HashString.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
 				0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */,
 				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
-				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
-				0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */,
+				551DDEE8244F183500C719D3 /* Selection.swift */,
+				55B64658253050200050BD95 /* SignatureString.swift */,
 				0A09839B24BC522B009EE296 /* Token.swift */,
 				0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */,
+				55B64659253050200050BD95 /* Transaction.swift */,
+				0AA9F2062497BE9B005BD60F /* UInt256.swift */,
+				0AA9F2522498CC70005BD60F /* UInt256String.swift */,
+				04CE3F9724B611FC00826AEE /* Collectible */,
+				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
+				55A585352501417E005E778B /* PrivateKey */,
 				0A0983A724BC5CC8009EE296 /* TokenRegistry */,
 			);
 			path = Models;
@@ -1811,6 +1828,7 @@
 		55D3653F25077F07004D5047 /* Owner Wallet Management */ = {
 			isa = PBXGroup;
 			children = (
+				55B64665253051630050BD95 /* SelectOwnerAddressViewModel.swift */,
 				55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */,
 				55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */,
 			);
@@ -2361,6 +2379,7 @@
 				0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */,
 				55A5854125014B1B005E778B /* Data+Extension.swift in Sources */,
 				0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */,
+				55B64666253051630050BD95 /* SelectOwnerAddressViewModel.swift in Sources */,
 				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,
 				049ECFEA2500423D004FF02F /* TransferTransactionViewModel.swift in Sources */,
 				0A946D0A246C4C6E00456BD5 /* SettingsView.swift in Sources */,
@@ -2387,11 +2406,13 @@
 				0A451C00252DDB67001DB7D2 /* ReloadButton.swift in Sources */,
 				0A791DA124D30FE100D70DA9 /* Spacing.swift in Sources */,
 				55A58534250140B1005E778B /* PrivateKey.swift in Sources */,
+				55B6465C253050200050BD95 /* Transaction.swift in Sources */,
 				0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				0AA9F26B249A2003005BD60F /* SCGTransactionStatus+ViewModel.swift in Sources */,
+				55B6464E25304F9B0050BD95 /* Settings.swift in Sources */,
 				04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */,
@@ -2407,6 +2428,7 @@
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
 				0A451C44252DF7E4001DB7D2 /* FullScreenBackground.swift in Sources */,
 				0A6430E2247EC2C7006FD30A /* ConfigurationKey.swift in Sources */,
+				55B6466C2530562F0050BD95 /* SignTransactionRequest.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */,
 				04EF2AED2492B5AF0070ED1A /* VerticalBarView.swift in Sources */,
@@ -2456,6 +2478,7 @@
 				0A451BE4252DDB25001DB7D2 /* CoinBalancesModel.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
 				0AA9F25D249A174E005BD60F /* TransactionConfirmationViewModel.swift in Sources */,
+				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,
 				55A5853D2501479C005E778B /* BIP39.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,
@@ -2480,6 +2503,7 @@
 				0AA9F25724991988005BD60F /* TokenBalance.swift in Sources */,
 				0A7AEADF2462F95100014184 /* SwitchSafeButton.swift in Sources */,
 				555312ED250663420008206B /* SECP256K1.swift in Sources */,
+				55B6465A253050200050BD95 /* HashString.swift in Sources */,
 				55B66E56247E494000249E98 /* AppSettings.swift in Sources */,
 				0A72AC5A2453125800840641 /* EnterSafeAddressView.swift in Sources */,
 				555312E9250653800008206B /* BIP32HDNode.swift in Sources */,

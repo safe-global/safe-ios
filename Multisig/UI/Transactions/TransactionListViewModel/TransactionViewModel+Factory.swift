@@ -12,7 +12,7 @@ import Foundation
 
 extension TransactionViewModel {
 
-    static func create(from tx: Transaction) -> [TransactionViewModel] {
+    static func create(from tx: SCGTransaction) -> [TransactionViewModel] {
         // ask each class to create view models
         // and take the first recognized result
         [

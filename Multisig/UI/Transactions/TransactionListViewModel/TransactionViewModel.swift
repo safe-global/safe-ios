@@ -10,7 +10,15 @@ import Foundation
 
 class TransactionViewModel: Identifiable, Equatable {
     var id: String = ""
+    // only in MULTISIG tranasctions
+    var transaction: Transaction?
+
+    var data: String?
+
+    // MARK: - Common fields for TransactionSummary
     var nonce: String?
+
+    // MARK: - Transaction Meta Info
     var status: TransactionStatus = .success
     var formattedDate: String = ""
     var formattedCreatedDate: String?
@@ -19,13 +27,10 @@ class TransactionViewModel: Identifiable, Equatable {
     var threshold: UInt64?
     var remainingConfirmationsRequired: UInt64 = 0
     var hash: String?
-    var safeHash: String?
     var executor: String?
-    var operation: String?
     var signers: [String]?
     var confirmations: [TransactionConfirmationViewModel]?
     var dataDecoded: DataDecoded?
-    var data: String?
 
     var hasConfirmations: Bool {
         confirmationCount ?? 0 > 0
@@ -45,7 +50,7 @@ class TransactionViewModel: Identifiable, Equatable {
         return d
     }()
 
-    init() { }
+    init() {}
 
     init(_ tx: TransactionSummary) {
         id = tx.id.value
@@ -69,15 +74,19 @@ class TransactionViewModel: Identifiable, Equatable {
 
     init(_ tx: TransactionDetails) {
         hash = tx.txHash?.description
+
         if let multiSigTxInfo = tx.detailedExecutionInfo as? MultisigExecutionDetails {
+            let txData = tx.txData!
+            transaction = Transaction(txData: txData, multiSigTxInfo: multiSigTxInfo)
             nonce = "\(multiSigTxInfo.nonce)"
             formattedCreatedDate = Self.dateFormatter.string(from: multiSigTxInfo.submittedAt)
             confirmations = multiSigTxInfo.confirmations.map { TransactionConfirmationViewModel(confirmation:$0) }
-            safeHash = multiSigTxInfo.safeTxHash.description
+            executor = multiSigTxInfo.executor?.description
             threshold = multiSigTxInfo.confirmationsRequired
             signers = multiSigTxInfo.signers.map { $0.address.checksummed }
             confirmationCount = UInt64(multiSigTxInfo.confirmations.count)
             remainingConfirmationsRequired = confirmationCount! > threshold! ? 0 : threshold! - confirmationCount!
+            
         } else {
             // Module Transaction, we do nothing so far
         }
@@ -86,16 +95,15 @@ class TransactionViewModel: Identifiable, Equatable {
         formattedDate = formattedExecutedDate ?? formattedCreatedDate ?? ""
 
         if let txData = tx.txData {
-            operation = txData.operation.name
             dataDecoded = txData.dataDecoded
             data = txData.hexData?.description
         }
 
-        bind(status: tx.txStatus)
+        bind(status: tx.txStatus, confirmations: confirmations ?? [], signers: signers ?? [])
         bind(info: tx.txInfo)
     }
 
-    convenience init (_ tx: Transaction) {
+    convenience init (_ tx: SCGTransaction) {
         if let transactionSummary = tx as? TransactionSummary {
             self.init(transactionSummary)
         } else {
@@ -106,20 +114,29 @@ class TransactionViewModel: Identifiable, Equatable {
 
     func bind(info: TransactionInfo) { }
 
-    func bind(status: TransactionStatus) {
+    func bind(status: TransactionStatus, confirmations: [TransactionConfirmationViewModel] = [], signers: [String] = []) {
         self.status = status
+        if status == .awaitingConfirmations {
+            let signingKeyAddress = App.shared.settings.signingKeyAddress
+            if signingKeyAddress != nil &&
+                signers.contains(signingKeyAddress!) &&
+                !confirmations.map({ $0.address }).contains(signingKeyAddress!) {
+                self.status = .awaitingYourConfirmation
+            }
+        }
     }
 
     static func == (lhs: TransactionViewModel, rhs: TransactionViewModel) -> Bool {
         lhs.id == rhs.id
     }
 
-    class func viewModels(from tx: Transaction) -> [TransactionViewModel] {
+    class func viewModels(from tx: SCGTransaction) -> [TransactionViewModel] {
         []
     }
 
     var hasAdvancedDetails: Bool {
-        nonce != nil || operation != nil || hash != nil
+        // hash can be for incoming transaction
+        nonce != nil || hash != nil
     }
 }
 

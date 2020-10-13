@@ -7,174 +7,67 @@
 //
 
 import Foundation
-import BigInt
 
-// Information about structure described in https://github.com/gnosis/safe/issues/324
-struct Transaction: Decodable, Identifiable, Hashable {
-    var id: Int {
-        return hashValue
-    }
+// Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
+struct Transaction {
+    // required by a smart contract
+    let to: AddressString
+    let value: UInt256String
+    let data: DataString
+    let operation: Operation
+    let safeTxGas: UInt256String
+    let baseGas: UInt256String
+    let gasPrice: UInt256String
+    let gasToken: AddressString
+    // zero address if no refund receiver is set
+    let refundReceiver: AddressString
+    let nonce: UInt256String
+    // computed based on other properties
+    let safeTxHash: HashString?
 
-    let safe: String?
-    let to: String?
-    let value: String?
-    let data: String?
-    let operation: Int?
-    let gasToken: String?
-    let safeTxGas: Int?
-    let baseGas: Int?
-    let gasPrice: String?
-    let refundReceiver: String?
-    let nonce: Int?
-    let executionDate: Date?
-    let submissionDate: Date?
-    let modified: Date?
-    let blockNumber: Int?
-    let transactionHash: String?
-    let safeTxHash: String?
-    let executor: String?
-    let isExecuted: Bool?
-    let isSuccessful: Bool?
-    let tokenAddress: String?
-    let ethGasPrice: String?
-    let gasUsed: Int?
-    let fee: String?
-    let origin: String?
-    let dataDecoded: DecodedData?
-    let confirmationsRequired: Int?
-    let confirmations: [TransactionConfirmation]?
-    let signatures: String?
-    let transfers: [Transfer]?
-    let txType: TransactionType?
-
-    var remainingConfirmationsRequired: Int {
-        return max((confirmationsRequired ?? 0) - (confirmations!.count), 0)
-    }
+    
 }
 
 extension Transaction {
-
-    func status(safeNonce: Int, safeThreshold: Int) -> TransactionStatus {
-        // tx-es without nonce are external transactions that are
-        // already executed successfully.
-        guard let nonce = nonce else { return .success }
-        let confirmationCount = confirmations?.count ?? 0
-        let threshold = confirmationsRequired ?? safeThreshold
-
-        if isExecuted == true && isSuccessful == true {
-            return .success
-        } else if isExecuted == true && isSuccessful != true {
-            return .failed
-        } else if isExecuted != true && nonce < safeNonce {
-            return .canceled
-        } else if isExecuted != true && nonce >= safeNonce && confirmationCount < threshold {
-            return .waitingConfirmation
-        } else if isExecuted != true && nonce >= safeNonce && confirmationCount >= threshold {
-            return .waitingExecution
-        } else {
-            return .pending
-        }
+    init(txData: TransactionDetailsData, multiSigTxInfo: MultisigExecutionDetails) {
+        to = txData.to
+        value = txData.value
+        data = txData.hexData ?? DataString(Data())
+        operation = txData.operation
+        safeTxGas = multiSigTxInfo.safeTxGas
+        baseGas = multiSigTxInfo.baseGas
+        gasPrice = multiSigTxInfo.gasPrice
+        gasToken = multiSigTxInfo.gasToken
+        refundReceiver = multiSigTxInfo.refundReceiver
+        nonce = multiSigTxInfo.nonce
+        safeTxHash = multiSigTxInfo.safeTxHash
     }
 
-    static func browserURL(hash: String) -> URL {
-        App.configuration.services.etehreumBlockBrowserURL
-            .appendingPathComponent("tx").appendingPathComponent(hash)
-    }
-}
-
-struct TransactionConfirmation: Decodable, Hashable {
-    let owner: String
-    let submissionDate: Date
-    let transactionHash: String?
-    let data: String?
-    let signature: String?
-    let signatureType: SignatureType?
-}
-
-struct Transfer: Decodable, Hashable {
-    let type: TransferType
-    let executionDate: Date?
-    let blockNumber: Int?
-    let transactionHash: String?
-    let to: String?
-    let value: String?
-    let tokenId: String?
-    let tokenAddress: String? // should be removed when tokenInfo implemented https://github.com/gnosis/safe-transaction-service/issues/96
-    let tokenInfo: TokenInfo?
-    let from: String?
-}
-
-struct DecodedData: Decodable, Hashable {
-    let method: String
-    let parameters: [DecodedDataParameter]
-}
-
-struct DecodedDataParameter: Decodable, Hashable {
-    let name: String
-    let type: String
-    let value: String
-}
-
-enum TransactionType: String, Decodable {
-    case multiSig = "MULTISIG_TRANSACTION"
-    case ethereum = "ETHEREUM_TRANSACTION"
-    case module = "MODULE_TRANSACTION"
-}
-
-enum TransferType: String, Decodable {
-    case ether = "ETHER_TRANSFER"
-    case erc20 = "ERC20_TRANSFER"
-    case erc721 = "ERC721_TRANSFER"
-    case unknown = "UNKNOWN"
-}
-
-enum SignatureType: String, Decodable {
-    case contractSignature = "CONTRACT_SIGNATURE"
-    case approvedHash = "APPROVED_HASH"
-    case eoa = "EOA"
-    case ethSignature = "ETH_SIGN"
-}
-
-struct TokenInfo: Decodable, Hashable {
-    let address: String
-    let decimals: Int?
-    let symbol: String?
-    let name: String?
-    let logoUri: String?
-    let tokenType: TokenType?
-}
-
-enum TokenType: String, Decodable {
-    case erc20 = "ERC20"
-    case erc721 = "ERC721"
-}
-
-enum TransactionStatus {
-    case success
-    case pending
-    case canceled
-    case failed
-    case waitingConfirmation
-    case waitingExecution
-
-    var title: String {
-        switch self {
-        case .waitingExecution:
-            return "Awaiting execution"
-        case .waitingConfirmation:
-            return "Awaiting confirmations"
-        case .pending:
-             return "Pending"
-        case .failed:
-            return "Failed"
-        case .canceled:
-            return "Canceled"
-        case .success:
-            return "Success"
-        }
+    var safeEncodedTxData: Data {
+        [
+            Safe.DefaultEIP712SafeAppTxTypeHash,
+            to.data32,
+            value.data32,
+            EthHasher.hash(data.data),
+            operation.data32,
+            safeTxGas.data32,
+            baseGas.data32,
+            gasPrice.data32,
+            gasToken.data32,
+            refundReceiver.data32,
+            nonce.data32
+        ]
+        .reduce(Data()) { $0 + $1 }
     }
 
-    var isWaiting: Bool {
-        [.waitingConfirmation, .waitingExecution].contains(self)
+    func encodeTransactionData(for safe: AddressString) -> Data {
+        let ERC191MagicByte = Data([0x19])
+        let ERC191Version1Byte = Data([0x01])
+        return [
+            ERC191MagicByte,
+            ERC191Version1Byte,
+            EthHasher.hash(Safe.domainData(for: safe)),
+            EthHasher.hash(safeEncodedTxData)
+        ].reduce(Data()) { $0 + $1 }
     }
 }

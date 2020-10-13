@@ -14,12 +14,12 @@ struct Page<T: Decodable>: Decodable {
     let results: [T]
 }
 
-protocol Transaction {
+protocol SCGTransaction {
     var txInfo: TransactionInfo { get set }
     var txStatus: TransactionStatus { get set }
 }
 
-struct TransactionSummary: Transaction {
+struct TransactionSummary: SCGTransaction {
     let id: TransactionID
     let date: Date
     var txStatus: TransactionStatus
@@ -61,6 +61,7 @@ extension TransactionID {
 
 enum TransactionStatus: String, Decodable {
     case awaitingConfirmations = "AWAITING_CONFIRMATIONS"
+    case awaitingYourConfirmation = "AWAITING_YOUR_CONFIRMATION"
     case awaitingExecution = "AWAITING_EXECUTION"
     case cancelled = "CANCELLED"
     case failed = "FAILED"
@@ -72,6 +73,8 @@ struct ExecutionInfo: Decodable {
     let nonce: UInt256String
     let confirmationsRequired: UInt64
     let confirmationsSubmitted: UInt64
+    let signers: [AddressString]?
+    let confirmations: [MultisigConfirmation]?
 }
 
 protocol TransactionInfo: Decodable {}
@@ -362,6 +365,10 @@ enum Operation: Int, Decodable {
     case call = 0
     case delegate = 1
 
+    var data32: Data {
+        UInt256(self.rawValue).data32
+    }
+
     var name: String {
         switch self {
         case .call:
@@ -448,7 +455,7 @@ enum DataDecodedParameterValueWrapper: Decodable {
 
 // MARK: - Details
 
-struct TransactionDetails: Decodable, Transaction {
+struct TransactionDetails: Decodable, SCGTransaction {
     let executedAt: Date?
     var txStatus: TransactionStatus
     var txInfo: TransactionInfo
@@ -524,10 +531,16 @@ struct ModuleExecutionDetails: DetailedExecutionInfo {
 struct MultisigExecutionDetails: DetailedExecutionInfo {
     let submittedAt: Date
     let nonce: UInt256String
-    let safeTxHash: DataString
+    let safeTxGas: UInt256String
+    let baseGas: UInt256String
+    let gasPrice: UInt256String
+    let gasToken: AddressString
+    let refundReceiver: AddressString
+    let safeTxHash: HashString
     let signers: [AddressString]
     let confirmationsRequired: UInt64
     let confirmations: [MultisigConfirmation]
+    let executor: AddressString?
 }
 
 struct MultisigConfirmation: Decodable {

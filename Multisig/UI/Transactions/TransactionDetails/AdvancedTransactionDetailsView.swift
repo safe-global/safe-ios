@@ -12,21 +12,28 @@ struct AdvancedTransactionDetailsView: View {
     @ObservedObject
     var theme: Theme = App.shared.theme
     
-    let transaction: TransactionViewModel
+    let transactionViewModel: TransactionViewModel
     private let padding: CGFloat = 11
+
+    var transaction: Transaction? { return transactionViewModel.transaction }
 
     var body: some View {
         List {
-            if transaction.nonce != nil {
-                KeyValueRow("Nonce:", value: transaction.nonce!, enableCopy: true, color: .gnoDarkGrey).padding(.vertical, padding)
+            if transactionViewModel.nonce != nil {
+                KeyValueRow("Nonce:", value: transactionViewModel.nonce!, enableCopy: true, color: .gnoDarkGrey)
+                    .padding(.vertical, padding)
             }
 
-            if transaction.operation != nil {
-                KeyValueRow("Type of operation:", value: transaction.operation!, enableCopy: true, color: .gnoDarkGrey).padding(.vertical, padding)
+            if transaction != nil {
+                KeyValueRow(
+                    "Type of operation:", value: transaction!.operation.name, enableCopy: true, color: .gnoDarkGrey
+                ).padding(.vertical, padding)
             }
 
-            if transaction.hash != nil {
-                KeyValueRow("Transaction hash:", value: transaction.hash!, enableCopy: true, color: .gnoDarkGrey).padding(.vertical, padding)
+            if transactionViewModel.hash != nil {
+                KeyValueRow(
+                    "Transaction hash:", value: transactionViewModel.hash!, enableCopy: true, color: .gnoDarkGrey
+                ).padding(.vertical, padding)
             }
         }
         .navigationBarTitle("Advanced", displayMode: .inline)

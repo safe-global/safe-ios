@@ -27,6 +27,12 @@ struct DataString: Hashable, Decodable {
 
 }
 
+extension DataString: ExpressibleByStringLiteral {
+    init(stringLiteral value: StringLiteralType) {
+        self.init(Data(ethHex: value))
+    }
+}
+
 extension DataString: CustomStringConvertible {
     var description: String {
         data.toHexStringWithPrefix()

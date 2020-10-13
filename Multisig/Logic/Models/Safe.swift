@@ -24,6 +24,17 @@ extension Safe: Identifiable {
 
     var displayENSName: String { ensName ?? "" }
 
+    // this value is for contract versions 1.0.0 and 1.1.1 (probably for later versions as well)
+    static let DefaultEIP712SafeAppTxTypeHash =
+        Data(ethHex: "0xbb8310d486368db6bd6f849402fdd73ad53d316b5a4b2644ad6efe0f941286d8")
+
+    static let DefaultEIP712SafeAppDomainSeparatorTypeHash =
+        Data(ethHex: "0x035aff83d86937d35b32e04f0ddc6ff469290eef2f1b692d8a815c89404d4749")
+
+    static func domainData(for safe: AddressString) -> Data {
+        Safe.DefaultEIP712SafeAppDomainSeparatorTypeHash + safe.data32
+    }
+
     static var count: Int {
         let context = App.shared.coreDataStack.viewContext
         return (try? context.count(for: Safe.fetchRequest().all())) ?? 0
