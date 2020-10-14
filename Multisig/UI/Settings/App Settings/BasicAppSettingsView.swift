@@ -95,8 +95,16 @@ struct BasicAppSettingsView: View {
                 }
             }
         } else {
-            NavigationLink(destination: EnterSeedPhraseView()) {
-                Text("Import owner key").body()
+            Button {
+                App.shared.viewState.showImportKeySheet = true
+            } label: {
+                HStack {
+                    Text("Import owner key").body()
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(Font.footnote.bold())
+                        .foregroundColor(Color.systemGray6Light)
+                }
             }
         }
     }

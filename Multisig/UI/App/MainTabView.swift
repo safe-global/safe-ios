@@ -18,6 +18,9 @@ struct MainTabView: View {
     @State
     private var showsSafesList = false
 
+    @State
+    private var showImportKeySheet: Bool = false
+
     var body: some View {
         TabView(selection: $selection) {
             MainContentView(AssetsView())
@@ -53,8 +56,15 @@ struct MainTabView: View {
                 .environment(\.managedObjectContext, self.context)
                 .hostSnackbar()
         }
+        .sheet(isPresented: $showImportKeySheet) {
+            EnterSeedPhraseView()
+                .hostSnackbar()
+        }
         .onReceive(App.shared.viewState.$showsSafesList) { newValue in
             self.showsSafesList = newValue
+        }
+        .onReceive(App.shared.viewState.$showImportKeySheet) { newValue in
+            self.showImportKeySheet = newValue
         }
         .onReceive(App.shared.viewState.$state) { newValue in
             self.selection = newValue

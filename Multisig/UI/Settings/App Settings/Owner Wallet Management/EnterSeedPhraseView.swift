@@ -31,25 +31,28 @@ struct EnterSeedPhraseView: View {
     var goNext = false
 
     var body: some View {
-        VStack(spacing: 24) {
-            Text("Enter your seed phrase")
-                .headline()
-            Text("Import the seed phrase (12 or 24 words) from your hardware or MetaMask owner wallet to sign transactions")
-                .body()
-                .multilineTextAlignment(.center)
-            EnterSeedView(seed: $seed, isEditing: $isEditing, isValid: $isValid, errorMessage: $errorMessage)
-            Spacer()
-            NavigationLink(destination: SelectOwnerAddressView(rootNode: rootNode, onSubmit: {
-                self.presentationMode.wrappedValue.dismiss()
-            }),
-                           isActive: $goNext,
-                           label: { EmptyView() }).isDetailLink(false)
-        }
-        .padding()
-        .navigationBarTitle("Import Wallet", displayMode: .inline)
-        .navigationBarItems(trailing: nextButton)
-        .onAppear {
-            self.trackEvent(.ownerEnterSeed)
+        NavigationView {
+            VStack(spacing: 24) {
+                Text("Enter your seed phrase")
+                    .headline()
+                Text("Import the seed phrase (12 or 24 words) from your hardware or MetaMask owner wallet to sign transactions")
+                    .body()
+                    .multilineTextAlignment(.center)
+                EnterSeedView(seed: $seed, isEditing: $isEditing, isValid: $isValid, errorMessage: $errorMessage)
+                Spacer()
+                NavigationLink(destination: SelectOwnerAddressView(
+                                rootNode: rootNode, onSubmit: {
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }),
+                               isActive: $goNext,
+                               label: { EmptyView() })
+            }
+            .padding()
+            .navigationBarTitle("Import Wallet", displayMode: .inline)
+            .navigationBarItems(trailing: nextButton)
+            .onAppear {
+                self.trackEvent(.ownerEnterSeed)
+            }
         }
     }
 
@@ -59,7 +62,6 @@ struct EnterSeedPhraseView: View {
     }
 
     // TODO: handle return button on the keyboard
-    #warning("FIXME: BIP39.seedFromMmemonics takes several seconds")
     func submit() {
         UIResponder.resignCurrentFirstResponder()
         guard let seedData = BIP39.seedFromMmemonics(seed),
