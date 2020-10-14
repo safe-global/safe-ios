@@ -37,7 +37,8 @@ struct TransactionCellView: View {
                     Spacer()
 
                     if transaction.threshold != nil {
-                        ConfirmationCountView(currentValue: transaction.confirmationCount ?? 0, threshold: transaction.threshold!).opacity(opacity)
+                        ConfirmationCountView(currentValue: transaction.confirmationCount ?? 0,
+                                              threshold: transaction.threshold!).opacity(opacity)
                     }
                 }
             }

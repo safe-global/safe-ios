@@ -12,6 +12,9 @@ struct SettingsView: View {
     @State
     private var selection: Int? = 0
 
+    @State
+    private var showImportKeySheet: Bool = false
+
     var body: some View {
         TopTabView($selection) {
             SafeSettingsContent()
@@ -35,6 +38,13 @@ struct SettingsView: View {
                 }
         }
         .navigationBarTitle("Settings")
+        .sheet(isPresented: $showImportKeySheet) {
+            EnterSeedPhraseView()
+                .hostSnackbar()
+        }
+        .onReceive(App.shared.viewState.$showImportKeySheet) { newValue in
+            self.showImportKeySheet = newValue
+        }
     }
 }
 

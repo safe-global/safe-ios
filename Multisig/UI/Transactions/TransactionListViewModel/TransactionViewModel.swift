@@ -30,6 +30,7 @@ class TransactionViewModel: Identifiable, Equatable {
     var executor: String?
     var signers: [String]?
     var confirmations: [TransactionConfirmationViewModel]?
+    var missingSigners: [String]?
     var dataDecoded: DataDecoded?
 
     var hasConfirmations: Bool {
@@ -58,17 +59,16 @@ class TransactionViewModel: Identifiable, Equatable {
 
         nonce = tx.executionInfo?.nonce == nil ? "" : "\(tx.executionInfo!.nonce)"
 
-        do {
-            let confirmationCount = tx.executionInfo?.confirmationsSubmitted ?? 0
-            let requiredCount = tx.executionInfo?.confirmationsRequired ?? 0
-            let remainingCount = confirmationCount > requiredCount ? 0 : requiredCount - confirmationCount
+        let confirmationCount = tx.executionInfo?.confirmationsSubmitted ?? 0
+        let requiredCount = tx.executionInfo?.confirmationsRequired ?? 0
+        let remainingCount = confirmationCount > requiredCount ? 0 : requiredCount - confirmationCount
 
-            self.confirmationCount = confirmationCount
-            threshold = requiredCount
-            remainingConfirmationsRequired = remainingCount
-        }
+        self.confirmationCount = confirmationCount
+        threshold = requiredCount
+        remainingConfirmationsRequired = remainingCount
+        missingSigners = tx.executionInfo?.missingSigners?.map { $0.address.checksummed }
 
-        bind(status: tx.txStatus)
+        bind(status: tx.txStatus, missingSigners: missingSigners ?? [])
         bind(info: tx.txInfo)
     }
 
@@ -114,13 +114,16 @@ class TransactionViewModel: Identifiable, Equatable {
 
     func bind(info: TransactionInfo) { }
 
-    func bind(status: TransactionStatus, confirmations: [TransactionConfirmationViewModel] = [], signers: [String] = []) {
+    func bind(status: TransactionStatus,
+              confirmations: [TransactionConfirmationViewModel] = [],
+              signers: [String] = [],
+              missingSigners: [String] = []) {
         self.status = status
         if status == .awaitingConfirmations {
-            let signingKeyAddress = App.shared.settings.signingKeyAddress
-            if signingKeyAddress != nil &&
-                signers.contains(signingKeyAddress!) &&
-                !confirmations.map({ $0.address }).contains(signingKeyAddress!) {
+            guard let signingKeyAddress = App.shared.settings.signingKeyAddress else { return }
+            if (signers.contains(signingKeyAddress) &&
+                !confirmations.map({ $0.address }).contains(signingKeyAddress)) ||
+                missingSigners.contains(signingKeyAddress) {
                 self.status = .awaitingYourConfirmation
             }
         }
