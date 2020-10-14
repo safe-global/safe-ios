@@ -82,6 +82,10 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
         output
             .onSuccessResult()
             .status(.initial, path: \.status, object: self, set: &cancellables)
+
+        output
+            .connect()
+            .store(in: &cancellables)
     }
 
     func reload(transaction: TransactionViewModel) {
