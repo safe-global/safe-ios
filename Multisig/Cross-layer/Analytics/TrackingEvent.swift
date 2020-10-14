@@ -48,5 +48,8 @@ enum TrackingEvent: String, Trackable {
     case settingsSafeEditName = "screen_settings_safe_edit_name"
     case settingsSafeAdvanced = "screen_settings_safe_advanced"
 
+    case ownerEnterSeed = "owner_enter_seed"
+    case ownerSelectAccount = "owner_select_account"
+
     case camera = "screen_camera"
 }

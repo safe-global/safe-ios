@@ -75,6 +75,7 @@ struct ExecutionInfo: Decodable {
     let confirmationsSubmitted: UInt64
     let signers: [AddressString]?
     let confirmations: [MultisigConfirmation]?
+    let missingSigners: [AddressString]?
 }
 
 protocol TransactionInfo: Decodable {}

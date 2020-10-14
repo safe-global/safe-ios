@@ -21,6 +21,9 @@ class ViewState: ObservableObject {
     var showsSafesList = false
 
     @Published
+    var showImportKeySheet = false
+
+    @Published
     var hidesNavbar = true
 }
 

@@ -17,7 +17,7 @@ struct LoadingTransactionDetailsView: View {
     var body: some View {
         NetworkContentView(status: model.status, reload: reload) {
             TransactionDetailsOuterBodyView(
-                transactionModel: model.transactionDetails, reload: reload, confirm: confirm, canSign: model.canSign)
+                transactionModel: model.result, reload: reload, confirm: confirm, canSign: model.canSign)
         }
         .onAppear {
             trackEvent(.transactionsDetails)

@@ -9,258 +9,265 @@
 import SwiftUI
 import Combine
 
-import Combine
-
-class LoadingTransactionListViewModel: ObservableObject {
-
-    // MARK: - Inputs
-
-    // signals that reload is needed
-    private var reloadSubject: PassthroughSubject<Void, Never>
-
-    // url of the next page to load
-    private var loadMoreSubject: PassthroughSubject<String?, Never>
-
-    // Storage for subscribers
-    private var cancellables: Set<AnyCancellable> = .init()
-
-    // MARK: - Outputs
+class LoadingTransactionListViewModel: ObservableObject, LoadingModel {
+    var reloadSubject = PassthroughSubject<Void, Never>()
+    var cancellables = Set<AnyCancellable>()
+    var coreDataCancellable: AnyCancellable?
     @Published var status: ViewLoadingStatus = .initial
+    @Published var result = TransactionsListViewModel()
+
+    var loadMoreSubject = PassthroughSubject<String?, Never>()
     @Published var loadMoreStatus: ViewLoadingStatus = .initial
-    @Published var list: TransactionsListViewModel = .init()
 
-    // MARK: - Pipeline
     init() {
-        // This sets up 3 pipelines according to the 3 possible input actions
-        // I. on Core Data save() -> update outputs: status (reset status to .initial to trigger the reload() action automatically)
-        // II. on reload() -> load first page of transactions for the selected safe -> update outputs: status, list
-        // III. on loadMore() -> load next page of transactions -> update outputs: loadMoreStatus, list
+        buildCoreDataPipeline()
+        buildLoadMorePipeline()
+        buildReload()
+    }
 
-        // required inits
-        reloadSubject = .init()
-        loadMoreSubject = .init()
-
-        // I. on Core Data save() ->
-        //   a) set status = .initial to trigger the reload() on appearance
-        NotificationCenter.default
-            .publisher(for: .NSManagedObjectContextDidSave,
-                       object: App.shared.coreDataStack.viewContext)
-            .map { notification -> ViewLoadingStatus in
-                .initial
+    func buildCoreDataPipeline() {
+        coreDataCancellable =
+            Publishers
+            .onCoreDataSave
+            .sink { [weak self] _ in
+                guard let `self` = self else { return }
+                self.cancellables = .init()
+                self.reloadSubject = .init()
+                self.loadMoreSubject = .init()
+                self.loadMoreStatus = .initial
+                self.status = .initial
+                self.buildReload()
+                self.buildLoadMorePipeline()
             }
-            .receive(on: RunLoop.main)
-            .assign(to: \.status, on: self)
-            .store(in: &cancellables)
+    }
 
-        // II. on reload() ->
-        //   fork into 2 streams:
-        let reloadInputFork = reloadSubject
-            .receive(on: RunLoop.main)
-            .multicast { PassthroughSubject<Void, Never>() }
-
-        defer {
-            reloadInputFork
-                .connect()
-                .store(in: &cancellables)
+    func buildReload() {
+        buildReloadPipelineWith { upstream in
+            upstream
+                .selectedSafe()
+                .safeToAddress()
+                .receive(on: DispatchQueue.global())
+                .tryMap { address in
+                    try App.shared.clientGatewayService.transactionSummaryList(address: address)
+                }
+                .transformPageToList()
+                .receive(on: RunLoop.main)
+                .eraseToAnyPublisher()
         }
+    }
 
-        //   a) status = .loading
-        reloadInputFork
-            .map { ViewLoadingStatus.loading }
-            .assign(to: \.status, on: self)
+    private func buildLoadMorePipeline() {
+        let inputFork = loadMoreSubject
+            .compactMap { $0 }
+
+        inputFork
+            .status(.loading, path: \.loadMoreStatus, object: self, set: &cancellables)
+
+        let outputFork = inputFork
+            .receive(on: DispatchQueue.global())
+            .tryMap { url in
+                try App.shared.clientGatewayService.transactionSummaryList(pageUri: url)
+            }
+            .transformPageToList()
+            .transformToResult()
+            .receive(on: RunLoop.main)
+            .multicast { PassthroughSubject<Result<TransactionsListViewModel, Error>, Never>() }
+
+        outputFork
+            .handleError(statusPath: \.loadMoreStatus, object: self, set: &cancellables)
+
+        outputFork
+            .onSuccessResult()
+            .status(.success, path: \.loadMoreStatus, object: self, set: &cancellables)
+
+        outputFork
+            .onSuccessResult()
+            .sink { [weak self] in self?.result.append(from: $0) }
             .store(in: &cancellables)
 
-        //   b) load first page of transactions of the selected safe
-        let getTransactionList = reloadInputFork
+        outputFork
+            .connect()
+            .store(in: &cancellables)
+    }
 
-            //      i. fetch selected safe from Core Data
+    func loadMore() {
+        loadMoreSubject.send(result.next)
+    }
+
+}
+
+extension Publisher where Output == Address {
+
+    func transactionList() -> AnyPublisher<Result<TransactionsListViewModel, Error>, Never> {
+        self
+            .receive(on: DispatchQueue.global())
+            .tryMap { address in
+                try App.shared.clientGatewayService.transactionSummaryList(address: address)
+            }
+            .transformPageToList()
+            .transformToResult()
+            .receive(on: RunLoop.main)
+            .eraseToAnyPublisher()
+    }
+}
+
+
+extension Publisher {
+
+    func selectedSafe() -> AnyPublisher<Safe, Error> {
+        self
             .tryCompactMap { _ -> Safe? in
                 let context = App.shared.coreDataStack.viewContext
                 let fr = Safe.fetchRequest().selected()
                 let safe = try context.fetch(fr).first
                 return safe
             }
+            .eraseToAnyPublisher()
+    }
 
-            //      ii. get its address
-            .compactMap { safe in safe.address }
-            .tryMap { try Address(from: $0) }
-
-            //      iii. get transaction list by address
-            .receive(on: DispatchQueue.global())
-            .tryMap { address in
-                try App.shared.clientGatewayService.transactionSummaryList(address: address)
+    func safeToAddress() -> AnyPublisher<Address, Error> where Output == Safe {
+        self
+            .tryCompactMap { safe in
+                guard let address = safe.address else { return nil }
+                return try Address(from: address)
             }
+            .eraseToAnyPublisher()
+    }
 
-            //      iv. transform response list to success<view model list>
+}
+
+
+extension Publisher where Output == Page<TransactionSummary> {
+    func transformPageToList() -> AnyPublisher<TransactionsListViewModel, Failure> {
+        self
             .map { transactions -> TransactionsListViewModel in
                 let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
                 var list = TransactionsListViewModel(models)
                 list.next =  transactions.next
                 return list
             }
-            .map { list -> Result<TransactionsListViewModel, Error> in
-                .success(list)
-            }
+            .eraseToAnyPublisher()
+    }
+}
 
-            //      v. transform response error to failure<error>
+extension Publisher {
+    func transformToResult() -> AnyPublisher<Result<Output, Failure>, Never> {
+        self
+            .map { value -> Result<Output, Failure> in .success(value) }
             .catch { error in
                 Just(.failure(error))
             }
+            .eraseToAnyPublisher()
+    }
+}
 
-        //      vi. update outputs
-        //          fork into 3 subscribers:
-        let reloadOutputFork = getTransactionList
-            .receive(on: RunLoop.main)
-            .multicast {
-                PassthroughSubject<Result<TransactionsListViewModel, Error>, Never>()
-            }
+// Result<K, Failure>
+extension Publisher {
 
-        defer {
-            reloadOutputFork
-                .connect()
-                .store(in: &cancellables)
-        }
-
-        //          1. on success<list>: status = .success
-        let reloadSuccess = reloadOutputFork
-            .compactMap { result -> TransactionsListViewModel? in
-                switch result {
-                case .success(let value): return value
-                default: return nil
-                }
-            }
-
-        reloadSuccess
-            .map { _ -> ViewLoadingStatus in
-                .success
-            }
-            .assign(to: \.status, on: self)
-            .store(in: &cancellables)
-
-        //          2. on succes<list>: self.list = list
-        reloadSuccess
-            .assign(to: \.list, on: self)
-            .store(in: &cancellables)
-
-
-        //          3. on failure<error>: show error; set status = .failure
-        reloadOutputFork
-            .compactMap { result -> Error? in
-                switch result {
-                case .failure(let error): return error
-                default: return nil
-                }
-            }
-            .map { error -> ViewLoadingStatus in
+    func handleError<Root, Success, Failed>(statusPath:  ReferenceWritableKeyPath<Root, ViewLoadingStatus>, object: Root, set: inout Set<AnyCancellable>) where Output == Result<Success, Failed>, Failure == Never {
+        self
+            .onFailedResult()
+            .map { error -> Void in
                 App.shared.snackbar.show(message: error.localizedDescription)
-                return .failure
             }
-            .assign(to: \.status, on: self)
-            .store(in: &cancellables)
+            .status(.failure, path: statusPath, object: object, set: &set)
+    }
+
+    func status<Root>(_ status: ViewLoadingStatus, path: ReferenceWritableKeyPath<Root, ViewLoadingStatus>, object: Root, set: inout Set<AnyCancellable>) where Failure == Never {
+        self
+            .map { _ -> ViewLoadingStatus in status }
+            .assign(to: path, on: object)
+            .store(in: &set)
+    }
+
+    func onSuccessResult<Success, Failed>() -> AnyPublisher<Success, Never> where Output == Result<Success, Failed>, Failure == Never {
+        self
+            .compactMap { result -> Success? in
+                guard case .success(let value) = result else { return nil }
+                return value
+            }
+            .eraseToAnyPublisher()
+    }
+
+    func onFailedResult<Success, Failed>() -> AnyPublisher<Failed, Never> where Output == Result<Success, Failed>, Failure == Never {
+        self
+            .compactMap { result -> Failed? in
+                guard case .failure(let value) = result else { return nil }
+                return value
+            }
+            .eraseToAnyPublisher()
+    }
+
+}
 
 
-        // III. on loadMore(nextPageURL) ->
+extension Publishers {
 
-        //   fork into 2 streams:
-        let loadMoreInputFork = loadMoreSubject
-            .compactMap { $0 }
+    static var onCoreDataSave: AnyPublisher<Notification, Never> {
+        NotificationCenter.default
+            .publisher(for: .NSManagedObjectContextDidSave, object: App.shared.coreDataStack.viewContext)
             .receive(on: RunLoop.main)
-            .multicast { PassthroughSubject<String, Never>() }
-
-        defer {
-            loadMoreInputFork
-                .connect()
-                .store(in: &cancellables)
-        }
-
-        //  a) loadMoreStatus = .loading
-        loadMoreInputFork
-            .map { url -> ViewLoadingStatus in .loading }
-            .assign(to: \.loadMoreStatus, on: self)
-            .store(in: &cancellables)
+            .eraseToAnyPublisher()
+    }
 
 
-        //  b) load next page of transactions using nextPageURL
-        //      i. get next page of transactions
-        //      ii. transform response list to success<view model list>
-        //      iii. transform response error to failure<error>
-        let loadMoreResults = loadMoreInputFork
-            .receive(on: DispatchQueue.global())
-            .tryMap { url in
-                try App.shared.clientGatewayService.transactionSummaryList(pageUri: url)
-            }
-            .map { transactions -> TransactionsListViewModel in
-                let models = transactions.results.flatMap { TransactionViewModel.create(from: $0) }
-                var list = TransactionsListViewModel(models)
-                list.next =  transactions.next
-                return list
-            }
-            .map { list -> Result<TransactionsListViewModel, Error> in
-                .success(list)
-            }
-            .catch { error in
-                Just(.failure(error))
-            }
-            .receive(on: RunLoop.main)
+}
 
-        //      iv. update outputs
-        //          fork into 3 subscribers:
-        let loadMoreOutputFork = loadMoreResults
-            .multicast { PassthroughSubject<Result<TransactionsListViewModel, Error>, Never>() }
+protocol LoadingModel: class {
+    associatedtype ResultType
+    var status: ViewLoadingStatus { get set }
+    var result: ResultType { get set }
+    var reloadSubject: PassthroughSubject<Void, Never> { get set }
+    var cancellables: Set<AnyCancellable> { get set }
+    var coreDataCancellable: AnyCancellable? { get set }
 
-        defer {
-            loadMoreOutputFork
-                .connect()
-                .store(in: &cancellables)
-        }
+    func buildReload()
+}
 
-        let loadMoreSuccess = loadMoreOutputFork
-            .compactMap { result -> TransactionsListViewModel? in
-                switch result {
-                case .success(let value): return value
-                default: return nil
-                }
-            }
+extension LoadingModel {
 
-        //          1. on success<list>: loadMoreStatus = .success
-        loadMoreSuccess
-            .map { value -> ViewLoadingStatus in
-                .success
-            }
-            .assign(to: \.loadMoreStatus, on: self)
-            .store(in: &cancellables)
-
-        //          2. on success<list>: append list to self.list
-        loadMoreSuccess
-            .sink { [weak self] list in
+    func buildCoreDataPipeline() {
+        coreDataCancellable =
+            Publishers
+            .onCoreDataSave
+            .sink { [weak self] _ in
                 guard let `self` = self else { return }
-                self.list.append(from: list)
+                self.cancellables = .init()
+                self.reloadSubject = .init()
+                self.status = .initial
+                self.buildReload()
             }
+    }
+
+    func buildReloadPipelineWith<Failure>(loadData: (AnyPublisher<Void, Never>) -> AnyPublisher<ResultType, Failure>) {
+        reloadSubject
+            .status(.loading, path: \.status, object: self, set: &cancellables)
+
+        let outputFork =
+            loadData(reloadSubject.eraseToAnyPublisher())
+            .transformToResult()
+            .multicast { PassthroughSubject<Result<ResultType, Failure>, Never>() }
+
+        outputFork
+            .onSuccessResult()
+            .assign(to: \.result, on: self)
             .store(in: &cancellables)
 
-        //          3. on failure<error>: show error; loadMoreStatus = .failure
-        loadMoreOutputFork
-            .compactMap { result -> Error? in
-                switch result {
-                case .failure(let error): return error
-                default: return nil
-                }
-            }
-            .map { error -> ViewLoadingStatus in
-                App.shared.snackbar.show(message: error.localizedDescription)
-                return .failure
-            }
-            .assign(to: \.loadMoreStatus, on: self)
+        outputFork
+            .onSuccessResult()
+            .status(.success, path: \.status, object: self, set: &cancellables)
+
+        outputFork
+            .handleError(statusPath: \.status, object: self, set: &cancellables)
+
+        outputFork
+            .connect()
             .store(in: &cancellables)
     }
 
-    // MARK: - Actions
 
     func reload() {
         reloadSubject.send()
     }
 
-    func loadMore() {
-        loadMoreSubject.send(list.next)
-    }
 }
