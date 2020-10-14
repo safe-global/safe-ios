@@ -147,7 +147,11 @@ public class BIP39 {
 
     static public func seedFromMmemonics(_ mnemonics: String, password: String = "",
                                          language: BIP39Language = BIP39Language.english) -> Data? {
-        let formattedMnemonics = mnemonics.condenseWhitespace()
+        let formattedMnemonics = mnemonics
+            .lowercased()
+            .replacingOccurrences(of: ",", with: " ")
+            .condenseWhitespace()
+
         let valid = BIP39.mnemonicsToEntropy(formattedMnemonics, language: language) != nil
         if (!valid) {
             return nil
