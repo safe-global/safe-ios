@@ -13,7 +13,7 @@ struct CoinBalancesView: View {
     var model: CoinBalancesModel
     var body: some View {
         NetworkContentView(status: model.status, reload: model.reload) {
-            BalanceListView(balances: model.balances, reload: model.reload)
+            BalanceListView(balances: model.result, reload: model.reload)
         }
         .onAppear {
             trackEvent(.assetsCoins)
@@ -32,6 +32,6 @@ struct BalanceListView: View {
                 TokenBalanceCell(tokenBalance: tokenBalance)
             }
        }
-        .listStyle(GroupedListStyle())
+        .listStyle(PlainListStyle())
     }
 }

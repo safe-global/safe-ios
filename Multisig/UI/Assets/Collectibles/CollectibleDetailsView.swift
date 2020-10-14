@@ -19,15 +19,17 @@ struct CollectibleDetailsView: View {
     var body: some View {
         List {
             VStack (alignment: .leading, spacing: 7) {
-                TokenImage(width: nil, height: nil, url: viewModel.imageURL, name: "ico-collectible-placeholder")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .aspectRatio(1.0, contentMode: .fill)
-                    .cornerRadius(cornerRadius)
-                    .background(
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .foregroundColor(Color.gnoSnowwhite)
-                            .gnoShadow()
-                    )
+                if let url = viewModel.imageURL {
+                    TokenImage(width: nil, height: nil, url: url, name: "ico-collectible-placeholder")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .aspectRatio(1.0, contentMode: .fill)
+                        .cornerRadius(cornerRadius)
+                        .background(
+                            RoundedRectangle(cornerRadius: cornerRadius)
+                                .foregroundColor(Color.gnoSnowwhite)
+                                .gnoShadow()
+                        )
+                }
                 
                 Text(viewModel.name).body()
 
@@ -44,7 +46,6 @@ struct CollectibleDetailsView: View {
                 BrowseLinkButton(title: "View on " + viewModel.websiteName!, url: viewModel.website!)
             }
         }
-        .padding()
         .onAppear {
             self.trackEvent(.assetsCollectiblesDetails)
         }

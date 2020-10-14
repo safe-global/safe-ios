@@ -22,7 +22,10 @@ struct LoadingSafeSettingsView: View {
     @EnvironmentObject var model: LoadingSafeSettingsViewModel
     var body: some View {
         NetworkContentView(status: model.status, reload: model.reload) {
-            SafeSettingListView(safe: model.safe, reload: model.reload)
+            SafeSettingListView(safe: model.result, reload: model.reload)
+        }
+        .onAppear {
+            trackEvent(.settingsSafe)
         }
     }
 }
@@ -42,7 +45,7 @@ struct SafeSettingListView: View {
                 ENSName(safe: safe, rowHeight: rowHeight)
                 Advanced(safe: safe, rowHeight: rowHeight)
             }
-            .listStyle(GroupedListStyle())
+            .listStyle(PlainListStyle())
         } else {
             Text("No safe to display")
         }

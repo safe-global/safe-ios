@@ -9,29 +9,41 @@
 import Foundation
 import Combine
 
-class LoadingSafeSettingsViewModel: NetworkContentViewModel {
-    @Published
-    var safe: Safe?
+class LoadingSafeSettingsViewModel: ObservableObject, LoadingModel {
+    var reloadSubject = PassthroughSubject<Void, Never>()
+    var cancellables = Set<AnyCancellable>()
+    var coreDataCancellable: AnyCancellable?
+    @Published var status: ViewLoadingStatus = .initial
+    @Published var result: Safe?
 
-    func reload() {
-        super.reload {  safe -> (SafeStatusRequest.Response, Safe) in
-            guard let addressString = safe.address else {
-                throw "Error: safe does not have address. Please reload."
-            }
-            let address = try Address(from: addressString)
-            let safeInfo = try Safe.download(at: address)
-            return (safeInfo, safe)
-        } receive: { [weak self] (response, safe) in
-            guard let `self` = self else { return }
-            safe.update(from: response)
-            self.safe = safe
+    init() {
+        buildCoreDataPipeline()
+        buildReload()
+    }
+
+    func buildReload() {
+        buildReloadPipelineWith { upstream in
+            upstream
+                .selectedSafe()
+                .receive(on: DispatchQueue.global())
+                .tryMap { safe in
+                    guard let addressString = safe.address else {
+                        throw "Error: safe does not have address. Please reload."
+                    }
+                    let address = try Address(from: addressString)
+                    let safeInfo = try Safe.download(at: address)
+                    safe.update(from: safeInfo)
+                    return safe
+                }
+                .receive(on: RunLoop.main)
+                .eraseToAnyPublisher()
         }
     }
 }
 
+
 extension Safe {
     func update(from safeInfo: SafeStatusRequest.Response) {
-        objectWillChange.send()
         threshold = safeInfo.threshold.value
         owners = safeInfo.owners.map { $0.address }
         implementation = safeInfo.implementation.address

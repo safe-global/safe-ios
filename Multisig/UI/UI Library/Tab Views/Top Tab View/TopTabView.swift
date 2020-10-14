@@ -23,6 +23,7 @@ struct TopTabView<SelectionValue: Hashable>: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            Divider()
             HStack(spacing: 0) {
                 ForEach(items) { item in
                     TopTabButton(tag: item.id, selection: self.selection) {
@@ -32,6 +33,7 @@ struct TopTabView<SelectionValue: Hashable>: View {
             }
             .frame(height: ScreenMetrics.topTabHeight)
             .background(Color.gnoWhite)
+            Divider()
 
             if selectedItem != nil {
                 selectedItem!.content.frame(maxHeight: .infinity)

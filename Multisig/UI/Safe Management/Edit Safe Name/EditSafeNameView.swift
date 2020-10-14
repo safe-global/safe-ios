@@ -25,7 +25,7 @@ struct EditSafeNameView: View {
 
     @State
     var safe: Safe?
-    
+
     @ObservedObject
     var model: EditSafeNameViewModel
 
@@ -57,6 +57,7 @@ struct EditSafeNameView: View {
         .navigationBarItems(trailing: saveButton)
         .onAppear {
             self.trackEvent(.settingsSafeEditName)
+            self.model.reset()
         }
     }
 

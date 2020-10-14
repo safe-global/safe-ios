@@ -37,6 +37,7 @@ struct CollectibleCellView: View {
                 .foregroundColor(Color.gnoSnowwhite)
                 .gnoShadow()
         )
+        .padding(.vertical, 10)
     }
 
     private var nameTextColor: Color {

@@ -28,10 +28,12 @@ class EditSafeNameViewModel: ObservableObject {
 
     private var subscribers = Set<AnyCancellable>()
 
+    var name: String
+
     init(address: String, name: String) {
         self.address = address
+        self.name = name
         self.enteredText = name
-        
         $enteredText
             .dropFirst()
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -41,6 +43,12 @@ class EditSafeNameViewModel: ObservableObject {
                 self.error = self.isValid == false ? "Name must not be empty" : ""
             }
             .store(in: &subscribers)
+    }
+
+    func reset() {
+        enteredText = name
+        isValid = nil
+        error = ""
     }
 
     func onEditing() {
