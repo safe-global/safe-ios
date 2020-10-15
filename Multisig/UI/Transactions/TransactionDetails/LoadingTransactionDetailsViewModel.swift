@@ -13,6 +13,7 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
     var reloadSubject = PassthroughSubject<String, Never>()
     var signSubject = PassthroughSubject<Transaction, Never>()
     var cancellables = Set<AnyCancellable>()
+    var signCancellables = Set<AnyCancellable>()
     @Published var status: ViewLoadingStatus = .initial
     @Published var result = TransactionViewModel()
 
@@ -59,7 +60,7 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
 
     func buildSignPipeline() {
         signSubject
-            .status(.loading, path: \.status, object: self, set: &cancellables)
+            .status(.loading, path: \.status, object: self, set: &signCancellables)
 
         let output = signSubject
             .compactMap { transaction in
@@ -77,15 +78,15 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
             .multicast { PassthroughSubject<Result<Void, Error>, Never>() }
 
         output
-            .handleError(statusPath: \.status, object: self, set: &cancellables)
+            .handleError(statusPath: \.status, object: self, set: &signCancellables)
 
         output
             .onSuccessResult()
-            .status(.initial, path: \.status, object: self, set: &cancellables)
+            .status(.initial, path: \.status, object: self, set: &signCancellables)
 
         output
             .connect()
-            .store(in: &cancellables)
+            .store(in: &signCancellables)
     }
 
     func reload(transaction: TransactionViewModel) {
@@ -93,6 +94,9 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
             result = transaction
             status = .success
         } else {
+            self.cancellables = .init()
+            self.reloadSubject = .init()
+            self.buildReloadPipeline()
             reloadSubject.send(transaction.id)
         }
     }
@@ -107,6 +111,9 @@ class LoadingTransactionDetailsViewModel: ObservableObject {
             preconditionFailure(
                 "Failed to sign: either transaction is not a transfer or the internal transaction does not exist.")
         }
+        self.signCancellables = .init()
+        self.signSubject = .init()
+        self.buildSignPipeline()
         signSubject.send(transaction)
     }
 }
