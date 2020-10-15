@@ -149,7 +149,7 @@ public class BIP39 {
                                          language: BIP39Language = BIP39Language.english) -> Data? {
         let formattedMnemonics = mnemonics
             .lowercased()
-            .replacingOccurrences(of: ",", with: " ")
+            .components(separatedBy: CharacterSet.punctuationCharacters).joined(separator: " ")
             .condenseWhitespace()
 
         let valid = BIP39.mnemonicsToEntropy(formattedMnemonics, language: language) != nil
