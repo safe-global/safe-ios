@@ -36,7 +36,7 @@ class TransferTransactionViewModel: TransactionViewModel, TransferAmmountViewMod
             symbol = eth.symbol
             logoURL = eth.logo?.absoluteString
         } else if let erc721TransferInfo = transferInfo.transferInfo as? Erc721TransferInfo {
-            symbol = erc721TransferInfo.tokenSymbol
+            symbol = erc721TransferInfo.tokenSymbol ?? "NFT"
             value = 1
             decimals = 0
             logoURL = erc721TransferInfo.logoUri
@@ -44,7 +44,7 @@ class TransferTransactionViewModel: TransactionViewModel, TransferAmmountViewMod
             let erc20TransferInfo = transferInfo.transferInfo as! Erc20TransferInfo
             value = Int256(erc20TransferInfo.value.value)
             decimals = (try? UInt256(erc20TransferInfo.decimals ?? 0)) ?? 0
-            symbol = erc20TransferInfo.tokenSymbol
+            symbol = erc20TransferInfo.tokenSymbol ?? "ERC20"
             logoURL = erc20TransferInfo.logoUri
         }
 
