@@ -85,12 +85,8 @@ struct SelectOwnerAddressView: View {
 
     func submit() {
         guard model.importWallet() else { return }
-        //not needed in iOS less than 14
-        if #available(iOS 14.0, *) {
-            self.presentationMode.wrappedValue.dismiss()
-        } else {
-            onSubmit?()
-        }
+        // dismiss the sheet
+        onSubmit?()
     }
 }
 
