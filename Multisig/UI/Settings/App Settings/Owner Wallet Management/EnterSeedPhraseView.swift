@@ -38,8 +38,15 @@ struct EnterSeedPhraseView: View {
                 Text("Import the seed phrase (12 or 24 words) from your hardware or MetaMask owner wallet to sign transactions")
                     .body()
                     .multilineTextAlignment(.center)
-                EnterSeedView(seed: $seed, isEditing: $isEditing, isValid: $isValid, errorMessage: $errorMessage)
+                // Otherwise keyboardAdaptive modefier behaives strangly
+                // Horizontal padding if less than 12 keyboardAdaptive won't work
+                HStack {
+                    EnterSeedView(seed: $seed, isEditing: $isEditing, isValid: $isValid, errorMessage: $errorMessage)
+                }
+                .padding(.horizontal, 12)
+
                 Spacer()
+
                 NavigationLink(destination: SelectOwnerAddressView(
                                 rootNode: rootNode, onSubmit: {
                                     self.presentationMode.wrappedValue.dismiss()
@@ -48,6 +55,7 @@ struct EnterSeedPhraseView: View {
                                label: { EmptyView() })
             }
             .padding()
+            .keyboardAdaptive()
             .navigationBarTitle("Import Wallet", displayMode: .inline)
             .navigationBarItems(trailing: nextButton)
             .onAppear {

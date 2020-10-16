@@ -147,11 +147,16 @@ public class BIP39 {
 
     static public func seedFromMmemonics(_ mnemonics: String, password: String = "",
                                          language: BIP39Language = BIP39Language.english) -> Data? {
-        let valid = BIP39.mnemonicsToEntropy(mnemonics, language: language) != nil
+        let formattedMnemonics = mnemonics
+            .lowercased()
+            .components(separatedBy: CharacterSet.punctuationCharacters).joined(separator: " ")
+            .condenseWhitespace()
+
+        let valid = BIP39.mnemonicsToEntropy(formattedMnemonics, language: language) != nil
         if (!valid) {
             return nil
         }
-        guard let mnemData = mnemonics.decomposedStringWithCompatibilityMapping.data(using: .utf8) else { return nil }
+        guard let mnemData = formattedMnemonics.decomposedStringWithCompatibilityMapping.data(using: .utf8) else { return nil }
         let salt = "mnemonic" + password
         guard let saltData = salt.decomposedStringWithCompatibilityMapping.data(using: .utf8) else { return nil }
         guard let seedArray = try? PKCS5.PBKDF2(password: mnemData.bytes,
