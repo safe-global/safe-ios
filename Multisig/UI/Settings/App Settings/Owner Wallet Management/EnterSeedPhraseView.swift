@@ -35,7 +35,7 @@ struct EnterSeedPhraseView: View {
             VStack(spacing: 24) {
                 Text("Enter your seed phrase")
                     .headline()
-                Text("Import the seed phrase (12 or 24 words) from your hardware or MetaMask owner wallet to sign transactions")
+                Text("Enter the seed phrase from your hardware wallet or MetaMask owner wallet. Typically 12 (sometimes 24) words separated by single spaces. ")
                     .body()
                     .multilineTextAlignment(.center)
                 // Otherwise keyboardAdaptive modefier behaives strangly
@@ -56,7 +56,7 @@ struct EnterSeedPhraseView: View {
             }
             .padding()
             .keyboardAdaptive()
-            .navigationBarTitle("Import Wallet", displayMode: .inline)
+            .navigationBarTitle("Import Owner Key", displayMode: .inline)
             .navigationBarItems(trailing: nextButton)
             .onAppear {
                 self.trackEvent(.ownerEnterSeed)
