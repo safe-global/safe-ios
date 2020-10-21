@@ -13,5 +13,4 @@ class SegmentContainerView: UINibView {
     @IBOutlet weak var segmentBar: SegmentBar!
     @IBOutlet weak var contentView: UIView!
 
-    
 }

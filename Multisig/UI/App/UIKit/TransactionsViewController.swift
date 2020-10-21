@@ -9,21 +9,24 @@
 import UIKit
 
 class TransactionsViewController: UIViewController {
+    var headerContainerView: HeaderContainerView!
+    lazy var noSafesView = NoSafesView()
+    lazy var transactionListViewController = TransactionListViewController()
+    var hasSafe = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TBD
-        view.backgroundColor = UIColor.systemGray6
-
-        //  create no safe view
-        // create empty state view
-        // create loading, no data view, and a table view
-        // remote data controller will load transaction list
-        // custom cell configurable based on the data
-
-        // prefetch logic
-        // prefetch activity indicator, and inserting cells to table view
-        // extend the remote data controller to load next page
+        headerContainerView.loadContent = { [weak self] in
+            guard let `self` = self else { return nil }
+            if self.hasSafe {
+                // embed the transaction vc
+                return self.transactionListViewController.view
+            } else {
+                return self.noSafesView
+            }
+        }
     }
 
 }
+
+class TransactionListViewController: UIViewController {}

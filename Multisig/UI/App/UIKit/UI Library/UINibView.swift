@@ -1,5 +1,5 @@
 //
-//  UIView+Nib.swift
+//  UINibView.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 21.10.20.
@@ -7,6 +7,26 @@
 //
 
 import UIKit
+
+/// View that initializes itself from the nib named the same as the class name.
+class UINibView: UIView {
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    /// Initializes the view. If you override it, make sure to call super
+    /// in order to load the view contents.
+    func commonInit() {
+        autoloadFromNib()
+    }
+}
 
 extension UIView {
     /// Loads the nib named the same as class name and adds contents of the
@@ -30,20 +50,5 @@ extension UIView {
         view.frame = self.bounds
         view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         addSubview(view)
-    }
-}
-
-class UINibView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
-    }
-
-    func commonInit() {
-        autoloadFromNib()
     }
 }
