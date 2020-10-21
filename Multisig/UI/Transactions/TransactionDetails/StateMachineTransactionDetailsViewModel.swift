@@ -77,7 +77,6 @@ class StateMachineTransactionDetailsViewModel: ObservableObject {
         }
     }
 
-
 }
 
 enum LoadingTransactionDetailsFailure: LocalizedError {
