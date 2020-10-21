@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        scene_swiftUI(scene, willConnectTo: session, options: connectionOptions)
+        scene_uikit(scene, willConnectTo: session, options: connectionOptions)
     }
 
     func scene_uikit(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
