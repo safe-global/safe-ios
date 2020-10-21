@@ -49,7 +49,7 @@ struct EnterSeedPhraseView: View {
 
                 NavigationLink(destination: SelectOwnerAddressView(
                                 rootNode: rootNode, onSubmit: {
-                                    self.presentationMode.wrappedValue.dismiss()
+                                    App.shared.viewState.showImportKeySheet.toggle()
                                 }),
                                isActive: $goNext,
                                label: { EmptyView() })

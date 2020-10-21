@@ -72,7 +72,7 @@ struct BasicAppSettingsView: View {
                             style: .shortAddressNoShareGrayColor)
                 Spacer()
                 Button(action: {
-                    showDeleteSigningKeyConfirmation = true
+                    showDeleteSigningKeyConfirmation.toggle()
                 }, label: {
                     Image(systemName: "trash").font(.gnoBody).foregroundColor(.gnoTomato)
                 })
@@ -97,7 +97,7 @@ struct BasicAppSettingsView: View {
             }
         } else {
             Button {
-                App.shared.viewState.showImportKeySheet = true
+                App.shared.viewState.showImportKeySheet.toggle()
             } label: {
                 HStack {
                     Text("Import owner key").body()
