@@ -116,6 +116,7 @@
 		0A19D43B249A5BA500A316B6 /* TransferTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D43A249A5BA500A316B6 /* TransferTransaction.json */; };
 		0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */; };
 		0A29ECAA24C1EBFD00CE28FD /* Address+LocalizedStringKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29ECA924C1EBFD00CE28FD /* Address+LocalizedStringKey.swift */; };
+		0A31ACE02540358E00D14FBF /* StateMachineTransactionDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31ACDF2540358E00D14FBF /* StateMachineTransactionDetailsViewModel.swift */; };
 		0A339C5D24C1D16E00DAD84B /* Image+Blockies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
 		0A451BD2252DC1D5001DB7D2 /* WithSelectedSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BD1252DC1D5001DB7D2 /* WithSelectedSafe.swift */; };
@@ -132,7 +133,6 @@
 		0A451C24252DDD33001DB7D2 /* LoadingSafeSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451C23252DDD33001DB7D2 /* LoadingSafeSettingsViewModel.swift */; };
 		0A451C36252DF7AF001DB7D2 /* TokenBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451C35252DF7AF001DB7D2 /* TokenBalanceCell.swift */; };
 		0A451C44252DF7E4001DB7D2 /* FullScreenBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451C43252DF7E4001DB7D2 /* FullScreenBackground.swift */; };
-		0A451C6A252DFA53001DB7D2 /* LoadingTransactionDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451C69252DFA53001DB7D2 /* LoadingTransactionDetailsViewModel.swift */; };
 		0A465C2E246C196900AFA467 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C2D246C196900AFA467 /* Theme.swift */; };
 		0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C33246C236A00AFA467 /* FrameForTapping.swift */; };
 		0A465C37246C2ECD00AFA467 /* GetInTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C36246C2ECD00AFA467 /* GetInTouchView.swift */; };
@@ -481,6 +481,7 @@
 		0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
 		0A257D5C6A06DFC04313FC55 /* Pods-NotificationServiceExtension.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		0A29ECA924C1EBFD00CE28FD /* Address+LocalizedStringKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address+LocalizedStringKey.swift"; sourceTree = "<group>"; };
+		0A31ACDF2540358E00D14FBF /* StateMachineTransactionDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachineTransactionDetailsViewModel.swift; sourceTree = "<group>"; };
 		0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Blockies.swift"; sourceTree = "<group>"; };
 		0A35CC2F24810CF6005E45BA /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
@@ -498,7 +499,6 @@
 		0A451C23252DDD33001DB7D2 /* LoadingSafeSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSafeSettingsViewModel.swift; sourceTree = "<group>"; };
 		0A451C35252DF7AF001DB7D2 /* TokenBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBalanceCell.swift; sourceTree = "<group>"; };
 		0A451C43252DF7E4001DB7D2 /* FullScreenBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenBackground.swift; sourceTree = "<group>"; };
-		0A451C69252DFA53001DB7D2 /* LoadingTransactionDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTransactionDetailsViewModel.swift; sourceTree = "<group>"; };
 		0A465C2D246C196900AFA467 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0A465C33246C236A00AFA467 /* FrameForTapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameForTapping.swift; sourceTree = "<group>"; };
 		0A465C36246C2ECD00AFA467 /* GetInTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetInTouchView.swift; sourceTree = "<group>"; };
@@ -991,7 +991,7 @@
 				046D0A442497BED8000F4021 /* TransactionStatusTypeView.swift */,
 				0AA9F261249A188C005BD60F /* AdvancedTransactionDetailsView.swift */,
 				0AD1D92F252720EC00B8EEFF /* LoadingTransactionDetailsView.swift */,
-				0A451C69252DFA53001DB7D2 /* LoadingTransactionDetailsViewModel.swift */,
+				0A31ACDF2540358E00D14FBF /* StateMachineTransactionDetailsViewModel.swift */,
 				048643DC24E4490A003DD966 /* CreationTransactionBodyView.swift */,
 				047EE9F524EF015C00AEB2D1 /* TransactionActionView.swift */,
 				047EE9F324EF014C00AEB2D1 /* TransactionActionDetailsView.swift */,
@@ -2296,6 +2296,7 @@
 				0A451BF0252DDB49001DB7D2 /* NoDataView.swift in Sources */,
 				046D0A452497BED8000F4021 /* TransactionStatusTypeView.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
+				0A31ACE02540358E00D14FBF /* StateMachineTransactionDetailsViewModel.swift in Sources */,
 				04EF2AEB2492883A0070ED1A /* TransactionConfiramtionStatusView.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
 				0A0EFC98246DAABF00D3D8BF /* BottomBorder.swift in Sources */,
@@ -2467,7 +2468,6 @@
 				0A465C37246C2ECD00AFA467 /* GetInTouchView.swift in Sources */,
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
 				0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */,
-				0A451C6A252DFA53001DB7D2 /* LoadingTransactionDetailsViewModel.swift in Sources */,
 				0A0983A224BC5C82009EE296 /* BackendTokenStore.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,

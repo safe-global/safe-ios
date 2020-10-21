@@ -12,12 +12,17 @@ import Combine
 struct LoadingTransactionDetailsView: View {
     var transaction: TransactionViewModel
     @ObservedObject
-    var model: LoadingTransactionDetailsViewModel
+    var model: StateMachineTransactionDetailsViewModel
+    @ObservedObject
+    var appSettings = App.shared.settings
 
     var body: some View {
         NetworkContentView(status: model.status, reload: reload) {
             TransactionDetailsOuterBodyView(
                 transactionModel: model.result, reload: reload, confirm: confirm, canSign: model.canSign)
+        }
+        .onReceive(appSettings.$signingKeyAddress) { _ in
+            self.model.status = .initial
         }
         .onAppear {
             trackEvent(.transactionsDetails)
