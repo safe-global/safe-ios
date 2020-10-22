@@ -242,7 +242,7 @@
 		0AF1C7F42540887300E28669 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C7F22540887300E28669 /* HeaderViewController.swift */; };
 		0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C7F32540887300E28669 /* HeaderViewController.xib */; };
 		0AF1C7FB25408A4D00E28669 /* SafeBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C7FA25408A4D00E28669 /* SafeBarButton.swift */; };
-		0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C80025408A6F00E28669 /* SafeBarView.xib */; };
+		0AF1C80125408A6F00E28669 /* SafeBarButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C80025408A6F00E28669 /* SafeBarButton.xib */; };
 		0AF1C80725408B5000E28669 /* IdenticonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C80625408B5000E28669 /* IdenticonView.swift */; };
 		0AF1C81225408EA000E28669 /* SegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C81025408EA000E28669 /* SegmentViewController.swift */; };
 		0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C81125408EA000E28669 /* SegmentViewController.xib */; };
@@ -261,6 +261,7 @@
 		0AF1C89B2541AD5D00E28669 /* ScrollableEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C89A2541AD5D00E28669 /* ScrollableEmptyView.swift */; };
 		0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C8A42541ADFF00E28669 /* LoadingView.swift */; };
 		0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C8AA2541AE0600E28669 /* LoadingView.xib */; };
+		0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C9132541C68000E28669 /* BalancesViewController.swift */; };
 		0AF2731624DAABDC007E4012 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2731524DAABDC007E4012 /* NotificationService.swift */; };
 		0AF2731A24DAABDC007E4012 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2733C24DABAAF007E4012 /* AppDelegate+Messaging.swift */; };
@@ -643,7 +644,7 @@
 		0AF1C7F22540887300E28669 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		0AF1C7F32540887300E28669 /* HeaderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderViewController.xib; sourceTree = "<group>"; };
 		0AF1C7FA25408A4D00E28669 /* SafeBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBarButton.swift; sourceTree = "<group>"; };
-		0AF1C80025408A6F00E28669 /* SafeBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeBarView.xib; sourceTree = "<group>"; };
+		0AF1C80025408A6F00E28669 /* SafeBarButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeBarButton.xib; sourceTree = "<group>"; };
 		0AF1C80625408B5000E28669 /* IdenticonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdenticonView.swift; sourceTree = "<group>"; };
 		0AF1C81025408EA000E28669 /* SegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentViewController.swift; sourceTree = "<group>"; };
 		0AF1C81125408EA000E28669 /* SegmentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentViewController.xib; sourceTree = "<group>"; };
@@ -664,6 +665,7 @@
 		0AF1C8A42541ADFF00E28669 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		0AF1C8AA2541AE0600E28669 /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		0AF1C9122541B6A300E28669 /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		0AF1C9132541C68000E28669 /* BalancesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesViewController.swift; sourceTree = "<group>"; };
 		0AF2730E24DAAAB6007E4012 /* Multisig.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Multisig.entitlements; sourceTree = "<group>"; };
 		0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AF2731524DAABDC007E4012 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -1143,6 +1145,7 @@
 				0AF1C8282540914600E28669 /* NoSafesViewController.swift */,
 				0AF1C81C254090CE00E28669 /* LoadSafe.storyboard */,
 				0AF1C822254090E200E28669 /* LoadSafeViewController.swift */,
+				0AF1C9132541C68000E28669 /* BalancesViewController.swift */,
 				0A53EBB1253F341600E6ACD0 /* UI Library */,
 			);
 			path = UIKit;
@@ -1156,7 +1159,7 @@
 				0AEE149E2540233C00046EE7 /* UINibView.swift */,
 				0AF1C8782541A9E700E28669 /* ScrollViewTemplateXib.xib */,
 				0AF1C7FA25408A4D00E28669 /* SafeBarButton.swift */,
-				0AF1C80025408A6F00E28669 /* SafeBarView.xib */,
+				0AF1C80025408A6F00E28669 /* SafeBarButton.xib */,
 				0AF1C80625408B5000E28669 /* IdenticonView.swift */,
 				0AF1C7F22540887300E28669 /* HeaderViewController.swift */,
 				0AF1C7F32540887300E28669 /* HeaderViewController.xib */,
@@ -2176,7 +2179,7 @@
 				0AF1C81D254090CE00E28669 /* LoadSafe.storyboard in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
-				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
+				0AF1C80125408A6F00E28669 /* SafeBarButton.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				555312F425068E0F0008206B /* README in Resources */,
 				0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */,
@@ -2537,6 +2540,7 @@
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
+				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
 				0AA9F26B249A2003005BD60F /* SCGTransactionStatus+ViewModel.swift in Sources */,
 				0AF1C86D254178B600E28669 /* DataErrorView.swift in Sources */,
 				55B6464E25304F9B0050BD95 /* Settings.swift in Sources */,
