@@ -262,6 +262,9 @@
 		0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C8A42541ADFF00E28669 /* LoadingView.swift */; };
 		0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C8AA2541AE0600E28669 /* LoadingView.xib */; };
 		0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C9132541C68000E28669 /* BalancesViewController.swift */; };
+		0AF1C91F2541DB3F00E28669 /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */; };
+		0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */; };
+		0AF1C9262541E09D00E28669 /* UITableViewCell+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C9252541E09C00E28669 /* UITableViewCell+UINib.swift */; };
 		0AF2731624DAABDC007E4012 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2731524DAABDC007E4012 /* NotificationService.swift */; };
 		0AF2731A24DAABDC007E4012 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2733C24DABAAF007E4012 /* AppDelegate+Messaging.swift */; };
@@ -666,6 +669,9 @@
 		0AF1C8AA2541AE0600E28669 /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		0AF1C9122541B6A300E28669 /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		0AF1C9132541C68000E28669 /* BalancesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesViewController.swift; sourceTree = "<group>"; };
+		0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
+		0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BalanceTableViewCell.xib; sourceTree = "<group>"; };
+		0AF1C9252541E09C00E28669 /* UITableViewCell+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+UINib.swift"; sourceTree = "<group>"; };
 		0AF2730E24DAAAB6007E4012 /* Multisig.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Multisig.entitlements; sourceTree = "<group>"; };
 		0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AF2731524DAABDC007E4012 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -1145,7 +1151,10 @@
 				0AF1C8282540914600E28669 /* NoSafesViewController.swift */,
 				0AF1C81C254090CE00E28669 /* LoadSafe.storyboard */,
 				0AF1C822254090E200E28669 /* LoadSafeViewController.swift */,
+				0AF1C9252541E09C00E28669 /* UITableViewCell+UINib.swift */,
 				0AF1C9132541C68000E28669 /* BalancesViewController.swift */,
+				0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */,
+				0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */,
 				0A53EBB1253F341600E6ACD0 /* UI Library */,
 			);
 			path = UIKit;
@@ -2178,6 +2187,7 @@
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AF1C81D254090CE00E28669 /* LoadSafe.storyboard in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
+				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarButton.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
@@ -2428,6 +2438,7 @@
 				046D0A6E249A446D000F4021 /* ChangeImplementationTransactionDetailsHeaderView.swift in Sources */,
 				047EE9F624EF015C00AEB2D1 /* TransactionActionView.swift in Sources */,
 				0AA9F2402497DB18005BD60F /* TransactionsListViewModel.swift in Sources */,
+				0AF1C9262541E09D00E28669 /* UITableViewCell+UINib.swift in Sources */,
 				046D0A6C249A446D000F4021 /* SettingsChangeTransactionDetailsHeaderView.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
 				55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */,
@@ -2526,6 +2537,7 @@
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
 				0A9BC3412460449E00EB9C5D /* EnterENSNameViewModel.swift in Sources */,
+				0AF1C91F2541DB3F00E28669 /* BalanceTableViewCell.swift in Sources */,
 				0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */,
 				0476916A246437C300D73D8B /* ContractVersionCell.swift in Sources */,
 				049ECFF225004375004FF02F /* ChangeImplementationTransactionViewModel.swift in Sources */,
