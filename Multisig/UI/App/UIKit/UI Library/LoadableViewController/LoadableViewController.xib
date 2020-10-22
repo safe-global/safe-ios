@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadableViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="dataErrorView" destination="PWE-M3-bUd" id="rxx-3t-aCk"/>
+                <outlet property="emptyView" destination="rYf-NZ-p5Y" id="fql-bP-gO1"/>
+                <outlet property="loadingView" destination="n7L-C1-bxQ" id="4DE-gn-2eQ"/>
+                <outlet property="tableView" destination="Kia-eh-nHJ" id="7LU-Rv-DBl"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="allViews" destination="rYf-NZ-p5Y" collectionClass="NSMutableArray" id="6zz-o6-W0p"/>
+                <outletCollection property="allViews" destination="n7L-C1-bxQ" collectionClass="NSMutableArray" id="rib-BE-Dz6"/>
+                <outletCollection property="allViews" destination="PWE-M3-bUd" collectionClass="NSMutableArray" id="ro5-5g-YWa"/>
+                <outletCollection property="allViews" destination="Kia-eh-nHJ" collectionClass="NSMutableArray" id="V7A-Fy-tgt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n7L-C1-bxQ" customClass="LoadingView" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PWE-M3-bUd" customClass="ScrollableDataErrorView" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rYf-NZ-p5Y" customClass="ScrollableEmptyView" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kia-eh-nHJ">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="PWE-M3-bUd" secondAttribute="bottom" id="0ap-Vv-XYJ"/>
+                <constraint firstItem="n7L-C1-bxQ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="1CV-nO-2vZ"/>
+                <constraint firstItem="n7L-C1-bxQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="1lO-43-Hfv"/>
+                <constraint firstItem="Kia-eh-nHJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="5Ad-mb-cPc"/>
+                <constraint firstItem="Kia-eh-nHJ" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="DLI-9i-QUc"/>
+                <constraint firstItem="Kia-eh-nHJ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Eu9-hj-IFa"/>
+                <constraint firstItem="Kia-eh-nHJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="JDf-yD-xfF"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rYf-NZ-p5Y" secondAttribute="trailing" id="K7K-m1-gxW"/>
+                <constraint firstItem="Kia-eh-nHJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="LuN-X5-wgT"/>
+                <constraint firstItem="PWE-M3-bUd" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Lv3-bw-eEB"/>
+                <constraint firstItem="n7L-C1-bxQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="RsE-Qu-beY"/>
+                <constraint firstItem="rYf-NZ-p5Y" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="SBm-mU-lZ4"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Kia-eh-nHJ" secondAttribute="trailing" id="Z9L-7d-eAG"/>
+                <constraint firstItem="PWE-M3-bUd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ayn-4j-hgy"/>
+                <constraint firstItem="Kia-eh-nHJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="h5h-Fc-V7R"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="n7L-C1-bxQ" secondAttribute="bottom" id="nw5-13-eFE"/>
+                <constraint firstItem="PWE-M3-bUd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="t1x-5s-dmZ"/>
+                <constraint firstItem="rYf-NZ-p5Y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ysA-vI-fEH"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="rYf-NZ-p5Y" secondAttribute="bottom" id="zCU-Qs-36D"/>
+            </constraints>
+            <point key="canvasLocation" x="140.57971014492756" y="153.34821428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

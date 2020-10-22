@@ -35,11 +35,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func rootViewController() -> UIViewController {
-        let assetsTabVC = tabViewController(root: AssetsViewController(), title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
-        let transactionsTabVC = tabViewController(root: TransactionsViewController(), title: "Transactions", image: #imageLiteral(resourceName: "tab-icon-transactions.pdf"), tag: 1)
-        let settingsTabVC = tabViewController(root: SettingsViewController(), title: "Settings", image: #imageLiteral(resourceName: "tab-icon-settings.pdf"), tag: 2)
+//        let assetsTabVC = tabViewController(root: AssetsViewController(), title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
+//        let transactionsTabVC = tabViewController(root: TransactionsViewController(), title: "Transactions", image: #imageLiteral(resourceName: "tab-icon-transactions.pdf"), tag: 1)
+//        let settingsTabVC = tabViewController(root: SettingsViewController(), title: "Settings", image: #imageLiteral(resourceName: "tab-icon-settings.pdf"), tag: 2)
+        let tabVC = tabViewController(root: LoadableViewController(nibName: nil, bundle: nil), title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [assetsTabVC, transactionsTabVC, settingsTabVC]
+        tabBar.viewControllers = [tabVC]
+//        tabBar.viewControllers = [assetsTabVC, transactionsTabVC, settingsTabVC]
         return tabBar
     }
 
