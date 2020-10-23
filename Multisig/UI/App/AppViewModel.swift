@@ -15,13 +15,13 @@ class AppViewModel {
     var collectibles = CollectibleBalancesModel()
     var transactions = LoadingTransactionListViewModel()
     var safeSettings = LoadingSafeSettingsViewModel()
-    private var txDetailsPool = [String: LoadingTransactionDetailsViewModel]()
+    private var txDetailsPool = [String: StateMachineTransactionDetailsViewModel]()
 
-    func details(_ tx: TransactionViewModel) -> LoadingTransactionDetailsViewModel {
+    func details(_ tx: TransactionViewModel) -> StateMachineTransactionDetailsViewModel {
         precondition(!tx.id.isEmpty)
 
         if txDetailsPool[tx.id] == nil {
-            let model = LoadingTransactionDetailsViewModel()
+            let model = StateMachineTransactionDetailsViewModel()
             txDetailsPool[tx.id] = model
         }
 

@@ -20,12 +20,86 @@
 	<string>2.4.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CLIENT_GATEWAY_URL</key>
+	<string>$(CLIENT_GATEWAY_URL)</string>
+	<key>CONTACT_EMAIL</key>
+	<string>$(CONTACT_EMAIL)</string>
+	<key>DISCORD_URL</key>
+	<string>$(DISCORD_URL)</string>
+	<key>ETH_BLOCK_BROWSER_URL</key>
+	<string>$(ETH_BLOCK_BROWSER_URL)</string>
+	<key>ETH_RPC_URL</key>
+	<string>$(ETH_RPC_URL)</string>
+	<key>FEATURE_SUGGESTION_URL</key>
+	<string>$(FEATURE_SUGGESTION_URL)</string>
+	<key>GNOSIS_SAFE_WEB_URL</key>
+	<string>$(GNOSIS_SAFE_WEB_URL)</string>
+	<key>HELP_CENTER_URL</key>
+	<string>$(HELP_CENTER_URL)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LICENSES_URL</key>
+	<string>$(LICENSES_URL)</string>
+	<key>LOGGERS</key>
+	<string>$(LOGGERS)</string>
+	<key>LOG_LEVEL</key>
+	<string>$(LOG_LEVEL)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NETWORK</key>
+	<string>$(NETWORK)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Safe need to use camera to scan QR code.</string>
+	<key>PRIVACY_URL</key>
+	<string>$(PRIVACY_URL)</string>
+	<key>RELAY_SERVICE_URL</key>
+	<string>$(RELAY_SERVICE_URL)</string>
+	<key>SERVICE_ENV</key>
+	<string>$(SERVICE_ENV)</string>
+	<key>TERMS_URL</key>
+	<string>$(TERMS_URL)</string>
+	<key>TRANSACTION_SERVICE_URL</key>
+	<string>$(TRANSACTION_SERVICE_URL)</string>
+	<key>TSKConfiguration</key>
+	<dict>
+		<key>TSKPinnedDomains</key>
+		<dict>
+			<key>gnosis.io</key>
+			<dict>
+				<key>TSKDisableDefaultReportUri</key>
+				<true/>
+				<key>TSKEnforcePinning</key>
+				<string>$(SSL_ENFORCE_PINNING)</string>
+				<key>TSKIncludeSubdomains</key>
+				<true/>
+				<key>TSKPublicKeyHashes</key>
+				<array>
+					<string>JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=</string>
+					<string>++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</string>
+				</array>
+			</dict>
+			<key>gnosisdev.com</key>
+			<dict>
+				<key>TSKDisableDefaultReportUri</key>
+				<true/>
+				<key>TSKEnforcePinning</key>
+                <string>$(SSL_ENFORCE_PINNING)</string>
+				<key>TSKIncludeSubdomains</key>
+				<true/>
+				<key>TSKPublicKeyHashes</key>
+				<array>
+					<string>JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=</string>
+					<string>++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</string>
+				</array>
+			</dict>
+		</dict>
+		<key>TSKSwizzleNetworkDelegates</key>
+		<false/>
+	</dict>
+	<key>TWITTER_URL</key>
+	<string>$(TWITTER_URL)</string>
+    <key>USE_UIKIT</key>
+    <string>$(USE_UIKIT)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Averta-Regular.otf</string>
@@ -76,79 +150,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-	<key>SERVICE_ENV</key>
-	<string>$(SERVICE_ENV)</string>
-	<key>NETWORK</key>
-	<string>$(NETWORK)</string>
-	<key>RELAY_SERVICE_URL</key>
-	<string>$(RELAY_SERVICE_URL)</string>
-	<key>TRANSACTION_SERVICE_URL</key>
-	<string>$(TRANSACTION_SERVICE_URL)</string>
-	<key>CLIENT_GATEWAY_URL</key>
-	<string>$(CLIENT_GATEWAY_URL)</string>
-	<key>ETH_RPC_URL</key>
-	<string>$(ETH_RPC_URL)</string>
-	<key>ETH_BLOCK_BROWSER_URL</key>
-	<string>$(ETH_BLOCK_BROWSER_URL)</string>
-	<key>GNOSIS_SAFE_WEB_URL</key>
-	<string>$(GNOSIS_SAFE_WEB_URL)</string>
-	<key>TERMS_URL</key>
-	<string>$(TERMS_URL)</string>
-	<key>PRIVACY_URL</key>
-	<string>$(PRIVACY_URL)</string>
-	<key>LICENSES_URL</key>
-	<string>$(LICENSES_URL)</string>
-	<key>DISCORD_URL</key>
-	<string>$(DISCORD_URL)</string>
-	<key>TWITTER_URL</key>
-	<string>$(TWITTER_URL)</string>
-	<key>HELP_CENTER_URL</key>
-	<string>$(HELP_CENTER_URL)</string>
-	<key>FEATURE_SUGGESTION_URL</key>
-	<string>$(FEATURE_SUGGESTION_URL)</string>
-	<key>CONTACT_EMAIL</key>
-	<string>$(CONTACT_EMAIL)</string>
-	<key>LOGGERS</key>
-	<string>$(LOGGERS)</string>
-	<key>LOG_LEVEL</key>
-	<string>$(LOG_LEVEL)</string>
-	<key>USE_UIKIT</key>
-	<string>$(USE_UIKIT)</string>
-	<key>TSKConfiguration</key>
-	<dict>
-		<key>TSKSwizzleNetworkDelegates</key>
-		<false/>
-		<key>TSKPinnedDomains</key>
-		<dict>
-			<key>gnosis.io</key>
-			<dict>
-				<key>TSKPublicKeyHashes</key>
-				<array>
-					<string>JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=</string>
-					<string>++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</string>
-				</array>
-				<key>TSKIncludeSubdomains</key>
-				<true/>
-				<key>TSKEnforcePinning</key>
-				<true/>
-				<key>TSKDisableDefaultReportUri</key>
-				<true/>
-			</dict>
-			<key>gnosisdev.com</key>
-			<dict>
-				<key>TSKPublicKeyHashes</key>
-				<array>
-					<string>JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=</string>
-					<string>++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</string>
-				</array>
-				<key>TSKIncludeSubdomains</key>
-				<true/>
-				<key>TSKEnforcePinning</key>
-				<true/>
-				<key>TSKDisableDefaultReportUri</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
 </dict>
 </plist>

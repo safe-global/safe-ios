@@ -114,6 +114,11 @@ USE_UIKIT = NO
 // Info.plist file (TSKConfiguration key). For details, read documentation:
 // at https://datatheorem.github.io/TrustKit/documentation/Classes/TrustKit.html
 
+// Whether to enforce SSL pinning. If enabled, the connections will break
+// if the certificate pinning fails.
+// Range of values: 1 is YES, 0 is NO.
+SSL_ENFORCE_PINNING = 1
+
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/
 PRIVACY_URL     = https:/$()/gnosis-safe.io/privacy/
