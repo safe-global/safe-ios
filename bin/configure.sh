@@ -10,10 +10,10 @@ cp "${EXAMPLE_CONFIG}" "${CONFIG_FILE}"
 sed -i '' "s/USE_YOUR_OWN_INFURA_KEY_HERE/${INFURA_KEY}/g" "${CONFIG_FILE}"
 
 # replace the ssl pinning flag with the parameter value
-if [ -z ${params.SSL_ENFORCE_PINNING} ]; then
-    echo "SSL_ENFORCE_PINNING param is not set."
+if [ -z ${SSL_ENFORCE_PINNING} ]; then
+    # param is not set, do nothing
 else
-    sed -i '' "s/SSL_ENFORCE_PINNING = .*/SSL_ENFORCE_PINNING = ${params.SSL_ENFORCE_PINNING}/g" "${CONFIG_FILE}"
+    sed -i '' "s/SSL_ENFORCE_PINNING = .*/SSL_ENFORCE_PINNING = ${SSL_ENFORCE_PINNING}/g" "${CONFIG_FILE}"
 fi
 
 # decrypt configuration file with the key from environment
