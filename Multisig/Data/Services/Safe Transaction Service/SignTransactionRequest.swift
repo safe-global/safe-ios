@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Web3
 
 struct SignTransactionRequest: JSONRequest {
     let safe: String
@@ -44,21 +43,9 @@ struct SignTransactionRequest: JSONRequest {
         refundReceiver = transaction.refundReceiver.description
         nonce = transaction.nonce.description
         contractTransactionHash = transaction.safeTxHash!.description
-
-        let hashToSign = Data(ethHex: contractTransactionHash)
-        let data = transaction.encodeTransactionData(for: AddressString(safeAddress))
-        guard EthHasher.hash(data) == hashToSign else {
-            // log error in the crashlytics
-            throw "Could not verify provided safeTxHash"
-        }
-        guard let pkData = try App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) else {
-            throw "Private key not found"
-        }
-        let privateKey = try EthereumPrivateKey(pkData.bytes)
-        let signature = try privateKey.sign(hash: hashToSign.bytes)
-        sender = privateKey.address.hex(eip55: true)
-        let v = String(signature.v + 27, radix: 16)
-        self.signature = "\(signature.r.toHexString())\(signature.s.toHexString())\(v)"
+        let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress)
+        self.sender = signature.sender
+        self.signature = signature.value
     }
 
     var httpMethod: String { return "POST" }
