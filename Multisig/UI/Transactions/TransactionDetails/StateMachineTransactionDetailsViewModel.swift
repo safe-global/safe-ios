@@ -78,6 +78,7 @@ class StateMachineTransactionDetailsViewModel: ObservableObject {
                     guard let `self` = self else { return }
                     self.result = model
                     self.status = .success
+                    App.shared.snackbar.show(message: "Confirmation successfully submitted")
                 }
             } catch {
                 DispatchQueue.main.async { [weak self] in
