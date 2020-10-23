@@ -13,6 +13,46 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        if App.configuration.toggles.useUIKit {
+            scene_uikit(scene, willConnectTo: session, options: connectionOptions)
+        } else {
+            scene_swiftUI(scene, willConnectTo: session, options: connectionOptions)
+        }
+    }
+
+    func scene_uikit(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
+        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
+        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+
+        App.shared.tokenRegistry.load()
+
+        // Use a UIHostingController as window root view controller.
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = rootViewController()
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+
+        App.shared.notificationHandler.appStarted()
+    }
+
+    func rootViewController() -> UIViewController {
+        let tabVC = tabViewController(root: BalancesViewController.create(), title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
+        let tabBar = UITabBarController()
+        tabBar.viewControllers = [tabVC]
+        return tabBar
+    }
+
+    func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
+        let nav = UINavigationController(rootViewController: root)
+        let tabItem = UITabBarItem(title: title, image: image, tag: tag)
+        nav.tabBarItem = tabItem
+        return nav
+    }
+
+    func scene_swiftUI(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).

@@ -55,12 +55,34 @@ class HTTPClient {
     @discardableResult
     func execute<T: HTTPRequest>(request: T) throws -> Data {
         logger?.debug("Preparing to send \(request)")
-        let urlRequest = try self.urlRequest(from: request)
+        let urlRequest = self.urlRequest(from: request)
         let result = send(urlRequest)
         return try self.response(from: urlRequest, result: result)
     }
 
-    private func urlRequest<T: HTTPRequest>(from request: T) throws -> URLRequest {
+    func asyncExecute<T: HTTPRequest>(request: T, completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionTask {
+        logger?.debug("Preparing to send \(request)")
+        let urlRequest = self.urlRequest(from: request)
+
+        logger?.debug("Sending request \(urlRequest)")
+        let task = session.dataTask(with: urlRequest) { [weak self] data, response, error in
+
+            guard let `self` = self else { return }
+            let result: URLDataTaskResult = (data, response, error)
+            self.logger?.debug("Received response \(result)")
+
+            do {
+                let output = try self.response(from: urlRequest, result: result)
+                completion(.success(output))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+        return task
+    }
+
+    private func urlRequest<T: HTTPRequest>(from request: T) -> URLRequest {
         let url: URL
         if let requestURL = request.url {
             url = requestURL

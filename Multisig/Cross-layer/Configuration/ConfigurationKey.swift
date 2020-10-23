@@ -91,7 +91,9 @@ extension Double: InfoPlistValueType {
 
 extension Bool: InfoPlistValueType {
     static func convert(from value: Any) -> Self {
-        value as! Bool
+        if let bool = value as? Bool { return bool }
+        else if let nsString = value as? NSString { return nsString.boolValue }
+        preconditionFailure("Invalid configuration value: \(value)")
     }
 }
 

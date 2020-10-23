@@ -98,6 +98,8 @@
 	</dict>
 	<key>TWITTER_URL</key>
 	<string>$(TWITTER_URL)</string>
+    <key>USE_UIKIT</key>
+    <string>$(USE_UIKIT)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Averta-Regular.otf</string>

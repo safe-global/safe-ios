@@ -20,25 +20,32 @@ struct SafeBalancesRequest: JSONRequest {
         self.address = address.checksummed
     }
 
-    struct Response: Decodable {
-        let tokenAddress: AddressString? // nil == Ether
-        let token: Token? // nil == Ether
-        let balance: UInt256String
-        let balanceUsd: String
-
-        struct Token: Decodable {
-            let name: String
-            let symbol: String
-            let decimals: UInt256String
-            let logoUri: String
-        }
-    }
+    typealias Response = SafeBalance
 }
 
-extension SafeTransactionService{
+struct SafeBalance: Decodable {
+    let tokenAddress: AddressString? // nil == Ether
+    let token: Token? // nil == Ether
+    let balance: UInt256String
+    let balanceUsd: String
+
+    struct Token: Decodable {
+        let name: String
+        let symbol: String
+        let decimals: UInt256String
+        let logoUri: String
+    }
+
+}
+
+extension SafeTransactionService {
 
     func safeBalances(at address: Address) throws -> [SafeBalancesRequest.Response] {
         try execute(request: SafeBalancesRequest(address: address))
+    }
+
+    func asyncSafeBalances(at address: Address, completion: @escaping (Result<[SafeBalance], Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: SafeBalancesRequest(address: address), completion: completion)
     }
 
 }

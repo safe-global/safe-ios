@@ -92,6 +92,36 @@ public class JSONHTTPClient {
         return try response(from: data)
     }
 
+    public func asyncExecute<T: JSONRequest>(request jsonRequest: T, completion: @escaping (Result<T.ResponseType, Error>) -> Void) -> URLSessionTask? {
+        // note: vertical spacing for better readability
+        do {
+            let request = try self.request(from: jsonRequest)
+
+            let task = client.asyncExecute(request: request) { [weak self] result in
+                guard let `self` = self else { return }
+
+                switch result {
+
+                case .success(let data):
+                    do {
+                        let output: T.ResponseType = try self.response(from: data)
+                        completion(.success(output))
+                    } catch {
+                        completion(.failure(error))
+                    }
+
+                case .failure(let error):
+                    completion(.failure(error))
+
+                }
+            }
+            return task
+        } catch {
+            completion(.failure(error))
+            return nil
+        }
+    }
+
     private func request<T: JSONRequest>(from request: T) throws -> Request {
         let requestData = request.httpMethod != "GET" ? (try jsonEncoder.encode(request)) : nil
         let requestHeaders = request.httpMethod != "GET" ? ["Content-Type": "application/json"] : [:]
