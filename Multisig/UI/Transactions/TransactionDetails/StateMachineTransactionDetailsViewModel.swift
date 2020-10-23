@@ -27,15 +27,15 @@ class StateMachineTransactionDetailsViewModel: ObservableObject {
             DispatchQueue.global().async { [weak self] in
                 guard let `self` = self else { return }
                 do {
-                    // because this operation will take some time
-                    // we'll check if the transaction id haven't changed
                     let model = try self.loadContent(id: transaction.id)
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let `self` = self else { return }
                         self.result = model
                         self.status = .success
                     }
                 } catch {
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let `self` = self else { return }
                         App.shared.snackbar.show(message: error.localizedDescription)
                         self.status = .failure
                     }
@@ -47,8 +47,13 @@ class StateMachineTransactionDetailsViewModel: ObservableObject {
     func loadContent(id idString: String) throws -> TransactionViewModel {
         let id = TransactionID(value: idString)
         let transaction = try App.shared.clientGatewayService.transactionDetails(id: id)
-        let viewModels = TransactionViewModel.create(from: transaction)
-        guard viewModels.count == 1, let viewModel = viewModels.first else {
+        let result = try viewModel(from: transaction)
+        return result
+    }
+
+    func viewModel(from details: TransactionDetails) throws -> TransactionViewModel {
+        let modelList = TransactionViewModel.create(from: details)
+        guard modelList.count == 1, let viewModel = modelList.first else {
             throw LoadingTransactionDetailsFailure.unsupportedTransaction
         }
         return viewModel
@@ -62,14 +67,22 @@ class StateMachineTransactionDetailsViewModel: ObservableObject {
             return
         }
         status = .loading
-        DispatchQueue.global().async {
+        DispatchQueue.global().async { [weak self] in
+            guard let `self` = self else { return }
             do {
-                try App.shared.safeTransactionService.sign(transaction: transaction, safeAddress: address)
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) {
-                    self.status = .initial
+                let signature = try SafeTransactionSigner().sign(transaction, by: address)
+                let safeTxHash = transaction.safeTxHash!.description
+                let details = try App.shared.clientGatewayService.confirm(safeTxHash: safeTxHash, with: signature.value)
+                let model = try self.viewModel(from: details)
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    self.result = model
+                    self.status = .success
+                    App.shared.snackbar.show(message: "Confirmation successfully submitted")
                 }
             } catch {
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
                     App.shared.snackbar.show(message: error.localizedDescription)
                     self.status = .failure
                 }

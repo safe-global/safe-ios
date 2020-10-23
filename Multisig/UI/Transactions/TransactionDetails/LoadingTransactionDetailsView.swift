@@ -53,6 +53,8 @@ struct TransactionDetailsOuterBodyView: View {
     var canSign: Bool
     @State
     private var showsLink: Bool = false
+    @State
+    private var showsAlert: Bool = false
     private let padding: CGFloat = 11
 
     var body: some View {
@@ -81,11 +83,17 @@ struct TransactionDetailsOuterBodyView: View {
         VStack {
             Spacer()
 
-            Button(action: confirm) {
+            Button(action: { self.showsAlert.toggle() }) {
                 Text("Confirm")
             }
             .buttonStyle(GNOFilledButtonStyle())
             .padding()
+            .alert(isPresented: $showsAlert) {
+                Alert(title: Text("Confirm transaction"),
+                      message: Text("You are about to confirm the transaction with your currently imported owner key. This confirmation is off-chain. The transaction should be executed separately in the web interface."),
+                      primaryButton: .cancel(Text("Cancel")),
+                      secondaryButton: .default(Text("Confirm"), action: confirm))
+            }
         }
     }
 
