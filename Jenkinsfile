@@ -8,6 +8,9 @@ pipeline {
         ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
         CODECOV_TOKEN = credentials('CODECOV_TOKEN')
     }
+    parameters {
+        string(name: 'SSL_ENFORCE_PINNING', defaultValue: '1', description: 'Enforce SSL Pinning? (0 = NO/1 = YES)')
+    }
     stages {
         stage('Unit Test') {
             when {
@@ -16,7 +19,7 @@ pipeline {
             }
             steps {
                 ansiColor('xterm') {
-                    sh 'INFURA_KEY="${INFURA_STAGING_KEY}" bin/test.sh "Multisig - Staging Rinkeby"'
+                    sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/test.sh \"Multisig - Staging Rinkeby\""
                     junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/*/xcodebuild-test.log'
                     archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
@@ -37,10 +40,10 @@ pipeline {
                     // granted the access to the signing certificates via
                     // the machine's UI (remotely or directly), then
                     // the uploading to AppStoreConnect started to work.
-                    sh 'INFURA_KEY="${INFURA_STAGING_KEY}" bin/archive.sh "Multisig - Staging Rinkeby"'
-                    sh 'INFURA_KEY="${INFURA_STAGING_KEY}" bin/archive.sh "Multisig - Staging Mainnet"'
-                    sh 'INFURA_KEY="${INFURA_PROD_KEY}" bin/archive.sh "Multisig - Production Rinkeby"'
-                    sh 'INFURA_KEY="${INFURA_PROD_KEY}" bin/archive.sh "Multisig - Production Mainnet"'
+                    sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Rinkeby\""
+                    sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Mainnet\""
+                    sh "INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production Rinkeby\""
+                    sh "INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production Mainnet\""
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
             }
