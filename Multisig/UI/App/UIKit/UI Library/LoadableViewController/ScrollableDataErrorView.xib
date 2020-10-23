@@ -25,12 +25,37 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mHc-ML-4be">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="819"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Vh-dC-pkD" customClass="DataErrorView" customModule="Multisig" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Vh-dC-pkD">
                                     <rect key="frame" x="82" y="214.5" width="250" height="62"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="BtS-Rj-inw">
+                                            <rect key="frame" x="21" y="19" width="208" height="24"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ico-server-error" translatesAutoresizingMaskIntoConstraints="NO" id="Zdo-uB-Xlh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="5YD-sm-eST"/>
+                                                        <constraint firstAttribute="width" constant="24" id="U6e-Ch-UUA"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data cannot be loaded" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5F-T1-7H1">
+                                                    <rect key="frame" x="36" y="1.5" width="172" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="7b4-Tu-XNy"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
+                                        <constraint firstItem="BtS-Rj-inw" firstAttribute="centerX" secondItem="9Vh-dC-pkD" secondAttribute="centerX" id="1DO-TP-nxQ"/>
                                         <constraint firstAttribute="height" constant="62" id="B39-pe-Tfo"/>
                                         <constraint firstAttribute="width" constant="250" id="dhS-4f-pXP"/>
+                                        <constraint firstItem="BtS-Rj-inw" firstAttribute="centerY" secondItem="9Vh-dC-pkD" secondAttribute="centerY" id="r9R-Ng-aDp"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -65,6 +90,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ico-server-error" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

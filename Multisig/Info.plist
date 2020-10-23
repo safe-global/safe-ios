@@ -112,6 +112,8 @@
 	<string>$(LOGGERS)</string>
 	<key>LOG_LEVEL</key>
 	<string>$(LOG_LEVEL)</string>
+	<key>USE_UIKIT</key>
+	<string>$(USE_UIKIT)</string>
 	<key>TSKConfiguration</key>
 	<dict>
 		<key>TSKSwizzleNetworkDelegates</key>

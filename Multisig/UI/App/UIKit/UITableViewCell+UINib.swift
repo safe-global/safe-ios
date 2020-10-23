@@ -9,6 +9,8 @@
 import UIKit
 
 extension UITableViewCell {
+    /// Get nib by this class's name
+    /// - Returns: Nib named the same as the cell's class
     class func nib() -> UINib {
         UINib(nibName: String(describing: self), bundle: Bundle(for: Self.self))
     }

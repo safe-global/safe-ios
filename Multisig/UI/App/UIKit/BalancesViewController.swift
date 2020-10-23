@@ -9,23 +9,17 @@
 import UIKit
 import Kingfisher
 
+// Loads and displays balances
 class BalancesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
 
-    // store current data task
     var currentDataTask: URLSessionTask?
-
-    // store the results
     var results: [TokenBalance] = []
     var lastError: Error?
 
-    // isEmpty { results.isEmpty }
     override var isEmpty: Bool { results.isEmpty }
 
     let reuseID = "Cell"
     var transactionService = App.shared.safeTransactionService
-
-    // viewDidLoad
-    //      tableView data source, delegate = self
 
     static func create() -> BalancesViewController {
         .init(nibName: "\(LoadableViewController.self)", bundle: Bundle(for: LoadableViewController.self))
@@ -33,41 +27,40 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // empty view customization
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = false
-        // register cell
         tableView.register(BalanceTableViewCell.nib(), forCellReuseIdentifier: reuseID)
     }
 
-    // TODO: start twice
     override func reloadData() {
         super.reloadData()
-        // cancel current task;
         currentDataTask?.cancel()
         do {
-        // get selected safe
+            // get selected safe
             let context = App.shared.coreDataStack.viewContext
             let fr = Safe.fetchRequest().selected()
             let safe = try context.fetch(fr).first
 
-        // get its address
+            // get its address
             guard let string = safe?.address else {
                 throw "Selected safe does not have a stored address"
             }
             let address = try Address(from: string)
 
-            // task = load balances async
             currentDataTask = transactionService.asyncSafeBalances(at: address) { [weak self] result in
                 guard let `self` = self else { return }
-                //      error -> onError (main thread)
-                //      success -> transform; onSuccess (main thread)
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async { [weak self] in
                         guard let `self` = self else { return }
-                        // ignore cancellation error!
+                        // ignore cancellation error due to cancelling the
+                        // currently running task. Otherwise user will see
+                        // meaningless message.
+                        if (error as NSError).code == URLError.cancelled.rawValue &&
+                            (error as NSError).domain == NSURLErrorDomain {
+                            return
+                        }
                         self.lastError = error
                         self.onError()
                     }
@@ -87,16 +80,10 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         }
     }
 
-    // number of rows
-    //      results.count
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         results.count
     }
 
-    // cell for row
-    //      balance cell
-    //      data = item[indexPath.row]
-    //      cell.setData(image, symbol, token balance, fiat balance)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = results[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as! BalanceTableViewCell

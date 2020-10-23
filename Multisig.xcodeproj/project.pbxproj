@@ -251,10 +251,6 @@
 		0AF1C8292540914600E28669 /* NoSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C8282540914600E28669 /* NoSafesViewController.swift */; };
 		0AF1C8302540923C00E28669 /* LoadableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C82E2540923C00E28669 /* LoadableViewController.swift */; };
 		0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C82F2540923C00E28669 /* LoadableViewController.xib */; };
-		0AF1C85725416C8000E28669 /* EmptyPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C85625416C8000E28669 /* EmptyPlaceholderView.swift */; };
-		0AF1C85D25416C8900E28669 /* EmptyPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C85C25416C8900E28669 /* EmptyPlaceholderView.xib */; };
-		0AF1C86D254178B600E28669 /* DataErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C86C254178B600E28669 /* DataErrorView.swift */; };
-		0AF1C873254178BF00E28669 /* DataErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C872254178BF00E28669 /* DataErrorView.xib */; };
 		0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C88C2541AD4100E28669 /* ScrollableEmptyView.xib */; };
 		0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C88D2541AD4100E28669 /* ScrollableDataErrorView.xib */; };
 		0AF1C8952541AD4E00E28669 /* ScrollableDataErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C8942541AD4E00E28669 /* ScrollableDataErrorView.swift */; };
@@ -656,10 +652,6 @@
 		0AF1C8282540914600E28669 /* NoSafesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSafesViewController.swift; sourceTree = "<group>"; };
 		0AF1C82E2540923C00E28669 /* LoadableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableViewController.swift; sourceTree = "<group>"; };
 		0AF1C82F2540923C00E28669 /* LoadableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadableViewController.xib; sourceTree = "<group>"; };
-		0AF1C85625416C8000E28669 /* EmptyPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPlaceholderView.swift; sourceTree = "<group>"; };
-		0AF1C85C25416C8900E28669 /* EmptyPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyPlaceholderView.xib; sourceTree = "<group>"; };
-		0AF1C86C254178B600E28669 /* DataErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataErrorView.swift; sourceTree = "<group>"; };
-		0AF1C872254178BF00E28669 /* DataErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DataErrorView.xib; sourceTree = "<group>"; };
 		0AF1C8782541A9E700E28669 /* ScrollViewTemplateXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScrollViewTemplateXib.xib; sourceTree = "<group>"; };
 		0AF1C88C2541AD4100E28669 /* ScrollableEmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollableEmptyView.xib; sourceTree = "<group>"; };
 		0AF1C88D2541AD4100E28669 /* ScrollableDataErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollableDataErrorView.xib; sourceTree = "<group>"; };
@@ -1576,14 +1568,10 @@
 				0AF1C82F2540923C00E28669 /* LoadableViewController.xib */,
 				0AF1C8942541AD4E00E28669 /* ScrollableDataErrorView.swift */,
 				0AF1C88D2541AD4100E28669 /* ScrollableDataErrorView.xib */,
-				0AF1C86C254178B600E28669 /* DataErrorView.swift */,
-				0AF1C872254178BF00E28669 /* DataErrorView.xib */,
 				0AF1C8A42541ADFF00E28669 /* LoadingView.swift */,
 				0AF1C8AA2541AE0600E28669 /* LoadingView.xib */,
 				0AF1C89A2541AD5D00E28669 /* ScrollableEmptyView.swift */,
 				0AF1C88C2541AD4100E28669 /* ScrollableEmptyView.xib */,
-				0AF1C85625416C8000E28669 /* EmptyPlaceholderView.swift */,
-				0AF1C85C25416C8900E28669 /* EmptyPlaceholderView.xib */,
 			);
 			path = LoadableViewController;
 			sourceTree = "<group>";
@@ -2177,8 +2165,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
-				0AF1C85D25416C8900E28669 /* EmptyPlaceholderView.xib in Resources */,
-				0AF1C873254178BF00E28669 /* DataErrorView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
@@ -2427,7 +2413,6 @@
 				04EF2AEB2492883A0070ED1A /* TransactionConfiramtionStatusView.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
 				0A0EFC98246DAABF00D3D8BF /* BottomBorder.swift in Sources */,
-				0AF1C85725416C8000E28669 /* EmptyPlaceholderView.swift in Sources */,
 				049ECFEE25004334004FF02F /* CustomTransactionViewModel.swift in Sources */,
 				0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
@@ -2554,7 +2539,6 @@
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
 				0AA9F26B249A2003005BD60F /* SCGTransactionStatus+ViewModel.swift in Sources */,
-				0AF1C86D254178B600E28669 /* DataErrorView.swift in Sources */,
 				55B6464E25304F9B0050BD95 /* Settings.swift in Sources */,
 				04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,

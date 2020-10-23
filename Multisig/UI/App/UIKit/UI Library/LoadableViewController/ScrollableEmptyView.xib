@@ -25,11 +25,36 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mHc-ML-4be">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="819"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwx-aX-k8n" customClass="EmptyPlaceholderView" customModule="Multisig" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwx-aX-k8n">
                                     <rect key="frame" x="82" y="172.5" width="250" height="146"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VC0-ON-Huy">
+                                            <rect key="frame" x="18.5" y="4" width="213.5" height="138"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ico-no-collectibles" translatesAutoresizingMaskIntoConstraints="NO" id="wZg-sP-Gt7">
+                                                    <rect key="frame" x="38.5" y="0.0" width="136" height="110"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="136" id="EYu-eb-pJJ"/>
+                                                        <constraint firstAttribute="height" constant="110" id="jju-R3-PKV"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collectibles will appear here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YgY-dx-SxR">
+                                                    <rect key="frame" x="0.0" y="110" width="213.5" height="28"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="28" id="OUd-fy-5Hb"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="146" id="0Zr-jG-u9g"/>
+                                        <constraint firstItem="VC0-ON-Huy" firstAttribute="centerY" secondItem="iwx-aX-k8n" secondAttribute="centerY" id="Uma-sl-g4i"/>
+                                        <constraint firstItem="VC0-ON-Huy" firstAttribute="centerX" secondItem="iwx-aX-k8n" secondAttribute="centerX" id="eBU-yU-Nnh"/>
                                         <constraint firstAttribute="width" constant="250" id="qje-TB-y3l"/>
                                     </constraints>
                                 </view>
@@ -65,6 +90,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ico-no-collectibles" width="136" height="110"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

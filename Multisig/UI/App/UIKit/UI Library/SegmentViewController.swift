@@ -19,6 +19,7 @@ class SegmentViewController: ContainerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // TODO implementation of Segment view controller
         // create segment bar buttons
         // configure selector view
         // select default segment

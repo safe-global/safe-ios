@@ -8,6 +8,18 @@
 
 import UIKit
 
+/// Reusable class that implements common screen configuration for screens
+/// that load data, for example, balances or transaction list.
+///
+/// Subclasses define the loading behavior in the `reloadData()` method
+/// and use (or subclass) `onSuccess()`, `onError(), and `isEmpty` to
+/// control which view is shown.
+///
+/// There are the following views that can be shown:
+///      - showOnly(view: loadingView) - shown when reloadData starts, unless a refresh control is active
+///      - showOnly(view: dataErrorView) - shown onError() unles a refresh control was active.
+///      - showOnly(view: emptyView) - shown onSuccess() when isEmpty returns true
+///      - showOnly(view: tableView) - shown onSuccess() in isEmpty is false
 class LoadableViewController: UIViewController {
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var dataErrorView: ScrollableDataErrorView!
@@ -24,7 +36,6 @@ class LoadableViewController: UIViewController {
         scrollViews.forEach { view in
             view.refreshControl = createRefreshControl()
         }
-        // set the state needsReload
         setNeedsReload()
     }
 
@@ -32,8 +43,6 @@ class LoadableViewController: UIViewController {
         needsReload = value
     }
 
-    // on appear
-    // if needsReload, reload the data; needsReload = false
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if needsReload {
