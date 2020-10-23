@@ -10,9 +10,7 @@ cp "${EXAMPLE_CONFIG}" "${CONFIG_FILE}"
 sed -i '' "s/USE_YOUR_OWN_INFURA_KEY_HERE/${INFURA_KEY}/g" "${CONFIG_FILE}"
 
 # replace the ssl pinning flag with the parameter value
-if [ -z ${SSL_ENFORCE_PINNING} ]; then
-    echo "Using SSL_ENFORCE_PINNING as is in the config file."
-else
+if ! [ -z ${SSL_ENFORCE_PINNING} ]; then
     sed -i '' "s/SSL_ENFORCE_PINNING = .*/SSL_ENFORCE_PINNING = ${SSL_ENFORCE_PINNING}/g" "${CONFIG_FILE}"
 fi
 
