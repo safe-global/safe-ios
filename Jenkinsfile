@@ -19,6 +19,7 @@ pipeline {
             }
             steps {
                 ansiColor('xterm') {
+                    echo "SSL? ${params.SSL_ENFORCE_PINNING}"
                     sh 'INFURA_KEY="${INFURA_STAGING_KEY}" bin/test.sh "Multisig - Staging Rinkeby"'
                     junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/*/xcodebuild-test.log'
