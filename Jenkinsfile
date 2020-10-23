@@ -8,6 +8,9 @@ pipeline {
         ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
         CODECOV_TOKEN = credentials('CODECOV_TOKEN')
     }
+    parameters {
+        string(name: 'SSL_ENFORCE_PINNING', defaultValue: '1', description: 'Enforce SSL Pinning? (0 = NO/1 = YES)')
+    }
     stages {
         stage('Unit Test') {
             when {
