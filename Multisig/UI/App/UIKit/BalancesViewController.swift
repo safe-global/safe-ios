@@ -21,8 +21,8 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     let reuseID = "Cell"
     var transactionService = App.shared.safeTransactionService
 
-    static func create() -> BalancesViewController {
-        .init(nibName: "\(LoadableViewController.self)", bundle: Bundle(for: LoadableViewController.self))
+    static func create() -> Self {
+        createFromNib(superclass())
     }
 
     override func viewDidLoad() {
