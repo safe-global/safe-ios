@@ -40,10 +40,10 @@ pipeline {
                     // granted the access to the signing certificates via
                     // the machine's UI (remotely or directly), then
                     // the uploading to AppStoreConnect started to work.
-                    sh 'INFURA_KEY="${INFURA_STAGING_KEY}" bin/archive.sh "Multisig - Staging Rinkeby"'
-                    sh 'INFURA_KEY="${INFURA_STAGING_KEY}" bin/archive.sh "Multisig - Staging Mainnet"'
-                    sh 'INFURA_KEY="${INFURA_PROD_KEY}" bin/archive.sh "Multisig - Production Rinkeby"'
-                    sh 'INFURA_KEY="${INFURA_PROD_KEY}" bin/archive.sh "Multisig - Production Mainnet"'
+                    sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Rinkeby\""
+                    sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Mainnet\""
+                    sh "INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production Rinkeby\""
+                    sh "INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production Mainnet\""
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
             }
