@@ -11,7 +11,7 @@ sed -i '' "s/USE_YOUR_OWN_INFURA_KEY_HERE/${INFURA_KEY}/g" "${CONFIG_FILE}"
 
 # replace the ssl pinning flag with the parameter value
 if [ -z ${SSL_ENFORCE_PINNING} ]; then
-    # param is not set, do nothing
+    echo "Using SSL_ENFORCE_PINNING as is in the config file."
 else
     sed -i '' "s/SSL_ENFORCE_PINNING = .*/SSL_ENFORCE_PINNING = ${SSL_ENFORCE_PINNING}/g" "${CONFIG_FILE}"
 fi
