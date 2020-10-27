@@ -33,4 +33,14 @@ class SafeTransactionSigner {
         return Signature(value: safeSignature, sender: sender)
     }
 
+    class func numberOfKeysImported() -> Int {
+        do {
+            let pkData = try App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue)
+            return [pkData].compactMap { $0 }.count
+        } catch {
+            LogService.shared.error("Failure to get the key from keychain: \(error)")
+            return 0
+        }
+    }
+
 }

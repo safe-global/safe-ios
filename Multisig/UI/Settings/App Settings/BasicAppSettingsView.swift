@@ -87,6 +87,7 @@ struct BasicAppSettingsView: View {
                                         forKey: KeychainKey.ownerPrivateKey.rawValue)
                                     AppSettings.setSigningKeyAddress(nil)
                                     App.shared.snackbar.show(message: "Owner key removed from this app")
+                                    Tracker.shared.setUserProperty("\(SafeTransactionSigner.numberOfKeysImported())", for: TrackingUserProperty.numKeysImported)
                                 } catch {
                                     App.shared.snackbar.show(message: error.localizedDescription)
                                 }

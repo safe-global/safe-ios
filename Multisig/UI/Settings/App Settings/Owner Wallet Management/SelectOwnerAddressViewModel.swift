@@ -58,6 +58,7 @@ class SelectOwnerAddressViewModel: ObservableObject {
             try App.shared.keychainService.save(data: pkData, forKey: KeychainKey.ownerPrivateKey.rawValue)
             AppSettings.setSigningKeyAddress(addresses[selectedIndex].checksummed)
             App.shared.snackbar.show(message: "Owner key successfully imported")
+            Tracker.shared.setUserProperty("\(SafeTransactionSigner.numberOfKeysImported())", for: TrackingUserProperty.numKeysImported)
             return true
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
