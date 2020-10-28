@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // The requirement is to set num_safes property to "0" when there are no Safes
         #warning("TODO: refactor this is everywhere around the app")
         Tracker.shared.setUserProperty("\(Safe.count)", for: TrackingUserProperty.numSafes)
+        Tracker.shared.setUserProperty("\(SafeTransactionSigner.numberOfKeysImported())", for: TrackingUserProperty.numKeysImported)
 
         App.shared.notificationHandler.setUpMessaging(delegate: self)
         return true

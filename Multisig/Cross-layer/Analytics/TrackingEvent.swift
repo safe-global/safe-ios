@@ -11,6 +11,7 @@ import Foundation
 enum TrackingUserProperty: String, UserProperty {
     case numSafes = "num_safes" // string, number of user safes, "0" on fresh install
     case pushInfo = "push_info" // string: ["unknown", "disabled", "enabled"]
+    case numKeysImported = "num_keys_imported" // string, number of keys imported, "0" on fresh install
 }
 
 enum TrackingPushState: String {
