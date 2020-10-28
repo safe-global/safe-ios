@@ -25,7 +25,10 @@ class CustomTransactionViewModel: TransactionViewModel, TransferAmmountViewModel
         let eth = App.shared.tokenRegistry.token(address: .ether)!
         tokenSymbol = eth.symbol
         tokenLogoURL = eth.logo?.absoluteString ?? ""
-        let decimalAmount = BigDecimal(Int256(customTransactionInfo.value.value),
+
+        isOutgoing = true
+
+        let decimalAmount = BigDecimal(-Int256(customTransactionInfo.value.value),
                                        Int(clamping: eth.decimals))
         amount = TokenFormatter().string(
             from: decimalAmount,

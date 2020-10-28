@@ -429,6 +429,11 @@ extension DataDecodedParameterValue {
         guard let stringValue = stringValue else { return nil }
         return UInt256(stringValue)
     }
+
+    var dataValue: Data? {
+        guard let string = stringValue else { return nil }
+        return Data(exactlyHex: string)
+    }
 }
 
 extension String: DataDecodedParameterValue {}
@@ -459,6 +464,25 @@ enum DataDecodedParameterValueWrapper: Decodable {
 }
 
 // MARK: - Value Decoded (MultiSend)
+
+struct MultiSendCall {
+    var transactions: [MultiSendTransaction]
+    init?(dataDecoded: DataDecoded) {
+        guard dataDecoded.method == "multiSend",
+              let transactionsParam = dataDecoded.parameters?.first,
+              transactionsParam.type == "bytes",
+              let transactions = transactionsParam.valueDecoded?.multiSendTransactionsValue else {
+            return nil
+        }
+        self.transactions = transactions
+    }
+}
+
+extension DataDecoded {
+    var multiSendCall: MultiSendCall? {
+        MultiSendCall(dataDecoded: self)
+    }
+}
 
 // Currently, only MultiSend transactions are supported as a decoded value
 // parameters.
