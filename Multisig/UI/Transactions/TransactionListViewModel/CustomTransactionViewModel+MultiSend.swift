@@ -14,9 +14,13 @@ extension CustomTransactionViewModel {
         self.init()
         dataLength = UInt256(tx.data.data.count)
         to = tx.to.address.checksummed
+
         let eth = App.shared.tokenRegistry.token(address: .ether)!
         tokenSymbol = eth.symbol
         tokenLogoURL = eth.logo?.absoluteString ?? ""
+
+        isOutgoing = true
+
         let decimalAmount = BigDecimal(Int256(tx.value.value),
                                        Int(clamping: eth.decimals))
         amount = TokenFormatter().string(
