@@ -385,16 +385,19 @@ struct DataDecoded: Decodable {
     let parameters: [DataDecodedParameter]?
 }
 
+// MARK: - Data Decoded Parameter
+
 struct DataDecodedParameter: Decodable, Identifiable {
     let id = UUID()
     let name: String
     let type: String
     let value: DataDecodedParameterValue
+    let valueDecoded: ValueDecoded?
 }
 
 extension DataDecodedParameter {
     enum Key: String, CodingKey {
-        case name, type, value
+        case name, type, value, valueDecoded
     }
 
     init(from decoder: Decoder) throws {
@@ -402,6 +405,7 @@ extension DataDecodedParameter {
         name = try container.decode(String.self, forKey: .name)
         type = try container.decode(String.self, forKey: .type)
         value = try container.decode(DataDecodedParameterValueWrapper.self, forKey: .value).value
+        valueDecoded = try container.decodeIfPresent(ValueDecodedWrapper.self, forKey: .valueDecoded)?.value
     }
 }
 
@@ -454,7 +458,54 @@ enum DataDecodedParameterValueWrapper: Decodable {
     }
 }
 
-// MARK: - Details
+// MARK: - Value Decoded (MultiSend)
+
+// Currently, only MultiSend transactions are supported as a decoded value
+// parameters.
+protocol ValueDecoded {}
+
+struct UnknownValueDecoded: ValueDecoded {}
+
+enum ValueDecodedWrapper: Decodable {
+    case multiSendTransactions([MultiSendTransaction])
+    case unknown
+
+    var value: ValueDecoded {
+        switch self {
+        case .multiSendTransactions(let value):
+            return value
+        case .unknown:
+            return UnknownValueDecoded()
+        }
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        do {
+            self = try .multiSendTransactions(container.decode([MultiSendTransaction].self))
+        } catch {
+            self = .unknown
+        }
+    }
+}
+
+struct MultiSendTransaction: Decodable {
+    let operation: Operation
+    let to: AddressString
+    let value: UInt256String
+    let data: DataString
+    let dataDecoded: DataDecoded?
+}
+
+extension Array: ValueDecoded where Element == MultiSendTransaction {}
+
+extension ValueDecoded {
+    var multiSendTransactionsValue: [MultiSendTransaction]? {
+        self as? [MultiSendTransaction]
+    }
+}
+
+// MARK: - Transaction Details
 
 struct TransactionDetails: Decodable, SCGTransaction {
     let executedAt: Date?
