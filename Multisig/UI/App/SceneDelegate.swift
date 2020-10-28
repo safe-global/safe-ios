@@ -39,7 +39,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func rootViewController() -> UIViewController {
-        let tabVC = tabViewController(root: BalancesViewController.create(), title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
+        let tabRoot = HeaderViewController(rootViewController: BalancesViewController())
+        let tabVC = tabViewController(root: tabRoot, title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
         let tabBar = UITabBarController()
         tabBar.viewControllers = [tabVC]
         return tabBar

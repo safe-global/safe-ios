@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,9 +13,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeaderViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="barShadowView" destination="Al5-uC-xzr" id="NO2-L8-8E6"/>
                 <outlet property="contentView" destination="xK2-pE-wZA" id="SCW-Mh-0or"/>
                 <outlet property="headerBar" destination="DDE-g1-nRC" id="6cl-Oy-pHH"/>
-                <outlet property="safeBarButton" destination="buv-cV-e9q" id="f4H-Rh-hUC"/>
+                <outlet property="noSafeBarView" destination="hZV-ZR-C0D" id="sZt-r3-4U8"/>
+                <outlet property="safeBarView" destination="buv-cV-e9q" id="f4H-Rh-hUC"/>
                 <outlet property="switchSafeButton" destination="X1Y-Im-GQE" id="ioK-mQ-la4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,6 +27,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xK2-pE-wZA" userLabel="contentView">
+                    <rect key="frame" x="0.0" y="116" width="414" height="746"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DDE-g1-nRC" userLabel="headerBar">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="116"/>
                     <subviews>
@@ -36,35 +43,64 @@
                             <state key="normal">
                                 <imageReference key="image" image="chevron.down.circle" catalog="system" symbolScale="large"/>
                             </state>
+                            <connections>
+                                <action selector="didTapSwitchSafe:" destination="-1" eventType="touchUpInside" id="Iaw-gj-Q94"/>
+                            </connections>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buv-cV-e9q" userLabel="safeBarButton" customClass="SafeBarButton" customModule="Multisig" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2d-Ol-MyV">
                             <rect key="frame" x="16" y="60" width="326" height="44"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZV-ZR-C0D" customClass="NoSafeBarView" customModule="Multisig" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="326" height="44"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buv-cV-e9q" userLabel="safeBarView" customClass="SafeBarView" customModule="Multisig" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="326" height="44"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="44" id="zu7-Ub-xMa"/>
+                                <constraint firstAttribute="height" constant="44" id="9jA-oJ-RqC"/>
+                                <constraint firstItem="hZV-ZR-C0D" firstAttribute="top" secondItem="t2d-Ol-MyV" secondAttribute="top" id="I9h-G3-n1b"/>
+                                <constraint firstAttribute="bottom" secondItem="buv-cV-e9q" secondAttribute="bottom" id="KBr-dm-YBH"/>
+                                <constraint firstAttribute="bottom" secondItem="hZV-ZR-C0D" secondAttribute="bottom" id="M7K-Nq-SJV"/>
+                                <constraint firstItem="buv-cV-e9q" firstAttribute="top" secondItem="t2d-Ol-MyV" secondAttribute="top" id="OsI-iA-ngy"/>
+                                <constraint firstAttribute="bottom" secondItem="buv-cV-e9q" secondAttribute="bottom" id="Tkk-zM-njc"/>
+                                <constraint firstAttribute="trailing" secondItem="hZV-ZR-C0D" secondAttribute="trailing" id="Ub8-ep-xSf"/>
+                                <constraint firstItem="hZV-ZR-C0D" firstAttribute="leading" secondItem="t2d-Ol-MyV" secondAttribute="leading" id="V5y-xS-CBw"/>
+                                <constraint firstItem="buv-cV-e9q" firstAttribute="leading" secondItem="t2d-Ol-MyV" secondAttribute="leading" id="bao-1a-kAn"/>
+                                <constraint firstItem="buv-cV-e9q" firstAttribute="leading" secondItem="t2d-Ol-MyV" secondAttribute="leading" id="ldX-Ec-3uO"/>
+                                <constraint firstAttribute="trailing" secondItem="buv-cV-e9q" secondAttribute="trailing" id="umk-l9-ntS"/>
                             </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
+                        <constraint firstItem="t2d-Ol-MyV" firstAttribute="leading" secondItem="DDE-g1-nRC" secondAttribute="leading" constant="16" id="0Cj-R6-ONG"/>
+                        <constraint firstItem="X1Y-Im-GQE" firstAttribute="leading" secondItem="t2d-Ol-MyV" secondAttribute="trailing" constant="12" id="GMg-RF-S6N"/>
                         <constraint firstAttribute="trailing" secondItem="X1Y-Im-GQE" secondAttribute="trailing" constant="16" id="JD1-j8-kcr"/>
-                        <constraint firstItem="buv-cV-e9q" firstAttribute="leading" secondItem="DDE-g1-nRC" secondAttribute="leading" constant="16" id="KTR-Pj-AhF"/>
                         <constraint firstAttribute="height" constant="116" id="Kjk-nM-fZF"/>
-                        <constraint firstAttribute="bottom" secondItem="buv-cV-e9q" secondAttribute="bottom" constant="12" id="fSQ-K2-9ry"/>
-                        <constraint firstItem="X1Y-Im-GQE" firstAttribute="leading" secondItem="buv-cV-e9q" secondAttribute="trailing" constant="12" id="gwV-IE-G9T"/>
-                        <constraint firstItem="X1Y-Im-GQE" firstAttribute="bottom" secondItem="buv-cV-e9q" secondAttribute="bottom" id="hyp-Na-Kyd"/>
+                        <constraint firstAttribute="bottom" secondItem="t2d-Ol-MyV" secondAttribute="bottom" constant="12" id="nV5-bX-yDS"/>
+                        <constraint firstAttribute="bottom" secondItem="X1Y-Im-GQE" secondAttribute="bottom" constant="12" id="uf7-PI-dsu"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xK2-pE-wZA" userLabel="contentView">
-                    <rect key="frame" x="0.0" y="116" width="414" height="746"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.45000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Al5-uC-xzr">
+                    <rect key="frame" x="0.0" y="116" width="414" height="10"/>
+                    <color key="backgroundColor" name="tomato"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="2pF-v2-WCj"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="xK2-pE-wZA" firstAttribute="top" secondItem="DDE-g1-nRC" secondAttribute="bottom" id="DrB-qH-dCF"/>
+                <constraint firstItem="Al5-uC-xzr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="OFW-qA-PAQ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Al5-uC-xzr" secondAttribute="trailing" id="OVS-yv-dva"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="xK2-pE-wZA" secondAttribute="bottom" id="RdZ-vR-e9s"/>
+                <constraint firstItem="Al5-uC-xzr" firstAttribute="top" secondItem="DDE-g1-nRC" secondAttribute="bottom" id="XpD-vC-bmt"/>
                 <constraint firstItem="DDE-g1-nRC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="en4-yU-SNY"/>
                 <constraint firstItem="xK2-pE-wZA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="j5d-iB-cI0"/>
                 <constraint firstItem="DDE-g1-nRC" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="kg4-OX-aNB"/>
@@ -76,6 +112,9 @@
     </objects>
     <resources>
         <image name="chevron.down.circle" catalog="system" width="128" height="121"/>
+        <namedColor name="tomato">
+            <color red="0.94117647058823528" green="0.14509803921568629" blue="0.14509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

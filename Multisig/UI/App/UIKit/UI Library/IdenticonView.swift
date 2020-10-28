@@ -10,4 +10,8 @@ import UIKit
 
 // TODO: showing identicon
 class IdenticonView: UIImageView {
+
+    func setAddress(_ value: String) {
+        // TODO implementation
+    }
 }
