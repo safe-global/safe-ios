@@ -10,8 +10,11 @@ import SwiftUI
 
 struct TransactionActionDetailsView: View {
     var dataDecoded: DataDecoded
+    var data: DataWithLength
     var body: some View {
         List {
+            HexDataCellView(data: data)
+
             if hasParamters {
                 ForEach(dataDecoded.parameters!) { paramter in
                     ParameterView(parameter: paramter)
