@@ -133,7 +133,7 @@ struct TransactionDetailsInnerBodyView: View {
         return transferTransaction.isOutgoing
     }
 
-    private var data: (length: UInt256, data: String)? {
+    private var data: DataWithLength? {
         guard let customTransaction = transactionModel as? CustomTransactionViewModel,
               let data = customTransaction.data else {
             return nil
@@ -146,15 +146,12 @@ struct TransactionDetailsInnerBodyView: View {
         Group {
             TransactionHeaderView(transaction: transactionModel)
 
-            if dataDecoded != nil {
-                TransactionActionView(dataDecoded: dataDecoded!)
+            if let decoded = dataDecoded, let data = data {
+                TransactionActionView(dataDecoded: decoded, data: data)
             }
 
-            if data != nil {
-                VStack (alignment: .leading) {
-                    Text("Data").headline()
-                    ExpandableButton(title: "\(data!.length) Bytes", value: data!.data)
-                }.padding(.vertical, padding)
+            if let data = data {
+                HexDataCellView(data: data)
             }
 
             TransactionStatusTypeView(transaction: transactionModel)
@@ -183,5 +180,18 @@ struct TransactionDetailsInnerBodyView: View {
                 .frame(height: 48)
             }
         }
+    }
+}
+
+typealias DataWithLength = (length: UInt256, data: String)
+
+struct HexDataCellView: View {
+    var data: DataWithLength
+    private let padding: CGFloat = 11
+    var body: some View {
+        VStack (alignment: .leading) {
+            Text("Data").headline()
+            ExpandableButton(title: "\(data.length) Bytes", value: data.data)
+        }.padding(.vertical, padding)
     }
 }

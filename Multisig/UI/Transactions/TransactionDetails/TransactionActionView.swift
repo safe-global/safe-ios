@@ -10,10 +10,11 @@ import SwiftUI
 
 struct TransactionActionView: View {
     var dataDecoded: DataDecoded
+    var data: DataWithLength
 
     @ViewBuilder
     var body: some View {
-        NavigationLink(destination: TransactionActionDetailsView(dataDecoded: dataDecoded)) {
+        NavigationLink(destination: TransactionActionDetailsView(dataDecoded: dataDecoded, data: data)) {
             Text("Action (\(dataDecoded.method))").body()
         }
     }
