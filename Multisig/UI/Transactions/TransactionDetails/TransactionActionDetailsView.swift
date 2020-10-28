@@ -33,9 +33,3 @@ struct TransactionActionDetailsView: View {
         !(dataDecoded.parameters ?? []).isEmpty
     }
 }
-
-// struct MultisendActionDetailsView
-//      header - reuse from tx details
-//      hex data
-//      parameters
-//      tracking

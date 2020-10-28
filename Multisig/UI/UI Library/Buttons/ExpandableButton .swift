@@ -9,38 +9,51 @@
 import SwiftUI
 
 struct ExpandableButton: View {
-    @State
-    private var expanded: Bool = false
 
     var title: String
     var value: String
     var enableCopy: Bool = true
     
     var body: some View {
-        Button(action: {
-            self.expanded.toggle()
-        }) {
+        ExpandableView(title: Text(title).body(.gnoDarkGrey),
+                       value: copyableValue)
+    }
+
+    var copyableValue: some View {
+        CopyButton(value) {
+            Text(value).body()
+        }.disabled(!enableCopy)
+    }
+}
+
+struct ExpandableView<Title: View, Value: View>: View {
+    @State private var expanded: Bool = false
+
+    var title: Title
+    var value: Value
+
+    var body: some View {
+        Button(action: { self.expanded.toggle() }) {
             VStack(alignment: .leading) {
                 HStack {
-                    Text(title).body(.gnoDarkGrey)
+                    title
+
                     if expanded {
                         Image.chevronUp
                     } else {
                         Image.chevronDown
                     }
                 }
-                CopyButton(value) {
-                    if expanded {
-                        Text(value).body()
-                    }
-                }.disabled(!enableCopy)
-
+                if expanded {
+                    value
+                }
             }
         }
         .animation(.linear(duration: 0.1))
         .buttonStyle(PlainButtonStyle())
     }
 }
+
 
 struct ExpandableButton__Previews: PreviewProvider {
     static var previews: some View {

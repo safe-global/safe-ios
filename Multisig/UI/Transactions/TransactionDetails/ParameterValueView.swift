@@ -9,33 +9,35 @@
 import SwiftUI
 
 struct ParameterValueView: View {
+    var type: String
     var value: DataDecodedParameterValue?
     var nestingLevel: Int = 0
 
     var body: some View {
-        VStack {
-            if nestingLevel > 9 {
-                Text("some value")
-            } else {
-                valueView.padding(.leading, CGFloat(nestingLevel) * 8)
-            }
-        }
+        valueView.padding(.leading, nestingLevel == 0 ? 0 : 8)
     }
 
     @ViewBuilder
     var valueView: some View {
-        if value?.addressValue != nil {
-            AddressCell(address: value!.addressValue!.checksummed)
-        } else if stringValue != nil {
-            Text(stringValue!).body(.gnoDarkGrey)
-        } else {
-            VStack(alignment: .leading) {
-                Text("array").body(.gnoDarkGrey)
-                ForEach((0..<value!.arrayValue!.count)) { index in
-                    ParameterValueView(value: self.value!.arrayValue![index],
-                                       nestingLevel: self.nestingLevel + 1)
-                }
+        if let address = value?.addressValue {
+            AddressCell(address: address.checksummed)
+        } else if let string = stringValue {
+            if type.starts(with: "bytes"), let data = value?.dataValue {
+                ExpandableButton(title: "\(data.count) bytes", value: string)
+            } else {
+                Text(string).body(.gnoDarkGrey)
             }
+        } else {
+            ExpandableView(title: Text("array").body(.gnoDarkGrey),
+                           value: arrayContent)
+        }
+    }
+
+    var arrayContent: some View {
+        ForEach((0..<value!.arrayValue!.count)) { index in
+            ParameterValueView(type: type,
+                               value: self.value!.arrayValue![index],
+                               nestingLevel: self.nestingLevel + 1)
         }
     }
 
@@ -54,7 +56,8 @@ struct ParameterValueView: View {
 struct ParameterValueView_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            ParameterValueView(value: ["Hello","Hello", "Hello", ["Hello", "Hello"]])
+            ParameterValueView(type: "String", value: ["Hello","Hello", "Hello", ["Hello", "Hello"]])
         }
     }
 }
+

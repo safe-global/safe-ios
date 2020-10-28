@@ -147,7 +147,7 @@ struct TransactionDetailsInnerBodyView: View {
             TransactionHeaderView(transaction: transactionModel)
 
             if let decoded = dataDecoded, let data = data {
-                TransactionActionView(dataDecoded: decoded, data: data)
+                TransactionActionView(dataDecoded: decoded, data: data).padding(.vertical, padding)
             }
 
             if let data = data {

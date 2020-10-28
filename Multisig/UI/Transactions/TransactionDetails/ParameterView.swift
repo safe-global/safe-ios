@@ -13,7 +13,7 @@ struct ParameterView: View {
     var body: some View {
         VStack (alignment: .leading, spacing: 6) {
             Text("\(parameter.name)(\(parameter.type)):").body()
-            ParameterValueView(value: parameter.value)
+            ParameterValueView(type: parameter.type, value: parameter.value)
         }
     }
 }

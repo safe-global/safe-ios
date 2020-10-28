@@ -429,6 +429,11 @@ extension DataDecodedParameterValue {
         guard let stringValue = stringValue else { return nil }
         return UInt256(stringValue)
     }
+
+    var dataValue: Data? {
+        guard let string = stringValue else { return nil }
+        return Data(exactlyHex: string)
+    }
 }
 
 extension String: DataDecodedParameterValue {}
