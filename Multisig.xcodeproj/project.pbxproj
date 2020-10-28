@@ -216,6 +216,7 @@
 		0AB34D6624B71DE300A43988 /* SafeCollectiblesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */; };
 		0AB34D6824B71DF700A43988 /* TokensRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6724B71DF700A43988 /* TokensRequest.swift */; };
 		0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */; };
+		0AC60C332549751500A63AE2 /* MultiSendActionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C322549751500A63AE2 /* MultiSendActionListView.swift */; };
 		0AC94458254068D800921CA5 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC94457254068D800921CA5 /* Notifications.swift */; };
 		0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */; };
 		0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */; };
@@ -620,6 +621,7 @@
 		0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCollectiblesRequest.swift; sourceTree = "<group>"; };
 		0AB34D6724B71DF700A43988 /* TokensRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensRequest.swift; sourceTree = "<group>"; };
 		0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarCenter.swift; sourceTree = "<group>"; };
+		0AC60C322549751500A63AE2 /* MultiSendActionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSendActionListView.swift; sourceTree = "<group>"; };
 		0AC94457254068D800921CA5 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafe.swift; sourceTree = "<group>"; };
 		0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafeTests.swift; sourceTree = "<group>"; };
@@ -1053,6 +1055,7 @@
 				0A31ACDF2540358E00D14FBF /* StateMachineTransactionDetailsViewModel.swift */,
 				048643DC24E4490A003DD966 /* CreationTransactionBodyView.swift */,
 				047EE9F524EF015C00AEB2D1 /* TransactionActionView.swift */,
+				0AC60C322549751500A63AE2 /* MultiSendActionListView.swift */,
 				047EE9F324EF014C00AEB2D1 /* TransactionActionDetailsView.swift */,
 				043ABD1424EFE541008826D5 /* ParameterView.swift */,
 				043ABD1224EF373D008826D5 /* ParameterValueView.swift */,
@@ -2480,6 +2483,7 @@
 				0A0EFC9A246DAC1A00D3D8BF /* TabChildView.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
 				0A802B8124E413450001790F /* HTTPClientErrors.swift in Sources */,
+				0AC60C332549751500A63AE2 /* MultiSendActionListView.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,

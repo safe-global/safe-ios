@@ -13,7 +13,13 @@ struct ParameterValueView: View {
     var nestingLevel: Int = 0
 
     var body: some View {
-        valueView.padding(.leading, CGFloat(nestingLevel) * 8)
+        VStack {
+            if nestingLevel > 9 {
+                Text("some value")
+            } else {
+                valueView.padding(.leading, CGFloat(nestingLevel) * 8)
+            }
+        }
     }
 
     @ViewBuilder
@@ -23,7 +29,8 @@ struct ParameterValueView: View {
         } else if stringValue != nil {
             Text(stringValue!).body(.gnoDarkGrey)
         } else {
-            Group {
+            VStack(alignment: .leading) {
+                Text("array").body(.gnoDarkGrey)
                 ForEach((0..<value!.arrayValue!.count)) { index in
                     ParameterValueView(value: self.value!.arrayValue![index],
                                        nestingLevel: self.nestingLevel + 1)

@@ -38,6 +38,7 @@ enum TrackingEvent: String, Trackable {
     case transactionsDetails = "screen_transactions_details"
     case transactionsDetailsAdvanced = "screen_transactions_details_advanced"
     case transactionsDetailsAction = "transaction_details_action"
+    case transactionDetailsActionList = "transaction_details_action_list"
 
     case settingsApp = "screen_settings_app"
     case settingsAppAdvanced = "screen_settings_app_advanced"

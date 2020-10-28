@@ -14,8 +14,14 @@ struct TransactionActionView: View {
 
     @ViewBuilder
     var body: some View {
-        NavigationLink(destination: TransactionActionDetailsView(dataDecoded: dataDecoded, data: data)) {
-            Text("Action (\(dataDecoded.method))").body()
+        if let multiSend = dataDecoded.multiSendCall {
+            NavigationLink(destination: MultiSendActionListView(multiSend: multiSend)) {
+                Text("Multisend (\(multiSend.transactions.count) actions)").body()
+            }
+        } else {
+            NavigationLink(destination: TransactionActionDetailsView(dataDecoded: dataDecoded, data: data)) {
+                Text("Action (\(dataDecoded.method))").body()
+            }
         }
     }
 }

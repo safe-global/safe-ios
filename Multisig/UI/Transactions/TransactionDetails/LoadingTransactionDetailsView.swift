@@ -155,6 +155,7 @@ struct TransactionDetailsInnerBodyView: View {
             }
 
             TransactionStatusTypeView(transaction: transactionModel)
+            
             if displayConfirmations {
                 TransactionConfirmationsView(transaction: transactionModel).padding(.vertical, padding)
             }
