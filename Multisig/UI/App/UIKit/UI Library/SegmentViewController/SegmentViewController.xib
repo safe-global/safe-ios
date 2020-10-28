@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SegmentViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="Jtr-mV-JBv" id="bFd-Ti-WoR"/>
+                <outlet property="segmentBar" destination="dIl-My-qKS" id="heF-I8-tf1"/>
+                <outlet property="segmentBarStackView" destination="9Is-ox-VEL" id="Q30-gg-sUy"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pFh-ky-i4Z">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dIl-My-qKS" userLabel="segmentView">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9Is-ox-VEL" userLabel="segmentStackView">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="9Is-ox-VEL" firstAttribute="leading" secondItem="dIl-My-qKS" secondAttribute="leading" id="2YC-wj-eHx"/>
+                                <constraint firstAttribute="bottom" secondItem="9Is-ox-VEL" secondAttribute="bottom" id="KEY-Pn-z2u"/>
+                                <constraint firstAttribute="height" constant="56" id="Ots-Wy-vZj"/>
+                                <constraint firstAttribute="trailing" secondItem="9Is-ox-VEL" secondAttribute="trailing" id="iZ5-wM-sca"/>
+                                <constraint firstItem="9Is-ox-VEL" firstAttribute="top" secondItem="dIl-My-qKS" secondAttribute="top" id="yam-4U-0P1"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jtr-mV-JBv" userLabel="contentView">
+                            <rect key="frame" x="0.0" y="56" width="414" height="762"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="pFh-ky-i4Z" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="JFU-1x-glJ"/>
+                <constraint firstItem="pFh-ky-i4Z" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="S3c-6W-qMJ"/>
+                <constraint firstItem="pFh-ky-i4Z" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="hKp-mX-azH"/>
+                <constraint firstItem="pFh-ky-i4Z" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="nzx-FB-4OC"/>
+            </constraints>
+            <point key="canvasLocation" x="140.57971014492756" y="153.34821428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
