@@ -88,6 +88,9 @@
 		04EF2AEB2492883A0070ED1A /* TransactionConfiramtionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */; };
 		04EF2AED2492B5AF0070ED1A /* VerticalBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */; };
 		04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F533622490E83B00F28099 /* TransactionConfirmationsView.swift */; };
+		0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0070F6254AF22900A57CAF /* splash-screen-tagline@2x.png */; };
+		0A0070FA254AF22900A57CAF /* splash-screen-tagline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */; };
+		0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
 		0A09839C24BC522B009EE296 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839B24BC522B009EE296 /* Token.swift */; };
 		0A09839E24BC5301009EE296 /* InMemoryTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839D24BC5301009EE296 /* InMemoryTokenStore.swift */; };
@@ -483,6 +486,9 @@
 		04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalBarView.swift; sourceTree = "<group>"; };
 		04F533622490E83B00F28099 /* TransactionConfirmationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfirmationsView.swift; sourceTree = "<group>"; };
 		0832A1B307963B8AEAC28441 /* Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig"; sourceTree = "<group>"; };
+		0A0070F6254AF22900A57CAF /* splash-screen-tagline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline@2x.png"; sourceTree = "<group>"; };
+		0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline@3x.png"; sourceTree = "<group>"; };
+		0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline.png"; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		0A09839B24BC522B009EE296 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		0A09839D24BC5301009EE296 /* InMemoryTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryTokenStore.swift; sourceTree = "<group>"; };
@@ -1708,6 +1714,9 @@
 			children = (
 				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
 				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
+				0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */,
+				0A0070F6254AF22900A57CAF /* splash-screen-tagline@2x.png */,
+				0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */,
 				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
 			);
 			name = Resources;
@@ -2187,11 +2196,14 @@
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
+				0A0070FA254AF22900A57CAF /* splash-screen-tagline@3x.png in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AF1C81D254090CE00E28669 /* LoadSafe.storyboard in Resources */,
+				0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
+				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarButton.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
