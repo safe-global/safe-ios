@@ -13,7 +13,7 @@
             <connections>
                 <outlet property="button" destination="ER8-kc-26q" id="fj4-bp-Abr"/>
                 <outlet property="detailLabel" destination="car-8v-D1H" id="i3k-nj-ZmF"/>
-                <outlet property="identiconView" destination="nbY-R0-HP8" id="D4u-BN-ZVM"/>
+                <outlet property="identiconView" destination="Vj4-w7-Slb" id="ckl-Fx-gCe"/>
                 <outlet property="textLabel" destination="iQR-dW-kru" id="JRa-4d-bLv"/>
             </connections>
         </placeholder>
@@ -22,32 +22,24 @@
             <rect key="frame" x="0.0" y="0.0" width="283" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbY-R0-HP8" userLabel="identicon" customClass="IdenticonView" customModule="Multisig" customModuleProvider="target">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vj4-w7-Slb">
                     <rect key="frame" x="0.0" y="4" width="36" height="36"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="36" id="aVS-YM-bc2"/>
-                        <constraint firstAttribute="width" constant="36" id="ukm-3m-XaF"/>
+                        <constraint firstAttribute="width" constant="36" id="MMU-jw-w2t"/>
+                        <constraint firstAttribute="height" constant="36" id="icc-Yz-8L0"/>
                     </constraints>
-                </view>
+                </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="FVo-Gi-mfc">
                     <rect key="frame" x="48" y="0.0" width="235" height="44"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQR-dW-kru" userLabel="textLabel">
-                            <rect key="frame" x="0.0" y="0.0" width="235" height="22"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="22" id="mld-Qx-W2s"/>
-                            </constraints>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQR-dW-kru" userLabel="textLabel">
+                            <rect key="frame" x="0.0" y="0.0" width="235" height="23.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="car-8v-D1H" userLabel="detailLabel">
-                            <rect key="frame" x="0.0" y="22" width="235" height="22"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="22" id="Qt3-Q7-Ki9"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="iGZ-tX-CPf"/>
-                            </constraints>
+                            <rect key="frame" x="0.0" y="23.5" width="235" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -63,14 +55,14 @@
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ER8-kc-26q" secondAttribute="bottom" id="MHB-X2-5YA"/>
                 <constraint firstItem="FVo-Gi-mfc" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="QJg-Ov-tH1"/>
-                <constraint firstItem="FVo-Gi-mfc" firstAttribute="leading" secondItem="nbY-R0-HP8" secondAttribute="trailing" constant="12" id="cf7-Mj-ivv"/>
+                <constraint firstItem="Vj4-w7-Slb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="T0k-cE-mgF"/>
+                <constraint firstItem="FVo-Gi-mfc" firstAttribute="leading" secondItem="Vj4-w7-Slb" secondAttribute="trailing" constant="12" id="e4D-I8-UcU"/>
+                <constraint firstItem="Vj4-w7-Slb" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="g9h-Vf-LH9"/>
                 <constraint firstItem="FVo-Gi-mfc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="hX5-s8-ifO"/>
                 <constraint firstItem="ER8-kc-26q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="iK2-rG-9qq"/>
                 <constraint firstAttribute="trailing" secondItem="FVo-Gi-mfc" secondAttribute="trailing" id="lJm-s9-1ew"/>
                 <constraint firstAttribute="trailing" secondItem="ER8-kc-26q" secondAttribute="trailing" id="lWm-Eh-jjR"/>
                 <constraint firstItem="ER8-kc-26q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="mYI-Yf-ahE"/>
-                <constraint firstItem="nbY-R0-HP8" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="rnt-2E-zF8"/>
-                <constraint firstItem="nbY-R0-HP8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sz9-3e-r3x"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

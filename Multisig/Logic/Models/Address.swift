@@ -63,6 +63,11 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         _store.hex(eip55: false)
     }
 
+    func ellipsized(prefix: Int = 6, suffix: Int = 4, checksummed: Bool = true) -> String {
+        let value = checksummed ? self.checksummed : self.hexadecimal
+        return value.prefix(prefix) + "…" + value.suffix(suffix)
+    }
+
     var data: Data {
         Data(_store.rawAddress)
     }
