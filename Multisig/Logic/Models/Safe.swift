@@ -56,6 +56,13 @@ extension Safe: Identifiable {
         App.shared.coreDataStack.saveContext()
     }
 
+    static func getSelected() throws -> Safe? {
+        let context = App.shared.coreDataStack.viewContext
+        let fr = Safe.fetchRequest().selected()
+        let safe = try context.fetch(fr).first
+        return safe
+    }
+
     static func browserURL(address: String) -> URL {
         App.configuration.services.etehreumBlockBrowserURL
             .appendingPathComponent("address").appendingPathComponent(address)

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SegmentView" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="button" destination="HJa-LI-iY8" id="dnW-82-eLN"/>
+                <outlet property="selectorView" destination="T6V-T9-rjJ" id="cQY-aN-dcv"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="155" height="62"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJa-LI-iY8">
+                    <rect key="frame" x="0.0" y="0.0" width="155" height="62"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" name="hold"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapButton:" destination="-1" eventType="touchUpInside" id="wFH-Dq-tIb"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T6V-T9-rjJ">
+                    <rect key="frame" x="0.0" y="60" width="155" height="2"/>
+                    <color key="backgroundColor" name="hold"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="8iQ-Lx-Kpj"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="T6V-T9-rjJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4yn-fj-lD4"/>
+                <constraint firstAttribute="trailing" secondItem="T6V-T9-rjJ" secondAttribute="trailing" id="Omt-bT-4px"/>
+                <constraint firstItem="HJa-LI-iY8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Qet-ac-Hg5"/>
+                <constraint firstAttribute="trailing" secondItem="HJa-LI-iY8" secondAttribute="trailing" id="e1V-29-6mw"/>
+                <constraint firstAttribute="bottom" secondItem="T6V-T9-rjJ" secondAttribute="bottom" id="iQu-vX-xaL"/>
+                <constraint firstItem="HJa-LI-iY8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="wCE-qY-tc6"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="HJa-LI-iY8" secondAttribute="bottom" id="y34-Oh-OUQ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-47.10144927536232" y="-125.89285714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="hold">
+            <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

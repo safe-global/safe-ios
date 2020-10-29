@@ -222,7 +222,12 @@
 		0AC60C332549751500A63AE2 /* MultiSendActionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C322549751500A63AE2 /* MultiSendActionListView.swift */; };
 		0AC60C41254987F500A63AE2 /* CustomTransactionViewModel+MultiSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C40254987F400A63AE2 /* CustomTransactionViewModel+MultiSend.swift */; };
 		0AC60C472549880D00A63AE2 /* MultiSendActionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C462549880D00A63AE2 /* MultiSendActionDetailsView.swift */; };
-		0AC94458254068D800921CA5 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC94457254068D800921CA5 /* Notifications.swift */; };
+		0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C502549AF2200A63AE2 /* NoSafeBarView.swift */; };
+		0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC60C562549AF3800A63AE2 /* NoSafeBarView.xib */; };
+		0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C882549C9D800A63AE2 /* SegmentView.swift */; };
+		0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC60C8E2549C9F300A63AE2 /* SegmentView.xib */; };
+		0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C8282540914600E28669 /* NoSafesViewController.swift */; };
+		0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC94457254068D800921CA5 /* NSNotification+Events.swift */; };
 		0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */; };
 		0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */; };
 		0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDBFFC248E4C5D002035A2 /* Configuration.swift */; };
@@ -250,14 +255,13 @@
 		0AEE149F2540233C00046EE7 /* UINibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEE149E2540233C00046EE7 /* UINibView.swift */; };
 		0AF1C7F42540887300E28669 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C7F22540887300E28669 /* HeaderViewController.swift */; };
 		0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C7F32540887300E28669 /* HeaderViewController.xib */; };
-		0AF1C7FB25408A4D00E28669 /* SafeBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C7FA25408A4D00E28669 /* SafeBarButton.swift */; };
-		0AF1C80125408A6F00E28669 /* SafeBarButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C80025408A6F00E28669 /* SafeBarButton.xib */; };
+		0AF1C7FB25408A4D00E28669 /* SafeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C7FA25408A4D00E28669 /* SafeBarView.swift */; };
+		0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C80025408A6F00E28669 /* SafeBarView.xib */; };
 		0AF1C80725408B5000E28669 /* IdenticonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C80625408B5000E28669 /* IdenticonView.swift */; };
 		0AF1C81225408EA000E28669 /* SegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C81025408EA000E28669 /* SegmentViewController.swift */; };
 		0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C81125408EA000E28669 /* SegmentViewController.xib */; };
 		0AF1C81D254090CE00E28669 /* LoadSafe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C81C254090CE00E28669 /* LoadSafe.storyboard */; };
 		0AF1C823254090E200E28669 /* LoadSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C822254090E200E28669 /* LoadSafeViewController.swift */; };
-		0AF1C8292540914600E28669 /* NoSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C8282540914600E28669 /* NoSafesViewController.swift */; };
 		0AF1C8302540923C00E28669 /* LoadableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C82E2540923C00E28669 /* LoadableViewController.swift */; };
 		0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C82F2540923C00E28669 /* LoadableViewController.xib */; };
 		0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C88C2541AD4100E28669 /* ScrollableEmptyView.xib */; };
@@ -632,7 +636,11 @@
 		0AC60C322549751500A63AE2 /* MultiSendActionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSendActionListView.swift; sourceTree = "<group>"; };
 		0AC60C40254987F400A63AE2 /* CustomTransactionViewModel+MultiSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomTransactionViewModel+MultiSend.swift"; sourceTree = "<group>"; };
 		0AC60C462549880D00A63AE2 /* MultiSendActionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSendActionDetailsView.swift; sourceTree = "<group>"; };
-		0AC94457254068D800921CA5 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		0AC60C502549AF2200A63AE2 /* NoSafeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSafeBarView.swift; sourceTree = "<group>"; };
+		0AC60C562549AF3800A63AE2 /* NoSafeBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoSafeBarView.xib; sourceTree = "<group>"; };
+		0AC60C882549C9D800A63AE2 /* SegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentView.swift; sourceTree = "<group>"; };
+		0AC60C8E2549C9F300A63AE2 /* SegmentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentView.xib; sourceTree = "<group>"; };
+		0AC94457254068D800921CA5 /* NSNotification+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Events.swift"; sourceTree = "<group>"; };
 		0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafe.swift; sourceTree = "<group>"; };
 		0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafeTests.swift; sourceTree = "<group>"; };
 		0ACDBFFC248E4C5D002035A2 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -660,8 +668,8 @@
 		0AEE149E2540233C00046EE7 /* UINibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINibView.swift; sourceTree = "<group>"; };
 		0AF1C7F22540887300E28669 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		0AF1C7F32540887300E28669 /* HeaderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderViewController.xib; sourceTree = "<group>"; };
-		0AF1C7FA25408A4D00E28669 /* SafeBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBarButton.swift; sourceTree = "<group>"; };
-		0AF1C80025408A6F00E28669 /* SafeBarButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeBarButton.xib; sourceTree = "<group>"; };
+		0AF1C7FA25408A4D00E28669 /* SafeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBarView.swift; sourceTree = "<group>"; };
+		0AF1C80025408A6F00E28669 /* SafeBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeBarView.xib; sourceTree = "<group>"; };
 		0AF1C80625408B5000E28669 /* IdenticonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdenticonView.swift; sourceTree = "<group>"; };
 		0AF1C81025408EA000E28669 /* SegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentViewController.swift; sourceTree = "<group>"; };
 		0AF1C81125408EA000E28669 /* SegmentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentViewController.xib; sourceTree = "<group>"; };
@@ -677,7 +685,7 @@
 		0AF1C89A2541AD5D00E28669 /* ScrollableEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableEmptyView.swift; sourceTree = "<group>"; };
 		0AF1C8A42541ADFF00E28669 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		0AF1C8AA2541AE0600E28669 /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
-		0AF1C9122541B6A300E28669 /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		0AF1C9122541B6A300E28669 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0AF1C9132541C68000E28669 /* BalancesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesViewController.swift; sourceTree = "<group>"; };
 		0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
 		0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BalanceTableViewCell.xib; sourceTree = "<group>"; };
@@ -1160,8 +1168,7 @@
 		0A53EB8A253F250500E6ACD0 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				0AC94457254068D800921CA5 /* Notifications.swift */,
-				0AF1C8282540914600E28669 /* NoSafesViewController.swift */,
+				0AC94457254068D800921CA5 /* NSNotification+Events.swift */,
 				0AF1C81C254090CE00E28669 /* LoadSafe.storyboard */,
 				0AF1C822254090E200E28669 /* LoadSafeViewController.swift */,
 				0AF1C9252541E09C00E28669 /* UITableViewCell+UINib.swift */,
@@ -1177,17 +1184,14 @@
 		0A53EBB1253F341600E6ACD0 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
-				0AF1C9122541B6A300E28669 /* README.txt */,
-				0A6C131325407B5100EA67E3 /* ContainerViewController.swift */,
-				0AEE149E2540233C00046EE7 /* UINibView.swift */,
+				0AF1C9122541B6A300E28669 /* README.md */,
 				0AF1C8782541A9E700E28669 /* ScrollViewTemplateXib.xib */,
-				0AF1C7FA25408A4D00E28669 /* SafeBarButton.swift */,
-				0AF1C80025408A6F00E28669 /* SafeBarButton.xib */,
+				0AEE149E2540233C00046EE7 /* UINibView.swift */,
+				0A6C131325407B5100EA67E3 /* ContainerViewController.swift */,
 				0AF1C80625408B5000E28669 /* IdenticonView.swift */,
-				0AF1C7F22540887300E28669 /* HeaderViewController.swift */,
-				0AF1C7F32540887300E28669 /* HeaderViewController.xib */,
-				0AF1C81025408EA000E28669 /* SegmentViewController.swift */,
-				0AF1C81125408EA000E28669 /* SegmentViewController.xib */,
+				0AF1C8282540914600E28669 /* NoSafesViewController.swift */,
+				0AC60C982549D44300A63AE2 /* SegmentViewController */,
+				0AC60C772549C50E00A63AE2 /* HeaderViewController */,
 				0AF1C90D2541B67200E28669 /* LoadableViewController */,
 			);
 			path = "UI Library";
@@ -1537,6 +1541,30 @@
 				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
 			);
 			path = "Safe Transaction Service";
+			sourceTree = "<group>";
+		};
+		0AC60C772549C50E00A63AE2 /* HeaderViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0AF1C7FA25408A4D00E28669 /* SafeBarView.swift */,
+				0AF1C80025408A6F00E28669 /* SafeBarView.xib */,
+				0AC60C502549AF2200A63AE2 /* NoSafeBarView.swift */,
+				0AC60C562549AF3800A63AE2 /* NoSafeBarView.xib */,
+				0AF1C7F22540887300E28669 /* HeaderViewController.swift */,
+				0AF1C7F32540887300E28669 /* HeaderViewController.xib */,
+			);
+			path = HeaderViewController;
+			sourceTree = "<group>";
+		};
+		0AC60C982549D44300A63AE2 /* SegmentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0AF1C81025408EA000E28669 /* SegmentViewController.swift */,
+				0AF1C81125408EA000E28669 /* SegmentViewController.xib */,
+				0AC60C882549C9D800A63AE2 /* SegmentView.swift */,
+				0AC60C8E2549C9F300A63AE2 /* SegmentView.xib */,
+			);
+			path = SegmentViewController;
 			sourceTree = "<group>";
 		};
 		0ACDC01624925B36002035A2 /* Analytics */ = {
@@ -2196,8 +2224,10 @@
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
+				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
 				0A0070FA254AF22900A57CAF /* splash-screen-tagline@3x.png in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
+				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AF1C81D254090CE00E28669 /* LoadSafe.storyboard in Resources */,
 				0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */,
@@ -2205,7 +2235,7 @@
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
-				0AF1C80125408A6F00E28669 /* SafeBarButton.xib in Resources */,
+				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				555312F425068E0F0008206B /* README in Resources */,
 				0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */,
@@ -2489,7 +2519,7 @@
 				04CE3FA324B7281B00826AEE /* CollectibleCellView.swift in Sources */,
 				55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */,
 				0A802B9224E5843B0001790F /* PagedRequest.swift in Sources */,
-				0AF1C7FB25408A4D00E28669 /* SafeBarButton.swift in Sources */,
+				0AF1C7FB25408A4D00E28669 /* SafeBarView.swift in Sources */,
 				0A0EFCA8246EB13300D3D8BF /* KeyValueRow.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
@@ -2523,6 +2553,7 @@
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
 				0A09839C24BC522B009EE296 /* Token.swift in Sources */,
 				0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */,
+				0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */,
 				0A93DDB02446072900688050 /* AddSafeIntroView.swift in Sources */,
 				55D3654125077F23004D5047 /* EnterSeedPhraseView.swift in Sources */,
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
@@ -2545,6 +2576,7 @@
 				0497F6E52488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift in Sources */,
 				047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
+				0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
 				046D0A79249A603B000F4021 /* SetFallbackHandlerTransactionDetailsHeaderView.swift in Sources */,
 				55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */,
@@ -2566,7 +2598,7 @@
 				0A791DA124D30FE100D70DA9 /* Spacing.swift in Sources */,
 				55A58534250140B1005E778B /* PrivateKey.swift in Sources */,
 				55B6465C253050200050BD95 /* Transaction.swift in Sources */,
-				0AC94458254068D800921CA5 /* Notifications.swift in Sources */,
+				0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */,
 				0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
@@ -2618,7 +2650,6 @@
 				04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift in Sources */,
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
-				0AF1C8292540914600E28669 /* NoSafesViewController.swift in Sources */,
 				04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */,
 				04C97AAA246ED32800EBA0F1 /* BasicAppSettingsView.swift in Sources */,
 				55A5854325014E05005E778B /* String+Extension.swift in Sources */,
@@ -2663,6 +2694,7 @@
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
+				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
 				0457AB9A24BBB2C5007C884E /* CollectiblesSectionView.swift in Sources */,
 				0AF1C823254090E200E28669 /* LoadSafeViewController.swift in Sources */,
 				0AD1D943252748D800B8EEFF /* AppViewModel.swift in Sources */,

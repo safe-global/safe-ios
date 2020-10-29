@@ -21,8 +21,8 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     let reuseID = "Cell"
     var transactionService = App.shared.safeTransactionService
 
-    static func create() -> Self {
-        createFromNib(superclass())
+    convenience init() {
+        self.init(namedClass: Self.superclass())
     }
 
     override func viewDidLoad() {
@@ -38,9 +38,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         currentDataTask?.cancel()
         do {
             // get selected safe
-            let context = App.shared.coreDataStack.viewContext
-            let fr = Safe.fetchRequest().selected()
-            let safe = try context.fetch(fr).first
+            let safe = try Safe.getSelected()
 
             // get its address
             guard let string = safe?.address else {

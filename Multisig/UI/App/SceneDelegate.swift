@@ -39,7 +39,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func rootViewController() -> UIViewController {
-        let tabVC = tabViewController(root: BalancesViewController.create(), title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
+        let segmentVC = SegmentViewController(namedClass: nil)
+        segmentVC.segmentItems = [
+            SegmentBarItem(image: #imageLiteral(resourceName: "ico-coins"), title: "Coins"),
+            SegmentBarItem(image: #imageLiteral(resourceName: "ico-collectibles"), title: "Collectibles")
+        ]
+        segmentVC.viewControllers = [
+            BalancesViewController(),
+            BalancesViewController()
+        ]
+        segmentVC.selectedIndex = 0
+
+        let noSafesVC = NoSafesViewController()
+        noSafesVC.hasSafeViewController = segmentVC
+        noSafesVC.noSafeViewController = LoadSafeViewController()
+
+        let tabRoot = HeaderViewController(rootViewController: noSafesVC)
+        let tabVC = tabViewController(root: tabRoot, title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
         let tabBar = UITabBarController()
         tabBar.viewControllers = [tabVC]
         return tabBar

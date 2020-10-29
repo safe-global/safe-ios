@@ -31,7 +31,6 @@ class ContainerViewController: UIViewController {
             if let currentVC = selectedViewController {
                 // removing the existing child view controller
                 currentVC.willMove(toParent: nil)
-                currentVC.view.removeConstraints(currentVC.view.constraints)
                 currentVC.view.removeFromSuperview()
                 currentVC.removeFromParent()
             }
