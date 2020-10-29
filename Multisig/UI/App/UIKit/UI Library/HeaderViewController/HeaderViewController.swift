@@ -29,7 +29,7 @@ class HeaderViewController: ContainerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        safeBarView.button.addTarget(self, action: #selector(didTapSafeBarView(_:)), for: .touchUpInside)
+        safeBarView.addTarget(self, action: #selector(didTapSafeBarView(_:)), for: .touchUpInside)
         reloadHeaderBar()
         displayRootController()
         notificationCenter.addObserver(self,

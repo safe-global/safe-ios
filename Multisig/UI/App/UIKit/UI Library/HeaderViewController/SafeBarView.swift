@@ -21,6 +21,10 @@ class SafeBarView: UINibView {
         super.commonInit()
         textLabel.setStyle(.headline)
         detailLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+        addTarget(self, action: #selector(didTouchDown(sender:forEvent:)), for: .touchDown)
+        addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: .touchUpInside)
+        addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: .touchCancel)
+        addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: .touchUpOutside)
     }
 
     func setAddress(_ value: Address) {
@@ -31,4 +35,21 @@ class SafeBarView: UINibView {
     func setName(_ value: String) {
         textLabel.text = value
     }
+
+    func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
+        button.addTarget(target, action: action, for: controlEvents)
+    }
+
+    func removeTarget(_ target: Any?, action: Selector?, for controlEvents: UIControl.Event) {
+        button.removeTarget(target, action: action, for: controlEvents)
+    }
+
+    @objc func didTouchDown(sender: UIButton, forEvent event: UIEvent) {
+        alpha = 0.7
+    }
+
+    @objc func didTouchUp(sender: UIButton, forEvent event: UIEvent) {
+        alpha = 1.0
+    }
 }
+
