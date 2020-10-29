@@ -20,7 +20,7 @@ class SafeBarView: UINibView {
     override func commonInit() {
         super.commonInit()
         textLabel.setStyle(.headline)
-        detailLabel.setStyle(GNOTextStyle.body.color(#colorLiteral(red: 0.6980392157, green: 0.7098039216, blue: 0.6980392157, alpha: 1)))
+        detailLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
     }
 
     func setAddress(_ value: Address) {

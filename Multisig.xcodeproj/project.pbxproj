@@ -92,6 +92,7 @@
 		0A0070FA254AF22900A57CAF /* splash-screen-tagline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */; };
 		0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */; };
 		0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007123254B255C00A57CAF /* UIFont+Styles.swift */; };
+		0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007129254B379000A57CAF /* UIColor+Styles.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
 		0A09839C24BC522B009EE296 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839B24BC522B009EE296 /* Token.swift */; };
 		0A09839E24BC5301009EE296 /* InMemoryTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839D24BC5301009EE296 /* InMemoryTokenStore.swift */; };
@@ -495,6 +496,7 @@
 		0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline@3x.png"; sourceTree = "<group>"; };
 		0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline.png"; sourceTree = "<group>"; };
 		0A007123254B255C00A57CAF /* UIFont+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Styles.swift"; sourceTree = "<group>"; };
+		0A007129254B379000A57CAF /* UIColor+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Styles.swift"; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		0A09839B24BC522B009EE296 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		0A09839D24BC5301009EE296 /* InMemoryTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryTokenStore.swift; sourceTree = "<group>"; };
@@ -1192,6 +1194,7 @@
 				0A6C131325407B5100EA67E3 /* ContainerViewController.swift */,
 				0AF1C80625408B5000E28669 /* UIImageView+Address.swift */,
 				0A007123254B255C00A57CAF /* UIFont+Styles.swift */,
+				0A007129254B379000A57CAF /* UIColor+Styles.swift */,
 				0AF1C8282540914600E28669 /* NoSafesViewController.swift */,
 				0AC60C982549D44300A63AE2 /* SegmentViewController */,
 				0AC60C772549C50E00A63AE2 /* HeaderViewController */,
@@ -2543,6 +2546,7 @@
 				04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */,
 				0AF1C81225408EA000E28669 /* SegmentViewController.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
+				0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */,
 				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,
 				0AF1C89B2541AD5D00E28669 /* ScrollableEmptyView.swift in Sources */,
 				0AFA72A224BF36A800A370EE /* NonEmptyText.swift in Sources */,

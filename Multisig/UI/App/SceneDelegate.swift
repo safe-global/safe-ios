@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = rootViewController()
             self.window = window
-            window.tintColor = #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 1)
+            window.tintColor = .gnoHold
             window.makeKeyAndVisible()
         }
 

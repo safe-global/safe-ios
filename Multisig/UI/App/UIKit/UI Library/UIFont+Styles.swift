@@ -24,18 +24,18 @@ extension GNOTextStyle {
     static let caption3 = GNOTextStyle(size: 10, weight: .medium)
     static let caption2 = GNOTextStyle(size: 10, weight: .bold)
 
-    static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: #colorLiteral(red: 0.3647058824, green: 0.4274509804, blue: 0.4549019608, alpha: 1))
+    static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkGrey)
     static let caption1 = GNOTextStyle(size: 13, weight: .bold)
 
     static let subhead = GNOTextStyle(size: 15, weight: .bold)
 
     static let callout = GNOTextStyle(size: 16, weight: .regular)
 
-    static let body = GNOTextStyle(size: 17, weight: .medium, color: #colorLiteral(red: 0, green: 0.07843137255, blue: 0.1568627451, alpha: 1))
-    static let headline = GNOTextStyle(size: 17, weight: .semibold, color: #colorLiteral(red: 0, green: 0.07843137255, blue: 0.1568627451, alpha: 1))
+    static let body = GNOTextStyle(size: 17, weight: .medium, color: .gnoDarkBlue)
+    static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .gnoDarkBlue)
     static let headline2 = GNOTextStyle(size: 17, weight: .bold)
 
-    static let title3 = GNOTextStyle(size: 20, weight: .regular, color: #colorLiteral(red: 0, green: 0.07843137255, blue: 0.1568627451, alpha: 1))
+    static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .gnoDarkBlue)
 
     static let normal = GNOTextStyle(size: 26, weight: .regular, fontName: "Averta Regular")
 
