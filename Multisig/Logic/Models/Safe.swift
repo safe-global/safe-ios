@@ -140,6 +140,7 @@ extension Safe: Identifiable {
 
         App.shared.coreDataStack.saveContext()
         Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
+        NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
 
         if let addressString = deletedSafeAddress, let address = Address(addressString) {
             App.shared.notificationHandler.safeRemoved(address: address)
