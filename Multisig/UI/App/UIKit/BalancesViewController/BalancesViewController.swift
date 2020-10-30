@@ -22,6 +22,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     let rowHeight: CGFloat = 60
     let tableBackgroundColor: UIColor = .gnoWhite
     var transactionService = App.shared.safeTransactionService
+    var notificationCenter = NotificationCenter.default
 
     convenience init() {
         self.init(namedClass: Self.superclass())
@@ -36,6 +37,17 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         tableView.rowHeight = rowHeight
         tableView.backgroundColor = tableBackgroundColor
         emptyView.setText("Balances will appear here")
+        notificationCenter.addObserver(self, selector: #selector(didChangeSafe), name: .selectedSafeChanged, object: nil)
+    }
+
+    @objc func didChangeSafe() {
+        let isOnScreen = viewIfLoaded?.window != nil
+        if isOnScreen {
+            reloadData()
+        } else {
+            // Save battery and network requests if the view is off-screen
+            setNeedsReload()
+        }
     }
 
     override func reloadData() {

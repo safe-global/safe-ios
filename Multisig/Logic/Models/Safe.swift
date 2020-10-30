@@ -56,6 +56,7 @@ extension Safe: Identifiable {
         let selection = Selection.current()
         selection.safe = self
         App.shared.coreDataStack.saveContext()
+        NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
     }
 
     static func getSelected() throws -> Safe? {
@@ -63,6 +64,13 @@ extension Safe: Identifiable {
         let fr = Safe.fetchRequest().selected()
         let safe = try context.fetch(fr).first
         return safe
+    }
+
+    static func getAll() throws -> [Safe] {
+        let context = App.shared.coreDataStack.viewContext
+        let fr = Safe.fetchRequest().all()
+        let safes = try context.fetch(fr)
+        return safes
     }
 
     static func browserURL(address: String) -> URL {

@@ -16,6 +16,7 @@ class HeaderViewController: ContainerViewController {
     @IBOutlet weak var noSafeBarView: NoSafeBarView!
     @IBOutlet weak var switchSafeButton: UIButton!
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var headerBarHeightConstraint: NSLayoutConstraint!
 
     var rootViewController: UIViewController?
 
@@ -36,6 +37,7 @@ class HeaderViewController: ContainerViewController {
                                        selector: #selector(reloadHeaderBar),
                                        name: .selectedSafeChanged,
                                        object: nil)
+        headerBarHeightConstraint.constant = ScreenMetrics.safeHeaderHeight
     }
 
     func displayRootController() {
@@ -54,7 +56,9 @@ class HeaderViewController: ContainerViewController {
     }
 
     @IBAction func didTapSwitchSafe(_ sender: Any) {
-        // present Switch Safe VC modally
+        let switchSafesVC = SwitchSafesViewController()
+        let nav = UINavigationController(rootViewController: switchSafesVC)
+        present(nav, animated: true)
     }
 
     @objc func didTapSafeBarView(_ sender: Any) {
@@ -79,9 +83,5 @@ class HeaderViewController: ContainerViewController {
             LogService.shared.error("Failed to load selected safe: \(error)")
         }
     }
-
-    // TODO: clarify with Sasha
-    // change header bar height depending on the device height / configuration (height is compact)
-    //      how to get it or how to get notified?
 
 }
