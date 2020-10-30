@@ -9,5 +9,11 @@
 import UIKit
 
 class ScrollableDataErrorView: UINibView {
+    @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
+
+    override func commonInit() {
+        super.commonInit()
+        textLabel.setStyle(GNOTextStyle.title3.color(.gnoMediumGrey))
+    }
 }

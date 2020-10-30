@@ -57,9 +57,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         let tabVC = tabViewController(root: tabRoot, title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
-        let tabBar = UITabBarController()
-        tabBar.viewControllers = [tabVC]
-        return tabBar
+        let tabBarVC = UITabBarController()
+        tabBarVC.viewControllers = [tabVC]
+        tabBarVC.tabBar.barTintColor = .gnoSnowwhite
+        return tabBarVC
     }
 
     func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {

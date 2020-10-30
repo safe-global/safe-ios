@@ -4,14 +4,15 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScrollableDataErrorView" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="scrollView" destination="nmx-wQ-aPh" id="UKC-Jj-N3H"/>
+                <outlet property="textLabel" destination="i5F-T1-7H1" id="bA7-YK-gDu"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -50,7 +51,6 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="BtS-Rj-inw" firstAttribute="centerX" secondItem="9Vh-dC-pkD" secondAttribute="centerX" id="1DO-TP-nxQ"/>
                                         <constraint firstAttribute="height" constant="62" id="B39-pe-Tfo"/>
@@ -59,7 +59,6 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="9Vh-dC-pkD" firstAttribute="centerY" secondItem="mHc-ML-4be" secondAttribute="centerY" multiplier="0.6" id="SWS-3w-f5c"/>
                                 <constraint firstItem="9Vh-dC-pkD" firstAttribute="centerX" secondItem="mHc-ML-4be" secondAttribute="centerX" id="wKu-Dr-LwH"/>
@@ -79,7 +78,7 @@
                 </scrollView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" name="white"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="nmx-wQ-aPh" secondAttribute="trailing" id="7zE-Lx-fUS"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="nmx-wQ-aPh" secondAttribute="bottom" id="84l-tA-MQZ"/>
@@ -91,8 +90,8 @@
     </objects>
     <resources>
         <image name="ico-server-error" width="24" height="24"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="white">
+            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
