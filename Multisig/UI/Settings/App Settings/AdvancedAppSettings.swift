@@ -24,6 +24,8 @@ struct AdvancedAppSettings: View {
                             value: DisplayURL(App.shared.nodeService.url).absoluteString)
                 KeyValueRow("Transaction service",
                             value: DisplayURL(App.shared.safeTransactionService.url).absoluteString)
+                KeyValueRow("Client Gateway service",
+                            value: DisplayURL(App.shared.clientGatewayService.url).absoluteString)
             }
 
             if !(App.configuration.services.environment == .production) {
