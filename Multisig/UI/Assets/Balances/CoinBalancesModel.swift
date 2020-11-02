@@ -15,6 +15,7 @@ class CoinBalancesModel: ObservableObject, LoadingModel {
     var coreDataCancellable: AnyCancellable?
     @Published var status: ViewLoadingStatus = .initial
     @Published var result = [TokenBalance]()
+    var total: String = "0.00"
 
     init() {
         buildCoreDataPipeline()
@@ -27,11 +28,14 @@ class CoinBalancesModel: ObservableObject, LoadingModel {
                 .selectedSafe()
                 .safeToAddress()
                 .receive(on: DispatchQueue.global())
-                .tryMap { address in
-                    try App.shared.safeTransactionService.safeBalances(at: address)
+                .tryCompactMap { [weak self] address -> SafeBalanceSummary? in
+                    guard let `self` = self else { return nil }
+                    let summary = try App.shared.clientGatewayService.balances(address: address)
+                    self.total = TokenBalance.displayCurrency(from: summary.fiatTotal) ?? "0.00"
+                    return summary
                 }
                 .map {
-                    $0.map { TokenBalance($0) }
+                    $0.items.map { TokenBalance($0) }
                 }
                 .receive(on: RunLoop.main)
                 .eraseToAnyPublisher()

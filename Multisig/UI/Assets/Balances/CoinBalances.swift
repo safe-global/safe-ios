@@ -13,7 +13,7 @@ struct CoinBalancesView: View {
     var model: CoinBalancesModel
     var body: some View {
         NetworkContentView(status: model.status, reload: model.reload) {
-            BalanceListView(balances: model.result, reload: model.reload)
+            BalanceListView(total: model.total, balances: model.result, reload: model.reload)
         }
         .onAppear {
             trackEvent(.assetsCoins)
@@ -22,16 +22,29 @@ struct CoinBalancesView: View {
 }
 
 struct BalanceListView: View {
+    var total: String
     var balances: [TokenBalance]
     var reload: () -> Void = {}
     var body: some View {
         List {
             ReloadButton(reload: reload)
-
+            TotalBalanceCell(total: total)
             ForEach(balances) { tokenBalance in
                 TokenBalanceCell(tokenBalance: tokenBalance)
             }
        }
         .listStyle(PlainListStyle())
+    }
+}
+
+struct TotalBalanceCell: View {
+    var total: String
+    var body: some View {
+        HStack {
+            Text("Total").headline()
+            Spacer()
+            Text(total).headline()
+        }
+        .frame(height: 48)
     }
 }

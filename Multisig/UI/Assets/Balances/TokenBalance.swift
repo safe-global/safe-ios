@@ -18,32 +18,62 @@ struct TokenBalance: Identifiable, Hashable {
     let symbol: String
     let balance: String
     let balanceUsd: String
+}
 
+extension TokenBalance {
     init(_ response: SafeBalancesRequest.Response) {
-        let tokenAddress = response.tokenAddress?.address ?? .ether
-        self.address = tokenAddress.checksummed
-        self.symbol = response.token?.symbol ?? "ETH"
-        self.imageURL = response.token.flatMap { URL(string: $0.logoUri) }
+        self.init(address: response.tokenAddress?.address ?? .ether,
+                  symbol: response.token?.symbol,
+                  logoUri: response.token?.logoUri,
+                  tokenBalance: response.balance,
+                  decimals: response.token?.decimals,
+                  fiatBalance: response.balanceUsd)
+    }
+
+    init(_ item: SCGBalance) {
+        self.init(address: item.tokenInfo.address.address,
+                  symbol: item.tokenInfo.symbol,
+                  logoUri: item.tokenInfo.logoUri,
+                  tokenBalance: item.balance,
+                  decimals: item.tokenInfo.decimals,
+                  fiatBalance: item.fiatBalance)
+    }
+
+    init(address: Address, symbol: String?, logoUri: String?, tokenBalance: UInt256String, decimals: UInt256String?, fiatBalance: String) {
+        self.address = address.checksummed
+        self.symbol = symbol ?? "ETH"
+        self.imageURL = logoUri.flatMap { URL(string: $0) }
 
         let tokenFormatter = TokenFormatter()
-
-        let amount = Int256(response.balance.value)
-
-        let precision =  response.token?.decimals.value ?? 18 // ETH
+        let amount = Int256(tokenBalance.value)
+        let precision = decimals?.value ?? 18 // ETH
 
         self.balance = tokenFormatter.string(
             from: BigDecimal(amount, Int(clamping: precision)),
             decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
             thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
 
+        self.balanceUsd = Self.displayCurrency(from: fiatBalance) ?? ""
+    }
+
+    static var serverCurrencyFormatter: NumberFormatter = {
         let currencyFormatter = NumberFormatter()
         // server always sends us number in en_US locale
         currencyFormatter.locale = Locale(identifier: "en_US")
-        let number = currencyFormatter.number(from: response.balanceUsd) ?? 0
+        return currencyFormatter
+    }()
+
+    static var displayCurrencyFormatter: NumberFormatter = {
+        let currencyFormatter = NumberFormatter()
         // Product decision: we display currency in user locale
         currencyFormatter.locale = Locale.autoupdatingCurrent
         currencyFormatter.numberStyle = .currency
         currencyFormatter.currencyCode = "USD"
-        self.balanceUsd = currencyFormatter.string(from: number)!
+        return currencyFormatter
+    }()
+
+    static func displayCurrency(from serverValue: String) -> String? {
+        let number = serverCurrencyFormatter.number(from: serverValue) ?? 0
+        return displayCurrencyFormatter.string(from: number) ?? "0.00"
     }
 }
