@@ -280,7 +280,7 @@
 		0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C9132541C68000E28669 /* BalancesViewController.swift */; };
 		0AF1C91F2541DB3F00E28669 /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */; };
 		0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */; };
-		0AF1C9262541E09D00E28669 /* UITableViewCell+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C9252541E09C00E28669 /* UITableViewCell+UINib.swift */; };
+		0AF1C9262541E09D00E28669 /* UIView+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C9252541E09C00E28669 /* UIView+UINib.swift */; };
 		0AF2731624DAABDC007E4012 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2731524DAABDC007E4012 /* NotificationService.swift */; };
 		0AF2731A24DAABDC007E4012 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2733C24DABAAF007E4012 /* AppDelegate+Messaging.swift */; };
@@ -300,6 +300,7 @@
 		0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729D24BF363400A370EE /* SlicedText.swift */; };
 		0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729F24BF368900A370EE /* SlicedText+Address.swift */; };
 		0AFA72A224BF36A800A370EE /* NonEmptyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA72A124BF36A800A370EE /* NonEmptyText.swift */; };
+		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
 		550A0ACD24F3BEE800B839E9 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550A0ACC24F3BEE800B839E9 /* MainContentView.swift */; };
 		550A0ACF24F3C19B00B839E9 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550A0ACE24F3C19B00B839E9 /* MainTabView.swift */; };
 		551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551BC70C2538965700E4CC79 /* LoadingModel.swift */; };
@@ -334,6 +335,10 @@
 		555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */; };
 		555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555DA310250A4C7C00C3A0BE /* KeychainKey.swift */; };
 		558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */; };
+		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
+		5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */; };
+		5596C0482550813B00EF23A5 /* CollectiblesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */; };
+		5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */; };
 		55A58534250140B1005E778B /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A58533250140B1005E778B /* PrivateKey.swift */; };
 		55A5853D2501479C005E778B /* BIP39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853C2501479C005E778B /* BIP39.swift */; };
 		55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853E25014AD7005E778B /* BIP39+WordLists.swift */; };
@@ -703,7 +708,7 @@
 		0AF1C9132541C68000E28669 /* BalancesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesViewController.swift; sourceTree = "<group>"; };
 		0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
 		0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BalanceTableViewCell.xib; sourceTree = "<group>"; };
-		0AF1C9252541E09C00E28669 /* UITableViewCell+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+UINib.swift"; sourceTree = "<group>"; };
+		0AF1C9252541E09C00E28669 /* UIView+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+UINib.swift"; sourceTree = "<group>"; };
 		0AF2730E24DAAAB6007E4012 /* Multisig.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Multisig.entitlements; sourceTree = "<group>"; };
 		0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AF2731524DAABDC007E4012 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -765,6 +770,7 @@
 		50229A8638C363BCFA97A9B1 /* Pods-Multisig.release.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.development.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54742DDC33F72556636E2FB7 /* Pods-Multisig.debugstagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debugstagingrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debugstagingrinkeby.xcconfig"; sourceTree = "<group>"; };
+		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
 		550A0ACC24F3BEE800B839E9 /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
 		550A0ACE24F3C19B00B839E9 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		551BC70C2538965700E4CC79 /* LoadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModel.swift; sourceTree = "<group>"; };
@@ -801,6 +807,10 @@
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		555DA310250A4C7C00C3A0BE /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
 		558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
+		5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleTableViewCell.xib; sourceTree = "<group>"; };
+		5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleTableViewCell.swift; sourceTree = "<group>"; };
+		5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesHeaderView.swift; sourceTree = "<group>"; };
+		5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectiblesHeaderView.xib; sourceTree = "<group>"; };
 		55A58533250140B1005E778B /* PrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
 		55A5853C2501479C005E778B /* BIP39.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP39.swift; sourceTree = "<group>"; };
 		55A5853E25014AD7005E778B /* BIP39+WordLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BIP39+WordLists.swift"; sourceTree = "<group>"; };
@@ -1187,6 +1197,7 @@
 				0AF1C822254090E200E28669 /* LoadSafeViewController.swift */,
 				0AC94457254068D800921CA5 /* NSNotification+Events.swift */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
+				5503F62A255062070046545C /* CollectiblesViewController */,
 				0AC60C772549C50E00A63AE2 /* HeaderViewController */,
 				0AB9F4C8254C64740044395F /* SwitchSafesViewController */,
 				0A53EBB1253F341600E6ACD0 /* UI Library */,
@@ -1202,7 +1213,7 @@
 				0AEE149E2540233C00046EE7 /* UINibView.swift */,
 				0A6C131325407B5100EA67E3 /* ContainerViewController.swift */,
 				0AF1C80625408B5000E28669 /* UIImageView+Address.swift */,
-				0AF1C9252541E09C00E28669 /* UITableViewCell+UINib.swift */,
+				0AF1C9252541E09C00E28669 /* UIView+UINib.swift */,
 				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
 				0A007123254B255C00A57CAF /* UIFont+Styles.swift */,
 				0A007129254B379000A57CAF /* UIColor+Styles.swift */,
@@ -1855,6 +1866,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5503F62A255062070046545C /* CollectiblesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5503F62B2550625F0046545C /* CollectiblesViewController.swift */,
+				5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */,
+				5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */,
+				5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */,
+				5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */,
+			);
+			path = CollectiblesViewController;
+			sourceTree = "<group>";
+		};
 		551DDEEA244F192300C719D3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -2266,7 +2289,9 @@
 				0A0070FA254AF22900A57CAF /* splash-screen-tagline@3x.png in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
+				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
+				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
@@ -2484,6 +2509,7 @@
 				0A791D9F24D309CE00D70DA9 /* ScreenMetrics.swift in Sources */,
 				046D0A7B249A7248000F4021 /* ChangeThresholdTransactionDetailsHeaderView.swift in Sources */,
 				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
+				5596C0482550813B00EF23A5 /* CollectiblesHeaderView.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
 				0A704A5C24740146005BDC49 /* TabViewItem.swift in Sources */,
@@ -2523,7 +2549,7 @@
 				046D0A6E249A446D000F4021 /* ChangeImplementationTransactionDetailsHeaderView.swift in Sources */,
 				047EE9F624EF015C00AEB2D1 /* TransactionActionView.swift in Sources */,
 				0AA9F2402497DB18005BD60F /* TransactionsListViewModel.swift in Sources */,
-				0AF1C9262541E09D00E28669 /* UITableViewCell+UINib.swift in Sources */,
+				0AF1C9262541E09D00E28669 /* UIView+UINib.swift in Sources */,
 				046D0A6C249A446D000F4021 /* SettingsChangeTransactionDetailsHeaderView.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
 				55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */,
@@ -2665,6 +2691,7 @@
 				55B6466C2530562F0050BD95 /* SignTransactionRequest.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */,
+				5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */,
 				04EF2AED2492B5AF0070ED1A /* VerticalBarView.swift in Sources */,
 				049ED004250AC51D004FF02F /* CustomTransactionDetailsHeaderView.swift in Sources */,
 				049ECFF025004341004FF02F /* CreationTransactionViewModel.swift in Sources */,
@@ -2705,6 +2732,7 @@
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
 				0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */,
+				5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */,
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,

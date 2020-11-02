@@ -63,15 +63,3 @@ extension CollectibleListSection {
         }.sorted { $0.name < $1.name }
     }
 }
-
-extension Safe {
-    static func selectedSafeAddress() -> Address? {
-        assert(Thread.isMainThread)
-        let context = App.shared.coreDataStack.viewContext
-        let fr = Safe.fetchRequest().selected()
-        guard let safe = (try? context.fetch(fr))?.first,
-              let string = safe.address,
-              let address = Address(string) else { return nil }
-        return address
-    }
-}

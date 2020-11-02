@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         ]
         segmentVC.viewControllers = [
             BalancesViewController(),
-            BalancesViewController()
+            CollectiblesViewController()
         ]
         segmentVC.selectedIndex = 0
 

@@ -26,4 +26,9 @@ extension SafeClientGatewayService {
     func collectibles(at address: Address) throws -> CollectiblesRequest.Response {
        try execute(request: CollectiblesRequest(address: address))
     }
+
+    func asyncCollectibles(at address: Address,
+                           completion: @escaping (Result<[Collectible], Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: CollectiblesRequest(address: address), completion: completion)
+    }
 }

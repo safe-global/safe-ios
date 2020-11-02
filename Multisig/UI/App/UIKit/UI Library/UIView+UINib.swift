@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UITableViewCell {
+extension UIView {
     /// Get nib by this class's name
     /// - Returns: Nib named the same as the cell's class
     class func nib() -> UINib {
