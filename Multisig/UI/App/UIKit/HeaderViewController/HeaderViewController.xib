@@ -16,6 +16,7 @@
                 <outlet property="barShadowView" destination="Al5-uC-xzr" id="NO2-L8-8E6"/>
                 <outlet property="contentView" destination="xK2-pE-wZA" id="SCW-Mh-0or"/>
                 <outlet property="headerBar" destination="DDE-g1-nRC" id="6cl-Oy-pHH"/>
+                <outlet property="headerBarHeightConstraint" destination="Kjk-nM-fZF" id="BD9-gb-DWU"/>
                 <outlet property="noSafeBarView" destination="hZV-ZR-C0D" id="sZt-r3-4U8"/>
                 <outlet property="safeBarView" destination="buv-cV-e9q" id="f4H-Rh-hUC"/>
                 <outlet property="switchSafeButton" destination="X1Y-Im-GQE" id="ioK-mQ-la4"/>
@@ -35,10 +36,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="116"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X1Y-Im-GQE" userLabel="switchSafeButton">
-                            <rect key="frame" x="354" y="60" width="44" height="44"/>
+                            <rect key="frame" x="338" y="60" width="60" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="Uer-St-wsC"/>
-                                <constraint firstAttribute="width" constant="44" id="tyd-wL-JA6"/>
+                                <constraint firstAttribute="width" constant="60" id="tyd-wL-JA6"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <color key="tintColor" name="mediumGrey"/>
@@ -51,14 +52,14 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2d-Ol-MyV">
-                            <rect key="frame" x="16" y="60" width="326" height="44"/>
+                            <rect key="frame" x="16" y="60" width="310" height="44"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZV-ZR-C0D" customClass="NoSafeBarView" customModule="Multisig" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="326" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="310" height="44"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buv-cV-e9q" userLabel="safeBarView" customClass="SafeBarView" customModule="Multisig" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="326" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="310" height="44"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                             </subviews>

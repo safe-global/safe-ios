@@ -56,6 +56,7 @@ extension Safe: Identifiable {
         let selection = Selection.current()
         selection.safe = self
         App.shared.coreDataStack.saveContext()
+        NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
     }
 
     static func getSelected() throws -> Safe? {
@@ -63,6 +64,13 @@ extension Safe: Identifiable {
         let fr = Safe.fetchRequest().selected()
         let safe = try context.fetch(fr).first
         return safe
+    }
+
+    static func getAll() throws -> [Safe] {
+        let context = App.shared.coreDataStack.viewContext
+        let fr = Safe.fetchRequest().all()
+        let safes = try context.fetch(fr)
+        return safes
     }
 
     static func browserURL(address: String) -> URL {
@@ -132,6 +140,7 @@ extension Safe: Identifiable {
 
         App.shared.coreDataStack.saveContext()
         Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
+        NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
 
         if let addressString = deletedSafeAddress, let address = Address(addressString) {
             App.shared.notificationHandler.safeRemoved(address: address)

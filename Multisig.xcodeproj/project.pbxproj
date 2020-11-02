@@ -144,6 +144,11 @@
 		0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */; };
 		0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */; };
 		0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307452543273F00E8A270 /* UIViewController+UINib.swift */; };
+		0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */; };
+		0A5F4829254C56580069C98D /* SafeEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F4827254C56580069C98D /* SafeEntryTableViewCell.swift */; };
+		0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */; };
+		0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F482F254C56CE0069C98D /* AddSafeTableViewCell.swift */; };
+		0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F4830254C56CE0069C98D /* AddSafeTableViewCell.xib */; };
 		0A628FF5245710260038DC88 /* SafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A628FF4245710260038DC88 /* SafeCell.swift */; };
 		0A6430E2247EC2C7006FD30A /* ConfigurationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */; };
 		0A6430F5247ECB3E006FD30A /* ConfigurationKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430F4247ECB3E006FD30A /* ConfigurationKeyTests.swift */; };
@@ -262,7 +267,6 @@
 		0AF1C80725408B5000E28669 /* UIImageView+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C80625408B5000E28669 /* UIImageView+Address.swift */; };
 		0AF1C81225408EA000E28669 /* SegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C81025408EA000E28669 /* SegmentViewController.swift */; };
 		0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C81125408EA000E28669 /* SegmentViewController.xib */; };
-		0AF1C81D254090CE00E28669 /* LoadSafe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C81C254090CE00E28669 /* LoadSafe.storyboard */; };
 		0AF1C823254090E200E28669 /* LoadSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C822254090E200E28669 /* LoadSafeViewController.swift */; };
 		0AF1C8302540923C00E28669 /* LoadableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C82E2540923C00E28669 /* LoadableViewController.swift */; };
 		0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C82F2540923C00E28669 /* LoadableViewController.xib */; };
@@ -550,6 +554,11 @@
 		0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmTransactionRequest.swift; sourceTree = "<group>"; };
 		0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionSigner.swift; sourceTree = "<group>"; };
 		0A5307452543273F00E8A270 /* UIViewController+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINib.swift"; sourceTree = "<group>"; };
+		0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchSafesViewController.swift; sourceTree = "<group>"; };
+		0A5F4827254C56580069C98D /* SafeEntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeEntryTableViewCell.swift; sourceTree = "<group>"; };
+		0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeEntryTableViewCell.xib; sourceTree = "<group>"; };
+		0A5F482F254C56CE0069C98D /* AddSafeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeTableViewCell.swift; sourceTree = "<group>"; };
+		0A5F4830254C56CE0069C98D /* AddSafeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddSafeTableViewCell.xib; sourceTree = "<group>"; };
 		0A628FF4245710260038DC88 /* SafeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCell.swift; sourceTree = "<group>"; };
 		0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Production.Mainnet.xcconfig; sourceTree = "<group>"; };
 		0A6430DA247EC193006FD30A /* Production.Rinkeby.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Production.Rinkeby.xcconfig; sourceTree = "<group>"; };
@@ -677,7 +686,6 @@
 		0AF1C80625408B5000E28669 /* UIImageView+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Address.swift"; sourceTree = "<group>"; };
 		0AF1C81025408EA000E28669 /* SegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentViewController.swift; sourceTree = "<group>"; };
 		0AF1C81125408EA000E28669 /* SegmentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentViewController.xib; sourceTree = "<group>"; };
-		0AF1C81C254090CE00E28669 /* LoadSafe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoadSafe.storyboard; sourceTree = "<group>"; };
 		0AF1C822254090E200E28669 /* LoadSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSafeViewController.swift; sourceTree = "<group>"; };
 		0AF1C8282540914600E28669 /* NoSafesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSafesViewController.swift; sourceTree = "<group>"; };
 		0AF1C82E2540923C00E28669 /* LoadableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableViewController.swift; sourceTree = "<group>"; };
@@ -1173,13 +1181,10 @@
 			isa = PBXGroup;
 			children = (
 				0AC94457254068D800921CA5 /* NSNotification+Events.swift */,
-				0AF1C81C254090CE00E28669 /* LoadSafe.storyboard */,
 				0AF1C822254090E200E28669 /* LoadSafeViewController.swift */,
-				0AF1C9252541E09C00E28669 /* UITableViewCell+UINib.swift */,
-				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
-				0AF1C9132541C68000E28669 /* BalancesViewController.swift */,
-				0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */,
-				0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */,
+				0AB9F4C8254C64740044395F /* SwitchSafesViewController */,
+				0AB9F4C3254C64680044395F /* BalancesViewController */,
+				0AC60C772549C50E00A63AE2 /* HeaderViewController */,
 				0A53EBB1253F341600E6ACD0 /* UI Library */,
 			);
 			path = UIKit;
@@ -1193,11 +1198,12 @@
 				0AEE149E2540233C00046EE7 /* UINibView.swift */,
 				0A6C131325407B5100EA67E3 /* ContainerViewController.swift */,
 				0AF1C80625408B5000E28669 /* UIImageView+Address.swift */,
+				0AF1C9252541E09C00E28669 /* UITableViewCell+UINib.swift */,
+				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
 				0A007123254B255C00A57CAF /* UIFont+Styles.swift */,
 				0A007129254B379000A57CAF /* UIColor+Styles.swift */,
 				0AF1C8282540914600E28669 /* NoSafesViewController.swift */,
 				0AC60C982549D44300A63AE2 /* SegmentViewController */,
-				0AC60C772549C50E00A63AE2 /* HeaderViewController */,
 				0AF1C90D2541B67200E28669 /* LoadableViewController */,
 			);
 			path = "UI Library";
@@ -1547,6 +1553,28 @@
 				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
 			);
 			path = "Safe Transaction Service";
+			sourceTree = "<group>";
+		};
+		0AB9F4C3254C64680044395F /* BalancesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0AF1C9132541C68000E28669 /* BalancesViewController.swift */,
+				0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */,
+				0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */,
+			);
+			path = BalancesViewController;
+			sourceTree = "<group>";
+		};
+		0AB9F4C8254C64740044395F /* SwitchSafesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */,
+				0A5F482F254C56CE0069C98D /* AddSafeTableViewCell.swift */,
+				0A5F4830254C56CE0069C98D /* AddSafeTableViewCell.xib */,
+				0A5F4827254C56580069C98D /* SafeEntryTableViewCell.swift */,
+				0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */,
+			);
+			path = SwitchSafesViewController;
 			sourceTree = "<group>";
 		};
 		0AC60C772549C50E00A63AE2 /* HeaderViewController */ = {
@@ -2229,17 +2257,18 @@
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
+				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
 				0A0070FA254AF22900A57CAF /* splash-screen-tagline@3x.png in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
-				0AF1C81D254090CE00E28669 /* LoadSafe.storyboard in Resources */,
 				0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
+				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
@@ -2682,6 +2711,7 @@
 				0AA9F25D249A174E005BD60F /* TransactionConfirmationViewModel.swift in Sources */,
 				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,
 				55A5853D2501479C005E778B /* BIP39.swift in Sources */,
+				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,
 				0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */,
@@ -2701,6 +2731,7 @@
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
+				0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */,
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
 				0457AB9A24BBB2C5007C884E /* CollectiblesSectionView.swift in Sources */,
 				0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */,
@@ -2713,6 +2744,7 @@
 				555312ED250663420008206B /* SECP256K1.swift in Sources */,
 				55B6465A253050200050BD95 /* HashString.swift in Sources */,
 				55B66E56247E494000249E98 /* AppSettings.swift in Sources */,
+				0A5F4829254C56580069C98D /* SafeEntryTableViewCell.swift in Sources */,
 				0A72AC5A2453125800840641 /* EnterSafeAddressView.swift in Sources */,
 				555312E9250653800008206B /* BIP32HDNode.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
