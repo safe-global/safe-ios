@@ -53,7 +53,7 @@ extension TokenBalance {
             decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
             thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
 
-        self.balanceUsd = Self.displayCurrency(from: fiatBalance) ?? ""
+        self.balanceUsd = Self.displayCurrency(from: fiatBalance)
     }
 
     static var serverCurrencyFormatter: NumberFormatter = {
@@ -72,8 +72,9 @@ extension TokenBalance {
         return currencyFormatter
     }()
 
-    static func displayCurrency(from serverValue: String) -> String? {
+    static func displayCurrency(from serverValue: String) -> String {
         let number = serverCurrencyFormatter.number(from: serverValue) ?? 0
-        return displayCurrencyFormatter.string(from: number) ?? "0.00"
+        // resulting nil value should never happen
+        return displayCurrencyFormatter.string(from: number)!
     }
 }

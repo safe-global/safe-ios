@@ -31,7 +31,7 @@ class CoinBalancesModel: ObservableObject, LoadingModel {
                 .tryCompactMap { [weak self] address -> SafeBalanceSummary? in
                     guard let `self` = self else { return nil }
                     let summary = try App.shared.clientGatewayService.balances(address: address)
-                    self.total = TokenBalance.displayCurrency(from: summary.fiatTotal) ?? "0.00"
+                    self.total = TokenBalance.displayCurrency(from: summary.fiatTotal)
                     return summary
                 }
                 .map {
