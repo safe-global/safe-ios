@@ -27,8 +27,10 @@ class SegmentViewController: ContainerViewController {
         segmentViews = segmentItems.enumerated().map { index, item in
             let s = SegmentView()
             s.index = index
+
             s.button.setImage(item.image, for: .normal)
-            s.button.setTitle(item.title, for: .normal)
+            s.button.setTitle(item.title.uppercased(), for: .normal)
+
             s.isSelected = false
             s.onTap = { [weak self] index in
                 self?.didTapSegmentView(at: index)

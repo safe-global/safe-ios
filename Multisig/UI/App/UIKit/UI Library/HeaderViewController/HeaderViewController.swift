@@ -29,7 +29,7 @@ class HeaderViewController: ContainerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        safeBarView.button.addTarget(self, action: #selector(didTapSafeBarView(_:)), for: .touchUpInside)
+        safeBarView.addTarget(self, action: #selector(didTapSafeBarView(_:)), for: .touchUpInside)
         reloadHeaderBar()
         displayRootController()
         notificationCenter.addObserver(self,
@@ -71,7 +71,7 @@ class HeaderViewController: ContainerViewController {
             noSafeBarView.isHidden = hasSafe
 
             if let safe = selectedSafe {
-                safeBarView.setAddress(safe.displayAddress)
+                safeBarView.setAddress(safe.addressValue)
                 safeBarView.setName(safe.displayName)
             }
         } catch {

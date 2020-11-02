@@ -40,8 +40,11 @@
                                 <constraint firstAttribute="height" constant="44" id="Uer-St-wsC"/>
                                 <constraint firstAttribute="width" constant="44" id="tyd-wL-JA6"/>
                             </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <color key="tintColor" name="mediumGrey"/>
                             <state key="normal">
                                 <imageReference key="image" image="chevron.down.circle" catalog="system" symbolScale="large"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
                             </state>
                             <connections>
                                 <action selector="didTapSwitchSafe:" destination="-1" eventType="touchUpInside" id="Iaw-gj-Q94"/>
@@ -85,11 +88,10 @@
                         <constraint firstAttribute="bottom" secondItem="X1Y-Im-GQE" secondAttribute="bottom" constant="12" id="uf7-PI-dsu"/>
                     </constraints>
                 </view>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.45000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Al5-uC-xzr">
-                    <rect key="frame" x="0.0" y="116" width="414" height="10"/>
-                    <color key="backgroundColor" name="tomato"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow" translatesAutoresizingMaskIntoConstraints="NO" id="Al5-uC-xzr">
+                    <rect key="frame" x="0.0" y="116" width="414" height="12"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="10" id="2pF-v2-WCj"/>
+                        <constraint firstAttribute="height" constant="12" id="2pF-v2-WCj"/>
                     </constraints>
                 </imageView>
             </subviews>
@@ -112,8 +114,9 @@
     </objects>
     <resources>
         <image name="chevron.down.circle" catalog="system" width="128" height="121"/>
-        <namedColor name="tomato">
-            <color red="0.94117647058823528" green="0.14509803921568629" blue="0.14509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="shadow" width="3" height="13"/>
+        <namedColor name="mediumGrey">
+            <color red="0.69803921568627447" green="0.70980392156862748" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

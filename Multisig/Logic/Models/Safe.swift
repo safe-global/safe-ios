@@ -18,6 +18,8 @@ extension Safe: Identifiable {
 
     var displayAddress: String { address! }
 
+    var addressValue: Address { Address(address!)! }
+
     var browserURL: URL { Self.browserURL(address: displayAddress) }
 
     var displayName: String { name.flatMap { $0.isEmpty ? nil : $0 } ?? "Untitled Safe" }

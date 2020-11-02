@@ -19,6 +19,8 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     override var isEmpty: Bool { results.isEmpty }
 
     let reuseID = "Cell"
+    let rowHeight: CGFloat = 60
+    let tableBackgroundColor: UIColor = .gnoWhite
     var transactionService = App.shared.safeTransactionService
 
     convenience init() {
@@ -31,6 +33,9 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         tableView.dataSource = self
         tableView.allowsSelection = false
         tableView.register(BalanceTableViewCell.nib(), forCellReuseIdentifier: reuseID)
+        tableView.rowHeight = rowHeight
+        tableView.backgroundColor = tableBackgroundColor
+        emptyView.setText("Balances will appear here")
     }
 
     override func reloadData() {
@@ -85,10 +90,10 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = results[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as! BalanceTableViewCell
-        cell.cellMainLabel.text = item.symbol
-        cell.cellDetailLabel.text = item.balance
-        cell.cellSubDetailLabel.text = item.balanceUsd
-        cell.cellImageView.kf.setImage(with: item.imageURL)
+        cell.setMainText(item.symbol)
+        cell.setDetailText(item.balance)
+        cell.setSubDetailText(item.balanceUsd)
+        cell.setImage(with: item.imageURL, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
         return cell
     }
 }
