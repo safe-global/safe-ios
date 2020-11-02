@@ -1,5 +1,5 @@
 //
-//  SafeCollectiblesRequest.swift
+//  CollectiblesRequest.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 09.07.20.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct SafeCollectiblesRequest: JSONRequest {
+struct CollectiblesRequest: JSONRequest {
     let address: String
 
     var httpMethod: String { return "GET" }
-    var urlPath: String { return "/api/v1/safes/\(address)/collectibles/" }
+    var urlPath: String { return "/v1/safes/\(address)/collectibles/" }
 
     typealias Response = [Collectible]
     typealias ResponseType = Response
@@ -22,8 +22,8 @@ struct SafeCollectiblesRequest: JSONRequest {
     }
 }
 
-extension SafeTransactionService {
-    func collectibles(at address: Address) throws -> SafeCollectiblesRequest.Response {
-       try execute(request: SafeCollectiblesRequest(address: address))
+extension SafeClientGatewayService {
+    func collectibles(at address: Address) throws -> CollectiblesRequest.Response {
+       try execute(request: CollectiblesRequest(address: address))
     }
 }

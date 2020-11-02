@@ -39,7 +39,7 @@ class CollectibleBalancesModel: ObservableObject, LoadingModel {
                 .safeToAddress()
                 .receive(on: DispatchQueue.global())
                 .tryMap { address in
-                    try App.shared.safeTransactionService.collectibles(at: address)
+                    try App.shared.clientGatewayService.collectibles(at: address)
                 }
                 .map {
                     CollectibleListSection.create($0)

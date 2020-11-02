@@ -224,7 +224,7 @@
 		0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */; };
 		0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5F24B71D2400A43988 /* SafeStatusRequest.swift */; };
 		0AB34D6224B71DB200A43988 /* SafeBalancesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6124B71DB200A43988 /* SafeBalancesRequest.swift */; };
-		0AB34D6624B71DE300A43988 /* SafeCollectiblesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */; };
+		0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */; };
 		0AB34D6824B71DF700A43988 /* TokensRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6724B71DF700A43988 /* TokensRequest.swift */; };
 		0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */; };
 		0AC60C332549751500A63AE2 /* MultiSendActionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C322549751500A63AE2 /* MultiSendActionListView.swift */; };
@@ -645,7 +645,7 @@
 		0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateDecodingStrategy+GnosisSafeServices.swift"; sourceTree = "<group>"; };
 		0AB34D5F24B71D2400A43988 /* SafeStatusRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeStatusRequest.swift; sourceTree = "<group>"; };
 		0AB34D6124B71DB200A43988 /* SafeBalancesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBalancesRequest.swift; sourceTree = "<group>"; };
-		0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCollectiblesRequest.swift; sourceTree = "<group>"; };
+		0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesRequest.swift; sourceTree = "<group>"; };
 		0AB34D6724B71DF700A43988 /* TokensRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensRequest.swift; sourceTree = "<group>"; };
 		0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarCenter.swift; sourceTree = "<group>"; };
 		0AC60C322549751500A63AE2 /* MultiSendActionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSendActionListView.swift; sourceTree = "<group>"; };
@@ -924,6 +924,7 @@
 				043ABD0B24EF0C33008826D5 /* SafeClientGatewayService.swift */,
 				043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */,
 				0A433E5E25500F87006FFF75 /* BalancesRequest.swift */,
+				0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */,
 				043ABD0C24EF0C33008826D5 /* TransactionSummaryListRequest.swift */,
 				0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */,
 				043ABD0D24EF0C33008826D5 /* SCGModels.swift */,
@@ -1183,11 +1184,11 @@
 		0A53EB8A253F250500E6ACD0 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				0AC94457254068D800921CA5 /* NSNotification+Events.swift */,
 				0AF1C822254090E200E28669 /* LoadSafeViewController.swift */,
-				0AB9F4C8254C64740044395F /* SwitchSafesViewController */,
+				0AC94457254068D800921CA5 /* NSNotification+Events.swift */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
 				0AC60C772549C50E00A63AE2 /* HeaderViewController */,
+				0AB9F4C8254C64740044395F /* SwitchSafesViewController */,
 				0A53EBB1253F341600E6ACD0 /* UI Library */,
 			);
 			path = UIKit;
@@ -1548,7 +1549,6 @@
 				55B6466B2530562F0050BD95 /* SignTransactionRequest.swift */,
 				04769167246431D000D73D8B /* SafeTransactionService.swift */,
 				0AB34D6124B71DB200A43988 /* SafeBalancesRequest.swift */,
-				0AB34D6524B71DE300A43988 /* SafeCollectiblesRequest.swift */,
 				0AB34D6724B71DF700A43988 /* TokensRequest.swift */,
 				0A09839F24BC55ED009EE296 /* TokenRequest.swift */,
 				0AB34D5F24B71D2400A43988 /* SafeStatusRequest.swift */,
@@ -2726,7 +2726,7 @@
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */,
 				0AD1D8FD252620D500B8EEFF /* CollectibleBalancesView.swift in Sources */,
-				0AB34D6624B71DE300A43988 /* SafeCollectiblesRequest.swift in Sources */,
+				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				550A0ACD24F3BEE800B839E9 /* MainContentView.swift in Sources */,
 				04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */,
