@@ -20,6 +20,7 @@ struct TokenInfo: Decodable, Hashable {
 enum TokenType: String, Decodable {
     case erc20 = "ERC20"
     case erc721 = "ERC721"
+    case ether = "ETHER"
 }
 
 extension Token {
