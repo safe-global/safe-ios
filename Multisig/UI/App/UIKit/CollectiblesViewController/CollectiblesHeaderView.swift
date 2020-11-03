@@ -14,8 +14,6 @@ class CollectiblesHeaderView: UITableViewHeaderFooterView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundView = UIView(frame: self.bounds)
-        backgroundView!.backgroundColor = .gnoSystemWhite
         headerNameLabel.setStyle(.headline)
     }
 
