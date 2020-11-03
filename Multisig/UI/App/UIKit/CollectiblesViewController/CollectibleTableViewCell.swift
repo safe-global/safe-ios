@@ -9,9 +9,9 @@
 import UIKit
 
 class CollectibleTableViewCell: UITableViewCell {
-    @IBOutlet weak var cellImageView: UIImageView!
-    @IBOutlet weak var cellNameLabel: UILabel!
-    @IBOutlet weak var cellDescriptionLabel: UILabel!
+    @IBOutlet private weak var cellImageView: UIImageView!
+    @IBOutlet private weak var cellNameLabel: UILabel!
+    @IBOutlet private weak var cellDescriptionLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,11 +19,16 @@ class CollectibleTableViewCell: UITableViewCell {
         cellDescriptionLabel.setStyle(.body)
     }
 
-    func configure(collectible: CollectibleViewModel) {
-        cellNameLabel.text = collectible.name
-        cellDescriptionLabel.text = collectible.description
-        let placeholder = #imageLiteral(resourceName: "ico-collectible-placeholder")
-        if let url = collectible.imageURL {
+    func setName(_ value: String) {
+        cellNameLabel.text = value
+    }
+
+    func setDescription(_ value: String) {
+        cellDescriptionLabel.text = value
+    }
+
+    func setImage(with URL: URL?, placeholder: UIImage) {
+        if let url = URL {
             cellImageView.kf.setImage(with: url, placeholder: placeholder)
         } else {
             cellImageView.image = placeholder

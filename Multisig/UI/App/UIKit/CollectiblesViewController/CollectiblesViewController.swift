@@ -92,7 +92,9 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(CollectibleTableViewCell.self, for: indexPath)
         let collectible = sections[indexPath.section].collectibles[indexPath.row]
-        cell.configure(collectible: collectible)
+        cell.setName(collectible.name)
+        cell.setDescription(collectible.description)
+        cell.setImage(with: collectible.imageURL, placeholder: #imageLiteral(resourceName: "ico-collectible-placeholder"))
         return cell
     }
 
