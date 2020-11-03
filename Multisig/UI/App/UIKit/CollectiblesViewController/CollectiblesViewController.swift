@@ -12,8 +12,9 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     let clientGatewayService = App.shared.clientGatewayService
     let cellReuseID = "Cell"
     let headerReuseID = "Header"
-    let rowHeight: CGFloat = 60
-    let headerHeight: CGFloat = 48
+    let rowHeight: CGFloat = 160
+    let headerHeight: CGFloat = 52
+    let footerHeight: CGFloat = 2
     let tableBackgroundColor: UIColor = .gnoWhite
 
     var currentDataTask: URLSessionTask?
@@ -34,6 +35,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         tableView.register(CollectiblesHeaderView.nib(), forHeaderFooterViewReuseIdentifier: headerReuseID)
         tableView.rowHeight = rowHeight
         tableView.sectionHeaderHeight = headerHeight
+        tableView.sectionFooterHeight = footerHeight
         tableView.backgroundColor = tableBackgroundColor
 
         emptyView.setText("Collectibles will appear here")
@@ -104,4 +106,9 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         return view
     }
 
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: footerHeight))
+        view.backgroundColor = .gnoWhite
+        return view
+    }
 }
