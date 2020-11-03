@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,6 +16,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="519" height="162"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-background" translatesAutoresizingMaskIntoConstraints="NO" id="ZpE-xX-bRz">
+                        <rect key="frame" x="7" y="0.0" width="507" height="166"/>
+                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uo4-L9-zv1">
                         <rect key="frame" x="16" y="8" width="487" height="146"/>
                         <subviews>
@@ -33,14 +35,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXt-pW-2KI">
-                                <rect key="frame" x="160" y="45.5" width="311" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXt-pW-2KI">
+                                <rect key="frame" x="160" y="45.5" width="311" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0LA-pv-ogc" secondAttribute="trailing" constant="16" id="1HL-c0-BHw"/>
                             <constraint firstItem="0LA-pv-ogc" firstAttribute="top" secondItem="Uo4-L9-zv1" secondAttribute="top" constant="15" id="MK9-e0-8aS"/>
@@ -54,24 +55,27 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="Uo4-L9-zv1" secondAttribute="trailing" constant="16" id="FM8-P8-YW2"/>
-                    <constraint firstAttribute="bottom" secondItem="Uo4-L9-zv1" secondAttribute="bottom" constant="8" id="m6v-pJ-ZOP"/>
-                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="top" secondItem="p9K-Yx-zCr" secondAttribute="top" constant="8" id="wpy-51-HTy"/>
-                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="leading" secondItem="p9K-Yx-zCr" secondAttribute="leading" constant="16" id="yLA-At-cxl"/>
+                    <constraint firstAttribute="trailing" secondItem="ZpE-xX-bRz" secondAttribute="trailing" constant="16" id="0OJ-rt-0cE"/>
+                    <constraint firstItem="ZpE-xX-bRz" firstAttribute="leading" secondItem="p9K-Yx-zCr" secondAttribute="leading" constant="16" id="9AZ-6a-lU4"/>
+                    <constraint firstItem="INF-RX-1Dj" firstAttribute="top" secondItem="ZpE-xX-bRz" secondAttribute="top" id="CPx-F9-Qnn"/>
+                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="top" secondItem="ZpE-xX-bRz" secondAttribute="top" id="F8w-XU-Qe3"/>
+                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="leading" secondItem="ZpE-xX-bRz" secondAttribute="leading" id="FN2-B1-3jX"/>
+                    <constraint firstItem="INF-RX-1Dj" firstAttribute="leading" secondItem="ZpE-xX-bRz" secondAttribute="leading" id="OdQ-MO-11G"/>
+                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="bottom" secondItem="ZpE-xX-bRz" secondAttribute="bottom" id="PyD-Fj-vA5"/>
+                    <constraint firstItem="ZpE-xX-bRz" firstAttribute="top" secondItem="p9K-Yx-zCr" secondAttribute="top" constant="8" id="Q4u-rX-GNa"/>
+                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="trailing" secondItem="ZpE-xX-bRz" secondAttribute="trailing" id="xmY-cm-MGB"/>
+                    <constraint firstAttribute="bottom" secondItem="ZpE-xX-bRz" secondAttribute="bottom" constant="8" id="yEz-Me-n51"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellDescriptionLabel" destination="pXt-pW-2KI" id="cPl-xv-7v5"/>
                 <outlet property="cellImageView" destination="INF-RX-1Dj" id="e7V-ic-MqI"/>
                 <outlet property="cellNameLabel" destination="0LA-pv-ogc" id="Oqn-Jh-H1b"/>
-                <outlet property="cellWrapperView" destination="Uo4-L9-zv1" id="ghn-D6-CV7"/>
             </connections>
             <point key="canvasLocation" x="70.28985507246378" y="-380.35714285714283"/>
         </tableViewCell>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="card-background" width="37" height="37"/>
     </resources>
 </document>

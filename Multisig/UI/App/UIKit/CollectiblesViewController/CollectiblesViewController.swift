@@ -19,7 +19,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     var sections = [CollectibleListSection]()
     var lastError: Error?
 
-    override var isEmpty: Bool { return sections.isEmpty }
+    override var isEmpty: Bool { sections.isEmpty }
 
     convenience init() {
         self.init(namedClass: Self.superclass())
