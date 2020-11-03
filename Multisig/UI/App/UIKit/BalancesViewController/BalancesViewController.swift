@@ -14,14 +14,16 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     var currentDataTask: URLSessionTask?
     var results: [TokenBalance] = []
+    var totalBalance: String = "0.00"
     var lastError: Error?
 
     override var isEmpty: Bool { results.isEmpty }
 
-    let reuseID = "Cell"
     let rowHeight: CGFloat = 60
     let tableBackgroundColor: UIColor = .gnoWhite
-    var transactionService = App.shared.safeTransactionService
+    let totalCellIndex = 0
+
+    var clientGatewayService = App.shared.clientGatewayService
     var notificationCenter = NotificationCenter.default
 
     convenience init() {
@@ -30,13 +32,18 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
+        tableView.registerCell(BalanceTableViewCell.self)
+        tableView.registerCell(TotalBalanceTableViewCell.self)
+
         tableView.allowsSelection = false
-        tableView.register(BalanceTableViewCell.nib(), forCellReuseIdentifier: reuseID)
         tableView.rowHeight = rowHeight
         tableView.backgroundColor = tableBackgroundColor
+
+        tableView.delegate = self
+        tableView.dataSource = self
+
         emptyView.setText("Balances will appear here")
+
         notificationCenter.addObserver(self, selector: #selector(didChangeSafe), name: .selectedSafeChanged, object: nil)
     }
 
@@ -63,7 +70,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             }
             let address = try Address(from: string)
 
-            currentDataTask = transactionService.asyncSafeBalances(at: address) { [weak self] result in
+            currentDataTask = clientGatewayService.asyncBalances(address: address) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):
@@ -79,12 +86,13 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                         self.lastError = error
                         self.onError()
                     }
-                case .success(let balances):
-                    let results = balances.map(TokenBalance.init)
-
+                case .success(let summary):
+                    let results = summary.items.map(TokenBalance.init)
+                    let total = TokenBalance.displayCurrency(from: summary.fiatTotal)
                     DispatchQueue.main.async { [weak self] in
                         guard let `self` = self else { return }
                         self.results = results
+                        self.totalBalance = total
                         self.onSuccess()
                     }
                 }
@@ -96,16 +104,23 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        results.count
+        results.count + 1 /* for total cell */
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = results[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as! BalanceTableViewCell
-        cell.setMainText(item.symbol)
-        cell.setDetailText(item.balance)
-        cell.setSubDetailText(item.balanceUsd)
-        cell.setImage(with: item.imageURL, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
-        return cell
+        if indexPath.row == totalCellIndex {
+            let cell = tableView.dequeueCell(TotalBalanceTableViewCell.self, for: indexPath)
+            cell.setMainText("Total")
+            cell.setDetailText(totalBalance)
+            return cell
+        } else {
+            let item = results[indexPath.row - 1]
+            let cell = tableView.dequeueCell(BalanceTableViewCell.self, for: indexPath)
+            cell.setMainText(item.symbol)
+            cell.setDetailText(item.balance)
+            cell.setSubDetailText(item.balanceUsd)
+            cell.setImage(with: item.imageURL, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
+            return cell
+        }
     }
 }
