@@ -32,7 +32,7 @@ class TransferTransactionViewModel: TransactionViewModel, TransferAmmountViewMod
         if let etherTransferInfo = transferInfo.transferInfo as? EtherTransferInfo {
             value = Int256(etherTransferInfo.value.value)
             let eth = App.shared.tokenRegistry.token(address: .ether)!
-            decimals = eth.decimals
+            decimals = eth.decimals!
             symbol = eth.symbol
             logoURL = eth.logo?.absoluteString
         } else if let erc721TransferInfo = transferInfo.transferInfo as? Erc721TransferInfo {

@@ -29,7 +29,7 @@ class CustomTransactionViewModel: TransactionViewModel, TransferAmmountViewModel
         isOutgoing = true
 
         let decimalAmount = BigDecimal(-Int256(customTransactionInfo.value.value),
-                                       Int(clamping: eth.decimals))
+                                       Int(clamping: eth.decimals!))
         amount = TokenFormatter().string(
             from: decimalAmount,
             decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
