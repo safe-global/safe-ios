@@ -9,16 +9,16 @@
 import UIKit
 
 /// Header bar will adapt to the devices size
-class HeaderViewController: ContainerViewController {
-    @IBOutlet weak var headerBar: UIView!
-    @IBOutlet weak var barShadowView: UIImageView!
-    @IBOutlet weak var safeBarView: SafeBarView!
-    @IBOutlet weak var noSafeBarView: NoSafeBarView!
-    @IBOutlet weak var switchSafeButton: UIButton!
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var headerBarHeightConstraint: NSLayoutConstraint!
+final class HeaderViewController: ContainerViewController {
+    @IBOutlet private weak var headerBar: UIView!
+    @IBOutlet private weak var barShadowView: UIImageView!
+    @IBOutlet private weak var safeBarView: SafeBarView!
+    @IBOutlet private weak var noSafeBarView: NoSafeBarView!
+    @IBOutlet private weak var switchSafeButton: UIButton!
+    @IBOutlet private weak var contentView: UIView!
+    @IBOutlet private weak var headerBarHeightConstraint: NSLayoutConstraint!
 
-    var rootViewController: UIViewController?
+    private var rootViewController: UIViewController?
 
     var notificationCenter = NotificationCenter.default
 
@@ -40,7 +40,7 @@ class HeaderViewController: ContainerViewController {
         headerBarHeightConstraint.constant = ScreenMetrics.safeHeaderHeight
     }
 
-    func displayRootController() {
+    private func displayRootController() {
         assert(!viewControllers.isEmpty)
         displayChild(at: 0, in: contentView)
     }
@@ -55,18 +55,18 @@ class HeaderViewController: ContainerViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
-    @IBAction func didTapSwitchSafe(_ sender: Any) {
+    @IBAction private func didTapSwitchSafe(_ sender: Any) {
         let switchSafesVC = SwitchSafesViewController()
         let nav = UINavigationController(rootViewController: switchSafesVC)
         present(nav, animated: true)
     }
 
-    @objc func didTapSafeBarView(_ sender: Any) {
+    @objc private func didTapSafeBarView(_ sender: Any) {
         // present Safe Info VC modally
         // using the custom "CenteredCard" animator for transitioning delegate
     }
 
-    @objc func reloadHeaderBar() {
+    @objc private func reloadHeaderBar() {
         do {
             let selectedSafe = try Safe.getSelected()
             let hasSafe = selectedSafe != nil

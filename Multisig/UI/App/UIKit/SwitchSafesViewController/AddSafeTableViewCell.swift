@@ -9,7 +9,7 @@
 import UIKit
 
 class AddSafeTableViewCell: UITableViewCell {
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet private weak var button: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -9,9 +9,9 @@
 import UIKit
 
 class SegmentViewController: ContainerViewController {
-    @IBOutlet weak var segmentBar: UIView!
-    @IBOutlet weak var segmentBarStackView: UIStackView!
-    @IBOutlet weak var contentView: UIView!
+    @IBOutlet private weak var segmentBar: UIView!
+    @IBOutlet private weak var segmentBarStackView: UIStackView!
+    @IBOutlet private weak var contentView: UIView!
 
     var segmentItems = [SegmentBarItem]()
     var selectedIndex: Int?
@@ -28,8 +28,8 @@ class SegmentViewController: ContainerViewController {
             let s = SegmentView()
             s.index = index
 
-            s.button.setImage(item.image, for: .normal)
-            s.button.setTitle(item.title.uppercased(), for: .normal)
+            s.setImage(item.image)
+            s.setTitle(item.title.uppercased())
 
             s.isSelected = false
             s.onTap = { [weak self] index in
@@ -48,7 +48,7 @@ class SegmentViewController: ContainerViewController {
         }
     }
 
-    func didTapSegmentView(at index: Int) {
+    private func didTapSegmentView(at index: Int) {
         selectSegment(at: index)
     }
 

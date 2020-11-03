@@ -12,10 +12,10 @@ import UIKit
 ///     - address, name: displays identicon, name, and address
 ///     - nothing: displays 'no safe loaded' icon and text
 class SafeBarView: UINibView {
-    @IBOutlet weak var identiconView: UIImageView!
-    @IBOutlet weak var textLabel: UILabel!
-    @IBOutlet weak var detailLabel: UILabel!
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet private weak var identiconView: UIImageView!
+    @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet private weak var detailLabel: UILabel!
+    @IBOutlet private weak var button: UIButton!
 
     override func commonInit() {
         super.commonInit()
@@ -44,11 +44,11 @@ class SafeBarView: UINibView {
     }
 
     // visual reaction for user touches
-    @objc func didTouchDown(sender: UIButton, forEvent event: UIEvent) {
+    @objc private func didTouchDown(sender: UIButton, forEvent event: UIEvent) {
         alpha = 0.7
     }
 
-    @objc func didTouchUp(sender: UIButton, forEvent event: UIEvent) {
+    @objc private func didTouchUp(sender: UIButton, forEvent event: UIEvent) {
         alpha = 1.0
     }
 }

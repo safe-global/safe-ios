@@ -11,17 +11,18 @@ import Kingfisher
 
 // Loads and displays balances
 class BalancesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
+    private var currentDataTask: URLSessionTask?
 
-    var currentDataTask: URLSessionTask?
-    var results: [TokenBalance] = []
-    var totalBalance: String = "0.00"
-    var lastError: Error?
+    private var results: [TokenBalance] = []
+
+    private var totalBalance: String = "0.00"
+    private var lastError: Error?
+
+    private let rowHeight: CGFloat = 60
+    private let tableBackgroundColor: UIColor = .gnoWhite
+    private let totalCellIndex = 0
 
     override var isEmpty: Bool { results.isEmpty }
-
-    let rowHeight: CGFloat = 60
-    let tableBackgroundColor: UIColor = .gnoWhite
-    let totalCellIndex = 0
 
     var clientGatewayService = App.shared.clientGatewayService
 

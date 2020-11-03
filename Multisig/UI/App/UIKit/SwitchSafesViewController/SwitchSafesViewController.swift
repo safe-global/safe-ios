@@ -9,7 +9,6 @@
 import UIKit
 
 final class SwitchSafesViewController: UITableViewController {
-
     private var safes = [Safe]()
     private let addSafeRowIndex = 0
 
@@ -74,7 +73,7 @@ final class SwitchSafesViewController: UITableViewController {
         }
     }
 
-    @objc func didTapCloseButton() {
+    @objc private func didTapCloseButton() {
         dismiss(animated: true, completion: nil)
     }
 }

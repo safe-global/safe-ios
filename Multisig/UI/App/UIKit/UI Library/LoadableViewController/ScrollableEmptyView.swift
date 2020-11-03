@@ -9,10 +9,15 @@
 import UIKit
 
 class ScrollableEmptyView: UINibView {
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var textLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
 
+    var refreshControl: UIRefreshControl? {
+        get { scrollView.refreshControl }
+        set { scrollView.refreshControl = newValue }
+    }
+    
     override func commonInit() {
         super.commonInit()
         textLabel.setStyle(.title3)

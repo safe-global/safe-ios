@@ -10,8 +10,8 @@ import UIKit
 
 class SegmentView: UINibView {
     var index: Int!
-    @IBOutlet weak var button: UIButton!
-    @IBOutlet weak var selectorView: UIView!
+    @IBOutlet private weak var button: UIButton!
+    @IBOutlet private weak var selectorView: UIView!
 
     var onTap: (Int) -> Void = { _ in }
 
@@ -20,7 +20,7 @@ class SegmentView: UINibView {
         button.titleLabel?.setStyle(.caption1)
     }
 
-    @IBAction func didTapButton(_ sender: Any) {
+    @IBAction private func didTapButton(_ sender: Any) {
         onTap(index)
     }
     
@@ -32,5 +32,13 @@ class SegmentView: UINibView {
             button.setTitleColor(color, for: .normal)
             button.tintColor = color
         }
+    }
+
+    func setImage(_ image: UIImage) {
+        button.setImage(image, for: .normal)
+    }
+
+    func setTitle(_ value: String) {
+        button.setTitle(value, for: .normal)
     }
 }
