@@ -125,6 +125,8 @@
 		0A339C5D24C1D16E00DAD84B /* Image+Blockies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
 		0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A433E5E25500F87006FFF75 /* BalancesRequest.swift */; };
+		0A433E8125516A9A006FFF75 /* TotalBalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */; };
+		0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A433E8025516A9A006FFF75 /* TotalBalanceTableViewCell.xib */; };
 		0A451BD2252DC1D5001DB7D2 /* WithSelectedSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BD1252DC1D5001DB7D2 /* WithSelectedSafe.swift */; };
 		0A451BDE252DDB17001DB7D2 /* String+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BDD252DDB17001DB7D2 /* String+Error.swift */; };
 		0A451BE4252DDB25001DB7D2 /* CoinBalancesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BE3252DDB25001DB7D2 /* CoinBalancesModel.swift */; };
@@ -541,6 +543,8 @@
 		0A35CC2F24810CF6005E45BA /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		0A433E5E25500F87006FFF75 /* BalancesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesRequest.swift; sourceTree = "<group>"; };
+		0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceTableViewCell.swift; sourceTree = "<group>"; };
+		0A433E8025516A9A006FFF75 /* TotalBalanceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotalBalanceTableViewCell.xib; sourceTree = "<group>"; };
 		0A451BD1252DC1D5001DB7D2 /* WithSelectedSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithSelectedSafe.swift; sourceTree = "<group>"; };
 		0A451BDD252DDB17001DB7D2 /* String+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Error.swift"; sourceTree = "<group>"; };
 		0A451BE3252DDB25001DB7D2 /* CoinBalancesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinBalancesModel.swift; sourceTree = "<group>"; };
@@ -1573,6 +1577,8 @@
 			isa = PBXGroup;
 			children = (
 				0AF1C9132541C68000E28669 /* BalancesViewController.swift */,
+				0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */,
+				0A433E8025516A9A006FFF75 /* TotalBalanceTableViewCell.xib */,
 				0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */,
 				0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */,
 			);
@@ -2282,6 +2288,7 @@
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
+				0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
@@ -2555,6 +2562,7 @@
 				55F9A2ED2472F3FE00ABBA6F /* TokenImage.swift in Sources */,
 				0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
+				0A433E8125516A9A006FFF75 /* TotalBalanceTableViewCell.swift in Sources */,
 				0A7AEAE32462FA6000014184 /* AddSafeRow.swift in Sources */,
 				0457AB9E24BDCA45007C884E /* CollectibleDetailsView.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
