@@ -14,5 +14,5 @@ struct Token: Hashable {
     var logo: URL?
     var name: String
     var symbol: String
-    var decimals: UInt256
+    var decimals: UInt256?
 }

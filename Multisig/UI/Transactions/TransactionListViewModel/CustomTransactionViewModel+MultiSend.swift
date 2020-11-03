@@ -22,7 +22,7 @@ extension CustomTransactionViewModel {
         isOutgoing = true
 
         let decimalAmount = BigDecimal(-Int256(tx.value.value),
-                                       Int(clamping: eth.decimals))
+                                       Int(clamping: eth.decimals!))
         amount = TokenFormatter().string(
             from: decimalAmount,
             decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",

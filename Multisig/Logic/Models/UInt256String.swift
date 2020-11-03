@@ -39,6 +39,8 @@ struct UInt256String: Hashable, Decodable {
             }
         } else if let uint = try? container.decode(UInt.self) {
             value = UInt256(uint)
+        } else if let int = try? container.decode(Int.self), int >= 0 {
+            value = UInt256(int)
         } else {
             let context = DecodingError.Context.init(
                 codingPath: decoder.codingPath,

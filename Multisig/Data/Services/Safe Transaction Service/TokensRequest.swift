@@ -28,7 +28,7 @@ struct TokensRequest: JSONRequest {
         var address: AddressString
         var name: String
         var symbol: String
-        var decimals: UInt256String
+        var decimals: UInt256String?
         var logoUri: String?
     }
 
@@ -48,7 +48,7 @@ extension Token {
         logo = token.logoUri.flatMap { URL(string: $0) }
         name = token.name
         symbol = token.symbol
-        decimals = token.decimals.value
+        decimals = token.decimals?.value
     }
 
 }
