@@ -11,19 +11,20 @@ import Foundation
 struct CollectiblesRequest: JSONRequest {
     let address: String
 
-    var httpMethod: String { return "GET" }
-    var urlPath: String { return "/v1/safes/\(address)/collectibles/" }
+    var httpMethod: String { "GET" }
+    var urlPath: String { "/v1/safes/\(address)/collectibles/" }
 
-    typealias Response = [Collectible]
-    typealias ResponseType = Response
+    typealias ResponseType = [Collectible]
+}
 
+extension CollectiblesRequest {
     init(address: Address) {
         self.address = address.checksummed
     }
 }
 
 extension SafeClientGatewayService {
-    func collectibles(at address: Address) throws -> CollectiblesRequest.Response {
+    func collectibles(at address: Address) throws -> [Collectible] {
        try execute(request: CollectiblesRequest(address: address))
     }
 

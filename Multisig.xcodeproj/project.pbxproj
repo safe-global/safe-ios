@@ -361,6 +361,7 @@
 		55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E88247FE09A00249E98 /* BottomOverlayView.swift */; };
 		55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */; };
 		55B66E8E24810BC800249E98 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8D24810BC800249E98 /* AppSettingsTests.swift */; };
+		55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */; };
 		55CA3EAB2508D3670080DF7F /* SelectOwnerAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */; };
 		55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EB8250A234F0080DF7F /* SecureStore.swift */; };
 		55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBA250A237C0080DF7F /* KeychainService.swift */; };
@@ -835,6 +836,7 @@
 		55B66E88247FE09A00249E98 /* BottomOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOverlayView.swift; sourceTree = "<group>"; };
 		55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemitransparentBackgroundView.swift; sourceTree = "<group>"; };
 		55B66E8D24810BC800249E98 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
+		55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOwnerAddressView.swift; sourceTree = "<group>"; };
 		55CA3EB8250A234F0080DF7F /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		55CA3EBA250A237C0080DF7F /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -1218,6 +1220,7 @@
 				0A6C131325407B5100EA67E3 /* ContainerViewController.swift */,
 				0AF1C80625408B5000E28669 /* UIImageView+Address.swift */,
 				0AF1C9252541E09C00E28669 /* UIView+UINib.swift */,
+				55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */,
 				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
 				0A007123254B255C00A57CAF /* UIFont+Styles.swift */,
 				0A007129254B379000A57CAF /* UIColor+Styles.swift */,
@@ -2714,6 +2717,7 @@
 				0AEDCE0724728D7100A1EC80 /* BackButton.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				0A451C0C252DDBE5001DB7D2 /* CollectibleBalancesModel.swift in Sources */,
+				55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */,
 				0A451BEA252DDB39001DB7D2 /* FullScreenLoadingView.swift in Sources */,
 				049C0C4A24F7B1B400F9664B /* TransactionViewModel.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,

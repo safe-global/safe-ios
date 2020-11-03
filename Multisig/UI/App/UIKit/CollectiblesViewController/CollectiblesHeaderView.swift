@@ -9,8 +9,8 @@
 import UIKit
 
 class CollectiblesHeaderView: UITableViewHeaderFooterView {
-    @IBOutlet weak var headerImageView: UIImageView!
-    @IBOutlet weak var headerNameLabel: UILabel!
+    @IBOutlet private weak var headerImageView: UIImageView!
+    @IBOutlet private weak var headerNameLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

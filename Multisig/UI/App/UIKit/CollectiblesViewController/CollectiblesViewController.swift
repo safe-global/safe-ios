@@ -9,7 +9,7 @@
 import UIKit
 
 class CollectiblesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
-    let clientGatewayService = App.shared.clientGatewayService
+    var clientGatewayService = App.shared.clientGatewayService
     let rowHeight: CGFloat = 160
     let headerHeight: CGFloat = 52
     let footerHeight: CGFloat = 2
