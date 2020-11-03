@@ -102,7 +102,9 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueHeaderFooterView(CollectiblesHeaderView.self)
-        view.configure(collectibleSection: sections[section])
+        let collectibleSection = sections[section]
+        view.setName(collectibleSection.name)
+        view.setImage(with: collectibleSection.imageURL, placeholder: #imageLiteral(resourceName: "ico-nft-placeholder"))
         return view
     }
 

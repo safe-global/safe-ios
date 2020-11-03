@@ -17,10 +17,12 @@ class CollectiblesHeaderView: UITableViewHeaderFooterView {
         headerNameLabel.setStyle(.headline)
     }
 
-    func configure(collectibleSection: CollectibleListSection) {
-        headerNameLabel.text = collectibleSection.name
-        let placeholder = #imageLiteral(resourceName: "ico-nft-placeholder")
-        if let url = collectibleSection.imageURL {
+    func setName(_ value: String) {
+        headerNameLabel.text = value
+    }
+
+    func setImage(with URL: URL?, placeholder: UIImage) {
+        if let url = URL {
             headerImageView.kf.setImage(with: url, placeholder: placeholder)
         } else {
             headerImageView.image = placeholder
