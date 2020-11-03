@@ -24,7 +24,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     let totalCellIndex = 0
 
     var clientGatewayService = App.shared.clientGatewayService
-    var notificationCenter = NotificationCenter.default
 
     convenience init() {
         self.init(namedClass: Self.superclass())
@@ -43,18 +42,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         tableView.dataSource = self
 
         emptyView.setText("Balances will appear here")
-
-        notificationCenter.addObserver(self, selector: #selector(didChangeSafe), name: .selectedSafeChanged, object: nil)
-    }
-
-    @objc func didChangeSafe() {
-        let isOnScreen = viewIfLoaded?.window != nil
-        if isOnScreen {
-            reloadData()
-        } else {
-            // Save battery and network requests if the view is off-screen
-            setNeedsReload()
-        }
     }
 
     override func reloadData() {

@@ -28,6 +28,10 @@ class LoadableViewController: UIViewController {
     @IBOutlet var allViews: [UIView]!
     var scrollViews: [UIScrollView] = []
     private var needsReload: Bool = false
+    var notificationCenter = NotificationCenter.default
+
+    /// If true, the screen will reload the data on changing the Safe
+    var reactsToSelectedSafeChanges: Bool { true }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +41,25 @@ class LoadableViewController: UIViewController {
             view.refreshControl = createRefreshControl()
         }
         setNeedsReload()
+
+        if reactsToSelectedSafeChanges {
+            notificationCenter.addObserver(
+                self, selector: #selector(didChangeSafe), name: .selectedSafeChanged, object: nil)
+        }
     }
 
     func setNeedsReload(_ value: Bool = true) {
         needsReload = value
+    }
+
+    @objc func didChangeSafe() {
+        let isOnScreen = viewIfLoaded?.window != nil
+        if isOnScreen {
+            reloadData()
+        } else {
+            // Save battery and network requests if the view is off-screen
+            setNeedsReload()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
