@@ -10,8 +10,6 @@ import UIKit
 
 class CollectiblesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     let clientGatewayService = App.shared.clientGatewayService
-    let cellReuseID = "Cell"
-    let headerReuseID = "Header"
     let rowHeight: CGFloat = 160
     let headerHeight: CGFloat = 52
     let footerHeight: CGFloat = 2
@@ -31,12 +29,13 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(CollectibleTableViewCell.nib(), forCellReuseIdentifier: cellReuseID)
-        tableView.register(CollectiblesHeaderView.nib(), forHeaderFooterViewReuseIdentifier: headerReuseID)
+        tableView.registerCell(CollectibleTableViewCell.self)
+        tableView.registerHeaderFooterView(CollectiblesHeaderView.self)
         tableView.rowHeight = rowHeight
         tableView.sectionHeaderHeight = headerHeight
         tableView.sectionFooterHeight = footerHeight
         tableView.backgroundColor = tableBackgroundColor
+        tableView.separatorStyle = .none
 
         emptyView.setText("Collectibles will appear here")
         emptyView.setImage(#imageLiteral(resourceName: "ico-no-collectibles"))
@@ -91,8 +90,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseID,
-                                                 for: indexPath) as! CollectibleTableViewCell
+        let cell = tableView.dequeueCell(CollectibleTableViewCell.self, for: indexPath)
         let collectible = sections[indexPath.section].collectibles[indexPath.row]
         cell.configure(collectible: collectible)
         return cell
@@ -101,7 +99,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     // MARK: - Table view delegate
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerReuseID) as! CollectiblesHeaderView
+        let view = tableView.dequeueHeaderFooterView(CollectiblesHeaderView.self)
         view.configure(collectibleSection: sections[section])
         return view
     }

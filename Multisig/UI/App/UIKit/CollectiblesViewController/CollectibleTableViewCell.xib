@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uo4-L9-zv1">
-                        <rect key="frame" x="16" y="8" width="487" height="142"/>
+                        <rect key="frame" x="16" y="8" width="487" height="146"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="INF-RX-1Dj">
                                 <rect key="frame" x="0.0" y="0.0" width="144" height="144"/>
@@ -55,7 +55,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Uo4-L9-zv1" secondAttribute="trailing" constant="16" id="FM8-P8-YW2"/>
-                    <constraint firstAttribute="bottom" secondItem="Uo4-L9-zv1" secondAttribute="bottom" constant="12" id="m6v-pJ-ZOP"/>
+                    <constraint firstAttribute="bottom" secondItem="Uo4-L9-zv1" secondAttribute="bottom" constant="8" id="m6v-pJ-ZOP"/>
                     <constraint firstItem="Uo4-L9-zv1" firstAttribute="top" secondItem="p9K-Yx-zCr" secondAttribute="top" constant="8" id="wpy-51-HTy"/>
                     <constraint firstItem="Uo4-L9-zv1" firstAttribute="leading" secondItem="p9K-Yx-zCr" secondAttribute="leading" constant="16" id="yLA-At-cxl"/>
                 </constraints>
