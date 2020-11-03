@@ -10,6 +10,7 @@ pipeline {
     }
     parameters {
         string(name: 'SSL_ENFORCE_PINNING', defaultValue: '1', description: 'Enforce SSL Pinning? (0 = NO/1 = YES)')
+        // new param for uikit enabled
     }
     stages {
         stage('Unit Test') {
@@ -19,6 +20,7 @@ pipeline {
             }
             steps {
                 ansiColor('xterm') {
+                    // new param for uikit enabled - alternative
                     sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/test.sh \"Multisig - Staging Rinkeby\""
                     junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/*/xcodebuild-test.log'
@@ -40,6 +42,8 @@ pipeline {
                     // granted the access to the signing certificates via
                     // the machine's UI (remotely or directly), then
                     // the uploading to AppStoreConnect started to work.
+
+                    // new param for uikit enabled
                     sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Rinkeby\""
                     sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Mainnet\""
                     sh "INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production Rinkeby\""
