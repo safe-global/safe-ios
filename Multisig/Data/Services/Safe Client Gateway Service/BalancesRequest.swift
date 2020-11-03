@@ -56,4 +56,8 @@ extension SafeClientGatewayService {
     func balances(address: Address) throws -> SafeBalanceSummary {
         try execute(request: BalancesRequest(address))
     }
+
+    func asyncBalances(address: Address, completion: @escaping (Result<SafeBalanceSummary, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: BalancesRequest(address), completion: completion)
+    }
 }
