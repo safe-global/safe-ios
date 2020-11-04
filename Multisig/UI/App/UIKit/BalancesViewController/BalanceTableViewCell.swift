@@ -10,11 +10,10 @@ import UIKit
 import Kingfisher
 
 class BalanceTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var cellMainLabel: UILabel!
-    @IBOutlet weak var cellDetailLabel: UILabel!
-    @IBOutlet weak var cellSubDetailLabel: UILabel!
-    @IBOutlet weak var cellImageView: UIImageView!
+    @IBOutlet private weak var cellMainLabel: UILabel!
+    @IBOutlet private weak var cellDetailLabel: UILabel!
+    @IBOutlet private weak var cellSubDetailLabel: UILabel!
+    @IBOutlet private weak var cellImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

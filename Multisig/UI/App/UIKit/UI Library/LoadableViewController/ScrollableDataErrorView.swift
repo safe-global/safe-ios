@@ -9,8 +9,13 @@
 import UIKit
 
 class ScrollableDataErrorView: UINibView {
-    @IBOutlet weak var textLabel: UILabel!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet private weak var scrollView: UIScrollView!
+
+    var refreshControl: UIRefreshControl? {
+        get { scrollView.refreshControl }
+        set { scrollView.refreshControl = newValue }
+    }
 
     override func commonInit() {
         super.commonInit()

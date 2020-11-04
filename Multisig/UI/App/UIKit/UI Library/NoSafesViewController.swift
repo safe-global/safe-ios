@@ -22,7 +22,7 @@ class NoSafesViewController: ContainerViewController {
         reloadContent()
     }
 
-    @objc func reloadContent() {
+    @objc private func reloadContent() {
         do {
             let safeOrNil = try Safe.getSelected()
             let hasSafe = safeOrNil != nil

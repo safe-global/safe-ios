@@ -15,7 +15,7 @@ import UIKit
 /// seeAlso: https://developer.apple.com/documentation/uikit/view_controllers/creating_a_custom_container_view_controller
 class ContainerViewController: UIViewController {
     var viewControllers = [UIViewController]()
-    weak var selectedViewController: UIViewController?
+    private (set) weak var selectedViewController: UIViewController?
 
     /// Displays a child view controller in the container view
     /// - Parameters:

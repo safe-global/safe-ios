@@ -25,8 +25,8 @@ class LoadableViewController: UIViewController {
     @IBOutlet weak var dataErrorView: ScrollableDataErrorView!
     @IBOutlet weak var emptyView: ScrollableEmptyView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet var allViews: [UIView]!
-    var scrollViews: [UIScrollView] = []
+    @IBOutlet private var allViews: [UIView]!
+    private var refreshControls: [UIRefreshControl] = []
     private var needsReload: Bool = false
     var notificationCenter = NotificationCenter.default
 
@@ -36,10 +36,13 @@ class LoadableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // set up refresh action to trigger data reloading
-        scrollViews = [dataErrorView.scrollView, emptyView.scrollView, tableView]
-        scrollViews.forEach { view in
-            view.refreshControl = createRefreshControl()
-        }
+        emptyView.refreshControl = createRefreshControl()
+        dataErrorView.refreshControl = createRefreshControl()
+        tableView.refreshControl = createRefreshControl()
+        refreshControls = [emptyView.refreshControl,
+                           dataErrorView.refreshControl,
+                           tableView.refreshControl].compactMap { $0 }
+
         setNeedsReload()
 
         if reactsToSelectedSafeChanges {
@@ -79,11 +82,11 @@ class LoadableViewController: UIViewController {
     }
 
     func isRefreshing() -> Bool {
-        scrollViews.compactMap(\.refreshControl?.isRefreshing).contains(true)
+        refreshControls.map(\.isRefreshing).contains(true)
     }
 
     func endRefreshing() {
-        scrollViews.compactMap(\.refreshControl).forEach { control in
+        refreshControls.forEach { control in
             control.endRefreshing()
         }
     }

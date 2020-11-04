@@ -9,10 +9,10 @@
 import UIKit
 
 class SafeEntryTableViewCell: UITableViewCell {
-    @IBOutlet weak var mainImageView: UIImageView!
-    @IBOutlet weak var mainLabel: UILabel!
-    @IBOutlet weak var detailLabel: UILabel!
-    @IBOutlet weak var selectorView: UIImageView!
+    @IBOutlet private weak var mainImageView: UIImageView!
+    @IBOutlet private weak var mainLabel: UILabel!
+    @IBOutlet private weak var detailLabel: UILabel!
+    @IBOutlet private weak var selectorView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
