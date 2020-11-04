@@ -40,6 +40,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func rootViewController() -> UIViewController {
+        let tabBarVC = UITabBarController()
+        let balancesTabVC = balancesTabViewController()
+        let settingsTabVC = settingsTabViewController()
+        tabBarVC.viewControllers = [balancesTabVC, settingsTabVC]
+        tabBarVC.tabBar.barTintColor = .gnoSnowwhite
+        return tabBarVC
+    }
+
+    private func balancesTabViewController() -> UIViewController {
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
             SegmentBarItem(image: #imageLiteral(resourceName: "ico-coins"), title: "Coins"),
@@ -56,11 +65,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         noSafesVC.noSafeViewController = LoadSafeViewController()
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
-        let tabVC = tabViewController(root: tabRoot, title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
-        let tabBarVC = UITabBarController()
-        tabBarVC.viewControllers = [tabVC]
-        tabBarVC.tabBar.barTintColor = .gnoSnowwhite
-        return tabBarVC
+        return tabViewController(root: tabRoot, title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
+    }
+
+    private func settingsTabViewController() -> UIViewController {
+        let segmentVC = SegmentViewController(namedClass: nil)
+        segmentVC.segmentItems = [
+            SegmentBarItem(image: #imageLiteral(resourceName: "ico-safe-settings"), title: "Safe Settings"),
+            SegmentBarItem(image: #imageLiteral(resourceName: "ico-app-settings"), title: "App Settings")
+        ]
+        segmentVC.viewControllers = [
+            SafeSettingsViewController(),
+            SafeSettingsViewController()
+        ]
+        segmentVC.selectedIndex = 0
+
+        let noSafesVC = NoSafesViewController()
+        noSafesVC.hasSafeViewController = segmentVC
+        noSafesVC.noSafeViewController = LoadSafeViewController()
+
+        let tabRoot = HeaderViewController(rootViewController: noSafesVC)
+        return tabViewController(root: tabRoot, title: "Settings", image: #imageLiteral(resourceName: "tab-icon-settings"), tag: 1)
     }
 
     func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
