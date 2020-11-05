@@ -14,6 +14,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     var safeTransactionService = App.shared.safeTransactionService
     let tableBackgroundColor: UIColor = .gnoWhite
     let rowHeight: CGFloat = 60
+    let sectionHeaderHeight: CGFloat = 44
+    let advancedSectionHeaderHeight: CGFloat = 28
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
@@ -21,9 +23,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private var sections = [SectionItems]()
     private var lastError: Error?
 
-    enum Section: String {
-        case name = "Safe Name"
-        case advanced = ""
+    enum Section {
+        case name(String)
+        case advanced
 
         enum Name: SectionItem {
             case name(String)
@@ -46,6 +48,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.rowHeight = rowHeight
         tableView.separatorStyle = .none
         tableView.registerCell(BasicCell.self)
+        tableView.registerHeaderFooterView(BasicHeaderView.self)
     }
 
     override func reloadData() {
@@ -86,7 +89,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private func updateSections(with info: SafeStatusRequest.Response, safe: Safe) {
         sections = [
-            (section: .name, items: [Section.Name.name(safe.name!)]),
+            (section: .name("Name"), items: [Section.Name.name(safe.name!)]),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
         ]
     }
@@ -113,5 +116,26 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return cell
         }
         return UITableViewCell()
+    }
+
+    // MARK: - Table view delegate
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
+        let section = sections[_section].section
+        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+        if case Section.name(let name) = section {
+            view.setName(name)
+        } else if case Section.advanced = section {
+            view.setName("")
+        }
+        return view
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
+        let section = sections[_section].section
+        if case Section.advanced = section {
+            return advancedSectionHeaderHeight
+        }
+        return sectionHeaderHeight
     }
 }

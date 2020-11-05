@@ -12,17 +12,18 @@ struct GNOTextStyle: Hashable {
     var size: CGFloat
     var weight: UIFont.Weight
     var fontName: String?
+    var letterSpacing: Double?
     var color: UIColor?
 
     func color(_ newColor: UIColor?) -> Self {
         guard let newColor = newColor else { return self }
-        return .init(size: size, weight: weight, fontName: fontName, color: newColor)
+        return .init(size: size, weight: weight, fontName: fontName, letterSpacing: letterSpacing, color: newColor)
     }
 }
 
 extension GNOTextStyle {
     static let caption3 = GNOTextStyle(size: 10, weight: .medium)
-    static let caption2 = GNOTextStyle(size: 10, weight: .bold)
+    static let caption2 = GNOTextStyle(size: 10, weight: .bold, letterSpacing: 2, color: .gnoMediumGrey)
 
     static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkGrey)
     static let caption1 = GNOTextStyle(size: 13, weight: .bold)
@@ -56,5 +57,14 @@ extension UILabel {
     func setStyle(_ style: GNOTextStyle) {
         font = .gnoFont(forTextStyle: style)
         textColor = style.color
+    }
+
+    func setAttributedText(_ text: String, style: GNOTextStyle) {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.gnoFont(forTextStyle: style),
+            .foregroundColor: style.color ?? .gnoMediumGrey,
+            .kern: NSNumber(value: style.letterSpacing ?? 1)
+        ]
+        attributedText = NSAttributedString(string: text, attributes: attributes)
     }
 }

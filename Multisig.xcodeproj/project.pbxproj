@@ -365,6 +365,8 @@
 		55BCFC392552FCDB00020CE7 /* SafeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFC382552FCDB00020CE7 /* SafeSettingsViewController.swift */; };
 		55BCFC562554627100020CE7 /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFC542554627100020CE7 /* BasicCell.swift */; };
 		55BCFC572554627100020CE7 /* BasicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BCFC552554627100020CE7 /* BasicCell.xib */; };
+		55BCFC5E255469B300020CE7 /* BasicHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFC5D255469B300020CE7 /* BasicHeaderView.swift */; };
+		55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BCFC67255469C200020CE7 /* BasicHeaderView.xib */; };
 		55CA3EAB2508D3670080DF7F /* SelectOwnerAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */; };
 		55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EB8250A234F0080DF7F /* SecureStore.swift */; };
 		55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBA250A237C0080DF7F /* KeychainService.swift */; };
@@ -843,6 +845,8 @@
 		55BCFC382552FCDB00020CE7 /* SafeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeSettingsViewController.swift; sourceTree = "<group>"; };
 		55BCFC542554627100020CE7 /* BasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
 		55BCFC552554627100020CE7 /* BasicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicCell.xib; sourceTree = "<group>"; };
+		55BCFC5D255469B300020CE7 /* BasicHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHeaderView.swift; sourceTree = "<group>"; };
+		55BCFC67255469C200020CE7 /* BasicHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicHeaderView.xib; sourceTree = "<group>"; };
 		55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOwnerAddressView.swift; sourceTree = "<group>"; };
 		55CA3EB8250A234F0080DF7F /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		55CA3EBA250A237C0080DF7F /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -1221,6 +1225,7 @@
 		0A53EBB1253F341600E6ACD0 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
+				55BCFC5C2554697F00020CE7 /* ReusableHeaderFooters */,
 				55BCFC53255461FF00020CE7 /* ReusableCells */,
 				0AF1C9122541B6A300E28669 /* README.md */,
 				0AF1C8782541A9E700E28669 /* ScrollViewTemplateXib.xib */,
@@ -2062,6 +2067,15 @@
 			path = ReusableCells;
 			sourceTree = "<group>";
 		};
+		55BCFC5C2554697F00020CE7 /* ReusableHeaderFooters */ = {
+			isa = PBXGroup;
+			children = (
+				55BCFC5D255469B300020CE7 /* BasicHeaderView.swift */,
+				55BCFC67255469C200020CE7 /* BasicHeaderView.xib */,
+			);
+			path = ReusableHeaderFooters;
+			sourceTree = "<group>";
+		};
 		55CA3EB7250A23280080DF7F /* Secure Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -2315,6 +2329,7 @@
 			files = (
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
+				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */,
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
@@ -2820,6 +2835,7 @@
 				0A72AC5A2453125800840641 /* EnterSafeAddressView.swift in Sources */,
 				555312E9250653800008206B /* BIP32HDNode.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
+				55BCFC5E255469B300020CE7 /* BasicHeaderView.swift in Sources */,
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
