@@ -13,6 +13,7 @@ fileprivate protocol SectionItem {}
 class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     var safeTransactionService = App.shared.safeTransactionService
     let tableBackgroundColor: UIColor = .gnoWhite
+    let rowHeight: CGFloat = 60
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
@@ -29,7 +30,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
 
         enum Advanced: SectionItem {
-            case advanced
+            case advanced(String)
         }
     }
 
@@ -42,7 +43,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = tableBackgroundColor
+        tableView.rowHeight = rowHeight
         tableView.separatorStyle = .none
+        tableView.registerCell(BasicCell.self)
     }
 
     override func reloadData() {
@@ -70,7 +73,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 case .success(let safeInfo):
                     DispatchQueue.main.async { [weak self] in
                         guard let `self` = self else { return }
-                        self.updateSections(with: safeInfo, name: safe.name!)
+                        self.updateSections(with: safeInfo, safe: safe)
                         self.onSuccess()
                     }
                 }
@@ -81,13 +84,12 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
     }
 
-    private func updateSections(with info: SafeStatusRequest.Response, name: String) {
+    private func updateSections(with info: SafeStatusRequest.Response, safe: Safe) {
         sections = [
-            (section: .name, items: [Section.Name.name(name)]),
-            (section: .advanced, items: [Section.Advanced.advanced])
+            (section: .name, items: [Section.Name.name(safe.name!)]),
+            (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
         ]
     }
-
 
     // MARK: - Table view data source
 
@@ -101,14 +103,15 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
-        var cell: UITableViewCell!
         if case Section.Name.name(let name) = item {
-            cell = UITableViewCell()
-            cell.textLabel?.text = name
-        } else if case Section.Advanced.advanced = item {
-            cell = UITableViewCell()
-            cell.textLabel?.text = "Advanced"
+            let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
+            cell.setTitle(name)
+            return cell
+        } else if case Section.Advanced.advanced(let name) = item {
+            let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
+            cell.setTitle(name)
+            return cell
         }
-        return cell
+        return UITableViewCell()
     }
 }

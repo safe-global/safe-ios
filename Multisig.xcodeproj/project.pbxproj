@@ -363,6 +363,8 @@
 		55B66E8E24810BC800249E98 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8D24810BC800249E98 /* AppSettingsTests.swift */; };
 		55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */; };
 		55BCFC392552FCDB00020CE7 /* SafeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFC382552FCDB00020CE7 /* SafeSettingsViewController.swift */; };
+		55BCFC562554627100020CE7 /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFC542554627100020CE7 /* BasicCell.swift */; };
+		55BCFC572554627100020CE7 /* BasicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BCFC552554627100020CE7 /* BasicCell.xib */; };
 		55CA3EAB2508D3670080DF7F /* SelectOwnerAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */; };
 		55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EB8250A234F0080DF7F /* SecureStore.swift */; };
 		55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBA250A237C0080DF7F /* KeychainService.swift */; };
@@ -839,6 +841,8 @@
 		55B66E8D24810BC800249E98 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
 		55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		55BCFC382552FCDB00020CE7 /* SafeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeSettingsViewController.swift; sourceTree = "<group>"; };
+		55BCFC542554627100020CE7 /* BasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
+		55BCFC552554627100020CE7 /* BasicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicCell.xib; sourceTree = "<group>"; };
 		55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOwnerAddressView.swift; sourceTree = "<group>"; };
 		55CA3EB8250A234F0080DF7F /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		55CA3EBA250A237C0080DF7F /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -1217,6 +1221,7 @@
 		0A53EBB1253F341600E6ACD0 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
+				55BCFC53255461FF00020CE7 /* ReusableCells */,
 				0AF1C9122541B6A300E28669 /* README.md */,
 				0AF1C8782541A9E700E28669 /* ScrollViewTemplateXib.xib */,
 				0AEE149E2540233C00046EE7 /* UINibView.swift */,
@@ -2048,6 +2053,15 @@
 			path = SafeSettingsViewController;
 			sourceTree = "<group>";
 		};
+		55BCFC53255461FF00020CE7 /* ReusableCells */ = {
+			isa = PBXGroup;
+			children = (
+				55BCFC542554627100020CE7 /* BasicCell.swift */,
+				55BCFC552554627100020CE7 /* BasicCell.xib */,
+			);
+			path = ReusableCells;
+			sourceTree = "<group>";
+		};
 		55CA3EB7250A23280080DF7F /* Secure Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -2303,6 +2317,7 @@
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */,
+				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
@@ -2594,6 +2609,7 @@
 				0A09839E24BC5301009EE296 /* InMemoryTokenStore.swift in Sources */,
 				555312EB2506608D0008206B /* Base58.swift in Sources */,
 				0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */,
+				55BCFC562554627100020CE7 /* BasicCell.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
 				0AEE149F2540233C00046EE7 /* UINibView.swift in Sources */,
 				0A451BDE252DDB17001DB7D2 /* String+Error.swift in Sources */,
