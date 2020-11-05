@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 fileprivate protocol SectionItem {}
 
@@ -21,6 +22,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private var currentDataTask: URLSessionTask?
     private var sections = [SectionItems]()
+    private var safe: Safe!
     private var lastError: Error?
 
     enum Section {
@@ -49,13 +51,17 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.separatorStyle = .none
         tableView.registerCell(BasicCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
+
+        // update all safe info on changing safe name
+        notificationCenter.addObserver(
+            self, selector: #selector(didChangeSafe), name: .selectedSafeUpdated, object: nil)
     }
 
     override func reloadData() {
         super.reloadData()
         currentDataTask?.cancel()
         do {
-            let safe = try Safe.getSelected()!
+            safe = try Safe.getSelected()!
             let address = try Address(from: safe.address!)
             currentDataTask = safeTransactionService.asyncSafeInfo(at: address) { [weak self] result in
                 guard let `self` = self else { return }
@@ -76,7 +82,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 case .success(let safeInfo):
                     DispatchQueue.main.async { [weak self] in
                         guard let `self` = self else { return }
-                        self.updateSections(with: safeInfo, safe: safe)
+                        self.updateSections(with: safeInfo)
                         self.onSuccess()
                     }
                 }
@@ -87,7 +93,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
     }
 
-    private func updateSections(with info: SafeStatusRequest.Response, safe: Safe) {
+    private func updateSections(with info: SafeStatusRequest.Response) {
         sections = [
             (section: .name("Name"), items: [Section.Name.name(safe.name!)]),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
@@ -106,19 +112,39 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
-        if case Section.Name.name(let name) = item {
+        switch item {
+        case Section.Name.name(let name):
             let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
             cell.setTitle(name)
             return cell
-        } else if case Section.Advanced.advanced(let name) = item {
+        case Section.Advanced.advanced(let name):
             let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
             cell.setTitle(name)
             return cell
+        default:
+            return UITableViewCell()
         }
-        return UITableViewCell()
     }
 
     // MARK: - Table view delegate
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.Name.name(_):
+            // This will be reworked with UIKit implementation as there is a glitch with navigation controller
+            let hostedView = EditSafeNameView(address: safe.address ?? "", name: safe.name ?? "")
+            let hostingController = UIHostingController(rootView: hostedView)
+            show(hostingController, sender: self)
+        case Section.Advanced.advanced(_):
+            let hostedView = AdvancedSafeSettingsView(safe: safe)
+            let hostingController = UIHostingController(rootView: hostedView)
+            show(hostingController, sender: self)
+        default:
+            break
+        }
+    }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
         let section = sections[_section].section

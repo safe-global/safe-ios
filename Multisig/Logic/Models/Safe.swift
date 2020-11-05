@@ -115,6 +115,7 @@ extension Safe: Identifiable {
         guard let safe = try? context.fetch(fr).first else { return }
         safe.name = name
         App.shared.coreDataStack.saveContext()
+        NotificationCenter.default.post(name: .selectedSafeUpdated, object: nil)
     }
 
     static func select(address: String) {
