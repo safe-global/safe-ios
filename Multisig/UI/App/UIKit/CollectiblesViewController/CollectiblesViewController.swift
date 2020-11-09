@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class CollectiblesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     var clientGatewayService = App.shared.clientGatewayService
@@ -99,6 +100,14 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     // MARK: - Table view delegate
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let collectible = sections[indexPath.section].collectibles[indexPath.row]
+        let collectibleDetailsView = CollectibleDetailsView(viewModel: collectible)
+        let hostingController = UIHostingController(rootView: collectibleDetailsView)
+        show(hostingController, sender: self)
+    }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueHeaderFooterView(CollectiblesHeaderView.self)
