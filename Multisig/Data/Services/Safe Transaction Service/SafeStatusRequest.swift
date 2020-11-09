@@ -39,9 +39,12 @@ struct SafeStatusRequest: JSONRequest {
 }
 
 extension SafeTransactionService {
-
     func safeInfo(at address: Address) throws -> SafeStatusRequest.Response {
         try execute(request: SafeStatusRequest(address: address))
     }
 
+    func asyncSafeInfo(at address: Address,
+                       completion: @escaping (Result<SafeStatusRequest.Response, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: SafeStatusRequest(address: address), completion: completion)
+    }
 }
