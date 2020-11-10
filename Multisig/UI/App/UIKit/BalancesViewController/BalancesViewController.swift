@@ -107,7 +107,11 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             cell.setMainText(item.symbol)
             cell.setDetailText(item.balance)
             cell.setSubDetailText(item.balanceUsd)
-            cell.setImage(with: item.imageURL, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
+            if let image = item.image {
+                cell.setImage(image)
+            } else {
+                cell.setImage(with: item.imageURL, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
+            }
             return cell
         }
     }
