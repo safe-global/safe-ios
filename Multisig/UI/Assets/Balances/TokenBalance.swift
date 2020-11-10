@@ -14,6 +14,7 @@ struct TokenBalance: Identifiable, Hashable {
         address
     }
     var imageURL: URL?
+    var image: UIImage?
     let address: String
     let symbol: String
     let balance: String
@@ -43,6 +44,10 @@ extension TokenBalance {
         self.address = address.checksummed
         self.symbol = symbol ?? "ETH"
         self.imageURL = logoUri.flatMap { URL(string: $0) }
+
+        if address == .ether {
+            image = #imageLiteral(resourceName: "ico-ether")
+        }
 
         let tokenFormatter = TokenFormatter()
         let amount = Int256(tokenBalance.value)

@@ -38,7 +38,11 @@ class BalanceTableViewCell: UITableViewCell {
         if let url = url {
             cellImageView.kf.setImage(with: url, placeholder: placeholder)
         } else {
-            cellImageView.image = placeholder
+            setImage(placeholder)
         }
+    }
+
+    func setImage(_ image: UIImage) {
+        cellImageView.image = image
     }
 }
