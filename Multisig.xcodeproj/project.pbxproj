@@ -336,6 +336,7 @@
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
 		555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */; };
 		555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555DA310250A4C7C00C3A0BE /* KeychainKey.swift */; };
+		558835E0255A907B0014E8C7 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */; };
 		558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */; };
 		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
 		5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */; };
@@ -816,6 +817,7 @@
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		555DA310250A4C7C00C3A0BE /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
+		558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleTableViewCell.xib; sourceTree = "<group>"; };
 		5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleTableViewCell.swift; sourceTree = "<group>"; };
@@ -1210,6 +1212,7 @@
 		0A53EB8A253F250500E6ACD0 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				558835DE255A90420014E8C7 /* AppSettingsViewController */,
 				0AF1C822254090E200E28669 /* LoadSafeViewController.swift */,
 				0AC94457254068D800921CA5 /* NSNotification+Events.swift */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
@@ -2005,6 +2008,14 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		558835DE255A90420014E8C7 /* AppSettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */,
+			);
+			path = AppSettingsViewController;
+			sourceTree = "<group>";
+		};
 		55A585352501417E005E778B /* PrivateKey */ = {
 			isa = PBXGroup;
 			children = (
@@ -2686,6 +2697,7 @@
 				0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */,
 				0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */,
 				55A5854125014B1B005E778B /* Data+Extension.swift in Sources */,
+				558835E0255A907B0014E8C7 /* AppSettingsViewController.swift in Sources */,
 				0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */,
 				55B64666253051630050BD95 /* SelectOwnerAddressViewModel.swift in Sources */,
 				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,

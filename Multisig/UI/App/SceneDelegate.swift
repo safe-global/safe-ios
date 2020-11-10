@@ -69,22 +69,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func settingsTabViewController() -> UIViewController {
+        let noSafesVC = NoSafesViewController()
+        noSafesVC.hasSafeViewController = SafeSettingsViewController()
+        noSafesVC.noSafeViewController = LoadSafeViewController()
+
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
             SegmentBarItem(image: #imageLiteral(resourceName: "ico-safe-settings"), title: "Safe Settings"),
             SegmentBarItem(image: #imageLiteral(resourceName: "ico-app-settings"), title: "App Settings")
         ]
         segmentVC.viewControllers = [
-            SafeSettingsViewController(),
-            SafeSettingsViewController()
+            noSafesVC,
+            AppSettingsViewController()
         ]
         segmentVC.selectedIndex = 0
 
-        let noSafesVC = NoSafesViewController()
-        noSafesVC.hasSafeViewController = segmentVC
-        noSafesVC.noSafeViewController = LoadSafeViewController()
-
-        let tabRoot = HeaderViewController(rootViewController: noSafesVC)
+        let tabRoot = HeaderViewController(rootViewController: segmentVC)
         return tabViewController(root: tabRoot, title: "Settings", image: #imageLiteral(resourceName: "tab-icon-settings"), tag: 1)
     }
 
