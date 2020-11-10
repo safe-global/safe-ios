@@ -11,11 +11,8 @@ import UIKit
 fileprivate protocol SectionItem {}
 
 class AppSettingsViewController: UITableViewController {
+    let app = App.configuration.app
     let tableBackgroundColor: UIColor = .gnoWhite
-
-    // TODO: move to class vars
-    let baseicRowHeight: CGFloat = 60
-    let infoRowHeight: CGFloat = 44
     let advancedSectionHeaderHeight: CGFloat = 28
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
@@ -29,6 +26,8 @@ class AppSettingsViewController: UITableViewController {
         enum General: SectionItem {
             case importKey(String)
             case terms(String)
+            case appVersion(String, String)
+            case network(String, String)
         }
 
         enum Advanced: SectionItem {
@@ -41,6 +40,7 @@ class AppSettingsViewController: UITableViewController {
         tableView.backgroundColor = tableBackgroundColor
         tableView.separatorStyle = .none
         tableView.registerCell(BasicCell.self)
+        tableView.registerCell(InfoCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         buildSections()
@@ -48,7 +48,11 @@ class AppSettingsViewController: UITableViewController {
 
     private func buildSections() {
         sections = [
-            (section: .general, items: [Section.General.importKey("Import owner key")]),
+            (section: .general, items: [
+                Section.General.importKey("Import owner key"),
+                Section.General.appVersion("App version", app.marketingVersion),
+                Section.General.network("Network", app.network.rawValue),
+            ]),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
         ]
     }
@@ -69,6 +73,18 @@ class AppSettingsViewController: UITableViewController {
         case Section.General.importKey(let name):
             let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
             cell.setTitle(name)
+            return cell
+        case Section.General.appVersion(let name, let version):
+            let cell = tableView.dequeueCell(InfoCell.self, for: indexPath)
+            cell.setTitle(name)
+            cell.setInfo(version)
+            cell.selectionStyle = .none
+            return cell
+        case Section.General.network(let name, let network):
+            let cell = tableView.dequeueCell(InfoCell.self, for: indexPath)
+            cell.setTitle(name)
+            cell.setInfo(network)
+            cell.selectionStyle = .none
             return cell
         case Section.Advanced.advanced(let name):
             let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
@@ -98,6 +114,16 @@ class AppSettingsViewController: UITableViewController {
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
         view.setName("")
         return view
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.General.appVersion(_, _), Section.General.network(_, _):
+            return InfoCell.rowHeight
+        default:
+            return BasicCell.rowHeight
+        }
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {

@@ -14,8 +14,6 @@ fileprivate protocol SectionItem {}
 class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     var safeTransactionService = App.shared.safeTransactionService
     let tableBackgroundColor: UIColor = .gnoWhite
-    let rowHeight: CGFloat = 60
-    let sectionHeaderHeight: CGFloat = 44
     let advancedSectionHeaderHeight: CGFloat = 28
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
@@ -47,7 +45,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = tableBackgroundColor
-        tableView.rowHeight = rowHeight
+        tableView.rowHeight = BasicCell.rowHeight
         tableView.separatorStyle = .none
         tableView.registerCell(BasicCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
@@ -162,6 +160,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         if case Section.advanced = section {
             return advancedSectionHeaderHeight
         }
-        return sectionHeaderHeight
+        return BasicHeaderView.headerHeight
     }
 }

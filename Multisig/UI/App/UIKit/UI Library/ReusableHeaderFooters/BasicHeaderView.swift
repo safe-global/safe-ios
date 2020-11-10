@@ -11,6 +11,8 @@ import UIKit
 class BasicHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var nameLabel: UILabel!
 
+    static let headerHeight: CGFloat = 44
+
     func setName(_ value: String) {
         nameLabel.setAttributedText(value.uppercased(), style: .caption2)
     }
