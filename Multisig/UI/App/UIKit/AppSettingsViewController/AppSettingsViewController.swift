@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 fileprivate protocol SectionItem {}
 
@@ -14,6 +15,7 @@ class AppSettingsViewController: UITableViewController {
     let app = App.configuration.app
     let tableBackgroundColor: UIColor = .gnoWhite
     let advancedSectionHeaderHeight: CGFloat = 28
+    var notificationCenter = NotificationCenter.default
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
@@ -25,6 +27,7 @@ class AppSettingsViewController: UITableViewController {
 
         enum General: SectionItem {
             case importKey(String)
+            case importedKey(String, String)
             case terms(String)
             case appVersion(String, String)
             case network(String, String)
@@ -40,21 +43,38 @@ class AppSettingsViewController: UITableViewController {
         tableView.backgroundColor = tableBackgroundColor
         tableView.separatorStyle = .none
         tableView.registerCell(BasicCell.self)
+        tableView.registerCell(ImportedKeyCell.self)
         tableView.registerCell(InfoCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         buildSections()
+
+        notificationCenter.addObserver(
+            self, selector: #selector(hidePresentedController), name: .ownerKeyImported, object: nil)
     }
 
     private func buildSections() {
+        let signingKey = AppSettings.current().signingKeyAddress
         sections = [
             (section: .general, items: [
-                Section.General.importKey("Import owner key"),
+                signingKey != nil ?
+                    Section.General.importedKey("Imported owner key", signingKey!) :
+                    Section.General.importKey("Import owner key"),
                 Section.General.appVersion("App version", app.marketingVersion),
                 Section.General.network("Network", app.network.rawValue),
             ]),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
         ]
+    }
+
+    @objc func hidePresentedController() {
+        presentedViewController?.dismiss(animated: true)
+        reload()
+    }
+
+    private func reload() {
+        buildSections()
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -73,6 +93,15 @@ class AppSettingsViewController: UITableViewController {
         case Section.General.importKey(let name):
             let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
             cell.setTitle(name)
+            return cell
+        case Section.General.importedKey(let name, let signingKey):
+            let cell = tableView.dequeueCell(ImportedKeyCell.self, for: indexPath)
+            cell.setName(name)
+            cell.setAddress(Address(exactly: signingKey))
+            cell.selectionStyle = .none
+            cell.onRemove = { [unowned self] in
+                self.removeImportedOwnerKey()
+            }
             return cell
         case Section.General.appVersion(let name, let version):
             let cell = tableView.dequeueCell(InfoCell.self, for: indexPath)
@@ -95,6 +124,31 @@ class AppSettingsViewController: UITableViewController {
         }
     }
 
+    #warning("TODO: show snackbar message")
+    private func removeImportedOwnerKey() {
+        let alertController = UIAlertController(
+            title: nil,
+            message: "Removing the owner key only removes it from this app. It doesn't delete any Safes from this app or from blockchain. For Safes controlled by this owner key, you will no longer be able to sign transactions in this app",
+            preferredStyle: .actionSheet)
+        let remove = UIAlertAction(title: "Remove", style: .destructive) { [unowned self] _ in
+            do {
+                try App.shared.keychainService.removeData(
+                    forKey: KeychainKey.ownerPrivateKey.rawValue)
+                AppSettings.setSigningKeyAddress(nil)
+//                App.shared.snackbar.show(message: "Owner key removed from this app")
+                Tracker.shared.setUserProperty("0", for: TrackingUserProperty.numKeysImported)
+                self.reload()
+            } catch {
+                LogService.shared.error(error.localizedDescription)
+                App.shared.snackbar.show(message: error.localizedDescription)
+            }
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(remove)
+        alertController.addAction(cancel)
+        present(alertController, animated: true)
+    }
+
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -102,9 +156,13 @@ class AppSettingsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.General.importKey(_):
-            break
+            let enterSeedVC = EnterSeedPhraseView().hostSnackbar()
+            let hostingController = UIHostingController(rootView: enterSeedVC)
+            present(hostingController, animated: true)
         case Section.Advanced.advanced(_):
-            break
+            let advancedVC = AdvancedAppSettings()
+            let hostingController = UIHostingController(rootView: advancedVC)
+            show(hostingController, sender: self)
         default:
             break
         }

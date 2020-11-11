@@ -49,6 +49,7 @@ struct EnterSeedPhraseView: View {
 
                 NavigationLink(destination: SelectOwnerAddressView(
                                 rootNode: rootNode, onSubmit: {
+                                    NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
                                     App.shared.viewState.showImportKeySheet.toggle()
                                 }),
                                isActive: $goNext,
