@@ -343,6 +343,7 @@
 		558835F9255BFEF80014E8C7 /* AddressWithTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835F8255BFEF80014E8C7 /* AddressWithTitleView.xib */; };
 		55883600255C00A40014E8C7 /* ImportedKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */; };
 		55883601255C00A40014E8C7 /* ImportedKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */; };
+		55883612255C15870014E8C7 /* UIViewController+Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55883611255C15870014E8C7 /* UIViewController+Safari.swift */; };
 		558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */; };
 		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
 		5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */; };
@@ -830,6 +831,7 @@
 		558835F8255BFEF80014E8C7 /* AddressWithTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressWithTitleView.xib; sourceTree = "<group>"; };
 		558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedKeyCell.swift; sourceTree = "<group>"; };
 		558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportedKeyCell.xib; sourceTree = "<group>"; };
+		55883611255C15870014E8C7 /* UIViewController+Safari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Safari.swift"; sourceTree = "<group>"; };
 		558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleTableViewCell.xib; sourceTree = "<group>"; };
 		5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleTableViewCell.swift; sourceTree = "<group>"; };
@@ -1251,6 +1253,7 @@
 				0AF1C9252541E09C00E28669 /* UIView+UINib.swift */,
 				55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */,
 				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
+				55883611255C15870014E8C7 /* UIViewController+Safari.swift */,
 				0A007123254B255C00A57CAF /* UIFont+Styles.swift */,
 				0A007129254B379000A57CAF /* UIColor+Styles.swift */,
 				0AF1C8282540914600E28669 /* NoSafesViewController.swift */,
@@ -2809,6 +2812,7 @@
 				049C0C4A24F7B1B400F9664B /* TransactionViewModel.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
 				0AF1C7F42540887300E28669 /* HeaderViewController.swift in Sources */,
+				55883612255C15870014E8C7 /* UIViewController+Safari.swift in Sources */,
 				04C97AAE246ED43A00EBA0F1 /* FiatCurrenciesView.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,

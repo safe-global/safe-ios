@@ -12,9 +12,10 @@ import SwiftUI
 fileprivate protocol SectionItem {}
 
 class AppSettingsViewController: UITableViewController {
-    let app = App.configuration.app
-    let tableBackgroundColor: UIColor = .gnoWhite
-    let advancedSectionHeaderHeight: CGFloat = 28
+    private let app = App.configuration.app
+    private let legal = App.configuration.legal
+    private let tableBackgroundColor: UIColor = .gnoWhite
+    private let advancedSectionHeaderHeight: CGFloat = 28
     var notificationCenter = NotificationCenter.default
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
@@ -29,6 +30,9 @@ class AppSettingsViewController: UITableViewController {
             case importKey(String)
             case importedKey(String, String)
             case terms(String)
+            case privacyPolicy(String)
+            case licenses(String)
+            case getInTouch(String)
             case appVersion(String, String)
             case network(String, String)
         }
@@ -60,6 +64,10 @@ class AppSettingsViewController: UITableViewController {
                 signingKey != nil ?
                     Section.General.importedKey("Imported owner key", signingKey!) :
                     Section.General.importKey("Import owner key"),
+                Section.General.terms("Terms of use"),
+                Section.General.privacyPolicy("Privacy policy"),
+                Section.General.licenses("Licenses"),
+                Section.General.getInTouch("Get in touch"),
                 Section.General.appVersion("App version", app.marketingVersion),
                 Section.General.network("Network", app.network.rawValue),
             ]),
@@ -91,37 +99,51 @@ class AppSettingsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.General.importKey(let name):
-            let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-            cell.setTitle(name)
-            return cell
+            return basicCell(name: name, indexPath: indexPath)
         case Section.General.importedKey(let name, let signingKey):
-            let cell = tableView.dequeueCell(ImportedKeyCell.self, for: indexPath)
-            cell.setName(name)
-            cell.setAddress(Address(exactly: signingKey))
-            cell.selectionStyle = .none
-            cell.onRemove = { [unowned self] in
-                self.removeImportedOwnerKey()
-            }
-            return cell
+            return importedKeyCell(name: name, signingKey: signingKey, indexPath: indexPath)
+        case Section.General.terms(let name):
+            return basicCell(name: name, indexPath: indexPath)
+        case Section.General.privacyPolicy(let name):
+            return basicCell(name: name, indexPath: indexPath)
+        case Section.General.licenses(let name):
+            return basicCell(name: name, indexPath: indexPath)
+        case Section.General.getInTouch(let name):
+            return basicCell(name: name, indexPath: indexPath)
         case Section.General.appVersion(let name, let version):
-            let cell = tableView.dequeueCell(InfoCell.self, for: indexPath)
-            cell.setTitle(name)
-            cell.setInfo(version)
-            cell.selectionStyle = .none
-            return cell
+            return infoCell(name: name, info: version, indexPath: indexPath)
         case Section.General.network(let name, let network):
-            let cell = tableView.dequeueCell(InfoCell.self, for: indexPath)
-            cell.setTitle(name)
-            cell.setInfo(network)
-            cell.selectionStyle = .none
-            return cell
+            return infoCell(name: name, info: network, indexPath: indexPath)
         case Section.Advanced.advanced(let name):
-            let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-            cell.setTitle(name)
-            return cell
+            return basicCell(name: name, indexPath: indexPath)
         default:
             return UITableViewCell()
         }
+    }
+
+    private func basicCell(name: String, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
+        cell.setTitle(name)
+        return cell
+    }
+
+    private func infoCell(name: String, info: String, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(InfoCell.self, for: indexPath)
+        cell.setTitle(name)
+        cell.setInfo(info)
+        cell.selectionStyle = .none
+        return cell
+    }
+
+    private func importedKeyCell(name: String, signingKey: String, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(ImportedKeyCell.self, for: indexPath)
+        cell.setName(name)
+        cell.setAddress(Address(exactly: signingKey))
+        cell.selectionStyle = .none
+        cell.onRemove = { [unowned self] in
+            self.removeImportedOwnerKey()
+        }
+        return cell
     }
 
     #warning("TODO: show snackbar message")
@@ -159,6 +181,16 @@ class AppSettingsViewController: UITableViewController {
             let enterSeedVC = EnterSeedPhraseView().hostSnackbar()
             let hostingController = UIHostingController(rootView: enterSeedVC)
             present(hostingController, animated: true)
+        case Section.General.terms(_):
+            openInSafari(legal.termsURL)
+        case Section.General.privacyPolicy(_):
+            openInSafari(legal.privacyURL)
+        case Section.General.licenses(_):
+            openInSafari(legal.licensesURL)
+        case Section.General.getInTouch(_):
+            let getInTouchVC = GetInTouchView()
+            let hostingController = UIHostingController(rootView: getInTouchVC)
+            show(hostingController, sender: self)
         case Section.Advanced.advanced(_):
             let advancedVC = AdvancedAppSettings()
             let hostingController = UIHostingController(rootView: advancedVC)
