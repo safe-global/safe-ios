@@ -25,10 +25,15 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     enum Section {
         case name(String)
+        case requiredConfirmations(String)
         case advanced
 
         enum Name: SectionItem {
             case name(String)
+        }
+
+        enum RequiredConfirmations: SectionItem {
+            case confirmations(String)
         }
 
         enum Advanced: SectionItem {
@@ -94,6 +99,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private func updateSections(with info: SafeStatusRequest.Response) {
         sections = [
             (section: .name("Name"), items: [Section.Name.name(safe.name!)]),
+            (section: .requiredConfirmations("Required confirmations"),
+             items: [Section.RequiredConfirmations.confirmations("\(info.threshold) out of \(info.owners.count)")]),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
         ]
     }
@@ -112,16 +119,29 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Name.name(let name):
-            let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-            cell.setTitle(name)
-            return cell
+            return baseicCell(name: name, indexPath: indexPath)
+        case Section.RequiredConfirmations.confirmations(let name):
+            return baseicCell(name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
         case Section.Advanced.advanced(let name):
-            let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-            cell.setTitle(name)
-            return cell
+            return baseicCell(name: name, indexPath: indexPath)
         default:
             return UITableViewCell()
         }
+    }
+
+    private func baseicCell(name: String,
+                            indexPath: IndexPath,
+                            withDisclosure: Bool = true,
+                            canSelect: Bool = true) -> UITableViewCell {
+        let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
+        cell.setTitle(name)
+        if !withDisclosure {
+            cell.setDisclosureImage(nil)
+        }
+        if !canSelect {
+            cell.selectionStyle = .none
+        }
+        return cell
     }
 
     // MARK: - Table view delegate
@@ -147,9 +167,12 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
         let section = sections[_section].section
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-        if case Section.name(let name) = section {
+        switch section {
+        case Section.name(let name):
             view.setName(name)
-        } else if case Section.advanced = section {
+        case Section.requiredConfirmations(let name):
+            view.setName(name)
+        case Section.advanced:
             view.setName("")
         }
         return view

@@ -23,7 +23,7 @@ class BasicCell: UITableViewCell {
         titleLable.text = value
     }
 
-    func setDisclosureImage(_ image: UIImage) {
+    func setDisclosureImage(_ image: UIImage?) {
         disclosureImageView.image = image
     }
 }
