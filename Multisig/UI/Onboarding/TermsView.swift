@@ -21,6 +21,8 @@ struct TermsView: View {
     @State
     private var showTerms = false
 
+    var onStart: () -> Void = { }
+
     private let topPadding: CGFloat = Spacing.extraLarge
     private let bottomPadding: CGFloat = Spacing.large
     let interItemSpacing: CGFloat = Spacing.small
@@ -46,6 +48,7 @@ struct TermsView: View {
             Button("Agree") {
                 AppSettings.acceptTerms()
                 self.acceptedTerms = true
+                self.onStart()
             }
             .buttonStyle(GNOFilledButtonStyle())
 

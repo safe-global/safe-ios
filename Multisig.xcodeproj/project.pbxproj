@@ -105,6 +105,7 @@
 		0A0983AD24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AC24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift */; };
 		0A0983AF24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AE24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift */; };
 		0A0983B124BC67E6009EE296 /* TokenRegistryIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */; };
+		0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */; };
 		0A0EFC94246D9D5200D3D8BF /* TopTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */; };
 		0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */; };
 		0A0EFC98246DAABF00D3D8BF /* BottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */; };
@@ -336,6 +337,14 @@
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
 		555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */; };
 		555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555DA310250A4C7C00C3A0BE /* KeychainKey.swift */; };
+		558835E0255A907B0014E8C7 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */; };
+		558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835E5255AEA390014E8C7 /* InfoCell.swift */; };
+		558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835E6255AEA390014E8C7 /* InfoCell.xib */; };
+		558835EF255BFEDB0014E8C7 /* AddressWithTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835EE255BFEDB0014E8C7 /* AddressWithTitleView.swift */; };
+		558835F9255BFEF80014E8C7 /* AddressWithTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835F8255BFEF80014E8C7 /* AddressWithTitleView.xib */; };
+		55883600255C00A40014E8C7 /* ImportedKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */; };
+		55883601255C00A40014E8C7 /* ImportedKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */; };
+		55883612255C15870014E8C7 /* UIViewController+Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55883611255C15870014E8C7 /* UIViewController+Safari.swift */; };
 		558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */; };
 		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
 		5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */; };
@@ -527,6 +536,7 @@
 		0A0983AC24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainTokenStoreIntegrationTests.swift; sourceTree = "<group>"; };
 		0A0983AE24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendTokenStoreIntegrationTests.swift; sourceTree = "<group>"; };
 		0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRegistryIntegrationTests.swift; sourceTree = "<group>"; };
+		0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabView.swift; sourceTree = "<group>"; };
 		0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabButton.swift; sourceTree = "<group>"; };
 		0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBorder.swift; sourceTree = "<group>"; };
@@ -816,6 +826,14 @@
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		555DA310250A4C7C00C3A0BE /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
+		558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
+		558835E5255AEA390014E8C7 /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
+		558835E6255AEA390014E8C7 /* InfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
+		558835EE255BFEDB0014E8C7 /* AddressWithTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressWithTitleView.swift; sourceTree = "<group>"; };
+		558835F8255BFEF80014E8C7 /* AddressWithTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressWithTitleView.xib; sourceTree = "<group>"; };
+		558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedKeyCell.swift; sourceTree = "<group>"; };
+		558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportedKeyCell.xib; sourceTree = "<group>"; };
+		55883611255C15870014E8C7 /* UIViewController+Safari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Safari.swift"; sourceTree = "<group>"; };
 		558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleTableViewCell.xib; sourceTree = "<group>"; };
 		5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleTableViewCell.swift; sourceTree = "<group>"; };
@@ -1210,6 +1228,7 @@
 		0A53EB8A253F250500E6ACD0 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				558835DE255A90420014E8C7 /* AppSettingsViewController */,
 				0AF1C822254090E200E28669 /* LoadSafeViewController.swift */,
 				0AC94457254068D800921CA5 /* NSNotification+Events.swift */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
@@ -1225,6 +1244,7 @@
 		0A53EBB1253F341600E6ACD0 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
+				558835ED255BFEA80014E8C7 /* ReusableViews */,
 				55BCFC5C2554697F00020CE7 /* ReusableHeaderFooters */,
 				55BCFC53255461FF00020CE7 /* ReusableCells */,
 				0AF1C9122541B6A300E28669 /* README.md */,
@@ -1235,6 +1255,7 @@
 				0AF1C9252541E09C00E28669 /* UIView+UINib.swift */,
 				55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */,
 				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
+				55883611255C15870014E8C7 /* UIViewController+Safari.swift */,
 				0A007123254B255C00A57CAF /* UIFont+Styles.swift */,
 				0A007129254B379000A57CAF /* UIColor+Styles.swift */,
 				0AF1C8282540914600E28669 /* NoSafesViewController.swift */,
@@ -1773,6 +1794,7 @@
 				0AF2733E24DAC9FE007E4012 /* RemoteNotificationHandler.swift */,
 				0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
+				0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */,
 				0A53EB8A253F250500E6ACD0 /* UIKit */,
 				0AD1D942252748D800B8EEFF /* AppViewModel.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
@@ -2005,6 +2027,25 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		558835DE255A90420014E8C7 /* AppSettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */,
+				558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */,
+				558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */,
+			);
+			path = AppSettingsViewController;
+			sourceTree = "<group>";
+		};
+		558835ED255BFEA80014E8C7 /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				558835EE255BFEDB0014E8C7 /* AddressWithTitleView.swift */,
+				558835F8255BFEF80014E8C7 /* AddressWithTitleView.xib */,
+			);
+			path = ReusableViews;
+			sourceTree = "<group>";
+		};
 		55A585352501417E005E778B /* PrivateKey */ = {
 			isa = PBXGroup;
 			children = (
@@ -2063,6 +2104,8 @@
 			children = (
 				55BCFC542554627100020CE7 /* BasicCell.swift */,
 				55BCFC552554627100020CE7 /* BasicCell.xib */,
+				558835E5255AEA390014E8C7 /* InfoCell.swift */,
+				558835E6255AEA390014E8C7 /* InfoCell.xib */,
 			);
 			path = ReusableCells;
 			sourceTree = "<group>";
@@ -2329,6 +2372,7 @@
 			files = (
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
+				558835F9255BFEF80014E8C7 /* AddressWithTitleView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */,
@@ -2344,12 +2388,14 @@
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */,
+				55883601255C00A40014E8C7 /* ImportedKeyCell.xib in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
+				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				555312F425068E0F0008206B /* README in Resources */,
 				0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */,
@@ -2536,6 +2582,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */,
+				558835EF255BFEDB0014E8C7 /* AddressWithTitleView.swift in Sources */,
 				0AF6501B24488D280018D070 /* FullSize.swift in Sources */,
 				0A7AEAE12462F98800014184 /* SafeRow.swift in Sources */,
 				046D0A5A249A1C64000F4021 /* ExpandableButton .swift in Sources */,
@@ -2609,6 +2656,7 @@
 				0A433E8125516A9A006FFF75 /* TotalBalanceTableViewCell.swift in Sources */,
 				0A7AEAE32462FA6000014184 /* AddSafeRow.swift in Sources */,
 				0457AB9E24BDCA45007C884E /* CollectibleDetailsView.swift in Sources */,
+				55883600255C00A40014E8C7 /* ImportedKeyCell.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
@@ -2620,6 +2668,7 @@
 				049ECFEC25004323004FF02F /* SettingChangeTransactionViewModel.swift in Sources */,
 				048643DD24E4490A003DD966 /* CreationTransactionBodyView.swift in Sources */,
 				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
+				558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */,
 				550A0ACF24F3C19B00B839E9 /* MainTabView.swift in Sources */,
 				0A09839E24BC5301009EE296 /* InMemoryTokenStore.swift in Sources */,
 				555312EB2506608D0008206B /* Base58.swift in Sources */,
@@ -2686,6 +2735,7 @@
 				0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */,
 				0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */,
 				55A5854125014B1B005E778B /* Data+Extension.swift in Sources */,
+				558835E0255A907B0014E8C7 /* AppSettingsViewController.swift in Sources */,
 				0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */,
 				55B64666253051630050BD95 /* SelectOwnerAddressViewModel.swift in Sources */,
 				0A72AC662453184C00840641 /* SafeAddressField.swift in Sources */,
@@ -2728,6 +2778,7 @@
 				55B6464E25304F9B0050BD95 /* Settings.swift in Sources */,
 				04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
+				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
 				0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */,
 				0A0983A024BC55ED009EE296 /* TokenRequest.swift in Sources */,
 				55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */,
@@ -2765,6 +2816,7 @@
 				049C0C4A24F7B1B400F9664B /* TransactionViewModel.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
 				0AF1C7F42540887300E28669 /* HeaderViewController.swift in Sources */,
+				55883612255C15870014E8C7 /* UIViewController+Safari.swift in Sources */,
 				04C97AAE246ED43A00EBA0F1 /* FiatCurrenciesView.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,

@@ -14,8 +14,6 @@ fileprivate protocol SectionItem {}
 class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     var safeTransactionService = App.shared.safeTransactionService
     let tableBackgroundColor: UIColor = .gnoWhite
-    let rowHeight: CGFloat = 60
-    let sectionHeaderHeight: CGFloat = 44
     let advancedSectionHeaderHeight: CGFloat = 28
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
@@ -47,7 +45,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = tableBackgroundColor
-        tableView.rowHeight = rowHeight
+        tableView.rowHeight = BasicCell.rowHeight
         tableView.separatorStyle = .none
         tableView.registerCell(BasicCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
@@ -133,10 +131,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Name.name(_):
-            // This will be reworked with UIKit implementation as there is a glitch with navigation controller
-            let hostedView = EditSafeNameView(address: safe.address ?? "", name: safe.name ?? "")
-            let hostingController = UIHostingController(rootView: hostedView)
-            show(hostingController, sender: self)
+            let vc = ViewControllerFactory.editSafeNameController(address: safe.address, name: safe.name, presenter: self)
+            present(vc, animated: true, completion: nil)
         case Section.Advanced.advanced(_):
             let hostedView = AdvancedSafeSettingsView(safe: safe)
             let hostingController = UIHostingController(rootView: hostedView)
@@ -162,6 +158,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         if case Section.advanced = section {
             return advancedSectionHeaderHeight
         }
-        return sectionHeaderHeight
+        return BasicHeaderView.headerHeight
     }
 }

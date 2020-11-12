@@ -63,7 +63,8 @@ final class SwitchSafesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == addSafeRowIndex {
-            // TODO add safe flow
+            let vc = ViewControllerFactory.loadSafeController(presenter: self)
+            present(vc, animated: true, completion: nil)
         } else {
             let safe = safes[indexPath.row - 1]
             if !safe.isSelected {
@@ -71,6 +72,11 @@ final class SwitchSafesViewController: UITableViewController {
                 didTapCloseButton()
             }
         }
+    }
+
+    @objc override func closeModal() {
+        // this will close this controller when the load safe modal is closed
+        presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
     @objc private func didTapCloseButton() {

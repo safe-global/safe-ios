@@ -39,8 +39,10 @@ struct SettingsView: View {
         }
         .navigationBarTitle("Settings")
         .sheet(isPresented: $showImportKeySheet) {
-            EnterSeedPhraseView()
-                .hostSnackbar()
+            NavigationView {
+                EnterSeedPhraseView()
+            }
+            .hostSnackbar()
         }
         .onReceive(App.shared.viewState.$showImportKeySheet) { newValue in
             self.showImportKeySheet = newValue
