@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,16 +20,23 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p6D-PM-acB" customClass="AddressWithTitleView" customModule="Multisig" customModuleProvider="target">
-                        <rect key="frame" x="16" y="16" width="333" height="42"/>
+                        <rect key="frame" x="16" y="10" width="333" height="52"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-browse-address" translatesAutoresizingMaskIntoConstraints="NO" id="N1q-fq-Q7Q">
-                        <rect key="frame" x="365" y="25" width="24" height="24"/>
+                        <rect key="frame" x="365" y="24" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="bk8-82-EV6"/>
                             <constraint firstAttribute="width" constant="24" id="xvO-Gs-vPi"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfY-vi-iEH">
+                        <rect key="frame" x="0.0" y="72" width="405" height="2"/>
+                        <color key="backgroundColor" name="white"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="zB5-hI-Tan"/>
+                        </constraints>
+                    </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRm-8t-eR2">
                         <rect key="frame" x="349" y="0.0" width="56" height="74"/>
                         <connections>
@@ -38,13 +46,16 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="p6D-PM-acB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="3ZB-TH-lHk"/>
-                    <constraint firstAttribute="bottom" secondItem="p6D-PM-acB" secondAttribute="bottom" constant="16" id="5eS-Ae-U4Q"/>
+                    <constraint firstAttribute="bottom" secondItem="p6D-PM-acB" secondAttribute="bottom" constant="12" id="5eS-Ae-U4Q"/>
                     <constraint firstItem="iRm-8t-eR2" firstAttribute="leading" secondItem="p6D-PM-acB" secondAttribute="trailing" id="6BG-dx-LA2"/>
                     <constraint firstAttribute="trailing" secondItem="N1q-fq-Q7Q" secondAttribute="trailing" constant="16" id="C03-OZ-aVy"/>
                     <constraint firstItem="p6D-PM-acB" firstAttribute="centerY" secondItem="N1q-fq-Q7Q" secondAttribute="centerY" id="HKn-dN-snF"/>
+                    <constraint firstAttribute="bottom" secondItem="jfY-vi-iEH" secondAttribute="bottom" id="Ksd-RV-jmG"/>
                     <constraint firstAttribute="bottom" secondItem="iRm-8t-eR2" secondAttribute="bottom" id="PER-DJ-Z8M"/>
+                    <constraint firstItem="jfY-vi-iEH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="aXw-h7-uez"/>
                     <constraint firstItem="N1q-fq-Q7Q" firstAttribute="leading" secondItem="p6D-PM-acB" secondAttribute="trailing" constant="16" id="jij-Zh-MlC"/>
-                    <constraint firstItem="p6D-PM-acB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="sv7-Q4-TiP"/>
+                    <constraint firstAttribute="trailing" secondItem="jfY-vi-iEH" secondAttribute="trailing" id="nRf-5e-0Oo"/>
+                    <constraint firstItem="p6D-PM-acB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="sv7-Q4-TiP"/>
                     <constraint firstItem="iRm-8t-eR2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xKA-0c-QoO"/>
                     <constraint firstAttribute="trailing" secondItem="iRm-8t-eR2" secondAttribute="trailing" id="y41-If-BOP"/>
                 </constraints>
@@ -58,6 +69,9 @@
     </objects>
     <resources>
         <image name="ico-browse-address" width="24" height="24"/>
+        <namedColor name="white">
+            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

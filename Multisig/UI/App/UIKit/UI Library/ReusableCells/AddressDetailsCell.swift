@@ -14,7 +14,7 @@ class AddressDetailsCell: UITableViewCell {
     private var style: Style = .nameAndAddress
     var onViewDetails: (() -> Void)?
 
-    static let rowHeight: CGFloat = 60
+    static let rowHeight: CGFloat = 68
 
     enum Style {
         case nameAndAddress

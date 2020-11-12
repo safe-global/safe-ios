@@ -12,11 +12,11 @@ import SwiftUI
 fileprivate protocol SectionItem {}
 
 class AppSettingsViewController: UITableViewController {
-    private let app = App.configuration.app
-    private let legal = App.configuration.legal
     private let tableBackgroundColor: UIColor = .gnoWhite
     private let advancedSectionHeaderHeight: CGFloat = 28
     var notificationCenter = NotificationCenter.default
+    var app = App.configuration.app
+    var legal = App.configuration.legal
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
@@ -100,22 +100,31 @@ class AppSettingsViewController: UITableViewController {
         switch item {
         case Section.General.importKey(let name):
             return basicCell(name: name, indexPath: indexPath)
+
         case Section.General.importedKey(let name, let signingKey):
             return importedKeyCell(name: name, signingKey: signingKey, indexPath: indexPath)
+
         case Section.General.terms(let name):
             return basicCell(name: name, indexPath: indexPath)
+
         case Section.General.privacyPolicy(let name):
             return basicCell(name: name, indexPath: indexPath)
+
         case Section.General.licenses(let name):
             return basicCell(name: name, indexPath: indexPath)
+
         case Section.General.getInTouch(let name):
             return basicCell(name: name, indexPath: indexPath)
+
         case Section.General.appVersion(let name, let version):
             return infoCell(name: name, info: version, indexPath: indexPath)
+
         case Section.General.network(let name, let network):
             return infoCell(name: name, info: network, indexPath: indexPath)
+
         case Section.Advanced.advanced(let name):
             return basicCell(name: name, indexPath: indexPath)
+
         default:
             return UITableViewCell()
         }
@@ -146,7 +155,7 @@ class AppSettingsViewController: UITableViewController {
         return cell
     }
 
-    #warning("TODO: show snackbar message")
+    #warning("TODO: show snackbar message; put logic to some layer")
     private func removeImportedOwnerKey() {
         let alertController = UIAlertController(
             title: nil,
@@ -202,13 +211,14 @@ class AppSettingsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-        view.setName("")
         return view
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
+        case Section.General.importedKey(_, _):
+            return ImportedKeyCell.rowHeight
         case Section.General.appVersion(_, _), Section.General.network(_, _):
             return InfoCell.rowHeight
         default:

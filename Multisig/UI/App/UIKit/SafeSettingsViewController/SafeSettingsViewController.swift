@@ -55,7 +55,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = tableBackgroundColor
-        tableView.rowHeight = BasicCell.rowHeight
         tableView.separatorStyle = .none
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(AddressDetailsCell.self)
@@ -185,6 +184,16 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.OwnerAddresses.owner(_):
+            return AddressDetailsCell.rowHeight
+        default:
+            return BasicCell.rowHeight
+        }
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
         let section = sections[_section].section
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
@@ -196,7 +205,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.ownerAddresses(let name):
             view.setName(name)
         case Section.advanced:
-            view.setName("")
+            break
         }
         return view
     }
