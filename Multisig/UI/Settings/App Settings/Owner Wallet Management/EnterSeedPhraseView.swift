@@ -31,37 +31,35 @@ struct EnterSeedPhraseView: View {
     var goNext = false
 
     var body: some View {
-        NavigationView {
-            VStack(spacing: 24) {
-                Text("Enter your seed phrase")
-                    .headline()
-                Text("Enter the seed phrase from your hardware wallet or MetaMask owner wallet. Typically 12 (sometimes 24) words separated by single spaces. ")
-                    .body()
-                    .multilineTextAlignment(.center)
-                // Otherwise keyboardAdaptive modefier behaives strangly
-                // Horizontal padding if less than 12 keyboardAdaptive won't work
-                HStack {
-                    EnterSeedView(seed: $seed, isEditing: $isEditing, isValid: $isValid, errorMessage: $errorMessage)
-                }
-                .padding(.horizontal, 12)
-
-                Spacer()
-
-                NavigationLink(destination: SelectOwnerAddressView(
-                                rootNode: rootNode, onSubmit: {
-                                    NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
-                                    App.shared.viewState.showImportKeySheet.toggle()
-                                }),
-                               isActive: $goNext,
-                               label: { EmptyView() })
+        VStack(spacing: 24) {
+            Text("Enter your seed phrase")
+                .headline()
+            Text("Enter the seed phrase from your hardware wallet or MetaMask owner wallet. Typically 12 (sometimes 24) words separated by single spaces. ")
+                .body()
+                .multilineTextAlignment(.center)
+            // Otherwise keyboardAdaptive modefier behaives strangly
+            // Horizontal padding if less than 12 keyboardAdaptive won't work
+            HStack {
+                EnterSeedView(seed: $seed, isEditing: $isEditing, isValid: $isValid, errorMessage: $errorMessage)
             }
-            .padding()
-            .keyboardAdaptive()
-            .navigationBarTitle("Import Owner Key", displayMode: .inline)
-            .navigationBarItems(trailing: nextButton)
-            .onAppear {
-                self.trackEvent(.ownerEnterSeed)
-            }
+            .padding(.horizontal, 12)
+
+            Spacer()
+
+            NavigationLink(destination: SelectOwnerAddressView(
+                            rootNode: rootNode, onSubmit: {
+                                NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+                                App.shared.viewState.showImportKeySheet.toggle()
+                            }),
+                           isActive: $goNext,
+                           label: { EmptyView() })
+        }
+        .padding()
+        .keyboardAdaptive()
+        .navigationBarTitle("Import Owner Key", displayMode: .inline)
+        .navigationBarItems(trailing: nextButton)
+        .onAppear {
+            self.trackEvent(.ownerEnterSeed)
         }
     }
 

@@ -10,4 +10,5 @@ import UIKit
 
 // Starting view controller for loading a safe
 class LoadSafeViewController: UIViewController {
+    // TODO: make a xib and start the modal
 }

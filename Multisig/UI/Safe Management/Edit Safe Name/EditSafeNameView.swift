@@ -29,8 +29,11 @@ struct EditSafeNameView: View {
     @ObservedObject
     var model: EditSafeNameViewModel
 
-    init(address: String, name: String) {
+    var onSubmit: () -> Void = { }
+
+    init(address: String, name: String, onSubmit: @escaping () -> Void = { }) {
         model = EditSafeNameViewModel(address: address, name: name)
+        self.onSubmit = onSubmit
     }
 
     var body: some View {
@@ -71,6 +74,7 @@ struct EditSafeNameView: View {
         guard model.isValid == true else { return }
         model.submit()
         self.presentationMode.wrappedValue.dismiss()
+        onSubmit()
     }
 }
 
