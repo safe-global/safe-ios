@@ -26,6 +26,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     enum Section {
         case name(String)
         case requiredConfirmations(String)
+        case ownerAddresses(String)
         case advanced
 
         enum Name: SectionItem {
@@ -34,6 +35,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         enum RequiredConfirmations: SectionItem {
             case confirmations(String)
+        }
+
+        enum OwnerAddresses: SectionItem {
+            case owner(String)
         }
 
         enum Advanced: SectionItem {
@@ -53,6 +58,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.rowHeight = BasicCell.rowHeight
         tableView.separatorStyle = .none
         tableView.registerCell(BasicCell.self)
+        tableView.registerCell(AddressDetailsCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         // update all safe info on changing safe name
@@ -101,6 +107,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             (section: .name("Name"), items: [Section.Name.name(safe.name!)]),
             (section: .requiredConfirmations("Required confirmations"),
              items: [Section.RequiredConfirmations.confirmations("\(info.threshold) out of \(info.owners.count)")]),
+            (section: .ownerAddresses("Owner addresses"),
+             items: info.owners.map { Section.OwnerAddresses.owner($0.description) }),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
         ]
     }
@@ -119,17 +127,19 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Name.name(let name):
-            return baseicCell(name: name, indexPath: indexPath)
+            return basicCell(name: name, indexPath: indexPath)
         case Section.RequiredConfirmations.confirmations(let name):
-            return baseicCell(name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
+            return basicCell(name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
+        case Section.OwnerAddresses.owner(let name):
+            return addressDetailsCell(address: name, indexPath: indexPath)
         case Section.Advanced.advanced(let name):
-            return baseicCell(name: name, indexPath: indexPath)
+            return basicCell(name: name, indexPath: indexPath)
         default:
             return UITableViewCell()
         }
     }
 
-    private func baseicCell(name: String,
+    private func basicCell(name: String,
                             indexPath: IndexPath,
                             withDisclosure: Bool = true,
                             canSelect: Bool = true) -> UITableViewCell {
@@ -140,6 +150,17 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
         if !canSelect {
             cell.selectionStyle = .none
+        }
+        return cell
+    }
+
+    private func addressDetailsCell(address: String, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(AddressDetailsCell.self, for: indexPath)
+        cell.setAddress(Address(exactly: address))
+        cell.setStyle(.address)
+        cell.selectionStyle = .none
+        cell.onViewDetails = { [unowned self] in
+            self.openInSafari(Safe.browserURL(address: address))
         }
         return cell
     }
@@ -171,6 +192,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.name(let name):
             view.setName(name)
         case Section.requiredConfirmations(let name):
+            view.setName(name)
+        case Section.ownerAddresses(let name):
             view.setName(name)
         case Section.advanced:
             view.setName("")
