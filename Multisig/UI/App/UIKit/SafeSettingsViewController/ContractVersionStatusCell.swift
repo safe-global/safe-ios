@@ -44,15 +44,15 @@ class ContractVersionStatusCell: UITableViewCell {
         switch versionStatus! {
         case .upToDate(let version):
             headerLabel.text = version
-            statusView.image = UIImage(systemName: "checkmark",
-                                       withConfiguration: semiboldConfiguration)!.withTintColor(.gnoHold)
+            statusView.image = UIImage(systemName: "checkmark", withConfiguration: semiboldConfiguration)
+            statusView.tintColor = .gnoHold
             statusLabel.setStyle(GNOTextStyle.body.color(.gnoHold))
             statusLabel.text = "Up to date"
 
         case .upgradeAvailable(let version):
             headerLabel.text = version
-            statusView.image = UIImage(systemName: "exclamationmark.circle",
-                                       withConfiguration: semiboldConfiguration)!.withTintColor(.gnoTomato)
+            statusView.image = UIImage(systemName: "exclamationmark.circle", withConfiguration: semiboldConfiguration)
+            statusView.tintColor = .gnoTomato
             statusLabel.setStyle(GNOTextStyle.body.color(.gnoTomato))
             statusLabel.text = "Upgrade available"
 
