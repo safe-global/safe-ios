@@ -148,6 +148,8 @@
 		0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */; };
 		0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */; };
 		0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307452543273F00E8A270 /* UIViewController+UINib.swift */; };
+		0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */; };
+		0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */; };
 		0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */; };
 		0A5F4829254C56580069C98D /* SafeEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F4827254C56580069C98D /* SafeEntryTableViewCell.swift */; };
 		0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */; };
@@ -581,6 +583,8 @@
 		0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmTransactionRequest.swift; sourceTree = "<group>"; };
 		0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionSigner.swift; sourceTree = "<group>"; };
 		0A5307452543273F00E8A270 /* UIViewController+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINib.swift"; sourceTree = "<group>"; };
+		0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoViewController.swift; sourceTree = "<group>"; };
+		0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeInfoViewController.xib; sourceTree = "<group>"; };
 		0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchSafesViewController.swift; sourceTree = "<group>"; };
 		0A5F4827254C56580069C98D /* SafeEntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeEntryTableViewCell.swift; sourceTree = "<group>"; };
 		0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeEntryTableViewCell.xib; sourceTree = "<group>"; };
@@ -1643,6 +1647,8 @@
 				0AC60C562549AF3800A63AE2 /* NoSafeBarView.xib */,
 				0AF1C7F22540887300E28669 /* HeaderViewController.swift */,
 				0AF1C7F32540887300E28669 /* HeaderViewController.xib */,
+				0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */,
+				0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */,
 			);
 			path = HeaderViewController;
 			sourceTree = "<group>";
@@ -2394,6 +2400,7 @@
 				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
+				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
@@ -2871,6 +2878,7 @@
 				0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
 				0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */,
+				0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */,
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
 				0457AB9A24BBB2C5007C884E /* CollectiblesSectionView.swift in Sources */,
 				0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */,
