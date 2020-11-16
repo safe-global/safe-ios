@@ -62,8 +62,10 @@ final class HeaderViewController: ContainerViewController {
     }
 
     @objc private func didTapSafeBarView(_ sender: Any) {
-        // present Safe Info VC modally
-        // using the custom "CenteredCard" animator for transitioning delegate
+        let vc = SafeInfoViewController(nibName: nil, bundle: nil)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        present(vc, animated: true, completion: nil)
     }
 
     @objc private func reloadHeaderBar() {
