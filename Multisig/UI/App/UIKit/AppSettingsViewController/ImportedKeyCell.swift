@@ -12,6 +12,8 @@ class ImportedKeyCell: UITableViewCell {
     @IBOutlet private weak var addressWithTitleView: AddressWithTitleView!
     var onRemove: (() -> Void)?
 
+    static let rowHeight: CGFloat = 68
+
     @IBAction func removeKey() {
         onRemove?()
     }

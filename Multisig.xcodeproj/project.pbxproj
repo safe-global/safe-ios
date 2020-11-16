@@ -347,6 +347,8 @@
 		55883600255C00A40014E8C7 /* ImportedKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */; };
 		55883601255C00A40014E8C7 /* ImportedKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */; };
 		55883612255C15870014E8C7 /* UIViewController+Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55883611255C15870014E8C7 /* UIViewController+Safari.swift */; };
+		5588361D255D43000014E8C7 /* AddressDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588361B255D43000014E8C7 /* AddressDetailsCell.swift */; };
+		5588361E255D43000014E8C7 /* AddressDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588361C255D43000014E8C7 /* AddressDetailsCell.xib */; };
 		558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */; };
 		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
 		5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */; };
@@ -838,6 +840,8 @@
 		558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedKeyCell.swift; sourceTree = "<group>"; };
 		558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportedKeyCell.xib; sourceTree = "<group>"; };
 		55883611255C15870014E8C7 /* UIViewController+Safari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Safari.swift"; sourceTree = "<group>"; };
+		5588361B255D43000014E8C7 /* AddressDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressDetailsCell.swift; sourceTree = "<group>"; };
+		5588361C255D43000014E8C7 /* AddressDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressDetailsCell.xib; sourceTree = "<group>"; };
 		558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleTableViewCell.xib; sourceTree = "<group>"; };
 		5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleTableViewCell.swift; sourceTree = "<group>"; };
@@ -2112,6 +2116,8 @@
 				55BCFC552554627100020CE7 /* BasicCell.xib */,
 				558835E5255AEA390014E8C7 /* InfoCell.swift */,
 				558835E6255AEA390014E8C7 /* InfoCell.xib */,
+				5588361B255D43000014E8C7 /* AddressDetailsCell.swift */,
+				5588361C255D43000014E8C7 /* AddressDetailsCell.xib */,
 			);
 			path = ReusableCells;
 			sourceTree = "<group>";
@@ -2382,6 +2388,7 @@
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */,
+				5588361E255D43000014E8C7 /* AddressDetailsCell.xib in Resources */,
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
@@ -2610,6 +2617,7 @@
 				0AC60C472549880D00A63AE2 /* MultiSendActionDetailsView.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
 				55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */,
+				5588361D255D43000014E8C7 /* AddressDetailsCell.swift in Sources */,
 				041C2A5A2456F53E0044A24C /* QRView.swift in Sources */,
 				0A791D9F24D309CE00D70DA9 /* ScreenMetrics.swift in Sources */,
 				046D0A7B249A7248000F4021 /* ChangeThresholdTransactionDetailsHeaderView.swift in Sources */,
