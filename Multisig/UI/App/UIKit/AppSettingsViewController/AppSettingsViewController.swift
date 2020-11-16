@@ -187,9 +187,8 @@ class AppSettingsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.General.importKey(_):
-            let enterSeedVC = EnterSeedPhraseView().hostSnackbar()
-            let hostingController = UIHostingController(rootView: enterSeedVC)
-            present(hostingController, animated: true)
+            let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
+            present(vc, animated: true)
         case Section.General.terms(_):
             openInSafari(legal.termsURL)
         case Section.General.privacyPolicy(_):

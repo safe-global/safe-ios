@@ -105,6 +105,7 @@
 		0A0983AD24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AC24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift */; };
 		0A0983AF24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AE24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift */; };
 		0A0983B124BC67E6009EE296 /* TokenRegistryIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */; };
+		0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */; };
 		0A0EFC94246D9D5200D3D8BF /* TopTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */; };
 		0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */; };
 		0A0EFC98246DAABF00D3D8BF /* BottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */; };
@@ -537,6 +538,7 @@
 		0A0983AC24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainTokenStoreIntegrationTests.swift; sourceTree = "<group>"; };
 		0A0983AE24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendTokenStoreIntegrationTests.swift; sourceTree = "<group>"; };
 		0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRegistryIntegrationTests.swift; sourceTree = "<group>"; };
+		0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		0A0EFC93246D9D5200D3D8BF /* TopTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabView.swift; sourceTree = "<group>"; };
 		0A0EFC95246DA9D700D3D8BF /* TopTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabButton.swift; sourceTree = "<group>"; };
 		0A0EFC97246DAABF00D3D8BF /* BottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBorder.swift; sourceTree = "<group>"; };
@@ -1796,6 +1798,7 @@
 				0AF2733E24DAC9FE007E4012 /* RemoteNotificationHandler.swift */,
 				0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
+				0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */,
 				0A53EB8A253F250500E6ACD0 /* UIKit */,
 				0AD1D942252748D800B8EEFF /* AppViewModel.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
@@ -2783,6 +2786,7 @@
 				55B6464E25304F9B0050BD95 /* Settings.swift in Sources */,
 				04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
+				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
 				0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */,
 				0A0983A024BC55ED009EE296 /* TokenRequest.swift in Sources */,
 				55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */,

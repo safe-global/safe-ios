@@ -171,10 +171,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Name.name(_):
-            // This will be reworked with UIKit implementation as there is a glitch with navigation controller
-            let hostedView = EditSafeNameView(address: safe.address ?? "", name: safe.name ?? "")
-            let hostingController = UIHostingController(rootView: hostedView)
-            show(hostingController, sender: self)
+            let vc = ViewControllerFactory.editSafeNameController(address: safe.address, name: safe.name, presenter: self)
+            present(vc, animated: true, completion: nil)
         case Section.Advanced.advanced(_):
             let hostedView = AdvancedSafeSettingsView(safe: safe)
             let hostingController = UIHostingController(rootView: hostedView)

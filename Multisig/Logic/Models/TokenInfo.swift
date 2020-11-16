@@ -32,6 +32,14 @@ extension Token {
         name = token.name ?? (token.type == .erc20 ? "ERC20" : "ERC721")
         symbol = token.symbol ?? (token.type == .erc20 ? "ERC20" : "NFT")
         decimals = token.decimals?.value ?? 0
+
+        if type == .ether {
+            address = .ether
+            logo = nil
+            name = "Ether"
+            symbol = "ETH"
+            decimals = 18
+        }
     }
 
 }
