@@ -27,6 +27,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case name(String)
         case requiredConfirmations(String)
         case ownerAddresses(String)
+        case contractVersion(String)
         case advanced
 
         enum Name: SectionItem {
@@ -39,6 +40,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         enum OwnerAddresses: SectionItem {
             case owner(String)
+        }
+
+        enum ContractVersion: SectionItem {
+            case contractVersion(String)
         }
 
         enum Advanced: SectionItem {
@@ -58,6 +63,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.separatorStyle = .none
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(AddressDetailsCell.self)
+        tableView.registerCell(ContractVersionStatusCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         // update all safe info on changing safe name
@@ -108,6 +114,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
              items: [Section.RequiredConfirmations.confirmations("\(info.threshold) out of \(info.owners.count)")]),
             (section: .ownerAddresses("Owner addresses"),
              items: info.owners.map { Section.OwnerAddresses.owner($0.description) }),
+            (section: .contractVersion("Contract version"),
+             items: [Section.ContractVersion.contractVersion(info.implementation.description)]),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
         ]
     }
@@ -127,12 +135,19 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         switch item {
         case Section.Name.name(let name):
             return basicCell(name: name, indexPath: indexPath)
+
         case Section.RequiredConfirmations.confirmations(let name):
             return basicCell(name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
+
         case Section.OwnerAddresses.owner(let name):
             return addressDetailsCell(address: name, indexPath: indexPath)
+
+        case Section.ContractVersion.contractVersion(let version):
+            return contractVersionCell(version: version, indexPath: indexPath)
+
         case Section.Advanced.advanced(let name):
             return basicCell(name: name, indexPath: indexPath)
+
         default:
             return UITableViewCell()
         }
@@ -164,6 +179,16 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         return cell
     }
 
+    private func contractVersionCell(version: String, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(ContractVersionStatusCell.self, for: indexPath)
+        cell.setAddress(Address(exactly: version))
+        cell.selectionStyle = .none
+        cell.onViewDetails = { [unowned self] in
+            self.openInSafari(Safe.browserURL(address: version))
+        }
+        return cell
+    }
+
     // MARK: - Table view delegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -187,6 +212,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         switch item {
         case Section.OwnerAddresses.owner(_):
             return AddressDetailsCell.rowHeight
+
+        case Section.ContractVersion.contractVersion(_):
+            return ContractVersionStatusCell.rowHeight
+
         default:
             return BasicCell.rowHeight
         }
@@ -198,13 +227,20 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         switch section {
         case Section.name(let name):
             view.setName(name)
+
         case Section.requiredConfirmations(let name):
             view.setName(name)
+
         case Section.ownerAddresses(let name):
             view.setName(name)
+
+        case Section.contractVersion(let name):
+            view.setName(name)
+
         case Section.advanced:
             break
         }
+
         return view
     }
 
