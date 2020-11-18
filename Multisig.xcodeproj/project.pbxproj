@@ -256,6 +256,8 @@
 		0AD1D943252748D800B8EEFF /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D942252748D800B8EEFF /* AppViewModel.swift */; };
 		0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A45246C38920052F4CD /* EmailSupportViewController.swift */; };
 		0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */; };
+		0ADA90F3256548C30004DEC0 /* SnackbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C2E1325628E30009808CB /* SnackbarViewController.swift */; };
+		0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2E1425628E30009808CB /* SnackbarViewController.xib */; };
 		0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */; };
 		0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */; };
 		0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20A24533F1E0066457E /* EnterSafeNameView.swift */; };
@@ -1244,6 +1246,9 @@
 		0A53EB8A253F250500E6ACD0 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */,
+				0A5C2E1325628E30009808CB /* SnackbarViewController.swift */,
+				0A5C2E1425628E30009808CB /* SnackbarViewController.xib */,
 				558835DE255A90420014E8C7 /* AppSettingsViewController */,
 				0AC94457254068D800921CA5 /* NSNotification+Events.swift */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
@@ -1813,9 +1818,6 @@
 				0AF2733E24DAC9FE007E4012 /* RemoteNotificationHandler.swift */,
 				0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
-				0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */,
-				0A5C2E1325628E30009808CB /* SnackbarViewController.swift */,
-				0A5C2E1425628E30009808CB /* SnackbarViewController.xib */,
 				0A53EB8A253F250500E6ACD0 /* UIKit */,
 				0AD1D942252748D800B8EEFF /* AppViewModel.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
@@ -2411,7 +2413,6 @@
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
-				0A5C2E1625628E30009808CB /* SnackbarViewController.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */,
@@ -2427,6 +2428,7 @@
 				0AB990122562D93500499219 /* LoadSafeViewController.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				555312F425068E0F0008206B /* README in Resources */,
+				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
 				5588363D2562904E0014E8C7 /* ContractVersionStatusCell.xib in Resources */,
 				0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */,
 				0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */,
@@ -2766,6 +2768,7 @@
 				0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */,
 				551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */,
 				0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */,
+				0ADA90F3256548C30004DEC0 /* SnackbarViewController.swift in Sources */,
 				0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */,
 				55A5854125014B1B005E778B /* Data+Extension.swift in Sources */,
 				558835E0255A907B0014E8C7 /* AppSettingsViewController.swift in Sources */,
@@ -2894,7 +2897,6 @@
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */,
 				0AD1D8FD252620D500B8EEFF /* CollectibleBalancesView.swift in Sources */,
-				0A5C2E1525628E30009808CB /* SnackbarViewController.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				550A0ACD24F3BEE800B839E9 /* MainContentView.swift in Sources */,
