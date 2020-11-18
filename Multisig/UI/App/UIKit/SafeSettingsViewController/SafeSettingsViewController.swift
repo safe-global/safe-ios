@@ -54,6 +54,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         enum Advanced: SectionItem {
             case advanced(String)
+            case removeSafe
         }
     }
 
@@ -71,6 +72,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.registerCell(AddressDetailsCell.self)
         tableView.registerCell(ContractVersionStatusCell.self)
         tableView.registerCell(LoadingValueCell.self)
+        tableView.registerCell(RemoveSafeCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         // update all safe info on changing safe name
@@ -130,7 +132,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
             (section: .ensName("ENS name"), items: [Section.EnsName.ensName]),
 
-            (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
+            (section: .advanced, items: [
+                Section.Advanced.advanced("Advanced"),
+                Section.Advanced.removeSafe])
         ]
     }
 
@@ -168,6 +172,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         case Section.Advanced.advanced(let name):
             return basicCell(name: name, indexPath: indexPath)
+
+        case Section.Advanced.removeSafe:
+            return removeSafeCell(indexPath: indexPath)
 
         default:
             return UITableViewCell()
@@ -221,6 +228,25 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         return cell
     }
 
+    private func removeSafeCell(indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(RemoveSafeCell.self, for: indexPath)
+        cell.onRemove = { [unowned self] in
+            let alertController = UIAlertController(
+                title: nil,
+                message: "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost.",
+                preferredStyle: .actionSheet)
+            let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
+                Safe.remove(safe: self.safe)
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(remove)
+            alertController.addAction(cancel)
+            self.present(alertController, animated: true)
+        }
+        cell.selectionStyle = .none
+        return cell
+    }
+
     // MARK: - Table view delegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -251,6 +277,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.EnsName.ensName:
             return LoadingValueCell.rowHeight
 
+        case Section.Advanced.removeSafe:
+            return RemoveSafeCell.rowHeight
+
         default:
             return BasicCell.rowHeight
         }
@@ -276,7 +305,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             view.setName(name)
 
         case Section.advanced:
-            view.setName("")
+            break
         }
 
         return view
