@@ -13,6 +13,11 @@ class BasicHeaderView: UITableViewHeaderFooterView {
 
     static let headerHeight: CGFloat = 44
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        nameLabel.text = nil
+    }
+
     func setName(_ value: String) {
         nameLabel.setAttributedText(value.uppercased(), style: .caption2)
     }

@@ -354,6 +354,10 @@
 		5588361E255D43000014E8C7 /* AddressDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588361C255D43000014E8C7 /* AddressDetailsCell.xib */; };
 		5588363C2562904E0014E8C7 /* ContractVersionStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588363A2562904E0014E8C7 /* ContractVersionStatusCell.swift */; };
 		5588363D2562904E0014E8C7 /* ContractVersionStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588363B2562904E0014E8C7 /* ContractVersionStatusCell.xib */; };
+		5588365425652E4B0014E8C7 /* LoadingValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588365225652E4B0014E8C7 /* LoadingValueCell.swift */; };
+		5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588365325652E4B0014E8C7 /* LoadingValueCell.xib */; };
+		558836702565385F0014E8C7 /* RemoveSafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588366E2565385F0014E8C7 /* RemoveSafeCell.swift */; };
+		558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588366F2565385F0014E8C7 /* RemoveSafeCell.xib */; };
 		558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */; };
 		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
 		5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */; };
@@ -852,6 +856,10 @@
 		5588361C255D43000014E8C7 /* AddressDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressDetailsCell.xib; sourceTree = "<group>"; };
 		5588363A2562904E0014E8C7 /* ContractVersionStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractVersionStatusCell.swift; sourceTree = "<group>"; };
 		5588363B2562904E0014E8C7 /* ContractVersionStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContractVersionStatusCell.xib; sourceTree = "<group>"; };
+		5588365225652E4B0014E8C7 /* LoadingValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingValueCell.swift; sourceTree = "<group>"; };
+		5588365325652E4B0014E8C7 /* LoadingValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingValueCell.xib; sourceTree = "<group>"; };
+		5588366E2565385F0014E8C7 /* RemoveSafeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveSafeCell.swift; sourceTree = "<group>"; };
+		5588366F2565385F0014E8C7 /* RemoveSafeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoveSafeCell.xib; sourceTree = "<group>"; };
 		558F3CB124AB2C9500BBCDF1 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleTableViewCell.xib; sourceTree = "<group>"; };
 		5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleTableViewCell.swift; sourceTree = "<group>"; };
@@ -2120,6 +2128,8 @@
 				55BCFC382552FCDB00020CE7 /* SafeSettingsViewController.swift */,
 				5588363A2562904E0014E8C7 /* ContractVersionStatusCell.swift */,
 				5588363B2562904E0014E8C7 /* ContractVersionStatusCell.xib */,
+				5588366E2565385F0014E8C7 /* RemoveSafeCell.swift */,
+				5588366F2565385F0014E8C7 /* RemoveSafeCell.xib */,
 			);
 			path = SafeSettingsViewController;
 			sourceTree = "<group>";
@@ -2133,6 +2143,8 @@
 				558835E6255AEA390014E8C7 /* InfoCell.xib */,
 				5588361B255D43000014E8C7 /* AddressDetailsCell.swift */,
 				5588361C255D43000014E8C7 /* AddressDetailsCell.xib */,
+				5588365225652E4B0014E8C7 /* LoadingValueCell.swift */,
+				5588365325652E4B0014E8C7 /* LoadingValueCell.xib */,
 			);
 			path = ReusableCells;
 			sourceTree = "<group>";
@@ -2401,7 +2413,9 @@
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				558835F9255BFEF80014E8C7 /* AddressWithTitleView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
+				558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
+				5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */,
 				0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */,
 				5588361E255D43000014E8C7 /* AddressDetailsCell.xib in Resources */,
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
@@ -2739,6 +2753,7 @@
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,
 				0A704A572473F903005BDC49 /* BottomTabView.swift in Sources */,
 				04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */,
+				558836702565385F0014E8C7 /* RemoveSafeCell.swift in Sources */,
 				0AF1C81225408EA000E28669 /* SegmentViewController.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
 				0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */,
@@ -2762,6 +2777,7 @@
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
 				0A628FF5245710260038DC88 /* SafeCell.swift in Sources */,
 				043ABD0F24EF0C33008826D5 /* SafeClientGatewayService.swift in Sources */,
+				5588365425652E4B0014E8C7 /* LoadingValueCell.swift in Sources */,
 				55B66E87247FDF2C00249E98 /* TermsView.swift in Sources */,
 				558F3CB224AB2C9500BBCDF1 /* RefreshableScrollView.swift in Sources */,
 				0A339C5D24C1D16E00DAD84B /* Image+Blockies.swift in Sources */,
