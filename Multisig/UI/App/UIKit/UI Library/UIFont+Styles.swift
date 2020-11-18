@@ -54,13 +54,9 @@ extension UIFont {
 }
 
 extension UILabel {
-    func setStyle(_ style: GNOTextStyle, textColor: UIColor? = nil) {
+    func setStyle(_ style: GNOTextStyle) {
         font = .gnoFont(forTextStyle: style)
-        if let textColor = textColor {
-            self.textColor = textColor
-        } else {
-            self.textColor = style.color
-        }
+        textColor = style.color
     }
 
     func setAttributedText(_ text: String, style: GNOTextStyle) {

@@ -68,6 +68,22 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         return value.prefix(prefix) + "…" + value.suffix(suffix)
     }
 
+    var highlighted: NSAttributedString {
+        let attributedString = NSMutableAttributedString(
+            string: checksummed,
+            attributes: [
+                .font: UIFont.gnoFont(forTextStyle: .body),
+                .foregroundColor: UIColor.gnoMediumGrey,
+                .kern: -0.41
+            ]
+        )
+        attributedString.addAttribute(
+            .foregroundColor, value: UIColor.gnoDarkBlue, range: NSRange(location: 0, length: 4))
+        attributedString.addAttribute(
+            .foregroundColor, value: UIColor.gnoDarkBlue, range: NSRange(location: 38, length: 4))
+        return attributedString
+    }
+
     var data: Data {
         Data(_store.rawAddress)
     }
