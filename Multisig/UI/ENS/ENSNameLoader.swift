@@ -9,16 +9,20 @@
 import Foundation
 import Combine
 
-class ENSNameLoader: ObservableObject {
+protocol ENSNameLoaderDelegate {
+    func ensNameLoaderDidLoadName(_ loader: ENSNameLoader)
+}
 
+class ENSNameLoader: ObservableObject {
     private var subscribers = Set<AnyCancellable>()
+    private var delegate: ENSNameLoaderDelegate?
 
     @Published
     var isLoading: Bool = true
 
-    init(safe: Safe) {
-        Just(safe.address)
-            .compactMap { $0 }
+    init(safe: Safe, delegate: ENSNameLoaderDelegate? = nil) {
+        self.delegate = delegate
+        Just(safe.address!)            
             .compactMap { Address($0) }
             .receive(on: DispatchQueue.global())
             .map { address -> String? in
@@ -28,8 +32,10 @@ class ENSNameLoader: ObservableObject {
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
                 self?.isLoading = false
-            }, receiveValue: { [unowned safe] ensName in
+            }, receiveValue: { [weak self, unowned safe] ensName in
                 safe.ensName = ensName
+                guard let `self` = self else { return }
+                self.delegate?.ensNameLoaderDidLoadName(self)
             })
             .store(in: &subscribers)
     }

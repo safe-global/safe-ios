@@ -21,6 +21,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private var currentDataTask: URLSessionTask?
     private var sections = [SectionItems]()
     private var safe: Safe!
+    private var ensLoader: ENSNameLoader!
     private var lastError: Error?
 
     enum Section {
@@ -28,6 +29,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case requiredConfirmations(String)
         case ownerAddresses(String)
         case contractVersion(String)
+        case ensName(String)
         case advanced
 
         enum Name: SectionItem {
@@ -46,8 +48,13 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             case contractVersion(String)
         }
 
+        enum EnsName: SectionItem {
+            case ensName
+        }
+
         enum Advanced: SectionItem {
             case advanced(String)
+            case removeSafe
         }
     }
 
@@ -64,6 +71,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(AddressDetailsCell.self)
         tableView.registerCell(ContractVersionStatusCell.self)
+        tableView.registerCell(LoadingValueCell.self)
+        tableView.registerCell(RemoveSafeCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         // update all safe info on changing safe name
@@ -97,6 +106,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                     DispatchQueue.main.async { [weak self] in
                         guard let `self` = self else { return }
                         self.updateSections(with: safeInfo)
+                        self.ensLoader = ENSNameLoader(safe: self.safe, delegate: self)
                         self.onSuccess()
                     }
                 }
@@ -110,13 +120,21 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private func updateSections(with info: SafeStatusRequest.Response) {
         sections = [
             (section: .name("Name"), items: [Section.Name.name(safe.name!)]),
+
             (section: .requiredConfirmations("Required confirmations"),
              items: [Section.RequiredConfirmations.confirmations("\(info.threshold) out of \(info.owners.count)")]),
+
             (section: .ownerAddresses("Owner addresses"),
              items: info.owners.map { Section.OwnerAddresses.owner($0.description) }),
+
             (section: .contractVersion("Contract version"),
              items: [Section.ContractVersion.contractVersion(info.implementation.description)]),
-            (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
+
+            (section: .ensName("ENS name"), items: [Section.EnsName.ensName]),
+
+            (section: .advanced, items: [
+                Section.Advanced.advanced("Advanced"),
+                Section.Advanced.removeSafe])
         ]
     }
 
@@ -145,8 +163,18 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.ContractVersion.contractVersion(let version):
             return contractVersionCell(version: version, indexPath: indexPath)
 
+        case Section.EnsName.ensName:
+            if ensLoader.isLoading {
+                return loadingCell(name: nil, indexPath: indexPath)
+            } else {
+                return loadingCell(name: safe.ensName ?? "Reverse record not set", indexPath: indexPath)
+            }
+
         case Section.Advanced.advanced(let name):
             return basicCell(name: name, indexPath: indexPath)
+
+        case Section.Advanced.removeSafe:
+            return removeSafeCell(indexPath: indexPath)
 
         default:
             return UITableViewCell()
@@ -154,9 +182,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     private func basicCell(name: String,
-                            indexPath: IndexPath,
-                            withDisclosure: Bool = true,
-                            canSelect: Bool = true) -> UITableViewCell {
+                           indexPath: IndexPath,
+                           withDisclosure: Bool = true,
+                           canSelect: Bool = true) -> UITableViewCell {
         let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
         cell.setTitle(name)
         if !withDisclosure {
@@ -189,6 +217,36 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         return cell
     }
 
+    private func loadingCell(name: String?, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(LoadingValueCell.self, for: indexPath)
+        if let name = name {
+            cell.setTitle(name)
+        } else {
+            cell.displayLoading()
+        }
+        cell.selectionStyle = .none
+        return cell
+    }
+
+    private func removeSafeCell(indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(RemoveSafeCell.self, for: indexPath)
+        cell.onRemove = { [unowned self] in
+            let alertController = UIAlertController(
+                title: nil,
+                message: "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost.",
+                preferredStyle: .actionSheet)
+            let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
+                Safe.remove(safe: self.safe)
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(remove)
+            alertController.addAction(cancel)
+            self.present(alertController, animated: true)
+        }
+        cell.selectionStyle = .none
+        return cell
+    }
+
     // MARK: - Table view delegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -216,6 +274,12 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.ContractVersion.contractVersion(_):
             return ContractVersionStatusCell.rowHeight
 
+        case Section.EnsName.ensName:
+            return LoadingValueCell.rowHeight
+
+        case Section.Advanced.removeSafe:
+            return RemoveSafeCell.rowHeight
+
         default:
             return BasicCell.rowHeight
         }
@@ -237,6 +301,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.contractVersion(let name):
             view.setName(name)
 
+        case Section.ensName(let name):
+            view.setName(name)
+
         case Section.advanced:
             break
         }
@@ -250,5 +317,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return advancedSectionHeaderHeight
         }
         return BasicHeaderView.headerHeight
+    }
+}
+
+extension SafeSettingsViewController: ENSNameLoaderDelegate {
+    func ensNameLoaderDidLoadName(_ loader: ENSNameLoader) {
+        tableView.reloadData()
     }
 }
