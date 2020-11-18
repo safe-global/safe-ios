@@ -125,8 +125,10 @@ class LoadableViewController: UIViewController {
     }
 
     // subclassable
-    func onError() {
-        // show snackbar
+    func onError(_ error: Error? = nil) {
+        if let message = error?.localizedDescription {
+            App.shared.snackbar.show(message: message)
+        }
         if isRefreshing() {
             endRefreshing()
         } else {

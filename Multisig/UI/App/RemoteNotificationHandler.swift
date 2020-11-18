@@ -241,6 +241,7 @@ extension UNAuthorizationStatus: CustomStringConvertible {
         case .denied: return "Denied"
         case .notDetermined: return "Not Determined"
         case .provisional: return "Provisional (granted)"
+        case .ephemeral: return "Ephemeral (granted)"
         @unknown default: return "Unknown: \(rawValue)"
         }
     }
@@ -249,7 +250,7 @@ extension UNAuthorizationStatus: CustomStringConvertible {
 extension UNAuthorizationStatus {
     fileprivate var trackingStatus: TrackingPushState {
         switch self {
-        case .authorized, .provisional:
+        case .authorized, .provisional, .ephemeral:
             return .enabled
         case .denied:
             return .disabled

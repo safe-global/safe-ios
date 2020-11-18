@@ -18,7 +18,6 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
 
     var currentDataTask: URLSessionTask?
     var sections = [CollectibleListSection]()
-    var lastError: Error?
 
     override var isEmpty: Bool { sections.isEmpty }
 
@@ -61,8 +60,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.lastError = error
-                        self.onError()
+                        self.onError(error)
                     }
                 case .success(let collectibles):
                     let sections = CollectibleListSection.create(collectibles)
@@ -75,8 +73,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
         } catch {
-            lastError = error
-            onError()
+            onError(error)
         }
     }
 

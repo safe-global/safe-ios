@@ -146,7 +146,6 @@ class AppSettingsViewController: UITableViewController {
         return cell
     }
 
-    #warning("TODO: show snackbar message")
     private func removeImportedOwnerKey() {
         let alertController = UIAlertController(
             title: nil,
@@ -157,7 +156,7 @@ class AppSettingsViewController: UITableViewController {
                 try App.shared.keychainService.removeData(
                     forKey: KeychainKey.ownerPrivateKey.rawValue)
                 AppSettings.setSigningKeyAddress(nil)
-//                App.shared.snackbar.show(message: "Owner key removed from this app")
+                App.shared.snackbar.show(message: "Owner key removed from this app")
                 Tracker.shared.setUserProperty("0", for: TrackingUserProperty.numKeysImported)
                 self.reload()
             } catch {

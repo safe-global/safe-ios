@@ -148,6 +148,8 @@
 		0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */; };
 		0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */; };
 		0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307452543273F00E8A270 /* UIViewController+UINib.swift */; };
+		0A5C2E1525628E30009808CB /* SnackbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C2E1325628E30009808CB /* SnackbarViewController.swift */; };
+		0A5C2E1625628E30009808CB /* SnackbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2E1425628E30009808CB /* SnackbarViewController.xib */; };
 		0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */; };
 		0A5F4829254C56580069C98D /* SafeEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F4827254C56580069C98D /* SafeEntryTableViewCell.swift */; };
 		0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */; };
@@ -229,6 +231,8 @@
 		0AB34D6224B71DB200A43988 /* SafeBalancesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6124B71DB200A43988 /* SafeBalancesRequest.swift */; };
 		0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */; };
 		0AB34D6824B71DF700A43988 /* TokensRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6724B71DF700A43988 /* TokensRequest.swift */; };
+		0AB990112562D93500499219 /* LoadSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB9900F2562D93500499219 /* LoadSafeViewController.swift */; };
+		0AB990122562D93500499219 /* LoadSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AB990102562D93500499219 /* LoadSafeViewController.xib */; };
 		0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */; };
 		0AC60C332549751500A63AE2 /* MultiSendActionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C322549751500A63AE2 /* MultiSendActionListView.swift */; };
 		0AC60C41254987F500A63AE2 /* CustomTransactionViewModel+MultiSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C40254987F400A63AE2 /* CustomTransactionViewModel+MultiSend.swift */; };
@@ -271,7 +275,6 @@
 		0AF1C80725408B5000E28669 /* UIImageView+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C80625408B5000E28669 /* UIImageView+Address.swift */; };
 		0AF1C81225408EA000E28669 /* SegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C81025408EA000E28669 /* SegmentViewController.swift */; };
 		0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C81125408EA000E28669 /* SegmentViewController.xib */; };
-		0AF1C823254090E200E28669 /* LoadSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C822254090E200E28669 /* LoadSafeViewController.swift */; };
 		0AF1C8302540923C00E28669 /* LoadableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C82E2540923C00E28669 /* LoadableViewController.swift */; };
 		0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C82F2540923C00E28669 /* LoadableViewController.xib */; };
 		0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C88C2541AD4100E28669 /* ScrollableEmptyView.xib */; };
@@ -581,6 +584,8 @@
 		0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmTransactionRequest.swift; sourceTree = "<group>"; };
 		0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionSigner.swift; sourceTree = "<group>"; };
 		0A5307452543273F00E8A270 /* UIViewController+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINib.swift"; sourceTree = "<group>"; };
+		0A5C2E1325628E30009808CB /* SnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarViewController.swift; sourceTree = "<group>"; };
+		0A5C2E1425628E30009808CB /* SnackbarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SnackbarViewController.xib; sourceTree = "<group>"; };
 		0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchSafesViewController.swift; sourceTree = "<group>"; };
 		0A5F4827254C56580069C98D /* SafeEntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeEntryTableViewCell.swift; sourceTree = "<group>"; };
 		0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeEntryTableViewCell.xib; sourceTree = "<group>"; };
@@ -672,6 +677,8 @@
 		0AB34D6124B71DB200A43988 /* SafeBalancesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBalancesRequest.swift; sourceTree = "<group>"; };
 		0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesRequest.swift; sourceTree = "<group>"; };
 		0AB34D6724B71DF700A43988 /* TokensRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensRequest.swift; sourceTree = "<group>"; };
+		0AB9900F2562D93500499219 /* LoadSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSafeViewController.swift; sourceTree = "<group>"; };
+		0AB990102562D93500499219 /* LoadSafeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadSafeViewController.xib; sourceTree = "<group>"; };
 		0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarCenter.swift; sourceTree = "<group>"; };
 		0AC60C322549751500A63AE2 /* MultiSendActionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSendActionListView.swift; sourceTree = "<group>"; };
 		0AC60C40254987F400A63AE2 /* CustomTransactionViewModel+MultiSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomTransactionViewModel+MultiSend.swift"; sourceTree = "<group>"; };
@@ -713,7 +720,6 @@
 		0AF1C80625408B5000E28669 /* UIImageView+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Address.swift"; sourceTree = "<group>"; };
 		0AF1C81025408EA000E28669 /* SegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentViewController.swift; sourceTree = "<group>"; };
 		0AF1C81125408EA000E28669 /* SegmentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentViewController.xib; sourceTree = "<group>"; };
-		0AF1C822254090E200E28669 /* LoadSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSafeViewController.swift; sourceTree = "<group>"; };
 		0AF1C8282540914600E28669 /* NoSafesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSafesViewController.swift; sourceTree = "<group>"; };
 		0AF1C82E2540923C00E28669 /* LoadableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableViewController.swift; sourceTree = "<group>"; };
 		0AF1C82F2540923C00E28669 /* LoadableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadableViewController.xib; sourceTree = "<group>"; };
@@ -1229,7 +1235,6 @@
 			isa = PBXGroup;
 			children = (
 				558835DE255A90420014E8C7 /* AppSettingsViewController */,
-				0AF1C822254090E200E28669 /* LoadSafeViewController.swift */,
 				0AC94457254068D800921CA5 /* NSNotification+Events.swift */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
 				5503F62A255062070046545C /* CollectiblesViewController */,
@@ -1237,6 +1242,8 @@
 				55BCFC372552FCA900020CE7 /* SafeSettingsViewController */,
 				0AB9F4C8254C64740044395F /* SwitchSafesViewController */,
 				0A53EBB1253F341600E6ACD0 /* UI Library */,
+				0AB9900F2562D93500499219 /* LoadSafeViewController.swift */,
+				0AB990102562D93500499219 /* LoadSafeViewController.xib */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1795,6 +1802,8 @@
 				0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */,
 				0A93DD582445CC8A00688050 /* SceneDelegate.swift */,
 				0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */,
+				0A5C2E1325628E30009808CB /* SnackbarViewController.swift */,
+				0A5C2E1425628E30009808CB /* SnackbarViewController.xib */,
 				0A53EB8A253F250500E6ACD0 /* UIKit */,
 				0AD1D942252748D800B8EEFF /* AppViewModel.swift */,
 				0A93DD5D2445CC8A00688050 /* ContentView.swift */,
@@ -2385,6 +2394,7 @@
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
+				0A5C2E1625628E30009808CB /* SnackbarViewController.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */,
@@ -2396,6 +2406,7 @@
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
+				0AB990122562D93500499219 /* LoadSafeViewController.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				555312F425068E0F0008206B /* README in Resources */,
 				0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */,
@@ -2587,6 +2598,7 @@
 				0A7AEAE12462F98800014184 /* SafeRow.swift in Sources */,
 				046D0A5A249A1C64000F4021 /* ExpandableButton .swift in Sources */,
 				047691372461B2E200D73D8B /* AddressCell.swift in Sources */,
+				0AB990112562D93500499219 /* LoadSafeViewController.swift in Sources */,
 				0497F6E72488EBFA00A1F4DE /* ChangeImplementationCellView.swift in Sources */,
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */,
@@ -2861,6 +2873,7 @@
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */,
 				0AD1D8FD252620D500B8EEFF /* CollectibleBalancesView.swift in Sources */,
+				0A5C2E1525628E30009808CB /* SnackbarViewController.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				550A0ACD24F3BEE800B839E9 /* MainContentView.swift in Sources */,
@@ -2874,7 +2887,6 @@
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
 				0457AB9A24BBB2C5007C884E /* CollectiblesSectionView.swift in Sources */,
 				0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */,
-				0AF1C823254090E200E28669 /* LoadSafeViewController.swift in Sources */,
 				0AD1D943252748D800B8EEFF /* AppViewModel.swift in Sources */,
 				0AF1C8302540923C00E28669 /* LoadableViewController.swift in Sources */,
 				0AC60C41254987F500A63AE2 /* CustomTransactionViewModel+MultiSend.swift in Sources */,

@@ -11,6 +11,9 @@ import SwiftUI
 
 enum ViewControllerFactory {
 
+    // Design decision: always have one root view controller because
+    // of UIKit memory leaking issues when switching root view controller
+    // of the UIWindow.
     static func rootViewController() -> UIViewController {
         let tabBarVC = UITabBarController()
         let balancesTabVC = balancesTabViewController()
