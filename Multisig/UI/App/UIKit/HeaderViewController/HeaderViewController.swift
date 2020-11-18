@@ -81,7 +81,7 @@ final class HeaderViewController: ContainerViewController {
                 safeBarView.setName(safe.displayName)
             }
         } catch {
-            // TODO: snackbar error
+            App.shared.snackbar.show(message: "Failed to load selected safe")
             LogService.shared.error("Failed to load selected safe: \(error)")
         }
     }

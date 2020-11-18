@@ -10,7 +10,8 @@ import UIKit
 import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    var window: UIWindow?
+    var window: WindowWithViewOnTop?
+    var snackbarViewController = SnackbarViewController(nibName: nil, bundle: nil)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if App.configuration.toggles.useUIKit {
@@ -29,9 +30,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = ViewControllerFactory.rootViewController()
+            let window = WindowWithViewOnTop(windowScene: windowScene)
             self.window = window
+            window.rootViewController = ViewControllerFactory.rootViewController()
+
+            SnackbarViewController.instance = snackbarViewController
+            snackbarViewController.view.frame = window.bounds
+            snackbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            window.addSubviewAlwaysOnTop(snackbarViewController.view)
+
             window.tintColor = .gnoHold
             window.makeKeyAndVisible()
         }
@@ -59,7 +66,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
+            let window = WindowWithViewOnTop(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
             window.makeKeyAndVisible()
@@ -98,5 +105,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Save changes in the application's managed object context when the application transitions to the background.
         App.shared.coreDataStack.saveContext()
+    }
+}
+
+// Window that can keep some view always on top of other views
+class WindowWithViewOnTop: UIWindow {
+
+    private weak var keepInFront: UIView?
+
+    func addSubviewAlwaysOnTop(_ view: UIView) {
+        keepInFront = view
+        addSubview(view)
+    }
+
+    override func addSubview(_ view: UIView) {
+        super.addSubview(view)
+        if let v = keepInFront {
+            bringSubviewToFront(v)
+        }
     }
 }

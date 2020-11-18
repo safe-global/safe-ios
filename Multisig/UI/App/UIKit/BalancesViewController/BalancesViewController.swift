@@ -16,7 +16,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     private var results: [TokenBalance] = []
 
     private var totalBalance: String = "0.00"
-    private var lastError: Error?
 
     private let rowHeight: CGFloat = 60
     private let tableBackgroundColor: UIColor = .gnoWhite
@@ -71,8 +70,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.lastError = error
-                        self.onError()
+                        self.onError(error)
                     }
                 case .success(let summary):
                     let results = summary.items.map(TokenBalance.init)
@@ -86,8 +84,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                 }
             }
         } catch {
-            lastError = error
-            onError()
+            onError(error)
         }
     }
 

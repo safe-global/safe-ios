@@ -61,6 +61,10 @@ class SnackbarCenter: ObservableObject {
     }
 
     func show(message content: String, duration: TimeInterval? = nil) {
+        if App.configuration.toggles.useUIKit {
+            SnackbarViewController.show(content, duration: duration ?? displayDuration)
+            return
+        }
         let message = Message(content: content,
                               duration: duration ?? displayDuration)
         messageQueue.append(message)

@@ -14,6 +14,8 @@ enum ScreenMetrics {
 
     static let topTabHeight: CGFloat = 56
 
+    static let offscreen: CGFloat = -200
+
     static var isBigScreen: Bool {
         UIScreen.main.bounds.height >= _5_8_inchScreenHeight
     }
@@ -23,7 +25,11 @@ enum ScreenMetrics {
     }
 
     static var aboveTabBar: CGFloat {
-        Spacing.extraSmall + (isBigScreen ? 52 : 64)
+        if App.configuration.toggles.useUIKit {
+            return Spacing.extraSmall + 64
+        } else {
+            return Spacing.extraSmall + (isBigScreen ? 52 : 64)
+        }
     }
 
     static func aboveKeyboard(_ frame: CGRect) -> CGFloat {

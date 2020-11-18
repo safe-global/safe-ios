@@ -22,7 +22,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private var sections = [SectionItems]()
     private var safe: Safe!
     private var ensLoader: ENSNameLoader!
-    private var lastError: Error?
 
     enum Section {
         case name(String)
@@ -99,8 +98,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.lastError = error
-                        self.onError()
+                        self.onError(error)
                     }
                 case .success(let safeInfo):
                     DispatchQueue.main.async { [weak self] in
@@ -112,8 +110,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
         } catch {
-            lastError = error
-            onError()
+            onError(error)
         }
     }
 

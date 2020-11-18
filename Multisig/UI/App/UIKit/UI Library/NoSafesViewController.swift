@@ -34,7 +34,7 @@ class NoSafesViewController: ContainerViewController {
                 displayChild(at: 0, in: view)
             }
         } catch {
-            // TODO: snackbar?
+            App.shared.snackbar.show(message: "Error getting selected safe")
             LogService.shared.error("NoSafesViewController: Error getting selected safe: \(error)")
         }
     }
