@@ -35,4 +35,13 @@ extension SafeClientGatewayService {
     func transactionSummaryList(pageUri: String) throws -> TransactionSummaryListRequest.ResponseType {
         return try execute(request: PagedRequest<TransactionSummary>(pageUri))
     }
+
+    func asyncTransactionList(address: Address, completion: @escaping (Result<Page<TransactionSummary>, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: TransactionSummaryListRequest(address), completion: completion)
+    }
+
+    func asyncTransactionList(pageUri: String, completion: @escaping (Result<Page<TransactionSummary>, Error>) -> Void) throws -> URLSessionTask? {
+        asyncExecute(request: try PagedRequest<TransactionSummary>(pageUri), completion: completion)
+    }
+
 }

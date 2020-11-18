@@ -17,8 +17,9 @@ enum ViewControllerFactory {
     static func rootViewController() -> UIViewController {
         let tabBarVC = UITabBarController()
         let balancesTabVC = balancesTabViewController()
+        let transactionsTabVC = transactionsTabViewController()
         let settingsTabVC = settingsTabViewController()
-        tabBarVC.viewControllers = [balancesTabVC, settingsTabVC]
+        tabBarVC.viewControllers = [balancesTabVC, transactionsTabVC, settingsTabVC]
         tabBarVC.tabBar.barTintColor = .gnoSnowwhite
 
         if !AppSettings.hasAcceptedTerms() {
@@ -56,6 +57,17 @@ enum ViewControllerFactory {
         return tabViewController(root: tabRoot, title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
     }
 
+    private static func transactionsTabViewController() -> UIViewController {
+        let transactionsVC = TransactionListViewController()
+
+        let noSafesVC = NoSafesViewController()
+        noSafesVC.hasSafeViewController = transactionsVC
+        noSafesVC.noSafeViewController = LoadSafeViewController()
+
+        let tabRoot = HeaderViewController(rootViewController: noSafesVC)
+        return tabViewController(root: tabRoot, title: "Transactions", image: #imageLiteral(resourceName: "tab-icon-transactions"), tag: 1)
+    }
+
     private static func settingsTabViewController() -> UIViewController {
         let noSafesVC = NoSafesViewController()
         noSafesVC.hasSafeViewController = SafeSettingsViewController()
@@ -73,7 +85,7 @@ enum ViewControllerFactory {
         segmentVC.selectedIndex = 0
 
         let tabRoot = HeaderViewController(rootViewController: segmentVC)
-        return tabViewController(root: tabRoot, title: "Settings", image: #imageLiteral(resourceName: "tab-icon-settings"), tag: 1)
+        return tabViewController(root: tabRoot, title: "Settings", image: #imageLiteral(resourceName: "tab-icon-settings"), tag: 2)
     }
 
     static func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {

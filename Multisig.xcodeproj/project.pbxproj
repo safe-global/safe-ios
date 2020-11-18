@@ -258,6 +258,9 @@
 		0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */; };
 		0ADA90F3256548C30004DEC0 /* SnackbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C2E1325628E30009808CB /* SnackbarViewController.swift */; };
 		0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2E1425628E30009808CB /* SnackbarViewController.xib */; };
+		0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADA911125656FEC0004DEC0 /* TransactionListViewController.swift */; };
+		0ADA91192565785E0004DEC0 /* TransactionListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADA91172565785E0004DEC0 /* TransactionListTableViewCell.swift */; };
+		0ADA911A2565785E0004DEC0 /* TransactionListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADA91182565785E0004DEC0 /* TransactionListTableViewCell.xib */; };
 		0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */; };
 		0ADDA20824533C020066457E /* EnterSafeAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */; };
 		0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20A24533F1E0066457E /* EnterSafeNameView.swift */; };
@@ -715,6 +718,9 @@
 		0AD1D942252748D800B8EEFF /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		0AD89A45246C38920052F4CD /* EmailSupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSupportViewController.swift; sourceTree = "<group>"; };
 		0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyIdentifiable.swift; sourceTree = "<group>"; };
+		0ADA911125656FEC0004DEC0 /* TransactionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewController.swift; sourceTree = "<group>"; };
+		0ADA91172565785E0004DEC0 /* TransactionListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListTableViewCell.swift; sourceTree = "<group>"; };
+		0ADA91182565785E0004DEC0 /* TransactionListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionListTableViewCell.xib; sourceTree = "<group>"; };
 		0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarBottomPaddingModifier.swift; sourceTree = "<group>"; };
 		0ADDA20724533C020066457E /* EnterSafeAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressViewModel.swift; sourceTree = "<group>"; };
 		0ADDA20A24533F1E0066457E /* EnterSafeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameView.swift; sourceTree = "<group>"; };
@@ -1267,6 +1273,7 @@
 				0A53EBB1253F341600E6ACD0 /* UI Library */,
 				0AB9900F2562D93500499219 /* LoadSafeViewController.swift */,
 				0AB990102562D93500499219 /* LoadSafeViewController.xib */,
+				0ADA9127256591410004DEC0 /* TransactionlListViewController */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1702,6 +1709,16 @@
 				0ACDC012249253D7002035A2 /* Firebase */,
 			);
 			path = Analytics;
+			sourceTree = "<group>";
+		};
+		0ADA9127256591410004DEC0 /* TransactionlListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0ADA911125656FEC0004DEC0 /* TransactionListViewController.swift */,
+				0ADA91172565785E0004DEC0 /* TransactionListTableViewCell.swift */,
+				0ADA91182565785E0004DEC0 /* TransactionListTableViewCell.xib */,
+			);
+			path = TransactionlListViewController;
 			sourceTree = "<group>";
 		};
 		0ADDA214245352CF0066457E /* EnterSafeAddress */ = {
@@ -2415,6 +2432,7 @@
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
+				0ADA911A2565785E0004DEC0 /* TransactionListTableViewCell.xib in Resources */,
 				5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */,
 				0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */,
 				5588361E255D43000014E8C7 /* AddressDetailsCell.xib in Resources */,
@@ -2769,6 +2787,7 @@
 				047691572464023300D73D8B /* EditSafeNameView.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
+				0ADA91192565785E0004DEC0 /* TransactionListTableViewCell.swift in Sources */,
 				0A09839C24BC522B009EE296 /* Token.swift in Sources */,
 				0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */,
 				0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */,
@@ -2823,6 +2842,7 @@
 				0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */,
 				0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
+				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
