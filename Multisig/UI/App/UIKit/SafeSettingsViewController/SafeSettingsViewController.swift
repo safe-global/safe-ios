@@ -103,6 +103,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 case .success(let safeInfo):
                     DispatchQueue.main.async { [weak self] in
                         guard let `self` = self else { return }
+                        self.safe.update(from: safeInfo)
                         self.updateSections(with: safeInfo)
                         self.ensLoader = ENSNameLoader(safe: self.safe, delegate: self)
                         self.onSuccess()
