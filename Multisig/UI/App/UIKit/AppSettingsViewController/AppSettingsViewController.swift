@@ -68,7 +68,7 @@ class AppSettingsViewController: UITableViewController {
                 Section.General.privacyPolicy("Privacy policy"),
                 Section.General.licenses("Licenses"),
                 Section.General.getInTouch("Get in touch"),
-                Section.General.appVersion("App version", app.marketingVersion),
+                Section.General.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
                 Section.General.network("Network", app.network.rawValue),
             ]),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
