@@ -33,8 +33,5 @@ class TransactionListTableViewCell: UITableViewCell {
         controller = vc
 
         vc.didMove(toParent: parent)
-
-        // somehow adding hosting controller auto-shows the navigation bar
-        parent.navigationController?.navigationBar.isHidden = true
     }
 }
