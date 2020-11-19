@@ -66,6 +66,7 @@ struct EnterSeedPhraseView: View {
     var nextButton: some View {
         Button("Next", action: submit)
             .barButton()
+            .disabled(seed.isEmpty)
     }
 
     // TODO: handle return button on the keyboard
