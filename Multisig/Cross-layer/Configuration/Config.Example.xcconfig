@@ -39,10 +39,10 @@ _TRANSACTION_SERVICE_URL_STAGING_MAINNET    = https:/$()/safe-transaction.mainne
 _TRANSACTION_SERVICE_URL_PROD_RINKEBY       = https:/$()/safe-transaction.rinkeby.gnosis.io/api/
 _TRANSACTION_SERVICE_URL_PROD_MAINNET       = https:/$()/safe-transaction.gnosis.io/api/
 
-_CLIENT_GATEWAY_URL_DEV_RINKEBY        = https:/$()/safe-client-rinkeby.staging.gnosisdev.com/
-_CLIENT_GATEWAY_URL_DEV_MAINNET        = https:/$()/safe-client-mainnet.staging.gnosisdev.com/
-_CLIENT_GATEWAY_URL_STAGING_RINKEBY    = https:/$()/safe-client-rinkeby.staging.gnosisdev.com/
-_CLIENT_GATEWAY_URL_STAGING_MAINNET    = https:/$()/safe-client-mainnet.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_DEV_RINKEBY        = https:/$()/safe-client.rinkeby.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_DEV_MAINNET        = https:/$()/safe-client.mainnet.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_STAGING_RINKEBY    = https:/$()/safe-client.rinkeby.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_STAGING_MAINNET    = https:/$()/safe-client.mainnet.staging.gnosisdev.com/
 _CLIENT_GATEWAY_URL_PROD_RINKEBY       = https:/$()/safe-client.rinkeby.gnosis.io/
 _CLIENT_GATEWAY_URL_PROD_MAINNET       = https:/$()/safe-client.mainnet.gnosis.io/
 
