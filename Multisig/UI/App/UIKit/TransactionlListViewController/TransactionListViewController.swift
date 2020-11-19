@@ -52,7 +52,6 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             let address = try Address(from: try Safe.getSelected()!.address!)
 
             loadFirstPageDataTask = clientGatewayService.asyncTransactionList(address: address) { [weak self] result in
-
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):
@@ -103,7 +102,6 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         startNextPageLoadingAnimation()
         do {
             loadNextPageDataTask = try clientGatewayService.asyncTransactionList(pageUri: nextPageUri) { [weak self] result in
-
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):
@@ -128,14 +126,11 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                         self.onSuccess()
                     }
                 }
-
                 DispatchQueue.main.async { [weak self] in
                     self?.stopNextPageLoadingAnimation()
                 }
-
                 self.loadNextPageDataTask = nil
             }
-
         } catch {
             onError(error)
         }
@@ -151,30 +146,17 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(TransactionListTableViewCell.self, for: indexPath)
-
-        // remove existing controller
-        if let vc = cell.controller {
-            vc.willMove(toParent: nil)
-            vc.view.removeFromSuperview()
-            vc.removeFromParent()
-        }
-
-        // add new controller
         let tx = model.sections[indexPath.section].transactions[indexPath.row]
-        let vc = UIHostingController(rootView: TransactionCellView(transaction: tx))
-        addChild(vc)
-        cell.setController(vc)
-        vc.didMove(toParent: self)
-
-        // somehow adding hosting controller auto-shows the navigation bar
-        navigationController?.navigationBar.isHidden = true
-
-        // if last cell, trigger the loading operation
-        if indexPath.section == model.sections.count - 1 &&
-            indexPath.row == model.sections[indexPath.section].transactions.count - 1 {
+        cell.setTransaction(tx, from: self)
+        if isLast(path: indexPath) {
             loadNextPage()
         }
         return cell
+    }
+
+    private func isLast(path: IndexPath) -> Bool {
+        path.section == model.sections.count - 1 &&
+            path.row == model.sections[path.section].transactions.count - 1
     }
 
     // for getting cell size

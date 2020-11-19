@@ -11,14 +11,30 @@ import SwiftUI
 
 class TransactionListTableViewCell: UITableViewCell {
 
-    weak var controller: UIHostingController<TransactionCellView>?
+    private weak var controller: UIHostingController<TransactionCellView>?
 
-    func setController(_ hostingController: UIHostingController<TransactionCellView>) {
-        let size = hostingController.sizeThatFits(in: CGSize(width: contentView.bounds.size.width, height: CGFloat.greatestFiniteMagnitude))
-        hostingController.view.frame = CGRect(origin: .zero, size: size)
-        hostingController.view.backgroundColor = .clear
-        hostingController.view.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
-        contentView.addSubview(hostingController.view)
-        controller = hostingController
+    func setTransaction(_ tx: TransactionViewModel, from parent: UIViewController) {
+        if let vc = controller {
+            vc.willMove(toParent: nil)
+            vc.view.removeFromSuperview()
+            vc.removeFromParent()
+        }
+
+        let vc = UIHostingController(rootView: TransactionCellView(transaction: tx))
+        parent.addChild(vc)
+
+        var boundsSize = contentView.bounds.size
+        boundsSize.height = CGFloat.greatestFiniteMagnitude
+        let size = vc.sizeThatFits(in: boundsSize)
+        vc.view.frame = CGRect(origin: .zero, size: size)
+        vc.view.backgroundColor = .clear
+        vc.view.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
+        contentView.addSubview(vc.view)
+        controller = vc
+
+        vc.didMove(toParent: parent)
+
+        // somehow adding hosting controller auto-shows the navigation bar
+        parent.navigationController?.navigationBar.isHidden = true
     }
 }
