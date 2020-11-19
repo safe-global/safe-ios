@@ -15,10 +15,16 @@ class AddressDetailsCell: UITableViewCell {
     var onViewDetails: (() -> Void)?
 
     static let rowHeight: CGFloat = 68
+    private var address: Address?
 
     enum Style {
         case nameAndAddress
         case address
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addressWithTitleView.addTarget(self, action: #selector(copyAddress), for: .touchUpInside)
     }
 
     @IBAction func viewAddressDetails() {
@@ -41,4 +47,11 @@ class AddressDetailsCell: UITableViewCell {
             addressWithTitleView.setStyle(.address)
         }
     }
+
+    @objc private func copyAddress() {
+        guard let address = addressWithTitleView.address else { return }
+        Pasteboard.string = address.checksummed
+        App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
+    }
+
 }

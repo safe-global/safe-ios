@@ -17,6 +17,7 @@ class ContractVersionStatusCell: UITableViewCell {
     @IBOutlet private weak var button: UIButton!
 
     private var versionStatus: GnosisSafe.VersionStatus!
+    private var address: Address?
 
     var onViewDetails: (() -> Void)?
 
@@ -32,9 +33,11 @@ class ContractVersionStatusCell: UITableViewCell {
         detailLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
         addTarget(self, action: #selector(didTouchDown(sender:forEvent:)), for: .touchDown)
         addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
+        addTarget(self, action: #selector(copyAddress), for: .touchUpInside)
     }
 
     func setAddress(_ value: Address) {
+        address = value
         identiconView.setAddress(value.hexadecimal)
         detailLabel.text = value.ellipsized()
         versionStatus = App.shared.gnosisSafe.version(implementation: value)
@@ -65,6 +68,12 @@ class ContractVersionStatusCell: UITableViewCell {
 
     func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
         button.addTarget(target, action: action, for: controlEvents)
+    }
+
+    @objc private func copyAddress() {
+        guard let address = address else { return }
+        Pasteboard.string = address.checksummed
+        App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 
     // visual reaction for user touches

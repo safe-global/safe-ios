@@ -15,7 +15,7 @@ class AddressWithTitleView: UINibView {
     @IBOutlet private weak var button: UIButton!
 
     private var style: Style = .nameAndAddress
-    private var address: Address!
+    private (set) var address: Address!
 
     enum Style {
         case nameAndAddress
