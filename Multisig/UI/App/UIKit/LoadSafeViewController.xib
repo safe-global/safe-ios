@@ -18,8 +18,21 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmU-jI-7jI">
+                    <rect key="frame" x="172.5" y="433" width="69" height="30"/>
+                    <state key="normal" title="Load Safe"/>
+                    <connections>
+                        <action selector="didTapLoadSafe:" destination="-1" eventType="touchUpInside" id="vNx-70-B3r"/>
+                    </connections>
+                </button>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="zmU-jI-7jI" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="O2Q-7L-j78"/>
+                <constraint firstItem="zmU-jI-7jI" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eN1-V1-VUH"/>
+            </constraints>
             <point key="canvasLocation" x="141" y="154"/>
         </view>
     </objects>
