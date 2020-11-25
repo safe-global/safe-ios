@@ -76,6 +76,12 @@ class RemoteNotificationHandler {
         unregister(address: address)
     }
 
+    /// For add / remove signing key
+    func signingKeyUpdated() {
+        logDebug("Signing key updated")
+        registerAll()
+    }
+
     func received(notification userInfo: [AnyHashable: Any]) {
         assert(Thread.isMainThread)
         logDebug("Received notification: \(userInfo)")

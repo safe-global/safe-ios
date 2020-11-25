@@ -13,6 +13,7 @@ enum NotificationType: String {
     case incomingToken = "INCOMING_TOKEN"
     case executedMultisigTx = "EXECUTED_MULTISIG_TRANSACTION"
     case newConfirmation = "NEW_CONFIRMATION"
+    case confirmationRequest = "CONFIRMATION_REQUEST"
 }
 
 protocol MultisigNotification {

@@ -10,7 +10,7 @@ import Foundation
 import Web3
 
 class Signer {
-    struct Signature {
+    struct Signature: Equatable {
         var value: String
         var signer: String
     }

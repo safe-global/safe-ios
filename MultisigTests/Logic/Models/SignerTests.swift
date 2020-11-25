@@ -10,15 +10,19 @@ import XCTest
 @testable import Multisig
 
 class SignerTests: XCTestCase {
-    override class func setUp() {
+    let mockStore = MockSecureStore()
+
+    override func setUpWithError() throws {
         super.setUp()
-        App.shared.keychainService = MockSecureStore()
+        App.shared.keychainService = mockStore
+        try! mockStore.save(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"),
+                            forKey: KeychainKey.ownerPrivateKey.rawValue)
     }
 
     func testSigner() throws {
-//        let string = "gnosis-safe33971c4e-fb98-4e18-a08d-13c881ae292a0x4dEBDD6CEe25b2F931D2FE265D70e1a533B024530x72ac1760daF52986421b1552BdCa04707E78950edSh5Se1XgEiTiY-4cv1ixY:APA91bG3vYjy9VgB3X3u5EsBphJABchb8Xgg2cOSSekPsxDsfE5xyBeu6gKY0wNhbJHgQUQQGocrHx0Shbx6JMFx2VOyhJx079AduN01NWD1-WjQerY5s3l-cLnHoNNn8fJfARqSUb3Gio.gnosis.multisig.prod.mainnet2.7.0IOS1991605186645155"
-//        let expectedSignature = Signer.Signature(value: <#T##String#>, signer: <#T##String#>)
-//        XCTAssertEqual(Signer.sign(string), <#T##expression2: Equatable##Equatable#>)
+        let string = "gnosis-safe"
+        let expected = Signer.Signature(value: "99a7a03e9597e85a0cc4188d270b72b1df2de943de804f144976f4c1e23116ff274d2dec4ee7201b88bdadf08259a5dc8e7e2bbf372347de3470beeab904e5d01b",
+                                        signer: "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0")
+        XCTAssertEqual(try Signer.sign(string), expected)
     }
-
 }

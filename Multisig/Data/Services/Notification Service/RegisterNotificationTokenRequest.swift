@@ -17,7 +17,7 @@ struct RegisterNotificationTokenRequest: JSONRequest {
     let version: String
     let deviceType: String = "IOS"
     let buildNumber: String
-    let timestamp: String = String(Int(Date().timeIntervalSince1970 * 1_000))
+    let timestamp: String
     let signatures: [String]?
 
     var httpMethod: String { return "POST" }
@@ -25,13 +25,21 @@ struct RegisterNotificationTokenRequest: JSONRequest {
 
     typealias ResponseType = Response
 
-    init(deviceID: UUID, safes: [Address], token: String, bundle: String, version: String, buildNumber: String) throws {
+    init(deviceID: UUID,
+         safes: [Address],
+         token: String,
+         bundle: String,
+         version: String,
+         buildNumber: String,
+         timestamp: String = String(Int(Date().timeIntervalSince1970 * 1_000))) throws {
+
         self.uuid = deviceID.uuidString.lowercased()
         self.safes = safes.map { $0.checksummed }
         self.cloudMessagingToken = token
         self.bundle = bundle
         self.version = version
         self.buildNumber = buildNumber
+        self.timestamp = timestamp
 
         let string = [
             "gnosis-safe",

@@ -365,6 +365,8 @@
 		559670FF256E88FC0097D3A2 /* Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559670FE256E88FC0097D3A2 /* Signer.swift */; };
 		55967105256E92470097D3A2 /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967104256E92470097D3A2 /* SignerTests.swift */; };
 		5596710D256E935F0097D3A2 /* MockSecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596710C256E935F0097D3A2 /* MockSecureStore.swift */; };
+		55967119256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */; };
+		55967123256EB7690097D3A2 /* ConfirmationRequestNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967122256EB7690097D3A2 /* ConfirmationRequestNotification.swift */; };
 		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
 		5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */; };
 		5596C0482550813B00EF23A5 /* CollectiblesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */; };
@@ -873,6 +875,8 @@
 		559670FE256E88FC0097D3A2 /* Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signer.swift; sourceTree = "<group>"; };
 		55967104256E92470097D3A2 /* SignerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignerTests.swift; sourceTree = "<group>"; };
 		5596710C256E935F0097D3A2 /* MockSecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSecureStore.swift; sourceTree = "<group>"; };
+		55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNotificationTokenRequestTests.swift; sourceTree = "<group>"; };
+		55967122256EB7690097D3A2 /* ConfirmationRequestNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationRequestNotification.swift; sourceTree = "<group>"; };
 		5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleTableViewCell.xib; sourceTree = "<group>"; };
 		5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleTableViewCell.swift; sourceTree = "<group>"; };
 		5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesHeaderView.swift; sourceTree = "<group>"; };
@@ -1214,6 +1218,7 @@
 		0A0EFCA1246EADD100D3D8BF /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				55967116256EB1E50097D3A2 /* Services */,
 				5556A03924489F5D003EC861 /* Persistence */,
 			);
 			path = Data;
@@ -1814,6 +1819,7 @@
 				0AF2737024DC57FA007E4012 /* IncomingEtherNotification.swift */,
 				0AF2737224DC580D007E4012 /* IncomingTokenNotification.swift */,
 				0AF2736E24DC57E8007E4012 /* MultisigNotification.swift */,
+				55967122256EB7690097D3A2 /* ConfirmationRequestNotification.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -2109,6 +2115,22 @@
 				5596710C256E935F0097D3A2 /* MockSecureStore.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		55967116256EB1E50097D3A2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				55967117256EB1F10097D3A2 /* Safe Transaction Service */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		55967117256EB1F10097D3A2 /* Safe Transaction Service */ = {
+			isa = PBXGroup;
+			children = (
+				55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */,
+			);
+			path = "Safe Transaction Service";
 			sourceTree = "<group>";
 		};
 		55A585352501417E005E778B /* PrivateKey */ = {
@@ -3005,6 +3027,7 @@
 				55967105256E92470097D3A2 /* SignerTests.swift in Sources */,
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
+				55967119256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift in Sources */,
 				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
 				5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */,
 				0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */,
@@ -3039,6 +3062,7 @@
 				0AF2736B24DC57C6007E4012 /* NotificationPayload.swift in Sources */,
 				0AF2737524DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift in Sources */,
 				0AF2736F24DC57E8007E4012 /* MultisigNotification.swift in Sources */,
+				55967123256EB7690097D3A2 /* ConfirmationRequestNotification.swift in Sources */,
 				0AF2736D24DC57D5007E4012 /* PlainAddress.swift in Sources */,
 				0AF2737124DC57FA007E4012 /* IncomingEtherNotification.swift in Sources */,
 			);
