@@ -79,6 +79,7 @@ class StateMachineTransactionDetailsViewModel: ObservableObject {
                     self.result = model
                     self.status = .success
                     App.shared.snackbar.show(message: "Confirmation successfully submitted")
+                    Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
                 }
             } catch {
                 DispatchQueue.main.async { [weak self] in

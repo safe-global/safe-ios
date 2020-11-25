@@ -86,6 +86,7 @@ struct SelectOwnerAddressView: View {
     func submit() {
         guard model.importWallet() else { return }
         // dismiss the sheet
+        self.trackEvent(.ownerKeyImported)
         onSubmit?()
     }
 }
