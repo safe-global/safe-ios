@@ -22,7 +22,7 @@ class Signer {
     /// - Throws: errors during sisgning process
     /// - Returns: Signature object containing hex(r) hex(s) hex(v + 27) as one strig of secp256k1 signature
     static func sign(_ string: String) throws -> Signature {
-        let hash = EthHasher.hash(string.data(using: .ascii)!)
+        let hash = EthHasher.hash(string.data(using: .utf8)!)
         return try sign(hash: hash)
     }
 

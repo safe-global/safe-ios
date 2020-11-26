@@ -66,7 +66,9 @@ class RemoteNotificationHandler {
 
     func safeAdded(address: Address) {
         logDebug("Safe added: \(address)")
-        if authorizationStatus != nil {
+        if authorizationStatus == nil {
+            requestUserPermissionAndRegister()
+        } else {
             register(addresses: [address])
         }
     }

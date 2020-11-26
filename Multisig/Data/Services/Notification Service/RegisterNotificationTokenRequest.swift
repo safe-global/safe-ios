@@ -44,7 +44,7 @@ struct RegisterNotificationTokenRequest: JSONRequest {
         let string = [
             "gnosis-safe",
             self.uuid,
-            self.safes.reduce("") { $0 + $1 },
+            self.safes.joined(),
             self.cloudMessagingToken,
             self.bundle,
             self.version,
@@ -52,7 +52,7 @@ struct RegisterNotificationTokenRequest: JSONRequest {
             self.buildNumber,
             self.timestamp
         ]
-        .reduce("") { $0 + $1 }
+        .joined()
 
         if let signature = try? Signer.sign(string).value {
             self.signatures = [signature]
