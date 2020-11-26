@@ -20,7 +20,7 @@ enum TrackingPushState: String {
 
 enum TrackingEvent: String, Trackable {
     case launch                                     = "screen_launch"
-case launchTems                                     = "screen_launch_terms"
+    case launchTems                                 = "screen_launch_terms"
 
     case assetsNoSafe                               = "screen_assets_no_safe"
     case assetsCoins                                = "screen_assets_coins"
@@ -54,6 +54,5 @@ case launchTems                                     = "screen_launch_terms"
     case ownerEnterSeed                             = "screen_owner_enter_seed"
     case ownerSelectAccount                         = "screen_owner_select_account"
     case ownerKeyImported                           = "user_key_imported"
-
-case camera                                         = "screen_camera"
+    case camera                                     = "screen_camera"
 }
