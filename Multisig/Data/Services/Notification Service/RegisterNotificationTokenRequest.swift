@@ -34,9 +34,9 @@ struct RegisterNotificationTokenRequest: JSONRequest {
          timestamp: String?) throws {
 
         guard UUID(uuidString: deviceID) != nil else {
-            throw "'deviceID' should be UUID string"
+            preconditionFailure("'deviceID' should be UUID string")
         }
-        self.uuid = deviceID
+        self.uuid = deviceID.lowercased()
         self.safes = safes.map { $0.checksummed }
         self.cloudMessagingToken = token
         self.bundle = bundle
@@ -59,7 +59,7 @@ struct RegisterNotificationTokenRequest: JSONRequest {
 
         if let signature = try? Signer.sign(string).value {
             guard timestamp != nil else {
-                throw "'timestamp' parameter is required if signing key exists"
+                preconditionFailure("'timestamp' parameter is required if signing key exists")
             }
             self.signatures = [signature]
         } else {

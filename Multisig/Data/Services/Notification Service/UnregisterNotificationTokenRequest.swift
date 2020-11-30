@@ -19,7 +19,7 @@ struct UnregisterNotificationTokenRequest: JSONRequest {
 
     init(deviceID: String, address: Address) {
         self.address = address.checksummed
-        self.deviceID = deviceID
+        self.deviceID = deviceID.lowercased()
     }
 
     struct EmptyResponse: Decodable {

@@ -18,16 +18,6 @@ struct UserDefault<T> {
 }
 
 @propertyWrapper
-struct UserDefaultWithDefault<T> {
-    var key: String
-    var defaultValue: T
-    var wrappedValue: T {
-        set { UserDefaults.standard.set(newValue, forKey: key) }
-        get { UserDefaults.standard.object(forKey: key) as? T ?? defaultValue }
-    }
-}
-
-@propertyWrapper
 struct EnumDefault<E: RawRepresentable> {
     var key: String
     var wrappedValue: E? {
