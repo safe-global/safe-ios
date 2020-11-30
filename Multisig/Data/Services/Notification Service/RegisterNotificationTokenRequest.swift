@@ -25,7 +25,7 @@ struct RegisterNotificationTokenRequest: JSONRequest {
 
     typealias ResponseType = Response
 
-    init(deviceID: UUID,
+    init(deviceID: String,
          safes: [Address],
          token: String,
          bundle: String,
@@ -33,7 +33,10 @@ struct RegisterNotificationTokenRequest: JSONRequest {
          buildNumber: String,
          timestamp: String?) throws {
 
-        self.uuid = deviceID.uuidString.lowercased()
+        guard UUID(uuidString: deviceID) != nil else {
+            throw "'deviceID' should be UUID string"
+        }
+        self.uuid = deviceID
         self.safes = safes.map { $0.checksummed }
         self.cloudMessagingToken = token
         self.bundle = bundle
@@ -78,7 +81,7 @@ struct RegisterNotificationTokenRequest: JSONRequest {
 extension SafeTransactionService {
 
     @discardableResult
-    func register(deviceID: UUID,
+    func register(deviceID: String,
                   safes: [Address],
                   token: String,
                   bundle: String,

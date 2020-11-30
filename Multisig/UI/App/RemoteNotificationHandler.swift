@@ -12,9 +12,8 @@ import UserNotifications
 import Firebase
 
 class RemoteNotificationHandler {
-
-    @UserDefaultWithDefault(key: "io.gnosis.multisig.deviceID", defaultValue: UUID().uuidString)
-    private var storedDeviceID: String
+    @UserDefault(key: "io.gnosis.multisig.deviceID")
+    private var storedDeviceID: String?
 
     @EnumDefault(key: "io.gnosis.multisig.authorizationStatus")
     private var authorizationStatus: UNAuthorizationStatus?
@@ -23,15 +22,6 @@ class RemoteNotificationHandler {
     private var token: String?
 
     private var queue = DispatchQueue(label: "RemoteNotificationHandlerQueue")
-
-    private var deviceID: UUID {
-        get {
-            UUID(uuidString: storedDeviceID)!
-        }
-        set {
-            storedDeviceID = newValue.uuidString
-        }
-    }
 
     func setUpMessaging(delegate: MessagingDelegate & UNUserNotificationCenterDelegate) {
         logDebug("Setting up notification handling")
@@ -48,6 +38,9 @@ class RemoteNotificationHandler {
 
     func appStarted() {
         logDebug("App started")
+        if storedDeviceID == nil {
+            storedDeviceID = UUID().uuidString
+        }
         monitorAuthorizationStatus()
     }
 
@@ -180,7 +173,7 @@ class RemoteNotificationHandler {
             }
             do {
                 try App.shared.safeTransactionService
-                    .register(deviceID: self.deviceID,
+                    .register(deviceID: self.storedDeviceID!,
                               safes: addresses,
                               token: token,
                               bundle: appConfig.bundleIdentifier,
@@ -196,7 +189,7 @@ class RemoteNotificationHandler {
     private func unregister(address: Address) {
         queue.async { [unowned self] in
             do {
-                try App.shared.safeTransactionService.unregister(deviceID: self.deviceID, address: address)
+                try App.shared.safeTransactionService.unregister(deviceID: self.storedDeviceID!, address: address)
             } catch {
                 logError("Failed to unregister device", error)
             }

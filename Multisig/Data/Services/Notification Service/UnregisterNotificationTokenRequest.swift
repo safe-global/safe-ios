@@ -17,9 +17,9 @@ struct UnregisterNotificationTokenRequest: JSONRequest {
 
     typealias ResponseType = EmptyResponse
 
-    init(deviceID: UUID, address: Address) {
+    init(deviceID: String, address: Address) {
         self.address = address.checksummed
-        self.deviceID = deviceID.uuidString.lowercased()
+        self.deviceID = deviceID
     }
 
     struct EmptyResponse: Decodable {
@@ -28,7 +28,7 @@ struct UnregisterNotificationTokenRequest: JSONRequest {
 }
 
 extension SafeTransactionService {
-    func unregister(deviceID: UUID, address: Address) throws  {
+    func unregister(deviceID: String, address: Address) throws  {
         try execute(request: UnregisterNotificationTokenRequest(deviceID: deviceID, address: address))
     }
 }
