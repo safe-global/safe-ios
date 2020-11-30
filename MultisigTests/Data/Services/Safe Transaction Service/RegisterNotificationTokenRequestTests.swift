@@ -21,7 +21,7 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
 
     func testRequestInitCalculatesProperSignature() throws {
         let request = try RegisterNotificationTokenRequest(
-            deviceID: UUID(uuidString: "bb30cd3e-e0ad-4e9a-b726-44db67a0820b")!,
+            deviceID: "bb30cd3e-e0ad-4e9a-b726-44db67a0820b",
             safes: [Address("0xEefFcdEAB4AC6005E90566B08EAda3994A573C1E")],
             token: "erXBYb-CxU1jtSvwfZrxqW:APA91bH0IWkMWOGizlbNAwxV6OVjEmNR1feRs2WBT7BE6aVMm2C-x1COKqNYq19t5YNjIzVBKDyVVEqFojlkvEtiSaJA0lCZL0LfuEwfc8p9jfBuM6HG82pczVbnMev1J0gXlB3bIlAP",
             bundle: "io.gnosis.multisig.dev.rinkeby",
@@ -34,7 +34,7 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
         try! mockStore.save(data: privateKey(for: "display bless asset brother fish sauce lyrics grit friend online tumble useless"),
                             forKey: KeychainKey.ownerPrivateKey.rawValue)
         let request1 = try RegisterNotificationTokenRequest(
-            deviceID: UUID(uuidString: "33971c4e-fb98-4e18-a08d-13c881ae292a")!,
+            deviceID: "33971c4e-fb98-4e18-a08d-13c881ae292a",
             safes: [Address("0x4dEBDD6CEe25b2F931D2FE265D70e1a533B02453"), Address("0x72ac1760daF52986421b1552BdCa04707E78950e")],
             token: "dSh5Se1XgEiTiY-4cv1ixY:APA91bG3vYjy9VgB3X3u5EsBphJABchb8Xgg2cOSSekPsxDsfE5xyBeu6gKY0wNhbJHgQUQQGocrHx0Shbx6JMFx2VOyhJx079AduN01NWD1-WjQerY5s3l-cLnHoNNn8fJfARqSUb3G",
             bundle: "io.gnosis.multisig.prod.mainnet",
