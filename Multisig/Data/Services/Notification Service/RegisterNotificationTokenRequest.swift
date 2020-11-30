@@ -7,27 +7,64 @@
 //
 
 import Foundation
+import Web3
 
 struct RegisterNotificationTokenRequest: JSONRequest {
-    let uuid: String?
+    let uuid: String
     let safes: [String]
     let cloudMessagingToken: String
     let bundle: String
     let version: String
     let deviceType: String = "IOS"
     let buildNumber: String
+    let timestamp: String?
+    let signatures: [String]?
+
     var httpMethod: String { return "POST" }
     var urlPath: String { return "/api/v1/notifications/devices/" }
 
     typealias ResponseType = Response
 
-    init(deviceID: UUID? = nil, safes: [Address], token: String, bundle: String, version: String, buildNumber: String) {
-        self.uuid = deviceID?.uuidString.lowercased()
+    init(deviceID: String,
+         safes: [Address],
+         token: String,
+         bundle: String,
+         version: String,
+         buildNumber: String,
+         timestamp: String?) throws {
+
+        guard UUID(uuidString: deviceID) != nil else {
+            preconditionFailure("'deviceID' should be UUID string")
+        }
+        self.uuid = deviceID.lowercased()
         self.safes = safes.map { $0.checksummed }
         self.cloudMessagingToken = token
         self.bundle = bundle
         self.version = version
         self.buildNumber = buildNumber
+        self.timestamp = timestamp
+
+        let string = [
+            "gnosis-safe",
+            self.uuid,
+            self.safes.joined(),
+            self.cloudMessagingToken,
+            self.bundle,
+            self.version,
+            self.deviceType,
+            self.buildNumber,
+            self.timestamp ?? ""
+        ]
+        .joined()
+
+        if let signature = try? Signer.sign(string).value {
+            guard timestamp != nil else {
+                preconditionFailure("'timestamp' parameter is required if signing key exists")
+            }
+            self.signatures = [signature]
+        } else {
+            self.signatures = nil
+        }
     }
 
     struct Response: Decodable {
@@ -43,7 +80,22 @@ struct RegisterNotificationTokenRequest: JSONRequest {
 
 extension SafeTransactionService {
 
-    func register(deviceID: UUID? = nil, safes: [Address], token: String, bundle: String, version: String, buildNumber: String) throws -> RegisterNotificationTokenRequest.Response {
-        return try execute(request: RegisterNotificationTokenRequest(deviceID: deviceID, safes: safes, token: token, bundle: bundle, version: version, buildNumber: buildNumber))
+    @discardableResult
+    func register(deviceID: String,
+                  safes: [Address],
+                  token: String,
+                  bundle: String,
+                  version: String,
+                  buildNumber: String,
+                  timestamp: String?) throws -> RegisterNotificationTokenRequest.Response {
+        return try execute(
+            request: try RegisterNotificationTokenRequest(deviceID: deviceID,
+                                                          safes: safes,
+                                                          token: token,
+                                                          bundle: bundle,
+                                                          version: version,
+                                                          buildNumber: buildNumber,
+                                                          timestamp: timestamp)
+        )
     }
 }

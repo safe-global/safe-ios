@@ -24,7 +24,8 @@ class NotificationService: UNNotificationServiceExtension {
                 NewConfirmationNotification.self,
                 ExecutedMultisigTransactionNotification.self,
                 IncomingTokenNotification.self,
-                IncomingEtherNotification.self
+                IncomingEtherNotification.self,
+                ConfirmationRequestNotification.self
             ] as [MultisigNotification.Type])
                 .compactMap({ $0.init(payload: payload) })
                 .first

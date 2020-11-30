@@ -12,7 +12,6 @@ import UserNotifications
 import Firebase
 
 class RemoteNotificationHandler {
-
     @UserDefault(key: "io.gnosis.multisig.deviceID")
     private var storedDeviceID: String?
 
@@ -23,16 +22,6 @@ class RemoteNotificationHandler {
     private var token: String?
 
     private var queue = DispatchQueue(label: "RemoteNotificationHandlerQueue")
-
-    // This is temporary, will be removed when we store device id in database
-    private var deviceID: UUID? {
-        get {
-            storedDeviceID.flatMap { UUID(uuidString: $0) }
-        }
-        set {
-            storedDeviceID = newValue?.uuidString
-        }
-    }
 
     func setUpMessaging(delegate: MessagingDelegate & UNUserNotificationCenterDelegate) {
         logDebug("Setting up notification handling")
@@ -49,6 +38,9 @@ class RemoteNotificationHandler {
 
     func appStarted() {
         logDebug("App started")
+        if storedDeviceID == nil {
+            storedDeviceID = UUID().uuidString
+        }
         monitorAuthorizationStatus()
     }
 
@@ -77,6 +69,12 @@ class RemoteNotificationHandler {
     func safeRemoved(address: Address) {
         logDebug("Safe removed: \(address)")
         unregister(address: address)
+    }
+
+    /// For add / remove signing key
+    func signingKeyUpdated() {
+        logDebug("Signing key updated")
+        registerAll()
     }
 
     func received(notification userInfo: [AnyHashable: Any]) {
@@ -166,17 +164,22 @@ class RemoteNotificationHandler {
 
     private func register(addresses: [Address]) {
         guard let token = self.token else { return }
-        queue.async {
+        queue.async { [unowned self] in
             let appConfig = App.configuration.app
+            var timestamp: String?
+            if let _ = try? App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) {
+                // add timestamp if there is a signing key
+                timestamp = String(Int(Date().timeIntervalSince1970 * 1_000))
+            }
             do {
-                let response = try App.shared.safeTransactionService
-                    .register(deviceID: self.deviceID,
+                try App.shared.safeTransactionService
+                    .register(deviceID: self.storedDeviceID!,
                               safes: addresses,
                               token: token,
                               bundle: appConfig.bundleIdentifier,
                               version: appConfig.marketingVersion,
-                              buildNumber: appConfig.buildVersion)
-                self.deviceID = response.uuid
+                              buildNumber: appConfig.buildVersion,
+                              timestamp: timestamp)
             } catch {
                 logError("Failed to register device", error)
             }
@@ -184,10 +187,9 @@ class RemoteNotificationHandler {
     }
 
     private func unregister(address: Address) {
-        guard let deviceID = deviceID else { return }
-        queue.async {
+        queue.async { [unowned self] in
             do {
-                try App.shared.safeTransactionService.unregister(deviceID: deviceID, address: address)
+                try App.shared.safeTransactionService.unregister(deviceID: self.storedDeviceID!, address: address)
             } catch {
                 logError("Failed to unregister device", error)
             }

@@ -11,26 +11,14 @@ import Web3
 
 class SafeTransactionSigner {
 
-    struct Signature {
-        var value: String
-        var sender: String
-    }
-
-    func sign(_ transaction: Transaction, by safeAddress: Address) throws -> Signature {
+    func sign(_ transaction: Transaction, by safeAddress: Address) throws -> Signer.Signature {
         let hashToSign = Data(ethHex: transaction.safeTxHash!.description)
         let data = transaction.encodeTransactionData(for: AddressString(safeAddress))
         guard EthHasher.hash(data) == hashToSign else {
             throw "Invalid safeTxHash, please check the transaction data"
         }
-        guard let pkData = try App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) else {
-            throw "Private key not found"
-        }
-        let privateKey = try EthereumPrivateKey(pkData.bytes)
-        let eoaSignature = try privateKey.sign(hash: hashToSign.bytes)
-        let sender = privateKey.address.hex(eip55: true)
-        let v = String(eoaSignature.v + 27, radix: 16)
-        let safeSignature = "\(eoaSignature.r.toHexString())\(eoaSignature.s.toHexString())\(v)"
-        return Signature(value: safeSignature, sender: sender)
+
+        return try Signer.sign(hash: hashToSign)        
     }
 
     class func numberOfKeysImported() -> Int {
