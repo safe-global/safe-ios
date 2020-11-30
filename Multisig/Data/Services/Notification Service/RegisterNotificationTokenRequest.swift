@@ -17,7 +17,7 @@ struct RegisterNotificationTokenRequest: JSONRequest {
     let version: String
     let deviceType: String = "IOS"
     let buildNumber: String
-    let timestamp: String
+    let timestamp: String?
     let signatures: [String]?
 
     var httpMethod: String { return "POST" }
@@ -31,7 +31,7 @@ struct RegisterNotificationTokenRequest: JSONRequest {
          bundle: String,
          version: String,
          buildNumber: String,
-         timestamp: String = String(Int(Date().timeIntervalSince1970 * 1_000))) throws {
+         timestamp: String?) throws {
 
         self.uuid = deviceID.uuidString.lowercased()
         self.safes = safes.map { $0.checksummed }
@@ -50,11 +50,14 @@ struct RegisterNotificationTokenRequest: JSONRequest {
             self.version,
             self.deviceType,
             self.buildNumber,
-            self.timestamp
+            self.timestamp ?? ""
         ]
         .joined()
 
         if let signature = try? Signer.sign(string).value {
+            guard timestamp != nil else {
+                throw "'timestamp' parameter is required if signing key exists"
+            }
             self.signatures = [signature]
         } else {
             self.signatures = nil
@@ -80,15 +83,16 @@ extension SafeTransactionService {
                   token: String,
                   bundle: String,
                   version: String,
-                  buildNumber: String) throws -> RegisterNotificationTokenRequest.Response {
-
+                  buildNumber: String,
+                  timestamp: String?) throws -> RegisterNotificationTokenRequest.Response {
         return try execute(
             request: try RegisterNotificationTokenRequest(deviceID: deviceID,
                                                           safes: safes,
                                                           token: token,
                                                           bundle: bundle,
                                                           version: version,
-                                                          buildNumber: buildNumber)
+                                                          buildNumber: buildNumber,
+                                                          timestamp: timestamp)
         )
     }
 }

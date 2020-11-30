@@ -173,6 +173,11 @@ class RemoteNotificationHandler {
         guard let token = self.token else { return }
         queue.async { [unowned self] in
             let appConfig = App.configuration.app
+            var timestamp: String?
+            if let _ = try? App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) {
+                // add timestamp if there is a signing key
+                timestamp = String(Int(Date().timeIntervalSince1970 * 1_000))
+            }
             do {
                 try App.shared.safeTransactionService
                     .register(deviceID: self.deviceID,
@@ -180,7 +185,8 @@ class RemoteNotificationHandler {
                               token: token,
                               bundle: appConfig.bundleIdentifier,
                               version: appConfig.marketingVersion,
-                              buildNumber: appConfig.buildVersion)
+                              buildNumber: appConfig.buildVersion,
+                              timestamp: timestamp)
             } catch {
                 logError("Failed to register device", error)
             }
