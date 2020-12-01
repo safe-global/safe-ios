@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,24 +20,63 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmU-jI-7jI">
-                    <rect key="frame" x="172.5" y="433" width="69" height="30"/>
-                    <state key="normal" title="Load Safe"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmU-jI-7jI" customClass="StyledButton" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="16" y="420" width="382" height="56"/>
+                    <color key="backgroundColor" name="hold"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="Kmr-TK-cRi"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Load Safe Multisig">
+                        <color key="titleColor" name="snowwhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="didTapLoadSafe:" destination="-1" eventType="touchUpInside" id="vNx-70-B3r"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get started by loading your Safe Multisig" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5F-fR-sj3">
+                    <rect key="frame" x="79.5" y="339" width="255" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="255" id="r6y-Ux-JmF"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" name="darkBlue"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="zmU-jI-7jI" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="O2Q-7L-j78"/>
-                <constraint firstItem="zmU-jI-7jI" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eN1-V1-VUH"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zmU-jI-7jI" secondAttribute="trailing" constant="16" id="Vm6-D1-gFk"/>
+                <constraint firstItem="zmU-jI-7jI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="jRL-ST-ivp"/>
+                <constraint firstItem="zmU-jI-7jI" firstAttribute="top" secondItem="c5F-fR-sj3" secondAttribute="bottom" constant="33" id="p8E-JT-qic"/>
+                <constraint firstItem="c5F-fR-sj3" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="xzb-5P-tVY"/>
             </constraints>
-            <point key="canvasLocation" x="141" y="154"/>
+            <point key="canvasLocation" x="140.57971014492756" y="153.34821428571428"/>
         </view>
     </objects>
+    <designables>
+        <designable name="zmU-jI-7jI">
+            <size key="intrinsicContentSize" width="146" height="33"/>
+        </designable>
+    </designables>
     <resources>
+        <namedColor name="darkBlue">
+            <color red="0.0" green="0.078431372549019607" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="hold">
+            <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="snowwhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
