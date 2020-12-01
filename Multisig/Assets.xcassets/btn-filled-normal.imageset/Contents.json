@@ -1,0 +1,32 @@
+{
+  "images" : [
+    {
+      "alignment-insets" : {
+        "bottom" : 14,
+        "left" : 14,
+        "right" : 14,
+        "top" : 14
+      },
+      "filename" : "btn-filled-normal.pdf",
+      "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "bottom" : 24,
+          "left" : 25,
+          "right" : 24,
+          "top" : 26
+        },
+        "center" : {
+          "height" : 1,
+          "mode" : "tile",
+          "width" : 1
+        },
+        "mode" : "9-part"
+      }
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

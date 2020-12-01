@@ -35,4 +35,12 @@ extension SafeClientGatewayService {
     func transactionDetails(safeTxHash: Data) throws -> TransactionDetailsRequest.ResponseType {
         try execute(request: TransactionDetailsRequest(safeTxHash: safeTxHash))
     }
+
+    func asyncTransactionDetails(id: TransactionID, completion: @escaping (Result<TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: TransactionDetailsRequest(transactionID: id), completion: completion)
+    }
+
+    func asyncTransactionDetails(safeTxHash: Data, completion: @escaping (Result<TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: TransactionDetailsRequest(safeTxHash: safeTxHash), completion: completion)
+    }
 }

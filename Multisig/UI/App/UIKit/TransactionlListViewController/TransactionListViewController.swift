@@ -37,6 +37,8 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         tableView.sectionHeaderHeight = BasicHeaderView.headerHeight
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 48
 
         emptyView.setText("Transactions will appear here")
         emptyView.setImage(#imageLiteral(resourceName: "ico-no-transactions"))
@@ -159,21 +161,6 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             path.row == model.sections[path.section].transactions.count - 1
     }
 
-    // for getting cell size
-    private var cellSizeController: UIHostingController<TransactionCellView>!
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let tx = model.sections[indexPath.section].transactions[indexPath.row]
-
-        if cellSizeController == nil {
-            cellSizeController = UIHostingController<TransactionCellView>(rootView: TransactionCellView(transaction: tx))
-        } else {
-            cellSizeController.rootView = TransactionCellView(transaction: tx)
-        }
-        let size = cellSizeController.sizeThatFits(in: tableView.bounds.size)
-        return size.height
-    }
-
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let section = model.sections[section]
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
@@ -183,6 +170,9 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let tx = model.sections[indexPath.section].transactions[indexPath.row]
+        let vc = TransactionDetailsViewController(transactionID: tx.id)
+        show(vc, sender: self)
     }
 
 }
