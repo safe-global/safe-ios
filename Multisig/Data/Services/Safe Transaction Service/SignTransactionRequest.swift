@@ -44,7 +44,7 @@ struct SignTransactionRequest: JSONRequest {
         nonce = transaction.nonce.description
         contractTransactionHash = transaction.safeTxHash!.description
         let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress)
-        self.sender = signature.sender
+        self.sender = signature.signer
         self.signature = signature.value
     }
 

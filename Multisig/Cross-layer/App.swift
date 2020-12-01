@@ -24,7 +24,7 @@ class App {
     // Data Layer
     var coreDataStack: CoreDataProtocol = CoreDataStack()
 
-    let keychainService = KeychainService(identifier: App.configuration.app.bundleIdentifier)
+    var keychainService: SecureStore = KeychainService(identifier: App.configuration.app.bundleIdentifier)
 
     // Services
     let safeTransactionService = SafeTransactionService(
