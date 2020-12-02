@@ -9,49 +9,30 @@
 import UIKit
 
 class AddressDetailsCell: UITableViewCell {
-    @IBOutlet private weak var addressWithTitleView: AddressWithTitleView!
+    @IBOutlet private weak var addressInfoView: AddressInfoView!
 
-    private var style: Style = .nameAndAddress
     var onViewDetails: (() -> Void)?
 
     static let rowHeight: CGFloat = 68
-    private var address: Address?
-
-    enum Style {
-        case nameAndAddress
-        case address
-    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addressWithTitleView.addTarget(self, action: #selector(copyAddress), for: .touchUpInside)
+        addressInfoView.setDisclosureButtonImage(#imageLiteral(resourceName: "ico-browse-address"))
+        addressInfoView.onAddressInfoSelection = copyAddress
+        addressInfoView.onDisclosureButtonAction = viewDetails
     }
 
-    @IBAction func viewAddressDetails() {
-        onViewDetails?()
+    func setAddressInfo(_ addressInfo: AddressInfo) {
+        addressInfoView.setAddressInfo(addressInfo)
     }
 
-    func setAddress(_ value: Address) {
-        addressWithTitleView.setAddress(value)
-    }
-
-    func setName(_ value: String) {
-        addressWithTitleView.setName(value)
-    }
-
-    func setStyle(_ value: Style) {
-        switch value {
-        case .nameAndAddress:
-            addressWithTitleView.setStyle(.nameAndAddress)
-        case .address:
-            addressWithTitleView.setStyle(.address)
-        }
-    }
-
-    @objc private func copyAddress() {
-        guard let address = addressWithTitleView.address else { return }
+    private func copyAddress() {
+        let address = addressInfoView.addressInfo.address
         Pasteboard.string = address.checksummed
         App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 
+    private func viewDetails() {
+        onViewDetails?()
+    }
 }

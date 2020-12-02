@@ -196,8 +196,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private func addressDetailsCell(address: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(AddressDetailsCell.self, for: indexPath)
-        cell.setAddress(Address(exactly: address))
-        cell.setStyle(.address)
+        cell.setAddressInfo(AddressInfo(address: Address(exactly: address), label: nil))
         cell.selectionStyle = .none
         cell.onViewDetails = { [unowned self] in
             self.openInSafari(Safe.browserURL(address: address))

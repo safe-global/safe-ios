@@ -146,8 +146,7 @@ class AppSettingsViewController: UITableViewController {
 
     private func importedKeyCell(name: String, signingKey: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(ImportedKeyCell.self, for: indexPath)
-        cell.setName(name)
-        cell.setAddress(Address(exactly: signingKey))
+        cell.setAddressInfo(AddressInfo(address: Address(exactly: signingKey), label: name))
         cell.selectionStyle = .none
         cell.onRemove = { [unowned self] in
             self.removeImportedOwnerKey()

@@ -9,7 +9,7 @@
 import UIKit
 
 class ImportedKeyCell: UITableViewCell {
-    @IBOutlet private weak var addressWithTitleView: AddressWithTitleView!
+    @IBOutlet private weak var addressWithTitleView: AddressInfoView!
     var onRemove: (() -> Void)?
 
     static let rowHeight: CGFloat = 68
@@ -18,11 +18,7 @@ class ImportedKeyCell: UITableViewCell {
         onRemove?()
     }
 
-    func setAddress(_ value: Address) {
-        addressWithTitleView.setAddress(value)
-    }
-
-    func setName(_ value: String) {
-        addressWithTitleView.setName(value)
+    func setAddressInfo(_ addressInfo: AddressInfo) {
+        addressWithTitleView.setAddressInfo(addressInfo)
     }
 }
