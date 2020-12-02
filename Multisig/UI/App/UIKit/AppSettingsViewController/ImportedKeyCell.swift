@@ -9,16 +9,33 @@
 import UIKit
 
 class ImportedKeyCell: UITableViewCell {
-    @IBOutlet private weak var addressWithTitleView: AddressInfoView!
+    @IBOutlet private weak var addressInfoView: AddressInfoView!
+
     var onRemove: (() -> Void)?
 
     static let rowHeight: CGFloat = 68
 
-    @IBAction func removeKey() {
-        onRemove?()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addressInfoView.setDisclosureButtonImage(
+            UIImage(systemName: "trash",
+                    withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))!,
+            tintColor: .gnoTomato)
+        addressInfoView.onAddressInfoSelection = copyAddress
+        addressInfoView.onDisclosureButtonAction = removeKey
     }
 
     func setAddressInfo(_ addressInfo: AddressInfo) {
-        addressWithTitleView.setAddressInfo(addressInfo)
+        addressInfoView.setAddressInfo(addressInfo)
+    }
+
+    private func copyAddress() {
+        let address = addressInfoView.addressInfo.address
+        Pasteboard.string = address.checksummed
+        App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
+    }
+
+    private func removeKey() {
+        onRemove?()
     }
 }

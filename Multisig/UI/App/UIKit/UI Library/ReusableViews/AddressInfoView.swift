@@ -46,8 +46,9 @@ class AddressInfoView: UINibView {
         update()
     }
 
-    func setDisclosureButtonImage(_ image: UIImage) {
+    func setDisclosureButtonImage(_ image: UIImage, tintColor: UIColor = .gnoHold) {
         disclosureButton.setImage(image, for: .normal)
+        disclosureButton.tintColor = tintColor
     }
 
     private func update() {
