@@ -14,31 +14,21 @@ struct AddressInfo {
 }
 
 class AddressInfoView: UINibView {
+    var onDisclosureButtonAction: (() -> Void)?
+
     @IBOutlet private weak var identiconView: UIImageView!
     @IBOutlet private weak var textLabel: UILabel!
-    @IBOutlet private weak var detailLabel: UILabel!
+    @IBOutlet private weak var addressLabel: UILabel!
     @IBOutlet private weak var copyButton: UIButton!
     @IBOutlet private weak var detailImageView: UIImageView!
     @IBOutlet private weak var detailButton: UIButton!
 
     private (set) var addressInfo: AddressInfo!
 
-    var onDisclosureButtonAction: (() -> Void)?
-
-    @IBAction private func onDisclosureButton() {
-        onDisclosureButtonAction?()
-    }
-
-    @IBAction private func onAddressInfoButton() {
-        let address = addressInfo.address
-        Pasteboard.string = address.checksummed
-        App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
-    }
-
     override func commonInit() {
         super.commonInit()
         textLabel.setStyle(.headline)
-        detailLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+        addressLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
         addTarget(self, action: #selector(didTouchDown(sender:forEvent:)), for: .touchDown)
         addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
     }
@@ -48,9 +38,19 @@ class AddressInfoView: UINibView {
         update()
     }
 
-    func setDetailsImage(_ image: UIImage, tintColor: UIColor = .gnoHold) {
+    func setDetailImage(_ image: UIImage, tintColor: UIColor = .gnoHold) {
         detailImageView.image = image
         detailImageView.tintColor = tintColor
+    }
+
+    @IBAction private func onDisclosureButton() {
+        onDisclosureButtonAction?()
+    }
+
+    @IBAction private func copyAddress() {
+        let address = addressInfo.address
+        Pasteboard.string = address.checksummed
+        App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 
     private func update() {
@@ -58,15 +58,15 @@ class AddressInfoView: UINibView {
         if let label = addressInfo.label {
             textLabel.isHidden = false
             textLabel.text = label
-            detailLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
-            detailLabel.text = addressInfo.address.ellipsized()
+            addressLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+            addressLabel.text = addressInfo.address.ellipsized()
         } else {
             textLabel.isHidden = true
-            detailLabel.attributedText = addressInfo.address.highlighted
+            addressLabel.attributedText = addressInfo.address.highlighted
         }
     }
 
-    func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
+    private func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
         copyButton.addTarget(target, action: action, for: controlEvents)
     }
 

@@ -11,10 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="addressLabel" destination="7W9-8E-b4N" id="VoN-mi-qiW"/>
                 <outlet property="copyButton" destination="R5S-g3-hhS" id="nyg-fw-AKq"/>
                 <outlet property="detailButton" destination="wpR-pO-EBP" id="jyD-Ek-nNh"/>
                 <outlet property="detailImageView" destination="nO1-eN-Ivq" id="jl0-fG-r7P"/>
-                <outlet property="detailLabel" destination="7W9-8E-b4N" id="VoN-mi-qiW"/>
                 <outlet property="identiconView" destination="DBx-z1-eal" id="CMC-ig-TTM"/>
                 <outlet property="textLabel" destination="6JA-RN-38I" id="mXL-36-O7G"/>
             </connections>
@@ -51,7 +51,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5S-g3-hhS">
                     <rect key="frame" x="0.0" y="0.0" width="301" height="68"/>
                     <connections>
-                        <action selector="onAddressInfoButton" destination="-1" eventType="touchUpInside" id="WZ6-Hz-g58"/>
+                        <action selector="copyAddress" destination="-1" eventType="touchUpInside" id="WZ6-Hz-g58"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpR-pO-EBP">

@@ -22,7 +22,7 @@ class DetailAccountCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.headline)
-        addressInfoView.setDetailsImage(#imageLiteral(resourceName: "ico-browse-address"))
+        addressInfoView.setDetailImage(#imageLiteral(resourceName: "ico-browse-address"))
         addressInfoView.onDisclosureButtonAction = viewDetails
     }
 

@@ -15,7 +15,7 @@ class ImportedKeyCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addressInfoView.setDetailsImage(
+        addressInfoView.setDetailImage(
             UIImage(systemName: "trash",
                     withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))!,
             tintColor: .gnoTomato)
