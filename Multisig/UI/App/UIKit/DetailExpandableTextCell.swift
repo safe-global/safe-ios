@@ -9,14 +9,14 @@
 import UIKit
 
 class DetailExpandableTextCell: UITableViewCell {
+    weak var tableView: UITableView?
+
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var expandableTitleButton: UIButton!
     @IBOutlet private weak var contentLabel: UILabel!
     @IBOutlet private weak var contentCopyButton: UIButton!
     private var textToCopy: String?
     private var isExpanded: Bool = false
-
-    weak var tableView: UITableView?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,7 +48,7 @@ class DetailExpandableTextCell: UITableViewCell {
         textToCopy = copyText
     }
 
-    @IBAction func didTapExpandableTitle(_ sender: Any) {
+    @IBAction private func didTapExpandableTitle(_ sender: Any) {
         isExpanded.toggle()
         updateExpanded()
     }
@@ -63,16 +63,16 @@ class DetailExpandableTextCell: UITableViewCell {
         tableView?.endUpdates()
     }
 
-    @IBAction func didTapCopyButton(_ sender: Any) {
+    @IBAction private func didTapCopyButton(_ sender: Any) {
         Pasteboard.string = textToCopy
         App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 
-    @IBAction func copyTouchDown(_ sender: Any) {
+    @IBAction private func copyTouchDown(_ sender: Any) {
         alpha = 0.7
     }
 
-    @IBAction func copyTouchUp(_ sender: Any) {
+    @IBAction private func copyTouchUp(_ sender: Any) {
         alpha = 1.0
     }
 }
