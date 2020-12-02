@@ -151,6 +151,14 @@
 		0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307452543273F00E8A270 /* UIViewController+UINib.swift */; };
 		0A57C5A42577DC5600420303 /* DetailExpandableTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C5A22577DC5600420303 /* DetailExpandableTextCell.swift */; };
 		0A57C5A52577DC5600420303 /* DetailExpandableTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5A32577DC5600420303 /* DetailExpandableTextCell.xib */; };
+		0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C5AE2577F02100420303 /* ConfirmationCreatedPiece.swift */; };
+		0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C5B42577F02E00420303 /* ConfirmationConfirmedPiece.swift */; };
+		0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5C02577F08B00420303 /* ConfirmationCreatedPiece.xib */; };
+		0A57C5C72577F75D00420303 /* ConfirmationConfirmedPiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5C62577F75D00420303 /* ConfirmationConfirmedPiece.xib */; };
+		0A57C5D72577F9E600420303 /* ConfirmationStatusPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C5D62577F9E600420303 /* ConfirmationStatusPiece.swift */; };
+		0A57C5DD2577F9ED00420303 /* ConfirmationStatusPiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5DC2577F9ED00420303 /* ConfirmationStatusPiece.xib */; };
+		0A57C5E42577FBD900420303 /* DetailConfirmationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C5E22577FBD900420303 /* DetailConfirmationCell.swift */; };
+		0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5E32577FBD900420303 /* DetailConfirmationCell.xib */; };
 		0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */; };
 		0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */; };
 		0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */; };
@@ -614,6 +622,14 @@
 		0A5307452543273F00E8A270 /* UIViewController+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINib.swift"; sourceTree = "<group>"; };
 		0A57C5A22577DC5600420303 /* DetailExpandableTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailExpandableTextCell.swift; sourceTree = "<group>"; };
 		0A57C5A32577DC5600420303 /* DetailExpandableTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailExpandableTextCell.xib; sourceTree = "<group>"; };
+		0A57C5AE2577F02100420303 /* ConfirmationCreatedPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationCreatedPiece.swift; sourceTree = "<group>"; };
+		0A57C5B42577F02E00420303 /* ConfirmationConfirmedPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationConfirmedPiece.swift; sourceTree = "<group>"; };
+		0A57C5C02577F08B00420303 /* ConfirmationCreatedPiece.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmationCreatedPiece.xib; sourceTree = "<group>"; };
+		0A57C5C62577F75D00420303 /* ConfirmationConfirmedPiece.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmationConfirmedPiece.xib; sourceTree = "<group>"; };
+		0A57C5D62577F9E600420303 /* ConfirmationStatusPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationStatusPiece.swift; sourceTree = "<group>"; };
+		0A57C5DC2577F9ED00420303 /* ConfirmationStatusPiece.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmationStatusPiece.xib; sourceTree = "<group>"; };
+		0A57C5E22577FBD900420303 /* DetailConfirmationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailConfirmationCell.swift; sourceTree = "<group>"; };
+		0A57C5E32577FBD900420303 /* DetailConfirmationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailConfirmationCell.xib; sourceTree = "<group>"; };
 		0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoViewController.swift; sourceTree = "<group>"; };
 		0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeInfoViewController.xib; sourceTree = "<group>"; };
 		0A5C2E1325628E30009808CB /* SnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarViewController.swift; sourceTree = "<group>"; };
@@ -1317,6 +1333,7 @@
 				0ADA9127256591410004DEC0 /* TransactionlListViewController */,
 				0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */,
 				0AD062E52577AE7E0030810D /* TransactionDetailCellBuilder.swift */,
+				0A57C5EA2578050400420303 /* DetailConfirmationCell */,
 				0A57C5A22577DC5600420303 /* DetailExpandableTextCell.swift */,
 				0A57C5A32577DC5600420303 /* DetailExpandableTextCell.xib */,
 			);
@@ -1345,6 +1362,21 @@
 				0AF1C90D2541B67200E28669 /* LoadableViewController */,
 			);
 			path = "UI Library";
+			sourceTree = "<group>";
+		};
+		0A57C5EA2578050400420303 /* DetailConfirmationCell */ = {
+			isa = PBXGroup;
+			children = (
+				0A57C5E22577FBD900420303 /* DetailConfirmationCell.swift */,
+				0A57C5E32577FBD900420303 /* DetailConfirmationCell.xib */,
+				0A57C5AE2577F02100420303 /* ConfirmationCreatedPiece.swift */,
+				0A57C5C02577F08B00420303 /* ConfirmationCreatedPiece.xib */,
+				0A57C5B42577F02E00420303 /* ConfirmationConfirmedPiece.swift */,
+				0A57C5C62577F75D00420303 /* ConfirmationConfirmedPiece.xib */,
+				0A57C5D62577F9E600420303 /* ConfirmationStatusPiece.swift */,
+				0A57C5DC2577F9ED00420303 /* ConfirmationStatusPiece.xib */,
+			);
+			path = DetailConfirmationCell;
 			sourceTree = "<group>";
 		};
 		0A6430D8247EC180006FD30A /* Configuration */ = {
@@ -2504,12 +2536,14 @@
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				558835F9255BFEF80014E8C7 /* AddressWithTitleView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
+				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				0ADA911A2565785E0004DEC0 /* TransactionListTableViewCell.xib in Resources */,
 				5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */,
 				0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */,
 				0A57C5A52577DC5600420303 /* DetailExpandableTextCell.xib in Resources */,
+				0A57C5DD2577F9ED00420303 /* ConfirmationStatusPiece.xib in Resources */,
 				5588361E255D43000014E8C7 /* AddressDetailsCell.xib in Resources */,
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
@@ -2537,8 +2571,10 @@
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				555312F425068E0F0008206B /* README in Resources */,
 				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
+				0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */,
 				5588363D2562904E0014E8C7 /* ContractVersionStatusCell.xib in Resources */,
 				0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */,
+				0A57C5C72577F75D00420303 /* ConfirmationConfirmedPiece.xib in Resources */,
 				0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */,
 				0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */,
 			);
@@ -2724,6 +2760,7 @@
 				0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */,
 				558835EF255BFEDB0014E8C7 /* AddressWithTitleView.swift in Sources */,
 				0AF6501B24488D280018D070 /* FullSize.swift in Sources */,
+				0A57C5E42577FBD900420303 /* DetailConfirmationCell.swift in Sources */,
 				0A7AEAE12462F98800014184 /* SafeRow.swift in Sources */,
 				046D0A5A249A1C64000F4021 /* ExpandableButton .swift in Sources */,
 				047691372461B2E200D73D8B /* AddressCell.swift in Sources */,
@@ -2896,6 +2933,7 @@
 				0497F6E52488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift in Sources */,
 				047691562464023300D73D8B /* EditSafeNameViewModel.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
+				0A57C5D72577F9E600420303 /* ConfirmationStatusPiece.swift in Sources */,
 				0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
 				046D0A79249A603B000F4021 /* SetFallbackHandlerTransactionDetailsHeaderView.swift in Sources */,
@@ -2929,6 +2967,7 @@
 				0ADDA20B24533F1E0066457E /* EnterSafeNameView.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
+				0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */,
 				0AA9F26B249A2003005BD60F /* SCGTransactionStatus+ViewModel.swift in Sources */,
 				55B6464E25304F9B0050BD95 /* Settings.swift in Sources */,
 				04C97A9C246C511200EBA0F1 /* RemoveSafeButton.swift in Sources */,
@@ -2990,6 +3029,7 @@
 				0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */,
 				0A0983A224BC5C82009EE296 /* BackendTokenStore.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
+				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
 				555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */,
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,

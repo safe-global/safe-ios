@@ -19,6 +19,7 @@ class TransactionDetailCellBuilder {
         self.tableView = tableView
 
         tableView.registerCell(DetailExpandableTextCell.self)
+        tableView.registerCell(DetailConfirmationCell.self)
     }
 
     func build(from tx: SCG.TransactionDetails) -> [UITableViewCell] {
@@ -32,6 +33,18 @@ class TransactionDetailCellBuilder {
             text("Value", title: "Copy value", expandableTitle: nil, copyText: "Copied value")
             text("Value\nMultiline\nValue", title: "Expandable", expandableTitle: "collapsed", copyText: "copy text")
             text("Value\nMultiline\nValue", title: "No Copy", expandableTitle: "value inside", copyText: "copy text")
+
+            confirmation([.zero, .zero], required: 1, status: .awaitingConfirmations, executor: .zero)
+
+            confirmation([.zero, .zero], required: 0, status: .awaitingExecution, executor: .zero)
+
+            // this should not happen, i.e. this will be a backend error
+            confirmation([.zero, .zero], required: 0, status: .awaitingConfirmations, executor: .zero)
+
+            confirmation([.zero, .zero], required: 1, status: .awaitingYourConfirmation, executor: .zero)
+            confirmation([.zero, .zero], required: 1, status: .failed, executor: .zero)
+            confirmation([.zero, .zero], required: 1, status: .success, executor: .zero)
+            confirmation([.zero, .zero], required: 1, status: .cancelled, executor: .zero)
         }
 
         func disclosure(text: String, action: () -> Void) {
@@ -61,7 +74,13 @@ class TransactionDetailCellBuilder {
         typealias AddressInfo = Address
 
         func confirmation(_ confirmations: [AddressInfo], required: Int, status: SCG.TxStatus, executor: AddressInfo?) {
-
+            let indexPath = IndexPath(row: result.count, section: 0)
+            let cell = tableView.dequeueCell(DetailConfirmationCell.self, for: indexPath)
+            cell.setConfirmations(confirmations,
+                                  required: required,
+                                  status: status,
+                                  executor: executor)
+            result.append(cell)
         }
 
         func status(_ status: SCG.TxStatus, type: String, icon: UIImage) {

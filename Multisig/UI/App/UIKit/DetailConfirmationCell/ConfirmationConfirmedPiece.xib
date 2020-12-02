@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConfirmationConfirmedPiece" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="addressInfoView" destination="Zgo-8I-7UO" id="aWb-yv-Hg8"/>
+                <outlet property="titleLabel" destination="gOK-XE-5oT" id="eKg-Vg-CRM"/>
+                <outlet property="verticalBar" destination="YFu-eK-ht2" id="eWd-bh-jiG"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JHf-vo-WqP">
+                    <rect key="frame" x="16" y="0.0" width="16" height="16"/>
+                    <color key="tintColor" name="hold"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="Kif-6A-qxC"/>
+                        <constraint firstAttribute="width" constant="16" id="e1i-gO-uKQ"/>
+                    </constraints>
+                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOK-XE-5oT">
+                    <rect key="frame" x="40" y="-3" width="358" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="Thl-9t-H9T"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFu-eK-ht2">
+                    <rect key="frame" x="23" y="16" width="2" height="72"/>
+                    <color key="backgroundColor" name="mediumGrey"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="2" id="pMy-Y4-j8c"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zgo-8I-7UO">
+                    <rect key="frame" x="40" y="27" width="358" height="44"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="HMa-ra-w75"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Zgo-8I-7UO" firstAttribute="leading" secondItem="gOK-XE-5oT" secondAttribute="leading" id="3ph-ym-MUJ"/>
+                <constraint firstItem="gOK-XE-5oT" firstAttribute="centerY" secondItem="JHf-vo-WqP" secondAttribute="centerY" id="9mc-lS-oub"/>
+                <constraint firstItem="YFu-eK-ht2" firstAttribute="top" secondItem="JHf-vo-WqP" secondAttribute="bottom" id="GH8-C3-DRT"/>
+                <constraint firstItem="JHf-vo-WqP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="H28-DR-Mph"/>
+                <constraint firstItem="Zgo-8I-7UO" firstAttribute="trailing" secondItem="gOK-XE-5oT" secondAttribute="trailing" id="MVn-oO-vgd"/>
+                <constraint firstItem="YFu-eK-ht2" firstAttribute="centerX" secondItem="JHf-vo-WqP" secondAttribute="centerX" id="ZcL-iy-Pjl"/>
+                <constraint firstItem="Zgo-8I-7UO" firstAttribute="top" secondItem="gOK-XE-5oT" secondAttribute="bottom" constant="8" symbolic="YES" id="bko-pw-6q2"/>
+                <constraint firstItem="gOK-XE-5oT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-3" id="db3-mr-ICg"/>
+                <constraint firstAttribute="bottom" secondItem="YFu-eK-ht2" secondAttribute="bottom" id="u8a-dh-Jvz"/>
+                <constraint firstAttribute="trailing" secondItem="gOK-XE-5oT" secondAttribute="trailing" constant="16" id="vbo-Eo-7uB"/>
+                <constraint firstItem="gOK-XE-5oT" firstAttribute="leading" secondItem="JHf-vo-WqP" secondAttribute="trailing" constant="8" symbolic="YES" id="yX3-Pu-Fqi"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="2.8985507246376816" y="153.34821428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
+        <namedColor name="hold">
+            <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mediumGrey">
+            <color red="0.69803921568627447" green="0.70980392156862748" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
