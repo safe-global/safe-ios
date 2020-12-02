@@ -13,26 +13,17 @@ class ImportedKeyCell: UITableViewCell {
 
     var onRemove: (() -> Void)?
 
-    static let rowHeight: CGFloat = 68
-
     override func awakeFromNib() {
         super.awakeFromNib()
-        addressInfoView.setDisclosureButtonImage(
+        addressInfoView.setDetailsImage(
             UIImage(systemName: "trash",
                     withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))!,
             tintColor: .gnoTomato)
-        addressInfoView.onAddressInfoSelection = copyAddress
         addressInfoView.onDisclosureButtonAction = removeKey
     }
 
     func setAddressInfo(_ addressInfo: AddressInfo) {
         addressInfoView.setAddressInfo(addressInfo)
-    }
-
-    private func copyAddress() {
-        let address = addressInfoView.addressInfo.address
-        Pasteboard.string = address.checksummed
-        App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 
     private func removeKey() {

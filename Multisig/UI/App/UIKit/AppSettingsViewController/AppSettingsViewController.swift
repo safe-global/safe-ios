@@ -46,6 +46,9 @@ class AppSettingsViewController: UITableViewController {
         super.viewDidLoad()
         tableView.backgroundColor = tableBackgroundColor
         tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 68
+
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(ImportedKeyCell.self)
         tableView.registerCell(InfoCell.self)
@@ -216,7 +219,7 @@ class AppSettingsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.General.importedKey(_, _):
-            return ImportedKeyCell.rowHeight
+            return UITableView.automaticDimension
         case Section.General.appVersion(_, _), Section.General.network(_, _):
             return InfoCell.rowHeight
         default:

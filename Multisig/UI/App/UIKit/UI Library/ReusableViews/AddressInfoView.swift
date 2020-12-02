@@ -18,11 +18,11 @@ class AddressInfoView: UINibView {
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var detailLabel: UILabel!
     @IBOutlet private weak var copyButton: UIButton!
-    @IBOutlet private weak var disclosureButton: UIButton!
+    @IBOutlet private weak var detailImageView: UIImageView!
+    @IBOutlet private weak var detailButton: UIButton!
 
     private (set) var addressInfo: AddressInfo!
 
-    var onAddressInfoSelection: (() -> Void)?
     var onDisclosureButtonAction: (() -> Void)?
 
     @IBAction private func onDisclosureButton() {
@@ -30,7 +30,9 @@ class AddressInfoView: UINibView {
     }
 
     @IBAction private func onAddressInfoButton() {
-        onAddressInfoSelection?()
+        let address = addressInfo.address
+        Pasteboard.string = address.checksummed
+        App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 
     override func commonInit() {
@@ -46,9 +48,9 @@ class AddressInfoView: UINibView {
         update()
     }
 
-    func setDisclosureButtonImage(_ image: UIImage, tintColor: UIColor = .gnoHold) {
-        disclosureButton.setImage(image, for: .normal)
-        disclosureButton.tintColor = tintColor
+    func setDetailsImage(_ image: UIImage, tintColor: UIColor = .gnoHold) {
+        detailImageView.image = image
+        detailImageView.tintColor = tintColor
     }
 
     private func update() {

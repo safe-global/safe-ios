@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uj9-Zd-qyP" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                        <rect key="frame" x="16" y="10" width="353" height="67"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZmZ-hE-L5O">
@@ -32,13 +32,13 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Uj9-Zd-qyP" secondAttribute="bottom" constant="12" id="NXR-0u-XHj"/>
-                    <constraint firstAttribute="trailing" secondItem="Uj9-Zd-qyP" secondAttribute="trailing" constant="6" id="QEa-ub-1vr"/>
-                    <constraint firstItem="Uj9-Zd-qyP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="S6d-BH-q2d"/>
+                    <constraint firstAttribute="bottom" secondItem="Uj9-Zd-qyP" secondAttribute="bottom" id="NXR-0u-XHj"/>
+                    <constraint firstAttribute="trailing" secondItem="Uj9-Zd-qyP" secondAttribute="trailing" id="QEa-ub-1vr"/>
+                    <constraint firstItem="Uj9-Zd-qyP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="S6d-BH-q2d"/>
                     <constraint firstAttribute="bottom" secondItem="ZmZ-hE-L5O" secondAttribute="bottom" id="Wkb-aQ-DFh"/>
                     <constraint firstAttribute="trailing" secondItem="ZmZ-hE-L5O" secondAttribute="trailing" id="Yhd-ZW-q5S"/>
                     <constraint firstItem="ZmZ-hE-L5O" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="dDP-Mm-A5t"/>
-                    <constraint firstItem="Uj9-Zd-qyP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="vk3-WK-oUP"/>
+                    <constraint firstItem="Uj9-Zd-qyP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vk3-WK-oUP"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
