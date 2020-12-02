@@ -1020,10 +1020,10 @@
 			isa = PBXGroup;
 			children = (
 				043ABD0B24EF0C33008826D5 /* SafeClientGatewayService.swift */,
-				043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */,
 				0A433E5E25500F87006FFF75 /* BalancesRequest.swift */,
 				0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */,
 				043ABD0C24EF0C33008826D5 /* TransactionSummaryListRequest.swift */,
+				043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */,
 				0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */,
 				043ABD0D24EF0C33008826D5 /* SCGModels.swift */,
 				0ABC898E2576B857005D555B /* SCG.swift */,

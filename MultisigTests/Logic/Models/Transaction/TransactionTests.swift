@@ -14,6 +14,20 @@ class TransactionTests: XCTestCase {
         try! Data(contentsOf: Bundle(for: Self.self).url(forResource: name, withExtension: "json")!)
     }
 
+    func testDecodeSummary() throws {
+        let data = jsonData("Transactions")
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .millisecondsSince1970
+        let _ = try decoder.decode(Page<SCG.TxSummary>.self, from: data)
+    }
+
+    func testDecodeDetails() throws {
+        let data = jsonData("TransferTransaction")
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .millisecondsSince1970
+        let _ = try decoder.decode(SCG.TransactionDetails.self, from: data)
+    }
+
     func testTransactionSummary() {
         let txJson = jsonData("Transactions")
 

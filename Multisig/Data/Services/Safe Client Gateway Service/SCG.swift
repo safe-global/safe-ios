@@ -15,7 +15,7 @@ extension SCG {
 
     struct TxSummary: Decodable {
         var id: String
-        var date: Date
+        var timestamp: Date
         var txStatus: TxStatus
         var txInfo: TxInfo
         var executionInfo: ExecutionInfo
@@ -352,5 +352,4 @@ extension SCG {
         case call = 0
         case delegate = 1
     }
-
 }
