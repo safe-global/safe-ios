@@ -235,6 +235,7 @@
 		0AB990112562D93500499219 /* LoadSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB9900F2562D93500499219 /* LoadSafeViewController.swift */; };
 		0AB990122562D93500499219 /* LoadSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AB990102562D93500499219 /* LoadSafeViewController.xib */; };
 		0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */; };
+		0ABC898F2576B857005D555B /* SCG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC898E2576B857005D555B /* SCG.swift */; };
 		0AC60C332549751500A63AE2 /* MultiSendActionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C322549751500A63AE2 /* MultiSendActionListView.swift */; };
 		0AC60C41254987F500A63AE2 /* CustomTransactionViewModel+MultiSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C40254987F400A63AE2 /* CustomTransactionViewModel+MultiSend.swift */; };
 		0AC60C472549880D00A63AE2 /* MultiSendActionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C462549880D00A63AE2 /* MultiSendActionDetailsView.swift */; };
@@ -706,6 +707,7 @@
 		0AB9900F2562D93500499219 /* LoadSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSafeViewController.swift; sourceTree = "<group>"; };
 		0AB990102562D93500499219 /* LoadSafeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadSafeViewController.xib; sourceTree = "<group>"; };
 		0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarCenter.swift; sourceTree = "<group>"; };
+		0ABC898E2576B857005D555B /* SCG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCG.swift; sourceTree = "<group>"; };
 		0AC60C322549751500A63AE2 /* MultiSendActionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSendActionListView.swift; sourceTree = "<group>"; };
 		0AC60C40254987F400A63AE2 /* CustomTransactionViewModel+MultiSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomTransactionViewModel+MultiSend.swift"; sourceTree = "<group>"; };
 		0AC60C462549880D00A63AE2 /* MultiSendActionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSendActionDetailsView.swift; sourceTree = "<group>"; };
@@ -1024,6 +1026,7 @@
 				043ABD0C24EF0C33008826D5 /* TransactionSummaryListRequest.swift */,
 				0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */,
 				043ABD0D24EF0C33008826D5 /* SCGModels.swift */,
+				0ABC898E2576B857005D555B /* SCG.swift */,
 			);
 			path = "Safe Client Gateway Service";
 			sourceTree = "<group>";
@@ -2778,6 +2781,7 @@
 				046D0A6E249A446D000F4021 /* ChangeImplementationTransactionDetailsHeaderView.swift in Sources */,
 				047EE9F624EF015C00AEB2D1 /* TransactionActionView.swift in Sources */,
 				0AA9F2402497DB18005BD60F /* TransactionsListViewModel.swift in Sources */,
+				0ABC898F2576B857005D555B /* SCG.swift in Sources */,
 				0AF1C9262541E09D00E28669 /* UIView+UINib.swift in Sources */,
 				046D0A6C249A446D000F4021 /* SettingsChangeTransactionDetailsHeaderView.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
