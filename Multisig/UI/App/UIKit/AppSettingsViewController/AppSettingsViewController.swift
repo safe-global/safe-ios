@@ -58,7 +58,7 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func buildSections() {
-        let signingKey = AppSettings.current().signingKeyAddress
+        let signingKey = App.shared.settings.signingKeyAddress
         sections = [
             (section: .general, items: [
                 signingKey != nil ?
@@ -163,8 +163,8 @@ class AppSettingsViewController: UITableViewController {
         let remove = UIAlertAction(title: "Remove", style: .destructive) { [unowned self] _ in
             do {
                 try App.shared.keychainService.removeData(
-                    forKey: KeychainKey.ownerPrivateKey.rawValue)
-                AppSettings.setSigningKeyAddress(nil)
+                    forKey: KeychainKey.ownerPrivateKey.rawValue)                
+                App.shared.settings.updateSigningKeyAddress()
                 App.shared.notificationHandler.signingKeyUpdated()
                 App.shared.snackbar.show(message: "Owner key removed from this app")
                 Tracker.shared.setUserProperty("0", for: TrackingUserProperty.numKeysImported)

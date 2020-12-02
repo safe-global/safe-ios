@@ -56,7 +56,7 @@ class SelectOwnerAddressViewModel: ObservableObject {
         do {
             try App.shared.keychainService.removeData(forKey: KeychainKey.ownerPrivateKey.rawValue)
             try App.shared.keychainService.save(data: pkData, forKey: KeychainKey.ownerPrivateKey.rawValue)
-            AppSettings.setSigningKeyAddress(addresses[selectedIndex].checksummed)
+            App.shared.settings.updateSigningKeyAddress()
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key successfully imported")
             Tracker.shared.setUserProperty("1", for: TrackingUserProperty.numKeysImported)
