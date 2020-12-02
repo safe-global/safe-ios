@@ -79,6 +79,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             self, selector: #selector(didChangeSafe), name: .selectedSafeUpdated, object: nil)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.settingsSafe)
+    }
+
     override func reloadData() {
         super.reloadData()
         currentDataTask?.cancel()

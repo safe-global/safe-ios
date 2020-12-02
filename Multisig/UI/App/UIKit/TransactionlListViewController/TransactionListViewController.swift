@@ -42,6 +42,11 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         emptyView.setImage(#imageLiteral(resourceName: "ico-no-transactions"))
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.transactions)
+    }
+
     override func reloadData() {
         super.reloadData()
         loadFirstPageDataTask?.cancel()
