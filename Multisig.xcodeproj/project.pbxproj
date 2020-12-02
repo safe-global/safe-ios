@@ -62,6 +62,7 @@
 		0497F6E92488EC5600A1F4DE /* CustomTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E82488EC5600A1F4DE /* CustomTransactionCellView.swift */; };
 		0497F6EB2489168B00A1F4DE /* TransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6EA2489168B00A1F4DE /* TransactionCellView.swift */; };
 		049C0C4A24F7B1B400F9664B /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C0C4924F7B1B400F9664B /* TransactionViewModel.swift */; };
+		049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C24EA2575477900897D3C /* UIViewController+Tracking.swift */; };
 		049ECFEA2500423D004FF02F /* TransferTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049ECFE92500423D004FF02F /* TransferTransactionViewModel.swift */; };
 		049ECFEC25004323004FF02F /* SettingChangeTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049ECFEB25004323004FF02F /* SettingChangeTransactionViewModel.swift */; };
 		049ECFEE25004334004FF02F /* CustomTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049ECFED25004334004FF02F /* CustomTransactionViewModel.swift */; };
@@ -514,6 +515,7 @@
 		0497F6E82488EC5600A1F4DE /* CustomTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransactionCellView.swift; sourceTree = "<group>"; };
 		0497F6EA2489168B00A1F4DE /* TransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCellView.swift; sourceTree = "<group>"; };
 		049C0C4924F7B1B400F9664B /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		049C24EA2575477900897D3C /* UIViewController+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Tracking.swift"; sourceTree = "<group>"; };
 		049ECFE92500423D004FF02F /* TransferTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTransactionViewModel.swift; sourceTree = "<group>"; };
 		049ECFEB25004323004FF02F /* SettingChangeTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingChangeTransactionViewModel.swift; sourceTree = "<group>"; };
 		049ECFED25004334004FF02F /* CustomTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransactionViewModel.swift; sourceTree = "<group>"; };
@@ -1296,6 +1298,7 @@
 				0AB9900F2562D93500499219 /* LoadSafeViewController.swift */,
 				0AB990102562D93500499219 /* LoadSafeViewController.xib */,
 				0ADA9127256591410004DEC0 /* TransactionlListViewController */,
+				049C24EA2575477900897D3C /* UIViewController+Tracking.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -2934,6 +2937,7 @@
 				0497F6E32488EB9500A1F4DE /* TransferTransactionCellView.swift in Sources */,
 				0AEDCE0724728D7100A1EC80 /* BackButton.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
+				049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */,
 				0A451C0C252DDBE5001DB7D2 /* CollectibleBalancesModel.swift in Sources */,
 				55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */,
 				0A451BEA252DDB39001DB7D2 /* FullScreenLoadingView.swift in Sources */,

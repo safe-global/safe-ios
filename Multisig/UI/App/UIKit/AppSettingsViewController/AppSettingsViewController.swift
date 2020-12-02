@@ -60,6 +60,11 @@ class AppSettingsViewController: UITableViewController {
             self, selector: #selector(hidePresentedController), name: .ownerKeyImported, object: nil)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.settingsApp)
+    }
+
     private func buildSections() {
         let signingKey = App.shared.settings.signingKeyAddress
         sections = [
