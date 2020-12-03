@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadSafeViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="callToActionLabel" destination="C8Q-Q3-sw5" id="vEh-D9-FjA"/>
+                <outlet property="loadSafeButton" destination="zmU-jI-7jI" id="3pu-zO-wG2"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmU-jI-7jI">
+                    <rect key="frame" x="16" y="425" width="382" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="AxS-gU-FLh"/>
+                    </constraints>
+                    <state key="normal" title="Load Safe">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapLoadSafe:" destination="-1" eventType="touchUpInside" id="vNx-70-B3r"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get started by loading your Safe Multisig" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8Q-Q3-sw5">
+                    <rect key="frame" x="60" y="351" width="294" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="white"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zmU-jI-7jI" secondAttribute="trailing" constant="16" id="Fsj-V8-5v5"/>
+                <constraint firstItem="zmU-jI-7jI" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" placeholder="YES" id="O2Q-7L-j78"/>
+                <constraint firstItem="C8Q-Q3-sw5" firstAttribute="trailing" secondItem="zmU-jI-7jI" secondAttribute="trailing" constant="-44" id="Rgu-lA-EgG"/>
+                <constraint firstItem="C8Q-Q3-sw5" firstAttribute="leading" secondItem="zmU-jI-7jI" secondAttribute="leading" constant="44" id="V2F-IW-WwO"/>
+                <constraint firstItem="zmU-jI-7jI" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eN1-V1-VUH"/>
+                <constraint firstItem="zmU-jI-7jI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="loI-T5-HJe"/>
+                <constraint firstItem="zmU-jI-7jI" firstAttribute="top" secondItem="C8Q-Q3-sw5" secondAttribute="bottom" constant="33" id="r2P-bb-VvM"/>
+            </constraints>
+            <point key="canvasLocation" x="141" y="154"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="white">
+            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,41 @@
+{
+  "images" : [
+    {
+      "alignment-insets" : {
+        "bottom" : 14,
+        "left" : 14,
+        "right" : 14,
+        "top" : 14
+      },
+      "filename" : "btn-filled-pressed.pdf",
+      "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "bottom" : 23,
+          "left" : 25,
+          "right" : 23,
+          "top" : 26
+        },
+        "center" : {
+          "height" : 1,
+          "mode" : "tile",
+          "width" : 1
+        },
+        "mode" : "9-part"
+      },
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
