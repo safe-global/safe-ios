@@ -17,33 +17,26 @@ class DetailStatusCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         titleLabel.setStyle(.body)
         statusLabel.setStyle(.body)
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
-    func set(title: String) {
+    func setTitle(_ title: String) {
         titleLabel.text = title
     }
 
-    func set(icon: String) {
-        iconImageView.image = UIImage(named: icon)
+    func setIcon(_ icon: UIImage?) {
+        iconImageView.image = icon
     }
 
-    func set(status: TransactionStatus) {
+    func setStatus(_ status: SCG.TxStatus) {
         statusLabel.text = status.title
         containerStackView.axis = status.isWaiting ? .vertical : .horizontal
         statusIconImageView.isHidden = !status.isWaiting
         statusLabel.textColor = statusColor(status: status)
     }
 
-    func statusColor(status: TransactionStatus) -> UIColor {
+    func statusColor(status: SCG.TxStatus) -> UIColor {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
             return .gnoPending
@@ -53,6 +46,42 @@ class DetailStatusCell: UITableViewCell {
             return .gnoDarkGrey
         case .success:
             return .gnoHold
+        }
+    }
+}
+
+extension SCG.TxStatus {
+    static let queueStatuses = [awaitingConfirmations, .awaitingExecution, .awaitingYourConfirmation]
+    static let historyStatuses = [success, .failed, .cancelled]
+
+    var isInQueue: Bool {
+        Self.queueStatuses.contains(self)
+    }
+
+    var isInHistory: Bool {
+        Self.historyStatuses.contains(self)
+    }
+
+    var isWaiting: Bool {
+        Self.queueStatuses.contains(self)
+    }
+
+    var title: String {
+        switch self {
+        case .awaitingExecution:
+            return "Awaiting execution"
+        case .awaitingConfirmations:
+            return "Awaiting confirmations"
+        case .awaitingYourConfirmation:
+            return "Awaiting your confirmation"
+        case .pending:
+             return "Pending"
+        case .failed:
+            return "Failed"
+        case .cancelled:
+            return "Cancelled"
+        case .success:
+            return "Success"
         }
     }
 }
