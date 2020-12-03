@@ -26,6 +26,7 @@ class TransactionDetailCellBuilder {
         tableView.registerCell(DetailDisclosingCell.self)
         tableView.registerCell(ExternalURLCell.self)
         tableView.registerCell(DetailTransferInfoCell.self)
+        tableView.registerCell(DetailStatusCell.self)
     }
 
     func build(from tx: SCG.TransactionDetails) -> [UITableViewCell] {
@@ -39,6 +40,15 @@ class TransactionDetailCellBuilder {
             transfer(value: -100, decimals: 2, symbol: "ETH", icon: #imageLiteral(resourceName: "ico-ether"), detail: "96 bytes", sender: .zero, label: nil, isOutgoing: true)
 
             transfer(value: 100, decimals: 2, symbol: "ETH", icon: #imageLiteral(resourceName: "ico-ether"), detail: "96 bytes", sender: .zero, label: nil, isOutgoing: false)
+
+            status(.awaitingExecution, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
+            status(.awaitingConfirmations, type: "Safe created", icon: #imageLiteral(resourceName: "ico-incoming-tx"))
+            status(.awaitingYourConfirmation, type: "Safe created", icon: #imageLiteral(resourceName: "ico-outgoing-tx"))
+            status(.pending, type: "Safe created", icon: #imageLiteral(resourceName: "ico-custom-tx"))
+            status(.failed, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
+            status(.cancelled, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
+            status(.success, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
+
 
             text("Value", title: "No copy", expandableTitle: nil, copyText: nil)
             text("Value", title: "Copy value", expandableTitle: nil, copyText: "Copied value")
@@ -112,7 +122,12 @@ class TransactionDetailCellBuilder {
         }
 
         func status(_ status: SCG.TxStatus, type: String, icon: UIImage) {
-
+            let indexPath = IndexPath(row: result.count, section: 0)
+            let cell = tableView.dequeueCell(DetailStatusCell.self, for: indexPath)
+            cell.setTitle(type)
+            cell.setIcon(icon)
+            cell.setStatus(status)
+            result.append(cell)
         }
 
         func transfer(value: Int256, decimals: Int, symbol: String, icon: UIImage, detail: String?, sender: Address, label: String?, isOutgoing: Bool) {
