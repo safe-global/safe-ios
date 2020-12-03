@@ -38,7 +38,6 @@ extension SCG {
         var signers: [AddressString]?
         var confirmations: [Confirmation]?
         var missingSigners: [AddressString]?
-
     }
 
     struct Confirmation: Decodable {

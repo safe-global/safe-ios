@@ -9,22 +9,19 @@
 import UIKit
 
 class DetailAccountAndTextCell: UITableViewCell {
-    @IBOutlet private weak var addressInfoViewWithTitle: AddressInfoViewWithTitle!
+    @IBOutlet private weak var addressInfoView: AddressInfoView!
     @IBOutlet private weak var textTitleLabel: UILabel!
     @IBOutlet private weak var textDetailsLabel: UILabel!
 
-    private let titleTopSpace: CGFloat = 16
-
     override func awakeFromNib() {
         super.awakeFromNib()
-        textTitleLabel.setStyle(.body)
+        textTitleLabel.setStyle(.headline)
         textDetailsLabel.setStyle(GNOTextStyle.body.color(.gnoDarkGrey))
-        addressInfoViewWithTitle.setDetailImage(#imageLiteral(resourceName: "ico-browse-address"))
     }
 
-    func setAccount(addressInfo: AddressInfo, title: String?, onViewDetails: @escaping () -> Void) {
-        addressInfoViewWithTitle.setAddressInfo(addressInfo, title: title)
-        addressInfoViewWithTitle.onDisclosureButtonAction = onViewDetails
+    func setAccount(address: Address, label: String?, title: String?) {
+        addressInfoView.setTitle(title)
+        addressInfoView.setAddress(address, label: label)
     }
 
     func setText(title: String, details: String) {
