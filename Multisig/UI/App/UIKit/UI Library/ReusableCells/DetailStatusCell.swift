@@ -19,6 +19,7 @@ class DetailStatusCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         titleLabel.setStyle(.body)
+        statusLabel.setStyle(.body)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,20 +37,10 @@ class DetailStatusCell: UITableViewCell {
     }
 
     func set(status: TransactionStatus) {
-        TransactionStatusView
         statusLabel.text = status.title
         containerStackView.axis = status.isWaiting ? .vertical : .horizontal
         statusIconImageView.isHidden = !status.isWaiting
         statusLabel.textColor = statusColor(status: status)
-        statusLabel.setStyle(.body)
-    }
-
-    func set(style: Style) {
-        if style == .body {
-            statusLabel.setStyle(.body)
-        } else {
-            statusLabel.setStyle(.footnote2)
-        }
     }
 
     func statusColor(status: TransactionStatus) -> UIColor {
@@ -63,10 +54,5 @@ class DetailStatusCell: UITableViewCell {
         case .success:
             return .gnoHold
         }
-    }
-
-    enum Style {
-        case body
-        case footnote
     }
 }
