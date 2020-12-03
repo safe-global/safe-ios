@@ -23,6 +23,9 @@ class TransactionDetailCellBuilder {
         tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(DetailAccountAndTextCell.self)
         tableView.registerCell(DetailMultiAccountsCell.self)
+        tableView.registerCell(DetailDisclosingCell.self)
+        tableView.registerCell(ExternalURLCell.self)
+        tableView.registerCell(DetailTransferInfoCell.self)
     }
 
     func build(from tx: SCG.TransactionDetails) -> [UITableViewCell] {
@@ -32,6 +35,11 @@ class TransactionDetailCellBuilder {
         }
 
         func buildTransaction() {
+
+            transfer(value: -100, decimals: 2, symbol: "ETH", icon: #imageLiteral(resourceName: "ico-ether"), detail: "96 bytes", sender: .zero, label: nil, isOutgoing: true)
+
+            transfer(value: 100, decimals: 2, symbol: "ETH", icon: #imageLiteral(resourceName: "ico-ether"), detail: "96 bytes", sender: .zero, label: nil, isOutgoing: false)
+
             text("Value", title: "No copy", expandableTitle: nil, copyText: nil)
             text("Value", title: "Copy value", expandableTitle: nil, copyText: "Copied value")
             text("Value\nMultiline\nValue", title: "Expandable", expandableTitle: "collapsed", copyText: "copy text")
@@ -60,14 +68,26 @@ class TransactionDetailCellBuilder {
             confirmation([.zero, .zero], required: 1, status: .failed, executor: .zero)
             confirmation([.zero, .zero], required: 1, status: .success, executor: .zero)
             confirmation([.zero, .zero], required: 1, status: .cancelled, executor: .zero)
+
+            disclosure(text: "Advanced", action: {
+                print("Advanced")
+            })
+
+            externalURL(text: "View transaction on Etherscan", url: URL(string: "https://twitter.com/")!)
         }
 
-        func disclosure(text: String, action: () -> Void) {
-
+        func disclosure(text: String, action: @escaping () -> Void) {
+            let indexPath = IndexPath(row: result.count, section: 0)
+            let cell = tableView.dequeueCell(DetailDisclosingCell.self, for: indexPath)
+            cell.action = action
+            result.append(cell)
         }
 
         func externalURL(text: String, url: URL) {
-
+            let indexPath = IndexPath(row: result.count, section: 0)
+            let cell = tableView.dequeueCell(ExternalURLCell.self, for: indexPath)
+            cell.setText(text, url: url)
+            result.append(cell)
         }
 
         func text(_ text: String, title: String, expandableTitle: String?, copyText: String?) {
@@ -95,12 +115,13 @@ class TransactionDetailCellBuilder {
 
         }
 
-        func incomingTransfer(value: UInt256, decimals: Int, symbol: String, icon: UIImage, detail: String?, sender: Address) {
-
-        }
-
-        func outgoingTransfer(value: UInt256, decimals: Int, symbol: String, icon: UIImage, detail: String?, recipient: Address) {
-
+        func transfer(value: Int256, decimals: Int, symbol: String, icon: UIImage, detail: String?, sender: Address, label: String?, isOutgoing: Bool) {
+            let indexPath = IndexPath(row: result.count, section: 0)
+            let cell = tableView.dequeueCell(DetailTransferInfoCell.self, for: indexPath)
+            cell.setToken(value: value, decimals: decimals, symbol: symbol, icon: icon, detail: detail)
+            cell.setAddress(sender, label: label)
+            cell.setOutgoing(isOutgoing)
+            result.append(cell)
         }
 
         func address(_ address: Address, label: String?, title: String?) {
