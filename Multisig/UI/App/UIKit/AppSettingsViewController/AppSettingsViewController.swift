@@ -158,7 +158,7 @@ class AppSettingsViewController: UITableViewController {
         return cell
     }
 
-    override func didTapAddressInfoDetails(_ sender: Any) {
+    override func didTapAddressInfoDetails(_ sender: AddressInfoView) {
         removeImportedOwnerKey()
     }
 

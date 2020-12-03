@@ -25,6 +25,7 @@ class TransactionDetailCellBuilder {
         tableView.registerCell(DetailMultiAccountsCell.self)
         tableView.registerCell(DetailDisclosingCell.self)
         tableView.registerCell(ExternalURLCell.self)
+        tableView.registerCell(DetailTransferInfoCell.self)
     }
 
     func build(from tx: SCG.TransactionDetails) -> [UITableViewCell] {
@@ -34,6 +35,11 @@ class TransactionDetailCellBuilder {
         }
 
         func buildTransaction() {
+
+            transfer(value: -100, decimals: 2, symbol: "ETH", icon: #imageLiteral(resourceName: "ico-ether"), detail: "96 bytes", sender: .zero, label: nil, isOutgoing: true)
+
+            transfer(value: 100, decimals: 2, symbol: "ETH", icon: #imageLiteral(resourceName: "ico-ether"), detail: "96 bytes", sender: .zero, label: nil, isOutgoing: false)
+
             text("Value", title: "No copy", expandableTitle: nil, copyText: nil)
             text("Value", title: "Copy value", expandableTitle: nil, copyText: "Copied value")
             text("Value\nMultiline\nValue", title: "Expandable", expandableTitle: "collapsed", copyText: "copy text")
@@ -109,12 +115,13 @@ class TransactionDetailCellBuilder {
 
         }
 
-        func incomingTransfer(value: UInt256, decimals: Int, symbol: String, icon: UIImage, detail: String?, sender: Address) {
-
-        }
-
-        func outgoingTransfer(value: UInt256, decimals: Int, symbol: String, icon: UIImage, detail: String?, recipient: Address) {
-
+        func transfer(value: Int256, decimals: Int, symbol: String, icon: UIImage, detail: String?, sender: Address, label: String?, isOutgoing: Bool) {
+            let indexPath = IndexPath(row: result.count, section: 0)
+            let cell = tableView.dequeueCell(DetailTransferInfoCell.self, for: indexPath)
+            cell.setToken(value: value, decimals: decimals, symbol: symbol, icon: icon, detail: detail)
+            cell.setAddress(sender, label: label)
+            cell.setOutgoing(isOutgoing)
+            result.append(cell)
         }
 
         func address(_ address: Address, label: String?, title: String?) {

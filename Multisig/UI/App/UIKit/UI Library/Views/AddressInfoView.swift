@@ -9,9 +9,8 @@
 import UIKit
 
 extension UIViewController {
-    @objc func didTapAddressInfoDetails(_ sender: Any) {
-        if let view = sender as? AddressInfoView,
-           let address = view.address {
+    @objc func didTapAddressInfoDetails(_ sender: AddressInfoView) {
+        if let address = sender.address {
             openInSafari(Safe.browserURL(address: address.checksummed))
         }
     }
