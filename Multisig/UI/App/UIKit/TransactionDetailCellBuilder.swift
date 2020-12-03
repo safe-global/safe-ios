@@ -20,6 +20,7 @@ class TransactionDetailCellBuilder {
 
         tableView.registerCell(DetailExpandableTextCell.self)
         tableView.registerCell(DetailConfirmationCell.self)
+        tableView.registerCell(DetailAccountCell.self)
     }
 
     func build(from tx: SCG.TransactionDetails) -> [UITableViewCell] {
@@ -33,6 +34,12 @@ class TransactionDetailCellBuilder {
             text("Value", title: "Copy value", expandableTitle: nil, copyText: "Copied value")
             text("Value\nMultiline\nValue", title: "Expandable", expandableTitle: "collapsed", copyText: "copy text")
             text("Value\nMultiline\nValue", title: "No Copy", expandableTitle: "value inside", copyText: "copy text")
+
+            address(.zero, label: "name", title: "This is address:")
+
+            address(.zero, label: nil, title: "Without label:")
+
+            address(.zero, label: nil, title: nil)
 
             confirmation([.zero, .zero], required: 1, status: .awaitingConfirmations, executor: .zero)
 
@@ -70,10 +77,7 @@ class TransactionDetailCellBuilder {
             
         }
 
-        // TODO: replace with AddressInfo when merged.
-        typealias AddressInfo = Address
-
-        func confirmation(_ confirmations: [AddressInfo], required: Int, status: SCG.TxStatus, executor: AddressInfo?) {
+        func confirmation(_ confirmations: [Address], required: Int, status: SCG.TxStatus, executor: Address?) {
             let indexPath = IndexPath(row: result.count, section: 0)
             let cell = tableView.dequeueCell(DetailConfirmationCell.self, for: indexPath)
             cell.setConfirmations(confirmations,
@@ -87,23 +91,27 @@ class TransactionDetailCellBuilder {
 
         }
 
-        func incomingTransfer(value: UInt256, decimals: Int, symbol: String, icon: UIImage, detail: String?, sender: AddressInfo) {
+        func incomingTransfer(value: UInt256, decimals: Int, symbol: String, icon: UIImage, detail: String?, sender: Address) {
 
         }
 
-        func outgoingTransfer(value: UInt256, decimals: Int, symbol: String, icon: UIImage, detail: String?, recipient: AddressInfo) {
+        func outgoingTransfer(value: UInt256, decimals: Int, symbol: String, icon: UIImage, detail: String?, recipient: Address) {
 
         }
 
-        func address(_ address: AddressInfo, title: String?) {
+        func address(_ address: Address, label: String?, title: String?) {
+            let indexPath = IndexPath(row: result.count, section: 0)
+            let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
+            cell.setAccount(address: address.checksummed, label: label, title: title)
+            result.append(cell)
 
         }
 
-        func addressAndText(_ address: AddressInfo, addressTitle: String, text: String, textTitle: String) {
+        func addressAndText(_ address: Address, addressTitle: String, text: String, textTitle: String) {
 
         }
 
-        func addresses(_ accounts: [(account: AddressInfo, title: String)]) {
+        func addresses(_ accounts: [(account: Address, title: String)]) {
 
         }
 

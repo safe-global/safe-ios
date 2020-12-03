@@ -154,12 +154,12 @@ class AppSettingsViewController: UITableViewController {
 
     private func importedKeyCell(name: String, signingKey: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(ImportedKeyCell.self, for: indexPath)
-        cell.setAddressInfo(AddressInfo(address: Address(exactly: signingKey), label: name))
-        cell.selectionStyle = .none
-        cell.onRemove = { [unowned self] in
-            self.removeImportedOwnerKey()
-        }
+        cell.setAddress(signingKey, label: name)
         return cell
+    }
+
+    override func didTapAddressInfoDetails(_ sender: Any) {
+        removeImportedOwnerKey()
     }
 
     private func removeImportedOwnerKey() {

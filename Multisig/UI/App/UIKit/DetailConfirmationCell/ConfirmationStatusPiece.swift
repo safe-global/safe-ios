@@ -15,7 +15,6 @@ class ConfirmationStatusPiece: UINibView {
     override func commonInit() {
         super.commonInit()
         titleLabel.setStyle(.body)
-        translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 30)
         ])

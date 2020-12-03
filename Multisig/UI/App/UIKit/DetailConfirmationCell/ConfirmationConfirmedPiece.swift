@@ -10,13 +10,12 @@ import UIKit
 
 class ConfirmationConfirmedPiece: UINibView {
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var addressInfoView: UIView!
+    @IBOutlet private weak var addressInfoView: AddressInfoView!
     @IBOutlet private weak var verticalBar: UIView!
 
     override func commonInit() {
         super.commonInit()
         titleLabel.setStyle(GNOTextStyle.body.color(.gnoHold))
-        translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 88)
         ])
@@ -30,7 +29,8 @@ class ConfirmationConfirmedPiece: UINibView {
         verticalBar.isHidden = !shows
     }
 
-    func setAddressInfo(_ address: Address) {
-        // TODO
+    func setAddress(_ address: Address, label: String? = nil) {
+        addressInfoView.setAddress(address, label: label)
     }
+
 }

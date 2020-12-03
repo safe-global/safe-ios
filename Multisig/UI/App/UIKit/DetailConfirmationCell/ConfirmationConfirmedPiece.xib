@@ -47,11 +47,10 @@
                         <constraint firstAttribute="width" constant="2" id="pMy-Y4-j8c"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zgo-8I-7UO">
-                    <rect key="frame" x="40" y="27" width="358" height="44"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zgo-8I-7UO" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="40" y="27" width="358" height="46"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="44" id="HMa-ra-w75"/>
+                        <constraint firstAttribute="height" constant="46" id="HMa-ra-w75"/>
                     </constraints>
                 </view>
             </subviews>

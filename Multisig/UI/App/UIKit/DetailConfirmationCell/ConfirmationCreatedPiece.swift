@@ -15,7 +15,6 @@ class ConfirmationCreatedPiece: UINibView {
     override func commonInit() {
         super.commonInit()
         textLabel.setStyle(GNOTextStyle.body.color(.gnoHold))
-        translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 50)
         ])
