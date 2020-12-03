@@ -9,11 +9,7 @@
 import UIKit
 
 class DetailAccountAndTextCell: UITableViewCell {
-    var onViewDetails: (() -> Void)?
-
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var addressInfoView: AddressInfoView!
-    @IBOutlet private weak var titleTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var addressInfoViewWithTitle: AddressInfoViewWithTitle!
     @IBOutlet private weak var textTitleLabel: UILabel!
     @IBOutlet private weak var textDetailsLabel: UILabel!
 
@@ -21,25 +17,18 @@ class DetailAccountAndTextCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.headline)
         textTitleLabel.setStyle(.body)
         textDetailsLabel.setStyle(GNOTextStyle.body.color(.gnoDarkGrey))
-        addressInfoView.setDetailImage(#imageLiteral(resourceName: "ico-browse-address"))
-        addressInfoView.onDisclosureButtonAction = viewDetails
+        addressInfoViewWithTitle.setDetailImage(#imageLiteral(resourceName: "ico-browse-address"))
     }
 
-    func setAccount(addressInfo: AddressInfo, title: String?) {
-        titleLabel.text = title
-        titleTopConstraint.constant = title == nil ? 0 : titleTopSpace
-        addressInfoView.setAddressInfo(addressInfo)
+    func setAccount(addressInfo: AddressInfo, title: String?, onViewDetails: @escaping () -> Void) {
+        addressInfoViewWithTitle.setAddressInfo(addressInfo, title: title)
+        addressInfoViewWithTitle.onDisclosureButtonAction = onViewDetails
     }
 
     func setText(title: String, details: String) {
         textTitleLabel.text = title
         textDetailsLabel.text = details
-    }
-
-    private func viewDetails() {
-        onViewDetails?()
     }
 }

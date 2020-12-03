@@ -19,21 +19,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="189"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDc-eR-Dcv">
-                        <rect key="frame" x="0.0" y="187" width="414" height="2"/>
-                        <color key="backgroundColor" name="white"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="2" id="Rhu-4M-y1C"/>
-                        </constraints>
-                    </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hzo-sH-izo">
-                        <rect key="frame" x="16" y="16" width="382" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TtY-Di-EUE" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="37" width="414" height="85"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TtY-Di-EUE" customClass="AddressInfoViewWithTitle" customModule="Multisig" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="122"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGH-jy-VWN">
@@ -48,33 +35,35 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDc-eR-Dcv">
+                        <rect key="frame" x="0.0" y="187" width="414" height="2"/>
+                        <color key="backgroundColor" name="white"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="Rhu-4M-y1C"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="TtY-Di-EUE" firstAttribute="leading" secondItem="Fvx-qB-t1U" secondAttribute="leading" id="1nU-dI-1LN"/>
                     <constraint firstAttribute="trailing" secondItem="hGH-jy-VWN" secondAttribute="trailing" constant="16" id="2fd-AW-Faq"/>
-                    <constraint firstAttribute="trailing" secondItem="Hzo-sH-izo" secondAttribute="trailing" constant="16" id="6cv-fd-a8A"/>
-                    <constraint firstItem="Hzo-sH-izo" firstAttribute="leading" secondItem="Fvx-qB-t1U" secondAttribute="leading" constant="16" id="6fe-ud-3go"/>
                     <constraint firstAttribute="trailing" secondItem="xDc-eR-Dcv" secondAttribute="trailing" id="8MZ-EK-uBP"/>
                     <constraint firstAttribute="bottom" secondItem="xDc-eR-Dcv" secondAttribute="bottom" id="ACi-rR-B3t"/>
                     <constraint firstItem="xDc-eR-Dcv" firstAttribute="leading" secondItem="Fvx-qB-t1U" secondAttribute="leading" id="Ceh-5K-ff8"/>
                     <constraint firstItem="xDc-eR-Dcv" firstAttribute="top" secondItem="6Ds-wK-Z8k" secondAttribute="bottom" constant="17" id="QTw-CT-6f6"/>
-                    <constraint firstItem="Hzo-sH-izo" firstAttribute="top" secondItem="Fvx-qB-t1U" secondAttribute="top" constant="16" id="Y9d-hn-FCt"/>
+                    <constraint firstItem="TtY-Di-EUE" firstAttribute="top" secondItem="Fvx-qB-t1U" secondAttribute="top" id="Sto-4H-qqO"/>
                     <constraint firstItem="6Ds-wK-Z8k" firstAttribute="top" secondItem="hGH-jy-VWN" secondAttribute="bottom" constant="6" id="Yb3-Ku-0XB"/>
                     <constraint firstAttribute="trailing" secondItem="6Ds-wK-Z8k" secondAttribute="trailing" constant="16" id="aDf-Fy-VUK"/>
                     <constraint firstAttribute="trailing" secondItem="TtY-Di-EUE" secondAttribute="trailing" id="jbq-zY-ujQ"/>
                     <constraint firstItem="6Ds-wK-Z8k" firstAttribute="leading" secondItem="Fvx-qB-t1U" secondAttribute="leading" constant="16" id="rAO-sh-8mZ"/>
                     <constraint firstItem="hGH-jy-VWN" firstAttribute="top" secondItem="TtY-Di-EUE" secondAttribute="bottom" id="vD4-tH-MRp"/>
-                    <constraint firstItem="TtY-Di-EUE" firstAttribute="top" secondItem="Hzo-sH-izo" secondAttribute="bottom" id="ws7-EK-Hh5"/>
                     <constraint firstItem="hGH-jy-VWN" firstAttribute="leading" secondItem="Fvx-qB-t1U" secondAttribute="leading" constant="16" id="y4Z-ey-RLu"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="tJx-7Y-fEK"/>
             <connections>
-                <outlet property="addressInfoView" destination="TtY-Di-EUE" id="McP-Bk-M7D"/>
+                <outlet property="addressInfoViewWithTitle" destination="TtY-Di-EUE" id="Xkx-hU-Wg6"/>
                 <outlet property="textDetailsLabel" destination="6Ds-wK-Z8k" id="blF-Uf-JVu"/>
                 <outlet property="textTitleLabel" destination="hGH-jy-VWN" id="4If-Ke-OTz"/>
-                <outlet property="titleLabel" destination="Hzo-sH-izo" id="BcN-jZ-ROD"/>
-                <outlet property="titleTopConstraint" destination="Y9d-hn-FCt" id="26Q-sk-MrD"/>
             </connections>
             <point key="canvasLocation" x="63.768115942028992" y="134.26339285714286"/>
         </tableViewCell>
