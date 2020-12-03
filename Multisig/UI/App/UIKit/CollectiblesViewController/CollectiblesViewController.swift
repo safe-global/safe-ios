@@ -41,6 +41,11 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         emptyView.setImage(#imageLiteral(resourceName: "ico-no-collectibles"))
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.assetsCollectibles)
+    }
+
     override func reloadData() {
         super.reloadData()
         currentDataTask?.cancel()

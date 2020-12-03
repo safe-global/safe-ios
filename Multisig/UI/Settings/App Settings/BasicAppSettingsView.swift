@@ -85,7 +85,7 @@ struct BasicAppSettingsView: View {
                                 do {
                                     try App.shared.keychainService.removeData(
                                         forKey: KeychainKey.ownerPrivateKey.rawValue)
-                                    AppSettings.setSigningKeyAddress(nil)
+                                    App.shared.settings.updateSigningKeyAddress()                                    
                                     App.shared.snackbar.show(message: "Owner key removed from this app")
                                     Tracker.shared.setUserProperty("0", for: TrackingUserProperty.numKeysImported)
                                 } catch {

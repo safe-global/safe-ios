@@ -21,8 +21,6 @@ class ContractVersionStatusCell: UITableViewCell {
 
     var onViewDetails: (() -> Void)?
 
-    static let rowHeight: CGFloat = 68
-
     @IBAction private func viewDetails() {
         onViewDetails?()
     }

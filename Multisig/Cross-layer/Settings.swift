@@ -7,34 +7,24 @@
 //
 
 import Foundation
-import CoreData
+import Web3
 import Combine
 
 class Settings: NSObject, ObservableObject {
-    private let fetchResultsController: NSFetchedResultsController<AppSettings>
-
     @Published
     var signingKeyAddress: String?
 
     override init() {
-        fetchResultsController = NSFetchedResultsController(fetchRequest: AppSettings.fetchRequest().all(),
-                                                            managedObjectContext: App.shared.coreDataStack.viewContext,
-                                                            sectionNameKeyPath: nil,
-                                                            cacheName: nil)
         super.init()
-        fetchResultsController.delegate = self
-        try! fetchResultsController.performFetch()
-        // after performFetch the delegate method 'controllerDidChangeContent' is not triggered,
-        // so we need to trigger update here
-        if let appSettings = fetchResultsController.fetchedObjects?.first {
-           signingKeyAddress = appSettings.signingKeyAddress
-        }
+        updateSigningKeyAddress()
     }
-}
 
-extension Settings: NSFetchedResultsControllerDelegate {
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        guard let appSettings = controller.fetchedObjects?.first as? AppSettings else { return }
-        signingKeyAddress = appSettings.signingKeyAddress
+    func updateSigningKeyAddress() {
+        guard let pkData = try? App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue),
+              let privateKey = try? EthereumPrivateKey(pkData.bytes) else {
+            signingKeyAddress = nil
+            return
+        }
+        signingKeyAddress = privateKey.address.hex(eip55: true)
     }
 }
