@@ -52,6 +52,7 @@ enum ViewControllerFactory {
         let noSafesVC = NoSafesViewController()
         noSafesVC.hasSafeViewController = segmentVC
         noSafesVC.noSafeViewController = LoadSafeViewController()
+        noSafesVC.trackingEvent = .assetsNoSafe
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         return tabViewController(root: tabRoot, title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
@@ -63,6 +64,7 @@ enum ViewControllerFactory {
         let noSafesVC = NoSafesViewController()
         noSafesVC.hasSafeViewController = transactionsVC
         noSafesVC.noSafeViewController = LoadSafeViewController()
+        noSafesVC.trackingEvent = .transactionsNoSafe
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         return tabViewController(root: tabRoot, title: "Transactions", image: #imageLiteral(resourceName: "tab-icon-transactions"), tag: 1)
@@ -72,6 +74,7 @@ enum ViewControllerFactory {
         let noSafesVC = NoSafesViewController()
         noSafesVC.hasSafeViewController = SafeSettingsViewController()
         noSafesVC.noSafeViewController = LoadSafeViewController()
+        noSafesVC.trackingEvent = .settingsSafeNoSafe
 
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [

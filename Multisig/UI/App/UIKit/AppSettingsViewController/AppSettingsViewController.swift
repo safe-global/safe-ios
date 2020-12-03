@@ -46,6 +46,9 @@ class AppSettingsViewController: UITableViewController {
         super.viewDidLoad()
         tableView.backgroundColor = tableBackgroundColor
         tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 68
+
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(ImportedKeyCell.self)
         tableView.registerCell(InfoCell.self)
@@ -57,8 +60,13 @@ class AppSettingsViewController: UITableViewController {
             self, selector: #selector(hidePresentedController), name: .ownerKeyImported, object: nil)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.settingsApp)
+    }
+
     private func buildSections() {
-        let signingKey = AppSettings.current().signingKeyAddress
+        let signingKey = App.shared.settings.signingKeyAddress
         sections = [
             (section: .general, items: [
                 signingKey != nil ?
@@ -146,8 +154,7 @@ class AppSettingsViewController: UITableViewController {
 
     private func importedKeyCell(name: String, signingKey: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(ImportedKeyCell.self, for: indexPath)
-        cell.setName(name)
-        cell.setAddress(Address(exactly: signingKey))
+        cell.setAddressInfo(AddressInfo(address: Address(exactly: signingKey), label: name))
         cell.selectionStyle = .none
         cell.onRemove = { [unowned self] in
             self.removeImportedOwnerKey()
@@ -163,8 +170,8 @@ class AppSettingsViewController: UITableViewController {
         let remove = UIAlertAction(title: "Remove", style: .destructive) { [unowned self] _ in
             do {
                 try App.shared.keychainService.removeData(
-                    forKey: KeychainKey.ownerPrivateKey.rawValue)
-                AppSettings.setSigningKeyAddress(nil)
+                    forKey: KeychainKey.ownerPrivateKey.rawValue)                
+                App.shared.settings.updateSigningKeyAddress()
                 App.shared.notificationHandler.signingKeyUpdated()
                 App.shared.snackbar.show(message: "Owner key removed from this app")
                 Tracker.shared.setUserProperty("0", for: TrackingUserProperty.numKeysImported)
@@ -217,7 +224,7 @@ class AppSettingsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.General.importedKey(_, _):
-            return ImportedKeyCell.rowHeight
+            return UITableView.automaticDimension
         case Section.General.appVersion(_, _), Section.General.network(_, _):
             return InfoCell.rowHeight
         default:
