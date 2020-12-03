@@ -19,6 +19,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ZC-Wr-TEa" customClass="AddressInfoViewWithTitle" customModule="Multisig" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="123"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYT-Q6-M41">
                         <rect key="frame" x="0.0" y="123" width="414" height="2"/>
                         <color key="backgroundColor" name="white"/>
@@ -26,35 +30,20 @@
                             <constraint firstAttribute="height" constant="2" id="e97-SN-KgF"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZr-lS-KQR">
-                        <rect key="frame" x="16" y="16" width="382" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXw-fU-tjL" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="37" width="414" height="86"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="fZr-lS-KQR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="1xj-qh-Kph"/>
-                    <constraint firstItem="fZr-lS-KQR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="5q7-eL-HBW"/>
-                    <constraint firstAttribute="trailing" secondItem="fZr-lS-KQR" secondAttribute="trailing" constant="16" id="61r-yT-ylG"/>
-                    <constraint firstItem="VYT-Q6-M41" firstAttribute="top" secondItem="wXw-fU-tjL" secondAttribute="bottom" id="BuS-bI-rSZ"/>
+                    <constraint firstItem="0ZC-Wr-TEa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1So-f4-Cuw"/>
+                    <constraint firstItem="0ZC-Wr-TEa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9hr-7l-SLi"/>
                     <constraint firstAttribute="bottom" secondItem="VYT-Q6-M41" secondAttribute="bottom" id="av8-yQ-G7k"/>
-                    <constraint firstAttribute="trailing" secondItem="wXw-fU-tjL" secondAttribute="trailing" id="cJG-kz-W8z"/>
                     <constraint firstAttribute="trailing" secondItem="VYT-Q6-M41" secondAttribute="trailing" id="eUi-RW-3az"/>
                     <constraint firstItem="VYT-Q6-M41" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fSA-X5-vll"/>
-                    <constraint firstItem="wXw-fU-tjL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fXN-e3-jeY"/>
-                    <constraint firstItem="wXw-fU-tjL" firstAttribute="top" secondItem="fZr-lS-KQR" secondAttribute="bottom" id="ueK-9d-Wzo"/>
+                    <constraint firstAttribute="trailing" secondItem="0ZC-Wr-TEa" secondAttribute="trailing" id="oyf-ki-axl"/>
+                    <constraint firstItem="VYT-Q6-M41" firstAttribute="top" secondItem="0ZC-Wr-TEa" secondAttribute="bottom" id="waD-CD-wWu"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="addressInfoView" destination="wXw-fU-tjL" id="Q02-1w-VXe"/>
-                <outlet property="titleLabel" destination="fZr-lS-KQR" id="Urf-Nb-Ka4"/>
-                <outlet property="titleTopConstraint" destination="1xj-qh-Kph" id="B9i-AH-CcB"/>
+                <outlet property="addressInfoViewWithTitle" destination="0ZC-Wr-TEa" id="AYj-ux-eE1"/>
             </connections>
             <point key="canvasLocation" x="63.768115942028992" y="112.83482142857142"/>
         </tableViewCell>

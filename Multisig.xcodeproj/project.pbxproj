@@ -389,6 +389,12 @@
 		55AB394024A3454100148BEA /* LoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB393F24A3454100148BEA /* LoadableView.swift */; };
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
+		55B24E1A2578B42F00058809 /* DetailAccountAndTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B24E182578B42F00058809 /* DetailAccountAndTextCell.swift */; };
+		55B24E1B2578B42F00058809 /* DetailAccountAndTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B24E192578B42F00058809 /* DetailAccountAndTextCell.xib */; };
+		55B24E222578D2D500058809 /* DetailTwoAccountsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B24E202578D2D400058809 /* DetailTwoAccountsCell.swift */; };
+		55B24E232578D2D500058809 /* DetailTwoAccountsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B24E212578D2D400058809 /* DetailTwoAccountsCell.xib */; };
+		55B24E292578D72800058809 /* AddressInfoViewWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B24E282578D72800058809 /* AddressInfoViewWithTitle.swift */; };
+		55B24E2F2578D73900058809 /* AddressInfoViewWithTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B24E2E2578D73900058809 /* AddressInfoViewWithTitle.xib */; };
 		55B6464E25304F9B0050BD95 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6464D25304F9B0050BD95 /* Settings.swift */; };
 		55B6465A253050200050BD95 /* HashString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64657253050200050BD95 /* HashString.swift */; };
 		55B6465B253050200050BD95 /* SignatureString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64658253050200050BD95 /* SignatureString.swift */; };
@@ -909,6 +915,12 @@
 		55AB393F24A3454100148BEA /* LoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableView.swift; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
+		55B24E182578B42F00058809 /* DetailAccountAndTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAccountAndTextCell.swift; sourceTree = "<group>"; };
+		55B24E192578B42F00058809 /* DetailAccountAndTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailAccountAndTextCell.xib; sourceTree = "<group>"; };
+		55B24E202578D2D400058809 /* DetailTwoAccountsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTwoAccountsCell.swift; sourceTree = "<group>"; };
+		55B24E212578D2D400058809 /* DetailTwoAccountsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTwoAccountsCell.xib; sourceTree = "<group>"; };
+		55B24E282578D72800058809 /* AddressInfoViewWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInfoViewWithTitle.swift; sourceTree = "<group>"; };
+		55B24E2E2578D73900058809 /* AddressInfoViewWithTitle.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressInfoViewWithTitle.xib; sourceTree = "<group>"; };
 		55B6464D25304F9B0050BD95 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		55B64657253050200050BD95 /* HashString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashString.swift; sourceTree = "<group>"; };
 		55B64658253050200050BD95 /* SignatureString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureString.swift; sourceTree = "<group>"; };
@@ -2142,6 +2154,8 @@
 			children = (
 				558835EE255BFEDB0014E8C7 /* AddressInfoView.swift */,
 				558835F8255BFEF80014E8C7 /* AddressInfoView.xib */,
+				55B24E282578D72800058809 /* AddressInfoViewWithTitle.swift */,
+				55B24E2E2578D73900058809 /* AddressInfoViewWithTitle.xib */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -2239,6 +2253,10 @@
 				5588365325652E4B0014E8C7 /* LoadingValueCell.xib */,
 				5596713825778BA00097D3A2 /* DetailAccountCell.swift */,
 				5596713925778BA00097D3A2 /* DetailAccountCell.xib */,
+				55B24E182578B42F00058809 /* DetailAccountAndTextCell.swift */,
+				55B24E192578B42F00058809 /* DetailAccountAndTextCell.xib */,
+				55B24E202578D2D400058809 /* DetailTwoAccountsCell.swift */,
+				55B24E212578D2D400058809 /* DetailTwoAccountsCell.xib */,
 			);
 			path = ReusableCells;
 			sourceTree = "<group>";
@@ -2508,6 +2526,8 @@
 				558835F9255BFEF80014E8C7 /* AddressInfoView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */,
+				55B24E1B2578B42F00058809 /* DetailAccountAndTextCell.xib in Resources */,
+				55B24E2F2578D73900058809 /* AddressInfoViewWithTitle.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				0ADA911A2565785E0004DEC0 /* TransactionListTableViewCell.xib in Resources */,
 				5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */,
@@ -2531,6 +2551,7 @@
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
 				0AE46C8D257684DF001DC62B /* BackupLoadSafeViewController.xib in Resources */,
+				55B24E232578D2D500058809 /* DetailTwoAccountsCell.xib in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
@@ -2778,6 +2799,7 @@
 				0A0983A424BC5C93009EE296 /* BlockchainTokenStore.swift in Sources */,
 				0AF1C8952541AD4E00E28669 /* ScrollableDataErrorView.swift in Sources */,
 				0A451BF0252DDB49001DB7D2 /* NoDataView.swift in Sources */,
+				55B24E222578D2D500058809 /* DetailTwoAccountsCell.swift in Sources */,
 				046D0A452497BED8000F4021 /* TransactionStatusTypeView.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
 				0AD062E62577AE7E0030810D /* TransactionDetailCellBuilder.swift in Sources */,
@@ -2810,6 +2832,7 @@
 				0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */,
 				0ACB4CD5256BC2B000845BF4 /* TransactionDetailsViewController.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
+				55B24E1A2578B42F00058809 /* DetailAccountAndTextCell.swift in Sources */,
 				0A704A592473FA04005BDC49 /* BottomTabButton.swift in Sources */,
 				0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */,
 				04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */,
@@ -3019,6 +3042,7 @@
 				0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */,
 				043ABD1124EF0C33008826D5 /* SCGModels.swift in Sources */,
 				043ABD1024EF0C33008826D5 /* TransactionSummaryListRequest.swift in Sources */,
+				55B24E292578D72800058809 /* AddressInfoViewWithTitle.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				046D0A73249A5ED5000F4021 /* AddRemoveOwnerTransactionDetailsHeaderView.swift in Sources */,
 				0AD1D8FD252620D500B8EEFF /* CollectibleBalancesView.swift in Sources */,
