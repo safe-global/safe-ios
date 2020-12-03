@@ -245,6 +245,8 @@
 		0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC60C8E2549C9F300A63AE2 /* SegmentView.xib */; };
 		0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C8282540914600E28669 /* NoSafesViewController.swift */; };
 		0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC94457254068D800921CA5 /* NSNotification+Events.swift */; };
+		0ACB4CD5256BC2B000845BF4 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */; };
+		0ACB4CDB256BCD6900845BF4 /* SwiftUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB4CDA256BCD6900845BF4 /* SwiftUITableViewCell.swift */; };
 		0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */; };
 		0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */; };
 		0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDBFFC248E4C5D002035A2 /* Configuration.swift */; };
@@ -272,6 +274,8 @@
 		0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */; };
 		0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */; };
 		0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */; };
+		0AE46C87257684B8001DC62B /* BackupLoadSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE46C86257684B8001DC62B /* BackupLoadSafeViewController.swift */; };
+		0AE46C8D257684DF001DC62B /* BackupLoadSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE46C8C257684DF001DC62B /* BackupLoadSafeViewController.xib */; };
 		0AEDCE0724728D7100A1EC80 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEDCE0624728D7100A1EC80 /* BackButton.swift */; };
 		0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEDCE0A2472946600A1EC80 /* BarButton.swift */; };
 		0AEE149F2540233C00046EE7 /* UINibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEE149E2540233C00046EE7 /* UINibView.swift */; };
@@ -712,6 +716,8 @@
 		0AC60C882549C9D800A63AE2 /* SegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentView.swift; sourceTree = "<group>"; };
 		0AC60C8E2549C9F300A63AE2 /* SegmentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentView.xib; sourceTree = "<group>"; };
 		0AC94457254068D800921CA5 /* NSNotification+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Events.swift"; sourceTree = "<group>"; };
+		0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
+		0ACB4CDA256BCD6900845BF4 /* SwiftUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUITableViewCell.swift; sourceTree = "<group>"; };
 		0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafe.swift; sourceTree = "<group>"; };
 		0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafeTests.swift; sourceTree = "<group>"; };
 		0ACDBFFC248E4C5D002035A2 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -737,6 +743,8 @@
 		0ADDA2102453467A0066457E /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		0ADDA21224534F1B0066457E /* EnterSafeNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameViewModel.swift; sourceTree = "<group>"; };
 		0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		0AE46C86257684B8001DC62B /* BackupLoadSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupLoadSafeViewController.swift; sourceTree = "<group>"; };
+		0AE46C8C257684DF001DC62B /* BackupLoadSafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BackupLoadSafeViewController.xib; sourceTree = "<group>"; };
 		0AEDCE0624728D7100A1EC80 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		0AEDCE0A2472946600A1EC80 /* BarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButton.swift; sourceTree = "<group>"; };
 		0AEE149E2540233C00046EE7 /* UINibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINibView.swift; sourceTree = "<group>"; };
@@ -1297,8 +1305,11 @@
 				0A53EBB1253F341600E6ACD0 /* UI Library */,
 				0AB9900F2562D93500499219 /* LoadSafeViewController.swift */,
 				0AB990102562D93500499219 /* LoadSafeViewController.xib */,
+				0AE46C86257684B8001DC62B /* BackupLoadSafeViewController.swift */,
+				0AE46C8C257684DF001DC62B /* BackupLoadSafeViewController.xib */,
 				0ADA9127256591410004DEC0 /* TransactionlListViewController */,
 				049C24EA2575477900897D3C /* UIViewController+Tracking.swift */,
+				0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -2207,6 +2218,7 @@
 		55BCFC53255461FF00020CE7 /* ReusableCells */ = {
 			isa = PBXGroup;
 			children = (
+				0ACB4CDA256BCD6900845BF4 /* SwiftUITableViewCell.swift */,
 				55BCFC542554627100020CE7 /* BasicCell.swift */,
 				55BCFC552554627100020CE7 /* BasicCell.xib */,
 				558835E5255AEA390014E8C7 /* InfoCell.swift */,
@@ -2504,6 +2516,7 @@
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
+				0AE46C8D257684DF001DC62B /* BackupLoadSafeViewController.xib in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
@@ -2711,6 +2724,7 @@
 				04769165246408D000D73D8B /* AdvancedSafeSettingsView.swift in Sources */,
 				043ABD1324EF373D008826D5 /* ParameterValueView.swift in Sources */,
 				0AA9F263249A188C005BD60F /* AdvancedTransactionDetailsView.swift in Sources */,
+				0ACB4CDB256BCD6900845BF4 /* SwiftUITableViewCell.swift in Sources */,
 				55F9A30C2475375B00ABBA6F /* AssetsView.swift in Sources */,
 				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
 				04C7C4432490FA3C00D869C1 /* TransactionConfirmationCell.swift in Sources */,
@@ -2778,6 +2792,7 @@
 				55883600255C00A40014E8C7 /* ImportedKeyCell.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */,
+				0ACB4CD5256BC2B000845BF4 /* TransactionDetailsViewController.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
 				0A704A592473FA04005BDC49 /* BottomTabButton.swift in Sources */,
 				0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */,
@@ -2892,6 +2907,7 @@
 				0A791DA124D30FE100D70DA9 /* Spacing.swift in Sources */,
 				55A58534250140B1005E778B /* PrivateKey.swift in Sources */,
 				55B6465C253050200050BD95 /* Transaction.swift in Sources */,
+				0AE46C87257684B8001DC62B /* BackupLoadSafeViewController.swift in Sources */,
 				0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */,
 				0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */,
 				04B1888A256EADEF00544B71 /* StyledButton.swift in Sources */,

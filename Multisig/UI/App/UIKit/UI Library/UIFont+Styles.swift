@@ -68,3 +68,72 @@ extension UILabel {
         attributedText = NSAttributedString(string: text, attributes: attributes)
     }
 }
+
+struct GNOButtonAppearance {
+    var backgroundImage: UIImage?
+    var textAttributes: [NSAttributedString.Key: Any] = [:]
+
+    func attributedString(_ text: String) -> NSAttributedString {
+        .init(string: text, attributes: textAttributes)
+    }
+}
+
+struct GNOButtonStyle {
+    var appearance: [(UIControl.State, GNOButtonAppearance)] = []
+}
+
+extension GNOButtonStyle {
+    static let plain = GNOButtonStyle(appearance: [
+        (.normal, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
+            .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 1),
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ])),
+        (.highlighted, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
+            .foregroundColor: #colorLiteral(red: 0, green: 0.3333333333, blue: 0.2745098039, alpha: 1),
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ])),
+        (.disabled, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
+            .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 0.5),
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ]))
+    ])
+
+    static let bordered = GNOButtonStyle(appearance: [
+        (.normal, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-bordered-normal"), textAttributes: [
+            .foregroundColor: #colorLiteral(red: 0, green: 0.07843137255, blue: 0.1568627451, alpha: 1),
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ])),
+        (.highlighted, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-bordered-pressed"), textAttributes: [
+            .foregroundColor: #colorLiteral(red: 0, green: 0.07843137255, blue: 0.1568627451, alpha: 1).withAlphaComponent(0.7),
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ])),
+        (.disabled, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-bordered-inactive"), textAttributes: [
+            .foregroundColor: #colorLiteral(red: 0, green: 0.07843137255, blue: 0.1568627451, alpha: 1).withAlphaComponent(0.5),
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ]))
+    ])
+
+    static let filled = GNOButtonStyle(appearance: [
+        (.normal, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-filled-normal"), textAttributes: [
+            .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ])),
+        (.highlighted, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-filled-pressed"), textAttributes: [
+            .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ])),
+        (.disabled, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-filled-inactive"), textAttributes: [
+            .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ]))
+    ])
+}
+
+extension UIButton {
+    func setText(_ text: String, _ style: GNOButtonStyle) {
+        for (state, appearance) in style.appearance {
+            setAttributedTitle(appearance.attributedString(text), for: state)
+            setBackgroundImage(appearance.backgroundImage, for: state)
+        }
+    }
+}
