@@ -29,6 +29,11 @@ final class SwitchSafesViewController: UITableViewController {
         reloadData()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.safeSwitch)
+    }
+
     private func reloadData() {
         do {
             safes = try Safe.getAll()

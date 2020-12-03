@@ -9,20 +9,24 @@
 import UIKit
 
 class ImportedKeyCell: UITableViewCell {
-    @IBOutlet private weak var addressWithTitleView: AddressWithTitleView!
+    @IBOutlet private weak var addressInfoView: AddressInfoView!
+
     var onRemove: (() -> Void)?
 
-    static let rowHeight: CGFloat = 68
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addressInfoView.setDetailImage(
+            UIImage(systemName: "trash",
+                    withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))!,
+            tintColor: .gnoTomato)
+        addressInfoView.onDisclosureButtonAction = removeKey
+    }
 
-    @IBAction func removeKey() {
+    func setAddressInfo(_ addressInfo: AddressInfo) {
+        addressInfoView.setAddressInfo(addressInfo)
+    }
+
+    private func removeKey() {
         onRemove?()
-    }
-
-    func setAddress(_ value: Address) {
-        addressWithTitleView.setAddress(value)
-    }
-
-    func setName(_ value: String) {
-        addressWithTitleView.setName(value)
     }
 }

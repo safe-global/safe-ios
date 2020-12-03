@@ -44,6 +44,11 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         emptyView.setText("Balances will appear here")
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.assetsCoins)
+    }
+
     override func reloadData() {
         super.reloadData()
         currentDataTask?.cancel()

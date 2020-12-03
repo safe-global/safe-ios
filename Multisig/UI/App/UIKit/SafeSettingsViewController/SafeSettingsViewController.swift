@@ -67,8 +67,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.dataSource = self
         tableView.backgroundColor = tableBackgroundColor
         tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 68
+
         tableView.registerCell(BasicCell.self)
-        tableView.registerCell(AddressDetailsCell.self)
+        tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(ContractVersionStatusCell.self)
         tableView.registerCell(LoadingValueCell.self)
         tableView.registerCell(RemoveSafeCell.self)
@@ -77,6 +80,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         // update all safe info on changing safe name
         notificationCenter.addObserver(
             self, selector: #selector(didChangeSafe), name: .selectedSafeUpdated, object: nil)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.settingsSafe)
     }
 
     override func reloadData() {
@@ -195,9 +203,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     private func addressDetailsCell(address: String, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(AddressDetailsCell.self, for: indexPath)
-        cell.setAddress(Address(exactly: address))
-        cell.setStyle(.address)
+        let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
+        cell.setAccount(addressInfo: AddressInfo(address: Address(exactly: address), label: nil), title: nil)
         cell.selectionStyle = .none
         cell.onViewDetails = { [unowned self] in
             self.openInSafari(Safe.browserURL(address: address))
@@ -267,10 +274,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.OwnerAddresses.owner(_):
-            return AddressDetailsCell.rowHeight
+            return UITableView.automaticDimension
 
         case Section.ContractVersion.contractVersion(_):
-            return ContractVersionStatusCell.rowHeight
+            return UITableView.automaticDimension
 
         case Section.EnsName.ensName:
             return LoadingValueCell.rowHeight
