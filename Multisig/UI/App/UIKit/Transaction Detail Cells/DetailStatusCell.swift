@@ -9,15 +9,17 @@
 import UIKit
 
 class DetailStatusCell: UITableViewCell {
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var statusIconImageView: UIImageView!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var containerStackView: UIStackView!
+    @IBOutlet private weak var iconImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var appendixLabel: UILabel!
+    @IBOutlet private weak var statusIconImageView: UIImageView!
+    @IBOutlet private weak var statusLabel: UILabel!
+    @IBOutlet private weak var bottomStackView: UIStackView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.body)
+        appendixLabel.setStyle(.body)
         statusLabel.setStyle(.body)
     }
 
@@ -31,9 +33,11 @@ class DetailStatusCell: UITableViewCell {
 
     func setStatus(_ status: SCG.TxStatus) {
         statusLabel.text = status.title
-        containerStackView.axis = status.isWaiting ? .vertical : .horizontal
-        statusIconImageView.isHidden = !status.isWaiting
+        appendixLabel.text = status.title
+        appendixLabel.isHidden = status.isWaiting
+        bottomStackView.isHidden = !status.isWaiting
         statusLabel.textColor = statusColor(status: status)
+        appendixLabel.textColor = statusColor(status: status)
     }
 
     func statusColor(status: SCG.TxStatus) -> UIColor {
