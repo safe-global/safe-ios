@@ -20,6 +20,8 @@ class DetailTransferInfoCell: UITableViewCell {
         addressInfoView = AddressInfoView(frame: stackView.bounds)
         arrowView = DetailArrowPiece(frame: stackView.bounds)
 
+        // Because we created the views programmatically, we set the
+        // heights in code:
         NSLayoutConstraint.activate([
             tokenInfoView.heightAnchor.constraint(equalToConstant: 44),
             addressInfoView.heightAnchor.constraint(equalToConstant: 44),
