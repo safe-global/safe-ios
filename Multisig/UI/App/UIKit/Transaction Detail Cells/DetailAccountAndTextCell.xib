@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="165" id="yoj-7e-CG3" customClass="DetailAccountAndTextCell" customModule="Multisig" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="165"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yoj-7e-CG3" id="Fvx-qB-t1U">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="165"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="3Of-lZ-kgd">
+                        <rect key="frame" x="16" y="12" width="382" height="139"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TtY-Di-EUE" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="382" height="73"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="73" id="XWY-SH-19T"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="EA2-la-vor">
+                                <rect key="frame" x="0.0" y="85" width="382" height="54"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGH-jy-VWN">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ds-wK-Z8k">
+                                        <rect key="frame" x="0.0" y="26.5" width="382" height="27.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDc-eR-Dcv">
+                        <rect key="frame" x="0.0" y="163" width="414" height="2"/>
+                        <color key="backgroundColor" name="white"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="Rhu-4M-y1C"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="xDc-eR-Dcv" secondAttribute="trailing" id="8MZ-EK-uBP"/>
+                    <constraint firstAttribute="bottom" secondItem="xDc-eR-Dcv" secondAttribute="bottom" id="ACi-rR-B3t"/>
+                    <constraint firstAttribute="trailing" secondItem="3Of-lZ-kgd" secondAttribute="trailing" constant="16" id="B4M-dR-7vk"/>
+                    <constraint firstItem="xDc-eR-Dcv" firstAttribute="leading" secondItem="Fvx-qB-t1U" secondAttribute="leading" id="Ceh-5K-ff8"/>
+                    <constraint firstItem="3Of-lZ-kgd" firstAttribute="leading" secondItem="Fvx-qB-t1U" secondAttribute="leading" constant="16" id="Q5h-uj-ICW"/>
+                    <constraint firstItem="3Of-lZ-kgd" firstAttribute="top" secondItem="Fvx-qB-t1U" secondAttribute="top" constant="12" id="t8c-gY-HlT"/>
+                    <constraint firstItem="xDc-eR-Dcv" firstAttribute="top" secondItem="3Of-lZ-kgd" secondAttribute="bottom" constant="12" id="xaL-9e-huY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="tJx-7Y-fEK"/>
+            <connections>
+                <outlet property="addressInfoView" destination="TtY-Di-EUE" id="EBm-mb-SLY"/>
+                <outlet property="textDetailsLabel" destination="6Ds-wK-Z8k" id="blF-Uf-JVu"/>
+                <outlet property="textTitleLabel" destination="hGH-jy-VWN" id="4If-Ke-OTz"/>
+            </connections>
+            <point key="canvasLocation" x="63.768115942028992" y="126.22767857142857"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="white">
+            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

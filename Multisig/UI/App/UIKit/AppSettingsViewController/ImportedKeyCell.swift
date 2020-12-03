@@ -11,22 +11,18 @@ import UIKit
 class ImportedKeyCell: UITableViewCell {
     @IBOutlet private weak var addressInfoView: AddressInfoView!
 
-    var onRemove: (() -> Void)?
-
     override func awakeFromNib() {
         super.awakeFromNib()
-        addressInfoView.setDetailImage(
-            UIImage(systemName: "trash",
-                    withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))!,
-            tintColor: .gnoTomato)
-        addressInfoView.onDisclosureButtonAction = removeKey
+        let image = UIImage(systemName: "trash")?.applyingSymbolConfiguration( .init(weight: .semibold))
+        addressInfoView.setDetailImage(image, tintColor: .gnoTomato)
     }
 
-    func setAddressInfo(_ addressInfo: AddressInfo) {
-        addressInfoView.setAddressInfo(addressInfo)
+    func setAddress(_ address: String, label: String? = nil) {
+        setAddress(.init(exactly: address), label: label)
     }
 
-    private func removeKey() {
-        onRemove?()
+    func setAddress(_ address: Address, label: String? = nil) {
+        addressInfoView.setAddress(address, label: label)
     }
+
 }

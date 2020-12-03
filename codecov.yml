@@ -2,3 +2,7 @@ ignore:
   - "bin"
   - "Build"
   - "Pods"
+
+github_checks:
+  annotations: false
+

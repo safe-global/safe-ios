@@ -9,9 +9,6 @@
 import SwiftUI
 
 struct AdvancedTransactionDetailsView: View {
-    @ObservedObject
-    var theme: Theme = App.shared.theme
-    
     let transactionViewModel: TransactionViewModel
     private let padding: CGFloat = 11
 
