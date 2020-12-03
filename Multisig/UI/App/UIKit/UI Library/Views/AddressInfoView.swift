@@ -18,6 +18,7 @@ extension UIViewController {
 }
 
 class AddressInfoView: UINibView {
+    @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var identiconView: UIImageView!
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var addressLabel: UILabel!
@@ -29,8 +30,15 @@ class AddressInfoView: UINibView {
 
     override func commonInit() {
         super.commonInit()
+        titleLabel.setStyle(.headline)
         textLabel.setStyle(.headline)
         addressLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+        setTitle(nil)
+    }
+
+    func setTitle(_ text: String?) {
+        titleLabel.text = text
+        titleLabel.isHidden = text == nil
     }
 
     func setAddress(_ address: Address, label: String?) {

@@ -21,6 +21,8 @@ class TransactionDetailCellBuilder {
         tableView.registerCell(DetailExpandableTextCell.self)
         tableView.registerCell(DetailConfirmationCell.self)
         tableView.registerCell(DetailAccountCell.self)
+        tableView.registerCell(DetailAccountAndTextCell.self)
+        tableView.registerCell(DetailMultiAccountsCell.self)
     }
 
     func build(from tx: SCG.TransactionDetails) -> [UITableViewCell] {
@@ -41,12 +43,18 @@ class TransactionDetailCellBuilder {
 
             address(.zero, label: nil, title: nil)
 
+            addressAndText(.zero, label: nil, addressTitle: "Address:", text: "Some value", textTitle: "Some title")
+
+            addresses([(address: .zero, label: nil, title: "Remove owner:"),
+                       (address: .zero, label: nil, title: "Add owner:")])
+
             confirmation([.zero, .zero], required: 1, status: .awaitingConfirmations, executor: .zero)
 
             confirmation([.zero, .zero], required: 0, status: .awaitingExecution, executor: .zero)
 
             // this should not happen, i.e. this will be a backend error
             confirmation([.zero, .zero], required: 0, status: .awaitingConfirmations, executor: .zero)
+
 
             confirmation([.zero, .zero], required: 1, status: .awaitingYourConfirmation, executor: .zero)
             confirmation([.zero, .zero], required: 1, status: .failed, executor: .zero)
@@ -71,10 +79,6 @@ class TransactionDetailCellBuilder {
             cell.setCopyText(copyText)
             cell.setExpandableTitle(expandableTitle)
             result.append(cell)
-        }
-
-        func expandableText(_ text: String, title: String, collapsedText: String, copyText: String?) {
-            
         }
 
         func confirmation(_ confirmations: [Address], required: Int, status: SCG.TxStatus, executor: Address?) {
@@ -104,15 +108,21 @@ class TransactionDetailCellBuilder {
             let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
             cell.setAccount(address: address.checksummed, label: label, title: title)
             result.append(cell)
-
         }
 
-        func addressAndText(_ address: Address, addressTitle: String, text: String, textTitle: String) {
-
+        func addressAndText(_ address: Address, label: String?, addressTitle: String, text: String, textTitle: String) {
+            let indexPath = IndexPath(row: result.count, section: 0)
+            let cell = tableView.dequeueCell(DetailAccountAndTextCell.self, for: indexPath)
+            cell.setText(title: textTitle, details: text)
+            cell.setAccount(address: address, label: label, title: addressTitle)
+            result.append(cell)
         }
 
-        func addresses(_ accounts: [(account: Address, title: String)]) {
-
+        func addresses(_ accounts: [(address: Address, label: String?, title: String?)]) {
+            let indexPath = IndexPath(row: result.count, section: 0)
+            let cell = tableView.dequeueCell(DetailMultiAccountsCell.self, for: indexPath)
+            cell.setAccounts(accounts: accounts)
+            result.append(cell)
         }
 
         buildTransaction()
