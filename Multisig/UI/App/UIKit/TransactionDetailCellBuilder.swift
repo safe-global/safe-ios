@@ -23,6 +23,8 @@ class TransactionDetailCellBuilder {
         tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(DetailAccountAndTextCell.self)
         tableView.registerCell(DetailMultiAccountsCell.self)
+        tableView.registerCell(DetailDisclosingCell.self)
+        tableView.registerCell(ExternalURLCell.self)
     }
 
     func build(from tx: SCG.TransactionDetails) -> [UITableViewCell] {
@@ -60,14 +62,26 @@ class TransactionDetailCellBuilder {
             confirmation([.zero, .zero], required: 1, status: .failed, executor: .zero)
             confirmation([.zero, .zero], required: 1, status: .success, executor: .zero)
             confirmation([.zero, .zero], required: 1, status: .cancelled, executor: .zero)
+
+            disclosure(text: "Advanced", action: {
+                print("Advanced")
+            })
+
+            externalURL(text: "View transaction on Etherscan", url: URL(string: "https://twitter.com/")!)
         }
 
-        func disclosure(text: String, action: () -> Void) {
-
+        func disclosure(text: String, action: @escaping () -> Void) {
+            let indexPath = IndexPath(row: result.count, section: 0)
+            let cell = tableView.dequeueCell(DetailDisclosingCell.self, for: indexPath)
+            cell.action = action
+            result.append(cell)
         }
 
         func externalURL(text: String, url: URL) {
-
+            let indexPath = IndexPath(row: result.count, section: 0)
+            let cell = tableView.dequeueCell(ExternalURLCell.self, for: indexPath)
+            cell.setText(text, url: url)
+            result.append(cell)
         }
 
         func text(_ text: String, title: String, expandableTitle: String?, copyText: String?) {
