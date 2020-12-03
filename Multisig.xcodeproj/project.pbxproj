@@ -381,6 +381,8 @@
 		55AB394024A3454100148BEA /* LoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB393F24A3454100148BEA /* LoadableView.swift */; };
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
+		55B24E1A2578B42F00058809 /* DetailAccountAndTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B24E182578B42F00058809 /* DetailAccountAndTextCell.swift */; };
+		55B24E1B2578B42F00058809 /* DetailAccountAndTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B24E192578B42F00058809 /* DetailAccountAndTextCell.xib */; };
 		55B6464E25304F9B0050BD95 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6464D25304F9B0050BD95 /* Settings.swift */; };
 		55B6465A253050200050BD95 /* HashString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64657253050200050BD95 /* HashString.swift */; };
 		55B6465B253050200050BD95 /* SignatureString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64658253050200050BD95 /* SignatureString.swift */; };
@@ -893,6 +895,8 @@
 		55AB393F24A3454100148BEA /* LoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableView.swift; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
+		55B24E182578B42F00058809 /* DetailAccountAndTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAccountAndTextCell.swift; sourceTree = "<group>"; };
+		55B24E192578B42F00058809 /* DetailAccountAndTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailAccountAndTextCell.xib; sourceTree = "<group>"; };
 		55B6464D25304F9B0050BD95 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		55B64657253050200050BD95 /* HashString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashString.swift; sourceTree = "<group>"; };
 		55B64658253050200050BD95 /* SignatureString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureString.swift; sourceTree = "<group>"; };
@@ -2215,6 +2219,8 @@
 				5588365325652E4B0014E8C7 /* LoadingValueCell.xib */,
 				5596713825778BA00097D3A2 /* DetailAccountCell.swift */,
 				5596713925778BA00097D3A2 /* DetailAccountCell.xib */,
+				55B24E182578B42F00058809 /* DetailAccountAndTextCell.swift */,
+				55B24E192578B42F00058809 /* DetailAccountAndTextCell.xib */,
 			);
 			path = ReusableCells;
 			sourceTree = "<group>";
@@ -2484,6 +2490,7 @@
 				558835F9255BFEF80014E8C7 /* AddressInfoView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */,
+				55B24E1B2578B42F00058809 /* DetailAccountAndTextCell.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				0ADA911A2565785E0004DEC0 /* TransactionListTableViewCell.xib in Resources */,
 				5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */,
@@ -2779,6 +2786,7 @@
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
+				55B24E1A2578B42F00058809 /* DetailAccountAndTextCell.swift in Sources */,
 				0A704A592473FA04005BDC49 /* BottomTabButton.swift in Sources */,
 				0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */,
 				04BFB55B2459785D00090386 /* KeyboadHandler.swift in Sources */,
