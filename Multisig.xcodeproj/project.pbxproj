@@ -150,6 +150,8 @@
 		0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */; };
 		0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */; };
 		0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307452543273F00E8A270 /* UIViewController+UINib.swift */; };
+		0A57C5A42577DC5600420303 /* DetailExpandableTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C5A22577DC5600420303 /* DetailExpandableTextCell.swift */; };
+		0A57C5A52577DC5600420303 /* DetailExpandableTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5A32577DC5600420303 /* DetailExpandableTextCell.xib */; };
 		0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */; };
 		0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */; };
 		0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */; };
@@ -253,6 +255,7 @@
 		0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDBFFC248E4C5D002035A2 /* Configuration.swift */; };
 		0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDC01424925A96002035A2 /* FirebaseConfig.swift */; };
 		0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACEF00024C1DE620040A058 /* AddressImage.swift */; };
+		0AD062E62577AE7E0030810D /* TransactionDetailCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD062E52577AE7E0030810D /* TransactionDetailCellBuilder.swift */; };
 		0AD1D8F7252619E700B8EEFF /* CoinBalances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D8F6252619E700B8EEFF /* CoinBalances.swift */; };
 		0AD1D8FD252620D500B8EEFF /* CollectibleBalancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D8FC252620D500B8EEFF /* CollectibleBalancesView.swift */; };
 		0AD1D9032526238A00B8EEFF /* LoadingTransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D9022526238A00B8EEFF /* LoadingTransactionListView.swift */; };
@@ -611,6 +614,8 @@
 		0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmTransactionRequest.swift; sourceTree = "<group>"; };
 		0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionSigner.swift; sourceTree = "<group>"; };
 		0A5307452543273F00E8A270 /* UIViewController+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINib.swift"; sourceTree = "<group>"; };
+		0A57C5A22577DC5600420303 /* DetailExpandableTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailExpandableTextCell.swift; sourceTree = "<group>"; };
+		0A57C5A32577DC5600420303 /* DetailExpandableTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailExpandableTextCell.xib; sourceTree = "<group>"; };
 		0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoViewController.swift; sourceTree = "<group>"; };
 		0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeInfoViewController.xib; sourceTree = "<group>"; };
 		0A5C2E1325628E30009808CB /* SnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarViewController.swift; sourceTree = "<group>"; };
@@ -727,6 +732,7 @@
 		0ACDC012249253D7002035A2 /* Firebase */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Firebase; sourceTree = "<group>"; };
 		0ACDC01424925A96002035A2 /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		0ACEF00024C1DE620040A058 /* AddressImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressImage.swift; sourceTree = "<group>"; };
+		0AD062E52577AE7E0030810D /* TransactionDetailCellBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailCellBuilder.swift; sourceTree = "<group>"; };
 		0AD1D8F6252619E700B8EEFF /* CoinBalances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinBalances.swift; sourceTree = "<group>"; };
 		0AD1D8FC252620D500B8EEFF /* CollectibleBalancesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleBalancesView.swift; sourceTree = "<group>"; };
 		0AD1D9022526238A00B8EEFF /* LoadingTransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTransactionListView.swift; sourceTree = "<group>"; };
@@ -1313,6 +1319,9 @@
 				0ADA9127256591410004DEC0 /* TransactionlListViewController */,
 				049C24EA2575477900897D3C /* UIViewController+Tracking.swift */,
 				0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */,
+				0AD062E52577AE7E0030810D /* TransactionDetailCellBuilder.swift */,
+				0A57C5A22577DC5600420303 /* DetailExpandableTextCell.swift */,
+				0A57C5A32577DC5600420303 /* DetailExpandableTextCell.xib */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -2503,6 +2512,8 @@
 				0ADA911A2565785E0004DEC0 /* TransactionListTableViewCell.xib in Resources */,
 				5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */,
 				0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */,
+				0A57C5A52577DC5600420303 /* DetailExpandableTextCell.xib in Resources */,
+				5588361E255D43000014E8C7 /* AddressDetailsCell.xib in Resources */,
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
@@ -2769,6 +2780,7 @@
 				0A451BF0252DDB49001DB7D2 /* NoDataView.swift in Sources */,
 				046D0A452497BED8000F4021 /* TransactionStatusTypeView.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
+				0AD062E62577AE7E0030810D /* TransactionDetailCellBuilder.swift in Sources */,
 				0A31ACE02540358E00D14FBF /* StateMachineTransactionDetailsViewModel.swift in Sources */,
 				04EF2AEB2492883A0070ED1A /* TransactionConfiramtionStatusView.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
@@ -2971,6 +2983,7 @@
 				046D0A6F249A446D000F4021 /* TransferTransactionDetailsHeaderView.swift in Sources */,
 				04A1F7D824AB73F60024DFF5 /* SetFallbackHandlerTransactionCellView.swift in Sources */,
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
+				0A57C5A42577DC5600420303 /* DetailExpandableTextCell.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */,
 				04C97AAA246ED32800EBA0F1 /* BasicAppSettingsView.swift in Sources */,

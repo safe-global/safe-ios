@@ -15,6 +15,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var cells: [UITableViewCell] = []
     private var tx: SCG.TransactionDetails?
     private var reloadDataTask: URLSessionTask?
+    private var builder: TransactionDetailCellBuilder!
 
     private enum TransactionSource {
         case id(String)
@@ -44,6 +45,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        builder = TransactionDetailCellBuilder(vc: self, tableView: tableView)
+
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -73,7 +76,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             case .success(let details):
                 DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }
-                    self.tx = details
+                    self.buildCells(from: details)
                     self.onSuccess()
                 }
             }
@@ -85,11 +88,16 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         case .safeTxHash(let safeTxHash):
             reloadDataTask = clientGatewayService.asyncTransactionDetailsV2(safeTxHash: safeTxHash, completion: loadingCompletion)
         case .data(let tx):
-            self.tx = tx
+            buildCells(from: tx)
             onSuccess()
         case .none:
             preconditionFailure("Developer error: txSource is required")
         }
+    }
+
+    func buildCells(from tx: SCG.TransactionDetails) {
+        self.tx = tx
+        cells = builder.build(from: tx)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
