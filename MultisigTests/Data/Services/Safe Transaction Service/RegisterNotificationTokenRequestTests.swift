@@ -28,24 +28,23 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
             version: "2.6.0",
             buildNumber: "1",
             timestamp: "1606319110027")
-        XCTAssertEqual(request.signatures, ["460ab62322407376576be061a6bfaaaa78cd1be4e0421d88cd635d0568ff2d473280d0edfd898bf1fd73f3fea8206ef91d6fbf6d9dc63b5d7d1378b8e4059f691c"])
+        XCTAssertEqual(request.signatures, ["0x05a119049f1385fc1c8785389a7f7c7c1c104d54ce0225a856ca580c6085d45428d26bbf273b3fe5428a921a5fbc6658e024e87ac0a3291ba8015949c0e7945d1c"])
 
         // test vector from requirements doc
         try! mockStore.save(data: privateKey(for: "display bless asset brother fish sauce lyrics grit friend online tumble useless"),
                             forKey: KeychainKey.ownerPrivateKey.rawValue)
         let request1 = try RegisterNotificationTokenRequest(
             deviceID: "33971c4e-fb98-4e18-a08d-13c881ae292a",
-            safes: [Address("0x4dEBDD6CEe25b2F931D2FE265D70e1a533B02453"), Address("0x72ac1760daF52986421b1552BdCa04707E78950e")],
+            safes: [Address("0x72ac1760daF52986421b1552BdCa04707E78950e"), Address("0x4dEBDD6CEe25b2F931D2FE265D70e1a533B02453")],
             token: "dSh5Se1XgEiTiY-4cv1ixY:APA91bG3vYjy9VgB3X3u5EsBphJABchb8Xgg2cOSSekPsxDsfE5xyBeu6gKY0wNhbJHgQUQQGocrHx0Shbx6JMFx2VOyhJx079AduN01NWD1-WjQerY5s3l-cLnHoNNn8fJfARqSUb3G",
             bundle: "io.gnosis.multisig.prod.mainnet",
             version: "2.7.0",
             buildNumber: "199",
-            timestamp: "1605186645155")
-        XCTAssertEqual(request1.signatures, ["671edd513d60363612071af9fb08f2414ab6984c3a669b0f29a6f9c885620b626814d1383731dc0fa985e86bd52e1cb6c3adcd75ff806856ece24f65d56d628d1c"])
+            timestamp: "1607013002")
+        XCTAssertEqual(request1.signatures, ["0x77a687a3e0021202c4d542a6aeccdb0a22bdcb722892d3a5082334d2c72468771a1e7aa303925a0115a09789c36a2a1e7bb5feb212bbd4db7c9f0c1ab01739291b"])
     }
 
     private func privateKey(for mnemonic: String) -> Data {
-        let mnemonic = "display bless asset brother fish sauce lyrics grit friend online tumble useless"
         let seedData = BIP39.seedFromMmemonics(mnemonic)!
         let rootNode = HDNode(seed: seedData)!.derive(path: HDNode.defaultPathMetamaskPrefix,
                                                       derivePrivateKey: true)!

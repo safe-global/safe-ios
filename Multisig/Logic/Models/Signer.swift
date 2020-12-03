@@ -40,7 +40,7 @@ class Signer {
         let signer = privateKey.address.hex(eip55: true)
         let eoaSignature = try privateKey.sign(hash: hash.bytes)
         let v = String(eoaSignature.v + 27, radix: 16)
-        let signature = "\(eoaSignature.r.toHexString())\(eoaSignature.s.toHexString())\(v)"
+        let signature = "0x\(eoaSignature.r.toHexString())\(eoaSignature.s.toHexString())\(v)"
         return Signature(value: signature, signer: signer)
     }
 }
