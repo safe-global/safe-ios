@@ -13,13 +13,14 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     var clientGatewayService = App.shared.clientGatewayService
 
     private var cells: [UITableViewCell] = []
-    private var transaction: TransactionViewModel?
+    private var tx: SCG.TransactionDetails?
     private var reloadDataTask: URLSessionTask?
+    private var builder: TransactionDetailCellBuilder!
 
     private enum TransactionSource {
         case id(String)
         case safeTxHash(Data)
-        case data(TransactionViewModel)
+        case data(SCG.TransactionDetails)
     }
 
     private var txSource: TransactionSource!
@@ -37,13 +38,15 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         txSource = .safeTxHash(safeTxHash)
     }
 
-    convenience init(transaction: TransactionViewModel) {
+    convenience init(transaction: SCG.TransactionDetails) {
         self.init(namedClass: Self.superclass())
         txSource = .data(transaction)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        builder = TransactionDetailCellBuilder(vc: self, tableView: tableView)
+
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -55,7 +58,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         super.reloadData()
         reloadDataTask?.cancel()
 
-        let loadingCompletion: (Result<TransactionDetails, Error>) -> Void = { [weak self] result in
+        let loadingCompletion: (Result<SCG.TransactionDetails, Error>) -> Void = { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .failure(let error):
@@ -71,14 +74,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     self.onError(error)
                 }
             case .success(let details):
-                guard let model = TransactionViewModel.create(from: details).first else {
-                    self.onError(LoadingTransactionDetailsFailure.unsupportedTransaction)
-                    return
-                }
-
                 DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }
-                    self.recreateCells(from: model)
+                    self.buildCells(from: details)
                     self.onSuccess()
                 }
             }
@@ -86,22 +84,21 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         switch txSource {
         case .id(let txID):
-            reloadDataTask = clientGatewayService.asyncTransactionDetails(id: TransactionID(value: txID), completion: loadingCompletion)
+            reloadDataTask = clientGatewayService.asyncTransactionDetailsV2(id: txID, completion: loadingCompletion)
         case .safeTxHash(let safeTxHash):
-            reloadDataTask = clientGatewayService.asyncTransactionDetails(safeTxHash: safeTxHash, completion: loadingCompletion)
+            reloadDataTask = clientGatewayService.asyncTransactionDetailsV2(safeTxHash: safeTxHash, completion: loadingCompletion)
         case .data(let tx):
-            recreateCells(from: tx)
+            buildCells(from: tx)
             onSuccess()
         case .none:
             preconditionFailure("Developer error: txSource is required")
         }
     }
 
-    func recreateCells(from transaction: TransactionViewModel?) {
-        self.transaction = transaction
-        cells = []
+    func buildCells(from tx: SCG.TransactionDetails) {
+        self.tx = tx
+        cells = builder.build(from: tx)
     }
-
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cells.count

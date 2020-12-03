@@ -44,3 +44,26 @@ extension SafeClientGatewayService {
         asyncExecute(request: TransactionDetailsRequest(safeTxHash: safeTxHash), completion: completion)
     }
 }
+
+struct TransactionDetailsRequestV2:  JSONRequest {
+    var id: String
+    var httpMethod: String { "GET" }
+    var urlPath: String { "/v1/transactions/\(id)" }
+    typealias ResponseType = SCG.TransactionDetails
+}
+
+extension TransactionDetailsRequestV2  {
+    init(safeTxHash: Data) {
+        id = safeTxHash.toHexStringWithPrefix()
+    }
+}
+
+extension SafeClientGatewayService {
+    func asyncTransactionDetailsV2(id: String, completion: @escaping (Result<SCG.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: TransactionDetailsRequestV2(id: id), completion: completion)
+    }
+
+    func asyncTransactionDetailsV2(safeTxHash: Data, completion: @escaping (Result<SCG.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: TransactionDetailsRequestV2(safeTxHash: safeTxHash), completion: completion)
+    }
+}
