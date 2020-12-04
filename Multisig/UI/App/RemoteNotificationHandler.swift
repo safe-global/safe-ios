@@ -168,8 +168,8 @@ class RemoteNotificationHandler {
             let appConfig = App.configuration.app
             var timestamp: String?
             if let _ = try? App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) {
-                // add timestamp if there is a signing key
-                timestamp = String(Int(Date().timeIntervalSince1970 * 1_000))
+                // add timestamp in seconds if there is a signing key
+                timestamp = String(Int(Date().timeIntervalSince1970))
             }
             do {
                 try App.shared.safeTransactionService
@@ -215,6 +215,13 @@ class RemoteNotificationHandler {
 
             Safe.select(address: rawAddress)
             App.shared.viewState.switchTab(.transactions)
+
+            if ["EXECUTED_MULTISIG_TRANSACTION", "NEW_CONFIRMATION", "CONFIRMATION_REQUEST"].contains(payload.type),
+               let safeTxHash = payload.safeTxHash,
+               let hashData = Data(exactlyHex: safeTxHash) {
+                let vc = TransactionDetailsViewController(safeTxHash: hashData)
+                UIWindow.topMostController()!.present(vc, animated: true)
+            }
         } catch {
             logError("Error during opening notification", error)
         }
