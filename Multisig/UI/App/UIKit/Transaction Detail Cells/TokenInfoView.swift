@@ -22,6 +22,10 @@ class TokenInfoView: UINibView {
         imageView.image = image
     }
 
+    func setImage(_ url: URL?) {
+        imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
+    }
+
     func setText(_ text: String, style: GNOTextStyle = .body) {
         textLabel.text = text
         textLabel.setStyle(style)

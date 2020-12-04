@@ -36,11 +36,12 @@ class DetailExpandableTextCell: UITableViewCell {
     }
 
     func setExpandableTitle(_ text: String?) {
-        expandableTitleButton.isHidden = text == nil
+        let isExpandable: Bool = text == nil
+        expandableTitleButton.isHidden = isExpandable
         expandableTitleButton.setTitle(text, for: .normal)
-        let contentStyle = text == nil ? GNOTextStyle.body.color(.gnoMediumGrey) : .body
+        let contentStyle = isExpandable ? GNOTextStyle.body.color(.gnoDarkGrey) : .body
         contentLabel.setStyle(contentStyle)
-        contentLabel.isHidden = text == nil ? false : !isExpanded
+        contentLabel.isHidden = isExpandable ? false : !isExpanded
     }
 
     func setCopyText(_ copyText: String?) {
