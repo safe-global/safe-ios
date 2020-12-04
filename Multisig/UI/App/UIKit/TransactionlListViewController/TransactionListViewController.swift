@@ -49,6 +49,14 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         trackEvent(.transactions)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        if tableView.contentOffset == .zero {
+            setNeedsReload()
+        }
+
+        super.viewWillAppear(animated)
+    }
+
     override func reloadData() {
         super.reloadData()
         loadFirstPageDataTask?.cancel()
