@@ -46,14 +46,10 @@ struct RegisterNotificationTokenRequest: JSONRequest {
 
         let string = [
             "gnosis-safe",
+            self.timestamp ?? "",
             self.uuid,
-            self.safes.joined(),
             self.cloudMessagingToken,
-            self.bundle,
-            self.version,
-            self.deviceType,
-            self.buildNumber,
-            self.timestamp ?? ""
+            self.safes.sorted().joined()
         ]
         .joined()
 
