@@ -385,7 +385,7 @@ class TransactionDetailCellBuilder {
                 safeTxHash = nil
             }
 
-            guard ![nonce, operation, hash].compactMap({ $0 }).isEmpty else { return }
+            guard ![nonce, operation, hash, safeTxHash].compactMap({ $0 }).isEmpty else { return }
 
             disclosure(text: "Advanced") { [weak self] in
                 guard let `self` = self else { return }
