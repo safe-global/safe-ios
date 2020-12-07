@@ -24,8 +24,6 @@ struct Transaction {
     let nonce: UInt256String
     // computed based on other properties
     let safeTxHash: HashString?
-
-    
 }
 
 extension Transaction {
@@ -69,5 +67,25 @@ extension Transaction {
             EthHasher.hash(Safe.domainData(for: safe)),
             EthHasher.hash(safeEncodedTxData)
         ].reduce(Data()) { $0 + $1 }
+    }
+}
+
+extension Transaction {
+    init?(tx: SCG.TransactionDetails) {
+        guard let txData = tx.txData,
+              case let SCG.TransactionDetails.DetailedExecutionInfo.multisig(multiSigTxInfo)? = tx.detailedExecutionInfo else {
+            return nil
+        }
+        to = txData.to
+        value = txData.value
+        data = txData.hexData ?? DataString(Data())
+        operation = Operation(rawValue: txData.operation.rawValue)!
+        safeTxGas = multiSigTxInfo.safeTxGas
+        baseGas = multiSigTxInfo.baseGas
+        gasPrice = multiSigTxInfo.gasPrice
+        gasToken = multiSigTxInfo.gasToken
+        refundReceiver = multiSigTxInfo.refundReceiver
+        nonce = multiSigTxInfo.nonce
+        safeTxHash = multiSigTxInfo.safeTxHash
     }
 }

@@ -79,7 +79,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         // update all safe info on changing safe name
         notificationCenter.addObserver(
-            self, selector: #selector(didChangeSafe), name: .selectedSafeUpdated, object: nil)
+            self, selector: #selector(lazyReloadData), name: .selectedSafeUpdated, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
