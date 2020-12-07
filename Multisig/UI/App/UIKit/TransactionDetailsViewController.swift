@@ -108,6 +108,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         alertVC.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak self] _ in
             self?.sign()
         }))
+        present(alertVC, animated: true, completion: nil)
     }
 
     private func sign() {
@@ -138,7 +139,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     // MARK: - Loading Data
-    
+
     override func reloadData() {
         super.reloadData()
         reloadDataTask?.cancel()
@@ -185,7 +186,13 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     func buildCells(from tx: SCG.TransactionDetails) {
         self.tx = tx
-        cells = builder.build(from: tx)
+
+        // artificial tx status
+        if self.tx!.needsYourConfirmation {
+            self.tx!.txStatus = .awaitingYourConfirmation
+        }
+
+        cells = builder.build(from: self.tx!)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -204,4 +211,34 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
     }
 
+}
+
+extension SCG.TransactionDetails {
+    var needsYourConfirmation: Bool {
+        if txStatus == .awaitingConfirmations,
+           let signingKey = App.shared.settings.signingKeyAddress,
+           let signingAddress = AddressString(signingKey),
+           case let SCG.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = detailedExecutionInfo,
+           multisigTx.isSigner(address: signingAddress) &&
+            multisigTx.needsMoreSignatures &&
+            !multisigTx.hasConfirmed(address: signingAddress) {
+            return true
+        }
+        return false
+    }
+}
+
+extension SCG.TransactionDetails.DetailedExecutionInfo.Multisig {
+
+    func isSigner(address: AddressString) -> Bool {
+        signers.contains(address)
+    }
+
+    func hasConfirmed(address: AddressString) -> Bool {
+        confirmations.contains { $0.signer == address }
+    }
+
+    var needsMoreSignatures: Bool {
+        confirmationsRequired > confirmations.count
+    }
 }
