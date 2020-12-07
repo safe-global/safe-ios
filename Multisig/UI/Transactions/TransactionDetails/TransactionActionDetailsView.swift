@@ -33,3 +33,27 @@ struct TransactionActionDetailsView: View {
         !(dataDecoded.parameters ?? []).isEmpty
     }
 }
+
+struct TransactionActionDetailsViewV2: View {
+    var dataDecoded: SCG.DataDecoded
+    var data: DataString?
+    var body: some View {
+        List {
+            if let data = data {
+                HexDataCellView(data: (UInt256(data.data.count), data.description))
+            }
+
+            if let params = dataDecoded.parameters {
+                ForEach(0..<params.count) { index in
+                    ParameterViewV2(parameter: params[index])
+                }
+            } else {
+                Text("No parameters").body()
+            }
+        }
+        .navigationBarTitle(dataDecoded.method)
+        .onAppear {
+            self.trackEvent(.transactionsDetailsAction)
+        }
+    }
+}

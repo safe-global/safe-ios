@@ -17,3 +17,13 @@ struct ParameterView: View {
         }
     }
 }
+
+struct ParameterViewV2: View {
+    let parameter: SCG.DataDecoded.Parameter
+    var body: some View {
+        VStack (alignment: .leading, spacing: 6) {
+            Text("\(parameter.name)(\(parameter.type)):").body()
+            ParameterValueViewV2(type: parameter.type, value: parameter.value)
+        }
+    }
+}

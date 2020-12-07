@@ -61,3 +61,45 @@ struct ParameterValueView_Previews: PreviewProvider {
     }
 }
 
+struct ParameterValueViewV2: View {
+    var type: String
+    var value: SCG.DataDecoded.Parameter.Value
+    var nestingLevel: Int = 0
+
+    var body: some View {
+        valueView.padding(.leading, nestingLevel == 0 ? 0 : 8)
+    }
+
+    @ViewBuilder
+    var valueView: some View {
+        switch value {
+        case .address(let address):
+            AddressCell(address: address.address.checksummed)
+        case .data(let data):
+            ExpandableButton(title: "\(data.data.count) bytes", value: data.description)
+        case .uint256(let uint):
+            Text(uint.description).body(.gnoDarkGrey)
+        case .string(let string):
+            Text(string).body(.gnoDarkGrey)
+        case .unknown:
+            Text("Unknown value").body(.gnoDarkGrey)
+        case .array(let array):
+            if array.isEmpty {
+                Text("empty").body(.gnoDarkGrey)
+            } else {
+                ExpandableView(title: Text("array").body(.gnoDarkGrey),
+                               value: arrayContent(array))
+            }
+        }
+    }
+
+    func arrayContent(_ array: [SCG.DataDecoded.Parameter.Value]) -> some View {
+        ForEach(0..<array.count) { index in
+            ParameterValueViewV2(
+                type: type,
+                value: array[index],
+                nestingLevel: nestingLevel + 1)
+        }
+    }
+
+}

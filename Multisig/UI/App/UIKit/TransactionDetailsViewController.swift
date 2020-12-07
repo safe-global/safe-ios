@@ -110,6 +110,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let cell = tableView.cellForRow(at: indexPath)
+        if let disclosureCell = cell as? DetailDisclosingCell {
+            disclosureCell.action()
+        }
     }
 
 }

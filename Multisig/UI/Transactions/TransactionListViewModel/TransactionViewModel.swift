@@ -21,6 +21,7 @@ class TransactionViewModel: Identifiable, Equatable {
     // MARK: - Transaction Meta Info
     var status: TransactionStatus = .success
     var formattedDate: String = ""
+    var date: Date?
     var formattedCreatedDate: String?
     var formattedExecutedDate: String?
     var confirmationCount: UInt64?
@@ -56,7 +57,8 @@ class TransactionViewModel: Identifiable, Equatable {
     init(_ tx: TransactionSummary) {
         id = tx.id.value
         formattedDate = Self.dateFormatter.string(from: tx.date)
-
+        self.date = tx.date
+        
         nonce = tx.executionInfo?.nonce == nil ? "" : "\(tx.executionInfo!.nonce)"
 
         let confirmationCount = tx.executionInfo?.confirmationsSubmitted ?? 0

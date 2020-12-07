@@ -236,7 +236,7 @@ extension SCG {
 
             enum Value: Decodable {
                 case string(String)
-                case adddress(AddressString)
+                case address(AddressString)
                 case uint256(UInt256String)
                 case data(DataString)
                 case array([Value])
@@ -248,7 +248,7 @@ extension SCG {
                     if let string = try? container.decode(String.self) {
 
                         if string.hasPrefix("0x"), let address = try? container.decode(AddressString.self) {
-                            self = .adddress(address)
+                            self = .address(address)
                         } else if string.hasPrefix("0x"), let data = try? container.decode(DataString.self) {
                             self = .data(data)
                         } else if let uint256 = try? container.decode(UInt256String.self) {
