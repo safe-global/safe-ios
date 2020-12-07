@@ -108,7 +108,7 @@ LOGGERS                 = $(_LOGGERS_$(SERVICE_ENV):default=$(_LOGGERS_PROD))
 LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD))
 
 // Whether to use UIKit interface implementation.
-USE_UIKIT = NO
+USE_UIKIT = YES
 
 // Make sure to review/change the SSL pinning configuration in the
 // Info.plist file (TSKConfiguration key). For details, read documentation:

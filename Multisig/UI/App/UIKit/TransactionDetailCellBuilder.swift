@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SwiftCryptoTokenFormatter
+import SwiftUI
 
 class TransactionDetailCellBuilder {
 
@@ -45,8 +46,6 @@ class TransactionDetailCellBuilder {
             let isCreationTx = buildCreationTx()
             if !isCreationTx {
                 buildHeader()
-                buildActions()
-                buildHexData()
                 buildStatus()
                 buildMultisigInfo()
                 buildExecutedDate()
@@ -227,6 +226,8 @@ class TransactionDetailCellBuilder {
                     logoUri: nil,
                     logo: #imageLiteral(resourceName: "ico-ether"),
                     detail: "\(customTx.dataSize.value) bytes")
+                buildActions()
+                buildHexData()
 
             case .creation(_):
                 // ignore
@@ -296,12 +297,19 @@ class TransactionDetailCellBuilder {
                    param.type == "bytes",
                    case let SCG.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = param.valueDecoded {
 
-                    disclosure(text: "Multisend (\(multiSendTxs.count) actions)") {
-                        // open multiSend screen
+                    disclosure(text: "Multisend (\(multiSendTxs.count) actions)") { [weak self] in
+                        guard let `self` = self else { return }
+                        let view = MultiSendActionListViewV2(transactions: multiSendTxs)
+                        let vc = UIHostingController(rootView: view)
+                        self.vc.show(vc, sender: self)
                     }
                 } else {
-                    disclosure(text: "Action (\(dataDecoded.method))") {
-                        // open trans action details view
+                    disclosure(text: "Action (\(dataDecoded.method))") { [weak self] in
+                        guard let `self` = self else { return }
+                        let view = TransactionActionDetailsViewV2(dataDecoded: dataDecoded,
+                                                                  data: tx.txData?.hexData)
+                        let vc = UIHostingController(rootView: view)
+                        self.vc.show(vc, sender: self)
                     }
                 }
             }
@@ -363,16 +371,31 @@ class TransactionDetailCellBuilder {
         }
 
         func buildAdvanced() {
-            if case SCG.TransactionDetails.DetailedExecutionInfo.multisig(_)? =
+            let nonce: String?
+            let operation: String? = tx.txData?.operation.string
+            let hash: String? = tx.txHash?.description
+            let safeTxHash: String?
+
+            if case SCG.TransactionDetails.DetailedExecutionInfo.multisig(let multisigTx)? =
                 tx.detailedExecutionInfo {
-                // continue
-            } else if tx.txHash != nil {
-                // continue
+                nonce = multisigTx.nonce.description
+                safeTxHash = multisigTx.safeTxHash.description
             } else {
-                return
+                nonce = nil
+                safeTxHash = nil
             }
-            disclosure(text: "Advanced") {
-                // open advanced screen AdvancedTransactionDetailsView
+
+            guard ![nonce, operation, hash, safeTxHash].compactMap({ $0 }).isEmpty else { return }
+
+            disclosure(text: "Advanced") { [weak self] in
+                guard let `self` = self else { return }
+                let view = AdvancedTransactionDetailsViewV2(
+                    nonce: nonce,
+                    operation: operation,
+                    hash: hash,
+                    safeTxHash: safeTxHash)
+                let vc = UIHostingController(rootView: view)
+                self.vc.show(vc, sender: self)
             }
         }
 
@@ -472,5 +495,15 @@ class TransactionDetailCellBuilder {
         buildTransaction()
 
         return result
+    }
+}
+
+extension SCG.Operation {
+    static let strings: [Self: String] = [
+        .call: "call",
+        .delegate: "delegateCall"
+    ]
+    var string: String {
+        Self.strings[self]!
     }
 }

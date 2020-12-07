@@ -47,7 +47,7 @@ class LoadableViewController: UIViewController {
 
         if reactsToSelectedSafeChanges {
             notificationCenter.addObserver(
-                self, selector: #selector(didChangeSafe), name: .selectedSafeChanged, object: nil)
+                self, selector: #selector(lazyReloadData), name: .selectedSafeChanged, object: nil)
         }
     }
 
@@ -55,7 +55,7 @@ class LoadableViewController: UIViewController {
         needsReload = value
     }
 
-    @objc func didChangeSafe() {
+    @objc func lazyReloadData() {
         let isOnScreen = viewIfLoaded?.window != nil
         if isOnScreen {
             reloadData()

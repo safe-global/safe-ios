@@ -176,7 +176,28 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let tx = model.sections[indexPath.section].transactions[indexPath.row]
-        let vc = TransactionDetailsViewController(transactionID: tx.id)
+        let vc: TransactionDetailsViewController
+
+        if let creationTx = tx as? CreationTransactionViewModel {
+
+            let creation = SCG.TxInfo.Creation(
+                creator: AddressString(creationTx.creator!)!,
+                transactionHash: DataString(hex: creationTx.hash!),
+                implementation: creationTx.implementationUsed.flatMap { AddressString($0) },
+                factory: creationTx.factoryUsed.flatMap { AddressString($0) })
+
+            let detailsTx = SCG.TransactionDetails(
+                txStatus: tx.status.scgTxStatus,
+                txInfo: SCG.TxInfo.creation(creation),
+                txData: nil,
+                detailedExecutionInfo: nil,
+                txHash: nil,
+                executedAt: tx.date)
+
+            vc = TransactionDetailsViewController(transaction: detailsTx)
+        } else {
+            vc = TransactionDetailsViewController(transactionID: tx.id)
+        }
         show(vc, sender: self)
 
         if tableView.contentOffset == .zero {
@@ -184,4 +205,27 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         }
     }
 
+}
+
+// Temporary solution to bridge the old model to the new model
+
+extension TransactionStatus {
+    var scgTxStatus: SCG.TxStatus {
+        switch self {
+        case .awaitingConfirmations:
+            return .awaitingConfirmations
+        case .awaitingYourConfirmation:
+            return .awaitingYourConfirmation
+        case .awaitingExecution:
+            return .awaitingExecution
+        case .cancelled:
+            return .cancelled
+        case .failed:
+            return .failed
+        case .success:
+            return .success
+        case .pending:
+            return .pending
+        }
+    }
 }

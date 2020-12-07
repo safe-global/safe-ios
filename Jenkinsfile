@@ -10,7 +10,7 @@ pipeline {
     }
     parameters {
         string(name: 'SSL_ENFORCE_PINNING', defaultValue: '1', description: 'Enforce SSL Pinning? (0 = NO/1 = YES)')
-        string(name: 'USE_UIKIT', defaultValue: 'NO', description: 'Use UIKit implementation of the UI? (YES or NO)')
+        string(name: 'USE_UIKIT', defaultValue: 'YES', description: 'Use UIKit implementation of the UI? (YES or NO)')
     }
     stages {
         stage('Unit Test') {

@@ -175,6 +175,7 @@ class AppSettingsViewController: UITableViewController {
                 App.shared.notificationHandler.signingKeyUpdated()
                 App.shared.snackbar.show(message: "Owner key removed from this app")
                 Tracker.shared.setUserProperty("0", for: TrackingUserProperty.numKeysImported)
+                NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
                 self.reload()
             } catch {
                 LogService.shared.error(error.localizedDescription)
