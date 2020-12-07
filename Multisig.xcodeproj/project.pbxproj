@@ -413,6 +413,7 @@
 		55AB394024A3454100148BEA /* LoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AB393F24A3454100148BEA /* LoadableView.swift */; };
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
+		55B24E55257A0B2700058809 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B24E54257A0B2700058809 /* UIWindow+Extension.swift */; };
 		55B6464E25304F9B0050BD95 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6464D25304F9B0050BD95 /* Settings.swift */; };
 		55B6465A253050200050BD95 /* HashString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64657253050200050BD95 /* HashString.swift */; };
 		55B6465B253050200050BD95 /* SignatureString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64658253050200050BD95 /* SignatureString.swift */; };
@@ -957,6 +958,7 @@
 		55AB393F24A3454100148BEA /* LoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableView.swift; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
+		55B24E54257A0B2700058809 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		55B6464D25304F9B0050BD95 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		55B64657253050200050BD95 /* HashString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashString.swift; sourceTree = "<group>"; };
 		55B64658253050200050BD95 /* SignatureString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureString.swift; sourceTree = "<group>"; };
@@ -1388,6 +1390,7 @@
 				55883611255C15870014E8C7 /* UIViewController+Safari.swift */,
 				0A007123254B255C00A57CAF /* UIFont+Styles.swift */,
 				0A007129254B379000A57CAF /* UIColor+Styles.swift */,
+				55B24E54257A0B2700058809 /* UIWindow+Extension.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -3101,6 +3104,7 @@
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
 				0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */,
+				55B24E55257A0B2700058809 /* UIWindow+Extension.swift in Sources */,
 				5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */,
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
