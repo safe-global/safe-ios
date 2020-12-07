@@ -8,11 +8,20 @@
 
 import Foundation
 import UIKit
+import SwiftCryptoTokenFormatter
 
 class TransactionDetailCellBuilder {
 
     private weak var vc: UIViewController!
     private weak var tableView: UITableView!
+    private lazy var dateFormatter: DateFormatter = {
+        let d = DateFormatter()
+        d.locale = .autoupdatingCurrent
+        d.dateStyle = .medium
+        d.timeStyle = .medium
+        return d
+    }()
+
 
     init(vc: UIViewController, tableView: UITableView) {
         self.vc = vc
@@ -32,64 +41,355 @@ class TransactionDetailCellBuilder {
     func build(from tx: SCG.TransactionDetails) -> [UITableViewCell] {
         var result: [UITableViewCell] = []
 
-        func buildCreation() {
-        }
-
         func buildTransaction() {
-
-            transfer(value: -100, decimals: 2, symbol: "ETH", icon: #imageLiteral(resourceName: "ico-ether"), detail: "96 bytes", sender: .zero, label: nil, isOutgoing: true)
-
-            transfer(value: 100, decimals: 2, symbol: "ETH", icon: #imageLiteral(resourceName: "ico-ether"), detail: "96 bytes", sender: .zero, label: nil, isOutgoing: false)
-
-            status(.awaitingExecution, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
-            status(.awaitingConfirmations, type: "Safe created", icon: #imageLiteral(resourceName: "ico-incoming-tx"))
-            status(.awaitingYourConfirmation, type: "Safe created", icon: #imageLiteral(resourceName: "ico-outgoing-tx"))
-            status(.pending, type: "Safe created", icon: #imageLiteral(resourceName: "ico-custom-tx"))
-            status(.failed, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
-            status(.cancelled, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
-            status(.success, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
-
-
-            text("Value", title: "No copy", expandableTitle: nil, copyText: nil)
-            text("Value", title: "Copy value", expandableTitle: nil, copyText: "Copied value")
-            text("Value\nMultiline\nValue", title: "Expandable", expandableTitle: "collapsed", copyText: "copy text")
-            text("Value\nMultiline\nValue", title: "No Copy", expandableTitle: "value inside", copyText: "copy text")
-
-            address(.zero, label: "name", title: "This is address:")
-
-            address(.zero, label: nil, title: "Without label:")
-
-            address(.zero, label: nil, title: nil)
-
-            addressAndText(.zero, label: nil, addressTitle: "Address:", text: "Some value", textTitle: "Some title")
-
-            addresses([(address: .zero, label: nil, title: "Remove owner:"),
-                       (address: .zero, label: nil, title: "Add owner:")])
-
-            confirmation([.zero, .zero], required: 1, status: .awaitingConfirmations, executor: .zero)
-
-            confirmation([.zero, .zero], required: 0, status: .awaitingExecution, executor: .zero)
-
-            // this should not happen, i.e. this will be a backend error
-            confirmation([.zero, .zero], required: 0, status: .awaitingConfirmations, executor: .zero)
-
-
-            confirmation([.zero, .zero], required: 1, status: .awaitingYourConfirmation, executor: .zero)
-            confirmation([.zero, .zero], required: 1, status: .failed, executor: .zero)
-            confirmation([.zero, .zero], required: 1, status: .success, executor: .zero)
-            confirmation([.zero, .zero], required: 1, status: .cancelled, executor: .zero)
-
-            disclosure(text: "Advanced", action: {
-                print("Advanced")
-            })
-
-            externalURL(text: "View transaction on Etherscan", url: URL(string: "https://twitter.com/")!)
+            let isCreationTx = buildCreationTx()
+            if !isCreationTx {
+                buildHeader()
+                buildActions()
+                buildHexData()
+                buildStatus()
+                buildMultisigInfo()
+                buildExecutedDate()
+                buildAdvanced()
+                buildOpenInExplorer(hash: tx.txHash)
+            }
         }
+
+        func buildCreationTx() -> Bool {
+            
+            guard case let SCG.TxInfo.creation(creationTx) = tx.txInfo else {
+                return false
+            }
+
+            func buildFactoryUsed() {
+                if let factory = creationTx.factory?.address {
+                    address(factory, label: nil, title: "Factory used")
+                } else {
+                    text("No factory used", title: "Factory used", expandableTitle: nil, copyText: nil)
+                }
+            }
+
+            func buildMasterCopyUsed() {
+                if let implementation = creationTx.implementation?.address {
+                    address(
+                        implementation,
+                        label: App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? "Unknown",
+                        title: "Mastercopy used")
+                } else {
+                    text(
+                        "Not available",
+                        title: "Mastercopy used",
+                        expandableTitle: nil,
+                        copyText: nil)
+                }
+            }
+
+            func buildTransactionHash() {
+                text(
+                    creationTx.transactionHash.description,
+                    title: "Transaction hash",
+                    expandableTitle: nil,
+                    copyText: creationTx.transactionHash.description)
+            }
+
+            func buildCreatorAddress() {
+                address(creationTx.creator.address, label: nil, title: "Creator address")
+            }
+
+            buildStatus()
+            buildTransactionHash()
+            buildCreatorAddress()
+            buildMasterCopyUsed()
+            buildFactoryUsed()
+            buildCreatedDate(tx.executedAt)
+            buildOpenInExplorer(hash: creationTx.transactionHash)
+
+            return true
+            
+        }
+
+        func buildHeader() {
+
+            switch tx.txInfo {
+
+            case .transfer(let transferTx):
+                let isOutgoing = transferTx.direction == .outgoing
+                let address = isOutgoing ? transferTx.recipient.address : transferTx.sender.address
+
+                switch transferTx.transferInfo {
+
+                case .erc20(let erc20Tx):
+                    buildTransferHeader(
+                        address: address,
+                        isOutgoing: isOutgoing,
+                        value: erc20Tx.value.value,
+                        decimals: erc20Tx.decimals,
+                        symbol: erc20Tx.tokenSymbol ?? "ERC20",
+                        logoUri: erc20Tx.logoUri)
+
+                case .erc721(let erc721Tx):
+                    buildTransferHeader(
+                        address: address,
+                        isOutgoing: isOutgoing,
+                        value: 1,
+                        decimals: 0,
+                        symbol: erc721Tx.tokenSymbol ?? "NFT",
+                        logoUri: erc721Tx.logoUri)
+
+                case .ether(let etherTx):
+                    let eth = App.shared.tokenRegistry.token(address: .ether)!
+
+                    buildTransferHeader(
+                        address: address,
+                        isOutgoing: isOutgoing,
+                        value: etherTx.value.value,
+                        decimals: eth.decimals.flatMap { try? UInt64($0) },
+                        symbol: eth.symbol,
+                        logoUri: nil,
+                        logo: #imageLiteral(resourceName: "ico-ether"))
+
+                case .unknown:
+                    buildTransferHeader(
+                        address: address,
+                        isOutgoing: isOutgoing,
+                        value: nil,
+                        decimals: nil,
+                        symbol: "",
+                        logoUri: nil)
+
+                }
+
+            case .settingsChange(let settingsTx):
+
+                switch settingsTx.settingsInfo {
+
+                case .setFallbackHandler(let fallbackTx):
+                    let handler: Address = fallbackTx.handler.address
+                    address(
+                        handler,
+                        label: App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: handler),
+                        title: "Set fallback handler:")
+
+                case .addOwner(let addOwnerTx):
+                    addressAndText(
+                        addOwnerTx.owner.address,
+                        label: nil,
+                        addressTitle: "Add owner:",
+                        text: "\(addOwnerTx.threshold)",
+                        textTitle: "Change required confirmations:")
+
+                case .removeOwner(let removeOwnerTx):
+                    addressAndText(
+                        removeOwnerTx.owner.address,
+                        label: nil,
+                        addressTitle: "Remove owner:",
+                        text: "\(removeOwnerTx.threshold)",
+                        textTitle: "Change required confirmations:")
+
+                case .swapOwner(let swapOwnerTx):
+                    addresses(
+                        [(address: swapOwnerTx.oldOwner.address, label: nil, title: "Remove owner:"),
+                         (address: swapOwnerTx.newOwner.address, label: nil, title: "Add owner:")
+                        ])
+
+                case .changeThreshold(let thresholdTx):
+                    text(
+                        "\(thresholdTx.threshold)",
+                        title: "Change required confirmations:",
+                        expandableTitle: nil,
+                        copyText: nil)
+
+                case .changeImplementation(let implementationTx):
+                    let implementation = implementationTx.implementation.address
+                    address(implementation,
+                            label: App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? "Unknown",
+                            title: "New mastercopy:")
+
+                case .enableModule(let moduleTx):
+                    address(moduleTx.module.address, label: nil, title: "Enable module:")
+
+                case .disableModule(let moduleTx):
+                    address(moduleTx.module.address, label: nil, title: "Disable module:")
+
+                case .unknown:
+                    text("Unknown operation", title: "Settings change:", expandableTitle: nil, copyText: nil)
+                }
+
+            case .custom(let customTx):
+                let eth = App.shared.tokenRegistry.token(address: .ether)!
+
+                buildTransferHeader(
+                    address: customTx.to.address,
+                    isOutgoing: true,
+                    value: customTx.value.value,
+                    decimals: eth.decimals.flatMap { try? UInt64($0) },
+                    symbol: eth.symbol,
+                    logoUri: nil,
+                    logo: #imageLiteral(resourceName: "ico-ether"),
+                    detail: "\(customTx.dataSize.value) bytes")
+
+            case .creation(_):
+                // ignore
+                fallthrough
+            case .unknown:
+                // ignore
+                break
+            }
+        }
+
+        // MARK: - Transaction Screen Pieces
+
+        func buildTransferHeader(
+            address: Address,
+            label: String? = nil,
+            isOutgoing: Bool,
+            value: UInt256?,
+            decimals: UInt64?,
+            symbol: String,
+            logoUri: String?,
+            logo: UIImage? = #imageLiteral(resourceName:"ico-token-placeholder"),
+            detail: String? = nil
+        ) {
+            let tokenText: String
+            if let value = value {
+                let decimalAmount = BigDecimal(Int256(value) * (isOutgoing ? -1 : +1),
+                                               decimals.flatMap { Int($0) } ?? 0)
+
+                let amount = TokenFormatter().string(
+                    from: decimalAmount,
+                    decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+                    thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
+                    forcePlusSign: true
+                )
+
+                tokenText = "\(amount) \(symbol)"
+            } else {
+                tokenText = "Unknown token"
+            }
+
+
+            let style = GNOTextStyle.body.color(isOutgoing ? .gnoDarkBlue : .gnoHold)
+
+            let iconURL = logoUri.flatMap { URL(string: $0) }
+            let icon = iconURL == nil ? logo : nil
+
+            let alpha: CGFloat = [SCG.TxStatus.cancelled, .failed].contains(tx.txStatus) ? 0.5 : 1
+
+            transfer(
+                token: tokenText,
+                style: style,
+                icon: icon,
+                iconURL: iconURL,
+                alpha: alpha,
+                detail: detail,
+                address: address,
+                label: label,
+                isOutgoing: isOutgoing)
+        }
+
+
+        func buildActions() {
+            if let dataDecoded = tx.txData?.dataDecoded {
+
+                if dataDecoded.method == "multiSend",
+                   let param = dataDecoded.parameters?.first,
+                   param.type == "bytes",
+                   case let SCG.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = param.valueDecoded {
+
+                    disclosure(text: "Multisend (\(multiSendTxs.count) actions)") {
+                        // open multiSend screen
+                    }
+                } else {
+                    disclosure(text: "Action (\(dataDecoded.method))") {
+                        // open trans action details view
+                    }
+                }
+            }
+        }
+
+        func buildHexData() {
+            if let data = tx.txData?.hexData {
+                text("\(data)", title: "Data", expandableTitle: "\(data.data.count) Bytes", copyText: "\(data)")
+            }
+        }
+
+        func buildStatus() {
+            switch tx.txInfo {
+            case .transfer(let transferTx):
+                let isOutgoing = transferTx.direction == .outgoing
+                let type = isOutgoing ? "Outgoing transfer" : "Incoming transfer"
+                let icon = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incoming-tx")
+                status(tx.txStatus, type: type, icon: icon)
+            case .settingsChange(_):
+                status(tx.txStatus, type: "Modify settings", icon: #imageLiteral(resourceName: "ico-settings-tx"))
+            case .custom(_):
+                status(tx.txStatus, type: "Contract interaction", icon: #imageLiteral(resourceName: "ico-custom-tx"))
+            case .creation(_):
+                status(tx.txStatus, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
+            case .unknown:
+                status(tx.txStatus, type: "Unknown operation", icon: #imageLiteral(resourceName: "ico-custom-tx"))
+            }
+        }
+
+        func buildMultisigInfo() {
+            guard case let SCG.TransactionDetails.DetailedExecutionInfo.multisig(multisigInfo)? =
+                    tx.detailedExecutionInfo else {
+                return
+            }
+            confirmation(multisigInfo.confirmations.map { $0.signer.address },
+                         required: Int(multisigInfo.confirmationsRequired),
+                         status: tx.txStatus,
+                         executor: multisigInfo.executor?.address)
+
+            buildCreatedDate(multisigInfo.submittedAt)
+        }
+
+        func buildCreatedDate(_ date: Date?) {
+            guard let date = date else { return }
+            text(
+                dateFormatter.string(from: date),
+                title: "Created:",
+                expandableTitle: nil,
+                copyText: nil)
+        }
+
+        func buildExecutedDate() {
+            guard let executedAt = tx.executedAt else { return }
+            text(
+                dateFormatter.string(from: executedAt),
+                title: "Executed:",
+                expandableTitle: nil,
+                copyText: nil)
+        }
+
+        func buildAdvanced() {
+            if case SCG.TransactionDetails.DetailedExecutionInfo.multisig(_)? =
+                tx.detailedExecutionInfo {
+                // continue
+            } else if tx.txHash != nil {
+                // continue
+            } else {
+                return
+            }
+            disclosure(text: "Advanced") {
+                // open advanced screen AdvancedTransactionDetailsView
+            }
+        }
+
+        func buildOpenInExplorer(hash: DataString?) {
+            guard let txHash = hash?.description else { return }
+            let url = App.configuration.services.etehreumBlockBrowserURL
+                .appendingPathComponent("tx").appendingPathComponent(txHash)
+            externalURL(text: "View transaction on Etherscan", url: url)
+        }
+
+        // MARK: - Cell Builders
 
         func disclosure(text: String, action: @escaping () -> Void) {
             let indexPath = IndexPath(row: result.count, section: 0)
             let cell = tableView.dequeueCell(DetailDisclosingCell.self, for: indexPath)
             cell.action = action
+            cell.setText(text)
             result.append(cell)
         }
 
@@ -130,11 +430,19 @@ class TransactionDetailCellBuilder {
             result.append(cell)
         }
 
-        func transfer(value: Int256, decimals: Int, symbol: String, icon: UIImage, detail: String?, sender: Address, label: String?, isOutgoing: Bool) {
+        func transfer(token: String, style: GNOTextStyle, icon: UIImage?, iconURL: URL?, alpha: CGFloat, detail: String?, address: Address, label: String?, isOutgoing: Bool) {
             let indexPath = IndexPath(row: result.count, section: 0)
             let cell = tableView.dequeueCell(DetailTransferInfoCell.self, for: indexPath)
-            cell.setToken(value: value, decimals: decimals, symbol: symbol, icon: icon, detail: detail)
-            cell.setAddress(sender, label: label)
+            cell.setAddress(address, label: label)
+            cell.setToken(text: token, style: style)
+            if let image = icon {
+                cell.setToken(image: image)
+            } else {
+                cell.setToken(image: iconURL)
+            }
+            cell.setToken(alpha: alpha)
+            cell.setDetail(detail)
+            cell.setAddress(address, label: label)
             cell.setOutgoing(isOutgoing)
             result.append(cell)
         }
