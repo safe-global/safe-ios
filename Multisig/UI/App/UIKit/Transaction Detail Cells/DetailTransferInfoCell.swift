@@ -27,24 +27,34 @@ class DetailTransferInfoCell: UITableViewCell {
             addressInfoView.heightAnchor.constraint(equalToConstant: 44),
             arrowView.heightAnchor.constraint(equalToConstant: 24)
         ])
-
-        setOutgoing(true)
     }
 
     func setAddress(_ address: Address, label: String?) {
         addressInfoView.setAddress(address, label: label)
     }
 
-    func setToken(value: Int256, decimals: Int, symbol: String, icon: UIImage, detail: String?) {
-        // need formatter for token format
-        let color = value > 0 ? UIColor.gnoHold : .gnoDarkBlue
-        tokenInfoView.setText("\(value) \(symbol)", style: GNOTextStyle.body.color(color))
-        tokenInfoView.setImage(icon)
-        tokenInfoView.setDetail(detail)
+    func setToken(text: String, style: GNOTextStyle) {
+        tokenInfoView.setText(text, style: style)
+    }
+
+    func setToken(image: UIImage?) {
+        tokenInfoView.setImage(image)
+    }
+
+    func setToken(image url: URL?) {
+        tokenInfoView.setImage(url)
+    }
+
+    func setToken(alpha: CGFloat) {
+        tokenInfoView.alpha = alpha
+    }
+
+    func setDetail(_ text: String?) {
+        tokenInfoView.setDetail(text)
     }
 
     func setOutgoing(_ isOutgoing: Bool) {
-        var views: [UIView] = [tokenInfoView, arrowView, addressInfoView]
+        var views: [UIView] = [addressInfoView, arrowView, tokenInfoView]
         if isOutgoing {
             views.reverse()
         }

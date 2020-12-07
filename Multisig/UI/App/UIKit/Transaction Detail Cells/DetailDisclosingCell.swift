@@ -17,4 +17,8 @@ class DetailDisclosingCell: UITableViewCell {
         super.awakeFromNib()
         bodyLabel.setStyle(.body)
     }
+
+    func setText(_ text: String) {
+        bodyLabel.text = text
+    }
 }
