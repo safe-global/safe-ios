@@ -116,7 +116,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
               let transaction = Transaction(tx: tx) else {
             App.shared.snackbar.show(message: "Can't sign this transaction")
             return
-
         }
         super.reloadData()
         do {
