@@ -168,8 +168,7 @@ class RemoteNotificationHandler {
             let appConfig = App.configuration.app
             var timestamp: String?
             if let _ = try? App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) {
-                // add timestamp in seconds if there is a signing key
-                timestamp = String(Int(Date().timeIntervalSince1970))
+                timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
             }
             do {
                 try App.shared.safeTransactionService
