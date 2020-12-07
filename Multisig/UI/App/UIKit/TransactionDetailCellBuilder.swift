@@ -45,8 +45,6 @@ class TransactionDetailCellBuilder {
             let isCreationTx = buildCreationTx()
             if !isCreationTx {
                 buildHeader()
-                buildActions()
-                buildHexData()
                 buildStatus()
                 buildMultisigInfo()
                 buildExecutedDate()
@@ -227,6 +225,8 @@ class TransactionDetailCellBuilder {
                     logoUri: nil,
                     logo: #imageLiteral(resourceName: "ico-ether"),
                     detail: "\(customTx.dataSize.value) bytes")
+                buildActions()
+                buildHexData()
 
             case .creation(_):
                 // ignore
