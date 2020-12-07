@@ -12,18 +12,11 @@ final class SwitchSafesViewController: UITableViewController {
     private var safes = [Safe]()
     private let addSafeRowIndex = 0
 
-    private lazy var closeButton: UIBarButtonItem = {
-        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .regular, scale: .large)
-        let buttonImage = UIImage(systemName: "xmark")?.applyingSymbolConfiguration(symbolConfig)
-        let button = UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: #selector(didTapCloseButton))
-        button.tintColor = .gnoMediumGrey
-        return button
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Switch Safes"
-        navigationItem.leftBarButtonItem = closeButton
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         tableView.register(AddSafeTableViewCell.nib(), forCellReuseIdentifier: "AddSafe")
         tableView.register(SafeEntryTableViewCell.nib(), forCellReuseIdentifier: "SafeEntry")
         reloadData()

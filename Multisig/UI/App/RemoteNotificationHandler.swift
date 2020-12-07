@@ -220,7 +220,10 @@ class RemoteNotificationHandler {
                let safeTxHash = payload.safeTxHash,
                let hashData = Data(exactlyHex: safeTxHash) {
                 let vc = TransactionDetailsViewController(safeTxHash: hashData)
-                UIWindow.topMostController()!.present(vc, animated: true)
+                vc.navigationItem.leftBarButtonItem =
+                    UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
+                let navController = UINavigationController(rootViewController: vc)
+                UIWindow.topMostController()!.present(navController, animated: true)
             }
         } catch {
             logError("Error during opening notification", error)
