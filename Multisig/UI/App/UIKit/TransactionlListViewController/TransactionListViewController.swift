@@ -49,14 +49,6 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         trackEvent(.transactions)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        if tableView.contentOffset == .zero {
-            setNeedsReload()
-        }
-
-        super.viewWillAppear(animated)
-    }
-
     override func reloadData() {
         super.reloadData()
         loadFirstPageDataTask?.cancel()
@@ -186,6 +178,10 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         let tx = model.sections[indexPath.section].transactions[indexPath.row]
         let vc = TransactionDetailsViewController(transactionID: tx.id)
         show(vc, sender: self)
+
+        if tableView.contentOffset == .zero {
+            setNeedsReload()
+        }
     }
 
 }
