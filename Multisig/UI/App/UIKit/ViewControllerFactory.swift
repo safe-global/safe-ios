@@ -50,9 +50,10 @@ enum ViewControllerFactory {
         segmentVC.selectedIndex = 0
 
         let noSafesVC = NoSafesViewController()
+        let loadSafeViewController = LoadSafeViewController()
+        loadSafeViewController.trackingEvent = .assetsNoSafe
         noSafesVC.hasSafeViewController = segmentVC
-        noSafesVC.noSafeViewController = LoadSafeViewController()
-        noSafesVC.trackingEvent = .assetsNoSafe
+        noSafesVC.noSafeViewController = loadSafeViewController
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         return tabViewController(root: tabRoot, title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
@@ -62,9 +63,10 @@ enum ViewControllerFactory {
         let transactionsVC = TransactionListViewController()
 
         let noSafesVC = NoSafesViewController()
+        let loadSafeViewController = LoadSafeViewController()
+        loadSafeViewController.trackingEvent = .transactionsNoSafe
         noSafesVC.hasSafeViewController = transactionsVC
-        noSafesVC.noSafeViewController = LoadSafeViewController()
-        noSafesVC.trackingEvent = .transactionsNoSafe
+        noSafesVC.noSafeViewController = loadSafeViewController
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         return tabViewController(root: tabRoot, title: "Transactions", image: #imageLiteral(resourceName: "tab-icon-transactions"), tag: 1)
@@ -72,9 +74,10 @@ enum ViewControllerFactory {
 
     private static func settingsTabViewController() -> UIViewController {
         let noSafesVC = NoSafesViewController()
+        let loadSafeViewController = LoadSafeViewController()
+        loadSafeViewController.trackingEvent = .settingsSafeNoSafe
         noSafesVC.hasSafeViewController = SafeSettingsViewController()
-        noSafesVC.noSafeViewController = LoadSafeViewController()
-        noSafesVC.trackingEvent = .settingsSafeNoSafe
+        noSafesVC.noSafeViewController = loadSafeViewController
 
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
