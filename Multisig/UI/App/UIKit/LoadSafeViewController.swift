@@ -9,9 +9,16 @@
 import UIKit
 
 class LoadSafeViewController: UIViewController {
+    var trackingEvent: TrackingEvent?
 
     convenience init() {
         self.init(nibName: nil, bundle: nil)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let trackingEvent = trackingEvent else { return }
+        trackEvent(trackingEvent)
     }
 
     // UIKit: need to manually remember this controller because
