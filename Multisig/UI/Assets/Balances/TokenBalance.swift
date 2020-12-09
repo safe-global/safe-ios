@@ -68,18 +68,15 @@ extension TokenBalance {
         return currencyFormatter
     }()
 
-    static var displayCurrencyFormatter: NumberFormatter = {
-        let currencyFormatter = NumberFormatter()
-        // Product decision: we display currency in user locale
-        currencyFormatter.locale = Locale.autoupdatingCurrent
-        currencyFormatter.numberStyle = .currency
-        currencyFormatter.currencyCode = "USD"
-        return currencyFormatter
-    }()
-
     static func displayCurrency(from serverValue: String) -> String {
         let number = serverCurrencyFormatter.number(from: serverValue) ?? 0
-        // resulting nil value should never happen
-        return displayCurrencyFormatter.string(from: number)!
+        let formatter = TokenFormatter()
+        let amount = Int256(number.doubleValue * 100)
+        let precision = 2
+        let currencyCode = "USD"
+        let value = formatter.string(from: BigDecimal(amount, precision),
+                        decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+                        thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
+        return "\(value) \(currencyCode)"
     }
 }
