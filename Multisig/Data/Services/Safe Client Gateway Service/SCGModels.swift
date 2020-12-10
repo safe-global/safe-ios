@@ -14,68 +14,6 @@ struct Page<T: Decodable>: Decodable {
     let results: [T]
 }
 
-protocol TransactionSummaryItem: Decodable { }
-
-
-struct TransactionSummaryItemDateLabel: TransactionSummaryItem {
-    let timestamp: Int
-}
-
-struct TransactionSummaryItemLabel: TransactionSummaryItem {
-    let label: String
-}
-
-
-struct TransactionSummaryItemTransaction: TransactionSummaryItem {
-    let transaction: TransactionSummary
-    let conflictType: ConflictType
-}
-
-struct TransactionSummaryItemConflictHeader: TransactionSummaryItem {
-    let nonce: UInt256String
-}
-
-enum TransactionSummaryItemWrapper: Decodable {
-    case dateLabel(TransactionSummaryItemDateLabel)
-    case label(TransactionSummaryItemLabel)
-    case transaction(TransactionSummaryItemTransaction)
-    case conflictHeader(TransactionSummaryItemConflictHeader)
-
-    var value: TransactionSummaryItem {
-        switch self {
-        case .dateLabel(let value):
-            return value
-        case .label(let value):
-            return value
-        case .transaction(let value):
-            return value
-        case .conflictHeader(let value):
-            return value
-        }
-    }
-
-    enum Key: String, CodingKey {
-        case type
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: Key.self)
-        let type = try container.decode(TransactionSummaryItemType.self, forKey: .type)
-        switch type {
-        case .label:
-            self = try .label(TransactionSummaryItemLabel(from: decoder))
-        case .dateLabel:
-            self = try .dateLabel(TransactionSummaryItemDateLabel(from: decoder))
-        case .transaction:
-            self = try .transaction(TransactionSummaryItemTransaction(from: decoder))
-        case .conflictHeader:
-            self = try .conflictHeader(TransactionSummaryItemConflictHeader(from: decoder))
-        case .unknown:
-            throw "Unknown transaction item"
-        }
-    }
-}
-
 protocol SCGTransaction {
     var txInfo: TransactionInfo { get set }
     var txStatus: TransactionStatus { get set }
@@ -119,20 +57,6 @@ extension TransactionID {
     var description: String {
         value
     }
-}
-
-enum TransactionSummaryItemType: String, Decodable {
-    case label = "LABEL"
-    case transaction = "TRANSACTION"
-    case conflictHeader = "CONFLICT_HEADER"
-    case dateLabel = "DATE_LABEL"
-    case unknown = "UNKNOWN"
-}
-
-enum ConflictType: String, Decodable {
-    case none = "None"
-    case hasNext = "HasNext"
-    case end = "End"
 }
 
 enum TransactionStatus: String, Decodable {

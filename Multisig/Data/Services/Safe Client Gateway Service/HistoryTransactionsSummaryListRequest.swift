@@ -14,7 +14,7 @@ struct HistoryTransactionsSummaryListRequest: JSONRequest {
     var urlPath: String {
         "/v1/safes/\(safeAddress)/transactions/history"
     }
-    typealias ResponseType = Page<TransactionSummaryItemWrapper>
+    typealias ResponseType = Page<SCG.TransactionSummaryItem>
 }
 
 extension HistoryTransactionsSummaryListRequest {
@@ -24,23 +24,11 @@ extension HistoryTransactionsSummaryListRequest {
 }
 
 extension SafeClientGatewayService {
-    func historyTransactionsSummaryList(address: Address) throws -> HistoryTransactionsSummaryListRequest.ResponseType {
-        try execute(request: HistoryTransactionsSummaryListRequest(address))
-    }
-
-    func historyTransactionsSummaryList(address: String) throws -> HistoryTransactionsSummaryListRequest.ResponseType {
-        try execute(request: HistoryTransactionsSummaryListRequest(safeAddress: address))
-    }
-
-    func historyTransactionsSummaryList(pageUri: String) throws -> HistoryTransactionsSummaryListRequest.ResponseType {
-        return try execute(request: PagedRequest<TransactionSummaryItemWrapper>(pageUri))
-    }
-
     func asyncHistoryTransactionsSummaryList(address: Address, completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
         asyncExecute(request: HistoryTransactionsSummaryListRequest(address), completion: completion)
     }
 
     func asyncHistoryTransactionsSummaryList(pageUri: String, completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
-        asyncExecute(request: try PagedRequest<TransactionSummaryItemWrapper>(pageUri), completion: completion)
+        asyncExecute(request: try PagedRequest<SCG.TransactionSummaryItem>(pageUri), completion: completion)
     }
 }
