@@ -39,18 +39,18 @@ extension SCG {
         init(from decoder: Decoder) throws {
             enum Keys: String, CodingKey { case type }
             let container = try decoder.container(keyedBy: Keys.self)
-            let type = try container.decode(TransactionSummaryItemType.self, forKey: .type)
+            let type = try? container.decode(String.self, forKey: .type)
 
             switch type {
-            case .label:
+            case "LABEL":
                 self = try .label(TransactionSummaryItemLabel(from: decoder))
-            case .dateLabel:
+            case "DATE_LABEL":
                 self = try .dateLabel(TransactionSummaryItemDateLabel(from: decoder))
-            case .transaction:
+            case "TRANSACTION":
                 self = try .transaction(TransactionSummaryItemTransaction(from: decoder))
-            case .conflictHeader:
+            case "CONFLICT_HEADER":
                 self = try .conflictHeader(TransactionSummaryItemConflictHeader(from: decoder))
-            case .unknown:
+            default:
                 self = .unknown
             }
         }
@@ -393,14 +393,6 @@ extension SCG {
     enum Operation: Int, Decodable {
         case call = 0
         case delegate = 1
-    }
-
-    enum TransactionSummaryItemType: String, Decodable {
-        case label = "LABEL"
-        case transaction = "TRANSACTION"
-        case conflictHeader = "CONFLICT_HEADER"
-        case dateLabel = "DATE_LABEL"
-        case unknown = "UNKNOWN"
     }
 
     enum ConflictType: String, Decodable {
