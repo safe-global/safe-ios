@@ -1,0 +1,46 @@
+//
+//  QueuedTransactionsSummaryRequest.swift
+//  Multisig
+//
+//  Created by Moaaz on 12/9/20.
+//  Copyright © 2020 Gnosis Ltd. All rights reserved.
+//
+
+import Foundation
+
+struct QueuedTransactionsSummaryListRequest: JSONRequest {
+    let safeAddress: String
+    var httpMethod: String { "GET" }
+    var urlPath: String {
+        "/v1/safes/\(safeAddress)/transactions/queued"
+    }
+    typealias ResponseType = Page<TransactionSummaryItemWrapper>
+}
+
+extension QueuedTransactionsSummaryListRequest {
+    init(_ address: Address) {
+        safeAddress = address.checksummed
+    }
+}
+
+extension SafeClientGatewayService {
+    func queuedTransactionsSummaryList(address: Address) throws -> QueuedTransactionsSummaryListRequest.ResponseType {
+        try execute(request: QueuedTransactionsSummaryListRequest(address))
+    }
+
+    func queuedTransactionsSummaryList(address: String) throws -> QueuedTransactionsSummaryListRequest.ResponseType {
+        try execute(request: QueuedTransactionsSummaryListRequest(safeAddress: address))
+    }
+
+    func queuedTransactionsSummaryList(pageUri: String) throws -> QueuedTransactionsSummaryListRequest.ResponseType {
+        return try execute(request: PagedRequest<TransactionSummaryItemWrapper>(pageUri))
+    }
+
+    func asyncQueuedTransactionsSummaryList(address: Address, completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: QueuedTransactionsSummaryListRequest(address), completion: completion)
+    }
+
+    func asyncQueuedTransactionsSummaryList(pageUri: String, completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+        asyncExecute(request: try PagedRequest<TransactionSummaryItemWrapper>(pageUri), completion: completion)
+    }
+}
