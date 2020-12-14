@@ -61,8 +61,8 @@ final class SwitchSafesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == addSafeRowIndex {
-            let vc = ViewControllerFactory.loadSafeController(presenter: self)
-            present(vc, animated: true, completion: nil)
+            let vc = EnterSafeAddressViewController()
+            show(vc, sender: self)
         } else {
             let safe = safes[indexPath.row - 1]
             if !safe.isSelected {

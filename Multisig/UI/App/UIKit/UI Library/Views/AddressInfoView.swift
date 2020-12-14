@@ -22,7 +22,7 @@ class AddressInfoView: UINibView {
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var addressLabel: UILabel!
     @IBOutlet private weak var copyButton: UIButton!
-    @IBOutlet private weak var detailButton: UIButton!
+    @IBOutlet private var detailButton: UIButton!
 
     private(set) var address: Address!
     private(set) var label: String?
@@ -57,11 +57,12 @@ class AddressInfoView: UINibView {
     }
 
     func setDetailImage(_ image: UIImage?, tintColor: UIColor = .gnoHold) {
+        detailButton.isHidden = image == nil
         detailButton.tintColor = tintColor
         detailButton.setImage(image, for: .normal)
     }
 
-    @IBAction private func onDisclosureButton() {
+    @IBAction private func didTapDetailButton() {
         UIApplication.shared.sendAction(#selector(UIViewController.didTapAddressInfoDetails(_:)), to: nil, from: self, for: nil)
     }
 
