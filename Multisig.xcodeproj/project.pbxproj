@@ -162,6 +162,8 @@
 		0A57C5DD2577F9ED00420303 /* ConfirmationStatusPiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5DC2577F9ED00420303 /* ConfirmationStatusPiece.xib */; };
 		0A57C5E42577FBD900420303 /* DetailConfirmationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C5E22577FBD900420303 /* DetailConfirmationCell.swift */; };
 		0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5E32577FBD900420303 /* DetailConfirmationCell.xib */; };
+		0A57C8E92587AECB00B7C019 /* EnterSafeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C8E72587AECB00B7C019 /* EnterSafeAddressViewController.swift */; };
+		0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C8E82587AECB00B7C019 /* EnterSafeAddressViewController.xib */; };
 		0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */; };
 		0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */; };
 		0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */; };
@@ -653,6 +655,8 @@
 		0A57C5DC2577F9ED00420303 /* ConfirmationStatusPiece.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmationStatusPiece.xib; sourceTree = "<group>"; };
 		0A57C5E22577FBD900420303 /* DetailConfirmationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailConfirmationCell.swift; sourceTree = "<group>"; };
 		0A57C5E32577FBD900420303 /* DetailConfirmationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailConfirmationCell.xib; sourceTree = "<group>"; };
+		0A57C8E72587AECB00B7C019 /* EnterSafeAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressViewController.swift; sourceTree = "<group>"; };
+		0A57C8E82587AECB00B7C019 /* EnterSafeAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterSafeAddressViewController.xib; sourceTree = "<group>"; };
 		0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoViewController.swift; sourceTree = "<group>"; };
 		0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeInfoViewController.xib; sourceTree = "<group>"; };
 		0A5C2E1325628E30009808CB /* SnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarViewController.swift; sourceTree = "<group>"; };
@@ -1370,13 +1374,13 @@
 				0AB990102562D93500499219 /* LoadSafeViewController.xib */,
 				0AE46C86257684B8001DC62B /* BackupLoadSafeViewController.swift */,
 				0AE46C8C257684DF001DC62B /* BackupLoadSafeViewController.xib */,
+				0A57C8E72587AECB00B7C019 /* EnterSafeAddressViewController.swift */,
+				0A57C8E82587AECB00B7C019 /* EnterSafeAddressViewController.xib */,
 				0A573F2825876B9E009EF0C1 /* AddressField.swift */,
 				0A573F6D25877586009EF0C1 /* AddressField.xib */,
 				0ADA9127256591410004DEC0 /* TransactionlListViewController */,
 				049C24EA2575477900897D3C /* UIViewController+Tracking.swift */,
-				0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */,
-				0AD062E52577AE7E0030810D /* TransactionDetailCellBuilder.swift */,
-				0A57C5EA2578050400420303 /* Transaction Detail Cells */,
+				0A57C8E22587ADB200B7C019 /* TransactionDetailsViewController */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1434,6 +1438,16 @@
 				0AE8C0692579371A00E62B34 /* DetailTransferInfoCell.xib */,
 			);
 			path = "Transaction Detail Cells";
+			sourceTree = "<group>";
+		};
+		0A57C8E22587ADB200B7C019 /* TransactionDetailsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */,
+				0AD062E52577AE7E0030810D /* TransactionDetailCellBuilder.swift */,
+				0A57C5EA2578050400420303 /* Transaction Detail Cells */,
+			);
+			path = TransactionDetailsViewController;
 			sourceTree = "<group>";
 		};
 		0A6430D8247EC180006FD30A /* Configuration */ = {
@@ -1864,14 +1878,14 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
-		0ADA9127256591410004DEC0 /* TransactionlListViewController */ = {
+		0ADA9127256591410004DEC0 /* TransactionListViewController */ = {
 			isa = PBXGroup;
 			children = (
 				0ADA911125656FEC0004DEC0 /* TransactionListViewController.swift */,
 				0ADA91172565785E0004DEC0 /* TransactionListTableViewCell.swift */,
 				0ADA91182565785E0004DEC0 /* TransactionListTableViewCell.xib */,
 			);
-			path = TransactionlListViewController;
+			path = TransactionListViewController;
 			sourceTree = "<group>";
 		};
 		0ADDA214245352CF0066457E /* EnterSafeAddress */ = {
@@ -2630,6 +2644,7 @@
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
+				0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
@@ -2883,6 +2898,7 @@
 				0AF1C8952541AD4E00E28669 /* ScrollableDataErrorView.swift in Sources */,
 				0A451BF0252DDB49001DB7D2 /* NoDataView.swift in Sources */,
 				046D0A452497BED8000F4021 /* TransactionStatusTypeView.swift in Sources */,
+				0A57C8E92587AECB00B7C019 /* EnterSafeAddressViewController.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
 				0AD062E62577AE7E0030810D /* TransactionDetailCellBuilder.swift in Sources */,
 				0A31ACE02540358E00D14FBF /* StateMachineTransactionDetailsViewModel.swift in Sources */,
