@@ -150,6 +150,8 @@
 		0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */; };
 		0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */; };
 		0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307452543273F00E8A270 /* UIViewController+UINib.swift */; };
+		0A573F2925876B9E009EF0C1 /* AddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A573F2825876B9E009EF0C1 /* AddressField.swift */; };
+		0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A573F6D25877586009EF0C1 /* AddressField.xib */; };
 		0A57C5A42577DC5600420303 /* DetailExpandableTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C5A22577DC5600420303 /* DetailExpandableTextCell.swift */; };
 		0A57C5A52577DC5600420303 /* DetailExpandableTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5A32577DC5600420303 /* DetailExpandableTextCell.xib */; };
 		0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C5AE2577F02100420303 /* ConfirmationCreatedPiece.swift */; };
@@ -639,6 +641,8 @@
 		0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmTransactionRequest.swift; sourceTree = "<group>"; };
 		0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionSigner.swift; sourceTree = "<group>"; };
 		0A5307452543273F00E8A270 /* UIViewController+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINib.swift"; sourceTree = "<group>"; };
+		0A573F2825876B9E009EF0C1 /* AddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressField.swift; sourceTree = "<group>"; };
+		0A573F6D25877586009EF0C1 /* AddressField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressField.xib; sourceTree = "<group>"; };
 		0A57C5A22577DC5600420303 /* DetailExpandableTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailExpandableTextCell.swift; sourceTree = "<group>"; };
 		0A57C5A32577DC5600420303 /* DetailExpandableTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailExpandableTextCell.xib; sourceTree = "<group>"; };
 		0A57C5AE2577F02100420303 /* ConfirmationCreatedPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationCreatedPiece.swift; sourceTree = "<group>"; };
@@ -1366,6 +1370,8 @@
 				0AB990102562D93500499219 /* LoadSafeViewController.xib */,
 				0AE46C86257684B8001DC62B /* BackupLoadSafeViewController.swift */,
 				0AE46C8C257684DF001DC62B /* BackupLoadSafeViewController.xib */,
+				0A573F2825876B9E009EF0C1 /* AddressField.swift */,
+				0A573F6D25877586009EF0C1 /* AddressField.xib */,
 				0ADA9127256591410004DEC0 /* TransactionlListViewController */,
 				049C24EA2575477900897D3C /* UIViewController+Tracking.swift */,
 				0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */,
@@ -2617,6 +2623,7 @@
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
+				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* BackupLoadSafeViewController.xib in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
@@ -3136,6 +3143,7 @@
 				0ADDA20F245340540066457E /* CorrectAddressView.swift in Sources */,
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */,
+				0A573F2925876B9E009EF0C1 /* AddressField.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
 				0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */,
 				0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */,
