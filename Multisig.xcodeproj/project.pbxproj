@@ -90,6 +90,8 @@
 		04EF2AEB2492883A0070ED1A /* TransactionConfiramtionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */; };
 		04EF2AED2492B5AF0070ED1A /* VerticalBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */; };
 		04F533632490E83B00F28099 /* TransactionConfirmationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F533622490E83B00F28099 /* TransactionConfirmationsView.swift */; };
+		04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */; };
+		04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */; };
 		0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0070F6254AF22900A57CAF /* splash-screen-tagline@2x.png */; };
 		0A0070FA254AF22900A57CAF /* splash-screen-tagline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */; };
 		0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */; };
@@ -576,6 +578,8 @@
 		04EF2AEA2492883A0070ED1A /* TransactionConfiramtionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfiramtionStatusView.swift; sourceTree = "<group>"; };
 		04EF2AEC2492B5AF0070ED1A /* VerticalBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalBarView.swift; sourceTree = "<group>"; };
 		04F533622490E83B00F28099 /* TransactionConfirmationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfirmationsView.swift; sourceTree = "<group>"; };
+		04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueuedTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
+		04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		0832A1B307963B8AEAC28441 /* Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		0A0070F6254AF22900A57CAF /* splash-screen-tagline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline@2x.png"; sourceTree = "<group>"; };
 		0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline@3x.png"; sourceTree = "<group>"; };
@@ -1085,6 +1089,8 @@
 				0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */,
 				043ABD0D24EF0C33008826D5 /* SCGModels.swift */,
 				0ABC898E2576B857005D555B /* SCG.swift */,
+				04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */,
+				04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */,
 			);
 			path = "Safe Client Gateway Service";
 			sourceTree = "<group>";
@@ -2939,6 +2945,7 @@
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				0497F6EB2489168B00A1F4DE /* TransactionCellView.swift in Sources */,
+				04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */,
 				55AB394024A3454100148BEA /* LoadableView.swift in Sources */,
 				0AF2733F24DAC9FE007E4012 /* RemoteNotificationHandler.swift in Sources */,
 				049ECFFA250843DE004FF02F /* TransactionViewModel+Factory.swift in Sources */,
@@ -3070,6 +3077,7 @@
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
 				0A704A6C247417B4005BDC49 /* SafeHeaderView.swift in Sources */,
 				0497F6E32488EB9500A1F4DE /* TransferTransactionCellView.swift in Sources */,
+				04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */,
 				0AEDCE0724728D7100A1EC80 /* BackButton.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */,
