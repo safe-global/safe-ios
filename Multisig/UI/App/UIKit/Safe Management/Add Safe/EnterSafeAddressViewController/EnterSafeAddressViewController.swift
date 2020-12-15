@@ -52,20 +52,25 @@ class EnterSafeAddressViewController: UIViewController {
 
     private func didTapAddressField() {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
         vc.addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: { [unowned self] _ in
             let text = Pasteboard.string
             self.didEnterText(text)
         }))
+
         vc.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [unowned self] _ in
             let vc = QRCodeScannerViewController()
             vc.delegate = self
             self.present(vc, animated: true, completion: nil)
         }))
+
         vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [unowned self] _ in
             let vc = EnterENSNameViewController()
             self.show(vc, sender: self)
         }))
+
         vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
         present(vc, animated: true, completion: nil)
     }
 
