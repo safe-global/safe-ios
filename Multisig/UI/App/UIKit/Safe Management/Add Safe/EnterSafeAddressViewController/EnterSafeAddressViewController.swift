@@ -20,7 +20,6 @@ class EnterSafeAddressViewController: UIViewController {
     @IBOutlet private weak var openWebsiteButton: UIButton!
 
     private var loadSafeTask: URLSessionTask?
-
     private var nextButton: UIBarButtonItem!
 
     override func viewDidLoad() {
