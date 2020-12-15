@@ -173,10 +173,10 @@
 		0A628FF5245710260038DC88 /* SafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A628FF4245710260038DC88 /* SafeCell.swift */; };
 		0A6430E2247EC2C7006FD30A /* ConfigurationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */; };
 		0A6430F5247ECB3E006FD30A /* ConfigurationKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430F4247ECB3E006FD30A /* ConfigurationKeyTests.swift */; };
-		0A6886922588F87E0045CAB5 /* EnterSafeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6886902588F87E0045CAB5 /* EnterSafeNameViewController.swift */; };
 		0A6886932588F87E0045CAB5 /* EnterSafeNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6886912588F87E0045CAB5 /* EnterSafeNameViewController.xib */; };
 		0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */; };
-		0A6886A02588FAFB0045CAB5 /* EnterSafeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A68869E2588FAFB0045CAB5 /* EnterSafeNameViewController.swift */; };
+		0A6886D02588FC180045CAB5 /* EnterENSNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6886CE2588FC180045CAB5 /* EnterENSNameViewController.swift */; };
+		0A6886D12588FC180045CAB5 /* EnterSafeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6886CF2588FC180045CAB5 /* EnterSafeNameViewController.swift */; };
 		0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C131325407B5100EA67E3 /* ContainerViewController.swift */; };
 		0A6C85B2245071510026139E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A6C85B4245080620026139E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B3245080620026139E /* App.swift */; };
@@ -675,10 +675,10 @@
 		0A6430F4247ECB3E006FD30A /* ConfigurationKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationKeyTests.swift; sourceTree = "<group>"; };
 		0A6430F6247ECCF6006FD30A /* MultisigTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MultisigTests.xctestplan; sourceTree = "<group>"; };
 		0A64313F247ED1AA006FD30A /* MultisigIntegrationTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MultisigIntegrationTests.xctestplan; sourceTree = "<group>"; };
-		0A6886902588F87E0045CAB5 /* EnterSafeNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeNameViewController.swift; sourceTree = "<group>"; };
 		0A6886912588F87E0045CAB5 /* EnterSafeNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterSafeNameViewController.xib; sourceTree = "<group>"; };
 		0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterENSNameViewController.xib; sourceTree = "<group>"; };
-		0A68869E2588FAFB0045CAB5 /* EnterSafeNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterSafeNameViewController.swift; sourceTree = "<group>"; };
+		0A6886CE2588FC180045CAB5 /* EnterENSNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterENSNameViewController.swift; sourceTree = "<group>"; };
+		0A6886CF2588FC180045CAB5 /* EnterSafeNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterSafeNameViewController.swift; sourceTree = "<group>"; };
 		0A6C131325407B5100EA67E3 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		0A6C85B1245071510026139E /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0A6C85B3245080620026139E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -1468,11 +1468,11 @@
 			children = (
 				0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */,
 				0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */,
-				0A6886902588F87E0045CAB5 /* EnterSafeNameViewController.swift */,
-				0A6886912588F87E0045CAB5 /* EnterSafeNameViewController.xib */,
-				0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */,
-				0A68869E2588FAFB0045CAB5 /* EnterSafeNameViewController.swift */,
 				0A57C9072587C1B100B7C019 /* EnterSafeAddressViewController */,
+				0A6886CE2588FC180045CAB5 /* EnterENSNameViewController.swift */,
+				0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */,
+				0A6886CF2588FC180045CAB5 /* EnterSafeNameViewController.swift */,
+				0A6886912588F87E0045CAB5 /* EnterSafeNameViewController.xib */,
 			);
 			path = "Add Safe";
 			sourceTree = "<group>";
@@ -3020,6 +3020,7 @@
 				0A0EFC9A246DAC1A00D3D8BF /* TabChildView.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
 				0A802B8124E413450001790F /* HTTPClientErrors.swift in Sources */,
+				0A6886D12588FC180045CAB5 /* EnterSafeNameViewController.swift in Sources */,
 				0AC60C332549751500A63AE2 /* MultiSendActionListView.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
@@ -3130,6 +3131,7 @@
 				0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */,
 				55B6466C2530562F0050BD95 /* SignTransactionRequest.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
+				0A6886D02588FC180045CAB5 /* EnterENSNameViewController.swift in Sources */,
 				0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */,
 				5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */,
 				04EF2AED2492B5AF0070ED1A /* VerticalBarView.swift in Sources */,
@@ -3182,8 +3184,6 @@
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
-				0A6886922588F87E0045CAB5 /* EnterSafeNameViewController.swift in Sources */,
-				0A6886A02588FAFB0045CAB5 /* EnterSafeNameViewController.swift in Sources */,
 				55CA3EAB2508D3670080DF7F /* SelectOwnerAddressView.swift in Sources */,
 				0AB34D6224B71DB200A43988 /* SafeBalancesRequest.swift in Sources */,
 				0A451BE4252DDB25001DB7D2 /* CoinBalancesModel.swift in Sources */,
