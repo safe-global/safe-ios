@@ -21,19 +21,18 @@ class EnterSafeAddressViewController: UIViewController {
 
     private var loadSafeTask: URLSessionTask?
 
-    private var nextButton: UIBarButtonItem = {
-        UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton))
-    }()
+    private var nextButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Load Safe Multisig"
-        navigationItem.rightBarButtonItem = nextButton
         headerLabel.setStyle(.headline)
         actionLabel.setStyle(.body)
         addressField.setPlaceholderText("Enter Safe address")
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
+        nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton(_:)))
         nextButton.isEnabled = false
+        navigationItem.rightBarButtonItem = nextButton
         openWebsiteButton.setText(websiteURL.absoluteString, .plain)
     }
 
