@@ -195,7 +195,7 @@
 		0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF32463185C00014184 /* ENSNameLoader.swift */; };
 		0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */; };
 		0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF72463190100014184 /* LoadableENSNameText.swift */; };
-		0A802B8124E413450001790F /* HTTPClientErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8024E413450001790F /* HTTPClientErrors.swift */; };
+		0A802B8124E413450001790F /* HTTPClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8024E413450001790F /* HTTPClientError.swift */; };
 		0A802B9024E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */; };
 		0A802B9224E5843B0001790F /* PagedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B9124E5843B0001790F /* PagedRequest.swift */; };
 		0A81E310246C062400425DEF /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A81E30F246C062400425DEF /* Icons.swift */; };
@@ -372,6 +372,7 @@
 		5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C82449A1980067505A /* LogServiceTests.swift */; };
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
+		55422FD125878A1200F3B306 /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55422FD025878A1200F3B306 /* GSError.swift */; };
 		555312E9250653800008206B /* BIP32HDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312E8250653800008206B /* BIP32HDNode.swift */; };
 		555312EB2506608D0008206B /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EA2506608D0008206B /* Base58.swift */; };
 		555312ED250663420008206B /* SECP256K1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EC250663420008206B /* SECP256K1.swift */; };
@@ -694,7 +695,7 @@
 		0A7AEAF32463185C00014184 /* ENSNameLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSNameLoader.swift; sourceTree = "<group>"; };
 		0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredAddressWithLink.swift; sourceTree = "<group>"; };
 		0A7AEAF72463190100014184 /* LoadableENSNameText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableENSNameText.swift; sourceTree = "<group>"; };
-		0A802B8024E413450001790F /* HTTPClientErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientErrors.swift; sourceTree = "<group>"; };
+		0A802B8024E413450001790F /* HTTPClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientError.swift; sourceTree = "<group>"; };
 		0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClientGatewayServiceIntegrationTests.swift; sourceTree = "<group>"; };
 		0A802B9124E5843B0001790F /* PagedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedRequest.swift; sourceTree = "<group>"; };
 		0A81E30F246C062400425DEF /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
@@ -919,6 +920,7 @@
 		5532D4D02449A1E40067505A /* MockLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLogger.swift; sourceTree = "<group>"; };
 		5532D4DD2449A34A0067505A /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		5532D4E32449A4FC0067505A /* SafeTransactionServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionServiceIntegrationTests.swift; sourceTree = "<group>"; };
+		55422FD025878A1200F3B306 /* GSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSError.swift; sourceTree = "<group>"; };
 		555312E8250653800008206B /* BIP32HDNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP32HDNode.swift; sourceTree = "<group>"; };
 		555312EA2506608D0008206B /* Base58.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
 		555312EC250663420008206B /* SECP256K1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SECP256K1.swift; sourceTree = "<group>"; };
@@ -2175,8 +2177,9 @@
 				0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */,
 				5532D4B82449A17D0067505A /* JSONHTTPClient.swift */,
 				5532D4B92449A17D0067505A /* HTTPClient.swift */,
-				0A802B8024E413450001790F /* HTTPClientErrors.swift */,
+				0A802B8024E413450001790F /* HTTPClientError.swift */,
 				0A802B9124E5843B0001790F /* PagedRequest.swift */,
+				55422FD025878A1200F3B306 /* GSError.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2952,7 +2955,7 @@
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0A0EFC9A246DAC1A00D3D8BF /* TabChildView.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
-				0A802B8124E413450001790F /* HTTPClientErrors.swift in Sources */,
+				0A802B8124E413450001790F /* HTTPClientError.swift in Sources */,
 				0AC60C332549751500A63AE2 /* MultiSendActionListView.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
 				0A7AEADD2462F92C00014184 /* SelectedSafeButton.swift in Sources */,
@@ -3105,6 +3108,7 @@
 				0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */,
 				0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */,
 				0A0983A224BC5C82009EE296 /* BackendTokenStore.swift in Sources */,
+				55422FD125878A1200F3B306 /* GSError.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
