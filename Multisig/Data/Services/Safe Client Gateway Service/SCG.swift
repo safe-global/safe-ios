@@ -12,6 +12,49 @@ import Foundation
 enum SCG {}
 
 extension SCG {
+    struct TransactionSummaryItemDateLabel: Decodable {
+        let timestamp: Int
+    }
+
+    struct TransactionSummaryItemLabel: Decodable {
+        let label: String
+    }
+
+    struct TransactionSummaryItemTransaction: Decodable {
+        let transaction: TxSummary
+        let conflictType: ConflictType
+    }
+
+    struct TransactionSummaryItemConflictHeader: Decodable {
+        let nonce: UInt256String
+    }
+
+    enum TransactionSummaryItem: Decodable {
+        case dateLabel(TransactionSummaryItemDateLabel)
+        case label(TransactionSummaryItemLabel)
+        case transaction(TransactionSummaryItemTransaction)
+        case conflictHeader(TransactionSummaryItemConflictHeader)
+        case unknown
+
+        init(from decoder: Decoder) throws {
+            enum Keys: String, CodingKey { case type }
+            let container = try decoder.container(keyedBy: Keys.self)
+            let type = try? container.decode(String.self, forKey: .type)
+
+            switch type {
+            case "LABEL":
+                self = try .label(TransactionSummaryItemLabel(from: decoder))
+            case "DATE_LABEL":
+                self = try .dateLabel(TransactionSummaryItemDateLabel(from: decoder))
+            case "TRANSACTION":
+                self = try .transaction(TransactionSummaryItemTransaction(from: decoder))
+            case "CONFLICT_HEADER":
+                self = try .conflictHeader(TransactionSummaryItemConflictHeader(from: decoder))
+            default:
+                self = .unknown
+            }
+        }
+    }
 
     struct TxSummary: Decodable {
         var id: String
@@ -350,5 +393,11 @@ extension SCG {
     enum Operation: Int, Decodable {
         case call = 0
         case delegate = 1
+    }
+
+    enum ConflictType: String, Decodable {
+        case none = "None"
+        case hasNext = "HasNext"
+        case end = "End"
     }
 }
