@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EnterSafeAddressViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="actionLabel" destination="DYJ-u9-IXY" id="8YR-J9-Dqt"/>
+                <outlet property="actionStackView" destination="6Oh-UX-bs9" id="BiV-rS-NXS"/>
                 <outlet property="addressField" destination="pVc-Ja-iVy" id="efJ-xL-rt8"/>
                 <outlet property="headerLabel" destination="JxG-5E-nOT" id="bsv-Ui-oYN"/>
                 <outlet property="openWebsiteButton" destination="EEH-UY-VFP" id="m4t-71-4kN"/>

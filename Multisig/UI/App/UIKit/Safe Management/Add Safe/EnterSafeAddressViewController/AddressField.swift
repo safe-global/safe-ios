@@ -101,6 +101,13 @@ class AddressField: UINibView {
         }
     }
 
+    func clear() {
+        setInputText(nil)
+        setAddress(nil)
+        setError(nil)
+        setLoading(false)
+    }
+
     @IBAction func didTapField(_ sender: Any) {
         onTap()
     }
