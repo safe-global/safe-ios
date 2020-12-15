@@ -51,25 +51,28 @@ struct MultiSendActionDetailsViewV2: View {
     private let eth = App.shared.tokenRegistry.token(address: .ether)!
     private let padding: CGFloat = 11
     var body: some View {
-        List {
-            CustomTransactionDetailsHeaderViewV2(
-                amount: amount,
-                dataLength: UInt256(multiSendTx.data.data.count),
-                logoURL: eth.logo,
-                symbol: eth.symbol,
-                status: .success,
-                to: multiSendTx.to.address.checksummed)
-                .padding(.vertical, padding)
+        VStack {
+            Text(title).headline().padding()
 
-            HexDataCellView(data: dataWithLength)
+            List {
+                CustomTransactionDetailsHeaderViewV2(
+                    amount: amount,
+                    dataLength: UInt256(multiSendTx.data.data.count),
+                    logoURL: eth.logo,
+                    symbol: eth.symbol,
+                    status: .success,
+                    to: multiSendTx.to.address.checksummed)
+                    .padding(.vertical, padding)
 
-            if let params = multiSendTx.dataDecoded?.parameters {
-                ForEach(0..<params.count) { index in
-                    ParameterViewV2(parameter: params[index])
+                HexDataCellView(data: dataWithLength)
+
+                if let params = multiSendTx.dataDecoded?.parameters {
+                    ForEach(0..<params.count) { index in
+                        ParameterViewV2(parameter: params[index])
+                    }
                 }
             }
         }
-        .navigationBarTitle(title)
         .onAppear {
             trackEvent(.transactionsDetailsAction)
         }
