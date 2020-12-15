@@ -60,6 +60,13 @@ class SnackbarCenter: ObservableObject {
         }
     }
 
+    func show(error: DetailedLocalizedError) {
+        show(message: error.localizedDescription)
+        if error.loggable {
+            LogService.shared.error(error.localizedDescription, error: error)
+        }
+    }
+
     func show(message content: String, duration: TimeInterval? = nil) {
         if App.configuration.toggles.useUIKit {
             SnackbarViewController.show(content, duration: duration ?? displayDuration)

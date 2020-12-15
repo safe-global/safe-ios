@@ -84,7 +84,7 @@ class EnterSafeAddressViewModel: ObservableObject {
             .sink(receiveCompletion: { [weak self] completion in
                 guard let `self` = self else { return }
                 if case .failure(let error) = completion {
-                    if error is HTTPClientError.EntityNotFound {
+                    if error is GSError.EntityNotFound {
                         self.setError("Safe not found.")
                     } else {
                         self.setError(error.localizedDescription)

@@ -12,6 +12,7 @@ protocol DetailedLocalizedError: LocalizedError, LoggableError {
     var description: String { get }
     var reason: String { get }
     var howToFix: String { get }
+    var loggable: Bool { get }
 }
 
 extension DetailedLocalizedError {
@@ -23,7 +24,8 @@ extension DetailedLocalizedError {
 /// Gnosis Safe errors as specified here in the requirements
 enum GSError {
     private static let networkErrorDomain = "NetworkError"
-    private static let clientErrorDomain = "ClientError"
+    private static let clientErrorDomain = "CommonClientError"
+    private static let iOSErrorDomain = "iOSError"
 
     private static let unexpectedError = UnprocessableEntity(
         reason: "Network request failed with an unexpected error.", code: 42200)
@@ -62,76 +64,6 @@ enum GSError {
         }
     }
 
-    struct NoInternet: DetailedLocalizedError {
-        let description = "No Internet"
-        let reason = "Device is not connected to the Internet."
-        let howToFix = "Please try again when Internet is available"
-
-        let domain = networkErrorDomain
-        let code = 101
-    }
-
-    struct SecureConnectionFailed: DetailedLocalizedError {
-        let description = "SSL connection failed"
-        let reason = "SSL connection failed."
-        let howToFix = "Please try again later"
-
-        let domain = networkErrorDomain
-        let code = 102
-    }
-
-    struct TimeOut: DetailedLocalizedError {
-        let description = "Request timed out"
-        var reason: String { "Request timed out after \(String(format: "%.0f", timeOut))s." }
-        let howToFix = "Please refresh the screen"
-
-        let domain = networkErrorDomain
-        let code = 103
-
-        let timeOut = HTTPClient.timeOutIntervalForRequest
-    }
-
-    struct UnknownHost: DetailedLocalizedError {
-        let description = "Unknown host, connection error"
-        let reason = "Server not reachable."
-        let howToFix = "Please try again when Internet is available"
-
-        let domain = networkErrorDomain
-        let code = 104
-    }
-
-    struct EntityNotFound: DetailedLocalizedError {
-        let description = "HTTP 404 Not Found"
-        let reason = "Safe not found."
-        let howToFix = "Please check that the Safe exists on the blockchain"
-        let domain = networkErrorDomain
-        let code = 404
-    }
-
-    struct UnprocessableEntity: DetailedLocalizedError {
-        let description = "HTTP 422 Unprocessable Entity"
-        let reason: String
-        let howToFix = "Please reach out to the Safe support"
-        let domain = networkErrorDomain
-        let code: Int
-    }
-
-    struct ServerSideError: DetailedLocalizedError {
-        let description = "HTTP 3xx, 4xx, 5xx"
-        let reason = "Server-side error."
-        let howToFix = "Please try again later or contact Safe support if the issue persists"
-        let domain = networkErrorDomain
-        let code: Int
-    }
-
-    struct UnknownError: DetailedLocalizedError {
-        let description = "Unknown error"
-        let reason = "Unexpected network error."
-        let howToFix = "Please reach out to the Safe support"
-        let domain = networkErrorDomain
-        let code: Int
-    }
-
     private static func unprocessableEntity(data: Data?) -> Error {
         guard let data = data else {
             LogService.shared.error("Missing data in unprocessableEntity error", error: unexpectedError)
@@ -162,4 +94,108 @@ enum GSError {
         let code: Int
         let message: String
     }
+
+    // MARK: - Network errors
+
+    struct NoInternet: DetailedLocalizedError {
+        let description = "No Internet"
+        let reason = "Device is not connected to the Internet."
+        let howToFix = "Please try again when Internet is available"
+
+        let domain = networkErrorDomain
+        let code = 101
+        let loggable = false
+    }
+
+    struct SecureConnectionFailed: DetailedLocalizedError {
+        let description = "SSL connection failed"
+        let reason = "SSL connection failed."
+        let howToFix = "Please try again later"
+
+        let domain = networkErrorDomain
+        let code = 102
+        let loggable = false
+    }
+
+    struct TimeOut: DetailedLocalizedError {
+        let description = "Request timed out"
+        var reason: String { "Request timed out after \(String(format: "%.0f", timeOut))s." }
+        let howToFix = "Please refresh the screen"
+
+        let domain = networkErrorDomain
+        let code = 103
+        let loggable = false
+
+        let timeOut = HTTPClient.timeOutIntervalForRequest
+    }
+
+    struct UnknownHost: DetailedLocalizedError {
+        let description = "Unknown host, connection error"
+        let reason = "Server not reachable."
+        let howToFix = "Please try again when Internet is available"
+
+        let domain = networkErrorDomain
+        let code = 104
+        let loggable = false
+    }
+
+    struct EntityNotFound: DetailedLocalizedError {
+        let description = "HTTP 404 Not Found"
+        let reason = "Safe not found."
+        let howToFix = "Please check that the Safe exists on the blockchain"
+        let domain = networkErrorDomain
+        let code = 404
+        let loggable = false
+    }
+
+    struct UnprocessableEntity: DetailedLocalizedError {
+        let description = "HTTP 422 Unprocessable Entity"
+        let reason: String
+        let howToFix = "Please reach out to the Safe support"
+        let domain = networkErrorDomain
+        let code: Int
+        let loggable = true
+    }
+
+    struct ServerSideError: DetailedLocalizedError {
+        let description = "HTTP 3xx, 4xx, 5xx"
+        let reason = "Server-side error."
+        let howToFix = "Please try again later or contact Safe support if the issue persists"
+        let domain = networkErrorDomain
+        let code: Int
+        let loggable = false
+    }
+
+    struct UnknownError: DetailedLocalizedError {
+        let description = "Unknown error"
+        let reason = "Unexpected network error."
+        let howToFix = "Please reach out to the Safe support"
+        let domain = networkErrorDomain
+        let code: Int
+        let loggable = true
+    }
+
+    // MARK: - Common client errors
+
+
+    // MARK: - iOS errors
+
+    struct KeychainError: DetailedLocalizedError {
+        let description = "Keychain error"
+        let reason: String
+        let howToFix = "Please reinstall the Gnosis Safe app"
+        let domain = iOSErrorDomain
+        let code = 1305
+        let loggable = true
+    }
+
+    struct DatabaseError: DetailedLocalizedError {
+        let description = "Database error"
+        let reason: String
+        let howToFix = "Please reinstall the Gnosis Safe app"
+        let domain = iOSErrorDomain
+        let code = 1306
+        let loggable = true
+    }
+
 }

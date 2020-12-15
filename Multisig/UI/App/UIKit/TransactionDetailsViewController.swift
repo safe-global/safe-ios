@@ -114,8 +114,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private func sign() {
         guard let tx = tx,
               let transaction = Transaction(tx: tx) else {
-            App.shared.snackbar.show(message: "Can't sign this transaction")
-            return
+            preconditionFailure("Unexpected Error")            
         }
         super.reloadData()
         do {

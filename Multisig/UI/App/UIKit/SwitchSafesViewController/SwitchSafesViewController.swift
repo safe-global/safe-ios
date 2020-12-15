@@ -31,9 +31,10 @@ final class SwitchSafesViewController: UITableViewController {
         do {
             safes = try Safe.getAll()
             tableView.reloadData()
+        } catch let err as DetailedLocalizedError {
+            App.shared.snackbar.show(error: err)
         } catch {
-            App.shared.snackbar.show(message: "Failed to fetch list of safes")
-            LogService.shared.error("SwitchSafesViewController: Failed to fetch list of safes: \(error)")
+            preconditionFailure("Unexpected Error")
         }
     }
 

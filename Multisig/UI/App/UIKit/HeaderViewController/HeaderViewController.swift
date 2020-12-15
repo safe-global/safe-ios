@@ -80,9 +80,10 @@ final class HeaderViewController: ContainerViewController {
                 safeBarView.setAddress(safe.addressValue)
                 safeBarView.setName(safe.displayName)
             }
+        } catch let err as DetailedLocalizedError {
+            App.shared.snackbar.show(error: err)
         } catch {
-            App.shared.snackbar.show(message: "Failed to load selected safe")
-            LogService.shared.error("Failed to load selected safe: \(error)")
+            preconditionFailure("Unexpected error")
         }
     }
 

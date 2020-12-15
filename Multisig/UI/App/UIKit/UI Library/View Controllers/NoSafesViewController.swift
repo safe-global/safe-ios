@@ -39,9 +39,10 @@ class NoSafesViewController: ContainerViewController {
                 viewControllers = [noSafeViewController]
                 displayChild(at: 0, in: view)
             }
+        } catch let err as DetailedLocalizedError {
+            App.shared.snackbar.show(error: err)
         } catch {
-            App.shared.snackbar.show(message: "Error getting selected safe")
-            LogService.shared.error("NoSafesViewController: Error getting selected safe: \(error)")
+            preconditionFailure("Unexpected Error")
         }
     }
 }
