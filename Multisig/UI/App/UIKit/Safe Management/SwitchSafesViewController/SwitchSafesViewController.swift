@@ -69,6 +69,9 @@ final class SwitchSafesViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == addSafeRowIndex {
             let vc = EnterSafeAddressViewController()
+            vc.completion = { [weak self] in
+                self?.didTapCloseButton()
+            }
             show(vc, sender: self)
         } else {
             let safe = safes[indexPath.row - 1]

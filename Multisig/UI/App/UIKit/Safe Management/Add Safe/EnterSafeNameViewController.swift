@@ -11,6 +11,7 @@ import UIKit
 class EnterSafeNameViewController: UIViewController {
     var address: Address!
     var name: String?
+    var completion: () -> Void = { }
 
     private var nextButton: UIBarButtonItem!
     private var debounceTimer: Timer!
@@ -48,6 +49,7 @@ class EnterSafeNameViewController: UIViewController {
         guard let name = name, let address = address else { return }
         Safe.create(address: address.checksummed, name: name)
         navigationController?.popToRootViewController(animated: true)
+        completion()
     }
 
     fileprivate func validateName() {
