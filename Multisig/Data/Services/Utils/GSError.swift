@@ -212,6 +212,24 @@ enum GSError {
 
     // MARK: - Common client errors
 
+    struct SafeAlreadyExists: DetailedLocalizedError {
+        let description = "Can’t use this address"
+        let reason = "A Safe with this address has been added already."
+        let howToFix = "Please use another Safe address"
+        let domain = clientErrorDomain
+        let code = 1101
+        let loggable = false
+    }
+
+    struct SafeAddressNotValid: DetailedLocalizedError {
+        let description = "This address is not valid"
+        let reason = "This value is not a valid address."
+        let howToFix = "Please use the checksummed Safe address"
+        let domain = clientErrorDomain
+        let code = 1102
+        let loggable = false
+    }
+
     struct WrongSeedPhrase: DetailedLocalizedError {
         let description = "Can’t use this seed phrase"
         let reason = "This is not a valid seed phrase for an Ethereum account."
@@ -224,9 +242,27 @@ enum GSError {
     struct TransactionSigningError: DetailedLocalizedError {
         let description = "Failed to confirm transaction"
         let reason = "Computed safeTxHash of a transaction to confirm does not match server-returned value."
-        let howToFix = "Please reload the data or check that your network is secure."
+        let howToFix = "Please reload the data or check that your network is secure"
         let domain = clientErrorDomain
         let code = 1104
+        let loggable = false
+    }
+
+    struct UnsupportedImplementationCopy: DetailedLocalizedError {
+        let description = "Unsupported Safe Implementation copy"
+        let reason = "The implementation copy of your Safe is not supported by this app."
+        let howToFix = "Please change the implementation copy before adding it or use another Safe"
+        let domain = clientErrorDomain
+        let code = 1105
+        let loggable = false
+    }
+
+    struct InvalidSafeAddress: DetailedLocalizedError {
+        let description = "Invalid safe address"
+        let reason = "Safe not found."
+        let howToFix = "Please check that the Safe exists on the blockchain"
+        let domain = clientErrorDomain
+        let code = 1109
         let loggable = false
     }
 

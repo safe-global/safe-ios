@@ -165,8 +165,10 @@ extension QRCodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                 scannerDidScan(code: code)
             } else {
                 captureSession.stopRunning()
+                let message = GSError.error(description: "Can’t use this QR code",
+                                            error: GSError.SafeAddressNotValid()).localizedDescription
                 let alert = UIAlertController(title: "Error",
-                                              message: "Incorrect QR Code",
+                                              message: message,
                                               preferredStyle: .alert)
                 let retryButton = UIAlertAction(title: "Retry", style: .default) { [unowned self] _ in
                     self.captureSession.startRunning()
