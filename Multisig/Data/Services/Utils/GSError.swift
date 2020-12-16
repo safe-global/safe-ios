@@ -221,6 +221,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct TransactionSigningError: DetailedLocalizedError {
+        let description = "Failed to confirm transaction"
+        let reason = "Computed safeTxHash of a transaction to confirm does not match server-returned value."
+        let howToFix = "Please reload the data or check that your network is secure."
+        let domain = clientErrorDomain
+        let code = 1104
+        let loggable = false
+    }
+
     struct InvalidSafeName: DetailedLocalizedError {
         let description = "Can’t use this name"
         let reason = "This value is not a valid name."
@@ -238,6 +247,15 @@ enum GSError {
         let howToFix: String
         let domain = iOSErrorDomain
         let code = 1300
+        let loggable = true
+    }
+
+    struct PreconditionsForSigningNotSatisfied: DetailedLocalizedError {
+        let description: String
+        let reason = "Something is wrong either with the transaction data or with the application state (database, selected Safe, etc.)"
+        let howToFix = "Please reinstall the Gnosis Safe app"
+        let domain = iOSErrorDomain
+        let code = 1304
         let loggable = true
     }
 

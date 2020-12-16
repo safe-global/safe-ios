@@ -15,7 +15,7 @@ class SafeTransactionSigner {
         let hashToSign = Data(ethHex: transaction.safeTxHash!.description)
         let data = transaction.encodeTransactionData(for: AddressString(safeAddress))
         guard EthHasher.hash(data) == hashToSign else {
-            throw "Invalid safeTxHash, please check the transaction data"
+            throw GSError.TransactionSigningError()            
         }
 
         return try Signer.sign(hash: hashToSign)        
