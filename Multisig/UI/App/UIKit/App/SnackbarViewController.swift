@@ -100,7 +100,7 @@ class SnackbarViewController: UIViewController {
         let message = messageQueue.removeFirst()
         currentMessage = message
 
-        textLabel?.text = currentMessage?.value
+        textLabel?.text = message.value
 
         showAnimated()
 
