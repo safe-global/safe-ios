@@ -1,5 +1,5 @@
 //
-//  BackupLoadSafeViewController.swift
+//  LoadSafeViewController.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 01.12.20.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-class BackupLoadSafeViewController: UIViewController {
+class LoadSafeViewController: UIViewController {
 
+    var trackingEvent: TrackingEvent?
     @IBOutlet private weak var callToActionLabel: UILabel!
     @IBOutlet private weak var loadSafeButton: UIButton!
     private var buttonYConstraint: NSLayoutConstraint?
@@ -22,6 +23,13 @@ class BackupLoadSafeViewController: UIViewController {
         super.viewDidLoad()
         callToActionLabel.setStyle(.title3)
         loadSafeButton.setText("Load Safe", .filled)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let event = trackingEvent {
+            trackEvent(event)
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -37,19 +45,9 @@ class BackupLoadSafeViewController: UIViewController {
         }
     }
 
-    // UIKit: need to manually remember this controller because
-    // it won't be provided in `presentedViewController` when this
-    // view controller is a child of another view controller.
-    var presentedVC: UIViewController?
-
-    @IBAction func didTapLoadSafe(_ sender: Any) {
-        presentedVC = ViewControllerFactory.loadSafeController(presenter: self)
-        present(presentedVC!, animated: true, completion: nil)
-    }
-
-    override func closeModal() {
-        presentedVC?.dismiss(animated: true, completion: nil)
-        presentedVC = nil
+    @IBAction private func didTapLoadSafe(_ sender: Any) {
+        let vc = EnterSafeAddressViewController()
+        show(vc, sender: self)
     }
 
 }

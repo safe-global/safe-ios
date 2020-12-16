@@ -39,7 +39,20 @@ extension GNOTextStyle {
     static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .gnoDarkBlue)
 
     static let normal = GNOTextStyle(size: 26, weight: .regular, fontName: "Averta Regular")
+}
 
+extension GNOTextStyle {
+    var attributes: [NSAttributedString.Key: Any] {
+        var result = [NSAttributedString.Key: Any]()
+        result[.font] = UIFont.gnoFont(forTextStyle: self)
+        if let color = color {
+            result[.foregroundColor] = color
+        }
+        if let kern = letterSpacing {
+            result[.kern] = NSNumber(value: kern)
+        }
+        return result
+    }
 }
 
 extension UIFont {
@@ -60,12 +73,7 @@ extension UILabel {
     }
 
     func setAttributedText(_ text: String, style: GNOTextStyle) {
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.gnoFont(forTextStyle: style),
-            .foregroundColor: style.color ?? .gnoMediumGrey,
-            .kern: NSNumber(value: style.letterSpacing ?? 1)
-        ]
-        attributedText = NSAttributedString(string: text, attributes: attributes)
+        attributedText = NSAttributedString(string: text, attributes: style.attributes)
     }
 }
 

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EnterSafeAddressViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="actionLabel" destination="DYJ-u9-IXY" id="8YR-J9-Dqt"/>
+                <outlet property="actionStackView" destination="6Oh-UX-bs9" id="BiV-rS-NXS"/>
+                <outlet property="addressField" destination="pVc-Ja-iVy" id="efJ-xL-rt8"/>
+                <outlet property="headerLabel" destination="JxG-5E-nOT" id="bsv-Ui-oYN"/>
+                <outlet property="openWebsiteButton" destination="EEH-UY-VFP" id="m4t-71-4kN"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="flx-9i-qcC">
+                    <rect key="frame" x="16" y="71" width="382" height="154"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your Safe Multisig address." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxG-5E-nOT">
+                            <rect key="frame" x="66" y="0.0" width="250" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Io0-5Y-b53">
+                            <rect key="frame" x="0.0" y="43.5" width="382" height="110.5"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVc-Ja-iVy" customClass="AddressField" customModule="Multisig" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="44"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" placeholder="YES" id="wxR-bL-ASB"/>
+                                    </constraints>
+                                </view>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6Oh-UX-bs9">
+                                    <rect key="frame" x="50" y="60" width="282.5" height="50.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have a Safe? Create one first at" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYJ-u9-IXY">
+                                            <rect key="frame" x="0.0" y="0.0" width="282.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EEH-UY-VFP">
+                                            <rect key="frame" x="118" y="20.5" width="46" height="30"/>
+                                            <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="didTapOpenWebsiteButton:" destination="-1" eventType="touchUpInside" id="fWE-9n-8dq"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="pVc-Ja-iVy" firstAttribute="leading" secondItem="flx-9i-qcC" secondAttribute="leading" id="Mqd-8H-I4Z"/>
+                        <constraint firstAttribute="trailing" secondItem="pVc-Ja-iVy" secondAttribute="trailing" id="bd8-I0-68D"/>
+                    </constraints>
+                </stackView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-external-link" translatesAutoresizingMaskIntoConstraints="NO" id="iM2-2Z-IR3">
+                    <rect key="frame" x="242" y="202" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="VPJ-Mb-NqC"/>
+                        <constraint firstAttribute="height" constant="16" id="xyS-xm-bjN"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="iM2-2Z-IR3" firstAttribute="leading" secondItem="EEH-UY-VFP" secondAttribute="trailing" constant="12" id="5gM-S7-qZE"/>
+                <constraint firstItem="flx-9i-qcC" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="27" id="97N-ka-9a6"/>
+                <constraint firstItem="iM2-2Z-IR3" firstAttribute="centerY" secondItem="EEH-UY-VFP" secondAttribute="centerY" id="AAK-uM-aeB"/>
+                <constraint firstItem="flx-9i-qcC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="eMd-3H-DiB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="flx-9i-qcC" secondAttribute="trailing" constant="16" id="qVi-Cu-onG"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="154"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon-external-link" width="16" height="16"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
