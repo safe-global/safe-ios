@@ -257,6 +257,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct ENSAddressNotFound: DetailedLocalizedError {
+        let description = "Can’t use this name"
+        let reason = "Address not found."
+        let howToFix = "Please enter a valid ENS name"
+        let domain = clientErrorDomain
+        let code = 1106
+        let loggable = false
+    }
+
     struct InvalidSafeAddress: DetailedLocalizedError {
         let description = "Invalid safe address"
         let reason = "Safe not found."
@@ -272,6 +281,24 @@ enum GSError {
         let howToFix = "Name should not be empty"
         let domain = clientErrorDomain
         let code = 1110
+        let loggable = false
+    }
+
+    struct ENSResolverNotFound: DetailedLocalizedError {
+        let description = "Can’t use this name"
+        let reason = "Resolver not found."
+        let howToFix = "Please enter a valid ENS name"
+        let domain = clientErrorDomain
+        let code = 1111
+        let loggable = false
+    }
+
+    struct ENSAddressResolutionNotFound: DetailedLocalizedError {
+        let description = "Can’t use this name"
+        let reason = "Address resolution not supported."
+        let howToFix = "Please enter a valid ENS name"
+        let domain = clientErrorDomain
+        let code = 1112
         let loggable = false
     }
 
