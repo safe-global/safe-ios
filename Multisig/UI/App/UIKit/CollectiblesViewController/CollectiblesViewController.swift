@@ -65,7 +65,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.onError(error)
+                        self.onError(GSError.error(description: "Failed to load collectibles", error: error))
                     }
                 case .success(let collectibles):
                     let sections = CollectibleListSection.create(collectibles)
@@ -78,7 +78,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
         } catch {
-            onError(error)
+            onError(GSError.error(description: "Failed to load collectibles", error: error))
         }
     }
 

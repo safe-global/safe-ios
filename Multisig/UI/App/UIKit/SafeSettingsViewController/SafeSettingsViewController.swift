@@ -106,7 +106,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.onError(error)
+                        self.onError(GSError.error(description: "Failed to load safe settings", error: error))
                     }
                 case .success(let safeInfo):
                     DispatchQueue.main.async { [weak self] in
@@ -119,7 +119,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
         } catch {
-            onError(error)
+            onError(GSError.error(description: "Failed to load safe settings", error: error))
         }
     }
 

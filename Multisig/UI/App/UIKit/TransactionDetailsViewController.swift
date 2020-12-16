@@ -132,7 +132,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 }
             })
         } catch {
-            onError(error)
+            onError(GSError.error(description: "Failed to confirm transaction", error: error))
         }
     }
 
@@ -171,7 +171,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     (error as NSError).domain == NSURLErrorDomain {
                     return
                 }
-                self.onError(error)
+                self.onError(GSError.error(description: "Failed to load transaction details", error: error))
             }
         case .success(let details):
             DispatchQueue.main.async { [weak self] in

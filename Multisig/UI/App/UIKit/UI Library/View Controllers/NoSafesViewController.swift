@@ -39,10 +39,9 @@ class NoSafesViewController: ContainerViewController {
                 viewControllers = [noSafeViewController]
                 displayChild(at: 0, in: view)
             }
-        } catch let err as DetailedLocalizedError {
-            App.shared.snackbar.show(error: err)
         } catch {
-            preconditionFailure("Unexpected Error")
+            App.shared.snackbar.show(
+                error: GSError.error(description: "Failed to check loaded safes", error: error))
         }
     }
 }

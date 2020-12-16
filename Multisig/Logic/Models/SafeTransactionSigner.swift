@@ -26,7 +26,7 @@ class SafeTransactionSigner {
             let pkData = try App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue)
             return pkData == nil ? 0 : 1
         } catch {
-            LogService.shared.error("Failure to get the key from keychain: \(error)")
+            App.shared.snackbar.show(error: GSError.error(description: "Failed to load keychain data", error: error))
             return 0
         }
     }

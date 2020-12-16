@@ -30,6 +30,40 @@ enum GSError {
     private static let unexpectedError = UnprocessableEntity(
         reason: "Network request failed with an unexpected error.", code: 42200)
 
+    /// User facing error from underlying error
+    /// - Parameters:
+    ///   - description: User facing description
+    ///   - error: undrelying error
+    /// - Returns: Detailed localized error
+    static func error(description: String, error: Error) -> DetailedLocalizedError {
+        struct AppError: DetailedLocalizedError {
+            let description: String
+            let reason: String
+            let howToFix: String
+            let domain: String
+            let code: Int
+            let loggable: Bool
+        }
+
+        if let error = error as? DetailedLocalizedError {
+            return AppError(description: description,
+                            reason: error.reason,
+                            howToFix: error.howToFix,
+                            domain: error.domain,
+                            code: error.code,
+                            loggable: error.loggable)
+        } else if let error = error as? LocalizedError {
+            return AppError(description: description,
+                            reason: error.failureReason ?? "Unknown error reason.",
+                            howToFix: error.recoverySuggestion ?? "Please reach out to the Safe support",
+                            domain: iOSErrorDomain,
+                            code: 1300,
+                            loggable: true)
+        } else {
+            return UnknownAppError(description: description)
+        }
+    }
+
     static func detailedError(from error: Error) -> Error {
         guard let nsError = error as NSError? else { return error }
 
@@ -58,9 +92,9 @@ enum GSError {
         case 300...599:
             return ServerSideError(code: httpResponse.statusCode)
         default:
-            let error = UnknownError(code: httpResponse.statusCode)
+            let error = UnknownNetworkError(code: httpResponse.statusCode)
             LogService.shared.error("Unknown error with status code: \(httpResponse.statusCode)", error: error)
-            return UnknownError(code: httpResponse.statusCode)
+            return UnknownNetworkError(code: httpResponse.statusCode)
         }
     }
 
@@ -166,7 +200,7 @@ enum GSError {
         let loggable = false
     }
 
-    struct UnknownError: DetailedLocalizedError {
+    struct UnknownNetworkError: DetailedLocalizedError {
         let description = "Unknown error"
         let reason = "Unexpected network error."
         let howToFix = "Please reach out to the Safe support"
@@ -179,6 +213,15 @@ enum GSError {
 
 
     // MARK: - iOS errors
+
+    struct UnknownAppError: DetailedLocalizedError {
+        let description: String
+        let reason = "Unknown error reason."
+        let howToFix = "Please reach out to the Safe support"
+        let domain = iOSErrorDomain
+        let code = 1300
+        let loggable = true
+    }
 
     struct KeychainError: DetailedLocalizedError {
         let description = "Keychain error"

@@ -177,10 +177,9 @@ class AppSettingsViewController: UITableViewController {
                 Tracker.shared.setUserProperty("0", for: TrackingUserProperty.numKeysImported)
                 NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
                 self.reload()
-            } catch let err as DetailedLocalizedError {
-                App.shared.snackbar.show(error: err)
             } catch {
-                preconditionFailure("Unexpected error")
+                App.shared.snackbar.show(
+                    error: GSError.error(description: "Failed to remove imported key", error: error))
             }
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
