@@ -1,14 +1,14 @@
 {
   "images" : [
     {
-      "filename" : "qr-code-frame.pdf",
+      "filename" : "border-normal.pdf",
       "idiom" : "universal",
       "resizing" : {
         "cap-insets" : {
-          "bottom" : 41,
-          "left" : 41,
-          "right" : 41,
-          "top" : 41
+          "bottom" : 11,
+          "left" : 11,
+          "right" : 11,
+          "top" : 11
         },
         "center" : {
           "height" : 1,

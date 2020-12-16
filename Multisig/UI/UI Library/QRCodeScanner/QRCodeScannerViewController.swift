@@ -16,11 +16,12 @@ protocol QRCodeScannerViewControllerDelegate {
 
 class QRCodeScannerViewController: UIViewController {
     @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var cameraFrameView: UIImageView!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var captureSession: AVCaptureSession!
     var delegate: QRCodeScannerViewControllerDelegate?
     var header: String?
-    
+
     enum Strings {
         static let cameraAlertTitle = NSLocalizedString("camera_title", comment: "")
         static let cameraAlertMessage = NSLocalizedString("camera_message", comment: "")
@@ -34,6 +35,7 @@ class QRCodeScannerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         headerLabel.text = header
+        view.bringSubviewToFront(cameraFrameView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -42,8 +44,7 @@ class QRCodeScannerViewController: UIViewController {
         if captureSession?.isRunning == false {
             captureSession.startRunning()
         }
-
-        Tracker.shared.track(event: TrackingEvent.camera)
+        trackEvent(.camera)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

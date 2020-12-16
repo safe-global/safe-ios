@@ -30,7 +30,12 @@ class DetailConfirmationCell: UITableViewCell {
         switch status {
         case .awaitingConfirmations, .awaitingYourConfirmation:
             let status = ConfirmationStatusPiece(frame: bounds)
-            status.setText("Execute (\(required) more confirmations needed)", style: GNOTextStyle.body.color(.gnoMediumGrey))
+            let confirmationsRemaining = required - confirmations.count
+            if confirmationsRemaining > 0 {
+                status.setText("Execute (\(confirmationsRemaining) more confirmations needed)", style: GNOTextStyle.body.color(.gnoMediumGrey))
+            } else {
+                status.setText("Execute", style: GNOTextStyle.body.color(.gnoMediumGrey))
+            }
             status.setSymbol("circle", color: .gnoMediumGrey)
             views.append(status)
 

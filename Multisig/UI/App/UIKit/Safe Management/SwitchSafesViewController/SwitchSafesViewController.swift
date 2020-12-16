@@ -9,6 +9,8 @@
 import UIKit
 
 final class SwitchSafesViewController: UITableViewController {
+    var notificationCenter = NotificationCenter.default
+
     private var safes = [Safe]()
     private let addSafeRowIndex = 0
 
@@ -19,6 +21,11 @@ final class SwitchSafesViewController: UITableViewController {
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         tableView.register(AddSafeTableViewCell.nib(), forCellReuseIdentifier: "AddSafe")
         tableView.register(SafeEntryTableViewCell.nib(), forCellReuseIdentifier: "SafeEntry")
+        notificationCenter.addObserver(
+            self, selector: #selector(reloadData), name: .selectedSafeChanged, object: nil)
+        notificationCenter.addObserver(
+            self, selector: #selector(reloadData), name: .selectedSafeUpdated, object: nil)
+
         reloadData()
     }
 
@@ -27,7 +34,7 @@ final class SwitchSafesViewController: UITableViewController {
         trackEvent(.safeSwitch)
     }
 
-    private func reloadData() {
+    @objc private func reloadData() {
         do {
             safes = try Safe.getAll()
             tableView.reloadData()
@@ -61,8 +68,11 @@ final class SwitchSafesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == addSafeRowIndex {
-            let vc = ViewControllerFactory.loadSafeController(presenter: self)
-            present(vc, animated: true, completion: nil)
+            let vc = EnterSafeAddressViewController()
+            vc.completion = { [weak self] in
+                self?.didTapCloseButton()
+            }
+            show(vc, sender: self)
         } else {
             let safe = safes[indexPath.row - 1]
             if !safe.isSelected {
