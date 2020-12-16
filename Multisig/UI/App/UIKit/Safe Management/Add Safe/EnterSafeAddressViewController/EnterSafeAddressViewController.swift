@@ -63,6 +63,7 @@ class EnterSafeAddressViewController: UIViewController {
 
         vc.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [unowned self] _ in
             let vc = QRCodeScannerViewController()
+            vc.modalPresentationStyle = .overFullScreen
             vc.delegate = self
             vc.setup()
             self.present(vc, animated: true, completion: nil)
