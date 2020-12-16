@@ -45,6 +45,11 @@ class EnterENSNameViewController: UIViewController {
         foundHeaderLabel.setStyle(.body)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.safeAddEns)
+    }
+
     @objc private func didTapConfirmButton() {
         onConfirm()
     }

@@ -49,5 +49,4 @@ class LoadSafeViewController: UIViewController {
         let vc = EnterSafeAddressViewController()
         show(vc, sender: self)
     }
-
 }

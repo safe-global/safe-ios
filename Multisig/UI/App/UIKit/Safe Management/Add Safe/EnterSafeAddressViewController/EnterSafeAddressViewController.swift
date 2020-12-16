@@ -12,6 +12,7 @@ class EnterSafeAddressViewController: UIViewController {
     var websiteURL = App.configuration.services.webAppURL
     var address: Address? { addressField?.address }
     var transactionService = App.shared.safeTransactionService
+    var completion: () -> Void = { }
 
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var addressField: AddressField!
@@ -45,7 +46,10 @@ class EnterSafeAddressViewController: UIViewController {
     }
 
     @objc private func didTapNextButton(_ sender: Any) {
+        guard let address = address else { return }
         let vc = EnterSafeNameViewController()
+        vc.address = address
+        vc.completion = completion
         show(vc, sender: self)
     }
 
@@ -59,7 +63,9 @@ class EnterSafeAddressViewController: UIViewController {
 
         vc.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [unowned self] _ in
             let vc = QRCodeScannerViewController()
+            vc.modalPresentationStyle = .overFullScreen
             vc.delegate = self
+            vc.setup()
             self.present(vc, animated: true, completion: nil)
         }))
 
@@ -150,5 +156,6 @@ extension EnterSafeAddressViewController: QRCodeScannerViewControllerDelegate {
 
     func scannerViewControllerDidScan(_ code: String) {
         didEnterText(code)
+        dismiss(animated: true, completion: nil)
     }
 }
