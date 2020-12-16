@@ -10,6 +10,7 @@ import UIKit
 
 class LoadSafeViewController: UIViewController {
 
+    var trackingEvent: TrackingEvent?
     @IBOutlet private weak var callToActionLabel: UILabel!
     @IBOutlet private weak var loadSafeButton: UIButton!
     private var buttonYConstraint: NSLayoutConstraint?
@@ -22,6 +23,13 @@ class LoadSafeViewController: UIViewController {
         super.viewDidLoad()
         callToActionLabel.setStyle(.title3)
         loadSafeButton.setText("Load Safe", .filled)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let event = trackingEvent {
+            trackEvent(event)
+        }
     }
 
     override func viewWillLayoutSubviews() {

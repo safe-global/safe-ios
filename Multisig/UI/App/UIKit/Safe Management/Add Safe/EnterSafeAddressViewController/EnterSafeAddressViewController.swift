@@ -65,6 +65,11 @@ class EnterSafeAddressViewController: UIViewController {
 
         vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [unowned self] _ in
             let vc = EnterENSNameViewController()
+            vc.onConfirm = { [weak self] in
+                guard let `self` = self else { return }
+                self.navigationController?.popViewController(animated: true)
+                self.didEnterText(vc.address?.checksummed)
+            }
             self.show(vc, sender: self)
         }))
 
