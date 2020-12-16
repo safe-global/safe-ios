@@ -53,14 +53,15 @@ enum GSError {
                             code: error.code,
                             loggable: error.loggable)
         } else if let error = error as? LocalizedError {
-            return AppError(description: description,
-                            reason: error.failureReason ?? "Unknown error reason.",
-                            howToFix: error.recoverySuggestion ?? "Please reach out to the Safe support",
-                            domain: iOSErrorDomain,
-                            code: 1300,
-                            loggable: true)
+            return UnknownAppError(description: description,
+                                   reason: error.failureReason ?? error.localizedDescription,
+                                   howToFix: error.recoverySuggestion ?? "")
         } else {
-            return UnknownAppError(description: description)
+            let error = error as NSError
+            return UnknownAppError(
+                description: description,
+                reason: error.localizedFailureReason ?? error.localizedDescription,
+                howToFix: error.localizedRecoverySuggestion ?? "")
         }
     }
 
@@ -211,13 +212,30 @@ enum GSError {
 
     // MARK: - Common client errors
 
+    struct WrongSeedPhrase: DetailedLocalizedError {
+        let description = "Can’t use this seed phrase"
+        let reason = "This is not a valid seed phrase for an Ethereum account."
+        let howToFix = "Please correct the error or use another seed phrase"
+        let domain = clientErrorDomain
+        let code = 1103
+        let loggable = false
+    }
+
+    struct InvalidSafeName: DetailedLocalizedError {
+        let description = "Can’t use this name"
+        let reason = "This value is not a valid name."
+        let howToFix = "Name should not be empty"
+        let domain = clientErrorDomain
+        let code = 1110
+        let loggable = false
+    }
 
     // MARK: - iOS errors
 
     struct UnknownAppError: DetailedLocalizedError {
         let description: String
-        let reason = "Unknown error reason."
-        let howToFix = "Please reach out to the Safe support"
+        let reason: String
+        let howToFix: String
         let domain = iOSErrorDomain
         let code = 1300
         let loggable = true
