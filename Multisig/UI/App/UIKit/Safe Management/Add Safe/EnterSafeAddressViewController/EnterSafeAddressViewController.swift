@@ -45,7 +45,9 @@ class EnterSafeAddressViewController: UIViewController {
     }
 
     @objc private func didTapNextButton(_ sender: Any) {
+        guard let address = address else { return }
         let vc = EnterSafeNameViewController()
+        vc.address = address
         show(vc, sender: self)
     }
 
