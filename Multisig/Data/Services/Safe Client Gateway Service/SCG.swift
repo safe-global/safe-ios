@@ -13,7 +13,7 @@ enum SCG {}
 
 extension SCG {
     struct TransactionSummaryItemDateLabel: Decodable {
-        let timestamp: Int
+        let timestamp: Date
     }
 
     struct TransactionSummaryItemLabel: Decodable {
@@ -61,7 +61,7 @@ extension SCG {
         var timestamp: Date
         var txStatus: TxStatus
         var txInfo: TxInfo
-        var executionInfo: ExecutionInfo
+        var executionInfo: ExecutionInfo?
     }
 
     enum TxStatus: String, Decodable {
@@ -257,6 +257,7 @@ extension SCG {
             var to: AddressString
             var dataSize: UInt256String
             var value: UInt256String
+            var methodName: String?
         }
 
         struct Creation: Decodable {
