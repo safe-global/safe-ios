@@ -16,8 +16,8 @@ class SnackbarViewController: UIViewController {
     var notificationCenter = NotificationCenter.default
 
     // bottom constraint to animate showing/hiding of the message
-    @IBOutlet private weak var bottom: NSLayoutConstraint!
-    @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet private weak var bottom: NSLayoutConstraint?
+    @IBOutlet private weak var textLabel: UILabel?
 
     // storage of the bottom anchor for when the message is visible
     private var bottomAnchor: CGFloat = ScreenMetrics.aboveTabBar
@@ -42,7 +42,7 @@ class SnackbarViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        textLabel.text = ""
+        textLabel?.text = ""
         moveSnackbarBottom(to: ScreenMetrics.offscreen)
         // to prevent keyboard overlaying the snackbar message
         notificationCenter.addObserver(self,
@@ -56,6 +56,7 @@ class SnackbarViewController: UIViewController {
     }
 
     static func show(_ message: String, duration: TimeInterval = 4) {
+        dispatchPrecondition(condition: .onQueue(.main))
         instance?.enqueue(Message(value: message, duration: duration))
         instance?.process()
     }
@@ -83,7 +84,7 @@ class SnackbarViewController: UIViewController {
                        initialSpringVelocity: 1,
                        options: .curveEaseInOut,
                        animations: { [unowned self] in
-            self.bottom.constant = newValue
+            self.bottom?.constant = newValue
             self.view.layoutIfNeeded()
         }, completion: { _ in completion() })
     }
@@ -94,21 +95,30 @@ class SnackbarViewController: UIViewController {
 
     // displays the next message in queue and sets the auto-hiding timer
     @objc private func process() {
+        dispatchPrecondition(condition: .onQueue(.main))
         guard currentMessage == nil, !messageQueue.isEmpty else { return }
-        currentMessage = messageQueue.removeFirst()
-        textLabel.text = currentMessage?.value
+        let message = messageQueue.removeFirst()
+        currentMessage = message
+
+        textLabel?.text = message.value
+
         showAnimated()
-        processingTimer = Timer.scheduledTimer(withTimeInterval: currentMessage!.duration,
+
+        processingTimer?.invalidate()
+        processingTimer = Timer.scheduledTimer(withTimeInterval: message.duration,
                                                repeats: false) { [weak self] _ in
             self?.showNextMessage()
         }
     }
 
     private func showNextMessage() {
-        // skip showing if last message is duplicate of the next message
-        while currentMessage == messageQueue.first {
-            messageQueue.removeFirst()
+        processingTimer?.invalidate()
+
+        // pre-emptively removing duplicate messages that are left in the queue
+        while self.currentMessage == self.messageQueue.first {
+            self.messageQueue.removeFirst()
         }
+
         hideAnimated { [weak self] in
             self?.process()
         }
@@ -119,10 +129,8 @@ class SnackbarViewController: UIViewController {
     }
 
     private func hideAnimated(completion: @escaping () -> Void = {}) {
-        processingTimer?.invalidate()
-        processingTimer = nil
-
-        moveSnackbarBottom(to: ScreenMetrics.offscreen) { [unowned self] in
+        moveSnackbarBottom(to: ScreenMetrics.offscreen) { [weak self] in
+            guard let `self` = self else { return }
             self.currentMessage = nil
             completion()
         }
