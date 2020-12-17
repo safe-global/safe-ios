@@ -39,8 +39,8 @@ final class SwitchSafesViewController: UITableViewController {
             safes = try Safe.getAll()
             tableView.reloadData()
         } catch {
-            App.shared.snackbar.show(message: "Failed to fetch list of safes")
-            LogService.shared.error("SwitchSafesViewController: Failed to fetch list of safes: \(error)")
+            App.shared.snackbar.show(
+                error: GSError.error(description: "Failed to load safes list", error: error))
         }
     }
 

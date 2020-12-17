@@ -178,8 +178,8 @@ class AppSettingsViewController: UITableViewController {
                 NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
                 self.reload()
             } catch {
-                LogService.shared.error(error.localizedDescription)
-                App.shared.snackbar.show(message: error.localizedDescription)
+                App.shared.snackbar.show(
+                    error: GSError.error(description: "Failed to remove imported key", error: error))
             }
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

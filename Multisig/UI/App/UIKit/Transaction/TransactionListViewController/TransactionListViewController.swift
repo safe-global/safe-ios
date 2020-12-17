@@ -71,7 +71,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.onError(error)
+                        self.onError(GSError.error(description: "Failed to load transactions", error: error))
                     }
                 case .success(let page):
                     var model = TransactionsListViewModel(page.results.flatMap { TransactionViewModel.create(from: $0) })
@@ -85,7 +85,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                 }
             }
         } catch {
-            onError(error)
+            onError(GSError.error(description: "Failed to load transactions", error: error))
         }
     }
 
@@ -121,7 +121,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.onError(error)
+                        self.onError(GSError.error(description: "Failed to load more transactions", error: error))
                     }
                 case .success(let page):
                     var model = TransactionsListViewModel(page.results.flatMap { TransactionViewModel.create(from: $0) })
@@ -139,7 +139,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                 self.loadNextPageDataTask = nil
             }
         } catch {
-            onError(error)
+            onError(GSError.error(description: "Failed to load more transactions", error: error))
         }
     }
 

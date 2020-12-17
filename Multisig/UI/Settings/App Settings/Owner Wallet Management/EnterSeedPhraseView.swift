@@ -76,7 +76,7 @@ struct EnterSeedPhraseView: View {
             let rootNode = HDNode(seed: seedData)?.derive(path: HDNode.defaultPathMetamaskPrefix,
                                                           derivePrivateKey: true) else {
             isValid = false
-            errorMessage = "Seed phrase is not valid"
+            errorMessage = GSError.WrongSeedPhrase().localizedDescription
             return
         }
         self.rootNode = rootNode
@@ -110,7 +110,7 @@ struct EnterSeedView: View {
                 .frame(height: 120)
                 .background(borderView)
 
-            Text(errorMessage).error()
+            Text(errorMessage).error().frame(maxHeight: .infinity)
         }
     }
 

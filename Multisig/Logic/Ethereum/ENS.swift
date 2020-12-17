@@ -5,27 +5,6 @@
 import Foundation
 import idn2Swift
 
-enum ENSAPIServiceError: LocalizedError {
-    case resolverNotFound
-    case addressResolutionNotSupported
-    case addressNotFound
-    case resolvedNameNotMatchingOriginalAddress
-
-    var errorDescription: String? {
-        switch self {
-        case .resolverNotFound:
-            return "No resolver set for the record"
-        case .addressResolutionNotSupported:
-            return "Address resolving is not supported"
-        case .addressNotFound:
-            return "Address not found in the resolver"
-        case .resolvedNameNotMatchingOriginalAddress:
-            return "Resolved to the name which is not resolving to the address"
-        }
-    }
-
-}
-
 final class ENS {
 
     let registryAddress: Address
@@ -45,44 +24,40 @@ final class ENS {
         let registry = ENSRegistry(registryAddress)
         let resolverAddress = try registry.resolver(node: node)
         if resolverAddress.isZero {
-            throw ENSAPIServiceError.resolverNotFound
+            throw GSError.ENSResolverNotFound()
         }
 
         // resolve address
         let resolver = ENSResolver(resolverAddress)
         let isResolvingSupported = try resolver.supportsInterface(ENSResolver.Selectors.address)
         guard isResolvingSupported else {
-            throw ENSAPIServiceError.addressResolutionNotSupported
+            throw GSError.ENSAddressResolutionNotFound()
         }
         let resolvedAddress = try resolver.address(node: node)
         if resolvedAddress.isZero {
-            throw ENSAPIServiceError.addressNotFound
+            throw GSError.ENSAddressNotFound()
         }
         return resolvedAddress
     }
 
-    func name(for address: Address) throws -> String? {
+    func name(for address: Address) -> String? {
         // construct a reverse node
         let addressString = address.data.toHexString()
         let reverseName = addressString + ".addr.reverse"
-        let node = try namehash(normalized(reverseName))
+        let registry = ENSRegistry(registryAddress)
 
         // get resolver
-        let registry = ENSRegistry(registryAddress)
-        let resolverAddress = try registry.resolver(node: node)
-        if resolverAddress.isZero {
-            throw ENSAPIServiceError.resolverNotFound
-        }
+        guard let node = try? namehash(normalized(reverseName)),
+              let resolverAddress = try? registry.resolver(node: node),
+              !resolverAddress.isZero else { return nil }
 
         let reverseResolver = ENSReverseResolver(resolverAddress)
         // resolve the name
-        guard let resolvedASCIIName = try reverseResolver.name(node: node) else {
+        guard let resolvedASCIIName = try? reverseResolver.name(node: node),
+              let resolvedName = try? IDN.asciiToUTF8(resolvedASCIIName),
+              let resolvedAddress = try? self.address(for: resolvedName),
+              address == resolvedAddress else {
             return nil
-        }
-        let resolvedName = try IDN.asciiToUTF8(resolvedASCIIName)
-        let resolvedAddress = try self.address(for: resolvedName)
-        guard address == resolvedAddress else {
-            throw ENSAPIServiceError.resolvedNameNotMatchingOriginalAddress
         }
         return resolvedName
     }

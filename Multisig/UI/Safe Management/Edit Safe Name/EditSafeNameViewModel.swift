@@ -40,7 +40,7 @@ class EditSafeNameViewModel: ObservableObject {
             .sink { [weak self] value in
                 guard let `self` = self else { return }
                 self.isValid = !value.isEmpty
-                self.error = self.isValid == false ? "Name must not be empty" : ""
+                self.error = self.isValid == false ? GSError.InvalidSafeName().localizedDescription : ""
             }
             .store(in: &subscribers)
     }

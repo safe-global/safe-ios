@@ -104,7 +104,7 @@ class EnterSafeAddressViewController: UIViewController {
 
             // (2) and that there's no such safe already
             let exists = try Safe.exists(address.checksummed)
-            if exists { throw "There is already a Safe with this address in the app. Please use another address." }
+            if exists { throw GSError.SafeAlreadyExists() }
 
             // (3) and there exists safe at that address
             addressField.setLoading(true)
@@ -122,10 +122,10 @@ class EnterSafeAddressViewController: UIViewController {
                         if (error as NSError).code == URLError.cancelled.rawValue &&
                             (error as NSError).domain == NSURLErrorDomain {
                             return
-                        } else if error is HTTPClientError.EntityNotFound {
-                            self.addressField.setError("Safe not found")
                         } else {
-                            self.addressField.setError(error)
+                            let message = GSError.error(description: "Can’t use this address",
+                                                        error: GSError.InvalidSafeAddress()).localizedDescription
+                            self.addressField.setError(message)
                         }
                     }
                 case .success(let info):
@@ -135,8 +135,9 @@ class EnterSafeAddressViewController: UIViewController {
             // (4) and its mastercopy is supported
                         let implementation = info.implementation.address
                         guard App.shared.gnosisSafe.isSupported(implementation) else {
-                            let error: Error = "This safe's master copy contract is not supported: \(implementation.checksummed)"
-                            self.addressField.setError(error)
+                            let error = GSError.error(description: "Can’t use this address",
+                                                      error: GSError.UnsupportedImplementationCopy())
+                            self.addressField.setError(error.localizedDescription)
                             return
                         }
                         self.nextButton.isEnabled = true
