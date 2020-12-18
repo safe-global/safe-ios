@@ -59,7 +59,8 @@ enum ViewControllerFactory {
     }
 
     private static func transactionsTabViewController() -> UIViewController {
-        let transactionsVC = TransactionListViewController()
+        let queuedTransactionsViewController = QueuedTransactionsViewController()
+        let historyTransactionsViewController = HistoryTransactionsViewController()
 
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
@@ -67,8 +68,8 @@ enum ViewControllerFactory {
             SegmentBarItem(image: #imageLiteral(resourceName: "ico-app-settings"), title: "HISTORY")
         ]
         segmentVC.viewControllers = [
-            transactionsVC,
-            transactionsVC
+            queuedTransactionsViewController,
+            historyTransactionsViewController
         ]
         segmentVC.selectedIndex = 0
 

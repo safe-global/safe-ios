@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import SwiftCryptoTokenFormatter
 
 class TransactionListViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     var clientGatewayService = App.shared.clientGatewayService
@@ -15,14 +16,21 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     private var loadFirstPageDataTask: URLSessionTask?
     private var loadNextPageDataTask: URLSessionTask?
 
-    private var model = TransactionsListViewModel()
+    private var model = FlatTransactionsListViewModel()
+    internal var trackingEvent: TrackingEvent?
+    internal var emptyText: String = "Transactions will appear here"
+    internal var emptyImage: UIImage = #imageLiteral(resourceName: "ico-no-transactions")
+
+    internal var dateFormatter: DateFormatter! = DateFormatter()
+
+    internal var timeFormatter: DateFormatter! = DateFormatter()
 
     override var isEmpty: Bool {
         model.isEmpty
     }
 
     convenience init() {
-        self.init(namedClass: Self.superclass())
+        self.init(namedClass: LoadableViewController.self)
     }
 
     override func viewDidLoad() {
@@ -34,19 +42,22 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         tableView.backgroundColor = .gnoWhite
 
         tableView.registerCell(TransactionListTableViewCell.self)
-        tableView.registerHeaderFooterView(BasicHeaderView.self)
+        tableView.registerCell(TransactionListHeaderTableViewCell.self)
+        tableView.registerCell(TransactionsListConflictHeaderTableViewCell.self)
 
         tableView.sectionHeaderHeight = BasicHeaderView.headerHeight
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
 
-        emptyView.setText("Transactions will appear here")
-        emptyView.setImage(#imageLiteral(resourceName: "ico-no-transactions"))
+        emptyView.setText(emptyText)
+        emptyView.setImage(emptyImage)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.transactions)
+        if let trackingEvent = trackingEvent {
+            trackEvent(trackingEvent)
+        }
     }
 
     override func reloadData() {
@@ -58,7 +69,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         do {
             let address = try Address(from: try Safe.getSelected()!.address!)
 
-            loadFirstPageDataTask = clientGatewayService.asyncTransactionList(address: address) { [weak self] result in
+            loadFirstPageDataTask = asyncTransactionList(address: address) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):
@@ -74,7 +85,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                         self.onError(error)
                     }
                 case .success(let page):
-                    var model = TransactionsListViewModel(page.results.flatMap { TransactionViewModel.create(from: $0) })
+                    var model = FlatTransactionsListViewModel(page.results)
                     model.next = page.next
 
                     DispatchQueue.main.async { [weak self] in
@@ -87,6 +98,16 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         } catch {
             onError(error)
         }
+    }
+
+    func asyncTransactionList(address: Address, completion: @escaping (Result<Page<SCG.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
+        // Should be overrided in subclass
+        nil
+    }
+
+    func asyncTransactionList(pageUri: String, completion: @escaping (Result<Page<SCG.TransactionSummaryItem>, Error>) -> Void) throws -> URLSessionTask? {
+        // Should be overrided in subclass
+        nil
     }
 
     private func startNextPageLoadingAnimation() {
@@ -108,7 +129,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
         startNextPageLoadingAnimation()
         do {
-            loadNextPageDataTask = try clientGatewayService.asyncTransactionList(pageUri: nextPageUri) { [weak self] result in
+            loadNextPageDataTask = try asyncTransactionList(pageUri: nextPageUri) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):
@@ -124,7 +145,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                         self.onError(error)
                     }
                 case .success(let page):
-                    var model = TransactionsListViewModel(page.results.flatMap { TransactionViewModel.create(from: $0) })
+                    var model = FlatTransactionsListViewModel(page.results)
                     model.next = page.next
 
                     DispatchQueue.main.async { [weak self] in
@@ -144,60 +165,55 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        model.sections.count
+        1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        model.sections[section].transactions.count
+        model.models.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(TransactionListTableViewCell.self, for: indexPath)
-        let tx = model.sections[indexPath.section].transactions[indexPath.row]
-        cell.setTransaction(tx, from: self)
         if isLast(path: indexPath) {
             loadNextPage()
         }
-        return cell
+
+        return cell(table: tableView, indexPath: indexPath)
     }
 
     private func isLast(path: IndexPath) -> Bool {
-        path.section == model.sections.count - 1 &&
-            path.row == model.sections[path.section].transactions.count - 1
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let section = model.sections[section]
-        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-        view.setName(section.name)
-        return view
+        path.row == model.models.count - 1
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let tx = model.sections[indexPath.section].transactions[indexPath.row]
+
+        let item = model.models[indexPath.row]
+        var transaction: SCG.TxSummary?
+        switch item {
+        case .transaction(let tx):
+            transaction = tx.transaction
+        default:
+            transaction = nil
+        }
+
+        guard let tx = transaction else { return }
         let vc: TransactionDetailsViewController
 
-        if let creationTx = tx as? CreationTransactionViewModel {
-
-            let creation = SCG.TxInfo.Creation(
-                creator: AddressString(creationTx.creator!)!,
-                transactionHash: DataString(hex: creationTx.hash!),
-                implementation: creationTx.implementationUsed.flatMap { AddressString($0) },
-                factory: creationTx.factoryUsed.flatMap { AddressString($0) })
-
+        switch tx.txInfo {
+        case .creation(let creationInfo):
             let detailsTx = SCG.TransactionDetails(
-                txStatus: tx.status.scgTxStatus,
-                txInfo: SCG.TxInfo.creation(creation),
+                txStatus: tx.txStatus,
+                txInfo: SCG.TxInfo.creation(creationInfo),
                 txData: nil,
                 detailedExecutionInfo: nil,
                 txHash: nil,
-                executedAt: tx.date)
+                executedAt: tx.timestamp)
 
             vc = TransactionDetailsViewController(transaction: detailsTx)
-        } else {
+        default:
             vc = TransactionDetailsViewController(transactionID: tx.id)
         }
+
         show(vc, sender: self)
 
         if tableView.contentOffset == .zero {
@@ -205,27 +221,120 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         }
     }
 
-}
+    func cell(table: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        let item = model.models[indexPath.row]
 
-// Temporary solution to bridge the old model to the new model
+        switch item {
+        case .conflictHeader(let header):
+            let cell = tableView.dequeueCell(TransactionsListConflictHeaderTableViewCell.self, for: indexPath)
+            cell.nonceLabel.text = "\(header.nonce)"
 
-extension TransactionStatus {
-    var scgTxStatus: SCG.TxStatus {
-        switch self {
-        case .awaitingConfirmations:
-            return .awaitingConfirmations
-        case .awaitingYourConfirmation:
-            return .awaitingYourConfirmation
-        case .awaitingExecution:
-            return .awaitingExecution
-        case .cancelled:
-            return .cancelled
-        case .failed:
-            return .failed
-        case .success:
-            return .success
-        case .pending:
-            return .pending
+            return cell
+        case .dateLabel(let label):
+            let cell = tableView.dequeueCell(TransactionListHeaderTableViewCell.self, for: indexPath)
+            cell.titleLabel.text = dateFormatter.string(from: label.timestamp)
+
+            return cell
+        case .label(let label):
+            let cell = tableView.dequeueCell(TransactionListHeaderTableViewCell.self, for: indexPath)
+            cell.titleLabel.text = label.label
+
+            return cell
+        case .transaction(let transaction):
+            let cell = tableView.dequeueCell(TransactionListTableViewCell.self, for: indexPath)
+            configure(cell: cell, transaction: transaction)
+
+            return cell
+        case .unknown:
+            return UITableViewCell()
         }
+    }
+
+    func configure(cell: TransactionListTableViewCell, transaction: SCG.TransactionSummaryItemTransaction) {
+        let tx = transaction.transaction
+        var title = ""
+        var image = #imageLiteral(resourceName: "ico-settings-tx")
+
+        let nonce = tx.executionInfo?.nonce.description ?? ""
+        let confirmationsSubmitted = tx.executionInfo?.confirmationsSubmitted ?? 0
+        let confirmationsRequired = tx.executionInfo?.confirmationsRequired ?? 0
+        let date = formatted(date: tx.timestamp)
+        var info = ""
+
+        var status: SCG.TxStatus = tx.txStatus
+        let missingSigners = tx.executionInfo?.missingSigners?.map { $0.address.checksummed } ?? []
+        if let signingKeyAddress = App.shared.settings.signingKeyAddress,status == .awaitingConfirmations {
+            if missingSigners.contains(signingKeyAddress) {
+                status = .awaitingYourConfirmation
+            }
+        }
+
+        switch transaction.transaction.txInfo {
+        case .transfer(let transferInfo):
+            let isOutgoing = transferInfo.direction == .outgoing
+            image = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incoming-tx")
+            title = isOutgoing ? "Send" : "Receive"
+            info = formattedAmount(transferInfo: transferInfo)
+        case .settingsChange(let settingsChangeInfo):
+            title = settingsChangeInfo.dataDecoded.method
+            image = #imageLiteral(resourceName: "ico-settings-tx")
+        case .custom(let customInfo):
+            title = "Contract interaction"
+            info = customInfo.methodName ?? ""
+            image = #imageLiteral(resourceName: "ico-custom-tx")
+        case .creation(_):
+            image = #imageLiteral(resourceName: "ico-settings-tx")
+            title = "Safe created"
+        case .unknown:
+            image = #imageLiteral(resourceName: "ico-custom-tx")
+            title = "Unknown operation"
+        }
+
+        cell.set(title, image: image, status: status, nonce: nonce, date: date, info: info, confirmationsSubmitted: confirmationsSubmitted, confirmationsRequired: confirmationsRequired)
+    }
+
+    func formattedAmount(transferInfo: SCG.TxInfo.Transfer) -> String {
+        let isOutgoing = transferInfo.direction == .outgoing
+
+        let sign: Int256 = isOutgoing ? -1 : +1
+
+        var value: Int256
+        var decimals: UInt256
+        var symbol: String?
+
+        switch transferInfo.transferInfo {
+        case .erc20(let erc20TransferInfo):
+            value = Int256(erc20TransferInfo.value.value)
+            decimals = (try? UInt256(erc20TransferInfo.decimals ?? 0)) ?? 0
+            symbol = erc20TransferInfo.tokenSymbol ?? "ERC20"
+        case .erc721(let erc721TransferInfo):
+            symbol = erc721TransferInfo.tokenSymbol ?? "NFT"
+            value = 1
+            decimals = 0
+        case .ether(let etherTransferInfo):
+            value = Int256(etherTransferInfo.value.value)
+            let eth = App.shared.tokenRegistry.token(address: .ether)!
+            decimals = eth.decimals!
+            symbol = eth.symbol
+        case .unknown:
+            value = 0
+            decimals = 0
+            symbol = "Unknown"
+        }
+
+        let decimalAmount = BigDecimal(value * sign,
+                                       Int(clamping: decimals))
+        let amount = TokenFormatter().string(
+            from: decimalAmount,
+            decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
+            forcePlusSign: true
+        )
+
+        return [amount, symbol ?? ""].joined(separator: " ")
+    }
+
+    func formatted(date: Date) -> String {
+        timeFormatter.string(from: date)
     }
 }
