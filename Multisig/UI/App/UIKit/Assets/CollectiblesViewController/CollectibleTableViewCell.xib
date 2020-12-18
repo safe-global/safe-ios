@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,16 +42,29 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <wkWebView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" allowsLinkPreview="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qAL-6g-FqJ">
+                                <rect key="frame" x="0.0" y="0.0" width="144" height="144"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" allowsPictureInPictureMediaPlayback="NO">
+                                    <dataDetectorTypes key="dataDetectorTypes"/>
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences" javaScriptEnabled="NO"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0LA-pv-ogc" secondAttribute="trailing" constant="16" id="1HL-c0-BHw"/>
+                            <constraint firstItem="qAL-6g-FqJ" firstAttribute="top" secondItem="INF-RX-1Dj" secondAttribute="top" id="FVO-Um-GRw"/>
                             <constraint firstItem="0LA-pv-ogc" firstAttribute="top" secondItem="Uo4-L9-zv1" secondAttribute="top" constant="15" id="MK9-e0-8aS"/>
+                            <constraint firstItem="qAL-6g-FqJ" firstAttribute="bottom" secondItem="INF-RX-1Dj" secondAttribute="bottom" id="OlH-Si-RpB"/>
                             <constraint firstItem="pXt-pW-2KI" firstAttribute="leading" secondItem="0LA-pv-ogc" secondAttribute="leading" id="WmX-9W-Dn6"/>
                             <constraint firstItem="pXt-pW-2KI" firstAttribute="trailing" secondItem="0LA-pv-ogc" secondAttribute="trailing" id="ZYC-iD-9Ye"/>
                             <constraint firstItem="INF-RX-1Dj" firstAttribute="top" secondItem="Uo4-L9-zv1" secondAttribute="top" id="hbb-dp-QZt"/>
                             <constraint firstItem="pXt-pW-2KI" firstAttribute="top" secondItem="0LA-pv-ogc" secondAttribute="bottom" constant="10" id="qub-Nz-bIo"/>
                             <constraint firstItem="0LA-pv-ogc" firstAttribute="leading" secondItem="INF-RX-1Dj" secondAttribute="trailing" constant="16" id="tRl-Jm-SMk"/>
+                            <constraint firstItem="qAL-6g-FqJ" firstAttribute="trailing" secondItem="INF-RX-1Dj" secondAttribute="trailing" id="xAQ-aG-WyT"/>
                             <constraint firstItem="INF-RX-1Dj" firstAttribute="leading" secondItem="Uo4-L9-zv1" secondAttribute="leading" id="zB5-8X-S21"/>
+                            <constraint firstItem="qAL-6g-FqJ" firstAttribute="leading" secondItem="INF-RX-1Dj" secondAttribute="leading" id="zl9-HC-G6c"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -73,6 +86,7 @@
                 <outlet property="cellDescriptionLabel" destination="pXt-pW-2KI" id="cPl-xv-7v5"/>
                 <outlet property="cellImageView" destination="INF-RX-1Dj" id="e7V-ic-MqI"/>
                 <outlet property="cellNameLabel" destination="0LA-pv-ogc" id="Oqn-Jh-H1b"/>
+                <outlet property="webView" destination="qAL-6g-FqJ" id="s0c-jH-ws4"/>
             </connections>
             <point key="canvasLocation" x="70.28985507246378" y="-380.35714285714283"/>
         </tableViewCell>
