@@ -59,7 +59,7 @@ class SelectOwnerAddressViewModel: ObservableObject {
             App.shared.settings.updateSigningKeyAddress()
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key successfully imported")
-            Tracker.shared.setUserProperty("1", for: TrackingUserProperty.numKeysImported)
+            Tracker.shared.setNumKeysImported(1)
             return true
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)

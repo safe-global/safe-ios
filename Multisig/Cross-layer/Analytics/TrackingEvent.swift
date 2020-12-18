@@ -14,6 +14,16 @@ enum TrackingUserProperty: String, UserProperty {
     case numKeysImported = "num_keys_imported" // string, number of keys imported, "0" on fresh install
 }
 
+extension Tracker {
+    func setSafeCount(_ count: Int) {
+        setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
+    }
+
+    func setNumKeysImported(_ count: Int) {
+        setUserProperty("\(count)", for: TrackingUserProperty.numKeysImported)
+    }
+}
+
 enum TrackingPushState: String {
     case unknown, disabled, enabled
 }
