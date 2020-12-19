@@ -164,12 +164,8 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         }
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        model.models.count
+        model.items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -181,13 +177,13 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     }
 
     private func isLast(path: IndexPath) -> Bool {
-        path.row == model.models.count - 1
+        path.row == model.items.count - 1
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let item = model.models[indexPath.row]
+        let item = model.items[indexPath.row]
         var transaction: SCG.TxSummary?
         switch item {
         case .transaction(let tx):
@@ -222,7 +218,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     }
 
     func cell(table: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let item = model.models[indexPath.row]
+        let item = model.items[indexPath.row]
 
         switch item {
         case .conflictHeader(let header):
@@ -290,7 +286,14 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             title = "Unknown operation"
         }
 
-        cell.set(title, image: image, status: status, nonce: nonce, date: date, info: info, confirmationsSubmitted: confirmationsSubmitted, confirmationsRequired: confirmationsRequired)
+        cell.set(title,
+                 image: image,
+                 status: status,
+                 nonce: nonce,
+                 date: date,
+                 info: info,
+                 confirmationsSubmitted: confirmationsSubmitted,
+                 confirmationsRequired: confirmationsRequired)
     }
 
     func formattedAmount(transferInfo: SCG.TxInfo.Transfer) -> String {

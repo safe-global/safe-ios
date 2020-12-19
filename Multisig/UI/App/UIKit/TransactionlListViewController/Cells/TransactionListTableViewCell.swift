@@ -65,11 +65,6 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     func confirmationColor(_ confirmationsSubmitted: UInt64 = 0, _ confirmationsRequired: UInt64 = 0) -> UIColor {
         let reminingConfirmations = confirmationsSubmitted > confirmationsRequired ? 0 : confirmationsRequired - confirmationsSubmitted
-
-        if reminingConfirmations > 0 {
-            return .gnoMediumGrey
-        } else {
-            return .gnoHold
-        }
+        return reminingConfirmations > 0 ? .gnoMediumGrey : .gnoHold
     }
 }
