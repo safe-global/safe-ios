@@ -83,9 +83,9 @@ class SnackbarViewController: UIViewController {
                        usingSpringWithDamping: 0.7,
                        initialSpringVelocity: 1,
                        options: .curveEaseInOut,
-                       animations: { [unowned self] in
-            self.bottom?.constant = newValue
-            self.view.layoutIfNeeded()
+                       animations: { [weak self] in
+            self?.bottom?.constant = newValue
+            self?.view.layoutIfNeeded()
         }, completion: { _ in completion() })
     }
 
@@ -130,8 +130,7 @@ class SnackbarViewController: UIViewController {
 
     private func hideAnimated(completion: @escaping () -> Void = {}) {
         moveSnackbarBottom(to: ScreenMetrics.offscreen) { [weak self] in
-            guard let `self` = self else { return }
-            self.currentMessage = nil
+            self?.currentMessage = nil
             completion()
         }
     }

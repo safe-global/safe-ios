@@ -167,7 +167,7 @@ class AppSettingsViewController: UITableViewController {
             title: nil,
             message: "Removing the owner key only removes it from this app. It doesn't delete any Safes from this app or from blockchain. For Safes controlled by this owner key, you will no longer be able to sign transactions in this app",
             preferredStyle: .actionSheet)
-        let remove = UIAlertAction(title: "Remove", style: .destructive) { [unowned self] _ in
+        let remove = UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
             do {
                 try App.shared.keychainService.removeData(
                     forKey: KeychainKey.ownerPrivateKey.rawValue)                
@@ -176,7 +176,7 @@ class AppSettingsViewController: UITableViewController {
                 App.shared.snackbar.show(message: "Owner key removed from this app")
                 Tracker.shared.setUserProperty("0", for: TrackingUserProperty.numKeysImported)
                 NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
-                self.reload()
+                self?.reload()
             } catch {
                 App.shared.snackbar.show(
                     error: GSError.error(description: "Failed to remove imported key", error: error))

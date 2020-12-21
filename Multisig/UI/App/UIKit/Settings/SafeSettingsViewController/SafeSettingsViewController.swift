@@ -212,8 +212,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let cell = tableView.dequeueCell(ContractVersionStatusCell.self, for: indexPath)
         cell.setAddress(Address(exactly: version))
         cell.selectionStyle = .none
-        cell.onViewDetails = { [unowned self] in
-            self.openInSafari(Safe.browserURL(address: version))
+        cell.onViewDetails = { [weak self] in
+            self?.openInSafari(Safe.browserURL(address: version))
         }
         return cell
     }
@@ -231,7 +231,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private func removeSafeCell(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(RemoveSafeCell.self, for: indexPath)
-        cell.onRemove = { [unowned self] in
+        cell.onRemove = { [weak self] in
+            guard let `self` = self else { return }
             let alertController = UIAlertController(
                 title: nil,
                 message: "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost.",
