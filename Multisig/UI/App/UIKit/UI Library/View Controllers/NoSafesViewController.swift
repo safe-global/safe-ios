@@ -13,19 +13,12 @@ class NoSafesViewController: ContainerViewController {
     var noSafeViewController: UIViewController!
 
     var notificationCenter = NotificationCenter.default
-    var trackingEvent: TrackingEvent?
     // preconditions
     //      hasSafeVC and noSafeVC are set
     override func viewDidLoad() {
         super.viewDidLoad()
         notificationCenter.addObserver(self, selector: #selector(reloadContent), name: .selectedSafeChanged, object: nil)
         reloadContent()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        guard let trackingEvent = trackingEvent else { return }
-        trackEvent(trackingEvent)
     }
 
     @objc private func reloadContent() {
@@ -40,8 +33,8 @@ class NoSafesViewController: ContainerViewController {
                 displayChild(at: 0, in: view)
             }
         } catch {
-            App.shared.snackbar.show(message: "Error getting selected safe")
-            LogService.shared.error("NoSafesViewController: Error getting selected safe: \(error)")
+            App.shared.snackbar.show(
+                error: GSError.error(description: "Failed to check loaded safes", error: error))
         }
     }
 }

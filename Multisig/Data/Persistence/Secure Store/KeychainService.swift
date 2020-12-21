@@ -8,14 +8,6 @@
 
 import Foundation
 
-/// Wrapper around error codes returned by Keychain API.
-///
-/// - unhandledError: see https://www.osstatus.com to find description.
-enum KeychainError: Error {
-    // https://www.osstatus.com
-    case unhandledError(status: String)
-}
-
 /// Implements the `SecureStore` protocol with iOS's Keychain api (`SecItem*` methods).
 ///
 /// - Important: Because the underlying Keychain APIs work only within
@@ -87,11 +79,12 @@ public final class KeychainService: SecureStore {
         let status = SecItemCopyMatching(query as CFDictionary, &item)
         guard status != errSecItemNotFound else { return nil }
         guard status == errSecSuccess else {
-            throw KeychainError.unhandledError(status: securityError(status))
+            throw GSError.KeychainError(reason: securityError(status))
         }
         return item
     }
 
+    /// see https://www.osstatus.com to find description.
     private func securityError(_ status: OSStatus) -> String {
         if let str = SecCopyErrorMessageString(status, nil) as String? {
             return str
@@ -102,14 +95,14 @@ public final class KeychainService: SecureStore {
     private func add(query: [String: Any]) throws {
         let status = SecItemAdd(query as CFDictionary, nil)
         guard status == errSecSuccess else {
-            throw KeychainError.unhandledError(status: securityError(status))
+            throw GSError.KeychainError(reason: securityError(status))
         }
     }
 
     private func remove(query: [String: Any]) throws {
         let status = SecItemDelete(query as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else {
-            throw KeychainError.unhandledError(status: securityError(status))
+            throw GSError.KeychainError(reason: securityError(status))
         }
     }
 }

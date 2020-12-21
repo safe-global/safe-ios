@@ -142,7 +142,7 @@ public class JSONHTTPClient {
         let response: T
         do {
             response = try jsonDecoder.decode(T.self, from: json)
-        } catch let error {
+        } catch {
             logger?.error("Failed to decode response: \(error)")
             throw error
         }

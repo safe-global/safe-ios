@@ -34,7 +34,7 @@ class Signer {
     /// - Returns: Signature object containing hex(r) hex(s) hex(v + 27) as one strig of secp256k1 signature
     static func sign(hash: Data) throws -> Signature {
         guard let pkData = try App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) else {
-            throw "Private key not found"
+            throw GSError.PreconditionsForSigningNotSatisfied(description: "Private key not found")
         }
         let privateKey = try EthereumPrivateKey(pkData.bytes)
         let signer = privateKey.address.hex(eip55: true)

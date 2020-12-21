@@ -49,17 +49,19 @@ struct MultiSendActionListViewV2: View {
     var transactions: [SCG.DataDecoded.Parameter.ValueDecoded.MultiSendTx]
 
     var body: some View {
-        List {
-            ForEach(0..<transactions.count) { index in
-                NavigationLink(destination: MultiSendActionDetailsViewV2(index: index, multiSendTx: transactions[index])) {
-                    MultiSendActionListRowV2(index: index, transaction: transactions[index])
+        VStack {
+            Text("Multisend").headline().padding()
+            List {
+                ForEach(0..<transactions.count) { index in
+                    NavigationLink(destination: MultiSendActionDetailsViewV2(index: index, multiSendTx: transactions[index])) {
+                        MultiSendActionListRowV2(index: index, transaction: transactions[index])
+                    }
                 }
             }
         }
         .onAppear {
             trackEvent(.transactionDetailsActionList)
         }
-        .navigationBarTitle("Multisend")
     }
 }
 
