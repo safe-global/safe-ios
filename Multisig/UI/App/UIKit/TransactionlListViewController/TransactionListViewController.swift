@@ -224,7 +224,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         case .conflictHeader(let header):
             let cell = tableView.dequeueCell(TransactionsListConflictHeaderTableViewCell.self, for: indexPath)
             cell.set(nonce: header.nonce.description)
-
+            cell.separatorInset = UIEdgeInsets(top: 0, left: view.frame.size.width, bottom: 0, right: 0)
             return cell
         case .dateLabel(let label):
             let cell = tableView.dequeueCell(TransactionListHeaderTableViewCell.self, for: indexPath)
@@ -293,6 +293,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         cell.set(date: date)
         cell.set(info: info)
         cell.set(conflictType: transaction.conflictType)
+        cell.separatorInset = transaction.conflictType == .hasNext ? UIEdgeInsets(top: 0, left: view.frame.size.width, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         cell.set(confirmationsSubmitted: confirmationsSubmitted, confirmationsRequired: confirmationsRequired)
     }
 

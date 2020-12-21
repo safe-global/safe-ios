@@ -20,6 +20,9 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSx-tl-eP0">
                         <rect key="frame" x="16" y="8" width="288" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="HoN-We-pTQ"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                         <color key="textColor" name="mediumGrey"/>
                         <nil key="highlightedColor"/>

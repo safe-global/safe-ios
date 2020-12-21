@@ -64,8 +64,8 @@ enum ViewControllerFactory {
 
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
-            SegmentBarItem(image: #imageLiteral(resourceName: "tab-transactions-queue"), title: "QUEUE"),
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-app-settings"), title: "HISTORY")
+            SegmentBarItem(image: #imageLiteral(resourceName: "ico-queued-transactions"), title: "QUEUE"),
+            SegmentBarItem(image: #imageLiteral(resourceName: "ico-history-transactions"), title: "HISTORY")
         ]
         segmentVC.viewControllers = [
             queuedTransactionsViewController,
