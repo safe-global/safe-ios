@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SVGView" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="placeholderImageView" destination="vPl-bI-M2F" id="gwE-74-9xm"/>
+                <outlet property="webView" destination="Kh8-6t-HJI" id="Dc5-Xb-LFA"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vPl-bI-M2F">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                </imageView>
+                <wkWebView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" allowsLinkPreview="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kh8-6t-HJI">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" allowsPictureInPictureMediaPlayback="NO">
+                        <dataDetectorTypes key="dataDetectorTypes"/>
+                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                        <wkPreferences key="preferences" javaScriptEnabled="NO"/>
+                    </wkWebViewConfiguration>
+                </wkWebView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Kh8-6t-HJI" secondAttribute="trailing" id="Fsk-3n-Z4B"/>
+                <constraint firstItem="vPl-bI-M2F" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="NGs-PS-mnp"/>
+                <constraint firstItem="Kh8-6t-HJI" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Pwd-k2-Txn"/>
+                <constraint firstAttribute="bottom" secondItem="vPl-bI-M2F" secondAttribute="bottom" id="XPY-6P-DTx"/>
+                <constraint firstItem="vPl-bI-M2F" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cZn-tY-Qiz"/>
+                <constraint firstItem="Kh8-6t-HJI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lyI-6R-FMm"/>
+                <constraint firstAttribute="bottom" secondItem="Kh8-6t-HJI" secondAttribute="bottom" id="qIr-Xf-kki"/>
+                <constraint firstItem="vPl-bI-M2F" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vw9-rF-g3d"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="57.971014492753625" y="153.34821428571428"/>
+        </view>
+    </objects>
+</document>

@@ -7,25 +7,23 @@
 //
 
 import UIKit
-import WebKit
 
 class CollectibleTableViewCell: UITableViewCell {
     @IBOutlet private weak var cellImageView: UIImageView!
     @IBOutlet private weak var cellNameLabel: UILabel!
     @IBOutlet private weak var cellDescriptionLabel: UILabel!
-    @IBOutlet private weak var webView: WKWebView!
+    @IBOutlet private weak var cellSVGView: SVGView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         cellNameLabel.setStyle(.headline)
         cellDescriptionLabel.setStyle(.body)
-        webView.navigationDelegate = self
+        cellSVGView.layer.maskedCorners = .
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        webView.stopLoading()
-        webView.isHidden = true
+        cellSVGView.isHidden = true
     }
 
     func setName(_ value: String) {
@@ -37,34 +35,18 @@ class CollectibleTableViewCell: UITableViewCell {
     }
 
     func setImage(with URL: URL?, placeholder: UIImage) {
-        webView.isHidden = true
+        cellSVGView.isHidden = true
         if let url = URL {
+
             if url.pathExtension.caseInsensitiveCompare("svg") == .orderedSame {
-                let html = """
-                <html>
-                <head>
-                <meta name="viewport" content="width=device-width, shrink-to-fit=YES"/>
-                </head>
-                <body><img src="\(url)"/></body>
-                </html>
-                """
-                webView.loadHTMLString(html, baseURL: nil)
-                cellImageView.image = placeholder
+                cellSVGView.setPlaceholder(placeholder)
+                cellSVGView.isHidden = false
+                cellSVGView.setSVG(url: url)
             } else {
                 cellImageView.kf.setImage(with: url, placeholder: placeholder)
             }
         } else {
             cellImageView.image = placeholder
-        }
-    }
-}
-
-extension CollectibleTableViewCell: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.alpha = 0
-        webView.isHidden = false
-        UIView.animate(withDuration: 0.25) {
-            webView.alpha = 1
         }
     }
 }
