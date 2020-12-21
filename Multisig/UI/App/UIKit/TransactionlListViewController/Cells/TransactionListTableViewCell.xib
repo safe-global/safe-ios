@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -120,7 +119,6 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="dOW-we-W0s" firstAttribute="centerY" secondItem="jg5-X8-EMb" secondAttribute="centerY" id="2io-4X-kSI"/>
                                             <constraint firstItem="63A-6R-sMv" firstAttribute="height" secondItem="dOW-we-W0s" secondAttribute="height" id="A8z-Uc-fjy"/>
@@ -222,8 +220,5 @@
         <namedColor name="whitesmoke">
             <color red="0.90980392156862744" green="0.90588235294117647" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

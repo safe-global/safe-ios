@@ -225,16 +225,16 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             let cell = tableView.dequeueCell(TransactionsListConflictHeaderTableViewCell.self, for: indexPath)
             cell.set(nonce: header.nonce.description)
             cell.separatorInset = UIEdgeInsets(top: 0, left: view.frame.size.width, bottom: 0, right: 0)
+            cell.selectionStyle = .none
             return cell
         case .dateLabel(let label):
             let cell = tableView.dequeueCell(TransactionListHeaderTableViewCell.self, for: indexPath)
             cell.set(title: dateFormatter.string(from: label.timestamp))
-
+            cell.selectionStyle = .none
             return cell
         case .label(let label):
             let cell = tableView.dequeueCell(TransactionListHeaderTableViewCell.self, for: indexPath)
             cell.set(title: label.label)
-
             return cell
         case .transaction(let transaction):
             let cell = tableView.dequeueCell(TransactionListTableViewCell.self, for: indexPath)
