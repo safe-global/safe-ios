@@ -60,14 +60,26 @@ enum ViewControllerFactory {
     }
 
     private static func transactionsTabViewController() -> UIViewController {
-        let transactionsVC = TransactionListViewController()
+        let queuedTransactionsViewController = QueuedTransactionsViewController()
+        let historyTransactionsViewController = HistoryTransactionsViewController()
+
+        let segmentVC = SegmentViewController(namedClass: nil)
+        segmentVC.segmentItems = [
+            SegmentBarItem(image: #imageLiteral(resourceName: "ico-queued-transactions"), title: "QUEUE"),
+            SegmentBarItem(image: #imageLiteral(resourceName: "ico-history-transactions"), title: "HISTORY")
+        ]
+        segmentVC.viewControllers = [
+            queuedTransactionsViewController,
+            historyTransactionsViewController
+        ]
+        segmentVC.selectedIndex = 0
 
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
         loadSafeViewController.trackingEvent = .transactionsNoSafe
-        noSafesVC.hasSafeViewController = transactionsVC
+        noSafesVC.hasSafeViewController = segmentVC
         noSafesVC.noSafeViewController = loadSafeViewController
-
+        
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         return tabViewController(root: tabRoot, title: "Transactions", image: #imageLiteral(resourceName: "tab-icon-transactions"), tag: 1)
     }
