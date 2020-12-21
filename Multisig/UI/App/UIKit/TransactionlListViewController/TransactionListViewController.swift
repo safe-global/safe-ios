@@ -223,17 +223,17 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         switch item {
         case .conflictHeader(let header):
             let cell = tableView.dequeueCell(TransactionsListConflictHeaderTableViewCell.self, for: indexPath)
-            cell.nonceLabel.text = "\(header.nonce)"
+            cell.set(nonce: header.nonce.description)
 
             return cell
         case .dateLabel(let label):
             let cell = tableView.dequeueCell(TransactionListHeaderTableViewCell.self, for: indexPath)
-            cell.titleLabel.text = dateFormatter.string(from: label.timestamp)
+            cell.set(title: dateFormatter.string(from: label.timestamp))
 
             return cell
         case .label(let label):
             let cell = tableView.dequeueCell(TransactionListHeaderTableViewCell.self, for: indexPath)
-            cell.titleLabel.text = label.label
+            cell.set(title: label.label)
 
             return cell
         case .transaction(let transaction):
@@ -286,14 +286,14 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             title = "Unknown operation"
         }
 
-        cell.set(title,
-                 image: image,
-                 status: status,
-                 nonce: nonce,
-                 date: date,
-                 info: info,
-                 confirmationsSubmitted: confirmationsSubmitted,
-                 confirmationsRequired: confirmationsRequired)
+        cell.set(title: title)
+        cell.set(image: image)
+        cell.set(status: status)
+        cell.set(nonce: nonce)
+        cell.set(date: date)
+        cell.set(info: info)
+        cell.set(conflictType: transaction.conflictType)
+        cell.set(confirmationsSubmitted: confirmationsSubmitted, confirmationsRequired: confirmationsRequired)
     }
 
     func formattedAmount(transferInfo: SCG.TxInfo.Transfer) -> String {

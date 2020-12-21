@@ -10,47 +10,66 @@ import UIKit
 import SwiftUI
 
 class TransactionListTableViewCell: SwiftUITableViewCell {
-    @IBOutlet weak var conflictTypeButtonBarView: UIView!
-    @IBOutlet weak var conflictTypeView: UIView!
-    @IBOutlet weak var typeImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var nonceLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet private weak var conflictTypeButtonBarView: UIView!
+    @IBOutlet private weak var conflictTypeView: UIView!
+    @IBOutlet private weak var typeImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var nonceLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var appendixLabel: UILabel!
     @IBOutlet private weak var statusIconImageView: UIImageView!
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var bottomStackView: UIStackView!
-    @IBOutlet weak var confirmationsCountLabel: UILabel!
-    @IBOutlet weak var confirmationsCountImageView: UIImageView!
+    @IBOutlet private weak var confirmationsCountLabel: UILabel!
+    @IBOutlet private weak var confirmationsCountImageView: UIImageView!
     
     func setTransaction(_ tx: TransactionViewModel, from parent: UIViewController, conflict type: SCG.ConflictType) {
         setContent(TransactionCellView(transaction: tx), from: parent)
     }
 
-    func set(_ title: String = "", image: UIImage = #imageLiteral(resourceName: "ico-settings-tx"), conflictType: SCG.ConflictType = .none, status: SCG.TxStatus = .cancelled, nonce: String = "", date: String = "", info: String = "", confirmationsSubmitted: UInt64 = 0, confirmationsRequired: UInt64 = 0) {
+    func set (title: String) {
         titleLabel.text = title
+    }
+
+    func set(image: UIImage) {
         typeImageView.image = image
+    }
+
+    func set(conflictType: SCG.ConflictType) {
+        conflictTypeView.isHidden = conflictType == .none
+        conflictTypeButtonBarView.isHidden = conflictType == .end
+    }
+
+    func set(nonce: String) {
         nonceLabel.text = "\(nonce)"
+    }
+
+    func set(date: String) {
         dateLabel.text = date
+    }
+
+    func set(info: String) {
         infoLabel.text = info
+    }
+
+    func set(confirmationsSubmitted: UInt64, confirmationsRequired: UInt64) {
+        let color = confirmationColor(confirmationsSubmitted, confirmationsRequired)
+        confirmationsCountLabel.text = "\(confirmationsSubmitted) out of \(confirmationsRequired)"
+        confirmationsCountLabel.textColor = color
+        confirmationsCountImageView.tintColor = color
+    }
+
+    func set(status: SCG.TxStatus) {
         statusLabel.text = status.title
         appendixLabel.text = status.title
         appendixLabel.isHidden = status.isWaiting
         bottomStackView.isHidden = !status.isWaiting
         statusLabel.textColor = statusColor(status: status)
         appendixLabel.textColor = statusColor(status: status)
-
-        let color = confirmationColor(confirmationsSubmitted, confirmationsRequired)
-        confirmationsCountLabel.text = "\(confirmationsSubmitted) out of \(confirmationsRequired)"
-        confirmationsCountLabel.textColor = color
-        confirmationsCountImageView.tintColor = color
-
-        conflictTypeView.isHidden = conflictType == .none
-        conflictTypeButtonBarView.isHidden = conflictType == .end
     }
 
-    func statusColor(status: SCG.TxStatus) -> UIColor {
+    private func statusColor(status: SCG.TxStatus) -> UIColor {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
             return .gnoPending
@@ -63,7 +82,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         }
     }
 
-    func confirmationColor(_ confirmationsSubmitted: UInt64 = 0, _ confirmationsRequired: UInt64 = 0) -> UIColor {
+    private func confirmationColor(_ confirmationsSubmitted: UInt64 = 0, _ confirmationsRequired: UInt64 = 0) -> UIColor {
         let reminingConfirmations = confirmationsSubmitted > confirmationsRequired ? 0 : confirmationsRequired - confirmationsSubmitted
         return reminingConfirmations > 0 ? .gnoMediumGrey : .gnoHold
     }

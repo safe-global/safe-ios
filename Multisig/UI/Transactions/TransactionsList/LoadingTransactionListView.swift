@@ -27,9 +27,7 @@ struct LoadingTransactionListView: View {
                                 reload: model.reload,
                                 loadMore: model.loadMore)
         }
-//        .onAppear {
-//            trackEvent(.transactions)
-//        }
+        // TODO: Add tracking event.
     }
 }
 

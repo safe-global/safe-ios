@@ -9,5 +9,9 @@
 import UIKit
 
 class TransactionsListConflictHeaderTableViewCell: UITableViewCell {
-    @IBOutlet weak var nonceLabel: UILabel!
+    @IBOutlet private weak var nonceLabel: UILabel!
+
+    func set(nonce: String) {
+        nonceLabel.text = nonce
+    }
 }

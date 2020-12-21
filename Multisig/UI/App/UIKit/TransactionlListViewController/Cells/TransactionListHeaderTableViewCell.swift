@@ -9,7 +9,7 @@
 import UIKit
 
 class TransactionListHeaderTableViewCell: UITableViewCell {
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
 
     func set(title: String) {
         titleLabel.text = title
