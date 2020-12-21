@@ -56,27 +56,27 @@ class EnterSafeAddressViewController: UIViewController {
     private func didTapAddressField() {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        vc.addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: { [unowned self] _ in
+        vc.addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: { [weak self] _ in
             let text = Pasteboard.string
-            self.didEnterText(text)
+            self?.didEnterText(text)
         }))
 
-        vc.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [unowned self] _ in
+        vc.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [weak self] _ in
             let vc = QRCodeScannerViewController()
             vc.modalPresentationStyle = .overFullScreen
             vc.delegate = self
             vc.setup()
-            self.present(vc, animated: true, completion: nil)
+            self?.present(vc, animated: true, completion: nil)
         }))
 
-        vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [unowned self] _ in
+        vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
             let vc = EnterENSNameViewController()
             vc.onConfirm = { [weak self] in
                 guard let `self` = self else { return }
                 self.navigationController?.popViewController(animated: true)
                 self.didEnterText(vc.address?.checksummed)
             }
-            self.show(vc, sender: self)
+            self?.show(vc, sender: nil)
         }))
 
         vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

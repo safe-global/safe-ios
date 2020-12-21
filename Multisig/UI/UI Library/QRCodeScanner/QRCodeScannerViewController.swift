@@ -170,8 +170,8 @@ extension QRCodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                 let alert = UIAlertController(title: "Error",
                                               message: message,
                                               preferredStyle: .alert)
-                let retryButton = UIAlertAction(title: "Retry", style: .default) { [unowned self] _ in
-                    self.captureSession.startRunning()
+                let retryButton = UIAlertAction(title: "Retry", style: .default) { [weak self] _ in
+                    self?.captureSession.startRunning()
                 }
                 alert.addAction(retryButton)
                 present(alert, animated: true)
