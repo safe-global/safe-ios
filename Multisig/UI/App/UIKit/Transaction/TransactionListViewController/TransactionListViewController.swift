@@ -256,6 +256,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         let confirmationsRequired = tx.executionInfo?.confirmationsRequired ?? 0
         let date = formatted(date: tx.timestamp)
         var info = ""
+        var infoColor: UIColor = .gnoDarkBlue
 
         var status: SCG.TxStatus = tx.txStatus
         let missingSigners = tx.executionInfo?.missingSigners?.map { $0.address.checksummed } ?? []
@@ -271,6 +272,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             image = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incoming-tx")
             title = isOutgoing ? "Send" : "Receive"
             info = formattedAmount(transferInfo: transferInfo)
+            infoColor = isOutgoing ? .gnoDarkBlue : .gnoHold
         case .settingsChange(let settingsChangeInfo):
             title = settingsChangeInfo.dataDecoded.method
             image = #imageLiteral(resourceName: "ico-settings-tx")
@@ -291,7 +293,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         cell.set(status: status)
         cell.set(nonce: nonce)
         cell.set(date: date)
-        cell.set(info: info)
+        cell.set(info: info, color: infoColor)
         cell.set(conflictType: transaction.conflictType)
         cell.separatorInset = transaction.conflictType == .hasNext ? UIEdgeInsets(top: 0, left: view.frame.size.width, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         cell.set(confirmationsSubmitted: confirmationsSubmitted, confirmationsRequired: confirmationsRequired)
