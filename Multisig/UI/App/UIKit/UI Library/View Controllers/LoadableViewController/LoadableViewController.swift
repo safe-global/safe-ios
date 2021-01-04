@@ -47,12 +47,16 @@ class LoadableViewController: UIViewController {
 
         if reactsToSelectedSafeChanges {
             notificationCenter.addObserver(
-                self, selector: #selector(lazyReloadData), name: .selectedSafeChanged, object: nil)
+                self, selector: #selector(didChangeSelectedSafe), name: .selectedSafeChanged, object: nil)
         }
     }
 
     func setNeedsReload(_ value: Bool = true) {
         needsReload = value
+    }
+
+    @objc func didChangeSelectedSafe() {
+        lazyReloadData()
     }
 
     @objc func lazyReloadData() {
