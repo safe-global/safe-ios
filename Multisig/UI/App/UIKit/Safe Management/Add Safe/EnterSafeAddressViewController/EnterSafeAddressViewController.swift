@@ -122,10 +122,12 @@ class EnterSafeAddressViewController: UIViewController {
                         if (error as NSError).code == URLError.cancelled.rawValue &&
                             (error as NSError).domain == NSURLErrorDomain {
                             return
-                        } else {
+                        } else if error is GSError.EntityNotFound {
                             let message = GSError.error(description: "Can’t use this address",
                                                         error: GSError.InvalidSafeAddress()).localizedDescription
                             self.addressField.setError(message)
+                        } else {
+                            self.addressField.setError(error)
                         }
                     }
                 case .success(let info):
