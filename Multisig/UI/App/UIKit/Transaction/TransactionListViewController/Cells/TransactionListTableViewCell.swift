@@ -49,8 +49,9 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         dateLabel.text = date
     }
 
-    func set(info: String) {
+    func set(info: String, color: UIColor = .gnoDarkBlue) {
         infoLabel.text = info
+        infoLabel.textColor = color
     }
 
     func set(confirmationsSubmitted: UInt64, confirmationsRequired: UInt64) {
@@ -66,7 +67,8 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         appendixLabel.isHidden = status.isWaiting
         bottomStackView.isHidden = !status.isWaiting
         statusLabel.textColor = statusColor(status: status)
-        appendixLabel.textColor = statusColor(status: status)
+        appendixLabel.textColor = statusLabel.textColor
+        self.contentView.alpha = containerViewAlpha(status: status)
     }
 
     private func statusColor(status: SCG.TxStatus) -> UIColor {
@@ -80,6 +82,10 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         case .success:
             return .gnoHold
         }
+    }
+
+    private func containerViewAlpha(status: SCG.TxStatus) -> CGFloat {
+        status.isFailed ? 0.5 : 1
     }
 
     private func confirmationColor(_ confirmationsSubmitted: UInt64 = 0, _ confirmationsRequired: UInt64 = 0) -> UIColor {
