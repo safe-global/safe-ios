@@ -299,8 +299,7 @@ class TransactionDetailCellBuilder {
 
                     disclosure(text: "Multisend (\(multiSendTxs.count) actions)") { [weak self] in
                         guard let `self` = self else { return }
-                        let view = MultiSendActionListViewV2(transactions: multiSendTxs)
-                        let vc = UIHostingController(rootView: view)
+                        let vc = MultiSendListTableViewController(multiSendTxs)
                         self.vc.show(vc, sender: self)
                     }
                 } else {

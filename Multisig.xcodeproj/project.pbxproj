@@ -288,6 +288,9 @@
 		0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDBFFC248E4C5D002035A2 /* Configuration.swift */; };
 		0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDC01424925A96002035A2 /* FirebaseConfig.swift */; };
 		0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACEF00024C1DE620040A058 /* AddressImage.swift */; };
+		0AD0273225A34E2F00886671 /* MultiSendListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0273125A34E2F00886671 /* MultiSendListTableViewController.swift */; };
+		0AD0273925A34FF600886671 /* MultiSendRowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0273725A34FF600886671 /* MultiSendRowTableViewCell.swift */; };
+		0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD0273825A34FF600886671 /* MultiSendRowTableViewCell.xib */; };
 		0AD062E62577AE7E0030810D /* TransactionDetailCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD062E52577AE7E0030810D /* TransactionDetailCellBuilder.swift */; };
 		0AD1D8F7252619E700B8EEFF /* CoinBalances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D8F6252619E700B8EEFF /* CoinBalances.swift */; };
 		0AD1D8FD252620D500B8EEFF /* CollectibleBalancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1D8FC252620D500B8EEFF /* CollectibleBalancesView.swift */; };
@@ -808,6 +811,9 @@
 		0ACDC012249253D7002035A2 /* Firebase */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Firebase; sourceTree = "<group>"; };
 		0ACDC01424925A96002035A2 /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		0ACEF00024C1DE620040A058 /* AddressImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressImage.swift; sourceTree = "<group>"; };
+		0AD0273125A34E2F00886671 /* MultiSendListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSendListTableViewController.swift; sourceTree = "<group>"; };
+		0AD0273725A34FF600886671 /* MultiSendRowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSendRowTableViewCell.swift; sourceTree = "<group>"; };
+		0AD0273825A34FF600886671 /* MultiSendRowTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiSendRowTableViewCell.xib; sourceTree = "<group>"; };
 		0AD062E52577AE7E0030810D /* TransactionDetailCellBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailCellBuilder.swift; sourceTree = "<group>"; };
 		0AD1D8F6252619E700B8EEFF /* CoinBalances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinBalances.swift; sourceTree = "<group>"; };
 		0AD1D8FC252620D500B8EEFF /* CollectibleBalancesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleBalancesView.swift; sourceTree = "<group>"; };
@@ -1541,6 +1547,7 @@
 			children = (
 				0ADA9127256591410004DEC0 /* TransactionListViewController */,
 				0A57C8E22587ADB200B7C019 /* TransactionDetailsViewController */,
+				0AD0273F25A354C700886671 /* MultiSendListTableViewController */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -1968,6 +1975,16 @@
 				0ACDC012249253D7002035A2 /* Firebase */,
 			);
 			path = Analytics;
+			sourceTree = "<group>";
+		};
+		0AD0273F25A354C700886671 /* MultiSendListTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0AD0273125A34E2F00886671 /* MultiSendListTableViewController.swift */,
+				0AD0273725A34FF600886671 /* MultiSendRowTableViewCell.swift */,
+				0AD0273825A34FF600886671 /* MultiSendRowTableViewCell.xib */,
+			);
+			path = MultiSendListTableViewController;
 			sourceTree = "<group>";
 		};
 		0ADA9127256591410004DEC0 /* TransactionListViewController */ = {
@@ -2742,6 +2759,7 @@
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
+				0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */,
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
@@ -2965,6 +2983,7 @@
 				046D0A432497BECE000F4021 /* TransactionStatusView.swift in Sources */,
 				0AE8C0442579317700E62B34 /* DetailDisclosingCell.swift in Sources */,
 				04A1F7DA24AB742F0024DFF5 /* EnableDisableModuleTransactionCellView.swift in Sources */,
+				0AD0273225A34E2F00886671 /* MultiSendListTableViewController.swift in Sources */,
 				0A0EFC96246DA9D700D3D8BF /* TopTabButton.swift in Sources */,
 				046D0A70249A446D000F4021 /* TransferValueView.swift in Sources */,
 				0AC60C472549880D00A63AE2 /* MultiSendActionDetailsView.swift in Sources */,
@@ -3272,6 +3291,7 @@
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */,
 				0A573F2925876B9E009EF0C1 /* AddressField.swift in Sources */,
+				0AD0273925A34FF600886671 /* MultiSendRowTableViewCell.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
 				0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */,
 				0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */,
