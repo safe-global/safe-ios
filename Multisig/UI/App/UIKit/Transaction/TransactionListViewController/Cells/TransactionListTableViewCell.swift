@@ -23,7 +23,18 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     @IBOutlet private weak var bottomStackView: UIStackView!
     @IBOutlet private weak var confirmationsCountLabel: UILabel!
     @IBOutlet private weak var confirmationsCountImageView: UIImageView!
-    
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        titleLabel.setStyle(.body)
+        nonceLabel.setStyle(.footnote2)
+        dateLabel.setStyle(.footnote2)
+        infoLabel.setStyle(.body)
+        appendixLabel.setStyle(.footnote2)
+        statusLabel.setStyle(.footnote2)
+        confirmationsCountLabel.setStyle(.footnote2)
+    }
+
     func setTransaction(_ tx: TransactionViewModel, from parent: UIViewController, conflict type: SCG.ConflictType) {
         setContent(TransactionCellView(transaction: tx), from: parent)
     }
@@ -39,6 +50,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     func set(conflictType: SCG.ConflictType) {
         conflictTypeView.isHidden = conflictType == .none
         conflictTypeButtonBarView.isHidden = conflictType == .end
+        nonceLabel.isHidden = conflictType != .none
     }
 
     func set(nonce: String) {
