@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Web3
 
 class EnterSafeAddressViewController: UIViewController {
     var websiteURL = App.configuration.services.webAppURL
@@ -147,7 +148,9 @@ class EnterSafeAddressViewController: UIViewController {
                 }
             })
         } catch {
-            addressField.setError(error)
+            addressField.setError(
+                GSError.error(description: "Can’t use this address",
+                              error: error is EthereumAddress.Error ? GSError.SafeAddressNotValid() : error))
         }
     }
 }
