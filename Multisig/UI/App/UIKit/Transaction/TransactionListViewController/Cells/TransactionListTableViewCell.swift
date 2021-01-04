@@ -39,6 +39,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     func set(conflictType: SCG.ConflictType) {
         conflictTypeView.isHidden = conflictType == .none
         conflictTypeButtonBarView.isHidden = conflictType == .end
+        nonceLabel.isHidden = conflictType != .none
     }
 
     func set(nonce: String) {
