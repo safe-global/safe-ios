@@ -27,9 +27,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     private var txSource: TransactionSource!
 
-    // disable reacting to change of safes reactsToSelectedSafeChanges
-    override var reactsToSelectedSafeChanges: Bool { false }
-
     convenience init(transactionID: String) {
         self.init(namedClass: Self.superclass())
         txSource = .id(transactionID)
@@ -68,6 +65,13 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         trackEvent(.transactionsDetails)
+    }
+
+    // MARK: - Events
+
+    override func didChangeSelectedSafe() {
+        let isVisible = isViewLoaded && view.window != nil
+        navigationController?.popViewController(animated: isVisible)
     }
 
     // MARK: - Signing
