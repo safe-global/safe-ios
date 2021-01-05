@@ -110,6 +110,10 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         nil
     }
 
+    func localized(header: String) -> String {
+        header
+    }
+
     private func startNextPageLoadingAnimation() {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.startAnimating()
@@ -234,7 +238,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             return cell
         case .label(let label):
             let cell = tableView.dequeueCell(TransactionListHeaderTableViewCell.self, for: indexPath)
-            cell.set(title: label.label)
+            cell.set(title: localized(header: label.label))
             return cell
         case .transaction(let transaction):
             let cell = tableView.dequeueCell(TransactionListTableViewCell.self, for: indexPath)
