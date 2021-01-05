@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Web3
 
 class EnterSafeAddressViewController: UIViewController {
     var websiteURL = App.configuration.services.webAppURL
@@ -122,10 +123,12 @@ class EnterSafeAddressViewController: UIViewController {
                         if (error as NSError).code == URLError.cancelled.rawValue &&
                             (error as NSError).domain == NSURLErrorDomain {
                             return
-                        } else {
+                        } else if error is GSError.EntityNotFound {
                             let message = GSError.error(description: "Can’t use this address",
                                                         error: GSError.InvalidSafeAddress()).localizedDescription
                             self.addressField.setError(message)
+                        } else {
+                            self.addressField.setError(error)
                         }
                     }
                 case .success(let info):
@@ -145,7 +148,9 @@ class EnterSafeAddressViewController: UIViewController {
                 }
             })
         } catch {
-            addressField.setError(error)
+            addressField.setError(
+                GSError.error(description: "Can’t use this address",
+                              error: error is EthereumAddress.Error ? GSError.SafeAddressNotValid() : error))
         }
     }
 }

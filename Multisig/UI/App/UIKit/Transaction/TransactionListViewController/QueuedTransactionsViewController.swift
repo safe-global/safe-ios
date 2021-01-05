@@ -10,6 +10,8 @@ import UIKit
 
 class QueuedTransactionsViewController: TransactionListViewController {
     private weak var timer: Timer?
+    private var localizedHeaders: [String: String] = ["next": "NEXT TRANSACTION",
+                                                     "queued": "QUEUE"]
     override func viewDidLoad() {
         super.viewDidLoad()
         trackingEvent = .transactionsQueued
@@ -23,6 +25,10 @@ class QueuedTransactionsViewController: TransactionListViewController {
 
     override func asyncTransactionList(pageUri: String, completion: @escaping (Result<Page<SCG.TransactionSummaryItem>, Error>) -> Void) throws -> URLSessionTask? {
         clientGatewayService.asyncExecute(request: try PagedRequest<SCG.TransactionSummaryItem>(pageUri), completion: completion)
+    }
+
+    override func localized(header: String) -> String {
+        localizedHeaders[header.lowercased()] ?? header
     }
 
     @objc func updateScreen() {
