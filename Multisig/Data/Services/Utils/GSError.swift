@@ -340,4 +340,12 @@ enum GSError {
         let loggable = true
     }
 
+    struct ThirdPartyError: DetailedLocalizedError {
+        let description = "Third party library error"
+        let reason: String
+        let howToFix = "Please try again later or contact Safe support if this issue persists"
+        let domain = iOSErrorDomain
+        let code = 1306
+        let loggable = true
+    }
 }
