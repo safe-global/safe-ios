@@ -26,6 +26,15 @@ class TransactionsListConflictHeaderTableViewCell: UITableViewCell {
     }
 
     @IBAction func learnMoreButtonTouched(_ sender: Any) {
-        UIApplication.shared.sendAction(#selector(UIViewController.didTapExternalURLCell(_:)), to: nil, from: self, for: nil)
+        UIApplication.shared.sendAction(#selector(UIViewController.didTapTransactionsListConflictHeaderTableViewCell(_:)), to: nil, from: self, for: nil)
     }
 }
+
+extension UIViewController {
+    @objc func didTapTransactionsListConflictHeaderTableViewCell(_ sender: TransactionsListConflictHeaderTableViewCell) {
+        if let url = sender.url {
+            openInSafari(url)
+        }
+    }
+}
+
