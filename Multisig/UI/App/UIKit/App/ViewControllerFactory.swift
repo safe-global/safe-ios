@@ -123,17 +123,6 @@ enum ViewControllerFactory {
         return nav
     }
 
-    static func editSafeNameController(address: Address?, name: String?, presenter: UIViewController & PresentingViewController) -> UIViewController {
-        let viewController = EditSafeNameViewController()
-        viewController.address = address
-        viewController.name = name ?? ""
-        viewController.completion = { [weak presenter] in
-            presenter?.performSelector(onMainThread: #selector(PresentingViewController.closePresentedViewController), with: nil, waitUntilDone: false)
-        }
-
-        return viewController
-    }
-
     static func loadSafeController(presenter: UIViewController & CloseModal) -> UIViewController {
         let context = App.shared.coreDataStack.persistentContainer.viewContext
         let view = EnterSafeAddressView(onSubmit: { [weak presenter] in
@@ -158,11 +147,5 @@ enum ViewControllerFactory {
 extension UIViewController: CloseModal {
     func closeModal() {
         dismiss(animated: true, completion: nil)
-    }
-}
-
-extension UIViewController: PresentingViewController {
-    func closePresentedViewController() {
-        navigationController?.popViewController(animated: true)
     }
 }

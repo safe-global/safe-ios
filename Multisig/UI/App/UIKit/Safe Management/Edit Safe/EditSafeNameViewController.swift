@@ -22,7 +22,7 @@ class EditSafeNameViewController: UIViewController {
 
         navigationItem.title = "Edit Safe Name"
 
-        saveButton = UIBarButtonItem(title: "save", style: .done, target: self, action: #selector(didTapSaveButton))
+        saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(didTapSaveButton))
         navigationItem.rightBarButtonItem = saveButton
 
         textField.setPlaceholder("Enter safe name")
