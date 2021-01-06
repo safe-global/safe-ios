@@ -11,6 +11,11 @@ import UIKit
 class TransactionListHeaderTableViewCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        titleLabel.setStyle(.caption2)
+    }
+
     func set(title: String) {
         titleLabel.text = title
     }

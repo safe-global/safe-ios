@@ -19,31 +19,31 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j15-Op-U9b" customClass="StyledView" customModule="Multisig" customModuleProvider="target">
-                        <rect key="frame" x="8" y="8" width="658" height="155"/>
+                        <rect key="frame" x="16" y="8" width="642" height="155"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DP5-6m-1ZG">
-                                <rect key="frame" x="8" y="8" width="14" height="16"/>
+                                <rect key="frame" x="8" y="8" width="14.5" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="13" id="ahR-ha-1HU"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" name="mediumGrey"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                <color key="textColor" name="darkGrey"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="f1N-2F-nMA">
-                                <rect key="frame" x="30" y="8" width="620" height="139"/>
+                                <rect key="frame" x="30.5" y="8" width="603.5" height="139"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These transactions conflict as they use the same nonce. Executing one will automatically replace the other(s)." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G3i-ue-yCU">
-                                        <rect key="frame" x="0.0" y="0.0" width="603.5" height="109"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="603.5" height="105"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                         <color key="textColor" name="darkBlue"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="MHv-tm-TjW">
-                                        <rect key="frame" x="0.0" y="109" width="99" height="30"/>
+                                        <rect key="frame" x="0.0" y="105" width="112" height="34"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHJ-o8-F2J">
-                                                <rect key="frame" x="0.0" y="0.0" width="78" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHJ-o8-F2J">
+                                                <rect key="frame" x="0.0" y="0.0" width="91" height="34"/>
                                                 <state key="normal" title="Learn more">
                                                     <color key="titleColor" name="hold"/>
                                                 </state>
@@ -52,7 +52,7 @@
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-external-link" translatesAutoresizingMaskIntoConstraints="NO" id="con-iw-h4N">
-                                                <rect key="frame" x="83" y="0.0" width="16" height="30"/>
+                                                <rect key="frame" x="96" y="0.0" width="16" height="34"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -73,12 +73,14 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="j15-Op-U9b" secondAttribute="bottom" constant="8" id="JKZ-6V-pya"/>
                     <constraint firstItem="j15-Op-U9b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="LMb-eJ-8Aa"/>
-                    <constraint firstItem="j15-Op-U9b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="pzW-Ef-cMZ"/>
-                    <constraint firstAttribute="trailing" secondItem="j15-Op-U9b" secondAttribute="trailing" constant="8" id="uG5-eH-olI"/>
+                    <constraint firstItem="j15-Op-U9b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="pzW-Ef-cMZ"/>
+                    <constraint firstAttribute="trailing" secondItem="j15-Op-U9b" secondAttribute="trailing" constant="16" id="uG5-eH-olI"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="descriptionLabel" destination="G3i-ue-yCU" id="UKN-pO-AkP"/>
+                <outlet property="learnMoreButton" destination="QHJ-o8-F2J" id="oB2-9a-7p5"/>
                 <outlet property="nonceLabel" destination="DP5-6m-1ZG" id="inB-Ti-8C6"/>
             </connections>
             <point key="canvasLocation" x="394.20289855072468" y="98.772321428571431"/>
@@ -94,11 +96,11 @@
         <namedColor name="darkBlue">
             <color red="0.0" green="0.078431372549019607" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="darkGrey">
+            <color red="0.36470588235294116" green="0.42745098039215684" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="hold">
             <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="mediumGrey">
-            <color red="0.69803921568627447" green="0.70980392156862748" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="white">
             <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

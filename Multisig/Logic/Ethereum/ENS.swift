@@ -24,14 +24,14 @@ final class ENS {
         let registry = ENSRegistry(registryAddress)
         let resolverAddress = try registry.resolver(node: node)
         if resolverAddress.isZero {
-            throw GSError.ENSResolverNotFound()
+            throw GSError.ENSAddressNotFound()
         }
 
         // resolve address
         let resolver = ENSResolver(resolverAddress)
         let isResolvingSupported = try resolver.supportsInterface(ENSResolver.Selectors.address)
         guard isResolvingSupported else {
-            throw GSError.ENSAddressResolutionNotFound()
+            throw GSError.ENSAddressNotFound()
         }
         let resolvedAddress = try resolver.address(node: node)
         if resolvedAddress.isZero {

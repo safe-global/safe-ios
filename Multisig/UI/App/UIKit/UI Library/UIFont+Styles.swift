@@ -26,6 +26,7 @@ extension GNOTextStyle {
     static let caption2 = GNOTextStyle(size: 10, weight: .bold, letterSpacing: 2, color: .gnoMediumGrey)
 
     static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkGrey)
+    static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkBlue)
     static let caption1 = GNOTextStyle(size: 13, weight: .bold)
 
     static let subhead = GNOTextStyle(size: 15, weight: .bold)
@@ -94,15 +95,15 @@ extension GNOButtonStyle {
     static let plain = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
             .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 1),
-            .font: UIFont.gnoFont(forTextStyle: .headline2)
+            .font: UIFont.gnoFont(forTextStyle: .footnote2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
             .foregroundColor: #colorLiteral(red: 0, green: 0.3333333333, blue: 0.2745098039, alpha: 1),
-            .font: UIFont.gnoFont(forTextStyle: .headline2)
+            .font: UIFont.gnoFont(forTextStyle: .footnote2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
             .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 0.5),
-            .font: UIFont.gnoFont(forTextStyle: .headline2)
+            .font: UIFont.gnoFont(forTextStyle: .footnote2)
         ]))
     ])
 
