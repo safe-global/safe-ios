@@ -140,10 +140,6 @@ enum ViewControllerFactory {
     func closeModal()
 }
 
-@objc protocol PresentingViewController {
-    func closePresentedViewController()
-}
-
 extension UIViewController: CloseModal {
     func closeModal() {
         dismiss(animated: true, completion: nil)
