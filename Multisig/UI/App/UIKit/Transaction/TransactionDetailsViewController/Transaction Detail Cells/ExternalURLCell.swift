@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExternalURLCell: UITableViewCell {
+class ExternalURLCell: UITableViewCell, ExternalURLSource {
     @IBOutlet private weak var button: UIButton!
     private(set) var url: URL?
     override func awakeFromNib() {
@@ -22,14 +22,6 @@ class ExternalURLCell: UITableViewCell {
     }
     
     @IBAction func didTapButton(_ sender: Any) {
-        UIApplication.shared.sendAction(#selector(UIViewController.didTapExternalURLCell(_:)), to: nil, from: self, for: nil)
-    }
-}
-
-extension UIViewController {
-    @objc func didTapExternalURLCell(_ sender: ExternalURLCell) {
-        if let url = sender.url {
-            openInSafari(url)
-        }
+        UIApplication.shared.sendAction(#selector(UIViewController.didTapExternalURL(_:)), to: nil, from: self, for: nil)
     }
 }

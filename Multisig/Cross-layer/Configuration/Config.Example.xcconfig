@@ -119,6 +119,9 @@ USE_UIKIT = YES
 // Range of values: 1 is YES, 0 is NO.
 SSL_ENFORCE_PINNING = 1
 
+// Help URLs
+CONFLICT_URL = https:/$()/help.gnosis-safe.io/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
+
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/
 PRIVACY_URL     = https:/$()/gnosis-safe.io/privacy/

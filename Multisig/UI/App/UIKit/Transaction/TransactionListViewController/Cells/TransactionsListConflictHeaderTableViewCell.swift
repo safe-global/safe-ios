@@ -8,11 +8,11 @@
 
 import UIKit
 
-class TransactionsListConflictHeaderTableViewCell: UITableViewCell {
+class TransactionsListConflictHeaderTableViewCell: UITableViewCell, ExternalURLSource {
     @IBOutlet private weak var nonceLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var learnMoreButton: UIButton!
-    private(set) var url: URL? = URL(string: "https://help.gnosis-safe.io/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other")
+    private(set) var url: URL? = App.configuration.help.conflictURL
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,15 +26,6 @@ class TransactionsListConflictHeaderTableViewCell: UITableViewCell {
     }
 
     @IBAction func learnMoreButtonTouched(_ sender: Any) {
-        UIApplication.shared.sendAction(#selector(UIViewController.didTapTransactionsListConflictHeaderTableViewCell(_:)), to: nil, from: self, for: nil)
+        UIApplication.shared.sendAction(#selector(UIViewController.didTapExternalURL(_:)), to: nil, from: self, for: nil)
     }
 }
-
-extension UIViewController {
-    @objc func didTapTransactionsListConflictHeaderTableViewCell(_ sender: TransactionsListConflictHeaderTableViewCell) {
-        if let url = sender.url {
-            openInSafari(url)
-        }
-    }
-}
-
