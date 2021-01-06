@@ -77,6 +77,9 @@ enum GSError {
             return TimeOut()
         case .cannotFindHost:
             return UnknownHost()
+        case .cancelled:
+            // happens when SSL certificate is not pinned
+            return SecureConnectionFailed()
         default:
             return error
         }
