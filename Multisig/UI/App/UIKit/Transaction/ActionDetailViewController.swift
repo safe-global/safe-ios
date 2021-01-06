@@ -13,6 +13,20 @@ class ActionDetailViewController: UITableViewController {
     private var data: DataString?
     private var customTitle: String?
 
+    private static let indentWidth: CGFloat = 8.0
+
+    /// Container for all cells in the table
+    private var cells = [UITableViewCell]()
+
+    /// Cells' index stack.
+    ///
+    /// The index will be popped during cell creation in builder methods.
+    ///
+    /// This allows to temporary change the insertion point of the cells
+    /// and go back to previous insertion point
+    /// by popping the pushed index.
+    private var builderIndexStack = [0]
+
     convenience init(_ dataDecoded: SCG.DataDecoded?, data: DataString? = nil, title: String? = nil) {
         self.init()
         self.dataDecoded = dataDecoded
@@ -77,10 +91,7 @@ class ActionDetailViewController: UITableViewController {
     static func copyValue(_ value: String) {
         Pasteboard.string = value
         App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
-
     }
-
-    static let indentWidth: CGFloat = 8.0
 
     /// Creates appropriate cell for each value type, including array
     /// for which it recursively builds the contents.
@@ -162,20 +173,7 @@ class ActionDetailViewController: UITableViewController {
         }
     }
 
-    // MARK: - Cell Builder Primitives
-
-    /// Container for all cells in the table
-    private var cells = [UITableViewCell]()
-
-    /// Cells' index stack.
-    ///
-    /// The index will be popped during cell creation in builder methods.
-    ///
-    /// This allows to temporary change the insertion point of the cells
-    /// and go back to previous insertion point
-    /// by popping the pushed index.
-    private var builderIndexStack = [0]
-
+    // MARK: - Cell Builder
 
     /// Pushes the index to the top fo the index stack.
     /// - Parameter index: if nil, the `cells.count` will be used. Default is nil.
