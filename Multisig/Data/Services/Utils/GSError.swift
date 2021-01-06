@@ -116,8 +116,9 @@ enum GSError {
             case 50:
                 return UnprocessableEntity(reason: "Safe info is not found.", code: 42250)
             default:
-                LogService.shared.error("Unrecognised error with code: \(error.code); message: \(error.message)",
-                                        error: unexpectedError)
+                LogService.shared.error(
+                    "Unrecognised error with code: \(error.code); message: \(String(describing: error.message))",
+                    error: unexpectedError)
                 return unexpectedError
             }
         } catch {
@@ -130,7 +131,7 @@ enum GSError {
 
     fileprivate struct BackendError: Decodable {
         let code: Int
-        let message: String
+        let message: String?
     }
 
     // MARK: - Network errors
