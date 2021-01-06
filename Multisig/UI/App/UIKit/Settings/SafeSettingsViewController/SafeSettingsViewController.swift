@@ -256,8 +256,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Name.name(_):
-            let vc = ViewControllerFactory.editSafeNameController(address: safe.address, name: safe.name, presenter: self)
-            present(vc, animated: true, completion: nil)
+            let vc = ViewControllerFactory.editSafeNameController(address: safe.addressValue, name: safe.name, presenter: self)
+            show(vc, sender: self)
         case Section.Advanced.advanced(_):
             let hostedView = AdvancedSafeSettingsView(safe: safe)
             let hostingController = UIHostingController(rootView: hostedView)

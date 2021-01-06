@@ -123,18 +123,15 @@ enum ViewControllerFactory {
         return nav
     }
 
-    static func editSafeNameController(address: String?, name: String?, presenter: UIViewController & CloseModal) -> UIViewController {
-        let context = App.shared.coreDataStack.persistentContainer.viewContext
-        let view = EditSafeNameView(address: address ?? "", name: name ?? "", onSubmit: { [weak presenter] in
-            presenter?.performSelector(onMainThread: #selector(CloseModal.closeModal), with: nil, waitUntilDone: false)
-        })
+    static func editSafeNameController(address: Address?, name: String?, presenter: UIViewController & PresentingViewController) -> UIViewController {
+        let viewController = EditSafeNameViewController()
+        viewController.address = address
+        viewController.name = name ?? ""
+        viewController.completion = { [weak presenter] in
+            presenter?.performSelector(onMainThread: #selector(PresentingViewController.closePresentedViewController), with: nil, waitUntilDone: false)
+        }
 
-        let vc = UIHostingController(rootView: view
-                                        .environment(\.managedObjectContext, context))
-        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: presenter, action: #selector(CloseModal.closeModal))
-
-        let nav = UINavigationController(rootViewController: vc)
-        return nav
+        return viewController
     }
 
     static func loadSafeController(presenter: UIViewController & CloseModal) -> UIViewController {
@@ -154,8 +151,18 @@ enum ViewControllerFactory {
     func closeModal()
 }
 
+@objc protocol PresentingViewController {
+    func closePresentedViewController()
+}
+
 extension UIViewController: CloseModal {
     func closeModal() {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension UIViewController: PresentingViewController {
+    func closePresentedViewController() {
+        navigationController?.popViewController(animated: true)
     }
 }
