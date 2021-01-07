@@ -372,31 +372,38 @@ class TransactionDetailCellBuilder {
     }
 
     func buildAdvanced(_ tx: SCG.TransactionDetails) {
-        let nonce: String?
-        let operation: String? = tx.txData?.operation.string
-        let hash: String? = tx.txHash?.description
-        let safeTxHash: String?
+        switch tx.txInfo {
+        case .transfer(let transferTx):
+            guard transferTx.direction != .incoming else { return }
+            fallthrough
+        default:
+            let nonce: String?
+            let operation: String? = tx.txData?.operation.string
+            let hash: String? = tx.txHash?.description
+            let safeTxHash: String?
 
-        if case SCG.TransactionDetails.DetailedExecutionInfo.multisig(let multisigTx)? =
-            tx.detailedExecutionInfo {
-            nonce = multisigTx.nonce.description
-            safeTxHash = multisigTx.safeTxHash.description
-        } else {
-            nonce = nil
-            safeTxHash = nil
-        }
+            if case SCG.TransactionDetails.DetailedExecutionInfo.multisig(let multisigTx)? =
+                tx.detailedExecutionInfo {
+                nonce = multisigTx.nonce.description
+                safeTxHash = multisigTx.safeTxHash.description
+            } else {
+                nonce = nil
+                safeTxHash = nil
+            }
 
-        guard ![nonce, operation, hash, safeTxHash].compactMap({ $0 }).isEmpty else { return }
+            guard ![nonce, operation, hash, safeTxHash].compactMap({ $0 }).isEmpty else { return }
 
-        disclosure(text: "Advanced") { [weak self] in
-            guard let `self` = self else { return }
-            let view = AdvancedTransactionDetailsViewV2(
-                nonce: nonce,
-                operation: operation,
-                hash: hash,
-                safeTxHash: safeTxHash)
-            let vc = UIHostingController(rootView: view)
-            self.vc.show(vc, sender: self)
+            disclosure(text: "Advanced") { [weak self] in
+                guard let `self` = self else { return }
+                let view = AdvancedTransactionDetailsViewV2(
+                    nonce: nonce,
+                    operation: operation,
+                    hash: hash,
+                    safeTxHash: safeTxHash)
+                let vc = UIHostingController(rootView: view)
+                self.vc.show(vc, sender: self)
+            }
+            break
         }
     }
 
