@@ -26,7 +26,7 @@ class ActionDetailViewController: UITableViewController {
 
     convenience init(decoded: DataDecoded, data: DataString? = nil) {
         self.init()
-        self.dataDecoded = dataDecoded
+        self.dataDecoded = decoded
         self.data = data
     }
 
@@ -45,8 +45,6 @@ class ActionDetailViewController: UITableViewController {
         tableView.registerCell(ActionDetailExpandableCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
         tableView.registerCell(DetailExpandableTextCell.self)
-        tableView.contentInset = .init(top: 24, left: 0, bottom: 0, right: 0)
-        tableView.scrollIndicatorInsets = tableView.contentInset
         reloadData()
     }
 
@@ -66,7 +64,18 @@ class ActionDetailViewController: UITableViewController {
 
     private func buildHeader() {
         if let tx = multiSendTx {
-
+            let eth = App.shared.tokenRegistry.token(address: .ether)!
+            txBuilder.result = []
+            txBuilder.buildTransferHeader(
+                address: tx.to.address,
+                isOutgoing: true,
+                status: .success,
+                value: tx.value.value,
+                decimals: eth.decimals.flatMap { try? UInt64($0) },
+                symbol: eth.symbol,
+                logoUri: nil,
+                logo: #imageLiteral(resourceName: "ico-ether"))
+            append(txBuilder.result)
         }
     }
 
@@ -83,7 +92,7 @@ class ActionDetailViewController: UITableViewController {
     }
 
     private func buildParameters() {
-        if let params = dataDecoded?.parameters {
+        if let params = dataDecoded?.parameters, !params.isEmpty {
             for (index, parameter) in params.enumerated() {
                 let paramName = parameter.name.isEmpty ? "Parameter #\(index + 1)" : "\(parameter.name)"
                 let paramType = parameter.type.isEmpty ? "" : "(\(parameter.type))"
