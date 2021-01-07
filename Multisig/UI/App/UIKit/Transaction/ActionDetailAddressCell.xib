@@ -17,21 +17,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Va2-8W-eJ4" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                        <rect key="frame" x="16" y="11" width="288" height="24"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CAe-RY-joG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Va2-8W-eJ4" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
+                                <rect key="frame" x="16" y="3" width="288" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <directionalEdgeInsets key="directionalLayoutMargins" top="3" leading="16" bottom="3" trailing="16"/>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Va2-8W-eJ4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="QpX-9D-Caj"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="Va2-8W-eJ4" secondAttribute="bottom" id="YE5-EF-GB9"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Va2-8W-eJ4" secondAttribute="trailing" id="kff-oY-AI5"/>
-                    <constraint firstItem="Va2-8W-eJ4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="snJ-Ul-2Qv"/>
+                    <constraint firstItem="CAe-RY-joG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="BZr-fh-YLi"/>
+                    <constraint firstItem="CAe-RY-joG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="GPU-WM-wbN"/>
+                    <constraint firstAttribute="bottom" secondItem="CAe-RY-joG" secondAttribute="bottom" id="Zd2-un-Ytn"/>
+                    <constraint firstAttribute="trailing" secondItem="CAe-RY-joG" secondAttribute="trailing" id="wVa-7N-2qW"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="addressView" destination="Va2-8W-eJ4" id="ipO-FG-J4s"/>
+                <outlet property="stackView" destination="CAe-RY-joG" id="sJx-tr-4wn"/>
             </connections>
             <point key="canvasLocation" x="105.79710144927537" y="152.67857142857142"/>
         </tableViewCell>

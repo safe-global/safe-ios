@@ -9,37 +9,42 @@
 import UIKit
 
 class ActionDetailViewController: UITableViewController {
-    private var dataDecoded: SCG.DataDecoded?
-    private var data: DataString?
-    private var customTitle: String?
+    typealias MultiSendTx = SCG.DataDecoded.Parameter.ValueDecoded.MultiSendTx
+    typealias DataDecoded = SCG.DataDecoded
 
-    private static let indentWidth: CGFloat = 8.0
+    private var multiSendTx: MultiSendTx?
+    private var dataDecoded: DataDecoded?
+    private var data: DataString?
+    private var placeholderTitle: String?
+
+    private static let indentWidth: CGFloat = 20.0
+
+    private var txBuilder: TransactionDetailCellBuilder!
 
     /// Container for all cells in the table
     private var cells = [UITableViewCell]()
 
-    /// Cells' index stack.
-    ///
-    /// The index will be popped during cell creation in builder methods.
-    ///
-    /// This allows to temporary change the insertion point of the cells
-    /// and go back to previous insertion point
-    /// by popping the pushed index.
-    private var builderIndexStack = [0]
-
-    convenience init(_ dataDecoded: SCG.DataDecoded?, data: DataString? = nil, title: String? = nil) {
+    convenience init(decoded: DataDecoded, data: DataString? = nil) {
         self.init()
         self.dataDecoded = dataDecoded
         self.data = data
-        self.customTitle = title
+    }
+
+    convenience init(tx: MultiSendTx, placeholderTitle: String?) {
+        self.init()
+        multiSendTx = tx
+        dataDecoded = tx.dataDecoded
+        data = tx.data
+        self.placeholderTitle = placeholderTitle
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        txBuilder = TransactionDetailCellBuilder(vc: self, tableView: tableView)
         tableView.registerCell(ActionDetailTextCell.self)
         tableView.registerCell(ActionDetailExpandableCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
-        tableView.separatorStyle = .none
+        tableView.registerCell(DetailExpandableTextCell.self)
         tableView.contentInset = .init(top: 24, left: 0, bottom: 0, right: 0)
         tableView.scrollIndicatorInsets = tableView.contentInset
         reloadData()
@@ -51,42 +56,61 @@ class ActionDetailViewController: UITableViewController {
     }
 
     private func reloadData() {
-        navigationItem.title = dataDecoded?.method ?? customTitle
+        navigationItem.title = dataDecoded?.method ?? placeholderTitle
         cells = []
+        buildHeader()
         buildHexData()
         buildParameters()
         tableView.reloadData()
     }
 
-    private func buildParameters() {
-        if let params = dataDecoded?.parameters {
-            for parameter in params {
-                headerCell("\(parameter.name)(\(parameter.type)):")
-                buildValue(parameter.value)
-            }
-        } else {
-            textCell("No parameters")
+    private func buildHeader() {
+        if let tx = multiSendTx {
+
         }
     }
 
     private func buildHexData() {
         if let data = data {
-            headerCell("Data")
-            expandableCell("\(data.data.count) bytes") { [weak self] index in
-                guard let `self` = self else { return [] }
-                return [self.hexCell(at: index, text: data.description)]
-            }
+            let cell = tableView.dequeueCell(DetailExpandableTextCell.self)
+            cell.tableView = tableView
+            cell.setTitle("Data")
+            cell.setExpandableTitle("\(data.data.count) bytes")
+            cell.setText(data.description)
+            cell.setCopyText(data.description)
+            append(cell)
         }
     }
 
-    private func hexCell(at index: Int, text: String) -> ActionDetailTextCell {
-        let cell = self.tableView.dequeueCell(ActionDetailTextCell.self, for: IndexPath(row: index, section: 0))
-        cell.setText(text, style: .body)
-        cell.onTap = {
-            Self.copyValue(text)
+    private func buildParameters() {
+        if let params = dataDecoded?.parameters {
+            for (index, parameter) in params.enumerated() {
+                let paramName = parameter.name.isEmpty ? "Parameter #\(index + 1)" : "\(parameter.name)"
+                let paramType = parameter.type.isEmpty ? "" : "(\(parameter.type))"
+                append(headerCell("\(paramName)\(paramType):"))
+                append(buildValue(parameter.value))
+            }
+        } else {
+            append(textCell("No parameters"))
         }
-        return cell
     }
+
+    private func append(_ cell: UITableViewCell) {
+        cells.append(cell)
+    }
+
+    private func append(_ value: [UITableViewCell]) {
+        cells.append(contentsOf: value)
+    }
+
+    private func insert(_ cell: UITableViewCell, at index: Int) {
+        cells.insert(cell, at: index)
+    }
+
+    private func insert(_ value: [UITableViewCell], at index: Int) {
+        cells.insert(contentsOf: value, at: index)
+    }
+
 
     static func copyValue(_ value: String) {
         Pasteboard.string = value
@@ -100,126 +124,90 @@ class ActionDetailViewController: UITableViewController {
     ///   - paramValue: parameter value
     ///   - nestingLevel: current nesting level - influences the building
     ///    decisions and indentation level
-    private func buildValue(_ paramValue: SCG.DataDecoded.Parameter.Value, nestingLevel: Int = 0) {
-        let indentation: CGFloat = Self.indentWidth * CGFloat(nestingLevel)
+    private func buildValue(_ paramValue: SCG.DataDecoded.Parameter.Value, nestingLevel: Int = 0) -> [UITableViewCell] {
+
+        // we don't want to indent up to 1st-level nested arrays
+        let indent: CGFloat = min(max(0, CGFloat(nestingLevel) - 1), 10) * Self.indentWidth
 
         switch paramValue {
 
         case .string(let value):
-            textCell(value, indentation: indentation)
+            return [textCell(value, indentation: indent)]
 
         case .address(let value):
-            addressCell(value.address, indentation: indentation)
+            return [addressCell(value.address, indentation: indent)]
 
         case .uint256(let value):
-            textCell(value.description, indentation: indentation)
+            return [textCell(value.description, indentation: indent)]
 
         case .data(let value):
-            expandableCell("\(value.data.count) bytes", indentation: indentation) { [weak self] index in
-                guard let `self` = self else { return [] }
-                return [self.hexCell(at: index, text: value.description)]
-            }
+            return [expandableCell("\(value.data.count) bytes", indentation: indent, content: [hexCell(value.description, indentation: indent)])]
 
         case .array(let value):
-                if nestingLevel == 0 {
-                    // Initial contents are always visible.
+            var content: [UITableViewCell] = []
+            if value.isEmpty {
+                content = [emptyCell(indentation: indent)]
+            } else {
+                // recursion
+                content = value.flatMap { buildValue($0, nestingLevel: nestingLevel + 1) }
+            }
 
-                    if value.isEmpty {
-                        emptyCell(indentation: indentation)
-                    } else {
-                        for item in value {
-                            // recursion with incremented nesting level
-                            buildValue(item, nestingLevel: nestingLevel + 1)
-                        }
-                    }
+            if nestingLevel == 0 {
+                return content
+            } else {
+                return [expandableCell("array", indentation: indent, content: content)]
+            }
 
-                } else {
-                    // we're in recursive call.
-                    // nested content is collapsed with indented "array" label
-
-                    expandableCell("array", indentation: indentation) { [weak self] index in
-                        guard let `self` = self else { return [] }
-                        // this closure is called when the cell is expanded.
-
-                        // We're going to re-use existing builder methods.
-                        //
-                        // So, in order not to mixup the current cell
-                        // insertion index, we'll create new index,
-                        // then build the cells that we need recursively
-                        // and remove those cells from the output
-                        // in order to return from this  closure.
-                        //
-                        // We'll restore the index after creating new cells.
-
-                        let startIndex = self.pushIndex()
-
-                        for item in value {
-                            self.buildValue(item, nestingLevel: nestingLevel + 1)
-                        }
-
-                        let endIndex = self.popIndex()
-
-                        // remove added cells because thye
-                        let range = (startIndex..<endIndex)
-                        let result = Array(self.cells[range])
-                        self.cells.removeSubrange(range)
-
-                        return result
-                    }
-
-                }
-    case .unknown:
-            textCell("Unknown value", indentation: indentation)
+        case .unknown:
+            return [textCell("Unknown value", indentation: indent)]
         }
     }
 
     // MARK: - Cell Builder
 
-    /// Pushes the index to the top fo the index stack.
-    /// - Parameter index: if nil, the `cells.count` will be used. Default is nil.
-    /// - Returns: the new index that was just pushed.
-    @discardableResult
-    private func pushIndex(_ index: Int? = nil) -> Int {
-        let nextIndex = index ?? cells.count
-        builderIndexStack.append(index ?? cells.count)
-        return nextIndex
-    }
-
-    /// Removes index from the top of the stack.
-    /// - Returns: the index that was popped
-    private func popIndex() -> Int {
-        assert(!builderIndexStack.isEmpty)
-        return builderIndexStack.removeLast()
-    }
-
-    private func headerCell(_ text: String, indentation: CGFloat = 0) {
-        let cell = newCell(ActionDetailTextCell.self)
-        cell.setText(text, style: GNOTextStyle(size: 16, weight: .bold, color: .gnoDarkBlue))
-        cell.setIndentation(indentation)
+    private func headerCell(_ text: String, indentation: CGFloat = 0) -> UITableViewCell {
+        let cell = tableView.dequeueCell(ActionDetailTextCell.self)
+        cell.setText(text, style: GNOTextStyle.body.weight(.semibold))
         cell.selectionStyle = .none
+        cell.margins.top = 10
+        cell.margins.leading += indentation
+        return cell
     }
 
-    private func textCell(_ text: String, indentation: CGFloat = 0) {
-        let cell = newCell(ActionDetailTextCell.self)
+    private func textCell(_ text: String, indentation: CGFloat = 0) -> UITableViewCell {
+        let cell = tableView.dequeueCell(ActionDetailTextCell.self)
         cell.setText(text, style: GNOTextStyle.body.color(.gnoDarkGrey))
-        cell.setIndentation(indentation)
         cell.onTap = {
             Self.copyValue(text)
         }
+        cell.margins.leading += indentation
+        return cell
     }
 
-    private func emptyCell(indentation: CGFloat = 0) {
-        let cell = newCell(ActionDetailTextCell.self)
+    private func emptyCell(indentation: CGFloat = 0) -> UITableViewCell {
+        let cell = tableView.dequeueCell(ActionDetailTextCell.self)
         cell.setText("empty", style: GNOTextStyle.body.color(.gnoMediumGrey))
-        cell.setIndentation(indentation)
         cell.selectionStyle = .none
+        cell.margins.leading += indentation
+        return cell
     }
 
-    private func addressCell(_ address: Address, indentation: CGFloat = 0) {
-        let cell = newCell(ActionDetailAddressCell.self)
+    private func addressCell(_ address: Address, indentation: CGFloat = 0) -> UITableViewCell {
+        let cell = tableView.dequeueCell(ActionDetailAddressCell.self)
         cell.setAddress(address)
-        cell.setIndentation(indentation)
         cell.selectionStyle = .none
+        cell.margins.leading += indentation
+        return cell
+    }
+
+    private func hexCell(_ text: String, indentation: CGFloat = 0) -> UITableViewCell {
+        let cell = self.tableView.dequeueCell(ActionDetailTextCell.self)
+        cell.setText(text, style: .body)
+        cell.onTap = {
+            Self.copyValue(text)
+        }
+        cell.margins.leading += indentation
+        return cell
     }
 
     /// Creates expandable cell that produces other cells when expanded.
@@ -231,14 +219,15 @@ class ActionDetailViewController: UITableViewController {
     ///     the expanded cell.
     private func expandableCell(_ text: String,
                                 indentation: CGFloat = 0,
-                                content: @escaping (Int) -> [UITableViewCell] = { _ in [] }) {
-        let cell = newCell(ActionDetailExpandableCell.self)
+                                content: [UITableViewCell]) -> UITableViewCell {
+        let cell = tableView.dequeueCell(ActionDetailExpandableCell.self)
         cell.setText(text)
         cell.state = .collapsed
-        cell.setIndentation(indentation)
+        cell.margins.leading += indentation
+        cell.subcells = content
 
         cell.onTap = { [weak self, weak cell] in
-            guard let `self` = self, let cell = cell, let cellIndex = self.cells.firstIndex(of: cell) else { return }
+            guard let `self` = self, let cell = cell, let cellIndex = self.cells.firstIndex(of: cell), !cell.subcells.isEmpty else { return }
 
             switch cell.state {
             case .collapsed:
@@ -248,35 +237,39 @@ class ActionDetailViewController: UITableViewController {
 
                 // create cells
                 let insertionIndex = cellIndex.advanced(by: 1)
-                let insertedCells = content(insertionIndex)
-                cell.subcells = insertedCells
-
-                // update data source
-                self.cells.insert(contentsOf: insertedCells, at: insertionIndex)
+                self.cells.insert(contentsOf: cell.subcells, at: insertionIndex)
 
                 // update UI
                 self.tableView.beginUpdates()
-                let insertedPaths = (insertionIndex..<insertionIndex.advanced(by: insertedCells.count)).map { IndexPath(row: $0, section: 0) }
+                let insertedPaths = (insertionIndex..<insertionIndex.advanced(by: cell.subcells.count)).map { IndexPath(row: $0, section: 0) }
                 self.tableView.insertRows(at: insertedPaths, with: .bottom)
                 self.tableView.endUpdates()
 
             case .expanded:
                 // then collapse the contents
-
                 cell.state = .collapsed
 
-                // remember indexes of removed cells and remove them
-                var deletedPaths = [IndexPath]()
-                deletedPaths = cell.subcells
-                    .compactMap { self.cells.firstIndex(of: $0) }
-                    .map { IndexPath(row: $0, section: 0) }
+                // visit all subcell tree and collapse all
 
-                cell.subcells = []
+                var allSubcells: [UITableViewCell] = []
+                var toVisit: [UITableViewCell] = cell.subcells
+
+                while let sub = toVisit.first {
+                    allSubcells.append(toVisit.removeFirst())
+
+                    if let expandable = sub as? ActionDetailExpandableCell {
+                        expandable.state = .collapsed
+
+                        toVisit.append(contentsOf: expandable.subcells)
+                    }
+                }
+
+                // remove all expanded cells
+                let deletedIndexes = allSubcells.compactMap { self.cells.firstIndex(of: $0) }
+                let deletedPaths = deletedIndexes.map { IndexPath(row: $0, section: 0) }
 
                 // update data source
-                for path in deletedPaths {
-                    self.cells.remove(at: path.row)
-                }
+                self.cells.remove(atOffsets: IndexSet(deletedIndexes))
 
                 // update UI
                 self.tableView.beginUpdates()
@@ -284,22 +277,7 @@ class ActionDetailViewController: UITableViewController {
                 self.tableView.endUpdates()
 
             }
-
         }
-    }
-
-    /// Creates new cell in the table view at the index from the top of the
-    /// stack and increments the top index.
-    ///
-    /// - Parameter cls: class to use for the identifier
-    /// - Returns: newly created or reused cell
-    private func newCell<T: UITableViewCell>(_ cls: T.Type) -> T {
-        let index = popIndex()
-        defer { pushIndex(index + 1) }
-
-        let indexPath = IndexPath(row: index, section: 0)
-        let cell = tableView.dequeueCell(cls, for: indexPath)
-        cells.insert(cell, at: index)
         return cell
     }
 

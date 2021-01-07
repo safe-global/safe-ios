@@ -16,8 +16,15 @@ struct GNOTextStyle: Hashable {
     var color: UIColor?
 
     func color(_ newColor: UIColor?) -> Self {
-        guard let newColor = newColor else { return self }
-        return .init(size: size, weight: weight, fontName: fontName, letterSpacing: letterSpacing, color: newColor)
+        var t = self
+        t.color = newColor
+        return t
+    }
+
+    func weight(_ value: UIFont.Weight) -> Self {
+        var t = self
+        t.weight = value
+        return t
     }
 }
 

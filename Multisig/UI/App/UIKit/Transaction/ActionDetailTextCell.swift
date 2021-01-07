@@ -15,4 +15,5 @@ class ActionDetailTextCell: ActionDetailTableViewCell {
         titleLabel.setStyle(style)
         titleLabel.text = text
     }
+
 }

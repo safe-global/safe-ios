@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,26 +17,27 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="d8s-PP-PHI">
-                        <rect key="frame" x="16" y="11" width="288" height="22"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPp-ju-tfc">
-                                <rect key="frame" x="0.0" y="0.0" width="288" height="22"/>
+                                <rect key="frame" x="16" y="3" width="288" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <directionalEdgeInsets key="directionalLayoutMargins" top="3" leading="16" bottom="3" trailing="16"/>
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="d8s-PP-PHI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Cky-0f-Mpy"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="d8s-PP-PHI" secondAttribute="trailing" id="LdJ-ex-SlI"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="d8s-PP-PHI" secondAttribute="bottom" id="mkp-V9-6HX"/>
-                    <constraint firstAttribute="leadingMargin" secondItem="d8s-PP-PHI" secondAttribute="leading" id="ogv-Ao-Got"/>
+                    <constraint firstItem="d8s-PP-PHI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="CEn-9d-1qE"/>
+                    <constraint firstAttribute="trailing" secondItem="d8s-PP-PHI" secondAttribute="trailing" id="YlU-r9-sgk"/>
+                    <constraint firstItem="d8s-PP-PHI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fzT-02-SsX"/>
+                    <constraint firstAttribute="bottom" secondItem="d8s-PP-PHI" secondAttribute="bottom" id="zAq-M4-ni0"/>
                 </constraints>
             </tableViewCellContentView>
-            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="stackView" destination="d8s-PP-PHI" id="7l3-DT-wb9"/>
                 <outlet property="titleLabel" destination="DPp-ju-tfc" id="C1H-ea-nOq"/>
             </connections>
             <point key="canvasLocation" x="106" y="154"/>

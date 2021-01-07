@@ -55,7 +55,7 @@ class MultiSendListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let tx = transactions[indexPath.row]
-        let vc = ActionDetailViewController(tx.dataDecoded, data: tx.data, title: "Action #\(indexPath.row + 1)")
+        let vc = ActionDetailViewController(tx: tx, placeholderTitle: "Action #\(indexPath.row + 1)")
         show(vc, sender: self)
     }
 }

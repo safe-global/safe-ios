@@ -305,7 +305,7 @@ class TransactionDetailCellBuilder {
                 } else {
                     disclosure(text: "Action (\(dataDecoded.method))") { [weak self] in
                         guard let `self` = self else { return }
-                        let vc = ActionDetailViewController(dataDecoded, data: tx.txData?.hexData)
+                        let vc = ActionDetailViewController(decoded: dataDecoded, data: tx.txData?.hexData)
                         self.vc.show(vc, sender: self)
                     }
                 }

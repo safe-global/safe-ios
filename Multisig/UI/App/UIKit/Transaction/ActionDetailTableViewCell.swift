@@ -9,11 +9,16 @@
 import UIKit
 
 class ActionDetailTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var stackView: UIStackView!
     var onTap: () -> Void = {}
-    
-    func setIndentation(_ value: CGFloat) {
-        layoutMargins = UIEdgeInsets(top: 0, left: value, bottom: 0, right: 0)
+
+    var margins: NSDirectionalEdgeInsets {
+        get { stackView.directionalLayoutMargins }
+        set { stackView.directionalLayoutMargins = newValue }
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        separatorInset.left = CGFloat.greatestFiniteMagnitude
+    }
 }
