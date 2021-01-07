@@ -18,7 +18,12 @@ final class ENS {
     }
 
     func address(for name: String) throws -> Address {
-        let node = try namehash(normalized(name))
+        let node: Node
+        do {
+            node = try namehash(normalized(name))
+        } catch {
+            throw GSError.ENSInvalidCharacters()
+        }
 
         // get resolver
         let registry = ENSRegistry(registryAddress)

@@ -123,20 +123,6 @@ enum ViewControllerFactory {
         return nav
     }
 
-    static func editSafeNameController(address: String?, name: String?, presenter: UIViewController & CloseModal) -> UIViewController {
-        let context = App.shared.coreDataStack.persistentContainer.viewContext
-        let view = EditSafeNameView(address: address ?? "", name: name ?? "", onSubmit: { [weak presenter] in
-            presenter?.performSelector(onMainThread: #selector(CloseModal.closeModal), with: nil, waitUntilDone: false)
-        })
-
-        let vc = UIHostingController(rootView: view
-                                        .environment(\.managedObjectContext, context))
-        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: presenter, action: #selector(CloseModal.closeModal))
-
-        let nav = UINavigationController(rootViewController: vc)
-        return nav
-    }
-
     static func loadSafeController(presenter: UIViewController & CloseModal) -> UIViewController {
         let context = App.shared.coreDataStack.persistentContainer.viewContext
         let view = EnterSafeAddressView(onSubmit: { [weak presenter] in
