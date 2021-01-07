@@ -65,6 +65,8 @@
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
 		048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */; };
 		048643DD24E4490A003DD966 /* CreationTransactionBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643DC24E4490A003DD966 /* CreationTransactionBodyView.swift */; };
+		048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */; };
+		048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */; };
 		0497F6C824858F2D00A1F4DE /* ConfirmationCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */; };
 		0497F6E32488EB9500A1F4DE /* TransferTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E22488EB9500A1F4DE /* TransferTransactionCellView.swift */; };
 		0497F6E52488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497F6E42488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift */; };
@@ -569,6 +571,8 @@
 		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterNotificationTokenRequest.swift; path = "../Notification Service/RegisterNotificationTokenRequest.swift"; sourceTree = "<group>"; };
 		048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnregisterNotificationTokenRequest.swift; path = "../Notification Service/UnregisterNotificationTokenRequest.swift"; sourceTree = "<group>"; };
 		048643DC24E4490A003DD966 /* CreationTransactionBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTransactionBodyView.swift; sourceTree = "<group>"; };
+		048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSafeNameViewController.swift; sourceTree = "<group>"; };
+		048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditSafeNameViewController.xib; sourceTree = "<group>"; };
 		0497F6C724858F2D00A1F4DE /* ConfirmationCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationCountView.swift; sourceTree = "<group>"; };
 		0497F6E22488EB9500A1F4DE /* TransferTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferTransactionCellView.swift; sourceTree = "<group>"; };
 		0497F6E42488EBBF00A1F4DE /* SettingsChangeTransactionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsChangeTransactionCellView.swift; sourceTree = "<group>"; };
@@ -1220,6 +1224,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		048B3B0B25A5E7850005219B /* Edit Safe */ = {
+			isa = PBXGroup;
+			children = (
+				048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */,
+				048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */,
+			);
+			path = "Edit Safe";
+			sourceTree = "<group>";
+		};
 		0497F6E12488EB6C00A1F4DE /* TransactionCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1548,6 +1561,7 @@
 		0A6886B02588FB370045CAB5 /* Safe Management */ = {
 			isa = PBXGroup;
 			children = (
+				048B3B0B25A5E7850005219B /* Edit Safe */,
 				0AB9F4C8254C64740044395F /* SwitchSafesViewController */,
 				0A6886982588FADF0045CAB5 /* Add Safe */,
 			);
@@ -2708,6 +2722,7 @@
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				558835F9255BFEF80014E8C7 /* AddressInfoView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
+				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
@@ -3041,6 +3056,7 @@
 				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
 				049ECFEC25004323004FF02F /* SettingChangeTransactionViewModel.swift in Sources */,
 				048643DD24E4490A003DD966 /* CreationTransactionBodyView.swift in Sources */,
+				048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */,
 				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
 				558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */,
 				550A0ACF24F3C19B00B839E9 /* MainTabView.swift in Sources */,
