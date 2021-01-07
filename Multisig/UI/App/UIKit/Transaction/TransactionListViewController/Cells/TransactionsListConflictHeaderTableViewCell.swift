@@ -26,6 +26,6 @@ class TransactionsListConflictHeaderTableViewCell: UITableViewCell, ExternalURLS
     }
 
     @IBAction func learnMoreButtonTouched(_ sender: Any) {
-        UIApplication.shared.sendAction(#selector(UIViewController.didTapExternalURL(_:)), to: nil, from: self, for: nil)
+        openExternalURL()
     }
 }

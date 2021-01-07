@@ -22,6 +22,6 @@ class ExternalURLCell: UITableViewCell, ExternalURLSource {
     }
     
     @IBAction func didTapButton(_ sender: Any) {
-        UIApplication.shared.sendAction(#selector(UIViewController.didTapExternalURL(_:)), to: nil, from: self, for: nil)
+        openExternalURL()
     }
 }
