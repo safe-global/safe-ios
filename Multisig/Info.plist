@@ -58,6 +58,8 @@
 	<string>$(SERVICE_ENV)</string>
 	<key>TERMS_URL</key>
 	<string>$(TERMS_URL)</string>
+	<key>CONFLICT_URL</key>
+	<string>$(CONFLICT_URL)</string>
 	<key>TRANSACTION_SERVICE_URL</key>
 	<string>$(TRANSACTION_SERVICE_URL)</string>
 	<key>TSKConfiguration</key>
@@ -83,7 +85,7 @@
 				<key>TSKDisableDefaultReportUri</key>
 				<true/>
 				<key>TSKEnforcePinning</key>
-                <string>$(SSL_ENFORCE_PINNING)</string>
+				<string>$(SSL_ENFORCE_PINNING)</string>
 				<key>TSKIncludeSubdomains</key>
 				<true/>
 				<key>TSKPublicKeyHashes</key>
@@ -98,8 +100,8 @@
 	</dict>
 	<key>TWITTER_URL</key>
 	<string>$(TWITTER_URL)</string>
-    <key>USE_UIKIT</key>
-    <string>$(USE_UIKIT)</string>
+	<key>USE_UIKIT</key>
+	<string>$(USE_UIKIT)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Averta-Regular.otf</string>
