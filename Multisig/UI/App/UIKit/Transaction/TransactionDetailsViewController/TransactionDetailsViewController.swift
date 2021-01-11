@@ -199,7 +199,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             self.tx!.txStatus = .awaitingYourConfirmation
         }
 
-        cells = builder.build(from: self.tx!)
+        cells = builder.build(self.tx!)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
