@@ -332,7 +332,7 @@
 		0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C7F32540887300E28669 /* HeaderViewController.xib */; };
 		0AF1C7FB25408A4D00E28669 /* SafeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C7FA25408A4D00E28669 /* SafeBarView.swift */; };
 		0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C80025408A6F00E28669 /* SafeBarView.xib */; };
-		0AF1C80725408B5000E28669 /* UIImageView+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C80625408B5000E28669 /* UIImageView+Address.swift */; };
+		0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C80625408B5000E28669 /* UIImageViewExtensions.swift */; };
 		0AF1C81225408EA000E28669 /* SegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C81025408EA000E28669 /* SegmentViewController.swift */; };
 		0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C81125408EA000E28669 /* SegmentViewController.xib */; };
 		0AF1C8302540923C00E28669 /* LoadableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C82E2540923C00E28669 /* LoadableViewController.swift */; };
@@ -850,7 +850,7 @@
 		0AF1C7F32540887300E28669 /* HeaderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderViewController.xib; sourceTree = "<group>"; };
 		0AF1C7FA25408A4D00E28669 /* SafeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBarView.swift; sourceTree = "<group>"; };
 		0AF1C80025408A6F00E28669 /* SafeBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeBarView.xib; sourceTree = "<group>"; };
-		0AF1C80625408B5000E28669 /* UIImageView+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Address.swift"; sourceTree = "<group>"; };
+		0AF1C80625408B5000E28669 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 		0AF1C81025408EA000E28669 /* SegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentViewController.swift; sourceTree = "<group>"; };
 		0AF1C81125408EA000E28669 /* SegmentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentViewController.xib; sourceTree = "<group>"; };
 		0AF1C8282540914600E28669 /* NoSafesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSafesViewController.swift; sourceTree = "<group>"; };
@@ -1424,7 +1424,7 @@
 				0AF1C9122541B6A300E28669 /* README.md */,
 				0AF1C8782541A9E700E28669 /* ScrollViewTemplateXib.xib */,
 				0AEE149E2540233C00046EE7 /* UINibView.swift */,
-				0AF1C80625408B5000E28669 /* UIImageView+Address.swift */,
+				0AF1C80625408B5000E28669 /* UIImageViewExtensions.swift */,
 				0AF1C9252541E09C00E28669 /* UIView+UINib.swift */,
 				55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */,
 				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
@@ -2999,7 +2999,7 @@
 				0A451C12252DDC44001DB7D2 /* LoadingTransactionListViewModel.swift in Sources */,
 				0A451C18252DDCDE001DB7D2 /* ProgressIndicatorCell.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
-				0AF1C80725408B5000E28669 /* UIImageView+Address.swift in Sources */,
+				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
 				047EE9F424EF014C00AEB2D1 /* TransactionActionDetailsView.swift in Sources */,
 				0497F6E92488EC5600A1F4DE /* CustomTransactionCellView.swift in Sources */,
 				0A0EFC94246D9D5200D3D8BF /* TopTabView.swift in Sources */,

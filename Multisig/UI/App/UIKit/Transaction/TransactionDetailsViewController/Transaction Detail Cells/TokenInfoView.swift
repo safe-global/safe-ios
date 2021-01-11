@@ -23,7 +23,7 @@ class TokenInfoView: UINibView {
     }
 
     func setImage(_ url: URL?) {
-        imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
+        imageView.setCircleShapeImage(url: url, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
     }
 
     func setText(_ text: String, style: GNOTextStyle = .body) {

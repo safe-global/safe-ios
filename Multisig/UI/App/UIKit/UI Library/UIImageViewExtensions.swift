@@ -16,8 +16,22 @@ extension UIImageView {
     /// - Parameter value: address to use. Must be hexadecimal and lowercased.
     func setAddress(_ value: String) {
         let provider = BlockiesImageProvider(seed: value)
-        let processor = RoundCornerImageProcessor(cornerRadius: provider.width)
+        let processor = RoundCornerImageProcessor(radius: .widthFraction(0.5))
         kf.setImage(with: provider, options: [.processor(processor)])
+    }
+}
+
+extension UIImageView {
+    /// Loads the image from URL or sets a placeholder image instead.
+    /// The image will be cropped as a circle.
+    ///
+    /// - Parameters:
+    ///   - url: url to load image from
+    ///   - placeholder: placeholder image
+    func setCircleShapeImage(url: URL?, placeholder: UIImage) {
+        kf.setImage(with: url,
+                    placeholder: placeholder,
+                    options: [.processor(RoundCornerImageProcessor(radius: .widthFraction(0.5)))])
     }
 }
 
