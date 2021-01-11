@@ -115,6 +115,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         present(alertVC, animated: true, completion: nil)
     }
 
+    private func invalidateData() {
+        notificationCenter.post(name: .transactionDataInvalidated, object: nil)
+    }
+
     private func sign() {
         guard let tx = tx,
               let transaction = Transaction(tx: tx) else {
@@ -129,9 +133,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 guard let `self` = self else { return }
                 self.onLoadingCompleted(result: $0)
                 if case Result.success(_) = $0 {
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [weak self] in
                         App.shared.snackbar.show(message: "Confirmation successfully submitted")
                         Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
+                        self?.invalidateData()
                     }
                 }
             })
