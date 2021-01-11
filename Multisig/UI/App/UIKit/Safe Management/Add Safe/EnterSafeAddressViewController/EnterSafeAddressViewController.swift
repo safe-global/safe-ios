@@ -20,6 +20,8 @@ class EnterSafeAddressViewController: UIViewController {
     @IBOutlet private weak var actionStackView: UIStackView!
     @IBOutlet private weak var actionLabel: UILabel!
     @IBOutlet private weak var openWebsiteButton: UIButton!
+    @IBOutlet private weak var externalLinkIcon: UIImageView!
+    @IBOutlet private weak var suggestionStackView: UIStackView!
 
     private var loadSafeTask: URLSessionTask?
     private var nextButton: UIBarButtonItem!
@@ -27,13 +29,19 @@ class EnterSafeAddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Load Safe Multisig"
+
         headerLabel.setStyle(.headline)
+
         actionLabel.setStyle(.body)
+
         addressField.setPlaceholderText("Enter Safe address")
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
+
         nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton(_:)))
         nextButton.isEnabled = false
+
         navigationItem.rightBarButtonItem = nextButton
+
         openWebsiteButton.setText(websiteURL.absoluteString, .plain)
     }
 
@@ -85,14 +93,23 @@ class EnterSafeAddressViewController: UIViewController {
         present(vc, animated: true, completion: nil)
     }
 
+    private func setSuggestionHidden(_ isHidden: Bool) {
+        suggestionStackView.isHidden = isHidden
+        externalLinkIcon.isHidden = isHidden
+    }
+
     private func didEnterText(_ text: String?) {
         addressField.clear()
         loadSafeTask?.cancel()
         nextButton.isEnabled = false
+        setSuggestionHidden(false)
 
         guard let text = text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
             return
         }
+
+        setSuggestionHidden(true)
+
         guard !text.isEmpty else {
             addressField.setError("Safe address should not be empty")
             return
