@@ -253,9 +253,9 @@ enum GSError {
     }
 
     struct UnsupportedImplementationCopy: DetailedLocalizedError {
-        let description = "Unsupported Safe Implementation copy"
-        let reason = "The implementation copy of your Safe is not supported by this app."
-        let howToFix = "Please change the implementation copy before adding it or use another Safe"
+        let description = "Unsupported Safe master copy"
+        let reason = "The master copy of your Safe is not supported by this app."
+        let howToFix = "Please change the master copy before adding it or use another Safe"
         let domain = clientErrorDomain
         let code = 1105
         let loggable = false
