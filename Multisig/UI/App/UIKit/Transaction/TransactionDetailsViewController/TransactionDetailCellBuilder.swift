@@ -328,12 +328,7 @@ class TransactionDetailCellBuilder {
             case .transfer(let transferTx):
                 switch transferTx.transferInfo {
                 case .erc721(let erc721Tx):
-                    let indexPath = IndexPath(row: result.count, section: 0)
-                    let cell = tableView.dequeueCell(DetailMultiAccountsCell.self, for: indexPath)
-
-                    let account = (address: erc721Tx.tokenAddress.address, label: "Assest Contract", title: "")
-                    cell.setAccounts(accounts: [account])
-                    result.append(cell)
+                    address(erc721Tx.tokenAddress.address, label: "Asset Contract", title: nil)
                 default:
                     break
                 }
