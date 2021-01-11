@@ -12,16 +12,19 @@ class DetailExpandableTextCell: UITableViewCell {
     weak var tableView: UITableView?
 
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var expandableTitleButton: UIButton!
+    @IBOutlet weak var expandableIconImageView: UIImageView!
+    @IBOutlet weak var expandableTitleLabel: UILabel!
     @IBOutlet private weak var contentLabel: UILabel!
     @IBOutlet private weak var contentCopyButton: UIButton!
+    @IBOutlet weak var expanableContainerStackView: UIStackView!
     private var textToCopy: String?
     private var isExpanded: Bool = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.headline)
-        expandableTitleButton.titleLabel?.setStyle(GNOTextStyle.body.color(.gnoDarkGrey))
+        expandableTitleLabel.setStyle(GNOTextStyle.body.color(.gnoDarkGrey))
+        expandableIconImageView.tintColor = .gnoDarkGrey
         setExpandableTitle(nil)
         setCopyText(nil)
         updateExpanded()
@@ -37,8 +40,8 @@ class DetailExpandableTextCell: UITableViewCell {
 
     func setExpandableTitle(_ text: String?) {
         let isExpandable: Bool = text == nil
-        expandableTitleButton.isHidden = isExpandable
-        expandableTitleButton.setTitle(text, for: .normal)
+        expanableContainerStackView.isHidden = isExpandable
+        expandableTitleLabel.text = text
         let contentStyle = isExpandable ? GNOTextStyle.body.color(.gnoDarkGrey) : .body
         contentLabel.setStyle(contentStyle)
         contentLabel.isHidden = isExpandable ? false : !isExpanded
@@ -49,7 +52,7 @@ class DetailExpandableTextCell: UITableViewCell {
         textToCopy = copyText
     }
 
-    @IBAction private func didTapExpandableTitle(_ sender: Any) {
+    @IBAction private func didTapExpandButton(_ sender: Any) {
         isExpanded.toggle()
         updateExpanded()
     }
@@ -57,7 +60,7 @@ class DetailExpandableTextCell: UITableViewCell {
     private func updateExpanded() {
         let image = UIImage(systemName: isExpanded ? "chevron.up" : "chevron.down")?
             .applyingSymbolConfiguration(.init(weight: .bold))
-        expandableTitleButton.setImage(image, for: .normal)
+        expandableIconImageView.image = image
 
         tableView?.beginUpdates()
         contentLabel.isHidden = !isExpanded

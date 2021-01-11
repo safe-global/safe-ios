@@ -77,7 +77,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="656-W9-zTn">
-                                                <rect key="frame" x="628.5" y="0.0" width="42.5" height="50"/>
+                                                <rect key="frame" x="617.5" y="0.0" width="42.5" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                 <color key="textColor" name="darkBlue"/>
                                                 <nil key="highlightedColor"/>
@@ -86,6 +86,7 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="656-W9-zTn" secondAttribute="trailing" constant="8" id="8K3-AT-HBL"/>
                                             <constraint firstItem="6qb-Q9-GkB" firstAttribute="leading" secondItem="FnA-UU-pWf" secondAttribute="leading" id="DwR-0f-8lD"/>
+                                            <constraint firstItem="656-W9-zTn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bnR-XM-h5a" secondAttribute="trailing" constant="8" id="Lwp-qb-jhc"/>
                                             <constraint firstItem="6qb-Q9-GkB" firstAttribute="centerY" secondItem="bnR-XM-h5a" secondAttribute="centerY" id="UCg-0d-Bkn"/>
                                             <constraint firstItem="656-W9-zTn" firstAttribute="height" secondItem="bnR-XM-h5a" secondAttribute="height" id="ZyT-cA-sUf"/>
                                             <constraint firstItem="656-W9-zTn" firstAttribute="top" secondItem="FnA-UU-pWf" secondAttribute="top" id="mT0-kg-sBn"/>

@@ -51,6 +51,12 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
         emptyView.setText(emptyText)
         emptyView.setImage(emptyImage)
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(lazyReloadData),
+            name: .transactionDataInvalidated,
+            object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {

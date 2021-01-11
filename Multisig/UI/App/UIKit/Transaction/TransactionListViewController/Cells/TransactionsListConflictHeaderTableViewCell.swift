@@ -18,7 +18,8 @@ class TransactionsListConflictHeaderTableViewCell: UITableViewCell, ExternalURLS
         super.awakeFromNib()
         nonceLabel.setStyle(.footnote2)
         descriptionLabel.setStyle(.footnote3)
-        learnMoreButton.setText("Learn more", .plain)
+        let buttonFont = UIFont.gnoFont(forTextStyle: .footnote2)
+        learnMoreButton.setText("Learn more", GNOButtonStyle.plain.font(buttonFont))
     }
 
     func set(nonce: String) {
