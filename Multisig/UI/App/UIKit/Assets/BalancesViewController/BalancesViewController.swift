@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 // Loads and displays balances
 class BalancesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
