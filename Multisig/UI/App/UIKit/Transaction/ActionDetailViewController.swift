@@ -120,7 +120,6 @@ class ActionDetailViewController: UITableViewController {
         cells.insert(contentsOf: value, at: index)
     }
 
-
     static func copyValue(_ value: String) {
         Pasteboard.string = value
         App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
