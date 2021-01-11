@@ -48,6 +48,7 @@ class TransactionDetailCellBuilder {
         let isCreationTx = buildCreationTx(tx)
         if !isCreationTx {
             buildHeader(tx)
+            buildAssetContract(tx)
             buildStatus(tx)
             buildMultisigInfo(tx)
             buildExecutedDate(tx)
@@ -133,7 +134,8 @@ class TransactionDetailCellBuilder {
                     value: 1,
                     decimals: 0,
                     symbol: erc721Tx.tokenSymbol ?? "NFT",
-                    logoUri: erc721Tx.logoUri)
+                    logoUri: erc721Tx.logoUri,
+                    detail: erc721Tx.tokenId.description)
 
             case .ether(let etherTx):
                 let eth = App.shared.tokenRegistry.token(address: .ether)!
@@ -319,6 +321,20 @@ class TransactionDetailCellBuilder {
     func buildHexData(_ tx: SCG.TransactionDetails) {
         if let data = tx.txData?.hexData {
             text("\(data)", title: "Data", expandableTitle: "\(data.data.count) Bytes", copyText: "\(data)")
+        }
+    }
+
+    func buildAssetContract(_ tx: SCG.TransactionDetails) {
+        switch tx.txInfo {
+        case .transfer(let transferTx):
+            switch transferTx.transferInfo {
+            case .erc721(let erc721Tx):
+                address(erc721Tx.tokenAddress.address, label: "Asset Contract", title: nil)
+            default:
+                break
+            }
+        default:
+            break
         }
     }
 
