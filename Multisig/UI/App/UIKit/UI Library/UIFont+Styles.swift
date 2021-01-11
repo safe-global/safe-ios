@@ -88,22 +88,32 @@ struct GNOButtonAppearance {
 }
 
 struct GNOButtonStyle {
-    var appearance: [(UIControl.State, GNOButtonAppearance)] = []
+    var appearance: [(state: UIControl.State, value: GNOButtonAppearance)] = []
+
+    func font(_ newFont: UIFont) -> Self {
+        var result = self
+        for index in (0..<result.appearance.count) {
+            var newAppearance = result.appearance[index].value
+            newAppearance.textAttributes[.font] = newFont
+            result.appearance[index] = (result.appearance[index].state, newAppearance)
+        }
+        return result
+    }
 }
 
 extension GNOButtonStyle {
     static let plain = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
             .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 1),
-            .font: UIFont.gnoFont(forTextStyle: .footnote2)
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
             .foregroundColor: #colorLiteral(red: 0, green: 0.3333333333, blue: 0.2745098039, alpha: 1),
-            .font: UIFont.gnoFont(forTextStyle: .footnote2)
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
             .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 0.5),
-            .font: UIFont.gnoFont(forTextStyle: .footnote2)
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])
 
