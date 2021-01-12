@@ -9,19 +9,21 @@
 import Foundation
 
 struct CollectibleViewModel: Identifiable {
-    let id: UUID
-    let name: String
-    let description: String
-    let address: String
-    let tokenID: String?
-    let imageURL: URL?
-    let website: URL?
-    let websiteName: String?
+    var id: UUID
+    var name: String
+    var description: String
+    var address: String
+    var tokenID: String?
+    var imageURL: URL?
+    var website: URL?
+    var websiteName: String?
 
     var hasName: Bool {
         !["", "Unknown"].contains(name)
     }
-    
+}
+
+extension CollectibleViewModel {
     init() {
         id = UUID()
         name = ""

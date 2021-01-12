@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OTW-Ev-sUr" customClass="CollecitbleSectionSeparatorView" customModule="Multisig" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="13"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="w3A-CZ-3il">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="13"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Pn-ol-Yfb">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="11"/>
+                            <color key="backgroundColor" name="systemWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xn2-nY-Dmj">
+                            <rect key="frame" x="0.0" y="11" width="414" height="2"/>
+                            <color key="backgroundColor" name="white"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="2" id="YbQ-Hv-nYb"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="w3A-CZ-3il" firstAttribute="top" secondItem="OTW-Ev-sUr" secondAttribute="top" id="1pF-In-rYy"/>
+                <constraint firstAttribute="bottom" secondItem="w3A-CZ-3il" secondAttribute="bottom" id="89K-S6-URG"/>
+                <constraint firstItem="w3A-CZ-3il" firstAttribute="leading" secondItem="OTW-Ev-sUr" secondAttribute="leading" id="SQX-0k-cYx"/>
+                <constraint firstAttribute="trailing" secondItem="w3A-CZ-3il" secondAttribute="trailing" id="Saf-71-SxC"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-214" y="37"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="systemWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="white">
+            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

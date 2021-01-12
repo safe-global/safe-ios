@@ -13,7 +13,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     var clientGatewayService = App.shared.clientGatewayService
     let rowHeight: CGFloat = 160
     let headerHeight: CGFloat = 52
-    let footerHeight: CGFloat = 2
+    let footerHeight: CGFloat = 13
     let tableBackgroundColor: UIColor = .gnoWhite
 
     var currentDataTask: URLSessionTask?
@@ -31,6 +31,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         tableView.dataSource = self
         tableView.registerCell(CollectibleTableViewCell.self)
         tableView.registerHeaderFooterView(CollectiblesHeaderView.self)
+        tableView.registerHeaderFooterView(CollecitbleSectionSeparatorView.self)
         tableView.rowHeight = rowHeight
         tableView.sectionHeaderHeight = headerHeight
         tableView.sectionFooterHeight = footerHeight
@@ -106,9 +107,9 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let collectible = sections[indexPath.section].collectibles[indexPath.row]
-        let collectibleDetailsView = CollectibleDetailsView(viewModel: collectible)
-        let hostingController = UIHostingController(rootView: collectibleDetailsView)
-        show(hostingController, sender: self)
+        let vc = CollectibleDetailViewController(nibName: nil, bundle: nil)
+        vc.collectible = collectible
+        show(vc, sender: self)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -120,8 +121,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: footerHeight))
-        view.backgroundColor = .gnoWhite
-        return view
+        tableView.dequeueHeaderFooterView(CollecitbleSectionSeparatorView.self)
     }
+
 }
