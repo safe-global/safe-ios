@@ -213,7 +213,6 @@ class RemoteNotificationHandler {
             }
 
             Safe.select(address: rawAddress)
-            App.shared.viewState.switchTab(.transactions)
 
             if ["EXECUTED_MULTISIG_TRANSACTION", "NEW_CONFIRMATION", "CONFIRMATION_REQUEST"].contains(payload.type),
                let safeTxHash = payload.safeTxHash,

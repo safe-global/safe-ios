@@ -115,10 +115,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         present(alertVC, animated: true, completion: nil)
     }
 
-    private func invalidateData() {
-        notificationCenter.post(name: .transactionDataInvalidated, object: nil)
-    }
-
     private func sign() {
         guard let tx = tx,
               let transaction = Transaction(tx: tx) else {
@@ -129,15 +125,21 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             let safeAddress = try Address(from: try Safe.getSelected()!.address!)
             let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress)
             let safeTxHash = transaction.safeTxHash!.description
-            confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash, with: signature.value, completion: { [weak self] in
-                guard let `self` = self else { return }
-                self.onLoadingCompleted(result: $0)
-                if case Result.success(_) = $0 {
-                    DispatchQueue.main.async { [weak self] in
-                        App.shared.snackbar.show(message: "Confirmation successfully submitted")
-                        Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
-                        self?.invalidateData()
+            confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash, with: signature.value, completion: { [weak self] result in
+
+                // NOTE: sometimes the data of the transaction list is not
+                // updated right away, we'll give a moment for the backend
+                // to catch up before finishing with this request.
+                DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(600)) { [weak self] in
+                    if case Result.success(_) = result {
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
+                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
+                            App.shared.snackbar.show(message: "Confirmation successfully submitted")
+                        }
                     }
+
+                    self?.onLoadingCompleted(result: result)
                 }
             })
         } catch {
