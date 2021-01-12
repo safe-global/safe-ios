@@ -8,21 +8,29 @@
 
 import UIKit
 import WebKit
+import Kingfisher
 
 class SVGView: UINibView {
     @IBOutlet private weak var webView: WKWebView!
-    @IBOutlet private weak var placeholderImageView: UIImageView!
+    @IBOutlet private weak var imageView: UIImageView!
 
     override func commonInit() {
         super.commonInit()
         webView.navigationDelegate = self
     }
 
-    func setPlaceholder(_ image: UIImage?) {
-        placeholderImageView.image = image
+    func setImage(url: URL?, placeholder: UIImage?) {
+        if let url = url, url.pathExtension.caseInsensitiveCompare("svg") == .orderedSame {
+            imageView.image = placeholder
+            setSVG(url: url)
+        } else {
+            hideWebView()
+            webView.stopLoading()
+            imageView.kf.setImage(with: url, placeholder: placeholder)
+        }
     }
 
-    func setSVG(url: URL) {
+    private func setSVG(url: URL) {
         hideWebView()
         let html = """
         <html>

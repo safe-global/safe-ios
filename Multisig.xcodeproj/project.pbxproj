@@ -226,6 +226,8 @@
 		0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8AEB1725A4726E002A3FE1 /* ActionDetailExpandableCell.xib */; };
 		0A8AEB2025A4764F002A3FE1 /* ActionDetailAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AEB1E25A4764F002A3FE1 /* ActionDetailAddressCell.swift */; };
 		0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8AEB1F25A4764F002A3FE1 /* ActionDetailAddressCell.xib */; };
+		0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */; };
+		0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */; };
 		0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD562445CC8A00688050 /* AppDelegate.swift */; };
 		0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD582445CC8A00688050 /* SceneDelegate.swift */; };
 		0A93DD5E2445CC8A00688050 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD5D2445CC8A00688050 /* ContentView.swift */; };
@@ -758,6 +760,8 @@
 		0A8AEB1725A4726E002A3FE1 /* ActionDetailExpandableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionDetailExpandableCell.xib; sourceTree = "<group>"; };
 		0A8AEB1E25A4764F002A3FE1 /* ActionDetailAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDetailAddressCell.swift; sourceTree = "<group>"; };
 		0A8AEB1F25A4764F002A3FE1 /* ActionDetailAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionDetailAddressCell.xib; sourceTree = "<group>"; };
+		0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollecitbleSectionSeparatorView.swift; sourceTree = "<group>"; };
+		0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollecitbleSectionSeparatorView.xib; sourceTree = "<group>"; };
 		0A93DD532445CC8A00688050 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -885,7 +889,6 @@
 		0AF1C8282540914600E28669 /* NoSafesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSafesViewController.swift; sourceTree = "<group>"; };
 		0AF1C82E2540923C00E28669 /* LoadableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableViewController.swift; sourceTree = "<group>"; };
 		0AF1C82F2540923C00E28669 /* LoadableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadableViewController.xib; sourceTree = "<group>"; };
-		0AF1C8782541A9E700E28669 /* ScrollViewTemplateXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScrollViewTemplateXib.xib; sourceTree = "<group>"; };
 		0AF1C88C2541AD4100E28669 /* ScrollableEmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollableEmptyView.xib; sourceTree = "<group>"; };
 		0AF1C88D2541AD4100E28669 /* ScrollableDataErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollableDataErrorView.xib; sourceTree = "<group>"; };
 		0AF1C8942541AD4E00E28669 /* ScrollableDataErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableDataErrorView.swift; sourceTree = "<group>"; };
@@ -1452,7 +1455,6 @@
 				558835ED255BFEA80014E8C7 /* Views */,
 				0A839B5F2578EB9500103AD9 /* View Controllers */,
 				0AF1C9122541B6A300E28669 /* README.md */,
-				0AF1C8782541A9E700E28669 /* ScrollViewTemplateXib.xib */,
 				0AEE149E2540233C00046EE7 /* UINibView.swift */,
 				0AF1C80625408B5000E28669 /* UIImageViewExtensions.swift */,
 				0AF1C9252541E09C00E28669 /* UIView+UINib.swift */,
@@ -2287,15 +2289,17 @@
 		5503F62A255062070046545C /* CollectiblesViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5503F62B2550625F0046545C /* CollectiblesViewController.swift */,
-				5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */,
-				0AEEBC79258CE24A00F3A6F9 /* SVGView.swift */,
-				0AEEBC7F258CE25700F3A6F9 /* SVGView.xib */,
 				0AEEBC71258CDF9400F3A6F9 /* CollectibleDetailViewController.swift */,
 				0AEEBC72258CDF9400F3A6F9 /* CollectibleDetailViewController.xib */,
-				5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */,
 				5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */,
 				5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */,
+				5503F62B2550625F0046545C /* CollectiblesViewController.swift */,
+				0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */,
+				0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */,
+				5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */,
+				5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */,
+				0AEEBC79258CE24A00F3A6F9 /* SVGView.swift */,
+				0AEEBC7F258CE25700F3A6F9 /* SVGView.xib */,
 			);
 			path = CollectiblesViewController;
 			sourceTree = "<group>";
@@ -2774,6 +2778,7 @@
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				558835F9255BFEF80014E8C7 /* AddressInfoView.xib in Resources */,
+				0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
@@ -3287,6 +3292,7 @@
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */,
 				0A451C0C252DDBE5001DB7D2 /* CollectibleBalancesModel.swift in Sources */,
+				0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */,
 				55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */,
 				0A451BEA252DDB39001DB7D2 /* FullScreenLoadingView.swift in Sources */,
 				0AEEBC73258CDF9400F3A6F9 /* CollectibleDetailViewController.swift in Sources */,

@@ -70,15 +70,6 @@
                         </label>
                     </subviews>
                 </stackView>
-                <wkWebView hidden="YES" contentMode="scaleToFill" allowsLinkPreview="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhS-Bx-haa">
-                    <rect key="frame" x="16" y="60" width="382" height="382"/>
-                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" allowsPictureInPictureMediaPlayback="NO" suppressesIncrementalRendering="YES">
-                        <dataDetectorTypes key="dataDetectorTypes"/>
-                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                        <wkPreferences key="preferences" javaScriptEnabled="NO"/>
-                    </wkWebViewConfiguration>
-                </wkWebView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -87,15 +78,11 @@
                 <constraint firstItem="I3K-QB-1Q9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9Y1-gp-5Fe"/>
                 <constraint firstItem="8tr-wO-Kkn" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="DgZ-Vc-Oit"/>
                 <constraint firstItem="IoM-Yq-SGD" firstAttribute="top" secondItem="nrz-22-wHI" secondAttribute="top" id="Qqu-GJ-8LS"/>
-                <constraint firstItem="fhS-Bx-haa" firstAttribute="leading" secondItem="nrz-22-wHI" secondAttribute="leading" id="SwH-sr-IkE"/>
                 <constraint firstItem="I3K-QB-1Q9" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="TBg-yc-Dwl"/>
-                <constraint firstItem="fhS-Bx-haa" firstAttribute="trailing" secondItem="nrz-22-wHI" secondAttribute="trailing" id="Ua5-jD-9TW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8tr-wO-Kkn" secondAttribute="trailing" constant="16" id="Uid-74-T0u"/>
                 <constraint firstItem="IoM-Yq-SGD" firstAttribute="leading" secondItem="nrz-22-wHI" secondAttribute="leading" id="fkn-yy-1Ha"/>
                 <constraint firstItem="I3K-QB-1Q9" firstAttribute="top" secondItem="8tr-wO-Kkn" secondAttribute="bottom" constant="24" id="ihv-tf-eik"/>
-                <constraint firstItem="fhS-Bx-haa" firstAttribute="top" secondItem="nrz-22-wHI" secondAttribute="top" id="kZF-2o-cMg"/>
                 <constraint firstItem="IoM-Yq-SGD" firstAttribute="trailing" secondItem="nrz-22-wHI" secondAttribute="trailing" id="pdg-bX-Kks"/>
-                <constraint firstItem="fhS-Bx-haa" firstAttribute="bottom" secondItem="nrz-22-wHI" secondAttribute="bottom" id="qeK-Wr-nTo"/>
                 <constraint firstItem="IoM-Yq-SGD" firstAttribute="bottom" secondItem="nrz-22-wHI" secondAttribute="bottom" id="w3U-bf-R68"/>
             </constraints>
             <point key="canvasLocation" x="86.956521739130437" y="153.34821428571428"/>

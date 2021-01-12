@@ -13,15 +13,15 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="253" id="D5E-BN-eXW" customClass="CollectibleTableViewCell" customModule="Multisig" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="519" height="162"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D5E-BN-eXW" id="p9K-Yx-zCr">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D5E-BN-eXW" id="p9K-Yx-zCr">
                 <rect key="frame" x="0.0" y="0.0" width="519" height="162"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-background" translatesAutoresizingMaskIntoConstraints="NO" id="ZpE-xX-bRz">
-                        <rect key="frame" x="7" y="0.0" width="507" height="166"/>
+                        <rect key="frame" x="7" y="-2" width="507" height="166"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uo4-L9-zv1">
-                        <rect key="frame" x="16" y="8" width="487" height="146"/>
+                        <rect key="frame" x="16" y="6" width="487" height="146"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JUO-dL-AL2" customClass="SVGView" customModule="Multisig" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="146" height="146"/>
@@ -63,9 +63,9 @@
                     <constraint firstItem="Uo4-L9-zv1" firstAttribute="top" secondItem="ZpE-xX-bRz" secondAttribute="top" id="F8w-XU-Qe3"/>
                     <constraint firstItem="Uo4-L9-zv1" firstAttribute="leading" secondItem="ZpE-xX-bRz" secondAttribute="leading" id="FN2-B1-3jX"/>
                     <constraint firstItem="Uo4-L9-zv1" firstAttribute="bottom" secondItem="ZpE-xX-bRz" secondAttribute="bottom" id="PyD-Fj-vA5"/>
-                    <constraint firstItem="ZpE-xX-bRz" firstAttribute="top" secondItem="p9K-Yx-zCr" secondAttribute="top" constant="8" id="Q4u-rX-GNa"/>
+                    <constraint firstItem="ZpE-xX-bRz" firstAttribute="top" secondItem="p9K-Yx-zCr" secondAttribute="top" constant="6" id="Q4u-rX-GNa"/>
                     <constraint firstItem="Uo4-L9-zv1" firstAttribute="trailing" secondItem="ZpE-xX-bRz" secondAttribute="trailing" id="xmY-cm-MGB"/>
-                    <constraint firstAttribute="bottom" secondItem="ZpE-xX-bRz" secondAttribute="bottom" constant="8" id="yEz-Me-n51"/>
+                    <constraint firstAttribute="bottom" secondItem="ZpE-xX-bRz" secondAttribute="bottom" constant="6" id="yEz-Me-n51"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" name="systemWhite"/>
