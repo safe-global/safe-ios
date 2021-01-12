@@ -107,8 +107,9 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let collectible = sections[indexPath.section].collectibles[indexPath.row]
-//        let vc = CollectibleDetailViewController(nibName: nil, bundle: nil)
-//        show(vc, sender: self)
+        let vc = CollectibleDetailViewController(nibName: nil, bundle: nil)
+        vc.collectible = collectible
+        show(vc, sender: self)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
