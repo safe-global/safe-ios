@@ -9,16 +9,19 @@
 import UIKit
 
 class CollectibleTableViewCell: UITableViewCell {
-    @IBOutlet private weak var cellImageView: UIImageView!
     @IBOutlet private weak var cellNameLabel: UILabel!
     @IBOutlet private weak var cellDescriptionLabel: UILabel!
+    @IBOutlet private weak var cellSVGView: SVGView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         cellNameLabel.setStyle(.headline)
         cellDescriptionLabel.setStyle(.body)
+        cellSVGView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+        cellSVGView.layer.cornerRadius = 8
+        cellSVGView.clipsToBounds = true
     }
-
+    
     func setName(_ value: String) {
         cellNameLabel.text = value
     }
@@ -27,11 +30,7 @@ class CollectibleTableViewCell: UITableViewCell {
         cellDescriptionLabel.text = value
     }
 
-    func setImage(with URL: URL?, placeholder: UIImage) {
-        if let url = URL {
-            cellImageView.kf.setImage(with: url, placeholder: placeholder)
-        } else {
-            cellImageView.image = placeholder
-        }
+    func setImage(with url: URL?, placeholder: UIImage) {
+        cellSVGView.setImage(url: url, placeholder: placeholder)
     }
 }
