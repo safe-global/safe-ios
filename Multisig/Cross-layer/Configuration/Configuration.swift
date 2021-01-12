@@ -95,9 +95,6 @@ struct AppConfiguration {
 
     struct FeatureToggles {
         let signing: Bool = true
-
-        @ConfigurationKey("USE_UIKIT")
-        var useUIKit: Bool
     }
 
     let services = Services()

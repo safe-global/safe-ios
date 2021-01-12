@@ -35,10 +35,6 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         confirmationsCountLabel.setStyle(.footnote2)
     }
 
-    func setTransaction(_ tx: TransactionViewModel, from parent: UIViewController, conflict type: SCG.ConflictType) {
-        setContent(TransactionCellView(transaction: tx), from: parent)
-    }
-
     func set (title: String) {
         titleLabel.text = title
     }

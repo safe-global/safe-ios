@@ -14,18 +14,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var snackbarViewController = SnackbarViewController(nibName: nil, bundle: nil)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        if App.configuration.toggles.useUIKit {
-            scene_uikit(scene, willConnectTo: session, options: connectionOptions)
-        } else {
-            scene_swiftUI(scene, willConnectTo: session, options: connectionOptions)
-        }
-    }
-
-    func scene_uikit(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-
         App.shared.tokenRegistry.load()
 
         // Use a UIHostingController as window root view controller.
@@ -40,35 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.addSubviewAlwaysOnTop(snackbarViewController.view)
 
             window.tintColor = .gnoHold
-            window.makeKeyAndVisible()
-        }
-
-        App.shared.notificationHandler.appStarted()
-    }
-
-    func scene_swiftUI(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-
-        // Get the managed object context from the shared persistent container.
-        let context = App.shared.coreDataStack.persistentContainer.viewContext
-        // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
-        // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        let contentView = ContentView()
-            .environment(\.managedObjectContext, context)
-            .environmentObject(AppViewModel.shared.coins)
-            .environmentObject(AppViewModel.shared.collectibles)
-            .environmentObject(AppViewModel.shared.transactions)
-            .environmentObject(AppViewModel.shared.safeSettings)
-
-        App.shared.tokenRegistry.load()
-
-        // Use a UIHostingController as window root view controller.
-        if let windowScene = scene as? UIWindowScene {
-            let window = WindowWithViewOnTop(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
-            self.window = window
             window.makeKeyAndVisible()
         }
 

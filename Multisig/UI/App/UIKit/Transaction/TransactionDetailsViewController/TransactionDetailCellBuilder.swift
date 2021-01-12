@@ -411,7 +411,7 @@ class TransactionDetailCellBuilder {
 
             disclosure(text: "Advanced") { [weak self] in
                 guard let `self` = self else { return }
-                let view = AdvancedTransactionDetailsViewV2(
+                let view = AdvancedTransactionDetailsView(
                     nonce: nonce,
                     operation: operation,
                     hash: hash,

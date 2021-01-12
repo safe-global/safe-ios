@@ -122,18 +122,6 @@ enum ViewControllerFactory {
         let nav = UINavigationController(rootViewController: vc)
         return nav
     }
-
-    static func loadSafeController(presenter: UIViewController & CloseModal) -> UIViewController {
-        let context = App.shared.coreDataStack.persistentContainer.viewContext
-        let view = EnterSafeAddressView(onSubmit: { [weak presenter] in
-            presenter?.performSelector(onMainThread: #selector(CloseModal.closeModal), with: nil, waitUntilDone: true)
-        })
-        let vc = UIHostingController(rootView: view.environment(\.managedObjectContext, context))
-        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: presenter, action: #selector(CloseModal.closeModal))
-        let nav = UINavigationController(rootViewController: vc)
-
-        return nav
-    }
 }
 
 @objc protocol CloseModal {
