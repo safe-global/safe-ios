@@ -38,7 +38,10 @@ class SelectOwnerAddressViewModel: ObservableObject {
             let address = try EthereumPrivateKey(hexPrivateKey: pkData.toHexString()).address
             return Address(address, index: index)
         } catch {
-            App.shared.snackbar.show(message: error.localizedDescription)
+            App.shared.snackbar.show(
+                error: GSError.UnknownAppError(description: "Could not derive address",
+                                               reason: "Unexpected error appeared.",
+                                               howToFix: "Please reach out to the Safe support"))
             return nil
         }
     }
@@ -62,7 +65,7 @@ class SelectOwnerAddressViewModel: ObservableObject {
             Tracker.shared.setNumKeysImported(1)
             return true
         } catch {
-            App.shared.snackbar.show(message: error.localizedDescription)
+            App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key.", error: error))
         }
 
         return false

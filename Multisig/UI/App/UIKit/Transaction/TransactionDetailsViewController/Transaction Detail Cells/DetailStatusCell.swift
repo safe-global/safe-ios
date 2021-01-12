@@ -57,6 +57,7 @@ class DetailStatusCell: UITableViewCell {
 extension SCG.TxStatus {
     static let queueStatuses = [awaitingConfirmations, .awaitingExecution, .awaitingYourConfirmation]
     static let historyStatuses = [success, .failed, .cancelled]
+    static let failedStatuses = [failed, .cancelled]
 
     var isInQueue: Bool {
         Self.queueStatuses.contains(self)
@@ -68,6 +69,10 @@ extension SCG.TxStatus {
 
     var isWaiting: Bool {
         Self.queueStatuses.contains(self)
+    }
+
+    var isFailed: Bool {
+        Self.failedStatuses.contains(self)
     }
 
     var title: String {

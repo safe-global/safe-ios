@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Web3
 
 class EnterSafeAddressViewController: UIViewController {
     var websiteURL = App.configuration.services.webAppURL
@@ -19,6 +20,8 @@ class EnterSafeAddressViewController: UIViewController {
     @IBOutlet private weak var actionStackView: UIStackView!
     @IBOutlet private weak var actionLabel: UILabel!
     @IBOutlet private weak var openWebsiteButton: UIButton!
+    @IBOutlet private weak var externalLinkIcon: UIImageView!
+    @IBOutlet private weak var suggestionStackView: UIStackView!
 
     private var loadSafeTask: URLSessionTask?
     private var nextButton: UIBarButtonItem!
@@ -26,13 +29,19 @@ class EnterSafeAddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Load Safe Multisig"
+
         headerLabel.setStyle(.headline)
+
         actionLabel.setStyle(.body)
+
         addressField.setPlaceholderText("Enter Safe address")
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
+
         nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton(_:)))
         nextButton.isEnabled = false
+
         navigationItem.rightBarButtonItem = nextButton
+
         openWebsiteButton.setText(websiteURL.absoluteString, .plain)
     }
 
@@ -56,27 +65,27 @@ class EnterSafeAddressViewController: UIViewController {
     private func didTapAddressField() {
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        vc.addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: { [unowned self] _ in
+        vc.addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: { [weak self] _ in
             let text = Pasteboard.string
-            self.didEnterText(text)
+            self?.didEnterText(text)
         }))
 
-        vc.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [unowned self] _ in
+        vc.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [weak self] _ in
             let vc = QRCodeScannerViewController()
             vc.modalPresentationStyle = .overFullScreen
             vc.delegate = self
             vc.setup()
-            self.present(vc, animated: true, completion: nil)
+            self?.present(vc, animated: true, completion: nil)
         }))
 
-        vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [unowned self] _ in
+        vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
             let vc = EnterENSNameViewController()
             vc.onConfirm = { [weak self] in
                 guard let `self` = self else { return }
                 self.navigationController?.popViewController(animated: true)
                 self.didEnterText(vc.address?.checksummed)
             }
-            self.show(vc, sender: self)
+            self?.show(vc, sender: nil)
         }))
 
         vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -84,14 +93,23 @@ class EnterSafeAddressViewController: UIViewController {
         present(vc, animated: true, completion: nil)
     }
 
+    private func setSuggestionHidden(_ isHidden: Bool) {
+        suggestionStackView.isHidden = isHidden
+        externalLinkIcon.isHidden = isHidden
+    }
+
     private func didEnterText(_ text: String?) {
         addressField.clear()
         loadSafeTask?.cancel()
         nextButton.isEnabled = false
+        setSuggestionHidden(false)
 
         guard let text = text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
             return
         }
+
+        setSuggestionHidden(true)
+
         guard !text.isEmpty else {
             addressField.setError("Safe address should not be empty")
             return
@@ -104,7 +122,7 @@ class EnterSafeAddressViewController: UIViewController {
 
             // (2) and that there's no such safe already
             let exists = try Safe.exists(address.checksummed)
-            if exists { throw "There is already a Safe with this address in the app. Please use another address." }
+            if exists { throw GSError.SafeAlreadyExists() }
 
             // (3) and there exists safe at that address
             addressField.setLoading(true)
@@ -122,8 +140,10 @@ class EnterSafeAddressViewController: UIViewController {
                         if (error as NSError).code == URLError.cancelled.rawValue &&
                             (error as NSError).domain == NSURLErrorDomain {
                             return
-                        } else if error is HTTPClientError.EntityNotFound {
-                            self.addressField.setError("Safe not found")
+                        } else if error is GSError.EntityNotFound {
+                            let message = GSError.error(description: "Can’t use this address",
+                                                        error: GSError.InvalidSafeAddress()).localizedDescription
+                            self.addressField.setError(message)
                         } else {
                             self.addressField.setError(error)
                         }
@@ -135,8 +155,9 @@ class EnterSafeAddressViewController: UIViewController {
             // (4) and its mastercopy is supported
                         let implementation = info.implementation.address
                         guard App.shared.gnosisSafe.isSupported(implementation) else {
-                            let error: Error = "This safe's master copy contract is not supported: \(implementation.checksummed)"
-                            self.addressField.setError(error)
+                            let error = GSError.error(description: "Can’t use this address",
+                                                      error: GSError.UnsupportedImplementationCopy())
+                            self.addressField.setError(error.localizedDescription)
                             return
                         }
                         self.nextButton.isEnabled = true
@@ -144,7 +165,9 @@ class EnterSafeAddressViewController: UIViewController {
                 }
             })
         } catch {
-            addressField.setError(error)
+            addressField.setError(
+                GSError.error(description: "Can’t use this address",
+                              error: error is EthereumAddress.Error ? GSError.SafeAddressNotValid() : error))
         }
     }
 }

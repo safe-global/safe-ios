@@ -35,11 +35,7 @@ class BalanceTableViewCell: UITableViewCell {
     }
 
     func setImage(with url: URL?, placeholder: UIImage) {
-        if let url = url {
-            cellImageView.kf.setImage(with: url, placeholder: placeholder)
-        } else {
-            setImage(placeholder)
-        }
+        cellImageView.setCircleShapeImage(url: url, placeholder: placeholder)
     }
 
     func setImage(_ image: UIImage) {

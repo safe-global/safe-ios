@@ -22,6 +22,8 @@ extension HTTPRequest {
 
 /// Synchronous http client
 class HTTPClient {
+    static let timeOutIntervalForRequest: TimeInterval = 30
+
     private let baseURL: URL
     private let logger: Logger?
     private let session: URLSession
@@ -38,7 +40,9 @@ class HTTPClient {
         baseURL = url
         self.logger = logger
         sessionDelegate = PinningURLSessionDelegate()
-        session = URLSession(configuration: .default, delegate: sessionDelegate, delegateQueue: nil)
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = Self.timeOutIntervalForRequest
+        session = URLSession(configuration: configuration, delegate: sessionDelegate, delegateQueue: nil)
     }
 
     deinit {
@@ -127,14 +131,11 @@ class HTTPClient {
         if let data = result.data, let rawResponse = String(data: data, encoding: .utf8) {
             logger?.debug(rawResponse)
         }
-        if let resultError = result.error {
-            throw resultError
-        }
         if let httpResponse = result.response as? HTTPURLResponse,
             (200...299).contains(httpResponse.statusCode) {
             return result.data ?? Data()
         }
-        let error = HTTPClientError.error(request, result.response, result.data)
+        let error = HTTPClientError.error(request, result.response, result.data, result.error)
         throw error
     }
 }

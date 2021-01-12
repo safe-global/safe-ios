@@ -11,7 +11,7 @@ import UIKit
 import BlockiesSwift
 
 extension Image {
-    init?(blocky seed: String? = nil,
+    init(blocky seed: String? = nil,
           size: Int = 8,
           scale: Int = 4,
           customScale: Int = 1,
@@ -25,11 +25,14 @@ extension Image {
                                bgColor: bgColor,
                                spotColor: spotColor)
             .createImage(customScale: customScale)
-        guard let image = uiImage else { return nil }
-        self.init(uiImage: image)
+        if let image = uiImage {
+            self.init(uiImage: image)
+        } else {
+            self.init("ico-token-placeholder")
+        }
     }
 
-    init?(address: Address?,
+    init(address: Address?,
           size: Int = 8,
           scale: Int = 4,
           customScale: Int = 1,
@@ -55,7 +58,7 @@ struct Image_Blockies_Previews: PreviewProvider {
 
     static var previews: some View {
         ForEach(addresses, id: \.self) { item in
-            Image(address: item)!
+            Image(address: item)
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName(item.checksummed)
         }

@@ -27,9 +27,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     private var txSource: TransactionSource!
 
-    // disable reacting to change of safes reactsToSelectedSafeChanges
-    override var reactsToSelectedSafeChanges: Bool { false }
-
     convenience init(transactionID: String) {
         self.init(namedClass: Self.superclass())
         txSource = .id(transactionID)
@@ -68,6 +65,13 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         trackEvent(.transactionsDetails)
+    }
+
+    // MARK: - Events
+
+    override func didChangeSelectedSafe() {
+        let isVisible = isViewLoaded && view.window != nil
+        navigationController?.popViewController(animated: isVisible)
     }
 
     // MARK: - Signing
@@ -111,11 +115,14 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         present(alertVC, animated: true, completion: nil)
     }
 
+    private func invalidateData() {
+        notificationCenter.post(name: .transactionDataInvalidated, object: nil)
+    }
+
     private func sign() {
         guard let tx = tx,
               let transaction = Transaction(tx: tx) else {
-            App.shared.snackbar.show(message: "Can't sign this transaction")
-            return
+            preconditionFailure("Unexpected Error")            
         }
         super.reloadData()
         do {
@@ -126,14 +133,15 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 guard let `self` = self else { return }
                 self.onLoadingCompleted(result: $0)
                 if case Result.success(_) = $0 {
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [weak self] in
                         App.shared.snackbar.show(message: "Confirmation successfully submitted")
                         Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
+                        self?.invalidateData()
                     }
                 }
             })
         } catch {
-            onError(error)
+            onError(GSError.error(description: "Failed to confirm transaction", error: error))
         }
     }
 
@@ -172,7 +180,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     (error as NSError).domain == NSURLErrorDomain {
                     return
                 }
-                self.onError(error)
+                self.onError(GSError.error(description: "Failed to load transaction details", error: error))
             }
         case .success(let details):
             DispatchQueue.main.async { [weak self] in
@@ -191,7 +199,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             self.tx!.txStatus = .awaitingYourConfirmation
         }
 
-        cells = builder.build(from: self.tx!)
+        cells = builder.build(self.tx!)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

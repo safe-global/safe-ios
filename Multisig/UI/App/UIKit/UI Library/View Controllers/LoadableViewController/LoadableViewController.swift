@@ -47,12 +47,16 @@ class LoadableViewController: UIViewController {
 
         if reactsToSelectedSafeChanges {
             notificationCenter.addObserver(
-                self, selector: #selector(lazyReloadData), name: .selectedSafeChanged, object: nil)
+                self, selector: #selector(didChangeSelectedSafe), name: .selectedSafeChanged, object: nil)
         }
     }
 
     func setNeedsReload(_ value: Bool = true) {
         needsReload = value
+    }
+
+    @objc func didChangeSelectedSafe() {
+        lazyReloadData()
     }
 
     @objc func lazyReloadData() {
@@ -125,10 +129,8 @@ class LoadableViewController: UIViewController {
     }
 
     // subclassable
-    func onError(_ error: Error? = nil) {
-        if let message = error?.localizedDescription {
-            App.shared.snackbar.show(message: message)
-        }
+    func onError(_ error: DetailedLocalizedError) {
+        App.shared.snackbar.show(error: error)
         if isRefreshing() {
             endRefreshing()
         } else {

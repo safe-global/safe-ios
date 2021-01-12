@@ -60,17 +60,25 @@ extension Safe: Identifiable {
     }
 
     static func getSelected() throws -> Safe? {
-        let context = App.shared.coreDataStack.viewContext
-        let fr = Safe.fetchRequest().selected()
-        let safe = try context.fetch(fr).first
-        return safe
+        do {
+            let context = App.shared.coreDataStack.viewContext
+            let fr = Safe.fetchRequest().selected()
+            let safe = try context.fetch(fr).first
+            return safe
+        } catch {
+            throw GSError.DatabaseError(reason: error.localizedDescription)
+        }
     }
 
     static func getAll() throws -> [Safe] {
-        let context = App.shared.coreDataStack.viewContext
-        let fr = Safe.fetchRequest().all()
-        let safes = try context.fetch(fr)
-        return safes
+        do {
+            let context = App.shared.coreDataStack.viewContext
+            let fr = Safe.fetchRequest().all()
+            let safes = try context.fetch(fr)
+            return safes
+        } catch {
+            throw GSError.DatabaseError(reason: error.localizedDescription)
+        }
     }
 
     static func browserURL(address: String) -> URL {
@@ -84,11 +92,16 @@ extension Safe: Identifiable {
     }
 
     static func exists(_ address: String) throws -> Bool {
-        dispatchPrecondition(condition: .onQueue(.main))
-        let context = App.shared.coreDataStack.viewContext
-        let fr = Safe.fetchRequest().by(address: address)
-        let count = try context.count(for: fr)
-        return count > 0
+        do {
+            dispatchPrecondition(condition: .onQueue(.main))
+            let context = App.shared.coreDataStack.viewContext
+            let fr = Safe.fetchRequest().by(address: address)
+            let count = try context.count(for: fr)
+            return count > 0
+        } catch {
+            throw GSError.DatabaseError(reason: error.localizedDescription)
+        }
+
     }
 
     static func create(address: String, name: String, selected: Bool = true) {

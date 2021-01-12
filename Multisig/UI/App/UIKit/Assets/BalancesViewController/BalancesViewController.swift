@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 // Loads and displays balances
 class BalancesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
@@ -53,14 +52,8 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         super.reloadData()
         currentDataTask?.cancel()
         do {
-            // get selected safe
-            let safe = try Safe.getSelected()
-
-            // get its address
-            guard let string = safe?.address else {
-                throw "Selected safe does not have a stored address"
-            }
-            let address = try Address(from: string)
+            let safe = try Safe.getSelected()!
+            let address = try Address(from: safe.address!)
 
             currentDataTask = clientGatewayService.asyncBalances(address: address) { [weak self] result in
                 guard let `self` = self else { return }
@@ -75,7 +68,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.onError(error)
+                        self.onError(GSError.error(description: "Failed to load balances", error: error))
                     }
                 case .success(let summary):
                     let results = summary.items.map(TokenBalance.init)
@@ -89,7 +82,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                 }
             }
         } catch {
-            onError(error)
+            onError(GSError.error(description: "Failed to load balances", error: error))
         }
     }
 

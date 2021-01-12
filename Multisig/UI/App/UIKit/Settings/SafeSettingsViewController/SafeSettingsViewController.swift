@@ -106,7 +106,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.onError(error)
+                        self.onError(GSError.error(description: "Failed to load safe settings", error: error))
                     }
                 case .success(let safeInfo):
                     DispatchQueue.main.async { [weak self] in
@@ -119,7 +119,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
         } catch {
-            onError(error)
+            onError(GSError.error(description: "Failed to load safe settings", error: error))
         }
     }
 
@@ -212,8 +212,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let cell = tableView.dequeueCell(ContractVersionStatusCell.self, for: indexPath)
         cell.setAddress(Address(exactly: version))
         cell.selectionStyle = .none
-        cell.onViewDetails = { [unowned self] in
-            self.openInSafari(Safe.browserURL(address: version))
+        cell.onViewDetails = { [weak self] in
+            self?.openInSafari(Safe.browserURL(address: version))
         }
         return cell
     }
@@ -231,7 +231,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private func removeSafeCell(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(RemoveSafeCell.self, for: indexPath)
-        cell.onRemove = { [unowned self] in
+        cell.onRemove = { [weak self] in
+            guard let `self` = self else { return }
             let alertController = UIAlertController(
                 title: nil,
                 message: "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost.",
@@ -255,8 +256,16 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Name.name(_):
-            let vc = ViewControllerFactory.editSafeNameController(address: safe.address, name: safe.name, presenter: self)
-            present(vc, animated: true, completion: nil)
+            let editSafeNameViewController = EditSafeNameViewController()
+            editSafeNameViewController.address = safe.addressValue
+            editSafeNameViewController.name = safe.name ?? ""
+            editSafeNameViewController.completion = {
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            show(editSafeNameViewController, sender: self)
         case Section.Advanced.advanced(_):
             let hostedView = AdvancedSafeSettingsView(safe: safe)
             let hostingController = UIHostingController(rootView: hostedView)

@@ -16,8 +16,15 @@ struct GNOTextStyle: Hashable {
     var color: UIColor?
 
     func color(_ newColor: UIColor?) -> Self {
-        guard let newColor = newColor else { return self }
-        return .init(size: size, weight: weight, fontName: fontName, letterSpacing: letterSpacing, color: newColor)
+        var t = self
+        t.color = newColor
+        return t
+    }
+
+    func weight(_ value: UIFont.Weight) -> Self {
+        var t = self
+        t.weight = value
+        return t
     }
 }
 
@@ -26,6 +33,7 @@ extension GNOTextStyle {
     static let caption2 = GNOTextStyle(size: 10, weight: .bold, letterSpacing: 2, color: .gnoMediumGrey)
 
     static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkGrey)
+    static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkBlue)
     static let caption1 = GNOTextStyle(size: 13, weight: .bold)
 
     static let subhead = GNOTextStyle(size: 15, weight: .bold)
@@ -87,7 +95,17 @@ struct GNOButtonAppearance {
 }
 
 struct GNOButtonStyle {
-    var appearance: [(UIControl.State, GNOButtonAppearance)] = []
+    var appearance: [(state: UIControl.State, value: GNOButtonAppearance)] = []
+
+    func font(_ newFont: UIFont) -> Self {
+        var result = self
+        for index in (0..<result.appearance.count) {
+            var newAppearance = result.appearance[index].value
+            newAppearance.textAttributes[.font] = newFont
+            result.appearance[index] = (result.appearance[index].state, newAppearance)
+        }
+        return result
+    }
 }
 
 extension GNOButtonStyle {

@@ -39,6 +39,10 @@ extension UITableView {
         dequeueReusableCell(withIdentifier: reuseID ?? aClass.reuseID, for: indexPath) as! T
     }
 
+    func dequeueCell<T: UITableViewCell>(_ aClass: T.Type, reuseID: String? = nil) -> T {
+        dequeueReusableCell(withIdentifier: reuseID ?? aClass.reuseID)! as! T
+    }
+
     /// Dequeues a HeaderFooterView based on the name of the view class.
     /// - Parameters:
     ///   - aClass: The class to use as the convention for the reuse identifier

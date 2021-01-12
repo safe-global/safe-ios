@@ -13,13 +13,13 @@ struct AddressImage: View {
     let blockSize: Int = 8
 
     @ViewBuilder var body: some View {
-        if address != nil {
+        if let address = address {
             GeometryReader { geometry in
                 Image(
-                    address: self.address!,
+                    address: address,
                     size: self.blockSize,
                     scale: self.scale(for: geometry)
-                )!
+                )
                 .renderingMode(.original)
                 .resizable()
                 .aspectRatio(1, contentMode: .fit)

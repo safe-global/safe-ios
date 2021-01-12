@@ -1,0 +1,40 @@
+//
+//  HistoryTransactionsViewController.swift
+//  Multisig
+//
+//  Created by Moaaz on 12/13/20.
+//  Copyright © 2020 Gnosis Ltd. All rights reserved.
+//
+
+import UIKit
+
+class HistoryTransactionsViewController: TransactionListViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        trackingEvent = .transactionsHistory
+
+        timeFormatter = {
+            let d = DateFormatter()
+            d.locale = .autoupdatingCurrent
+            d.dateStyle = .none
+            d.timeStyle = .short
+            return d
+        }()
+
+        dateFormatter = {
+            let d = DateFormatter()
+            d.locale = .autoupdatingCurrent
+            d.dateStyle = .medium
+            d.timeStyle = .none
+            return d
+        }()
+    }
+
+    override func asyncTransactionList(address: Address, completion: @escaping (Result<Page<SCG.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
+        clientGatewayService.asyncExecute(request: HistoryTransactionsSummaryListRequest(address), completion: completion)
+    }
+
+    override func asyncTransactionList(pageUri: String, completion: @escaping (Result<Page<SCG.TransactionSummaryItem>, Error>) -> Void) throws -> URLSessionTask? {
+        clientGatewayService.asyncExecute(request: try PagedRequest<SCG.TransactionSummaryItem>(pageUri), completion: completion)
+    }
+}

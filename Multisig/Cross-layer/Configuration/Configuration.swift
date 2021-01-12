@@ -40,6 +40,11 @@ struct AppConfiguration {
         }
     }
 
+    struct Help {
+        @ConfigurationKey("CONFLICT_URL")
+        var conflictURL: URL
+    }
+
     struct Legal {
         @ConfigurationKey("TERMS_URL")
         var termsURL: URL
@@ -96,6 +101,7 @@ struct AppConfiguration {
     }
 
     let services = Services()
+    let help = Help()
     let legal = Legal()
     let contact = Contact()
     let app = App()

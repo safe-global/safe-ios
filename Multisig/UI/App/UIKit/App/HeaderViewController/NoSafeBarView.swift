@@ -9,4 +9,10 @@
 import UIKit
 
 class NoSafeBarView: UINibView {
+    @IBOutlet private weak var textLabel: UILabel!
+
+    override func commonInit() {
+        super.commonInit()
+        textLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+    }
 }
