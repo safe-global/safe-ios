@@ -10,10 +10,16 @@ import Foundation
 
 struct QueuedTransactionsSummaryListRequest: JSONRequest {
     let safeAddress: String
+    let timezoneOffset = TimeZone.currentOffest()
     var httpMethod: String { "GET" }
     var urlPath: String {
         "/v1/safes/\(safeAddress)/transactions/queued"
     }
+
+    var query: String? {
+        return "timezone_offset=\(timezoneOffset)"
+    }
+
     typealias ResponseType = Page<SCGModels.TransactionSummaryItem>
 }
 
