@@ -15,9 +15,9 @@ struct Page<T: Decodable>: Decodable {
 }
 
 // SCG for Safe Client Gateway
-enum SCG {}
+enum SCGModels {}
 
-extension SCG {
+extension SCGModels {
     struct TransactionSummaryItemDateLabel: Decodable {
         let timestamp: Date
     }

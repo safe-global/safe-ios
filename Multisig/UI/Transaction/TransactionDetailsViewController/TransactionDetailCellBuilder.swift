@@ -38,13 +38,13 @@ class TransactionDetailCellBuilder {
         tableView.registerCell(DetailStatusCell.self)
     }
 
-    func build(_ tx: SCG.TransactionDetails) -> [UITableViewCell] {
+    func build(_ tx: SCGModels.TransactionDetails) -> [UITableViewCell] {
         result = []
         buildTransaction(tx)
         return result
     }
 
-    func buildTransaction(_ tx: SCG.TransactionDetails) {
+    func buildTransaction(_ tx: SCGModels.TransactionDetails) {
         let isCreationTx = buildCreationTx(tx)
         if !isCreationTx {
             buildHeader(tx)
@@ -57,8 +57,8 @@ class TransactionDetailCellBuilder {
         }
     }
 
-    func buildCreationTx(_ tx: SCG.TransactionDetails) -> Bool {
-        guard case let SCG.TxInfo.creation(creationTx) = tx.txInfo else {
+    func buildCreationTx(_ tx: SCGModels.TransactionDetails) -> Bool {
+        guard case let SCGModels.TxInfo.creation(creationTx) = tx.txInfo else {
             return false
         }
         buildStatus(tx)
@@ -71,7 +71,7 @@ class TransactionDetailCellBuilder {
         return true
     }
 
-    func buildFactoryUsed(_ creationTx: SCG.TxInfo.Creation) {
+    func buildFactoryUsed(_ creationTx: SCGModels.TxInfo.Creation) {
         if let factory = creationTx.factory?.address {
             address(factory, label: nil, title: "Factory used")
         } else {
@@ -79,7 +79,7 @@ class TransactionDetailCellBuilder {
         }
     }
 
-    func buildMasterCopyUsed(_ creationTx: SCG.TxInfo.Creation) {
+    func buildMasterCopyUsed(_ creationTx: SCGModels.TxInfo.Creation) {
         if let implementation = creationTx.implementation?.address {
             address(
                 implementation,
@@ -94,7 +94,7 @@ class TransactionDetailCellBuilder {
         }
     }
 
-    func buildTransactionHash(_ creationTx: SCG.TxInfo.Creation) {
+    func buildTransactionHash(_ creationTx: SCGModels.TxInfo.Creation) {
         text(
             creationTx.transactionHash.description,
             title: "Transaction hash",
@@ -102,11 +102,11 @@ class TransactionDetailCellBuilder {
             copyText: creationTx.transactionHash.description)
     }
 
-    func buildCreatorAddress(_ creationTx: SCG.TxInfo.Creation) {
+    func buildCreatorAddress(_ creationTx: SCGModels.TxInfo.Creation) {
         address(creationTx.creator.address, label: nil, title: "Creator address")
     }
 
-    func buildHeader(_ tx: SCG.TransactionDetails) {
+    func buildHeader(_ tx: SCGModels.TransactionDetails) {
 
         switch tx.txInfo {
 
@@ -249,7 +249,7 @@ class TransactionDetailCellBuilder {
         address: Address,
         label: String? = nil,
         isOutgoing: Bool,
-        status txStatus: SCG.TxStatus,
+        status txStatus: SCGModels.TxStatus,
         value: UInt256?,
         decimals: UInt64?,
         symbol: String,
@@ -280,7 +280,7 @@ class TransactionDetailCellBuilder {
         let iconURL = logoUri.flatMap { URL(string: $0) }
         let icon = iconURL == nil ? logo : nil
 
-        let alpha: CGFloat = [SCG.TxStatus.cancelled, .failed].contains(txStatus) ? 0.5 : 1
+        let alpha: CGFloat = [SCGModels.TxStatus.cancelled, .failed].contains(txStatus) ? 0.5 : 1
 
         transfer(
             token: tokenText,
@@ -295,13 +295,13 @@ class TransactionDetailCellBuilder {
     }
 
 
-    func buildActions(_ tx: SCG.TransactionDetails) {
+    func buildActions(_ tx: SCGModels.TransactionDetails) {
         if let dataDecoded = tx.txData?.dataDecoded {
 
             if dataDecoded.method == "multiSend",
                let param = dataDecoded.parameters?.first,
                param.type == "bytes",
-               case let SCG.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = param.valueDecoded {
+               case let SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = param.valueDecoded {
 
                 disclosure(text: "Multisend (\(multiSendTxs.count) actions)") { [weak self] in
                     guard let `self` = self else { return }
@@ -318,13 +318,13 @@ class TransactionDetailCellBuilder {
         }
     }
 
-    func buildHexData(_ tx: SCG.TransactionDetails) {
+    func buildHexData(_ tx: SCGModels.TransactionDetails) {
         if let data = tx.txData?.hexData {
             text("\(data)", title: "Data", expandableTitle: "\(data.data.count) Bytes", copyText: "\(data)")
         }
     }
 
-    func buildAssetContract(_ tx: SCG.TransactionDetails) {
+    func buildAssetContract(_ tx: SCGModels.TransactionDetails) {
         switch tx.txInfo {
         case .transfer(let transferTx):
             switch transferTx.transferInfo {
@@ -338,7 +338,7 @@ class TransactionDetailCellBuilder {
         }
     }
 
-    func buildStatus(_ tx: SCG.TransactionDetails) {
+    func buildStatus(_ tx: SCGModels.TransactionDetails) {
         switch tx.txInfo {
         case .transfer(let transferTx):
             let isOutgoing = transferTx.direction == .outgoing
@@ -356,8 +356,8 @@ class TransactionDetailCellBuilder {
         }
     }
 
-    func buildMultisigInfo(_ tx: SCG.TransactionDetails) {
-        guard case let SCG.TransactionDetails.DetailedExecutionInfo.multisig(multisigInfo)? =
+    func buildMultisigInfo(_ tx: SCGModels.TransactionDetails) {
+        guard case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigInfo)? =
                 tx.detailedExecutionInfo else {
             return
         }
@@ -378,7 +378,7 @@ class TransactionDetailCellBuilder {
             copyText: nil)
     }
 
-    func buildExecutedDate(_ tx: SCG.TransactionDetails) {
+    func buildExecutedDate(_ tx: SCGModels.TransactionDetails) {
         guard let executedAt = tx.executedAt else { return }
         text(
             dateFormatter.string(from: executedAt),
@@ -387,7 +387,7 @@ class TransactionDetailCellBuilder {
             copyText: nil)
     }
 
-    func buildAdvanced(_ tx: SCG.TransactionDetails) {
+    func buildAdvanced(_ tx: SCGModels.TransactionDetails) {
         switch tx.txInfo {
         case .transfer(let transferTx):
             guard transferTx.direction != .incoming else { return }
@@ -398,7 +398,7 @@ class TransactionDetailCellBuilder {
             let hash: String? = tx.txHash?.description
             let safeTxHash: String?
 
-            if case SCG.TransactionDetails.DetailedExecutionInfo.multisig(let multisigTx)? =
+            if case SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(let multisigTx)? =
                 tx.detailedExecutionInfo {
                 nonce = multisigTx.nonce.description
                 safeTxHash = multisigTx.safeTxHash.description
@@ -456,7 +456,7 @@ class TransactionDetailCellBuilder {
     }
 
 
-    func confirmation(_ confirmations: [Address], required: Int, status: SCG.TxStatus, executor: Address?) {
+    func confirmation(_ confirmations: [Address], required: Int, status: SCGModels.TxStatus, executor: Address?) {
         let cell = newCell(DetailConfirmationCell.self)
         cell.setConfirmations(confirmations,
                               required: required,
@@ -465,7 +465,7 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-    func status(_ status: SCG.TxStatus, type: String, icon: UIImage) {
+    func status(_ status: SCGModels.TxStatus, type: String, icon: UIImage) {
         let cell = newCell(DetailStatusCell.self)
         cell.setTitle(type)
         cell.setIcon(icon)
@@ -513,7 +513,7 @@ class TransactionDetailCellBuilder {
     }
 }
 
-extension SCG.Operation {
+extension SCGModels.Operation {
     static let strings: [Self: String] = [
         .call: "call",
         .delegate: "delegateCall"

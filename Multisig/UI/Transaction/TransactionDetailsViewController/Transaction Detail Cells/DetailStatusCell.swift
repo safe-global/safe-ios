@@ -31,7 +31,7 @@ class DetailStatusCell: UITableViewCell {
         iconImageView.image = icon
     }
 
-    func setStatus(_ status: SCG.TxStatus) {
+    func setStatus(_ status: SCGModels.TxStatus) {
         statusLabel.text = status.title
         appendixLabel.text = status.title
         appendixLabel.isHidden = status.isWaiting
@@ -40,7 +40,7 @@ class DetailStatusCell: UITableViewCell {
         appendixLabel.textColor = statusColor(status: status)
     }
 
-    func statusColor(status: SCG.TxStatus) -> UIColor {
+    func statusColor(status: SCGModels.TxStatus) -> UIColor {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
             return .gnoPending
@@ -54,7 +54,7 @@ class DetailStatusCell: UITableViewCell {
     }
 }
 
-extension SCG.TxStatus {
+extension SCGModels.TxStatus {
     static let queueStatuses = [awaitingConfirmations, .awaitingExecution, .awaitingYourConfirmation]
     static let historyStatuses = [success, .failed, .cancelled]
     static let failedStatuses = [failed, .cancelled]

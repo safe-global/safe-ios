@@ -30,11 +30,11 @@ class HistoryTransactionsViewController: TransactionListViewController {
         }()
     }
 
-    override func asyncTransactionList(address: Address, completion: @escaping (Result<Page<SCG.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
+    override func asyncTransactionList(address: Address, completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
         clientGatewayService.asyncExecute(request: HistoryTransactionsSummaryListRequest(address), completion: completion)
     }
 
-    override func asyncTransactionList(pageUri: String, completion: @escaping (Result<Page<SCG.TransactionSummaryItem>, Error>) -> Void) throws -> URLSessionTask? {
-        clientGatewayService.asyncExecute(request: try PagedRequest<SCG.TransactionSummaryItem>(pageUri), completion: completion)
+    override func asyncTransactionList(pageUri: String, completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) throws -> URLSessionTask? {
+        clientGatewayService.asyncExecute(request: try PagedRequest<SCGModels.TransactionSummaryItem>(pageUri), completion: completion)
     }
 }

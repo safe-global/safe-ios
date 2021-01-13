@@ -9,8 +9,8 @@
 import UIKit
 
 class ActionDetailViewController: UITableViewController {
-    typealias MultiSendTx = SCG.DataDecoded.Parameter.ValueDecoded.MultiSendTx
-    typealias DataDecoded = SCG.DataDecoded
+    typealias MultiSendTx = SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx
+    typealias DataDecoded = SCGModels.DataDecoded
 
     private var multiSendTx: MultiSendTx?
     private var dataDecoded: DataDecoded?
@@ -132,7 +132,7 @@ class ActionDetailViewController: UITableViewController {
     ///   - paramValue: parameter value
     ///   - nestingLevel: current nesting level - influences the building
     ///    decisions and indentation level
-    private func buildValue(_ paramValue: SCG.DataDecoded.Parameter.Value, nestingLevel: Int = 0) -> [UITableViewCell] {
+    private func buildValue(_ paramValue: SCGModels.DataDecoded.Parameter.Value, nestingLevel: Int = 0) -> [UITableViewCell] {
 
         // we don't want to indent up to 1st-level nested arrays
         let indent: CGFloat = min(max(0, CGFloat(nestingLevel) - 1), 10) * Self.indentWidth

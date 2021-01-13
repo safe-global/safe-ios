@@ -43,7 +43,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         typeImageView.image = image
     }
 
-    func set(conflictType: SCG.ConflictType) {
+    func set(conflictType: SCGModels.ConflictType) {
         conflictTypeView.isHidden = conflictType == .none
         conflictTypeButtonBarView.isHidden = conflictType == .end
         nonceLabel.isHidden = conflictType != .none
@@ -69,7 +69,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         confirmationsCountImageView.tintColor = color
     }
 
-    func set(status: SCG.TxStatus) {
+    func set(status: SCGModels.TxStatus) {
         statusLabel.text = status.title
         appendixLabel.text = status.title
         appendixLabel.isHidden = status.isWaiting
@@ -79,7 +79,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         self.contentView.alpha = containerViewAlpha(status: status)
     }
 
-    private func statusColor(status: SCG.TxStatus) -> UIColor {
+    private func statusColor(status: SCGModels.TxStatus) -> UIColor {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
             return .gnoPending
@@ -92,7 +92,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         }
     }
 
-    private func containerViewAlpha(status: SCG.TxStatus) -> CGFloat {
+    private func containerViewAlpha(status: SCGModels.TxStatus) -> CGFloat {
         status.isFailed ? 0.5 : 1
     }
 

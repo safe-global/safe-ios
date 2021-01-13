@@ -13,7 +13,7 @@ class DetailConfirmationCell: UITableViewCell {
 
     func setConfirmations(_ confirmations: [Address],
                           required: Int,
-                          status: SCG.TxStatus,
+                          status: SCGModels.TxStatus,
                           executor: Address?) {
         let bounds = contentView.bounds
         var views: [UIView] = []

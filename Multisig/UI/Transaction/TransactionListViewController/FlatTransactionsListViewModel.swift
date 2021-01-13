@@ -9,8 +9,8 @@
 import Foundation
 
 struct FlatTransactionsListViewModel {
-    private var models: [SCG.TransactionSummaryItem] = []
-    var items: [SCG.TransactionSummaryItem] {
+    private var models: [SCGModels.TransactionSummaryItem] = []
+    var items: [SCGModels.TransactionSummaryItem] {
         models
     }
     var isEmpty: Bool {
@@ -19,7 +19,7 @@ struct FlatTransactionsListViewModel {
 
     var next: String?
 
-    init(_ models: [SCG.TransactionSummaryItem] = []) {
+    init(_ models: [SCGModels.TransactionSummaryItem] = []) {
         self.models = models
     }
 
@@ -28,11 +28,11 @@ struct FlatTransactionsListViewModel {
         add(list.items)
     }
 
-    mutating func add(_ models: [SCG.TransactionSummaryItem] = []) {
+    mutating func add(_ models: [SCGModels.TransactionSummaryItem] = []) {
         self.models.append(contentsOf: models)
     }
 
-    var lastTransaction: SCG.TransactionSummaryItem? {
+    var lastTransaction: SCGModels.TransactionSummaryItem? {
         models.last
     }
 }

@@ -18,14 +18,14 @@ class TransactionTests: XCTestCase {
         let data = jsonData("Transactions")
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .millisecondsSince1970
-        let _ = try decoder.decode(Page<SCG.TxSummary>.self, from: data)
+        let _ = try decoder.decode(Page<SCGModels.TxSummary>.self, from: data)
     }
 
     func testDecodeDetails() throws {
         let data = jsonData("TransferTransaction")
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .millisecondsSince1970
-        let _ = try decoder.decode(SCG.TransactionDetails.self, from: data)
+        let _ = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
     }
 
     func testTransactionSummary() {

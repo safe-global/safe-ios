@@ -12,7 +12,7 @@ struct TransactionDetailsRequest: JSONRequest {
     var id: String
     var httpMethod: String { "GET" }
     var urlPath: String { "/v1/transactions/\(id)" }
-    typealias ResponseType = SCG.TransactionDetails
+    typealias ResponseType = SCGModels.TransactionDetails
 }
 
 extension TransactionDetailsRequest {
@@ -22,11 +22,11 @@ extension TransactionDetailsRequest {
 }
 
 extension SafeClientGatewayService {
-    func asyncTransactionDetails(id: String, completion: @escaping (Result<SCG.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+    func asyncTransactionDetails(id: String, completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
         asyncExecute(request: TransactionDetailsRequest(id: id), completion: completion)
     }
 
-    func asyncTransactionDetails(safeTxHash: Data, completion: @escaping (Result<SCG.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+    func asyncTransactionDetails(safeTxHash: Data, completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
         asyncExecute(request: TransactionDetailsRequest(safeTxHash: safeTxHash), completion: completion)
     }
 }

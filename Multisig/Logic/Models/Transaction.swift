@@ -14,7 +14,7 @@ struct Transaction {
     let to: AddressString
     let value: UInt256String
     let data: DataString
-    let operation: SCG.Operation
+    let operation: SCGModels.Operation
     let safeTxGas: UInt256String
     let baseGas: UInt256String
     let gasPrice: UInt256String
@@ -27,15 +27,15 @@ struct Transaction {
 }
 
 extension Transaction {
-    init?(tx: SCG.TransactionDetails) {
+    init?(tx: SCGModels.TransactionDetails) {
         guard let txData = tx.txData,
-              case let SCG.TransactionDetails.DetailedExecutionInfo.multisig(multiSigTxInfo)? = tx.detailedExecutionInfo else {
+              case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multiSigTxInfo)? = tx.detailedExecutionInfo else {
             return nil
         }
         to = txData.to
         value = txData.value
         data = txData.hexData ?? DataString(Data())
-        operation = SCG.Operation(rawValue: txData.operation.rawValue)!
+        operation = SCGModels.Operation(rawValue: txData.operation.rawValue)!
         safeTxGas = multiSigTxInfo.safeTxGas
         baseGas = multiSigTxInfo.baseGas
         gasPrice = multiSigTxInfo.gasPrice

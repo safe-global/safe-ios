@@ -10,7 +10,7 @@ import UIKit
 
 class MultiSendListTableViewController: UITableViewController {
 
-    typealias Transaction = SCG.DataDecoded.Parameter.ValueDecoded.MultiSendTx
+    typealias Transaction = SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx
 
     var transactions: [Transaction] = [] {
         didSet {

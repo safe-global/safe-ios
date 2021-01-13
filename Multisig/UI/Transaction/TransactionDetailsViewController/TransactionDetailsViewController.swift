@@ -13,7 +13,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     var clientGatewayService = App.shared.clientGatewayService
 
     private var cells: [UITableViewCell] = []
-    private var tx: SCG.TransactionDetails?
+    private var tx: SCGModels.TransactionDetails?
     private var reloadDataTask: URLSessionTask?
     private var confirmDataTask: URLSessionTask?
     private var builder: TransactionDetailCellBuilder!
@@ -22,7 +22,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private enum TransactionSource {
         case id(String)
         case safeTxHash(Data)
-        case data(SCG.TransactionDetails)
+        case data(SCGModels.TransactionDetails)
     }
 
     private var txSource: TransactionSource!
@@ -37,7 +37,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         txSource = .safeTxHash(safeTxHash)
     }
 
-    convenience init(transaction: SCG.TransactionDetails) {
+    convenience init(transaction: SCGModels.TransactionDetails) {
         self.init(namedClass: Self.superclass())
         txSource = .data(transaction)
     }
@@ -170,7 +170,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
     }
 
-    private func onLoadingCompleted(result: Result<SCG.TransactionDetails, Error>) {
+    private func onLoadingCompleted(result: Result<SCGModels.TransactionDetails, Error>) {
         switch result {
         case .failure(let error):
             DispatchQueue.main.async { [weak self] in
@@ -193,7 +193,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
     }
 
-    func buildCells(from tx: SCG.TransactionDetails) {
+    func buildCells(from tx: SCGModels.TransactionDetails) {
         self.tx = tx
 
         // artificial tx status
@@ -222,12 +222,12 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
 }
 
-extension SCG.TransactionDetails {
+extension SCGModels.TransactionDetails {
     var needsYourConfirmation: Bool {
         if txStatus == .awaitingConfirmations,
            let signingKey = App.shared.settings.signingKeyAddress,
            let signingAddress = AddressString(signingKey),
-           case let SCG.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = detailedExecutionInfo,
+           case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = detailedExecutionInfo,
            multisigTx.isSigner(address: signingAddress) &&
             multisigTx.needsMoreSignatures &&
             !multisigTx.hasConfirmed(address: signingAddress) {
@@ -237,7 +237,7 @@ extension SCG.TransactionDetails {
     }
 }
 
-extension SCG.TransactionDetails.DetailedExecutionInfo.Multisig {
+extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
 
     func isSigner(address: AddressString) -> Bool {
         signers.contains(address)

@@ -106,12 +106,12 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         }
     }
 
-    func asyncTransactionList(address: Address, completion: @escaping (Result<Page<SCG.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
+    func asyncTransactionList(address: Address, completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
         // Should be overrided in subclass
         nil
     }
 
-    func asyncTransactionList(pageUri: String, completion: @escaping (Result<Page<SCG.TransactionSummaryItem>, Error>) -> Void) throws -> URLSessionTask? {
+    func asyncTransactionList(pageUri: String, completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) throws -> URLSessionTask? {
         // Should be overrided in subclass
         nil
     }
@@ -194,7 +194,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         tableView.deselectRow(at: indexPath, animated: true)
 
         let item = model.items[indexPath.row]
-        var transaction: SCG.TxSummary?
+        var transaction: SCGModels.TxSummary?
         switch item {
         case .transaction(let tx):
             transaction = tx.transaction
@@ -207,9 +207,9 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
         switch tx.txInfo {
         case .creation(let creationInfo):
-            let detailsTx = SCG.TransactionDetails(
+            let detailsTx = SCGModels.TransactionDetails(
                 txStatus: tx.txStatus,
-                txInfo: SCG.TxInfo.creation(creationInfo),
+                txInfo: SCGModels.TxInfo.creation(creationInfo),
                 txData: nil,
                 detailedExecutionInfo: nil,
                 txHash: nil,
@@ -256,7 +256,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         }
     }
 
-    func configure(cell: TransactionListTableViewCell, transaction: SCG.TransactionSummaryItemTransaction) {
+    func configure(cell: TransactionListTableViewCell, transaction: SCGModels.TransactionSummaryItemTransaction) {
         let tx = transaction.transaction
         var title = ""
         var image = #imageLiteral(resourceName: "ico-settings-tx")
@@ -268,7 +268,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         var info = ""
         var infoColor: UIColor = .gnoDarkBlue
 
-        var status: SCG.TxStatus = tx.txStatus
+        var status: SCGModels.TxStatus = tx.txStatus
         let missingSigners = tx.executionInfo?.missingSigners?.map { $0.address.checksummed } ?? []
         if let signingKeyAddress = App.shared.settings.signingKeyAddress,status == .awaitingConfirmations {
             if missingSigners.contains(signingKeyAddress) {
@@ -309,7 +309,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         cell.set(confirmationsSubmitted: confirmationsSubmitted, confirmationsRequired: confirmationsRequired)
     }
 
-    func formattedAmount(transferInfo: SCG.TxInfo.Transfer) -> String {
+    func formattedAmount(transferInfo: SCGModels.TxInfo.Transfer) -> String {
         let isOutgoing = transferInfo.direction == .outgoing
 
         let sign: Int256 = isOutgoing ? -1 : +1
