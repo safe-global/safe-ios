@@ -14,7 +14,7 @@ struct QueuedTransactionsSummaryListRequest: JSONRequest {
     var urlPath: String {
         "/v1/safes/\(safeAddress)/transactions/queued"
     }
-    typealias ResponseType = Page<SCG.TransactionSummaryItem>
+    typealias ResponseType = Page<SCGModels.TransactionSummaryItem>
 }
 
 extension QueuedTransactionsSummaryListRequest {
@@ -29,6 +29,6 @@ extension SafeClientGatewayService {
     }
 
     func asyncQueuedTransactionsSummaryList(pageUri: String, completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
-        asyncExecute(request: try PagedRequest<SCG.TransactionSummaryItem>(pageUri), completion: completion)
+        asyncExecute(request: try PagedRequest<SCGModels.TransactionSummaryItem>(pageUri), completion: completion)
     }
 }
