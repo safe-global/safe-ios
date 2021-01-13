@@ -155,11 +155,11 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         switch txSource {
         case .id(let txID):
-            reloadDataTask = clientGatewayService.asyncTransactionDetailsV2(id: txID) { [weak self] in
+            reloadDataTask = clientGatewayService.asyncTransactionDetails(id: txID) { [weak self] in
                 self?.onLoadingCompleted(result: $0)
             }
         case .safeTxHash(let safeTxHash):
-            reloadDataTask = clientGatewayService.asyncTransactionDetailsV2(safeTxHash: safeTxHash) { [weak self] in
+            reloadDataTask = clientGatewayService.asyncTransactionDetails(safeTxHash: safeTxHash) { [weak self] in
                 self?.onLoadingCompleted(result: $0)
             }
         case .data(let tx):
