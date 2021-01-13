@@ -11,6 +11,7 @@ import WebKit
 import Kingfisher
 
 class SVGView: UINibView {
+    var onError: () -> Void = {}
     @IBOutlet private weak var webView: WKWebView!
     @IBOutlet private weak var imageView: UIImageView!
 
@@ -19,14 +20,19 @@ class SVGView: UINibView {
         webView.navigationDelegate = self
     }
 
-    func setImage(url: URL?, placeholder: UIImage?) {
+    func setImage(url: URL?, placeholder: UIImage?, onError: @escaping () -> Void = {}) {
+        self.onError = onError
         if let url = url, url.pathExtension.caseInsensitiveCompare("svg") == .orderedSame {
             imageView.image = placeholder
             setSVG(url: url)
         } else {
             hideWebView()
             webView.stopLoading()
-            imageView.kf.setImage(with: url, placeholder: placeholder)
+            imageView.kf.setImage(with: url, placeholder: placeholder, completionHandler:  { [weak self] result in
+                if case Result.failure(_) = result, let `self` = self {
+                    self.onError()
+                }
+            })
         }
     }
 
@@ -59,5 +65,8 @@ class SVGView: UINibView {
 extension SVGView: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         showWebView()
+    }
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        onError()
     }
 }
