@@ -162,6 +162,18 @@ extension Safe: Identifiable {
     }
 }
 
+extension Safe {
+    func update(from safeInfo: SafeStatusRequest.Response) {
+        threshold = safeInfo.threshold.value
+        owners = safeInfo.owners.map { $0.address }
+        implementation = safeInfo.implementation.address
+        version = safeInfo.version
+        nonce = safeInfo.nonce.value
+        modules = safeInfo.modules.map { $0.address }
+        fallbackHandler = safeInfo.fallbackHandler.address
+    }
+}
+
 extension NSFetchRequest where ResultType == Safe {
     func all() -> Self {
         sortDescriptors = [NSSortDescriptor(keyPath: \Safe.additionDate, ascending: true)]

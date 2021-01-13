@@ -6,8 +6,8 @@
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
-import SwiftUI
 import Combine
+import Foundation
 
 struct CollectibleListSection: Identifiable {
     let id = UUID()
@@ -47,7 +47,6 @@ class CollectibleBalancesModel: ObservableObject, LoadingModel {
                 .receive(on: RunLoop.main)
                 .eraseToAnyPublisher()
         }
-
     }
 }
 
