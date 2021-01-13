@@ -286,7 +286,7 @@ class TransactionDetailCellBuilder {
         transfer(
             token: tokenText,
             style: style,
-            icon: icon,
+            icon: logo,
             iconURL: iconURL,
             alpha: alpha,
             detail: detail,
@@ -477,11 +477,7 @@ class TransactionDetailCellBuilder {
         let cell = newCell(DetailTransferInfoCell.self)
         cell.setAddress(address, label: label)
         cell.setToken(text: token, style: style)
-        if let image = icon {
-            cell.setToken(image: image)
-        } else {
-            cell.setToken(image: iconURL)
-        }
+        cell.setToken(image: iconURL, placeholder: icon)
         cell.setToken(alpha: alpha)
         cell.setDetail(detail)
         cell.setAddress(address, label: label)

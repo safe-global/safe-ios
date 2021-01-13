@@ -41,8 +41,8 @@ class DetailTransferInfoCell: UITableViewCell {
         tokenInfoView.setImage(image)
     }
 
-    func setToken(image url: URL?) {
-        tokenInfoView.setImage(url)
+    func setToken(image url: URL?, placeholder: UIImage? = nil) {
+        tokenInfoView.setImage(url, placeholder: placeholder)
     }
 
     func setToken(alpha: CGFloat) {
