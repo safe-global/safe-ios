@@ -14,31 +14,41 @@ class TransactionTests: XCTestCase {
         try! Data(contentsOf: Bundle(for: Self.self).url(forResource: name, withExtension: "json")!)
     }
 
-    func testDecodeSummary() throws {
-        let data = jsonData("Transactions")
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .millisecondsSince1970
-        let _ = try decoder.decode(Page<SCG.TxSummary>.self, from: data)
-    }
-
     func testDecodeDetails() throws {
         let data = jsonData("TransferTransaction")
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .millisecondsSince1970
-        let _ = try decoder.decode(SCG.TransactionDetails.self, from: data)
+        let _ = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
     }
 
-    func testTransactionSummary() {
-        let txJson = jsonData("Transactions")
+    func testHistoryTransactions() {
+        let txJson = jsonData("HistoryTransactions")
 
         let sema = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
             do {
                 let clientGateway = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL,
                                                      logger: LogService.shared)
-                let page = try clientGateway.jsonDecoder.decode(TransactionSummaryListRequest.ResponseType.self, from: txJson)
-                let models = page.results.flatMap { tx in TransactionViewModel.create(from: tx) }
-                XCTAssertEqual(page.results.count, models.count)
+                let page = try clientGateway.jsonDecoder.decode(HistoryTransactionsSummaryListRequest.ResponseType.self, from: txJson)
+                XCTAssertEqual(page.results.count, 20)
+            } catch {
+                XCTFail("Failure in transactions: \(error)")
+            }
+            sema.signal()
+        }
+        sema.wait()
+    }
+
+    func testQueuedTransactions() {
+        let txJson = jsonData("QueuedTransactions")
+
+        let sema = DispatchSemaphore(value: 0)
+        DispatchQueue.global().async {
+            do {
+                let clientGateway = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL,
+                                                     logger: LogService.shared)
+                let page = try clientGateway.jsonDecoder.decode(QueuedTransactionsSummaryListRequest.ResponseType.self, from: txJson)
+                XCTAssertEqual(page.results.count, 20)
             } catch {
                 XCTFail("Failure in transactions: \(error)")
             }
@@ -57,14 +67,14 @@ class TransactionTests: XCTestCase {
                                                      logger: LogService.shared)
 
                 let transaction = try clientGateway.jsonDecoder.decode(TransactionDetailsRequest.ResponseType.self, from: txJson)
-                let models = TransactionViewModel.create(from: transaction)
-                XCTAssertEqual(models.count, 1)
 
-                guard models.first! is TransferTransactionViewModel else {
-                    XCTFail("Unexpected type: \(type(of: models.first))")
+                switch transaction.txInfo {
+                case .transfer(_):
+                    break
+                default:
+                    XCTFail("Unexpected type: \(type(of: transaction))")
                     sema.signal()
-
-                    return
+                break
                 }
             } catch {
                 XCTFail("Failure in transactions: \(error)")

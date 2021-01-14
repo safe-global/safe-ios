@@ -117,7 +117,7 @@ extension Safe: Identifiable {
         }
 
         App.shared.coreDataStack.saveContext()
-        Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
+        Tracker.shared.setSafeCount(count)
         App.shared.notificationHandler.safeAdded(address: Address(exactly: address))
     }
     
@@ -153,12 +153,24 @@ extension Safe: Identifiable {
         }
 
         App.shared.coreDataStack.saveContext()
-        Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
+        Tracker.shared.setSafeCount(count)
         NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
 
         if let addressString = deletedSafeAddress, let address = Address(addressString) {
             App.shared.notificationHandler.safeRemoved(address: address)
         }
+    }
+}
+
+extension Safe {
+    func update(from safeInfo: SafeStatusRequest.Response) {
+        threshold = safeInfo.threshold.value
+        owners = safeInfo.owners.map { $0.address }
+        implementation = safeInfo.implementation.address
+        version = safeInfo.version
+        nonce = safeInfo.nonce.value
+        modules = safeInfo.modules.map { $0.address }
+        fallbackHandler = safeInfo.fallbackHandler.address
     }
 }
 

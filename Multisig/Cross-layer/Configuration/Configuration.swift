@@ -40,6 +40,11 @@ struct AppConfiguration {
         }
     }
 
+    struct Help {
+        @ConfigurationKey("CONFLICT_URL")
+        var conflictURL: URL
+    }
+
     struct Legal {
         @ConfigurationKey("TERMS_URL")
         var termsURL: URL
@@ -90,12 +95,10 @@ struct AppConfiguration {
 
     struct FeatureToggles {
         let signing: Bool = true
-
-        @ConfigurationKey("USE_UIKIT")
-        var useUIKit: Bool
     }
 
     let services = Services()
+    let help = Help()
     let legal = Legal()
     let contact = Contact()
     let app = App()

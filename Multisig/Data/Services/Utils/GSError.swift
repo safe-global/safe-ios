@@ -77,6 +77,9 @@ enum GSError {
             return TimeOut()
         case .cannotFindHost:
             return UnknownHost()
+        case .cancelled:
+            // happens when SSL certificate is not pinned
+            return SecureConnectionFailed()
         default:
             return error
         }
@@ -113,8 +116,9 @@ enum GSError {
             case 50:
                 return UnprocessableEntity(reason: "Safe info is not found.", code: 42250)
             default:
-                LogService.shared.error("Unrecognised error with code: \(error.code); message: \(error.message)",
-                                        error: unexpectedError)
+                LogService.shared.error(
+                    "Unrecognised error with code: \(error.code); message: \(error.message ?? "")",
+                    error: unexpectedError)
                 return unexpectedError
             }
         } catch {
@@ -127,7 +131,7 @@ enum GSError {
 
     fileprivate struct BackendError: Decodable {
         let code: Int
-        let message: String
+        let message: String?
     }
 
     // MARK: - Network errors
@@ -249,9 +253,9 @@ enum GSError {
     }
 
     struct UnsupportedImplementationCopy: DetailedLocalizedError {
-        let description = "Unsupported Safe Implementation copy"
-        let reason = "The implementation copy of your Safe is not supported by this app."
-        let howToFix = "Please change the implementation copy before adding it or use another Safe"
+        let description = "Unsupported Safe master copy"
+        let reason = "The master copy of your Safe is not supported by this app."
+        let howToFix = "Please change the master copy before adding it or use another Safe"
         let domain = clientErrorDomain
         let code = 1105
         let loggable = false
@@ -263,6 +267,15 @@ enum GSError {
         let howToFix = "Please enter a valid ENS name"
         let domain = clientErrorDomain
         let code = 1106
+        let loggable = false
+    }
+
+    struct ENSInvalidCharacters: DetailedLocalizedError {
+        let description = "Can’t use this name"
+        let reason = "ENS name is invalid."
+        let howToFix = "Please enter a valid ENS name"
+        let domain = clientErrorDomain
+        let code = 1108
         let loggable = false
     }
 
@@ -281,24 +294,6 @@ enum GSError {
         let howToFix = "Name should not be empty"
         let domain = clientErrorDomain
         let code = 1110
-        let loggable = false
-    }
-
-    struct ENSResolverNotFound: DetailedLocalizedError {
-        let description = "Can’t use this name"
-        let reason = "Resolver not found."
-        let howToFix = "Please enter a valid ENS name"
-        let domain = clientErrorDomain
-        let code = 1111
-        let loggable = false
-    }
-
-    struct ENSAddressResolutionNotFound: DetailedLocalizedError {
-        let description = "Can’t use this name"
-        let reason = "Address resolution not supported."
-        let howToFix = "Please enter a valid ENS name"
-        let domain = clientErrorDomain
-        let code = 1112
         let loggable = false
     }
 
@@ -340,4 +335,12 @@ enum GSError {
         let loggable = true
     }
 
+    struct ThirdPartyError: DetailedLocalizedError {
+        let description = "Third party library error"
+        let reason: String
+        let howToFix = "Please try again later or contact Safe support if this issue persists"
+        let domain = iOSErrorDomain
+        let code = 1306
+        let loggable = true
+    }
 }

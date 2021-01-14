@@ -14,7 +14,7 @@ struct Transaction {
     let to: AddressString
     let value: UInt256String
     let data: DataString
-    let operation: Operation
+    let operation: SCGModels.Operation
     let safeTxGas: UInt256String
     let baseGas: UInt256String
     let gasPrice: UInt256String
@@ -27,11 +27,15 @@ struct Transaction {
 }
 
 extension Transaction {
-    init(txData: TransactionDetailsData, multiSigTxInfo: MultisigExecutionDetails) {
+    init?(tx: SCGModels.TransactionDetails) {
+        guard let txData = tx.txData,
+              case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multiSigTxInfo)? = tx.detailedExecutionInfo else {
+            return nil
+        }
         to = txData.to
         value = txData.value
         data = txData.hexData ?? DataString(Data())
-        operation = txData.operation
+        operation = SCGModels.Operation(rawValue: txData.operation.rawValue)!
         safeTxGas = multiSigTxInfo.safeTxGas
         baseGas = multiSigTxInfo.baseGas
         gasPrice = multiSigTxInfo.gasPrice
@@ -67,25 +71,5 @@ extension Transaction {
             EthHasher.hash(Safe.domainData(for: safe)),
             EthHasher.hash(safeEncodedTxData)
         ].reduce(Data()) { $0 + $1 }
-    }
-}
-
-extension Transaction {
-    init?(tx: SCG.TransactionDetails) {
-        guard let txData = tx.txData,
-              case let SCG.TransactionDetails.DetailedExecutionInfo.multisig(multiSigTxInfo)? = tx.detailedExecutionInfo else {
-            return nil
-        }
-        to = txData.to
-        value = txData.value
-        data = txData.hexData ?? DataString(Data())
-        operation = Operation(rawValue: txData.operation.rawValue)!
-        safeTxGas = multiSigTxInfo.safeTxGas
-        baseGas = multiSigTxInfo.baseGas
-        gasPrice = multiSigTxInfo.gasPrice
-        gasToken = multiSigTxInfo.gasToken
-        refundReceiver = multiSigTxInfo.refundReceiver
-        nonce = multiSigTxInfo.nonce
-        safeTxHash = multiSigTxInfo.safeTxHash
     }
 }

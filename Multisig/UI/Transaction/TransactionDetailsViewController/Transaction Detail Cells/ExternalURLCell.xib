@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="61" id="KGk-i7-Jjw" customClass="ExternalURLCell" customModule="Multisig" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SfF-2r-PVD">
+                        <rect key="frame" x="16" y="0.0" width="51" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="6Pu-4S-3vn"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" name="hold"/>
+                        </state>
+                        <connections>
+                            <action selector="didTapButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="65G-QT-SmG"/>
+                        </connections>
+                    </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-external-link" translatesAutoresizingMaskIntoConstraints="NO" id="Q6Q-DG-QLN">
+                        <rect key="frame" x="79" y="22" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="YA3-fA-5aa"/>
+                            <constraint firstAttribute="height" constant="16" id="gGZ-8N-W1k"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Q6Q-DG-QLN" firstAttribute="centerY" secondItem="SfF-2r-PVD" secondAttribute="centerY" id="1EU-wu-NYu"/>
+                    <constraint firstAttribute="bottom" secondItem="SfF-2r-PVD" secondAttribute="bottom" id="55E-uc-NL9"/>
+                    <constraint firstItem="SfF-2r-PVD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="E6U-DZ-8yA"/>
+                    <constraint firstItem="Q6Q-DG-QLN" firstAttribute="leading" secondItem="SfF-2r-PVD" secondAttribute="trailing" constant="12" id="h0F-ew-tQu"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Q6Q-DG-QLN" secondAttribute="trailing" constant="16" id="v1I-Ve-sw0"/>
+                    <constraint firstItem="SfF-2r-PVD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="zLC-m2-LAY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="button" destination="SfF-2r-PVD" id="QT5-hC-OBj"/>
+            </connections>
+            <point key="canvasLocation" x="5.7971014492753632" y="159.04017857142856"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon-external-link" width="16" height="16"/>
+        <namedColor name="hold">
+            <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

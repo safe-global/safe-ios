@@ -18,20 +18,25 @@ final class ENS {
     }
 
     func address(for name: String) throws -> Address {
-        let node = try namehash(normalized(name))
+        let node: Node
+        do {
+            node = try namehash(normalized(name))
+        } catch {
+            throw GSError.ENSInvalidCharacters()
+        }
 
         // get resolver
         let registry = ENSRegistry(registryAddress)
         let resolverAddress = try registry.resolver(node: node)
         if resolverAddress.isZero {
-            throw GSError.ENSResolverNotFound()
+            throw GSError.ENSAddressNotFound()
         }
 
         // resolve address
         let resolver = ENSResolver(resolverAddress)
         let isResolvingSupported = try resolver.supportsInterface(ENSResolver.Selectors.address)
         guard isResolvingSupported else {
-            throw GSError.ENSAddressResolutionNotFound()
+            throw GSError.ENSAddressNotFound()
         }
         let resolvedAddress = try resolver.address(node: node)
         if resolvedAddress.isZero {
