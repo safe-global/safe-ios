@@ -10,10 +10,16 @@ import Foundation
 
 struct HistoryTransactionsSummaryListRequest: JSONRequest {
     let safeAddress: String
+    let timezoneOffset = TimeZone.currentOffest()
     var httpMethod: String { "GET" }
     var urlPath: String {
         "/v1/safes/\(safeAddress)/transactions/history"
     }
+
+    var query: String? {
+        return "timezone_offset=\(timezoneOffset)"
+    }
+    
     typealias ResponseType = Page<SCGModels.TransactionSummaryItem>
 }
 
