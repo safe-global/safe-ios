@@ -51,9 +51,6 @@
 		04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9E24B7191E00826AEE /* CollectibleViewModel.swift */; };
 		04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */; };
 		04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */; };
-		0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0070F6254AF22900A57CAF /* splash-screen-tagline@2x.png */; };
-		0A0070FA254AF22900A57CAF /* splash-screen-tagline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */; };
-		0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */; };
 		0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007123254B255C00A57CAF /* UIFont+Styles.swift */; };
 		0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007129254B379000A57CAF /* UIColor+Styles.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
@@ -468,9 +465,6 @@
 		04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueuedTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		0832A1B307963B8AEAC28441 /* Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.production.mainnet.xcconfig"; sourceTree = "<group>"; };
-		0A0070F6254AF22900A57CAF /* splash-screen-tagline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline@2x.png"; sourceTree = "<group>"; };
-		0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline@3x.png"; sourceTree = "<group>"; };
-		0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline.png"; sourceTree = "<group>"; };
 		0A007123254B255C00A57CAF /* UIFont+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Styles.swift"; sourceTree = "<group>"; };
 		0A007129254B379000A57CAF /* UIColor+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Styles.swift"; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
@@ -1754,9 +1748,6 @@
 			children = (
 				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
 				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
-				0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */,
-				0A0070F6254AF22900A57CAF /* splash-screen-tagline@2x.png */,
-				0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */,
 				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
 			);
 			name = Resources;
@@ -2333,7 +2324,6 @@
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
-				0A0070FA254AF22900A57CAF /* splash-screen-tagline@3x.png in Resources */,
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
 				0A6886932588F87E0045CAB5 /* EnterSafeNameViewController.xib in Resources */,
@@ -2345,11 +2335,9 @@
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* SVGView.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
-				0A0070FB254AF22900A57CAF /* splash-screen-tagline.png in Resources */,
 				55883601255C00A40014E8C7 /* ImportedKeyCell.xib in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
-				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
