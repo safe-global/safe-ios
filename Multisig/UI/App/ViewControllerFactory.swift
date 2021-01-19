@@ -18,8 +18,9 @@ enum ViewControllerFactory {
         let tabBarVC = UITabBarController()
         let balancesTabVC = balancesTabViewController()
         let transactionsTabVC = transactionsTabViewController()
+        let dappsTabVC = dappsTabViewController()
         let settingsTabVC = settingsTabViewController()
-        tabBarVC.viewControllers = [balancesTabVC, transactionsTabVC, settingsTabVC]
+        tabBarVC.viewControllers = [balancesTabVC, transactionsTabVC, dappsTabVC, settingsTabVC]
         tabBarVC.tabBar.barTintColor = .gnoSnowwhite
 
         if !AppSettings.hasAcceptedTerms() {
@@ -84,6 +85,18 @@ enum ViewControllerFactory {
         return tabViewController(root: tabRoot, title: "Transactions", image: #imageLiteral(resourceName: "tab-icon-transactions"), tag: 1)
     }
 
+    #warning("fix tracking")
+    private static func dappsTabViewController() -> UIViewController {
+        let noSafesVC = NoSafesViewController()
+        let loadSafeViewController = LoadSafeViewController()
+        loadSafeViewController.trackingEvent = .settingsSafeNoSafe
+        noSafesVC.hasSafeViewController = DappsViewController()
+        noSafesVC.noSafeViewController = loadSafeViewController
+
+        let tabRoot = HeaderViewController(rootViewController: noSafesVC)
+        return tabViewController(root: tabRoot, title: "Dapps", image: #imageLiteral(resourceName: "ico-custom-tx"), tag: 2)
+    }
+
     private static func settingsTabViewController() -> UIViewController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
@@ -103,7 +116,7 @@ enum ViewControllerFactory {
         segmentVC.selectedIndex = 0
 
         let tabRoot = HeaderViewController(rootViewController: segmentVC)
-        return tabViewController(root: tabRoot, title: "Settings", image: #imageLiteral(resourceName: "tab-icon-settings"), tag: 2)
+        return tabViewController(root: tabRoot, title: "Settings", image: #imageLiteral(resourceName: "tab-icon-settings"), tag: 3)
     }
 
     static func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {

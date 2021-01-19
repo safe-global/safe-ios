@@ -375,6 +375,7 @@
 		55D3654125077F23004D5047 /* EnterSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */; };
 		55D3654325078560004D5047 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654225078560004D5047 /* TextView.swift */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
+		55E898C425B682BC002D2658 /* DappsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E898C325B682BC002D2658 /* DappsViewController.swift */; };
 		68F2F299ED7EA791697FFE29 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */; };
 		D041FEDD6C712A3A8AC1BA71 /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */; };
 		E30B69A86F7709B130B3D0B0 /* libPods-MultisigIntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */; };
@@ -850,6 +851,7 @@
 		55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSeedPhraseView.swift; sourceTree = "<group>"; };
 		55D3654225078560004D5047 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		55DCC332258A4C71003346FC /* GSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSError.swift; sourceTree = "<group>"; };
+		55E898C325B682BC002D2658 /* DappsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DappsViewController.swift; sourceTree = "<group>"; };
 		586B435AB878EA6A796D3E66 /* Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		5CBFF463F4BE8B670E9583FC /* Pods-MultisigTests.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		5EBDB0B79D3FC3A38767F16D /* Pods-Multisig.release.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -1419,6 +1421,7 @@
 				0A53EBB1253F341600E6ACD0 /* UI Library */,
 				0A6886AA2588FB190045CAB5 /* Assets */,
 				0A6886AB2588FB2C0045CAB5 /* Transaction */,
+				55E898C225B68272002D2658 /* Dapps */,
 				0A6886A52588FB0F0045CAB5 /* Settings */,
 				0A6886B02588FB370045CAB5 /* Safe Management */,
 				0AF432C4244DF8FC00E22E50 /* App */,
@@ -2095,6 +2098,14 @@
 				55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */,
 			);
 			path = "Owner Wallet Management";
+			sourceTree = "<group>";
+		};
+		55E898C225B68272002D2658 /* Dapps */ = {
+			isa = PBXGroup;
+			children = (
+				55E898C325B682BC002D2658 /* DappsViewController.swift */,
+			);
+			path = Dapps;
 			sourceTree = "<group>";
 		};
 		F6CDCF14EE99671972E40E61 /* Pods */ = {
@@ -2787,6 +2798,7 @@
 				0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */,
 				0AD0274525A3586800886671 /* ActionDetailViewController.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
+				55E898C425B682BC002D2658 /* DappsViewController.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */,
