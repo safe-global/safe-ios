@@ -36,8 +36,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension AppDelegate: MessagingDelegate {
 
     // Firebase calls it on every app restart.
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        App.shared.notificationHandler.pushTokenUpdated(fcmToken)
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        if let token = fcmToken {
+            App.shared.notificationHandler.pushTokenUpdated(token)
+        } else {
+            LogService.shared.debug("Couldn't obtain fcmToken value")
+        }
     }
 
 }
