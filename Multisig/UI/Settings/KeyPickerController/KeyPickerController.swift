@@ -42,7 +42,9 @@ class KeyPickerController: UITableViewController {
         tableView.registerCell(DerivedKeyTableViewCell.self)
         tableView.registerCell(ButtonTableViewCell.self)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 46
+        tableView.estimatedRowHeight = 44
+        tableView.sectionHeaderHeight = 0
+        tableView.sectionFooterHeight = 0
         navigationItem.title = "Import Owner Key"
         navigationItem.rightBarButtonItem = importButton
     }
@@ -69,10 +71,15 @@ class KeyPickerController: UITableViewController {
                 cell.setHeader("Default")
                 cell.setLeft("#1")
                 cell.setAddress(address)
-                let detail = listState == .collapsed ? nil : "Derived keys are generated from your seed phrase. Select a key you would like to import."
-                cell.setDetail(detail)
                 cell.setSelected(selection.contains(indexPath.row))
-                cell.separatorInset = UIEdgeInsets(top: 0, left: listState == .collapsed ? CGFloat.greatestFiniteMagnitude : 0, bottom: 0, right: 0)
+                switch listState {
+                case .collapsed:
+                    cell.setDetail(nil)
+                    cell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
+                case .expanded:
+                    cell.setDetail("Derived keys are generated from your seed phrase. Select a key you would like to import.")
+                    cell.separatorInset = .zero
+                }
                 return cell
             default:
                 let cell = tableView.dequeueCell(DerivedKeyTableViewCell.self, for: indexPath)
@@ -83,6 +90,7 @@ class KeyPickerController: UITableViewController {
             }
         case Section.showMore:
             let cell = tableView.dequeueCell(ButtonTableViewCell.self)
+            cell.height = listState == .collapsed ? 44 : 76
             let label = listState == .collapsed ?
                 "Show more derived keys" :
                 "Show more"

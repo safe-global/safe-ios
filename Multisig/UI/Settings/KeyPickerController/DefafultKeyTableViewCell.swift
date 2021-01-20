@@ -36,6 +36,7 @@ class DefafultKeyTableViewCell: UITableViewCell {
 
     func setDetail(_ text: String?) {
         detailLabel.text = text
+        detailLabel.isHidden = text == nil
     }
 
     func setSelected(_ selected: Bool) {
