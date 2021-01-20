@@ -114,13 +114,16 @@ enum ViewControllerFactory {
     }
 
     static func importOwnerViewController(presenter: UIViewController & CloseModal) -> UIViewController {
-        let context = App.shared.coreDataStack.viewContext
-        let view = EnterSeedPhraseView().hostSnackbar()
-            .environment(\.managedObjectContext, context)
-        let vc = UIHostingController(rootView: view)
-        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: presenter, action: #selector(CloseModal.closeModal))
-        let nav = UINavigationController(rootViewController: vc)
-        return nav
+        let controller = EnterKeyOrSeedPhraseViewController()
+        return UINavigationController(rootViewController: controller)
+//
+//        let context = App.shared.coreDataStack.viewContext
+//        let view = EnterSeedPhraseView().hostSnackbar()
+//            .environment(\.managedObjectContext, context)
+//        let vc = UIHostingController(rootView: view)
+//        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: presenter, action: #selector(CloseModal.closeModal))
+//        let nav = UINavigationController(rootViewController: vc)
+//        return nav
     }
 }
 

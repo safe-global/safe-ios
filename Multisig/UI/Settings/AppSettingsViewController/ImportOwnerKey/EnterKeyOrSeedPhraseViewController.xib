@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EnterKeyOrSeedPhraseViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="descriptionLabel" destination="s8A-J4-nH8" id="jSQ-jr-TgH"/>
+                <outlet property="placeholderLabel" destination="SrN-XD-IyR" id="ufe-kZ-1ss"/>
+                <outlet property="textView" destination="MJ4-Yf-NvO" id="ncd-wj-Rl0"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="vbd-Iv-1AY">
+                    <rect key="frame" x="16" y="71" width="382" height="245"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8A-J4-nH8">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="122"/>
+                            <string key="text">Enter the private key or the seed phrase from your hardware wallet or MetaMask owner wallet.
+
+A seed phrase is typically 12 (sometimes 24) words separated by single spaces. 
+A private key is a string of 64 characters. </string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MJ4-Yf-NvO">
+                            <rect key="frame" x="0.0" y="145" width="382" height="100"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="100" id="GCC-UL-4wz"/>
+                            </constraints>
+                            <color key="textColor" systemColor="labelColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="MJ4-Yf-NvO" firstAttribute="leading" secondItem="vbd-Iv-1AY" secondAttribute="leading" id="6T6-F2-1Kt"/>
+                        <constraint firstAttribute="trailing" secondItem="MJ4-Yf-NvO" secondAttribute="trailing" id="QtK-fc-yOB"/>
+                    </constraints>
+                </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter private key or seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SrN-XD-IyR">
+                    <rect key="frame" x="32" y="232" width="350" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="SrN-XD-IyR" firstAttribute="top" secondItem="MJ4-Yf-NvO" secondAttribute="top" constant="16" id="I2Q-XP-zJW"/>
+                <constraint firstItem="vbd-Iv-1AY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="27" id="SIP-W4-dYj"/>
+                <constraint firstItem="SrN-XD-IyR" firstAttribute="leading" secondItem="MJ4-Yf-NvO" secondAttribute="leading" constant="16" id="cAX-QV-eCV"/>
+                <constraint firstItem="vbd-Iv-1AY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="cyf-Ld-Rwk"/>
+                <constraint firstAttribute="trailing" secondItem="vbd-Iv-1AY" secondAttribute="trailing" constant="16" id="e4Q-RM-soj"/>
+                <constraint firstItem="SrN-XD-IyR" firstAttribute="trailing" secondItem="MJ4-Yf-NvO" secondAttribute="trailing" constant="-16" id="f7k-xm-oTc"/>
+            </constraints>
+            <point key="canvasLocation" x="44.927536231884062" y="152.67857142857142"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
