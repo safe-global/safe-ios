@@ -47,8 +47,17 @@ class LoadableViewController: UIViewController {
 
         if reactsToSelectedSafeChanges {
             notificationCenter.addObserver(
-                self, selector: #selector(didChangeSelectedSafe), name: .selectedSafeChanged, object: nil)
+                self,
+                selector: #selector(didChangeSelectedSafe),
+                name: .selectedSafeChanged,
+                object: nil)
         }
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(willEnterForeground),
+            name: UIScene.willEnterForegroundNotification,
+            object: nil)
     }
 
     func setNeedsReload(_ value: Bool = true) {
@@ -56,6 +65,10 @@ class LoadableViewController: UIViewController {
     }
 
     @objc func didChangeSelectedSafe() {
+        lazyReloadData()
+    }
+
+    @objc func willEnterForeground() {
         lazyReloadData()
     }
 
@@ -89,9 +102,15 @@ class LoadableViewController: UIViewController {
         refreshControls.map(\.isRefreshing).contains(true)
     }
 
+    func startRefreshing() {
+        for c in refreshControls {
+            c.beginRefreshing()
+        }
+    }
+
     func endRefreshing() {
-        refreshControls.forEach { control in
-            control.endRefreshing()
+        for c in refreshControls {
+            c.endRefreshing()
         }
     }
 
