@@ -32,14 +32,30 @@ class DappsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureTableView()
+        addWCButton()
+        updateSections()
+    }
+
+    private func configureTableView() {
         tableView.backgroundColor = .gnoWhite
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
-
         tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.registerCell(BasicCell.self)
+    }
 
-        updateSections()
+    private func addWCButton() {
+        let button = UIButton()
+        button.setImage(UIImage(named: "wc-button"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            button.widthAnchor.constraint(equalToConstant: 60),
+            button.heightAnchor.constraint(equalToConstant: 60)
+        ])
     }
 
     private func updateSections() {

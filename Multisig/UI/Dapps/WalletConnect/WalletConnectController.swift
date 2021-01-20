@@ -7,7 +7,13 @@
 //
 
 import Foundation
+import WalletConnectSwift
 
 class WalletConnectController {
-    var sessions = [String]()
+
+    func connect(url: String) throws {}
+
+    func sessions(for safe: Address) -> [Session] {
+        return []
+    }
 }
