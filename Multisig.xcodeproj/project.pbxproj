@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -285,6 +285,9 @@
 		0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729D24BF363400A370EE /* SlicedText.swift */; };
 		0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729F24BF368900A370EE /* SlicedText+Address.swift */; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
+		55050B1F25B7D73400DFA9F1 /* WalletConnectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55050B1E25B7D73400DFA9F1 /* WalletConnectController.swift */; };
+		55050B4925B7D9F400DFA9F1 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 55050B4825B7D9F400DFA9F1 /* Web3 */; };
+		55050BCA25B7E63600DFA9F1 /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55050BC925B7E63600DFA9F1 /* SwiftCryptoTokenFormatter */; };
 		551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551BC70C2538965700E4CC79 /* LoadingModel.swift */; };
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
 		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
@@ -758,6 +761,7 @@
 		52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54742DDC33F72556636E2FB7 /* Pods-Multisig.debugstagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debugstagingrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debugstagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
+		55050B1E25B7D73400DFA9F1 /* WalletConnectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectController.swift; sourceTree = "<group>"; };
 		551BC70C2538965700E4CC79 /* LoadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModel.swift; sourceTree = "<group>"; };
 		551DDEE8244F183500C719D3 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
@@ -904,7 +908,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55050BCA25B7E63600DFA9F1 /* SwiftCryptoTokenFormatter in Frameworks */,
 				02EE291F3EA9B66FF632F61F /* libPods-Multisig.a in Frameworks */,
+				55050B4925B7D9F400DFA9F1 /* Web3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1853,6 +1859,14 @@
 			path = CollectiblesViewController;
 			sourceTree = "<group>";
 		};
+		55050B1D25B7D71D00DFA9F1 /* WalletConnect */ = {
+			isa = PBXGroup;
+			children = (
+				55050B1E25B7D73400DFA9F1 /* WalletConnectController.swift */,
+			);
+			path = WalletConnect;
+			sourceTree = "<group>";
+		};
 		551DDEEA244F192300C719D3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -2103,6 +2117,7 @@
 		55E898C225B68272002D2658 /* Dapps */ = {
 			isa = PBXGroup;
 			children = (
+				55050B1D25B7D71D00DFA9F1 /* WalletConnect */,
 				55E898C325B682BC002D2658 /* DappsViewController.swift */,
 			);
 			path = Dapps;
@@ -2209,6 +2224,10 @@
 				0AF2731924DAABDC007E4012 /* PBXTargetDependency */,
 			);
 			name = Multisig;
+			packageProductDependencies = (
+				55050B4825B7D9F400DFA9F1 /* Web3 */,
+				55050BC925B7E63600DFA9F1 /* SwiftCryptoTokenFormatter */,
+			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig.app */;
 			productType = "com.apple.product-type.application";
@@ -2304,6 +2323,10 @@
 				Base,
 			);
 			mainGroup = 0A93DD4A2445CC8A00688050;
+			packageReferences = (
+				55050B4725B7D9F400DFA9F1 /* XCRemoteSwiftPackageReference "Web3.swift" */,
+				55050BC825B7E63600DFA9F1 /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */,
+			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2784,6 +2807,7 @@
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
+				55050B1F25B7D73400DFA9F1 /* WalletConnectController.swift in Sources */,
 				55CA3EAB2508D3670080DF7F /* SelectOwnerAddressView.swift in Sources */,
 				0AB34D6224B71DB200A43988 /* SafeBalancesRequest.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
@@ -5389,6 +5413,38 @@
 			defaultConfigurationName = Release.Production.Mainnet;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		55050B4725B7D9F400DFA9F1 /* XCRemoteSwiftPackageReference "Web3.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Boilertalk/Web3.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.3;
+			};
+		};
+		55050BC825B7E63600DFA9F1 /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gnosis/SwiftCryptoTokenFormatter.git";
+			requirement = {
+				branch = "update-deps";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		55050B4825B7D9F400DFA9F1 /* Web3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55050B4725B7D9F400DFA9F1 /* XCRemoteSwiftPackageReference "Web3.swift" */;
+			productName = Web3;
+		};
+		55050BC925B7E63600DFA9F1 /* SwiftCryptoTokenFormatter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55050BC825B7E63600DFA9F1 /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
+			productName = SwiftCryptoTokenFormatter;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		5556A03524489F37003EC861 /* Multisig.xcdatamodeld */ = {

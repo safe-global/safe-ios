@@ -29,22 +29,11 @@ target 'Multisig' do
   # The icon image of the ethereum address
   pod 'BlockiesSwift', :git => 'https://github.com/gnosis/BlockiesSwift.git', :branch => '0.1.2-gnosis'
   
-  # The Ethereum lib
-  pod 'Web3/Core', :git => 'https://github.com/gnosis/Web3.swift.git', :branch => 'enhance-signing'
-  pod 'Web3/HTTPExtension', :git => 'https://github.com/gnosis/Web3.swift.git', :branch => 'enhance-signing'
-  
-  # Dependency for the Web3: generate module map file
-  pod 'secp256k1.swift', :modular_headers => true
-  
   # Dependency for ENS name resolution
   pod 'idn2Swift', :git => 'https://github.com/gnosis/pod-idn2.git', :branch => 'master', :testspecs => ['Tests']
   
   # Dependency for handling images loaded by url
   pod 'Kingfisher/SwiftUI', '5.14.0'
-
-  # Dependency for formatting tokens in UI
-  # Uses BigInt as a dependency
-  pod 'SwiftCryptoTokenFormatter', '1.0.0'
 
   # Tracking of events of interest
   pod 'Firebase/Analytics'
