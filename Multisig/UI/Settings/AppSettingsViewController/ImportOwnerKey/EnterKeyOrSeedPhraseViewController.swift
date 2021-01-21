@@ -34,6 +34,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         navigationItem.rightBarButtonItem = nextButton
+        nextButton.isEnabled = false
 
         descriptionLabel.setStyle(.body)
 
@@ -66,14 +67,41 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
+    #warning("Finish implementation")
     @objc private func didTapNextButton(_ sender: Any) {
-        setError(GSError.NoInternet())
+        let phrase = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if isPotentiallyValidSeedPhrase(phrase) {
+            guard let seedData = BIP39.seedFromMmemonics(phrase),
+                let rootNode = HDNode(seed: seedData)?.derive(path: HDNode.defaultPathMetamaskPrefix,
+                                                              derivePrivateKey: true) else {
+                setError(GSError.WrongSeedPhrase())
+                return
+            }
+            // proceed to the next screen
+            print("VALID PHRASE")
+        } else if isValidPK(phrase) {
+            // proceed to the next screen
+            print("VALID PRIVATE KEY")
+        }
     }
 
     private func updateTextDependentViews(with text: String) {
         placeholderLabel.isHidden = !text.isEmpty
         setError(nil)
-//        nextButtonItem.isEnabled = !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+
+        let phrase = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        nextButton.isEnabled = isPotentiallyValidSeedPhrase(phrase) || isValidPK(phrase)
+    }
+
+    private func isPotentiallyValidSeedPhrase(_ phrase: String) -> Bool {
+        [12, 15, 18, 21, 24].contains(phrase.split(separator: " ").count)
+    }
+
+    private func isValidPK(_ pk: String) -> Bool {
+        if let data = Data(exactlyHex: pk), data.count == 32 {
+            return true
+        }
+        return false
     }
 
     private func setError(_ error: Error?) {
