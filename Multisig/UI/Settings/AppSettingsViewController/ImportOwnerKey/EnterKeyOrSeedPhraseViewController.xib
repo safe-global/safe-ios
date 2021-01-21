@@ -23,52 +23,77 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="vbd-Iv-1AY">
-                    <rect key="frame" x="16" y="71" width="382" height="273.5"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m4o-eM-n6B">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8A-J4-nH8">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="122"/>
-                            <string key="text">Enter the private key or the seed phrase from your hardware wallet or MetaMask owner wallet.
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dmc-KF-JfK">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="vbd-Iv-1AY">
+                                    <rect key="frame" x="16" y="27" width="382" height="273.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8A-J4-nH8">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="122"/>
+                                            <string key="text">Enter the private key or the seed phrase from your hardware wallet or MetaMask owner wallet.
 
 A seed phrase is typically 12 (sometimes 24) words separated by single spaces. 
 A private key is a string of 64 characters. </string>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fHk-At-5aa">
-                            <rect key="frame" x="0.0" y="145" width="382" height="128.5"/>
-                            <subviews>
-                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MJ4-Yf-NvO">
-                                    <rect key="frame" x="0.0" y="0.0" width="382" height="100"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fHk-At-5aa">
+                                            <rect key="frame" x="0.0" y="145" width="382" height="128.5"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MJ4-Yf-NvO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="100"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="100" id="GCC-UL-4wz"/>
+                                                    </constraints>
+                                                    <color key="textColor" systemColor="labelColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHN-Pb-BhQ">
+                                                    <rect key="frame" x="0.0" y="108" width="382" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="MJ4-Yf-NvO" secondAttribute="trailing" id="HGW-lb-DeU"/>
+                                                <constraint firstItem="MJ4-Yf-NvO" firstAttribute="leading" secondItem="fHk-At-5aa" secondAttribute="leading" id="XQr-vO-5uh"/>
+                                                <constraint firstAttribute="trailing" secondItem="BHN-Pb-BhQ" secondAttribute="trailing" id="fh8-gt-rRt"/>
+                                                <constraint firstItem="BHN-Pb-BhQ" firstAttribute="leading" secondItem="fHk-At-5aa" secondAttribute="leading" id="uFw-LW-d3E"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="100" id="GCC-UL-4wz"/>
+                                        <constraint firstItem="fHk-At-5aa" firstAttribute="leading" secondItem="vbd-Iv-1AY" secondAttribute="leading" id="bTV-5W-Ppv"/>
+                                        <constraint firstAttribute="trailing" secondItem="fHk-At-5aa" secondAttribute="trailing" id="vTJ-AR-G1V"/>
                                     </constraints>
-                                    <color key="textColor" systemColor="labelColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                </textView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHN-Pb-BhQ">
-                                    <rect key="frame" x="0.0" y="108" width="382" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                </stackView>
                             </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="MJ4-Yf-NvO" secondAttribute="trailing" id="HGW-lb-DeU"/>
-                                <constraint firstItem="MJ4-Yf-NvO" firstAttribute="leading" secondItem="fHk-At-5aa" secondAttribute="leading" id="XQr-vO-5uh"/>
-                                <constraint firstAttribute="trailing" secondItem="BHN-Pb-BhQ" secondAttribute="trailing" id="fh8-gt-rRt"/>
-                                <constraint firstItem="BHN-Pb-BhQ" firstAttribute="leading" secondItem="fHk-At-5aa" secondAttribute="leading" id="uFw-LW-d3E"/>
+                                <constraint firstItem="vbd-Iv-1AY" firstAttribute="top" secondItem="dmc-KF-JfK" secondAttribute="top" constant="27" id="Chu-jq-1NV"/>
+                                <constraint firstAttribute="trailing" secondItem="vbd-Iv-1AY" secondAttribute="trailing" constant="16" id="GC8-Zp-Xti"/>
+                                <constraint firstItem="vbd-Iv-1AY" firstAttribute="leading" secondItem="dmc-KF-JfK" secondAttribute="leading" constant="16" id="Vgc-Qf-pAw"/>
                             </constraints>
-                        </stackView>
+                        </view>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="fHk-At-5aa" firstAttribute="leading" secondItem="vbd-Iv-1AY" secondAttribute="leading" id="bTV-5W-Ppv"/>
-                        <constraint firstAttribute="trailing" secondItem="fHk-At-5aa" secondAttribute="trailing" id="vTJ-AR-G1V"/>
+                        <constraint firstItem="dmc-KF-JfK" firstAttribute="leading" secondItem="m4o-eM-n6B" secondAttribute="leading" id="De7-js-8g0"/>
+                        <constraint firstItem="dmc-KF-JfK" firstAttribute="top" secondItem="m4o-eM-n6B" secondAttribute="top" id="J9r-M6-Gj9"/>
+                        <constraint firstItem="dmc-KF-JfK" firstAttribute="height" secondItem="m4o-eM-n6B" secondAttribute="height" id="auf-of-JSa"/>
+                        <constraint firstAttribute="trailing" secondItem="dmc-KF-JfK" secondAttribute="trailing" id="khs-ew-NrO"/>
+                        <constraint firstAttribute="bottom" secondItem="dmc-KF-JfK" secondAttribute="bottom" id="zpl-00-SdL"/>
                     </constraints>
-                </stackView>
+                    <viewLayoutGuide key="contentLayoutGuide" id="6Xn-aO-xUv"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="nLn-qE-HgH"/>
+                </scrollView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter private key or seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SrN-XD-IyR">
                     <rect key="frame" x="32" y="232" width="350" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -79,12 +104,14 @@ A private key is a string of 64 characters. </string>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="SrN-XD-IyR" firstAttribute="leading" secondItem="MJ4-Yf-NvO" secondAttribute="leading" constant="16" id="97N-Ba-22T"/>
-                <constraint firstItem="SrN-XD-IyR" firstAttribute="top" secondItem="MJ4-Yf-NvO" secondAttribute="top" constant="16" id="9xA-bc-PBc"/>
-                <constraint firstItem="vbd-Iv-1AY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="27" id="SIP-W4-dYj"/>
-                <constraint firstItem="MJ4-Yf-NvO" firstAttribute="trailing" secondItem="SrN-XD-IyR" secondAttribute="trailing" constant="16" id="UCJ-QP-FlP"/>
-                <constraint firstItem="vbd-Iv-1AY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="cyf-Ld-Rwk"/>
-                <constraint firstAttribute="trailing" secondItem="vbd-Iv-1AY" secondAttribute="trailing" constant="16" id="e4Q-RM-soj"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="leading" secondItem="m4o-eM-n6B" secondAttribute="leading" id="16V-IV-rRR"/>
+                <constraint firstItem="m4o-eM-n6B" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="1JH-eF-Znd"/>
+                <constraint firstItem="m4o-eM-n6B" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="3LS-uh-iCO"/>
+                <constraint firstItem="SrN-XD-IyR" firstAttribute="top" secondItem="MJ4-Yf-NvO" secondAttribute="top" constant="16" id="68s-Hw-vND"/>
+                <constraint firstItem="dmc-KF-JfK" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="Df9-kU-aii"/>
+                <constraint firstItem="SrN-XD-IyR" firstAttribute="leading" secondItem="MJ4-Yf-NvO" secondAttribute="leading" constant="16" id="ETb-sa-bNO"/>
+                <constraint firstItem="SrN-XD-IyR" firstAttribute="trailing" secondItem="MJ4-Yf-NvO" secondAttribute="trailing" constant="-16" id="Yrw-iJ-JZf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="m4o-eM-n6B" secondAttribute="top" id="msP-DH-dYg"/>
             </constraints>
             <point key="canvasLocation" x="44.927536231884062" y="152.67857142857142"/>
         </view>
