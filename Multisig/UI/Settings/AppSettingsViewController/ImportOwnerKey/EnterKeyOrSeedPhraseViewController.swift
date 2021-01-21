@@ -9,9 +9,10 @@
 import UIKit
 
 class EnterKeyOrSeedPhraseViewController: UIViewController {
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var placeholderLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var textView: UITextView!
+    @IBOutlet private weak var placeholderLabel: UILabel!
+    @IBOutlet private weak var errorLabel: UILabel!
 
     private var nextButton: UIBarButtonItem!
 
@@ -29,6 +30,11 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         navigationItem.rightBarButtonItem = nextButton
 
+        descriptionLabel.setStyle(.body)
+
+        errorLabel.setStyle(GNOTextStyle.callout.color(.gnoTomato))
+        errorLabel.isHidden = true
+
         textView.delegate = self
         textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.gnoWhitesmoke.cgColor
@@ -45,11 +51,19 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    @objc private func didTapNextButton(_ sender: Any) {}
+    @objc private func didTapNextButton(_ sender: Any) {
+        setError(GSError.NoInternet())
+    }
 
     private func updateTextDependentViews(with text: String) {
         placeholderLabel.isHidden = !text.isEmpty
 //        nextButtonItem.isEnabled = !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    private func setError(_ error: Error?) {
+        errorLabel.text = error?.localizedDescription
+        errorLabel.isHidden = error == nil
+        textView.layer.borderColor = error == nil ? UIColor.gnoWhitesmoke.cgColor : UIColor.gnoTomato.cgColor
     }
 }
 

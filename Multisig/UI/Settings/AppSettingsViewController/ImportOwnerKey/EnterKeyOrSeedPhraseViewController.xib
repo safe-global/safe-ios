@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EnterKeyOrSeedPhraseViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="descriptionLabel" destination="s8A-J4-nH8" id="jSQ-jr-TgH"/>
+                <outlet property="errorLabel" destination="BHN-Pb-BhQ" id="Ea4-Zp-MGX"/>
                 <outlet property="placeholderLabel" destination="SrN-XD-IyR" id="ufe-kZ-1ss"/>
                 <outlet property="textView" destination="MJ4-Yf-NvO" id="ncd-wj-Rl0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -23,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="vbd-Iv-1AY">
-                    <rect key="frame" x="16" y="71" width="382" height="245"/>
+                    <rect key="frame" x="16" y="71" width="382" height="273.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8A-J4-nH8">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="122"/>
@@ -35,20 +36,37 @@ A private key is a string of 64 characters. </string>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MJ4-Yf-NvO">
-                            <rect key="frame" x="0.0" y="145" width="382" height="100"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fHk-At-5aa">
+                            <rect key="frame" x="0.0" y="145" width="382" height="128.5"/>
+                            <subviews>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MJ4-Yf-NvO">
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="100"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="100" id="GCC-UL-4wz"/>
+                                    </constraints>
+                                    <color key="textColor" systemColor="labelColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHN-Pb-BhQ">
+                                    <rect key="frame" x="0.0" y="108" width="382" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="100" id="GCC-UL-4wz"/>
+                                <constraint firstAttribute="trailing" secondItem="MJ4-Yf-NvO" secondAttribute="trailing" id="HGW-lb-DeU"/>
+                                <constraint firstItem="MJ4-Yf-NvO" firstAttribute="leading" secondItem="fHk-At-5aa" secondAttribute="leading" id="XQr-vO-5uh"/>
+                                <constraint firstAttribute="trailing" secondItem="BHN-Pb-BhQ" secondAttribute="trailing" id="fh8-gt-rRt"/>
+                                <constraint firstItem="BHN-Pb-BhQ" firstAttribute="leading" secondItem="fHk-At-5aa" secondAttribute="leading" id="uFw-LW-d3E"/>
                             </constraints>
-                            <color key="textColor" systemColor="labelColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
+                        </stackView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="MJ4-Yf-NvO" firstAttribute="leading" secondItem="vbd-Iv-1AY" secondAttribute="leading" id="6T6-F2-1Kt"/>
-                        <constraint firstAttribute="trailing" secondItem="MJ4-Yf-NvO" secondAttribute="trailing" id="QtK-fc-yOB"/>
+                        <constraint firstItem="fHk-At-5aa" firstAttribute="leading" secondItem="vbd-Iv-1AY" secondAttribute="leading" id="bTV-5W-Ppv"/>
+                        <constraint firstAttribute="trailing" secondItem="fHk-At-5aa" secondAttribute="trailing" id="vTJ-AR-G1V"/>
                     </constraints>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter private key or seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SrN-XD-IyR">
@@ -61,12 +79,12 @@ A private key is a string of 64 characters. </string>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="SrN-XD-IyR" firstAttribute="top" secondItem="MJ4-Yf-NvO" secondAttribute="top" constant="16" id="I2Q-XP-zJW"/>
+                <constraint firstItem="SrN-XD-IyR" firstAttribute="leading" secondItem="MJ4-Yf-NvO" secondAttribute="leading" constant="16" id="97N-Ba-22T"/>
+                <constraint firstItem="SrN-XD-IyR" firstAttribute="top" secondItem="MJ4-Yf-NvO" secondAttribute="top" constant="16" id="9xA-bc-PBc"/>
                 <constraint firstItem="vbd-Iv-1AY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="27" id="SIP-W4-dYj"/>
-                <constraint firstItem="SrN-XD-IyR" firstAttribute="leading" secondItem="MJ4-Yf-NvO" secondAttribute="leading" constant="16" id="cAX-QV-eCV"/>
+                <constraint firstItem="MJ4-Yf-NvO" firstAttribute="trailing" secondItem="SrN-XD-IyR" secondAttribute="trailing" constant="16" id="UCJ-QP-FlP"/>
                 <constraint firstItem="vbd-Iv-1AY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="cyf-Ld-Rwk"/>
                 <constraint firstAttribute="trailing" secondItem="vbd-Iv-1AY" secondAttribute="trailing" constant="16" id="e4Q-RM-soj"/>
-                <constraint firstItem="SrN-XD-IyR" firstAttribute="trailing" secondItem="MJ4-Yf-NvO" secondAttribute="trailing" constant="-16" id="f7k-xm-oTc"/>
             </constraints>
             <point key="canvasLocation" x="44.927536231884062" y="152.67857142857142"/>
         </view>
