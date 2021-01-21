@@ -297,6 +297,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct InvalidWalletConnectQRCode: DetailedLocalizedError {
+        let description = "Can’t use this QR code"
+        let reason = "Scaned QR code is not in a format that we expect."
+        let howToFix = "Please assure that the displayed QR code is in a valid format"
+        let domain = clientErrorDomain
+        let code = 1111
+        let loggable = false
+    }
+
     // MARK: - iOS errors
 
     struct UnknownAppError: DetailedLocalizedError {

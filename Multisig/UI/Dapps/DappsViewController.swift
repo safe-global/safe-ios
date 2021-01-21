@@ -48,6 +48,7 @@ class DappsViewController: UITableViewController {
     private func addWCButton() {
         let button = UIButton()
         button.setImage(UIImage(named: "wc-button"), for: .normal)
+        button.addTarget(self, action: #selector(scan), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
         NSLayoutConstraint.activate([
@@ -62,6 +63,20 @@ class DappsViewController: UITableViewController {
         sections = [
             (section: .walletConnect("WalletConnect"), items: [Section.WalletConnect.noSessions("No active sessions")])
         ]
+    }
+
+    @objc private func scan() {
+        let vc = QRCodeScannerViewController()
+        vc.scannedValueValidator = { value in
+            guard value.starts(with: "wc:") else {
+                return .failure(GSError.InvalidWalletConnectQRCode())
+            }
+            return .success(value)
+        }
+        vc.modalPresentationStyle = .overFullScreen
+        vc.delegate = self
+        vc.setup()
+        present(vc, animated: true, completion: nil)
     }
 
     // MARK: - Table view data source
@@ -142,4 +157,14 @@ class DappsViewController: UITableViewController {
     }
     */
 
+}
+
+extension DappsViewController: QRCodeScannerViewControllerDelegate {
+    func scannerViewControllerDidScan(_ code: String) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    func scannerViewControllerDidCancel() {
+        dismiss(animated: true, completion: nil)
+    }
 }

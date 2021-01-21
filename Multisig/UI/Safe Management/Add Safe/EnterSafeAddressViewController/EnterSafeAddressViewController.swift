@@ -72,6 +72,14 @@ class EnterSafeAddressViewController: UIViewController {
 
         vc.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [weak self] _ in
             let vc = QRCodeScannerViewController()
+            vc.scannedValueValidator = { value in
+                if Address(value) != nil {
+                    return .success(value)
+                } else {
+                    return .failure(GSError.error(description: "Can’t use this QR code",
+                                                  error: GSError.SafeAddressNotValid()))
+                }
+            }
             vc.modalPresentationStyle = .overFullScreen
             vc.delegate = self
             vc.setup()
