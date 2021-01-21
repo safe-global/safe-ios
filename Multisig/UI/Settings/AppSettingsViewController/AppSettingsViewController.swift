@@ -189,8 +189,6 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func importOwnerKey() {
-//        let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
-//        present(vc, animated: true)
         let vc = KeyPickerController()
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)

@@ -370,7 +370,6 @@
 		55BCFC572554627100020CE7 /* BasicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BCFC552554627100020CE7 /* BasicCell.xib */; };
 		55BCFC5E255469B300020CE7 /* BasicHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFC5D255469B300020CE7 /* BasicHeaderView.swift */; };
 		55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BCFC67255469C200020CE7 /* BasicHeaderView.xib */; };
-		55CA3EAB2508D3670080DF7F /* SelectOwnerAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */; };
 		55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EB8250A234F0080DF7F /* SecureStore.swift */; };
 		55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBA250A237C0080DF7F /* KeychainService.swift */; };
 		55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0824939079003B2B19 /* ConsoleTracker.swift */; };
@@ -1149,6 +1148,7 @@
 				0A478D3925B863D60038363E /* DerivedKeyTableViewCell.swift */,
 				0A478D3A25B863D60038363E /* DerivedKeyTableViewCell.xib */,
 				0A478D1925B860240038363E /* KeyPickerController.swift */,
+				55B64665253051630050BD95 /* SelectOwnerAddressViewModel.swift */,
 			);
 			path = KeyPickerController;
 			sourceTree = "<group>";
@@ -2119,7 +2119,6 @@
 		55D3653F25077F07004D5047 /* Owner Wallet Management */ = {
 			isa = PBXGroup;
 			children = (
-				55B64665253051630050BD95 /* SelectOwnerAddressViewModel.swift */,
 				55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */,
 				55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */,
 			);
@@ -2808,7 +2807,6 @@
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
-				55CA3EAB2508D3670080DF7F /* SelectOwnerAddressView.swift in Sources */,
 				0AB34D6224B71DB200A43988 /* SafeBalancesRequest.swift in Sources */,
 				0A478D1B25B860240038363E /* KeyPickerController.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
