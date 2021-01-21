@@ -9,7 +9,6 @@
 import UIKit
 
 class SafeLoadedViewController: UIViewController {
-
     @IBOutlet weak var safeInfoView: SafeInfoViewV2!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var skipButton: UIButton!
@@ -17,37 +16,30 @@ class SafeLoadedViewController: UIViewController {
 
     private var safe: Safe!
     var completion: () -> Void = { }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.hidesBackButton = true
         do {
             safe = try Safe.getSelected()!
-            titleLabel.setStyle(.title3)
+            titleLabel.setStyle(.body)
             importOwnerKeyButton.setText("Import owner key", .filled)
             skipButton.setText("Skip", .plain)
             safeInfoView.set(safe.name)
             safeInfoView.setAddress(safe.addressValue, label: nil)
         } catch {
-            //onError(GSError.error(description: "Failed to load safe settings", error: error))
+            fatalError()
         }
     }
 
     @IBAction func importOwnerButtonTouched(_ sender: Any) {
         Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerImport)
-        
+        let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
+        present(vc, animated: true)
     }
 
     @IBAction func skipButtonTouched(_ sender: Any) {
         Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerSkip)
-        dismiss(animated: true, completion: nil)
+        completion()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

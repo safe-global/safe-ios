@@ -48,9 +48,13 @@ class EnterSafeNameViewController: UIViewController {
     @objc private func didTapNextButton() {
         guard let name = name, let address = address else { return }
         Safe.create(address: address.checksummed, name: name)
-        let vc = SafeLoadedViewController()
-        vc.completion = completion
-        show(vc, sender: self)
+        if let _ = App.shared.settings.signingKeyAddress {
+            completion()
+        } else {
+            let vc = SafeLoadedViewController()
+            vc.completion = completion
+            show(vc, sender: self)
+        }
     }
 
     fileprivate func validateName() {
