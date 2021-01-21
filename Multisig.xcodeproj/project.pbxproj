@@ -1054,10 +1054,25 @@
 			children = (
 				04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */,
 				04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */,
+			);
+			path = ImportOwnerViewController;
+			sourceTree = "<group>";
+		};
+		04B4B6F325B9E09C00CFE24B /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				04B4B6F425B9E0A400CFE24B /* CardTableViewCell */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		04B4B6F425B9E0A400CFE24B /* CardTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
 				04B4B6E325B9A08D00CFE24B /* CardTableViewCell.swift */,
 				04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */,
 			);
-			path = ImportOwnerViewController;
+			path = CardTableViewCell;
 			sourceTree = "<group>";
 		};
 		04CE3F9724B611FC00826AEE /* Collectible */ = {
@@ -1991,6 +2006,7 @@
 		558835ED255BFEA80014E8C7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04B4B6F325B9E09C00CFE24B /* TableViewCell */,
 				0468FB44259106F400541536 /* StyledView.swift */,
 				558835EE255BFEDB0014E8C7 /* AddressInfoView.swift */,
 				558835F8255BFEF80014E8C7 /* AddressInfoView.xib */,
