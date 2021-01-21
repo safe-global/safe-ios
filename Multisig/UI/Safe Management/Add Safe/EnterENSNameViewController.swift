@@ -10,7 +10,6 @@ import UIKit
 
 class EnterENSNameViewController: UIViewController {
     var onConfirm: () -> Void = { }
-    var ens = App.shared.ens
     var manager = App.shared.blockchainDomainManager
     var address: Address?
 

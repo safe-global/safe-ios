@@ -2201,6 +2201,8 @@
 				0AF2731924DAABDC007E4012 /* PBXTargetDependency */,
 			);
 			name = Multisig;
+			packageProductDependencies = (
+			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig.app */;
 			productType = "com.apple.product-type.application";
@@ -2296,6 +2298,8 @@
 				Base,
 			);
 			mainGroup = 0A93DD4A2445CC8A00688050;
+			packageReferences = (
+			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
