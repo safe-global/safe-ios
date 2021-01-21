@@ -13,8 +13,11 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     @IBOutlet private weak var textView: UITextView!
     @IBOutlet private weak var placeholderLabel: UILabel!
     @IBOutlet private weak var errorLabel: UILabel!
+    @IBOutlet private weak var scrollView: UIScrollView!
 
     private var nextButton: UIBarButtonItem!
+
+    private var keyboardBehavior: KeyboardAvoidingBehavior!
 
     convenience init() {
         self.init(namedClass: EnterKeyOrSeedPhraseViewController.self)
@@ -24,6 +27,8 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Import Owner Key"
+
+        keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
 
         nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton(_:)))
         navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -47,6 +52,16 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         placeholderLabel.text = "Enter private key or seed phrase"
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardBehavior.start()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        keyboardBehavior.stop()
+    }
+
     @objc private func didTapCloseButton() {
         dismiss(animated: true, completion: nil)
     }
@@ -57,6 +72,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
 
     private func updateTextDependentViews(with text: String) {
         placeholderLabel.isHidden = !text.isEmpty
+        setError(nil)
 //        nextButtonItem.isEnabled = !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
@@ -68,6 +84,10 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
 }
 
 extension EnterKeyOrSeedPhraseViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        keyboardBehavior.activeTextView = textView
+    }
+
     func textViewDidChange(_ textView: UITextView) {
         updateTextDependentViews(with: textView.text)
     }

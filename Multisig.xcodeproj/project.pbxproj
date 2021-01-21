@@ -287,6 +287,7 @@
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
 		55050BFA25B81E5700DFA9F1 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55050BF825B81E5700DFA9F1 /* EnterKeyOrSeedPhraseViewController.swift */; };
 		55050BFB25B81E5700DFA9F1 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55050BF925B81E5700DFA9F1 /* EnterKeyOrSeedPhraseViewController.xib */; };
+		55050C9C25B9704600DFA9F1 /* KeyboardAvoidingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55050C9B25B9704600DFA9F1 /* KeyboardAvoidingBehavior.swift */; };
 		551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551BC70C2538965700E4CC79 /* LoadingModel.swift */; };
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
 		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
@@ -761,6 +762,7 @@
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
 		55050BF825B81E5700DFA9F1 /* EnterKeyOrSeedPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterKeyOrSeedPhraseViewController.swift; sourceTree = "<group>"; };
 		55050BF925B81E5700DFA9F1 /* EnterKeyOrSeedPhraseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterKeyOrSeedPhraseViewController.xib; sourceTree = "<group>"; };
+		55050C9B25B9704600DFA9F1 /* KeyboardAvoidingBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingBehavior.swift; sourceTree = "<group>"; };
 		551BC70C2538965700E4CC79 /* LoadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModel.swift; sourceTree = "<group>"; };
 		551DDEE8244F183500C719D3 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
@@ -1145,6 +1147,7 @@
 				0A007129254B379000A57CAF /* UIColor+Styles.swift */,
 				55B24E54257A0B2700058809 /* UIWindow+Extension.swift */,
 				0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */,
+				55050C9B25B9704600DFA9F1 /* KeyboardAvoidingBehavior.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -2669,6 +2672,7 @@
 				04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */,
 				558836702565385F0014E8C7 /* RemoveSafeCell.swift in Sources */,
 				0AF1C81225408EA000E28669 /* SegmentViewController.swift in Sources */,
+				55050C9C25B9704600DFA9F1 /* KeyboardAvoidingBehavior.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
 				0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */,
 				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,

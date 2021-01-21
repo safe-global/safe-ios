@@ -14,6 +14,7 @@
                 <outlet property="descriptionLabel" destination="s8A-J4-nH8" id="jSQ-jr-TgH"/>
                 <outlet property="errorLabel" destination="BHN-Pb-BhQ" id="Ea4-Zp-MGX"/>
                 <outlet property="placeholderLabel" destination="SrN-XD-IyR" id="ufe-kZ-1ss"/>
+                <outlet property="scrollView" destination="m4o-eM-n6B" id="RBU-2p-mXo"/>
                 <outlet property="textView" destination="MJ4-Yf-NvO" id="ncd-wj-Rl0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
