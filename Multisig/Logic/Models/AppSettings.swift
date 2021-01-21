@@ -33,6 +33,19 @@ extension AppSettings {
         let appSettings = current()
         return appSettings.termsAccepted
     }
+
+    static func showImportKeyOnboarding() {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let appSettings = current()
+        appSettings.importKeyOnBoardingShown = true
+        App.shared.coreDataStack.saveContext()
+    }
+
+    static func hasShownImportKeyOnboarding() -> Bool {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let appSettings = current()
+        return appSettings.importKeyOnBoardingShown
+    }
 }
 
 extension NSFetchRequest where ResultType == AppSettings {
