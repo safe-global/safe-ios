@@ -45,7 +45,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.gnoWhitesmoke.cgColor
         textView.layer.cornerRadius = 10
-        textView.textContainerInset = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 14)
+        textView.textContainerInset = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 12)
         textView.textColor = .gnoDarkBlue
         textView.font = .gnoFont(forTextStyle: .body)
 
@@ -56,6 +56,11 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         keyboardBehavior.start()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.ownerEnterSeed)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
