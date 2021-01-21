@@ -184,7 +184,6 @@
 		0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
 		0A9E8E7725B9CA4200256AD3 /* ImportKeyBannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7525B9CA4200256AD3 /* ImportKeyBannerTableViewCell.swift */; };
 		0A9E8E7825B9CA4200256AD3 /* ImportKeyBannerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7625B9CA4200256AD3 /* ImportKeyBannerTableViewCell.xib */; };
-		0A9E8EBE25B9DDBC00256AD3 /* SigningKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9E8EBD25B9DDBC00256AD3 /* SigningKeyController.swift */; };
 		0AA9F1F42497BCA9005BD60F /* TokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */; };
 		0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2062497BE9B005BD60F /* UInt256.swift */; };
 		0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2502498CC62005BD60F /* AddressString.swift */; };
@@ -618,7 +617,6 @@
 		0A9BC3572460581500EB9C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A9E8E7525B9CA4200256AD3 /* ImportKeyBannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportKeyBannerTableViewCell.swift; sourceTree = "<group>"; };
 		0A9E8E7625B9CA4200256AD3 /* ImportKeyBannerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportKeyBannerTableViewCell.xib; sourceTree = "<group>"; };
-		0A9E8EBD25B9DDBC00256AD3 /* SigningKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningKeyController.swift; sourceTree = "<group>"; };
 		0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
 		0AA9F2062497BE9B005BD60F /* UInt256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt256.swift; sourceTree = "<group>"; };
 		0AA9F2502498CC62005BD60F /* AddressString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressString.swift; sourceTree = "<group>"; };
@@ -1811,7 +1809,6 @@
 				0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */,
 				559670FE256E88FC0097D3A2 /* Signer.swift */,
 				049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */,
-				0A9E8EBD25B9DDBC00256AD3 /* SigningKeyController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2767,7 +2764,6 @@
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
 				0A57C5A42577DC5600420303 /* DetailExpandableTextCell.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
-				0A9E8EBE25B9DDBC00256AD3 /* SigningKeyController.swift in Sources */,
 				55A5854325014E05005E778B /* String+Extension.swift in Sources */,
 				0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */,
 				0A465C37246C2ECD00AFA467 /* GetInTouchView.swift in Sources */,
