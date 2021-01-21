@@ -81,7 +81,7 @@ class SelectOwnerAddressViewModel {
             App.shared.notificationHandler.signingKeyUpdated()
 
             Tracker.shared.setNumKeysImported(1)
-            Tracker.shared.trackEvent(.ownerKeyImported, parameters: ["import_type": "seed"])
+            Tracker.shared.track(event: TrackingEvent.ownerKeyImported, parameters: ["import_type": "seed"])
 
             App.shared.snackbar.show(message: "Owner key successfully imported")
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
