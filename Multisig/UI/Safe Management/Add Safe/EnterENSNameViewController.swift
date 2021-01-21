@@ -11,6 +11,7 @@ import UIKit
 class EnterENSNameViewController: UIViewController {
     var onConfirm: () -> Void = { }
     var ens = App.shared.ens
+    var manager = App.shared.blockchainDomainManager
     var address: Address?
 
     // generated "task" ID to work around the asynchronous ENS resolving API
@@ -28,13 +29,13 @@ class EnterENSNameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Enter ENS Name"
+        navigationItem.title = "Enter Blockchain domain"
 
         confirmButton = UIBarButtonItem(title: "Confirm", style: .done, target: self, action: #selector(didTapConfirmButton))
         confirmButton.isEnabled = false
         navigationItem.rightBarButtonItem = confirmButton
 
-        textField.setPlaceholder("Enter ENS name")
+        textField.setPlaceholder("Enter Blockchain domain")
         textField.textField.autocorrectionType = .no
         textField.textField.autocapitalizationType = .none
         textField.textField.keyboardType = .URL
@@ -73,7 +74,7 @@ class EnterENSNameViewController: UIViewController {
         DispatchQueue.global().async { [weak self] in
             guard let `self` = self else { return }
             do {
-                let address = try self.ens.address(for: text)
+                let address = try self.manager.resolve(domain: text)
 
                 if self.isCancelled(taskID) { return }
 

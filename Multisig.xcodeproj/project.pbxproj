@@ -284,6 +284,7 @@
 		0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729B24BF361600A370EE /* SlicedString.swift */; };
 		0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729D24BF363400A370EE /* SlicedText.swift */; };
 		0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729F24BF368900A370EE /* SlicedText+Address.swift */; };
+		3E59F14D25B9667F00BB2788 /* BlockchainDomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59F14C25B9667F00BB2788 /* BlockchainDomainManager.swift */; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
 		551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551BC70C2538965700E4CC79 /* LoadingModel.swift */; };
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
@@ -746,6 +747,7 @@
 		2C365CA996B348BFB09D4C51 /* Pods-NotificationServiceExtension.release.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		2F1ECF2E152DB5E7E7E7C72A /* Pods-Multisig.debug.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
 		2F6F6494CF5E35964FCDCF79 /* Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
+		3E59F14C25B9667F00BB2788 /* BlockchainDomainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainDomainManager.swift; sourceTree = "<group>"; };
 		3F0BD54209C21EA369847E31 /* libPods-Multisig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Multisig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3CD6C427A69FE15D6F6EB7 /* Pods-MultisigTests.debug.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		4381F5410C7BD71143EEC67E /* Pods-MultisigIntegrationTests.releaseproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.releaseproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.releaseproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -1296,6 +1298,7 @@
 				0A106288248A892B00C1EE54 /* ERC721Metadata.swift */,
 				0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */,
 				0A9BC3422460501300EB9C5D /* Utils */,
+				3E59F14C25B9667F00BB2788 /* BlockchainDomainManager.swift */,
 			);
 			path = Ethereum;
 			sourceTree = "<group>";
@@ -2787,6 +2790,7 @@
 				0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */,
 				0AD0274525A3586800886671 /* ActionDetailViewController.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
+				3E59F14D25B9667F00BB2788 /* BlockchainDomainManager.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */,

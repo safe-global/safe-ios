@@ -78,7 +78,7 @@ class EnterSafeAddressViewController: UIViewController {
             self?.present(vc, animated: true, completion: nil)
         }))
 
-        vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
+        vc.addAction(UIAlertAction(title: "Enter Blockchain Domain", style: .default, handler: { [weak self] _ in
             let vc = EnterENSNameViewController()
             vc.onConfirm = { [weak self] in
                 guard let `self` = self else { return }
