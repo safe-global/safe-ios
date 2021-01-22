@@ -20,9 +20,10 @@ class SafeLoadedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
+        navigationItem.title = "Load Safe Multisig"
         do {
             safe = try Safe.getSelected()!
-            titleLabel.setStyle(.body)
+            titleLabel.setStyle(.headline)
             importOwnerKeyButton.setText("Import owner key", .filled)
             skipButton.setText("Skip", .plain)
             safeInfoView.set(safe.name)

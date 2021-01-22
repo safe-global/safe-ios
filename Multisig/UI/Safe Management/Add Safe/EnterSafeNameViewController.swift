@@ -50,9 +50,7 @@ class EnterSafeNameViewController: UIViewController {
         Safe.create(address: address.checksummed, name: name)
         if let _ = App.shared.settings.signingKeyAddress {
             completion()
-        } else if AppSettings.hasShownImportKeyOnboarding() {
-            // Here we need to show Enter seedphase screen
-        } else {
+        } else if !AppSettings.hasShownImportKeyOnboarding() {
             let vc = SafeLoadedViewController()
             vc.completion = completion
             show(vc, sender: self)
