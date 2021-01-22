@@ -14,6 +14,7 @@ class CardTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var containerView: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,12 +26,6 @@ class CardTableViewCell: UITableViewCell {
 
         titleLabel.setStyle(.headline)
         bodyLabel.setStyle(.body)
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
     func set(image: UIImage?) {
