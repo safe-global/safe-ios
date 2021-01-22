@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AppSettings" representedClassName="AppSettings" syncable="YES" codeGenerationType="class">
         <attribute name="termsAccepted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
     </entity>
@@ -12,9 +12,15 @@
     <entity name="Selection" representedClassName="Selection" syncable="YES" codeGenerationType="class">
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="selection" inverseEntity="Safe"/>
     </entity>
+    <entity name="WCSession" representedClassName="WCSession" syncable="YES" codeGenerationType="class">
+        <attribute name="created" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="peerId" attributeType="String"/>
+        <attribute name="session" attributeType="Binary"/>
+    </entity>
     <elements>
         <element name="AppSettings" positionX="54" positionY="18" width="128" height="58"/>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
+        <element name="WCSession" positionX="54" positionY="18" width="128" height="74"/>
     </elements>
 </model>

@@ -306,6 +306,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct CouldNotStartWallectConnectSession: DetailedLocalizedError {
+        let description = "Could not start a session"
+        let reason = "We could not start a session with this QR code."
+        let howToFix = "Please try with another QR code"
+        let domain = clientErrorDomain
+        let code = 1112
+        let loggable = false
+    }
+
     // MARK: - iOS errors
 
     struct UnknownAppError: DetailedLocalizedError {

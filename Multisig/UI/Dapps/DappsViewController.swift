@@ -161,7 +161,12 @@ class DappsViewController: UITableViewController {
 
 extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
-        dismiss(animated: true, completion: nil)
+        do {
+            try WalletConnectController.shared.connect(url: code)
+            dismiss(animated: true, completion: nil)
+        } catch {
+            App.shared.snackbar.show(message: error.localizedDescription)
+        }
     }
 
     func scannerViewControllerDidCancel() {

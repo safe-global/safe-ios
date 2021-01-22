@@ -14,4 +14,10 @@ extension NSNotification.Name {
     static let ownerKeyImported = NSNotification.Name("io.gnosis.safe.ownerKeyImported")
     static let ownerKeyRemoved = NSNotification.Name("io.gnosis.safe.ownerKeyRemoved")
     static let transactionDataInvalidated = NSNotification.Name("io.gnosis.safe.transactionDataInvalidated")
+
+    // MARK: - WalletConnecdt
+
+    static let wcDidFailToConnect = NSNotification.Name("io.gnosis.safe.wcDidFailToConnect")
+    static let wcDidConnect = NSNotification.Name("io.gnosis.safe.wcShouldStartSession")
+    static let wcDidDisconnect = NSNotification.Name("io.gnosis.safe.wcDidDisconnect")
 }

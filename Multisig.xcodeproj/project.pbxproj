@@ -317,6 +317,7 @@
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
+		555D228425BA7E5B00505420 /* WCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D228325BA7E5B00505420 /* WCSession.swift */; };
 		555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */; };
 		555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555DA310250A4C7C00C3A0BE /* KeychainKey.swift */; };
 		558835E0255A907B0014E8C7 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */; };
@@ -794,6 +795,7 @@
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
+		555D228325BA7E5B00505420 /* WCSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSession.swift; sourceTree = "<group>"; };
 		555DA310250A4C7C00C3A0BE /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
 		558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		558835E5255AEA390014E8C7 /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
@@ -1814,6 +1816,7 @@
 				0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */,
 				559670FE256E88FC0097D3A2 /* Signer.swift */,
 				049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */,
+				555D228325BA7E5B00505420 /* WCSession.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2828,6 +2831,7 @@
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				55E898C425B682BC002D2658 /* DappsViewController.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
+				555D228425BA7E5B00505420 /* WCSession.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */,
 				0ADDA20F245340540066457E /* CorrectAddressView.swift in Sources */,

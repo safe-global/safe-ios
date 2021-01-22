@@ -109,6 +109,13 @@ enum Network: String, InfoPlistValueType {
     case mainnet = "Mainnet"
     case rinkeby = "Rinkeby"
 
+    var chainId: Int {
+        switch self {
+        case .mainnet: return 0
+        case .rinkeby: return 4
+        }
+    }
+
     static func convert(from value: Any) -> Self {
         (value as? String).flatMap { Self(rawValue: $0.capitalized) } ?? .mainnet
     }
