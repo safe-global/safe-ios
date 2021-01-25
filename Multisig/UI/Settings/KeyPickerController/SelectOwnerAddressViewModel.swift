@@ -7,18 +7,19 @@
 //
 
 import Foundation
-import Combine
 import Web3
 
-class SelectOwnerAddressViewModel: ObservableObject {
-    @Published
+class SelectOwnerAddressViewModel {
     var addresses = [Address]()
-    @Published
     var selectedIndex = 0
 
-    private var rootNode: HDNode?
-    private var maxAddressesCount = 100
-    private var pageSize = 20
+    var rootNode: HDNode? {
+        didSet {
+            generateAddressesPage()
+        }
+    }
+    var maxAddressesCount = 100
+    var pageSize = 20
 
     var canLoadMoreAddresses: Bool {
         addresses.count < maxAddressesCount
@@ -26,8 +27,24 @@ class SelectOwnerAddressViewModel: ObservableObject {
 
     init(rootNode: HDNode?, onSubmit: (() -> Void)? = nil ) {
         self.rootNode = rootNode
+        #if DEBUG
+        #warning("Remove when the mobile signing v2 is ready")
+        if rootNode == nil {
+            self.rootNode = randomNode()
+        }
+        #endif
         generateAddressesPage()
     }
+
+    #if DEBUG
+    private func randomNode() -> HDNode {
+        let mnem = try! BIP39.generateMnemonics(bitsOfEntropy: 128)!
+        let root = BIP39.seedFromMmemonics(mnem)!
+        let node = HDNode(seed: root)!
+        let result = node.derive(path: HDNode.defaultPathMetamaskPrefix, derivePrivateKey: true)!
+        return result
+    }
+    #endif
 
     private func addressAt(_ index: Int) -> Address? {
         guard let pkData = privateKeyData(index) else {
@@ -59,10 +76,15 @@ class SelectOwnerAddressViewModel: ObservableObject {
         do {
             try App.shared.keychainService.removeData(forKey: KeychainKey.ownerPrivateKey.rawValue)
             try App.shared.keychainService.save(data: pkData, forKey: KeychainKey.ownerPrivateKey.rawValue)
+
             App.shared.settings.updateSigningKeyAddress()
             App.shared.notificationHandler.signingKeyUpdated()
-            App.shared.snackbar.show(message: "Owner key successfully imported")
+
             Tracker.shared.setNumKeysImported(1)
+            Tracker.shared.track(event: TrackingEvent.ownerKeyImported, parameters: ["import_type": "seed"])
+
+            App.shared.snackbar.show(message: "Owner key successfully imported")
+            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
             return true
         } catch {
             App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key.", error: error))
