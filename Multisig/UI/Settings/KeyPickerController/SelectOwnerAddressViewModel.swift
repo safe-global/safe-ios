@@ -25,26 +25,10 @@ class SelectOwnerAddressViewModel {
         addresses.count < maxAddressesCount
     }
 
-    init(rootNode: HDNode?, onSubmit: (() -> Void)? = nil ) {
+    init(rootNode: HDNode, onSubmit: (() -> Void)? = nil ) {
         self.rootNode = rootNode
-        #if DEBUG
-        #warning("Remove when the mobile signing v2 is ready")
-        if rootNode == nil {
-            self.rootNode = randomNode()
-        }
-        #endif
         generateAddressesPage()
     }
-
-    #if DEBUG
-    private func randomNode() -> HDNode {
-        let mnem = try! BIP39.generateMnemonics(bitsOfEntropy: 128)!
-        let root = BIP39.seedFromMmemonics(mnem)!
-        let node = HDNode(seed: root)!
-        let result = node.derive(path: HDNode.defaultPathMetamaskPrefix, derivePrivateKey: true)!
-        return result
-    }
-    #endif
 
     private func addressAt(_ index: Int) -> Address? {
         guard let pkData = privateKeyData(index) else {

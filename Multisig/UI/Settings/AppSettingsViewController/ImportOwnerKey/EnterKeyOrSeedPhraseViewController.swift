@@ -83,8 +83,8 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
                 setError(GSError.WrongSeedPhrase())
                 return
             }
-            // proceed to the next screen
-            print("VALID PHRASE")
+            let vc = KeyPickerController(node: rootNode)
+            show(vc, sender: self)
         } else if isValidPK(phrase) {
             // proceed to the next screen
             print("VALID PRIVATE KEY")

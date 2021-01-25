@@ -23,7 +23,7 @@ class KeyPickerController: UITableViewController {
         case collapsed, expanded
     }
 
-    private var viewModel = SelectOwnerAddressViewModel(rootNode: nil)
+    private var viewModel: SelectOwnerAddressViewModel!
     private var listState = ListState.collapsed
     private var addresses: [Address] {
         switch listState {
@@ -43,9 +43,9 @@ class KeyPickerController: UITableViewController {
         return button
     }()
 
-    convenience init(node: HDNode? = nil) {
+    convenience init(node: HDNode) {
         self.init()
-        viewModel.rootNode = node
+        viewModel = SelectOwnerAddressViewModel(rootNode: node)
     }
 
     override func viewDidLoad() {
