@@ -383,6 +383,9 @@
 		55D3654125077F23004D5047 /* EnterSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */; };
 		55D3654325078560004D5047 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654225078560004D5047 /* TextView.swift */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
+		55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */; };
+		55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */; };
+		55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */; };
 		68F2F299ED7EA791697FFE29 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */; };
 		D041FEDD6C712A3A8AC1BA71 /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */; };
 		E30B69A86F7709B130B3D0B0 /* libPods-MultisigIntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */; };
@@ -867,6 +870,9 @@
 		55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSeedPhraseView.swift; sourceTree = "<group>"; };
 		55D3654225078560004D5047 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		55DCC332258A4C71003346FC /* GSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSError.swift; sourceTree = "<group>"; };
+		55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterKeyOrSeedPhraseViewController.xib; sourceTree = "<group>"; };
+		55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterKeyOrSeedPhraseViewController.swift; sourceTree = "<group>"; };
+		55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingBehavior.swift; sourceTree = "<group>"; };
 		586B435AB878EA6A796D3E66 /* Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		5CBFF463F4BE8B670E9583FC /* Pods-MultisigTests.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		5EBDB0B79D3FC3A38767F16D /* Pods-Multisig.release.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -1160,19 +1166,20 @@
 		0A53EBB1253F341600E6ACD0 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
-				558835ED255BFEA80014E8C7 /* Views */,
-				0A839B5F2578EB9500103AD9 /* View Controllers */,
 				0AF1C9122541B6A300E28669 /* README.md */,
-				0AEE149E2540233C00046EE7 /* UINibView.swift */,
-				0AF1C80625408B5000E28669 /* UIImageViewExtensions.swift */,
-				0AF1C9252541E09C00E28669 /* UIView+UINib.swift */,
-				55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */,
-				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
-				55883611255C15870014E8C7 /* UIViewController+Safari.swift */,
-				0A007123254B255C00A57CAF /* UIFont+Styles.swift */,
-				0A007129254B379000A57CAF /* UIColor+Styles.swift */,
-				55B24E54257A0B2700058809 /* UIWindow+Extension.swift */,
+				55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */,
 				0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */,
+				0A007129254B379000A57CAF /* UIColor+Styles.swift */,
+				0A007123254B255C00A57CAF /* UIFont+Styles.swift */,
+				0AF1C80625408B5000E28669 /* UIImageViewExtensions.swift */,
+				0AEE149E2540233C00046EE7 /* UINibView.swift */,
+				55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */,
+				0AF1C9252541E09C00E28669 /* UIView+UINib.swift */,
+				55883611255C15870014E8C7 /* UIViewController+Safari.swift */,
+				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
+				55B24E54257A0B2700058809 /* UIWindow+Extension.swift */,
+				0A839B5F2578EB9500103AD9 /* View Controllers */,
+				558835ED255BFEA80014E8C7 /* Views */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -1996,6 +2003,7 @@
 		558835DE255A90420014E8C7 /* AppSettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				55F91A8E25BEABA100938475 /* ImportOwnerKey */,
 				558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */,
 				558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */,
 				558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */,
@@ -2129,6 +2137,15 @@
 				55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */,
 			);
 			path = "Owner Wallet Management";
+			sourceTree = "<group>";
+		};
+		55F91A8E25BEABA100938475 /* ImportOwnerKey */ = {
+			isa = PBXGroup;
+			children = (
+				55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */,
+				55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */,
+			);
+			path = ImportOwnerKey;
 			sourceTree = "<group>";
 		};
 		F6CDCF14EE99671972E40E61 /* Pods */ = {
@@ -2386,6 +2403,7 @@
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
+				55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
@@ -2607,6 +2625,7 @@
 				0AA9F263249A188C005BD60F /* AdvancedTransactionDetailsView.swift in Sources */,
 				0ACB4CDB256BCD6900845BF4 /* SwiftUITableViewCell.swift in Sources */,
 				0AE8C0A2257947CF00E62B34 /* DetailStatusCell.swift in Sources */,
+				55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */,
 				0468FB8825912E6800541536 /* HistoryTransactionsViewController.swift in Sources */,
 				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
 				0A8AEB2025A4764F002A3FE1 /* ActionDetailAddressCell.swift in Sources */,
@@ -2838,6 +2857,7 @@
 				0A573F2925876B9E009EF0C1 /* AddressField.swift in Sources */,
 				0AD0273925A34FF600886671 /* MultiSendRowTableViewCell.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
+				55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */,
 				0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */,
 				0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */,
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
