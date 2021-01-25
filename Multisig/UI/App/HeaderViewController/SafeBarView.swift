@@ -16,11 +16,13 @@ class SafeBarView: UINibView {
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var detailLabel: UILabel!
     @IBOutlet private weak var button: UIButton!
+    @IBOutlet weak var readOnlyLabel: UILabel!
 
     override func commonInit() {
         super.commonInit()
         textLabel.setStyle(.headline)
         detailLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+        readOnlyLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
         addTarget(self, action: #selector(didTouchDown(sender:forEvent:)), for: .touchDown)
         addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
     }
@@ -30,8 +32,9 @@ class SafeBarView: UINibView {
         detailLabel.text = value.ellipsized()
     }
 
-    func setName(_ value: String) {
+    func setName(_ value: String, readOnly: Bool) {
         textLabel.text = value
+        readOnlyLabel.isHidden = !readOnly
     }
 
     // encapsulating the button's target-action API

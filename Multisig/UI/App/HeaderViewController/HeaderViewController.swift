@@ -78,7 +78,7 @@ final class HeaderViewController: ContainerViewController {
 
             if let safe = selectedSafe {
                 safeBarView.setAddress(safe.addressValue)
-                safeBarView.setName(safe.displayName)
+                safeBarView.setName(safe.displayName, readOnly: App.configuration.toggles.signing)
             }
         } catch {
             App.shared.snackbar.show(
