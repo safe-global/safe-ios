@@ -386,6 +386,9 @@
 		55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */; };
 		55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */; };
 		55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */; };
+		55F91B0425BEBD4400938475 /* ConfirmPrivateKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91B0225BEBD4400938475 /* ConfirmPrivateKeyViewController.swift */; };
+		55F91B0525BEBD4500938475 /* ConfirmPrivateKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91B0325BEBD4400938475 /* ConfirmPrivateKeyViewController.xib */; };
+		55F91B0F25BF081900938475 /* PrivateKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91B0E25BF081900938475 /* PrivateKeyController.swift */; };
 		68F2F299ED7EA791697FFE29 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */; };
 		D041FEDD6C712A3A8AC1BA71 /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */; };
 		E30B69A86F7709B130B3D0B0 /* libPods-MultisigIntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */; };
@@ -873,6 +876,9 @@
 		55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterKeyOrSeedPhraseViewController.xib; sourceTree = "<group>"; };
 		55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterKeyOrSeedPhraseViewController.swift; sourceTree = "<group>"; };
 		55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingBehavior.swift; sourceTree = "<group>"; };
+		55F91B0225BEBD4400938475 /* ConfirmPrivateKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPrivateKeyViewController.swift; sourceTree = "<group>"; };
+		55F91B0325BEBD4400938475 /* ConfirmPrivateKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmPrivateKeyViewController.xib; sourceTree = "<group>"; };
+		55F91B0E25BF081900938475 /* PrivateKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyController.swift; sourceTree = "<group>"; };
 		586B435AB878EA6A796D3E66 /* Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		5CBFF463F4BE8B670E9583FC /* Pods-MultisigTests.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		5EBDB0B79D3FC3A38767F16D /* Pods-Multisig.release.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -1284,7 +1290,7 @@
 			children = (
 				558835DE255A90420014E8C7 /* AppSettingsViewController */,
 				55BCFC372552FCA900020CE7 /* SafeSettingsViewController */,
-				0A478D4D25B865150038363E /* KeyPickerController */,
+				55F91A8E25BEABA100938475 /* ImportOwnerKey */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2003,7 +2009,6 @@
 		558835DE255A90420014E8C7 /* AppSettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
-				55F91A8E25BEABA100938475 /* ImportOwnerKey */,
 				558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */,
 				558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */,
 				558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */,
@@ -2142,8 +2147,12 @@
 		55F91A8E25BEABA100938475 /* ImportOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
+				0A478D4D25B865150038363E /* KeyPickerController */,
 				55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */,
 				55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */,
+				55F91B0225BEBD4400938475 /* ConfirmPrivateKeyViewController.swift */,
+				55F91B0325BEBD4400938475 /* ConfirmPrivateKeyViewController.xib */,
+				55F91B0E25BF081900938475 /* PrivateKeyController.swift */,
 			);
 			path = ImportOwnerKey;
 			sourceTree = "<group>";
@@ -2368,6 +2377,7 @@
 				0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
+				55F91B0525BEBD4500938475 /* ConfirmPrivateKeyViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
@@ -2769,6 +2779,7 @@
 				0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				559670FF256E88FC0097D3A2 /* Signer.swift in Sources */,
+				55F91B0F25BF081900938475 /* PrivateKeyController.swift in Sources */,
 				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
@@ -2787,6 +2798,7 @@
 				0A6430E2247EC2C7006FD30A /* ConfigurationKey.swift in Sources */,
 				0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
+				55F91B0425BEBD4400938475 /* ConfirmPrivateKeyViewController.swift in Sources */,
 				0A6886D02588FC180045CAB5 /* EnterENSNameViewController.swift in Sources */,
 				0468FB8625912E6800541536 /* QueuedTransactionsViewController.swift in Sources */,
 				0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */,

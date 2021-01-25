@@ -57,23 +57,6 @@ class SelectOwnerAddressViewModel {
 
     func importWallet() -> Bool {
         guard let pkData = privateKeyData(selectedIndex) else { return false }
-        do {
-            try App.shared.keychainService.removeData(forKey: KeychainKey.ownerPrivateKey.rawValue)
-            try App.shared.keychainService.save(data: pkData, forKey: KeychainKey.ownerPrivateKey.rawValue)
-
-            App.shared.settings.updateSigningKeyAddress()
-            App.shared.notificationHandler.signingKeyUpdated()
-
-            Tracker.shared.setNumKeysImported(1)
-            Tracker.shared.track(event: TrackingEvent.ownerKeyImported, parameters: ["import_type": "seed"])
-
-            App.shared.snackbar.show(message: "Owner key successfully imported")
-            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
-            return true
-        } catch {
-            App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key.", error: error))
-        }
-
-        return false
+        return PrivateKeyController.importKey(pkData)
     }
 }

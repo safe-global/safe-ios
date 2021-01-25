@@ -73,7 +73,6 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    #warning("Finish implementation")
     @objc private func didTapNextButton(_ sender: Any) {
         let phrase = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         if isPotentiallyValidSeedPhrase(phrase) {
@@ -86,8 +85,8 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
             let vc = KeyPickerController(node: rootNode)
             show(vc, sender: self)
         } else if isValidPK(phrase) {
-            // proceed to the next screen
-            print("VALID PRIVATE KEY")
+            let vc = ConfirmPrivateKeyViewController(privateKey: Data(exactlyHex: phrase)!)
+            show(vc, sender: self)
         }
     }
 
