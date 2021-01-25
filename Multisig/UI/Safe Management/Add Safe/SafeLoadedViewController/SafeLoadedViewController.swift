@@ -13,6 +13,7 @@ class SafeLoadedViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var importOwnerKeyButton: UIButton!
+    @IBOutlet weak var descriptionLabel: UILabel!
 
     private var safe: Safe!
     var completion: () -> Void = { }
@@ -24,6 +25,7 @@ class SafeLoadedViewController: UIViewController {
         do {
             safe = try Safe.getSelected()!
             titleLabel.setStyle(.headline)
+            descriptionLabel.setStyle(.body)
             importOwnerKeyButton.setText("Import owner key", .filled)
             skipButton.setText("Skip", .plain)
             safeInfoView.set(safe.name)

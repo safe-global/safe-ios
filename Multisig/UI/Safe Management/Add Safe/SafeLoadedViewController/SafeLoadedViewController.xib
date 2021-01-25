@@ -12,10 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SafeLoadedViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="descriptionLabel" destination="e9z-vk-UYQ" id="8Ag-af-S8a"/>
                 <outlet property="importOwnerKeyButton" destination="ndJ-JW-SGt" id="otR-MV-GFM"/>
                 <outlet property="safeInfoView" destination="Icj-PM-PmL" id="oDL-Az-EoR"/>
                 <outlet property="skipButton" destination="cQV-Bp-zgJ" id="hpD-8C-trD"/>
-                <outlet property="titleLabel" destination="e9z-vk-UYQ" id="V7u-BQ-L6w"/>
+                <outlet property="titleLabel" destination="nqP-5o-5GW" id="6Mh-rg-apd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
