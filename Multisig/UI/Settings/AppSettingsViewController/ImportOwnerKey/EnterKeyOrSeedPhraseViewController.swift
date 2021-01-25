@@ -48,6 +48,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 12)
         textView.textColor = .gnoDarkBlue
         textView.font = .gnoFont(forTextStyle: .body)
+        textView.becomeFirstResponder()
 
         placeholderLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
         placeholderLabel.text = "Enter private key or seed phrase"
