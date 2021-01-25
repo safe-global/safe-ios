@@ -43,7 +43,7 @@ class ConfirmPrivateKeyViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // TODO: add tracking
+        trackEvent(.ownerConfirmPrivateKey)
     }
 
     @objc func didTapImport() {
