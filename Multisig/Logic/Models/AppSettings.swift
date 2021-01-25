@@ -21,30 +21,28 @@ extension AppSettings {
         }
     }
 
-    static func acceptTerms() {
-        dispatchPrecondition(condition: .onQueue(.main))
-        let appSettings = current()
-        appSettings.termsAccepted = true
-        App.shared.coreDataStack.saveContext()
+    static var termsAccepted: Bool {
+        set {
+            dispatchPrecondition(condition: .onQueue(.main))
+            current().termsAccepted = true
+            App.shared.coreDataStack.saveContext()
+        }
+        get {
+            dispatchPrecondition(condition: .onQueue(.main))
+            return current().termsAccepted
+        }
     }
 
-    static func hasAcceptedTerms() -> Bool {
-        dispatchPrecondition(condition: .onQueue(.main))
-        let appSettings = current()
-        return appSettings.termsAccepted
-    }
-
-    static func showImportKeyOnboarding() {
-        dispatchPrecondition(condition: .onQueue(.main))
-        let appSettings = current()
-        appSettings.importKeyOnBoardingShown = true
-        App.shared.coreDataStack.saveContext()
-    }
-
-    static func hasShownImportKeyOnboarding() -> Bool {
-        dispatchPrecondition(condition: .onQueue(.main))
-        let appSettings = current()
-        return appSettings.importKeyOnBoardingShown
+    static var hasShownImportKeyOnboarding: Bool {
+        set {
+            dispatchPrecondition(condition: .onQueue(.main))
+            current().importKeyOnBoardingShown = true
+            App.shared.coreDataStack.saveContext()
+        }
+        get {
+            dispatchPrecondition(condition: .onQueue(.main))
+            return current().importKeyOnBoardingShown
+        }
     }
 }
 

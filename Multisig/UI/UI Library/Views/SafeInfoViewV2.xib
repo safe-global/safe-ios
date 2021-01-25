@@ -38,15 +38,15 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E0w-cn-2yl" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                            <rect key="frame" x="28" y="772" width="358" height="46"/>
+                            <rect key="frame" x="16" y="772" width="382" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="46" id="jcP-uP-w7C"/>
                             </constraints>
                         </view>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="E0w-cn-2yl" secondAttribute="trailing" constant="28" id="0ZY-GI-Sph"/>
-                        <constraint firstItem="E0w-cn-2yl" firstAttribute="leading" secondItem="Lyp-fC-TPg" secondAttribute="leading" constant="28" id="MNS-Yn-plU"/>
+                        <constraint firstAttribute="trailing" secondItem="E0w-cn-2yl" secondAttribute="trailing" constant="16" id="0ZY-GI-Sph"/>
+                        <constraint firstItem="E0w-cn-2yl" firstAttribute="leading" secondItem="Lyp-fC-TPg" secondAttribute="leading" constant="16" id="MNS-Yn-plU"/>
                     </constraints>
                 </stackView>
             </subviews>

@@ -27,7 +27,8 @@ class SafeLoadedViewController: UIViewController {
             titleLabel.setStyle(.headline)
             descriptionLabel.setStyle(.body)
             importOwnerKeyButton.setText("Import owner key", .filled)
-            skipButton.setText("Skip", .plain)
+            let buttonFont = UIFont.gnoFont(forTextStyle: .body)
+            skipButton.setText("Skip", GNOButtonStyle.plain.font(buttonFont))
             safeInfoView.set(safe.name)
             safeInfoView.setAddress(safe.addressValue, label: nil)
         } catch {

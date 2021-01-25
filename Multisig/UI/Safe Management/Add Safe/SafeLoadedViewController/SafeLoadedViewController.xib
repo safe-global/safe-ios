@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="y50-KN-XRf">
-                    <rect key="frame" x="16" y="64" width="382" height="602"/>
+                    <rect key="frame" x="16" y="64" width="382" height="576"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xMX-8F-x2L">
                             <rect key="frame" x="132" y="0.0" width="118.5" height="24"/>
@@ -69,7 +69,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQV-Bp-zgJ">
-                            <rect key="frame" x="0.0" y="546" width="382" height="56"/>
+                            <rect key="frame" x="0.0" y="546" width="382" height="30"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="skipButtonTouched:" destination="-1" eventType="touchUpInside" id="U49-7U-dkP"/>
@@ -80,7 +80,6 @@
                         <constraint firstAttribute="trailing" secondItem="Icj-PM-PmL" secondAttribute="trailing" constant="20" id="FAu-j1-ZLG"/>
                         <constraint firstItem="cQV-Bp-zgJ" firstAttribute="width" secondItem="ndJ-JW-SGt" secondAttribute="width" id="FcE-Xe-SMQ"/>
                         <constraint firstItem="ndJ-JW-SGt" firstAttribute="width" secondItem="y50-KN-XRf" secondAttribute="width" id="Lhg-iv-bd5"/>
-                        <constraint firstItem="cQV-Bp-zgJ" firstAttribute="height" secondItem="ndJ-JW-SGt" secondAttribute="height" id="bmO-Mt-mNf"/>
                         <constraint firstItem="e9z-vk-UYQ" firstAttribute="width" secondItem="y50-KN-XRf" secondAttribute="width" id="f4s-Ty-43T"/>
                         <constraint firstItem="Icj-PM-PmL" firstAttribute="leading" secondItem="y50-KN-XRf" secondAttribute="leading" constant="20" id="yLJ-ib-5tc"/>
                     </constraints>

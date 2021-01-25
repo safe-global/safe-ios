@@ -44,9 +44,11 @@ class AddressInfoView: UINibView {
         self.address = address
         self.label = label
 
-        identiconView.isHidden = !showIdenticon
         addressLabel.textAlignment = showIdenticon ? .left : .center
-        identiconView.setAddress(self.address.hexadecimal)
+        if showIdenticon {
+            identiconView.setAddress(self.address.hexadecimal)
+        }
+
         if let label = self.label {
             textLabel.isHidden = false
             textLabel.text = label
