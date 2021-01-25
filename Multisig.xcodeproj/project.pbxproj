@@ -48,6 +48,8 @@
 		04B4B6E525B9A08D00CFE24B /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B6E325B9A08D00CFE24B /* CardTableViewCell.swift */; };
 		04B4B6E625B9A08D00CFE24B /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */; };
 		04B4B6FE25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B6FD25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift */; };
+		04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B88825BF36F900CFE24B /* ExecutionStatusPiece.swift */; };
+		04B4B88B25BF36F900CFE24B /* ExecutionStatusPiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B88925BF36F900CFE24B /* ExecutionStatusPiece.xib */; };
 		04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97A99246C3E5F00EBA0F1 /* ViewState.swift */; };
 		04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */; };
 		04CE3F9624B6115200826AEE /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9524B6115200826AEE /* Collectible.swift */; };
@@ -480,6 +482,8 @@
 		04B4B6E325B9A08D00CFE24B /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
 		04B4B6FD25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationItem.swift"; sourceTree = "<group>"; };
+		04B4B88825BF36F900CFE24B /* ExecutionStatusPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionStatusPiece.swift; sourceTree = "<group>"; };
+		04B4B88925BF36F900CFE24B /* ExecutionStatusPiece.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExecutionStatusPiece.xib; sourceTree = "<group>"; };
 		04C97A99246C3E5F00EBA0F1 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserLink.swift; sourceTree = "<group>"; };
 		04CE3F9524B6115200826AEE /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
@@ -1238,6 +1242,8 @@
 				0A57C5B42577F02E00420303 /* ConfirmationConfirmedPiece.swift */,
 				0A57C5C62577F75D00420303 /* ConfirmationConfirmedPiece.xib */,
 				0A57C5D62577F9E600420303 /* ConfirmationStatusPiece.swift */,
+				04B4B88825BF36F900CFE24B /* ExecutionStatusPiece.swift */,
+				04B4B88925BF36F900CFE24B /* ExecutionStatusPiece.xib */,
 				0A57C5DC2577F9ED00420303 /* ConfirmationStatusPiece.xib */,
 				0A57C5A22577DC5600420303 /* DetailExpandableTextCell.swift */,
 				0A57C5A32577DC5600420303 /* DetailExpandableTextCell.xib */,
@@ -2444,6 +2450,7 @@
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
 				55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */,
+				04B4B88B25BF36F900CFE24B /* ExecutionStatusPiece.xib in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
@@ -2917,6 +2924,7 @@
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
 				55BCFC5E255469B300020CE7 /* BasicHeaderView.swift in Sources */,
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
+				04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
