@@ -114,8 +114,9 @@ enum ViewControllerFactory {
     }
 
     static func importOwnerViewController(presenter: UIViewController & CloseModal) -> UIViewController {
-        let controller = EnterKeyOrSeedPhraseViewController()
-        return UINavigationController(rootViewController: controller)
+        let view = OnboardingImportOwnerKeyViewController()
+        let nav = UINavigationController(rootViewController: view)
+        return nav
     }
 }
 
