@@ -33,6 +33,30 @@ extension AppSettings {
         let appSettings = current()
         return appSettings.termsAccepted
     }
+
+    static var importKeyBannerDismissed: Bool {
+        get {
+            dispatchPrecondition(condition: .onQueue(.main))
+            return current().dismissedImportKeyBanner
+        }
+        set {
+            dispatchPrecondition(condition: .onQueue(.main))
+            current().dismissedImportKeyBanner = newValue
+            App.shared.coreDataStack.saveContext()
+        }
+    }
+
+    static var importedOwnerKey: Bool {
+        get {
+            dispatchPrecondition(condition: .onQueue(.main))
+            return current().importedOwnerKey
+        }
+        set {
+            dispatchPrecondition(condition: .onQueue(.main))
+            current().importedOwnerKey = newValue
+            App.shared.coreDataStack.saveContext()
+        }
+    }
 }
 
 extension NSFetchRequest where ResultType == AppSettings {

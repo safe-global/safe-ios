@@ -16,11 +16,15 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private var totalBalance: String = "0.00"
 
-    private let rowHeight: CGFloat = 60
     private let tableBackgroundColor: UIColor = .gnoWhite
-    private let totalCellIndex = 0
+
+    enum Section: Int {
+        case banner = 0, total, balances
+    }
 
     override var isEmpty: Bool { results.isEmpty }
+
+    private var showingBanner = true
 
     var clientGatewayService = App.shared.clientGatewayService
 
@@ -32,9 +36,11 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         tableView.registerCell(BalanceTableViewCell.self)
         tableView.registerCell(TotalBalanceTableViewCell.self)
+        tableView.registerCell(ImportKeyBannerTableViewCell.self)
 
         tableView.allowsSelection = false
-        tableView.rowHeight = rowHeight
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60
         tableView.backgroundColor = tableBackgroundColor
 
         tableView.delegate = self
@@ -86,18 +92,30 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         }
     }
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        3
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        results.count + 1 /* for total cell */
+        switch Section(rawValue: section)! {
+        case .balances:
+            return results.count
+        case .total:
+            return 1
+        case .banner:
+            return showingBanner ? 1 : 0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == totalCellIndex {
+        switch Section(rawValue: indexPath.section)! {
+        case .total:
             let cell = tableView.dequeueCell(TotalBalanceTableViewCell.self, for: indexPath)
             cell.setMainText("Total")
             cell.setDetailText(totalBalance)
             return cell
-        } else {
-            let item = results[indexPath.row - 1]
+        case .balances:
+            let item = results[indexPath.row]
             let cell = tableView.dequeueCell(BalanceTableViewCell.self, for: indexPath)
             cell.setMainText(item.symbol)
             cell.setDetailText(item.balance)
@@ -106,6 +124,20 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                 cell.setImage(image)
             } else {
                 cell.setImage(with: item.imageURL, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
+            }
+            return cell
+        case .banner:
+            let cell = tableView.dequeueCell(ImportKeyBannerTableViewCell.self, for: indexPath)
+            cell.onClose = { [unowned self] in
+                showingBanner = false
+
+                tableView.beginUpdates()
+                tableView.reloadSections([indexPath.section], with: .automatic)
+                tableView.endUpdates()
+            }
+            cell.onImport = { [unowned self] in
+                let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
+                present(vc, animated: true)
             }
             return cell
         }

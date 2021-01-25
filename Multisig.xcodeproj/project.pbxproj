@@ -189,6 +189,8 @@
 		0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */; };
 		0A9BC35E2460582D00EB9C5D /* SafeTransactionServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4E32449A4FC0067505A /* SafeTransactionServiceIntegrationTests.swift */; };
 		0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
+		0A9E8E7725B9CA4200256AD3 /* ImportKeyBannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7525B9CA4200256AD3 /* ImportKeyBannerTableViewCell.swift */; };
+		0A9E8E7825B9CA4200256AD3 /* ImportKeyBannerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7625B9CA4200256AD3 /* ImportKeyBannerTableViewCell.xib */; };
 		0AA9F1F42497BCA9005BD60F /* TokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */; };
 		0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2062497BE9B005BD60F /* UInt256.swift */; };
 		0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2502498CC62005BD60F /* AddressString.swift */; };
@@ -626,6 +628,8 @@
 		0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSIntegrationTests.swift; sourceTree = "<group>"; };
 		0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A9BC3572460581500EB9C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A9E8E7525B9CA4200256AD3 /* ImportKeyBannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportKeyBannerTableViewCell.swift; sourceTree = "<group>"; };
+		0A9E8E7625B9CA4200256AD3 /* ImportKeyBannerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportKeyBannerTableViewCell.xib; sourceTree = "<group>"; };
 		0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
 		0AA9F2062497BE9B005BD60F /* UInt256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt256.swift; sourceTree = "<group>"; };
 		0AA9F2502498CC62005BD60F /* AddressString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressString.swift; sourceTree = "<group>"; };
@@ -1574,6 +1578,8 @@
 				0AF1C9132541C68000E28669 /* BalancesViewController.swift */,
 				0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */,
 				0A433E8025516A9A006FFF75 /* TotalBalanceTableViewCell.xib */,
+				0A9E8E7525B9CA4200256AD3 /* ImportKeyBannerTableViewCell.swift */,
+				0A9E8E7625B9CA4200256AD3 /* ImportKeyBannerTableViewCell.xib */,
 				0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */,
 				0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */,
 			);
@@ -2338,6 +2344,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A9E8E7825B9CA4200256AD3 /* ImportKeyBannerTableViewCell.xib in Resources */,
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				558835F9255BFEF80014E8C7 /* AddressInfoView.xib in Resources */,
@@ -2631,6 +2638,7 @@
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
 				0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
+				0A9E8E7725B9CA4200256AD3 /* ImportKeyBannerTableViewCell.swift in Sources */,
 				0AB34D5C24B7161000A43988 /* TokenRegistry.swift in Sources */,
 				0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */,
 				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,
