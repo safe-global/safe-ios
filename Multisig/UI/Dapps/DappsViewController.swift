@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WalletConnectSwift
 
 fileprivate protocol SectionItem {}
 
@@ -20,7 +21,7 @@ class DappsViewController: UITableViewController {
         case dapp(String)
 
         enum WalletConnect: SectionItem {
-            case activeSession(String)
+            case activeSession(URL?, String?, String?)
             case noSessions(String)
         }
 
@@ -34,7 +35,7 @@ class DappsViewController: UITableViewController {
 
         configureTableView()
         addWCButton()
-        updateSections()
+        update()
     }
 
     private func configureTableView() {
@@ -43,6 +44,7 @@ class DappsViewController: UITableViewController {
         tableView.estimatedRowHeight = 68
         tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.registerCell(BasicCell.self)
+        tableView.registerCell(DetailedCell.self)
     }
 
     private func addWCButton() {
@@ -59,10 +61,45 @@ class DappsViewController: UITableViewController {
         ])
     }
 
-    private func updateSections() {
+    private func update() {
+        var sessionItems: [SectionItem]
+        do {
+            sessionItems = try WCSession.getAll()
+                .map {
+                    try Session.from($0)
+                }
+                .map {
+                    Section.WalletConnect.activeSession(
+                        $0.dAppInfo.peerMeta.icons.isEmpty ? nil : $0.dAppInfo.peerMeta.icons[0],
+                        $0.dAppInfo.peerMeta.name,
+                        $0.dAppInfo.peerMeta.description
+                    )
+                }
+            if sessionItems.isEmpty {
+                sessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
+            }
+        } catch {
+            sessionItems = [Section.WalletConnect.noSessions("No active sessions")]
+            App.shared.snackbar.show(
+                error: GSError.error(description: "Could not load WalletConnect sessions", error: error))
+        }
+
         sections = [
-            (section: .walletConnect("WalletConnect"), items: [Section.WalletConnect.noSessions("No active sessions")])
+            (section: .walletConnect("WalletConnect"), items: sessionItems)
         ]
+
+        DispatchQueue.main.async { [unowned self] in
+            self.tableView.reloadData()
+        }
+    }
+
+    private func subscribeToWCNotifications() {
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(wcNotificationReceived), name: .wcDidConnect, object: nil)
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(wcNotificationReceived), name: .wcDidDisconnect, object: nil)
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(wcNotificationReceived), name: .wcDidFailToConnect, object: nil)
     }
 
     @objc private func scan() {
@@ -77,6 +114,10 @@ class DappsViewController: UITableViewController {
         vc.delegate = self
         vc.setup()
         present(vc, animated: true, completion: nil)
+    }
+
+    @objc private func wcNotificationReceived() {
+        update()
     }
 
     // MARK: - Table view data source
@@ -94,27 +135,16 @@ class DappsViewController: UITableViewController {
 
         switch item {
         case Section.WalletConnect.noSessions(let name):
-            return basicCell(name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
+            return tableView.basicCell(
+                name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
+
+        case Section.WalletConnect.activeSession(let url, let name, let description):
+            return tableView.detailedCell(
+                imageUrl: url, header: name, description: description, indexPath: indexPath, canSelect: false)
 
         default:
             return UITableViewCell()
         }
-    }
-
-    #warning("Move to extension")
-    private func basicCell(name: String,
-                           indexPath: IndexPath,
-                           withDisclosure: Bool = true,
-                           canSelect: Bool = true) -> UITableViewCell {
-        let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-        cell.setTitle(name)
-        if !withDisclosure {
-            cell.setDisclosureImage(nil)
-        }
-        if !canSelect {
-            cell.selectionStyle = .none
-        }
-        return cell
     }
 
     // MARK: - Table view delegate

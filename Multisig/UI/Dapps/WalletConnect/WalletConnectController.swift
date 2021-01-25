@@ -30,12 +30,10 @@ class WalletConnectController {
     func sessions(for safe: Address) -> [Session] {
         guard let wcSessions = try? WCSession.getAll() else { return [] }
 
-        let decoder = JSONDecoder()
         var sessions = [Session]()
         for wcSession in wcSessions {
             do {
-                let session = try decoder.decode(Session.self, from: wcSession.session!)
-                sessions.append(session)
+                sessions.append(try Session.from(wcSession))
             } catch {
                 WCSession.remove(peerId: wcSession.peerId!)
             }

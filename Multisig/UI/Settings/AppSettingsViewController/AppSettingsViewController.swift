@@ -107,22 +107,22 @@ class AppSettingsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.General.importKey(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.importedKey(let name, let signingKey):
             return importedKeyCell(name: name, signingKey: signingKey, indexPath: indexPath)
 
         case Section.General.terms(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.privacyPolicy(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.licenses(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.getInTouch(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.appVersion(let name, let version):
             return infoCell(name: name, info: version, indexPath: indexPath)
@@ -131,17 +131,11 @@ class AppSettingsViewController: UITableViewController {
             return infoCell(name: name, info: network, indexPath: indexPath)
 
         case Section.Advanced.advanced(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         default:
             return UITableViewCell()
         }
-    }
-
-    private func basicCell(name: String, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-        cell.setTitle(name)
-        return cell
     }
 
     private func infoCell(name: String, info: String, indexPath: IndexPath) -> UITableViewCell {

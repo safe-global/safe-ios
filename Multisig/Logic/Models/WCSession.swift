@@ -23,10 +23,9 @@ extension WCSession {
     }
 
     static func create(session: Session) {
-        dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let wcSession = WCSession(context: context)
-//        wcSession.created = Date()
+        wcSession.created = Date()
         wcSession.peerId = session.dAppInfo.peerId
         wcSession.session = try! JSONEncoder().encode(session)
         App.shared.coreDataStack.saveContext()
@@ -52,5 +51,12 @@ extension NSFetchRequest where ResultType == WCSession {
         predicate = NSPredicate(format: "peerId CONTAINS[c] %@", peerId)
         fetchLimit = 1
         return self
+    }
+}
+
+extension Session {
+    static func from(_ wcSession: WCSession) throws -> Self {
+        let decoder = JSONDecoder()
+        return try decoder.decode(Session.self, from: wcSession.session!)
     }
 }
