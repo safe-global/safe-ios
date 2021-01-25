@@ -10,6 +10,6 @@ import UIKit
 extension UIViewController {
     func createCloseButton () {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ico-close-x"), style: .plain, target: self, action: #selector(CloseModal.closeModal))
-        navigationItem.leftBarButtonItem?.tintColor = .systemGray3
+        navigationItem.leftBarButtonItem?.tintColor = .systemGray2
     }
 }

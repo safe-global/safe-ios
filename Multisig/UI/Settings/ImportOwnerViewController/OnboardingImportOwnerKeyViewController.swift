@@ -30,7 +30,8 @@ class OnboardingImportOwnerKeyViewController: UIViewController {
     }
 
     @objc private func didTapNextButton(_ sender: Any) {
-        // Here we need to show enter seedphase screen
+        let controller = EnterKeyOrSeedPhraseViewController()
+        show(controller, sender: self)
     }
 }
 

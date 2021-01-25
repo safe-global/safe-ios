@@ -31,8 +31,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
 
         nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton(_:)))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
+        createCloseButton()
         navigationItem.rightBarButtonItem = nextButton
         nextButton.isEnabled = false
 
@@ -67,10 +66,6 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardBehavior.stop()
-    }
-
-    @objc private func didTapCloseButton() {
-        dismiss(animated: true, completion: nil)
     }
 
     #warning("Finish implementation")
