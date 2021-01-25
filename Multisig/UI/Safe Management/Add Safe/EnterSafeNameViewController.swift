@@ -53,6 +53,7 @@ class EnterSafeNameViewController: UIViewController {
         } else if !AppSettings.hasShownImportKeyOnboarding {
             let vc = SafeLoadedViewController()
             vc.completion = completion
+            vc.hidesBottomBarWhenPushed = true
             show(vc, sender: self)
             AppSettings.hasShownImportKeyOnboarding = true
         }

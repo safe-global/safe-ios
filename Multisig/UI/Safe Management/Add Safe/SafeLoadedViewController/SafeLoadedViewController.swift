@@ -20,6 +20,7 @@ class SafeLoadedViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         navigationItem.hidesBackButton = true
         navigationItem.title = "Load Safe Multisig"
         do {
