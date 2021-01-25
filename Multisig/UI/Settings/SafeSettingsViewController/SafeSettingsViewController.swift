@@ -125,7 +125,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private func updateSections(with info: SafeStatusRequest.Response) {
         sections = [
-            (section: .name("Name"), items: [Section.Name.name(safe.name!)]),
+            (section: .name("Safe Name"), items: [Section.Name.name(safe.name!)]),
 
             (section: .requiredConfirmations("Required confirmations"),
              items: [Section.RequiredConfirmations.confirmations("\(info.threshold) out of \(info.owners.count)")]),
