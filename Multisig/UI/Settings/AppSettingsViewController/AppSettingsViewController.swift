@@ -188,6 +188,12 @@ class AppSettingsViewController: UITableViewController {
         present(alertController, animated: true)
     }
 
+    private func importOwnerKey() {
+        let vc = KeyPickerController()
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
+    }
+
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -195,8 +201,7 @@ class AppSettingsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.General.importKey(_):
-            let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
-            present(vc, animated: true)
+            importOwnerKey()
         case Section.General.terms(_):
             openInSafari(legal.termsURL)
         case Section.General.privacyPolicy(_):

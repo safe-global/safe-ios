@@ -27,6 +27,11 @@ class AddressInfoView: UINibView {
     private(set) var address: Address!
     private(set) var label: String?
 
+    var copyEnabled: Bool {
+        get { !copyButton.isHidden }
+        set { copyButton.isHidden = !newValue }
+    }
+
     override func commonInit() {
         super.commonInit()
         titleLabel.setStyle(.headline)
