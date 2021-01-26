@@ -29,20 +29,19 @@ class DetailConfirmationCell: UITableViewCell {
 
         switch status {
         case .awaitingConfirmations, .awaitingYourConfirmation:
-            let status = ConfirmationStatusPiece(frame: bounds)
             let confirmationsRemaining = required - confirmations.count
             if confirmationsRemaining > 0 {
+                let status = ConfirmationStatusPiece(frame: bounds)
                 status.setText("Execute (\(confirmationsRemaining) more confirmations needed)", style: GNOTextStyle.body.color(.gnoMediumGrey))
+                status.setSymbol("circle", color: .gnoMediumGrey)
+                views.append(status)
             } else {
-                status.setText("Execute", style: GNOTextStyle.body.color(.gnoMediumGrey))
+                let status = ExecutionStatusPiece(frame: bounds)
+                views.append(status)
             }
-            status.setSymbol("circle", color: .gnoMediumGrey)
-            views.append(status)
-
+            
         case .awaitingExecution:
-            let status = ConfirmationStatusPiece(frame: bounds)
-            status.setText("Execute", style: GNOTextStyle.body.color(.gnoHold))
-            status.setSymbol("circle", color: .gnoHold)
+            let status = ExecutionStatusPiece(frame: bounds)
             views.append(status)
 
         case .cancelled:
