@@ -14,18 +14,20 @@ class DetailedCell: UITableViewCell {
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
 
+    static let rowHeight: CGFloat = 64
+
     override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
         descriptionLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
     }
 
-    func setImage(url: URL?) {
+    func setImage(url: URL?, placeholder: UIImage?) {
         guard let url = url else {
-            iconImageView.image = #imageLiteral(resourceName: "ico-empty-circle")
+            iconImageView.image = placeholder
             return
         }
-        iconImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "ico-empty-circle"))
+        iconImageView.kf.setImage(with: url, placeholder: placeholder)
     }
 
     func setHeader(_ text: String?) {

@@ -28,9 +28,10 @@ extension UITableView {
                       header: String?,
                       description: String?,
                       indexPath: IndexPath,
-                      canSelect: Bool = true) -> UITableViewCell {
+                      canSelect: Bool = true,
+                      placeholderImage: UIImage? = nil) -> UITableViewCell {
         let cell = dequeueCell(DetailedCell.self, for: indexPath)
-        cell.setImage(url: imageUrl)
+        cell.setImage(url: imageUrl, placeholder: placeholderImage)
         cell.setHeader(header)
         cell.setDescription(description)
         if !canSelect {

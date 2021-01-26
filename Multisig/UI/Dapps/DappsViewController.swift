@@ -21,7 +21,7 @@ class DappsViewController: UITableViewController {
         case dapp(String)
 
         enum WalletConnect: SectionItem {
-            case activeSession(URL?, String?, String?)
+            case activeSession(WCSession)
             case noSessions(String)
         }
 
@@ -35,13 +35,13 @@ class DappsViewController: UITableViewController {
 
         configureTableView()
         addWCButton()
+        subscribeToWCNotifications()
+        
         update()
     }
 
     private func configureTableView() {
         tableView.backgroundColor = .gnoWhite
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 68
         tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailedCell.self)
@@ -64,17 +64,9 @@ class DappsViewController: UITableViewController {
     private func update() {
         var sessionItems: [SectionItem]
         do {
-            sessionItems = try WCSession.getAll()
-                .map {
-                    try Session.from($0)
-                }
-                .map {
-                    Section.WalletConnect.activeSession(
-                        $0.dAppInfo.peerMeta.icons.isEmpty ? nil : $0.dAppInfo.peerMeta.icons[0],
-                        $0.dAppInfo.peerMeta.name,
-                        $0.dAppInfo.peerMeta.description
-                    )
-                }
+            sessionItems = try WCSession.getAll().compactMap {
+                Section.WalletConnect.activeSession($0)
+            }
             if sessionItems.isEmpty {
                 sessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
             }
@@ -94,6 +86,8 @@ class DappsViewController: UITableViewController {
     }
 
     private func subscribeToWCNotifications() {
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(wcNotificationReceived), name: .wcConnecting, object: nil)
         NotificationCenter.default.addObserver(
             self, selector: #selector(wcNotificationReceived), name: .wcDidConnect, object: nil)
         NotificationCenter.default.addObserver(
@@ -138,12 +132,49 @@ class DappsViewController: UITableViewController {
             return tableView.basicCell(
                 name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
 
-        case Section.WalletConnect.activeSession(let url, let name, let description):
-            return tableView.detailedCell(
-                imageUrl: url, header: name, description: description, indexPath: indexPath, canSelect: false)
+        case Section.WalletConnect.activeSession(let wcSession):
+            switch wcSession.status {
+            case .connecting:
+                return tableView.detailedCell(
+                    imageUrl: nil,
+                    header: "Connecting...",
+                    description: nil,
+                    indexPath: indexPath,
+                    canSelect: false,
+                    placeholderImage: #imageLiteral(resourceName: "ico-empty-circle"))
+            case .connected:
+                let session = try! Session.from(wcSession)
+                return tableView.detailedCell(
+                    imageUrl: session.dAppInfo.peerMeta.icons.isEmpty ? nil : session.dAppInfo.peerMeta.icons[0],
+                    header: session.dAppInfo.peerMeta.name,
+                    description: session.dAppInfo.peerMeta.description,
+                    indexPath: indexPath,
+                    canSelect: false,
+                    placeholderImage: #imageLiteral(resourceName: "ico-empty-circle"))
+            }
 
         default:
             return UITableViewCell()
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let section = sections[indexPath.section].section
+
+        switch section {
+        case Section.walletConnect(_):
+            return true
+
+        default:
+            return false
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let item = sections[indexPath.section].items[indexPath.row]
+
+        if case Section.WalletConnect.activeSession(let session) = item {
+            WalletConnectController.shared.disconnect(topic: session.topic!)
         }
     }
 
@@ -167,26 +198,13 @@ class DappsViewController: UITableViewController {
         return BasicHeaderView.headerHeight
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return DetailedCell.rowHeight
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Disconnect"
     }
-    */
-
 }
 
 extension DappsViewController: QRCodeScannerViewControllerDelegate {

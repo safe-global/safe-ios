@@ -17,6 +17,7 @@ extension NSNotification.Name {
 
     // MARK: - WalletConnecdt
 
+    static let wcConnecting = NSNotification.Name("io.gnosis.safe.wcConnecting")
     static let wcDidFailToConnect = NSNotification.Name("io.gnosis.safe.wcDidFailToConnect")
     static let wcDidConnect = NSNotification.Name("io.gnosis.safe.wcShouldStartSession")
     static let wcDidDisconnect = NSNotification.Name("io.gnosis.safe.wcDidDisconnect")

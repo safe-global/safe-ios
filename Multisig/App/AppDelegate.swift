@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.shared.setNumKeysImported(SafeTransactionSigner.numberOfKeysImported())
 
         App.shared.notificationHandler.setUpMessaging(delegate: self)
+
+        // Reconnect all WalletConnect sessions
+        WalletConnectController.shared.reconnectAllSessions()
         return true
     }
 

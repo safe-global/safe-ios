@@ -21,9 +21,36 @@ class WalletConnectController {
     func connect(url: String) throws {
         guard let wcurl = WCURL(url) else { throw GSError.InvalidWalletConnectQRCode() }
         do {
+            WCSession.create(wcurl: wcurl)
             try server.connect(to: wcurl)
+            notificationCenter.post(name: .wcConnecting, object: wcurl)
         } catch {
             throw GSError.CouldNotStartWallectConnectSession()
+        }
+    }
+
+    func reconnectAllSessions() {
+        guard let wcSessions = try? WCSession.getAll() else { return }
+
+        wcSessions.forEach {
+            guard $0.session != nil, let session = try? Session.from($0) else {
+                // Trying to reconnect a session without handshake process finished.
+                // This could happed when the app restarts in the middle of the process.
+                WCSession.remove(topic: $0.topic!)
+                return
+            }
+
+            try! server.reconnect(to: session)
+        }
+    }
+
+    func disconnect(topic: String) {
+        guard let wcSession = WCSession.get(topic: topic) else { return }
+        do {
+            try server.disconnect(from: try Session.from(wcSession))
+        } catch {
+            WCSession.remove(topic: topic)
+            notificationCenter.post(name: .wcDidDisconnect, object: nil)
         }
     }
 
@@ -35,7 +62,7 @@ class WalletConnectController {
             do {
                 sessions.append(try Session.from(wcSession))
             } catch {
-                WCSession.remove(peerId: wcSession.peerId!)
+                WCSession.remove(topic: wcSession.topic!)
             }
         }
 
@@ -45,6 +72,7 @@ class WalletConnectController {
 
 extension WalletConnectController: ServerDelegate {
     func server(_ server: Server, didFailToConnect url: WCURL) {
+        WCSession.remove(topic: url.topic)
         notificationCenter.post(name: .wcDidFailToConnect, object: url)
     }
 
@@ -67,12 +95,12 @@ extension WalletConnectController: ServerDelegate {
     }
 
     func server(_ server: Server, didConnect session: Session) {
-        WCSession.create(session: session)
+        WCSession.update(session: session, status: .connected)
         notificationCenter.post(name: .wcDidConnect, object: session)
     }
 
     func server(_ server: Server, didDisconnect session: Session) {
-        WCSession.remove(peerId: session.dAppInfo.peerId)
+        WCSession.remove(topic: session.url.topic)
         notificationCenter.post(name: .wcDidDisconnect, object: session)
     }
 }
