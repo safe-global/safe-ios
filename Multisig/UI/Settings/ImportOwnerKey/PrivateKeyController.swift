@@ -28,4 +28,19 @@ class PrivateKeyController {
             return false
         }
     }
+
+    static func removeKey() {
+        do {
+            try App.shared.keychainService.removeData(
+                forKey: KeychainKey.ownerPrivateKey.rawValue)
+            App.shared.settings.updateSigningKeyAddress()
+            App.shared.notificationHandler.signingKeyUpdated()
+            App.shared.snackbar.show(message: "Owner key removed from this app")
+            Tracker.shared.setNumKeysImported(0)
+            NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
+        } catch {
+            App.shared.snackbar.show(
+                error: GSError.error(description: "Failed to remove imported key", error: error))
+        }
+    }
 }
