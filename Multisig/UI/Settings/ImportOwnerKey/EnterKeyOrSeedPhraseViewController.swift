@@ -31,7 +31,6 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
 
         nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton(_:)))
-        createCloseButton()
         navigationItem.rightBarButtonItem = nextButton
         nextButton.isEnabled = false
 
@@ -68,7 +67,6 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         keyboardBehavior.stop()
     }
 
-    #warning("Finish implementation")
     @objc private func didTapNextButton(_ sender: Any) {
         let phrase = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         if isPotentiallyValidSeedPhrase(phrase) {
@@ -78,11 +76,11 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
                 setError(GSError.WrongSeedPhrase())
                 return
             }
-            // proceed to the next screen
-            print("VALID PHRASE")
+            let vc = KeyPickerController(node: rootNode)
+            show(vc, sender: self)
         } else if isValidPK(phrase) {
-            // proceed to the next screen
-            print("VALID PRIVATE KEY")
+            let vc = ConfirmPrivateKeyViewController(privateKey: Data(exactlyHex: phrase)!)
+            show(vc, sender: self)
         }
     }
 

@@ -25,26 +25,10 @@ class SelectOwnerAddressViewModel {
         addresses.count < maxAddressesCount
     }
 
-    init(rootNode: HDNode?, onSubmit: (() -> Void)? = nil ) {
+    init(rootNode: HDNode, onSubmit: (() -> Void)? = nil ) {
         self.rootNode = rootNode
-        #if DEBUG
-        #warning("Remove when the mobile signing v2 is ready")
-        if rootNode == nil {
-            self.rootNode = randomNode()
-        }
-        #endif
         generateAddressesPage()
     }
-
-    #if DEBUG
-    private func randomNode() -> HDNode {
-        let mnem = try! BIP39.generateMnemonics(bitsOfEntropy: 128)!
-        let root = BIP39.seedFromMmemonics(mnem)!
-        let node = HDNode(seed: root)!
-        let result = node.derive(path: HDNode.defaultPathMetamaskPrefix, derivePrivateKey: true)!
-        return result
-    }
-    #endif
 
     private func addressAt(_ index: Int) -> Address? {
         guard let pkData = privateKeyData(index) else {
@@ -73,23 +57,6 @@ class SelectOwnerAddressViewModel {
 
     func importWallet() -> Bool {
         guard let pkData = privateKeyData(selectedIndex) else { return false }
-        do {
-            try App.shared.keychainService.removeData(forKey: KeychainKey.ownerPrivateKey.rawValue)
-            try App.shared.keychainService.save(data: pkData, forKey: KeychainKey.ownerPrivateKey.rawValue)
-
-            App.shared.settings.updateSigningKeyAddress()
-            App.shared.notificationHandler.signingKeyUpdated()
-
-            Tracker.shared.setNumKeysImported(1)
-            Tracker.shared.track(event: TrackingEvent.ownerKeyImported, parameters: ["import_type": "seed"])
-
-            App.shared.snackbar.show(message: "Owner key successfully imported")
-            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
-            return true
-        } catch {
-            App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key.", error: error))
-        }
-
-        return false
+        return PrivateKeyController.importKey(pkData)
     }
 }
