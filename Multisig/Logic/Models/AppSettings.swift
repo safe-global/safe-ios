@@ -24,7 +24,7 @@ extension AppSettings {
     static var termsAccepted: Bool {
         set {
             dispatchPrecondition(condition: .onQueue(.main))
-            current().termsAccepted = true
+            current().termsAccepted = newValue
             App.shared.coreDataStack.saveContext()
         }
         get {
@@ -36,7 +36,7 @@ extension AppSettings {
     static var hasShownImportKeyOnboarding: Bool {
         set {
             dispatchPrecondition(condition: .onQueue(.main))
-            current().importKeyOnBoardingShown = true
+            current().importKeyOnBoardingShown = newValue
             App.shared.coreDataStack.saveContext()
         }
         get {
