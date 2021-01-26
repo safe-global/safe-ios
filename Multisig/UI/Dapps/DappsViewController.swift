@@ -159,15 +159,11 @@ class DappsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        let section = sections[indexPath.section].section
-
-        switch section {
-        case Section.walletConnect(_):
+        let item = sections[indexPath.section].items[indexPath.row]
+        if case Section.WalletConnect.activeSession(_) = item {
             return true
-
-        default:
-            return false
         }
+        return false
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

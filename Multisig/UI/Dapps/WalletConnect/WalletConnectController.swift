@@ -72,7 +72,9 @@ class WalletConnectController {
 
 extension WalletConnectController: ServerDelegate {
     func server(_ server: Server, didFailToConnect url: WCURL) {
-        WCSession.remove(topic: url.topic)
+        DispatchQueue.main.sync {
+            WCSession.remove(topic: url.topic)
+        }
         notificationCenter.post(name: .wcDidFailToConnect, object: url)
     }
 
@@ -95,12 +97,16 @@ extension WalletConnectController: ServerDelegate {
     }
 
     func server(_ server: Server, didConnect session: Session) {
-        WCSession.update(session: session, status: .connected)
+        DispatchQueue.main.sync {
+            WCSession.update(session: session, status: .connected)
+        }
         notificationCenter.post(name: .wcDidConnect, object: session)
     }
 
     func server(_ server: Server, didDisconnect session: Session) {
-        WCSession.remove(topic: session.url.topic)
+        DispatchQueue.main.sync {
+            WCSession.remove(topic: session.url.topic)
+        }
         notificationCenter.post(name: .wcDidDisconnect, object: session)
     }
 }

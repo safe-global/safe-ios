@@ -41,6 +41,7 @@ extension WCSession {
     }
 
     static func create(wcurl: WCURL) {
+        dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let wcSession = WCSession(context: context)
         wcSession.status = .connecting
@@ -50,6 +51,7 @@ extension WCSession {
     }
 
     static func update(session: Session, status: WCSessionStatus) {
+        dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let fr = WCSession.fetchRequest().by(topic: session.url.topic)
         guard let wcSession = try? context.fetch(fr).first else { return }
@@ -59,6 +61,7 @@ extension WCSession {
     }
 
     static func remove(topic: String) {
+        dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let fr = WCSession.fetchRequest().by(topic: topic)
         guard let session = try? context.fetch(fr).first else { return }
