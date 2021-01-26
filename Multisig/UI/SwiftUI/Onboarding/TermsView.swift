@@ -46,7 +46,7 @@ struct TermsView: View {
             }
 
             Button("Agree") {
-                AppSettings.acceptTerms()
+                AppSettings.termsAccepted = true 
                 self.acceptedTerms = true
                 self.onStart()
             }

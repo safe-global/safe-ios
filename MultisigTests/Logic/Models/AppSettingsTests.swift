@@ -11,8 +11,21 @@ import XCTest
 
 class AppSettingsTests: CoreDataTestCase {
     func test_appSettings() {
-        XCTAssertFalse(AppSettings.hasAcceptedTerms())
-        AppSettings.acceptTerms()
-        XCTAssertTrue(AppSettings.hasAcceptedTerms())
+        XCTAssertFalse(AppSettings.termsAccepted)
+        AppSettings.termsAccepted = true
+        XCTAssertTrue(AppSettings.termsAccepted)
+
+        XCTAssertFalse(AppSettings.hasShownImportKeyOnboarding)
+        AppSettings.hasShownImportKeyOnboarding = true
+        XCTAssertTrue(AppSettings.hasShownImportKeyOnboarding)
+
+        XCTAssertFalse(AppSettings.importKeyBannerDismissed)
+        AppSettings.importKeyBannerDismissed = true
+        XCTAssertTrue(AppSettings.importKeyBannerDismissed)
+
+        XCTAssertFalse(AppSettings.importedOwnerKey)
+        AppSettings.importedOwnerKey = true
+        XCTAssertTrue(AppSettings.importedOwnerKey)
+
     }
 }

@@ -50,6 +50,10 @@
 		04B4B6FE25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B6FD25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift */; };
 		04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B88825BF36F900CFE24B /* ExecutionStatusPiece.swift */; };
 		04B4B88B25BF36F900CFE24B /* ExecutionStatusPiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B88925BF36F900CFE24B /* ExecutionStatusPiece.xib */; };
+		04B4B5F725B754D600CFE24B /* SafeLoadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B5F525B754D600CFE24B /* SafeLoadedViewController.swift */; };
+		04B4B5F825B754D600CFE24B /* SafeLoadedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B5F625B754D600CFE24B /* SafeLoadedViewController.xib */; };
+		04B4B60225B84D6900CFE24B /* SafeInfoViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B60125B84D6900CFE24B /* SafeInfoViewV2.swift */; };
+		04B4B68F25B8857F00CFE24B /* SafeInfoViewV2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B68E25B8857F00CFE24B /* SafeInfoViewV2.xib */; };
 		04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97A99246C3E5F00EBA0F1 /* ViewState.swift */; };
 		04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */; };
 		04CE3F9624B6115200826AEE /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9524B6115200826AEE /* Collectible.swift */; };
@@ -487,6 +491,10 @@
 		04B4B6FD25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationItem.swift"; sourceTree = "<group>"; };
 		04B4B88825BF36F900CFE24B /* ExecutionStatusPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionStatusPiece.swift; sourceTree = "<group>"; };
 		04B4B88925BF36F900CFE24B /* ExecutionStatusPiece.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExecutionStatusPiece.xib; sourceTree = "<group>"; };
+		04B4B5F525B754D600CFE24B /* SafeLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeLoadedViewController.swift; sourceTree = "<group>"; };
+		04B4B5F625B754D600CFE24B /* SafeLoadedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeLoadedViewController.xib; sourceTree = "<group>"; };
+		04B4B60125B84D6900CFE24B /* SafeInfoViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoViewV2.swift; sourceTree = "<group>"; };
+		04B4B68E25B8857F00CFE24B /* SafeInfoViewV2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeInfoViewV2.xib; sourceTree = "<group>"; };
 		04C97A99246C3E5F00EBA0F1 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserLink.swift; sourceTree = "<group>"; };
 		04CE3F9524B6115200826AEE /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
@@ -1110,6 +1118,15 @@
 			path = CardTableViewCell;
 			sourceTree = "<group>";
 		};
+		04B4B5F425B754A400CFE24B /* SafeLoadedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				04B4B5F525B754D600CFE24B /* SafeLoadedViewController.swift */,
+				04B4B5F625B754D600CFE24B /* SafeLoadedViewController.xib */,
+			);
+			path = SafeLoadedViewController;
+			sourceTree = "<group>";
+		};
 		04CE3F9724B611FC00826AEE /* Collectible */ = {
 			isa = PBXGroup;
 			children = (
@@ -1316,6 +1333,7 @@
 		0A6886982588FADF0045CAB5 /* Add Safe */ = {
 			isa = PBXGroup;
 			children = (
+				04B4B5F425B754A400CFE24B /* SafeLoadedViewController */,
 				0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */,
 				0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */,
 				0A57C9072587C1B100B7C019 /* EnterSafeAddressViewController */,
@@ -2078,6 +2096,8 @@
 				5588365325652E4B0014E8C7 /* LoadingValueCell.xib */,
 				0A6886E62589080A0045CAB5 /* GNOTextField.swift */,
 				0A6886EC258908150045CAB5 /* GNOTextField.xib */,
+				04B4B60125B84D6900CFE24B /* SafeInfoViewV2.swift */,
+				04B4B68E25B8857F00CFE24B /* SafeInfoViewV2.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2416,6 +2436,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A9E8E7825B9CA4200256AD3 /* ImportKeyBannerTableViewCell.xib in Resources */,
+				04B4B5F825B754D600CFE24B /* SafeLoadedViewController.xib in Resources */,
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				558835F9255BFEF80014E8C7 /* AddressInfoView.xib in Resources */,
@@ -2425,6 +2446,7 @@
 				55F91B0525BEBD4500938475 /* ConfirmPrivateKeyViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
+				04B4B68F25B8857F00CFE24B /* SafeInfoViewV2.xib in Resources */,
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */,
 				0AEEBC74258CDF9400F3A6F9 /* CollectibleDetailViewController.xib in Resources */,
@@ -2704,6 +2726,7 @@
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
+				04B4B60225B84D6900CFE24B /* SafeInfoViewV2.swift in Sources */,
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
 				0A0983A424BC5C93009EE296 /* BlockchainTokenStore.swift in Sources */,
@@ -2921,6 +2944,7 @@
 				0AD0273925A34FF600886671 /* MultiSendRowTableViewCell.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
 				55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */,
+				04B4B5F725B754D600CFE24B /* SafeLoadedViewController.swift in Sources */,
 				0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */,
 				0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */,
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,

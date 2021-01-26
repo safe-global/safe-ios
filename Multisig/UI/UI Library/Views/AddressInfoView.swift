@@ -45,11 +45,15 @@ class AddressInfoView: UINibView {
         titleLabel.isHidden = text == nil
     }
 
-    func setAddress(_ address: Address, label: String?) {
+    func setAddress(_ address: Address, label: String?, showIdenticon: Bool = true) {
         self.address = address
         self.label = label
 
-        identiconView.setAddress(self.address.hexadecimal)
+        addressLabel.textAlignment = showIdenticon ? .left : .center
+        if showIdenticon {
+            identiconView.setAddress(self.address.hexadecimal)
+        }
+
         if let label = self.label {
             textLabel.isHidden = false
             textLabel.text = label
