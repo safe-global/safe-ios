@@ -289,6 +289,7 @@
 		55050B4925B7D9F400DFA9F1 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 55050B4825B7D9F400DFA9F1 /* Web3 */; };
 		55050BCA25B7E63600DFA9F1 /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55050BC925B7E63600DFA9F1 /* SwiftCryptoTokenFormatter */; };
 		55050BD125B7EA4D00DFA9F1 /* WalletConnectSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 55050BD025B7EA4D00DFA9F1 /* WalletConnectSwift */; };
+		550CD76C25C1283000D79730 /* WCRequestsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550CD76B25C1283000D79730 /* WCRequestsHandler.swift */; };
 		551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551BC70C2538965700E4CC79 /* LoadingModel.swift */; };
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
 		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
@@ -767,6 +768,7 @@
 		54742DDC33F72556636E2FB7 /* Pods-Multisig.debugstagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debugstagingrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debugstagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
 		55050B1E25B7D73400DFA9F1 /* WalletConnectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectController.swift; sourceTree = "<group>"; };
+		550CD76B25C1283000D79730 /* WCRequestsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRequestsHandler.swift; sourceTree = "<group>"; };
 		551BC70C2538965700E4CC79 /* LoadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModel.swift; sourceTree = "<group>"; };
 		551DDEE8244F183500C719D3 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
@@ -1875,6 +1877,7 @@
 			isa = PBXGroup;
 			children = (
 				55050B1E25B7D73400DFA9F1 /* WalletConnectController.swift */,
+				550CD76B25C1283000D79730 /* WCRequestsHandler.swift */,
 			);
 			path = WalletConnect;
 			sourceTree = "<group>";
@@ -2651,6 +2654,7 @@
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
 				0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
+				550CD76C25C1283000D79730 /* WCRequestsHandler.swift in Sources */,
 				0AB34D5C24B7161000A43988 /* TokenRegistry.swift in Sources */,
 				0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */,
 				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,

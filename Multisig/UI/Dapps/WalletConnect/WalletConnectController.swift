@@ -16,6 +16,7 @@ class WalletConnectController {
 
     init() {
         server = Server(delegate: self)
+        server.register(handler: WCRequestsHandler(server: server))
     }
 
     func connect(url: String) throws {
