@@ -52,6 +52,14 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         }
 
         emptyView.setText("Balances will appear here")
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(ownerKeyImported), name: .ownerKeyImported, object: nil)
+    }
+
+    @objc private func ownerKeyImported() {
+        importKeyBannerWasShown = true
+        tableView.reloadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -135,16 +143,21 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             let cell = tableView.dequeueCell(ImportKeyBannerTableViewCell.self, for: indexPath)
             cell.onClose = { [unowned self] in
                 importKeyBannerWasShown = true
-                tableView.beginUpdates()
-                tableView.reloadSections([indexPath.section], with: .automatic)
-                tableView.endUpdates()
+                updateSection(indexPath.section)
             }
             cell.onImport = { [unowned self] in
                 importKeyBannerWasShown = true
+                updateSection(indexPath.section)
                 let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
                 present(vc, animated: true)
             }
             return cell
         }
+    }
+
+    private func updateSection(_ section: Int) {
+        tableView.beginUpdates()
+        tableView.reloadSections([section], with: .automatic)
+        tableView.endUpdates()
     }
 }
