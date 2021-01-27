@@ -97,7 +97,9 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     }
 
     private func isValidPK(_ pk: String) -> Bool {
-        if let data = Data(exactlyHex: pk), data.count == 32 {
+        if let data = Data(exactlyHex: pk),
+           data.count == 32,
+           data != Data(hex: "0x0000000000000000000000000000000000000000000000000000000000000000") {
             return true
         }
         return false
