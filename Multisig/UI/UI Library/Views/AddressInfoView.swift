@@ -27,6 +27,11 @@ class AddressInfoView: UINibView {
     private(set) var address: Address!
     private(set) var label: String?
 
+    var copyEnabled: Bool {
+        get { !copyButton.isHidden }
+        set { copyButton.isHidden = !newValue }
+    }
+
     override func commonInit() {
         super.commonInit()
         titleLabel.setStyle(.headline)
@@ -40,11 +45,15 @@ class AddressInfoView: UINibView {
         titleLabel.isHidden = text == nil
     }
 
-    func setAddress(_ address: Address, label: String?) {
+    func setAddress(_ address: Address, label: String?, showIdenticon: Bool = true) {
         self.address = address
         self.label = label
 
-        identiconView.setAddress(self.address.hexadecimal)
+        addressLabel.textAlignment = showIdenticon ? .left : .center
+        if showIdenticon {
+            identiconView.setAddress(self.address.hexadecimal)
+        }
+
         if let label = self.label {
             textLabel.isHidden = false
             textLabel.text = label

@@ -279,7 +279,6 @@ class TransactionDetailCellBuilder {
         let style = GNOTextStyle.body.color(isOutgoing ? .gnoDarkBlue : .gnoHold)
 
         let iconURL = logoUri.flatMap { URL(string: $0) }
-        let icon = iconURL == nil ? logo : nil
 
         let alpha: CGFloat = [SCGModels.TxStatus.cancelled, .failed].contains(txStatus) ? 0.5 : 1
 

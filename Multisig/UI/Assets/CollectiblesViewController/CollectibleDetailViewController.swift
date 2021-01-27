@@ -22,6 +22,7 @@ class CollectibleDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Collectible Details"
         titleLabel.setStyle(.headline)
         detailLabel.setStyle(.footnote2)
         descriptionLabel.setStyle(.body)

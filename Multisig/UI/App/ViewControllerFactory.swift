@@ -22,7 +22,7 @@ enum ViewControllerFactory {
         tabBarVC.viewControllers = [balancesTabVC, transactionsTabVC, settingsTabVC]
         tabBarVC.tabBar.barTintColor = .gnoSnowwhite
 
-        if !AppSettings.hasAcceptedTerms() {
+        if !AppSettings.termsAccepted {
             let start = LaunchView(acceptedTerms: .constant(false), onStart: { [weak tabBarVC] in
                 tabBarVC?.dismiss(animated: true, completion: nil)
             })
@@ -114,12 +114,8 @@ enum ViewControllerFactory {
     }
 
     static func importOwnerViewController(presenter: UIViewController & CloseModal) -> UIViewController {
-        let context = App.shared.coreDataStack.viewContext
-        let view = EnterSeedPhraseView().hostSnackbar()
-            .environment(\.managedObjectContext, context)
-        let vc = UIHostingController(rootView: view)
-        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: presenter, action: #selector(CloseModal.closeModal))
-        let nav = UINavigationController(rootViewController: vc)
+        let view = OnboardingImportOwnerKeyViewController()
+        let nav = UINavigationController(rootViewController: view)
         return nav
     }
 }

@@ -46,13 +46,13 @@ struct EnterSeedPhraseView: View {
 
             Spacer()
 
-            NavigationLink(destination: SelectOwnerAddressView(
-                            rootNode: rootNode, onSubmit: {
-                                NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
-                                App.shared.viewState.showImportKeySheet.toggle()
-                            }),
-                           isActive: $goNext,
-                           label: { EmptyView() })
+//            NavigationLink(destination: SelectOwnerAddressView(
+//                            rootNode: rootNode, onSubmit: {
+//                                NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+//                                App.shared.viewState.showImportKeySheet.toggle()
+//                            }),
+//                           isActive: $goNext,
+//                           label: { EmptyView() })
         }
         .padding()
         .keyboardAdaptive()

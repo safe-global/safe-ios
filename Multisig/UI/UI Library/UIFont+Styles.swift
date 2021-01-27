@@ -30,21 +30,21 @@ struct GNOTextStyle: Hashable {
 
 extension GNOTextStyle {
     static let caption3 = GNOTextStyle(size: 10, weight: .medium)
-    static let caption2 = GNOTextStyle(size: 10, weight: .bold, letterSpacing: 2, color: .gnoMediumGrey)
+    static let caption2 = GNOTextStyle(size: 10, weight: .bold, letterSpacing: 2, color: .tertiaryLabel)
 
-    static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkGrey)
-    static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkBlue)
+    static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .secondaryLabel)
+    static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .primaryLabel)
     static let caption1 = GNOTextStyle(size: 13, weight: .bold)
 
     static let subhead = GNOTextStyle(size: 15, weight: .bold)
 
     static let callout = GNOTextStyle(size: 16, weight: .regular)
 
-    static let body = GNOTextStyle(size: 17, weight: .medium, color: .gnoDarkBlue)
-    static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .gnoDarkBlue)
+    static let body = GNOTextStyle(size: 17, weight: .medium, color: .primaryLabel)
+    static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .primaryLabel)
     static let headline2 = GNOTextStyle(size: 17, weight: .bold)
 
-    static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .gnoDarkBlue)
+    static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .primaryLabel)
 
     static let normal = GNOTextStyle(size: 26, weight: .regular, fontName: "Averta Regular")
 }

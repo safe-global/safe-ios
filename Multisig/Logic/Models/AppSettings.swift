@@ -21,17 +21,52 @@ extension AppSettings {
         }
     }
 
-    static func acceptTerms() {
-        dispatchPrecondition(condition: .onQueue(.main))
-        let appSettings = current()
-        appSettings.termsAccepted = true
-        App.shared.coreDataStack.saveContext()
+    static var termsAccepted: Bool {
+        set {
+            dispatchPrecondition(condition: .onQueue(.main))
+            current().termsAccepted = newValue
+            App.shared.coreDataStack.saveContext()
+        }
+        get {
+            dispatchPrecondition(condition: .onQueue(.main))
+            return current().termsAccepted
+        }
     }
 
-    static func hasAcceptedTerms() -> Bool {
-        dispatchPrecondition(condition: .onQueue(.main))
-        let appSettings = current()
-        return appSettings.termsAccepted
+    static var hasShownImportKeyOnboarding: Bool {
+        set {
+            dispatchPrecondition(condition: .onQueue(.main))
+            current().importKeyOnBoardingShown = newValue
+            App.shared.coreDataStack.saveContext()
+        }
+        get {
+            dispatchPrecondition(condition: .onQueue(.main))
+            return current().importKeyOnBoardingShown
+        }
+    }
+
+    static var importKeyBannerDismissed: Bool {
+        get {
+            dispatchPrecondition(condition: .onQueue(.main))
+            return current().dismissedImportKeyBanner
+        }
+        set {
+            dispatchPrecondition(condition: .onQueue(.main))
+            current().dismissedImportKeyBanner = newValue
+            App.shared.coreDataStack.saveContext()
+        }
+    }
+
+    static var importedOwnerKey: Bool {
+        get {
+            dispatchPrecondition(condition: .onQueue(.main))
+            return current().importedOwnerKey
+        }
+        set {
+            dispatchPrecondition(condition: .onQueue(.main))
+            current().importedOwnerKey = newValue
+            App.shared.coreDataStack.saveContext()
+        }
     }
 }
 
