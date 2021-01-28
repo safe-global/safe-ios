@@ -34,8 +34,8 @@
                                     <rect key="frame" x="16" y="27" width="382" height="273.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8A-J4-nH8">
-                                            <rect key="frame" x="0.0" y="0.0" width="382" height="122"/>
-                                            <string key="text">Enter the private key or the seed phrase from your hardware wallet or MetaMask owner wallet.
+                                            <rect key="frame" x="0.0" y="0.0" width="373" height="122"/>
+                                            <string key="text">Enter the seed phrase from your hardware wallet or MetaMask or the private key from any wallet.
 
 A seed phrase is typically 12 (sometimes 24) words separated by single spaces. 
 A private key is a string of 64 characters. </string>
