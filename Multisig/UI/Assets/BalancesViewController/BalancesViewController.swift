@@ -24,7 +24,8 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     override var isEmpty: Bool { results.isEmpty }
 
-    private var showingBanner = true
+    @UserDefault(key: "io.gnosis.multisig.importKeyBannerWasShown")
+    private var importKeyBannerWasShown: Bool?
 
     var clientGatewayService = App.shared.clientGatewayService
 
@@ -46,7 +47,19 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         tableView.delegate = self
         tableView.dataSource = self
 
+        if importKeyBannerWasShown != true && App.shared.settings.signingKeyAddress != nil {
+            importKeyBannerWasShown = true
+        }
+
         emptyView.setText("Balances will appear here")
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(ownerKeyImported), name: .ownerKeyImported, object: nil)
+    }
+
+    @objc private func ownerKeyImported() {
+        importKeyBannerWasShown = true
+        tableView.reloadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -103,7 +116,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         case .total:
             return 1
         case .banner:
-            return showingBanner ? 1 : 0
+            return importKeyBannerWasShown != true ? 1 : 0
         }
     }
 
@@ -129,17 +142,22 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         case .banner:
             let cell = tableView.dequeueCell(ImportKeyBannerTableViewCell.self, for: indexPath)
             cell.onClose = { [unowned self] in
-                showingBanner = false
-
-                tableView.beginUpdates()
-                tableView.reloadSections([indexPath.section], with: .automatic)
-                tableView.endUpdates()
+                importKeyBannerWasShown = true
+                updateSection(indexPath.section)
             }
             cell.onImport = { [unowned self] in
+                importKeyBannerWasShown = true
+                updateSection(indexPath.section)
                 let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
                 present(vc, animated: true)
             }
             return cell
         }
+    }
+
+    private func updateSection(_ section: Int) {
+        tableView.beginUpdates()
+        tableView.reloadSections([section], with: .automatic)
+        tableView.endUpdates()
     }
 }

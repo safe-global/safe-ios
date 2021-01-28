@@ -35,15 +35,23 @@ class SafeLoadedViewController: UIViewController {
         } catch {
             fatalError()
         }
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(ownerKeyImported), name: .ownerKeyImported, object: nil)
     }
 
     @IBAction func importOwnerButtonTouched(_ sender: Any) {
         Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerImport)
-        // Add show enter seedphase screen
+        let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
+        present(vc, animated: true)
     }
 
     @IBAction func skipButtonTouched(_ sender: Any) {
         Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerSkip)
+        completion()
+    }
+
+    @objc private func ownerKeyImported() {
         completion()
     }
 }
