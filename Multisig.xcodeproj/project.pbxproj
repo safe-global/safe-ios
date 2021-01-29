@@ -309,6 +309,7 @@
 		5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C82449A1980067505A /* LogServiceTests.swift */; };
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
+		553882A725C3E0FB0026F44F /* WCSendTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553882A625C3E0FB0026F44F /* WCSendTransactionRequest.swift */; };
 		555312E9250653800008206B /* BIP32HDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312E8250653800008206B /* BIP32HDNode.swift */; };
 		555312EB2506608D0008206B /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EA2506608D0008206B /* Base58.swift */; };
 		555312ED250663420008206B /* SECP256K1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EC250663420008206B /* SECP256K1.swift */; };
@@ -324,6 +325,7 @@
 		555D22EF25BE772400505420 /* UITableView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D22EE25BE772400505420 /* UITableView+Cells.swift */; };
 		555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */; };
 		555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555DA310250A4C7C00C3A0BE /* KeychainKey.swift */; };
+		557EE58525C2B06400E4E37E /* CreateTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557EE58425C2B06400E4E37E /* CreateTransactionRequest.swift */; };
 		558835E0255A907B0014E8C7 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */; };
 		558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835E5255AEA390014E8C7 /* InfoCell.swift */; };
 		558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835E6255AEA390014E8C7 /* InfoCell.xib */; };
@@ -790,6 +792,7 @@
 		5532D4D02449A1E40067505A /* MockLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLogger.swift; sourceTree = "<group>"; };
 		5532D4DD2449A34A0067505A /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		5532D4E32449A4FC0067505A /* SafeTransactionServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionServiceIntegrationTests.swift; sourceTree = "<group>"; };
+		553882A625C3E0FB0026F44F /* WCSendTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSendTransactionRequest.swift; sourceTree = "<group>"; };
 		555312E8250653800008206B /* BIP32HDNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP32HDNode.swift; sourceTree = "<group>"; };
 		555312EA2506608D0008206B /* Base58.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
 		555312EC250663420008206B /* SECP256K1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SECP256K1.swift; sourceTree = "<group>"; };
@@ -805,6 +808,7 @@
 		555D22E725BE743C00505420 /* DetailedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedCell.xib; sourceTree = "<group>"; };
 		555D22EE25BE772400505420 /* UITableView+Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Cells.swift"; sourceTree = "<group>"; };
 		555DA310250A4C7C00C3A0BE /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
+		557EE58425C2B06400E4E37E /* CreateTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransactionRequest.swift; sourceTree = "<group>"; };
 		558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		558835E5255AEA390014E8C7 /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		558835E6255AEA390014E8C7 /* InfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
@@ -1557,6 +1561,7 @@
 				0AB34D5F24B71D2400A43988 /* SafeStatusRequest.swift */,
 				048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */,
 				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
+				557EE58425C2B06400E4E37E /* CreateTransactionRequest.swift */,
 			);
 			path = "Safe Transaction Service";
 			sourceTree = "<group>";
@@ -1878,6 +1883,7 @@
 			children = (
 				55050B1E25B7D73400DFA9F1 /* WalletConnectController.swift */,
 				550CD76B25C1283000D79730 /* WCRequestsHandler.swift */,
+				553882A625C3E0FB0026F44F /* WCSendTransactionRequest.swift */,
 			);
 			path = WalletConnect;
 			sourceTree = "<group>";
@@ -2620,6 +2626,7 @@
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */,
 				04769165246408D000D73D8B /* AdvancedSafeSettingsView.swift in Sources */,
+				557EE58525C2B06400E4E37E /* CreateTransactionRequest.swift in Sources */,
 				0AA9F263249A188C005BD60F /* AdvancedTransactionDetailsView.swift in Sources */,
 				0ACB4CDB256BCD6900845BF4 /* SwiftUITableViewCell.swift in Sources */,
 				0AE8C0A2257947CF00E62B34 /* DetailStatusCell.swift in Sources */,
@@ -2660,6 +2667,7 @@
 				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,
 				0ABC898F2576B857005D555B /* SCGModels.swift in Sources */,
 				0AF1C9262541E09D00E28669 /* UIView+UINib.swift in Sources */,
+				553882A725C3E0FB0026F44F /* WCSendTransactionRequest.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
 				0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,

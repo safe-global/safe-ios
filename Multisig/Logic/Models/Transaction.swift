@@ -9,7 +9,7 @@
 import Foundation
 
 // Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
-struct Transaction {
+struct Transaction: Encodable {
     // required by a smart contract
     let to: AddressString
     let value: UInt256String
@@ -23,7 +23,7 @@ struct Transaction {
     let refundReceiver: AddressString
     let nonce: UInt256String
     // computed based on other properties
-    let safeTxHash: HashString?
+    var safeTxHash: HashString?
 }
 
 extension Transaction {
@@ -43,6 +43,20 @@ extension Transaction {
         refundReceiver = multiSigTxInfo.refundReceiver
         nonce = multiSigTxInfo.nonce
         safeTxHash = multiSigTxInfo.safeTxHash
+    }
+
+    #warning("Need to find a proper way to get nonce.")
+    init?(wcRequest: WCSendTransactionRequest) {
+        to = wcRequest.to ?? AddressString.zero
+        value = wcRequest.value ?? "0"
+        data = wcRequest.data
+        operation = .call
+        safeTxGas = wcRequest.gas ?? "0"
+        baseGas = "0"
+        gasPrice = "0"
+        gasToken = AddressString.zero
+        refundReceiver = AddressString.zero
+        nonce = "104"
     }
 
     var safeEncodedTxData: Data {

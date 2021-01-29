@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DataString: Hashable, Decodable {
+struct DataString: Hashable, Codable {
     let data: Data
 
     init(_ data: Data) {
@@ -25,6 +25,10 @@ struct DataString: Hashable, Decodable {
         data = Data(hex: string)
     }
 
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(data.toHexStringWithPrefix())
+    }
 }
 
 extension DataString: ExpressibleByStringLiteral {

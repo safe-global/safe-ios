@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct HashString: Hashable, Decodable {
+struct HashString: Hashable, Codable {
     let hash: Data
 
     enum HashStringError: String, Error {
@@ -31,6 +31,10 @@ struct HashString: Hashable, Decodable {
         try self.init(hex: string)
     }
 
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(hash.toHexStringWithPrefix())
+    }
 }
 
 extension HashString: CustomStringConvertible {
