@@ -47,6 +47,13 @@ extension Transaction {
 
     #warning("Need to find a proper way to get nonce.")
     init?(wcRequest: WCSendTransactionRequest) {
+        dispatchPrecondition(condition: .notOnQueue(.main))
+
+        // TODO: need to take the latest nonce from our backed to be in sync with queued transactions
+        guard let _nonce = try? SafeContract(wcRequest.from.address).nonce() else {
+            return nil
+        }
+        nonce = UInt256String(_nonce)
         to = wcRequest.to ?? AddressString.zero
         value = wcRequest.value ?? "0"
         data = wcRequest.data
@@ -56,7 +63,6 @@ extension Transaction {
         gasPrice = "0"
         gasToken = AddressString.zero
         refundReceiver = AddressString.zero
-        nonce = "104"
     }
 
     var safeEncodedTxData: Data {

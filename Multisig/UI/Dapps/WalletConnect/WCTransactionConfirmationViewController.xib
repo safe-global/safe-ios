@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WCTransactionConfirmationViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="dappImageView" destination="r8I-si-VJk" id="BuL-YW-rdf"/>
+                <outlet property="dappNameLabel" destination="wnR-X5-tae" id="EPM-Im-hVW"/>
+                <outlet property="rejectButton" destination="ZKX-hQ-qFW" id="9fh-VI-NCS"/>
+                <outlet property="submitButton" destination="mh1-Dj-fvT" id="lph-3H-bdM"/>
+                <outlet property="tableView" destination="khs-P5-diM" id="x3l-va-MNJ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r8I-si-VJk">
+                    <rect key="frame" x="173" y="76" width="68" height="68"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="68" id="GFg-RL-lxf"/>
+                        <constraint firstAttribute="width" constant="68" id="PdJ-cT-iNQ"/>
+                    </constraints>
+                </imageView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="khs-P5-diM">
+                    <rect key="frame" x="0.0" y="196.5" width="414" height="593.5"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DApp Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnR-X5-tae">
+                    <rect key="frame" x="16" y="160" width="382" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fax-2M-IAp">
+                    <rect key="frame" x="16" y="806" width="382" height="56"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZKX-hQ-qFW">
+                            <rect key="frame" x="0.0" y="0.0" width="187" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="Yrv-oT-4Aq"/>
+                            </constraints>
+                            <state key="normal" title="Reject"/>
+                            <connections>
+                                <action selector="reject:" destination="-1" eventType="touchUpInside" id="Sgm-BP-yaG"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mh1-Dj-fvT">
+                            <rect key="frame" x="195" y="0.0" width="187" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="kfr-og-WwD"/>
+                            </constraints>
+                            <state key="normal" title="Submit"/>
+                            <connections>
+                                <action selector="submit:" destination="-1" eventType="touchUpInside" id="aUJ-yz-cgT"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fax-2M-IAp" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="Gwc-iM-3kg"/>
+                <constraint firstItem="wnR-X5-tae" firstAttribute="top" secondItem="r8I-si-VJk" secondAttribute="bottom" constant="16" id="JiG-iZ-BW2"/>
+                <constraint firstItem="r8I-si-VJk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="32" id="KU9-3C-b6D"/>
+                <constraint firstItem="wnR-X5-tae" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="TaO-Lw-Ar5"/>
+                <constraint firstItem="r8I-si-VJk" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="TwZ-xl-Gn8"/>
+                <constraint firstItem="fax-2M-IAp" firstAttribute="top" secondItem="khs-P5-diM" secondAttribute="bottom" constant="16" id="UjK-pc-KBY"/>
+                <constraint firstItem="fax-2M-IAp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="izx-LY-FxS"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="khs-P5-diM" secondAttribute="trailing" id="ojp-S9-hK1"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fax-2M-IAp" secondAttribute="trailing" constant="16" id="xch-1I-q7n"/>
+                <constraint firstItem="khs-P5-diM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="xmT-S2-CTU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="wnR-X5-tae" secondAttribute="trailing" constant="16" id="z1t-aB-GH5"/>
+                <constraint firstItem="khs-P5-diM" firstAttribute="top" secondItem="wnR-X5-tae" secondAttribute="bottom" constant="16" id="zOh-PX-8Dh"/>
+            </constraints>
+            <point key="canvasLocation" x="43" y="153"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

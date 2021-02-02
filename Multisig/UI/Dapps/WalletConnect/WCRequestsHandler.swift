@@ -6,7 +6,7 @@
 //  Copyright © 2021 Gnosis Ltd. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import WalletConnectSwift
 
 class WCRequestsHandler: RequestHandler {
@@ -33,26 +33,38 @@ class WCRequestsHandler: RequestHandler {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
         if request.method == "eth_sendTransaction" {
-            print("REQUEST: \(request.jsonString)")
             guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
                   var transaction = Transaction(wcRequest: wcRequest),
                   let signingKeyAddress = App.shared.settings.signingKeyAddress else {
-                // TODO: send error response
+                server.send(try! Response(request: request, error: .requestRejected))
                 return
             }
+
             let hash = EthHasher.hash(transaction.encodeTransactionData(for: wcRequest.from))
             transaction.safeTxHash = HashString(hash)
 
-            // TODO: make proper checks here
-            let signature = try! Signer.sign(hash: hash)
+            DispatchQueue.main.async { [unowned self] in
+                let confirmationController =
+                    WCTransactionConfirmationViewController(transaction: transaction, topic: request.url.topic)
 
-            let createTxRequest = CreateTransactionRequest(
-                safe: wcRequest.from,
-                sender: AddressString(signingKeyAddress)!,
-                signature: signature.value,
-                transaction: transaction)
+                confirmationController.onReject = {
+                    self.server.send(try! Response(request: request, error: .requestRejected))
+                }
 
-            try! App.shared.safeTransactionService.createTransaction(request: createTxRequest)
+                confirmationController.onSubmit = {
+                    // TODO: make proper checks here
+                    let signature = try! Signer.sign(hash: hash)
+                    let createTxRequest = CreateTransactionRequest(
+                        safe: wcRequest.from,
+                        sender: AddressString(signingKeyAddress)!,
+                        signature: signature.value,
+                        transaction: transaction)
+                    DispatchQueue.global().async {
+                        try! App.shared.safeTransactionService.createTransaction(request: createTxRequest)
+                    }
+                }
+                UIWindow.topMostController()!.present(confirmationController, animated: true)
+            }
         } else if request.method == "gs_multi_send" {
             // TODO: do we need to support it?
             preconditionFailure("gs_multi_send not supported")
