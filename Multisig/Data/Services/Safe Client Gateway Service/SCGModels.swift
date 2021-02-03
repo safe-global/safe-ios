@@ -62,6 +62,11 @@ extension SCGModels {
         }
     }
 
+    struct AddressInfo: Decodable {
+        var name: String
+        var logoUri: URL?
+    }
+
     struct TxSummary: Decodable {
         var id: String
         var timestamp: Date
@@ -124,7 +129,9 @@ extension SCGModels {
 
         struct Transfer: Decodable {
             var sender: AddressString
+            var senderInfo: AddressInfo?
             var recipient: AddressString
+            var recipientInfo: AddressInfo?
             var direction: Direction
             var transferInfo: TransferInfo
 
@@ -224,21 +231,26 @@ extension SCGModels {
 
                 struct SetFallbackHandler: Decodable {
                     var handler: AddressString
+                    var handlerInfo: AddressInfo?
                 }
 
                 struct AddOwner: Decodable {
                     var owner: AddressString
+                    var ownerInfo: AddressInfo?
                     var threshold: UInt64
                 }
 
                 struct RemoveOwner: Decodable {
                     var owner: AddressString
+                    var ownerInfo: AddressInfo?
                     var threshold: UInt64
                 }
 
                 struct SwapOwner: Decodable {
                     var newOwner: AddressString
+                    var newOwnerInfo: AddressInfo?
                     var oldOwner: AddressString
+                    var oldOwnerInfo: AddressInfo?
                 }
 
                 struct ChangeThreshold: Decodable {
@@ -247,20 +259,24 @@ extension SCGModels {
 
                 struct ChangeImplementation: Decodable {
                     var implementation: AddressString
+                    var implementationInfo: AddressInfo?
                 }
 
                 struct EnableModule: Decodable {
                     var module: AddressString
+                    var moduleInfo: AddressInfo?
                 }
 
                 struct DisableModule: Decodable {
                     var module: AddressString
+                    var moduleInfo: AddressInfo?
                 }
             }
         }
 
         struct Custom: Decodable {
             var to: AddressString
+            var toInfo: AddressInfo?
             var dataSize: UInt256String
             var value: UInt256String
             var methodName: String?
