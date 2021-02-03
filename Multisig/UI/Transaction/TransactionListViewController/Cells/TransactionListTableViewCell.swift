@@ -26,10 +26,10 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.body)
+        titleLabel.setStyle(.primary)
         nonceLabel.setStyle(.footnote2)
         dateLabel.setStyle(.footnote2)
-        infoLabel.setStyle(.body)
+        infoLabel.setStyle(.primary)
         appendixLabel.setStyle(.footnote2)
         statusLabel.setStyle(.footnote2)
         confirmationsCountLabel.setStyle(.footnote2)
@@ -57,7 +57,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         dateLabel.text = date
     }
 
-    func set(info: String, color: UIColor = .gnoDarkBlue) {
+    func set(info: String, color: UIColor = .primaryLabel) {
         infoLabel.text = info
         infoLabel.textColor = color
     }
@@ -82,13 +82,13 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     private func statusColor(status: SCGModels.TxStatus) -> UIColor {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
-            return .gnoPending
+            return .pending
         case .failed:
-            return .gnoTomato
+            return .error
         case .cancelled:
-            return .gnoDarkGrey
+            return .secondaryLabel
         case .success:
-            return .gnoHold
+            return .button
         }
     }
 
@@ -98,6 +98,6 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     private func confirmationColor(_ confirmationsSubmitted: UInt64 = 0, _ confirmationsRequired: UInt64 = 0) -> UIColor {
         let reminingConfirmations = confirmationsSubmitted > confirmationsRequired ? 0 : confirmationsRequired - confirmationsSubmitted
-        return reminingConfirmations > 0 ? .gnoMediumGrey : .gnoHold
+        return reminingConfirmations > 0 ? .tertiaryLabel : .button
     }
 }

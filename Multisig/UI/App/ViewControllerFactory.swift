@@ -20,7 +20,7 @@ enum ViewControllerFactory {
         let transactionsTabVC = transactionsTabViewController()
         let settingsTabVC = settingsTabViewController()
         tabBarVC.viewControllers = [balancesTabVC, transactionsTabVC, settingsTabVC]
-        tabBarVC.tabBar.barTintColor = .gnoSnowwhite
+        tabBarVC.tabBar.barTintColor = .primaryBackground
 
         if !AppSettings.termsAccepted {
             let start = LaunchView(acceptedTerms: .constant(false), onStart: { [weak tabBarVC] in

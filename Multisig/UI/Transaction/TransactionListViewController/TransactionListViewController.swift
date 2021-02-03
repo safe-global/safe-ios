@@ -39,7 +39,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         tableView.delegate = self
         tableView.dataSource = self
 
-        tableView.backgroundColor = .gnoWhite
+        tableView.backgroundColor = .primaryBackground
 
         tableView.registerCell(TransactionListTableViewCell.self)
         tableView.registerCell(TransactionListHeaderTableViewCell.self)
@@ -266,7 +266,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         let confirmationsRequired = tx.executionInfo?.confirmationsRequired ?? 0
         let date = formatted(date: tx.timestamp)
         var info = ""
-        var infoColor: UIColor = .gnoDarkBlue
+        var infoColor: UIColor = .primaryLabel
 
         var status: SCGModels.TxStatus = tx.txStatus
         let missingSigners = tx.executionInfo?.missingSigners?.map { $0.address.checksummed } ?? []
@@ -282,7 +282,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             image = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incoming-tx")
             title = isOutgoing ? "Send" : "Receive"
             info = formattedAmount(transferInfo: transferInfo)
-            infoColor = isOutgoing ? .gnoDarkBlue : .gnoHold
+            infoColor = isOutgoing ? .primaryLabel : .button
         case .settingsChange(let settingsChangeInfo):
             title = settingsChangeInfo.dataDecoded.method
             image = #imageLiteral(resourceName: "ico-settings-tx")

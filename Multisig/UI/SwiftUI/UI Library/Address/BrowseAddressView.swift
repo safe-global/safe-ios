@@ -19,7 +19,7 @@ struct BrowseAddressView: View {
             Image("ico-browse-address").resizable()
         }
         .buttonStyle(BorderlessButtonStyle())
-        .foregroundColor(.gnoHold)
+        .foregroundColor(.button)
         .frame(width: 24, height: 24)
         .sheet(isPresented: $showsLink, content: browseSafeAddress)
     }

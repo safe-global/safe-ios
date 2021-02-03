@@ -16,11 +16,10 @@ class GNOTextField: UINibView {
     override func commonInit() {
         super.commonInit()
         setError(nil)
-        errorLabel.setStyle(GNOTextStyle.callout.color(.gnoTomato))
+        errorLabel.setStyle(.error)
 
         textField.borderStyle = .none
-        textField.font = UIFont.gnoFont(forTextStyle: .body)
-        textField.textColor = GNOTextStyle.body.color
+        textField.setStyle(.primary)
     }
 
     func setPlaceholder(_ text: String?) {
@@ -28,13 +27,13 @@ class GNOTextField: UINibView {
             textField.attributedPlaceholder = nil
             return
         }
-        let attributes = GNOTextStyle.body.color(.gnoMediumGrey).attributes
+        let attributes = GNOTextStyle.tertiary.attributes
         textField.attributedPlaceholder = NSAttributedString(string: text, attributes: attributes)
     }
 
     func setError(_ error: Error?) {
         errorLabel.text = error?.localizedDescription
         errorLabel.isHidden = error == nil
-        borderView.tintColor = error == nil ? .gnoWhitesmoke : .gnoTomato
+        borderView.tintColor = error == nil ? .gray4 : .error
     }
 }

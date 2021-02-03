@@ -14,7 +14,7 @@ class ExecutionStatusPiece: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        titleLabel.setStyle(.body)
-        descriptionLabel.setStyle(.body)
+        titleLabel.setStyle(.primary)
+        descriptionLabel.setStyle(.primary)
     }
 }

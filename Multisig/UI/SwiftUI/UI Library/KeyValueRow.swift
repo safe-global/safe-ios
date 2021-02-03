@@ -14,7 +14,7 @@ struct KeyValueRow: View {
     var value: String
     var enableCopy: Bool
     var color: Color
-    init(_ key: String, value: String, enableCopy: Bool = true, color: Color = Color.gnoMediumGrey) {
+    init(_ key: String, value: String, enableCopy: Bool = true, color: Color = .tertiaryLabel) {
         self.key = key
         self.value = value
         self.enableCopy = enableCopy

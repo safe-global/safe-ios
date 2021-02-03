@@ -29,18 +29,23 @@ struct GNOTextStyle: Hashable {
 }
 
 extension GNOTextStyle {
-    static let caption3 = GNOTextStyle(size: 10, weight: .medium)
+    static let primary = GNOTextStyle(size: 17, weight: .medium, color: .primaryLabel)
+    static let secondary = GNOTextStyle(size: 17, weight: .medium, color: .secondaryLabel)
+    static let tertiary = GNOTextStyle(size: 17, weight: .medium, color: .tertiaryLabel)
+    static let primaryError = GNOTextStyle(size: 17, weight: .medium, color: .error)
+    static let primaryButton = GNOTextStyle(size: 17, weight: .medium, color: .button)
+
+    static let caption1 = GNOTextStyle(size: 13, weight: .bold)
     static let caption2 = GNOTextStyle(size: 10, weight: .bold, letterSpacing: 2, color: .tertiaryLabel)
+    static let caption3 = GNOTextStyle(size: 10, weight: .medium)
 
     static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .secondaryLabel)
     static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .primaryLabel)
-    static let caption1 = GNOTextStyle(size: 13, weight: .bold)
 
     static let subhead = GNOTextStyle(size: 15, weight: .bold)
 
     static let callout = GNOTextStyle(size: 16, weight: .regular)
-
-    static let body = GNOTextStyle(size: 17, weight: .medium, color: .primaryLabel)
+    static let error = GNOTextStyle(size: 16, weight: .regular, color: .error)
     static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .primaryLabel)
     static let headline2 = GNOTextStyle(size: 17, weight: .bold)
 
@@ -85,6 +90,20 @@ extension UILabel {
     }
 }
 
+extension UITextField {
+    func setStyle(_ style: GNOTextStyle) {
+        font = .gnoFont(forTextStyle: style)
+        textColor = style.color
+    }
+}
+
+extension UITextView {
+    func setStyle(_ style: GNOTextStyle) {
+        font = .gnoFont(forTextStyle: style)
+        textColor = style.color
+    }
+}
+
 struct GNOButtonAppearance {
     var backgroundImage: UIImage?
     var textAttributes: [NSAttributedString.Key: Any] = [:]
@@ -109,6 +128,21 @@ struct GNOButtonStyle {
 }
 
 extension GNOButtonStyle {
+    static let primary = GNOButtonStyle(appearance: [
+        (.normal, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
+            .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 1),
+            .font: UIFont.gnoFont(forTextStyle: .primary)
+        ])),
+        (.highlighted, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
+            .foregroundColor: #colorLiteral(red: 0, green: 0.3333333333, blue: 0.2745098039, alpha: 1),
+            .font: UIFont.gnoFont(forTextStyle: .primary)
+        ])),
+        (.disabled, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
+            .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 0.5),
+            .font: UIFont.gnoFont(forTextStyle: .primary)
+        ]))
+    ])
+
     static let plain = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
             .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 1),

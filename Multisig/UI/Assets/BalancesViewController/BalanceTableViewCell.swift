@@ -17,8 +17,8 @@ class BalanceTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellMainLabel.setStyle(.body)
-        cellDetailLabel.setStyle(.body)
+        cellMainLabel.setStyle(.primary)
+        cellDetailLabel.setStyle(.primary)
         cellSubDetailLabel.setStyle(.footnote2)
     }
 

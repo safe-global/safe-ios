@@ -19,6 +19,6 @@ class ScrollableDataErrorView: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        textLabel.setStyle(GNOTextStyle.title3.color(.gnoMediumGrey))
+        textLabel.setStyle(.tertiary)
     }
 }

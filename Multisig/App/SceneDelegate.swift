@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             snackbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             window.addSubviewAlwaysOnTop(snackbarViewController.view)
 
-            window.tintColor = .gnoHold
+            window.tintColor = .button
             window.makeKeyAndVisible()
         }
 

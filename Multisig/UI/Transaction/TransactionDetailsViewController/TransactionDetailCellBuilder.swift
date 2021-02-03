@@ -276,7 +276,7 @@ class TransactionDetailCellBuilder {
         }
 
 
-        let style = GNOTextStyle.body.color(isOutgoing ? .gnoDarkBlue : .gnoHold)
+        let style: GNOTextStyle = isOutgoing ? .secondary : .primaryButton
 
         let iconURL = logoUri.flatMap { URL(string: $0) }
 

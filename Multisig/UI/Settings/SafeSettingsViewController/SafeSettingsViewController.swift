@@ -13,7 +13,7 @@ fileprivate protocol SectionItem {}
 
 class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     var safeTransactionService = App.shared.safeTransactionService
-    let tableBackgroundColor: UIColor = .gnoWhite
+    let tableBackgroundColor: UIColor = .primaryBackground
     let advancedSectionHeaderHeight: CGFloat = 28
 
     private typealias SectionItems = (section: Section, items: [SectionItem])

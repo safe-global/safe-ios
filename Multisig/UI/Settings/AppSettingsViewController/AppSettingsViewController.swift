@@ -12,7 +12,7 @@ import SwiftUI
 fileprivate protocol SectionItem {}
 
 class AppSettingsViewController: UITableViewController {
-    private let tableBackgroundColor: UIColor = .gnoWhite
+    private let tableBackgroundColor: UIColor = .primaryBackground
     private let advancedSectionHeaderHeight: CGFloat = 28
     var notificationCenter = NotificationCenter.default
     var app = App.configuration.app
@@ -48,6 +48,7 @@ class AppSettingsViewController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
+        tableView.separatorStyle = .singleLine
 
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(ImportedKeyCell.self)

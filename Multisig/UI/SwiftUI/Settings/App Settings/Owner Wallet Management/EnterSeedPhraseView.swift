@@ -126,7 +126,7 @@ struct EnterSeedView: View {
     }
 
     var strokeColor: Color {
-        isValid ? Color.gnoWhitesmoke : Color.gnoTomato
+        isValid ? .gray4 : .error
     }
 }
 

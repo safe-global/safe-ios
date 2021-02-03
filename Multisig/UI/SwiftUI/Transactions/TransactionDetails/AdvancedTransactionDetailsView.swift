@@ -18,25 +18,25 @@ struct AdvancedTransactionDetailsView: View {
     var body: some View {
         List {
             if let nonce = nonce {
-                KeyValueRow("Nonce:", value: nonce, enableCopy: true, color: .gnoDarkGrey)
+                KeyValueRow("Nonce:", value: nonce, enableCopy: true, color: .secondaryLabel)
                     .padding(.vertical, padding)
             }
 
             if let operation = operation {
                 KeyValueRow(
-                    "Type of operation:", value: operation, enableCopy: true, color: .gnoDarkGrey
+                    "Type of operation:", value: operation, enableCopy: true, color: .secondaryLabel
                 ).padding(.vertical, padding)
             }
 
             if let hash = hash {
                 KeyValueRow(
-                    "Transaction hash:", value: hash, enableCopy: true, color: .gnoDarkGrey
+                    "Transaction hash:", value: hash, enableCopy: true, color: .secondaryLabel
                 ).padding(.vertical, padding)
             }
 
             if let safeTxHash = safeTxHash {
                 KeyValueRow(
-                    "safeTxHash:", value: safeTxHash, enableCopy: true, color: .gnoDarkGrey
+                    "safeTxHash:", value: safeTxHash, enableCopy: true, color: .secondaryLabel
                 ).padding(.vertical, padding)
             }
         }

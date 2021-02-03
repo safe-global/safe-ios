@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,9 +20,11 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchscreen-logo" translatesAutoresizingMaskIntoConstraints="NO" id="1gs-g6-Bnu">
                                 <rect key="frame" x="157" y="210.66666666666663" width="100" height="153"/>
+                                <color key="tintColor" name="primaryLabel"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-splash-text" translatesAutoresizingMaskIntoConstraints="NO" id="Iqr-mN-Ycx">
                                 <rect key="frame" x="46.666666666666657" y="403.66666666666669" width="321" height="89"/>
+                                <color key="tintColor" name="primaryLabel"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -42,6 +45,9 @@
     <resources>
         <image name="ico-splash-text" width="321" height="89"/>
         <image name="launchscreen-logo" width="100" height="153"/>
+        <namedColor name="primaryLabel">
+            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
