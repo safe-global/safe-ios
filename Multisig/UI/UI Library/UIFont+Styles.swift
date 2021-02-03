@@ -34,7 +34,7 @@ extension GNOTextStyle {
 
     static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkGrey)
     static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkBlue)
-    static let caption1 = GNOTextStyle(size: 13, weight: .bold)
+    static let caption1 = GNOTextStyle(size: 13, weight: .bold, letterSpacing: 2, color: .gnoMediumGrey)
 
     static let subhead = GNOTextStyle(size: 15, weight: .bold)
 
