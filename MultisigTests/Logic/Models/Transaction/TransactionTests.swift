@@ -30,7 +30,7 @@ class TransactionTests: XCTestCase {
                 let clientGateway = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL,
                                                      logger: LogService.shared)
                 let page = try clientGateway.jsonDecoder.decode(HistoryTransactionsSummaryListRequest.ResponseType.self, from: txJson)
-                XCTAssertEqual(page.results.count, 20)
+                XCTAssertEqual(page.results.count, 27)
             } catch {
                 XCTFail("Failure in transactions: \(error)")
             }
@@ -48,7 +48,16 @@ class TransactionTests: XCTestCase {
                 let clientGateway = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL,
                                                      logger: LogService.shared)
                 let page = try clientGateway.jsonDecoder.decode(QueuedTransactionsSummaryListRequest.ResponseType.self, from: txJson)
-                XCTAssertEqual(page.results.count, 20)
+                XCTAssertEqual(page.results.count, 18)
+
+                guard case let SCGModels.TransactionSummaryItem.transaction(transaction) = page.results[1],
+                      case let SCGModels.TxInfo.custom(customTx) = transaction.transaction.txInfo else {
+                    XCTFail("Failed to decode transaction")
+                    return
+                }
+
+                XCTAssertEqual(customTx.toInfo?.name, "Cripto LEU")
+                XCTAssertEqual(customTx.toInfo?.logoUri, URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD50931bb32fCa14ACBC0CaDe5850bA597F3eE1A6.png")!)
             } catch {
                 XCTFail("Failure in transactions: \(error)")
             }
