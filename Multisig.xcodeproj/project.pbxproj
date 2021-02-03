@@ -313,6 +313,7 @@
 		5538833425C912040026F44F /* SafeContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5538833325C912040026F44F /* SafeContract.swift */; };
 		5538833B25C917A90026F44F /* WCTransactionConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5538833925C917A90026F44F /* WCTransactionConfirmationViewController.swift */; };
 		5538833C25C917A90026F44F /* WCTransactionConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5538833A25C917A90026F44F /* WCTransactionConfirmationViewController.xib */; };
+		553883BE25CA44200026F44F /* LatestTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553883BD25CA44200026F44F /* LatestTransactionRequest.swift */; };
 		555312E9250653800008206B /* BIP32HDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312E8250653800008206B /* BIP32HDNode.swift */; };
 		555312EB2506608D0008206B /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EA2506608D0008206B /* Base58.swift */; };
 		555312ED250663420008206B /* SECP256K1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EC250663420008206B /* SECP256K1.swift */; };
@@ -799,6 +800,7 @@
 		5538833325C912040026F44F /* SafeContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeContract.swift; sourceTree = "<group>"; };
 		5538833925C917A90026F44F /* WCTransactionConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCTransactionConfirmationViewController.swift; sourceTree = "<group>"; };
 		5538833A25C917A90026F44F /* WCTransactionConfirmationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WCTransactionConfirmationViewController.xib; sourceTree = "<group>"; };
+		553883BD25CA44200026F44F /* LatestTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestTransactionRequest.swift; sourceTree = "<group>"; };
 		555312E8250653800008206B /* BIP32HDNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP32HDNode.swift; sourceTree = "<group>"; };
 		555312EA2506608D0008206B /* Base58.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
 		555312EC250663420008206B /* SECP256K1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SECP256K1.swift; sourceTree = "<group>"; };
@@ -1569,6 +1571,7 @@
 				048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */,
 				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
 				557EE58425C2B06400E4E37E /* CreateTransactionRequest.swift */,
+				553883BD25CA44200026F44F /* LatestTransactionRequest.swift */,
 			);
 			path = "Safe Transaction Service";
 			sourceTree = "<group>";
@@ -2865,6 +2868,7 @@
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				5538833425C912040026F44F /* SafeContract.swift in Sources */,
 				55E898C425B682BC002D2658 /* DappsViewController.swift in Sources */,
+				553883BE25CA44200026F44F /* LatestTransactionRequest.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				555D228425BA7E5B00505420 /* WCSession.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,

@@ -9,7 +9,7 @@
 import Foundation
 
 // Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
-struct Transaction: Encodable {
+struct Transaction: Codable {
     // required by a smart contract
     let to: AddressString
     let value: UInt256String
@@ -45,15 +45,20 @@ extension Transaction {
         safeTxHash = multiSigTxInfo.safeTxHash
     }
 
-    #warning("Need to find a proper way to get nonce.")
     init?(wcRequest: WCSendTransactionRequest) {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
-        // TODO: need to take the latest nonce from our backed to be in sync with queued transactions
-        guard let _nonce = try? SafeContract(wcRequest.from.address).nonce() else {
+        var _nonce: UInt256String
+        if let latestTx = try? App.shared.safeTransactionService.latestTransaction(for: wcRequest.from) {
+            _nonce = UInt256String(latestTx.nonce.value + 1)
+        } else if let contractNonce = try? SafeContract(wcRequest.from.address).nonce() {
+            // contract nonce is the next one
+            _nonce = UInt256String(contractNonce)
+        } else {
             return nil
         }
-        nonce = UInt256String(_nonce)
+
+        nonce = _nonce
         to = wcRequest.to ?? AddressString.zero
         value = wcRequest.value ?? "0"
         data = wcRequest.data
