@@ -14,8 +14,8 @@ extension UIImageView {
 
     /// Sets the image to a blockies pattern generated from the `value`.
     /// - Parameter value: address to use. Must be hexadecimal and lowercased.
-    func setAddress(_ value: String) {
-        let provider = BlockiesImageProvider(seed: value)
+    func setAddress(_ value: String, width: CGFloat = 250, height: CGFloat = 250) {
+        let provider = BlockiesImageProvider(seed: value, width: width, height: height)
         let processor = RoundCornerImageProcessor(radius: .widthFraction(0.5))
         kf.setImage(with: provider, options: [.processor(processor)])
     }

@@ -43,6 +43,14 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         typeImageView.image = image
     }
 
+    func set(imageUrl: URL, placeholder: UIImage) {
+        typeImageView.setCircleShapeImage(url: imageUrl, placeholder: placeholder)
+    }
+
+    func set(address: AddressString) {
+        typeImageView.setAddress(address.address.hexadecimal, width: 16, height: 16)
+    }
+
     func set(conflictType: SCGModels.ConflictType) {
         conflictTypeView.isHidden = conflictType == .none
         conflictTypeButtonBarView.isHidden = conflictType == .end
