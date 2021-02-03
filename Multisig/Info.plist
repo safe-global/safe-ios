@@ -18,10 +18,27 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>2.8.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>io.gnosis.multisig.dev.rinkeby</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>gnosissafe</string>
+				<string>gs</string>
+				<string>wc</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CLIENT_GATEWAY_URL</key>
 	<string>$(CLIENT_GATEWAY_URL)</string>
+	<key>CONFLICT_URL</key>
+	<string>$(CONFLICT_URL)</string>
 	<key>CONTACT_EMAIL</key>
 	<string>$(CONTACT_EMAIL)</string>
 	<key>DISCORD_URL</key>
@@ -58,8 +75,6 @@
 	<string>$(SERVICE_ENV)</string>
 	<key>TERMS_URL</key>
 	<string>$(TERMS_URL)</string>
-	<key>CONFLICT_URL</key>
-	<string>$(CONFLICT_URL)</string>
 	<key>TRANSACTION_SERVICE_URL</key>
 	<string>$(TRANSACTION_SERVICE_URL)</string>
 	<key>TSKConfiguration</key>
