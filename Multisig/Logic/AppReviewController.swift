@@ -8,19 +8,12 @@
 
 import Foundation
 import StoreKit
-import UIKit
 
 /// Encapsulates the app review triggering logic.
-class AppReviewController: NSObject {
+class AppReviewController {
 
-    override init() {
-        super.init()
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(didFinishLaunching(_:)),
-                                               name: UIApplication.didFinishLaunchingNotification,
-                                               object: nil)
-    }
-
+    /// Call this on the app start except when starting from notification.
+    ///
     /// Trigger in-app review dialog on 3rd app start (for the first time)
     ///      - don't count app starts triggered by a push notification
     ///
@@ -29,11 +22,7 @@ class AppReviewController: NSObject {
     /// (to handle cases when the user canceled the flow).
     ///
     /// This means count to 3 again, not including starts from push notifications.
-    @objc func didFinishLaunching(_ notification: Notification) {
-        // skip if launched from a push notification
-        guard notification.userInfo?[UIApplication.LaunchOptionsKey.remoteNotification.rawValue] == nil else { return }
-
-        // skip if not accepted the terms
+    func pullAppReviewTrigger() {
         guard AppSettings.termsAccepted else { return }
 
         // will be 0 if never counted yet

@@ -32,6 +32,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         App.shared.notificationHandler.appStarted()
+
+        if connectionOptions.notificationResponse == nil {
+            App.shared.appReview.pullAppReviewTrigger()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
