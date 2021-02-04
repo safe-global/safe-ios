@@ -118,6 +118,7 @@ SSL_ENFORCE_PINNING = 1
 
 // Help URLs
 CONFLICT_URL = https:/$()/help.gnosis-safe.io/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
+FALLBACKHANDLER_URL = https:/$()/help.gnosis-safe.io/en/articles/4738352-what-is-a-fallback-handler-and-how-does-it-relate-to-the-gnosis-safe
 
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/

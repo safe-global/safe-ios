@@ -34,7 +34,7 @@ extension GNOTextStyle {
 
     static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkGrey)
     static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .gnoDarkBlue)
-    static let caption1 = GNOTextStyle(size: 13, weight: .bold)
+    static let caption1 = GNOTextStyle(size: 13, weight: .bold, letterSpacing: 2, color: .gnoMediumGrey)
 
     static let subhead = GNOTextStyle(size: 15, weight: .bold)
 
@@ -82,6 +82,17 @@ extension UILabel {
 
     func setAttributedText(_ text: String, style: GNOTextStyle) {
         attributedText = NSAttributedString(string: text, attributes: style.attributes)
+    }
+
+    func hyperLinkLabel(_ text: String) {
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(named: "icon-external-link")?.withTintColor(.gnoHold)
+        let attachmentString = NSAttributedString(attachment: attachment)
+        let description = NSMutableAttributedString(string: "\(text) ")
+        description.append(attachmentString)
+        description.addAttributes(GNOTextStyle.body.color(.gnoHold).attributes, range: NSRange(location: 0, length: description.length))
+        description.addAttributes([NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue], range: NSRange(location: 0, length: description.length))
+        attributedText = description
     }
 }
 
