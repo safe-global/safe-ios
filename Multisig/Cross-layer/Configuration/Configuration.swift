@@ -43,6 +43,9 @@ struct AppConfiguration {
     struct Help {
         @ConfigurationKey("CONFLICT_URL")
         var conflictURL: URL
+
+        @ConfigurationKey("FALLBACKHANDLER_URL")
+        var fallbackHandlerURL: URL
     }
 
     struct Legal {

@@ -21,6 +21,7 @@ class AdvancedSafeSettingsViewController: UITableViewController {
 
         enum FallbackHandler: SectionItem {
             case fallbackHandler(String?, String?)
+            case fallbackHandlerHelpLink
         }
 
         enum Nonce: SectionItem {
@@ -30,6 +31,7 @@ class AdvancedSafeSettingsViewController: UITableViewController {
         enum Module: SectionItem {
             case module(String, String)
         }
+
     }
 
     override func viewDidLoad() {
@@ -45,6 +47,7 @@ class AdvancedSafeSettingsViewController: UITableViewController {
         navigationItem.title = "Advanced"
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailAccountCell.self)
+        tableView.registerCell(HelpLinkTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
     }
 
@@ -57,7 +60,7 @@ class AdvancedSafeSettingsViewController: UITableViewController {
         let fallbackHandler = App.shared.gnosisSafe.hasFallbackHandler(safe: safe) ? safe.fallbackHandler?.checksummed : nil
         let fallbackHanderTitle = App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: safe.fallbackHandler)
         sections = [
-            (section: .fallbackHandler("FALLBACK HANDLER"), items: [Section.FallbackHandler.fallbackHandler(fallbackHanderTitle, fallbackHandler)]),
+            (section: .fallbackHandler("FALLBACK HANDLER"), items: [Section.FallbackHandler.fallbackHandler(fallbackHanderTitle, fallbackHandler), Section.FallbackHandler.fallbackHandlerHelpLink]),
 
             (section: .nonce("NONCE"),
              items: [Section.Nonce.nonce(safe.nonce?.description ?? "0")]),
@@ -88,6 +91,8 @@ extension AdvancedSafeSettingsViewController {
             } else {
                 return basicCell(name: "Not set", indexPath: indexPath)
             }
+        case Section.FallbackHandler.fallbackHandlerHelpLink:
+            return fallbackHandlerHelpLinkCell(indexPath: indexPath)
         case Section.Nonce.nonce(let nonce):
             return basicCell(name: nonce, indexPath: indexPath)
         case Section.Module.module(let name, let address):
@@ -114,6 +119,10 @@ extension AdvancedSafeSettingsViewController {
         return view
     }
 
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
+        return BasicHeaderView.headerHeight
+    }
+
     private func basicCell(name: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
         cell.setTitle(name)
@@ -125,6 +134,11 @@ extension AdvancedSafeSettingsViewController {
     private func addressDetailsCell(address: String, title: String?, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
         cell.setAccount(address: address,label: title)
+        return cell
+    }
+
+    private func fallbackHandlerHelpLinkCell(indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(HelpLinkTableViewCell.self, for: indexPath)
         return cell
     }
 }
