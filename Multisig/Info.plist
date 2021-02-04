@@ -24,6 +24,8 @@
 	<string>$(CLIENT_GATEWAY_URL)</string>
 	<key>CONTACT_EMAIL</key>
 	<string>$(CONTACT_EMAIL)</string>
+	<key>APP_STORE_REVIEW_URL</key>
+	<string>$(APP_STORE_REVIEW_URL)</string>
 	<key>DISCORD_URL</key>
 	<string>$(DISCORD_URL)</string>
 	<key>ETH_BLOCK_BROWSER_URL</key>

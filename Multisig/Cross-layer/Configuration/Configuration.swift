@@ -71,6 +71,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("CONTACT_EMAIL")
         var contactEmail: URL
+
+        @ConfigurationKey("APP_STORE_REVIEW_URL")
+        var appStoreReviewURL: URL
     }
 
     struct App {
