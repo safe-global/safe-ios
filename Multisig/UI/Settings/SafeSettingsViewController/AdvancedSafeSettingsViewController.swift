@@ -41,7 +41,7 @@ class AdvancedSafeSettingsViewController: UITableViewController {
             safe = try Safe.getSelected()!
             buildSections()
         } catch {
-            //onError(GSError.error(description: "Failed to load safe settings", error: error))
+            fatalError()
         }
 
         navigationItem.title = "Advanced"
