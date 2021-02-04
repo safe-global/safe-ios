@@ -289,14 +289,13 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         case .custom(let customInfo):
             if let importedSafeName = Safe.cachedName(by: customInfo.to) {
                 title = importedSafeName
-                cell.set(address: customInfo.to)
+                cell.set(contractAddress: customInfo.to)
+            } else if let toInfo = customInfo.toInfo {
+                title = toInfo.name
+                cell.set(contractImageUrl: toInfo.logoUri, contractAddress: customInfo.to)
             } else {
-                title = customInfo.toInfo?.name ?? "Contract interaction"
-                if let imageUrl = customInfo.toInfo?.logoUri {
-                    cell.set(imageUrl: imageUrl, placeholder: #imageLiteral(resourceName: "ico-custom-tx"))
-                } else {
-                    image = #imageLiteral(resourceName: "ico-custom-tx")
-                }
+                title = "Contract interaction"
+                image = #imageLiteral(resourceName: "ico-custom-tx")
             }
             info = customInfo.methodName ?? ""
         case .creation(_):

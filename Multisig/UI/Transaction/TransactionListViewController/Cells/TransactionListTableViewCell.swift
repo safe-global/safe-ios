@@ -35,6 +35,12 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         confirmationsCountLabel.setStyle(.footnote2)
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        typeImageView.layer.cornerRadius = 0
+        typeImageView.clipsToBounds = false
+    }
+
     func set (title: String) {
         titleLabel.text = title
     }
@@ -43,12 +49,20 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         typeImageView.image = image
     }
 
-    func set(imageUrl: URL, placeholder: UIImage) {
-        typeImageView.setCircleShapeImage(url: imageUrl, placeholder: placeholder)
+    func set(contractImageUrl: URL?, contractAddress: AddressString) {
+        guard let contractImageUrl = contractImageUrl else {
+            set(contractAddress: contractAddress)
+            return
+        }
+
+        let placeholder = BlockiesImageProvider(seed: contractAddress.address.hexadecimal, width: 16, height: 16).image()!
+        typeImageView.layer.cornerRadius = 8
+        typeImageView.clipsToBounds = true
+        typeImageView.kf.setImage(with: contractImageUrl, placeholder: placeholder)
     }
 
-    func set(address: AddressString) {
-        typeImageView.setAddress(address.address.hexadecimal, width: 16, height: 16)
+    func set(contractAddress: AddressString) {
+        typeImageView.setAddress(contractAddress.address.hexadecimal, width: 16, height: 16)
     }
 
     func set(conflictType: SCGModels.ConflictType) {

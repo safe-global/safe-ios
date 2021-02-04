@@ -45,16 +45,20 @@ struct BlockiesImageProvider: ImageDataProvider {
     var cacheKey: String { "\(seed)@\(blockSize)-\(width)x\(height)" }
 
     func data(handler: @escaping (Result<Data, Error>) -> Void) {
+        if let image = image(), let data = image.pngData() {
+            handler(.success(data))
+        } else {
+            handler(.failure("Failed to create blockies for \(seed)"))
+        }
+    }
+
+    func image() -> UIImage? {
         let size = blockSize == 0 ? 8 : blockSize
         let blockies = Blockies(
             seed: seed,
             size: Int(size),
             scale: Int(min(width, height) / CGFloat(size))
         )
-        if let image = blockies.createImage(), let data = image.pngData() {
-            handler(.success(data))
-        } else {
-            handler(.failure("Failed to create blockies for \(seed)"))
-        }
+        return blockies.createImage()
     }
 }
