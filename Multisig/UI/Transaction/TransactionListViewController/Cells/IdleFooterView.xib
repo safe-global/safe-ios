@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="IdleFooterView" customModule="Multisig" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBf-m5-tVc">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                    <color key="backgroundColor" name="white"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="DVk-Cm-wu7"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <constraints>
+                <constraint firstItem="TBf-m5-tVc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="0Sy-U9-6M9"/>
+                <constraint firstAttribute="bottom" secondItem="TBf-m5-tVc" secondAttribute="bottom" id="WZc-p1-v9d"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="TBf-m5-tVc" secondAttribute="trailing" id="Xl6-gp-wpG"/>
+                <constraint firstItem="TBf-m5-tVc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mtR-kA-ZZ5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="140.57971014492756" y="-220.98214285714286"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="white">
+            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
