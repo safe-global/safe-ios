@@ -3,6 +3,16 @@
     {
       "filename" : "illustrationWallets.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "illustrationWallets-1.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
