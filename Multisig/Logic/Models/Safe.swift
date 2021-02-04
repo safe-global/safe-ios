@@ -51,8 +51,8 @@ extension Safe: Identifiable {
 
     static func updateCachedNames() {
         guard let safes = try? Safe.getAll() else { return }
-        cachedNames = safes.reduce(into: [AddressString: String]()) {
-            $0[AddressString($1.address!)!] = $1.name!
+        cachedNames = safes.reduce(into: [AddressString: String]()) { names, safe in
+            names[AddressString(safe.address!)!] = safe.name!
         }
     }
 
