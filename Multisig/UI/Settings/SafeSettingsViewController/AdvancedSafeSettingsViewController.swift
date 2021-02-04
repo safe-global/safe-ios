@@ -9,11 +9,13 @@
 import UIKit
 
 fileprivate protocol SectionItem {}
+
 class AdvancedSafeSettingsViewController: UITableViewController {    
     private typealias SectionItems = (section: Section, items: [SectionItem])
+
     private var safe: Safe!
-    private var currentDataTask: URLSessionTask?
     private var sections = [SectionItems]()
+
     enum Section {
         case fallbackHandler(String)
         case nonce(String)
@@ -60,7 +62,9 @@ class AdvancedSafeSettingsViewController: UITableViewController {
         let fallbackHandler = App.shared.gnosisSafe.hasFallbackHandler(safe: safe) ? safe.fallbackHandler?.checksummed : nil
         let fallbackHanderTitle = App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: safe.fallbackHandler)
         sections = [
-            (section: .fallbackHandler("FALLBACK HANDLER"), items: [Section.FallbackHandler.fallbackHandler(fallbackHanderTitle, fallbackHandler), Section.FallbackHandler.fallbackHandlerHelpLink]),
+            (section: .fallbackHandler("FALLBACK HANDLER"),
+             items: [Section.FallbackHandler.fallbackHandler(fallbackHanderTitle, fallbackHandler),
+                     Section.FallbackHandler.fallbackHandlerHelpLink]),
 
             (section: .nonce("NONCE"),
              items: [Section.Nonce.nonce(safe.nonce?.description ?? "0")]),
@@ -127,7 +131,7 @@ extension AdvancedSafeSettingsViewController {
         let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
         cell.setTitle(name)
         cell.setDisclosureImage(nil)
-            cell.selectionStyle = .none
+        cell.selectionStyle = .none
         return cell
     }
 
