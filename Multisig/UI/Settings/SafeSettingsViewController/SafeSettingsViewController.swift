@@ -66,7 +66,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = tableBackgroundColor
-        tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
 

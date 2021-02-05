@@ -27,6 +27,7 @@ class Theme: ObservableObject {
         // makes separators to take full width of the screen
         // (default is with offset)
         UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        UITableView.appearance().separatorColor = .separator
         // we don't touch the UITableView appearance background color
         // because it messes up the backgrounds when navigating in the app
     }
