@@ -3,10 +3,6 @@
     <entity name="AppSettings" representedClassName="AppSettings" syncable="YES" codeGenerationType="class">
         <attribute name="termsAccepted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
     </entity>
-    <entity name="PendingWCTransaction" representedClassName="PendingWCTransaction" syncable="YES" codeGenerationType="class">
-        <attribute name="nonce" optional="YES" attributeType="String"/>
-        <relationship name="session" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WCSession"/>
-    </entity>
     <entity name="Safe" representedClassName="Safe" syncable="YES">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
@@ -16,17 +12,22 @@
     <entity name="Selection" representedClassName="Selection" syncable="YES" codeGenerationType="class">
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="selection" inverseEntity="Safe"/>
     </entity>
+    <entity name="WCPendingTransaction" representedClassName="WCPendingTransaction" syncable="YES" codeGenerationType="class">
+        <attribute name="nonce" attributeType="String"/>
+        <relationship name="session" maxCount="1" deletionRule="Nullify" destinationEntity="WCSession" inverseName="pendingTransactions" inverseEntity="WCSession"/>
+    </entity>
     <entity name="WCSession" representedClassName="WCSession" syncable="YES" codeGenerationType="class">
         <attribute name="created" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="session" optional="YES" attributeType="Binary"/>
         <attribute name="statusRaw" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="topic" attributeType="String"/>
+        <relationship name="pendingTransactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WCPendingTransaction" inverseName="session" inverseEntity="WCPendingTransaction"/>
     </entity>
     <elements>
         <element name="AppSettings" positionX="54" positionY="18" width="128" height="58"/>
+        <element name="WCPendingTransaction" positionX="54" positionY="27" width="128" height="59"/>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
-        <element name="WCSession" positionX="54" positionY="18" width="128" height="89"/>
-        <element name="PendingWCTransaction" positionX="54" positionY="27" width="128" height="59"/>
+        <element name="WCSession" positionX="54" positionY="18" width="128" height="104"/>
     </elements>
 </model>

@@ -358,7 +358,7 @@
 		55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853E25014AD7005E778B /* BIP39+WordLists.swift */; };
 		55A5854125014B1B005E778B /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5854025014B1B005E778B /* Data+Extension.swift */; };
 		55A5854325014E05005E778B /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5854225014E05005E778B /* String+Extension.swift */; };
-		55A6715F25CBC9EF00392A4D /* PendingWCTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A6715E25CBC9EF00392A4D /* PendingWCTransaction.swift */; };
+		55A6715F25CBC9EF00392A4D /* WCPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A6715E25CBC9EF00392A4D /* WCPendingTransaction.swift */; };
 		55A6719225CBD21300392A4D /* SynchronizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A6719125CBD21300392A4D /* SynchronizationService.swift */; };
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
@@ -848,7 +848,7 @@
 		55A5853E25014AD7005E778B /* BIP39+WordLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BIP39+WordLists.swift"; sourceTree = "<group>"; };
 		55A5854025014B1B005E778B /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		55A5854225014E05005E778B /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		55A6715E25CBC9EF00392A4D /* PendingWCTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingWCTransaction.swift; sourceTree = "<group>"; };
+		55A6715E25CBC9EF00392A4D /* WCPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCPendingTransaction.swift; sourceTree = "<group>"; };
 		55A6719125CBD21300392A4D /* SynchronizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizationService.swift; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
@@ -1848,7 +1848,7 @@
 				559670FE256E88FC0097D3A2 /* Signer.swift */,
 				049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */,
 				555D228325BA7E5B00505420 /* WCSession.swift */,
-				55A6715E25CBC9EF00392A4D /* PendingWCTransaction.swift */,
+				55A6715E25CBC9EF00392A4D /* WCPendingTransaction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2733,7 +2733,7 @@
 				0A0EFCA8246EB13300D3D8BF /* KeyValueRow.swift in Sources */,
 				0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
-				55A6715F25CBC9EF00392A4D /* PendingWCTransaction.swift in Sources */,
+				55A6715F25CBC9EF00392A4D /* WCPendingTransaction.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */,

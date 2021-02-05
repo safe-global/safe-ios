@@ -71,7 +71,16 @@ class WalletConnectController {
     }
 
     func updatePendingTransactions() {
-        print("CHECK PENDING ")
+        DispatchQueue.main.async {
+            guard let pendingTransactions = try? WCPendingTransaction.getAll() else { return }
+            for tx in pendingTransactions {
+                let nonce = tx.nonce!
+                let wcSession = tx.session!
+                let session = try! Session.from(wcSession)
+                let safe = session.walletInfo!.accounts[0]
+                LogService.shared.debug("UPDATE TX FOR safe: \(safe), nonce: \(nonce)")
+            }
+        }
     }
 }
 

@@ -37,7 +37,7 @@ class Repeater {
             main(self)
             if isStopped { return }
             state = .waiting
-            sleep(UInt32(delay * 1_000_000))
+            usleep(UInt32(delay * 1_000_000))
         } while !isStopped
     }
 

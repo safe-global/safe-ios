@@ -83,9 +83,9 @@ class WCRequestsHandler: RequestHandler {
         DispatchQueue.global().async {
             try! App.shared.safeTransactionService.createTransaction(request: request)
             let nonce = request.transaction.nonce
-            guard let wcSessoin = WCSession.get(topic: topic) else { return }
+            guard let wcSession = WCSession.get(topic: topic) else { return }
             DispatchQueue.main.async {
-                PendingWCTransaction.create(wcSession: wcSessoin, nonce: nonce)
+                WCPendingTransaction.create(wcSession: wcSession, nonce: nonce)
             }
         }
     }
