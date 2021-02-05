@@ -21,12 +21,22 @@ extension WCPendingTransaction {
         }
     }
 
-    static func create(wcSession: WCSession, nonce: UInt256String) {
+    static func create(wcSession: WCSession, nonce: UInt256String, requestId: String) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let pendingTransaction = WCPendingTransaction(context: context)
         pendingTransaction.session = wcSession
         pendingTransaction.nonce = nonce.description
+        pendingTransaction.requestId = requestId
+        App.shared.coreDataStack.saveContext()
+    }
+
+    static func remove(nonce: String) {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let context = App.shared.coreDataStack.viewContext
+        let fr = WCPendingTransaction.fetchRequest().by(nonce: nonce)
+        guard let transaction = try? context.fetch(fr).first else { return }
+        context.delete(transaction)
         App.shared.coreDataStack.saveContext()
     }
 }
@@ -34,6 +44,13 @@ extension WCPendingTransaction {
 extension NSFetchRequest where ResultType == WCPendingTransaction {
     func all() -> Self {
         sortDescriptors = []
+        return self
+    }
+
+    func by(nonce: String) -> Self {
+        sortDescriptors = []
+        predicate = NSPredicate(format: "nonce CONTAINS[c] %@", nonce)
+        fetchLimit = 1
         return self
     }
 }

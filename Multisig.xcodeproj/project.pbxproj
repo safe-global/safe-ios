@@ -394,6 +394,7 @@
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
 		55E898C425B682BC002D2658 /* DappsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E898C325B682BC002D2658 /* DappsViewController.swift */; };
 		55FDC0CD25CCC40B00979A21 /* Repeater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0CC25CCC40B00979A21 /* Repeater.swift */; };
+		55FDC0FD25CCF5E600979A21 /* TransactionByNonceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0FC25CCF5E600979A21 /* TransactionByNonceRequest.swift */; };
 		68F2F299ED7EA791697FFE29 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */; };
 		D041FEDD6C712A3A8AC1BA71 /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */; };
 		E30B69A86F7709B130B3D0B0 /* libPods-MultisigIntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */; };
@@ -885,6 +886,7 @@
 		55DCC332258A4C71003346FC /* GSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSError.swift; sourceTree = "<group>"; };
 		55E898C325B682BC002D2658 /* DappsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DappsViewController.swift; sourceTree = "<group>"; };
 		55FDC0CC25CCC40B00979A21 /* Repeater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repeater.swift; sourceTree = "<group>"; };
+		55FDC0FC25CCF5E600979A21 /* TransactionByNonceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionByNonceRequest.swift; sourceTree = "<group>"; };
 		586B435AB878EA6A796D3E66 /* Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		5CBFF463F4BE8B670E9583FC /* Pods-MultisigTests.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		5EBDB0B79D3FC3A38767F16D /* Pods-Multisig.release.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -1578,6 +1580,7 @@
 				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
 				557EE58425C2B06400E4E37E /* CreateTransactionRequest.swift */,
 				553883BD25CA44200026F44F /* LatestTransactionRequest.swift */,
+				55FDC0FC25CCF5E600979A21 /* TransactionByNonceRequest.swift */,
 			);
 			path = "Safe Transaction Service";
 			sourceTree = "<group>";
@@ -2771,6 +2774,7 @@
 				0A339C5D24C1D16E00DAD84B /* Image+Blockies.swift in Sources */,
 				0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */,
 				551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */,
+				55FDC0FD25CCF5E600979A21 /* TransactionByNonceRequest.swift in Sources */,
 				0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */,
 				0ADA90F3256548C30004DEC0 /* SnackbarViewController.swift in Sources */,
 				0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */,

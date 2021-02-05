@@ -13,7 +13,7 @@ struct Transaction: Codable {
     // required by a smart contract
     let to: AddressString
     let value: UInt256String
-    let data: DataString
+    let data: DataString?
     let operation: SCGModels.Operation
     let safeTxGas: UInt256String
     let baseGas: UInt256String
@@ -24,6 +24,7 @@ struct Transaction: Codable {
     let nonce: UInt256String
     // computed based on other properties
     var safeTxHash: HashString?
+    var transactionHash: HashString?
 }
 
 extension Transaction {
@@ -75,7 +76,7 @@ extension Transaction {
             Safe.DefaultEIP712SafeAppTxTypeHash,
             to.data32,
             value.data32,
-            EthHasher.hash(data.data),
+            EthHasher.hash(data!.data),
             operation.data32,
             safeTxGas.data32,
             baseGas.data32,

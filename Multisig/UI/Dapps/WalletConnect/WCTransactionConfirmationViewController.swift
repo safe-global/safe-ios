@@ -69,7 +69,7 @@ class WCTransactionConfirmationViewController: UIViewController {
         cells = [
             (title: "to", value: transaction.to.description),
             (title: "value", value: transaction.value.description),
-            (title: "data", value: transaction.data.description),
+            (title: "data", value: transaction.data?.description ?? ""),
             (title: "safeTxGas", value: transaction.safeTxGas.description),
             (title: "nonce", value: transaction.nonce.description)
         ]

@@ -73,12 +73,25 @@ class WalletConnectController {
     func updatePendingTransactions() {
         DispatchQueue.main.async {
             guard let pendingTransactions = try? WCPendingTransaction.getAll() else { return }
-            for tx in pendingTransactions {
-                let nonce = tx.nonce!
-                let wcSession = tx.session!
+            LogService.shared.debug("PENDING WC TRANSACTIONS: \(pendingTransactions.count)")
+            for pendingTx in pendingTransactions {
+                let nonce = UInt256String(UInt256(pendingTx.nonce!)!)
+                let wcSession = pendingTx.session!
                 let session = try! Session.from(wcSession)
-                let safe = session.walletInfo!.accounts[0]
-                LogService.shared.debug("UPDATE TX FOR safe: \(safe), nonce: \(nonce)")
+                let safeAddress = AddressString(session.walletInfo!.accounts[0])!
+                DispatchQueue.global().async { [unowned self] in
+                    if let transaction = try? App.shared.safeTransactionService
+                        .transaction(nonce: nonce, safe: safeAddress),
+                       let txHash = transaction.transactionHash,
+                       // it might happen that pendingTx is removed, but the object still exists
+                       let requestId = pendingTx.requestId,
+                       let response = try? Response(url: session.url, value: txHash, id: requestId) {
+                        self.server.send(response)
+                        DispatchQueue.main.async {
+                            WCPendingTransaction.remove(nonce: pendingTx.nonce!)
+                        }
+                    }
+                }
             }
         }
     }

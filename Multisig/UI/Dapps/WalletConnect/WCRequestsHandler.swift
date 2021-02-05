@@ -9,6 +9,15 @@
 import UIKit
 import WalletConnectSwift
 
+extension RequestID {
+    var description: String {
+        if let str = self as? String { return str }
+        if let int = self as? Int { return String(int) }
+        if let double = self as? Double { return String(double) }
+        return "nil"
+    }
+}
+
 class WCRequestsHandler: RequestHandler {
     private weak var server: Server!
 
@@ -34,6 +43,7 @@ class WCRequestsHandler: RequestHandler {
 
         if request.method == "eth_sendTransaction" {
             guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
+                  let requestId = request.id,
                   var transaction = Transaction(wcRequest: wcRequest),
                   // we asume that we did a check on if signing key is a safe owner during connection initialization
                   // otherwiser later server will not accept any requests
@@ -61,7 +71,9 @@ class WCRequestsHandler: RequestHandler {
                         sender: AddressString(signingKeyAddress)!,
                         signature: signature.value,
                         transaction: transaction)
-                    self.submitCreateTransactionRequest(createTxRequest, topic: request.url.topic)
+                    self.submitCreateTransactionRequest(createTxRequest,
+                                                        topic: request.url.topic,
+                                                        requestId: requestId.description)
                 }
                 UIWindow.topMostController()!.present(confirmationController, animated: true)
             }
@@ -79,13 +91,13 @@ class WCRequestsHandler: RequestHandler {
         }
     }
 
-    private func submitCreateTransactionRequest(_ request: CreateTransactionRequest, topic: String) {
+    private func submitCreateTransactionRequest(_ request: CreateTransactionRequest, topic: String, requestId: String) {
         DispatchQueue.global().async {
             try! App.shared.safeTransactionService.createTransaction(request: request)
             let nonce = request.transaction.nonce
             guard let wcSession = WCSession.get(topic: topic) else { return }
             DispatchQueue.main.async {
-                WCPendingTransaction.create(wcSession: wcSession, nonce: nonce)
+                WCPendingTransaction.create(wcSession: wcSession, nonce: nonce, requestId: requestId)
             }
         }
     }

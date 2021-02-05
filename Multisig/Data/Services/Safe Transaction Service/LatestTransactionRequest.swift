@@ -14,7 +14,7 @@ struct LatestTransactionRequest: JSONRequest {
 
     let limit = 1
     var httpMethod: String { "GET" }
-    var urlPath: String { "/api/v1/tokens/safes/\(safe)/multisig-transactions/" }
+    var urlPath: String { "/api/v1/safes/\(safe)/multisig-transactions/" }
     var query: String? { "limit=\(limit)" }
 
     typealias ResponseType = Page<Transaction>

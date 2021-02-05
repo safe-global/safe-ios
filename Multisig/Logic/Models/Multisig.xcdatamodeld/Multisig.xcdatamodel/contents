@@ -14,6 +14,7 @@
     </entity>
     <entity name="WCPendingTransaction" representedClassName="WCPendingTransaction" syncable="YES" codeGenerationType="class">
         <attribute name="nonce" attributeType="String"/>
+        <attribute name="requestId" attributeType="String"/>
         <relationship name="session" maxCount="1" deletionRule="Nullify" destinationEntity="WCSession" inverseName="pendingTransactions" inverseEntity="WCSession"/>
     </entity>
     <entity name="WCSession" representedClassName="WCSession" syncable="YES" codeGenerationType="class">
@@ -25,7 +26,7 @@
     </entity>
     <elements>
         <element name="AppSettings" positionX="54" positionY="18" width="128" height="58"/>
-        <element name="WCPendingTransaction" positionX="54" positionY="27" width="128" height="59"/>
+        <element name="WCPendingTransaction" positionX="54" positionY="27" width="128" height="74"/>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
         <element name="WCSession" positionX="54" positionY="18" width="128" height="104"/>
