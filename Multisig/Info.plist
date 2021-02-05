@@ -26,6 +26,8 @@
 	<string>$(CONFLICT_URL)</string>
 	<key>CONTACT_EMAIL</key>
 	<string>$(CONTACT_EMAIL)</string>
+	<key>APP_STORE_REVIEW_URL</key>
+	<string>$(APP_STORE_REVIEW_URL)</string>
 	<key>DISCORD_URL</key>
 	<string>$(DISCORD_URL)</string>
 	<key>ETH_BLOCK_BROWSER_URL</key>
@@ -60,6 +62,10 @@
 	<string>$(SERVICE_ENV)</string>
 	<key>TERMS_URL</key>
 	<string>$(TERMS_URL)</string>
+	<key>CONFLICT_URL</key>
+	<string>$(CONFLICT_URL)</string>
+	<key>FALLBACKHANDLER_URL</key>
+	<string>$(FALLBACKHANDLER_URL)</string>
 	<key>TRANSACTION_SERVICE_URL</key>
 	<string>$(TRANSACTION_SERVICE_URL)</string>
 	<key>TSKConfiguration</key>

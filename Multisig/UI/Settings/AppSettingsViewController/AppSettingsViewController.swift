@@ -33,6 +33,7 @@ class AppSettingsViewController: UITableViewController {
             case privacyPolicy(String)
             case licenses(String)
             case getInTouch(String)
+            case rateTheApp(String)
             case appVersion(String, String)
             case network(String, String)
         }
@@ -77,6 +78,7 @@ class AppSettingsViewController: UITableViewController {
                 Section.General.privacyPolicy("Privacy policy"),
                 Section.General.licenses("Licenses"),
                 Section.General.getInTouch("Get in touch"),
+                Section.General.rateTheApp("Rate the app"),
                 Section.General.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
                 Section.General.network("Network", app.network.rawValue),
             ]),
@@ -123,6 +125,9 @@ class AppSettingsViewController: UITableViewController {
             return basicCell(name: name, indexPath: indexPath)
 
         case Section.General.getInTouch(let name):
+            return basicCell(name: name, indexPath: indexPath)
+
+        case Section.General.rateTheApp(let name):
             return basicCell(name: name, indexPath: indexPath)
 
         case Section.General.appVersion(let name, let version):
@@ -201,6 +206,9 @@ class AppSettingsViewController: UITableViewController {
             let getInTouchVC = GetInTouchView()
             let hostingController = UIHostingController(rootView: getInTouchVC)
             show(hostingController, sender: self)
+        case Section.General.rateTheApp(_):
+            let url = App.configuration.contact.appStoreReviewURL
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         case Section.Advanced.advanced(_):
             let advancedVC = AdvancedAppSettings()
             let hostingController = UIHostingController(rootView: advancedVC)

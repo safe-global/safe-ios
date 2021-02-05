@@ -27,7 +27,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case name(String)
         case requiredConfirmations(String)
         case ownerAddresses(String)
-        case contractVersion(String)
+        case safeVersion(String)
         case ensName(String)
         case advanced
 
@@ -132,7 +132,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             (section: .ownerAddresses("Owner addresses"),
              items: info.owners.map { Section.OwnerAddresses.owner($0.description) }),
 
-            (section: .contractVersion("Contract version"),
+            (section: .safeVersion("Safe version"),
              items: [Section.ContractVersion.contractVersion(info.implementation.description)]),
 
             (section: .ensName("ENS name"), items: [Section.EnsName.ensName]),
@@ -166,7 +166,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return addressDetailsCell(address: name, indexPath: indexPath)
 
         case Section.ContractVersion.contractVersion(let version):
-            return contractVersionCell(version: version, indexPath: indexPath)
+            return safeVersionCell(version: version, indexPath: indexPath)
 
         case Section.EnsName.ensName:
             if ensLoader.isLoading {
@@ -207,7 +207,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         return cell
     }
 
-    private func contractVersionCell(version: String, indexPath: IndexPath) -> UITableViewCell {
+    private func safeVersionCell(version: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(ContractVersionStatusCell.self, for: indexPath)
         cell.setAddress(Address(exactly: version))
         cell.selectionStyle = .none
@@ -266,9 +266,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             }
             show(editSafeNameViewController, sender: self)
         case Section.Advanced.advanced(_):
-            let hostedView = AdvancedSafeSettingsView(safe: safe)
-            let hostingController = UIHostingController(rootView: hostedView)
-            show(hostingController, sender: self)
+            let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
+            show(advancedSafeSettingsViewController, sender: self)
         default:
             break
         }
@@ -307,7 +306,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.ownerAddresses(let name):
             view.setName(name)
 
-        case Section.contractVersion(let name):
+        case Section.safeVersion(let name):
             view.setName(name)
 
         case Section.ensName(let name):

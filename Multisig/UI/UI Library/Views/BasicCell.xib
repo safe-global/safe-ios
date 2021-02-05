@@ -19,7 +19,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFP-K3-0E0">
-                        <rect key="frame" x="16" y="18.5" width="359" height="21"/>
+                        <rect key="frame" x="16" y="12" width="359" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="ya5-JP-wad"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -32,10 +35,13 @@
                     </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="3ZP-s2-nBS" secondAttribute="trailing" id="67R-BX-uXj"/>
+                    <constraint firstItem="pFP-K3-0E0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="8FG-ke-awj"/>
+                    <constraint firstAttribute="bottom" secondItem="3ZP-s2-nBS" secondAttribute="bottom" id="E4s-wL-Xjr"/>
+                    <constraint firstAttribute="bottom" secondItem="pFP-K3-0E0" secondAttribute="bottom" constant="12" id="KS6-6D-DNB"/>
                     <constraint firstItem="pFP-K3-0E0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="UGj-L0-e44"/>
                     <constraint firstAttribute="bottom" secondItem="uAP-nO-Z6e" secondAttribute="bottom" id="gyI-b6-rpZ"/>
                     <constraint firstItem="uAP-nO-Z6e" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="h8D-lx-Wc2"/>
-                    <constraint firstItem="pFP-K3-0E0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-1" id="hPe-Ro-uOl"/>
                     <constraint firstAttribute="trailing" secondItem="uAP-nO-Z6e" secondAttribute="trailing" id="jkK-vH-vYD"/>
                     <constraint firstItem="uAP-nO-Z6e" firstAttribute="leading" secondItem="pFP-K3-0E0" secondAttribute="trailing" constant="16" id="vku-Oo-85w"/>
                 </constraints>

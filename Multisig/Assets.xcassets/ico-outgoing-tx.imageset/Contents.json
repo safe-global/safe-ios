@@ -3,6 +3,16 @@
     {
       "filename" : "red.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "greenCopy9.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

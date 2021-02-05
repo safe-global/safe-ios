@@ -35,7 +35,7 @@ extension GNOTextStyle {
     static let primaryError = GNOTextStyle(size: 17, weight: .medium, color: .error)
     static let primaryButton = GNOTextStyle(size: 17, weight: .medium, color: .button)
 
-    static let caption1 = GNOTextStyle(size: 13, weight: .bold)
+    static let caption1 = GNOTextStyle(size: 13, weight: .bold, letterSpacing: 2, color: .tertiaryLabel)
     static let caption2 = GNOTextStyle(size: 10, weight: .bold, letterSpacing: 2, color: .tertiaryLabel)
     static let caption3 = GNOTextStyle(size: 10, weight: .medium)
 
@@ -87,6 +87,17 @@ extension UILabel {
 
     func setAttributedText(_ text: String, style: GNOTextStyle) {
         attributedText = NSAttributedString(string: text, attributes: style.attributes)
+    }
+
+    func hyperLinkLabel(_ text: String) {
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(named: "icon-external-link")?.withTintColor(.button)
+        let attachmentString = NSAttributedString(attachment: attachment)
+        let description = NSMutableAttributedString(string: "\(text) ")
+        description.append(attachmentString)
+        description.addAttributes(GNOTextStyle.primaryButton.attributes, range: NSRange(location: 0, length: description.length))
+        description.addAttributes([NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue], range: NSRange(location: 0, length: description.length))
+        attributedText = description
     }
 }
 

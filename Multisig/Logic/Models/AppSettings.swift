@@ -21,58 +21,49 @@ extension AppSettings {
         }
     }
 
-    static var termsAccepted: Bool {
-        set {
-            dispatchPrecondition(condition: .onQueue(.main))
-            current().termsAccepted = newValue
-            App.shared.coreDataStack.saveContext()
-        }
-        get {
-            dispatchPrecondition(condition: .onQueue(.main))
-            return current().termsAccepted
-        }
-    }
+    @AppSetting(\.termsAccepted)
+    static var termsAccepted: Bool
 
-    static var hasShownImportKeyOnboarding: Bool {
-        set {
-            dispatchPrecondition(condition: .onQueue(.main))
-            current().importKeyOnBoardingShown = newValue
-            App.shared.coreDataStack.saveContext()
-        }
-        get {
-            dispatchPrecondition(condition: .onQueue(.main))
-            return current().importKeyOnBoardingShown
-        }
-    }
+    @AppSetting(\.importKeyOnBoardingShown)
+    static var hasShownImportKeyOnboarding: Bool
 
-    static var importKeyBannerDismissed: Bool {
-        get {
-            dispatchPrecondition(condition: .onQueue(.main))
-            return current().dismissedImportKeyBanner
-        }
-        set {
-            dispatchPrecondition(condition: .onQueue(.main))
-            current().dismissedImportKeyBanner = newValue
-            App.shared.coreDataStack.saveContext()
-        }
-    }
+    @AppSetting(\.dismissedImportKeyBanner)
+    static var importKeyBannerDismissed: Bool
 
-    static var importedOwnerKey: Bool {
-        get {
-            dispatchPrecondition(condition: .onQueue(.main))
-            return current().importedOwnerKey
-        }
-        set {
-            dispatchPrecondition(condition: .onQueue(.main))
-            current().importedOwnerKey = newValue
-            App.shared.coreDataStack.saveContext()
-        }
-    }
+    @AppSetting(\.importedOwnerKey)
+    static var importedOwnerKey: Bool
+
+    @AppSetting(\.appReviewEventCount)
+    static var appReviewEventCount: Int64
+
 }
 
 extension NSFetchRequest where ResultType == AppSettings {
     func all() -> Self {
         sortDescriptors = []
         return self
+    }
+}
+
+@propertyWrapper
+struct AppSetting<T> {
+    private var path: ReferenceWritableKeyPath<AppSettings, T>
+
+    init(_ path: ReferenceWritableKeyPath<AppSettings, T>) {
+        self.path = path
+    }
+
+    var wrappedValue: T {
+        get {
+            dispatchPrecondition(condition: .onQueue(.main))
+            let object = AppSettings.current()
+            return object[keyPath: path]
+        }
+        set {
+            dispatchPrecondition(condition: .onQueue(.main))
+            let object = AppSettings.current()
+            object[keyPath: path] = newValue
+            App.shared.coreDataStack.saveContext()
+        }
     }
 }
