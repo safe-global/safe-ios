@@ -35,6 +35,8 @@ class WCRequestsHandler: RequestHandler {
         if request.method == "eth_sendTransaction" {
             guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
                   var transaction = Transaction(wcRequest: wcRequest),
+                  // we asume that we did a check on if signing key is a safe owner during connection initialization
+                  // otherwiser later server will not accept any requests
                   let signingKeyAddress = App.shared.settings.signingKeyAddress else {
                 server.send(try! Response(request: request, error: .requestRejected))
                 return
@@ -59,9 +61,7 @@ class WCRequestsHandler: RequestHandler {
                         sender: AddressString(signingKeyAddress)!,
                         signature: signature.value,
                         transaction: transaction)
-                    DispatchQueue.global().async {
-                        try! App.shared.safeTransactionService.createTransaction(request: createTxRequest)
-                    }
+                    self.submitCreateTransactionRequest(createTxRequest, topic: request.url.topic)
                 }
                 UIWindow.topMostController()!.present(confirmationController, animated: true)
             }
@@ -75,6 +75,17 @@ class WCRequestsHandler: RequestHandler {
                 self.server.send(response)
             } catch {
                 // TODO: finish
+            }
+        }
+    }
+
+    private func submitCreateTransactionRequest(_ request: CreateTransactionRequest, topic: String) {
+        DispatchQueue.global().async {
+            try! App.shared.safeTransactionService.createTransaction(request: request)
+            let nonce = request.transaction.nonce
+            guard let wcSessoin = WCSession.get(topic: topic) else { return }
+            DispatchQueue.main.async {
+                PendingWCTransaction.create(wcSession: wcSessoin, nonce: nonce)
             }
         }
     }

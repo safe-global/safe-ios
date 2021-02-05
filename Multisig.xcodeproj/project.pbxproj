@@ -358,6 +358,8 @@
 		55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853E25014AD7005E778B /* BIP39+WordLists.swift */; };
 		55A5854125014B1B005E778B /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5854025014B1B005E778B /* Data+Extension.swift */; };
 		55A5854325014E05005E778B /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5854225014E05005E778B /* String+Extension.swift */; };
+		55A6715F25CBC9EF00392A4D /* PendingWCTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A6715E25CBC9EF00392A4D /* PendingWCTransaction.swift */; };
+		55A6719225CBD21300392A4D /* SynchronizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A6719125CBD21300392A4D /* SynchronizationService.swift */; };
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
 		55B24E55257A0B2700058809 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B24E54257A0B2700058809 /* UIWindow+Extension.swift */; };
@@ -391,6 +393,7 @@
 		55D3654325078560004D5047 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654225078560004D5047 /* TextView.swift */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
 		55E898C425B682BC002D2658 /* DappsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E898C325B682BC002D2658 /* DappsViewController.swift */; };
+		55FDC0CD25CCC40B00979A21 /* Repeater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0CC25CCC40B00979A21 /* Repeater.swift */; };
 		68F2F299ED7EA791697FFE29 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */; };
 		D041FEDD6C712A3A8AC1BA71 /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */; };
 		E30B69A86F7709B130B3D0B0 /* libPods-MultisigIntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */; };
@@ -845,6 +848,8 @@
 		55A5853E25014AD7005E778B /* BIP39+WordLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BIP39+WordLists.swift"; sourceTree = "<group>"; };
 		55A5854025014B1B005E778B /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		55A5854225014E05005E778B /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		55A6715E25CBC9EF00392A4D /* PendingWCTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingWCTransaction.swift; sourceTree = "<group>"; };
+		55A6719125CBD21300392A4D /* SynchronizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizationService.swift; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
 		55B24E54257A0B2700058809 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
@@ -879,6 +884,7 @@
 		55D3654225078560004D5047 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		55DCC332258A4C71003346FC /* GSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSError.swift; sourceTree = "<group>"; };
 		55E898C325B682BC002D2658 /* DappsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DappsViewController.swift; sourceTree = "<group>"; };
+		55FDC0CC25CCC40B00979A21 /* Repeater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repeater.swift; sourceTree = "<group>"; };
 		586B435AB878EA6A796D3E66 /* Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		5CBFF463F4BE8B670E9583FC /* Pods-MultisigTests.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		5EBDB0B79D3FC3A38767F16D /* Pods-Multisig.release.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -1774,14 +1780,15 @@
 		0AF432C6244DFA1800E22E50 /* Cross-layer */ = {
 			isa = PBXGroup;
 			children = (
-				0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */,
 				0A6C85B3245080620026139E /* App.swift */,
 				55B6464D25304F9B0050BD95 /* Settings.swift */,
+				0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */,
 				0ACDC01624925B36002035A2 /* Analytics */,
 				0A6430D8247EC180006FD30A /* Configuration */,
 				0A791D9524D2E36400D70DA9 /* Crashlytics Non-fatal Errors */,
 				044A544C2448E5CF009CBB80 /* Localization */,
 				5532D4AE2449A17D0067505A /* Logger */,
+				55A6719025CBD1F000392A4D /* Synchronization */,
 			);
 			path = "Cross-layer";
 			sourceTree = "<group>";
@@ -1841,6 +1848,7 @@
 				559670FE256E88FC0097D3A2 /* Signer.swift */,
 				049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */,
 				555D228325BA7E5B00505420 /* WCSession.swift */,
+				55A6715E25CBC9EF00392A4D /* PendingWCTransaction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2088,6 +2096,15 @@
 				555312F325068E0F0008206B /* README */,
 			);
 			path = web3swift;
+			sourceTree = "<group>";
+		};
+		55A6719025CBD1F000392A4D /* Synchronization */ = {
+			isa = PBXGroup;
+			children = (
+				55A6719125CBD21300392A4D /* SynchronizationService.swift */,
+				55FDC0CC25CCC40B00979A21 /* Repeater.swift */,
+			);
+			path = Synchronization;
 			sourceTree = "<group>";
 		};
 		55B66E85247FC5D900249E98 /* Onboarding */ = {
@@ -2716,6 +2733,7 @@
 				0A0EFCA8246EB13300D3D8BF /* KeyValueRow.swift in Sources */,
 				0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
+				55A6715F25CBC9EF00392A4D /* PendingWCTransaction.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */,
@@ -2738,6 +2756,7 @@
 				0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */,
 				55BCFC392552FCDB00020CE7 /* SafeSettingsViewController.swift in Sources */,
 				048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */,
+				55FDC0CD25CCC40B00979A21 /* Repeater.swift in Sources */,
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
@@ -2869,6 +2888,7 @@
 				5538833425C912040026F44F /* SafeContract.swift in Sources */,
 				55E898C425B682BC002D2658 /* DappsViewController.swift in Sources */,
 				553883BE25CA44200026F44F /* LatestTransactionRequest.swift in Sources */,
+				55A6719225CBD21300392A4D /* SynchronizationService.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				555D228425BA7E5B00505420 /* WCSession.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,

@@ -69,6 +69,10 @@ class WalletConnectController {
 
         return sessions
     }
+
+    func updatePendingTransactions() {
+        print("CHECK PENDING ")
+    }
 }
 
 extension WalletConnectController: ServerDelegate {
