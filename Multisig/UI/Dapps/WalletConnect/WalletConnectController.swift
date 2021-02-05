@@ -13,6 +13,7 @@ class WalletConnectController {
     static let shared = WalletConnectController()
     private var server: Server!
     private let notificationCenter = NotificationCenter.default
+    private var showedNotificationsSessionTopics = [String]()
 
     init() {
         server = Server(delegate: self)
@@ -88,7 +89,9 @@ class WalletConnectController {
                        let response = try? Response(url: session.url, value: txHash, id: requestId) {
                         self.server.send(response)
                         DispatchQueue.main.async {
-                            WCPendingTransaction.remove(nonce: pendingTx.nonce!)
+                            let nonce = pendingTx.nonce!
+                            WCPendingTransaction.remove(nonce: nonce)
+                            App.shared.snackbar.show(message: "WalletConnect transaction with nonce \(nonce) is executed. Please return back to the browser.")
                         }
                     }
                 }
@@ -128,6 +131,14 @@ extension WalletConnectController: ServerDelegate {
             WCSession.update(session: session, status: .connected)
         }
         notificationCenter.post(name: .wcDidConnect, object: session)
+
+        // skip snackbar notification for reconnect cases
+        if !showedNotificationsSessionTopics.contains(session.url.topic) {
+            showedNotificationsSessionTopics.append(session.url.topic)
+            DispatchQueue.main.async {
+                App.shared.snackbar.show(message: "WalletConnect session created! Please return back to the browser.")
+            }
+        }
     }
 
     func server(_ server: Server, didDisconnect session: Session) {

@@ -41,12 +41,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        // Check for specific URL components
-        guard let path = components.path,
-              let params = components.queryItems else {
+        // Check if URL is a potential WalletConnect session
+        guard let params = components.queryItems,
+              !params.isEmpty,
+              let wcURL = params[0].value else {
             return
         }
-        print("APP OPENING: path = \(path), params = \(params)")
+
+        try? WalletConnectController.shared.connect(url: wcURL)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -102,12 +104,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        // Check for specific URL components
-        guard let path = components.path,
-              let params = components.queryItems else {
+        // Check if URL is a potential WalletConnect session
+        guard let params = components.queryItems,
+              !params.isEmpty,
+              let wcURL = params[0].value else {
             return
         }
-        print("APP ALREADY OPENED: path = \(path), params = \(params)")
+
+        try? WalletConnectController.shared.connect(url: wcURL)
     }
 }
 
