@@ -32,6 +32,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         App.shared.notificationHandler.appStarted()
+
+        // Get URL components from the incoming user activity.
+        guard let userActivity = connectionOptions.userActivities.first,
+              userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+              let incomingURL = userActivity.webpageURL,
+              let components = NSURLComponents(url: incomingURL, resolvingAgainstBaseURL: true) else {
+            return
+        }
+
+        // Check for specific URL components
+        guard let path = components.path,
+              let params = components.queryItems else {
+            return
+        }
+        print("APP OPENING: path = \(path), params = \(params)")
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -68,7 +83,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         SynchronizationService.shared.stopSyncLoop()
     }
 
-    #warning("Should we use AppDelegate only? Now deep links are handled here")
+    #warning("TODO: finish deep links support for WalletConnect")
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         for context in URLContexts {
             print("url: \(context.url.absoluteURL)")
@@ -77,6 +92,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("path: \(context.url.path)")
             print("components: \(context.url.pathComponents)")
         }
+    }
+
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        // Get URL components from the incoming user activity.
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+              let incomingURL = userActivity.webpageURL,
+              let components = NSURLComponents(url: incomingURL, resolvingAgainstBaseURL: true) else {
+            return
+        }
+
+        // Check for specific URL components
+        guard let path = components.path,
+              let params = components.queryItems else {
+            return
+        }
+        print("APP ALREADY OPENED: path = \(path), params = \(params)")
     }
 }
 
