@@ -26,7 +26,7 @@ class DappsViewController: UITableViewController {
         }
 
         enum Dapp: SectionItem {
-            case name(String)
+            case dapp(DappData)
         }
     }
 
@@ -62,22 +62,25 @@ class DappsViewController: UITableViewController {
     }
 
     private func update() {
-        var sessionItems: [SectionItem]
+        var wcSessionItems: [SectionItem]
         do {
-            sessionItems = try WCSession.getAll().compactMap {
+            wcSessionItems = try WCSession.getAll().compactMap {
                 Section.WalletConnect.activeSession($0)
             }
-            if sessionItems.isEmpty {
-                sessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
+            if wcSessionItems.isEmpty {
+                wcSessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
             }
         } catch {
-            sessionItems = [Section.WalletConnect.noSessions("No active sessions")]
+            wcSessionItems = [Section.WalletConnect.noSessions("No active sessions")]
             App.shared.snackbar.show(
                 error: GSError.error(description: "Could not load WalletConnect sessions", error: error))
         }
 
+        let dappSectionItems = DappsDataSource.shared.dapps.map { Section.Dapp.dapp($0) }
+
         sections = [
-            (section: .walletConnect("WalletConnect"), items: sessionItems)
+            (section: .walletConnect("WalletConnect"), items: wcSessionItems),
+            (section: .dapp("Dapps supporting Safe Multisig"), items: dappSectionItems)
         ]
 
         DispatchQueue.main.async { [unowned self] in
@@ -153,6 +156,14 @@ class DappsViewController: UITableViewController {
                     placeholderImage: #imageLiteral(resourceName: "ico-empty-circle"))
             }
 
+        case Section.Dapp.dapp(let dapp):
+            return tableView.detailedCell(
+                imageUrl: dapp.logo,
+                header: dapp.name,
+                description: dapp.description,
+                indexPath: indexPath,
+                placeholderImage: #imageLiteral(resourceName: "ico-empty-circle"))
+
         default:
             return UITableViewCell()
         }
@@ -175,6 +186,14 @@ class DappsViewController: UITableViewController {
     }
 
     // MARK: - Table view delegate
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = sections[indexPath.section].items[indexPath.row]
+        if case Section.Dapp.dapp(let dapp) = item {
+            UIApplication.shared.open(dapp.url)
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
         let section = sections[_section].section

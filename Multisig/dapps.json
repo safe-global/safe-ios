@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Uniswap",
+    "description": "Decentralized Trading Protocol",
+    "logo": "https://assets.dapp.review/dapp-logo/2020.08.05/MY4SHG3iQAbSNE7hnSPwJYDtE6aByFER.png",
+    "url": "https://app.uniswap.org/"
+  },
+  {
+    "name": "Mesa",
+    "description": "Fully permissionless DEX",
+    "logo": "https://pbs.twimg.com/profile_images/1271517660082171906/QO5eJ00j.png",
+    "url": "https://mesa.eth.link/"
+  }
+]

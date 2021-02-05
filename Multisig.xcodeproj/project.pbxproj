@@ -395,6 +395,8 @@
 		55E898C425B682BC002D2658 /* DappsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E898C325B682BC002D2658 /* DappsViewController.swift */; };
 		55FDC0CD25CCC40B00979A21 /* Repeater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0CC25CCC40B00979A21 /* Repeater.swift */; };
 		55FDC0FD25CCF5E600979A21 /* TransactionByNonceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0FC25CCF5E600979A21 /* TransactionByNonceRequest.swift */; };
+		55FDC10325CD22FC00979A21 /* dapps.json in Resources */ = {isa = PBXBuildFile; fileRef = 55FDC10225CD22FC00979A21 /* dapps.json */; };
+		55FDC10925CD236D00979A21 /* DappsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC10825CD236D00979A21 /* DappsDataSource.swift */; };
 		68F2F299ED7EA791697FFE29 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */; };
 		D041FEDD6C712A3A8AC1BA71 /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */; };
 		E30B69A86F7709B130B3D0B0 /* libPods-MultisigIntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */; };
@@ -887,6 +889,8 @@
 		55E898C325B682BC002D2658 /* DappsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DappsViewController.swift; sourceTree = "<group>"; };
 		55FDC0CC25CCC40B00979A21 /* Repeater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repeater.swift; sourceTree = "<group>"; };
 		55FDC0FC25CCF5E600979A21 /* TransactionByNonceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionByNonceRequest.swift; sourceTree = "<group>"; };
+		55FDC10225CD22FC00979A21 /* dapps.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dapps.json; sourceTree = "<group>"; };
+		55FDC10825CD236D00979A21 /* DappsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DappsDataSource.swift; sourceTree = "<group>"; };
 		586B435AB878EA6A796D3E66 /* Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		5CBFF463F4BE8B670E9583FC /* Pods-MultisigTests.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
 		5EBDB0B79D3FC3A38767F16D /* Pods-Multisig.release.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -1805,6 +1809,7 @@
 				0A0070F6254AF22900A57CAF /* splash-screen-tagline@2x.png */,
 				0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */,
 				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
+				55FDC10225CD22FC00979A21 /* dapps.json */,
 			);
 			name = Resources;
 			path = ..;
@@ -2174,6 +2179,7 @@
 			children = (
 				55050B1D25B7D71D00DFA9F1 /* WalletConnect */,
 				55E898C325B682BC002D2658 /* DappsViewController.swift */,
+				55FDC10825CD236D00979A21 /* DappsDataSource.swift */,
 			);
 			path = Dapps;
 			sourceTree = "<group>";
@@ -2449,6 +2455,7 @@
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
 				0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */,
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
+				55FDC10325CD22FC00979A21 /* dapps.json in Resources */,
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
@@ -2914,6 +2921,7 @@
 				0A9A1A35257924C600B44405 /* DetailAccountAndTextCell.swift in Sources */,
 				55B6465A253050200050BD95 /* HashString.swift in Sources */,
 				55B66E56247E494000249E98 /* AppSettings.swift in Sources */,
+				55FDC10925CD236D00979A21 /* DappsDataSource.swift in Sources */,
 				0A5F4829254C56580069C98D /* SafeEntryTableViewCell.swift in Sources */,
 				555312E9250653800008206B /* BIP32HDNode.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
