@@ -153,7 +153,8 @@ class EnterSafeAddressViewController: UIViewController {
                                                         error: GSError.InvalidSafeAddress()).localizedDescription
                             self.addressField.setError(message)
                         } else {
-                            self.addressField.setError(error)
+                            let message = GSError.error(description: "Can’t use this address", error: error)
+                            self.addressField.setError(message)
                         }
                     }
                 case .success(let info):

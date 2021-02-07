@@ -66,8 +66,7 @@ enum GSError {
     }
 
     static func detailedError(from error: Error) -> Error {
-        guard let nsError = error as NSError? else { return error }
-
+        guard let nsError = error as NSError?, nsError.domain == NSURLErrorDomain else { return error }
         switch URLError.Code(rawValue: nsError.code) {
         case .notConnectedToInternet:
             return NoInternet()
@@ -77,9 +76,6 @@ enum GSError {
             return TimeOut()
         case .cannotFindHost:
             return UnknownHost()
-        case .cancelled:
-            // happens when SSL certificate is not pinned
-            return SecureConnectionFailed()
         default:
             return error
         }

@@ -16,11 +16,16 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private var totalBalance: String = "0.00"
 
-    private let rowHeight: CGFloat = 60
     private let tableBackgroundColor: UIColor = .gnoWhite
-    private let totalCellIndex = 0
+
+    enum Section: Int {
+        case banner = 0, total, balances
+    }
 
     override var isEmpty: Bool { results.isEmpty }
+
+    @UserDefault(key: "io.gnosis.multisig.importKeyBannerWasShown")
+    private var importKeyBannerWasShown: Bool?
 
     var clientGatewayService = App.shared.clientGatewayService
 
@@ -32,15 +37,29 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         tableView.registerCell(BalanceTableViewCell.self)
         tableView.registerCell(TotalBalanceTableViewCell.self)
+        tableView.registerCell(ImportKeyBannerTableViewCell.self)
 
         tableView.allowsSelection = false
-        tableView.rowHeight = rowHeight
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60
         tableView.backgroundColor = tableBackgroundColor
 
         tableView.delegate = self
         tableView.dataSource = self
 
+        if importKeyBannerWasShown != true && App.shared.settings.signingKeyAddress != nil {
+            importKeyBannerWasShown = true
+        }
+
         emptyView.setText("Balances will appear here")
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(ownerKeyImported), name: .ownerKeyImported, object: nil)
+    }
+
+    @objc private func ownerKeyImported() {
+        importKeyBannerWasShown = true
+        tableView.reloadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -86,18 +105,30 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         }
     }
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        3
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        results.count + 1 /* for total cell */
+        switch Section(rawValue: section)! {
+        case .balances:
+            return results.count
+        case .total:
+            return 1
+        case .banner:
+            return importKeyBannerWasShown != true ? 1 : 0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == totalCellIndex {
+        switch Section(rawValue: indexPath.section)! {
+        case .total:
             let cell = tableView.dequeueCell(TotalBalanceTableViewCell.self, for: indexPath)
             cell.setMainText("Total")
             cell.setDetailText(totalBalance)
             return cell
-        } else {
-            let item = results[indexPath.row - 1]
+        case .balances:
+            let item = results[indexPath.row]
             let cell = tableView.dequeueCell(BalanceTableViewCell.self, for: indexPath)
             cell.setMainText(item.symbol)
             cell.setDetailText(item.balance)
@@ -108,6 +139,25 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                 cell.setImage(with: item.imageURL, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
             }
             return cell
+        case .banner:
+            let cell = tableView.dequeueCell(ImportKeyBannerTableViewCell.self, for: indexPath)
+            cell.onClose = { [unowned self] in
+                importKeyBannerWasShown = true
+                updateSection(indexPath.section)
+            }
+            cell.onImport = { [unowned self] in
+                importKeyBannerWasShown = true
+                updateSection(indexPath.section)
+                let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
+                present(vc, animated: true)
+            }
+            return cell
         }
+    }
+
+    private func updateSection(_ section: Int) {
+        tableView.beginUpdates()
+        tableView.reloadSections([section], with: .automatic)
+        tableView.endUpdates()
     }
 }
