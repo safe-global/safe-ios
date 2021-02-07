@@ -27,7 +27,7 @@ struct UInt256String: Hashable, Codable {
         let container = try decoder.singleValueContainer()
         if let string = try? container.decode(String.self) {
             if string.hasPrefix("0x") {
-                let data = Data(hex: string)
+                let data = Data(ethHex: string)
                 value = UInt256(data)
             } else if let uint256 = UInt256(string) {
                 value = uint256
