@@ -70,14 +70,17 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     @objc private func didTapNextButton(_ sender: Any) {
         let phrase = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         if isPotentiallyValidSeedPhrase(phrase) {
+            nextButton.isEnabled = false
             guard let seedData = BIP39.seedFromMmemonics(phrase),
                 let rootNode = HDNode(seed: seedData)?.derive(path: HDNode.defaultPathMetamaskPrefix,
                                                               derivePrivateKey: true) else {
+                nextButton.isEnabled = true
                 setError(GSError.WrongSeedPhrase())
                 return
             }
             let vc = KeyPickerController(node: rootNode)
             show(vc, sender: self)
+            nextButton.isEnabled = true
         } else if isValidPK(phrase) {
             let vc = ConfirmPrivateKeyViewController(privateKey: Data(exactlyHex: phrase)!)
             show(vc, sender: self)

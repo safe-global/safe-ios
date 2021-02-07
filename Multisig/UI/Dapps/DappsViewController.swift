@@ -35,7 +35,7 @@ class DappsViewController: UITableViewController {
 
         configureTableView()
         addWCButton()
-        subscribeToWCNotifications()
+        subscribeToNotifications()
         
         update()
     }
@@ -61,11 +61,16 @@ class DappsViewController: UITableViewController {
         ])
     }
 
-    private func update() {
+    @objc private func update() {
         var wcSessionItems: [SectionItem]
         do {
             wcSessionItems = try WCSession.getAll().compactMap {
-                Section.WalletConnect.activeSession($0)
+                guard let session = try? Session.from($0),
+                      let selectedSafe = try? Safe.getSelected(),
+                      session.walletInfo!.accounts.contains(selectedSafe.address!) else {
+                    return nil
+                }
+                return Section.WalletConnect.activeSession($0)
             }
             if wcSessionItems.isEmpty {
                 wcSessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
@@ -88,15 +93,18 @@ class DappsViewController: UITableViewController {
         }
     }
 
-    private func subscribeToWCNotifications() {
+    private func subscribeToNotifications() {
         NotificationCenter.default.addObserver(
-            self, selector: #selector(wcNotificationReceived), name: .wcConnecting, object: nil)
+            self, selector: #selector(update), name: .wcConnecting, object: nil)
         NotificationCenter.default.addObserver(
-            self, selector: #selector(wcNotificationReceived), name: .wcDidConnect, object: nil)
+            self, selector: #selector(update), name: .wcDidConnect, object: nil)
         NotificationCenter.default.addObserver(
-            self, selector: #selector(wcNotificationReceived), name: .wcDidDisconnect, object: nil)
+            self, selector: #selector(update), name: .wcDidDisconnect, object: nil)
         NotificationCenter.default.addObserver(
-            self, selector: #selector(wcNotificationReceived), name: .wcDidFailToConnect, object: nil)
+            self, selector: #selector(update), name: .wcDidFailToConnect, object: nil)
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(update), name: .selectedSafeChanged, object: nil)
     }
 
     @objc private func scan() {
@@ -111,10 +119,6 @@ class DappsViewController: UITableViewController {
         vc.delegate = self
         vc.setup()
         present(vc, animated: true, completion: nil)
-    }
-
-    @objc private func wcNotificationReceived() {
-        update()
     }
 
     // MARK: - Table view data source

@@ -68,6 +68,7 @@ class WCTransactionConfirmationViewController: UIViewController {
 
     private func buildCells() {
         cells = [
+            (title: "safe", value: transaction.safe!.description),
             (title: "to", value: transaction.to.description),
             (title: "value", value: transaction.value.description),
             (title: "data", value: transaction.data?.description ?? ""),

@@ -10,6 +10,8 @@ import Foundation
 
 // Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
 struct Transaction: Codable {
+    var safe: AddressString?
+
     // required by a smart contract
     let to: AddressString
     let value: UInt256String
@@ -49,6 +51,8 @@ extension Transaction {
     init?(wcRequest: WCSendTransactionRequest) {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
+        safe = wcRequest.from
+
         var _nonce: UInt256String
         if let latestTx = try? App.shared.safeTransactionService.latestTransaction(for: wcRequest.from) {
             _nonce = UInt256String(latestTx.nonce.value + 1)
@@ -58,8 +62,8 @@ extension Transaction {
         } else {
             return nil
         }
-
         nonce = _nonce
+
         to = wcRequest.to ?? AddressString.zero
         value = wcRequest.value ?? "0"
         data = wcRequest.data

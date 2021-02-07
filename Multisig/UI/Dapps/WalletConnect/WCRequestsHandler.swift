@@ -42,12 +42,17 @@ class WCRequestsHandler: RequestHandler {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
         if request.method == "eth_sendTransaction" {
+            guard let signingKeyAddress = App.shared.settings.signingKeyAddress else {
+                DispatchQueue.main.async {
+                    App.shared.snackbar.show(message: "Please import Signing Key to initiate WalletConnect transactions!")
+                }
+                server.send(try! Response(request: request, error: .requestRejected))
+                return
+            }
+
             guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
                   let requestId = request.id,
-                  var transaction = Transaction(wcRequest: wcRequest),
-                  // we asume that we did a check on if signing key is a safe owner during connection initialization
-                  // otherwiser later server will not accept any requests
-                  let signingKeyAddress = App.shared.settings.signingKeyAddress else {
+                  var transaction = Transaction(wcRequest: wcRequest) else {
                 server.send(try! Response(request: request, error: .requestRejected))
                 return
             }
@@ -93,7 +98,16 @@ class WCRequestsHandler: RequestHandler {
 
     private func submitCreateTransactionRequest(_ request: CreateTransactionRequest, topic: String, requestId: String) {
         DispatchQueue.global().async {
-            try! App.shared.safeTransactionService.createTransaction(request: request)
+            do {
+                try App.shared.safeTransactionService.createTransaction(request: request)
+                DispatchQueue.main.async {
+                    App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners. Once it is executed the dapp will get a response with the transaction hash.", duration: 6)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    App.shared.snackbar.show(error: GSError.CouldNotSubmitWalletConnectTransaction())
+                }
+            }
             let nonce = request.transaction.nonce
             guard let wcSession = WCSession.get(topic: topic) else { return }
             DispatchQueue.main.async {
