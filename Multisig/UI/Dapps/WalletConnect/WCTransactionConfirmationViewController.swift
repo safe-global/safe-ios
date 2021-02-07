@@ -59,6 +59,7 @@ class WCTransactionConfirmationViewController: UIViewController {
 
         tableView.dataSource = self
         tableView.registerCell(InfoCell.self)
+        tableView.registerCell(DetailExpandableTextCell.self)
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
 
@@ -82,9 +83,20 @@ extension WCTransactionConfirmationViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(InfoCell.self)
-        cell.setTitle(cells[indexPath.row].title)
-        cell.setInfo(cells[indexPath.row].value)
-        return cell
+        if cells[indexPath.row].title == "data" {
+            let cell = tableView.dequeueCell(DetailExpandableTextCell.self)
+            let data = cells[indexPath.row].value
+            cell.tableView = tableView
+            cell.setTitle(cells[indexPath.row].title)
+            cell.setText(data)
+            cell.setCopyText(cells[indexPath.row].value)
+            cell.setExpandableTitle("\(transaction.data?.data.count ?? 0) Bytes")
+            return cell
+        } else {
+            let cell = tableView.dequeueCell(InfoCell.self)
+            cell.setTitle(cells[indexPath.row].title)
+            cell.setInfo(cells[indexPath.row].value)
+            return cell
+        }
     }
 }
