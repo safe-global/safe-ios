@@ -1,16 +1,7 @@
 {
   "images" : [
     {
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "light"
-        }
-      ],
-      "filename" : "shadow.pdf",
+      "filename" : "arrow.pdf",
       "idiom" : "universal"
     },
     {
@@ -20,6 +11,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "chevronRight.pdf",
       "idiom" : "universal"
     }
   ],
