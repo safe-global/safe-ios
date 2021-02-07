@@ -65,7 +65,8 @@ class DappsViewController: UITableViewController {
         var wcSessionItems: [SectionItem]
         do {
             wcSessionItems = try WCSession.getAll().compactMap {
-                guard let session = try? Session.from($0),
+                guard $0.session != nil,
+                      let session = try? Session.from($0),
                       let selectedSafe = try? Safe.getSelected(),
                       session.walletInfo!.accounts.contains(selectedSafe.address!) else {
                     return nil
