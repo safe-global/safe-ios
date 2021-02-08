@@ -277,7 +277,6 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         case .transaction(let transaction):
             let cell = tableView.dequeueCell(TransactionListTableViewCell.self, for: indexPath)
             configure(cell: cell, transaction: transaction)
-
             return cell
         case .unknown:
             return UITableViewCell()
