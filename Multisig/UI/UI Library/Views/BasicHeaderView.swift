@@ -19,6 +19,6 @@ class BasicHeaderView: UITableViewHeaderFooterView {
     }
 
     func setName(_ value: String) {
-        nameLabel.setAttributedText(value.uppercased(), style: .caption2)
+        nameLabel.setAttributedText(value.uppercased(), style: .caption1)
     }
 }

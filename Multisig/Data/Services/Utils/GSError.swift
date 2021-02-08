@@ -27,8 +27,11 @@ enum GSError {
     private static let clientErrorDomain = "CommonClientError"
     private static let iOSErrorDomain = "iOSError"
 
-    private static let unexpectedError = UnprocessableEntity(
-        reason: "Network request failed with an unexpected error.", code: 42200)
+    private static func unexpectedError(_ code: Int = 0) -> Error {
+        let errorID = 42200 + code
+        return UnprocessableEntity(
+            reason: "Network request failed with an unexpected error.", code: errorID)
+    }
 
     /// User facing error from underlying error
     /// - Parameters:
@@ -100,8 +103,8 @@ enum GSError {
 
     private static func unprocessableEntity(data: Data?) -> Error {
         guard let data = data else {
-            LogService.shared.error("Missing data in unprocessableEntity error", error: unexpectedError)
-            return unexpectedError
+            LogService.shared.error("Missing data in unprocessableEntity error", error: unexpectedError())
+            return unexpectedError()
         }
 
         do {
@@ -114,14 +117,14 @@ enum GSError {
             default:
                 LogService.shared.error(
                     "Unrecognised error with code: \(error.code); message: \(error.message ?? "")",
-                    error: unexpectedError)
-                return unexpectedError
+                    error: unexpectedError(error.code))
+                return unexpectedError(error.code)
             }
         } catch {
             let dataString = String(data: data, encoding: .utf8) ?? data.base64EncodedString()
             LogService.shared.error("Could not decode error details from the data: \(dataString)",
-                                    error: unexpectedError)
-            return unexpectedError
+                                    error: unexpectedError())
+            return unexpectedError()
         }
     }
 
