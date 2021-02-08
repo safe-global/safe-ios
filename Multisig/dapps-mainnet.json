@@ -1,0 +1,21 @@
+[
+    {
+        "name": "Mesa",
+        "description": "Fully permissionless DEX",
+        "logo": "https://mesa.eth.link/assets/favicon.ico",
+        "url": "https://mesa.eth.link/"
+    },
+    {
+        "name": "Uniswap",
+        "description": "Decentralized Trading Protocol",
+        "logo": "https://app.uniswap.org/favicon.png",
+        "url": "https://app.uniswap.org/"
+    },
+
+    {
+        "name": "Idle Finance",
+        "description": "Always the best yield",
+        "logo": "https://idle.finance/favicon.ico",
+        "url": "https://idle.finance/"
+    }
+]

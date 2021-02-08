@@ -108,13 +108,12 @@ extension WalletConnectController: ServerDelegate {
         notificationCenter.post(name: .wcDidFailToConnect, object: url)
     }
 
-    #warning("Get the link to safe logo")
     func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> Void) {
         guard let safe = try? Safe.getSelected(), let address = safe.address else { return }
 
         let walletMeta = Session.ClientMeta(name: "Gnosis Safe Multisig",
                                             description: "The most trusted platform to manage digital assets.",
-                                            icons: [],
+                                            icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
                                             url: URL(string: "https://safe.gnosis.io")!)
         let walletInfo = Session.WalletInfo(
             approved: true,

@@ -325,7 +325,8 @@
 		55017FEA25CFBC9300C65CC4 /* SafeContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55017FE925CFBC9300C65CC4 /* SafeContract.swift */; };
 		55017FF625CFBCC500C65CC4 /* Repeater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55017FF425CFBCC500C65CC4 /* Repeater.swift */; };
 		55017FF725CFBCC500C65CC4 /* SynchronizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55017FF525CFBCC500C65CC4 /* SynchronizationService.swift */; };
-		5501800125CFD77100C65CC4 /* dapps.json in Resources */ = {isa = PBXBuildFile; fileRef = 5501800025CFD77000C65CC4 /* dapps.json */; };
+		5501800125CFD77100C65CC4 /* dapps-rinkeby.json in Resources */ = {isa = PBXBuildFile; fileRef = 5501800025CFD77000C65CC4 /* dapps-rinkeby.json */; };
+		5501800725D112D300C65CC4 /* dapps-mainnet.json in Resources */ = {isa = PBXBuildFile; fileRef = 5501800625D112D300C65CC4 /* dapps-mainnet.json */; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
 		551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551BC70C2538965700E4CC79 /* LoadingModel.swift */; };
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
@@ -841,7 +842,8 @@
 		55017FE925CFBC9300C65CC4 /* SafeContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeContract.swift; sourceTree = "<group>"; };
 		55017FF425CFBCC500C65CC4 /* Repeater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repeater.swift; sourceTree = "<group>"; };
 		55017FF525CFBCC500C65CC4 /* SynchronizationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationService.swift; sourceTree = "<group>"; };
-		5501800025CFD77000C65CC4 /* dapps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dapps.json; sourceTree = "<group>"; };
+		5501800025CFD77000C65CC4 /* dapps-rinkeby.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-rinkeby.json"; sourceTree = "<group>"; };
+		5501800625D112D300C65CC4 /* dapps-mainnet.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "dapps-mainnet.json"; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
 		551BC70C2538965700E4CC79 /* LoadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModel.swift; sourceTree = "<group>"; };
 		551DDEE8244F183500C719D3 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
@@ -1913,7 +1915,8 @@
 		0AF432CA244DFAFB00E22E50 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5501800025CFD77000C65CC4 /* dapps.json */,
+				5501800025CFD77000C65CC4 /* dapps-rinkeby.json */,
+				5501800625D112D300C65CC4 /* dapps-mainnet.json */,
 				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
 				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
 				0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */,
@@ -2564,7 +2567,7 @@
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
 				0A6886932588F87E0045CAB5 /* EnterSafeNameViewController.xib in Resources */,
-				5501800125CFD77100C65CC4 /* dapps.json in Resources */,
+				5501800125CFD77100C65CC4 /* dapps-rinkeby.json in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				04B4B6DE25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.xib in Resources */,
 				0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */,
@@ -2583,6 +2586,7 @@
 				0A0070F9254AF22900A57CAF /* splash-screen-tagline@2x.png in Resources */,
 				55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */,
 				04B4B88B25BF36F900CFE24B /* ExecutionStatusPiece.xib in Resources */,
+				5501800725D112D300C65CC4 /* dapps-mainnet.json in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,

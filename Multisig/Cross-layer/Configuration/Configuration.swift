@@ -111,7 +111,7 @@ enum Network: String, InfoPlistValueType {
 
     var chainId: Int {
         switch self {
-        case .mainnet: return 0
+        case .mainnet: return 1
         case .rinkeby: return 4
         }
     }
