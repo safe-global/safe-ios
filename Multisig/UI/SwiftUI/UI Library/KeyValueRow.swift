@@ -22,12 +22,18 @@ struct KeyValueRow: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(key).headline()
-            CopyButton(value) {
-                Text(value).body(color)
-            }.disabled(!enableCopy)
+        HStack {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(key).headline()
+                CopyButton(value) {
+                    Text(value).body(color)
+                }.disabled(!enableCopy)
+            }
+            .padding()
+            Spacer()
         }
+        .background(Color.secondaryBackground)
+        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
 }
 

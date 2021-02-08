@@ -29,6 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             window.tintColor = .button
             window.makeKeyAndVisible()
+            App.shared.theme.setUp()
         }
 
         App.shared.notificationHandler.appStarted()

@@ -169,21 +169,6 @@ extension GNOButtonStyle {
         ]))
     ])
 
-    static let bordered = GNOButtonStyle(appearance: [
-        (.normal, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-bordered-normal"), textAttributes: [
-            .foregroundColor: #colorLiteral(red: 0, green: 0.07843137255, blue: 0.1568627451, alpha: 1),
-            .font: UIFont.gnoFont(forTextStyle: .headline2)
-        ])),
-        (.highlighted, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-bordered-pressed"), textAttributes: [
-            .foregroundColor: #colorLiteral(red: 0, green: 0.07843137255, blue: 0.1568627451, alpha: 1).withAlphaComponent(0.7),
-            .font: UIFont.gnoFont(forTextStyle: .headline2)
-        ])),
-        (.disabled, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-bordered-inactive"), textAttributes: [
-            .foregroundColor: #colorLiteral(red: 0, green: 0.07843137255, blue: 0.1568627451, alpha: 1).withAlphaComponent(0.5),
-            .font: UIFont.gnoFont(forTextStyle: .headline2)
-        ]))
-    ])
-
     static let filled = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-filled-normal"), textAttributes: [
             .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),

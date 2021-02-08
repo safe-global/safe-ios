@@ -59,7 +59,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="primaryBackground"/>
+                        <color key="backgroundColor" name="secondaryBackground"/>
                         <constraints>
                             <constraint firstItem="DP5-6m-1ZG" firstAttribute="leading" secondItem="j15-Op-U9b" secondAttribute="leading" constant="8" id="5Lo-sp-9ez"/>
                             <constraint firstAttribute="bottom" secondItem="f1N-2F-nMA" secondAttribute="bottom" constant="8" id="6Yh-zO-4oW"/>
@@ -102,8 +102,8 @@
         <namedColor name="hold">
             <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="primaryBackground">
-            <color red="0.96899998188018799" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="secondaryBackground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

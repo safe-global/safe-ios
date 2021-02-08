@@ -36,6 +36,8 @@ extension AppSettings {
     @AppSetting(\.appReviewEventCount)
     static var appReviewEventCount: Int64
 
+    @AppSetting(\.displayMode)
+    static var displayMode: Int32
 }
 
 extension NSFetchRequest where ResultType == AppSettings {

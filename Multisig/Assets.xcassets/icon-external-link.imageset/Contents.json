@@ -3,6 +3,16 @@
     {
       "filename" : "icon-external-link.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "group.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -30,7 +30,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5u-rA-otV">
                             <rect key="frame" x="0.0" y="0.0" width="350" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" name="snowwhite"/>
+                            <color key="textColor" name="secondaryBackground"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -66,7 +66,7 @@
     </objects>
     <resources>
         <image name="dark-card-background" width="37" height="37"/>
-        <namedColor name="snowwhite">
+        <namedColor name="secondaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>

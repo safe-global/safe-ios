@@ -35,7 +35,6 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         tableView.rowHeight = rowHeight
         tableView.sectionHeaderHeight = headerHeight
         tableView.sectionFooterHeight = footerHeight
-        tableView.backgroundColor = tableBackgroundColor
         tableView.separatorStyle = .none
 
         emptyView.setText("Collectibles will appear here")

@@ -30,6 +30,22 @@ class Theme: ObservableObject {
         UITableView.appearance().separatorColor = .separator
         // we don't touch the UITableView appearance background color
         // because it messes up the backgrounds when navigating in the app
+
+        setDisplayMode()
+    }
+
+    private func setDisplayMode() {
+        UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = displayMode
+    }
+
+    var displayMode: UIUserInterfaceStyle {
+        get {
+            UIUserInterfaceStyle(rawValue: Int(AppSettings.displayMode)) ?? .unspecified
+        }
+        set {
+            AppSettings.displayMode = Int32(newValue.rawValue)
+            setDisplayMode()
+        }
     }
 
 }

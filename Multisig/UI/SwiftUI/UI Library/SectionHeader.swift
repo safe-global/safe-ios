@@ -20,7 +20,7 @@ struct SectionHeader: View {
         HStack {
             Text(text)
                 .tracking(2)
-                .font(.gnoCaption2)
+                .font(.gnoCaption1)
                 .foregroundColor(Color.tertiaryLabel)
                 .padding()
             

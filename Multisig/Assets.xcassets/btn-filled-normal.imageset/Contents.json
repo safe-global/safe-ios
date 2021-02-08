@@ -23,6 +23,16 @@
         },
         "mode" : "9-part"
       }
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Filled Normal_@2x.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

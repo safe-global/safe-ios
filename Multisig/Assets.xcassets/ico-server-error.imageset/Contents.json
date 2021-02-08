@@ -3,6 +3,16 @@
     {
       "filename" : "serverError.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "24PxServerError.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

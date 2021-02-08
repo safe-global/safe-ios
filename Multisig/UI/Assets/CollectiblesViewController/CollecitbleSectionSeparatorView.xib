@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,11 +19,11 @@
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Pn-ol-Yfb">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="11"/>
-                            <color key="backgroundColor" name="systemWhite"/>
+                            <color key="backgroundColor" name="secondaryBackground"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xn2-nY-Dmj">
                             <rect key="frame" x="0.0" y="11" width="414" height="2"/>
-                            <color key="backgroundColor" name="white"/>
+                            <color key="backgroundColor" name="separator"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="2" id="YbQ-Hv-nYb"/>
                             </constraints>
@@ -32,7 +31,6 @@
                     </subviews>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="w3A-CZ-3il" firstAttribute="top" secondItem="OTW-Ev-sUr" secondAttribute="top" id="1pF-In-rYy"/>
                 <constraint firstAttribute="bottom" secondItem="w3A-CZ-3il" secondAttribute="bottom" id="89K-S6-URG"/>
@@ -44,14 +42,11 @@
         </view>
     </objects>
     <resources>
-        <namedColor name="systemWhite">
+        <namedColor name="secondaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="white">
-            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="separator">
+            <color red="0.96899998188018799" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
