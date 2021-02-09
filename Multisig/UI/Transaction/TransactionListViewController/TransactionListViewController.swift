@@ -45,7 +45,11 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         tableView.registerCell(TransactionListHeaderTableViewCell.self)
         tableView.registerCell(TransactionsListConflictHeaderTableViewCell.self)
 
-        tableView.sectionHeaderHeight = BasicHeaderView.headerHeight
+        tableView.registerHeaderFooterView(IdleFooterView.self)
+        tableView.registerHeaderFooterView(LoadingFooterView.self)
+        tableView.registerHeaderFooterView(RetryFooterView.self)
+
+        tableView.sectionHeaderHeight = TransactionListHeaderTableViewCell.headerHeight
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
 
@@ -70,7 +74,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         super.reloadData()
         loadFirstPageDataTask?.cancel()
         loadNextPageDataTask?.cancel()
-        stopNextPageLoadingAnimation()
+        pageLoadingState = .idle
 
         do {
             let address = try Address(from: try Safe.getSelected()!.address!)
@@ -120,24 +124,33 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         header
     }
 
-    private func startNextPageLoadingAnimation() {
-        let indicator = UIActivityIndicatorView(style: .medium)
-        indicator.startAnimating()
-        indicator.frame = CGRect(origin: .zero, size: CGSize(width: tableView.bounds.width, height: 100))
-        // moves the indicator up
-        indicator.bounds = CGRect(origin: CGPoint(x: 0, y: 30), size: indicator.frame.size)
-        tableView.tableFooterView = indicator
+    enum LoadingState {
+        case idle, loading, retry
     }
 
-    private func stopNextPageLoadingAnimation() {
-        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+    var pageLoadingState = LoadingState.idle {
+        didSet {
+            switch pageLoadingState {
+            case .idle:
+                tableView.tableFooterView = tableView.dequeueHeaderFooterView(IdleFooterView.self)
+            case .loading:
+                tableView.tableFooterView = tableView.dequeueHeaderFooterView(LoadingFooterView.self)
+            case .retry:
+                let view = tableView.dequeueHeaderFooterView(RetryFooterView.self)
+                view.onRetry = { [unowned self] in
+                    self.loadNextPage()
+                }
+                tableView.tableFooterView = view
+                tableView.scrollRectToVisible(view.frame, animated: true)
+            }
+        }
     }
 
     private func loadNextPage() {
         // re-entrancy: if loading already, do not cancel and restart
         guard let nextPageUri = model.next, loadNextPageDataTask == nil else { return }
 
-        startNextPageLoadingAnimation()
+        pageLoadingState = .loading
         do {
             loadNextPageDataTask = try asyncTransactionList(pageUri: nextPageUri) { [weak self] result in
                 guard let `self` = self else { return }
@@ -150,9 +163,11 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                         // meaningless message.
                         if (error as NSError).code == URLError.cancelled.rawValue &&
                             (error as NSError).domain == NSURLErrorDomain {
+                            self.pageLoadingState = .idle
                             return
                         }
                         self.onError(GSError.error(description: "Failed to load more transactions", error: error))
+                        self.pageLoadingState = .retry
                     }
                 case .success(let page):
                     var model = FlatTransactionsListViewModel(page.results)
@@ -162,15 +177,26 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                         guard let `self` = self else { return }
                         self.model.append(from: model)
                         self.onSuccess()
+                        self.pageLoadingState = .idle
                     }
-                }
-                DispatchQueue.main.async { [weak self] in
-                    self?.stopNextPageLoadingAnimation()
                 }
                 self.loadNextPageDataTask = nil
             }
         } catch {
             onError(GSError.error(description: "Failed to load more transactions", error: error))
+            pageLoadingState = .retry
+        }
+    }
+
+    override func onError(_ error: DetailedLocalizedError) {
+        App.shared.snackbar.show(error: error)
+        if isRefreshing() {
+            endRefreshing()
+        } else if pageLoadingState == .loading {
+            // do nothing here because we want to preserve the visible
+            // data when page loading fails
+        } else {
+            showOnly(view: dataErrorView)
         }
     }
 
@@ -179,11 +205,13 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        cell(table: tableView, indexPath: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if isLast(path: indexPath) {
             loadNextPage()
         }
-
-        return cell(table: tableView, indexPath: indexPath)
     }
 
     private func isLast(path: IndexPath) -> Bool {
@@ -249,7 +277,6 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         case .transaction(let transaction):
             let cell = tableView.dequeueCell(TransactionListTableViewCell.self, for: indexPath)
             configure(cell: cell, transaction: transaction)
-
             return cell
         case .unknown:
             return UITableViewCell()

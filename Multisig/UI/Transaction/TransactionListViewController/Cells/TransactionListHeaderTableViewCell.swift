@@ -11,6 +11,8 @@ import UIKit
 class TransactionListHeaderTableViewCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
 
+    static let headerHeight: CGFloat = 44
+
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.caption2)
