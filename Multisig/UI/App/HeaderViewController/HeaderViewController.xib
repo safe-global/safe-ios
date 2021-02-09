@@ -90,6 +90,7 @@
                 </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow" translatesAutoresizingMaskIntoConstraints="NO" id="Al5-uC-xzr">
                     <rect key="frame" x="0.0" y="116" width="414" height="12"/>
+                    <color key="tintColor" name="shadow"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="2pF-v2-WCj"/>
                     </constraints>
@@ -120,6 +121,9 @@
         </namedColor>
         <namedColor name="secondaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="shadow">
+            <color red="0.15686274509803921" green="0.21176470588235294" blue="0.23921568627450981" alpha="0.18000000715255737" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
