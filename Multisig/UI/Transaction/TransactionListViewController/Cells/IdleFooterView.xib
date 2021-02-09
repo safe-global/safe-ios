@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                     <color key="backgroundColor" name="white"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="DVk-Cm-wu7"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="DVk-Cm-wu7"/>
                     </constraints>
                 </view>
             </subviews>

@@ -49,7 +49,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         tableView.registerHeaderFooterView(LoadingFooterView.self)
         tableView.registerHeaderFooterView(RetryFooterView.self)
 
-        tableView.sectionHeaderHeight = BasicHeaderView.headerHeight
+        tableView.sectionHeaderHeight = TransactionListHeaderTableViewCell.headerHeight
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
 
@@ -277,7 +277,6 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         case .transaction(let transaction):
             let cell = tableView.dequeueCell(TransactionListTableViewCell.self, for: indexPath)
             configure(cell: cell, transaction: transaction)
-
             return cell
         case .unknown:
             return UITableViewCell()
