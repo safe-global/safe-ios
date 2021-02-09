@@ -31,11 +31,11 @@
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-background" translatesAutoresizingMaskIntoConstraints="NO" id="8cr-F2-dvu">
                             <rect key="frame" x="-9" y="-8" width="363" height="392"/>
-                            <color key="tintColor" name="shadow"/>
+                            <color key="tintColor" name="secondaryBackground"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBz-fC-0em">
                             <rect key="frame" x="12" y="24" width="319" height="324"/>
-                            <color key="backgroundColor" name="primaryBackground"/>
+                            <color key="backgroundColor" name="secondaryBackground"/>
                         </view>
                     </subviews>
                     <constraints>
@@ -67,11 +67,8 @@
     </objects>
     <resources>
         <image name="card-background" width="37" height="37"/>
-        <namedColor name="primaryBackground">
-            <color red="0.96899998188018799" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="shadow">
-            <color red="0.15686274509803921" green="0.21176470588235294" blue="0.23921568627450981" alpha="0.18000000715255737" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="secondaryBackground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
