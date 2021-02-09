@@ -22,7 +22,43 @@
           "width" : 1
         },
         "mode" : "9-part"
-      }
+      },
+      "scale" : "1x"
+    },
+    {
+      "alignment-insets" : {
+        "bottom" : 14,
+        "left" : 14,
+        "right" : 14,
+        "top" : 14
+      },
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Filled Pressed.pdf",
+      "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "bottom" : 24,
+          "left" : 24,
+          "right" : 24,
+          "top" : 24
+        },
+        "center" : {
+          "height" : 1,
+          "mode" : "tile",
+          "width" : 1
+        },
+        "mode" : "9-part"
+      },
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
     },
     {
       "appearances" : [
@@ -31,12 +67,29 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Filled Pressed_@2x.pdf",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }

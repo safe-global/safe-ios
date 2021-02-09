@@ -141,45 +141,45 @@ struct GNOButtonStyle {
 extension GNOButtonStyle {
     static let primary = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 1),
+            .foregroundColor: UIColor.button,
             .font: UIFont.gnoFont(forTextStyle: .primary)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: #colorLiteral(red: 0, green: 0.3333333333, blue: 0.2745098039, alpha: 1),
+            .foregroundColor: UIColor.buttonPressed,
             .font: UIFont.gnoFont(forTextStyle: .primary)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 0.5),
+            .foregroundColor: UIColor.button.withAlphaComponent(0.5),
             .font: UIFont.gnoFont(forTextStyle: .primary)
         ]))
     ])
 
     static let plain = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 1),
+            .foregroundColor: UIColor.button,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: #colorLiteral(red: 0, green: 0.3333333333, blue: 0.2745098039, alpha: 1),
+            .foregroundColor: UIColor.buttonPressed,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: #colorLiteral(red: 0, green: 0.5490000248, blue: 0.451000005, alpha: 0.5),
+            .foregroundColor: UIColor.button.withAlphaComponent(0.5),
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])
 
     static let filled = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-filled-normal"), textAttributes: [
-            .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
+            .foregroundColor: UIColor.primaryBackground,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-filled-pressed"), textAttributes: [
-            .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
+            .foregroundColor: UIColor.primaryBackground,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-filled-inactive"), textAttributes: [
-            .foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
+            .foregroundColor: UIColor.primaryBackground,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])
