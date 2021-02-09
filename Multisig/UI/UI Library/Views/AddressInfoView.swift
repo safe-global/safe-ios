@@ -45,16 +45,11 @@ class AddressInfoView: UINibView {
         titleLabel.isHidden = text == nil
     }
 
-    func setAddress(_ address: Address, label: String?, showIdenticon: Bool = true) {
+    func setAddress(_ address: Address, label: String?, imageUri: URL?, showIdenticon: Bool = true) {
         self.address = address
         self.label = label
 
-        addressLabel.textAlignment = showIdenticon ? .left : .center
-        if showIdenticon {
-            identiconView.setAddress(self.address.hexadecimal)
-        }
-
-        if let label = self.label {
+        if let label = label {
             textLabel.isHidden = false
             textLabel.text = label
             addressLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
@@ -62,6 +57,12 @@ class AddressInfoView: UINibView {
         } else {
             textLabel.isHidden = true
             addressLabel.attributedText = self.address.highlighted
+        }
+
+        addressLabel.textAlignment = showIdenticon ? .left : .center
+        if showIdenticon {
+            let placeholder = BlockiesImageProvider(seed: address.hexadecimal, width: 36, height: 36).roundImage()!
+            identiconView.kf.setImage(with: imageUri, placeholder: placeholder)
         }
     }
 

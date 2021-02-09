@@ -61,4 +61,20 @@ struct BlockiesImageProvider: ImageDataProvider {
         )
         return blockies.createImage()
     }
+
+    // https://stackoverflow.com/questions/7705879/ios-create-a-uiimage-or-uiimageview-with-rounded-corners
+    func roundImage() -> UIImage? {
+        guard let image = image() else { return nil }
+
+        let imageLayer = CALayer()
+        imageLayer.frame = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        imageLayer.contents = image.cgImage
+        imageLayer.masksToBounds = true
+        imageLayer.cornerRadius = image.size.width / 2
+        UIGraphicsBeginImageContext(image.size)
+        imageLayer.render(in: UIGraphicsGetCurrentContext()!)
+        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return roundedImage
+    }
 }

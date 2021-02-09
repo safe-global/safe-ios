@@ -30,6 +30,6 @@ class SafeInfoViewV2: UINibView {
         self.label = label
 
         identiconView.setAddress(self.address.hexadecimal)
-        addressInfoView.setAddress(address, label: nil, showIdenticon: false)
+        addressInfoView.setAddress(address, label: nil, imageUri: nil, showIdenticon: false)
     }
 }

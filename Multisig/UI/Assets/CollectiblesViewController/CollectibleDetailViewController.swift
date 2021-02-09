@@ -41,7 +41,7 @@ class CollectibleDetailViewController: UIViewController {
         }
         imageContainerView.isHidden = collectible.imageURL == nil
 
-        addressView.setAddress(.init(exactly: collectible.address), label: "Asset Contract")
+        addressView.setAddress(.init(exactly: collectible.address), label: "Asset Contract", imageUri: nil)
     }
 
 }
