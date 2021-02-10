@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO: fix name
 class DefaultKeyTableViewCell: UITableViewCell {
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
