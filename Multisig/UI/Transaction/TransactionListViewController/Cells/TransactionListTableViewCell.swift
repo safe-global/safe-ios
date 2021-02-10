@@ -35,6 +35,11 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         confirmationsCountLabel.setStyle(.footnote2)
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        typeImageView.contentMode = .center
+    }
+
     func set (title: String) {
         titleLabel.text = title
     }
@@ -49,7 +54,8 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
             return
         }
 
-        let placeholder = BlockiesImageProvider(seed: contractAddress.address.hexadecimal, width: 16, height: 16).roundImage()!
+        let placeholder = BlockiesImageProvider(seed: contractAddress.address.hexadecimal).roundImage()!
+        typeImageView.contentMode = .scaleAspectFit
         typeImageView.kf.setImage(with: contractImageUrl, placeholder: placeholder)
     }
 

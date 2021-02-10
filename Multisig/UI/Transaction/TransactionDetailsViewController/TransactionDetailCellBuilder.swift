@@ -266,14 +266,7 @@ class TransactionDetailCellBuilder {
 
         case .custom(let customTx):
             let eth = App.shared.tokenRegistry.token(address: .ether)!
-
-            var label: String?
-            var addressLogoUri: URL?
-
-            if let addressInfo = customTx.toInfo {
-                label = addressInfo.name
-                addressLogoUri = addressInfo.logoUri
-            }
+            let (label, addressLogoUri) = displayNameAndImageUri(address: customTx.to, addressInfo: customTx.toInfo)
 
             buildTransferHeader(
                 address: customTx.to.address,
@@ -575,11 +568,10 @@ class TransactionDetailCellBuilder {
     }
 
     func displayNameAndImageUri(address: AddressString, addressInfo: SCGModels.AddressInfo?) -> (name: String?, imageUri: URL?) {
-        guard let addressInfo = addressInfo else { return (nil, nil) }
         if let importedSafeName = Safe.cachedName(by: address) {
             return (importedSafeName, nil)
         }
-        return (addressInfo.name, addressInfo.logoUri)
+        return (addressInfo?.name, addressInfo?.logoUri)
     }
 }
 
