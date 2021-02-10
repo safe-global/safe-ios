@@ -19,22 +19,22 @@
 
 /* The definition of _GL_UNUSED_PARAMETER is copied here.  */
 /* A C macro for declaring that specific function parameters are not used.
-   Copyright (C) 2008-2020 Free Software Foundation, Inc.
+   Copyright (C) 2008-2021 Free Software Foundation, Inc.
 
-This program is free software: you can redistribute it and/or
-modify it under the terms of either:
+   This program is free software: you can redistribute it and/or
+   modify it under the terms of either:
 
-* the GNU Lesser General Public License as published by the Free
-Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+     * the GNU Lesser General Public License as published by the Free
+       Software Foundation; either version 3 of the License, or (at your
+       option) any later version.
 
-or
+   or
 
-* the GNU General Public License as published by the Free
-Software Foundation; either version 2 of the License, or (at your
-option) any later version.
+     * the GNU General Public License as published by the Free
+       Software Foundation; either version 2 of the License, or (at your
+       option) any later version.
 
-or both in parallel, as here.
+   or both in parallel, as here.
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
@@ -57,11 +57,7 @@ or both in parallel, as here.
        _GL_UNUSED_PARAMETER int *(*param)(void)
  */
 #ifndef _GL_UNUSED_PARAMETER
-# if __GNUC__ >= 3 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 7)
-#  define _GL_UNUSED_PARAMETER __attribute__ ((__unused__))
-# else
-#  define _GL_UNUSED_PARAMETER
-# endif
+# define _GL_UNUSED_PARAMETER _GL_ATTRIBUTE_MAYBE_UNUSED
 #endif
 
 #endif /* _UNISTRING_CDEFS_H */
