@@ -61,7 +61,7 @@ class AddressInfoView: UINibView {
 
         addressLabel.textAlignment = showIdenticon ? .left : .center
         if showIdenticon {
-            let placeholder = BlockiesImageProvider(seed: address.hexadecimal, width: 36, height: 36).roundImage()!
+            let placeholder = BlockiesImageProvider(seed: address.hexadecimal).roundImage()!
             identiconView.kf.setImage(with: imageUri, placeholder: placeholder)
         }
     }

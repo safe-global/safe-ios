@@ -117,19 +117,14 @@ class TransactionDetailCellBuilder {
             var address: Address
             var label: String?
             var addressLogoUri: URL?
-
             if isOutgoing {
                 address = transferTx.recipient.address
-                if let addressInfo = transferTx.recipientInfo {
-                    label = addressInfo.name
-                    addressLogoUri = addressInfo.logoUri
-                }
+                (label, addressLogoUri) = displayNameAndImageUri(address: transferTx.recipient,
+                                                                 addressInfo: transferTx.recipientInfo)
             } else {
                 address = transferTx.sender.address
-                if let addressInfo = transferTx.senderInfo {
-                    label = addressInfo.name
-                    addressLogoUri = addressInfo.logoUri
-                }
+                (label, addressLogoUri) = displayNameAndImageUri(address: transferTx.sender,
+                                                                 addressInfo: transferTx.senderInfo)
             }
 
             switch transferTx.transferInfo {
@@ -195,12 +190,10 @@ class TransactionDetailCellBuilder {
 
             case .setFallbackHandler(let fallbackTx):
                 let handler: Address = fallbackTx.handler.address
-
-                var label = App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: handler)
-                var imageUri: URL?
-                if let handlerInfo = fallbackTx.handlerInfo {
-                    label = handlerInfo.name
-                    imageUri = handlerInfo.logoUri
+                var (label, imageUri) = displayNameAndImageUri(address: fallbackTx.handler,
+                                                               addressInfo: fallbackTx.handlerInfo)
+                if label == nil {
+                    label = App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: handler)
                 }
                 address(
                     handler,
@@ -209,12 +202,8 @@ class TransactionDetailCellBuilder {
                     imageUri: imageUri)
 
             case .addOwner(let addOwnerTx):
-                var label: String?
-                var imgageUri: URL?
-                if let ownerInfo = addOwnerTx.ownerInfo {
-                    label = ownerInfo.name
-                    imgageUri = ownerInfo.logoUri
-                }
+                let (label, imgageUri) = displayNameAndImageUri(address: addOwnerTx.owner,
+                                                                addressInfo: addOwnerTx.ownerInfo)
                 addressAndText(
                     addOwnerTx.owner.address,
                     label: label,
@@ -224,35 +213,21 @@ class TransactionDetailCellBuilder {
                     textTitle: "Change required confirmations:")
 
             case .removeOwner(let removeOwnerTx):
-                var label: String?
-                var imgageUri: URL?
-                if let ownerInfo = removeOwnerTx.ownerInfo {
-                    label = ownerInfo.name
-                    imgageUri = ownerInfo.logoUri
-                }
+                let (label, imageUri) = displayNameAndImageUri(address: removeOwnerTx.owner,
+                                                               addressInfo: removeOwnerTx.ownerInfo)
                 addressAndText(
                     removeOwnerTx.owner.address,
                     label: label,
-                    imageUri: imgageUri,
+                    imageUri: imageUri,
                     addressTitle: "Remove owner:",
                     text: "\(removeOwnerTx.threshold)",
                     textTitle: "Change required confirmations:")
 
             case .swapOwner(let swapOwnerTx):
-                var oldOwnerLabel: String?
-                var oldOwnerImgageUri: URL?
-                if let ownerInfo = swapOwnerTx.oldOwnerInfo {
-                    oldOwnerLabel = ownerInfo.name
-                    oldOwnerImgageUri = ownerInfo.logoUri
-                }
-
-                var newOwnerLabel: String?
-                var newOwnerImgageUri: URL?
-                if let ownerInfo = swapOwnerTx.newOwnerInfo {
-                    newOwnerLabel = ownerInfo.name
-                    newOwnerImgageUri = ownerInfo.logoUri
-                }
-
+                let (oldOwnerLabel, oldOwnerImgageUri) = displayNameAndImageUri(address: swapOwnerTx.oldOwner,
+                                                                                addressInfo: swapOwnerTx.oldOwnerInfo)
+                let (newOwnerLabel, newOwnerImgageUri) = displayNameAndImageUri(address: swapOwnerTx.newOwner,
+                                                                                addressInfo: swapOwnerTx.newOwnerInfo)
                 addresses(
                     [(address: swapOwnerTx.oldOwner.address, label: oldOwnerLabel, imageUri: oldOwnerImgageUri, title: "Remove owner:"),
                      (address: swapOwnerTx.newOwner.address, label: newOwnerLabel, imageUri: newOwnerImgageUri, title: "Add owner:")
@@ -267,11 +242,10 @@ class TransactionDetailCellBuilder {
 
             case .changeImplementation(let implementationTx):
                 let implementation = implementationTx.implementation.address
-                var label = App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? "Unknown"
-                var imageUri: URL?
-                if let implementationInfo = implementationTx.implementationInfo {
-                    label = implementationInfo.name
-                    imageUri = implementationInfo.logoUri
+                var (label, imageUri) = displayNameAndImageUri(address: implementationTx.implementation,
+                                                               addressInfo: implementationTx.implementationInfo)
+                if label == nil {
+                    label = App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? "Unknown"
                 }
                 address(implementation,
                         label: label,
@@ -279,21 +253,11 @@ class TransactionDetailCellBuilder {
                         imageUri: imageUri)
 
             case .enableModule(let moduleTx):
-                var label: String?
-                var imageUri: URL?
-                if let moduleInfo = moduleTx.moduleInfo {
-                    label = moduleInfo.name
-                    imageUri = moduleInfo.logoUri
-                }
+                let (label, imageUri) = displayNameAndImageUri(address: moduleTx.module, addressInfo: moduleTx.moduleInfo)
                 address(moduleTx.module.address, label: label, title: "Enable module:", imageUri: imageUri)
 
             case .disableModule(let moduleTx):
-                var label: String?
-                var imageUri: URL?
-                if let moduleInfo = moduleTx.moduleInfo {
-                    label = moduleInfo.name
-                    imageUri = moduleInfo.logoUri
-                }
+                let (label, imageUri) = displayNameAndImageUri(address: moduleTx.module, addressInfo: moduleTx.moduleInfo)
                 address(moduleTx.module.address, label: label, title: "Disable module:", imageUri: imageUri)
 
             case .unknown:
@@ -608,6 +572,14 @@ class TransactionDetailCellBuilder {
 
     func newCell<T: UITableViewCell>(_ cls: T.Type) -> T {
         tableView.dequeueCell(cls)
+    }
+
+    func displayNameAndImageUri(address: AddressString, addressInfo: SCGModels.AddressInfo?) -> (name: String?, imageUri: URL?) {
+        guard let addressInfo = addressInfo else { return (nil, nil) }
+        if let importedSafeName = Safe.cachedName(by: address) {
+            return (importedSafeName, nil)
+        }
+        return (addressInfo.name, addressInfo.logoUri)
     }
 }
 
