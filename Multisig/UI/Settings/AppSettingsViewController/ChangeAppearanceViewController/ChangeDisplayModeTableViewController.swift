@@ -9,7 +9,7 @@
 import UIKit
 
 class ChangeDisplayModeTableViewController: UITableViewController {
-    private let items = [("Auto", UIUserInterfaceStyle.unspecified), ("Light", UIUserInterfaceStyle.light), ("Dark", UIUserInterfaceStyle.dark)]
+    private let items: [(name: String, style: UIUserInterfaceStyle)] = [("Auto", UIUserInterfaceStyle.unspecified), ("Light", UIUserInterfaceStyle.light), ("Dark", UIUserInterfaceStyle.dark)]
 
     private var selectedDisplayMode: UIUserInterfaceStyle {
         get {
@@ -27,20 +27,19 @@ class ChangeDisplayModeTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return items.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
 
-        cell.setTitle("\(items[indexPath.row].0)")
-        cell.setDisclosureImage(items[indexPath.row].1 == selectedDisplayMode ? UIImage(systemName: "checkmark")?.withTintColor(.button) : nil)
+        cell.setTitle("\(items[indexPath.row].name)")
+        cell.setDisclosureImage(items[indexPath.row].style == selectedDisplayMode ? UIImage(systemName: "checkmark")?.withTintColor(.button) : nil)
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedDisplayMode = items[indexPath.row].1
+        selectedDisplayMode = items[indexPath.row].style
         tableView.reloadData()
     }
 }

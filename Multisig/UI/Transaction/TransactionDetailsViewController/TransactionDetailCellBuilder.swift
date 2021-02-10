@@ -343,7 +343,7 @@ class TransactionDetailCellBuilder {
         case .transfer(let transferTx):
             let isOutgoing = transferTx.direction == .outgoing
             let type = isOutgoing ? "Outgoing transfer" : "Incoming transfer"
-            let icon = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incoming-tx")
+            let icon = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incomming-tx")
             status(tx.txStatus, type: type, icon: icon)
         case .settingsChange(_):
             status(tx.txStatus, type: "Modify settings", icon: #imageLiteral(resourceName: "ico-settings-tx"))
