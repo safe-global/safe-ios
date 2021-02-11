@@ -8,14 +8,6 @@
 
 import UIKit
 
-extension UIViewController {
-    @objc func didTapAddressInfoDetails(_ sender: AddressInfoView) {
-        if let address = sender.address {
-            openInSafari(Safe.browserURL(address: address.checksummed))
-        }
-    }
-}
-
 class AddressInfoView: UINibView {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var identiconView: UIImageView!
@@ -61,8 +53,7 @@ class AddressInfoView: UINibView {
 
         addressLabel.textAlignment = showIdenticon ? .left : .center
         if showIdenticon {
-            let placeholder = BlockiesImageProvider(seed: address.hexadecimal).roundImage()!
-            identiconView.kf.setImage(with: imageUri, placeholder: placeholder)
+            identiconView.setCircleImage(url: imageUri, address: address.hexadecimal)
         }
     }
 
@@ -87,5 +78,14 @@ class AddressInfoView: UINibView {
 
     @IBAction private func didTouchUp(sender: UIButton, forEvent event: UIEvent) {
         alpha = 1.0
+    }
+}
+
+
+extension UIViewController {
+    @objc func didTapAddressInfoDetails(_ sender: AddressInfoView) {
+        if let address = sender.address {
+            openInSafari(Safe.browserURL(address: address.checksummed))
+        }
     }
 }

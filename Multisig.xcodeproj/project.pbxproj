@@ -1066,18 +1066,18 @@
 		0468FB8D25912E8300541536 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				0468FB8E25912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift */,
-				0468FB8F25912E8300541536 /* TransactionListHeaderTableViewCell.xib */,
-				0468FB9025912E8300541536 /* TransactionListTableViewCell.swift */,
-				0468FB9125912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib */,
-				0468FB9225912E8300541536 /* TransactionListTableViewCell.xib */,
-				0468FB9325912E8300541536 /* TransactionListHeaderTableViewCell.swift */,
-				0A86EE5C25CC2B2B0059876E /* RetryFooterView.swift */,
-				0A86EE6E25CC2B4C0059876E /* RetryFooterView.xib */,
-				0A86EE6225CC2B350059876E /* LoadingFooterView.swift */,
-				0A86EE7425CC2BC30059876E /* LoadingFooterView.xib */,
 				0A86EE6825CC2B410059876E /* IdleFooterView.swift */,
 				0A86EE7A25CC2C600059876E /* IdleFooterView.xib */,
+				0A86EE6225CC2B350059876E /* LoadingFooterView.swift */,
+				0A86EE7425CC2BC30059876E /* LoadingFooterView.xib */,
+				0A86EE5C25CC2B2B0059876E /* RetryFooterView.swift */,
+				0A86EE6E25CC2B4C0059876E /* RetryFooterView.xib */,
+				0468FB9325912E8300541536 /* TransactionListHeaderTableViewCell.swift */,
+				0468FB8F25912E8300541536 /* TransactionListHeaderTableViewCell.xib */,
+				0468FB9025912E8300541536 /* TransactionListTableViewCell.swift */,
+				0468FB9225912E8300541536 /* TransactionListTableViewCell.xib */,
+				0468FB8E25912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift */,
+				0468FB9125912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";

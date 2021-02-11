@@ -19,19 +19,38 @@ extension UIImageView {
         let processor = RoundCornerImageProcessor(radius: .widthFraction(0.5))
         kf.setImage(with: provider, options: [.processor(processor)])
     }
-}
 
-extension UIImageView {
     /// Loads the image from URL or sets a placeholder image instead.
     /// The image will be cropped as a circle.
     ///
     /// - Parameters:
     ///   - url: url to load image from
     ///   - placeholder: placeholder image
-    func setCircleShapeImage(url: URL?, placeholder: UIImage) {
+    func setCircleShapeImage(url: URL?, placeholder: UIImage?) {
         kf.setImage(with: url,
                     placeholder: placeholder,
                     options: [.processor(RoundCornerImageProcessor(radius: .widthFraction(0.5)))])
+    }
+
+    func setCircleImage(url: URL?, address: String) {
+        let blocky = BlockiesImageProvider(seed: address).image()?.circleShape()
+        setCircleShapeImage(url: url, placeholder: blocky)
+    }
+}
+
+extension UIImage {
+    func circleShape() -> UIImage? {
+        // https://stackoverflow.com/questions/7705879/ios-create-a-uiimage-or-uiimageview-with-rounded-corners
+        let imageLayer = CALayer()
+        imageLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        imageLayer.contents = cgImage
+        imageLayer.masksToBounds = true
+        imageLayer.cornerRadius = min(size.width, size.height) / 2
+        UIGraphicsBeginImageContext(size)
+        imageLayer.render(in: UIGraphicsGetCurrentContext()!)
+        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return roundedImage
     }
 }
 
@@ -60,21 +79,5 @@ struct BlockiesImageProvider: ImageDataProvider {
             scale: Int(min(width, height) / CGFloat(size))
         )
         return blockies.createImage()
-    }
-
-    // https://stackoverflow.com/questions/7705879/ios-create-a-uiimage-or-uiimageview-with-rounded-corners
-    func roundImage() -> UIImage? {
-        guard let image = image() else { return nil }
-
-        let imageLayer = CALayer()
-        imageLayer.frame = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-        imageLayer.contents = image.cgImage
-        imageLayer.masksToBounds = true
-        imageLayer.cornerRadius = image.size.width / 2
-        UIGraphicsBeginImageContext(image.size)
-        imageLayer.render(in: UIGraphicsGetCurrentContext()!)
-        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return roundedImage
     }
 }
