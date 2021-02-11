@@ -33,8 +33,6 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         appendixLabel.setStyle(.footnote2)
         statusLabel.setStyle(.footnote2)
         confirmationsCountLabel.setStyle(.footnote2)
-        typeImageView.layer.cornerRadius = 8
-        typeImageView.clipsToBounds = true
     }
 
     override func prepareForReuse() {
@@ -56,7 +54,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
             return
         }
 
-        let placeholder = BlockiesImageProvider(seed: contractAddress.address.hexadecimal).image()!
+        let placeholder = BlockiesImageProvider(seed: contractAddress.address.hexadecimal).roundImage()!
         typeImageView.contentMode = .scaleAspectFit
         typeImageView.kf.setImage(with: contractImageUrl, placeholder: placeholder)
     }

@@ -38,8 +38,6 @@ class AddressInfoView: UINibView {
         textLabel.setStyle(.headline)
         addressLabel.setStyle(.tertiary)
         setTitle(nil)
-        identiconView.layer.cornerRadius = 18
-        identiconView.clipsToBounds = true
     }
 
     func setTitle(_ text: String?) {
@@ -63,7 +61,7 @@ class AddressInfoView: UINibView {
 
         addressLabel.textAlignment = showIdenticon ? .left : .center
         if showIdenticon {
-            let placeholder = BlockiesImageProvider(seed: address.hexadecimal).image()!
+            let placeholder = BlockiesImageProvider(seed: address.hexadecimal).roundImage()!
             identiconView.kf.setImage(with: imageUri, placeholder: placeholder)
         }
     }
