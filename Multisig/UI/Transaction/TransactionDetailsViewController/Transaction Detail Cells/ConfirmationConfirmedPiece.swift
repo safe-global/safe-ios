@@ -32,6 +32,6 @@ class ConfirmationConfirmedPiece: UINibView {
     }
 
     func setAddress(_ address: Address, label: String? = nil) {
-        addressInfoView.setAddress(address, label: label, imageUri: nil)
+        addressInfoView.setAddress(address, label: label)
     }
 }

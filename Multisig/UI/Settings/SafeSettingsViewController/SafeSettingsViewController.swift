@@ -204,7 +204,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private func addressDetailsCell(address: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address)
+        cell.setAccount(address: .init(exactly: address))
         return cell
     }
 

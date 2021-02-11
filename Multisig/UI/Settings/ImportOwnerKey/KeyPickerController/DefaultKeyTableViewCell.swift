@@ -44,7 +44,7 @@ class DefaultKeyTableViewCell: UITableViewCell {
     }
 
     func setAddress(_ value: Address, label: String? = nil) {
-        addressView.setAddress(value, label: label, imageUri: nil)
+        addressView.setAddress(value, label: label)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

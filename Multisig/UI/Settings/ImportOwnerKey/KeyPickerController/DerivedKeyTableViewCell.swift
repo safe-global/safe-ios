@@ -26,7 +26,7 @@ class DerivedKeyTableViewCell: UITableViewCell {
     }
 
     func setAddress(_ address: Address, label: String? = nil) {
-        addressView.setAddress(address, label: label, imageUri: nil)
+        addressView.setAddress(address, label: label)
     }
 
     func setSelected(_ selected: Bool) {

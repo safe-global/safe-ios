@@ -57,7 +57,7 @@ class AddressField: UINibView {
     func setAddress(_ address: Address?) {
         self.address = address
         if let address = address {
-            addressView.setAddress(address, label: nil, imageUri: nil)
+            addressView.setAddress(address)
             showInputView(addressView)
         } else {
             showInputView(placeholderLabel)

@@ -33,7 +33,7 @@ class SafeLoadedViewController: UIViewController {
             let buttonFont = UIFont.gnoFont(forTextStyle: .body)
             skipButton.setText("Skip", GNOButtonStyle.plain.font(buttonFont))
             safeInfoView.set(safe.name)
-            safeInfoView.setAddress(safe.addressValue, label: nil)
+            safeInfoView.setAddress(safe.addressValue)
         } catch {
             fatalError()
         }

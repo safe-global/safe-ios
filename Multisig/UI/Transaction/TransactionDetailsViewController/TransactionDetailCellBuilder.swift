@@ -73,7 +73,7 @@ class TransactionDetailCellBuilder {
 
     func buildFactoryUsed(_ creationTx: SCGModels.TxInfo.Creation) {
         if let factory = creationTx.factory?.address {
-            address(factory, label: nil, title: "Factory used", imageUri: nil)
+            address(factory, label: nil, title: "Factory used")
         } else {
             text("No factory used", title: "Factory used", expandableTitle: nil, copyText: nil)
         }
@@ -84,8 +84,7 @@ class TransactionDetailCellBuilder {
             address(
                 implementation,
                 label: App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? "Unknown",
-                title: "Mastercopy used",
-                imageUri: nil)
+                title: "Mastercopy used")
         } else {
             text(
                 "Not available",
@@ -104,7 +103,7 @@ class TransactionDetailCellBuilder {
     }
 
     func buildCreatorAddress(_ creationTx: SCGModels.TxInfo.Creation) {
-        address(creationTx.creator.address, label: nil, title: "Creator address", imageUri: nil)
+        address(creationTx.creator.address, label: nil, title: "Creator address")
     }
 
     func buildHeader(_ tx: SCGModels.TransactionDetails) {
@@ -379,7 +378,7 @@ class TransactionDetailCellBuilder {
         case .transfer(let transferTx):
             switch transferTx.transferInfo {
             case .erc721(let erc721Tx):
-                address(erc721Tx.tokenAddress.address, label: "Asset Contract", title: nil, imageUri: nil)
+                address(erc721Tx.tokenAddress.address, label: "Asset Contract", title: nil)
             default:
                 break
             }
@@ -543,9 +542,9 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-    func address(_ address: Address, label: String?, title: String?, imageUri: URL?) {
+    func address(_ address: Address, label: String?, title: String?, imageUri: URL? = nil) {
         let cell = newCell(DetailAccountCell.self)
-        cell.setAccount(address: address.checksummed, label: label, title: title)
+        cell.setAccount(address: address, label: label, title: title, imageUri: imageUri)
         result.append(cell)
     }
 

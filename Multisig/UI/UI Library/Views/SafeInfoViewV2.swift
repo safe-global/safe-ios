@@ -25,11 +25,11 @@ class SafeInfoViewV2: UINibView {
         nameLabel.text = name
     }
 
-    func setAddress(_ address: Address, label: String?) {
+    func setAddress(_ address: Address, label: String? = nil) {
         self.address = address
         self.label = label
 
         identiconView.setAddress(self.address.hexadecimal)
-        addressInfoView.setAddress(address, label: nil, imageUri: nil, showIdenticon: false)
+        addressInfoView.setAddress(address, showIdenticon: false)
     }
 }

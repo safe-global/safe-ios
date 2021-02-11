@@ -45,7 +45,7 @@ class AddressInfoView: UINibView {
         titleLabel.isHidden = text == nil
     }
 
-    func setAddress(_ address: Address, label: String?, imageUri: URL?, showIdenticon: Bool = true) {
+    func setAddress(_ address: Address, label: String? = nil, imageUri: URL? = nil, showIdenticon: Bool = true) {
         self.address = address
         self.label = label
 
