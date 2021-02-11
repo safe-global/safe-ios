@@ -27,7 +27,7 @@ class EnterSafeNameViewController: UIViewController {
         assert(address != nil, "Developer error: expect to have an address")
         identiconView.setAddress(address.hexadecimal)
         addressLabel.attributedText = address.highlighted
-        descriptionLabel.setStyle(.body)
+        descriptionLabel.setStyle(.primary)
 
         textField.setPlaceholder("Enter name")
         textField.textField.delegate = self

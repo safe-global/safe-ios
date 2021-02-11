@@ -28,7 +28,7 @@ class ContractVersionStatusCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
-        detailLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+        detailLabel.setStyle(.tertiary)
         addTarget(self, action: #selector(didTouchDown(sender:forEvent:)), for: .touchDown)
         addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
         addTarget(self, action: #selector(copyAddress), for: .touchUpInside)
@@ -46,15 +46,15 @@ class ContractVersionStatusCell: UITableViewCell {
         case .upToDate(let version):
             headerLabel.text = version
             statusView.image = UIImage(systemName: "checkmark", withConfiguration: semiboldConfiguration)
-            statusView.tintColor = .gnoHold
-            statusLabel.setStyle(GNOTextStyle.body.color(.gnoHold))
+            statusView.tintColor = .button
+            statusLabel.setStyle(.primaryButton)
             statusLabel.text = "Up to date"
 
         case .upgradeAvailable(let version):
             headerLabel.text = version
             statusView.image = UIImage(systemName: "exclamationmark.circle", withConfiguration: semiboldConfiguration)
-            statusView.tintColor = .gnoTomato
-            statusLabel.setStyle(GNOTextStyle.body.color(.gnoTomato))
+            statusView.tintColor = .error
+            statusLabel.setStyle(.primaryError)
             statusLabel.text = "Upgrade available"
 
         case .unknown:

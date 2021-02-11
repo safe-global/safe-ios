@@ -18,9 +18,9 @@ class DetailStatusCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.body)
-        appendixLabel.setStyle(.body)
-        statusLabel.setStyle(.body)
+        titleLabel.setStyle(.primary)
+        appendixLabel.setStyle(.primary)
+        statusLabel.setStyle(.primary)
     }
 
     func setTitle(_ title: String) {
@@ -43,13 +43,13 @@ class DetailStatusCell: UITableViewCell {
     func statusColor(status: SCGModels.TxStatus) -> UIColor {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
-            return .gnoPending
+            return .pending
         case .failed:
-            return .gnoTomato
+            return .error
         case .cancelled:
-            return .gnoDarkGrey
+            return .secondaryLabel
         case .success:
-            return .gnoHold
+            return .button
         }
     }
 }

@@ -7,7 +7,6 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,7 +29,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xK2-pE-wZA" userLabel="contentView">
                     <rect key="frame" x="0.0" y="116" width="414" height="746"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" name="secondaryBackground"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DDE-g1-nRC" userLabel="headerBar">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="116"/>
@@ -42,7 +41,7 @@
                                 <constraint firstAttribute="width" constant="60" id="tyd-wL-JA6"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <color key="tintColor" name="mediumGrey"/>
+                            <color key="tintColor" name="gray2"/>
                             <state key="normal">
                                 <imageReference key="image" image="chevron.down.circle" catalog="system" symbolScale="large"/>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
@@ -56,14 +55,14 @@
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZV-ZR-C0D" customClass="NoSafeBarView" customModule="Multisig" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="310" height="44"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" name="secondaryBackground"/>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buv-cV-e9q" userLabel="safeBarView" customClass="SafeBarView" customModule="Multisig" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="310" height="44"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" name="secondaryBackground"/>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="secondaryBackground"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="9jA-oJ-RqC"/>
                                 <constraint firstItem="hZV-ZR-C0D" firstAttribute="top" secondItem="t2d-Ol-MyV" secondAttribute="top" id="I9h-G3-n1b"/>
@@ -79,7 +78,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" name="secondaryBackground"/>
                     <constraints>
                         <constraint firstItem="t2d-Ol-MyV" firstAttribute="leading" secondItem="DDE-g1-nRC" secondAttribute="leading" constant="16" id="0Cj-R6-ONG"/>
                         <constraint firstItem="X1Y-Im-GQE" firstAttribute="leading" secondItem="t2d-Ol-MyV" secondAttribute="trailing" constant="12" id="GMg-RF-S6N"/>
@@ -91,13 +90,14 @@
                 </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow" translatesAutoresizingMaskIntoConstraints="NO" id="Al5-uC-xzr">
                     <rect key="frame" x="0.0" y="116" width="414" height="12"/>
+                    <color key="tintColor" name="shadow"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="2pF-v2-WCj"/>
                     </constraints>
                 </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" name="secondaryBackground"/>
             <constraints>
                 <constraint firstItem="xK2-pE-wZA" firstAttribute="top" secondItem="DDE-g1-nRC" secondAttribute="bottom" id="DrB-qH-dCF"/>
                 <constraint firstItem="Al5-uC-xzr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="OFW-qA-PAQ"/>
@@ -116,11 +116,14 @@
     <resources>
         <image name="chevron.down.circle" catalog="system" width="128" height="121"/>
         <image name="shadow" width="3" height="13"/>
-        <namedColor name="mediumGrey">
-            <color red="0.69803921568627447" green="0.70980392156862748" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="gray2">
+            <color red="0.69800001382827759" green="0.70999997854232788" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="secondaryBackground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="shadow">
+            <color red="0.15686274509803921" green="0.21176470588235294" blue="0.23921568627450981" alpha="0.18000000715255737" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

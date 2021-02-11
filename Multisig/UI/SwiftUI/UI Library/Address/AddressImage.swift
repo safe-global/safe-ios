@@ -26,7 +26,7 @@ struct AddressImage: View {
                 .clipShape(Circle())
             }
         } else {
-            Circle().foregroundColor(.gnoLightGrey)
+            Circle().foregroundColor(.gray5)
         }
     }
 

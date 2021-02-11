@@ -26,7 +26,7 @@ class TokenInfoView: UINibView {
         imageView.setCircleShapeImage(url: url, placeholder: placeholder ?? #imageLiteral(resourceName: "ico-token-placeholder"))
     }
 
-    func setText(_ text: String, style: GNOTextStyle = .body) {
+    func setText(_ text: String, style: GNOTextStyle = .primary) {
         textLabel.text = text
         textLabel.setStyle(style)
     }

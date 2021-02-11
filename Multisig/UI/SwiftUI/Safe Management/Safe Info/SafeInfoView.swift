@@ -22,6 +22,7 @@ struct SafeInfoView: View {
                 SafeInfoContentView(safe: selectedSafe.first!)
             }
         }
+        .background(Color.secondaryBackground)
     }
 }
 

@@ -19,7 +19,7 @@ class ImportKeyBannerTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
-        bodyLabel.setStyle(.body)
+        bodyLabel.setStyle(.primary)
         importButton.setText("Import owner key now", .plain)
         separatorInset.left = .greatestFiniteMagnitude
     }

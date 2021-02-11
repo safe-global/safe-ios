@@ -3,6 +3,16 @@
     {
       "filename" : "16PxAlertYellow.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "16PxAlertYellow-1.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -24,7 +24,7 @@ class ButtonTableViewCell: UITableViewCell {
 
     func setText(_ text: String, onTap: @escaping () -> Void) {
         self.onTap = onTap
-        button.setText(text, GNOButtonStyle.plain.font(.gnoFont(forTextStyle: .body)))
+        button.setText(text, .primary)
     }
 
     @IBAction func didTapButton(_ sender: Any) {

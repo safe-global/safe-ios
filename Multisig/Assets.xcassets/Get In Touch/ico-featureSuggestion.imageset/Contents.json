@@ -3,6 +3,16 @@
     {
       "filename" : "featureSuggestion.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "logoFeatureSuggestion.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

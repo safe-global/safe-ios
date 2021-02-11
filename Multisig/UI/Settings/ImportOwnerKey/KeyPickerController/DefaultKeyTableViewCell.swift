@@ -19,11 +19,11 @@ class DefaultKeyTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
-        leftLabel.setStyle(.body)
-        detailLabel.setStyle(.body)
+        leftLabel.setStyle(.primary)
+        detailLabel.setStyle(.primary)
         addressView.setDetailImage(nil)
         addressView.copyEnabled = false
-        iconImageView.tintColor = .gnoHold
+        iconImageView.tintColor = .button
     }
 
     func setHeader(_ text: String?) {

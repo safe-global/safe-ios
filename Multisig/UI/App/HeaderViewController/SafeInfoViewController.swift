@@ -16,7 +16,9 @@ class SafeInfoViewController: ContainerViewController {
         super.viewDidLoad()
         let view = SafeInfoView()
             .environment(\.managedObjectContext, App.shared.coreDataStack.viewContext)
-        viewControllers = [UIHostingController(rootView: view)]
+        let viewConroller = UIHostingController(rootView: view)
+        viewConroller.view.backgroundColor = .secondaryBackground
+        viewControllers = [viewConroller]
         displayChild(at: 0, in: cardContentView)
     }
 

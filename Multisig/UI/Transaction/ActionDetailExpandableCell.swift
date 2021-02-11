@@ -22,12 +22,12 @@ class ActionDetailExpandableCell: ActionDetailTableViewCell {
     private static let collapsedImage = UIImage(
         systemName: "chevron.down",
         withConfiguration: symbol)!
-        .withTintColor(.gnoDarkGrey)
+        .withTintColor(.secondaryLabel)
 
     private static let expandedImage = UIImage(
         systemName: "chevron.up",
         withConfiguration: symbol)!
-        .withTintColor(.gnoDarkGrey)
+        .withTintColor(.secondaryLabel)
 
     enum State {
         case collapsed, expanded
@@ -41,7 +41,7 @@ class ActionDetailExpandableCell: ActionDetailTableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellLabel.setStyle(GNOTextStyle.body.color(.gnoDarkGrey))
+        cellLabel.setStyle(.secondary)
         updateUIState()
     }
 

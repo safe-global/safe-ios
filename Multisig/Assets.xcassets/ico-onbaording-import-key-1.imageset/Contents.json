@@ -3,6 +3,16 @@
     {
       "filename" : "illustrationSeedPhrase.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "illustrationSeedPhrase-1.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

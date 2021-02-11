@@ -157,7 +157,7 @@ CHECKOUT OPTIONS:
     :commit: 34bb4560f534fb9e3d7abf1d2b85143fc63e56b3
     :git: https://github.com/gnosis/BlockiesSwift.git
   idn2Swift:
-    :commit: 4b4a820a104fbc3f2c168c1a7ca56ff25bc7b671
+    :commit: a8e7d775220eb1f400121d88bd2f9f06f4cc4f24
     :git: https://github.com/gnosis/pod-idn2.git
   Web3:
     :commit: 67b0dae66791626d1837a95aea93c79205e5ffce

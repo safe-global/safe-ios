@@ -34,21 +34,21 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         navigationItem.rightBarButtonItem = nextButton
         nextButton.isEnabled = false
 
-        descriptionLabel.setStyle(.body)
+        descriptionLabel.setStyle(.primary)
 
-        errorLabel.setStyle(GNOTextStyle.callout.color(.gnoTomato))
+        errorLabel.setStyle(.error)
         errorLabel.isHidden = true
 
         textView.delegate = self
         textView.layer.borderWidth = 2
-        textView.layer.borderColor = UIColor.gnoWhitesmoke.cgColor
+        textView.layer.borderColor = UIColor.gray4.cgColor
         textView.layer.cornerRadius = 10
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 12)
-        textView.textColor = .gnoDarkBlue
-        textView.font = .gnoFont(forTextStyle: .body)
+        textView.setStyle(.primary)
+        
         textView.becomeFirstResponder()
 
-        placeholderLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+        placeholderLabel.setStyle(.tertiary)
         placeholderLabel.text = "Enter private key or seed phrase"
     }
 
@@ -108,7 +108,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     private func setError(_ error: Error?) {
         errorLabel.text = error?.localizedDescription
         errorLabel.isHidden = error == nil
-        textView.layer.borderColor = error == nil ? UIColor.gnoWhitesmoke.cgColor : UIColor.gnoTomato.cgColor
+        textView.layer.borderColor = error == nil ? UIColor.gray4.cgColor : UIColor.error.cgColor
     }
 }
 

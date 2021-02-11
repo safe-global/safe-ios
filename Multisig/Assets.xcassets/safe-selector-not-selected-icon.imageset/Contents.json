@@ -3,6 +3,16 @@
     {
       "filename" : "safe-selector-not-selected-icon.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "identiconNoSafeLoaded.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
