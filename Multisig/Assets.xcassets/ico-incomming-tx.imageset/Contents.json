@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "green-1.pdf",
+      "filename" : "ico-incoming-tx-light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "green.pdf",
+      "filename" : "ico-incoming-tx-dark.pdf",
       "idiom" : "universal"
     }
   ],
