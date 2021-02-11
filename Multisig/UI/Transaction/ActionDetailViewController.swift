@@ -68,6 +68,8 @@ class ActionDetailViewController: UITableViewController {
             txBuilder.result = []
             txBuilder.buildTransferHeader(
                 address: tx.to.address,
+                label: nil,
+                addressLogoUri: nil,
                 isOutgoing: true,
                 status: .success,
                 value: tx.value.value,

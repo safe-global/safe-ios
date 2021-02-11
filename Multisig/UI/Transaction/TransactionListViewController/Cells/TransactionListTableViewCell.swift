@@ -35,12 +35,16 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         confirmationsCountLabel.setStyle(.footnote2)
     }
 
-    func set (title: String) {
+    func set(title: String) {
         titleLabel.text = title
     }
 
     func set(image: UIImage) {
         typeImageView.image = image
+    }
+
+    func set(contractImageUrl: URL? = nil, contractAddress: AddressString) {
+        typeImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address.hexadecimal)
     }
 
     func set(conflictType: SCGModels.ConflictType) {

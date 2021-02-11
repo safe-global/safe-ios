@@ -50,7 +50,7 @@ class KeyPickerController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerCell(DefafultKeyTableViewCell.self)
+        tableView.registerCell(DefaultKeyTableViewCell.self)
         tableView.registerCell(DerivedKeyTableViewCell.self)
         tableView.registerCell(ButtonTableViewCell.self)
         tableView.rowHeight = UITableView.automaticDimension
@@ -93,7 +93,7 @@ class KeyPickerController: UITableViewController {
             switch indexPath.row {
 
             case Index.default:
-                let cell = tableView.dequeueCell(DefafultKeyTableViewCell.self, for: indexPath)
+                let cell = tableView.dequeueCell(DefaultKeyTableViewCell.self, for: indexPath)
                 cell.setHeader("Default")
                 cell.setLeft("#1")
                 cell.setAddress(address)

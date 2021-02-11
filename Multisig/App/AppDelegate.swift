@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.shared.setSafeCount(Safe.count)
         Tracker.shared.setNumKeysImported(SafeTransactionSigner.numberOfKeysImported())
 
+        Safe.updateCachedNames()
+
         App.shared.notificationHandler.setUpMessaging(delegate: self)
         return true
     }

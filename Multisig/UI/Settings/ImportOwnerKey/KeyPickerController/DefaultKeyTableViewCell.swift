@@ -1,5 +1,5 @@
 //
-//  DefafultKeyTableViewCell.swift
+//  DefaultKeyTableViewCell.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 20.01.21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DefafultKeyTableViewCell: UITableViewCell {
+class DefaultKeyTableViewCell: UITableViewCell {
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
     @IBOutlet private weak var leftLabel: UILabel!

@@ -10,6 +10,8 @@ import Foundation
 import CoreData
 import FirebaseAnalytics
 
+fileprivate var cachedNames = [AddressString: String]()
+
 extension Safe: Identifiable {
 
     var isSelected: Bool { selection != nil }
@@ -45,6 +47,17 @@ extension Safe: Identifiable {
     static var all: [Safe] {
         let context = App.shared.coreDataStack.viewContext
         return (try? context.fetch(Safe.fetchRequest().all())) ?? []
+    }
+
+    static func updateCachedNames() {
+        guard let safes = try? Safe.getAll() else { return }
+        cachedNames = safes.reduce(into: [AddressString: String]()) { names, safe in
+            names[AddressString(safe.address!)!] = safe.name!
+        }
+    }
+
+    static func cachedName(by address: AddressString) -> String? {
+        cachedNames[address]
     }
 
     public override func awakeFromInsert() {
@@ -119,6 +132,8 @@ extension Safe: Identifiable {
         App.shared.coreDataStack.saveContext()
         Tracker.shared.setSafeCount(count)
         App.shared.notificationHandler.safeAdded(address: Address(exactly: address))
+
+        updateCachedNames()
     }
     
     static func edit(address: String, name: String) {
@@ -129,6 +144,8 @@ extension Safe: Identifiable {
         safe.name = name
         App.shared.coreDataStack.saveContext()
         NotificationCenter.default.post(name: .selectedSafeUpdated, object: nil)
+
+        updateCachedNames()
     }
 
     static func select(address: String) {
@@ -159,6 +176,8 @@ extension Safe: Identifiable {
         if let addressString = deletedSafeAddress, let address = Address(addressString) {
             App.shared.notificationHandler.safeRemoved(address: address)
         }
+
+        updateCachedNames()
     }
 }
 

@@ -32,7 +32,7 @@ class SafeLoadedViewController: UIViewController {
             importOwnerKeyButton.setText("Import owner key", .filled)
             skipButton.setText("Skip", .primary)
             safeInfoView.set(safe.name)
-            safeInfoView.setAddress(safe.addressValue, label: nil)
+            safeInfoView.setAddress(safe.addressValue)
         } catch {
             fatalError()
         }

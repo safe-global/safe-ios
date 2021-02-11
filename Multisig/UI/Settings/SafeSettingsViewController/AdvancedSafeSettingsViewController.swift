@@ -137,7 +137,7 @@ extension AdvancedSafeSettingsViewController {
 
     private func addressDetailsCell(address: String, title: String?, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address,label: title)
+        cell.setAccount(address: .init(exactly: address), label: title)
         return cell
     }
 

@@ -11,6 +11,6 @@ import UIKit
 class ActionDetailAddressCell: ActionDetailTableViewCell {
     @IBOutlet private weak var addressView: AddressInfoView!
     func setAddress(_ value: Address) {
-        addressView.setAddress(value, label: nil)
+        addressView.setAddress(value)
     }
 }

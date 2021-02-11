@@ -8,14 +8,6 @@
 
 import UIKit
 
-extension UIViewController {
-    @objc func didTapAddressInfoDetails(_ sender: AddressInfoView) {
-        if let address = sender.address {
-            openInSafari(Safe.browserURL(address: address.checksummed))
-        }
-    }
-}
-
 class AddressInfoView: UINibView {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var identiconView: UIImageView!
@@ -45,16 +37,11 @@ class AddressInfoView: UINibView {
         titleLabel.isHidden = text == nil
     }
 
-    func setAddress(_ address: Address, label: String?, showIdenticon: Bool = true) {
+    func setAddress(_ address: Address, label: String? = nil, imageUri: URL? = nil, showIdenticon: Bool = true) {
         self.address = address
         self.label = label
 
-        addressLabel.textAlignment = showIdenticon ? .left : .center
-        if showIdenticon {
-            identiconView.setAddress(self.address.hexadecimal)
-        }
-
-        if let label = self.label {
+        if let label = label {
             textLabel.isHidden = false
             textLabel.text = label
             addressLabel.setStyle(.tertiary)
@@ -62,6 +49,11 @@ class AddressInfoView: UINibView {
         } else {
             textLabel.isHidden = true
             addressLabel.attributedText = self.address.highlighted
+        }
+
+        addressLabel.textAlignment = showIdenticon ? .left : .center
+        if showIdenticon {
+            identiconView.setCircleImage(url: imageUri, address: address.hexadecimal)
         }
     }
 
@@ -86,5 +78,14 @@ class AddressInfoView: UINibView {
 
     @IBAction private func didTouchUp(sender: UIButton, forEvent event: UIEvent) {
         alpha = 1.0
+    }
+}
+
+
+extension UIViewController {
+    @objc func didTapAddressInfoDetails(_ sender: AddressInfoView) {
+        if let address = sender.address {
+            openInSafari(Safe.browserURL(address: address.checksummed))
+        }
     }
 }

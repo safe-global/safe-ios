@@ -286,7 +286,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     func configure(cell: TransactionListTableViewCell, transaction: SCGModels.TransactionSummaryItemTransaction) {
         let tx = transaction.transaction
         var title = ""
-        var image = #imageLiteral(resourceName: "ico-settings-tx")
+        var image: UIImage?
 
         let nonce = tx.executionInfo?.nonce.description ?? ""
         let confirmationsSubmitted = tx.executionInfo?.confirmationsSubmitted ?? 0
@@ -314,9 +314,17 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             title = settingsChangeInfo.dataDecoded.method
             image = #imageLiteral(resourceName: "ico-settings-tx")
         case .custom(let customInfo):
-            title = "Contract interaction"
+            if let importedSafeName = Safe.cachedName(by: customInfo.to) {
+                title = importedSafeName
+                cell.set(contractAddress: customInfo.to)
+            } else if let toInfo = customInfo.toInfo {
+                title = toInfo.name
+                cell.set(contractImageUrl: toInfo.logoUri, contractAddress: customInfo.to)
+            } else {
+                title = "Contract interaction"
+                image = #imageLiteral(resourceName: "ico-custom-tx")
+            }
             info = customInfo.methodName ?? ""
-            image = #imageLiteral(resourceName: "ico-custom-tx")
         case .creation(_):
             image = #imageLiteral(resourceName: "ico-settings-tx")
             title = "Safe created"
@@ -326,7 +334,9 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         }
 
         cell.set(title: title)
-        cell.set(image: image)
+        if let image = image {
+            cell.set(image: image)
+        }
         cell.set(status: status)
         cell.set(nonce: nonce)
         cell.set(date: date)

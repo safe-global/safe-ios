@@ -34,5 +34,4 @@ class ConfirmationConfirmedPiece: UINibView {
     func setAddress(_ address: Address, label: String? = nil) {
         addressInfoView.setAddress(address, label: label)
     }
-
 }
