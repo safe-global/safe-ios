@@ -16,7 +16,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private var totalBalance: String = "0.00"
 
-    private let tableBackgroundColor: UIColor = .gnoWhite
+    private let tableBackgroundColor: UIColor = .primaryBackground
 
     enum Section: Int {
         case banner = 0, total, balances

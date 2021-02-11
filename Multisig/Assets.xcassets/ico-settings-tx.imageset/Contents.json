@@ -3,6 +3,16 @@
     {
       "filename" : "settingsChange.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "settingsChangeCopy4.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -32,7 +32,7 @@ class EnterSafeAddressViewController: UIViewController {
 
         headerLabel.setStyle(.headline)
 
-        actionLabel.setStyle(.body)
+        actionLabel.setStyle(.primary)
 
         addressField.setPlaceholderText("Enter Safe address")
         addressField.onTap = { [weak self] in self?.didTapAddressField() }

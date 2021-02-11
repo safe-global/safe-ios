@@ -21,7 +21,7 @@ extension Image {
     static func checkmark(size: CGFloat) -> some View {
         icon("checkmark", size: size)
             .font(Font.body.weight(.semibold))
-            .foregroundColor(.gnoHold)
+            .foregroundColor(.button)
     }
 
     static func icon(_ name: String, size: CGFloat) -> some View {
@@ -33,14 +33,14 @@ extension Image {
     static var checkmarkCircle: some View {
         Image(systemName: "checkmark.circle")
             .font(.gnoHeadline2)
-            .foregroundColor(Color.gnoHold)
+            .foregroundColor(Color.button)
     }
 
     static var chevronDownCircle: some View {
         Image(systemName: "chevron.down.circle")
             .resizable()
             .font(Font.body.weight(.medium))
-            .foregroundColor(.gnoDarkGrey)
+            .foregroundColor(.secondaryLabel)
             .frame(width: regularSize, height: regularSize)
     }
 
@@ -48,7 +48,7 @@ extension Image {
         Image(systemName: "chevron.down")
             .resizable()
             .font(Font.body.weight(.medium))
-            .foregroundColor(.gnoDarkGrey)
+            .foregroundColor(.secondaryLabel)
             .frame(width: 12, height: 7)
     }
 
@@ -56,7 +56,7 @@ extension Image {
         Image(systemName: "chevron.up")
             .resizable()
             .font(Font.body.weight(.medium))
-            .foregroundColor(.gnoDarkGrey)
+            .foregroundColor(.secondaryLabel)
             .frame(width: 12, height: 7)
     }
 
@@ -67,7 +67,7 @@ extension Image {
     static var bigXMark: some View {
         icon("xmark", size: regularSize)
             .font(.gnoNormal)
-            .foregroundColor(.gnoMediumGrey)
+            .foregroundColor(.tertiaryLabel)
     }
 
     static var plusCircle: some View {
@@ -77,7 +77,7 @@ extension Image {
 
     static func exclamation(size: CGFloat) -> some View {
         icon("exclamationmark.circle", size: size)
-            .foregroundColor(.gnoTomato)
+            .foregroundColor(.error)
             .font(Font.body.weight(.semibold))
     }
 

@@ -43,6 +43,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <color key="backgroundColor" name="tertiaryBackground"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="JUO-dL-AL2" secondAttribute="bottom" id="0uI-t2-DUh"/>
                             <constraint firstAttribute="trailing" secondItem="0LA-pv-ogc" secondAttribute="trailing" constant="16" id="1HL-c0-BHw"/>
@@ -68,7 +69,7 @@
                     <constraint firstAttribute="bottom" secondItem="ZpE-xX-bRz" secondAttribute="bottom" constant="6" id="yEz-Me-n51"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" name="systemWhite"/>
+            <color key="backgroundColor" name="secondaryBackground"/>
             <connections>
                 <outlet property="cellDescriptionLabel" destination="pXt-pW-2KI" id="cPl-xv-7v5"/>
                 <outlet property="cellNameLabel" destination="0LA-pv-ogc" id="Oqn-Jh-H1b"/>
@@ -79,7 +80,10 @@
     </objects>
     <resources>
         <image name="card-background" width="37" height="37"/>
-        <namedColor name="systemWhite">
+        <namedColor name="secondaryBackground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="tertiaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>

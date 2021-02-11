@@ -14,7 +14,7 @@ class ConfirmationCreatedPiece: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        textLabel.setStyle(GNOTextStyle.body.color(.gnoHold))
+        textLabel.setStyle(.primaryButton)
         // I wish the XIB would allow to set the height constraint to
         // the file owner, but it doesn't, so we set it in code here
         NSLayoutConstraint.activate([

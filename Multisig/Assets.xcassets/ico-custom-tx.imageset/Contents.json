@@ -3,6 +3,16 @@
     {
       "filename" : "code.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "group2.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

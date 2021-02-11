@@ -32,8 +32,8 @@ class DetailConfirmationCell: UITableViewCell {
             let confirmationsRemaining = required - confirmations.count
             if confirmationsRemaining > 0 {
                 let status = ConfirmationStatusPiece(frame: bounds)
-                status.setText("Execute (\(confirmationsRemaining) more confirmations needed)", style: GNOTextStyle.body.color(.gnoMediumGrey))
-                status.setSymbol("circle", color: .gnoMediumGrey)
+                status.setText("Execute (\(confirmationsRemaining) more confirmations needed)", style: .primaryButton)
+                status.setSymbol("circle", color: .tertiaryLabel)
                 views.append(status)
             } else {
                 let status = ExecutionStatusPiece(frame: bounds)
@@ -46,14 +46,14 @@ class DetailConfirmationCell: UITableViewCell {
 
         case .cancelled:
             let status = ConfirmationStatusPiece(frame: bounds)
-            status.setText("Cancelled", style: GNOTextStyle.body.color(.gnoSystemBlack))
-            status.setSymbol("xmark.circle", color: .gnoSystemBlack)
+            status.setText("Cancelled", style: GNOTextStyle.primary.color(.black))
+            status.setSymbol("xmark.circle", color: .black)
             views.append(status)
 
         case .failed:
             let status = ConfirmationStatusPiece(frame: bounds)
-            status.setText("Failed", style: GNOTextStyle.body.color(.gnoTomato))
-            status.setSymbol("xmark.circle", color: .gnoTomato)
+            status.setText("Failed", style: .error)
+            status.setSymbol("xmark.circle", color: .error)
             views.append(status)
 
         case .success:
@@ -65,15 +65,15 @@ class DetailConfirmationCell: UITableViewCell {
                 views.append(success)
             } else {
                 let status = ConfirmationStatusPiece(frame: bounds)
-                status.setText("Executed", style: GNOTextStyle.body.color(.gnoHold))
-                status.setSymbol("checkmark.circle", color: .gnoHold)
+                status.setText("Executed", style: .primaryButton)
+                status.setSymbol("checkmark.circle", color: .button)
                 views.append(status)
             }
 
         case .pending:
             let status = ConfirmationStatusPiece(frame: bounds)
-            status.setText("Pending", style: GNOTextStyle.body.color(.gnoHold))
-            status.setSymbol("circle", color: .gnoHold)
+            status.setText("Pending", style: .primaryButton)
+            status.setSymbol("circle", color: .button)
             views.append(status)
 
         }

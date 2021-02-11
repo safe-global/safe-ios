@@ -18,7 +18,7 @@ class CardTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         titleLabel.setStyle(.headline)
-        bodyLabel.setStyle(.body)
+        bodyLabel.setStyle(.primary)
         selectionStyle = .none
     }
 

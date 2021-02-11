@@ -3,6 +3,16 @@
     {
       "filename" : "green.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "externalLink.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -22,6 +22,8 @@
 	<string>1</string>
 	<key>CLIENT_GATEWAY_URL</key>
 	<string>$(CLIENT_GATEWAY_URL)</string>
+	<key>CONFLICT_URL</key>
+	<string>$(CONFLICT_URL)</string>
 	<key>CONTACT_EMAIL</key>
 	<string>$(CONTACT_EMAIL)</string>
 	<key>APP_STORE_REVIEW_URL</key>
@@ -152,7 +154,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 </dict>
 </plist>

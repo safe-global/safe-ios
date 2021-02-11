@@ -15,8 +15,8 @@ class DerivedKeyTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        leftLabel.setStyle(.body)
-        iconImageView.tintColor = .gnoHold
+        leftLabel.setStyle(.primary)
+        iconImageView.tintColor = .button
         addressView.setDetailImage(nil)
         addressView.copyEnabled = false
     }

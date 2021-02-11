@@ -14,7 +14,7 @@ struct KeyValueRow: View {
     var value: String
     var enableCopy: Bool
     var color: Color
-    init(_ key: String, value: String, enableCopy: Bool = true, color: Color = Color.gnoMediumGrey) {
+    init(_ key: String, value: String, enableCopy: Bool = true, color: Color = .tertiaryLabel) {
         self.key = key
         self.value = value
         self.enableCopy = enableCopy
@@ -22,12 +22,18 @@ struct KeyValueRow: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(key).headline()
-            CopyButton(value) {
-                Text(value).body(color)
-            }.disabled(!enableCopy)
+        HStack {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(key).headline()
+                CopyButton(value) {
+                    Text(value).body(color)
+                }.disabled(!enableCopy)
+            }
+            .padding()
+            Spacer()
         }
+        .background(Color.secondaryBackground)
+        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
 }
 

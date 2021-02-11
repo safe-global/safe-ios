@@ -20,7 +20,7 @@ class SafeBarView: UINibView {
     override func commonInit() {
         super.commonInit()
         textLabel.setStyle(.headline)
-        detailLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+        detailLabel.setStyle(.tertiary)
         addTarget(self, action: #selector(didTouchDown(sender:forEvent:)), for: .touchDown)
         addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
     }

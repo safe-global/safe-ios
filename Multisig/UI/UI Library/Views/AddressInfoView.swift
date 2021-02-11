@@ -36,7 +36,7 @@ class AddressInfoView: UINibView {
         super.commonInit()
         titleLabel.setStyle(.headline)
         textLabel.setStyle(.headline)
-        addressLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+        addressLabel.setStyle(.tertiary)
         setTitle(nil)
     }
 
@@ -57,7 +57,7 @@ class AddressInfoView: UINibView {
         if let label = self.label {
             textLabel.isHidden = false
             textLabel.text = label
-            addressLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+            addressLabel.setStyle(.tertiary)
             addressLabel.text = self.address.ellipsized()
         } else {
             textLabel.isHidden = true
@@ -65,7 +65,7 @@ class AddressInfoView: UINibView {
         }
     }
 
-    func setDetailImage(_ image: UIImage?, tintColor: UIColor = .gnoHold) {
+    func setDetailImage(_ image: UIImage?, tintColor: UIColor = .button) {
         detailButton.isHidden = image == nil
         detailButton.tintColor = tintColor
         detailButton.setImage(image, for: .normal)

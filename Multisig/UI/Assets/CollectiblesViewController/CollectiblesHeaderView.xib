@@ -17,7 +17,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hp1-Af-m4q">
                     <rect key="frame" x="0.0" y="0.0" width="426" height="61"/>
-                    <color key="backgroundColor" name="systemWhite"/>
+                    <color key="backgroundColor" name="secondaryBackground"/>
                 </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wnk-sz-Rrg">
                     <rect key="frame" x="16" y="12" width="36" height="36"/>
@@ -34,6 +34,7 @@
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="zjq-pm-Dqz"/>
+            <color key="backgroundColor" name="secondaryBackground"/>
             <constraints>
                 <constraint firstItem="zjq-pm-Dqz" firstAttribute="trailing" secondItem="Hp1-Af-m4q" secondAttribute="trailing" id="6rB-Qt-VC3"/>
                 <constraint firstItem="wnk-sz-Rrg" firstAttribute="top" secondItem="lHd-gK-iqD" secondAttribute="top" constant="12" id="EbK-4t-qNv"/>
@@ -55,7 +56,7 @@
         </view>
     </objects>
     <resources>
-        <namedColor name="systemWhite">
+        <namedColor name="secondaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>

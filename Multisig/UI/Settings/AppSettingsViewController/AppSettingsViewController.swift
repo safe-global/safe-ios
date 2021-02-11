@@ -12,7 +12,7 @@ import SwiftUI
 fileprivate protocol SectionItem {}
 
 class AppSettingsViewController: UITableViewController {
-    private let tableBackgroundColor: UIColor = .gnoWhite
+    private let tableBackgroundColor: UIColor = .primaryBackground
     private let advancedSectionHeaderHeight: CGFloat = 28
     var notificationCenter = NotificationCenter.default
     var app = App.configuration.app
@@ -29,6 +29,7 @@ class AppSettingsViewController: UITableViewController {
         enum General: SectionItem {
             case importKey(String)
             case importedKey(String, String)
+            case appearance(String)
             case terms(String)
             case privacyPolicy(String)
             case licenses(String)
@@ -49,6 +50,7 @@ class AppSettingsViewController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
+        tableView.separatorStyle = .singleLine
 
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(ImportedKeyCell.self)
@@ -73,6 +75,7 @@ class AppSettingsViewController: UITableViewController {
                 signingKey != nil ?
                     Section.General.importedKey("Imported owner key", signingKey!) :
                     Section.General.importKey("Import owner key"),
+                Section.General.appearance("Appearance"),
                 Section.General.terms("Terms of use"),
                 Section.General.privacyPolicy("Privacy policy"),
                 Section.General.licenses("Licenses"),
@@ -113,7 +116,8 @@ class AppSettingsViewController: UITableViewController {
 
         case Section.General.importedKey(let name, let signingKey):
             return importedKeyCell(name: name, signingKey: signingKey, indexPath: indexPath)
-
+        case Section.General.appearance(let name):
+            return basicCell(name: name, indexPath: indexPath)
         case Section.General.terms(let name):
             return basicCell(name: name, indexPath: indexPath)
 
@@ -195,6 +199,9 @@ class AppSettingsViewController: UITableViewController {
         switch item {
         case Section.General.importKey(_):
             importOwnerKey()
+        case Section.General.appearance(_):
+            let appearanceViewController = ChangeDisplayModeTableViewController()
+            show(appearanceViewController, sender: self)
         case Section.General.terms(_):
             openInSafari(legal.termsURL)
         case Section.General.privacyPolicy(_):
