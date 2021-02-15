@@ -79,7 +79,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
             let vc = KeyPickerController(node: rootNode)
             show(vc, sender: self)
         } else if isValidPK(phrase) {
-            let vc = ConfirmPrivateKeyViewController(privateKey: Data(exactlyHex: phrase)!)
+            let vc = ConfirmPrivateKeyViewController(privateKey: Data(exactlyHex: phrase)!, isDrivedFromSeedPhrase: false)
             show(vc, sender: self)
         }
     }

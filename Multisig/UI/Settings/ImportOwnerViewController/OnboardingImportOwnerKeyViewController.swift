@@ -33,6 +33,11 @@ class OnboardingImportOwnerKeyViewController: UIViewController {
         let controller = EnterKeyOrSeedPhraseViewController()
         show(controller, sender: self)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.importOwnerOnboarding)
+    }
 }
 
 
