@@ -57,6 +57,6 @@ class SelectOwnerAddressViewModel {
 
     func importWallet() -> Bool {
         guard let pkData = privateKeyData(selectedIndex) else { return false }
-        return PrivateKeyController.importKey(pkData)
+        return PrivateKeyController.importKey(pkData, isDrivedFromSeedPhrase: true)
     }
 }

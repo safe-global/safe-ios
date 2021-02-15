@@ -15,6 +15,7 @@ class ConfirmPrivateKeyViewController: UIViewController {
 
     private var privateKey: Data!
     private var address: Address!
+    private var isDrivedFromSeedPhrase: Bool = true
 
     private lazy var importButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
@@ -25,11 +26,12 @@ class ConfirmPrivateKeyViewController: UIViewController {
         return button
     }()
 
-    convenience init(privateKey: Data) {
+    convenience init(privateKey: Data, isDrivedFromSeedPhrase: Bool = true) {
         self.init()
         self.privateKey = privateKey
         let address = try! EthereumPrivateKey(hexPrivateKey: privateKey.toHexString()).address
         self.address = Address(address, index: 0)
+        self.isDrivedFromSeedPhrase = isDrivedFromSeedPhrase
     }
 
     override func viewDidLoad() {
@@ -47,7 +49,7 @@ class ConfirmPrivateKeyViewController: UIViewController {
     }
 
     @objc func didTapImport() {
-        guard PrivateKeyController.importKey(privateKey) else { return }
+        guard PrivateKeyController.importKey(privateKey, isDrivedFromSeedPhrase: isDrivedFromSeedPhrase) else { return }
         dismiss(animated: true, completion: nil)
     }
 }
