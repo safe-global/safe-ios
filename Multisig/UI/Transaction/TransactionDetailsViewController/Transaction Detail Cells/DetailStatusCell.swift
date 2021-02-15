@@ -78,11 +78,11 @@ extension SCGModels.TxStatus {
     var title: String {
         switch self {
         case .awaitingExecution:
-            return "Awaiting execution"
+            return "Needs execution"
         case .awaitingConfirmations:
-            return "Awaiting confirmations"
+            return "Needs confirmations"
         case .awaitingYourConfirmation:
-            return "Awaiting your confirmation"
+            return "Needs your confirmation"
         case .pending:
              return "Pending"
         case .failed:
