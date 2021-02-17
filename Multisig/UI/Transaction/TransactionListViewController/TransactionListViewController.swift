@@ -326,7 +326,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             }
             info = customInfo.methodName ?? ""
         case .rejection(let rejectionInfo):
-            // TODO: This should be changed when implemet display rejection transaction 
+            #warning ("This should be changed when implemet display rejection transaction")
             if let importedSafeName = Safe.cachedName(by: rejectionInfo.to) {
                 title = importedSafeName
                 cell.set(contractAddress: rejectionInfo.to)

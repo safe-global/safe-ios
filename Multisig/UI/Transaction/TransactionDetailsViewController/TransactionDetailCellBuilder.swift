@@ -282,7 +282,7 @@ class TransactionDetailCellBuilder {
             buildActions(tx)
             buildHexData(tx)
         case .rejection(let rejectionTx):
-            // TODO: This should be changed when implemet display rejection transaction
+            #warning ("This should be changed when implemet display rejection transaction")
             let eth = App.shared.tokenRegistry.token(address: .ether)!
             let (label, addressLogoUri) = displayNameAndImageUri(address: rejectionTx.to, addressInfo: rejectionTx.toInfo)
             buildTransferHeader(
@@ -417,7 +417,7 @@ class TransactionDetailCellBuilder {
         case .custom(_):
             status(tx.txStatus, type: "Contract interaction", icon: #imageLiteral(resourceName: "ico-custom-tx"))
         case .rejection(_):
-            // TODO: This should be changed when implemet display rejection transaction
+            #warning ("This should be changed when implemet display rejection transaction")
             status(tx.txStatus, type: "Contract interaction", icon: #imageLiteral(resourceName: "ico-custom-tx"))
         case .creation(_):
             status(tx.txStatus, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
