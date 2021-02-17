@@ -325,6 +325,19 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                 image = #imageLiteral(resourceName: "ico-custom-tx")
             }
             info = customInfo.methodName ?? ""
+        case .rejection(let rejectionInfo):
+            #warning ("This should be changed when implemet display rejection transaction")
+            if let importedSafeName = Safe.cachedName(by: rejectionInfo.to) {
+                title = importedSafeName
+                cell.set(contractAddress: rejectionInfo.to)
+            } else if let toInfo = rejectionInfo.toInfo {
+                title = toInfo.name
+                cell.set(contractImageUrl: toInfo.logoUri, contractAddress: rejectionInfo.to)
+            } else {
+                title = "Contract interaction"
+                image = #imageLiteral(resourceName: "ico-custom-tx")
+            }
+            info = rejectionInfo.methodName ?? ""
         case .creation(_):
             image = #imageLiteral(resourceName: "ico-settings-tx")
             title = "Safe created"
