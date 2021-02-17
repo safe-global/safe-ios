@@ -14,7 +14,7 @@
   },
   "cocoapods_version": ">= 1.4.0",
   "platforms": {
-    "ios": "11.0"
+    "ios": "13.0"
   },
   "swift_versions": "5.0",
   "source": {

@@ -47,7 +47,7 @@ target 'Multisig' do
   pod 'SwiftCryptoTokenFormatter', '1.0.0'
 
   # Dependency for implementing authentication
-  pod 'SwiftAccessPolicy', :git => 'https://github.com/gnosis/SwiftAccessPolicy.git', :branch => 'main'
+  pod 'SwiftAccessPolicy', :path => '../SwiftAccessPolicy' # :git => 'https://github.com/gnosis/SwiftAccessPolicy.git', :branch => 'main'
 
   # Tracking of events of interest
   pod 'Firebase/Analytics'
