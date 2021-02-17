@@ -39,7 +39,6 @@ class AuthenticationController {
     /// it in the Keychain.
     ///
     /// - Parameter plaintextPasscode: unsecured, "as-is" passcode
-    /// - Throws: ??
     func createPasscode(plaintextPasscode: String) throws {
         for user in accessService.userRepository.users() {
             accessService.userRepository.delete(userID: user.id)
@@ -51,7 +50,6 @@ class AuthenticationController {
 
     /// Changes the passcode to a new value.
     /// - Parameter newPasscodeInPlaintext: unsecured "as-is" passcode
-    /// - Throws: ??
     func changePasscode(newPasscodeInPlaintext: String) throws {
         guard let user = user else { return }
         let password = derivedKey(from: newPasscodeInPlaintext)
@@ -69,8 +67,6 @@ class AuthenticationController {
 
     /// Deletes the stored passcode. If passcode not set, this operation
     /// does not have any effect.
-    ///
-    /// - Throws: ??
     func deletePasscode() throws {
         guard let user = user else { return }
         try accessService.deleteUser(userID: user.id)
