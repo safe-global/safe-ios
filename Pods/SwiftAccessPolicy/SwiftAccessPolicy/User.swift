@@ -10,10 +10,10 @@ import Foundation
 
 public struct User {
     public let id: UUID
-    public private(set) var encryptedPassword: String
-    public private(set) var sessionRenewedAt: Date?
-    public private(set) var failedAuthAttempts: Int = 0
-    public private(set) var accessBlockedAt: Date?
+    public var encryptedPassword: String
+    public var sessionRenewedAt: Date?
+    public var failedAuthAttempts: Int = 0
+    public var accessBlockedAt: Date?
 
     public init(userID: UUID, encryptedPassword: String) {
         self.id = userID
