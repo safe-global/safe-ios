@@ -31,8 +31,10 @@ extension AppUser {
         }
     }
 
-    static func newUser() -> AppUser {
-        AppUser(context: App.shared.coreDataStack.viewContext)
+    static func newUser(id: UUID) -> AppUser {
+        let user = AppUser(context: App.shared.coreDataStack.viewContext)
+        user.id = id
+        return user
     }
 
     var encryptedPassword: String {

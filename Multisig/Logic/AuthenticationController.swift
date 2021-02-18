@@ -102,7 +102,7 @@ class AuthUserRepository: UserRepository {
 
     func save(user: User) {
         do {
-            let appUser = try AppUser.user(id: user.id) ?? AppUser.newUser()
+            let appUser = try AppUser.user(id: user.id) ?? AppUser.newUser(id: user.id)
             appUser.update(with: user)
             appUser.save()
         } catch {
@@ -143,6 +143,7 @@ class AuthUserRepository: UserRepository {
 
 extension AppUser {
     func update(with user: User) {
+        assert(id == user.id)
         encryptedPassword = user.encryptedPassword
         sessionRenewedAt = user.sessionRenewedAt
         failedAuthAttempts = Int64(user.failedAuthAttempts)
