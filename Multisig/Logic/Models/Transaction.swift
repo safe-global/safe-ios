@@ -23,7 +23,7 @@ struct Transaction {
     let refundReceiver: AddressString
     let nonce: UInt256String
     // computed based on other properties
-    let safeTxHash: HashString?
+    var safeTxHash: HashString?
 }
 
 extension Transaction {
@@ -73,8 +73,8 @@ extension Transaction {
         ].reduce(Data()) { $0 + $1 }
     }
 
-    static func rejectionTransaction(safeAddress: Address, nonce: UInt256String, safeTxHash: HashString) -> Transaction {
-        Transaction(to: AddressString(safeAddress),
+    static func rejectionTransaction(safeAddress: Address, nonce: UInt256String) -> Transaction {
+        var transaction = Transaction(to: AddressString(safeAddress),
                                       value: "0",
                                       data: "0x",
                                       operation: SCGModels.Operation.call,
@@ -84,6 +84,14 @@ extension Transaction {
                                       gasToken: "0x0000000000000000000000000000000000000000",
                                       refundReceiver: "0x0000000000000000000000000000000000000000",
                                       nonce: nonce,
-                                      safeTxHash: safeTxHash)
+                                      safeTxHash: nil)
+        transaction.safeTxHash = try? HashString(hex: transaction.safeTxHash(by: safeAddress))
+
+        return transaction
+    }
+
+    func safeTxHash(by safeAddress: Address) -> String {
+        let data = encodeTransactionData(for: AddressString(safeAddress))
+        return EthHasher.hash(data).toHexString()
     }
 }

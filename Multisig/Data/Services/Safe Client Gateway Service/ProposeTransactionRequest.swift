@@ -14,7 +14,7 @@ struct ProposeTransactionRequest: JSONRequest {
     let value: String
     let data: String
     let nonce: String
-    let operation: String
+    let operation: Int
     let safeTxGas: String
     let baseGas: String
     let gasPrice: String
@@ -43,26 +43,26 @@ struct ProposeTransactionRequest: JSONRequest {
         case signature
     }
 
-    init(transaction: Transaction, safeAddress: String, signature: String) {
+    init(transaction: Transaction, safeAddress: String, sender: String, signature: String) {
         self.safeAddress = safeAddress
         to = transaction.to.description
         value = transaction.value.description
         data = transaction.data.description
         nonce = transaction.nonce.description
-        operation = "\(transaction.operation.rawValue)"
+        operation = transaction.operation.rawValue
         safeTxGas = transaction.safeTxGas.description
         baseGas = transaction.baseGas.description
         gasPrice = transaction.gasPrice.description
         gasToken = transaction.gasToken.description
         refundReceiver = transaction.refundReceiver.description
         safeTxHash = transaction.safeTxHash?.description ?? ""
-        sender = safeAddress
+        self.sender = sender
         self.signature = signature
     }
 }
 
 extension SafeClientGatewayService {
-    func propose(transaction: Transaction, safeAddress: String, signature: String, completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: ProposeTransactionRequest(transaction: transaction, safeAddress: safeAddress, signature: signature), completion: completion)
+    func propose(transaction: Transaction, safeAddress: String, sender: String, signature: String, completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: ProposeTransactionRequest(transaction: transaction, safeAddress: safeAddress, sender: sender, signature: signature), completion: completion)
     }
 }
