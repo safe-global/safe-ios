@@ -23,6 +23,8 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     @IBOutlet private weak var bottomStackView: UIStackView!
     @IBOutlet private weak var confirmationsCountLabel: UILabel!
     @IBOutlet private weak var confirmationsCountImageView: UIImageView!
+    @IBOutlet weak var highlightBarView: UIView!
+    @IBOutlet weak var highlightView: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,6 +35,8 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         appendixLabel.setStyle(.footnote2)
         statusLabel.setStyle(.footnote2)
         confirmationsCountLabel.setStyle(.footnote2)
+        highlightView.clipsToBounds = true
+        highlightView.layer.cornerRadius = 4
     }
 
     func set(title: String) {
@@ -81,6 +85,11 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         statusLabel.textColor = statusColor(status: status)
         appendixLabel.textColor = statusLabel.textColor
         self.contentView.alpha = containerViewAlpha(status: status)
+    }
+
+    func set(highlight: Bool) {
+        highlightBarView.isHidden = !highlight
+        highlightView.backgroundColor = highlight ? .rejection : .clear
     }
 
     private func statusColor(status: SCGModels.TxStatus) -> UIColor {

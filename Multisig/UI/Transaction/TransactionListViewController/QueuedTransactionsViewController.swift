@@ -47,6 +47,15 @@ class QueuedTransactionsViewController: TransactionListViewController {
         date.timeAgo()
     }
 
+    override func shouldHighlight(transaction: SCGModels.TxSummary) -> Bool {
+        switch transaction.txInfo {
+        case .rejection(_):
+            return true
+        default:
+            return false
+        }
+    }
+
     deinit {
         stopTimer()
     }
