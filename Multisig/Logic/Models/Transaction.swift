@@ -85,13 +85,13 @@ extension Transaction {
                                       refundReceiver: "0x0000000000000000000000000000000000000000",
                                       nonce: nonce,
                                       safeTxHash: nil)
-        transaction.safeTxHash = try? HashString(hex: transaction.safeTxHash(by: safeAddress))
+        transaction.safeTxHash = transaction.safeTxHash(by: safeAddress)
 
         return transaction
     }
 
-    func safeTxHash(by safeAddress: Address) -> String {
+    func safeTxHash(by safeAddress: Address) -> HashString? {
         let data = encodeTransactionData(for: AddressString(safeAddress))
-        return EthHasher.hash(data).toHexString()
+        return try? HashString(hex: EthHasher.hash(data).toHexString())
     }
 }
