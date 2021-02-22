@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PasscodeViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="button" destination="K1B-3I-Pbb" id="6er-VB-zH7"/>
+                <outlet property="detailLabel" destination="Fop-nf-olR" id="ErL-QT-DV2"/>
+                <outlet property="errorLabel" destination="ULf-Pw-PZJ" id="YKJ-hy-R9p"/>
+                <outlet property="headlineLabel" destination="HaR-dL-Xed" id="GDL-WP-eQ9"/>
+                <outlet property="promptLabel" destination="7d6-Sn-iYm" id="wIv-N1-uEX"/>
+                <outlet property="symbolsStack" destination="SYV-Wh-ZWs" id="FDD-zo-Ivg"/>
+                <outlet property="textField" destination="StU-YF-A2H" id="o9B-YK-1mD"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="StU-YF-A2H" userLabel="Hidden Text Field">
+                    <rect key="frame" x="48" y="144.5" width="224" height="24"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="jay-gT-ZmC"/>
+                    </connections>
+                </textField>
+                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Wf2-ts-X9S" userLabel="Main Stack View">
+                    <rect key="frame" x="0.0" y="-13.5" width="320" height="349.5"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mPX-Ss-mVW">
+                            <rect key="frame" x="17" y="16" width="286.5" height="81.5"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="S8m-Vh-t0K">
+                                    <rect key="frame" x="0.0" y="0.0" width="21" height="20"/>
+                                    <color key="tintColor" name="button"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Owner key successfully imported." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HaR-dL-Xed" userLabel="Headline Label">
+                                    <rect key="frame" x="29" y="0.0" width="257.5" height="81.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="HaR-dL-Xed" secondAttribute="bottom" id="6UE-vH-5kg"/>
+                                <constraint firstItem="S8m-Vh-t0K" firstAttribute="firstBaseline" secondItem="HaR-dL-Xed" secondAttribute="firstBaseline" id="BGg-ej-7br"/>
+                                <constraint firstItem="HaR-dL-Xed" firstAttribute="top" secondItem="mPX-Ss-mVW" secondAttribute="top" id="EDi-xa-bli"/>
+                                <constraint firstItem="HaR-dL-Xed" firstAttribute="leading" secondItem="S8m-Vh-t0K" secondAttribute="trailing" constant="8" id="LpZ-kp-61a"/>
+                                <constraint firstItem="S8m-Vh-t0K" firstAttribute="leading" secondItem="mPX-Ss-mVW" secondAttribute="leading" id="URO-1i-804"/>
+                                <constraint firstAttribute="trailing" secondItem="HaR-dL-Xed" secondAttribute="trailing" id="b0Y-Lz-yFq"/>
+                            </constraints>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="gX9-uu-GyJ">
+                            <rect key="frame" x="16" y="113.5" width="288" height="220"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a 6-digit passcode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7d6-Sn-iYm" userLabel="Prompt Label">
+                                    <rect key="frame" x="45" y="0.0" width="198" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YPG-kg-a0c" userLabel="Passcode Stack View">
+                                    <rect key="frame" x="32" y="44.5" width="224" height="52.5"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="SYV-Wh-ZWs" userLabel="Symbols Stack">
+                                            <rect key="frame" x="0.0" y="0.0" width="224" height="24"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fuT-1x-jVF">
+                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                    <color key="tintColor" name="primaryLabel"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="y49-WO-ETM">
+                                                    <rect key="frame" x="40" y="0.0" width="24" height="24"/>
+                                                    <color key="tintColor" name="primaryLabel"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fCO-oL-b5t">
+                                                    <rect key="frame" x="80" y="0.0" width="24" height="24"/>
+                                                    <color key="tintColor" name="primaryLabel"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Mru-Ll-pW4">
+                                                    <rect key="frame" x="120" y="0.0" width="24" height="24"/>
+                                                    <color key="tintColor" name="primaryLabel"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8YU-kv-7CK">
+                                                    <rect key="frame" x="160" y="0.0" width="24" height="24"/>
+                                                    <color key="tintColor" name="primaryLabel"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="et6-Im-aAP">
+                                                    <rect key="frame" x="200" y="0.0" width="24" height="24"/>
+                                                    <color key="tintColor" name="primaryLabel"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
+                                                </imageView>
+                                            </subviews>
+                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong passcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ULf-Pw-PZJ" userLabel="Error Label">
+                                            <rect key="frame" x="48" y="32" width="128.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The passcode will be needed to open the app and sign transactions." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fop-nf-olR" userLabel="Detail Label">
+                                    <rect key="frame" x="0.0" y="121" width="288" height="41"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1B-3I-Pbb" userLabel="Button">
+                                    <rect key="frame" x="125.5" y="186" width="37" height="34"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                    <state key="normal" title="Skip">
+                                        <color key="titleColor" name="button"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="didTapButton:" destination="-1" eventType="touchUpInside" id="gAS-lC-OZk"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <directionalEdgeInsets key="directionalLayoutMargins" top="16" leading="16" bottom="16" trailing="16"/>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="7d6-Sn-iYm" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="100" id="Od3-b9-HVu"/>
+                <constraint firstItem="Wf2-ts-X9S" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="cqC-e4-bF4"/>
+                <constraint firstItem="Wf2-ts-X9S" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="eLh-MI-Rk6"/>
+                <constraint firstItem="StU-YF-A2H" firstAttribute="top" secondItem="SYV-Wh-ZWs" secondAttribute="top" id="ilK-Xv-HUx"/>
+                <constraint firstItem="StU-YF-A2H" firstAttribute="bottom" secondItem="SYV-Wh-ZWs" secondAttribute="bottom" id="kMH-9r-UYY"/>
+                <constraint firstItem="StU-YF-A2H" firstAttribute="leading" secondItem="SYV-Wh-ZWs" secondAttribute="leading" id="sym-A6-RVU"/>
+                <constraint firstItem="StU-YF-A2H" firstAttribute="trailing" secondItem="SYV-Wh-ZWs" secondAttribute="trailing" id="vZ0-bC-G5B"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <namedColor name="button">
+            <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primaryLabel">
+            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
