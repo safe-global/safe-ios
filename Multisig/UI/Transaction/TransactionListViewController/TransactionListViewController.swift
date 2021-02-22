@@ -303,7 +303,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             }
         }
 
-        switch transaction.transaction.txInfo {
+        switch tx.txInfo {
         case .transfer(let transferInfo):
             let isOutgoing = transferInfo.direction == .outgoing
             image = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incomming-tx")
@@ -325,19 +325,9 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                 image = #imageLiteral(resourceName: "ico-custom-tx")
             }
             info = customInfo.methodName ?? ""
-        case .rejection(let rejectionInfo):
-            #warning ("This should be changed when implemet display rejection transaction")
-            if let importedSafeName = Safe.cachedName(by: rejectionInfo.to) {
-                title = importedSafeName
-                cell.set(contractAddress: rejectionInfo.to)
-            } else if let toInfo = rejectionInfo.toInfo {
-                title = toInfo.name
-                cell.set(contractImageUrl: toInfo.logoUri, contractAddress: rejectionInfo.to)
-            } else {
-                title = "Contract interaction"
-                image = #imageLiteral(resourceName: "ico-custom-tx")
-            }
-            info = rejectionInfo.methodName ?? ""
+        case .rejection(_):
+            title = "On-chain rejection"
+            image = #imageLiteral(resourceName: "ico-rejection-tx")
         case .creation(_):
             image = #imageLiteral(resourceName: "ico-settings-tx")
             title = "Safe created"
@@ -357,6 +347,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         cell.set(conflictType: transaction.conflictType)
         cell.separatorInset = transaction.conflictType == .hasNext ? UIEdgeInsets(top: 0, left: view.frame.size.width, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         cell.set(confirmationsSubmitted: confirmationsSubmitted, confirmationsRequired: confirmationsRequired)
+        cell.set(highlight: shouldHighlight(transaction: tx))
     }
 
     func formattedAmount(transferInfo: SCGModels.TxInfo.Transfer) -> String {
@@ -402,5 +393,9 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
     func formatted(date: Date) -> String {
         timeFormatter.string(from: date)
+    }
+
+    func shouldHighlight(transaction: SCGModels.TxSummary) -> Bool {
+        return false
     }
 }

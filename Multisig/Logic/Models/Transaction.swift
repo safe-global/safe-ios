@@ -9,7 +9,7 @@
 import Foundation
 
 // Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
-struct Transaction {
+struct Transaction: Encodable {
     // required by a smart contract
     let to: AddressString
     let value: UInt256String
@@ -23,7 +23,7 @@ struct Transaction {
     let refundReceiver: AddressString
     let nonce: UInt256String
     // computed based on other properties
-    let safeTxHash: HashString?
+    var safeTxHash: HashString?
 }
 
 extension Transaction {
@@ -71,5 +71,27 @@ extension Transaction {
             EthHasher.hash(Safe.domainData(for: safe)),
             EthHasher.hash(safeEncodedTxData)
         ].reduce(Data()) { $0 + $1 }
+    }
+
+    static func rejectionTransaction(safeAddress: Address, nonce: UInt256String) -> Transaction {
+        var transaction = Transaction(to: AddressString(safeAddress),
+                                      value: "0",
+                                      data: "0x",
+                                      operation: SCGModels.Operation.call,
+                                      safeTxGas: "0",
+                                      baseGas: "0",
+                                      gasPrice: "0",
+                                      gasToken: "0x0000000000000000000000000000000000000000",
+                                      refundReceiver: "0x0000000000000000000000000000000000000000",
+                                      nonce: nonce,
+                                      safeTxHash: nil)
+        transaction.safeTxHash = transaction.safeTxHash(by: safeAddress)
+
+        return transaction
+    }
+
+    func safeTxHash(by safeAddress: Address) -> HashString? {
+        let data = encodeTransactionData(for: AddressString(safeAddress))
+        return try? HashString(hex: EthHasher.hash(data).toHexString())
     }
 }
