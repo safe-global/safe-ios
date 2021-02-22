@@ -183,6 +183,21 @@ extension GNOButtonStyle {
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])
+
+    static let filledError = GNOButtonStyle(appearance: [
+        (.normal, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-error-filled-normal"), textAttributes: [
+            .foregroundColor: UIColor.primaryBackground,
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ])),
+        (.highlighted, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-error-filled-pressed"), textAttributes: [
+            .foregroundColor: UIColor.primaryBackground,
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ])),
+        (.disabled, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-error-filled-inactive"), textAttributes: [
+            .foregroundColor: UIColor.primaryBackground,
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ]))
+    ])
 }
 
 extension UIButton {
