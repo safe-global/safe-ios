@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RejectionCreatedPiece" customModule="Multisig">
+            <connections>
+                <outlet property="textLabel" destination="bCw-sn-10K" id="rjT-i1-GDc"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-reject" translatesAutoresizingMaskIntoConstraints="NO" id="HSE-Qh-vFI">
+                    <rect key="frame" x="16" y="16" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="tni-g4-37Q"/>
+                        <constraint firstAttribute="height" constant="16" id="urd-s5-JGf"/>
+                    </constraints>
+                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yof-zH-nKu">
+                    <rect key="frame" x="23" y="32" width="2" height="18"/>
+                    <color key="backgroundColor" name="gray2"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="PV4-B1-8gs"/>
+                        <constraint firstAttribute="width" constant="2" id="dQX-Pi-0Dm"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On-chain rejection created" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCw-sn-10K">
+                    <rect key="frame" x="40" y="13.5" width="358" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" name="secondaryBackground"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="bCw-sn-10K" secondAttribute="trailing" constant="16" id="5zK-L2-L0i"/>
+                <constraint firstItem="bCw-sn-10K" firstAttribute="centerY" secondItem="HSE-Qh-vFI" secondAttribute="centerY" id="RSq-89-pio"/>
+                <constraint firstAttribute="bottom" secondItem="yof-zH-nKu" secondAttribute="bottom" id="WPn-zR-fR1"/>
+                <constraint firstItem="HSE-Qh-vFI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="XTQ-Yg-3nj"/>
+                <constraint firstItem="yof-zH-nKu" firstAttribute="centerX" secondItem="HSE-Qh-vFI" secondAttribute="centerX" id="abz-vf-9js"/>
+                <constraint firstItem="HSE-Qh-vFI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="ir5-Mf-A8i"/>
+                <constraint firstItem="bCw-sn-10K" firstAttribute="leading" secondItem="HSE-Qh-vFI" secondAttribute="trailing" constant="8" symbolic="YES" id="x8C-Hg-nYl"/>
+                <constraint firstItem="yof-zH-nKu" firstAttribute="top" secondItem="HSE-Qh-vFI" secondAttribute="bottom" id="yQQ-CV-LE2"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-139.13043478260872" y="-58.258928571428569"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ico-reject" width="16" height="16"/>
+        <namedColor name="gray2">
+            <color red="0.69800001382827759" green="0.70999997854232788" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondaryBackground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
