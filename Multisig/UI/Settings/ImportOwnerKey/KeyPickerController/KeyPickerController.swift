@@ -66,7 +66,14 @@ class KeyPickerController: UITableViewController {
 
     @objc func didTapImport() {
         guard viewModel.importWallet() else { return }
-        navigationController?.dismiss(animated: true, completion: nil)
+        if App.shared.auth.isPasscodeSet || AppSettings.passcodeWasSetAtLeastOnce {
+            App.shared.snackbar.show(message: "Owner key successfully imported")
+            navigationController?.dismiss(animated: true, completion: nil)
+        } else {
+            let vc = CreatePasscodeViewController()
+            vc.navigationItem.hidesBackButton = true
+            show(vc, sender: self)
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

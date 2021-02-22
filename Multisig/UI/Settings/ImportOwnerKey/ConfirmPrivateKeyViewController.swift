@@ -48,6 +48,13 @@ class ConfirmPrivateKeyViewController: UIViewController {
 
     @objc func didTapImport() {
         guard PrivateKeyController.importKey(privateKey) else { return }
-        dismiss(animated: true, completion: nil)
+        if App.shared.auth.isPasscodeSet || AppSettings.passcodeWasSetAtLeastOnce {
+            App.shared.snackbar.show(message: "Owner key successfully imported")
+            dismiss(animated: true, completion: nil)
+        } else {
+            let vc = CreatePasscodeViewController()
+            vc.navigationItem.hidesBackButton = true
+            show(vc, sender: self)
+        }
     }
 }

@@ -1157,8 +1157,6 @@
 		04B4B6C025B97E2700CFE24B /* ImportOwnerViewController */ = {
 			isa = PBXGroup;
 			children = (
-				04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */,
-				04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */,
 			);
 			path = ImportOwnerViewController;
 			sourceTree = "<group>";
@@ -1384,6 +1382,15 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
+		0A67ACE225E3F79700B3E97C /* Passcode */ = {
+			isa = PBXGroup;
+			children = (
+				0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */,
+				0A67AC9525E3BE4400B3E97C /* PasscodeViewController.xib */,
+			);
+			path = Passcode;
+			sourceTree = "<group>";
+		};
 		0A6886982588FADF0045CAB5 /* Add Safe */ = {
 			isa = PBXGroup;
 			children = (
@@ -1406,8 +1413,7 @@
 				558835DE255A90420014E8C7 /* AppSettingsViewController */,
 				55BCFC372552FCA900020CE7 /* SafeSettingsViewController */,
 				55F91A8E25BEABA100938475 /* ImportOwnerKey */,
-				0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */,
-				0A67AC9525E3BE4400B3E97C /* PasscodeViewController.xib */,
+				0A67ACE225E3F79700B3E97C /* Passcode */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2273,6 +2279,8 @@
 				55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */,
 				55F91B0225BEBD4400938475 /* ConfirmPrivateKeyViewController.swift */,
 				55F91B0325BEBD4400938475 /* ConfirmPrivateKeyViewController.xib */,
+				04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */,
+				04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */,
 				55F91B0E25BF081900938475 /* PrivateKeyController.swift */,
 			);
 			path = ImportOwnerKey;

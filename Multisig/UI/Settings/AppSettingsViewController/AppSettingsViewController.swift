@@ -91,7 +91,6 @@ class AppSettingsViewController: UITableViewController {
     }
 
     @objc func hidePresentedController() {
-        presentedViewController?.dismiss(animated: true)
         reload()
     }
 
