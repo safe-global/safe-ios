@@ -430,7 +430,7 @@ extension SCGModels {
         var dataDecoded: DataDecoded?
     }
 
-    enum Operation: Int, Decodable {
+    enum Operation: Int, Codable {
         case call = 0
         case delegate = 1
 
