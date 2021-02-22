@@ -9,60 +9,56 @@
 import Foundation
 
 struct ProposeTransactionRequest: JSONRequest {
-    let safeAddress: String
-    let to: String
-    let value: String
-    let data: String
-    let nonce: String
-    let operation: Int
-    let safeTxGas: String
-    let baseGas: String
-    let gasPrice: String
-    let gasToken: String
-    let refundReceiver: String
-    let safeTxHash: String
-    let sender: String
+    let safe: AddressString
+    let sender: AddressString
     let signature: String
-    var httpMethod: String { "POST" }
-    var urlPath: String { "/v1/transactions/\(safeAddress)/propose" }
-    typealias ResponseType = SCGModels.TransactionDetails
+    let transaction: Transaction
 
     enum CodingKeys: String, CodingKey {
+        case sender
         case to
         case value
         case data
-        case nonce
         case operation
         case safeTxGas
         case baseGas
         case gasPrice
         case gasToken
         case refundReceiver
-        case safeTxHash
-        case sender
+        case nonce
+        case contractTransactionHash
         case signature
     }
 
-    init(transaction: Transaction, safeAddress: String, sender: String, signature: String) {
-        self.safeAddress = safeAddress
-        to = transaction.to.description
-        value = transaction.value.description
-        data = transaction.data.description
-        nonce = transaction.nonce.description
-        operation = transaction.operation.rawValue
-        safeTxGas = transaction.safeTxGas.description
-        baseGas = transaction.baseGas.description
-        gasPrice = transaction.gasPrice.description
-        gasToken = transaction.gasToken.description
-        refundReceiver = transaction.refundReceiver.description
-        safeTxHash = transaction.safeTxHash?.description ?? ""
-        self.sender = sender
-        self.signature = signature
+    var httpMethod: String { return "POST" }
+    var urlPath: String { return "/v1/transactions/\(safe)/propose" }
+
+    typealias ResponseType = EmptyResponse
+
+    struct EmptyResponse: Decodable {
+        // empty
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(sender, forKey: .sender)
+        try container.encode(transaction.to, forKey: .to)
+        try container.encode(transaction.value, forKey: .value)
+        try container.encode(transaction.data, forKey: .data)
+        try container.encode(transaction.operation, forKey: .operation)
+        try container.encode(transaction.safeTxGas, forKey: .safeTxGas)
+        try container.encode(transaction.baseGas, forKey: .baseGas)
+        try container.encode(transaction.gasPrice, forKey: .gasPrice)
+        try container.encode(transaction.gasToken, forKey: .gasToken)
+        try container.encode(transaction.refundReceiver, forKey: .refundReceiver)
+        try container.encode(transaction.nonce, forKey: .nonce)
+        try container.encode(transaction.safeTxHash, forKey: .contractTransactionHash)
+        try container.encode(signature, forKey: .signature)
     }
 }
 
 extension SafeClientGatewayService {
-    func propose(transaction: Transaction, safeAddress: String, sender: String, signature: String, completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: ProposeTransactionRequest(transaction: transaction, safeAddress: safeAddress, sender: sender, signature: signature), completion: completion)
+    func propose(transaction: Transaction, safeAddress: AddressString, sender: AddressString, signature: String, completion: @escaping (Result<ProposeTransactionRequest.EmptyResponse, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: ProposeTransactionRequest(safe: safeAddress, sender: sender, signature: signature, transaction: transaction), completion: completion)
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UInt256String: Hashable, Decodable {
+struct UInt256String: Hashable, Codable {
     let value: UInt256
 
     var data32: Data {
@@ -47,6 +47,11 @@ struct UInt256String: Hashable, Decodable {
                 debugDescription: "Could not convert value to UInt256")
             throw DecodingError.valueNotFound(UInt256.self, context)
         }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(value.description)
     }
 }
 

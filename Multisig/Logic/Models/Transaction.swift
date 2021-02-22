@@ -9,7 +9,7 @@
 import Foundation
 
 // Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
-struct Transaction {
+struct Transaction: Encodable {
     // required by a smart contract
     let to: AddressString
     let value: UInt256String
