@@ -23,8 +23,8 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     @IBOutlet private weak var bottomStackView: UIStackView!
     @IBOutlet private weak var confirmationsCountLabel: UILabel!
     @IBOutlet private weak var confirmationsCountImageView: UIImageView!
-    @IBOutlet weak var highlightBarView: UIView!
-    @IBOutlet weak var highlightView: UIView!
+    @IBOutlet private weak var highlightBarView: UIView!
+    @IBOutlet private weak var highlightView: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
