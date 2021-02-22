@@ -14,7 +14,7 @@ class RejectionCreatedPiece: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        textLabel.setStyle(.error)
+        textLabel.setStyle(.primaryError)
         // I wish the XIB would allow to set the height constraint to
         // the file owner, but it doesn't, so we set it in code here
         NSLayoutConstraint.activate([
