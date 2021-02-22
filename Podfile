@@ -46,6 +46,9 @@ target 'Multisig' do
   # Uses BigInt as a dependency
   pod 'SwiftCryptoTokenFormatter', '1.0.0'
 
+  # Dependency for implementing authentication
+  pod 'SwiftAccessPolicy', :git => 'https://github.com/gnosis/SwiftAccessPolicy.git', :branch => 'main'
+
   # Tracking of events of interest
   pod 'Firebase/Analytics'
   # Crash reporting

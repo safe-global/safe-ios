@@ -95,6 +95,7 @@ PODS:
   - nanopb/encode (2.30907.0)
   - PromisesObjC (1.2.12)
   - secp256k1.swift (0.1.4)
+  - SwiftAccessPolicy (1.0.0)
   - SwiftCryptoTokenFormatter (1.0.0):
     - BigInt (~> 4.0)
   - TrustKit (1.7.0)
@@ -114,6 +115,7 @@ DEPENDENCIES:
   - idn2Swift/Tests (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
   - Kingfisher/SwiftUI (= 5.14.0)
   - secp256k1.swift
+  - SwiftAccessPolicy (from `https://github.com/gnosis/SwiftAccessPolicy.git`, branch `main`)
   - SwiftCryptoTokenFormatter (= 1.0.0)
   - TrustKit
   - Web3/Core (from `https://github.com/gnosis/Web3.swift.git`, branch `enhance-signing`)
@@ -148,6 +150,9 @@ EXTERNAL SOURCES:
   idn2Swift:
     :branch: master
     :git: https://github.com/gnosis/pod-idn2.git
+  SwiftAccessPolicy:
+    :branch: main
+    :git: https://github.com/gnosis/SwiftAccessPolicy.git
   Web3:
     :branch: enhance-signing
     :git: https://github.com/gnosis/Web3.swift.git
@@ -159,6 +164,9 @@ CHECKOUT OPTIONS:
   idn2Swift:
     :commit: a8e7d775220eb1f400121d88bd2f9f06f4cc4f24
     :git: https://github.com/gnosis/pod-idn2.git
+  SwiftAccessPolicy:
+    :commit: 64556b3af69645322024c3af3451f9a99ed46e32
+    :git: https://github.com/gnosis/SwiftAccessPolicy.git
   Web3:
     :commit: 67b0dae66791626d1837a95aea93c79205e5ffce
     :git: https://github.com/gnosis/Web3.swift.git
@@ -183,10 +191,11 @@ SPEC CHECKSUMS:
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
+  SwiftAccessPolicy: e9f2246826cb0adabc77e7b5bd03badcfb2d0cfb
   SwiftCryptoTokenFormatter: 416367b31a0bb71e2b4f3928fa92bfc7c9611763
   TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
   Web3: bf5748ee6bcdc8aa33632bcd1023187c70f59bf8
 
-PODFILE CHECKSUM: ba5723bce1ded90a17789726e7d3b7c47aec0e21
+PODFILE CHECKSUM: c9194486b29fdbffefd517c78d8920191a1cd969
 
 COCOAPODS: 1.10.1

@@ -38,6 +38,12 @@ extension AppSettings {
 
     @AppSetting(\.displayMode)
     static var displayMode: Int32
+
+    @AppSetting(\.passcodeBannerDismissed)
+    static var passcodeBannerDismissed: Bool
+
+    @AppSetting(\.passcodeWasSetAtLeastOnce)
+    static var passcodeWasSetAtLeastOnce: Bool
 }
 
 extension NSFetchRequest where ResultType == AppSettings {
