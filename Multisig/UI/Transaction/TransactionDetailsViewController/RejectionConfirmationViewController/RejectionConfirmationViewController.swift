@@ -32,11 +32,10 @@ class RejectionConfirmationViewController: UIViewController {
 
     @IBAction func rejectButtonTouched(_ sender: Any) {
         do {
-            let addressString = try Safe.getSelected()!.address!
-            let safeAddress = try Address(from: addressString)
-            let transaction = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: tx!.multisigInfo!.nonce)
-            let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress)
-            rejectTask = App.shared.clientGatewayService.propose(transaction: transaction, safeAddress: addressString, sender: signature.signer, signature: signature.value, completion: { [weak self] result in
+            let safeAddress = try Safe.getSelected()!.addressValue
+            let tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
+            let signature = try SafeTransactionSigner().sign(tx, by: safeAddress)
+            rejectTask = App.shared.clientGatewayService.propose(transaction: tx, safeAddress: AddressString(safeAddress), sender: AddressString(signature.signer)!, signature: signature.value, completion: { [weak self] result in
 
                 // NOTE: sometimes the data of the transaction list is not
                 // updated right away, we'll give a moment for the backend
@@ -45,16 +44,16 @@ class RejectionConfirmationViewController: UIViewController {
                     if case Result.success(_) = result {
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
+                            //Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
                             App.shared.snackbar.show(message: "Rejection successfully submitted")
                         }
                     }
 
-                    self?.onLoadingCompleted(result: result)
+                    //self?.onLoadingCompleted(result: result)
                 }
             })
         } catch {
-            App.shared.snackbar.show(error: "Failed to Reject transaction")
+            //App.shared.snackbar.show(error: "Failed to Reject transaction")
         }
     }
 }

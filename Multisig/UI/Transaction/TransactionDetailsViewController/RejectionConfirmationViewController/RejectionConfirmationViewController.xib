@@ -22,22 +22,30 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xam-dS-la1">
-                    <rect key="frame" x="16" y="44" width="382" height="818"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xam-dS-la1">
+                    <rect key="frame" x="16" y="44" width="382" height="475.5"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ayr-wZ-qFa">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="492.5"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ayr-wZ-qFa">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="150"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dp5-xm-eM2">
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="150"/>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="150" id="elT-88-QUA"/>
+                            </constraints>
                         </stackView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTL-8l-L1s">
-                            <rect key="frame" x="0.0" y="514.5" width="382" height="122"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTL-8l-L1s">
+                            <rect key="frame" x="0.0" y="172" width="382" height="122"/>
                             <string key="text">This will create an on-chain rejection with the same nonce that doesn’t send any funds. The on-chain rejection will replace the transaction you wish to reject. 
 You'll have to confirm the creation of the on-chain rejection with your imported owner key.</string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5a-Du-idH">
-                            <rect key="frame" x="0.0" y="658.5" width="382" height="56"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5a-Du-idH">
+                            <rect key="frame" x="0.0" y="316" width="382" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="R4d-mJ-sPW"/>
                             </constraints>
@@ -47,7 +55,7 @@ You'll have to confirm the creation of the on-chain rejection with your imported
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSv-Na-fwY">
-                            <rect key="frame" x="0.0" y="736.5" width="382" height="81.5"/>
+                            <rect key="frame" x="0.0" y="394" width="382" height="81.5"/>
                             <string key="text">Advanced users can create a non-empty (useful) transaction with the same nonce (in the web interface only). Learn more in this article: Why do I need to pay for rejecting a transaction?</string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
@@ -59,7 +67,6 @@ You'll have to confirm the creation of the on-chain rejection with your imported
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Xam-dS-la1" secondAttribute="bottom" id="Ixd-qo-W2G"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Xam-dS-la1" secondAttribute="trailing" constant="16" id="P9a-Xp-Xsf"/>
                 <constraint firstItem="Xam-dS-la1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="hbM-0q-DMz"/>
                 <constraint firstItem="Xam-dS-la1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="pg7-3z-Zml"/>

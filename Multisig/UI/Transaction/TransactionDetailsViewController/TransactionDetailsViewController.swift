@@ -124,8 +124,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var showsRejectButton: Bool {
         switch self.tx?.txInfo {
 
-//        case .rejection(_):
-//            return false
+        case .rejection(_):
+            return false
         default:
             return tx?.multisigInfo != nil
         }

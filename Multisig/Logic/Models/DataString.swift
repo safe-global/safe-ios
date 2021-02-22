@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DataString: Hashable, Decodable {
+struct DataString: Hashable, Codable {
     let data: Data
 
     init(_ data: Data) {
@@ -23,6 +23,11 @@ struct DataString: Hashable, Decodable {
         let container = try decoder.singleValueContainer()
         let string = try container.decode(String.self)
         data = Data(hex: string)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(data.toHexStringWithPrefix())
     }
 
 }
