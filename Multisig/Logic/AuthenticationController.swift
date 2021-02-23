@@ -46,6 +46,7 @@ class AuthenticationController {
         let password = derivedKey(from: plaintextPasscode)
         try accessService.registerUser(password: password)
         AppSettings.passcodeWasSetAtLeastOnce = true
+        NotificationCenter.default.post(name: .passcodeCreated, object: nil)
     }
 
     /// Changes the passcode to a new value.
@@ -70,6 +71,7 @@ class AuthenticationController {
     func deletePasscode() throws {
         guard let user = user else { return }
         try accessService.deleteUser(userID: user.id)
+        NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
     }
 
     /// Returns saved user, if any

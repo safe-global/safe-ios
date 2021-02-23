@@ -10,6 +10,10 @@ import UIKit
 
 // Loads and displays balances
 class BalancesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
+    var clientGatewayService = App.shared.clientGatewayService
+
+    override var isEmpty: Bool { results.isEmpty }
+
     private var currentDataTask: URLSessionTask?
 
     private var results: [TokenBalance] = []
@@ -18,16 +22,25 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private let tableBackgroundColor: UIColor = .primaryBackground
 
-    enum Section: Int {
-        case banner = 0, total, balances
-    }
-
-    override var isEmpty: Bool { results.isEmpty }
-
     @UserDefault(key: "io.gnosis.multisig.importKeyBannerWasShown")
     private var importKeyBannerWasShown: Bool?
 
-    var clientGatewayService = App.shared.clientGatewayService
+    private var shouldShowBanner: Bool {
+        shouldShowImportKeyBanner || shouldShowPasscodeBanner
+    }
+
+    private var shouldShowImportKeyBanner: Bool {
+        importKeyBannerWasShown != true
+    }
+
+    private var shouldShowPasscodeBanner: Bool {
+        PrivateKeyController.hasPrivateKey &&
+            !(AppSettings.passcodeBannerDismissed || AppSettings.passcodeWasSetAtLeastOnce)
+    }
+
+    enum Section: Int {
+        case banner = 0, total, balances
+    }
 
     convenience init() {
         self.init(namedClass: Self.superclass())
@@ -37,7 +50,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         tableView.registerCell(BalanceTableViewCell.self)
         tableView.registerCell(TotalBalanceTableViewCell.self)
-        tableView.registerCell(ImportKeyBannerTableViewCell.self)
+        tableView.registerCell(BannerTableViewCell.self)
 
         tableView.allowsSelection = false
         tableView.rowHeight = UITableView.automaticDimension
@@ -47,7 +60,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         tableView.delegate = self
         tableView.dataSource = self
 
-        if importKeyBannerWasShown != true && PrivateKeyController.signingKeyAddress != nil {
+        if importKeyBannerWasShown != true && PrivateKeyController.hasPrivateKey {
             importKeyBannerWasShown = true
         }
 
@@ -55,10 +68,17 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
         NotificationCenter.default.addObserver(
             self, selector: #selector(ownerKeyImported), name: .ownerKeyImported, object: nil)
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(updatePasscodeBanner), name: .passcodeCreated, object: nil)
     }
 
     @objc private func ownerKeyImported() {
         importKeyBannerWasShown = true
+        tableView.reloadData()
+    }
+
+    @objc private func updatePasscodeBanner() {
         tableView.reloadData()
     }
 
@@ -116,7 +136,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         case .total:
             return 1
         case .banner:
-            return importKeyBannerWasShown != true ? 1 : 0
+            return shouldShowBanner ? 1 : 0
         }
     }
 
@@ -140,21 +160,53 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             }
             return cell
         case .banner:
-            let cell = tableView.dequeueCell(ImportKeyBannerTableViewCell.self, for: indexPath)
-            cell.onClose = { [unowned self] in
-                importKeyBannerWasShown = true
-                updateSection(indexPath.section)
-                trackEvent(.bannerImportOwnerKeySkipped)
+            if shouldShowImportKeyBanner {
+                return importKeyBanner(indexPath: indexPath)
+            } else if shouldShowPasscodeBanner {
+                return createPasscodeBanner(indexPath: indexPath)
+            } else {
+                preconditionFailure("Programmer error: check the cell count")
             }
-            cell.onImport = { [unowned self] in
-                importKeyBannerWasShown = true
-                updateSection(indexPath.section)
-                let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
-                present(vc, animated: true)
-                trackEvent(.bannerImportOwnerKeyImported)
-            }
-            return cell
         }
+    }
+
+    private func importKeyBanner(indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(BannerTableViewCell.self, for: indexPath)
+        cell.setHeader("Import owner key")
+        cell.setBody("We added signing support to the app! Now you can import your owner key and sign transactions on the go.")
+        cell.setButton("Import owner key now")
+        cell.onClose = { [unowned self] in
+            importKeyBannerWasShown = true
+            updateSection(indexPath.section)
+            trackEvent(.bannerImportOwnerKeySkipped)
+        }
+        cell.onImport = { [unowned self] in
+            importKeyBannerWasShown = true
+            updateSection(indexPath.section)
+            let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
+            present(vc, animated: true)
+            trackEvent(.bannerImportOwnerKeyImported)
+        }
+        return cell
+    }
+
+    private func createPasscodeBanner(indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(BannerTableViewCell.self, for: indexPath)
+        cell.setHeader("Create passcode")
+        cell.setBody("Secure your owner keys by setting up a passcode. The passcode will be needed to sign transactions. ")
+        cell.setButton("Create passcode now")
+        cell.onClose = { [unowned self] in
+            AppSettings.passcodeBannerDismissed = true
+            updateSection(indexPath.section)
+        }
+        cell.onImport = { [unowned self] in
+            let vc = CreatePasscodeViewController { [weak self] in
+                self?.updateSection(indexPath.section)
+            }
+            let nav = UINavigationController(rootViewController: vc)
+            present(nav, animated: true)
+        }
+        return cell
     }
 
     private func updateSection(_ section: Int) {

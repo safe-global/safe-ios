@@ -102,6 +102,10 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
 class CreatePasscodeViewController: PasscodeViewController {
     private var completion: () -> Void = {}
 
+    convenience init() {
+        self.init(namedClass: PasscodeViewController.self)
+    }
+
     convenience init(_ completionHandler: @escaping () -> Void) {
         self.init(namedClass: PasscodeViewController.self)
         completion = completionHandler

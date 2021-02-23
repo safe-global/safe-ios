@@ -49,4 +49,8 @@ class PrivateKeyController {
             return nil
         }
     }
+
+    static var hasPrivateKey: Bool {
+        signingKeyAddress != nil
+    }
 }
