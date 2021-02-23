@@ -89,15 +89,25 @@ extension UILabel {
         attributedText = NSAttributedString(string: text, attributes: style.attributes)
     }
 
-    func hyperLinkLabel(_ text: String) {
+    func hyperLinkLabel(_ prefixText: String = "", prefixStyle: GNOTextStyle = .primary, linkText: String = "") {
+        let result = NSMutableAttributedString()
+
+        if !prefixText.isEmpty {
+            let attributedText = NSMutableAttributedString(string: "\(prefixText) ", attributes: prefixStyle.attributes)
+            result.append(attributedText)
+        }
+        
+        let attributedLinkText = NSMutableAttributedString(string: "\(linkText) ")
+        attributedLinkText.addAttributes(GNOTextStyle.primaryButton.attributes, range: NSRange(location: 0, length: attributedLinkText.length))
+        attributedLinkText.addAttributes([NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue], range: NSRange(location: 0, length: attributedLinkText.length))
+
+        result.append(attributedLinkText)
         let attachment = NSTextAttachment()
         attachment.image = UIImage(named: "icon-external-link")?.withTintColor(.button)
         let attachmentString = NSAttributedString(attachment: attachment)
-        let description = NSMutableAttributedString(string: "\(text) ")
-        description.append(attachmentString)
-        description.addAttributes(GNOTextStyle.primaryButton.attributes, range: NSRange(location: 0, length: description.length))
-        description.addAttributes([NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue], range: NSRange(location: 0, length: description.length))
-        attributedText = description
+        result.append(attachmentString)
+
+        attributedText = result
     }
 }
 

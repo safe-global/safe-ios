@@ -10,6 +10,10 @@ import UIKit
 
 class RejectionConfirmationViewController: UIViewController {
 
+    @IBOutlet weak var createOnChainRejectionLabel: UILabel!
+    @IBOutlet weak var collectConfirmationsLabel: UILabel!
+    @IBOutlet weak var executeOnChainRejectionLabel: UILabel!
+    @IBOutlet weak var initialTransactionLabel: UILabel!
     @IBOutlet weak var rejectionButton: UIButton!
     @IBOutlet weak var readMoreLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -25,12 +29,42 @@ class RejectionConfirmationViewController: UIViewController {
         super.viewDidLoad()
         rejectionButton.setText("Reject transaction", .filledError)
         navigationItem.title = "Reject Transaction"
-        readMoreLabel.setStyle(.primary)
+
+        createOnChainRejectionLabel.setStyle(.footnote3)
+        collectConfirmationsLabel.setStyle(.footnote2)
+        executeOnChainRejectionLabel.setStyle(.footnote2)
+        initialTransactionLabel.setStyle(.footnote2)
         descriptionLabel.setStyle(.primary)
-        // Do any additional setup after loading the view.
+
+        readMoreLabel.hyperLinkLabel("Advanced users can create a non-empty (useful) transaction with the same nonce (in the web interface only). Learn more in this article: ", linkText: "Why do I need to pay for rejecting a transaction?")
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.transactionDetailsRejectionConfirmation)
     }
 
     @IBAction func rejectButtonTouched(_ sender: Any) {
+        if App.shared.auth.isPasscodeSet {
+            let vc = EnterPasscodeViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            vc.completion = { [weak self, weak nav] success in
+                if success {
+                    self?.rejectTransaction()
+                }
+                nav?.dismiss(animated: true, completion: nil)
+            }
+            present(nav, animated: true, completion: nil)
+        } else {
+            rejectTransaction()
+        }
+    }
+
+    @IBAction func leanMoreButtonTouched(_ sender: Any) {
+        openInSafari(App.configuration.help.payForCancellationURL)
+    }
+
+    private func rejectTransaction() {
         do {
             let safeAddress = try Safe.getSelected()!.addressValue
             let tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
@@ -44,8 +78,9 @@ class RejectionConfirmationViewController: UIViewController {
                     if case Result.success(_) = result {
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-                            //Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
+                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionRejected)
                             App.shared.snackbar.show(message: "Rejection successfully submitted")
+                            self?.navigationController?.popToRootViewController(animated: true)
                         }
                     }
 
