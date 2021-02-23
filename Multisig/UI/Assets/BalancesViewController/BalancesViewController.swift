@@ -47,7 +47,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         tableView.delegate = self
         tableView.dataSource = self
 
-        if importKeyBannerWasShown != true && App.shared.settings.signingKeyAddress != nil {
+        if importKeyBannerWasShown != true && PrivateKeyController.signingKeyAddress != nil {
             importKeyBannerWasShown = true
         }
 

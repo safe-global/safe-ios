@@ -104,15 +104,27 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     @objc private func didTapConfirm() {
-        let alertVC = UIAlertController(
-            title: "Confirm transaction",
-            message: "You are about to confirm the transaction with your currently imported owner key. This confirmation is off-chain. The transaction should be executed separately in the web interface.",
-            preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alertVC.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak self] _ in
-            self?.sign()
-        }))
-        present(alertVC, animated: true, completion: nil)
+        if App.shared.auth.isPasscodeSet {
+            let vc = EnterPasscodeViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            vc.completion = { [weak self, weak nav] success in
+                if success {
+                    self?.sign()
+                }
+                nav?.dismiss(animated: true, completion: nil)
+            }
+            present(nav, animated: true, completion: nil)
+        } else {
+            let alertVC = UIAlertController(
+                title: "Confirm transaction",
+                message: "You are about to confirm the transaction with your currently imported owner key. This confirmation is off-chain. The transaction should be executed separately in the web interface.",
+                preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alertVC.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak self] _ in
+                self?.sign()
+            }))
+            present(alertVC, animated: true, completion: nil)
+        }
     }
 
     private func sign() {
@@ -225,7 +237,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 extension SCGModels.TransactionDetails {
     var needsYourConfirmation: Bool {
         if txStatus == .awaitingConfirmations,
-           let signingKey = App.shared.settings.signingKeyAddress,
+           let signingKey = PrivateKeyController.signingKeyAddress,
            let signingAddress = AddressString(signingKey),
            case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = detailedExecutionInfo,
            multisigTx.isSigner(address: signingAddress) &&

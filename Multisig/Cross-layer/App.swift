@@ -50,7 +50,5 @@ class App {
 
     let firebaseConfig = FirebaseConfig()
 
-    lazy var settings = Settings()
-
     private init() {}
 }
