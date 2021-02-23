@@ -343,7 +343,7 @@ enum GSError {
         let loggable = true
     }
 
-    struct CreatePasscodeError: DetailedLocalizedError {
+    struct GenericPasscodeError: DetailedLocalizedError {
         let description = "Failed to set passcode"
         let reason: String
         let howToFix = "Please try again later or contact Safe support if this issue persists"
