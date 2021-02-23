@@ -65,6 +65,10 @@
 		04CE3F9D24B62F0800826AEE /* CollectibleMetaDataAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9C24B62F0800826AEE /* CollectibleMetaDataAttribute.swift */; };
 		04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9E24B7191E00826AEE /* CollectibleViewModel.swift */; };
 		04D1306C25DD525A0032FA03 /* ProposeTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1306B25DD525A0032FA03 /* ProposeTransactionRequest.swift */; };
+		04D131DB25E416FC0032FA03 /* RejectionCreatedPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D131DA25E416FC0032FA03 /* RejectionCreatedPiece.swift */; };
+		04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D131D925E416FC0032FA03 /* RejectionCreatedPiece.xib */; };
+		04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1323325E43C550032FA03 /* DetailRejectionInfoCell.swift */; };
+		04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */; };
 		04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */; };
 		04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */; };
 		04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */; };
@@ -524,6 +528,10 @@
 		04CE3F9C24B62F0800826AEE /* CollectibleMetaDataAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleMetaDataAttribute.swift; sourceTree = "<group>"; };
 		04CE3F9E24B7191E00826AEE /* CollectibleViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectibleViewModel.swift; sourceTree = "<group>"; };
 		04D1306B25DD525A0032FA03 /* ProposeTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposeTransactionRequest.swift; sourceTree = "<group>"; };
+		04D131D925E416FC0032FA03 /* RejectionCreatedPiece.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RejectionCreatedPiece.xib; sourceTree = "<group>"; };
+		04D131DA25E416FC0032FA03 /* RejectionCreatedPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RejectionCreatedPiece.swift; sourceTree = "<group>"; };
+		04D1323325E43C550032FA03 /* DetailRejectionInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRejectionInfoCell.swift; sourceTree = "<group>"; };
+		04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailRejectionInfoCell.xib; sourceTree = "<group>"; };
 		04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueuedTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSafeSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1316,6 +1324,8 @@
 				0A57C5E32577FBD900420303 /* DetailConfirmationCell.xib */,
 				0A57C5AE2577F02100420303 /* ConfirmationCreatedPiece.swift */,
 				0A57C5C02577F08B00420303 /* ConfirmationCreatedPiece.xib */,
+				04D131DA25E416FC0032FA03 /* RejectionCreatedPiece.swift */,
+				04D131D925E416FC0032FA03 /* RejectionCreatedPiece.xib */,
 				0A57C5B42577F02E00420303 /* ConfirmationConfirmedPiece.swift */,
 				0A57C5C62577F75D00420303 /* ConfirmationConfirmedPiece.xib */,
 				0A57C5D62577F9E600420303 /* ConfirmationStatusPiece.swift */,
@@ -1334,6 +1344,8 @@
 				0AE8C08E25793B9400E62B34 /* DetailArrowPiece.swift */,
 				0AE8C0682579371A00E62B34 /* DetailTransferInfoCell.swift */,
 				0AE8C0692579371A00E62B34 /* DetailTransferInfoCell.xib */,
+				04D1323325E43C550032FA03 /* DetailRejectionInfoCell.swift */,
+				04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */,
 			);
 			path = "Transaction Detail Cells";
 			sourceTree = "<group>";
@@ -2510,6 +2522,7 @@
 				558835F9255BFEF80014E8C7 /* AddressInfoView.xib in Resources */,
 				0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
+				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				55F91B0525BEBD4500938475 /* ConfirmPrivateKeyViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
@@ -2559,6 +2572,7 @@
 				0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
 				0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */,
+				04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */,
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
@@ -2799,6 +2813,7 @@
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
+				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
 				04B4B60225B84D6900CFE24B /* SafeInfoViewV2.swift in Sources */,
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
@@ -2976,6 +2991,7 @@
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
 				0AF1C7F42540887300E28669 /* HeaderViewController.swift in Sources */,
 				0A6886E72589080A0045CAB5 /* GNOTextField.swift in Sources */,
+				04D131DB25E416FC0032FA03 /* RejectionCreatedPiece.swift in Sources */,
 				0A478D3B25B863D60038363E /* DerivedKeyTableViewCell.swift in Sources */,
 				55883612255C15870014E8C7 /* UIViewController+Safari.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,

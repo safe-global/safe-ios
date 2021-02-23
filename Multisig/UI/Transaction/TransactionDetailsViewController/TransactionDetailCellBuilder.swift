@@ -35,6 +35,7 @@ class TransactionDetailCellBuilder {
         tableView.registerCell(DetailDisclosingCell.self)
         tableView.registerCell(ExternalURLCell.self)
         tableView.registerCell(DetailTransferInfoCell.self)
+        tableView.registerCell(DetailRejectionInfoCell.self)
         tableView.registerCell(DetailStatusCell.self)
     }
 
@@ -281,25 +282,8 @@ class TransactionDetailCellBuilder {
                 detail: "\(customTx.dataSize.value) bytes")
             buildActions(tx)
             buildHexData(tx)
-        case .rejection(let rejectionTx):
-            #warning ("This should be changed when implemet display rejection transaction")
-            let eth = App.shared.tokenRegistry.token(address: .ether)!
-            let (label, addressLogoUri) = displayNameAndImageUri(address: rejectionTx.to, addressInfo: rejectionTx.toInfo)
-            buildTransferHeader(
-                address: rejectionTx.to.address,
-                label: label,
-                addressLogoUri: addressLogoUri,
-                isOutgoing: true,
-                status: tx.txStatus,
-                value: rejectionTx.value.value,
-                decimals: eth.decimals.flatMap { try? UInt64($0) },
-                symbol: eth.symbol,
-                logoUri: nil,
-                logo: #imageLiteral(resourceName: "ico-ether"),
-                detail: "\(rejectionTx.dataSize.value) bytes")
-            buildActions(tx)
-            buildHexData(tx)
-
+        case .rejection(_):
+            rejectionHeader()
         case .creation(_):
             // ignore
             fallthrough
@@ -417,8 +401,7 @@ class TransactionDetailCellBuilder {
         case .custom(_):
             status(tx.txStatus, type: "Contract interaction", icon: #imageLiteral(resourceName: "ico-custom-tx"))
         case .rejection(_):
-            #warning ("This should be changed when implemet display rejection transaction")
-            status(tx.txStatus, type: "Contract interaction", icon: #imageLiteral(resourceName: "ico-custom-tx"))
+            status(tx.txStatus, type: "On-chain rejection", icon: #imageLiteral(resourceName: "ico-rejection-tx"))
         case .creation(_):
             status(tx.txStatus, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
         case .unknown:
@@ -431,10 +414,11 @@ class TransactionDetailCellBuilder {
                 tx.detailedExecutionInfo else {
             return
         }
+
         confirmation(multisigInfo.confirmations.map { $0.signer.address },
                      required: Int(multisigInfo.confirmationsRequired),
                      status: tx.txStatus,
-                     executor: multisigInfo.executor?.address)
+                     executor: multisigInfo.executor?.address, isRejectionTx: tx.txInfo.isRejection)
 
         buildCreatedDate(multisigInfo.submittedAt)
     }
@@ -526,12 +510,13 @@ class TransactionDetailCellBuilder {
     }
 
 
-    func confirmation(_ confirmations: [Address], required: Int, status: SCGModels.TxStatus, executor: Address?) {
+    func confirmation(_ confirmations: [Address], required: Int, status: SCGModels.TxStatus, executor: Address?, isRejectionTx: Bool) {
         let cell = newCell(DetailConfirmationCell.self)
         cell.setConfirmations(confirmations,
                               required: required,
                               status: status,
-                              executor: executor)
+                              executor: executor,
+                              isRejectionTx: isRejectionTx)
         result.append(cell)
     }
 
@@ -560,6 +545,11 @@ class TransactionDetailCellBuilder {
         cell.setDetail(detail)
         cell.setAddress(address, label: label, imageUri: addressLogoUri)
         cell.setOutgoing(isOutgoing)
+        result.append(cell)
+    }
+
+    func rejectionHeader() {
+        let cell = newCell(DetailRejectionInfoCell.self)
         result.append(cell)
     }
 
@@ -602,5 +592,15 @@ extension SCGModels.Operation {
     ]
     var string: String {
         Self.strings[self]!
+    }
+}
+
+extension SCGModels.TxInfo {
+    var isRejection: Bool {
+        if case SCGModels.TxInfo.rejection(_) = self {
+            return true
+        }
+
+        return false
     }
 }

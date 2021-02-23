@@ -14,11 +14,12 @@ class DetailConfirmationCell: UITableViewCell {
     func setConfirmations(_ confirmations: [Address],
                           required: Int,
                           status: SCGModels.TxStatus,
-                          executor: Address?) {
+                          executor: Address?,
+                          isRejectionTx: Bool = false) {
         let bounds = contentView.bounds
         var views: [UIView] = []
 
-        views.append(ConfirmationCreatedPiece(frame: bounds))
+        views.append(isRejectionTx ? RejectionCreatedPiece(frame: bounds) : ConfirmationCreatedPiece(frame: bounds))
 
         views += confirmations.map { address -> ConfirmationConfirmedPiece in
             let v = ConfirmationConfirmedPiece(frame: bounds)
