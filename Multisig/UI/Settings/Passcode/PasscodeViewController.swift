@@ -83,12 +83,28 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
             imageView.image = UIImage(systemName: index < text.count ? "circle.fill" : "circle")
         }
     }
+
+    func showGenericError(description: String, error: Error) {
+        let uiError = GSError.error(
+            description: description,
+            error: GSError.GenericPasscodeError(reason: error.localizedDescription))
+        errorLabel.text = uiError.localizedDescription
+        errorLabel.isHidden = false
+    }
+
+    func showError(_ text: String) {
+        errorLabel.text = text
+        errorLabel.isHidden = false
+    }
 }
 
 
 class CreatePasscodeViewController: PasscodeViewController {
-    convenience init() {
+    private var completion: () -> Void = {}
+
+    convenience init(_ completionHandler: @escaping () -> Void) {
         self.init(namedClass: PasscodeViewController.self)
+        completion = completionHandler
     }
 
     override func viewDidLoad() {
@@ -100,7 +116,7 @@ class CreatePasscodeViewController: PasscodeViewController {
     override func willChangeText(_ text: String) {
         super.willChangeText(text)
         if text.count == passcodeLength {
-            let vc = RepeatPasscodeViewController(passcode: text)
+            let vc = RepeatPasscodeViewController(passcode: text, completionHandler: completion)
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -109,10 +125,12 @@ class CreatePasscodeViewController: PasscodeViewController {
 class RepeatPasscodeViewController: PasscodeViewController {
 
     var passcode: String!
+    private var completion: () -> Void = {}
 
-    convenience init(passcode: String) {
+    convenience init(passcode: String, completionHandler: @escaping () -> Void) {
         self.init(namedClass: PasscodeViewController.self)
         self.passcode = passcode
+        completion = completionHandler
     }
 
     override func viewDidLoad() {
@@ -129,16 +147,142 @@ class RepeatPasscodeViewController: PasscodeViewController {
                 try App.shared.auth.createPasscode(plaintextPasscode: text)
                 App.shared.snackbar.show(message: "Passcode created")
                 navigationController?.dismiss(animated: true, completion: nil)
+                completion()
             } catch {
-                let uiError = GSError.error(
-                    description: "Failed to create passcode",
-                    error: GSError.CreatePasscodeError(reason: error.localizedDescription))
-                errorLabel.text = uiError.localizedDescription
-                errorLabel.isHidden = false
+                showGenericError(description: "Failed to create passcode", error: error)
             }
         } else if text.count == passcodeLength {
-            errorLabel.text = "Passcodes don't match"
-            errorLabel.isHidden = false
+            showError("Passcodes don't match")
+        }
+    }
+}
+
+class EnterPasscodeViewController: PasscodeViewController {
+    var completion: (Bool) -> Void = { _ in }
+
+    convenience init() {
+        self.init(namedClass: PasscodeViewController.self)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "Enter Passcode"
+        promptLabel.text = "Enter your current passcode"
+        button.setText("Forgot your passcode?", .plain)
+        detailLabel.isHidden = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
+    }
+
+    override func willChangeText(_ text: String) {
+        super.willChangeText(text)
+        errorLabel.isHidden = true
+        if text.count == passcodeLength {
+
+            var isCorrect = false
+            do {
+                isCorrect = try App.shared.auth.isPasscodeCorrect(plaintextPasscode: text)
+            } catch {
+                showGenericError(description: "Failed to check passcode", error: error)
+                return
+            }
+
+            if isCorrect {
+                completion(true)
+            } else {
+                showError("Wrong passcode")
+            }
+        }
+    }
+
+    @objc func didTapCloseButton() {
+        completion(false)
+    }
+
+    override func didTapButton(_ sender: Any) {
+        let alertController = UIAlertController(
+            title: nil,
+            message: "You can disable your passcode. This will remove all imported owners from the app.",
+            preferredStyle: .actionSheet)
+        let remove = UIAlertAction(title: "Disable Passcode", style: .destructive) { [unowned self] _ in
+            do {
+                try App.shared.auth.deletePasscode()
+                PrivateKeyController.removeKey()
+                completion(false)
+            } catch {
+                showGenericError(description: "Failed to remove passcode", error: error)
+                return
+            }
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(remove)
+        alertController.addAction(cancel)
+        present(alertController, animated: true)
+    }
+}
+
+class ChangePasscodeViewController: PasscodeViewController {
+    var completion: () -> Void = { }
+
+    convenience init(_ completionHandler: @escaping () -> Void = { }) {
+        self.init(namedClass: PasscodeViewController.self)
+        completion = completionHandler
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "Change Passcode"
+        promptLabel.text = "Create a new 6-digit passcode"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
+        button.isHidden = true
+    }
+
+    @objc func didTapCloseButton() {
+        completion()
+    }
+
+    override func willChangeText(_ text: String) {
+        super.willChangeText(text)
+        if text.count == passcodeLength {
+            let vc = RepeatChangedPasscodeViewController(passcode: text, completionHandler: completion)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+class RepeatChangedPasscodeViewController: PasscodeViewController {
+
+    var passcode: String!
+    private var completion: () -> Void = {}
+
+    convenience init(passcode: String, completionHandler: @escaping () -> Void) {
+        self.init(namedClass: PasscodeViewController.self)
+        self.passcode = passcode
+        completion = completionHandler
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "Change Passcode"
+        promptLabel.text = "Repeat the 6-digit passcode"
+        button.isHidden = true
+    }
+
+    override func willChangeText(_ text: String) {
+        super.willChangeText(text)
+        errorLabel.isHidden = true
+        if text == passcode {
+            do {
+                try App.shared.auth.changePasscode(newPasscodeInPlaintext: text)
+                App.shared.snackbar.show(message: "Passcode changed")
+                navigationController?.dismiss(animated: true, completion: nil)
+                completion()
+            } catch {
+                showGenericError(description: "Failed to change passcode", error: error)
+            }
+        } else if text.count == passcodeLength {
+            showError("Passcodes don't match")
         }
     }
 }
