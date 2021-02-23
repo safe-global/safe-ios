@@ -415,16 +415,10 @@ class TransactionDetailCellBuilder {
             return
         }
 
-        var isRejection = false
-
-        if case let SCGModels.TxInfo.rejection(_) = tx.txInfo {
-            isRejection = true
-        }
-
         confirmation(multisigInfo.confirmations.map { $0.signer.address },
                      required: Int(multisigInfo.confirmationsRequired),
                      status: tx.txStatus,
-                     executor: multisigInfo.executor?.address, isRejectionTx: isRejection)
+                     executor: multisigInfo.executor?.address, isRejectionTx: tx.txInfo.isRejection)
 
         buildCreatedDate(multisigInfo.submittedAt)
     }
@@ -598,5 +592,15 @@ extension SCGModels.Operation {
     ]
     var string: String {
         Self.strings[self]!
+    }
+}
+
+extension SCGModels.TxInfo {
+    var isRejection: Bool {
+        if case SCGModels.TxInfo.rejection(_) = self {
+            return true
+        }
+
+        return false
     }
 }
