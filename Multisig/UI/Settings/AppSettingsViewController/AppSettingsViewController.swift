@@ -64,8 +64,7 @@ class AppSettingsViewController: UITableViewController {
 
         buildSections()
 
-        notificationCenter.addObserver(
-            self, selector: #selector(hidePresentedController), name: .ownerKeyImported, object: nil)
+        addObservers()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -74,12 +73,9 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func buildSections() {
-        let signingKey = App.shared.settings.signingKeyAddress
         sections = [
             (section: .app, items: [
-                signingKey != nil ?
-                    Section.App.importedKey("Imported owner key", signingKey!) :
-                    Section.App.importKey("Import owner key"),
+                PrivateKeyController.signingKeyAddress.map { Section.App.importedKey("Imported owner key", $0) } ?? Section.App.importKey("Import owner key"),
                 Section.App.passcode("Passcode"),
                 Section.App.appearance("Appearance"),
             ]),
@@ -100,12 +96,26 @@ class AppSettingsViewController: UITableViewController {
         reload()
     }
 
-    private func reload() {
+    // MARK: - Actions
+
+    @objc private func reload() {
         buildSections()
         tableView.reloadData()
     }
 
-    // MARK: - Actions
+    private func addObservers() {
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(reload),
+            name: .ownerKeyRemoved,
+            object: nil)
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(reload),
+            name: .ownerKeyImported,
+            object: nil)
+    }
 
     override func didTapAddressInfoDetails(_ sender: AddressInfoView) {
         removeImportedOwnerKey()
@@ -116,9 +126,8 @@ class AppSettingsViewController: UITableViewController {
             title: nil,
             message: "Removing the owner key only removes it from this app. It doesn't delete any Safes from this app or from blockchain. For Safes controlled by this owner key, you will no longer be able to sign transactions in this app",
             preferredStyle: .actionSheet)
-        let remove = UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
+        let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
             PrivateKeyController.removeKey()
-            self?.reload()
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(remove)

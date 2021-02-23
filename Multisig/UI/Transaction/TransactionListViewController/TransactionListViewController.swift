@@ -297,7 +297,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
         var status: SCGModels.TxStatus = tx.txStatus
         let missingSigners = tx.executionInfo?.missingSigners?.map { $0.address.checksummed } ?? []
-        if let signingKeyAddress = App.shared.settings.signingKeyAddress,status == .awaitingConfirmations {
+        if let signingKeyAddress = PrivateKeyController.signingKeyAddress,status == .awaitingConfirmations {
             if missingSigners.contains(signingKeyAddress) {
                 status = .awaitingYourConfirmation
             }
