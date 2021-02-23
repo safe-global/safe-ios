@@ -158,3 +158,15 @@ extension AppUser {
         return result
     }
 }
+
+
+extension AccessServiceError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .userAlreadyExists:
+            return "The passcode already set."
+        case .userDoesNotExist:
+            return "The passcode is not set."
+        }
+    }
+}

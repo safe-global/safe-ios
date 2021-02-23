@@ -37,6 +37,7 @@ class AppSettingsViewController: UITableViewController {
             case rateTheApp(String)
             case appVersion(String, String)
             case network(String, String)
+            case passcode(String)
         }
 
         enum Advanced: SectionItem {
@@ -75,6 +76,7 @@ class AppSettingsViewController: UITableViewController {
                 signingKey != nil ?
                     Section.General.importedKey("Imported owner key", signingKey!) :
                     Section.General.importKey("Import owner key"),
+                Section.General.passcode("Passcode"),
                 Section.General.appearance("Appearance"),
                 Section.General.terms("Terms of use"),
                 Section.General.privacyPolicy("Privacy policy"),
@@ -89,7 +91,6 @@ class AppSettingsViewController: UITableViewController {
     }
 
     @objc func hidePresentedController() {
-        presentedViewController?.dismiss(animated: true)
         reload()
     }
 
@@ -116,8 +117,13 @@ class AppSettingsViewController: UITableViewController {
 
         case Section.General.importedKey(let name, let signingKey):
             return importedKeyCell(name: name, signingKey: signingKey, indexPath: indexPath)
+
+        case Section.General.passcode(let name):
+            return basicCell(name: name, indexPath: indexPath)
+
         case Section.General.appearance(let name):
             return basicCell(name: name, indexPath: indexPath)
+
         case Section.General.terms(let name):
             return basicCell(name: name, indexPath: indexPath)
 
@@ -191,6 +197,12 @@ class AppSettingsViewController: UITableViewController {
         present(vc, animated: true)
     }
 
+    private func openPasscode() {
+        let vc = CreatePasscodeViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true, completion: nil)
+    }
+
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -199,26 +211,37 @@ class AppSettingsViewController: UITableViewController {
         switch item {
         case Section.General.importKey(_):
             importOwnerKey()
+
+        case Section.General.passcode:
+            openPasscode()
+
         case Section.General.appearance(_):
             let appearanceViewController = ChangeDisplayModeTableViewController()
             show(appearanceViewController, sender: self)
+
         case Section.General.terms(_):
             openInSafari(legal.termsURL)
+
         case Section.General.privacyPolicy(_):
             openInSafari(legal.privacyURL)
+
         case Section.General.licenses(_):
             openInSafari(legal.licensesURL)
+
         case Section.General.getInTouch(_):
             let getInTouchVC = GetInTouchView()
             let hostingController = UIHostingController(rootView: getInTouchVC)
             show(hostingController, sender: self)
+
         case Section.General.rateTheApp(_):
             let url = App.configuration.contact.appStoreReviewURL
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
+
         case Section.Advanced.advanced(_):
             let advancedVC = AdvancedAppSettings()
             let hostingController = UIHostingController(rootView: advancedVC)
             show(hostingController, sender: self)
+
         default:
             break
         }
