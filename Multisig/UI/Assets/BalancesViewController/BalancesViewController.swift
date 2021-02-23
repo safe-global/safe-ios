@@ -144,12 +144,14 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             cell.onClose = { [unowned self] in
                 importKeyBannerWasShown = true
                 updateSection(indexPath.section)
+                trackEvent(.bannerImportOwnerKeySkipped)
             }
             cell.onImport = { [unowned self] in
                 importKeyBannerWasShown = true
                 updateSection(indexPath.section)
                 let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
                 present(vc, animated: true)
+                trackEvent(.bannerImportOwnerKeyImported)
             }
             return cell
         }

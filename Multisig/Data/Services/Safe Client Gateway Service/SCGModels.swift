@@ -103,11 +103,16 @@ extension SCGModels {
         case transfer(Transfer)
         case settingsChange(SettingsChange)
         case custom(Custom)
+        case rejection(Rejection)
         case creation(Creation)
         case unknown
 
         init(from decoder: Decoder) throws {
-            enum Keys: String, CodingKey { case type }
+            enum Keys: String, CodingKey {
+                case type
+                case isCancellation
+            }
+
             let container = try decoder.container(keyedBy: Keys.self)
             let type = try container.decode(String.self, forKey: .type)
 
@@ -117,7 +122,11 @@ extension SCGModels {
             case "SettingsChange":
                 self = try .settingsChange(SettingsChange(from: decoder))
             case "Custom":
-                self = try .custom(Custom(from: decoder))
+                if let isCancellation = try container.decodeIfPresent(Bool.self, forKey: .isCancellation), isCancellation == true {
+                    self = try .rejection(Rejection(from: decoder))
+                } else {
+                    self = try .custom(Custom(from: decoder))
+                }
             case "Creation":
                 self = try .creation(Creation(from: decoder))
             case "Unknown":
@@ -282,6 +291,14 @@ extension SCGModels {
             var methodName: String?
         }
 
+        struct Rejection: Decodable {
+            var to: AddressString
+            var toInfo: AddressInfo?
+            var dataSize: UInt256String
+            var value: UInt256String
+            var methodName: String?
+        }
+
         struct Creation: Decodable {
             var creator: AddressString
             var transactionHash: DataString
@@ -413,7 +430,7 @@ extension SCGModels {
         var dataDecoded: DataDecoded?
     }
 
-    enum Operation: Int, Decodable {
+    enum Operation: Int, Codable {
         case call = 0
         case delegate = 1
 

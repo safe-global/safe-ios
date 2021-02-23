@@ -9,7 +9,7 @@
 import Foundation
 
 class PrivateKeyController {
-    static func importKey(_ privateKey: Data) -> Bool {
+    static func importKey(_ privateKey: Data, isDrivedFromSeedPhrase: Bool) -> Bool {
         do {
             try App.shared.keychainService.removeData(forKey: KeychainKey.ownerPrivateKey.rawValue)
             try App.shared.keychainService.save(data: privateKey, forKey: KeychainKey.ownerPrivateKey.rawValue)
@@ -18,7 +18,7 @@ class PrivateKeyController {
             App.shared.notificationHandler.signingKeyUpdated()
 
             Tracker.shared.setNumKeysImported(1)
-            Tracker.shared.track(event: TrackingEvent.ownerKeyImported, parameters: ["import_type": "seed"])
+            Tracker.shared.track(event: TrackingEvent.ownerKeyImported, parameters: ["import_type": isDrivedFromSeedPhrase ? "seed" : "key"])
 
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
             return true
