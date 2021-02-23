@@ -12,24 +12,29 @@ import SwiftUI
 fileprivate protocol SectionItem {}
 
 class AppSettingsViewController: UITableViewController {
-    private let tableBackgroundColor: UIColor = .primaryBackground
-    private let advancedSectionHeaderHeight: CGFloat = 28
     var notificationCenter = NotificationCenter.default
     var app = App.configuration.app
     var legal = App.configuration.legal
 
-    private typealias SectionItems = (section: Section, items: [SectionItem])
-
+    private let tableBackgroundColor: UIColor = .primaryBackground
+    private let sectionHeaderHeight: CGFloat = 28
     private var sections = [SectionItems]()
 
+    private typealias SectionItems = (section: Section, items: [SectionItem])
+
     enum Section {
+        case app
         case general
         case advanced
 
-        enum General: SectionItem {
+        enum App: SectionItem {
             case importKey(String)
             case importedKey(String, String)
+            case passcode(String)
             case appearance(String)
+        }
+
+        enum General: SectionItem {
             case terms(String)
             case privacyPolicy(String)
             case licenses(String)
@@ -71,11 +76,14 @@ class AppSettingsViewController: UITableViewController {
     private func buildSections() {
         let signingKey = App.shared.settings.signingKeyAddress
         sections = [
-            (section: .general, items: [
+            (section: .app, items: [
                 signingKey != nil ?
-                    Section.General.importedKey("Imported owner key", signingKey!) :
-                    Section.General.importKey("Import owner key"),
-                Section.General.appearance("Appearance"),
+                    Section.App.importedKey("Imported owner key", signingKey!) :
+                    Section.App.importKey("Import owner key"),
+                Section.App.passcode("Passcode"),
+                Section.App.appearance("Appearance"),
+            ]),
+            (section: .general, items: [
                 Section.General.terms("Terms of use"),
                 Section.General.privacyPolicy("Privacy policy"),
                 Section.General.licenses("Licenses"),
@@ -89,13 +97,43 @@ class AppSettingsViewController: UITableViewController {
     }
 
     @objc func hidePresentedController() {
-        presentedViewController?.dismiss(animated: true)
         reload()
     }
 
     private func reload() {
         buildSections()
         tableView.reloadData()
+    }
+
+    // MARK: - Actions
+
+    override func didTapAddressInfoDetails(_ sender: AddressInfoView) {
+        removeImportedOwnerKey()
+    }
+
+    private func removeImportedOwnerKey() {
+        let alertController = UIAlertController(
+            title: nil,
+            message: "Removing the owner key only removes it from this app. It doesn't delete any Safes from this app or from blockchain. For Safes controlled by this owner key, you will no longer be able to sign transactions in this app",
+            preferredStyle: .actionSheet)
+        let remove = UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
+            PrivateKeyController.removeKey()
+            self?.reload()
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(remove)
+        alertController.addAction(cancel)
+        present(alertController, animated: true)
+    }
+
+    private func importOwnerKey() {
+        let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
+        present(vc, animated: true)
+    }
+
+    private func openPasscode() {
+        let vc = PasscodeSettingsViewController()
+        show(vc, sender: self)
     }
 
     // MARK: - Table view data source
@@ -111,13 +149,18 @@ class AppSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.General.importKey(let name):
+        case Section.App.importKey(let name):
             return basicCell(name: name, indexPath: indexPath)
 
-        case Section.General.importedKey(let name, let signingKey):
+        case Section.App.importedKey(let name, let signingKey):
             return importedKeyCell(name: name, signingKey: signingKey, indexPath: indexPath)
-        case Section.General.appearance(let name):
+
+        case Section.App.passcode(let name):
             return basicCell(name: name, indexPath: indexPath)
+
+        case Section.App.appearance(let name):
+            return basicCell(name: name, indexPath: indexPath)
+
         case Section.General.terms(let name):
             return basicCell(name: name, indexPath: indexPath)
 
@@ -167,58 +210,45 @@ class AppSettingsViewController: UITableViewController {
         return cell
     }
 
-    override func didTapAddressInfoDetails(_ sender: AddressInfoView) {
-        removeImportedOwnerKey()
-    }
-
-    private func removeImportedOwnerKey() {
-        let alertController = UIAlertController(
-            title: nil,
-            message: "Removing the owner key only removes it from this app. It doesn't delete any Safes from this app or from blockchain. For Safes controlled by this owner key, you will no longer be able to sign transactions in this app",
-            preferredStyle: .actionSheet)
-        let remove = UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
-            PrivateKeyController.removeKey()
-            self?.reload()
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(remove)
-        alertController.addAction(cancel)
-        present(alertController, animated: true)
-    }
-
-    private func importOwnerKey() {
-        let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
-        present(vc, animated: true)
-    }
-
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.General.importKey(_):
+        case Section.App.importKey(_):
             importOwnerKey()
-        case Section.General.appearance(_):
+
+        case Section.App.passcode:
+            openPasscode()
+
+        case Section.App.appearance(_):
             let appearanceViewController = ChangeDisplayModeTableViewController()
             show(appearanceViewController, sender: self)
+
         case Section.General.terms(_):
             openInSafari(legal.termsURL)
+
         case Section.General.privacyPolicy(_):
             openInSafari(legal.privacyURL)
+
         case Section.General.licenses(_):
             openInSafari(legal.licensesURL)
+
         case Section.General.getInTouch(_):
             let getInTouchVC = GetInTouchView()
             let hostingController = UIHostingController(rootView: getInTouchVC)
             show(hostingController, sender: self)
+
         case Section.General.rateTheApp(_):
             let url = App.configuration.contact.appStoreReviewURL
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
+
         case Section.Advanced.advanced(_):
             let advancedVC = AdvancedAppSettings()
             let hostingController = UIHostingController(rootView: advancedVC)
             show(hostingController, sender: self)
+
         default:
             break
         }
@@ -232,10 +262,12 @@ class AppSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.General.importedKey(_, _):
+        case Section.App.importedKey(_, _):
             return UITableView.automaticDimension
+
         case Section.General.appVersion(_, _), Section.General.network(_, _):
             return InfoCell.rowHeight
+
         default:
             return BasicCell.rowHeight
         }
@@ -243,9 +275,11 @@ class AppSettingsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section].section
-        if case Section.advanced = section {
-            return advancedSectionHeaderHeight
+        switch section {
+        case .general, .advanced:
+            return sectionHeaderHeight
+        default:
+            return 0
         }
-        return 0
     }
 }

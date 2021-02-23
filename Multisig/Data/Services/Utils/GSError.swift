@@ -339,7 +339,16 @@ enum GSError {
         let reason: String
         let howToFix = "Please try again later or contact Safe support if this issue persists"
         let domain = iOSErrorDomain
-        let code = 1306
+        let code = 1311
         let loggable = true
+    }
+
+    struct GenericPasscodeError: DetailedLocalizedError {
+        let description = "Failed to set passcode"
+        let reason: String
+        let howToFix = "Please try again later or contact Safe support if this issue persists"
+        let domain = iOSErrorDomain
+        let code = 1312
+        let loggable = false
     }
 }

@@ -12,6 +12,8 @@ class KeyboardAvoidingBehavior {
     private weak var scrollView: UIScrollView!
     private let notificationCenter: NotificationCenter
 
+    var hidesKeyboardOnTap: Bool = true
+
     /// Set this variable to reference active text field when a text field gets focus
     var activeTextField: UITextField? {
         get { return activeResponder as? UITextField }
@@ -54,7 +56,7 @@ class KeyboardAvoidingBehavior {
     }
 
     @objc func didTapScrollView() {
-        if let responder = activeResponder {
+        if let responder = activeResponder, hidesKeyboardOnTap {
             deactivate(responder)
         }
     }
