@@ -200,7 +200,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             updateSection(indexPath.section)
         }
         cell.onImport = { [unowned self] in
-            let vc = CreatePasscodeViewController { [weak self] in
+            let vc = CreatePasscodeEnterNewViewController { [weak self] in
                 self?.updateSection(indexPath.section)
             }
             let nav = UINavigationController(rootViewController: vc)

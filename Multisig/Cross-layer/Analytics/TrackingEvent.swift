@@ -72,4 +72,14 @@ enum TrackingEvent: String, Trackable {
     case bannerImportOwnerKeySkipped                = "user_banner_owner_skip"
     case bannerImportOwnerKeyImported               = "user_banner_owner_import"
     case camera                                     = "screen_camera"
+
+    case createPasscode                             = "screen_create_passcode"
+    case createPasscodeEnterNew                     = "screen_create_passcode_enter_new"
+    case repeatPasscode                             = "screen_repeat_passcode"
+    case enterPasscode                              = "screen_enter_passcode"
+    case changePasscode                             = "screen_change_passcode"
+    case changePasscodeEnterNew                     = "screen_change_passcode_enter_new"
+    case changePasscodeRepeat                       = "screen_change_passcode_repeat_new"
+    case passcodeSettingsEnabledPasscode            = "screen_passcode_enabled"
+    case passcodeSettingsDisabledPasscode           = "screen_passcode_disabled"
 }

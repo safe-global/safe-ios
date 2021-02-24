@@ -117,12 +117,28 @@ class CreatePasscodeViewController: PasscodeViewController {
         headlineContainerView.isHidden = false
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.createPasscode)
+    }
+
     override func willChangeText(_ text: String) {
         super.willChangeText(text)
         if text.count == passcodeLength {
             let vc = RepeatPasscodeViewController(passcode: text, completionHandler: completion)
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+}
+
+class CreatePasscodeEnterNewViewController: CreatePasscodeViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        headlineContainerView.isHidden = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        trackEvent(.createPasscodeEnterNew)
     }
 }
 
@@ -141,6 +157,11 @@ class RepeatPasscodeViewController: PasscodeViewController {
         super.viewDidLoad()
         navigationItem.title = "Create Passcode"
         promptLabel.text = "Repeat the 6-digit passcode"
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.repeatPasscode)
     }
 
     override func willChangeText(_ text: String) {
@@ -176,6 +197,11 @@ class EnterPasscodeViewController: PasscodeViewController {
         detailLabel.isHidden = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.enterPasscode)
     }
 
     override func willChangeText(_ text: String) {
@@ -225,7 +251,18 @@ class EnterPasscodeViewController: PasscodeViewController {
     }
 }
 
-class ChangePasscodeViewController: PasscodeViewController {
+class ChangePasscodeViewController: EnterPasscodeViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "Change Passcode"
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        trackEvent(.changePasscode)
+    }
+}
+
+class ChangePasscodeEnterNewViewController: PasscodeViewController {
     var completion: () -> Void = { }
 
     convenience init(_ completionHandler: @escaping () -> Void = { }) {
@@ -240,6 +277,11 @@ class ChangePasscodeViewController: PasscodeViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         button.isHidden = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.changePasscodeEnterNew)
     }
 
     @objc func didTapCloseButton() {
@@ -273,6 +315,11 @@ class RepeatChangedPasscodeViewController: PasscodeViewController {
         button.isHidden = true
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.changePasscodeRepeat)
+    }
+
     override func willChangeText(_ text: String) {
         super.willChangeText(text)
         errorLabel.isHidden = true
@@ -286,7 +333,11 @@ class RepeatChangedPasscodeViewController: PasscodeViewController {
                 showGenericError(description: "Failed to change passcode", error: error)
             }
         } else if text.count == passcodeLength {
-            showError("Passcodes don't match")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                self?.showError("Passcodes don't match")
+                self?.textField.text = ""
+                self?.updateSymbols(text: "")
+            }
         }
     }
 }
