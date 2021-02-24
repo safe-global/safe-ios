@@ -47,6 +47,8 @@ class AuthenticationController {
         try accessService.registerUser(password: password)
         AppSettings.passcodeWasSetAtLeastOnce = true
         NotificationCenter.default.post(name: .passcodeCreated, object: nil)
+        Tracker.shared.setPasscodeIsSet(to: true)
+        Tracker.shared.track(event: TrackingEvent.userPasscodeEnabled)
     }
 
     /// Changes the passcode to a new value.
@@ -72,6 +74,8 @@ class AuthenticationController {
         guard let user = user else { return }
         try accessService.deleteUser(userID: user.id)
         NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+        Tracker.shared.setPasscodeIsSet(to: false)
+        Tracker.shared.track(event: TrackingEvent.userPasscodeDisabled)
     }
 
     /// Returns saved user, if any

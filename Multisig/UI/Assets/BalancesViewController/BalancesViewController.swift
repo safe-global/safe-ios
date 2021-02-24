@@ -200,6 +200,8 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             updateSection(indexPath.section)
         }
         cell.onImport = { [unowned self] in
+            AppSettings.passcodeBannerDismissed = true
+            updateSection(indexPath.section)
             let vc = CreatePasscodeEnterNewViewController { [weak self] in
                 self?.updateSection(indexPath.section)
             }

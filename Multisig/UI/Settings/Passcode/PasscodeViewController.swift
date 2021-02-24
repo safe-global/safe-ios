@@ -52,6 +52,7 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func didTapButton(_ sender: Any) {
         navigationController?.dismiss(animated: true, completion: nil)
+        trackEvent(.userPasscodeSkipped)
     }
 
     // MARK: - UITextFieldDelegate
