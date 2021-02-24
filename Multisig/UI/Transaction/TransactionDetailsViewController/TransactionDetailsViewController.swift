@@ -114,7 +114,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         super.showOnly(view: view)
         actionsContainerView.isHidden = view !== tableView || !showsActionsViewContrainer
         confirmButton.isHidden = !showConfirmButton
-        rejectButton .isHidden = !showsRejectButton
+        rejectButton.isHidden = !showsRejectButton
+
+        confirmButton.isEnabled = enableConfirmButton
+        rejectButton.isEnabled = enableRejectionButton
     }
 
     private var showsActionsViewContrainer: Bool  {
@@ -132,7 +135,15 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private var showConfirmButton: Bool {
-        tx?.txStatus == .awaitingYourConfirmation
+         [.awaitingYourConfirmation, .awaitingConfirmations].contains(tx?.txStatus)
+    }
+
+    private var enableRejectionButton: Bool {
+        return true
+    }
+
+    private var enableConfirmButton: Bool {
+        tx?.needsYourConfirmation ?? false
     }
 
     @objc private func didTapConfirm() {

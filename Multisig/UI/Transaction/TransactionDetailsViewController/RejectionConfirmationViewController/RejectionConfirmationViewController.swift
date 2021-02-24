@@ -10,13 +10,16 @@ import UIKit
 
 class RejectionConfirmationViewController: UIViewController {
 
-    @IBOutlet weak var createOnChainRejectionLabel: UILabel!
-    @IBOutlet weak var collectConfirmationsLabel: UILabel!
-    @IBOutlet weak var executeOnChainRejectionLabel: UILabel!
-    @IBOutlet weak var initialTransactionLabel: UILabel!
-    @IBOutlet weak var rejectionButton: UIButton!
-    @IBOutlet weak var readMoreLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var contentContainerView: UIStackView!
+    @IBOutlet private weak var loadingView: LoadingView!
+    @IBOutlet private weak var createOnChainRejectionLabel: UILabel!
+    @IBOutlet private weak var collectConfirmationsLabel: UILabel!
+    @IBOutlet private weak var executeOnChainRejectionLabel: UILabel!
+    @IBOutlet private weak var initialTransactionLabel: UILabel!
+    @IBOutlet private weak var rejectionButton: UIButton!
+    @IBOutlet private weak var readMoreLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    
     private var rejectTask: URLSessionTask?
     private var transaction: SCGModels.TransactionDetails!
 
@@ -65,6 +68,7 @@ class RejectionConfirmationViewController: UIViewController {
     }
 
     private func rejectTransaction() {
+        startLoading()
         do {
             let safeAddress = try Safe.getSelected()!.addressValue
             let tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
@@ -82,13 +86,24 @@ class RejectionConfirmationViewController: UIViewController {
                             App.shared.snackbar.show(message: "Rejection successfully submitted")
                             self?.navigationController?.popToRootViewController(animated: true)
                         }
+                    } else {
+                        App.shared.snackbar.show(message: "Failed to Reject transaction")
                     }
-
-                    //self?.onLoadingCompleted(result: result)
+                    self?.endLoading()
                 }
             })
         } catch {
-            //App.shared.snackbar.show(error: "Failed to Reject transaction")
+            App.shared.snackbar.show(message: "Failed to Reject transaction")
         }
+    }
+
+    func startLoading() {
+        loadingView.isHidden = false
+        contentContainerView.isHidden = true
+    }
+
+    func endLoading() {
+        loadingView.isHidden = true
+        contentContainerView.isHidden = false
     }
 }

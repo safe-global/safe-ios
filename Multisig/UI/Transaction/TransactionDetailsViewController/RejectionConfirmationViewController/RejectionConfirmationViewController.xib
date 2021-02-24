@@ -13,10 +13,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RejectionConfirmationViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="collectConfirmationsLabel" destination="IJD-AH-DWA" id="ynt-cr-KaT"/>
+                <outlet property="contentContainerView" destination="Xam-dS-la1" id="LAj-0I-Ciu"/>
                 <outlet property="createOnChainRejectionLabel" destination="wjX-eC-V1Z" id="5QN-DW-LQ1"/>
                 <outlet property="descriptionLabel" destination="XTL-8l-L1s" id="c0N-y3-V0v"/>
                 <outlet property="executeOnChainRejectionLabel" destination="tSc-82-M5m" id="WL5-nz-Q5A"/>
                 <outlet property="initialTransactionLabel" destination="TlS-eK-GHj" id="VPe-IF-vQ2"/>
+                <outlet property="loadingView" destination="Rgb-Ie-SMU" id="ypv-mI-Ltu"/>
                 <outlet property="readMoreLabel" destination="mSv-Na-fwY" id="AcO-y5-o7m"/>
                 <outlet property="rejectionButton" destination="g5a-Du-idH" id="FO3-zv-AM9"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -27,6 +29,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rgb-Ie-SMU" customClass="LoadingView" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xam-dS-la1">
                     <rect key="frame" x="16" y="60" width="382" height="494"/>
                     <subviews>
@@ -249,8 +255,12 @@ You'll have to confirm the creation of the on-chain rejection with your imported
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="Rgb-Ie-SMU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="1Qb-o6-awC"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Rgb-Ie-SMU" secondAttribute="trailing" id="34b-g9-2m7"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Rgb-Ie-SMU" secondAttribute="bottom" id="7rQ-Ac-flg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Xam-dS-la1" secondAttribute="trailing" constant="16" id="P9a-Xp-Xsf"/>
                 <constraint firstItem="Xam-dS-la1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="hbM-0q-DMz"/>
+                <constraint firstItem="Rgb-Ie-SMU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="nPK-74-uIO"/>
                 <constraint firstItem="Xam-dS-la1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="pg7-3z-Zml"/>
             </constraints>
             <point key="canvasLocation" x="139" y="80"/>
