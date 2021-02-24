@@ -54,7 +54,6 @@
                 </subviews>
                 <color key="backgroundColor" name="secondaryBackground"/>
                 <constraints>
-                    <constraint firstItem="a6g-6D-x6l" firstAttribute="centerY" secondItem="YE3-hn-3h7" secondAttribute="centerY" id="ExV-E0-pua"/>
                     <constraint firstItem="a6g-6D-x6l" firstAttribute="leading" secondItem="YE3-hn-3h7" secondAttribute="trailing" constant="8" symbolic="YES" id="NuV-BC-XNy"/>
                     <constraint firstItem="a6g-6D-x6l" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Qvz-X8-NZH"/>
                     <constraint firstItem="rL5-mS-zou" firstAttribute="leading" secondItem="a6g-6D-x6l" secondAttribute="trailing" constant="12" id="WEq-OQ-2Ga"/>
