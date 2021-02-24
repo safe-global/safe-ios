@@ -1,5 +1,5 @@
 //
-//  ImportKeyBannerTableViewCell.swift
+//  BannerTableViewCell.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 21.01.21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImportKeyBannerTableViewCell: UITableViewCell {
+class BannerTableViewCell: UITableViewCell {
     var onClose: () -> Void = {}
     var onImport: () -> Void = {}
 
@@ -20,8 +20,19 @@ class ImportKeyBannerTableViewCell: UITableViewCell {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
         bodyLabel.setStyle(.primary)
-        importButton.setText("Import owner key now", .plain)
         separatorInset.left = .greatestFiniteMagnitude
+    }
+
+    func setHeader(_ text: String?) {
+        headerLabel.text = text
+    }
+
+    func setBody(_ text: String?) {
+        bodyLabel.text = text
+    }
+
+    func setButton(_ text: String) {
+        importButton.setText(text, .plain)
     }
 
     @IBAction func didTapClose(_ sender: Any) {
