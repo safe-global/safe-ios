@@ -121,7 +121,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private var showsActionsViewContrainer: Bool  {
-        App.configuration.toggles.signing && (showsRejectButton || showConfirmButton)
+        showsRejectButton || showConfirmButton
     }
 
     private var showsRejectButton: Bool {

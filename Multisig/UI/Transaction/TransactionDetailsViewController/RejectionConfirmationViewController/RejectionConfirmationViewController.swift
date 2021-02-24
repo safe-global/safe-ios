@@ -20,7 +20,6 @@ class RejectionConfirmationViewController: UIViewController {
     @IBOutlet private weak var readMoreLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     
-    private var rejectTask: URLSessionTask?
     private var transaction: SCGModels.TransactionDetails!
 
     convenience init(transaction: SCGModels.TransactionDetails) {
@@ -63,7 +62,7 @@ class RejectionConfirmationViewController: UIViewController {
         }
     }
 
-    @IBAction func leanMoreButtonTouched(_ sender: Any) {
+    @IBAction func learnMoreButtonTouched(_ sender: Any) {
         openInSafari(App.configuration.help.payForCancellationURL)
     }
 
@@ -73,19 +72,21 @@ class RejectionConfirmationViewController: UIViewController {
             let safeAddress = try Safe.getSelected()!.addressValue
             let tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
             let signature = try SafeTransactionSigner().sign(tx, by: safeAddress)
-            rejectTask = App.shared.clientGatewayService.propose(transaction: tx, safeAddress: AddressString(safeAddress), sender: AddressString(signature.signer)!, signature: signature.value, completion: { [weak self] result in
+            App.shared.clientGatewayService.propose(transaction: tx,
+                                                                 safeAddress: safeAddress,
+                                                                 sender: signature.signer,
+                                                                 signature: signature.value,
+                                                                 completion: { [weak self] result in
 
                 // NOTE: sometimes the data of the transaction list is not
                 // updated right away, we'll give a moment for the backend
                 // to catch up before finishing with this request.
-                DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(600)) { [weak self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(600)) { [weak self] in
                     if case Result.success(_) = result {
-                        DispatchQueue.main.async {
-                            NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionRejected)
-                            App.shared.snackbar.show(message: "Rejection successfully submitted")
-                            self?.navigationController?.popToRootViewController(animated: true)
-                        }
+                        NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
+                        Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionRejected)
+                        App.shared.snackbar.show(message: "Rejection successfully submitted")
+                        self?.navigationController?.popToRootViewController(animated: true)
                     } else {
                         App.shared.snackbar.show(message: "Failed to Reject transaction")
                     }

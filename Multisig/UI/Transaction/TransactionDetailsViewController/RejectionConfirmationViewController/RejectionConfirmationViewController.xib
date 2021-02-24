@@ -233,7 +233,7 @@ You'll have to confirm the creation of the on-chain rejection with your imported
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="128"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
-                                        <action selector="leanMoreButtonTouched:" destination="-1" eventType="touchUpInside" id="zZo-al-wcy"/>
+                                        <action selector="learnMoreButtonTouched:" destination="-1" eventType="touchUpInside" id="rs5-Hf-xyA"/>
                                     </connections>
                                 </button>
                             </subviews>
