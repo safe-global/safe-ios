@@ -93,8 +93,13 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
     }
 
     func showError(_ text: String) {
-        errorLabel.text = text
-        errorLabel.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            guard let `self` = self else { return }
+            self.errorLabel.text = text
+            self.errorLabel.isHidden = false
+            self.textField.text = ""
+            self.updateSymbols(text: "")
+        }
     }
 }
 
@@ -333,11 +338,7 @@ class RepeatChangedPasscodeViewController: PasscodeViewController {
                 showGenericError(description: "Failed to change passcode", error: error)
             }
         } else if text.count == passcodeLength {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                self?.showError("Passcodes don't match")
-                self?.textField.text = ""
-                self?.updateSymbols(text: "")
-            }
+            showError("Passcodes don't match")
         }
     }
 }

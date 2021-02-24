@@ -43,7 +43,7 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     private func createPasscode() {
-        let vc = CreatePasscodeViewController { [unowned self] in
+        let vc = CreatePasscodeEnterNewViewController { [unowned self] in
             reloadData()
         }
         let nav = UINavigationController(rootViewController: vc)
