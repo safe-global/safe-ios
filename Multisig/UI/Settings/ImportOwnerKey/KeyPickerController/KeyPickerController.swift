@@ -72,6 +72,7 @@ class KeyPickerController: UITableViewController {
         } else {
             let vc = CreatePasscodeViewController()
             vc.navigationItem.hidesBackButton = true
+            vc.hidesHeadline = false
             show(vc, sender: self)
         }
     }

@@ -19,6 +19,8 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var button: UIButton!
 
+    var hidesHeadline = true
+
     var keyboardBehavior: KeyboardAvoidingBehavior!
 
     var passcodeLength: Int {
@@ -32,7 +34,7 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
         errorLabel.setStyle(.error)
         detailLabel.setStyle(.secondary)
         button.setText("Skip", .plain)
-        headlineContainerView.isHidden = true
+        headlineContainerView.isHidden = hidesHeadline
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
         keyboardBehavior.hidesKeyboardOnTap = false
     }
@@ -52,6 +54,7 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func didTapButton(_ sender: Any) {
         navigationController?.dismiss(animated: true, completion: nil)
+        trackEvent(.userPasscodeSkipped)
     }
 
     // MARK: - UITextFieldDelegate
@@ -93,8 +96,13 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
     }
 
     func showError(_ text: String) {
-        errorLabel.text = text
-        errorLabel.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            guard let `self` = self else { return }
+            self.errorLabel.text = text
+            self.errorLabel.isHidden = false
+            self.textField.text = ""
+            self.updateSymbols(text: "")
+        }
     }
 }
 
@@ -114,7 +122,11 @@ class CreatePasscodeViewController: PasscodeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Create Passcode"
-        headlineContainerView.isHidden = false
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.createPasscode)
     }
 
     override func willChangeText(_ text: String) {
@@ -127,7 +139,6 @@ class CreatePasscodeViewController: PasscodeViewController {
 }
 
 class RepeatPasscodeViewController: PasscodeViewController {
-
     var passcode: String!
     private var completion: () -> Void = {}
 
@@ -141,6 +152,11 @@ class RepeatPasscodeViewController: PasscodeViewController {
         super.viewDidLoad()
         navigationItem.title = "Create Passcode"
         promptLabel.text = "Repeat the 6-digit passcode"
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.repeatPasscode)
     }
 
     override func willChangeText(_ text: String) {
@@ -163,6 +179,8 @@ class RepeatPasscodeViewController: PasscodeViewController {
 
 class EnterPasscodeViewController: PasscodeViewController {
     var completion: (Bool) -> Void = { _ in }
+    var navigationItemTitle = "Enter Passcode"
+    var screenTrackingEvent = TrackingEvent.enterPasscode
 
     convenience init() {
         self.init(namedClass: PasscodeViewController.self)
@@ -170,12 +188,17 @@ class EnterPasscodeViewController: PasscodeViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Enter Passcode"
+        navigationItem.title = navigationItemTitle
         promptLabel.text = "Enter your current passcode"
         button.setText("Forgot your passcode?", .plain)
         detailLabel.isHidden = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(screenTrackingEvent)
     }
 
     override func willChangeText(_ text: String) {
@@ -225,7 +248,7 @@ class EnterPasscodeViewController: PasscodeViewController {
     }
 }
 
-class ChangePasscodeViewController: PasscodeViewController {
+class ChangePasscodeEnterNewViewController: PasscodeViewController {
     var completion: () -> Void = { }
 
     convenience init(_ completionHandler: @escaping () -> Void = { }) {
@@ -242,6 +265,11 @@ class ChangePasscodeViewController: PasscodeViewController {
         button.isHidden = true
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.changePasscodeEnterNew)
+    }
+
     @objc func didTapCloseButton() {
         completion()
     }
@@ -256,7 +284,6 @@ class ChangePasscodeViewController: PasscodeViewController {
 }
 
 class RepeatChangedPasscodeViewController: PasscodeViewController {
-
     var passcode: String!
     private var completion: () -> Void = {}
 
@@ -271,6 +298,11 @@ class RepeatChangedPasscodeViewController: PasscodeViewController {
         navigationItem.title = "Change Passcode"
         promptLabel.text = "Repeat the 6-digit passcode"
         button.isHidden = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.changePasscodeRepeat)
     }
 
     override func willChangeText(_ text: String) {
