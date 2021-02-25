@@ -84,7 +84,6 @@ enum TrackingEvent: String, Trackable {
     case camera                                     = "screen_camera"
 
     case createPasscode                             = "screen_passcode_create"
-    case createPasscodeEnterNew                     = "screen_passcode_create_enter_new"
     case repeatPasscode                             = "screen_passcode_create_repeat"
     case enterPasscode                              = "screen_passcode_enter"
     case changePasscode                             = "screen_passcode_change"

@@ -108,7 +108,6 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
 
 
 class CreatePasscodeViewController: PasscodeViewController {
-    var screenTrackingEvent = TrackingEvent.createPasscode
     private var completion: () -> Void = {}
 
     convenience init() {
@@ -127,7 +126,7 @@ class CreatePasscodeViewController: PasscodeViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(screenTrackingEvent)
+        trackEvent(.createPasscode)
     }
 
     override func willChangeText(_ text: String) {

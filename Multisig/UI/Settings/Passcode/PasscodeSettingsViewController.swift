@@ -46,7 +46,6 @@ class PasscodeSettingsViewController: UITableViewController {
         let vc = CreatePasscodeViewController { [unowned self] in
             reloadData()
         }
-        vc.screenTrackingEvent = .createPasscodeEnterNew
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true, completion: nil)
     }

@@ -205,7 +205,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             let vc = CreatePasscodeViewController { [weak self] in
                 self?.updateSection(indexPath.section)
             }
-            vc.screenTrackingEvent = .createPasscodeEnterNew
             let nav = UINavigationController(rootViewController: vc)
             present(nav, animated: true)
         }
