@@ -121,25 +121,56 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private var showsActionsViewContrainer: Bool  {
-        showsRejectButton || showConfirmButton
+        canSign && (showsRejectButton || showConfirmButton)
+    }
+
+    private var canSign: Bool {
+        if let signingKey = PrivateKeyController.signingKeyAddress,
+           let signingAddress = AddressString(signingKey),
+           case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = tx?.detailedExecutionInfo,
+           multisigTx.isSigner(address: signingAddress) {
+            return true
+        }
+
+        return false
     }
 
     private var showsRejectButton: Bool {
         switch self.tx?.txInfo {
-
         case .rejection(_):
             return false
         default:
-            return tx?.multisigInfo != nil
+            guard let multisigInfo = tx?.multisigInfo,
+                  let status = tx?.txStatus
+                    else { return false }
+
+            if status == .awaitingExecution && !multisigInfo.isRejected() {
+                 return true
+            } else if status.isAwatingConfiramtions {
+                return true
+            }
+
+            return false
         }
     }
 
     private var showConfirmButton: Bool {
-         [.awaitingYourConfirmation, .awaitingConfirmations].contains(tx?.txStatus)
+        switch self.tx?.txInfo {
+        case .rejection(_):
+            return tx!.needsYourConfirmation
+        default:
+            return tx?.txStatus.isAwatingConfiramtions ?? false
+        }
     }
 
     private var enableRejectionButton: Bool {
-        return true
+        if case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = tx?.detailedExecutionInfo,
+           !multisigTx.isRejected(),
+           showsRejectButton {
+            return true
+        }
+
+        return false
     }
 
     private var enableConfirmButton: Bool {
@@ -317,5 +348,23 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
 
     var needsMoreSignatures: Bool {
         confirmationsRequired > confirmations.count
+    }
+
+    func hasRejected(address: AddressString) -> Bool {
+        rejectors?.contains(address) ?? false
+    }
+
+    func isRejected() -> Bool {
+        if let rejectors = rejectors, !rejectors.isEmpty {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+extension SCGModels.TxStatus {
+    var isAwatingConfiramtions: Bool {
+        [.awaitingYourConfirmation, .awaitingConfirmations].contains(self)
     }
 }
