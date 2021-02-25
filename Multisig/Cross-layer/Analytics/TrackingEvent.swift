@@ -12,6 +12,7 @@ enum TrackingUserProperty: String, UserProperty {
     case numSafes = "num_safes" // string, number of user safes, "0" on fresh install
     case pushInfo = "push_info" // string: ["unknown", "disabled", "enabled"]
     case numKeysImported = "num_keys_imported" // string, number of keys imported, "0" on fresh install
+    case passcodeIsSet = "passcode_is_set" // string, "true" or "false" depending on if app passcode is set
 }
 
 extension Tracker {
@@ -19,8 +20,17 @@ extension Tracker {
         setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
     }
 
+    func setPushInfo(_ status: String) {
+        setUserProperty(status, for: TrackingUserProperty.pushInfo)
+    }
+
     func setNumKeysImported(_ count: Int) {
         setUserProperty("\(count)", for: TrackingUserProperty.numKeysImported)
+    }
+
+    func setPasscodeIsSet(to status: Bool) {
+        let property = status ? "true" : "false"
+        setUserProperty(property, for: TrackingUserProperty.passcodeIsSet)
     }
 }
 
@@ -72,4 +82,15 @@ enum TrackingEvent: String, Trackable {
     case bannerImportOwnerKeySkipped                = "user_banner_owner_skip"
     case bannerImportOwnerKeyImported               = "user_banner_owner_import"
     case camera                                     = "screen_camera"
+
+    case createPasscode                             = "screen_passcode_create"
+    case repeatPasscode                             = "screen_passcode_create_repeat"
+    case enterPasscode                              = "screen_passcode_enter"
+    case changePasscode                             = "screen_passcode_change"
+    case changePasscodeEnterNew                     = "screen_passcode_change_create"
+    case changePasscodeRepeat                       = "screen_passcode_change_repeat"
+    case settingsAppPasscode                        = "screen_settings_app_passcode"
+    case userPasscodeEnabled                        = "user_passcode_enabled"
+    case userPasscodeDisabled                       = "user_passcode_disabled"
+    case userPasscodeSkipped                        = "user_passcode_skipped"
 }
