@@ -28,7 +28,7 @@ enum GSError {
     private static let iOSErrorDomain = "iOSError"
 
     private static func unexpectedError(_ code: Int = 0) -> Error {
-        let errorID = 42200 + code
+        let errorID = Int("422\(code)") ?? code
         return UnprocessableEntity(
             reason: "Network request failed with an unexpected error.", code: errorID)
     }
