@@ -233,7 +233,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             preferredStyle: .actionSheet)
         let remove = UIAlertAction(title: "Disable Passcode", style: .destructive) { [unowned self] _ in
             do {
-                try App.shared.auth.deletePasscode()
+                try App.shared.auth.deletePasscode(trackingEvent: .userPasscodeReset)
                 PrivateKeyController.removeKey()
                 completion(false)
             } catch {

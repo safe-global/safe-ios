@@ -50,7 +50,7 @@ class ConfirmPrivateKeyViewController: UIViewController {
 
     @objc func didTapImport() {
         guard PrivateKeyController.importKey(privateKey, isDrivedFromSeedPhrase: isDrivedFromSeedPhrase) else { return }
-        if App.shared.auth.isPasscodeSet || AppSettings.passcodeWasSetAtLeastOnce {
+        if App.shared.auth.isPasscodeSet {
             App.shared.snackbar.show(message: "Owner key successfully imported")
             dismiss(animated: true, completion: nil)
         } else {

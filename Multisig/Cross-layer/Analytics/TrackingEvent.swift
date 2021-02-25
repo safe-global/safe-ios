@@ -92,5 +92,6 @@ enum TrackingEvent: String, Trackable {
     case settingsAppPasscode                        = "screen_settings_app_passcode"
     case userPasscodeEnabled                        = "user_passcode_enabled"
     case userPasscodeDisabled                       = "user_passcode_disabled"
+    case userPasscodeReset                          = "user_passcode_reset"
     case userPasscodeSkipped                        = "user_passcode_skipped"
 }

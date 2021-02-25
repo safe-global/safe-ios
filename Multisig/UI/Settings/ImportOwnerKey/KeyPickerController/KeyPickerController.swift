@@ -66,7 +66,7 @@ class KeyPickerController: UITableViewController {
 
     @objc func didTapImport() {
         guard viewModel.importWallet() else { return }
-        if App.shared.auth.isPasscodeSet || AppSettings.passcodeWasSetAtLeastOnce {
+        if App.shared.auth.isPasscodeSet {
             App.shared.snackbar.show(message: "Owner key successfully imported")
             navigationController?.dismiss(animated: true, completion: nil)
         } else {
