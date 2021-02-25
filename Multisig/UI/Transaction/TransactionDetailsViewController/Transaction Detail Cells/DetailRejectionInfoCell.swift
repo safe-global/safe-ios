@@ -18,8 +18,7 @@ class DetailRejectionInfoCell: UITableViewCell, ExternalURLSource {
     override func awakeFromNib() {
         super.awakeFromNib()
         descriptionLabel.setStyle(.primary)
-        linkLabel.hyperLinkLabel("Why do I need to pay for rejecting a transaction?")
-        linkButton.titleLabel?.hyperLinkLabel("Why do I need to pay for rejecting a transaction?")
+        linkLabel.hyperLinkLabel(linkText: "Why do I need to pay for rejecting a transaction?")
     }
     
     @IBAction func linkButtonTouched(_ sender: Any) {

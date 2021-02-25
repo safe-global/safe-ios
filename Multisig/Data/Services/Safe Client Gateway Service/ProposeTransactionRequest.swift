@@ -26,7 +26,7 @@ struct ProposeTransactionRequest: JSONRequest {
         case gasToken
         case refundReceiver
         case nonce
-        case contractTransactionHash
+        case safeTxHash
         case signature
     }
 
@@ -45,20 +45,25 @@ struct ProposeTransactionRequest: JSONRequest {
         try container.encode(transaction.to, forKey: .to)
         try container.encode(transaction.value, forKey: .value)
         try container.encode(transaction.data, forKey: .data)
-        try container.encode(transaction.operation, forKey: .operation)
+        try container.encode(transaction.operation.rawValue, forKey: .operation)
         try container.encode(transaction.safeTxGas, forKey: .safeTxGas)
         try container.encode(transaction.baseGas, forKey: .baseGas)
         try container.encode(transaction.gasPrice, forKey: .gasPrice)
         try container.encode(transaction.gasToken, forKey: .gasToken)
         try container.encode(transaction.refundReceiver, forKey: .refundReceiver)
         try container.encode(transaction.nonce, forKey: .nonce)
-        try container.encode(transaction.safeTxHash, forKey: .contractTransactionHash)
+        try container.encode(transaction.safeTxHash, forKey: .safeTxHash)
         try container.encode(signature, forKey: .signature)
     }
 }
 
 extension SafeClientGatewayService {
-    func propose(transaction: Transaction, safeAddress: AddressString, sender: AddressString, signature: String, completion: @escaping (Result<ProposeTransactionRequest.EmptyResponse, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: ProposeTransactionRequest(safe: safeAddress, sender: sender, signature: signature, transaction: transaction), completion: completion)
+    func propose(transaction: Transaction, safeAddress: Address, sender: String, signature: String, completion: @escaping (Result<ProposeTransactionRequest.EmptyResponse, Error>) -> Void) -> URLSessionTask? {
+        guard let senderAddress = AddressString(sender) else { fatalError() }
+        return asyncExecute(request: ProposeTransactionRequest(safe: AddressString(safeAddress),
+                                                        sender: senderAddress,
+                                                        signature: signature,
+                                                        transaction: transaction),
+                                                        completion: completion)
     }
 }
