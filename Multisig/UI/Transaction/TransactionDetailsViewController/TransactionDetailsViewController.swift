@@ -60,6 +60,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             self, selector: #selector(lazyReloadData), name: .ownerKeyRemoved, object: nil)
         notificationCenter.addObserver(
             self, selector: #selector(lazyReloadData), name: .ownerKeyImported, object: nil)
+
+        tableView.backgroundColor = .secondaryBackground
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -16,6 +16,7 @@ class PasscodeSettingsViewController: UITableViewController {
         tableView.registerCell(SwitchTableViewCell.self)
         tableView.registerCell(BasicCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HelpCell")
+        tableView.backgroundColor = .secondaryBackground
         reloadData()
     }
 

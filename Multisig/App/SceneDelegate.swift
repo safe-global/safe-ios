@@ -16,6 +16,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         App.shared.tokenRegistry.load()
 
+        let darkNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .dark))
+        darkNavBar.barTintColor = .quaternaryBackground
+        darkNavBar.isTranslucent = false
+
+        let lightNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .light))
+        lightNavBar.barTintColor = nil
+        lightNavBar.isTranslucent = true
+
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = WindowWithViewOnTop(windowScene: windowScene)

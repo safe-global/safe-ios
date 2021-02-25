@@ -57,6 +57,7 @@ class KeyPickerController: UITableViewController {
         tableView.estimatedRowHeight = 44
         navigationItem.title = "Import Owner Key"
         navigationItem.rightBarButtonItem = importButton
+        tableView.backgroundColor = .primaryBackground
     }
 
     override func viewDidAppear(_ animated: Bool) {

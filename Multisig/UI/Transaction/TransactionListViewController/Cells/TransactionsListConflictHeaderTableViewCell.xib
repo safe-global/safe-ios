@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -59,7 +59,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="gray4"/>
+                        <color key="backgroundColor" name="quinaryBackground"/>
                         <constraints>
                             <constraint firstItem="DP5-6m-1ZG" firstAttribute="leading" secondItem="j15-Op-U9b" secondAttribute="leading" constant="8" id="5Lo-sp-9ez"/>
                             <constraint firstAttribute="bottom" secondItem="f1N-2F-nMA" secondAttribute="bottom" constant="8" id="6Yh-zO-4oW"/>
@@ -97,11 +97,11 @@
         <namedColor name="button">
             <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="gray4">
-            <color red="0.9100000262260437" green="0.90600001811981201" blue="0.90200001001358032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="primaryLabel">
             <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="quinaryBackground">
+            <color red="0.96854490039999996" green="0.96083813910000004" blue="0.9606704116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="secondaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

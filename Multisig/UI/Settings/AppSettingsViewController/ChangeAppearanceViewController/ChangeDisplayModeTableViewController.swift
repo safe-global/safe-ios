@@ -24,6 +24,8 @@ class ChangeDisplayModeTableViewController: UITableViewController {
         navigationItem.title = "Appearance"
 
         tableView.registerCell(BasicCell.self)
+
+        tableView.backgroundColor = .secondaryBackground
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

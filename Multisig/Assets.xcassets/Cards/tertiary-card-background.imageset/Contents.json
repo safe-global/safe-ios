@@ -37,7 +37,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "dark-card-background.pdf",
+      "filename" : "tertiary-card-dark.pdf",
       "idiom" : "universal",
       "resizing" : {
         "cap-insets" : {
@@ -60,6 +60,6 @@
     "version" : 1
   },
   "properties" : {
-    "template-rendering-intent" : "template"
+    "template-rendering-intent" : "original"
   }
 }
