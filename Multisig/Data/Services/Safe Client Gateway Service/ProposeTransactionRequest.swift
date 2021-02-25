@@ -9,8 +9,8 @@
 import Foundation
 
 struct ProposeTransactionRequest: JSONRequest {
-    let safe: Address
-    let sender: String
+    let safe: AddressString
+    let sender: AddressString
     let signature: String
     let transaction: Transaction
 
@@ -59,6 +59,11 @@ struct ProposeTransactionRequest: JSONRequest {
 
 extension SafeClientGatewayService {
     func propose(transaction: Transaction, safeAddress: Address, sender: String, signature: String, completion: @escaping (Result<ProposeTransactionRequest.EmptyResponse, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: ProposeTransactionRequest(safe: safeAddress, sender: sender, signature: signature, transaction: transaction), completion: completion)
+        guard let senderAddress = AddressString(sender) else { fatalError() }
+        return asyncExecute(request: ProposeTransactionRequest(safe: AddressString(safeAddress),
+                                                        sender: senderAddress,
+                                                        signature: signature,
+                                                        transaction: transaction),
+                                                        completion: completion)
     }
 }
