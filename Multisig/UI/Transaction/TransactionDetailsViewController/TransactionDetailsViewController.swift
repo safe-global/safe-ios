@@ -144,9 +144,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                   let status = tx?.txStatus
                     else { return false }
 
-            if status == .awaitingExecution,
-                !multisigInfo.isRejected() {
-                 return false
+            if status == .awaitingExecution && !multisigInfo.isRejected() {
+                 return true
             } else if status.isAwatingConfiramtions {
                 return true
             }
@@ -165,10 +164,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private var enableRejectionButton: Bool {
-        if let signingKey = PrivateKeyController.signingKeyAddress,
-           let signingAddress = AddressString(signingKey),
-           case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = tx?.detailedExecutionInfo,
-           !multisigTx.hasRejected(address: signingAddress),
+        if case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = tx?.detailedExecutionInfo,
+           !multisigTx.isRejected(),
            showsRejectButton {
             return true
         }
@@ -358,7 +355,11 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
     }
 
     func isRejected() -> Bool {
-        !(rejectors?.isEmpty ?? true)
+        if let rejectors = rejectors, !rejectors.isEmpty {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
