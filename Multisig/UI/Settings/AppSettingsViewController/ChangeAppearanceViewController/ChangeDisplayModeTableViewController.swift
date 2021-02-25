@@ -19,11 +19,13 @@ class ChangeDisplayModeTableViewController: UITableViewController {
             App.shared.theme.displayMode = newValue
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Appearance"
 
         tableView.registerCell(BasicCell.self)
+        tableView.rowHeight = BasicCell.rowHeight
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
