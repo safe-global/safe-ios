@@ -202,9 +202,10 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         cell.onImport = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true
             updateSection(indexPath.section)
-            let vc = CreatePasscodeEnterNewViewController { [weak self] in
+            let vc = CreatePasscodeViewController { [weak self] in
                 self?.updateSection(indexPath.section)
             }
+            vc.screenTrackingEvent = .createPasscodeEnterNew
             let nav = UINavigationController(rootViewController: vc)
             present(nav, animated: true)
         }

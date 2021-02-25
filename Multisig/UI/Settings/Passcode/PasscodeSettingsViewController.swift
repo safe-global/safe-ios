@@ -21,7 +21,7 @@ class PasscodeSettingsViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(isPasscodeSet ? .passcodeSettingsEnabledPasscode : .passcodeSettingsDisabledPasscode)
+        trackEvent(.settingsAppPasscode)
     }
 
     enum Row: Int, CaseIterable {
@@ -43,9 +43,10 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     private func createPasscode() {
-        let vc = CreatePasscodeEnterNewViewController { [unowned self] in
+        let vc = CreatePasscodeViewController { [unowned self] in
             reloadData()
         }
+        vc.screenTrackingEvent = .createPasscodeEnterNew
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true, completion: nil)
     }
@@ -74,7 +75,9 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     private func changePasscode() {
-        let vc = ChangePasscodeViewController()
+        let vc = EnterPasscodeViewController()
+        vc.navigationItemTitle = "Change Passcode"
+        vc.screenTrackingEvent = .changePasscode
         let nav = UINavigationController(rootViewController: vc)
 
         vc.completion = { [weak nav, unowned self] success in
