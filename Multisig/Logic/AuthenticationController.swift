@@ -70,12 +70,12 @@ class AuthenticationController {
 
     /// Deletes the stored passcode. If passcode not set, this operation
     /// does not have any effect.
-    func deletePasscode() throws {
+    func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) throws {
         guard let user = user else { return }
         try accessService.deleteUser(userID: user.id)
         NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
         Tracker.shared.setPasscodeIsSet(to: false)
-        Tracker.shared.track(event: TrackingEvent.userPasscodeDisabled)
+        Tracker.shared.track(event: trackingEvent)
     }
 
     /// Returns saved user, if any
