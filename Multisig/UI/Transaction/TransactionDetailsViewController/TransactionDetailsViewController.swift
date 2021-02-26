@@ -316,7 +316,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
 extension SCGModels.TransactionDetails {
     var needsYourConfirmation: Bool {
-        if txStatus == .awaitingConfirmations,
+        if txStatus.isAwatingConfiramtions,
            let signingKey = PrivateKeyController.signingKeyAddress,
            let signingAddress = AddressString(signingKey),
            case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = detailedExecutionInfo,
