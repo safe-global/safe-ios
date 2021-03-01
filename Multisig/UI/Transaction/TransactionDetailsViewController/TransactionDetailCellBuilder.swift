@@ -283,7 +283,11 @@ class TransactionDetailCellBuilder {
             buildActions(tx)
             buildHexData(tx)
         case .rejection(_):
-            rejectionHeader()
+            if case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigInfo)? = tx.detailedExecutionInfo {
+                rejectionHeader(nonce: multisigInfo.nonce.value)
+            } else {
+                rejectionHeader(nonce: nil)
+            }
         case .creation(_):
             // ignore
             fallthrough
@@ -548,8 +552,9 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-    func rejectionHeader() {
+    func rejectionHeader(nonce: UInt256?) {
         let cell = newCell(DetailRejectionInfoCell.self)
+        cell.setNonce(nonce)
         result.append(cell)
     }
 
