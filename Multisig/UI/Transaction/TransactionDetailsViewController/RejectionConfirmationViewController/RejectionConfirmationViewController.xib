@@ -34,7 +34,7 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xam-dS-la1">
-                    <rect key="frame" x="16" y="60" width="382" height="494"/>
+                    <rect key="frame" x="16" y="60" width="382" height="514.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ayr-wZ-qFa">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="122"/>
@@ -202,25 +202,26 @@ on-chain rejection</string>
                             </subviews>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTL-8l-L1s">
-                            <rect key="frame" x="0.0" y="144" width="382" height="122"/>
+                            <rect key="frame" x="0.0" y="144" width="382" height="142.5"/>
                             <string key="text">This will create an on-chain rejection with the same nonce that doesn’t send any funds. The on-chain rejection will replace the transaction you wish to reject. 
+
 You'll have to confirm the creation of the on-chain rejection with your imported owner key.</string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5a-Du-idH">
-                            <rect key="frame" x="0.0" y="288" width="382" height="56"/>
+                            <rect key="frame" x="0.0" y="308.5" width="382" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="R4d-mJ-sPW"/>
                             </constraints>
-                            <state key="normal" title="Button"/>
+                            <state key="normal" title="Reject transaction"/>
                             <connections>
                                 <action selector="rejectButtonTouched:" destination="-1" eventType="touchUpInside" id="SG5-Uy-eZV"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apV-5o-9GQ">
-                            <rect key="frame" x="0.0" y="366" width="382" height="128"/>
+                            <rect key="frame" x="0.0" y="386.5" width="382" height="128"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSv-Na-fwY">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="128"/>
@@ -231,7 +232,6 @@ You'll have to confirm the creation of the on-chain rejection with your imported
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aax-7k-NL1">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="128"/>
-                                    <state key="normal" title="Button"/>
                                     <connections>
                                         <action selector="learnMoreButtonTouched:" destination="-1" eventType="touchUpInside" id="rs5-Hf-xyA"/>
                                     </connections>
