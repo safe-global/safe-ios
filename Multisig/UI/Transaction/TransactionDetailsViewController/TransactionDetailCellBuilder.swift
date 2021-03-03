@@ -402,8 +402,17 @@ class TransactionDetailCellBuilder {
             status(tx.txStatus, type: type, icon: icon)
         case .settingsChange(_):
             status(tx.txStatus, type: "Modify settings", icon: #imageLiteral(resourceName: "ico-settings-tx"))
-        case .custom(_):
-            status(tx.txStatus, type: "Contract interaction", icon: #imageLiteral(resourceName: "ico-custom-tx"))
+        case .custom(let customInfo):
+            var type = "Contract interaction"
+            let icon = #imageLiteral(resourceName: "ico-custom-tx")
+            var iconURL: String?
+            var tag = ""
+            if let safeAppInfo = tx.safeAppInfo {
+                type = safeAppInfo.name
+                iconURL = safeAppInfo.logoUrl
+                tag = "App"
+            }
+            status(tx.txStatus, type: type, icon: icon, iconURL: iconURL, address: customInfo.to, tag: tag)
         case .rejection(_):
             status(tx.txStatus, type: "On-chain rejection", icon: #imageLiteral(resourceName: "ico-rejection-tx"))
         case .creation(_):
@@ -524,11 +533,17 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-    func status(_ status: SCGModels.TxStatus, type: String, icon: UIImage) {
+    func status(_ status: SCGModels.TxStatus, type: String, icon: UIImage, iconURL: String? = nil, address: AddressString? = nil, tag: String = "") {
         let cell = newCell(DetailStatusCell.self)
         cell.setTitle(type)
-        cell.setIcon(icon)
+
         cell.setStatus(status)
+        cell.set(tag: tag)
+        if let imageURL = iconURL {
+            cell.set(contractImageUrl: URL(string: imageURL), contractAddress: address!)
+        } else {
+            cell.setIcon(icon)
+        }
         result.append(cell)
     }
 

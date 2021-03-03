@@ -25,6 +25,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     @IBOutlet private weak var confirmationsCountImageView: UIImageView!
     @IBOutlet private weak var highlightBarView: UIView!
     @IBOutlet private weak var highlightView: UIView!
+    @IBOutlet private weak var tagView: TagView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -90,6 +91,11 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     func set(highlight: Bool) {
         highlightBarView.isHidden = !highlight
         highlightView.backgroundColor = highlight ? .rejection : .clear
+    }
+
+    func set(tag: String) {
+        tagView.isHidden = tag.isEmpty
+        tagView.set(title: tag)
     }
 
     private func statusColor(status: SCGModels.TxStatus) -> UIColor {

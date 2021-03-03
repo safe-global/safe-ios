@@ -287,7 +287,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         let tx = transaction.transaction
         var title = ""
         var image: UIImage?
-
+        var tag: String = ""
         let nonce = tx.executionInfo?.nonce.description ?? ""
         let confirmationsSubmitted = tx.executionInfo?.confirmationsSubmitted ?? 0
         let confirmationsRequired = tx.executionInfo?.confirmationsRequired ?? 0
@@ -317,6 +317,10 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             if let importedSafeName = Safe.cachedName(by: customInfo.to) {
                 title = importedSafeName
                 cell.set(contractAddress: customInfo.to)
+            } else if let safeAppInfo = tx.safeAppInfo {
+                title = safeAppInfo.name
+                tag = "App"
+                cell.set(contractImageUrl: URL(string: safeAppInfo.logoUrl), contractAddress: customInfo.to)
             } else if let toInfo = customInfo.toInfo {
                 title = toInfo.name
                 cell.set(contractImageUrl: toInfo.logoUri, contractAddress: customInfo.to)
@@ -345,6 +349,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         cell.set(date: date)
         cell.set(info: info, color: infoColor)
         cell.set(conflictType: transaction.conflictType)
+        cell.set(tag: tag)
         cell.separatorInset = transaction.conflictType == .hasNext ? UIEdgeInsets(top: 0, left: view.frame.size.width, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         cell.set(confirmationsSubmitted: confirmationsSubmitted, confirmationsRequired: confirmationsRequired)
         cell.set(highlight: shouldHighlight(transaction: tx))
