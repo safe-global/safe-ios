@@ -11,7 +11,6 @@ import Web3
 struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConvertible, Identifiable {
 
     fileprivate var _store: EthereumAddress
-    private(set) var index = 0
 
     init(exactly data: Data) {
         _store = try! EthereumAddress(data)
@@ -46,9 +45,8 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         _store = v
     }
 
-    init(_ ethereumAddress: EthereumAddress, index: Int) {
+    init(_ ethereumAddress: EthereumAddress) {
         _store = ethereumAddress
-        self.index = index
     }
 
     var id: String {

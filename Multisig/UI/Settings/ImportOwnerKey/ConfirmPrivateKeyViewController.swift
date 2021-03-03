@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import Web3
 
 class ConfirmPrivateKeyViewController: UIViewController {
     @IBOutlet private weak var identiconImageView: UIImageView!
     @IBOutlet private weak var addressLabel: UILabel!
 
-    private var privateKey: Data!
+    private var privateKey: PrivateKey!
     private var address: Address!
     private var isDrivedFromSeedPhrase: Bool = true
 
@@ -26,11 +25,10 @@ class ConfirmPrivateKeyViewController: UIViewController {
         return button
     }()
 
-    convenience init(privateKey: Data, isDrivedFromSeedPhrase: Bool = true) {
+    convenience init(privateKey data: Data, isDrivedFromSeedPhrase: Bool = true) {
         self.init()
-        self.privateKey = privateKey
-        let address = try! EthereumPrivateKey(hexPrivateKey: privateKey.toHexString()).address
-        self.address = Address(address, index: 0)
+        self.privateKey = try! PrivateKey(data: data)
+        self.address = privateKey.address
         self.isDrivedFromSeedPhrase = isDrivedFromSeedPhrase
     }
 
@@ -49,7 +47,10 @@ class ConfirmPrivateKeyViewController: UIViewController {
     }
 
     @objc func didTapImport() {
-        guard PrivateKeyController.importKey(privateKey, isDrivedFromSeedPhrase: isDrivedFromSeedPhrase) else { return }
+        let success = PrivateKeyController.importKey(
+            privateKey.data,
+            isDrivedFromSeedPhrase: isDrivedFromSeedPhrase)
+        guard success else { return }
         if App.shared.auth.isPasscodeSet {
             App.shared.snackbar.show(message: "Owner key successfully imported")
             dismiss(animated: true, completion: nil)

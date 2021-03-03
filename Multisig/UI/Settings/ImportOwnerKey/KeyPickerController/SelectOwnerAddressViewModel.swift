@@ -36,8 +36,7 @@ class SelectOwnerAddressViewModel {
         }
 
         do {
-            let address = try EthereumPrivateKey(hexPrivateKey: pkData.toHexString()).address
-            return Address(address, index: index)
+            return try PrivateKey(data: pkData).address
         } catch {
             App.shared.snackbar.show(
                 error: GSError.UnknownAppError(description: "Could not derive address",

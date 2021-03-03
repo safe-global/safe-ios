@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Web3
 
 class Signer {
     struct Signature: Equatable {
@@ -33,12 +32,11 @@ class Signer {
     /// - Throws: errors during sisgning process
     /// - Returns: Signature object containing hex(r) hex(s) hex(v + 27) as one strig of secp256k1 signature
     static func sign(hash: Data) throws -> Signature {
-        guard let pkData = try App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) else {
+        guard let privateKey = try PrivateKey.legacySingleKey() else {
             throw GSError.PreconditionsForSigningNotSatisfied(description: "Private key not found")
         }
-        let privateKey = try EthereumPrivateKey(pkData.bytes)
-        let signer = privateKey.address.hex(eip55: true)
-        let eoaSignature = try privateKey.sign(hash: hash.bytes)
+        let signer = privateKey.address.checksummed
+        let eoaSignature = try privateKey.sign(hash: hash)
         let v = String(eoaSignature.v + 27, radix: 16)
         let signature = "0x\(eoaSignature.r.toHexString())\(eoaSignature.s.toHexString())\(v)"
         return Signature(value: signature, signer: signer)

@@ -23,7 +23,7 @@ class SafeTransactionSigner {
 
     class func numberOfKeysImported() -> Int {
         do {
-            let pkData = try App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue)
+            let pkData = try PrivateKey.legacySingleKey()
             return pkData == nil ? 0 : 1
         } catch {
             App.shared.snackbar.show(error: GSError.error(description: "Failed to load keychain data", error: error))
