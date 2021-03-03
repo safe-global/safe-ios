@@ -19,16 +19,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFP-K3-0E0">
-                        <rect key="frame" x="16" y="12" width="359" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="ya5-JP-wad"/>
-                        </constraints>
+                        <rect key="frame" x="16" y="12" width="359" height="36"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="uAP-nO-Z6e">
-                        <rect key="frame" x="391" y="0.0" width="40" height="12"/>
+                        <rect key="frame" x="391" y="0.0" width="40" height="60"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Nw3-Wy-mJ2"/>
                         </constraints>

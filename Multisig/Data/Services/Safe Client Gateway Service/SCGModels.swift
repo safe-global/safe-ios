@@ -415,6 +415,7 @@ extension SCGModels {
                 var signers: [AddressString]
                 var confirmationsRequired: UInt64
                 var confirmations: [Confirmation]
+                var rejectors: [AddressString]?
                 var executor: AddressString?
                 var submittedAt: Date
                 var nonce: UInt256String

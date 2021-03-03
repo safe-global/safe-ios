@@ -57,10 +57,13 @@ enum TrackingEvent: String, Trackable {
     case transactionsHistory                        = "screen_transactions_history"
     case transactionsNoSafe                         = "screen_transactions_no_safe"
     case transactionsDetails                        = "screen_transactions_details"
+    case transactionDetailsRejectionConfirmation    = "screen_transactions_reject_confirmation"
+
     case transactionsDetailsAdvanced                = "screen_transactions_details_advanced"
     case transactionsDetailsAction                  = "screen_transaction_details_action"
     case transactionDetailsActionList               = "screen_transaction_details_action_list"
     case transactionDetailsTransactionConfirmed     = "user_transaction_confirmed"
+    case transactionDetailsTransactionRejected      = "user_transaction_rejected"
 
     case settingsApp                                = "screen_settings_app"
     case settingsAppAdvanced                        = "screen_settings_app_advanced"
