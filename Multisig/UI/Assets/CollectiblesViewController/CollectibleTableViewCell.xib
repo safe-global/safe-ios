@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="519" height="162"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-background" translatesAutoresizingMaskIntoConstraints="NO" id="ZpE-xX-bRz">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tertiary-card-background" translatesAutoresizingMaskIntoConstraints="NO" id="ZpE-xX-bRz">
                         <rect key="frame" x="7" y="-2" width="507" height="170"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uo4-L9-zv1">
@@ -43,7 +43,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" name="tertiaryBackground"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="JUO-dL-AL2" secondAttribute="bottom" id="0uI-t2-DUh"/>
                             <constraint firstAttribute="trailing" secondItem="0LA-pv-ogc" secondAttribute="trailing" constant="16" id="1HL-c0-BHw"/>
@@ -79,11 +79,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="card-background" width="37" height="37"/>
+        <image name="tertiary-card-background" width="37" height="37"/>
         <namedColor name="secondaryBackground">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="tertiaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>

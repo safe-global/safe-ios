@@ -51,6 +51,7 @@ class AdvancedSafeSettingsViewController: UITableViewController {
         tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(HelpLinkTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
+        tableView.backgroundColor = .secondaryBackground
     }
 
     override func viewDidAppear(_ animated: Bool) {

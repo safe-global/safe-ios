@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -59,7 +59,7 @@
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P2E-zy-VLP" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
                                                         <rect key="frame" x="34" y="0.0" width="222" height="46"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="46" placeholder="YES" id="gut-Dq-x5n"/>
                                                         </constraints>
@@ -70,7 +70,7 @@
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="16" leading="16" bottom="12" trailing="16"/>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Jdf-e6-VR1" firstAttribute="top" secondItem="Chz-fT-shb" secondAttribute="top" id="EGZ-cG-i6e"/>
                                     <constraint firstItem="BXu-a6-ltf" firstAttribute="top" secondItem="Chz-fT-shb" secondAttribute="top" id="GvT-cw-g23"/>
@@ -100,6 +100,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" name="primaryBackground"/>
             <connections>
                 <outlet property="addressView" destination="P2E-zy-VLP" id="k4g-sq-8bE"/>
                 <outlet property="cardView" destination="Chz-fT-shb" id="OWW-ih-oIU"/>
@@ -114,8 +115,8 @@
     <resources>
         <image name="card-background" width="37" height="37"/>
         <image name="checkmark" catalog="system" width="128" height="114"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="primaryBackground">
+            <color red="0.96899998188018799" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

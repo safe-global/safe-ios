@@ -45,6 +45,7 @@ class ActionDetailViewController: UITableViewController {
         tableView.registerCell(ActionDetailExpandableCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
         tableView.registerCell(DetailExpandableTextCell.self)
+        tableView.backgroundColor = .secondaryBackground
         reloadData()
     }
 

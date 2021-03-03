@@ -1,0 +1,65 @@
+{
+  "images" : [
+    {
+      "alignment-insets" : {
+        "bottom" : 12,
+        "left" : 9,
+        "right" : 11,
+        "top" : 8
+      },
+      "filename" : "card-background.pdf",
+      "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "bottom" : 20,
+          "left" : 17,
+          "right" : 19,
+          "top" : 16
+        },
+        "center" : {
+          "height" : 1,
+          "mode" : "tile",
+          "width" : 1
+        },
+        "mode" : "9-part"
+      }
+    },
+    {
+      "alignment-insets" : {
+        "bottom" : 12,
+        "left" : 9,
+        "right" : 11,
+        "top" : 8
+      },
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "dark-card-background.png",
+      "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "bottom" : 20,
+          "left" : 17,
+          "right" : 19,
+          "top" : 16
+        },
+        "center" : {
+          "height" : 1,
+          "mode" : "tile",
+          "width" : 1
+        },
+        "mode" : "9-part"
+      }
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "original"
+  }
+}

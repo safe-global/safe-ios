@@ -26,6 +26,8 @@ class ChangeDisplayModeTableViewController: UITableViewController {
 
         tableView.registerCell(BasicCell.self)
         tableView.rowHeight = BasicCell.rowHeight
+
+        tableView.backgroundColor = .secondaryBackground
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

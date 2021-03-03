@@ -27,6 +27,7 @@ extension UIColor {
     static let shadow = UIColor(named: "shadow")!
     static let tertiaryBackground = UIColor(named: "tertiaryBackground")!
     static let tertiaryLabel = UIColor(named: "tertiaryLabel")!
+    static let quaternaryBackground = UIColor(named: "quaternaryBackground")!
 }
 
 
