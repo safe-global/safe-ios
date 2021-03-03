@@ -20,6 +20,15 @@ class DetailRejectionInfoCell: UITableViewCell, ExternalURLSource {
         descriptionLabel.setStyle(.primary)
         linkLabel.hyperLinkLabel(linkText: "Why do I need to pay for rejecting a transaction?")
     }
+
+    func setNonce(_ nonce: UInt256?) {
+        let base = "This is an on-chain rejection that doesn’t send any funds. Executing this on-chain rejection will replace all currently awaiting transactions"
+        if let nonce = nonce {
+            descriptionLabel.text = base + " with nonce \(nonce)."
+        } else {
+            descriptionLabel.text = base + " with the same nonce."
+        }
+    }
     
     @IBAction func linkButtonTouched(_ sender: Any) {
         openExternalURL()
