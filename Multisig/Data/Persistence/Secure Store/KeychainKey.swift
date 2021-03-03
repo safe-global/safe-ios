@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum KeychainKey: String {
-    case ownerPrivateKey = "owner.private.key"
+enum KeychainKey {
+    static let ownerPrivateKey = "owner.private.key"
 }

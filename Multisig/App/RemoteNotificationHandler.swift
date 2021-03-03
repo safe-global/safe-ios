@@ -166,7 +166,7 @@ class RemoteNotificationHandler {
         queue.async { [unowned self] in
             let appConfig = App.configuration.app
             var timestamp: String?
-            if let _ = try? App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) {
+            if let _ = try? PrivateKey.legacySingleKey() {
                 timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
             }
             do {

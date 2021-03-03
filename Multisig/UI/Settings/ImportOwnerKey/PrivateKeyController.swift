@@ -11,8 +11,7 @@ import Web3
 class PrivateKeyController {
     static func importKey(_ privateKey: Data, isDrivedFromSeedPhrase: Bool) -> Bool {
         do {
-            try App.shared.keychainService.removeData(forKey: KeychainKey.ownerPrivateKey.rawValue)
-            try App.shared.keychainService.save(data: privateKey, forKey: KeychainKey.ownerPrivateKey.rawValue)
+            try PrivateKey(legacy: privateKey).save()
 
             App.shared.notificationHandler.signingKeyUpdated()
 
@@ -29,8 +28,7 @@ class PrivateKeyController {
 
     static func removeKey() {
         do {
-            try App.shared.keychainService.removeData(
-                forKey: KeychainKey.ownerPrivateKey.rawValue)
+            try PrivateKey.remove(id: PrivateKey.legacyKeyID)
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key removed from this app")
             Tracker.shared.setNumKeysImported(0)
@@ -42,12 +40,7 @@ class PrivateKeyController {
     }
 
     static var signingKeyAddress: String? {
-        if let pkData = try? App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue),
-           let privateKey = try? EthereumPrivateKey(pkData.bytes) {
-            return privateKey.address.hex(eip55: true)
-        } else {
-            return nil
-        }
+        try? PrivateKey.legacySingleKey()?.address.checksummed
     }
 
     static var hasPrivateKey: Bool {
