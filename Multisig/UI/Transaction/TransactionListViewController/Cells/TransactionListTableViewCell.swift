@@ -25,6 +25,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     @IBOutlet private weak var confirmationsCountImageView: UIImageView!
     @IBOutlet private weak var highlightBarView: UIView!
     @IBOutlet private weak var highlightView: UIView!
+    @IBOutlet private weak var tagView: TagView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,6 +50,10 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     func set(contractImageUrl: URL? = nil, contractAddress: AddressString) {
         typeImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address.hexadecimal)
+    }
+
+    func set(imageUrl: URL? = nil, placeholder: UIImage?) {
+        typeImageView.setCircleShapeImage(url: imageUrl, placeholder: placeholder)
     }
 
     func set(conflictType: SCGModels.ConflictType) {
@@ -90,6 +95,11 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     func set(highlight: Bool) {
         highlightBarView.isHidden = !highlight
         highlightView.backgroundColor = highlight ? .rejection : .clear
+    }
+
+    func set(tag: String) {
+        tagView.isHidden = tag.isEmpty
+        tagView.set(title: tag)
     }
 
     private func statusColor(status: SCGModels.TxStatus) -> UIColor {

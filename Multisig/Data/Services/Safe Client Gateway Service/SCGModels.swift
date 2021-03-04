@@ -73,6 +73,7 @@ extension SCGModels {
         var txStatus: TxStatus
         var txInfo: TxInfo
         var executionInfo: ExecutionInfo?
+        var safeAppInfo: SafeAppInfo?
     }
 
     enum TxStatus: String, Decodable {
@@ -380,6 +381,7 @@ extension SCGModels {
         var detailedExecutionInfo: DetailedExecutionInfo?
         var txHash: DataString?
         var executedAt: Date?
+        var safeAppInfo: SafeAppInfo?
 
         enum DetailedExecutionInfo: Decodable {
             case module(Module)
@@ -429,6 +431,12 @@ extension SCGModels {
         var operation: Operation
         var hexData: DataString?
         var dataDecoded: DataDecoded?
+    }
+
+    struct SafeAppInfo: Decodable {
+        var name: String
+        var url: String
+        var logoUrl: String
     }
 
     enum Operation: Int, Codable {

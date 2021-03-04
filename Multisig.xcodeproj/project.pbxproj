@@ -10,6 +10,8 @@
 		02EE291F3EA9B66FF632F61F /* libPods-Multisig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0BD54209C21EA369847E31 /* libPods-Multisig.a */; };
 		041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A572456F4F50044A24C /* SafeInfoView.swift */; };
 		041C2A5A2456F53E0044A24C /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A592456F53E0044A24C /* QRView.swift */; };
+		0422006025EFDF3700CAC173 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422005F25EFDF3700CAC173 /* TagView.swift */; };
+		0422007025EFDF4E00CAC173 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0422006F25EFDF4E00CAC173 /* TagView.xib */; };
 		0428DA4D25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DA4B25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift */; };
 		0428DA4E25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0428DA4C25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib */; };
 		0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */; };
@@ -474,6 +476,8 @@
 		037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MultisigIntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		041C2A572456F4F50044A24C /* SafeInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeInfoView.swift; sourceTree = "<group>"; };
 		041C2A592456F53E0044A24C /* QRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
+		0422005F25EFDF3700CAC173 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		0422006F25EFDF4E00CAC173 /* TagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
 		0428DA4B25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackHandlerTableViewCell.swift; sourceTree = "<group>"; };
 		0428DA4C25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FallbackHandlerTableViewCell.xib; sourceTree = "<group>"; };
 		0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLinkTableViewCell.swift; sourceTree = "<group>"; };
@@ -2186,6 +2190,8 @@
 				0A6886EC258908150045CAB5 /* GNOTextField.xib */,
 				04B4B60125B84D6900CFE24B /* SafeInfoViewV2.swift */,
 				04B4B68E25B8857F00CFE24B /* SafeInfoViewV2.xib */,
+				0422005F25EFDF3700CAC173 /* TagView.swift */,
+				0422006F25EFDF4E00CAC173 /* TagView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2532,6 +2538,7 @@
 				0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */,
 				04B4B5F825B754D600CFE24B /* SafeLoadedViewController.xib in Resources */,
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
+				0422007025EFDF4E00CAC173 /* TagView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				558835F9255BFEF80014E8C7 /* AddressInfoView.xib in Resources */,
 				0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */,
@@ -2801,6 +2808,7 @@
 				0A57C5E42577FBD900420303 /* DetailConfirmationCell.swift in Sources */,
 				047691372461B2E200D73D8B /* AddressCell.swift in Sources */,
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
+				0422006025EFDF3700CAC173 /* TagView.swift in Sources */,
 				55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */,
 				0AA9F263249A188C005BD60F /* AdvancedTransactionDetailsView.swift in Sources */,
 				0ACB4CDB256BCD6900845BF4 /* SwiftUITableViewCell.swift in Sources */,

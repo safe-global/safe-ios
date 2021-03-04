@@ -15,6 +15,7 @@ class DetailStatusCell: UITableViewCell {
     @IBOutlet private weak var statusIconImageView: UIImageView!
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var bottomStackView: UIStackView!
+    @IBOutlet private weak var tagView: TagView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,6 +30,14 @@ class DetailStatusCell: UITableViewCell {
 
     func setIcon(_ icon: UIImage?) {
         iconImageView.image = icon
+    }
+
+    func set(contractImageUrl: URL? = nil, contractAddress: AddressString) {
+        iconImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address.hexadecimal)
+    }
+
+    func set(imageUrl: URL? = nil, placeholder: UIImage?) {
+        iconImageView.setCircleShapeImage(url: imageUrl, placeholder: placeholder)
     }
 
     func setStatus(_ status: SCGModels.TxStatus) {
@@ -51,6 +60,11 @@ class DetailStatusCell: UITableViewCell {
         case .success:
             return .button
         }
+    }
+
+    func set(tag: String) {
+        tagView.isHidden = tag.isEmpty
+        tagView.set(title: tag)
     }
 }
 
