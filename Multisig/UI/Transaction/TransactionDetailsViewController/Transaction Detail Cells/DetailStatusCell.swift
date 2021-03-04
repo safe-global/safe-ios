@@ -36,6 +36,10 @@ class DetailStatusCell: UITableViewCell {
         iconImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address.hexadecimal)
     }
 
+    func set(imageUrl: URL? = nil, placeholder: UIImage?) {
+        iconImageView.setCircleShapeImage(url: imageUrl, placeholder: placeholder)
+    }
+
     func setStatus(_ status: SCGModels.TxStatus) {
         statusLabel.text = status.title
         appendixLabel.text = status.title

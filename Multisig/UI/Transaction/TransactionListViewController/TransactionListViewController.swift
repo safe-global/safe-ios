@@ -286,8 +286,11 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     func configure(cell: TransactionListTableViewCell, transaction: SCGModels.TransactionSummaryItemTransaction) {
         let tx = transaction.transaction
         var title = ""
-        var image: UIImage?
         var tag: String = ""
+        var image: UIImage?
+        var imageURL: URL?
+        var placeholderAddress: AddressString?
+
         let nonce = tx.executionInfo?.nonce.description ?? ""
         let confirmationsSubmitted = tx.executionInfo?.confirmationsSubmitted ?? 0
         let confirmationsRequired = tx.executionInfo?.confirmationsRequired ?? 0
@@ -316,14 +319,11 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         case .custom(let customInfo):
             if let importedSafeName = Safe.cachedName(by: customInfo.to) {
                 title = importedSafeName
-                cell.set(contractAddress: customInfo.to)
-            } else if let safeAppInfo = tx.safeAppInfo {
-                title = safeAppInfo.name
-                tag = "App"
-                cell.set(contractImageUrl: URL(string: safeAppInfo.logoUrl), contractAddress: customInfo.to)
+                placeholderAddress = customInfo.to
             } else if let toInfo = customInfo.toInfo {
                 title = toInfo.name
-                cell.set(contractImageUrl: toInfo.logoUri, contractAddress: customInfo.to)
+                imageURL = toInfo.logoUri
+                placeholderAddress = customInfo.to
             } else {
                 title = "Contract interaction"
                 image = #imageLiteral(resourceName: "ico-custom-tx")
@@ -340,10 +340,27 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             title = "Unknown operation"
         }
 
-        cell.set(title: title)
-        if let image = image {
-            cell.set(image: image)
+        if let safeAppInfo = tx.safeAppInfo {
+            if case let .custom(customInfo) = tx.txInfo, let _ = Safe.cachedName(by: customInfo.to) {
+                // Safe name info more prior than App info
+            } else {
+                title = safeAppInfo.name
+                tag = "App"
+                imageURL = URL(string: safeAppInfo.logoUrl)
+            }
         }
+
+        cell.set(title: title)
+        if let imageURL = imageURL, let placeholderAddress = placeholderAddress {
+            cell.set(contractImageUrl: imageURL, contractAddress: placeholderAddress)
+        } else if let imageURL = imageURL {
+            cell.set(imageUrl: imageURL, placeholder: image)
+        } else if let image = image {
+            cell.set(image: image)
+        } else if let placeholderAddress = placeholderAddress {
+            cell.set(contractAddress: placeholderAddress)
+        }
+
         cell.set(status: status)
         cell.set(nonce: nonce)
         cell.set(date: date)

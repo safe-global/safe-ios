@@ -394,32 +394,54 @@ class TransactionDetailCellBuilder {
     }
 
     func buildStatus(_ tx: SCGModels.TransactionDetails) {
+        var type = ""
+        var tag: String = ""
+        var icon: UIImage?
+        var imageURL: URL?
+        var placeholderAddress: AddressString?
+
         switch tx.txInfo {
         case .transfer(let transferTx):
             let isOutgoing = transferTx.direction == .outgoing
-            let type = isOutgoing ? "Outgoing transfer" : "Incoming transfer"
-            let icon = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incomming-tx")
-            status(tx.txStatus, type: type, icon: icon)
+            type = isOutgoing ? "Outgoing transfer" : "Incoming transfer"
+            icon = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incomming-tx")
         case .settingsChange(_):
-            status(tx.txStatus, type: "Modify settings", icon: #imageLiteral(resourceName: "ico-settings-tx"))
+            type = "Modify settings"
+            icon = #imageLiteral(resourceName: "ico-settings-tx")
         case .custom(let customInfo):
-            var type = "Contract interaction"
-            let icon = #imageLiteral(resourceName: "ico-custom-tx")
-            var iconURL: String?
-            var tag = ""
-            if let safeAppInfo = tx.safeAppInfo {
+            if let importedSafeName = Safe.cachedName(by: customInfo.to) {
+                type = importedSafeName
+                placeholderAddress = customInfo.to
+            } else if let toInfo = customInfo.toInfo {
+                type = toInfo.name
+                imageURL = toInfo.logoUri
+                placeholderAddress = customInfo.to
+            } else {
+                type = "Contract interaction"
+                icon = #imageLiteral(resourceName: "ico-custom-tx")
+            }
+        case .rejection(_):
+            type = "On-chain rejection"
+            icon = #imageLiteral(resourceName: "ico-rejection-tx")
+        case .creation(_):
+            type = "Safe created"
+            icon = #imageLiteral(resourceName: "ico-settings-tx")
+        case .unknown:
+            type = "Unknown operation"
+            icon = #imageLiteral(resourceName: "ico-custom-tx")
+        }
+
+        if let safeAppInfo = tx.safeAppInfo {
+            if case let .custom(customInfo) = tx.txInfo, let _ = Safe.cachedName(by: customInfo.to) {
+                // Safe name info more prior than App info
+            } else {
                 type = safeAppInfo.name
-                iconURL = safeAppInfo.logoUrl
+                imageURL = URL(string: safeAppInfo.logoUrl)
                 tag = "App"
             }
-            status(tx.txStatus, type: type, icon: icon, iconURL: iconURL, address: customInfo.to, tag: tag)
-        case .rejection(_):
-            status(tx.txStatus, type: "On-chain rejection", icon: #imageLiteral(resourceName: "ico-rejection-tx"))
-        case .creation(_):
-            status(tx.txStatus, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
-        case .unknown:
-            status(tx.txStatus, type: "Unknown operation", icon: #imageLiteral(resourceName: "ico-custom-tx"))
         }
+
+        status(tx.txStatus, type: type, icon: icon, iconURL: imageURL, address: placeholderAddress, tag: tag)
     }
 
     func buildMultisigInfo(_ tx: SCGModels.TransactionDetails) {
@@ -533,17 +555,22 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-    func status(_ status: SCGModels.TxStatus, type: String, icon: UIImage, iconURL: String? = nil, address: AddressString? = nil, tag: String = "") {
+    func status(_ status: SCGModels.TxStatus, type: String, icon: UIImage?, iconURL: URL? = nil, address: AddressString? = nil, tag: String = "") {
         let cell = newCell(DetailStatusCell.self)
         cell.setTitle(type)
 
         cell.setStatus(status)
         cell.set(tag: tag)
-        if let imageURL = iconURL {
-            cell.set(contractImageUrl: URL(string: imageURL), contractAddress: address!)
-        } else {
-            cell.setIcon(icon)
+        if let imageURL = iconURL, let placeholderAddress = address {
+            cell.set(contractImageUrl: imageURL, contractAddress: placeholderAddress)
+        } else if let imageURL = iconURL {
+            cell.set(imageUrl: imageURL, placeholder: icon)
+        } else if let image = icon {
+            cell.setIcon(image)
+        } else if let placeholderAddress = address {
+            cell.set(contractAddress: placeholderAddress)
         }
+
         result.append(cell)
     }
 
