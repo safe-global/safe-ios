@@ -66,16 +66,32 @@ class KeyPickerController: UITableViewController {
     }
 
     @objc func didTapImport() {
-        guard viewModel.importWallet() else { return }
-        if App.shared.auth.isPasscodeSet {
-            App.shared.snackbar.show(message: "Owner key successfully imported")
-            navigationController?.dismiss(animated: true, completion: nil)
-        } else {
-            let vc = CreatePasscodeViewController()
-            vc.navigationItem.hidesBackButton = true
-            vc.hidesHeadline = false
-            show(vc, sender: self)
+        guard let privateKey = viewModel.selectedPrivateKey else { return }
+        let vc = EnterAddressNameViewController()
+        vc.actionTitle = "Import"
+        vc.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        vc.screenTitle = "Enter Key Name"
+        vc.trackingEvent = .enterKeyName
+        vc.placeholder = "Enter name"
+        vc.address = privateKey.address
+        vc.completion = { [unowned vc] name in
+            let success = PrivateKeyController.importKey(
+                privateKey,
+                name: name,
+                isDrivedFromSeedPhrase: true)
+            guard success else { return }
+            if App.shared.auth.isPasscodeSet {
+                App.shared.snackbar.show(message: "Owner key successfully imported")
+                vc.dismiss(animated: true, completion: nil)
+            } else {
+                let createPasscodeViewController = CreatePasscodeViewController()
+                createPasscodeViewController.navigationItem.hidesBackButton = true
+                createPasscodeViewController.hidesHeadline = false
+                vc.show(createPasscodeViewController, sender: vc)
+            }
         }
+
+        show(vc, sender: self)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

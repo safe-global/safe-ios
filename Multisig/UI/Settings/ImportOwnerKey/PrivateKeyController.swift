@@ -9,10 +9,9 @@
 import Foundation
 import Web3
 class PrivateKeyController {
-    static func importKey(_ privateKey: Data, isDrivedFromSeedPhrase: Bool) -> Bool {
+    static func importKey(_ privateKey: PrivateKey, name: String, isDrivedFromSeedPhrase: Bool) -> Bool {
         do {
-            try PrivateKey(legacy: privateKey).save()
-
+            try KeyInfo.import(address: privateKey.address, name: name, privateKey: privateKey)
             App.shared.notificationHandler.signingKeyUpdated()
 
             Tracker.shared.setNumKeysImported(1)

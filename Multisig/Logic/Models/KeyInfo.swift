@@ -66,6 +66,7 @@ extension KeyInfo {
     ///   - address: address of the imported key
     ///   - name: name of the imported key
     ///   - privateKey: private key to save
+    @discardableResult
     static func `import`(address: Address, name: String, privateKey: PrivateKey) throws -> KeyInfo {
         let context = App.shared.coreDataStack.viewContext
 

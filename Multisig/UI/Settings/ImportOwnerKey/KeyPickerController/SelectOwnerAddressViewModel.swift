@@ -13,6 +13,10 @@ class SelectOwnerAddressViewModel {
     var addresses = [Address]()
     var selectedIndex = 0
 
+    var selectedPrivateKey: PrivateKey? {
+        guard let keyData = privateKeyData(selectedIndex) else { return nil }
+        return try? PrivateKey(data: keyData)
+    }
     var rootNode: HDNode? {
         didSet {
             generateAddressesPage()
@@ -52,10 +56,5 @@ class SelectOwnerAddressViewModel {
     
     func generateAddressesPage() {
         addresses += (0..<pageSize).compactMap { addressAt($0 + addresses.count) }
-    }
-
-    func importWallet() -> Bool {
-        guard let pkData = privateKeyData(selectedIndex) else { return false }
-        return PrivateKeyController.importKey(pkData, isDrivedFromSeedPhrase: true)
     }
 }

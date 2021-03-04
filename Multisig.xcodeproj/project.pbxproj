@@ -155,10 +155,10 @@
 		0A6430F5247ECB3E006FD30A /* ConfigurationKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430F4247ECB3E006FD30A /* ConfigurationKeyTests.swift */; };
 		0A67AC9625E3BE4400B3E97C /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */; };
 		0A67AC9725E3BE4400B3E97C /* PasscodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A67AC9525E3BE4400B3E97C /* PasscodeViewController.xib */; };
-		0A6886932588F87E0045CAB5 /* EnterSafeNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6886912588F87E0045CAB5 /* EnterSafeNameViewController.xib */; };
+		0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */; };
 		0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */; };
 		0A6886D02588FC180045CAB5 /* EnterENSNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6886CE2588FC180045CAB5 /* EnterENSNameViewController.swift */; };
-		0A6886D12588FC180045CAB5 /* EnterSafeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6886CF2588FC180045CAB5 /* EnterSafeNameViewController.swift */; };
+		0A6886D12588FC180045CAB5 /* EnterAddressNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6886CF2588FC180045CAB5 /* EnterAddressNameViewController.swift */; };
 		0A6886E72589080A0045CAB5 /* GNOTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6886E62589080A0045CAB5 /* GNOTextField.swift */; };
 		0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6886EC258908150045CAB5 /* GNOTextField.xib */; };
 		0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C131325407B5100EA67E3 /* ContainerViewController.swift */; };
@@ -636,10 +636,10 @@
 		0A64313F247ED1AA006FD30A /* MultisigIntegrationTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MultisigIntegrationTests.xctestplan; sourceTree = "<group>"; };
 		0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		0A67AC9525E3BE4400B3E97C /* PasscodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasscodeViewController.xib; sourceTree = "<group>"; };
-		0A6886912588F87E0045CAB5 /* EnterSafeNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterSafeNameViewController.xib; sourceTree = "<group>"; };
+		0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterAddressNameViewController.xib; sourceTree = "<group>"; };
 		0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterENSNameViewController.xib; sourceTree = "<group>"; };
 		0A6886CE2588FC180045CAB5 /* EnterENSNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterENSNameViewController.swift; sourceTree = "<group>"; };
-		0A6886CF2588FC180045CAB5 /* EnterSafeNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterSafeNameViewController.swift; sourceTree = "<group>"; };
+		0A6886CF2588FC180045CAB5 /* EnterAddressNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterAddressNameViewController.swift; sourceTree = "<group>"; };
 		0A6886E62589080A0045CAB5 /* GNOTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GNOTextField.swift; sourceTree = "<group>"; };
 		0A6886EC258908150045CAB5 /* GNOTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GNOTextField.xib; sourceTree = "<group>"; };
 		0A6C131325407B5100EA67E3 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -1435,8 +1435,8 @@
 				0A57C9072587C1B100B7C019 /* EnterSafeAddressViewController */,
 				0A6886CE2588FC180045CAB5 /* EnterENSNameViewController.swift */,
 				0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */,
-				0A6886CF2588FC180045CAB5 /* EnterSafeNameViewController.swift */,
-				0A6886912588F87E0045CAB5 /* EnterSafeNameViewController.xib */,
+				0A6886CF2588FC180045CAB5 /* EnterAddressNameViewController.swift */,
+				0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */,
 			);
 			path = "Add Safe";
 			sourceTree = "<group>";
@@ -2568,7 +2568,7 @@
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
-				0A6886932588F87E0045CAB5 /* EnterSafeNameViewController.xib in Resources */,
+				0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
 				04B4B6DE25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.xib in Resources */,
@@ -2901,7 +2901,7 @@
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
 				0A802B8124E413450001790F /* HTTPClientError.swift in Sources */,
-				0A6886D12588FC180045CAB5 /* EnterSafeNameViewController.swift in Sources */,
+				0A6886D12588FC180045CAB5 /* EnterAddressNameViewController.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
 				0468FB9925912E8300541536 /* TransactionListHeaderTableViewCell.swift in Sources */,
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,

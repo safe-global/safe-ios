@@ -8,10 +8,15 @@
 
 import UIKit
 
-class EnterSafeNameViewController: UIViewController {
+class EnterAddressNameViewController: UIViewController {
     var address: Address!
     var name: String?
-    var completion: () -> Void = { }
+    var trackingEvent: TrackingEvent!
+    var screenTitle: String?
+    var actionTitle: String!
+    var placeholder: String!
+    var descriptionText: String!
+    var completion: (String) -> Void = { _ in }
 
     private var nextButton: UIBarButtonItem!
     private var debounceTimer: Timer!
@@ -25,38 +30,35 @@ class EnterSafeNameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(address != nil, "Developer error: expect to have an address")
+        assert(descriptionText?.isEmpty == false, "Developer error: expect to have a description")
+        assert(actionTitle?.isEmpty == false, "Developer error: expect to have an action title")
+        assert(placeholder?.isEmpty == false, "Developer error: expect to have a placeholder")
+        assert(trackingEvent != nil, "Developer error: expect to have a tracking event")
+
         identiconView.setAddress(address.hexadecimal)
         addressLabel.attributedText = address.highlighted
         descriptionLabel.setStyle(.primary)
+        descriptionLabel.text = descriptionText
 
-        textField.setPlaceholder("Enter name")
+        textField.setPlaceholder(placeholder)
         textField.textField.delegate = self
         textField.textField.becomeFirstResponder()
 
-        navigationItem.title = "Load Safe Multisig"
+        navigationItem.title = screenTitle
 
-        nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton))
+        nextButton = UIBarButtonItem(title: actionTitle, style: .done, target: self, action: #selector(didTapNextButton))
         nextButton.isEnabled = false
         navigationItem.rightBarButtonItem = nextButton
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.safeAddName)
+        trackEvent(trackingEvent)
     }
 
     @objc private func didTapNextButton() {
-        guard let name = name, let address = address else { return }
-        Safe.create(address: address.checksummed, name: name)
-        if !AppSettings.hasShownImportKeyOnboarding && !PrivateKeyController.hasPrivateKey {
-            let vc = SafeLoadedViewController()
-            vc.completion = completion
-            vc.hidesBottomBarWhenPushed = true
-            show(vc, sender: self)
-            AppSettings.hasShownImportKeyOnboarding = true
-        } else {
-            completion()
-        }
+        guard let name = name else { return }
+        completion(name)
     }
 
     fileprivate func validateName() {
@@ -70,7 +72,7 @@ class EnterSafeNameViewController: UIViewController {
     }
 }
 
-extension EnterSafeNameViewController: UITextFieldDelegate {
+extension EnterAddressNameViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         debounceTimer?.invalidate()
         debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceDuration, repeats: false, block: { [weak self] _ in
