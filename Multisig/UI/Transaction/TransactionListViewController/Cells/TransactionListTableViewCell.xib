@@ -65,10 +65,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="664" height="128"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZuN-67-z4L">
-                                                <rect key="frame" x="0.0" y="0.0" width="131.5" height="128"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="134.5" height="128"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LZK-GJ-rrg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="123.5" height="128"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="126.5" height="128"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wHw-nl-vXX">
                                                                 <rect key="frame" x="0.0" y="0.0" width="4" height="128"/>
@@ -94,10 +94,10 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D6m-si-Ckz" customClass="TagView" customModule="Multisig" customModuleProvider="target">
-                                                                <rect key="frame" x="86.5" y="39" width="37" height="50"/>
+                                                                <rect key="frame" x="86.5" y="39" width="40" height="50"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="37" id="wqd-hn-gHk"/>
+                                                                    <constraint firstAttribute="width" constant="40" id="wqd-hn-gHk"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
