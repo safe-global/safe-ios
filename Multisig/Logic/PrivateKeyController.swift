@@ -39,6 +39,28 @@ class PrivateKeyController {
         }
     }
 
+    static func remove(keyInfo: KeyInfo) {
+        guard let address = keyInfo.address else { return }
+        do {
+            try KeyInfo.delete(addresses: [address])
+            App.shared.notificationHandler.signingKeyUpdated()
+            App.shared.snackbar.show(message: "Owner key removed from this app")
+            Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
+            Tracker.shared.setNumKeysImported(KeyInfo.count)
+            NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
+        } catch {
+            App.shared.snackbar.show(
+                error: GSError.error(description: "Failed to remove imported key", error: error))
+        }
+    }
+
+    static func edit(keyInfo: KeyInfo, name: String) {
+        keyInfo.rename(newName: name)
+        App.shared.snackbar.show(message: "Owner key updated")
+        NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
+        //Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
+    }
+
     static var signingKeyAddress: String? {
         try? PrivateKey.v1SingleKey()?.address.checksummed
     }

@@ -135,8 +135,8 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func showOwnerKeys() {
-        let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
-        present(vc, animated: true)
+        let vc = OwnerKeysListViewController()
+        show(vc, sender: self)
     }
 
     private func openPasscode() {

@@ -8,17 +8,29 @@
 
 import UIKit
 
+protocol OwnerKeysListTableViewCellDelegate {
+    func ownerKeysListTableViewDidEdit(cell: OwnerKeysListTableViewCell)
+    func ownerKeysListTableViewCellDidRemove(cell: OwnerKeysListTableViewCell)
+}
 class OwnerKeysListTableViewCell: UITableViewCell {
+    @IBOutlet private weak var addressInfoView: AddressInfoView!
+    var delegate: OwnerKeysListTableViewCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        addressInfoView.setDetailImage(nil)
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func set(address: Address, title: String) {
+        addressInfoView.setAddress(address, label: title)
     }
     
+    @IBAction func editButtonTouched(_ sender: Any) {
+        delegate?.ownerKeysListTableViewDidEdit(cell: self)
+    }
+
+    @IBAction func deleteButtonTouched(_ sender: Any) {
+        delegate?.ownerKeysListTableViewCellDidRemove(cell: self)
+    }
 }

@@ -9,9 +9,20 @@
 import UIKit
 
 class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
+    private var keys: [KeyInfo] = []
+    private var addButton: UIBarButtonItem!
+    override var isEmpty: Bool {
+        keys.isEmpty
+    }
+    
+    convenience init() {
+        self.init(namedClass: LoadableViewController.self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "Owner Keys"
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -25,10 +36,25 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         emptyView.setText("There are no imported owner keys")
         emptyView.setImage(#imageLiteral(resourceName: "ico-no-keys"))
 
+        addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton(_:)))
+        navigationItem.rightBarButtonItem = addButton
+
         notificationCenter.addObserver(
             self,
             selector: #selector(lazyReloadData),
-            name: .transactionDataInvalidated,
+            name: .ownerKeyImported,
+            object: nil)
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(lazyReloadData),
+            name: .ownerKeyRemoved,
+            object: nil)
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(lazyReloadData),
+            name: .ownerKeyUpdated,
             object: nil)
     }
 
@@ -37,54 +63,61 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         trackEvent(.ownerKeysList)
     }
 
+    @objc private func didTapAddButton(_ sender: Any) {
+        let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
+        present(vc, animated: true)
+    }
+
     override func reloadData() {
         super.reloadData()
+        keys = (try? KeyInfo.all()) ?? []
+        setNeedsReload(false)
+        onSuccess()
+        tableView.reloadData()
 
-//        do {
-//            let address = try Address(from: try Safe.getSelected()!.address!)
-//
-//            loadFirstPageDataTask = asyncTransactionList(address: address) { [weak self] result in
-//                guard let `self` = self else { return }
-//                switch result {
-//                case .failure(let error):
-//                    DispatchQueue.main.async { [weak self] in
-//                        guard let `self` = self else { return }
-//                        // ignore cancellation error due to cancelling the
-//                        // currently running task. Otherwise user will see
-//                        // meaningless message.
-//                        if (error as NSError).code == URLError.cancelled.rawValue &&
-//                            (error as NSError).domain == NSURLErrorDomain {
-//                            return
-//                        }
-//                        self.onError(GSError.error(description: "Failed to load transactions", error: error))
-//                    }
-//                case .success(let page):
-//                    var model = FlatTransactionsListViewModel(page.results)
-//                    model.next = page.next
-//
-//                    DispatchQueue.main.async { [weak self] in
-//                        guard let `self` = self else { return }
-//                        self.model = model
-//                        self.onSuccess()
-//                    }
-//                }
-//            }
-//        } catch {
-//            onError(GSError.error(description: "Failed to load transactions", error: error))
-//        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        model.items.count
+        keys.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        cell(table: tableView, indexPath: indexPath)
+        let cell = tableView.dequeueCell(OwnerKeysListTableViewCell.self, for: indexPath)
+        let keyInfo = keys[indexPath.row]
+        cell.set(address: keyInfo.address!, title: keyInfo.name ?? "key")
+        cell.delegate = self
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    private func remove(key: KeyInfo) {
+        let alertController = UIAlertController(
+            title: nil,
+            message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
+            preferredStyle: .actionSheet)
+        let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
+            PrivateKeyController.remove(keyInfo: key)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(remove)
+        alertController.addAction(cancel)
+        present(alertController, animated: true)
+    }
+}
+
+extension OwnerKeysListViewController: OwnerKeysListTableViewCellDelegate {
+    func ownerKeysListTableViewDidEdit(cell: OwnerKeysListTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let vc = EditOwnerKeyViewController(keyInfo: keys[indexPath.row])
+        show(vc, sender: self)
+    }
+
+    func ownerKeysListTableViewCellDidRemove(cell: OwnerKeysListTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        remove(key: keys[indexPath.row])
     }
 }
