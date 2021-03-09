@@ -155,10 +155,10 @@
 		0A6430F5247ECB3E006FD30A /* ConfigurationKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430F4247ECB3E006FD30A /* ConfigurationKeyTests.swift */; };
 		0A67AC9625E3BE4400B3E97C /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */; };
 		0A67AC9725E3BE4400B3E97C /* PasscodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A67AC9525E3BE4400B3E97C /* PasscodeViewController.xib */; };
-		0A6886932588F87E0045CAB5 /* EnterSafeNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6886912588F87E0045CAB5 /* EnterSafeNameViewController.xib */; };
+		0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */; };
 		0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */; };
 		0A6886D02588FC180045CAB5 /* EnterENSNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6886CE2588FC180045CAB5 /* EnterENSNameViewController.swift */; };
-		0A6886D12588FC180045CAB5 /* EnterSafeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6886CF2588FC180045CAB5 /* EnterSafeNameViewController.swift */; };
+		0A6886D12588FC180045CAB5 /* EnterAddressNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6886CF2588FC180045CAB5 /* EnterAddressNameViewController.swift */; };
 		0A6886E72589080A0045CAB5 /* GNOTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6886E62589080A0045CAB5 /* GNOTextField.swift */; };
 		0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6886EC258908150045CAB5 /* GNOTextField.xib */; };
 		0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C131325407B5100EA67E3 /* ContainerViewController.swift */; };
@@ -417,14 +417,11 @@
 		55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC102493923A003B2B19 /* TrackerTests.swift */; };
 		55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1D24939503003B2B19 /* View+Tracking.swift */; };
 		55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1F24939525003B2B19 /* TrackingEvent.swift */; };
-		55D3654125077F23004D5047 /* EnterSeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */; };
 		55D3654325078560004D5047 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654225078560004D5047 /* TextView.swift */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
 		55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */; };
 		55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */; };
 		55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */; };
-		55F91B0425BEBD4400938475 /* ConfirmPrivateKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91B0225BEBD4400938475 /* ConfirmPrivateKeyViewController.swift */; };
-		55F91B0525BEBD4500938475 /* ConfirmPrivateKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91B0325BEBD4400938475 /* ConfirmPrivateKeyViewController.xib */; };
 		55F91B0F25BF081900938475 /* PrivateKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91B0E25BF081900938475 /* PrivateKeyController.swift */; };
 		68F2F299ED7EA791697FFE29 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52066BA379FCA71FFC2BE833 /* libPods-NotificationServiceExtension.a */; };
 		D041FEDD6C712A3A8AC1BA71 /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */; };
@@ -636,10 +633,10 @@
 		0A64313F247ED1AA006FD30A /* MultisigIntegrationTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MultisigIntegrationTests.xctestplan; sourceTree = "<group>"; };
 		0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		0A67AC9525E3BE4400B3E97C /* PasscodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasscodeViewController.xib; sourceTree = "<group>"; };
-		0A6886912588F87E0045CAB5 /* EnterSafeNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterSafeNameViewController.xib; sourceTree = "<group>"; };
+		0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterAddressNameViewController.xib; sourceTree = "<group>"; };
 		0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterENSNameViewController.xib; sourceTree = "<group>"; };
 		0A6886CE2588FC180045CAB5 /* EnterENSNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterENSNameViewController.swift; sourceTree = "<group>"; };
-		0A6886CF2588FC180045CAB5 /* EnterSafeNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterSafeNameViewController.swift; sourceTree = "<group>"; };
+		0A6886CF2588FC180045CAB5 /* EnterAddressNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterAddressNameViewController.swift; sourceTree = "<group>"; };
 		0A6886E62589080A0045CAB5 /* GNOTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GNOTextField.swift; sourceTree = "<group>"; };
 		0A6886EC258908150045CAB5 /* GNOTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GNOTextField.xib; sourceTree = "<group>"; };
 		0A6C131325407B5100EA67E3 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -937,7 +934,6 @@
 		55BCFC552554627100020CE7 /* BasicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicCell.xib; sourceTree = "<group>"; };
 		55BCFC5D255469B300020CE7 /* BasicHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHeaderView.swift; sourceTree = "<group>"; };
 		55BCFC67255469C200020CE7 /* BasicHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicHeaderView.xib; sourceTree = "<group>"; };
-		55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOwnerAddressView.swift; sourceTree = "<group>"; };
 		55CA3EB8250A234F0080DF7F /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		55CA3EBA250A237C0080DF7F /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceIntegrationTests.swift; sourceTree = "<group>"; };
@@ -947,14 +943,11 @@
 		55CEFC102493923A003B2B19 /* TrackerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerTests.swift; sourceTree = "<group>"; };
 		55CEFC1D24939503003B2B19 /* View+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Tracking.swift"; sourceTree = "<group>"; };
 		55CEFC1F24939525003B2B19 /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
-		55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSeedPhraseView.swift; sourceTree = "<group>"; };
 		55D3654225078560004D5047 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		55DCC332258A4C71003346FC /* GSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSError.swift; sourceTree = "<group>"; };
 		55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterKeyOrSeedPhraseViewController.xib; sourceTree = "<group>"; };
 		55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterKeyOrSeedPhraseViewController.swift; sourceTree = "<group>"; };
 		55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingBehavior.swift; sourceTree = "<group>"; };
-		55F91B0225BEBD4400938475 /* ConfirmPrivateKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPrivateKeyViewController.swift; sourceTree = "<group>"; };
-		55F91B0325BEBD4400938475 /* ConfirmPrivateKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmPrivateKeyViewController.xib; sourceTree = "<group>"; };
 		55F91B0E25BF081900938475 /* PrivateKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyController.swift; sourceTree = "<group>"; };
 		586B435AB878EA6A796D3E66 /* Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.staging.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		5CBFF463F4BE8B670E9583FC /* Pods-MultisigTests.release.production.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.production.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.production.mainnet.xcconfig"; sourceTree = "<group>"; };
@@ -1435,8 +1428,8 @@
 				0A57C9072587C1B100B7C019 /* EnterSafeAddressViewController */,
 				0A6886CE2588FC180045CAB5 /* EnterENSNameViewController.swift */,
 				0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */,
-				0A6886CF2588FC180045CAB5 /* EnterSafeNameViewController.swift */,
-				0A6886912588F87E0045CAB5 /* EnterSafeNameViewController.xib */,
+				0A6886CF2588FC180045CAB5 /* EnterAddressNameViewController.swift */,
+				0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */,
 			);
 			path = "Add Safe";
 			sourceTree = "<group>";
@@ -1506,7 +1499,6 @@
 		0A704A3A2473D772005BDC49 /* App Settings */ = {
 			isa = PBXGroup;
 			children = (
-				55D3653F25077F07004D5047 /* Owner Wallet Management */,
 				0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */,
 			);
 			path = "App Settings";
@@ -2298,23 +2290,12 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
-		55D3653F25077F07004D5047 /* Owner Wallet Management */ = {
-			isa = PBXGroup;
-			children = (
-				55D3654025077F23004D5047 /* EnterSeedPhraseView.swift */,
-				55CA3EAA2508D3670080DF7F /* SelectOwnerAddressView.swift */,
-			);
-			path = "Owner Wallet Management";
-			sourceTree = "<group>";
-		};
 		55F91A8E25BEABA100938475 /* ImportOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
 				0A478D4D25B865150038363E /* KeyPickerController */,
 				55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */,
 				55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */,
-				55F91B0225BEBD4400938475 /* ConfirmPrivateKeyViewController.swift */,
-				55F91B0325BEBD4400938475 /* ConfirmPrivateKeyViewController.xib */,
 				04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */,
 				04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */,
 				55F91B0E25BF081900938475 /* PrivateKeyController.swift */,
@@ -2546,7 +2527,6 @@
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
-				55F91B0525BEBD4500938475 /* ConfirmPrivateKeyViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
 				04B4B68F25B8857F00CFE24B /* SafeInfoViewV2.xib in Resources */,
@@ -2568,7 +2548,7 @@
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
-				0A6886932588F87E0045CAB5 /* EnterSafeNameViewController.xib in Resources */,
+				0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
 				04B4B6DE25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.xib in Resources */,
@@ -2901,7 +2881,7 @@
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
 				0A802B8124E413450001790F /* HTTPClientError.swift in Sources */,
-				0A6886D12588FC180045CAB5 /* EnterSafeNameViewController.swift in Sources */,
+				0A6886D12588FC180045CAB5 /* EnterAddressNameViewController.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
 				0468FB9925912E8300541536 /* TransactionListHeaderTableViewCell.swift in Sources */,
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,
@@ -2923,7 +2903,6 @@
 				0A09839C24BC522B009EE296 /* Token.swift in Sources */,
 				0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */,
 				0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */,
-				55D3654125077F23004D5047 /* EnterSeedPhraseView.swift in Sources */,
 				0A95894025EFBE1E005011D7 /* KeyInfo.swift in Sources */,
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
 				043ABD0F24EF0C33008826D5 /* SafeClientGatewayService.swift in Sources */,
@@ -2992,7 +2971,6 @@
 				0A6430E2247EC2C7006FD30A /* ConfigurationKey.swift in Sources */,
 				0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
-				55F91B0425BEBD4400938475 /* ConfirmPrivateKeyViewController.swift in Sources */,
 				0A6886D02588FC180045CAB5 /* EnterENSNameViewController.swift in Sources */,
 				0468FB8625912E6800541536 /* QueuedTransactionsViewController.swift in Sources */,
 				0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */,

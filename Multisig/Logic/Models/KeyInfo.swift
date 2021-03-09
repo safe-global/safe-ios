@@ -66,6 +66,7 @@ extension KeyInfo {
     ///   - address: address of the imported key
     ///   - name: name of the imported key
     ///   - privateKey: private key to save
+    @discardableResult
     static func `import`(address: Address, name: String, privateKey: PrivateKey) throws -> KeyInfo {
         let context = App.shared.coreDataStack.viewContext
 
@@ -138,7 +139,7 @@ extension NSFetchRequest where ResultType == KeyInfo {
     /// return keys with matching address
     func by(address: Address) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "address CONTAINS[c] %@", address.checksummed)
+        predicate = NSPredicate(format: "addressString CONTAINS[c] %@", address.checksummed)
         fetchLimit = 1
         return self
     }

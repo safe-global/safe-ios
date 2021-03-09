@@ -56,9 +56,25 @@ class EnterSafeAddressViewController: UIViewController {
 
     @objc private func didTapNextButton(_ sender: Any) {
         guard let address = address else { return }
-        let vc = EnterSafeNameViewController()
+        let vc = EnterAddressNameViewController()
         vc.address = address
-        vc.completion = completion
+        vc.trackingEvent = .safeAddName
+        vc.screenTitle = "Load Safe Multisig"
+        vc.descriptionText = "Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        vc.actionTitle = "Next"
+        vc.placeholder = "Enter name"
+        vc.completion = { [unowned vc, unowned self] name in
+            Safe.create(address: address.checksummed, name: name)
+            if !AppSettings.hasShownImportKeyOnboarding && !PrivateKeyController.hasPrivateKey {
+                let safeLoadedViewController = SafeLoadedViewController()
+                safeLoadedViewController.completion = self.completion
+                safeLoadedViewController.hidesBottomBarWhenPushed = true
+                vc.show(safeLoadedViewController, sender: vc)
+                AppSettings.hasShownImportKeyOnboarding = true
+            } else {
+                self.completion()
+            }
+        }
         show(vc, sender: self)
     }
 

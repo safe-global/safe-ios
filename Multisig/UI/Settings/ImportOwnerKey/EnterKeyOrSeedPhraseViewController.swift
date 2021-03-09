@@ -78,8 +78,31 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
             }
             let vc = KeyPickerController(node: rootNode)
             show(vc, sender: self)
-        } else if isValidPK(phrase) {
-            let vc = ConfirmPrivateKeyViewController(privateKey: Data(exactlyHex: phrase)!, isDrivedFromSeedPhrase: false)
+        } else if isValidPK(phrase), let privateKey = try? PrivateKey(data: Data(exactlyHex: phrase)!) {
+            let vc = EnterAddressNameViewController()
+            vc.actionTitle = "Import"
+            vc.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+            vc.screenTitle = "Enter Key Name"
+            vc.trackingEvent = .enterKeyName
+            vc.placeholder = "Enter name"
+            vc.address = privateKey.address
+            vc.completion = { [unowned vc] name in
+                let success = PrivateKeyController.importKey(
+                    privateKey,
+                    name: name,
+                    isDrivedFromSeedPhrase: false)
+                guard success else { return }
+                if App.shared.auth.isPasscodeSet {
+                    App.shared.snackbar.show(message: "Owner key successfully imported")
+                    vc.dismiss(animated: true, completion: nil)
+                } else {
+                    let createPasscodeViewController = CreatePasscodeViewController()
+                    createPasscodeViewController.navigationItem.hidesBackButton = true
+                    createPasscodeViewController.hidesHeadline = false
+                    vc.show(createPasscodeViewController, sender: vc)
+                }
+            }
+
             show(vc, sender: self)
         }
     }
