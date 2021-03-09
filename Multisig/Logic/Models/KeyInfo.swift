@@ -139,7 +139,7 @@ extension NSFetchRequest where ResultType == KeyInfo {
     /// return keys with matching address
     func by(address: Address) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "address CONTAINS[c] %@", address.checksummed)
+        predicate = NSPredicate(format: "addressString CONTAINS[c] %@", address.checksummed)
         fetchLimit = 1
         return self
     }
