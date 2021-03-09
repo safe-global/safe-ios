@@ -2069,6 +2069,7 @@
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
 				0AD6EF1D25CAF5EC00EE5512 /* AppReviewController.swift */,
+				55F91B0E25BF081900938475 /* PrivateKeyController.swift */,
 				0AC5F56A25DD4A4B00DEF0D7 /* AuthenticationController.swift */,
 			);
 			path = Logic;
@@ -2298,7 +2299,6 @@
 				55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */,
 				04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */,
 				04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */,
-				55F91B0E25BF081900938475 /* PrivateKeyController.swift */,
 			);
 			path = ImportOwnerKey;
 			sourceTree = "<group>";

@@ -39,6 +39,7 @@ extension KeyInfo {
     }
 
     /// This will return a list of KeyInfo for the addresses that it finds in the app.
+    /// At most one key info per address will be returned.
     /// - Parameter addresses: all the infos for the same address
     /// - Returns: list of key information
     static func keys(addresses: [Address]) throws -> [KeyInfo] {
@@ -51,7 +52,8 @@ extension KeyInfo {
     }
 
     /// Returns private keys found by the addresses. The multiple private keys option is needed when we want to sign the "push notification" payload with all of the keys available in the app.
-
+    /// At most one key per address is returned.
+    /// 
     /// - Parameter addresses: which addresses you want to get keys?
     /// - Throws: in case of underlying errors
     /// - Returns: private keys for the addresses that were found.
@@ -123,6 +125,11 @@ extension KeyInfo {
         }
         App.shared.coreDataStack.viewContext.delete(self)
         save()
+    }
+
+    func privateKey() throws -> PrivateKey? {
+        guard let keyID = keyID else { return nil }
+        return try PrivateKey.key(id: keyID)
     }
 }
 

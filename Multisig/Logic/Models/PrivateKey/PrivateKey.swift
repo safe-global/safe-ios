@@ -20,13 +20,13 @@ struct PrivateKey {
     }
 
     var data: Data {
-        try! Data(_store.address.makeBytes())
+        Data(_store.rawPrivateKey)
     }
 }
 
 extension PrivateKey {
 
-    init(mnemonic: [String], pathIndex: Int) throws {
+    init(mnemonic: [String], pathIndex: Int, id: KeyID? = nil) throws {
         guard
             let seed = BIP39.seedFromMmemonics(mnemonic.joined(separator: " ")),
             let seedNode = HDNode(seed: seed),
@@ -39,29 +39,35 @@ extension PrivateKey {
             throw GSError.ThirdPartyError(reason: "Invalid mnemonic or key index")
         }
         _store = try EthereumPrivateKey(keyData)
-        id = ""
-        id = KeychainKey.ownerPrivateKey + address.checksummed
+        if let value = id {
+            self.id = value
+        } else {
+            self.id = Self.identifier(Address(_store.address))
+        }
     }
 
-    init(data: Data) throws {
+    init(data: Data, id: KeyID? = nil) throws {
         _store = try EthereumPrivateKey(data)
-        id = ""
-        id = KeychainKey.ownerPrivateKey + address.checksummed
+        if let value = id {
+            self.id = value
+        } else {
+            self.id = Self.identifier(Address(_store.address))
+        }
     }
 
-    static func id(_ address: Address) -> KeyID {
+    static func identifier(_ address: Address) -> KeyID {
         KeychainKey.ownerPrivateKey + address.checksummed
     }
 
     static func key(address: Address) throws -> PrivateKey? {
-        try key(id: id(address))
+        try key(id: identifier(address))
     }
 
     static func key(id: KeyID) throws -> PrivateKey? {
         do {
             let pkDataOrNil = try App.shared.keychainService.data(forKey: id)
             guard let pkData = pkDataOrNil else { return nil }
-            return try PrivateKey(data: pkData)
+            return try PrivateKey(data: pkData, id: id)
         } catch {
             throw GSError.KeychainError(reason: error.localizedDescription)
         }
@@ -100,15 +106,14 @@ extension PrivateKey {
     @available(*, deprecated, message: "Will be removed after refactoring")
     init(legacy data: Data) throws {
         _store = try EthereumPrivateKey(data)
-        id = ""
         id = KeychainKey.ownerPrivateKey
     }
 
     @available(*, deprecated, message: "Will be removed after refactoring")
-    static func legacySingleKey() throws -> PrivateKey? {
-        try key(id: Self.legacyKeyID)
+    static func v1SingleKey() throws -> PrivateKey? {
+        try self.key(id: PrivateKey.v1KeyID)
     }
 
     @available(*, deprecated, message: "Will be removed after refactoring")
-    static let legacyKeyID: KeyID = KeychainKey.ownerPrivateKey
+    static let v1KeyID: KeyID = KeychainKey.ownerPrivateKey
 }
