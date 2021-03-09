@@ -47,6 +47,14 @@ class PrivateKeyController {
         KeyInfo.count > 0
     }
 
+    static func exists(_ privateKey: PrivateKey) -> Bool {
+        do {
+            return try !KeyInfo.privateKeys(addresses: [privateKey.address]).isEmpty
+        } catch {
+            return false
+        }
+    }
+
     // If user already imported a key in a previous app version, then
     // the key’s name will be “Key 0x1234...2345” where the “0x…” part is
     // the ellipsized address of the key

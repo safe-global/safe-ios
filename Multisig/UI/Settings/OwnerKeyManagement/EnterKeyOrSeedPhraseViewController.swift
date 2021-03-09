@@ -79,6 +79,12 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
             let vc = KeyPickerController(node: rootNode)
             show(vc, sender: self)
         } else if isValidPK(phrase), let privateKey = try? PrivateKey(data: Data(exactlyHex: phrase)!) {
+
+            if PrivateKeyController.exists(privateKey) {
+                setError(GSError.KeyAlreadyImported())
+                return
+            }
+
             let vc = EnterAddressNameViewController()
             vc.actionTitle = "Import"
             vc.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."

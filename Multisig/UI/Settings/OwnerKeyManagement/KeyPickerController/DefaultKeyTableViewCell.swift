@@ -47,6 +47,10 @@ class DefaultKeyTableViewCell: UITableViewCell {
         addressView.setAddress(value, label: label)
     }
 
+    func setEnabled(_ enabled: Bool) {
+        contentView.alpha = enabled ? 1 : 0.5
+    }
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {

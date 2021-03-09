@@ -242,6 +242,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct KeyAlreadyImported: DetailedLocalizedError {
+        let description = "Can't use this private key"
+        let reason = "This key already imported."
+        let howToFix = "Please import a different key"
+        let domain = clientErrorDomain
+        let code = 1111
+        let loggable = false
+    }
+
     struct TransactionSigningError: DetailedLocalizedError {
         let description = "Failed to confirm transaction"
         let reason = "Computed safeTxHash of a transaction to confirm does not match server-returned value."

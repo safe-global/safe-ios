@@ -28,8 +28,7 @@ class AppSettingsViewController: UITableViewController {
         case advanced
 
         enum App: SectionItem {
-            case importKey(String)
-            case importedKey(String, String)
+            case ownerKeys(String, String)
             case passcode(String)
             case appearance(String)
         }
@@ -75,7 +74,7 @@ class AppSettingsViewController: UITableViewController {
     private func buildSections() {
         sections = [
             (section: .app, items: [
-                PrivateKeyController.signingKeyAddress.map { Section.App.importedKey("Imported owner key", $0) } ?? Section.App.importKey("Import owner key"),
+                Section.App.ownerKeys("Owner keys", "\(KeyInfo.count)"),
                 Section.App.passcode("Passcode"),
                 Section.App.appearance("Appearance"),
             ]),
@@ -135,7 +134,7 @@ class AppSettingsViewController: UITableViewController {
         present(alertController, animated: true)
     }
 
-    private func importOwnerKey() {
+    private func showOwnerKeys() {
         let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
         present(vc, animated: true)
     }
@@ -158,11 +157,8 @@ class AppSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.App.importKey(let name):
-            return basicCell(name: name, indexPath: indexPath)
-
-        case Section.App.importedKey(let name, let signingKey):
-            return importedKeyCell(name: name, signingKey: signingKey, indexPath: indexPath)
+        case Section.App.ownerKeys(let name, let count):
+            return basicCell(name: name, info: count, indexPath: indexPath)
 
         case Section.App.passcode(let name):
             return basicCell(name: name, indexPath: indexPath)
@@ -199,9 +195,10 @@ class AppSettingsViewController: UITableViewController {
         }
     }
 
-    private func basicCell(name: String, indexPath: IndexPath) -> UITableViewCell {
+    private func basicCell(name: String, info: String? = nil, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
         cell.setTitle(name)
+        cell.setDetail(info)
         return cell
     }
 
@@ -225,35 +222,35 @@ class AppSettingsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.App.importKey(_):
-            importOwnerKey()
+        case Section.App.ownerKeys:
+            showOwnerKeys()
 
         case Section.App.passcode:
             openPasscode()
 
-        case Section.App.appearance(_):
+        case Section.App.appearance:
             let appearanceViewController = ChangeDisplayModeTableViewController()
             show(appearanceViewController, sender: self)
 
-        case Section.General.terms(_):
+        case Section.General.terms:
             openInSafari(legal.termsURL)
 
-        case Section.General.privacyPolicy(_):
+        case Section.General.privacyPolicy:
             openInSafari(legal.privacyURL)
 
-        case Section.General.licenses(_):
+        case Section.General.licenses:
             openInSafari(legal.licensesURL)
 
-        case Section.General.getInTouch(_):
+        case Section.General.getInTouch:
             let getInTouchVC = GetInTouchView()
             let hostingController = UIHostingController(rootView: getInTouchVC)
             show(hostingController, sender: self)
 
-        case Section.General.rateTheApp(_):
+        case Section.General.rateTheApp:
             let url = App.configuration.contact.appStoreReviewURL
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
 
-        case Section.Advanced.advanced(_):
+        case Section.Advanced.advanced:
             let advancedVC = AdvancedAppSettings()
             let hostingController = UIHostingController(rootView: advancedVC)
             show(hostingController, sender: self)
@@ -271,10 +268,7 @@ class AppSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.App.importedKey(_, _):
-            return UITableView.automaticDimension
-
-        case Section.General.appVersion(_, _), Section.General.network(_, _):
+        case Section.General.appVersion, Section.General.network:
             return InfoCell.rowHeight
 
         default:
