@@ -32,4 +32,8 @@ class DerivedKeyTableViewCell: UITableViewCell {
     func setSelected(_ selected: Bool) {
         iconImageView.alpha = selected ? 1 : 0
     }
+
+    func setEnabled(_ enabled: Bool) {
+        contentView.alpha = enabled ? 1 : 0.5
+    }
 }

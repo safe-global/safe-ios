@@ -10,28 +10,35 @@ import Foundation
 import Web3
 
 class SelectOwnerAddressViewModel {
-    var addresses = [Address]()
+
+    struct KeyAddressInfo {
+        var index: Int
+        var address: Address
+        var name: String?
+        var exists: Bool { name != nil }
+    }
+
+    static let notSelectedIndex = -1
+
+    var items = [KeyAddressInfo]()
     var selectedIndex = 0
 
     var selectedPrivateKey: PrivateKey? {
         guard let keyData = privateKeyData(selectedIndex) else { return nil }
         return try? PrivateKey(data: keyData)
     }
-    var rootNode: HDNode? {
-        didSet {
-            generateAddressesPage()
-        }
-    }
-    var maxAddressesCount = 100
+    private var rootNode: HDNode?
+    var maxItemCount = 100
     var pageSize = 20
 
     var canLoadMoreAddresses: Bool {
-        addresses.count < maxAddressesCount
+        items.count < maxItemCount
     }
 
     init(rootNode: HDNode, onSubmit: (() -> Void)? = nil ) {
         self.rootNode = rootNode
-        generateAddressesPage()
+        generateNextPage()
+        selectedIndex = items.first?.exists == true ? Self.notSelectedIndex : 0
     }
 
     private func addressAt(_ index: Int) -> Address? {
@@ -42,6 +49,7 @@ class SelectOwnerAddressViewModel {
         do {
             return try PrivateKey(data: pkData).address
         } catch {
+            LogService.shared.error("Could not derive address: \(error)")
             App.shared.snackbar.show(
                 error: GSError.UnknownAppError(description: "Could not derive address",
                                                reason: "Unexpected error appeared.",
@@ -51,10 +59,30 @@ class SelectOwnerAddressViewModel {
     }
 
     private func privateKeyData(_ index: Int) -> Data? {
-        rootNode?.derive(index: UInt32(index), derivePrivateKey: true)?.privateKey
+        guard index >= 0 else { return nil }
+        return rootNode?.derive(index: UInt32(index), derivePrivateKey: true)?.privateKey
     }
     
-    func generateAddressesPage() {
-        addresses += (0..<pageSize).compactMap { addressAt($0 + addresses.count) }
+    func generateNextPage() {
+        do {
+            let indexes = (items.count..<items.count + pageSize)
+            let addresses = indexes.map(addressAt)
+            let infoByAddress = try Dictionary(grouping: KeyInfo.keys(addresses: addresses.compactMap { $0 }), by: \.address)
+
+            let nextPage = indexes.enumerated().compactMap { (i, addressIndex) in
+                addresses[i].flatMap {
+                    KeyAddressInfo(index: addressIndex, address: $0, name: infoByAddress[$0]?.first?.name)
+                }
+            }
+
+            self.items += nextPage
+        } catch {
+            LogService.shared.error("Failed to generate addresses: \(error)")
+            App.shared.snackbar.show(
+                error: GSError.UnknownAppError(description: "Could not generate addresses",
+                                               reason: "Unexpected error occurred.",
+                                               howToFix: "Please try again later")
+            )
+        }
     }
 }
