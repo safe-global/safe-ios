@@ -23,14 +23,16 @@ class KeyPickerController: UITableViewController {
         case collapsed, expanded
     }
 
+    typealias Item = SelectOwnerAddressViewModel.KeyAddressInfo
+
     private var viewModel: SelectOwnerAddressViewModel!
     private var listState = ListState.collapsed
-    private var addresses: [Address] {
+    private var items: [Item] {
         switch listState {
         case .collapsed:
-            return viewModel.addresses.isEmpty ? [] : Array(viewModel.addresses[0..<1])
+            return viewModel.items.isEmpty ? [] : Array(viewModel.items[0..<1])
         case .expanded:
-            return viewModel.addresses
+            return viewModel.items
         }
     }
 
@@ -101,7 +103,7 @@ class KeyPickerController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case Section.address:
-            return addresses.count
+            return items.count
         case Section.showMore:
             return viewModel.canLoadMoreAddresses ? 1 : 0
         default:
@@ -113,16 +115,17 @@ class KeyPickerController: UITableViewController {
         switch indexPath.section {
 
         case Section.address:
-            let address = addresses[indexPath.row]
+            let item = items[indexPath.row]
 
             switch indexPath.row {
 
             case Index.default:
                 let cell = tableView.dequeueCell(DefaultKeyTableViewCell.self, for: indexPath)
                 cell.setHeader("Default")
-                cell.setLeft("#1")
-                cell.setAddress(address)
+                cell.setLeft("#\(item.index + 1)")
+                cell.setAddress(item.address, label: item.name)
                 cell.setSelected(isSelected(indexPath))
+                cell.setEnabled(!item.exists)
 
                 switch listState {
                 case .collapsed:
@@ -136,9 +139,10 @@ class KeyPickerController: UITableViewController {
 
             default:
                 let cell = tableView.dequeueCell(DerivedKeyTableViewCell.self, for: indexPath)
-                cell.setLeft("#\(indexPath.row + 1)")
-                cell.setAddress(address)
+                cell.setLeft("#\(item.index + 1)")
+                cell.setAddress(item.address)
                 cell.setSelected(isSelected(indexPath))
+                cell.setEnabled(!item.exists)
                 return cell
             }
 
@@ -177,10 +181,10 @@ class KeyPickerController: UITableViewController {
             // we already have 1 address as a default one
             inserted = (1..<viewModel.pageSize).map { IndexPath(row: $0, section: 0) }
         } else {
-            inserted = (addresses.count..<(addresses.count + viewModel.pageSize))
+            inserted = (items.count..<(items.count + viewModel.pageSize))
                 .map { IndexPath(row: $0, section: 0) }
 
-            viewModel.generateAddressesPage()
+            viewModel.generateNextPage()
 
             if !viewModel.canLoadMoreAddresses {
                 deleted = [IndexPath(row: Index.showMore, section: Section.showMore)]
@@ -196,11 +200,22 @@ class KeyPickerController: UITableViewController {
         tableView.endUpdates()
     }
 
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let item = items[indexPath.row]
+        let shouldSelect = indexPath.section == Section.address && indexPath.row != viewModel.selectedIndex && !item.exists
+        return shouldSelect ? indexPath : nil
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard indexPath.section == Section.address, indexPath.row != viewModel.selectedIndex else { return }
+        let item = items[indexPath.row]
+        guard indexPath.section == Section.address && indexPath.row != viewModel.selectedIndex && !item.exists else { return }
 
-        let updatedPaths = [indexPath, IndexPath(row: viewModel.selectedIndex, section: 0)]
+        var updatedPaths = [indexPath]
+
+        if viewModel.selectedIndex != SelectOwnerAddressViewModel.notSelectedIndex {
+            updatedPaths.append(IndexPath(row: viewModel.selectedIndex, section: 0))
+        }
 
         viewModel.selectedIndex = indexPath.row
 
