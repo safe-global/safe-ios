@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         Tracker.shared.append(handler: FirebaseTrackingHandler())
 
+        PrivateKeyController.migrateLegacySigningKey()
+
         // The requirement is to set num_safes property to "0" when there are no Safes
         Tracker.shared.setSafeCount(Safe.count)
         Tracker.shared.setNumKeysImported(SafeTransactionSigner.numberOfKeysImported())

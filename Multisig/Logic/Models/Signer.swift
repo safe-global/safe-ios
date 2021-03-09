@@ -32,7 +32,7 @@ class Signer {
     /// - Throws: errors during sisgning process
     /// - Returns: Signature object containing hex(r) hex(s) hex(v + 27) as one strig of secp256k1 signature
     static func sign(hash: Data) throws -> Signature {
-        guard let privateKey = try PrivateKey.legacySingleKey() else {
+        guard let privateKey = try PrivateKey.v1SingleKey() else {
             throw GSError.PreconditionsForSigningNotSatisfied(description: "Private key not found")
         }
         let signer = privateKey.address.checksummed
