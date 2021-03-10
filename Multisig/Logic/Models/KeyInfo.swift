@@ -17,6 +17,10 @@ extension KeyInfo {
         set { addressString = newValue.checksummed }
     }
 
+    var hasPrivateKey: Bool {
+        (try? privateKey()) != nil
+    }
+
     /// Returns number of existing key infos
     static var count: Int {
         do {

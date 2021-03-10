@@ -103,7 +103,7 @@ struct AppConfiguration {
     }
 
     struct FeatureToggles {
-        let signing: Bool = true
+        // empty for now
     }
 
     let services = Services()

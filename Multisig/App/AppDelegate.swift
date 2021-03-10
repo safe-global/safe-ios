@@ -12,7 +12,6 @@ import SwiftUI
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         App.shared.firebaseConfig.setUp()
 
         #if DEBUG
@@ -20,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         Tracker.shared.append(handler: FirebaseTrackingHandler())
 
+        AppSettings.saveCurrentRunVersionNumber()
+
+        PrivateKeyController.cleanUpKeys()
         PrivateKeyController.migrateLegacySigningKey()
 
         // The requirement is to set num_safes property to "0" when there are no Safes

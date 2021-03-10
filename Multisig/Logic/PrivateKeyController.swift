@@ -121,4 +121,30 @@ class PrivateKeyController {
             LogService.shared.error("Failed to migrate legacy key: \(error)")
         }
     }
+
+    /// Removes private keys on fresh install. Also, will remove all key infos
+    /// which don't have any private key stored (stale data).
+    ///
+    /// This is needed because the Keychain doesn't get cleared when
+    /// an app is removed from the phone. On the next installation
+    /// all of the Keychain data will be present.
+    ///
+    /// The case when there are KeyInfo data (CoreData) are present but
+    /// the Keychain data doesn't exist happens when users restore phones
+    /// from the iCloud backup, which restores the application data but
+    /// does not restore Keychain. It would not happen if a user would
+    /// restore from encrypted backup, which restores Keychain data as well.
+    static func cleanUpKeys() {
+        do {
+            if !AppSettings.isFreshInstall {
+                try PrivateKey.deleteAll()
+            }
+
+            // delete all key infos whos private keys do not exist
+            let infos = try KeyInfo.all().filter { !$0.hasPrivateKey }
+            try infos.forEach { try $0.delete() }
+        } catch {
+            LogService.shared.error("Failed to delete all keys: \(error)")
+        }
+    }
 }
