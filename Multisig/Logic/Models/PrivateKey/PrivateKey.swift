@@ -81,6 +81,18 @@ extension PrivateKey {
         }
     }
 
+    static func deleteAll() throws {
+        do {
+            let keys = try App.shared.keychainService.allKeys()
+                .filter { $0.starts(with: KeychainKey.ownerPrivateKey) }
+            for key in keys {
+                try App.shared.keychainService.removeData(forKey: key)
+            }
+        } catch {
+            throw GSError.KeychainError(reason: error.localizedDescription)
+        }
+    }
+
     func save() throws {
         do {
             try App.shared.keychainService.removeData(forKey: id)
