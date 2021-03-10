@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol OwnerKeysListTableViewCellDelegate {
+protocol OwnerKeysListTableViewCellDelegate: class {
     func ownerKeysListTableViewDidEdit(cell: OwnerKeysListTableViewCell)
     func ownerKeysListTableViewCellDidRemove(cell: OwnerKeysListTableViewCell)
 }
 class OwnerKeysListTableViewCell: UITableViewCell {
     @IBOutlet private weak var addressInfoView: AddressInfoView!
-    var delegate: OwnerKeysListTableViewCellDelegate?
+    weak var delegate: OwnerKeysListTableViewCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
