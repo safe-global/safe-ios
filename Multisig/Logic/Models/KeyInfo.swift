@@ -17,6 +17,10 @@ extension KeyInfo {
         set { addressString = newValue.checksummed }
     }
 
+    var hasPrivateKey: Bool {
+        (try? privateKey()) != nil
+	}
+
     static func name(address: Address) -> String? {
         guard let keyInfo = try? KeyInfo.keys(addresses: [address]).first else { return nil }
         return keyInfo.name

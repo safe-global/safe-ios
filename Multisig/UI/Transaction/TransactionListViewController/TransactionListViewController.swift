@@ -320,6 +320,10 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             if let importedSafeName = Safe.cachedName(by: customInfo.to) {
                 title = importedSafeName
                 placeholderAddress = customInfo.to
+            } else if let safeAppInfo = tx.safeAppInfo {
+                title = safeAppInfo.name
+                tag = "App"
+                imageURL = URL(string: safeAppInfo.logoUrl)
             } else if let toInfo = customInfo.toInfo {
                 title = toInfo.name
                 imageURL = toInfo.logoUri
@@ -338,16 +342,6 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         case .unknown:
             image = #imageLiteral(resourceName: "ico-custom-tx")
             title = "Unknown operation"
-        }
-
-        if let safeAppInfo = tx.safeAppInfo {
-            if case let .custom(customInfo) = tx.txInfo, let _ = Safe.cachedName(by: customInfo.to) {
-                // Safe name info more prior than App info
-            } else {
-                title = safeAppInfo.name
-                tag = "App"
-                imageURL = URL(string: safeAppInfo.logoUrl)
-            }
         }
 
         cell.set(title: title)
