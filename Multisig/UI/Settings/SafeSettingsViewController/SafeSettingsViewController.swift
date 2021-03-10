@@ -40,7 +40,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
 
         enum OwnerAddresses: SectionItem {
-            case owner(String)
+            case owner(Address)
         }
 
         enum ContractVersion: SectionItem {
@@ -130,7 +130,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
              items: [Section.RequiredConfirmations.confirmations("\(info.threshold) out of \(info.owners.count)")]),
 
             (section: .ownerAddresses("Owner addresses"),
-             items: info.owners.map { Section.OwnerAddresses.owner($0.description) }),
+             items: info.owners.map { Section.OwnerAddresses.owner($0.address) }),
 
             (section: .safeVersion("Safe version"),
              items: [Section.ContractVersion.contractVersion(info.implementation.description)]),
@@ -201,9 +201,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         return cell
     }
 
-    private func addressDetailsCell(address: String, indexPath: IndexPath) -> UITableViewCell {
+    private func addressDetailsCell(address: Address, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: .init(exactly: address))
+        cell.setAccount(address: address, label: KeyInfo.name(address: address))
         return cell
     }
 

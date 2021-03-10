@@ -19,6 +19,11 @@ extension KeyInfo {
 
     var hasPrivateKey: Bool {
         (try? privateKey()) != nil
+	}
+
+    static func name(address: Address) -> String? {
+        guard let keyInfo = try? KeyInfo.keys(addresses: [address]).first else { return nil }
+        return keyInfo.name
     }
 
     /// Returns number of existing key infos
