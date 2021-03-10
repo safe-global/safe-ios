@@ -40,9 +40,8 @@ class PrivateKeyController {
     }
 
     static func remove(keyInfo: KeyInfo) {
-        guard let address = keyInfo.address else { return }
         do {
-            try KeyInfo.delete(addresses: [address])
+            try KeyInfo.delete(addresses: [keyInfo.address])
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key removed from this app")
             Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
@@ -57,8 +56,7 @@ class PrivateKeyController {
     static func edit(keyInfo: KeyInfo, name: String) {
         keyInfo.rename(newName: name)
         App.shared.snackbar.show(message: "Owner key updated")
-        NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
-        //Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
+        NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
     }
 
     static var signingKeyAddress: String? {

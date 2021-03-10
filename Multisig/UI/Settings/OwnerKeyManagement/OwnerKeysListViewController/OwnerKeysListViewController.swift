@@ -74,7 +74,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         setNeedsReload(false)
         onSuccess()
         tableView.reloadData()
-
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -84,7 +83,8 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(OwnerKeysListTableViewCell.self, for: indexPath)
         let keyInfo = keys[indexPath.row]
-        cell.set(address: keyInfo.address!, title: keyInfo.name ?? "key")
+
+        cell.set(address: keyInfo.address, title: keyInfo.name ?? "Key \(keyInfo.address.ellipsized())")
         cell.delegate = self
 
         return cell
