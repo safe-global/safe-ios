@@ -44,6 +44,28 @@ extension AppSettings {
 
     @AppSetting(\.passcodeWasSetAtLeastOnce)
     static var passcodeWasSetAtLeastOnce: Bool
+
+    @AppSetting(\.lastMarketingVersion)
+    static var lastMarketingVersion: String?
+
+    @AppSetting(\.lastBuildVersion)
+    static var lastBuildVersion: String?
+
+    static var isFreshInstall: Bool {
+        // NOTE: historically, we didn't record the currently run
+        // app version anywhere, but the termsAccepted exists since
+        // the first app release, so this is a way to check for fresh install
+        // even for the case when user upgrades their app to the new
+        // release version.
+        !termsAccepted
+    }
+}
+
+extension AppSettings {
+    static func saveCurrentRunVersionNumber() {
+        Self.lastMarketingVersion = App.configuration.app.marketingVersion
+        Self.lastBuildVersion = App.configuration.app.buildVersion
+    }
 }
 
 extension NSFetchRequest where ResultType == AppSettings {

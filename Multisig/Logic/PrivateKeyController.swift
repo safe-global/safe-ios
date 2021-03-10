@@ -136,8 +136,7 @@ class PrivateKeyController {
     /// restore from encrypted backup, which restores Keychain data as well.
     static func cleanUpKeys() {
         do {
-            // if fresh install
-            if !AppSettings.termsAccepted {
+            if !AppSettings.isFreshInstall {
                 try PrivateKey.deleteAll()
             }
 

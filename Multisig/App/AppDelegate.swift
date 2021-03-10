@@ -12,13 +12,14 @@ import SwiftUI
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         App.shared.firebaseConfig.setUp()
 
         #if DEBUG
         Tracker.shared.append(handler: ConsoleTracker())
         #endif
         Tracker.shared.append(handler: FirebaseTrackingHandler())
+
+        AppSettings.saveCurrentRunVersionNumber()
 
         PrivateKeyController.cleanUpKeys()
         PrivateKeyController.migrateLegacySigningKey()
