@@ -24,7 +24,7 @@ class DetailConfirmationCell: UITableViewCell {
         views += confirmations.map { address -> ConfirmationConfirmedPiece in
             let v = ConfirmationConfirmedPiece(frame: bounds)
             v.setText("Confirmed")
-            v.setAddress(address)
+            v.setAddress(address, label: KeyInfo.name(address: address))
             return v
         }
 
@@ -62,7 +62,7 @@ class DetailConfirmationCell: UITableViewCell {
                 let success = ConfirmationConfirmedPiece(frame: bounds)
                 success.setText("Executed")
                 success.setShowsBar(false)
-                success.setAddress(address)
+                success.setAddress(address, label: KeyInfo.name(address: address))
                 views.append(success)
             } else {
                 let status = ConfirmationStatusPiece(frame: bounds)

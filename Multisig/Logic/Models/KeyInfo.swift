@@ -17,6 +17,11 @@ extension KeyInfo {
         set { addressString = newValue.checksummed }
     }
 
+    static func name(address: Address) -> String? {
+        guard let keyInfo = try? KeyInfo.keys(addresses: [address]).first else { return nil }
+        return keyInfo.name
+    }
+
     /// Returns number of existing key infos
     static var count: Int {
         do {
