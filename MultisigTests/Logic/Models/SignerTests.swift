@@ -16,7 +16,7 @@ class SignerTests: XCTestCase {
         super.setUp()
         App.shared.keychainService = mockStore
         try! mockStore.save(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"),
-                            forKey: PrivateKey.legacyKeyID)
+                            forKey: PrivateKey.v1KeyID)
     }
 
     func testSigner() throws {

@@ -15,7 +15,7 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
     override func setUpWithError() throws {
         App.shared.keychainService = mockStore
         try! mockStore.save(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"),
-                            forKey: PrivateKey.legacyKeyID)
+                            forKey: PrivateKey.v1KeyID)
     }
 
 
@@ -32,7 +32,7 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
 
         // test vector from requirements doc
         try! mockStore.save(data: privateKey(for: "display bless asset brother fish sauce lyrics grit friend online tumble useless"),
-                            forKey: PrivateKey.legacyKeyID)
+                            forKey: PrivateKey.v1KeyID)
         let request1 = try RegisterNotificationTokenRequest(
             deviceID: "33971c4e-fb98-4e18-a08d-13c881ae292a",
             safes: [Address("0x72ac1760daF52986421b1552BdCa04707E78950e"), Address("0x4dEBDD6CEe25b2F931D2FE265D70e1a533B02453")],

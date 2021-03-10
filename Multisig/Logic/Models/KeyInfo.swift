@@ -12,9 +12,9 @@ import Web3
 
 extension KeyInfo {
     /// Blockchain address that this key controls
-    var address: Address? {
-        get { addressString.flatMap(Address.init) }
-        set { addressString = newValue?.checksummed }
+    var address: Address {
+        get { addressString.flatMap(Address.init) ?? Address.zero}
+        set { addressString = newValue.checksummed }
     }
 
     /// Returns number of existing key infos
