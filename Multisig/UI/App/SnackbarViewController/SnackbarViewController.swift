@@ -55,7 +55,7 @@ class SnackbarViewController: UIViewController {
                                        object: nil)
     }
 
-    static func show(_ message: String, duration: TimeInterval = 4) {
+    static func show(_ message: String, duration: TimeInterval = 10) {
         dispatchPrecondition(condition: .onQueue(.main))
         instance?.enqueue(Message(value: message, duration: duration))
         instance?.process()
@@ -115,8 +115,8 @@ class SnackbarViewController: UIViewController {
         processingTimer?.invalidate()
 
         // pre-emptively removing duplicate messages that are left in the queue
-        while self.currentMessage == self.messageQueue.first {
-            self.messageQueue.removeFirst()
+        while !messageQueue.isEmpty && currentMessage == messageQueue.first {
+            messageQueue.removeFirst()
         }
 
         hideAnimated { [weak self] in
