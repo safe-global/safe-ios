@@ -412,6 +412,10 @@ class TransactionDetailCellBuilder {
             if let importedSafeName = Safe.cachedName(by: customInfo.to) {
                 type = importedSafeName
                 placeholderAddress = customInfo.to
+            } else if let safeAppInfo = tx.safeAppInfo {
+                type = safeAppInfo.name
+                imageURL = URL(string: safeAppInfo.logoUrl)
+                tag = "App"
             } else if let toInfo = customInfo.toInfo {
                 type = toInfo.name
                 imageURL = toInfo.logoUri
@@ -429,16 +433,6 @@ class TransactionDetailCellBuilder {
         case .unknown:
             type = "Unknown operation"
             icon = #imageLiteral(resourceName: "ico-custom-tx")
-        }
-
-        if let safeAppInfo = tx.safeAppInfo {
-            if case let .custom(customInfo) = tx.txInfo, let _ = Safe.cachedName(by: customInfo.to) {
-                // Safe name info more prior than App info
-            } else {
-                type = safeAppInfo.name
-                imageURL = URL(string: safeAppInfo.logoUrl)
-                tag = "App"
-            }
         }
 
         status(tx.txStatus, type: type, icon: icon, iconURL: imageURL, address: placeholderAddress, tag: tag)
