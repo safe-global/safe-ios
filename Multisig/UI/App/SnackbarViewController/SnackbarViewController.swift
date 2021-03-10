@@ -55,7 +55,7 @@ class SnackbarViewController: UIViewController {
                                        object: nil)
     }
 
-    static func show(_ message: String, duration: TimeInterval = 10) {
+    static func show(_ message: String, duration: TimeInterval = 4) {
         dispatchPrecondition(condition: .onQueue(.main))
         instance?.enqueue(Message(value: message, duration: duration))
         instance?.process()
