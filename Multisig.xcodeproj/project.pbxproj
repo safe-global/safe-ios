@@ -51,6 +51,8 @@
 		049A9D2025F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049A9D1E25F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib */; };
 		049A9D3A25F81F2C00CA5723 /* EditOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D3825F81F2C00CA5723 /* EditOwnerKeyViewController.swift */; };
 		049A9D3B25F81F2C00CA5723 /* EditOwnerKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049A9D3925F81F2C00CA5723 /* EditOwnerKeyViewController.xib */; };
+		049A9D7025F9303000CA5723 /* ChooseOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D6E25F9303000CA5723 /* ChooseOwnerKeyViewController.swift */; };
+		049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049A9D6F25F9303000CA5723 /* ChooseOwnerKeyViewController.xib */; };
 		049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C24EA2575477900897D3C /* UIViewController+Tracking.swift */; };
 		049EB0E925AF435C00F66CEA /* HistoryTransactions.json in Resources */ = {isa = PBXBuildFile; fileRef = 049EB0E425AF427C00F66CEA /* HistoryTransactions.json */; };
 		049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */; };
@@ -520,6 +522,8 @@
 		049A9D1E25F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OwnerKeysListTableViewCell.xib; sourceTree = "<group>"; };
 		049A9D3825F81F2C00CA5723 /* EditOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		049A9D3925F81F2C00CA5723 /* EditOwnerKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditOwnerKeyViewController.xib; sourceTree = "<group>"; };
+		049A9D6E25F9303000CA5723 /* ChooseOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOwnerKeyViewController.swift; sourceTree = "<group>"; };
+		049A9D6F25F9303000CA5723 /* ChooseOwnerKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseOwnerKeyViewController.xib; sourceTree = "<group>"; };
 		049C24EA2575477900897D3C /* UIViewController+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Tracking.swift"; sourceTree = "<group>"; };
 		049EB0E425AF427C00F66CEA /* HistoryTransactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryTransactions.json; sourceTree = "<group>"; };
 		049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+Offset.swift"; sourceTree = "<group>"; };
@@ -1190,6 +1194,15 @@
 				049A9D3925F81F2C00CA5723 /* EditOwnerKeyViewController.xib */,
 			);
 			path = EditOwnerKeyViewController;
+			sourceTree = "<group>";
+		};
+		049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */ = {
+			isa = PBXGroup;
+			children = (
+				049A9D6E25F9303000CA5723 /* ChooseOwnerKeyViewController.swift */,
+				049A9D6F25F9303000CA5723 /* ChooseOwnerKeyViewController.xib */,
+			);
+			path = ChooseOwnerKeyViewController;
 			sourceTree = "<group>";
 		};
 		04B4B5F425B754A400CFE24B /* SafeLoadedViewController */ = {
@@ -2323,6 +2336,7 @@
 		55F91A8E25BEABA100938475 /* OwnerKeyManagement */ = {
 			isa = PBXGroup;
 			children = (
+				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
 				049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */,
 				0A478D4D25B865150038363E /* KeyPickerController */,
@@ -2581,6 +2595,7 @@
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
 				0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
+				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
 				04B4B6DE25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.xib in Resources */,
 				0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */,
@@ -3038,6 +3053,7 @@
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				55A5854325014E05005E778B /* String+Extension.swift in Sources */,
 				0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */,
+				049A9D7025F9303000CA5723 /* ChooseOwnerKeyViewController.swift in Sources */,
 				0A465C37246C2ECD00AFA467 /* GetInTouchView.swift in Sources */,
 				0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */,
 				0A0983A224BC5C82009EE296 /* BackendTokenStore.swift in Sources */,
