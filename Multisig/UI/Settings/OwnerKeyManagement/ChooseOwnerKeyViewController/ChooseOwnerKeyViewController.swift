@@ -23,6 +23,11 @@ class ChooseOwnerKeyViewController: UIViewController {
         self.completionHandler = completionHandler
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.chooseOwner)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Select owner key"

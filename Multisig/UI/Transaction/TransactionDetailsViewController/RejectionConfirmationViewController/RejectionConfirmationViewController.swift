@@ -47,31 +47,32 @@ class RejectionConfirmationViewController: UIViewController {
     }
 
     @IBAction func rejectButtonTouched(_ sender: Any) {
-        if App.shared.auth.isPasscodeSet {
-            let vc = EnterPasscodeViewController()
-            let nav = UINavigationController(rootViewController: vc)
-            vc.completion = { [weak self, weak nav] success in
-                if success {
-                    self?.rejectTransaction()
-                }
-                nav?.dismiss(animated: true, completion: nil)
-            }
-            present(nav, animated: true, completion: nil)
-        } else {
-            rejectTransaction()
+        guard let rejectors = transaction.multisigInfo?.rejectorKeys() else {
+            assertionFailure()
+            return
         }
+
+        let descriptionText = "You are about to create an on-chain rejection transaction. Please select which owner key to use."
+        let vc = ChooseOwnerKeyViewController(owners: rejectors,
+                                              descriptionText: descriptionText) { [unowned self] keyInfo in
+            dismiss(animated: true)
+            rejectTransaction(keyInfo)
+        }
+
+        let navigationController = UINavigationController(rootViewController: vc)
+        present(navigationController, animated: true)
     }
 
     @IBAction func learnMoreButtonTouched(_ sender: Any) {
         openInSafari(App.configuration.help.payForCancellationURL)
     }
 
-    private func rejectTransaction() {
+    private func rejectTransaction(_ keyInfo: KeyInfo) {
         startLoading()
         do {
             let safeAddress = try Safe.getSelected()!.addressValue
             let tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
-            let signature = try SafeTransactionSigner().sign(tx, by: safeAddress)
+            let signature = try SafeTransactionSigner().sign(tx, by: safeAddress, keyInfo: keyInfo)
             _ = App.shared.clientGatewayService.propose(transaction: tx,
                                                         safeAddress: safeAddress,
                                                         sender: signature.signer.checksummed,

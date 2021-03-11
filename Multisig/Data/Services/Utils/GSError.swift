@@ -251,6 +251,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct MissingPrivateKeyError: DetailedLocalizedError {
+        let description = "Failed to confirm transaction"
+        let reason = "Private key not found"
+        let howToFix = "Please import different owner key"
+        let domain = clientErrorDomain
+        let code = 1112
+        let loggable = false
+    }
+
     struct TransactionSigningError: DetailedLocalizedError {
         let description = "Failed to confirm transaction"
         let reason = "Computed safeTxHash of a transaction to confirm does not match server-returned value."

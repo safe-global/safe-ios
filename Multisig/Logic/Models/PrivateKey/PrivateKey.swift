@@ -127,18 +127,9 @@ struct Signature {
 
 
 extension PrivateKey {
-
-    @available(*, deprecated, message: "Will be removed after refactoring")
-    init(legacy data: Data) throws {
-        _store = try EthereumPrivateKey(data)
-        id = KeychainKey.ownerPrivateKey
-    }
-
-    @available(*, deprecated, message: "Will be removed after refactoring")
     static func v1SingleKey() throws -> PrivateKey? {
         try self.key(id: PrivateKey.v1KeyID)
     }
 
-    @available(*, deprecated, message: "Will be removed after refactoring")
-    static let v1KeyID: KeyID = KeychainKey.ownerPrivateKey
+    private static let v1KeyID: KeyID = KeychainKey.ownerPrivateKey
 }

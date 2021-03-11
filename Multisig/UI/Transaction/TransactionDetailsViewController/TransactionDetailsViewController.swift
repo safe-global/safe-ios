@@ -123,18 +123,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private var showsActionsViewContrainer: Bool  {
-        canSign && (showsRejectButton || showConfirmButton)
-    }
-
-    private var canSign: Bool {
-        if let signingKey = PrivateKeyController.signingKeyAddress,
-           let signingAddress = AddressString(signingKey),
-           case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = tx?.detailedExecutionInfo,
-           multisigTx.isSigner(address: signingAddress) {
-            return true
-        }
-
-        return false
+        tx?.multisigInfo?.canSign == true && (showsRejectButton || showConfirmButton)
     }
 
     private var showsRejectButton: Bool {
@@ -180,11 +169,16 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     @objc private func didTapConfirm() {
-        // Show select owner
-        let vc = ChooseOwnerKeyViewController(owners: signers(),
-                                              descriptionText: "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use.") { [unowned self] keyInfo in
+        guard let signers = tx?.multisigInfo?.signerKeys() else {
+            assertionFailure()
+            return
+        }
+
+        let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
+        let vc = ChooseOwnerKeyViewController(owners: signers,
+                                              descriptionText: descriptionText) { [unowned self] keyInfo in
             dismiss(animated: true)
-            sign()
+            sign(keyInfo)
         }
 
         let navigationController = UINavigationController(rootViewController: vc)
@@ -197,7 +191,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         show(confirmRejectionViewController, sender: self)
     }
 
-    private func sign() {
+    private func sign(_ keyInfo: KeyInfo) {
         guard let tx = tx,
               let transaction = Transaction(tx: tx) else {
             preconditionFailure("Unexpected Error")            
@@ -205,7 +199,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         super.reloadData()
         do {
             let safeAddress = try Address(from: try Safe.getSelected()!.address!)
-            let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress)
+            let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress, keyInfo: keyInfo)
             let safeTxHash = transaction.safeTxHash!.description
             confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash, with: signature.hexadecimal, completion: { [weak self] result in
 
@@ -227,10 +221,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         } catch {
             onError(GSError.error(description: "Failed to confirm transaction", error: error))
         }
-    }
-
-    func signers() -> [KeyInfo] {
-        []
     }
 
     // MARK: - Loading Data
@@ -311,12 +301,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 extension SCGModels.TransactionDetails {
     var needsYourConfirmation: Bool {
         if txStatus.isAwatingConfiramtions,
-           let signingKey = PrivateKeyController.signingKeyAddress,
-           let signingAddress = AddressString(signingKey),
-           case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = detailedExecutionInfo,
-           multisigTx.isSigner(address: signingAddress) &&
-            multisigTx.needsMoreSignatures &&
-            !multisigTx.hasConfirmed(address: signingAddress) {
+           let multisigInfo = multisigInfo,
+           !multisigInfo.signerKeys().isEmpty,
+           multisigInfo.needsMoreSignatures {
             return true
         }
         return false
@@ -332,14 +319,6 @@ extension SCGModels.TransactionDetails {
 }
 
 extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
-    func isSigner(address: AddressString) -> Bool {
-        signers.contains(address)
-    }
-
-    func hasConfirmed(address: AddressString) -> Bool {
-        confirmations.contains { $0.signer == address }
-    }
-
     var needsMoreSignatures: Bool {
         confirmationsRequired > confirmations.count
     }
@@ -354,6 +333,31 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
         } else {
             return false
         }
+    }
+
+    func signerKeys() -> [KeyInfo] {
+        let confirmationAdresses = confirmations.map({ $0.signer })
+
+        let reminingSigners = signers.filter({
+            !confirmationAdresses.contains($0)
+        }).map( { $0.address } )
+
+        return (try? KeyInfo.keys(addresses: reminingSigners)) ?? []
+    }
+
+    func rejectorKeys() -> [KeyInfo] {
+        let rejectorsAdresses = rejectors ?? []
+        let reminingSigners = signers.filter({
+            !rejectorsAdresses.contains($0)
+        }).map( { $0.address } )
+
+        return (try? KeyInfo.keys(addresses: reminingSigners)) ?? []
+    }
+
+    var canSign: Bool {
+        let signerAddresses = signers.map( { $0.address } )
+        let keys = (try? KeyInfo.keys(addresses: signerAddresses)) ?? []
+        return !keys.isEmpty
     }
 }
 
