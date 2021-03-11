@@ -38,7 +38,14 @@ class RejectionConfirmationViewController: UIViewController {
         initialTransactionLabel.setStyle(.footnote2)
         descriptionLabel.setStyle(.primary)
 
-        readMoreLabel.hyperLinkLabel("Advanced users can create a non-empty (useful) transaction with the same nonce (in the web interface only). Learn more in this article: ", linkText: "Why do I need to pay for rejecting a transaction?")
+        readMoreLabel.hyperLinkLabel("Advanced users can create a non-empty (useful) transaction with the same nonce (in the web interface only). Learn more in this article: ",
+                                     linkText: "Why do I need to pay for rejecting a transaction?")
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didRemoveOwner(_:)),
+            name: .ownerKeyRemoved,
+            object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -46,32 +53,41 @@ class RejectionConfirmationViewController: UIViewController {
         trackEvent(.transactionDetailsRejectionConfirmation)
     }
 
+    @objc private func didRemoveOwner(_ notification: Notification) {
+        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+
     @IBAction func rejectButtonTouched(_ sender: Any) {
-        if App.shared.auth.isPasscodeSet {
-            let vc = EnterPasscodeViewController()
-            let nav = UINavigationController(rootViewController: vc)
-            vc.completion = { [weak self, weak nav] success in
-                if success {
-                    self?.rejectTransaction()
-                }
-                nav?.dismiss(animated: true, completion: nil)
-            }
-            present(nav, animated: true, completion: nil)
-        } else {
-            rejectTransaction()
+        guard let rejectors = transaction.multisigInfo?.rejectorKeys() else {
+            assertionFailure()
+            return
         }
+
+        let descriptionText = "You are about to create an on-chain rejection transaction. Please select which owner key to use."
+        let vc = ChooseOwnerKeyViewController(owners: rejectors,
+                                              descriptionText: descriptionText) { [weak self] keyInfo in
+            guard let `self` = self else { return }
+            if let info = keyInfo {
+                self.rejectTransaction(info)
+            }
+            self.dismiss(animated: true)
+        }
+
+        let navigationController = UINavigationController(rootViewController: vc)
+        present(navigationController, animated: true)
     }
 
     @IBAction func learnMoreButtonTouched(_ sender: Any) {
         openInSafari(App.configuration.help.payForCancellationURL)
     }
 
-    private func rejectTransaction() {
+    private func rejectTransaction(_ keyInfo: KeyInfo) {
         startLoading()
         do {
             let safeAddress = try Safe.getSelected()!.addressValue
             let tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
-            let signature = try SafeTransactionSigner().sign(tx, by: safeAddress)
+            let signature = try SafeTransactionSigner().sign(tx, by: safeAddress, keyInfo: keyInfo)
             _ = App.shared.clientGatewayService.propose(transaction: tx,
                                                         safeAddress: safeAddress,
                                                         sender: signature.signer.checksummed,

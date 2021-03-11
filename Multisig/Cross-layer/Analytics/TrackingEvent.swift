@@ -86,6 +86,7 @@ enum TrackingEvent: String, Trackable {
     case enterKeyName                               = "screen_owner_enter_name"
     case ownerKeyImported                           = "user_key_imported"
     case ownerKeyRemoved                            = "user_key_deleted"
+    case chooseOwner                                = "screen_owner_choose"
     case bannerImportOwnerKeySkipped                = "user_banner_owner_skip"
     case bannerImportOwnerKeyImported               = "user_banner_owner_import"
     case camera                                     = "screen_camera"

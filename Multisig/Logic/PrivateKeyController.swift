@@ -26,22 +26,9 @@ class PrivateKeyController {
         }
     }
 
-    static func removeKey() {
-        do {
-            try PrivateKey.remove(id: PrivateKey.v1KeyID)
-            App.shared.notificationHandler.signingKeyUpdated()
-            App.shared.snackbar.show(message: "Owner key removed from this app")
-            Tracker.shared.setNumKeysImported(KeyInfo.count)
-            NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
-        } catch {
-            App.shared.snackbar.show(
-                error: GSError.error(description: "Failed to remove imported key", error: error))
-        }
-    }
-
     static func remove(keyInfo: KeyInfo) {
         do {
-            try KeyInfo.delete(addresses: [keyInfo.address])
+            try keyInfo.delete()
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key removed from this app")
             Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
@@ -57,10 +44,6 @@ class PrivateKeyController {
         keyInfo.rename(newName: name)
         App.shared.snackbar.show(message: "Owner key updated")
         NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
-    }
-
-    static var signingKeyAddress: String? {
-        try? PrivateKey.v1SingleKey()?.address.checksummed
     }
 
     static var hasPrivateKey: Bool {
@@ -146,5 +129,15 @@ class PrivateKeyController {
         } catch {
             LogService.shared.error("Failed to delete all keys: \(error)")
         }
+    }
+
+    /// Call this when you want to wipe out all of the keys by the user's request
+    static func deleteAllKeys() throws {
+        try KeyInfo.deleteAll()
+        App.shared.notificationHandler.signingKeyUpdated()
+        App.shared.snackbar.show(message: "All owner keys removed from this app")
+        Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
+        Tracker.shared.setNumKeysImported(KeyInfo.count)
+        NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
     }
 }

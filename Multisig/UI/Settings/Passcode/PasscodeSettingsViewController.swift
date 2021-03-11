@@ -17,6 +17,8 @@ class PasscodeSettingsViewController: UITableViewController {
         tableView.registerCell(BasicCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HelpCell")
         tableView.backgroundColor = .secondaryBackground
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60
         reloadData()
     }
 

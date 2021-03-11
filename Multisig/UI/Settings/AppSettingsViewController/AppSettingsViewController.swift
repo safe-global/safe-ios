@@ -116,24 +116,6 @@ class AppSettingsViewController: UITableViewController {
             object: nil)
     }
 
-    override func didTapAddressInfoDetails(_ sender: AddressInfoView) {
-        removeImportedOwnerKey()
-    }
-
-    private func removeImportedOwnerKey() {
-        let alertController = UIAlertController(
-            title: nil,
-            message: "Removing the owner key only removes it from this app. It doesn't delete any Safes from this app or from blockchain. For Safes controlled by this owner key, you will no longer be able to sign transactions in this app",
-            preferredStyle: .actionSheet)
-        let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
-            PrivateKeyController.removeKey()
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(remove)
-        alertController.addAction(cancel)
-        present(alertController, animated: true)
-    }
-
     private func showOwnerKeys() {
         let vc = OwnerKeysListViewController()
         show(vc, sender: self)

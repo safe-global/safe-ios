@@ -56,11 +56,13 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         emptyView.setText(emptyText)
         emptyView.setImage(emptyImage)
 
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(lazyReloadData),
-            name: .transactionDataInvalidated,
-            object: nil)
+        for notification in [Notification.Name.transactionDataInvalidated, .ownerKeyImported, .ownerKeyRemoved] {
+            notificationCenter.addObserver(
+                self,
+                selector: #selector(lazyReloadData),
+                name: notification,
+                object: nil)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -300,8 +302,9 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
         var status: SCGModels.TxStatus = tx.txStatus
         let missingSigners = tx.executionInfo?.missingSigners?.map { $0.address.checksummed } ?? []
-        if let signingKeyAddress = PrivateKeyController.signingKeyAddress,status == .awaitingConfirmations {
-            if missingSigners.contains(signingKeyAddress) {
+        if let signingKeyAddresses = try? KeyInfo.all().map({ $0.address.checksummed }), status == .awaitingConfirmations {
+            let reminingSigners = missingSigners.filter({ signingKeyAddresses.contains($0) })
+            if !reminingSigners.isEmpty {
                 status = .awaitingYourConfirmation
             }
         }

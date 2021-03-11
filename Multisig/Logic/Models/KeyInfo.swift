@@ -21,6 +21,10 @@ extension KeyInfo {
         (try? privateKey()) != nil
 	}
 
+    var displayName: String {
+        name ?? "Key \(address.ellipsized())"
+    }
+
     static func name(address: Address) -> String? {
         guard let keyInfo = try? KeyInfo.keys(addresses: [address]).first else { return nil }
         return keyInfo.name
