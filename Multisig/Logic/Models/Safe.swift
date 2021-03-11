@@ -28,6 +28,15 @@ extension Safe: Identifiable {
 
     var displayENSName: String { ensName ?? "" }
 
+    var isReadOnly: Bool {
+        if let owners = owners, !owners.isEmpty,
+           let keys = try? KeyInfo.keys(addresses: owners), !keys.isEmpty {
+            return false
+        } else {
+            return true
+        }
+    }
+
     // this value is for contract versions 1.0.0 and 1.1.1 (probably for later versions as well)
     static let DefaultEIP712SafeAppTxTypeHash =
         Data(ethHex: "0xbb8310d486368db6bd6f849402fdd73ad53d316b5a4b2644ad6efe0f941286d8")

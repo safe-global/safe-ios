@@ -385,7 +385,6 @@
 		5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588365325652E4B0014E8C7 /* LoadingValueCell.xib */; };
 		558836702565385F0014E8C7 /* RemoveSafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588366E2565385F0014E8C7 /* RemoveSafeCell.swift */; };
 		558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588366F2565385F0014E8C7 /* RemoveSafeCell.xib */; };
-		559670FF256E88FC0097D3A2 /* Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559670FE256E88FC0097D3A2 /* Signer.swift */; };
 		55967105256E92470097D3A2 /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967104256E92470097D3A2 /* SignerTests.swift */; };
 		5596710D256E935F0097D3A2 /* MockSecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596710C256E935F0097D3A2 /* MockSecureStore.swift */; };
 		55967119256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */; };
@@ -919,7 +918,6 @@
 		5588365325652E4B0014E8C7 /* LoadingValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingValueCell.xib; sourceTree = "<group>"; };
 		5588366E2565385F0014E8C7 /* RemoveSafeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveSafeCell.swift; sourceTree = "<group>"; };
 		5588366F2565385F0014E8C7 /* RemoveSafeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoveSafeCell.xib; sourceTree = "<group>"; };
-		559670FE256E88FC0097D3A2 /* Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signer.swift; sourceTree = "<group>"; };
 		55967104256E92470097D3A2 /* SignerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignerTests.swift; sourceTree = "<group>"; };
 		5596710C256E935F0097D3A2 /* MockSecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSecureStore.swift; sourceTree = "<group>"; };
 		55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNotificationTokenRequestTests.swift; sourceTree = "<group>"; };
@@ -2040,7 +2038,6 @@
 				55A585352501417E005E778B /* PrivateKey */,
 				0A0983A724BC5CC8009EE296 /* TokenRegistry */,
 				0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */,
-				559670FE256E88FC0097D3A2 /* Signer.swift */,
 				049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */,
 			);
 			path = Models;
@@ -3009,7 +3006,6 @@
 				0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */,
 				0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
-				559670FF256E88FC0097D3A2 /* Signer.swift in Sources */,
 				55F91B0F25BF081900938475 /* PrivateKeyController.swift in Sources */,
 				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
