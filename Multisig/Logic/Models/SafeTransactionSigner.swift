@@ -11,14 +11,15 @@ import Web3
 
 class SafeTransactionSigner {
 
-    func sign(_ transaction: Transaction, by safeAddress: Address) throws -> Signer.Signature {
+    func sign(_ transaction: Transaction, by safeAddress: Address) throws -> Signature {
         let hashToSign = Data(ethHex: transaction.safeTxHash!.description)
         let data = transaction.encodeTransactionData(for: AddressString(safeAddress))
         guard EthHasher.hash(data) == hashToSign else {
             throw GSError.TransactionSigningError()            
         }
-
-        return try Signer.sign(hash: hashToSign)        
+        let key: PrivateKey! = try PrivateKey.v1SingleKey()
+        assert(key != nil, "Programmer error: sign() is called when no signing key found")
+        return try key.sign(hash: hashToSign)
     }
 
     class func numberOfKeysImported() -> Int {
