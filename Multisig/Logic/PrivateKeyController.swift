@@ -15,7 +15,7 @@ class PrivateKeyController {
 
             App.shared.notificationHandler.signingKeyUpdated()
 
-            Tracker.shared.setNumKeysImported(1)
+            Tracker.shared.setNumKeysImported(KeyInfo.count)
             Tracker.shared.track(event: TrackingEvent.ownerKeyImported, parameters: ["import_type": isDrivedFromSeedPhrase ? "seed" : "key"])
 
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
@@ -31,7 +31,7 @@ class PrivateKeyController {
             try PrivateKey.remove(id: PrivateKey.v1KeyID)
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key removed from this app")
-            Tracker.shared.setNumKeysImported(0)
+            Tracker.shared.setNumKeysImported(KeyInfo.count)
             NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
         } catch {
             App.shared.snackbar.show(
