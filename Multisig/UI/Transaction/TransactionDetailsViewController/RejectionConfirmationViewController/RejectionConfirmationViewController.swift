@@ -38,12 +38,24 @@ class RejectionConfirmationViewController: UIViewController {
         initialTransactionLabel.setStyle(.footnote2)
         descriptionLabel.setStyle(.primary)
 
-        readMoreLabel.hyperLinkLabel("Advanced users can create a non-empty (useful) transaction with the same nonce (in the web interface only). Learn more in this article: ", linkText: "Why do I need to pay for rejecting a transaction?")
+        readMoreLabel.hyperLinkLabel("Advanced users can create a non-empty (useful) transaction with the same nonce (in the web interface only). Learn more in this article: ",
+                                     linkText: "Why do I need to pay for rejecting a transaction?")
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didRemoveOwner(_:)),
+            name: .ownerKeyRemoved,
+            object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         trackEvent(.transactionDetailsRejectionConfirmation)
+    }
+
+    @objc private func didRemoveOwner(_ notification: Notification) {
+        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 
     @IBAction func rejectButtonTouched(_ sender: Any) {
@@ -54,9 +66,12 @@ class RejectionConfirmationViewController: UIViewController {
 
         let descriptionText = "You are about to create an on-chain rejection transaction. Please select which owner key to use."
         let vc = ChooseOwnerKeyViewController(owners: rejectors,
-                                              descriptionText: descriptionText) { [unowned self] keyInfo in
-            dismiss(animated: true)
-            rejectTransaction(keyInfo)
+                                              descriptionText: descriptionText) { [weak self] keyInfo in
+            guard let `self` = self else { return }
+            if let info = keyInfo {
+                self.rejectTransaction(info)
+            }
+            self.dismiss(animated: true)
         }
 
         let navigationController = UINavigationController(rootViewController: vc)

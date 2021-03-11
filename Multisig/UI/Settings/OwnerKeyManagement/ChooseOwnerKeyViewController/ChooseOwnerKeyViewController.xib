@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56u-d0-aDj">
-                    <rect key="frame" x="20" y="44" width="374" height="41"/>
+                    <rect key="frame" x="20" y="64" width="374" height="41"/>
                     <string key="text">Select the key that you want to confirm 
 the transaction with.</string>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -30,7 +30,7 @@ the transaction with.</string>
                     <nil key="highlightedColor"/>
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="m5h-LZ-EHH">
-                    <rect key="frame" x="0.0" y="106" width="414" height="790"/>
+                    <rect key="frame" x="0.0" y="126" width="414" height="770"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="Z7t-3a-gek"/>
@@ -42,7 +42,7 @@ the transaction with.</string>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="m5h-LZ-EHH" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="34" id="3Mu-nr-ckq"/>
-                <constraint firstItem="56u-d0-aDj" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="H3i-lL-h8H"/>
+                <constraint firstItem="56u-d0-aDj" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="H3i-lL-h8H"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="m5h-LZ-EHH" secondAttribute="trailing" id="O9R-xO-XMC"/>
                 <constraint firstItem="m5h-LZ-EHH" firstAttribute="top" secondItem="56u-d0-aDj" secondAttribute="bottom" constant="21" id="c7M-cE-zJb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="56u-d0-aDj" secondAttribute="trailing" constant="20" id="rSW-XI-bgz"/>

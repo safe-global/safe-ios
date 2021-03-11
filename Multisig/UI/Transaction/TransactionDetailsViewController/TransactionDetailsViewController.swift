@@ -59,11 +59,13 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         configureActionButtons()
 
-        notificationCenter.addObserver(
-            self, selector: #selector(lazyReloadData), name: .ownerKeyRemoved, object: nil)
-        notificationCenter.addObserver(
-            self, selector: #selector(lazyReloadData), name: .ownerKeyImported, object: nil)
-
+        for notification in [Notification.Name.ownerKeyImported, .ownerKeyRemoved, .ownerKeyUpdated] {
+            notificationCenter.addObserver(
+                self,
+                selector: #selector(lazyReloadData),
+                name: notification,
+                object: nil)
+        }
         tableView.backgroundColor = .secondaryBackground
     }
 
@@ -177,8 +179,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
         let vc = ChooseOwnerKeyViewController(owners: signers,
                                               descriptionText: descriptionText) { [unowned self] keyInfo in
+            if let info = keyInfo {
+                sign(info)
+            }
             dismiss(animated: true)
-            sign(keyInfo)
         }
 
         let navigationController = UINavigationController(rootViewController: vc)

@@ -14,9 +14,9 @@ class ChooseOwnerKeyViewController: UIViewController {
 
     private var owners: [KeyInfo] = []
     private var descriptionText: String!
-    var completionHandler: ((KeyInfo) -> Void)?
+    var completionHandler: ((KeyInfo?) -> Void)?
 
-    convenience init(owners: [KeyInfo], descriptionText: String, completionHandler: ((KeyInfo) -> Void)? = nil) {
+    convenience init(owners: [KeyInfo], descriptionText: String, completionHandler: ((KeyInfo?) -> Void)? = nil) {
         self.init()
         self.owners = owners
         self.descriptionText = descriptionText
@@ -63,10 +63,8 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         if App.shared.auth.isPasscodeSet {
             let vc = EnterPasscodeViewController()
             vc.completion = { [weak self] success in
-                guard let owners = self?.owners else { return }
-                if success {
-                    self?.completionHandler?(owners[indexPath.row])
-                }
+                guard let `self` = self else { return }
+                self.completionHandler?(success ? self.owners[indexPath.row] : nil)
             }
            show(vc, sender: self)
         } else {

@@ -11,6 +11,12 @@ import UIKit
 class ChooseOwnerTableViewCell: UITableViewCell {
     @IBOutlet private weak var addressInfoView: AddressInfoView!
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addressInfoView.copyEnabled = false
+        addressInfoView.setDetailImage(nil)
+    }
+
     func set(address: Address, title: String) {
         addressInfoView.setAddress(address, label: title)
     }

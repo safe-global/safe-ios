@@ -76,9 +76,13 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.registerCell(RemoveSafeCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
-        // update all safe info on changing safe name
-        notificationCenter.addObserver(
-            self, selector: #selector(lazyReloadData), name: .selectedSafeUpdated, object: nil)
+        for notification in [Notification.Name.ownerKeyImported, .ownerKeyRemoved, .ownerKeyUpdated, .selectedSafeUpdated] {
+            notificationCenter.addObserver(
+                self,
+                selector: #selector(lazyReloadData),
+                name: notification,
+                object: nil)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
