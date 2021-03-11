@@ -162,22 +162,55 @@ class RemoteNotificationHandler {
     }
 
     private func register(addresses: [Address]) {
-        guard let token = self.token else { return }
-        queue.async { [unowned self] in
-            let appConfig = App.configuration.app
-            var timestamp: String?
-            if let _ = try? PrivateKey.v1SingleKey() {
-                timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
-            }
+        guard let token = token else { return }
+        guard let deviceID = storedDeviceID?.lowercased() else {
+            assertionFailure("Programmer error: missing device ID")
+            return
+        }
+        queue.async {
             do {
-                try App.shared.safeTransactionService
-                    .register(deviceID: self.storedDeviceID!,
-                              safes: addresses,
-                              token: token,
-                              bundle: appConfig.bundleIdentifier,
-                              version: appConfig.marketingVersion,
-                              buildNumber: appConfig.buildVersion,
-                              timestamp: timestamp)
+                let safes = addresses.map { $0.checksummed }.sorted()
+
+                // timestamp will be present if there are any signatures
+                var timestamp: String? = nil
+                var signatures: [String]? = nil
+
+                // sign the registration data by each private key.
+                let privateKeys = try KeyInfo.all().compactMap { try $0.privateKey() }
+
+                if !privateKeys.isEmpty {
+
+                    timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
+
+                    let hashPreimage = [
+                        "gnosis-safe",
+                        timestamp!,
+                        deviceID,
+                        token,
+                        safes.joined()
+                    ].joined()
+
+                    let hash = EthHasher.hash(hashPreimage)
+
+                    signatures = try privateKeys.map { key in
+                        let sig = try key.sign(hash: hash)
+                        return sig.hexadecimal
+                    }
+                }
+
+                let appConfig = App.configuration.app
+
+                let request = RegisterNotificationTokenRequest(
+                    uuid: deviceID,
+                    safes: safes,
+                    cloudMessagingToken: token,
+                    bundle: appConfig.bundleIdentifier,
+                    version: appConfig.marketingVersion,
+                    buildNumber: appConfig.buildVersion,
+                    timestamp: timestamp,
+                    signatures: signatures)
+
+                try App.shared.safeTransactionService.execute(request: request)
             } catch {
                 logError("Failed to register device", error)
             }
