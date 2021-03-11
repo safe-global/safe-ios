@@ -84,7 +84,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let cell = tableView.dequeueCell(OwnerKeysListTableViewCell.self, for: indexPath)
         let keyInfo = keys[indexPath.row]
 
-        cell.set(address: keyInfo.address, title: keyInfo.name ?? "Key \(keyInfo.address.ellipsized())")
+        cell.set(address: keyInfo.address, title: keyInfo.displayName)
         cell.delegate = self
 
         return cell

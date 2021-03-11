@@ -180,27 +180,15 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     @objc private func didTapConfirm() {
-        if App.shared.auth.isPasscodeSet {
-            let vc = EnterPasscodeViewController()
-            let nav = UINavigationController(rootViewController: vc)
-            vc.completion = { [weak self, weak nav] success in
-                if success {
-                    self?.sign()
-                }
-                nav?.dismiss(animated: true, completion: nil)
-            }
-            present(nav, animated: true, completion: nil)
-        } else {
-            let alertVC = UIAlertController(
-                title: "Confirm transaction",
-                message: "You are about to confirm the transaction with your currently imported owner key. This confirmation is off-chain. The transaction should be executed separately in the web interface.",
-                preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alertVC.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak self] _ in
-                self?.sign()
-            }))
-            present(alertVC, animated: true, completion: nil)
+        // Show select owner
+        let vc = ChooseOwnerKeyViewController(owners: signers(),
+                                              descriptionText: "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use.") { [unowned self] keyInfo in
+            dismiss(animated: true)
+            sign()
         }
+
+        let navigationController = UINavigationController(rootViewController: vc)
+        present(navigationController, animated: true)
     }
 
     @objc private func didTapReject() {
@@ -239,6 +227,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         } catch {
             onError(GSError.error(description: "Failed to confirm transaction", error: error))
         }
+    }
+
+    func signers() -> [KeyInfo] {
+        []
     }
 
     // MARK: - Loading Data

@@ -53,6 +53,8 @@
 		049A9D3B25F81F2C00CA5723 /* EditOwnerKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049A9D3925F81F2C00CA5723 /* EditOwnerKeyViewController.xib */; };
 		049A9D7025F9303000CA5723 /* ChooseOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D6E25F9303000CA5723 /* ChooseOwnerKeyViewController.swift */; };
 		049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049A9D6F25F9303000CA5723 /* ChooseOwnerKeyViewController.xib */; };
+		049A9DB125FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9DAF25FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift */; };
+		049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049A9DB025FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib */; };
 		049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C24EA2575477900897D3C /* UIViewController+Tracking.swift */; };
 		049EB0E925AF435C00F66CEA /* HistoryTransactions.json in Resources */ = {isa = PBXBuildFile; fileRef = 049EB0E425AF427C00F66CEA /* HistoryTransactions.json */; };
 		049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */; };
@@ -524,6 +526,8 @@
 		049A9D3925F81F2C00CA5723 /* EditOwnerKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditOwnerKeyViewController.xib; sourceTree = "<group>"; };
 		049A9D6E25F9303000CA5723 /* ChooseOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		049A9D6F25F9303000CA5723 /* ChooseOwnerKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseOwnerKeyViewController.xib; sourceTree = "<group>"; };
+		049A9DAF25FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOwnerTableViewCell.swift; sourceTree = "<group>"; };
+		049A9DB025FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseOwnerTableViewCell.xib; sourceTree = "<group>"; };
 		049C24EA2575477900897D3C /* UIViewController+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Tracking.swift"; sourceTree = "<group>"; };
 		049EB0E425AF427C00F66CEA /* HistoryTransactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryTransactions.json; sourceTree = "<group>"; };
 		049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+Offset.swift"; sourceTree = "<group>"; };
@@ -1201,6 +1205,8 @@
 			children = (
 				049A9D6E25F9303000CA5723 /* ChooseOwnerKeyViewController.swift */,
 				049A9D6F25F9303000CA5723 /* ChooseOwnerKeyViewController.xib */,
+				049A9DAF25FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift */,
+				049A9DB025FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib */,
 			);
 			path = ChooseOwnerKeyViewController;
 			sourceTree = "<group>";
@@ -2622,6 +2628,7 @@
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
 				0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */,
 				04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */,
+				049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */,
 				049A9D2025F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib in Resources */,
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
@@ -2916,6 +2923,7 @@
 				0A451BDE252DDB17001DB7D2 /* String+Error.swift in Sources */,
 				0AB34D6824B71DF700A43988 /* TokensRequest.swift in Sources */,
 				0AA9F2532498CC70005BD60F /* UInt256String.swift in Sources */,
+				049A9DB125FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift in Sources */,
 				0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */,
 				55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */,
