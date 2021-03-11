@@ -106,9 +106,22 @@ extension PrivateKey {
         try Self.remove(id: id)
     }
 
-    func sign(hash: Data) throws -> (v: UInt, r: Data, s: Data) {
+    func sign(hash: Data) throws -> Signature {
         let result = try _store.sign(hash: Array(hash))
-        return (result.v, Data(result.r), Data(result.s))
+        return Signature(v: result.v + 27, r: Data(result.r), s: Data(result.s), signer: address)
+    }
+}
+
+/// Represents Ethereum EOA signature
+struct Signature {
+    var v: UInt
+    var r: Data
+    var s: Data
+
+    var signer: Address
+
+    var hexadecimal: String {
+        r.toHexStringWithPrefix() + s.toHexString() + String(v, radix: 16)
     }
 }
 

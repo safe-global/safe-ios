@@ -219,7 +219,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             let safeAddress = try Address(from: try Safe.getSelected()!.address!)
             let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress)
             let safeTxHash = transaction.safeTxHash!.description
-            confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash, with: signature.value, completion: { [weak self] result in
+            confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash, with: signature.hexadecimal, completion: { [weak self] result in
 
                 // NOTE: sometimes the data of the transaction list is not
                 // updated right away, we'll give a moment for the backend
