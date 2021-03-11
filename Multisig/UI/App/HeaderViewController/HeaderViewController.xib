@@ -117,7 +117,7 @@
         <image name="chevron.down.circle" catalog="system" width="128" height="121"/>
         <image name="shadow" width="3" height="13"/>
         <namedColor name="gray2">
-            <color red="0.69800001382827759" green="0.70999997854232788" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.69411764705882351" green="0.70980392156862748" blue="0.69411764705882351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quaternaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

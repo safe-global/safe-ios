@@ -19,7 +19,9 @@ final class HeaderViewController: ContainerViewController {
     @IBOutlet private weak var headerBarHeightConstraint: NSLayoutConstraint!
 
     private var rootViewController: UIViewController?
+    private var currentDataTask: URLSessionTask?
 
+    var safeTransactionService = App.shared.safeTransactionService
     var notificationCenter = NotificationCenter.default
 
     convenience init(rootViewController: UIViewController) {
@@ -33,11 +35,26 @@ final class HeaderViewController: ContainerViewController {
         safeBarView.addTarget(self, action: #selector(didTapSafeBarView(_:)), for: .touchUpInside)
         reloadHeaderBar()
         displayRootController()
-        notificationCenter.addObserver(self,
-                                       selector: #selector(reloadHeaderBar),
-                                       name: .selectedSafeChanged,
-                                       object: nil)
+        addObservers()
         headerBarHeightConstraint.constant = ScreenMetrics.safeHeaderHeight
+        reloadSafeData()
+    }
+
+    private func addObservers() {
+        let updateNotifications: [NSNotification.Name] = [
+            .selectedSafeChanged, .ownerKeyImported, .ownerKeyRemoved
+        ]
+        for name in updateNotifications {
+            notificationCenter.addObserver(self,
+                                           selector: #selector(didReceiveUpdateNotification(_:)),
+                                           name: name,
+                                           object: nil)
+        }
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(reloadSafeData),
+            name: UIScene.willEnterForegroundNotification,
+            object: nil)
     }
 
     private func displayRootController() {
@@ -68,6 +85,13 @@ final class HeaderViewController: ContainerViewController {
         present(vc, animated: true, completion: nil)
     }
 
+    @objc private func didReceiveUpdateNotification(_ notification: Notification) {
+        if notification.name == .selectedSafeChanged {
+            reloadSafeData()
+        }
+        reloadHeaderBar()
+    }
+
     @objc private func reloadHeaderBar() {
         do {
             let selectedSafe = try Safe.getSelected()
@@ -79,6 +103,7 @@ final class HeaderViewController: ContainerViewController {
             if let safe = selectedSafe {
                 safeBarView.setAddress(safe.addressValue)
                 safeBarView.setName(safe.displayName)
+                safeBarView.setReadOnly(safe.isReadOnly)
             }
         } catch {
             App.shared.snackbar.show(
@@ -86,4 +111,29 @@ final class HeaderViewController: ContainerViewController {
         }
     }
 
+    @objc private func reloadSafeData() {
+        currentDataTask?.cancel()
+        do {
+            guard let safe = try Safe.getSelected() else { return }
+            currentDataTask = safeTransactionService.asyncSafeInfo(at: safe.addressValue) { [weak self] result in
+                DispatchQueue.main.async { [weak self] in
+                    switch result {
+                    case .failure(let error):
+                        // ignore cancellation error due to cancelling the
+                        // currently running task.
+                        if (error as NSError).code == URLError.cancelled.rawValue &&
+                            (error as NSError).domain == NSURLErrorDomain {
+                            return
+                        }
+                        LogService.shared.error("Failed to reload safe info: \(error)")
+                    case .success(let safeInfo):
+                        safe.update(from: safeInfo)
+                        self?.reloadHeaderBar()
+                    }
+                }
+            }
+        } catch {
+            LogService.shared.error("Failed to reload safe info: \(error)")
+        }
+    }
 }
