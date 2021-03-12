@@ -385,9 +385,7 @@
 		5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588365325652E4B0014E8C7 /* LoadingValueCell.xib */; };
 		558836702565385F0014E8C7 /* RemoveSafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588366E2565385F0014E8C7 /* RemoveSafeCell.swift */; };
 		558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588366F2565385F0014E8C7 /* RemoveSafeCell.xib */; };
-		55967105256E92470097D3A2 /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967104256E92470097D3A2 /* SignerTests.swift */; };
 		5596710D256E935F0097D3A2 /* MockSecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596710C256E935F0097D3A2 /* MockSecureStore.swift */; };
-		55967119256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */; };
 		55967123256EB7690097D3A2 /* ConfirmationRequestNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967122256EB7690097D3A2 /* ConfirmationRequestNotification.swift */; };
 		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
 		5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */; };
@@ -3144,10 +3142,8 @@
 				551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,
 				55B66E8E24810BC800249E98 /* AppSettingsTests.swift in Sources */,
-				55967105256E92470097D3A2 /* SignerTests.swift in Sources */,
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
 				5556A03C24489F5D003EC861 /* CoreDataStackTests.swift in Sources */,
-				55967119256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift in Sources */,
 				551DDEF0244F1A0A00C719D3 /* SafeTests.swift in Sources */,
 				5532D4CC2449A1980067505A /* LogFormatterTests.swift in Sources */,
 				0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */,

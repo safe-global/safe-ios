@@ -151,8 +151,8 @@ extension NSFetchRequest where ResultType == KeyInfo {
     /// all, sorted by name, ascending
     func all() -> Self {
         sortDescriptors = [
-            NSSortDescriptor(keyPath: \KeyInfo.name, ascending: true),
-            NSSortDescriptor(keyPath: \KeyInfo.addressString, ascending: true)
+            NSSortDescriptor(key: "name", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:))),
+            NSSortDescriptor(key: "addressString", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:)))
         ]
         return self
     }
