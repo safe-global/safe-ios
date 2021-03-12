@@ -327,6 +327,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                 title = safeAppInfo.name
                 tag = "App"
                 imageURL = URL(string: safeAppInfo.logoUrl)
+                image = #imageLiteral(resourceName: "ico-custom-tx")
             } else if let toInfo = customInfo.toInfo {
                 title = toInfo.name
                 imageURL = toInfo.logoUri
