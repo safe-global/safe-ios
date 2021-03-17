@@ -39,6 +39,18 @@ extension AppSettings {
     @AppSetting(\.displayMode)
     static var displayMode: Int32
 
+    @AppSetting(\.fiatCode)
+    private static var fiatCode: String?
+
+    static var selectedFiatCode: String {
+        set {
+            fiatCode = newValue
+        }
+
+        get {
+            fiatCode ?? "USD"
+        }
+    }
     @AppSetting(\.passcodeBannerDismissed)
     static var passcodeBannerDismissed: Bool
 

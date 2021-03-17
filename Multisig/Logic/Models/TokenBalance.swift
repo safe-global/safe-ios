@@ -18,29 +18,29 @@ struct TokenBalance: Identifiable, Hashable {
     let address: String
     let symbol: String
     let balance: String
-    let balanceUsd: String
+    let fiatBalance: String
 }
 
 extension TokenBalance {
-    init(_ response: SafeBalancesRequest.Response) {
+    init(_ response: SafeBalancesRequest.Response, code: String) {
         self.init(address: response.tokenAddress?.address ?? .ether,
                   symbol: response.token?.symbol,
                   logoUri: response.token?.logoUri,
                   tokenBalance: response.balance,
                   decimals: response.token?.decimals,
-                  fiatBalance: response.balanceUsd)
+                  fiatBalance: response.balanceUsd, code: code)
     }
 
-    init(_ item: SCGBalance) {
+    init(_ item: SCGBalance, code: String) {
         self.init(address: item.tokenInfo.address.address,
                   symbol: item.tokenInfo.symbol,
                   logoUri: item.tokenInfo.logoUri,
                   tokenBalance: item.balance,
                   decimals: item.tokenInfo.decimals,
-                  fiatBalance: item.fiatBalance)
+                  fiatBalance: item.fiatBalance, code: code)
     }
 
-    init(address: Address, symbol: String?, logoUri: String?, tokenBalance: UInt256String, decimals: UInt256String?, fiatBalance: String) {
+    init(address: Address, symbol: String?, logoUri: String?, tokenBalance: UInt256String, decimals: UInt256String?, fiatBalance: String, code: String) {
         self.address = address.checksummed
         self.symbol = symbol ?? "ETH"
         self.imageURL = logoUri.flatMap { URL(string: $0) }
@@ -58,7 +58,7 @@ extension TokenBalance {
             decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
             thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
 
-        self.balanceUsd = Self.displayCurrency(from: fiatBalance)
+        self.fiatBalance = Self.displayCurrency(from: fiatBalance, code: code)
     }
 
     static var serverCurrencyFormatter: NumberFormatter = {
@@ -68,12 +68,12 @@ extension TokenBalance {
         return currencyFormatter
     }()
 
-    static func displayCurrency(from serverValue: String) -> String {
+    static func displayCurrency(from serverValue: String, code: String) -> String {
         let number = serverCurrencyFormatter.number(from: serverValue) ?? 0
         let formatter = TokenFormatter()
         let amount = Int256(number.doubleValue * 100)
         let precision = 2
-        let currencyCode = "USD"
+        let currencyCode = code
         let value = formatter.string(from: BigDecimal(amount, precision),
                         decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
                         thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")

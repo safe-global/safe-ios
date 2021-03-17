@@ -31,6 +31,7 @@ class AppSettingsViewController: UITableViewController {
             case ownerKeys(String, String)
             case passcode(String)
             case appearance(String)
+            case fiat(String, String)
         }
 
         enum General: SectionItem {
@@ -57,7 +58,6 @@ class AppSettingsViewController: UITableViewController {
         tableView.separatorStyle = .singleLine
 
         tableView.registerCell(BasicCell.self)
-        tableView.registerCell(ImportedKeyCell.self)
         tableView.registerCell(InfoCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
@@ -77,6 +77,7 @@ class AppSettingsViewController: UITableViewController {
                 Section.App.ownerKeys("Owner keys", "\(KeyInfo.count)"),
                 Section.App.passcode("Passcode"),
                 Section.App.appearance("Appearance"),
+                Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode)
             ]),
             (section: .general, items: [
                 Section.General.terms("Terms of use"),
@@ -103,17 +104,13 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func addObservers() {
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(reload),
-            name: .ownerKeyRemoved,
-            object: nil)
-
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(reload),
-            name: .ownerKeyImported,
-            object: nil)
+        for notification in [Notification.Name.ownerKeyRemoved, .ownerKeyImported, .selectedFiatCurrencyChanged] {
+            notificationCenter.addObserver(
+                self,
+                selector: #selector(reload),
+                name: notification,
+                object: nil)
+        }
     }
 
     private func showOwnerKeys() {
@@ -147,6 +144,9 @@ class AppSettingsViewController: UITableViewController {
 
         case Section.App.appearance(let name):
             return basicCell(name: name, indexPath: indexPath)
+
+        case Section.App.fiat(let name, let value):
+            return basicCell(name: name, info: value, indexPath: indexPath)
 
         case Section.General.terms(let name):
             return basicCell(name: name, indexPath: indexPath)
@@ -192,12 +192,6 @@ class AppSettingsViewController: UITableViewController {
         return cell
     }
 
-    private func importedKeyCell(name: String, signingKey: String, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(ImportedKeyCell.self, for: indexPath)
-        cell.setAddress(signingKey, label: name)
-        return cell
-    }
-
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -213,6 +207,10 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.appearance:
             let appearanceViewController = ChangeDisplayModeTableViewController()
             show(appearanceViewController, sender: self)
+
+        case Section.App.fiat:
+            let selectFiatViewController = SelectFiatViewController()
+            show(selectFiatViewController, sender: self)
 
         case Section.General.terms:
             openInSafari(legal.termsURL)
