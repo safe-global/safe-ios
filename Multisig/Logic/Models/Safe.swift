@@ -29,8 +29,8 @@ extension Safe: Identifiable {
     var displayENSName: String { ensName ?? "" }
 
     var isReadOnly: Bool {
-        if let owners = owners, !owners.isEmpty,
-           let keys = try? KeyInfo.keys(addresses: owners), !keys.isEmpty {
+        if let owners = ownersInfo, !owners.isEmpty,
+           let keys = try? KeyInfo.keys(addresses: owners.map(\.address)), !keys.isEmpty {
             return false
         } else {
             return true
@@ -191,14 +191,14 @@ extension Safe: Identifiable {
 }
 
 extension Safe {
-    func update(from safeInfo: SafeStatusRequest.Response) {
-        threshold = safeInfo.threshold.value
-        owners = safeInfo.owners.map { $0.address }
-        implementation = safeInfo.implementation.address
-        version = safeInfo.version
-        nonce = safeInfo.nonce.value
-        modules = safeInfo.modules.map { $0.address }
-        fallbackHandler = safeInfo.fallbackHandler.address
+    func update(from info: SafeInfoRequest.ResponseType) {
+        threshold = info.threshold.value
+        ownersInfo = info.owners.map { $0.addressInfo }
+        implementationInfo = info.implementation.addressInfo
+        version = info.version
+        nonce = info.nonce.value
+        modulesInfo = info.modules?.map { $0.addressInfo }
+        fallbackHandlerInfo = info.fallbackHandler?.addressInfo
     }
 }
 

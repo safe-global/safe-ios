@@ -16,13 +16,15 @@ class AdvancedSafeSettingsViewController: UITableViewController {
     private var safe: Safe!
     private var sections = [SectionItems]()
 
+    var namingPolicy = DefaultAddressNamingPolicy()
+
     enum Section {
         case fallbackHandler(String)
         case nonce(String)
         case modules(String)
 
         enum FallbackHandler: SectionItem {
-            case fallbackHandler(String?, String?)
+            case fallbackHandler(AddressInfo?)
             case fallbackHandlerHelpLink
         }
 
@@ -31,7 +33,7 @@ class AdvancedSafeSettingsViewController: UITableViewController {
         }
 
         enum Module: SectionItem {
-            case module(String, String)
+            case module(AddressInfo)
         }
 
     }
@@ -47,6 +49,8 @@ class AdvancedSafeSettingsViewController: UITableViewController {
         }
 
         navigationItem.title = "Advanced"
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(HelpLinkTableViewCell.self)
@@ -60,20 +64,20 @@ class AdvancedSafeSettingsViewController: UITableViewController {
     }
 
     private func buildSections() {
-        let fallbackHandler = App.shared.gnosisSafe.hasFallbackHandler(safe: safe) ? safe.fallbackHandler?.checksummed : nil
-        let fallbackHanderTitle = App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: safe.fallbackHandler)
         sections = [
             (section: .fallbackHandler("FALLBACK HANDLER"),
-             items: [Section.FallbackHandler.fallbackHandler(fallbackHanderTitle, fallbackHandler),
+             items: [Section.FallbackHandler.fallbackHandler(App.shared.gnosisSafe.fallbackHandlerInfo(safe.fallbackHandlerInfo)),
                      Section.FallbackHandler.fallbackHandlerHelpLink]),
 
             (section: .nonce("NONCE"),
              items: [Section.Nonce.nonce(safe.nonce?.description ?? "0")]),
         ]
 
-        if let modules = safe.modules, !modules.isEmpty {
-            sections.append((section: .modules("ADDRESSES OF ENABLED MODULES"),
-                             items: modules.map { Section.Module.module("Unknown", $0.checksummed) }))
+        if let modules = safe.modulesInfo, !modules.isEmpty {
+            sections += [
+                (section: .modules("ADDRESSES OF ENABLED MODULES"),
+                 items: modules.map { Section.Module.module($0) })
+            ]
         }
     }
 }
@@ -90,9 +94,9 @@ extension AdvancedSafeSettingsViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.FallbackHandler.fallbackHandler(let title, let address):
-            if let address = address {
-                return addressDetailsCell(address: address, title: title, indexPath: indexPath)
+        case Section.FallbackHandler.fallbackHandler(let info):
+            if let info = info {
+                return addressDetailsCell(address: info.address, title: namingPolicy.name(info: info), indexPath: indexPath)
             } else {
                 return basicCell(name: "Not set", indexPath: indexPath)
             }
@@ -100,8 +104,8 @@ extension AdvancedSafeSettingsViewController {
             return fallbackHandlerHelpLinkCell(indexPath: indexPath)
         case Section.Nonce.nonce(let nonce):
             return basicCell(name: nonce, indexPath: indexPath)
-        case Section.Module.module(let name, let address):
-            return addressDetailsCell(address: address, title: name, indexPath: indexPath)
+        case Section.Module.module(let info):
+            return addressDetailsCell(address: info.address, title: namingPolicy.name(info: info), indexPath: indexPath)
         default:
             return UITableViewCell()
         }
@@ -136,9 +140,9 @@ extension AdvancedSafeSettingsViewController {
         return cell
     }
 
-    private func addressDetailsCell(address: String, title: String?, indexPath: IndexPath) -> UITableViewCell {
+    private func addressDetailsCell(address: Address, title: String?, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: .init(exactly: address), label: title)
+        cell.setAccount(address: address, label: title)
         return cell
     }
 

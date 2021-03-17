@@ -13,8 +13,10 @@ fileprivate protocol SectionItem {}
 
 class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     var safeTransactionService = App.shared.safeTransactionService
+    var clientGatewayService = App.shared.clientGatewayService
     let tableBackgroundColor: UIColor = .primaryBackground
     let advancedSectionHeaderHeight: CGFloat = 28
+    var namingPolicy = DefaultAddressNamingPolicy()
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
@@ -40,11 +42,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
 
         enum OwnerAddresses: SectionItem {
-            case owner(Address)
+            case ownerInfo(AddressInfo)
         }
 
         enum ContractVersion: SectionItem {
-            case contractVersion(String)
+            case versionInfo(AddressInfo)
         }
 
         enum EnsName: SectionItem {
@@ -96,7 +98,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         do {
             safe = try Safe.getSelected()!
             let address = try Address(from: safe.address!)
-            currentDataTask = safeTransactionService.asyncSafeInfo(at: address) { [weak self] result in
+
+            currentDataTask = clientGatewayService.asyncSafeInfo(address: address) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):
@@ -126,18 +129,18 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
     }
 
-    private func updateSections(with info: SafeStatusRequest.Response) {
+    private func updateSections(with info: SafeInfoRequest.ResponseType) {
         sections = [
-            (section: .name("Safe Name"), items: [Section.Name.name(safe.name!)]),
+            (section: .name("Safe Name"), items: [Section.Name.name(safe.name ?? "Safe \(safe.addressValue.ellipsized())")]),
 
             (section: .requiredConfirmations("Required confirmations"),
              items: [Section.RequiredConfirmations.confirmations("\(info.threshold) out of \(info.owners.count)")]),
 
             (section: .ownerAddresses("Owner addresses"),
-             items: info.owners.map { Section.OwnerAddresses.owner($0.address) }),
+             items: info.owners.map { Section.OwnerAddresses.ownerInfo($0.addressInfo) }),
 
             (section: .safeVersion("Safe version"),
-             items: [Section.ContractVersion.contractVersion(info.implementation.description)]),
+             items: [Section.ContractVersion.versionInfo(info.implementation.addressInfo)]),
 
             (section: .ensName("ENS name"), items: [Section.EnsName.ensName]),
 
@@ -166,11 +169,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.RequiredConfirmations.confirmations(let name):
             return basicCell(name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
 
-        case Section.OwnerAddresses.owner(let name):
-            return addressDetailsCell(address: name, indexPath: indexPath)
+        case Section.OwnerAddresses.ownerInfo(let info):
+            return addressDetailsCell(address: info.address, name: namingPolicy.name(info: info), indexPath: indexPath)
 
-        case Section.ContractVersion.contractVersion(let version):
-            return safeVersionCell(version: version, indexPath: indexPath)
+        case Section.ContractVersion.versionInfo(let info):
+            return safeVersionCell(info: info, indexPath: indexPath)
 
         case Section.EnsName.ensName:
             if ensLoader.isLoading {
@@ -196,27 +199,23 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                            canSelect: Bool = true) -> UITableViewCell {
         let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
         cell.setTitle(name)
-        if !withDisclosure {
-            cell.setDisclosureImage(nil)
-        }
-        if !canSelect {
-            cell.selectionStyle = .none
-        }
+        cell.setDisclosureImage(withDisclosure ? UIImage(named: "arrow") : nil)
+        cell.selectionStyle = canSelect ? .default : .none
         return cell
     }
 
-    private func addressDetailsCell(address: Address, indexPath: IndexPath) -> UITableViewCell {
+    private func addressDetailsCell(address: Address, name: String?, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: KeyInfo.name(address: address))
+        cell.setAccount(address: address, label: name)
         return cell
     }
 
-    private func safeVersionCell(version: String, indexPath: IndexPath) -> UITableViewCell {
+    private func safeVersionCell(info: AddressInfo, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(ContractVersionStatusCell.self, for: indexPath)
-        cell.setAddress(Address(exactly: version))
+        cell.setAddress(info)
         cell.selectionStyle = .none
         cell.onViewDetails = { [weak self] in
-            self?.openInSafari(Safe.browserURL(address: version))
+            self?.openInSafari(Safe.browserURL(address: info.address.checksummed))
         }
         return cell
     }
@@ -280,10 +279,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.OwnerAddresses.owner(_):
+        case Section.OwnerAddresses.ownerInfo:
             return UITableView.automaticDimension
 
-        case Section.ContractVersion.contractVersion(_):
+        case Section.ContractVersion.versionInfo:
             return UITableView.automaticDimension
 
         case Section.EnsName.ensName:
@@ -335,5 +334,16 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 extension SafeSettingsViewController: ENSNameLoaderDelegate {
     func ensNameLoaderDidLoadName(_ loader: ENSNameLoader) {
         tableView.reloadData()
+    }
+}
+
+/// Precedence: KeyInfo.name > info.name
+class DefaultAddressNamingPolicy {
+    func name(for address: Address? = nil,
+              info: AddressInfo? = nil) -> String? {
+        if let addr = address ?? info?.address {
+            return KeyInfo.name(address: addr) ?? info?.name
+        }
+        return info?.name
     }
 }

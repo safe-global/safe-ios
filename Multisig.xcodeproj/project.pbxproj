@@ -160,6 +160,8 @@
 		0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */; };
 		0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F482F254C56CE0069C98D /* AddSafeTableViewCell.swift */; };
 		0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F4830254C56CE0069C98D /* AddSafeTableViewCell.xib */; };
+		0A63C7B42602087E00D36B22 /* SafeInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63C7B32602087E00D36B22 /* SafeInfoRequest.swift */; };
+		0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63C7E22602725100D36B22 /* AddressInfo.swift */; };
 		0A6430E2247EC2C7006FD30A /* ConfigurationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */; };
 		0A6430F5247ECB3E006FD30A /* ConfigurationKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430F4247ECB3E006FD30A /* ConfigurationKeyTests.swift */; };
 		0A67AC9625E3BE4400B3E97C /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */; };
@@ -638,6 +640,8 @@
 		0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeEntryTableViewCell.xib; sourceTree = "<group>"; };
 		0A5F482F254C56CE0069C98D /* AddSafeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeTableViewCell.swift; sourceTree = "<group>"; };
 		0A5F4830254C56CE0069C98D /* AddSafeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddSafeTableViewCell.xib; sourceTree = "<group>"; };
+		0A63C7B32602087E00D36B22 /* SafeInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoRequest.swift; sourceTree = "<group>"; };
+		0A63C7E22602725100D36B22 /* AddressInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInfo.swift; sourceTree = "<group>"; };
 		0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Production.Mainnet.xcconfig; sourceTree = "<group>"; };
 		0A6430DA247EC193006FD30A /* Production.Rinkeby.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Production.Rinkeby.xcconfig; sourceTree = "<group>"; };
 		0A6430DB247EC193006FD30A /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -1068,6 +1072,7 @@
 			children = (
 				043ABD0B24EF0C33008826D5 /* SafeClientGatewayService.swift */,
 				0A433E5E25500F87006FFF75 /* BalancesRequest.swift */,
+				0A63C7B32602087E00D36B22 /* SafeInfoRequest.swift */,
 				0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */,
 				043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */,
 				0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */,
@@ -2022,6 +2027,7 @@
 				5532D4922448A1960067505A /* Safe.swift */,
 				0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */,
 				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
+				0A63C7E22602725100D36B22 /* AddressInfo.swift */,
 				0AC5F5B225DD510600DEF0D7 /* AppUser.swift */,
 				551DDEE8244F183500C719D3 /* Selection.swift */,
 				55B64658253050200050BD95 /* SignatureString.swift */,
@@ -2978,6 +2984,7 @@
 				0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */,
 				0A8AEB1825A4726E002A3FE1 /* ActionDetailExpandableCell.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
+				0A63C7B42602087E00D36B22 /* SafeInfoRequest.swift in Sources */,
 				0A57C5D72577F9E600420303 /* ConfirmationStatusPiece.swift in Sources */,
 				0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
@@ -3117,6 +3124,7 @@
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
 				55BCFC5E255469B300020CE7 /* BasicHeaderView.swift in Sources */,
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
+				0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */,
 				04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

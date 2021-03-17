@@ -193,7 +193,7 @@ class TransactionDetailCellBuilder {
                 var (label, imageUri) = displayNameAndImageUri(address: fallbackTx.handler,
                                                                addressInfo: fallbackTx.handlerInfo)
                 if label == nil {
-                    label = App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: handler)
+                    label = App.shared.gnosisSafe.fallbackHandlerInfo(AddressInfo(address: handler))?.name ?? "Not set"
                 }
                 address(
                     handler,

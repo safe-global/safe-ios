@@ -13,14 +13,11 @@ import CoreData
 public class Safe: NSManagedObject {
     var ensName: String?
     var threshold: UInt256?
-    var owners: [Address]?
-    var implementation: Address?
     var version: String?
     var nonce: UInt256?
-    var modules: [Address]?
-    var fallbackHandler: Address?
-
-    var safeAddress: Address? {
-        address.flatMap { Address($0) }
-    }
+    var addressInfo: AddressInfo?
+    var ownersInfo: [AddressInfo]?
+    var implementationInfo: AddressInfo?
+    var modulesInfo: [AddressInfo]?
+    var fallbackHandlerInfo: AddressInfo?
 }
