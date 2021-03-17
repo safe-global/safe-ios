@@ -29,10 +29,10 @@ class SelectFiatViewController: LoadableViewController {
         tableView.backgroundColor = .secondaryBackground
     }
 
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        trackEvent(.assetsCoins)
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.settingsSelectFiat)
+    }
 
     override func reloadData() {
         super.reloadData()
