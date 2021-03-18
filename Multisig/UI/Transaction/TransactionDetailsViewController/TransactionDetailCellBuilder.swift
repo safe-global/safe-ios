@@ -74,7 +74,7 @@ class TransactionDetailCellBuilder {
 
     func buildFactoryUsed(_ creationTx: SCGModels.TxInfo.Creation) {
         if let factory = creationTx.factory?.address {
-            address(factory, label: nil, title: "Factory used")
+            address(factory, label: creationTx.factoryInfo?.name, title: "Factory used", imageUri: creationTx.factoryInfo?.logoUri)
         } else {
             text("No factory used", title: "Factory used", expandableTitle: nil, copyText: nil)
         }
@@ -84,8 +84,9 @@ class TransactionDetailCellBuilder {
         if let implementation = creationTx.implementation?.address {
             address(
                 implementation,
-                label: App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? "Unknown",
-                title: "Mastercopy used")
+                label: App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? (creationTx.implementationInfo?.name ?? "Unknown"),
+                title: "Mastercopy used",
+                imageUri: creationTx.implementationInfo?.logoUri)
         } else {
             text(
                 "Not available",
@@ -104,7 +105,7 @@ class TransactionDetailCellBuilder {
     }
 
     func buildCreatorAddress(_ creationTx: SCGModels.TxInfo.Creation) {
-        address(creationTx.creator.address, label: nil, title: "Creator address")
+        address(creationTx.creator.address, label: creationTx.creatorInfo?.name, title: "Creator address", imageUri: creationTx.creatorInfo?.logoUri)
     }
 
     func buildHeader(_ tx: SCGModels.TransactionDetails) {

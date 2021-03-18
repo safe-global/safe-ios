@@ -308,9 +308,12 @@ extension SCGModels {
 
         struct Creation: Decodable {
             var creator: AddressString
+            var creatorInfo: AddressInfo?
             var transactionHash: DataString
             var implementation: AddressString?
+            var implementationInfo: AddressInfo?
             var factory: AddressString?
+            var factoryInfo: AddressInfo?
         }
     }
 
