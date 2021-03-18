@@ -55,6 +55,8 @@
 		049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049A9D6F25F9303000CA5723 /* ChooseOwnerKeyViewController.xib */; };
 		049A9DB125FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9DAF25FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift */; };
 		049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049A9DB025FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib */; };
+		049A9DD026020C0B00CA5723 /* SelectFiatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9DCF26020C0B00CA5723 /* SelectFiatViewController.swift */; };
+		049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9DD92602211500CA5723 /* FiatCodesRequest.swift */; };
 		049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C24EA2575477900897D3C /* UIViewController+Tracking.swift */; };
 		049EB0E925AF435C00F66CEA /* HistoryTransactions.json in Resources */ = {isa = PBXBuildFile; fileRef = 049EB0E425AF427C00F66CEA /* HistoryTransactions.json */; };
 		049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */; };
@@ -378,8 +380,6 @@
 		558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835E6255AEA390014E8C7 /* InfoCell.xib */; };
 		558835EF255BFEDB0014E8C7 /* AddressInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835EE255BFEDB0014E8C7 /* AddressInfoView.swift */; };
 		558835F9255BFEF80014E8C7 /* AddressInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835F8255BFEF80014E8C7 /* AddressInfoView.xib */; };
-		55883600255C00A40014E8C7 /* ImportedKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */; };
-		55883601255C00A40014E8C7 /* ImportedKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */; };
 		55883612255C15870014E8C7 /* UIViewController+Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55883611255C15870014E8C7 /* UIViewController+Safari.swift */; };
 		5588363C2562904E0014E8C7 /* ContractVersionStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588363A2562904E0014E8C7 /* ContractVersionStatusCell.swift */; };
 		5588363D2562904E0014E8C7 /* ContractVersionStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588363B2562904E0014E8C7 /* ContractVersionStatusCell.xib */; };
@@ -527,6 +527,8 @@
 		049A9D6F25F9303000CA5723 /* ChooseOwnerKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseOwnerKeyViewController.xib; sourceTree = "<group>"; };
 		049A9DAF25FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOwnerTableViewCell.swift; sourceTree = "<group>"; };
 		049A9DB025FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseOwnerTableViewCell.xib; sourceTree = "<group>"; };
+		049A9DCF26020C0B00CA5723 /* SelectFiatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFiatViewController.swift; sourceTree = "<group>"; };
+		049A9DD92602211500CA5723 /* FiatCodesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatCodesRequest.swift; sourceTree = "<group>"; };
 		049C24EA2575477900897D3C /* UIViewController+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Tracking.swift"; sourceTree = "<group>"; };
 		049EB0E425AF427C00F66CEA /* HistoryTransactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryTransactions.json; sourceTree = "<group>"; };
 		049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+Offset.swift"; sourceTree = "<group>"; };
@@ -911,8 +913,6 @@
 		558835E6255AEA390014E8C7 /* InfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
 		558835EE255BFEDB0014E8C7 /* AddressInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInfoView.swift; sourceTree = "<group>"; };
 		558835F8255BFEF80014E8C7 /* AddressInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressInfoView.xib; sourceTree = "<group>"; };
-		558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedKeyCell.swift; sourceTree = "<group>"; };
-		558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportedKeyCell.xib; sourceTree = "<group>"; };
 		55883611255C15870014E8C7 /* UIViewController+Safari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Safari.swift"; sourceTree = "<group>"; };
 		5588363A2562904E0014E8C7 /* ContractVersionStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractVersionStatusCell.swift; sourceTree = "<group>"; };
 		5588363B2562904E0014E8C7 /* ContractVersionStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContractVersionStatusCell.xib; sourceTree = "<group>"; };
@@ -1072,6 +1072,7 @@
 			children = (
 				043ABD0B24EF0C33008826D5 /* SafeClientGatewayService.swift */,
 				0A433E5E25500F87006FFF75 /* BalancesRequest.swift */,
+				049A9DD92602211500CA5723 /* FiatCodesRequest.swift */,
 				0A63C7B32602087E00D36B22 /* SafeInfoRequest.swift */,
 				0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */,
 				043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */,
@@ -2206,8 +2207,7 @@
 			children = (
 				0428DB0025CF231B002CF4A9 /* ChangeAppearanceViewController */,
 				558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */,
-				558835FE255C00A40014E8C7 /* ImportedKeyCell.swift */,
-				558835FF255C00A40014E8C7 /* ImportedKeyCell.xib */,
+				049A9DCF26020C0B00CA5723 /* SelectFiatViewController.swift */,
 			);
 			path = AppSettingsViewController;
 			sourceTree = "<group>";
@@ -2615,7 +2615,6 @@
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* SVGView.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
-				55883601255C00A40014E8C7 /* ImportedKeyCell.xib in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
@@ -2840,6 +2839,7 @@
 			files = (
 				0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */,
 				049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */,
+				049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */,
 				558835EF255BFEDB0014E8C7 /* AddressInfoView.swift in Sources */,
 				0A57C5E42577FBD900420303 /* DetailConfirmationCell.swift in Sources */,
 				047691372461B2E200D73D8B /* AddressCell.swift in Sources */,
@@ -2898,7 +2898,6 @@
 				0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				0A433E8125516A9A006FFF75 /* TotalBalanceTableViewCell.swift in Sources */,
-				55883600255C00A40014E8C7 /* ImportedKeyCell.swift in Sources */,
 				049A9D3A25F81F2C00CA5723 /* EditOwnerKeyViewController.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */,
@@ -3078,6 +3077,7 @@
 				0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */,
 				5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */,
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
+				049A9DD026020C0B00CA5723 /* SelectFiatViewController.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
 				0AB34D6224B71DB200A43988 /* SafeBalancesRequest.swift in Sources */,

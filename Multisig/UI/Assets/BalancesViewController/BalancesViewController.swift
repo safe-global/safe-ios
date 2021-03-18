@@ -71,6 +71,10 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
         NotificationCenter.default.addObserver(
             self, selector: #selector(updatePasscodeBanner), name: .passcodeCreated, object: nil)
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(lazyReloadData), name: .selectedFiatCurrencyChanged, object: nil)
+
     }
 
     @objc private func ownerKeyImported() {
@@ -110,9 +114,9 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                         self.onError(GSError.error(description: "Failed to load balances", error: error))
                     }
                 case .success(let summary):
-                    let results = summary.items.map(TokenBalance.init)
-                    let total = TokenBalance.displayCurrency(from: summary.fiatTotal)
                     DispatchQueue.main.async { [weak self] in
+                        let results = summary.items.map { TokenBalance($0, code: AppSettings.selectedFiatCode) }
+                        let total = TokenBalance.displayCurrency(from: summary.fiatTotal, code: AppSettings.selectedFiatCode)
                         guard let `self` = self else { return }
                         self.results = results
                         self.totalBalance = total
@@ -152,7 +156,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             let cell = tableView.dequeueCell(BalanceTableViewCell.self, for: indexPath)
             cell.setMainText(item.symbol)
             cell.setDetailText(item.balance)
-            cell.setSubDetailText(item.balanceUsd)
+            cell.setSubDetailText(item.fiatBalance)
             if let image = item.image {
                 cell.setImage(image)
             } else {
