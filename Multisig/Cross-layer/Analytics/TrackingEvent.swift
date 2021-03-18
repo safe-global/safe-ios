@@ -69,7 +69,6 @@ enum TrackingEvent: String, Trackable {
     case settingsAppAdvanced                        = "screen_settings_app_advanced"
     case settingsAppEditFiat                        = "screen_settings_app_edit_fiat"
     case settingsAppSupport                         = "screen_settings_app_support"
-    case settingsSelectFiat                         = "screen_settings_app_edit_fiat"
 
     case settingsSafe                               = "screen_settings_safe"
     case settingsSafeNoSafe                         = "screen_settings_safe_no_safe"
