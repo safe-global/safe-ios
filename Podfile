@@ -56,6 +56,8 @@ target 'Multisig' do
   # Dependency for SSL pinning
   pod 'TrustKit'
 
+  pod 'UnstoppableDomainsResolution', '~> 0.3.5'
+  
   target 'MultisigTests' do
     inherit! :search_paths
   end
