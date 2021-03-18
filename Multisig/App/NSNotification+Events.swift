@@ -17,4 +17,5 @@ extension NSNotification.Name {
     static let transactionDataInvalidated = NSNotification.Name("io.gnosis.safe.transactionDataInvalidated")
     static let passcodeCreated = NSNotification.Name("io.gnosis.safe.passcodeCreated")
     static let passcodeDeleted = NSNotification.Name("io.gnosis.safe.passcodeDeleted")
+    static let selectedFiatCurrencyChanged = NSNotification.Name("io.gnosis.safe.selectedFiatCurrencyChanged")
 }

@@ -36,7 +36,7 @@ struct BalancesRequest: JSONRequest {
 
 extension BalancesRequest {
     init(_ address: Address) {
-        self.init(safeAddress: address.checksummed, fiat: "USD")
+        self.init(safeAddress: address.checksummed, fiat: AppSettings.selectedFiatCode)
     }
 }
 

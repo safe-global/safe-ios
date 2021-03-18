@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D80" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AppSettings" representedClassName="AppSettings" syncable="YES" codeGenerationType="class">
         <attribute name="appReviewEventCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="dismissedImportKeyBanner" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="displayMode" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fiatCode" optional="YES" attributeType="String" defaultValueString="USD"/>
         <attribute name="importedOwnerKey" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="importKeyOnBoardingShown" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastBuildVersion" optional="YES" attributeType="String"/>
@@ -33,7 +34,7 @@
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="selection" inverseEntity="Safe"/>
     </entity>
     <elements>
-        <element name="AppSettings" positionX="54" positionY="18" width="128" height="179"/>
+        <element name="AppSettings" positionX="54" positionY="18" width="128" height="194"/>
         <element name="AppUser" positionX="54" positionY="63" width="128" height="89"/>
         <element name="KeyInfo" positionX="63" positionY="72" width="128" height="74"/>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>
