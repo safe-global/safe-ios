@@ -98,14 +98,24 @@ class RejectionConfirmationViewController: UIViewController {
                 // updated right away, we'll give a moment for the backend
                 // to catch up before finishing with this request.
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(600)) { [weak self] in
-                    if case Result.success(_) = result {
+                    switch result {
+                    case .failure(let error):
+                        // ignore cancellation error due to cancelling the
+                        // currently running task. Otherwise user will see
+                        // meaningless message.
+                        if (error as NSError).code == URLError.cancelled.rawValue &&
+                            (error as NSError).domain == NSURLErrorDomain {
+                            return
+                        }
+
+                        App.shared.snackbar.show(error: GSError.error(description: "Failed to Reject transaction", error: error))
+                    case .success(_):
                         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
                         Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionRejected)
                         App.shared.snackbar.show(message: "Rejection successfully submitted")
                         self?.navigationController?.popToRootViewController(animated: true)
-                    } else {
-                        App.shared.snackbar.show(message: "Failed to Reject transaction")
                     }
+
                     self?.endLoading()
                 }
             })
