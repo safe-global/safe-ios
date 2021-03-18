@@ -29,7 +29,6 @@ class AddressInfoView: UINibView {
         titleLabel.setStyle(.headline)
         textLabel.setStyle(.headline)
         addressLabel.setStyle(.tertiary)
-        textLabel.numberOfLines = 1
         setTitle(nil)
     }
 
