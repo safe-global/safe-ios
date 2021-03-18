@@ -34,11 +34,12 @@ class ContractVersionStatusCell: UITableViewCell {
         addTarget(self, action: #selector(copyAddress), for: .touchUpInside)
     }
 
-    func setAddress(_ value: Address) {
-        address = value
-        identiconView.setAddress(value.hexadecimal)
-        detailLabel.text = value.ellipsized()
-        versionStatus = App.shared.gnosisSafe.version(implementation: value)
+    func setAddress(_ info: AddressInfo) {
+        address = info.address
+        identiconView.setCircleImage(url: info.logoUri, address: info.address)
+
+        detailLabel.text = info.address.ellipsized()
+        versionStatus = App.shared.gnosisSafe.version(implementation: info.address)
 
         let semiboldConfiguration = UIImage.SymbolConfiguration(weight: .semibold)
 
@@ -58,7 +59,7 @@ class ContractVersionStatusCell: UITableViewCell {
             statusLabel.text = "Upgrade available"
 
         case .unknown:
-            headerLabel.text = "Unknown"
+            headerLabel.text = info.name ?? "Unknown"
             statusView.image = nil
             statusLabel.text = nil
         }

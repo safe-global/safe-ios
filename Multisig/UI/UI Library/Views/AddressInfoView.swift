@@ -53,7 +53,7 @@ class AddressInfoView: UINibView {
 
         addressLabel.textAlignment = showIdenticon ? .left : .center
         if showIdenticon {
-            identiconView.setCircleImage(url: imageUri, address: address.hexadecimal)
+            identiconView.setCircleImage(url: imageUri, address: address)
         }
     }
 

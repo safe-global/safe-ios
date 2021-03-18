@@ -32,8 +32,9 @@ extension UIImageView {
                     options: [.processor(RoundCornerImageProcessor(radius: .widthFraction(0.5)))])
     }
 
-    func setCircleImage(url: URL?, address: String) {
-        let blocky = BlockiesImageProvider(seed: address).image()?.circleShape()
+    /// Sets the image from URL or uses blocky for the address if image can't be loaded
+    func setCircleImage(url: URL?, address: Address) {
+        let blocky = BlockiesImageProvider(seed: address.hexadecimal).image()?.circleShape()
         setCircleShapeImage(url: url, placeholder: blocky)
     }
 }

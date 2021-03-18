@@ -67,6 +67,12 @@ extension SCGModels {
         var logoUri: URL?
     }
 
+    struct AddressInfoExtended: Decodable {
+        var value: AddressString
+        var name: String?
+        var logoUrl: URL?
+    }
+
     struct TxSummary: Decodable {
         var id: String
         var timestamp: Date
@@ -302,9 +308,12 @@ extension SCGModels {
 
         struct Creation: Decodable {
             var creator: AddressString
+            var creatorInfo: AddressInfo?
             var transactionHash: DataString
             var implementation: AddressString?
+            var implementationInfo: AddressInfo?
             var factory: AddressString?
+            var factoryInfo: AddressInfo?
         }
     }
 
@@ -461,5 +470,30 @@ extension SCGModels {
         case none = "None"
         case hasNext = "HasNext"
         case end = "End"
+    }
+
+    // MARK: - Safe Info Extended
+
+    struct SafeInfoExtended: Decodable {
+        var address: AddressInfoExtended
+        var nonce: UInt256String
+        var threshold: UInt256String
+        var owners: [AddressInfoExtended]
+        var implementation: AddressInfoExtended
+        var modules: [AddressInfoExtended]?
+        var fallbackHandler: AddressInfoExtended?
+        var version: String
+    }
+}
+
+extension SCGModels.AddressInfoExtended {
+    var addressInfo: AddressInfo {
+        .init(address: value.address, name: name, logoUri: logoUrl)
+    }
+}
+
+extension SCGModels.AddressInfo {
+    var addressInfo: AddressInfo {
+        .init(address: .zero, name: name, logoUri: logoUri)
     }
 }

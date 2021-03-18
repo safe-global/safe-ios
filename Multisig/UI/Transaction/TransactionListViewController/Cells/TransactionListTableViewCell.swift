@@ -49,7 +49,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     }
 
     func set(contractImageUrl: URL? = nil, contractAddress: AddressString) {
-        typeImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address.hexadecimal)
+        typeImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address)
     }
 
     func set(imageUrl: URL? = nil, placeholder: UIImage?) {

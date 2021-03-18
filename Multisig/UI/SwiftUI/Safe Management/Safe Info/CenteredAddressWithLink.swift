@@ -19,7 +19,7 @@ struct CenteredAddressWithLink: View {
     var body: some View {
         HStack {
             CopyButton(safe.address) {
-                SlicedText(safe.safeAddress!)
+                SlicedText(safe.addressValue)
                     .style(.addressLong)
                     .multilineTextAlignment(.center)
             }

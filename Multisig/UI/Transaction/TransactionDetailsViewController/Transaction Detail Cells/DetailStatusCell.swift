@@ -33,7 +33,7 @@ class DetailStatusCell: UITableViewCell {
     }
 
     func set(contractImageUrl: URL? = nil, contractAddress: AddressString) {
-        iconImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address.hexadecimal)
+        iconImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address)
     }
 
     func set(imageUrl: URL? = nil, placeholder: UIImage?) {

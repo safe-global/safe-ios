@@ -21,7 +21,7 @@ final class HeaderViewController: ContainerViewController {
     private var rootViewController: UIViewController?
     private var currentDataTask: URLSessionTask?
 
-    var safeTransactionService = App.shared.safeTransactionService
+    var clientGatewayService = App.shared.clientGatewayService
     var notificationCenter = NotificationCenter.default
 
     convenience init(rootViewController: UIViewController) {
@@ -115,7 +115,7 @@ final class HeaderViewController: ContainerViewController {
         currentDataTask?.cancel()
         do {
             guard let safe = try Safe.getSelected() else { return }
-            currentDataTask = safeTransactionService.asyncSafeInfo(at: safe.addressValue) { [weak self] result in
+            currentDataTask = clientGatewayService.asyncSafeInfo(address: safe.addressValue) { [weak self] result in
                 DispatchQueue.main.async { [weak self] in
                     switch result {
                     case .failure(let error):
