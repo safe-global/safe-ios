@@ -28,7 +28,8 @@ extension TokenBalance {
                   logoUri: response.token?.logoUri,
                   tokenBalance: response.balance,
                   decimals: response.token?.decimals,
-                  fiatBalance: response.balanceUsd, code: code)
+                  fiatBalance: response.balanceUsd,
+                  code: code)
     }
 
     init(_ item: SCGBalance, code: String) {
@@ -37,7 +38,8 @@ extension TokenBalance {
                   logoUri: item.tokenInfo.logoUri,
                   tokenBalance: item.balance,
                   decimals: item.tokenInfo.decimals,
-                  fiatBalance: item.fiatBalance, code: code)
+                  fiatBalance: item.fiatBalance,
+                  code: code)
     }
 
     init(address: Address, symbol: String?, logoUri: String?, tokenBalance: UInt256String, decimals: UInt256String?, fiatBalance: String, code: String) {
