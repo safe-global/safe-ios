@@ -72,3 +72,13 @@ end
 target 'NotificationServiceExtension' do
   pod 'SwiftCryptoTokenFormatter', '1.0.0'
 end
+
+post_install do |pi|
+   pi.pods_project.targets.each do |t|
+       t.build_configurations.each do |bc|
+           if bc.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] == '8.0'
+             bc.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+           end
+       end
+   end
+end
