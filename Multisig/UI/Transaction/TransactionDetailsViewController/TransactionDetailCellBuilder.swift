@@ -624,6 +624,11 @@ class TransactionDetailCellBuilder {
         if let importedSafeName = Safe.cachedName(by: address) {
             return (importedSafeName, nil)
         }
+
+        if let ownerName = KeyInfo.name(address: address.address) {
+            return (ownerName, nil)
+        }
+        
         return (addressInfo?.name, addressInfo?.logoUri)
     }
 }
