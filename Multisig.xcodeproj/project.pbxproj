@@ -91,6 +91,8 @@
 		0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007129254B379000A57CAF /* UIColor+Styles.swift */; };
 		0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0256232449F7BF00C91D73 /* AddressView.swift */; };
 		0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A096CBD2608D9370034E6BC /* NetworkStatusObserver.swift */; };
+		0A096CC32608F4750034E6BC /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967104256E92470097D3A2 /* SignerTests.swift */; };
+		0A096CC82608F49E0034E6BC /* RegisterNotificationTokenRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */; };
 		0A09839C24BC522B009EE296 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839B24BC522B009EE296 /* Token.swift */; };
 		0A09839E24BC5301009EE296 /* InMemoryTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839D24BC5301009EE296 /* InMemoryTokenStore.swift */; };
 		0A0983A024BC55ED009EE296 /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839F24BC55ED009EE296 /* TokenRequest.swift */; };
@@ -3142,6 +3144,7 @@
 				0A9BC33D24603AE800EB9C5D /* ENSTests.swift in Sources */,
 				5596710D256E935F0097D3A2 /* MockSecureStore.swift in Sources */,
 				0A9BC34C246053DB00EB9C5D /* DataInitWithHexTests.swift in Sources */,
+				0A096CC32608F4750034E6BC /* SignerTests.swift in Sources */,
 				5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */,
 				0A6430F5247ECB3E006FD30A /* ConfigurationKeyTests.swift in Sources */,
 				0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */,
@@ -3152,6 +3155,7 @@
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
 				0AA9F25924992CB6005BD60F /* TransactionTests.swift in Sources */,
 				551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */,
+				0A096CC82608F49E0034E6BC /* RegisterNotificationTokenRequestTests.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,
 				55B66E8E24810BC800249E98 /* AppSettingsTests.swift in Sources */,
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,

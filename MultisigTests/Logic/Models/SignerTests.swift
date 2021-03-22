@@ -10,19 +10,16 @@ import XCTest
 @testable import Multisig
 
 class SignerTests: XCTestCase {
-    let mockStore = MockSecureStore()
-
-    override func setUpWithError() throws {
-        super.setUp()
-        App.shared.keychainService = mockStore
-        try! mockStore.save(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"),
-                            forKey: PrivateKey.v1KeyID)
-    }
-
     func testSigner() throws {
-        let string = "gnosis-safe"
-        let expected = Signer.Signature(value: "0x99a7a03e9597e85a0cc4188d270b72b1df2de943de804f144976f4c1e23116ff274d2dec4ee7201b88bdadf08259a5dc8e7e2bbf372347de3470beeab904e5d01b",
-                                        signer: "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0")
-        XCTAssertEqual(try Signer.sign(string), expected)
+        let key = try PrivateKey(data:  Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))
+        let expectedSignature = "0x99a7a03e9597e85a0cc4188d270b72b1df2de943de804f144976f4c1e23116ff274d2dec4ee7201b88bdadf08259a5dc8e7e2bbf372347de3470beeab904e5d01b"
+        let expectedSigner = "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0"
+        let preimage = "gnosis-safe"
+
+        let hash = EthHasher.hash(preimage)
+        let signature = try key.sign(hash: hash)
+
+        XCTAssertEqual(signature.hexadecimal, expectedSignature)
+        XCTAssertEqual(signature.signer, Address(exactly: expectedSigner))
     }
 }
