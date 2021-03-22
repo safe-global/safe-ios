@@ -45,6 +45,8 @@ class App {
 
     let notificationHandler = RemoteNotificationHandler()
 
+    let clientGatewayHostObserver = NetworkHostStatusObserver(host: configuration.services.clientGatewayURL.host ?? "www.gnosis.io")
+
     // Cross-layer
     static let configuration = AppConfiguration()
 
