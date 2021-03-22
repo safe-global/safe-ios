@@ -296,6 +296,7 @@ extension SCGModels {
             var dataSize: UInt256String
             var value: UInt256String
             var methodName: String?
+            var actionCount: UInt256String?
         }
 
         struct Rejection: Decodable {
@@ -304,6 +305,7 @@ extension SCGModels {
             var dataSize: UInt256String
             var value: UInt256String
             var methodName: String?
+            var actionCount: UInt256String?
         }
 
         struct Creation: Decodable {
