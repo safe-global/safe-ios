@@ -104,10 +104,10 @@ class NetworkHostStatusObserver {
         }
     }
 
-    private func logError() {
+    private func logError(line: UInt = #line, file: StaticString = #file) {
         let code = SCError()
         let message = SCErrorString(code)
-        LogService.shared.error("Failed to create reachability target: \(message), Code \(code)")
+        LogService.shared.error("\(file):\(line): Network reachability failure: '\(message)', Code \(code)")
     }
 
     /// Stops observing network host reachability
