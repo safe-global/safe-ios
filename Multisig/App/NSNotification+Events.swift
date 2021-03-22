@@ -18,4 +18,6 @@ extension NSNotification.Name {
     static let passcodeCreated = NSNotification.Name("io.gnosis.safe.passcodeCreated")
     static let passcodeDeleted = NSNotification.Name("io.gnosis.safe.passcodeDeleted")
     static let selectedFiatCurrencyChanged = NSNotification.Name("io.gnosis.safe.selectedFiatCurrencyChanged")
+    static let networkHostReachable = NSNotification.Name("io.gnosis.safe.networkHostReachable")
+    static let networkHostUnreachable = NSNotification.Name("io.gnosis.safe.networkHostUnreachable")
 }
