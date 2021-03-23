@@ -336,7 +336,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                 title = "Contract interaction"
                 image = #imageLiteral(resourceName: "ico-custom-tx")
             }
-            info = customInfo.methodName ?? ""
+            info = customInfo.actionCount != nil ? "\(customInfo.actionCount!) actoions" : customInfo.methodName ?? ""
         case .rejection(_):
             title = "On-chain rejection"
             image = #imageLiteral(resourceName: "ico-rejection-tx")
