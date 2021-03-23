@@ -285,9 +285,9 @@ class TransactionDetailCellBuilder {
             buildHexData(tx)
         case .rejection(_):
             if case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigInfo)? = tx.detailedExecutionInfo {
-                rejectionHeader(nonce: multisigInfo.nonce.value)
+                rejectionHeader(nonce: multisigInfo.nonce.value, isQueued: tx.txStatus.isInQueue)
             } else {
-                rejectionHeader(nonce: nil)
+                rejectionHeader(nonce: nil, isQueued: tx.txStatus.isInQueue)
             }
         case .creation(_):
             // ignore
@@ -590,9 +590,9 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-    func rejectionHeader(nonce: UInt256?) {
+    func rejectionHeader(nonce: UInt256?, isQueued: Bool) {
         let cell = newCell(DetailRejectionInfoCell.self)
-        cell.setNonce(nonce)
+        cell.setNonce(nonce, showHelpLink: isQueued)
         result.append(cell)
     }
 
