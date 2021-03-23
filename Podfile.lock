@@ -1,7 +1,6 @@
 PODS:
   - BigInt (4.0.0)
   - BlockiesSwift (0.1.2)
-  - CryptoSwift (1.0.0)
   - Firebase/Analytics (7.4.0):
     - Firebase/Core
   - Firebase/Core (7.4.0):
@@ -94,17 +93,10 @@ PODS:
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
   - PromisesObjC (1.2.12)
-  - secp256k1.swift (0.1.4)
   - SwiftAccessPolicy (1.0.0)
   - SwiftCryptoTokenFormatter (1.0.0):
     - BigInt (~> 4.0)
   - TrustKit (1.7.0)
-  - Web3/Core (0.4.2):
-    - BigInt (~> 4.0)
-    - CryptoSwift (= 1.0.0)
-    - secp256k1.swift (~> 0.1)
-  - Web3/HTTPExtension (0.4.2):
-    - Web3/Core
 
 DEPENDENCIES:
   - BlockiesSwift (from `https://github.com/gnosis/BlockiesSwift.git`, branch `0.1.2-gnosis`)
@@ -114,17 +106,13 @@ DEPENDENCIES:
   - idn2Swift (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
   - idn2Swift/Tests (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
   - Kingfisher/SwiftUI (= 5.14.0)
-  - secp256k1.swift
   - SwiftAccessPolicy (from `https://github.com/gnosis/SwiftAccessPolicy.git`, branch `main`)
   - SwiftCryptoTokenFormatter (= 1.0.0)
   - TrustKit
-  - Web3/Core (from `https://github.com/gnosis/Web3.swift.git`, branch `enhance-signing`)
-  - Web3/HTTPExtension (from `https://github.com/gnosis/Web3.swift.git`, branch `enhance-signing`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - BigInt
-    - CryptoSwift
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -139,7 +127,6 @@ SPEC REPOS:
     - Kingfisher
     - nanopb
     - PromisesObjC
-    - secp256k1.swift
     - SwiftCryptoTokenFormatter
     - TrustKit
 
@@ -153,9 +140,6 @@ EXTERNAL SOURCES:
   SwiftAccessPolicy:
     :branch: main
     :git: https://github.com/gnosis/SwiftAccessPolicy.git
-  Web3:
-    :branch: enhance-signing
-    :git: https://github.com/gnosis/Web3.swift.git
 
 CHECKOUT OPTIONS:
   BlockiesSwift:
@@ -167,14 +151,10 @@ CHECKOUT OPTIONS:
   SwiftAccessPolicy:
     :commit: 64556b3af69645322024c3af3451f9a99ed46e32
     :git: https://github.com/gnosis/SwiftAccessPolicy.git
-  Web3:
-    :commit: 67b0dae66791626d1837a95aea93c79205e5ffce
-    :git: https://github.com/gnosis/Web3.swift.git
 
 SPEC CHECKSUMS:
   BigInt: 2aad1a9942dc932ec8b84290d2c564a3d76f97ab
   BlockiesSwift: d8fbf236b71552fc1fa85cd23bb26f29dd830156
-  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   Firebase: 09fb40287b6dfc8ee65f726fa0b788719d3f2a07
   FirebaseAnalytics: adb3c8f02f83d00661cdaac6dbb4d54e9720d1b6
   FirebaseCore: 99c06e5a1e8d6952e75cb1f0a6d0b23c0f5ccdcf
@@ -190,12 +170,10 @@ SPEC CHECKSUMS:
   Kingfisher: 7b64389a43139c903ec434788344c288217c792d
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
-  secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
   SwiftAccessPolicy: e9f2246826cb0adabc77e7b5bd03badcfb2d0cfb
   SwiftCryptoTokenFormatter: 416367b31a0bb71e2b4f3928fa92bfc7c9611763
   TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
-  Web3: bf5748ee6bcdc8aa33632bcd1023187c70f59bf8
 
-PODFILE CHECKSUM: 21aac35b8a201b6c80f50e090822fdbfc90c055f
+PODFILE CHECKSUM: b877dfef21933bbe8bf4dcf43838bb4e736f21bf
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.0

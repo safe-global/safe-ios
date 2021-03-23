@@ -7,6 +7,8 @@
 //
 
 import Web3
+import Foundation
+import UIKit
 
 struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConvertible, Identifiable {
 
