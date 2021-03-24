@@ -256,8 +256,7 @@ class RemoteNotificationHandler {
 
             Safe.select(address: rawAddress)
 
-            if ["EXECUTED_MULTISIG_TRANSACTION", "NEW_CONFIRMATION", "CONFIRMATION_REQUEST"].contains(payload.type),
-               let safeTxHash = payload.safeTxHash,
+            if let safeTxHash = payload.safeTxHash,
                let hashData = Data(exactlyHex: safeTxHash) {
                 let vc = TransactionDetailsViewController(safeTxHash: hashData)
                 vc.navigationItem.leftBarButtonItem =
