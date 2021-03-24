@@ -433,6 +433,9 @@
 		55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */; };
 		55D3FF0E260B2247008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */; };
 		55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF64260B2551008ABD2B /* Kingfisher */; };
+		55D3FF79260B28CF008ABD2B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF78260B28CF008ABD2B /* FirebaseAnalytics */; };
+		55D3FF7B260B28CF008ABD2B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF7A260B28CF008ABD2B /* FirebaseMessaging */; };
+		55D3FF7D260B28CF008ABD2B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF7C260B28CF008ABD2B /* FirebaseCrashlytics */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
 		55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */; };
 		55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */; };
@@ -1025,9 +1028,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55D3FF7B260B28CF008ABD2B /* FirebaseMessaging in Frameworks */,
 				55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */,
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
+				55D3FF7D260B28CF008ABD2B /* FirebaseCrashlytics in Frameworks */,
 				02EE291F3EA9B66FF632F61F /* libPods-Multisig.a in Frameworks */,
+				55D3FF79260B28CF008ABD2B /* FirebaseAnalytics in Frameworks */,
 				55D3FE85260A0F66008ABD2B /* Web3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2469,6 +2475,9 @@
 				55D3FE84260A0F66008ABD2B /* Web3 */,
 				55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */,
 				55D3FF64260B2551008ABD2B /* Kingfisher */,
+				55D3FF78260B28CF008ABD2B /* FirebaseAnalytics */,
+				55D3FF7A260B28CF008ABD2B /* FirebaseMessaging */,
+				55D3FF7C260B28CF008ABD2B /* FirebaseCrashlytics */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig.app */;
@@ -2571,6 +2580,7 @@
 				55D3FE83260A0F66008ABD2B /* XCRemoteSwiftPackageReference "Web3.swift" */,
 				55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */,
 				55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -5719,6 +5729,14 @@
 				minimumVersion = 6.2.1;
 			};
 		};
+		55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.8.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -5741,6 +5759,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		55D3FF78260B28CF008ABD2B /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		55D3FF7A260B28CF008ABD2B /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		55D3FF7C260B28CF008ABD2B /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -32,13 +32,6 @@ target 'Multisig' do
     # Dependency for ENS name resolution
     pod 'idn2Swift', :git => 'https://github.com/gnosis/pod-idn2.git', :branch => 'master', :testspecs => ['Tests']
 
-    # Tracking of events of interest
-    pod 'Firebase/Analytics'
-    # Crash reporting
-    pod 'Firebase/Crashlytics'
-    # Push notifications
-    pod 'Firebase/Messaging'
-
     # Dependency for SSL pinning
     pod 'TrustKit'
 
