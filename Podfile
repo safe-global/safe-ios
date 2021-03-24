@@ -32,9 +32,6 @@ target 'Multisig' do
     # Dependency for ENS name resolution
     pod 'idn2Swift', :git => 'https://github.com/gnosis/pod-idn2.git', :branch => 'master', :testspecs => ['Tests']
 
-    # Dependency for handling images loaded by url
-    pod 'Kingfisher/SwiftUI', '5.14.0'
-
     # Tracking of events of interest
     pod 'Firebase/Analytics'
     # Crash reporting

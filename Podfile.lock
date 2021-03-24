@@ -83,9 +83,6 @@ PODS:
     - GoogleUtilities/Logger
   - idn2Swift (0.0.1)
   - idn2Swift/Tests (0.0.1)
-  - Kingfisher/Core (5.14.0)
-  - Kingfisher/SwiftUI (5.14.0):
-    - Kingfisher/Core
   - nanopb (2.30907.0):
     - nanopb/decode (= 2.30907.0)
     - nanopb/encode (= 2.30907.0)
@@ -102,7 +99,6 @@ DEPENDENCIES:
   - Firebase/Messaging
   - idn2Swift (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
   - idn2Swift/Tests (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
-  - Kingfisher/SwiftUI (= 5.14.0)
   - SwiftAccessPolicy (from `https://github.com/gnosis/SwiftAccessPolicy.git`, branch `main`)
   - TrustKit
 
@@ -119,7 +115,6 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
-    - Kingfisher
     - nanopb
     - PromisesObjC
     - TrustKit
@@ -160,12 +155,11 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 1024b1a4dfbd7a0e92cb20d7e0a6f1fb66b449a4
   GoogleUtilities: d866834472f1324d080496bc67ab3ce5d0d46027
   idn2Swift: d557454abb9872e6e2d5742acf88e04e3b25872c
-  Kingfisher: 7b64389a43139c903ec434788344c288217c792d
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SwiftAccessPolicy: e9f2246826cb0adabc77e7b5bd03badcfb2d0cfb
   TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
 
-PODFILE CHECKSUM: a556ee6e096b82df7cd60453602b2853ff11ba02
+PODFILE CHECKSUM: b4d08a9d7079d8d0ec1be911e5d4db7205ed007a
 
 COCOAPODS: 1.10.0
