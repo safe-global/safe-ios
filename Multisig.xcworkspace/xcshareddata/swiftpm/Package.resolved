@@ -164,6 +164,15 @@
         }
       },
       {
+        "package": "TrustKit",
+        "repositoryURL": "https://github.com/datatheorem/TrustKit.git",
+        "state": {
+          "branch": null,
+          "revision": "3c953558d61fdd9b136d981764e3242bd92b2648",
+          "version": "1.7.0"
+        }
+      },
+      {
         "package": "Web3",
         "repositoryURL": "https://github.com/Boilertalk/Web3.swift.git",
         "state": {

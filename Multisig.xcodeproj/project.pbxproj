@@ -436,6 +436,7 @@
 		55D3FF79260B28CF008ABD2B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF78260B28CF008ABD2B /* FirebaseAnalytics */; };
 		55D3FF7B260B28CF008ABD2B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF7A260B28CF008ABD2B /* FirebaseMessaging */; };
 		55D3FF7D260B28CF008ABD2B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF7C260B28CF008ABD2B /* FirebaseCrashlytics */; };
+		55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF8F260B2B21008ABD2B /* TrustKit */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
 		55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */; };
 		55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */; };
@@ -1030,6 +1031,7 @@
 			files = (
 				55D3FF7B260B28CF008ABD2B /* FirebaseMessaging in Frameworks */,
 				55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */,
+				55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */,
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
 				55D3FF7D260B28CF008ABD2B /* FirebaseCrashlytics in Frameworks */,
 				02EE291F3EA9B66FF632F61F /* libPods-Multisig.a in Frameworks */,
@@ -2478,6 +2480,7 @@
 				55D3FF78260B28CF008ABD2B /* FirebaseAnalytics */,
 				55D3FF7A260B28CF008ABD2B /* FirebaseMessaging */,
 				55D3FF7C260B28CF008ABD2B /* FirebaseCrashlytics */,
+				55D3FF8F260B2B21008ABD2B /* TrustKit */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig.app */;
@@ -2581,6 +2584,7 @@
 				55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */,
 				55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -5737,6 +5741,14 @@
 				minimumVersion = 7.8.0;
 			};
 		};
+		55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/datatheorem/TrustKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -5774,6 +5786,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		55D3FF8F260B2B21008ABD2B /* TrustKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */;
+			productName = TrustKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -1,11 +1,11 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/TrustKit" "${PODS_ROOT}/Headers/Public/idn2Swift" "$(SRCROOT)/Pods/idn2/idn2/include"
-LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/BlockiesSwift" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftAccessPolicy" "${PODS_CONFIGURATION_BUILD_DIR}/TrustKit" "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift" "${PODS_ROOT}/idn2Swift/idn2/lib" "${PODS_ROOT}/idn2Swift/unistring/lib"
-OTHER_CFLAGS = $(inherited) -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/BlockiesSwift/BlockiesSwift.modulemap" -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/SwiftAccessPolicy/SwiftAccessPolicy.modulemap" -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2Swift.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/TrustKit/TrustKit.modulemap" -isystem "${PODS_ROOT}/Headers/Public"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"BlockiesSwift" -l"SwiftAccessPolicy" -l"TrustKit" -l"iconv" -l"idn2" -l"idn2Swift" -l"unistring" -framework "Foundation" -framework "Security"
-OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/BlockiesSwift/BlockiesSwift.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/SwiftAccessPolicy/SwiftAccessPolicy.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2Swift.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/TrustKit/TrustKit.modulemap"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/idn2Swift" "$(SRCROOT)/Pods/idn2/idn2/include"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/BlockiesSwift" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftAccessPolicy" "${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift" "${PODS_ROOT}/idn2Swift/idn2/lib" "${PODS_ROOT}/idn2Swift/unistring/lib"
+OTHER_CFLAGS = $(inherited) -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/BlockiesSwift/BlockiesSwift.modulemap" -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/SwiftAccessPolicy/SwiftAccessPolicy.modulemap" -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2Swift.modulemap" -isystem "${PODS_ROOT}/Headers/Public"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"BlockiesSwift" -l"SwiftAccessPolicy" -l"iconv" -l"idn2" -l"idn2Swift" -l"unistring"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/BlockiesSwift/BlockiesSwift.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/SwiftAccessPolicy/SwiftAccessPolicy.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2Swift.modulemap"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.

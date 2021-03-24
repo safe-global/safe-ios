@@ -32,9 +32,6 @@ target 'Multisig' do
     # Dependency for ENS name resolution
     pod 'idn2Swift', :git => 'https://github.com/gnosis/pod-idn2.git', :branch => 'master', :testspecs => ['Tests']
 
-    # Dependency for SSL pinning
-    pod 'TrustKit'
-
     # Dependency for implementing authentication
     pod 'SwiftAccessPolicy', :git => 'https://github.com/gnosis/SwiftAccessPolicy.git', :branch => 'main'
 

@@ -3,18 +3,12 @@ PODS:
   - idn2Swift (0.0.1)
   - idn2Swift/Tests (0.0.1)
   - SwiftAccessPolicy (1.0.0)
-  - TrustKit (1.7.0)
 
 DEPENDENCIES:
   - BlockiesSwift (from `https://github.com/gnosis/BlockiesSwift.git`, branch `0.1.2-gnosis`)
   - idn2Swift (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
   - idn2Swift/Tests (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
   - SwiftAccessPolicy (from `https://github.com/gnosis/SwiftAccessPolicy.git`, branch `main`)
-  - TrustKit
-
-SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - TrustKit
 
 EXTERNAL SOURCES:
   BlockiesSwift:
@@ -42,8 +36,7 @@ SPEC CHECKSUMS:
   BlockiesSwift: d8fbf236b71552fc1fa85cd23bb26f29dd830156
   idn2Swift: d557454abb9872e6e2d5742acf88e04e3b25872c
   SwiftAccessPolicy: e9f2246826cb0adabc77e7b5bd03badcfb2d0cfb
-  TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
 
-PODFILE CHECKSUM: 4b93f628ce5fb02690367dadd8a90f33dd23fddf
+PODFILE CHECKSUM: 09e6d720a46c356f7c522c0ccb95e0e7a8ff5c3c
 
 COCOAPODS: 1.10.0
