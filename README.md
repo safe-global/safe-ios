@@ -6,7 +6,17 @@ Gnosis Safe Multisig iOS app.
 # Coding Style
 As of 18.03.2021, this project adopted the [Google's Swift Style Guide](https://google.github.io/swift/) as well as [Apple's Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/). 
 
+We adopt the following modifications to the above guidelines:
+- 4-space indentation instead of 2-space
+- Line wrapping at 120 characters
+
 Inconsistencies and differences between the project's source code and the aforementioned guidelines shall be corrected as a by-product of the normal work on feature development and bug fixes.
+
+Notable differences that we should look for:
+- alphabetical sorting of import statements
+- separation of testable import with blank line
+- one statement per line
+- trailing commas after last array or dictionary element
 
 # Configuration
 
