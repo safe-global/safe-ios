@@ -1,5 +1,4 @@
 PODS:
-  - BigInt (4.0.0)
   - BlockiesSwift (0.1.2)
   - Firebase/Analytics (7.4.0):
     - Firebase/Core
@@ -94,8 +93,6 @@ PODS:
   - nanopb/encode (2.30907.0)
   - PromisesObjC (1.2.12)
   - SwiftAccessPolicy (1.0.0)
-  - SwiftCryptoTokenFormatter (1.0.0):
-    - BigInt (~> 4.0)
   - TrustKit (1.7.0)
 
 DEPENDENCIES:
@@ -107,12 +104,10 @@ DEPENDENCIES:
   - idn2Swift/Tests (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
   - Kingfisher/SwiftUI (= 5.14.0)
   - SwiftAccessPolicy (from `https://github.com/gnosis/SwiftAccessPolicy.git`, branch `main`)
-  - SwiftCryptoTokenFormatter (= 1.0.0)
   - TrustKit
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - BigInt
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -127,7 +122,6 @@ SPEC REPOS:
     - Kingfisher
     - nanopb
     - PromisesObjC
-    - SwiftCryptoTokenFormatter
     - TrustKit
 
 EXTERNAL SOURCES:
@@ -153,7 +147,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/gnosis/SwiftAccessPolicy.git
 
 SPEC CHECKSUMS:
-  BigInt: 2aad1a9942dc932ec8b84290d2c564a3d76f97ab
   BlockiesSwift: d8fbf236b71552fc1fa85cd23bb26f29dd830156
   Firebase: 09fb40287b6dfc8ee65f726fa0b788719d3f2a07
   FirebaseAnalytics: adb3c8f02f83d00661cdaac6dbb4d54e9720d1b6
@@ -171,9 +164,8 @@ SPEC CHECKSUMS:
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SwiftAccessPolicy: e9f2246826cb0adabc77e7b5bd03badcfb2d0cfb
-  SwiftCryptoTokenFormatter: 416367b31a0bb71e2b4f3928fa92bfc7c9611763
   TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
 
-PODFILE CHECKSUM: b877dfef21933bbe8bf4dcf43838bb4e736f21bf
+PODFILE CHECKSUM: a556ee6e096b82df7cd60453602b2853ff11ba02
 
 COCOAPODS: 1.10.0

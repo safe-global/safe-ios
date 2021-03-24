@@ -429,14 +429,14 @@
 		55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1D24939503003B2B19 /* View+Tracking.swift */; };
 		55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1F24939525003B2B19 /* TrackingEvent.swift */; };
 		55D3654325078560004D5047 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654225078560004D5047 /* TextView.swift */; };
-		55D3FE85260A0F66008ABD2B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE84260A0F66008ABD2B /* SwiftPackageProductDependency */; };
-		55D3FE8C260A0F88008ABD2B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE8B260A0F88008ABD2B /* SwiftPackageProductDependency */; };
+		55D3FE85260A0F66008ABD2B /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE84260A0F66008ABD2B /* Web3 */; };
+		55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */; };
+		55D3FF0E260B2247008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
 		55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */; };
 		55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */; };
 		55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */; };
 		55F91B0F25BF081900938475 /* PrivateKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91B0E25BF081900938475 /* PrivateKeyController.swift */; };
-		A75EE76E955D26A373942DCD /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23561F6F30AAACFD23E12315 /* libPods-NotificationServiceExtension.a */; };
 		D041FEDD6C712A3A8AC1BA71 /* libPods-MultisigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */; };
 		E30B69A86F7709B130B3D0B0 /* libPods-MultisigIntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */; };
 /* End PBXBuildFile section */
@@ -868,7 +868,6 @@
 		1E6A2132C7C1918686E606C4 /* Pods-MultisigIntegrationTests.release.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.release.development.mainnet.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.release.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		20B9ADA49FA3E195F33EBA30 /* Pods-NotificationServiceExtension.debug.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
 		217CCDA35D82D13261506764 /* Pods-Multisig.releaseproductionmainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.releaseproductionmainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.releaseproductionmainnet.xcconfig"; sourceTree = "<group>"; };
-		23561F6F30AAACFD23E12315 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C365CA996B348BFB09D4C51 /* Pods-NotificationServiceExtension.release.production.rinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.production.rinkeby.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.production.rinkeby.xcconfig"; sourceTree = "<group>"; };
 		2F1ECF2E152DB5E7E7E7C72A /* Pods-Multisig.debug.staging.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.staging.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.staging.mainnet.xcconfig"; sourceTree = "<group>"; };
 		2F6F6494CF5E35964FCDCF79 /* Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig"; path = "Target Support Files/Pods-MultisigIntegrationTests/Pods-MultisigIntegrationTests.debugproductionrinkeby.xcconfig"; sourceTree = "<group>"; };
@@ -1025,9 +1024,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55D3FE8C260A0F88008ABD2B /* BuildFile in Frameworks */,
+				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
 				02EE291F3EA9B66FF632F61F /* libPods-Multisig.a in Frameworks */,
-				55D3FE85260A0F66008ABD2B /* BuildFile in Frameworks */,
+				55D3FE85260A0F66008ABD2B /* Web3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1051,7 +1050,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A75EE76E955D26A373942DCD /* libPods-NotificationServiceExtension.a in Frameworks */,
+				55D3FF0E260B2247008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2074,7 +2073,6 @@
 				3F0BD54209C21EA369847E31 /* libPods-Multisig.a */,
 				037BEA7D0729F87951A2D16B /* libPods-MultisigIntegrationTests.a */,
 				E9F10196FC9C02B599D62BA7 /* libPods-MultisigTests.a */,
-				23561F6F30AAACFD23E12315 /* libPods-NotificationServiceExtension.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2466,8 +2464,8 @@
 			);
 			name = Multisig;
 			packageProductDependencies = (
-				55D3FE84260A0F66008ABD2B /* SwiftPackageProductDependency */,
-				55D3FE8B260A0F88008ABD2B /* SwiftPackageProductDependency */,
+				55D3FE84260A0F66008ABD2B /* Web3 */,
+				55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig.app */;
@@ -2515,7 +2513,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AF2731B24DAABDC007E4012 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
 			buildPhases = (
-				94A965F6BAC9C8A0192D16D7 /* [CP] Check Pods Manifest.lock */,
 				0AF2730F24DAABDC007E4012 /* Sources */,
 				0AF2731024DAABDC007E4012 /* Frameworks */,
 				0AF2731124DAABDC007E4012 /* Resources */,
@@ -2525,6 +2522,9 @@
 			dependencies = (
 			);
 			name = NotificationServiceExtension;
+			packageProductDependencies = (
+				55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */,
+			);
 			productName = NotificationServiceExtension;
 			productReference = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -2565,8 +2565,8 @@
 			);
 			mainGroup = 0A93DD4A2445CC8A00688050;
 			packageReferences = (
-				55D3FE83260A0F66008ABD2B /* RemoteSwiftPackageReference */,
-				55D3FE8A260A0F88008ABD2B /* RemoteSwiftPackageReference */,
+				55D3FE83260A0F66008ABD2B /* XCRemoteSwiftPackageReference "Web3.swift" */,
+				55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -2762,28 +2762,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "FIREBASE_SRC=\"${SRCROOT}/Multisig/Cross-layer/Analytics/Firebase/${FIREBASE_CONFIG}.plist\"\nif [[ $CONFIGURATION == Release* ]] && [ -f \"${FIREBASE_SRC}\" ]; then\n    \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		94A965F6BAC9C8A0192D16D7 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NotificationServiceExtension-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C5F344F451DF3989C918E752 /* [CP] Check Pods Manifest.lock */ = {
@@ -5713,7 +5691,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		55D3FE83260A0F66008ABD2B /* RemoteSwiftPackageReference */ = {
+		55D3FE83260A0F66008ABD2B /* XCRemoteSwiftPackageReference "Web3.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Boilertalk/Web3.swift.git";
 			requirement = {
@@ -5721,7 +5699,7 @@
 				minimumVersion = 0.5.3;
 			};
 		};
-		55D3FE8A260A0F88008ABD2B /* RemoteSwiftPackageReference */ = {
+		55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/SwiftCryptoTokenFormatter.git";
 			requirement = {
@@ -5732,14 +5710,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		55D3FE84260A0F66008ABD2B /* SwiftPackageProductDependency */ = {
+		55D3FE84260A0F66008ABD2B /* Web3 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FE83260A0F66008ABD2B /* RemoteSwiftPackageReference */;
+			package = 55D3FE83260A0F66008ABD2B /* XCRemoteSwiftPackageReference "Web3.swift" */;
 			productName = Web3;
 		};
-		55D3FE8B260A0F88008ABD2B /* SwiftPackageProductDependency */ = {
+		55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FE8A260A0F88008ABD2B /* RemoteSwiftPackageReference */;
+			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
+			productName = SwiftCryptoTokenFormatter;
+		};
+		55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
 			productName = SwiftCryptoTokenFormatter;
 		};
 /* End XCSwiftPackageProductDependency section */
