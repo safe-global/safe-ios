@@ -422,10 +422,6 @@ class TransactionDetailCellBuilder {
                 imageURL = URL(string: safeAppInfo.logoUrl)
                 tag = "App"
                 icon = #imageLiteral(resourceName: "ico-custom-tx")
-            } else if let toInfo = customInfo.toInfo {
-                type = toInfo.name
-                imageURL = toInfo.logoUri
-                placeholderAddress = customInfo.to
             } else {
                 type = "Contract interaction"
                 icon = #imageLiteral(resourceName: "ico-custom-tx")
