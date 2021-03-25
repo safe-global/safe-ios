@@ -155,6 +155,15 @@
         }
       },
       {
+        "package": "SwiftAccessPolicy",
+        "repositoryURL": "https://github.com/gnosis/SwiftAccessPolicy.git",
+        "state": {
+          "branch": "main",
+          "revision": "8442e6ee2a8eabd83a5a3ba530a64634c5297b99",
+          "version": null
+        }
+      },
+      {
         "package": "SwiftCryptoTokenFormatter",
         "repositoryURL": "https://github.com/gnosis/SwiftCryptoTokenFormatter.git",
         "state": {
