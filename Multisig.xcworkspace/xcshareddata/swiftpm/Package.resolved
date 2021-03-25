@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "BlockiesSwift",
+        "repositoryURL": "https://github.com/gnosis/BlockiesSwift.git",
+        "state": {
+          "branch": "0.1.2-gnosis",
+          "revision": "f97be34ba7e10ac9778ca45474bed34a77b29a47",
+          "version": null
+        }
+      },
+      {
         "package": "BoringSSL-GRPC",
         "repositoryURL": "https://github.com/firebase/boringssl-SwiftPM.git",
         "state": {

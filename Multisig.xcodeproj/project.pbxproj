@@ -391,6 +391,7 @@
 		558836702565385F0014E8C7 /* RemoveSafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588366E2565385F0014E8C7 /* RemoveSafeCell.swift */; };
 		558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588366F2565385F0014E8C7 /* RemoveSafeCell.xib */; };
 		55888DFF260C4F6200940347 /* SwiftAccessPolicy in Frameworks */ = {isa = PBXBuildFile; productRef = 55888DFE260C4F6200940347 /* SwiftAccessPolicy */; };
+		5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5591CEED260C725C0067DFDF /* BlockiesSwift */; };
 		5596710D256E935F0097D3A2 /* MockSecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596710C256E935F0097D3A2 /* MockSecureStore.swift */; };
 		55967123256EB7690097D3A2 /* ConfirmationRequestNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967122256EB7690097D3A2 /* ConfirmationRequestNotification.swift */; };
 		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
@@ -1034,6 +1035,7 @@
 				55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */,
 				55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */,
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
+				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
 				55D3FF7D260B28CF008ABD2B /* FirebaseCrashlytics in Frameworks */,
 				02EE291F3EA9B66FF632F61F /* libPods-Multisig.a in Frameworks */,
 				55888DFF260C4F6200940347 /* SwiftAccessPolicy in Frameworks */,
@@ -2484,6 +2486,7 @@
 				55D3FF7C260B28CF008ABD2B /* FirebaseCrashlytics */,
 				55D3FF8F260B2B21008ABD2B /* TrustKit */,
 				55888DFE260C4F6200940347 /* SwiftAccessPolicy */,
+				5591CEED260C725C0067DFDF /* BlockiesSwift */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig.app */;
@@ -2589,6 +2592,7 @@
 				55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */,
 				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */,
+				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -5721,6 +5725,14 @@
 				kind = branch;
 			};
 		};
+		5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gnosis/BlockiesSwift.git";
+			requirement = {
+				branch = "0.1.2-gnosis";
+				kind = branch;
+			};
+		};
 		55D3FE83260A0F66008ABD2B /* XCRemoteSwiftPackageReference "Web3.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Boilertalk/Web3.swift.git";
@@ -5768,6 +5780,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */;
 			productName = SwiftAccessPolicy;
+		};
+		5591CEED260C725C0067DFDF /* BlockiesSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */;
+			productName = BlockiesSwift;
 		};
 		55D3FE84260A0F66008ABD2B /* Web3 */ = {
 			isa = XCSwiftPackageProductDependency;

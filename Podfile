@@ -26,9 +26,6 @@ project 'Multisig',
 
 target 'Multisig' do
 
-    # The icon image of the ethereum address
-    pod 'BlockiesSwift', :git => 'https://github.com/gnosis/BlockiesSwift.git', :branch => '0.1.2-gnosis'
-
     # Dependency for ENS name resolution
     pod 'idn2Swift', :git => 'https://github.com/gnosis/pod-idn2.git', :branch => 'master', :testspecs => ['Tests']
 

@@ -1,33 +1,24 @@
 PODS:
-  - BlockiesSwift (0.1.2)
   - idn2Swift (0.0.1)
   - idn2Swift/Tests (0.0.1)
 
 DEPENDENCIES:
-  - BlockiesSwift (from `https://github.com/gnosis/BlockiesSwift.git`, branch `0.1.2-gnosis`)
   - idn2Swift (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
   - idn2Swift/Tests (from `https://github.com/gnosis/pod-idn2.git`, branch `master`)
 
 EXTERNAL SOURCES:
-  BlockiesSwift:
-    :branch: 0.1.2-gnosis
-    :git: https://github.com/gnosis/BlockiesSwift.git
   idn2Swift:
     :branch: master
     :git: https://github.com/gnosis/pod-idn2.git
 
 CHECKOUT OPTIONS:
-  BlockiesSwift:
-    :commit: 34bb4560f534fb9e3d7abf1d2b85143fc63e56b3
-    :git: https://github.com/gnosis/BlockiesSwift.git
   idn2Swift:
     :commit: a8e7d775220eb1f400121d88bd2f9f06f4cc4f24
     :git: https://github.com/gnosis/pod-idn2.git
 
 SPEC CHECKSUMS:
-  BlockiesSwift: d8fbf236b71552fc1fa85cd23bb26f29dd830156
   idn2Swift: d557454abb9872e6e2d5742acf88e04e3b25872c
 
-PODFILE CHECKSUM: 9dd66d2ccbf10b401f04a44b1ca61cecb165b087
+PODFILE CHECKSUM: 8a0d3fda5d785b15c3e147df0c64e49bf9d49dbc
 
 COCOAPODS: 1.10.0
