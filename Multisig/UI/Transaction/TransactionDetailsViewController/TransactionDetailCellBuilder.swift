@@ -105,7 +105,11 @@ class TransactionDetailCellBuilder {
     }
 
     func buildCreatorAddress(_ creationTx: SCGModels.TxInfo.Creation) {
-        address(creationTx.creator.address, label: creationTx.creatorInfo?.name, title: "Creator address", imageUri: creationTx.creatorInfo?.logoUri)
+        let info = displayNameAndImageUri(address: creationTx.creator, addressInfo: creationTx.creatorInfo)
+        return address(creationTx.creator.address,
+                       label: info.name,
+                       title: "Creator address",
+                       imageUri: info.imageUri)
     }
 
     func buildHeader(_ tx: SCGModels.TransactionDetails) {
