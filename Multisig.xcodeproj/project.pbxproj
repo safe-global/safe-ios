@@ -44,6 +44,7 @@
 		0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476916B24643A2A00D73D8B /* BrowseAddressView.swift */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
 		048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */; };
+		048AA142260D053400382E24 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048AA141260D053300382E24 /* MainTabBarViewController.swift */; };
 		048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */; };
 		048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
@@ -519,6 +520,7 @@
 		0476916B24643A2A00D73D8B /* BrowseAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseAddressView.swift; sourceTree = "<group>"; };
 		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterNotificationTokenRequest.swift; path = "../Notification Service/RegisterNotificationTokenRequest.swift"; sourceTree = "<group>"; };
 		048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnregisterNotificationTokenRequest.swift; path = "../Notification Service/UnregisterNotificationTokenRequest.swift"; sourceTree = "<group>"; };
+		048AA141260D053300382E24 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSafeNameViewController.swift; sourceTree = "<group>"; };
 		048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditSafeNameViewController.xib; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
@@ -1965,6 +1967,7 @@
 				0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */,
 				049C24EA2575477900897D3C /* UIViewController+Tracking.swift */,
 				0A465C2D246C196900AFA467 /* Theme.swift */,
+				048AA141260D053300382E24 /* MainTabBarViewController.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -2908,6 +2911,7 @@
 				0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */,
 				0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */,
 				0468FB9625912E8300541536 /* TransactionListTableViewCell.swift in Sources */,
+				048AA142260D053400382E24 /* MainTabBarViewController.swift in Sources */,
 				0ACB4CD5256BC2B000845BF4 /* TransactionDetailsViewController.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
 				0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */,
