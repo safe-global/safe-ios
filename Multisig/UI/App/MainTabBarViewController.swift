@@ -77,6 +77,8 @@ class MainTabBarViewController: UITabBarController {
         noSafesVC.noSafeViewController = loadSafeViewController
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
+        transactionsSegementControl = segmentVC
+        
         return tabViewController(root: tabRoot, title: "Transactions", image: #imageLiteral(resourceName: "tab-icon-transactions"), tag: 1)
     }
 
