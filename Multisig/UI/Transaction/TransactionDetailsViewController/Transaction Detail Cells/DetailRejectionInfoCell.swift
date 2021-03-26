@@ -23,14 +23,16 @@ class DetailRejectionInfoCell: UITableViewCell, ExternalURLSource {
     }
 
     func setNonce(_ nonce: UInt256?, showHelpLink: Bool = true) {
-        let base = "This is an on-chain rejection that doesn’t send any funds. Executing this on-chain rejection will replace all currently awaiting transactions"
+        helpLinkContinerView.isHidden = !showHelpLink
+        let base = showHelpLink ?
+            "This is an on-chain rejection that doesn’t send any funds. Executing this on-chain rejection will replace all currently awaiting transactions" :
+            "This is an on-chain rejection that didn’t send any funds. This on-chain rejection replaced all transactions"
+        
         if let nonce = nonce {
             descriptionLabel.text = base + " with nonce \(nonce)."
         } else {
             descriptionLabel.text = base + " with the same nonce."
         }
-
-        helpLinkContinerView.isHidden = !showHelpLink
     }
     
     @IBAction func linkButtonTouched(_ sender: Any) {
