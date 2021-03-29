@@ -17,6 +17,14 @@ Notable differences that we should look for:
 - separation of testable import with blank line
 - one statement per line
 - trailing commas after last array or dictionary element
+- Add documentation to every (public) declaration.
+- Delegate methods: first object is the source.
+- force-try! Is forbidden except in unit test, test-only code, or in case of programmer error.
+- Force-unwrap and force-cast is strongly discouraged (except unit tests or programmer error).
+- Implicitly unwrapped optionals should be avoided whenever possible.
+  - Except in @IBOutlet, Objective-C APIs, unit tests or programmer error.
+- Access level is specified on each member of the extension (if it is not default).
+- Graphical playground literals - use only in Playgrounds, not in code. 
 
 # Configuration
 
