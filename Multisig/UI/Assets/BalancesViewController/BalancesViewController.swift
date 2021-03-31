@@ -197,7 +197,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     private func createPasscodeBanner(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BannerTableViewCell.self, for: indexPath)
         cell.setHeader("Create passcode")
-        cell.setBody("Secure your owner keys by setting up a passcode. The passcode will be needed to sign transactions. ")
+        cell.setBody("Secure your owner keys by setting up a passcode. The passcode will be needed to open the app and sign transactions.")
         cell.setButton("Create passcode now")
         cell.onClose = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true

@@ -18,15 +18,22 @@ enum ViewControllerFactory {
         let tabBarVC = MainTabBarViewController()
 
         if !AppSettings.termsAccepted {
-            let start = LaunchView(acceptedTerms: .constant(false), onStart: { [weak tabBarVC] in
-                tabBarVC?.dismiss(animated: true, completion: nil)
+            let nav = UINavigationController()
+            nav.modalPresentationStyle = .fullScreen
+            nav.modalTransitionStyle = .crossDissolve
+
+            let start = LaunchView(acceptedTerms: .constant(false), onStart: { [weak nav] in
+                nav?.popViewController(animated: false)
             })
             .environment(\.managedObjectContext, App.shared.coreDataStack.viewContext)
-            let vc = UIHostingController(rootView: start)
-            vc.modalPresentationStyle = .fullScreen
-            vc.modalTransitionStyle = .crossDissolve
+
+            let startVC = UIHostingController(rootView: start)
+            let createPasswordVC = CreatePasscodeViewController()
+
+            nav.viewControllers = [createPasswordVC, startVC]
+
             DispatchQueue.main.async {
-                tabBarVC.present(vc, animated: false, completion: nil)
+                tabBarVC.present(nav, animated: false, completion: nil)
             }
         }
         return tabBarVC
