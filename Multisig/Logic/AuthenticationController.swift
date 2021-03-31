@@ -9,6 +9,7 @@
 import Foundation
 import SwiftAccessPolicy
 import CommonCrypto
+import LocalAuthentication
 
 class AuthenticationController {
 
@@ -46,7 +47,11 @@ class AuthenticationController {
         let password = derivedKey(from: plaintextPasscode)
         try accessService.registerUser(password: password)
         AppSettings.passcodeWasSetAtLeastOnce = true
+
+        AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
+
         NotificationCenter.default.post(name: .passcodeCreated, object: nil)
+
         Tracker.shared.setPasscodeIsSet(to: true)
         Tracker.shared.track(event: TrackingEvent.userPasscodeEnabled)
     }
@@ -73,7 +78,9 @@ class AuthenticationController {
     func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) throws {
         guard let user = user else { return }
         try accessService.deleteUser(userID: user.id)
+
         NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+
         Tracker.shared.setPasscodeIsSet(to: false)
         Tracker.shared.track(event: trackingEvent)
     }
@@ -102,6 +109,29 @@ class AuthenticationController {
         }
         return Data(derivedKey).toHexString()
     }
+
+
+    // MARK: - Biometry
+
+    /// Is device hardware supports the biometry
+    var isBiometricsSupported: Bool {
+        let context = LAContext()
+        _ = context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
+        switch context.biometryType {
+        case .touchID, .faceID:
+            return true
+        case .none:
+            return false
+        @unknown default:
+            return false
+        }
+    }
+
+    func activateBiometry() throws -> Bool {
+        guard let user = user else { return false }
+        return try accessService.requestBiometryAccess(userID: user.id)
+    }
+
 }
 
 class AuthUserRepository: UserRepository {

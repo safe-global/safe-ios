@@ -59,8 +59,14 @@ class PasscodeSettingsViewController: UITableViewController {
 
     private func reloadData() {
         if isPasscodeSet {
+            var lockRows: [Row] = [.usePasscode, .changePasscode]
+
+            if App.shared.auth.isBiometricsSupported {
+                lockRows.append(.loginWithBiometrics)
+            }
+
             data = [
-                (section: .lockMethod, rows: [.usePasscode, .changePasscode, .loginWithBiometrics]),
+                (section: .lockMethod, rows: lockRows),
                 (section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .oneOptionSelectedText])
             ]
         } else {
@@ -80,42 +86,105 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     private func deletePasscode() {
-        let vc = EnterPasscodeViewController()
-        let nav = UINavigationController(rootViewController: vc)
-
-        vc.completion = { [weak nav, unowned self] success in
+        withPasscodeAuthentication(for: "Enter Passcode") { [unowned self] success, _, finish in
             if success {
-                do {
-                    try App.shared.auth.deletePasscode()
-                    App.shared.snackbar.show(message: "Passcode disabled")
-                } catch {
-                    let uiError = GSError.error(
-                        description: "Failed to delete passcode",
-                        error: GSError.GenericPasscodeError(reason: error.localizedDescription))
-                    App.shared.snackbar.show(error: uiError)
-                }
+                disablePasscode()
             }
-            reloadData()
-            nav?.dismiss(animated: true, completion: nil)
+            finish()
         }
+    }
 
-        present(nav, animated: true, completion: nil)
+    private func disablePasscode() {
+        do {
+            try App.shared.auth.deletePasscode()
+            App.shared.snackbar.show(message: "Passcode disabled")
+        } catch {
+            let uiError = GSError.error(
+                description: "Failed to delete passcode",
+                error: GSError.GenericPasscodeError(reason: error.localizedDescription))
+            App.shared.snackbar.show(error: uiError)
+        }
     }
 
     private func changePasscode() {
-        let vc = EnterPasscodeViewController()
-        vc.navigationItemTitle = "Change Passcode"
-        vc.screenTrackingEvent = .changePasscode
-        let nav = UINavigationController(rootViewController: vc)
-
-        vc.completion = { [weak nav, unowned self] success in
+        withPasscodeAuthentication(for: "Change Passcode", tracking: .changePasscode) { success, nav, finish in
             if success {
-                let changeVC = ChangePasscodeEnterNewViewController { [weak nav, unowned self] in
-                    reloadData()
-                    nav?.dismiss(animated: true, completion: nil)
+                let changeVC = ChangePasscodeEnterNewViewController {
+                    finish()
                 }
                 nav?.pushViewController(changeVC, animated: true)
             } else {
+                finish()
+            }
+        }
+    }
+
+    private func toggleUsage(option: PasscodeOptions) {
+        withPasscodeAuthentication(for: "Require to open app") { [unowned self] success, _, finish in
+            if success && AppSettings.passcodeOptions.contains(option) {
+                AppSettings.passcodeOptions.remove(option)
+            } else if success {
+                AppSettings.passcodeOptions.insert(option)
+            }
+
+            if AppSettings.passcodeOptions.isDisjoint(with: [.useForConfirmation, .useForLogin]) {
+                disablePasscode()
+            }
+
+            finish()
+        }
+    }
+
+    private func toggleBiometrics() {
+        withPasscodeAuthentication(for: "Login with biometrics") { success, nav, finish in
+            if AppSettings.passcodeOptions.contains(.useBiometry) {
+                AppSettings.passcodeOptions.remove(.useBiometry)
+                App.shared.snackbar.show(message: "Biometrics disabled.")
+            } else {
+                do {
+                    let activated = try App.shared.auth.activateBiometry()
+                    if activated {
+                        AppSettings.passcodeOptions.insert(.useBiometry)
+                        App.shared.snackbar.show(message: "Biometrics activated.")
+                    } else {
+                        let uiError = GSError.GenericPasscodeError(reason: "Biometrics activation denied.")
+                        App.shared.snackbar.show(error: uiError)
+                    }
+                } catch {
+                    let vc = UIAlertController(
+                        title: "Failed to activate biometrics",
+                        message: "Please check in Settings that biometrics is enrolled and unblocked.",
+                        preferredStyle: .alert)
+                    vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                        finish()
+                    }))
+                    vc.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
+                        let url = URL(string: UIApplication.openSettingsURLString)!
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                        finish()
+                    }))
+                    nav?.present(vc, animated: true, completion: nil)
+                    return
+                }
+            }
+            finish()
+        }
+    }
+
+    private func withPasscodeAuthentication(
+        for reason: String,
+        tracking: TrackingEvent? = nil,
+        authenticated: @escaping (Bool, UINavigationController?, @escaping () -> Void) -> Void
+    ) {
+        let vc = EnterPasscodeViewController()
+        vc.navigationItemTitle = reason
+        if let event = tracking {
+            vc.screenTrackingEvent = event
+        }
+        let nav = UINavigationController(rootViewController: vc)
+
+        vc.completion = { [weak nav, unowned self] success in
+            authenticated(success, nav) { [unowned self] in
                 reloadData()
                 nav?.dismiss(animated: true, completion: nil)
             }
@@ -148,13 +217,19 @@ class PasscodeSettingsViewController: UITableViewController {
             return makeHelp(for: indexPath, with: "The passcode is needed to sign transactions.")
 
         case .loginWithBiometrics:
-            return makeSwitch(for: indexPath, with: "Login with biometrics", isOn: false)
+            return makeSwitch(for: indexPath,
+                              with: "Login with biometrics",
+                              isOn: AppSettings.passcodeOptions.contains(.useBiometry))
 
         case .requireToOpenApp:
-            return makeSwitch(for: indexPath, with: "Require to open app", isOn: false)
+            return makeSwitch(for: indexPath,
+                              with: "Require to open app",
+                              isOn: AppSettings.passcodeOptions.contains(.useForLogin))
 
         case .requireForConfirmations:
-            return makeSwitch(for: indexPath, with: "Require for confirmations", isOn: false)
+            return makeSwitch(for: indexPath,
+                              with: "Require for confirmations",
+                              isOn: AppSettings.passcodeOptions.contains(.useForConfirmation))
 
         case .oneOptionSelectedText:
             return makeHelp(for: indexPath, with: "At least one option must be selected")
@@ -174,6 +249,15 @@ class PasscodeSettingsViewController: UITableViewController {
 
         case .changePasscode:
             changePasscode()
+
+        case .loginWithBiometrics:
+            toggleBiometrics()
+
+        case .requireToOpenApp:
+            toggleUsage(option: .useForLogin)
+
+        case .requireForConfirmations:
+            toggleUsage(option: .useForConfirmation)
 
         default:
             break

@@ -43,14 +43,10 @@ extension AppSettings {
     private static var fiatCode: String?
 
     static var selectedFiatCode: String {
-        set {
-            fiatCode = newValue
-        }
-
-        get {
-            fiatCode ?? "USD"
-        }
+        get { fiatCode ?? "USD" }
+        set { fiatCode = newValue }
     }
+    
     @AppSetting(\.passcodeBannerDismissed)
     static var passcodeBannerDismissed: Bool
 
@@ -71,6 +67,14 @@ extension AppSettings {
         // release version.
         !termsAccepted
     }
+
+    static var passcodeOptions: PasscodeOptions {
+        get { PasscodeOptions(rawValue: rawPasscodeOptions) }
+        set { rawPasscodeOptions = newValue.rawValue }
+    }
+
+    @AppSetting(\.passcodeOptions)
+    private static var rawPasscodeOptions: Int64
 }
 
 extension AppSettings {
@@ -108,4 +112,14 @@ struct AppSetting<T> {
             App.shared.coreDataStack.saveContext()
         }
     }
+}
+
+struct PasscodeOptions: OptionSet {
+    let rawValue: Int64
+
+    static let useBiometry = PasscodeOptions(rawValue: 1 << 0)
+    static let useForLogin = PasscodeOptions(rawValue: 1 << 1)
+    static let useForConfirmation = PasscodeOptions(rawValue: 1 << 2)
+
+    static let all: PasscodeOptions = [.useBiometry, .useForLogin, .useForConfirmation]
 }
