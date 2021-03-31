@@ -10,15 +10,43 @@ import UIKit
 
 class PasscodeSettingsViewController: UITableViewController {
 
+    enum Section: Int, CaseIterable {
+        case single
+        case lockMethod
+        case usePasscodeFor
+    }
+
+    enum Row: Int, CaseIterable {
+        case usePasscode
+        case changePasscode
+        case helpText
+        case loginWithBiometrics
+        case requireToOpenApp
+        case requireForConfirmations
+        case oneOptionSelectedText
+    }
+
+    private var data: [(section: Section, rows: [Row])] = []
+
+    private var isPasscodeSet: Bool {
+        App.shared.auth.isPasscodeSet
+    }
+
+    // MARK: - View lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Passcode"
+
         tableView.registerCell(SwitchTableViewCell.self)
         tableView.registerCell(BasicCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HelpCell")
+        tableView.registerHeaderFooterView(BasicHeaderView.self)
+
         tableView.backgroundColor = .secondaryBackground
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
+
         reloadData()
     }
 
@@ -27,21 +55,19 @@ class PasscodeSettingsViewController: UITableViewController {
         trackEvent(.settingsAppPasscode)
     }
 
-    enum Row: Int, CaseIterable {
-        case usePasscode
-        case changePasscode
-        case helpText
-    }
-
-    private var rows: [Row] = []
-
-    private var isPasscodeSet: Bool {
-        App.shared.auth.isPasscodeSet
-    }
+    // MARK: - Actions
 
     private func reloadData() {
-        rows = isPasscodeSet ? [.usePasscode, .changePasscode, .helpText] :
-            [.usePasscode, .helpText]
+        if isPasscodeSet {
+            data = [
+                (section: .lockMethod, rows: [.usePasscode, .changePasscode, .loginWithBiometrics]),
+                (section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .oneOptionSelectedText])
+            ]
+        } else {
+            data = [
+                (section: .single, rows: [.usePasscode, .helpText])
+            ]
+        }
         tableView.reloadData()
     }
 
@@ -98,19 +124,20 @@ class PasscodeSettingsViewController: UITableViewController {
         present(nav, animated: true, completion: nil)
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view delegate and data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        data.count
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        rows.count
+        data[section].rows.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch rows[indexPath.row] {
+        switch data[indexPath.section].rows[indexPath.row] {
         case .usePasscode:
-            let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
-            cell.setText("Use passcode")
-            cell.setOn(App.shared.auth.isPasscodeSet, animated: false)
-            return cell
+            return makeSwitch(for: indexPath, with: "Use passcode", isOn: isPasscodeSet)
 
         case .changePasscode:
             let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
@@ -118,20 +145,26 @@ class PasscodeSettingsViewController: UITableViewController {
             return cell
 
         case .helpText:
-            let cell = tableView.dequeueCell(UITableViewCell.self, reuseID: "HelpCell", for: indexPath)
-            cell.textLabel?.setStyle(.secondary)
-            cell.backgroundColor = .primaryBackground
-            cell.textLabel?.text = "The passcode is needed to sign transactions."
-            cell.textLabel?.numberOfLines = 0
-            cell.selectionStyle = .none
-            return cell
+            return makeHelp(for: indexPath, with: "The passcode is needed to sign transactions.")
+
+        case .loginWithBiometrics:
+            return makeSwitch(for: indexPath, with: "Login with biometrics", isOn: false)
+
+        case .requireToOpenApp:
+            return makeSwitch(for: indexPath, with: "Require to open app", isOn: false)
+
+        case .requireForConfirmations:
+            return makeSwitch(for: indexPath, with: "Require for confirmations", isOn: false)
+
+        case .oneOptionSelectedText:
+            return makeHelp(for: indexPath, with: "At least one option must be selected")
         }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        switch rows[indexPath.row] {
+        switch data[indexPath.section].rows[indexPath.row] {
         case .usePasscode:
             if isPasscodeSet {
                 deletePasscode()
@@ -145,5 +178,45 @@ class PasscodeSettingsViewController: UITableViewController {
         default:
             break
         }
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch data[section].section {
+        case .single: return nil
+        case .lockMethod: return makeHeader(with: "LOCK METHOD")
+        case .usePasscodeFor: return makeHeader(with: "USE PASSCODE FOR")
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch data[section].section {
+        case .single: return 0
+        default: return BasicHeaderView.headerHeight
+        }
+    }
+
+    // MARK: - Factory methods
+
+    private func makeSwitch(for indexPath: IndexPath, with text: String, isOn: Bool) -> SwitchTableViewCell {
+        let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
+        cell.setText(text)
+        cell.setOn(isOn, animated: false)
+        return cell
+    }
+
+    private func makeHelp(for indexPath: IndexPath, with text: String) -> UITableViewCell {
+        let cell = tableView.dequeueCell(UITableViewCell.self, reuseID: "HelpCell", for: indexPath)
+        cell.textLabel?.setStyle(.secondary)
+        cell.backgroundColor = .primaryBackground
+        cell.textLabel?.text = text
+        cell.textLabel?.numberOfLines = 0
+        cell.selectionStyle = .none
+        return cell
+    }
+
+    private func makeHeader(with text: String) -> BasicHeaderView {
+        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+        view.setName(text)
+        return view
     }
 }
