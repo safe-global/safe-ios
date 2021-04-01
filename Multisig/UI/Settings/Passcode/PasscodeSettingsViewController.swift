@@ -119,8 +119,8 @@ class PasscodeSettingsViewController: UITableViewController {
         }
     }
 
-    private func toggleUsage(option: PasscodeOptions) {
-        withPasscodeAuthentication(for: "Require to open app") { [unowned self] success, _, finish in
+    private func toggleUsage(option: PasscodeOptions, reason: String) {
+        withPasscodeAuthentication(for: reason) { [unowned self] success, _, finish in
             if success && AppSettings.passcodeOptions.contains(option) {
                 AppSettings.passcodeOptions.remove(option)
             } else if success {
@@ -171,10 +171,18 @@ class PasscodeSettingsViewController: UITableViewController {
         }
     }
 
+    /// Requests passcode entry from the user and returns whether the entry was successful
+    /// - Parameters:
+    ///   - reason: why the passcode is requested
+    ///   - tracking: By default (nil) the passcode screen has `.enterPasscode` tracking event. This can override the tracking event.
+    ///   - authenticated: completion block that is called when user enters the passcode or cancels it
+    ///   - success: whether the entered passcode is correct
+    ///   - nav: navigation controller that was presented. Sometimes you want to push other screen after the successful entry.
+    ///   - finish: the closure that closes the presented passcode entry controller. You must call this closure when the flow is completed.
     private func withPasscodeAuthentication(
         for reason: String,
         tracking: TrackingEvent? = nil,
-        authenticated: @escaping (Bool, UINavigationController?, @escaping () -> Void) -> Void
+        authenticated: @escaping (_ success: Bool, _ nav: UINavigationController?, _ finish: @escaping () -> Void) -> Void
     ) {
         let vc = EnterPasscodeViewController()
         vc.navigationItemTitle = reason
@@ -254,10 +262,10 @@ class PasscodeSettingsViewController: UITableViewController {
             toggleBiometrics()
 
         case .requireToOpenApp:
-            toggleUsage(option: .useForLogin)
+            toggleUsage(option: .useForLogin, reason: "Require to open app")
 
         case .requireForConfirmations:
-            toggleUsage(option: .useForConfirmation)
+            toggleUsage(option: .useForConfirmation, reason: "Require for confirmations")
 
         default:
             break
