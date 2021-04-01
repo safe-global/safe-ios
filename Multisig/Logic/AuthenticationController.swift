@@ -127,11 +127,25 @@ class AuthenticationController {
         }
     }
 
+    var isBiometryPossible: Bool {
+        guard let user = user else { return false }
+        return (try? accessService.isAuthenticationMethodPossible(userID: user.id, method: .biometry)) ?? false
+    }
+
+    var isFaceID: Bool {
+        return (try? accessService.biometryService.biometryType()) == .faceID
+    }
+
     func activateBiometry() throws -> Bool {
         guard let user = user else { return false }
         return try accessService.requestBiometryAccess(userID: user.id)
     }
 
+    func authenticateWithBiometry() -> Bool {
+        guard let user = user else { return false }
+        let status = (try? accessService.authenticateUser(userID: user.id, request: .biometry)) ?? .notAuthenticated
+        return status == .authenticated
+    }
 }
 
 class AuthUserRepository: UserRepository {

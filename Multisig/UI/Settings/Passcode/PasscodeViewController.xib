@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PasscodeViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="biometryButton" destination="p1H-gA-Df6" id="HJs-Bs-rzX"/>
                 <outlet property="button" destination="K1B-3I-Pbb" id="6er-VB-zH7"/>
                 <outlet property="detailLabel" destination="Fop-nf-olR" id="ErL-QT-DV2"/>
                 <outlet property="errorLabel" destination="ULf-Pw-PZJ" id="YKJ-hy-R9p"/>
@@ -33,7 +34,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wwN-VV-c8b">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="311.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="406.5"/>
                             <subviews>
                                 <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="StU-YF-A2H" userLabel="Hidden Text Field">
                                     <rect key="frame" x="48" y="132.5" width="224" height="24"/>
@@ -46,7 +47,7 @@
                                     </connections>
                                 </textField>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wf2-ts-X9S" userLabel="Main Stack View">
-                                    <rect key="frame" x="16" y="37" width="288" height="274.5"/>
+                                    <rect key="frame" x="16" y="37" width="288" height="369.5"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mPX-Ss-mVW" userLabel="Headline Container View">
                                             <rect key="frame" x="0.5" y="0.0" width="287" height="30"/>
@@ -79,7 +80,7 @@
                                             </constraints>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="gX9-uu-GyJ">
-                                            <rect key="frame" x="0.0" y="40" width="288" height="234.5"/>
+                                            <rect key="frame" x="0.0" y="40" width="288" height="329.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a 6-digit passcode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7d6-Sn-iYm" userLabel="Prompt Label">
                                                     <rect key="frame" x="45" y="0.0" width="198" height="20.5"/>
@@ -152,6 +153,14 @@
                                                         <action selector="didTapButton:" destination="-1" eventType="touchUpInside" id="gAS-lC-OZk"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p1H-gA-Df6">
+                                                    <rect key="frame" x="114" y="269.5" width="60" height="60"/>
+                                                    <color key="tintColor" name="button"/>
+                                                    <state key="normal" image="ic-face-id"/>
+                                                    <connections>
+                                                        <action selector="didTapBiometry:" destination="-1" eventType="touchUpInside" id="MGY-7X-gR6"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </stackView>
                                     </subviews>
@@ -200,11 +209,12 @@
     <resources>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="ic-face-id" width="60" height="60"/>
         <namedColor name="button">
-            <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="primaryLabel">
-            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
