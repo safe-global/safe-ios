@@ -69,6 +69,13 @@ class PasscodeSettingsViewController: UITableViewController {
                 (section: .lockMethod, rows: lockRows),
                 (section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .oneOptionSelectedText])
             ]
+
+            // if user disables biometry, we can't keep it enabled in app settings.
+            // Having this on reloadData() works because when biometry settings changed on the device
+            // the system kills the app process and the app will have to restart.
+            if !App.shared.auth.isBiometryPossible {
+                AppSettings.passcodeOptions.remove(.useBiometry)
+            }
         } else {
             data = [
                 (section: .single, rows: [.usePasscode, .helpText])
@@ -137,10 +144,10 @@ class PasscodeSettingsViewController: UITableViewController {
 
     private func toggleBiometrics() {
         withPasscodeAuthentication(for: "Login with biometrics") { success, nav, finish in
-            if AppSettings.passcodeOptions.contains(.useBiometry) {
+            if success && AppSettings.passcodeOptions.contains(.useBiometry) {
                 AppSettings.passcodeOptions.remove(.useBiometry)
                 App.shared.snackbar.show(message: "Biometrics disabled.")
-            } else {
+            } else if success {
                 do {
                     let activated = try App.shared.auth.activateBiometry()
                     if activated {
