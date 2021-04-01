@@ -1,21 +1,21 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 /* Elementary Unicode string functions.
-   Copyright (C) 2001-2002, 2005-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002, 2005-2021 Free Software Foundation, Inc.
 
-This program is free software: you can redistribute it and/or
-modify it under the terms of either:
+   This program is free software: you can redistribute it and/or
+   modify it under the terms of either:
 
-* the GNU Lesser General Public License as published by the Free
-Software Foundation; either version 3 of the License, or (at your
-option) any later version.
+     * the GNU Lesser General Public License as published by the Free
+       Software Foundation; either version 3 of the License, or (at your
+       option) any later version.
 
-or
+   or
 
-* the GNU General Public License as published by the Free
-Software Foundation; either version 2 of the License, or (at your
-option) any later version.
+     * the GNU General Public License as published by the Free
+       Software Foundation; either version 2 of the License, or (at your
+       option) any later version.
 
-or both in parallel, as here.
+   or both in parallel, as here.
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
@@ -38,7 +38,7 @@ or both in parallel, as here.
 /* Get bool.  */
 #include <unistring/stdbool.h>
 
-/* Get size_t.  */
+/* Get size_t, ptrdiff_t.  */
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -318,13 +318,13 @@ extern int
 #if 1
 /* Auxiliary function, also used by u8_chr, u8_strchr, u8_strrchr.  */
 extern int
-       u8_uctomb_aux (uint8_t *s, ucs4_t uc, int n);
+       u8_uctomb_aux (uint8_t *s, ucs4_t uc, ptrdiff_t n);
 # if !UNISTRING_HAVE_INLINE
 extern int
-       u8_uctomb (uint8_t *s, ucs4_t uc, int n);
+       u8_uctomb (uint8_t *s, ucs4_t uc, ptrdiff_t n);
 # else
 static inline int
-u8_uctomb (uint8_t *s, ucs4_t uc, int n)
+u8_uctomb (uint8_t *s, ucs4_t uc, ptrdiff_t n)
 {
   if (uc < 0x80 && n > 0)
     {
@@ -340,13 +340,13 @@ u8_uctomb (uint8_t *s, ucs4_t uc, int n)
 #if 1
 /* Auxiliary function, also used by u16_chr, u16_strchr, u16_strrchr.  */
 extern int
-       u16_uctomb_aux (uint16_t *s, ucs4_t uc, int n);
+       u16_uctomb_aux (uint16_t *s, ucs4_t uc, ptrdiff_t n);
 # if !UNISTRING_HAVE_INLINE
 extern int
-       u16_uctomb (uint16_t *s, ucs4_t uc, int n);
+       u16_uctomb (uint16_t *s, ucs4_t uc, ptrdiff_t n);
 # else
 static inline int
-u16_uctomb (uint16_t *s, ucs4_t uc, int n)
+u16_uctomb (uint16_t *s, ucs4_t uc, ptrdiff_t n)
 {
   if (uc < 0xd800 && n > 0)
     {
@@ -362,10 +362,10 @@ u16_uctomb (uint16_t *s, ucs4_t uc, int n)
 #if 1
 # if !UNISTRING_HAVE_INLINE
 extern int
-       u32_uctomb (uint32_t *s, ucs4_t uc, int n);
+       u32_uctomb (uint32_t *s, ucs4_t uc, ptrdiff_t n);
 # else
 static inline int
-u32_uctomb (uint32_t *s, ucs4_t uc, int n)
+u32_uctomb (uint32_t *s, ucs4_t uc, ptrdiff_t n)
 {
   if (uc < 0xd800 || (uc >= 0xe000 && uc < 0x110000))
     {

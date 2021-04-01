@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="161" id="KGk-i7-Jjw" customClass="DetailRejectionInfoCell" customModule="Multisig" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="385" height="161"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="385" height="161"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="zC1-Ih-a32">
+                        <rect key="frame" x="16" y="15" width="353" height="130"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HmT-pf-OYh">
+                                <rect key="frame" x="0.0" y="0.0" width="353" height="44"/>
+                                <string key="text">This is an on-chain rejection that doesn’t send any funds. Executing this on-chain rejection will replace all currently awaiting transactions with nonce 15.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="68W-Te-539">
+                                <rect key="frame" x="0.0" y="56" width="353" height="74"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxF-Yf-3v5">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="74"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Osn-P3-myO">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="74"/>
+                                        <connections>
+                                            <action selector="linkButtonTouched:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="GkF-cE-eYc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="Osn-P3-myO" firstAttribute="height" secondItem="fxF-Yf-3v5" secondAttribute="height" id="8BO-oZ-uBB"/>
+                                    <constraint firstAttribute="bottom" secondItem="fxF-Yf-3v5" secondAttribute="bottom" id="9yF-RU-QUy"/>
+                                    <constraint firstItem="Osn-P3-myO" firstAttribute="centerY" secondItem="fxF-Yf-3v5" secondAttribute="centerY" id="BMl-LB-Lux"/>
+                                    <constraint firstItem="fxF-Yf-3v5" firstAttribute="leading" secondItem="68W-Te-539" secondAttribute="leading" id="GAH-Db-fZE"/>
+                                    <constraint firstItem="Osn-P3-myO" firstAttribute="width" secondItem="fxF-Yf-3v5" secondAttribute="width" id="T7h-EH-D19"/>
+                                    <constraint firstItem="fxF-Yf-3v5" firstAttribute="top" secondItem="68W-Te-539" secondAttribute="top" id="coC-5B-VOt"/>
+                                    <constraint firstAttribute="trailing" secondItem="fxF-Yf-3v5" secondAttribute="trailing" constant="8" id="mob-Qd-Cg8"/>
+                                    <constraint firstItem="Osn-P3-myO" firstAttribute="centerX" secondItem="fxF-Yf-3v5" secondAttribute="centerX" id="qEC-x7-2bw"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="zC1-Ih-a32" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="77L-oe-8zF"/>
+                    <constraint firstAttribute="trailing" secondItem="zC1-Ih-a32" secondAttribute="trailing" constant="16" id="Eys-CP-HIS"/>
+                    <constraint firstItem="zC1-Ih-a32" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="YBs-iv-XBc"/>
+                    <constraint firstAttribute="bottom" secondItem="zC1-Ih-a32" secondAttribute="bottom" constant="16" id="xdc-vo-O0G"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="HmT-pf-OYh" id="9Y9-bZ-jMT"/>
+                <outlet property="helpLinkContinerView" destination="68W-Te-539" id="6Y2-98-VEg"/>
+                <outlet property="linkButton" destination="Osn-P3-myO" id="qJa-Ce-bKM"/>
+                <outlet property="linkLabel" destination="fxF-Yf-3v5" id="aP4-wf-ApU"/>
+            </connections>
+            <point key="canvasLocation" x="84.782608695652186" y="187.16517857142856"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

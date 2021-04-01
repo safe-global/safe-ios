@@ -16,10 +16,13 @@ class App {
     let theme = Theme()
     let snackbar = SnackbarCenter()
 
+    let appReview = AppReviewController()
+
     // Business Logic Layer
 
     let ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
     let gnosisSafe = GnosisSafe()
+    let auth = AuthenticationController()
 
     // Data Layer
     var coreDataStack: CoreDataProtocol = CoreDataStack()
@@ -42,12 +45,12 @@ class App {
 
     let notificationHandler = RemoteNotificationHandler()
 
+    let clientGatewayHostObserver = NetworkHostStatusObserver(host: configuration.services.clientGatewayURL.host ?? "www.gnosis.io")
+
     // Cross-layer
     static let configuration = AppConfiguration()
 
     let firebaseConfig = FirebaseConfig()
-
-    lazy var settings = Settings()
 
     private init() {}
 }

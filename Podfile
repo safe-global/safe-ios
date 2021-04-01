@@ -26,35 +26,25 @@ project 'Multisig',
 
 target 'Multisig' do
 
-  # The icon image of the ethereum address
-  pod 'BlockiesSwift', :git => 'https://github.com/gnosis/BlockiesSwift.git', :branch => '0.1.2-gnosis'
-  
-  # Dependency for ENS name resolution
-  pod 'idn2Swift', :git => 'https://github.com/gnosis/pod-idn2.git', :branch => 'master', :testspecs => ['Tests']
-  
-  # Dependency for handling images loaded by url
-  pod 'Kingfisher/SwiftUI', '5.14.0'
+    # Dependency for ENS name resolution
+    pod 'idn2Swift', :git => 'https://github.com/gnosis/pod-idn2.git', :branch => 'master', :testspecs => ['Tests']
 
-  # Tracking of events of interest
-  pod 'Firebase/Analytics'
-  # Crash reporting
-  pod 'Firebase/Crashlytics'
-  # Push notifications
-  pod 'Firebase/Messaging'
+    target 'MultisigTests' do
+      inherit! :search_paths
+    end
 
-  # Dependency for SSL pinning
-  pod 'TrustKit'
-
-  target 'MultisigTests' do
-    inherit! :search_paths
-  end
-  
-  target 'MultisigIntegrationTests' do
-    inherit! :search_paths
-  end
+    target 'MultisigIntegrationTests' do
+      inherit! :search_paths
+    end
 
 end
 
-target 'NotificationServiceExtension' do
-  pod 'SwiftCryptoTokenFormatter', '1.0.0'
+post_install do |pi|
+   pi.pods_project.targets.each do |t|
+       t.build_configurations.each do |bc|
+           if bc.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] == '8.0'
+             bc.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+           end
+       end
+   end
 end

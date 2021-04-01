@@ -20,14 +20,14 @@ struct SectionHeader: View {
         HStack {
             Text(text)
                 .tracking(2)
-                .font(.gnoCaption2)
-                .foregroundColor(Color.gnoMediumGrey)
+                .font(.gnoCaption1)
+                .foregroundColor(Color.tertiaryLabel)
                 .padding()
             
             Spacer()
         }
         .frame(height: text.isEmpty ? 28 : 44)
-        .background(Color.gnoWhite)
+        .background(Color.primaryBackground)
         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
 }

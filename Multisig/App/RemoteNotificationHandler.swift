@@ -158,31 +158,73 @@ class RemoteNotificationHandler {
     }
 
     private func track(_ status: UNAuthorizationStatus) {
-        Tracker.shared.setUserProperty(status.trackingStatus.rawValue,
-                                       for: TrackingUserProperty.pushInfo)
+        Tracker.shared.setPushInfo(status.trackingStatus.rawValue)
     }
 
     private func register(addresses: [Address]) {
-        guard let token = self.token else { return }
-        queue.async { [unowned self] in
-            let appConfig = App.configuration.app
-            var timestamp: String?
-            if let _ = try? App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue) {
-                timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
-            }
+        guard let token = token else { return }
+        guard let deviceID = storedDeviceID?.lowercased() else {
+            assertionFailure("Programmer error: missing device ID")
+            return
+        }
+        queue.async {
             do {
-                try App.shared.safeTransactionService
-                    .register(deviceID: self.storedDeviceID!,
-                              safes: addresses,
-                              token: token,
-                              bundle: appConfig.bundleIdentifier,
-                              version: appConfig.marketingVersion,
-                              buildNumber: appConfig.buildVersion,
-                              timestamp: timestamp)
+                let safes = addresses.map { $0.checksummed }.sorted()
+                let signResult = try Self.sign(safes: safes, deviceID: deviceID, token: token)
+                let appConfig = App.configuration.app
+
+                let request = RegisterNotificationTokenRequest(
+                    uuid: deviceID,
+                    safes: safes,
+                    cloudMessagingToken: token,
+                    bundle: appConfig.bundleIdentifier,
+                    version: appConfig.marketingVersion,
+                    buildNumber: appConfig.buildVersion,
+                    timestamp: signResult?.timestamp,
+                    signatures: signResult?.signatures)
+
+                try App.shared.safeTransactionService.execute(request: request)
             } catch {
                 logError("Failed to register device", error)
             }
         }
+    }
+
+    /// Constructs the hash for the registration request and signs with all available
+    /// private keys stored.
+    ///
+    /// - Parameters:
+    ///   - safes: List of safe addresses to register for, checksummed, sorted lexicographically.
+    ///   - deviceID: UUID of the device to register
+    ///   - token: Push token to register
+    ///   - timestamp: Unix timestamp or nil. If nil, the current time will be used.
+    /// - Throws: Error in case of database failures, or private key signing errors
+    /// - Returns: If there are any keys, then returns preimage of the hash, the hash that was signed, timestamp used, and array of signatures corresponding to the signing keys.
+    static func sign(safes: [String], deviceID: String, token: String, timestamp: String? = nil) throws -> (preimage: String, hash: String, timestamp: String, signatures: [String])? {
+        // sign the registration data by each private key.
+        let privateKeys = try KeyInfo.all().compactMap { try $0.privateKey() }
+
+        guard !privateKeys.isEmpty else {
+            return nil
+        }
+
+        let timestamp = timestamp ?? String(format: "%.0f", Date().timeIntervalSince1970)
+
+        let hashPreimage = [
+            "gnosis-safe",
+            timestamp,
+            deviceID,
+            token,
+            safes.joined()
+        ].joined()
+
+        let hash = EthHasher.hash(hashPreimage)
+
+        let signatures: [String] = try privateKeys.map { key in
+            let sig = try key.sign(hash: hash)
+            return sig.hexadecimal
+        }
+        return (hashPreimage, hash.toHexStringWithPrefix(), timestamp, signatures)
     }
 
     private func unregister(address: Address) {

@@ -21,52 +21,62 @@ extension AppSettings {
         }
     }
 
-    static var termsAccepted: Bool {
+    @AppSetting(\.termsAccepted)
+    static var termsAccepted: Bool
+
+    @AppSetting(\.importKeyOnBoardingShown)
+    static var hasShownImportKeyOnboarding: Bool
+
+    @AppSetting(\.dismissedImportKeyBanner)
+    static var importKeyBannerDismissed: Bool
+
+    @AppSetting(\.importedOwnerKey)
+    static var importedOwnerKey: Bool
+
+    @AppSetting(\.appReviewEventCount)
+    static var appReviewEventCount: Int64
+
+    @AppSetting(\.displayMode)
+    static var displayMode: Int32
+
+    @AppSetting(\.fiatCode)
+    private static var fiatCode: String?
+
+    static var selectedFiatCode: String {
         set {
-            dispatchPrecondition(condition: .onQueue(.main))
-            current().termsAccepted = newValue
-            App.shared.coreDataStack.saveContext()
+            fiatCode = newValue
         }
+
         get {
-            dispatchPrecondition(condition: .onQueue(.main))
-            return current().termsAccepted
+            fiatCode ?? "USD"
         }
     }
+    @AppSetting(\.passcodeBannerDismissed)
+    static var passcodeBannerDismissed: Bool
 
-    static var hasShownImportKeyOnboarding: Bool {
-        set {
-            dispatchPrecondition(condition: .onQueue(.main))
-            current().importKeyOnBoardingShown = newValue
-            App.shared.coreDataStack.saveContext()
-        }
-        get {
-            dispatchPrecondition(condition: .onQueue(.main))
-            return current().importKeyOnBoardingShown
-        }
+    @AppSetting(\.passcodeWasSetAtLeastOnce)
+    static var passcodeWasSetAtLeastOnce: Bool
+
+    @AppSetting(\.lastMarketingVersion)
+    static var lastMarketingVersion: String?
+
+    @AppSetting(\.lastBuildVersion)
+    static var lastBuildVersion: String?
+
+    static var isFreshInstall: Bool {
+        // NOTE: historically, we didn't record the currently run
+        // app version anywhere, but the termsAccepted exists since
+        // the first app release, so this is a way to check for fresh install
+        // even for the case when user upgrades their app to the new
+        // release version.
+        !termsAccepted
     }
+}
 
-    static var importKeyBannerDismissed: Bool {
-        get {
-            dispatchPrecondition(condition: .onQueue(.main))
-            return current().dismissedImportKeyBanner
-        }
-        set {
-            dispatchPrecondition(condition: .onQueue(.main))
-            current().dismissedImportKeyBanner = newValue
-            App.shared.coreDataStack.saveContext()
-        }
-    }
-
-    static var importedOwnerKey: Bool {
-        get {
-            dispatchPrecondition(condition: .onQueue(.main))
-            return current().importedOwnerKey
-        }
-        set {
-            dispatchPrecondition(condition: .onQueue(.main))
-            current().importedOwnerKey = newValue
-            App.shared.coreDataStack.saveContext()
-        }
+extension AppSettings {
+    static func saveCurrentRunVersionNumber() {
+        Self.lastMarketingVersion = App.configuration.app.marketingVersion
+        Self.lastBuildVersion = App.configuration.app.buildVersion
     }
 }
 
@@ -74,5 +84,28 @@ extension NSFetchRequest where ResultType == AppSettings {
     func all() -> Self {
         sortDescriptors = []
         return self
+    }
+}
+
+@propertyWrapper
+struct AppSetting<T> {
+    private var path: ReferenceWritableKeyPath<AppSettings, T>
+
+    init(_ path: ReferenceWritableKeyPath<AppSettings, T>) {
+        self.path = path
+    }
+
+    var wrappedValue: T {
+        get {
+            dispatchPrecondition(condition: .onQueue(.main))
+            let object = AppSettings.current()
+            return object[keyPath: path]
+        }
+        set {
+            dispatchPrecondition(condition: .onQueue(.main))
+            let object = AppSettings.current()
+            object[keyPath: path] = newValue
+            App.shared.coreDataStack.saveContext()
+        }
     }
 }

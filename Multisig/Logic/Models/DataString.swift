@@ -29,6 +29,7 @@ struct DataString: Hashable, Codable {
         var container = encoder.singleValueContainer()
         try container.encode(data.toHexStringWithPrefix())
     }
+
 }
 
 extension DataString: ExpressibleByStringLiteral {

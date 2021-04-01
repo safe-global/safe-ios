@@ -3,6 +3,16 @@
     {
       "filename" : "collectibles.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "illustrationCollectiblesCopy.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

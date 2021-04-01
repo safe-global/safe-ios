@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,6 +20,7 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-background" translatesAutoresizingMaskIntoConstraints="NO" id="Vxa-5X-DSs">
                         <rect key="frame" x="11" y="3" width="551" height="440"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ElP-Y4-luc">
                         <rect key="frame" x="40" y="31" width="491" height="380"/>
@@ -44,6 +46,7 @@
                         </subviews>
                     </stackView>
                 </subviews>
+                <color key="backgroundColor" name="primaryBackground"/>
                 <constraints>
                     <constraint firstItem="ElP-Y4-luc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="3qy-nb-gTj"/>
                     <constraint firstItem="ElP-Y4-luc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="20" id="ARQ-o0-UrQ"/>
@@ -56,6 +59,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" name="primaryBackground"/>
             <connections>
                 <outlet property="bodyLabel" destination="1w6-z9-Pha" id="9J6-Kb-LSs"/>
                 <outlet property="iconImageView" destination="FE9-Wb-X2I" id="4NR-NZ-LNG"/>
@@ -66,5 +70,8 @@
     </objects>
     <resources>
         <image name="card-background" width="37" height="37"/>
+        <namedColor name="primaryBackground">
+            <color red="0.96899998188018799" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

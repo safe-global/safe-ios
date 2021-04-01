@@ -42,7 +42,10 @@ struct AddressCell: View {
                 BrowseAddressView(address: address)
             }
         }
-        .frame(height: 50)
+        .padding()
+        .background(Color.secondaryBackground)
+        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        //.frame(height: 50)
     }
 
     var addressStyle: SlicedText.Style {

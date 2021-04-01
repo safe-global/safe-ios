@@ -38,11 +38,12 @@ class WCRequestsHandler: RequestHandler {
     }
 
     #warning("Finish impplementation")
+    #warning("FIXME!!!")
     func handle(request: Request) {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
         if request.method == "eth_sendTransaction" {
-            guard let signingKeyAddress = App.shared.settings.signingKeyAddress else {
+            guard let signingKeyAddress = try? KeyInfo.all().map({ $0.address.checksummed }).first else {
                 DispatchQueue.main.async {
                     App.shared.snackbar.show(message: "Please import Signing Key to initiate WalletConnect transactions!")
                 }
@@ -70,11 +71,12 @@ class WCRequestsHandler: RequestHandler {
 
                 confirmationController.onSubmit = {
                     // TODO: make proper checks here
-                    let signature = try! Signer.sign(hash: hash)
+                    let key = try! KeyInfo.all().first!
+                    let signature = try! key.privateKey()!.sign(hash: hash)
                     let createTxRequest = CreateTransactionRequest(
                         safe: wcRequest.from,
                         sender: AddressString(signingKeyAddress)!,
-                        signature: signature.value,
+                        signature: signature.hexadecimal,
                         transaction: transaction)
                     self.submitCreateTransactionRequest(createTxRequest,
                                                         topic: request.url.topic,

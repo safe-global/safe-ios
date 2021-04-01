@@ -16,6 +16,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         App.shared.tokenRegistry.load()
 
+        let darkNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .dark))
+        darkNavBar.barTintColor = .quaternaryBackground
+        darkNavBar.isTranslucent = false
+
+        let lightNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .light))
+        lightNavBar.barTintColor = nil
+        lightNavBar.isTranslucent = true
+
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = WindowWithViewOnTop(windowScene: windowScene)
@@ -27,11 +35,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             snackbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             window.addSubviewAlwaysOnTop(snackbarViewController.view)
 
-            window.tintColor = .gnoHold
+            window.tintColor = .button
             window.makeKeyAndVisible()
+            App.shared.theme.setUp()
         }
 
         App.shared.notificationHandler.appStarted()
+
+        if connectionOptions.notificationResponse == nil {
+            App.shared.appReview.pullAppReviewTrigger()
+        }
 
         // Get URL components from the incoming user activity.
         guard let userActivity = connectionOptions.userActivities.first,
@@ -62,11 +75,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         SynchronizationService.shared.startSyncLoop()
+        App.shared.clientGatewayHostObserver.startObserving()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
+        App.shared.clientGatewayHostObserver.stopObserving()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

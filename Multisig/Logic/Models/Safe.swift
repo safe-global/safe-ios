@@ -10,6 +10,8 @@ import Foundation
 import CoreData
 import FirebaseAnalytics
 
+fileprivate var cachedNames = [AddressString: String]()
+
 extension Safe: Identifiable {
 
     var isSelected: Bool { selection != nil }
@@ -25,6 +27,15 @@ extension Safe: Identifiable {
     var displayName: String { name.flatMap { $0.isEmpty ? nil : $0 } ?? "Untitled Safe" }
 
     var displayENSName: String { ensName ?? "" }
+
+    var isReadOnly: Bool {
+        if let owners = ownersInfo, !owners.isEmpty,
+           let keys = try? KeyInfo.keys(addresses: owners.map(\.address)), !keys.isEmpty {
+            return false
+        } else {
+            return true
+        }
+    }
 
     // this value is for contract versions 1.0.0 and 1.1.1 (probably for later versions as well)
     static let DefaultEIP712SafeAppTxTypeHash =
@@ -45,6 +56,17 @@ extension Safe: Identifiable {
     static var all: [Safe] {
         let context = App.shared.coreDataStack.viewContext
         return (try? context.fetch(Safe.fetchRequest().all())) ?? []
+    }
+
+    static func updateCachedNames() {
+        guard let safes = try? Safe.getAll() else { return }
+        cachedNames = safes.reduce(into: [AddressString: String]()) { names, safe in
+            names[AddressString(safe.address!)!] = safe.name!
+        }
+    }
+
+    static func cachedName(by address: AddressString) -> String? {
+        cachedNames[address]
     }
 
     public override func awakeFromInsert() {
@@ -119,6 +141,8 @@ extension Safe: Identifiable {
         App.shared.coreDataStack.saveContext()
         Tracker.shared.setSafeCount(count)
         App.shared.notificationHandler.safeAdded(address: Address(exactly: address))
+
+        updateCachedNames()
     }
     
     static func edit(address: String, name: String) {
@@ -129,6 +153,8 @@ extension Safe: Identifiable {
         safe.name = name
         App.shared.coreDataStack.saveContext()
         NotificationCenter.default.post(name: .selectedSafeUpdated, object: nil)
+
+        updateCachedNames()
     }
 
     static func select(address: String) {
@@ -159,18 +185,20 @@ extension Safe: Identifiable {
         if let addressString = deletedSafeAddress, let address = Address(addressString) {
             App.shared.notificationHandler.safeRemoved(address: address)
         }
+
+        updateCachedNames()
     }
 }
 
 extension Safe {
-    func update(from safeInfo: SafeStatusRequest.Response) {
-        threshold = safeInfo.threshold.value
-        owners = safeInfo.owners.map { $0.address }
-        implementation = safeInfo.implementation.address
-        version = safeInfo.version
-        nonce = safeInfo.nonce.value
-        modules = safeInfo.modules.map { $0.address }
-        fallbackHandler = safeInfo.fallbackHandler.address
+    func update(from info: SafeInfoRequest.ResponseType) {
+        threshold = info.threshold.value
+        ownersInfo = info.owners.map { $0.addressInfo }
+        implementationInfo = info.implementation.addressInfo
+        version = info.version
+        nonce = info.nonce.value
+        modulesInfo = info.modules?.map { $0.addressInfo }
+        fallbackHandlerInfo = info.fallbackHandler?.addressInfo
     }
 }
 

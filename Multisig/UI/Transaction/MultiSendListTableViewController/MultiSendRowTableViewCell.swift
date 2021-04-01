@@ -15,8 +15,8 @@ class MultiSendRowTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        mainLabel.setStyle(.body)
-        actionLabel.setStyle(.body)
+        mainLabel.setStyle(.primary)
+        actionLabel.setStyle(.primary)
     }
 
     func setIdenticon(_ text: String) {

@@ -12,18 +12,24 @@ import SwiftUI
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         App.shared.firebaseConfig.setUp()
-        App.shared.theme.setUp()
 
         #if DEBUG
         Tracker.shared.append(handler: ConsoleTracker())
         #endif
         Tracker.shared.append(handler: FirebaseTrackingHandler())
 
+        AppSettings.saveCurrentRunVersionNumber()
+
+        PrivateKeyController.cleanUpKeys()
+        PrivateKeyController.migrateLegacySigningKey()
+
         // The requirement is to set num_safes property to "0" when there are no Safes
         Tracker.shared.setSafeCount(Safe.count)
-        Tracker.shared.setNumKeysImported(SafeTransactionSigner.numberOfKeysImported())
+        Tracker.shared.setNumKeysImported(KeyInfo.count)
+        Tracker.shared.setPasscodeIsSet(to: App.shared.auth.isPasscodeSet)
+
+        Safe.updateCachedNames()
 
         App.shared.notificationHandler.setUpMessaging(delegate: self)
 

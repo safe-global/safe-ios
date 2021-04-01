@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "code.pdf",
+      "filename" : "ico-custom-tx-light.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-custom-tx-dark.pdf",
       "idiom" : "universal"
     }
   ],

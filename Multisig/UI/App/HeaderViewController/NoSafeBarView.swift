@@ -13,6 +13,6 @@ class NoSafeBarView: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        textLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+        textLabel.setStyle(.tertiary)
     }
 }

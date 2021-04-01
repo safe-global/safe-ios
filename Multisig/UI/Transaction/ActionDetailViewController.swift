@@ -45,6 +45,7 @@ class ActionDetailViewController: UITableViewController {
         tableView.registerCell(ActionDetailExpandableCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
         tableView.registerCell(DetailExpandableTextCell.self)
+        tableView.backgroundColor = .secondaryBackground
         reloadData()
     }
 
@@ -68,6 +69,8 @@ class ActionDetailViewController: UITableViewController {
             txBuilder.result = []
             txBuilder.buildTransferHeader(
                 address: tx.to.address,
+                label: nil,
+                addressLogoUri: nil,
                 isOutgoing: true,
                 status: .success,
                 value: tx.value.value,
@@ -175,7 +178,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func headerCell(_ text: String, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailTextCell.self)
-        cell.setText(text, style: GNOTextStyle.body.weight(.semibold))
+        cell.setText(text, style: .headline)
         cell.selectionStyle = .none
         cell.margins.top = 10
         cell.margins.leading += indentation
@@ -184,7 +187,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func textCell(_ text: String, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailTextCell.self)
-        cell.setText(text, style: GNOTextStyle.body.color(.gnoDarkGrey))
+        cell.setText(text, style: .secondary)
         cell.onTap = {
             Self.copyValue(text)
         }
@@ -194,7 +197,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func emptyCell(indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailTextCell.self)
-        cell.setText("empty", style: GNOTextStyle.body.color(.gnoMediumGrey))
+        cell.setText("empty", style: .tertiary)
         cell.selectionStyle = .none
         cell.margins.leading += indentation
         return cell
@@ -210,7 +213,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func hexCell(_ text: String, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = self.tableView.dequeueCell(ActionDetailTextCell.self)
-        cell.setText(text, style: .body)
+        cell.setText(text, style: .primary)
         cell.onTap = {
             Self.copyValue(text)
         }

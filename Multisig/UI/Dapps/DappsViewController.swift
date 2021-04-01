@@ -41,7 +41,7 @@ class DappsViewController: UITableViewController {
     }
 
     private func configureTableView() {
-        tableView.backgroundColor = .gnoWhite
+        tableView.backgroundColor = .primaryBackground
         tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailedCell.self)

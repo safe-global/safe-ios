@@ -54,7 +54,7 @@ class WCTransactionConfirmationViewController: UIViewController {
         }
         dappNameLabel.text = session.dAppInfo.peerMeta.name
 
-        rejectButton.setText("Reject", .bordered)
+        rejectButton.setText("Reject", .primary)
         submitButton.setText("Submit", .filled)
 
         tableView.dataSource = self

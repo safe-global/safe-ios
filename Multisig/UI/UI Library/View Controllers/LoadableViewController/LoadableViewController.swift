@@ -58,6 +58,12 @@ class LoadableViewController: UIViewController {
             selector: #selector(willEnterForeground),
             name: UIScene.willEnterForegroundNotification,
             object: nil)
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(didBecomeOnlineAfterOffline),
+            name: .networkHostReachable,
+            object: nil)
     }
 
     func setNeedsReload(_ value: Bool = true) {
@@ -69,6 +75,10 @@ class LoadableViewController: UIViewController {
     }
 
     @objc func willEnterForeground() {
+        lazyReloadData()
+    }
+
+    @objc func didBecomeOnlineAfterOffline() {
         lazyReloadData()
     }
 

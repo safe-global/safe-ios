@@ -18,6 +18,7 @@ class SVGView: UINibView {
     override func commonInit() {
         super.commonInit()
         webView.navigationDelegate = self
+        imageView.backgroundColor = UIColor(named: "transparentBackground")
     }
 
     func setImage(url: URL?, placeholder: UIImage?, onError: @escaping () -> Void = {}) {
@@ -43,7 +44,7 @@ class SVGView: UINibView {
         <head>
         <meta name="viewport" content="width=device-width, shrink-to-fit=YES"/>
         </head>
-        <body><img src="\(url)"/></body>
+        <body style="background-color: #ffffff"><img src="\(url)"/></body>
         </html>
         """
         webView.loadHTMLString(html, baseURL: nil)

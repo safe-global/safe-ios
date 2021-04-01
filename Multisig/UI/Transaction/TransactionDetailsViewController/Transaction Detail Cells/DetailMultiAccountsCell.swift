@@ -11,11 +11,11 @@ import UIKit
 class DetailMultiAccountsCell: UITableViewCell {
     @IBOutlet private weak var stackView: UIStackView!
 
-    func setAccounts(accounts: [(address: Address, label: String?, title: String?)]) {
+    func setAccounts(accounts: [(address: Address, label: String?, imageUri: URL?, title: String?)]) {
         let views = accounts.map { data -> AddressInfoView in
             let v = AddressInfoView(frame: contentView.bounds)
             v.setTitle(data.title)
-            v.setAddress(data.address, label: data.label)
+            v.setAddress(data.address, label: data.label, imageUri: data.imageUri)
             return v
         }
         for view in stackView.arrangedSubviews {

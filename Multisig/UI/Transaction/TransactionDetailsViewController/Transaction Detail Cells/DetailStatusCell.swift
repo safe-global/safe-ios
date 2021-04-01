@@ -15,12 +15,13 @@ class DetailStatusCell: UITableViewCell {
     @IBOutlet private weak var statusIconImageView: UIImageView!
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var bottomStackView: UIStackView!
+    @IBOutlet private weak var tagView: TagView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.body)
-        appendixLabel.setStyle(.body)
-        statusLabel.setStyle(.body)
+        titleLabel.setStyle(.primary)
+        appendixLabel.setStyle(.primary)
+        statusLabel.setStyle(.primary)
     }
 
     func setTitle(_ title: String) {
@@ -29,6 +30,14 @@ class DetailStatusCell: UITableViewCell {
 
     func setIcon(_ icon: UIImage?) {
         iconImageView.image = icon
+    }
+
+    func set(contractImageUrl: URL? = nil, contractAddress: AddressString) {
+        iconImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address)
+    }
+
+    func set(imageUrl: URL? = nil, placeholder: UIImage?) {
+        iconImageView.setCircleShapeImage(url: imageUrl, placeholder: placeholder)
     }
 
     func setStatus(_ status: SCGModels.TxStatus) {
@@ -43,14 +52,19 @@ class DetailStatusCell: UITableViewCell {
     func statusColor(status: SCGModels.TxStatus) -> UIColor {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
-            return .gnoPending
+            return .pending
         case .failed:
-            return .gnoTomato
+            return .error
         case .cancelled:
-            return .gnoDarkGrey
+            return .secondaryLabel
         case .success:
-            return .gnoHold
+            return .button
         }
+    }
+
+    func set(tag: String) {
+        tagView.isHidden = tag.isEmpty
+        tagView.set(title: tag)
     }
 }
 
@@ -78,11 +92,11 @@ extension SCGModels.TxStatus {
     var title: String {
         switch self {
         case .awaitingExecution:
-            return "Awaiting execution"
+            return "Needs execution"
         case .awaitingConfirmations:
-            return "Awaiting confirmations"
+            return "Needs confirmations"
         case .awaitingYourConfirmation:
-            return "Awaiting your confirmation"
+            return "Needs your confirmation"
         case .pending:
              return "Pending"
         case .failed:

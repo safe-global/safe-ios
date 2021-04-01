@@ -14,11 +14,6 @@ if ! [ -z ${SSL_ENFORCE_PINNING} ]; then
     sed -i '' "s/SSL_ENFORCE_PINNING = .*/SSL_ENFORCE_PINNING = ${SSL_ENFORCE_PINNING}/g" "${CONFIG_FILE}"
 fi
 
-# replace the UIKit flag
-if ! [ -z ${USE_UIKIT} ]; then
-    sed -i '' "s/USE_UIKIT = .*/USE_UIKIT = ${USE_UIKIT}/g" "${CONFIG_FILE}"
-fi
-
 # decrypt configuration file with the key from environment
 FIREBASE_ENCRYPTED="Firebase.dat"
 FIREBASE_DST="Multisig/Cross-layer/Analytics"

@@ -28,12 +28,11 @@ class SafeLoadedViewController: UIViewController {
             safe = try Safe.getSelected()!
             descriptionLabel.text = (safe.name ?? "Safe") + descriptionText
             titleLabel.setStyle(.headline)
-            descriptionLabel.setStyle(.body)
+            descriptionLabel.setStyle(.primary)
             importOwnerKeyButton.setText("Import owner key", .filled)
-            let buttonFont = UIFont.gnoFont(forTextStyle: .body)
-            skipButton.setText("Skip", GNOButtonStyle.plain.font(buttonFont))
+            skipButton.setText("Skip", .primary)
             safeInfoView.set(safe.name)
-            safeInfoView.setAddress(safe.addressValue, label: nil)
+            safeInfoView.setAddress(safe.addressValue)
         } catch {
             fatalError()
         }

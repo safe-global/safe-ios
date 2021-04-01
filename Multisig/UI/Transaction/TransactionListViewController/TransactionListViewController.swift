@@ -39,24 +39,30 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         tableView.delegate = self
         tableView.dataSource = self
 
-        tableView.backgroundColor = .gnoWhite
+        tableView.backgroundColor = .primaryBackground
 
         tableView.registerCell(TransactionListTableViewCell.self)
         tableView.registerCell(TransactionListHeaderTableViewCell.self)
         tableView.registerCell(TransactionsListConflictHeaderTableViewCell.self)
 
-        tableView.sectionHeaderHeight = BasicHeaderView.headerHeight
+        tableView.registerHeaderFooterView(IdleFooterView.self)
+        tableView.registerHeaderFooterView(LoadingFooterView.self)
+        tableView.registerHeaderFooterView(RetryFooterView.self)
+
+        tableView.sectionHeaderHeight = TransactionListHeaderTableViewCell.headerHeight
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
 
         emptyView.setText(emptyText)
         emptyView.setImage(emptyImage)
 
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(lazyReloadData),
-            name: .transactionDataInvalidated,
-            object: nil)
+        for notification in [Notification.Name.transactionDataInvalidated, .ownerKeyImported, .ownerKeyRemoved] {
+            notificationCenter.addObserver(
+                self,
+                selector: #selector(lazyReloadData),
+                name: notification,
+                object: nil)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -70,7 +76,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         super.reloadData()
         loadFirstPageDataTask?.cancel()
         loadNextPageDataTask?.cancel()
-        stopNextPageLoadingAnimation()
+        pageLoadingState = .idle
 
         do {
             let address = try Address(from: try Safe.getSelected()!.address!)
@@ -120,24 +126,33 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         header
     }
 
-    private func startNextPageLoadingAnimation() {
-        let indicator = UIActivityIndicatorView(style: .medium)
-        indicator.startAnimating()
-        indicator.frame = CGRect(origin: .zero, size: CGSize(width: tableView.bounds.width, height: 100))
-        // moves the indicator up
-        indicator.bounds = CGRect(origin: CGPoint(x: 0, y: 30), size: indicator.frame.size)
-        tableView.tableFooterView = indicator
+    enum LoadingState {
+        case idle, loading, retry
     }
 
-    private func stopNextPageLoadingAnimation() {
-        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+    var pageLoadingState = LoadingState.idle {
+        didSet {
+            switch pageLoadingState {
+            case .idle:
+                tableView.tableFooterView = tableView.dequeueHeaderFooterView(IdleFooterView.self)
+            case .loading:
+                tableView.tableFooterView = tableView.dequeueHeaderFooterView(LoadingFooterView.self)
+            case .retry:
+                let view = tableView.dequeueHeaderFooterView(RetryFooterView.self)
+                view.onRetry = { [unowned self] in
+                    self.loadNextPage()
+                }
+                tableView.tableFooterView = view
+                tableView.scrollRectToVisible(view.frame, animated: true)
+            }
+        }
     }
 
     private func loadNextPage() {
         // re-entrancy: if loading already, do not cancel and restart
         guard let nextPageUri = model.next, loadNextPageDataTask == nil else { return }
 
-        startNextPageLoadingAnimation()
+        pageLoadingState = .loading
         do {
             loadNextPageDataTask = try asyncTransactionList(pageUri: nextPageUri) { [weak self] result in
                 guard let `self` = self else { return }
@@ -150,9 +165,11 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                         // meaningless message.
                         if (error as NSError).code == URLError.cancelled.rawValue &&
                             (error as NSError).domain == NSURLErrorDomain {
+                            self.pageLoadingState = .idle
                             return
                         }
                         self.onError(GSError.error(description: "Failed to load more transactions", error: error))
+                        self.pageLoadingState = .retry
                     }
                 case .success(let page):
                     var model = FlatTransactionsListViewModel(page.results)
@@ -162,15 +179,26 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                         guard let `self` = self else { return }
                         self.model.append(from: model)
                         self.onSuccess()
+                        self.pageLoadingState = .idle
                     }
-                }
-                DispatchQueue.main.async { [weak self] in
-                    self?.stopNextPageLoadingAnimation()
                 }
                 self.loadNextPageDataTask = nil
             }
         } catch {
             onError(GSError.error(description: "Failed to load more transactions", error: error))
+            pageLoadingState = .retry
+        }
+    }
+
+    override func onError(_ error: DetailedLocalizedError) {
+        App.shared.snackbar.show(error: error)
+        if isRefreshing() {
+            endRefreshing()
+        } else if pageLoadingState == .loading {
+            // do nothing here because we want to preserve the visible
+            // data when page loading fails
+        } else {
+            showOnly(view: dataErrorView)
         }
     }
 
@@ -179,11 +207,13 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        cell(table: tableView, indexPath: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if isLast(path: indexPath) {
             loadNextPage()
         }
-
-        return cell(table: tableView, indexPath: indexPath)
     }
 
     private func isLast(path: IndexPath) -> Bool {
@@ -249,7 +279,6 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         case .transaction(let transaction):
             let cell = tableView.dequeueCell(TransactionListTableViewCell.self, for: indexPath)
             configure(cell: cell, transaction: transaction)
-
             return cell
         case .unknown:
             return UITableViewCell()
@@ -259,37 +288,58 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     func configure(cell: TransactionListTableViewCell, transaction: SCGModels.TransactionSummaryItemTransaction) {
         let tx = transaction.transaction
         var title = ""
-        var image = #imageLiteral(resourceName: "ico-settings-tx")
+        var tag: String = ""
+        var image: UIImage?
+        var imageURL: URL?
+        var placeholderAddress: AddressString?
 
         let nonce = tx.executionInfo?.nonce.description ?? ""
         let confirmationsSubmitted = tx.executionInfo?.confirmationsSubmitted ?? 0
         let confirmationsRequired = tx.executionInfo?.confirmationsRequired ?? 0
         let date = formatted(date: tx.timestamp)
         var info = ""
-        var infoColor: UIColor = .gnoDarkBlue
+        var infoColor: UIColor = .primaryLabel
 
         var status: SCGModels.TxStatus = tx.txStatus
         let missingSigners = tx.executionInfo?.missingSigners?.map { $0.address.checksummed } ?? []
-        if let signingKeyAddress = App.shared.settings.signingKeyAddress,status == .awaitingConfirmations {
-            if missingSigners.contains(signingKeyAddress) {
+        if let signingKeyAddresses = try? KeyInfo.all().map({ $0.address.checksummed }), status == .awaitingConfirmations {
+            let reminingSigners = missingSigners.filter({ signingKeyAddresses.contains($0) })
+            if !reminingSigners.isEmpty {
                 status = .awaitingYourConfirmation
             }
         }
 
-        switch transaction.transaction.txInfo {
+        switch tx.txInfo {
         case .transfer(let transferInfo):
             let isOutgoing = transferInfo.direction == .outgoing
-            image = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incoming-tx")
+            image = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incomming-tx")
             title = isOutgoing ? "Send" : "Receive"
             info = formattedAmount(transferInfo: transferInfo)
-            infoColor = isOutgoing ? .gnoDarkBlue : .gnoHold
+            infoColor = isOutgoing ? .primaryLabel : .button
         case .settingsChange(let settingsChangeInfo):
             title = settingsChangeInfo.dataDecoded.method
             image = #imageLiteral(resourceName: "ico-settings-tx")
         case .custom(let customInfo):
-            title = "Contract interaction"
-            info = customInfo.methodName ?? ""
-            image = #imageLiteral(resourceName: "ico-custom-tx")
+            if let importedSafeName = Safe.cachedName(by: customInfo.to) {
+                title = importedSafeName
+                placeholderAddress = customInfo.to
+            } else if let safeAppInfo = tx.safeAppInfo {
+                title = safeAppInfo.name
+                tag = "App"
+                imageURL = URL(string: safeAppInfo.logoUrl)
+                image = #imageLiteral(resourceName: "ico-custom-tx")
+            } else if let toInfo = customInfo.toInfo {
+                title = toInfo.name
+                imageURL = toInfo.logoUri
+                placeholderAddress = customInfo.to
+            } else {
+                title = "Contract interaction"
+                image = #imageLiteral(resourceName: "ico-custom-tx")
+            }
+            info = customInfo.actionCount != nil ? "\(customInfo.actionCount!) actoions" : customInfo.methodName ?? ""
+        case .rejection(_):
+            title = "On-chain rejection"
+            image = #imageLiteral(resourceName: "ico-rejection-tx")
         case .creation(_):
             image = #imageLiteral(resourceName: "ico-settings-tx")
             title = "Safe created"
@@ -299,14 +349,25 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         }
 
         cell.set(title: title)
-        cell.set(image: image)
+        if let imageURL = imageURL, let placeholderAddress = placeholderAddress {
+            cell.set(contractImageUrl: imageURL, contractAddress: placeholderAddress)
+        } else if let imageURL = imageURL {
+            cell.set(imageUrl: imageURL, placeholder: image)
+        } else if let image = image {
+            cell.set(image: image)
+        } else if let placeholderAddress = placeholderAddress {
+            cell.set(contractAddress: placeholderAddress)
+        }
+
         cell.set(status: status)
         cell.set(nonce: nonce)
         cell.set(date: date)
         cell.set(info: info, color: infoColor)
         cell.set(conflictType: transaction.conflictType)
+        cell.set(tag: tag)
         cell.separatorInset = transaction.conflictType == .hasNext ? UIEdgeInsets(top: 0, left: view.frame.size.width, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         cell.set(confirmationsSubmitted: confirmationsSubmitted, confirmationsRequired: confirmationsRequired)
+        cell.set(highlight: shouldHighlight(transaction: tx))
     }
 
     func formattedAmount(transferInfo: SCGModels.TxInfo.Transfer) -> String {
@@ -352,5 +413,9 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
     func formatted(date: Date) -> String {
         timeFormatter.string(from: date)
+    }
+
+    func shouldHighlight(transaction: SCGModels.TxSummary) -> Bool {
+        return false
     }
 }

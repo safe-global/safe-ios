@@ -35,6 +35,7 @@ struct HashString: Hashable, Codable {
         var container = encoder.singleValueContainer()
         try container.encode(hash.toHexStringWithPrefix())
     }
+
 }
 
 extension HashString: CustomStringConvertible {

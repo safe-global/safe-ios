@@ -19,7 +19,7 @@ struct CenteredAddressWithLink: View {
     var body: some View {
         HStack {
             CopyButton(safe.address) {
-                SlicedText(safe.safeAddress!)
+                SlicedText(safe.addressValue)
                     .style(.addressLong)
                     .multilineTextAlignment(.center)
             }
@@ -28,7 +28,7 @@ struct CenteredAddressWithLink: View {
                 Image("ico-browse-address")
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .foregroundColor(.gnoHold)
+                    .foregroundColor(.button)
             }
             .frameForTapping()
             .sheet(isPresented: $showsBrowser) {

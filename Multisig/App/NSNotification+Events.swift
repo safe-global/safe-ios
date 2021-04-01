@@ -13,6 +13,7 @@ extension NSNotification.Name {
     static let selectedSafeUpdated = NSNotification.Name("io.gnosis.safe.selectedSafeUpdated")
     static let ownerKeyImported = NSNotification.Name("io.gnosis.safe.ownerKeyImported")
     static let ownerKeyRemoved = NSNotification.Name("io.gnosis.safe.ownerKeyRemoved")
+    static let ownerKeyUpdated = NSNotification.Name("io.gnosis.safe.ownerKeyUpdated")
     static let transactionDataInvalidated = NSNotification.Name("io.gnosis.safe.transactionDataInvalidated")
 
     // MARK: - WalletConnecdt
@@ -21,4 +22,16 @@ extension NSNotification.Name {
     static let wcDidFailToConnect = NSNotification.Name("io.gnosis.safe.wcDidFailToConnect")
     static let wcDidConnect = NSNotification.Name("io.gnosis.safe.wcShouldStartSession")
     static let wcDidDisconnect = NSNotification.Name("io.gnosis.safe.wcDidDisconnect")
+
+    // MARK: - Passcode
+
+    static let passcodeCreated = NSNotification.Name("io.gnosis.safe.passcodeCreated")
+    static let passcodeDeleted = NSNotification.Name("io.gnosis.safe.passcodeDeleted")
+    
+    // MARK: - Networking
+
+    static let networkHostReachable = NSNotification.Name("io.gnosis.safe.networkHostReachable")
+    static let networkHostUnreachable = NSNotification.Name("io.gnosis.safe.networkHostUnreachable")
+
+    static let selectedFiatCurrencyChanged = NSNotification.Name("io.gnosis.safe.selectedFiatCurrencyChanged")
 }

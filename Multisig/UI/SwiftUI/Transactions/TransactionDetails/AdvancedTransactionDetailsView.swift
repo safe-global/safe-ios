@@ -18,26 +18,25 @@ struct AdvancedTransactionDetailsView: View {
     var body: some View {
         List {
             if let nonce = nonce {
-                KeyValueRow("Nonce:", value: nonce, enableCopy: true, color: .gnoDarkGrey)
-                    .padding(.vertical, padding)
+                KeyValueRow("Nonce:", value: nonce, enableCopy: true, color: .secondaryLabel)
             }
 
             if let operation = operation {
                 KeyValueRow(
-                    "Type of operation:", value: operation, enableCopy: true, color: .gnoDarkGrey
-                ).padding(.vertical, padding)
+                    "Type of operation:", value: operation, enableCopy: true, color: .secondaryLabel
+                )
             }
 
             if let hash = hash {
                 KeyValueRow(
-                    "Transaction hash:", value: hash, enableCopy: true, color: .gnoDarkGrey
-                ).padding(.vertical, padding)
+                    "Transaction hash:", value: hash, enableCopy: true, color: .secondaryLabel
+                )
             }
 
             if let safeTxHash = safeTxHash {
                 KeyValueRow(
-                    "safeTxHash:", value: safeTxHash, enableCopy: true, color: .gnoDarkGrey
-                ).padding(.vertical, padding)
+                    "safeTxHash:", value: safeTxHash, enableCopy: true, color: .secondaryLabel
+                )
             }
         }
         .navigationBarTitle("Advanced", displayMode: .inline)

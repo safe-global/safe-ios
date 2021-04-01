@@ -27,8 +27,11 @@ enum GSError {
     private static let clientErrorDomain = "CommonClientError"
     private static let iOSErrorDomain = "iOSError"
 
-    private static let unexpectedError = UnprocessableEntity(
-        reason: "Network request failed with an unexpected error.", code: 42200)
+    private static func unexpectedError(_ code: Int = 0) -> Error {
+        let errorID = Int("422\(code)") ?? code
+        return UnprocessableEntity(
+            reason: "Network request failed with an unexpected error.", code: errorID)
+    }
 
     /// User facing error from underlying error
     /// - Parameters:
@@ -100,8 +103,8 @@ enum GSError {
 
     private static func unprocessableEntity(data: Data?) -> Error {
         guard let data = data else {
-            LogService.shared.error("Missing data in unprocessableEntity error", error: unexpectedError)
-            return unexpectedError
+            LogService.shared.error("Missing data in unprocessableEntity error", error: unexpectedError())
+            return unexpectedError()
         }
 
         do {
@@ -114,14 +117,14 @@ enum GSError {
             default:
                 LogService.shared.error(
                     "Unrecognised error with code: \(error.code); message: \(error.message ?? "")",
-                    error: unexpectedError)
-                return unexpectedError
+                    error: unexpectedError(error.code))
+                return unexpectedError(error.code)
             }
         } catch {
             let dataString = String(data: data, encoding: .utf8) ?? data.base64EncodedString()
             LogService.shared.error("Could not decode error details from the data: \(dataString)",
-                                    error: unexpectedError)
-            return unexpectedError
+                                    error: unexpectedError())
+            return unexpectedError()
         }
     }
 
@@ -236,6 +239,24 @@ enum GSError {
         let howToFix = "Please correct the error or use another seed phrase"
         let domain = clientErrorDomain
         let code = 1103
+        let loggable = false
+    }
+
+    struct KeyAlreadyImported: DetailedLocalizedError {
+        let description = "Can't use this private key"
+        let reason = "This key already imported."
+        let howToFix = "Please import a different key"
+        let domain = clientErrorDomain
+        let code = 1111
+        let loggable = false
+    }
+
+    struct MissingPrivateKeyError: DetailedLocalizedError {
+        let description = "Failed to confirm transaction"
+        let reason = "Private key not found"
+        let howToFix = "Please import different owner key"
+        let domain = clientErrorDomain
+        let code = 1112
         let loggable = false
     }
 
@@ -363,7 +384,16 @@ enum GSError {
         let reason: String
         let howToFix = "Please try again later or contact Safe support if this issue persists"
         let domain = iOSErrorDomain
-        let code = 1306
+        let code = 1311
         let loggable = true
+    }
+
+    struct GenericPasscodeError: DetailedLocalizedError {
+        let description = "Failed to set passcode"
+        let reason: String
+        let howToFix = "Please try again later or contact Safe support if this issue persists"
+        let domain = iOSErrorDomain
+        let code = 1312
+        let loggable = false
     }
 }

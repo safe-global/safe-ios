@@ -102,4 +102,26 @@ extension Transaction {
             EthHasher.hash(safeEncodedTxData)
         ].reduce(Data()) { $0 + $1 }
     }
+
+    static func rejectionTransaction(safeAddress: Address, nonce: UInt256String) -> Transaction {
+        var transaction = Transaction(to: AddressString(safeAddress),
+                                      value: "0",
+                                      data: "0x",
+                                      operation: SCGModels.Operation.call,
+                                      safeTxGas: "0",
+                                      baseGas: "0",
+                                      gasPrice: "0",
+                                      gasToken: "0x0000000000000000000000000000000000000000",
+                                      refundReceiver: "0x0000000000000000000000000000000000000000",
+                                      nonce: nonce,
+                                      safeTxHash: nil)
+        transaction.safeTxHash = transaction.safeTxHash(by: safeAddress)
+
+        return transaction
+    }
+
+    func safeTxHash(by safeAddress: Address) -> HashString? {
+        let data = encodeTransactionData(for: AddressString(safeAddress))
+        return try? HashString(hex: EthHasher.hash(data).toHexString())
+    }
 }

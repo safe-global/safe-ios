@@ -17,7 +17,7 @@ class SafeEntryTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         mainLabel.setStyle(.headline)
-        detailLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
+        detailLabel.setStyle(.tertiary)
     }
 
     func setAddress(_ value: Address) {

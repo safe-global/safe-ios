@@ -115,8 +115,8 @@ class SnackbarViewController: UIViewController {
         processingTimer?.invalidate()
 
         // pre-emptively removing duplicate messages that are left in the queue
-        while self.currentMessage == self.messageQueue.first {
-            self.messageQueue.removeFirst()
+        while !messageQueue.isEmpty && currentMessage == messageQueue.first {
+            messageQueue.removeFirst()
         }
 
         hideAnimated { [weak self] in

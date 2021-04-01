@@ -13,7 +13,6 @@ import UIKit
 struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConvertible, Identifiable {
 
     fileprivate var _store: EthereumAddress
-    private(set) var index = 0
 
     init(exactly data: Data) {
         _store = try! EthereumAddress(data)
@@ -48,9 +47,8 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         _store = v
     }
 
-    init(_ ethereumAddress: EthereumAddress, index: Int) {
+    init(_ ethereumAddress: EthereumAddress) {
         _store = ethereumAddress
-        self.index = index
     }
 
     var id: String {
@@ -71,18 +69,19 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
     }
 
     var highlighted: NSAttributedString {
+        let style = GNOTextStyle.tertiary
         let attributedString = NSMutableAttributedString(
             string: checksummed,
             attributes: [
-                .font: UIFont.gnoFont(forTextStyle: .body),
-                .foregroundColor: UIColor.gnoMediumGrey,
+                .font: UIFont.gnoFont(forTextStyle: style),
+                .foregroundColor: style.color!,
                 .kern: -0.41
             ]
         )
         attributedString.addAttribute(
-            .foregroundColor, value: UIColor.gnoDarkBlue, range: NSRange(location: 0, length: 4))
+            .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: 0, length: 4))
         attributedString.addAttribute(
-            .foregroundColor, value: UIColor.gnoDarkBlue, range: NSRange(location: 38, length: 4))
+            .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: 38, length: 4))
         return attributedString
     }
 

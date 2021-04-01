@@ -18,7 +18,7 @@ struct NoDataView: View {
 
             HStack {
                 Image("ico-server-error")
-                Text("Data cannot be loaded").title(.gnoMediumGrey)
+                Text("Data cannot be loaded").title(.tertiaryLabel)
             }
             .padding(.top, 115)
 

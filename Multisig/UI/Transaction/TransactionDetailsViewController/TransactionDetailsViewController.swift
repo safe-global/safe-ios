@@ -16,8 +16,11 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var tx: SCGModels.TransactionDetails?
     private var reloadDataTask: URLSessionTask?
     private var confirmDataTask: URLSessionTask?
+    private var rejectTask: URLSessionTask?
     private var builder: TransactionDetailCellBuilder!
     private var confirmButton: UIButton!
+    private var rejectButton: UIButton!
+    private var actionsContainerView: UIStackView!
 
     private enum TransactionSource {
         case id(String)
@@ -54,12 +57,16 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
 
-        configureConfirmButton()
+        configureActionButtons()
 
-        notificationCenter.addObserver(
-            self, selector: #selector(lazyReloadData), name: .ownerKeyRemoved, object: nil)
-        notificationCenter.addObserver(
-            self, selector: #selector(lazyReloadData), name: .ownerKeyImported, object: nil)
+        for notification in [Notification.Name.ownerKeyImported, .ownerKeyRemoved, .ownerKeyUpdated] {
+            notificationCenter.addObserver(
+                self,
+                selector: #selector(lazyReloadData),
+                name: notification,
+                object: nil)
+        }
+        tableView.backgroundColor = .secondaryBackground
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -76,46 +83,119 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     // MARK: - Signing
 
-    fileprivate func configureConfirmButton() {
-        // confirm button sticks to the bottom of the screen
+    fileprivate func configureActionButtons() {
+        // Actions Container View sticks to the bottom of the screen
         // and is on top of the table view.
         // it is shown only when table view is shown.
+
+        actionsContainerView = UIStackView()
+        actionsContainerView.axis = .horizontal
+        actionsContainerView.distribution = .fillEqually
+        actionsContainerView.alignment = .fill
+        actionsContainerView.spacing = 20
+        actionsContainerView.translatesAutoresizingMaskIntoConstraints = false
+
+        rejectButton = UIButton(type: .custom)
+        rejectButton.setText("Reject", .filledError)
+        rejectButton.addTarget(self, action: #selector(didTapReject), for: .touchUpInside)
+        actionsContainerView.addArrangedSubview(rejectButton)
 
         confirmButton = UIButton(type: .custom)
         confirmButton.setText("Confirm", .filled)
         confirmButton.addTarget(self, action: #selector(didTapConfirm), for: .touchUpInside)
-        confirmButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(confirmButton)
+        actionsContainerView.addArrangedSubview(confirmButton)
+
+        view.addSubview(actionsContainerView)
         NSLayoutConstraint.activate([
-            confirmButton.heightAnchor.constraint(equalToConstant: 56),
-            confirmButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
-            confirmButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            confirmButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            actionsContainerView.heightAnchor.constraint(equalToConstant: 56),
+            actionsContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+            actionsContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            actionsContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
     }
 
     override func showOnly(view: UIView) {
         super.showOnly(view: view)
-        confirmButton.isHidden = view !== tableView || !showsConfirmButton
+        actionsContainerView.isHidden = view !== tableView || !showsActionsViewContrainer
+        confirmButton.isHidden = !showConfirmButton
+        rejectButton.isHidden = !showsRejectButton
+
+        confirmButton.isEnabled = enableConfirmButton
+        rejectButton.isEnabled = enableRejectionButton
     }
 
-    private var showsConfirmButton: Bool  {
-        App.configuration.toggles.signing && tx?.txStatus == .awaitingYourConfirmation
+    private var showsActionsViewContrainer: Bool  {
+        tx?.multisigInfo?.canSign == true && (showsRejectButton || showConfirmButton)
+    }
+
+    private var showsRejectButton: Bool {
+        switch self.tx?.txInfo {
+        case .rejection(_):
+            return false
+        default:
+            guard let multisigInfo = tx?.multisigInfo,
+                  let status = tx?.txStatus
+                    else { return false }
+
+            if status == .awaitingExecution && !multisigInfo.isRejected() {
+                 return true
+            } else if status.isAwatingConfiramtions {
+                return true
+            }
+
+            return false
+        }
+    }
+
+    private var showConfirmButton: Bool {
+        switch self.tx?.txInfo {
+        case .rejection(_):
+            return tx!.needsYourConfirmation
+        default:
+            return tx?.txStatus.isAwatingConfiramtions ?? false
+        }
+    }
+
+    private var enableRejectionButton: Bool {
+        if case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = tx?.detailedExecutionInfo,
+           !multisigTx.isRejected(),
+           showsRejectButton {
+            return true
+        }
+
+        return false
+    }
+
+    private var enableConfirmButton: Bool {
+        tx?.needsYourConfirmation ?? false
     }
 
     @objc private func didTapConfirm() {
-        let alertVC = UIAlertController(
-            title: "Confirm transaction",
-            message: "You are about to confirm the transaction with your currently imported owner key. This confirmation is off-chain. The transaction should be executed separately in the web interface.",
-            preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alertVC.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak self] _ in
-            self?.sign()
-        }))
-        present(alertVC, animated: true, completion: nil)
+        guard let signers = tx?.multisigInfo?.signerKeys() else {
+            assertionFailure()
+            return
+        }
+
+        let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
+        let vc = ChooseOwnerKeyViewController(owners: signers,
+                                              descriptionText: descriptionText) { [unowned self] keyInfo in
+            if let info = keyInfo {
+                sign(info)
+            }
+            dismiss(animated: true)
+        }
+
+        let navigationController = UINavigationController(rootViewController: vc)
+        present(navigationController, animated: true)
     }
 
-    private func sign() {
+    @objc private func didTapReject() {
+        guard let transaction = tx else { fatalError() }
+        let confirmRejectionViewController = RejectionConfirmationViewController(transaction: transaction)
+        show(confirmRejectionViewController, sender: self)
+    }
+
+    private func sign(_ keyInfo: KeyInfo) {
         guard let tx = tx,
               let transaction = Transaction(tx: tx) else {
             preconditionFailure("Unexpected Error")            
@@ -123,9 +203,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         super.reloadData()
         do {
             let safeAddress = try Address(from: try Safe.getSelected()!.address!)
-            let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress)
+            let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress, keyInfo: keyInfo)
             let safeTxHash = transaction.safeTxHash!.description
-            confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash, with: signature.value, completion: { [weak self] result in
+            confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash, with: signature.hexadecimal, completion: { [weak self] result in
 
                 // NOTE: sometimes the data of the transaction list is not
                 // updated right away, we'll give a moment for the backend
@@ -224,30 +304,69 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
 extension SCGModels.TransactionDetails {
     var needsYourConfirmation: Bool {
-        if txStatus == .awaitingConfirmations,
-           let signingKey = App.shared.settings.signingKeyAddress,
-           let signingAddress = AddressString(signingKey),
-           case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = detailedExecutionInfo,
-           multisigTx.isSigner(address: signingAddress) &&
-            multisigTx.needsMoreSignatures &&
-            !multisigTx.hasConfirmed(address: signingAddress) {
+        if txStatus.isAwatingConfiramtions,
+           let multisigInfo = multisigInfo,
+           !multisigInfo.signerKeys().isEmpty,
+           multisigInfo.needsMoreSignatures {
             return true
         }
         return false
     }
+
+    var multisigInfo: SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig? {
+        if case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = detailedExecutionInfo {
+            return multisigTx
+        }
+
+        return nil
+    }
 }
 
 extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
-
-    func isSigner(address: AddressString) -> Bool {
-        signers.contains(address)
-    }
-
-    func hasConfirmed(address: AddressString) -> Bool {
-        confirmations.contains { $0.signer == address }
-    }
-
     var needsMoreSignatures: Bool {
         confirmationsRequired > confirmations.count
+    }
+
+    func hasRejected(address: AddressString) -> Bool {
+        rejectors?.contains(address) ?? false
+    }
+
+    func isRejected() -> Bool {
+        if let rejectors = rejectors, !rejectors.isEmpty {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    func signerKeys() -> [KeyInfo] {
+        let confirmationAdresses = confirmations.map({ $0.signer })
+
+        let reminingSigners = signers.filter({
+            !confirmationAdresses.contains($0)
+        }).map( { $0.address } )
+
+        return (try? KeyInfo.keys(addresses: reminingSigners)) ?? []
+    }
+
+    func rejectorKeys() -> [KeyInfo] {
+        let rejectorsAdresses = rejectors ?? []
+        let reminingSigners = signers.filter({
+            !rejectorsAdresses.contains($0)
+        }).map( { $0.address } )
+
+        return (try? KeyInfo.keys(addresses: reminingSigners)) ?? []
+    }
+
+    var canSign: Bool {
+        let signerAddresses = signers.map( { $0.address } )
+        let keys = (try? KeyInfo.keys(addresses: signerAddresses)) ?? []
+        return !keys.isEmpty
+    }
+}
+
+extension SCGModels.TxStatus {
+    var isAwatingConfiramtions: Bool {
+        [.awaitingYourConfirmation, .awaitingConfirmations].contains(self)
     }
 }

@@ -23,8 +23,8 @@ class DetailExpandableTextCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.headline)
-        expandableTitleLabel.setStyle(GNOTextStyle.body.color(.gnoDarkGrey))
-        expandableIconImageView.tintColor = .gnoDarkGrey
+        expandableTitleLabel.setStyle(.secondary)
+        expandableIconImageView.tintColor = .secondaryLabel
         setExpandableTitle(nil)
         setCopyText(nil)
         updateExpanded()
@@ -42,7 +42,7 @@ class DetailExpandableTextCell: UITableViewCell {
         let isExpandable: Bool = text == nil
         expanableContainerStackView.isHidden = isExpandable
         expandableTitleLabel.text = text
-        let contentStyle = isExpandable ? GNOTextStyle.body.color(.gnoDarkGrey) : .body
+        let contentStyle: GNOTextStyle = isExpandable ? .secondary : .primary
         contentLabel.setStyle(contentStyle)
         contentLabel.isHidden = isExpandable ? false : !isExpanded
     }
