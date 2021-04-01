@@ -28,7 +28,14 @@ enum ViewControllerFactory {
             .environment(\.managedObjectContext, App.shared.coreDataStack.viewContext)
 
             let startVC = UIHostingController(rootView: start)
-            let createPasswordVC = CreatePasscodeViewController()
+            let createPasswordVC = CreatePasscodeViewController {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                    if let activated = try? App.shared.auth.activateBiometry(), activated {
+                        AppSettings.passcodeOptions.insert(.useBiometry)
+                        App.shared.snackbar.show(message: "Biometrics activated.")
+                    }
+                }
+            }
 
             nav.viewControllers = [createPasswordVC, startVC]
 
