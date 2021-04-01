@@ -33,7 +33,7 @@ class DetailConfirmationCell: UITableViewCell {
             let confirmationsRemaining = required - confirmations.count
             if confirmationsRemaining > 0 {
                 let status = ConfirmationStatusPiece(frame: bounds)
-                status.setText("Execute (\(confirmationsRemaining) more confirmations needed)", style: .primaryButton)
+                status.setText("Execute (\(confirmationsRemaining) more confirmations needed)", style: .secondary)
                 status.setSymbol("circle", color: .tertiaryLabel)
                 views.append(status)
             } else {

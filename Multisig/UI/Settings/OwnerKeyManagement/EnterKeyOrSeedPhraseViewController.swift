@@ -107,6 +107,8 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
                     createPasscodeViewController.hidesHeadline = false
                     vc.show(createPasscodeViewController, sender: vc)
                 }
+                
+                AppSettings.hasShownImportKeyOnboarding = true
             }
 
             show(vc, sender: self)

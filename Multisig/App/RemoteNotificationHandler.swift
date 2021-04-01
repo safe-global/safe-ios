@@ -256,20 +256,22 @@ class RemoteNotificationHandler {
 
             Safe.select(address: rawAddress)
 
-            if ["EXECUTED_MULTISIG_TRANSACTION", "NEW_CONFIRMATION", "CONFIRMATION_REQUEST"].contains(payload.type),
-               let safeTxHash = payload.safeTxHash,
+            if let safeTxHash = payload.safeTxHash,
                let hashData = Data(exactlyHex: safeTxHash) {
                 let vc = TransactionDetailsViewController(safeTxHash: hashData)
                 vc.navigationItem.leftBarButtonItem =
                     UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
                 let navController = UINavigationController(rootViewController: vc)
                 UIWindow.topMostController()!.present(navController, animated: true)
+            } else if ["INCOMING_ETHER", "INCOMING_TOKEN"].contains(payload.type) {
+                NotificationCenter.default.post(name: .incommingTxNotificationReceived, object: nil)
+            } else if ["EXECUTED_MULTISIG_TRANSACTION", "NEW_CONFIRMATION", "CONFIRMATION_REQUEST"].contains(payload.type) {
+                NotificationCenter.default.post(name: .queuedTxNotificationReceived, object: nil)
             }
         } catch {
             logError("Error during opening notification", error)
         }
     }
-
  }
 
 fileprivate func logDebug(_ msg: String) {

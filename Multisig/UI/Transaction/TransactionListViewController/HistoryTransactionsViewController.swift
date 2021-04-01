@@ -28,6 +28,12 @@ class HistoryTransactionsViewController: TransactionListViewController {
             d.timeStyle = .none
             return d
         }()
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(lazyReloadData),
+            name: .incommingTxNotificationReceived,
+            object: nil)
     }
 
     override func asyncTransactionList(address: Address, completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
