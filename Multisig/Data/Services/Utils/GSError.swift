@@ -261,10 +261,10 @@ enum GSError {
         let loggable = false
     }
 
-    struct ENSAddressNotFound: DetailedLocalizedError {
+    struct BlockhainAddressNotFound: DetailedLocalizedError {
         let description = "Can’t use this name"
         let reason = "Address not found."
-        let howToFix = "Please enter a valid ENS name"
+        let howToFix = "Please enter a valid blockchain name"
         let domain = clientErrorDomain
         let code = 1106
         let loggable = false
@@ -296,6 +296,16 @@ enum GSError {
         let code = 1110
         let loggable = false
     }
+    
+    struct UDResolverNotFound: DetailedLocalizedError {
+        let description = "Can't use this name"
+        let reason = "This name is not configured"
+        let howToFix = "Please check that the name exists on the blockchain"
+        let domain = clientErrorDomain
+        let code = 1121
+        let loggable = false
+    }
+
 
     // MARK: - iOS errors
 

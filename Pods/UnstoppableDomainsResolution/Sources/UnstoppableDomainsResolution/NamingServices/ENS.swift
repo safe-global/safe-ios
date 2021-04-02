@@ -8,7 +8,6 @@
 
 import Foundation
 import EthereumAddress
-import Base58Swift
 
 internal class ENS: CommonNamingService, NamingService {
     let network: String

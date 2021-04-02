@@ -1,0 +1,6 @@
+module UnstoppableDomainsResolution {
+  umbrella header "UnstoppableDomainsResolution-umbrella.h"
+
+  export *
+  module * { export * }
+}

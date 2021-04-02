@@ -12,36 +12,56 @@ import UnstoppableDomainsResolution
 class BlockchainDomainManager {
     
     let ens: ENS;
+    let resolution: Resolution;
     
     init() {
         ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e");
-        
+        self.resolution = try! Resolution();
+    }
     
+    func resolveUD(_ domain: String) throws -> Address {
+        var address: String = "";
+        var err: Error? = nil;
+        
+        let dispatchGroup = DispatchGroup();
+        dispatchGroup.enter();
+        resolution.addr(domain: domain, ticker: "eth") { result in
+            switch result {
+                case .success(let returnValue):
+                    address = returnValue;
+                case .failure(let error):
+                  print("Expected btc Address, but got \(error)")
+                  err = error;
+          }
+            dispatchGroup.leave();
+        };
+        dispatchGroup.wait();
+        
+        guard err == nil else {
+            if (err is ResolutionError) {
+                throw self.throwCorrectUdError(err as! ResolutionError, domain);
+            }
+            throw err!;
+        }
+        return Address(address)!;
     }
     
     func resolve(domain: String) throws -> Address {
-        if (domain.isUDdomain(domain))  {
-            print("resolving unstoppable domain");
-            guard let resolution = try? Resolution() else {
-              print ("Init of Resolution instance with default parameters failed...")
-                return "";
-            }
-            var address: String = "";
-            resolution.addr(domain: "brad.crypto", ticker: "eth") { result in
-              switch result {
-              case .success(let returnValue):
-                // 0x8aaD44321A86b170879d7A244c1e8d360c99DdA8
-                address = returnValue;
-                
-              case .failure(let error):
-                print("Expected eth Address, but got \(error)")
-              }
-            }
-            return Address(address)!;
-        }
-        return try ens.address(for: domain);
+        return domain.isUDdomain(domain) ? try self.resolveUD(domain) : try ens.address(for: domain);
     }
     
+    func throwCorrectUdError(_ err: ResolutionError, _ domain: String) -> DetailedLocalizedError {
+        switch err {
+        case .unregisteredDomain:
+            return GSError.BlockhainAddressNotFound()
+        case .unspecifiedResolver:
+            return GSError.UDResolverNotFound()
+        default:
+            return GSError.ThirdPartyError(
+                reason: err.localizedDescription
+            )
+        }
+    }
 }
 
 fileprivate extension String {

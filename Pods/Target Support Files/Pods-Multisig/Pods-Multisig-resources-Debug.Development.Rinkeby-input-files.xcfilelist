@@ -1,2 +1,11 @@
 ${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-resources.sh
+${PODS_ROOT}/UnstoppableDomainsResolution/Sources/UnstoppableDomainsResolution/Resources/CNS/cnsProxyReader.json
+${PODS_ROOT}/UnstoppableDomainsResolution/Sources/UnstoppableDomainsResolution/Resources/CNS/cnsRegistry.json
+${PODS_ROOT}/UnstoppableDomainsResolution/Sources/UnstoppableDomainsResolution/Resources/CNS/cnsResolver.json
+${PODS_ROOT}/UnstoppableDomainsResolution/Sources/UnstoppableDomainsResolution/Resources/CNS/network-config.json
+${PODS_ROOT}/UnstoppableDomainsResolution/Sources/UnstoppableDomainsResolution/Resources/CNS/supported-keys.json
+${PODS_ROOT}/UnstoppableDomainsResolution/Sources/UnstoppableDomainsResolution/Resources/ENS/ensRegistry.json
+${PODS_ROOT}/UnstoppableDomainsResolution/Sources/UnstoppableDomainsResolution/Resources/ENS/ensResolver.json
+${PODS_ROOT}/UnstoppableDomainsResolution/Sources/UnstoppableDomainsResolution/Resources/CNS
+${PODS_ROOT}/UnstoppableDomainsResolution/Sources/UnstoppableDomainsResolution/Resources/ENS
 ${PODS_CONFIGURATION_BUILD_DIR}/idn2Swift/idn2SwiftResources.bundle

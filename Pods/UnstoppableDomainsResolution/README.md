@@ -24,14 +24,14 @@ Resoultion supports decentralized domains across three main zones:
 ## Cocoa Pods
 
 ```ruby
-pod 'UnstoppableDomainsResolution', '~> 0.3.0'
+pod 'UnstoppableDomainsResolution', '~> 0.3.5'
 ```
 
 ## Swift Package Manager
 
 ```swift
 package.dependencies.append(
-    .package(url: "https://github.com/unstoppabledomains/resolution-swift", from: "0.3.0")
+    .package(url: "https://github.com/unstoppabledomains/resolution-swift", from: "0.3.5")
 )
 ```
 
@@ -108,6 +108,17 @@ resolution.owner(domain: "brad.crypto") { result in
   case .failure(let error):
     XCTFail("Expected owner, but got \(error)")
   }
+}
+
+// Lookup specific records
+resolution.record(domain: "ryan.crypto", record: "custom.record.value") { result in
+  switch result {
+  case .success(let returnValue):
+    // Example custom record value
+    let recordValue = returnValue
+  case .failure(let error):
+    print("Expected record value, but got \(error)")
+}
 }
 ```
 

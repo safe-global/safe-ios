@@ -27,7 +27,7 @@ extension ABIDecoder {
         var toReturn = [AnyObject]()
         var consumed: UInt64 = 0
         for i in 0 ..< types.count {
-            let (v, c) = decodeSignleType(type: types[i], data: data, pointer: consumed)
+            let (v, c) = decodeSingleType(type: types[i], data: data, pointer: consumed)
             guard let valueUnwrapped = v, let consumedUnwrapped = c else {return nil}
             toReturn.append(valueUnwrapped)
             consumed += consumedUnwrapped
@@ -36,7 +36,7 @@ extension ABIDecoder {
         return toReturn
     }
 
-    public static func decodeSignleType(type: ABI.Element.ParameterType, data: Data, pointer: UInt64 = 0) -> (value: AnyObject?, bytesConsumed: UInt64?) {
+    public static func decodeSingleType(type: ABI.Element.ParameterType, data: Data, pointer: UInt64 = 0) -> (value: AnyObject?, bytesConsumed: UInt64?) {
         let (elData, nextPtr) = followTheData(type: type, data: data, pointer: pointer)
         guard let elementItself = elData, let nextElementPointer = nextPtr else {
             return (nil, nil)
@@ -104,7 +104,7 @@ extension ABIDecoder {
                     var subpointer: UInt64 = 32
                     var toReturn = [AnyObject]()
                     for _ in 0 ..< length {
-                        let (v, c) = decodeSignleType(type: subType, data: elementItself, pointer: subpointer)
+                        let (v, c) = decodeSingleType(type: subType, data: elementItself, pointer: subpointer)
                         guard let valueUnwrapped = v, let consumedUnwrapped = c else {break}
                         toReturn.append(valueUnwrapped)
                         subpointer += consumedUnwrapped
@@ -121,7 +121,7 @@ extension ABIDecoder {
                     var toReturn = [AnyObject]()
 
                     for _ in 0 ..< length {
-                        let (v, c) = decodeSignleType(type: subType, data: dataSlice, pointer: subpointer)
+                        let (v, c) = decodeSingleType(type: subType, data: dataSlice, pointer: subpointer)
                         guard let valueUnwrapped = v, let consumedUnwrapped = c else {break}
                         toReturn.append(valueUnwrapped)
                         subpointer += consumedUnwrapped
@@ -134,7 +134,7 @@ extension ABIDecoder {
                 var toReturn = [AnyObject]()
                 var consumed: UInt64 = 0
                 for _ in 0 ..< length {
-                    let (v, c) = decodeSignleType(type: subType, data: elementItself, pointer: consumed)
+                    let (v, c) = decodeSingleType(type: subType, data: elementItself, pointer: consumed)
                     guard let valueUnwrapped = v, let consumedUnwrapped = c else {return (nil, nil)}
                     toReturn.append(valueUnwrapped)
                     consumed += consumedUnwrapped
@@ -152,7 +152,7 @@ extension ABIDecoder {
             var toReturn = [AnyObject]()
             var consumed: UInt64 = 0
             for i in 0 ..< subTypes.count {
-                let (v, c) = decodeSignleType(type: subTypes[i], data: elementItself, pointer: consumed)
+                let (v, c) = decodeSingleType(type: subTypes[i], data: elementItself, pointer: consumed)
                 guard let valueUnwrapped = v, let consumedUnwrapped = c else {return (nil, nil)}
                 toReturn.append(valueUnwrapped)
                 consumed += consumedUnwrapped
@@ -232,11 +232,11 @@ extension ABIDecoder {
             let data = logs[i+1]
             let input = indexedInputs[i]
             if !input.type.isStatic || input.type.isArray || input.type.memoryUsage != 32 {
-                let (v, _) = ABIDecoder.decodeSignleType(type: .bytes(length: 32), data: data)
+                let (v, _) = ABIDecoder.decodeSingleType(type: .bytes(length: 32), data: data)
                 guard let valueUnwrapped = v else {return nil}
                 indexedValues.append(valueUnwrapped)
             } else {
-                let (v, _) = ABIDecoder.decodeSignleType(type: input.type, data: data)
+                let (v, _) = ABIDecoder.decodeSingleType(type: input.type, data: data)
                 guard let valueUnwrapped = v else {return nil}
                 indexedValues.append(valueUnwrapped)
             }

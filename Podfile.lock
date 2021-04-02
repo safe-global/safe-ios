@@ -2,6 +2,8 @@ PODS:
   - BigInt (4.0.0)
   - BlockiesSwift (0.1.2)
   - CryptoSwift (1.0.0)
+  - EthereumAddress (1.3.0):
+    - CryptoSwift (~> 1.0)
   - Firebase/Analytics (7.4.0):
     - Firebase/Core
   - Firebase/Core (7.4.0):
@@ -98,6 +100,10 @@ PODS:
   - SwiftCryptoTokenFormatter (1.0.0):
     - BigInt (~> 4.0)
   - TrustKit (1.7.0)
+  - UnstoppableDomainsResolution (0.3.5):
+    - BigInt
+    - CryptoSwift (~> 1.0)
+    - EthereumAddress (~> 1.3)
   - Web3/Core (0.4.2):
     - BigInt (~> 4.0)
     - CryptoSwift (= 1.0.0)
@@ -116,6 +122,7 @@ DEPENDENCIES:
   - secp256k1.swift
   - SwiftCryptoTokenFormatter (= 1.0.0)
   - TrustKit
+  - UnstoppableDomainsResolution (~> 0.3.5)
   - Web3/Core (from `https://github.com/gnosis/Web3.swift.git`, branch `enhance-signing`)
   - Web3/HTTPExtension (from `https://github.com/gnosis/Web3.swift.git`, branch `enhance-signing`)
 
@@ -123,6 +130,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - BigInt
     - CryptoSwift
+    - EthereumAddress
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -140,6 +148,7 @@ SPEC REPOS:
     - secp256k1.swift
     - SwiftCryptoTokenFormatter
     - TrustKit
+    - UnstoppableDomainsResolution
 
 EXTERNAL SOURCES:
   BlockiesSwift:
@@ -167,6 +176,7 @@ SPEC CHECKSUMS:
   BigInt: 2aad1a9942dc932ec8b84290d2c564a3d76f97ab
   BlockiesSwift: d8fbf236b71552fc1fa85cd23bb26f29dd830156
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
+  EthereumAddress: 39fe8e11cf04e4e9902b55ae653dbc4e0aee5f30
   Firebase: 09fb40287b6dfc8ee65f726fa0b788719d3f2a07
   FirebaseAnalytics: adb3c8f02f83d00661cdaac6dbb4d54e9720d1b6
   FirebaseCore: 99c06e5a1e8d6952e75cb1f0a6d0b23c0f5ccdcf
@@ -185,8 +195,9 @@ SPEC CHECKSUMS:
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
   SwiftCryptoTokenFormatter: 416367b31a0bb71e2b4f3928fa92bfc7c9611763
   TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
+  UnstoppableDomainsResolution: 39f82a66c5eabe1bedffc9c9342cabec9fe71aa0
   Web3: bf5748ee6bcdc8aa33632bcd1023187c70f59bf8
 
-PODFILE CHECKSUM: ba5723bce1ded90a17789726e7d3b7c47aec0e21
+PODFILE CHECKSUM: d5bfa7fa036a8a8553c96d4e2ab6089d72bba5a0
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.0
