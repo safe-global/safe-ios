@@ -299,7 +299,7 @@ enum GSError {
     
     struct UDResolverNotFound: DetailedLocalizedError {
         let description = "Can't use this name"
-        let reason = "This name is not configured"
+        let reason = "This name is not configured."
         let howToFix = "Please check that the name exists on the blockchain"
         let domain = clientErrorDomain
         let code = 1121

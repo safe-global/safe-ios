@@ -30,7 +30,6 @@ class BlockchainDomainManager {
                 case .success(let returnValue):
                     address = returnValue;
                 case .failure(let error):
-                  print("Expected btc Address, but got \(error)")
                   err = error;
           }
             dispatchGroup.leave();
@@ -47,7 +46,7 @@ class BlockchainDomainManager {
     }
     
     func resolve(domain: String) throws -> Address {
-        return domain.isUDdomain(domain) ? try self.resolveUD(domain) : try ens.address(for: domain);
+        return domain.isUDdomain() ? try self.resolveUD(domain) : try ens.address(for: domain);
     }
     
     func throwCorrectUdError(_ err: ResolutionError, _ domain: String) -> DetailedLocalizedError {
@@ -65,7 +64,7 @@ class BlockchainDomainManager {
 }
 
 fileprivate extension String {
-    func isUDdomain(_ target: String) -> Bool {
+    func isUDdomain() -> Bool {
         return self.hasSuffix(".crypto") || self.hasSuffix(".zil")
     }
 }
