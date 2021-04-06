@@ -60,6 +60,7 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func didTapBiometry(_ sender: Any) {
+        // to override in a subclass
     }
 
     // MARK: - UITextFieldDelegate
