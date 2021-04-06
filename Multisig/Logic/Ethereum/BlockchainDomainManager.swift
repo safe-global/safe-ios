@@ -27,14 +27,15 @@ class BlockchainDomainManager {
     }
     
     func resolveUD(_ domain: String) throws -> Address {
+        guard resolution != nil else {
+            throw GSError.UDUnsupportedNetwork();
+        }
+        
         var address: String = "";
         var resolutionError: Error? = nil;
         
         let dispatchGroup = DispatchGroup();
         dispatchGroup.enter();
-        guard resolution != nil else {
-            throw GSError.UDUnsupportedNetwork();
-        }
         
         resolution!.addr(domain: domain, ticker: "eth") { result in
             switch result {
