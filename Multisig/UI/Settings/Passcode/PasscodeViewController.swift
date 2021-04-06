@@ -148,7 +148,16 @@ class CreatePasscodeViewController: PasscodeViewController {
     override func willChangeText(_ text: String) {
         super.willChangeText(text)
         if text.count == passcodeLength {
-            let vc = RepeatPasscodeViewController(passcode: text, completionHandler: completion)
+            let vc = RepeatPasscodeViewController(passcode: text) { [unowned self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                    if let activated = try? App.shared.auth.activateBiometry(), activated {
+                        AppSettings.passcodeOptions.insert(.useBiometry)
+                        NotificationCenter.default.post(name: .biometricsActivated, object: nil)
+                        App.shared.snackbar.show(message: "Biometrics activated.")
+                    }
+                }
+                self.completion()
+            }
             navigationController?.pushViewController(vc, animated: true)
         }
     }
