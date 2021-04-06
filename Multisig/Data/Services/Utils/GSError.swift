@@ -305,6 +305,16 @@ enum GSError {
         let code = 1121
         let loggable = false
     }
+    
+    struct UDUnsupportedNetwork: DetailedLocalizedError {
+        let description = "Incorrect network"
+        let reason = "Selected network is not supported by Unstoppable Domains."
+        let howToFix = "Make sure you are connected to the mainnet or rinkeby to operate"
+        let domain = clientErrorDomain
+        let code = 1122
+        let loggable = false
+        
+    }
 
 
     // MARK: - iOS errors

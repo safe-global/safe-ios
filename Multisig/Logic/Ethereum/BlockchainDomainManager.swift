@@ -12,11 +12,18 @@ import UnstoppableDomainsResolution
 class BlockchainDomainManager {
     
     let ens: ENS;
-    let resolution: Resolution;
+    let resolution: Resolution?;
     
     init() {
         ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e");
-        self.resolution = try! Resolution();
+        self.resolution = try? Resolution(
+            configs: Configurations(
+                cns: NamingServiceConfig(
+                    providerUrl: App.configuration.services.ethereumServiceURL.absoluteString,
+                    network: App.configuration.app.network.rawValue.lowercased()
+                )
+            )
+        );
     }
     
     func resolveUD(_ domain: String) throws -> Address {
@@ -25,7 +32,11 @@ class BlockchainDomainManager {
         
         let dispatchGroup = DispatchGroup();
         dispatchGroup.enter();
-        resolution.addr(domain: domain, ticker: "eth") { result in
+        guard resolution != nil else {
+            throw GSError.UDUnsupportedNetwork();
+        }
+        
+        resolution!.addr(domain: domain, ticker: "eth") { result in
             switch result {
                 case .success(let returnValue):
                     address = returnValue;
