@@ -13,7 +13,7 @@ class OnboardingImportOwnerKeyViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private var nextButton: UIBarButtonItem!
 
-    private let cards = [
+    private let cards: [(image: UIImage?, title: String, body: String, link: (title: String?, url: URL?))] = [
         (UIImage(named: "ico-onbaording-import-key-1"),
          "How does it work?",
          "Enter the private key or seed phrase of your owner key controlling your Safe. Your owner key will be imported into this app. You can then confirm proposed transactions on the go.",
@@ -28,7 +28,7 @@ class OnboardingImportOwnerKeyViewController: UIViewController {
          "Is my wallet supported?",
          "You can use your seed phrase from MetaMask or hardware wallet. We support private keys from any wallet in a hexadecimal 64 characters format. Importing the key will not show the balance for Ether or other assets from your MetaMask or hardware wallet.",
          (nil, nil))]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
