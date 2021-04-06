@@ -10,6 +10,7 @@ import UIKit
 
 class MainTabBarViewController: UITabBarController {
     private weak var transactionsSegementControl: SegmentViewController?
+    private var appearsFirstTime: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,13 @@ class MainTabBarViewController: UITabBarController {
             object: nil)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard appearsFirstTime else { return }
+        appearsFirstTime = false
+        App.shared.appReview.pullAppReviewTrigger()
+    }
+    
     private func balancesTabViewController() -> UIViewController {
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
@@ -120,4 +128,5 @@ class MainTabBarViewController: UITabBarController {
         selectedIndex = 1
         transactionsSegementControl?.selectedIndex = 1
     }
+
 }

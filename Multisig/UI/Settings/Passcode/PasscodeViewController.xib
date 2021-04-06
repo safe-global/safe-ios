@@ -20,6 +20,7 @@
                 <outlet property="headlineLabel" destination="HaR-dL-Xed" id="GDL-WP-eQ9"/>
                 <outlet property="promptLabel" destination="7d6-Sn-iYm" id="wIv-N1-uEX"/>
                 <outlet property="scrollView" destination="iPJ-WE-E2p" id="Ak0-bl-9He"/>
+                <outlet property="symbolsButton" destination="MNI-eP-u76" id="W8P-U4-X5S"/>
                 <outlet property="symbolsStack" destination="SYV-Wh-ZWs" id="FDD-zo-Ivg"/>
                 <outlet property="textField" destination="StU-YF-A2H" id="o9B-YK-1mD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -34,10 +35,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wwN-VV-c8b">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="406.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="412.5"/>
                             <subviews>
                                 <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="StU-YF-A2H" userLabel="Hidden Text Field">
-                                    <rect key="frame" x="48" y="132.5" width="224" height="24"/>
+                                    <rect key="frame" x="48" y="132.5" width="224" height="30"/>
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -47,7 +48,7 @@
                                     </connections>
                                 </textField>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wf2-ts-X9S" userLabel="Main Stack View">
-                                    <rect key="frame" x="16" y="37" width="288" height="369.5"/>
+                                    <rect key="frame" x="16" y="37" width="288" height="375.5"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mPX-Ss-mVW" userLabel="Headline Container View">
                                             <rect key="frame" x="0.5" y="0.0" width="287" height="30"/>
@@ -80,7 +81,7 @@
                                             </constraints>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="gX9-uu-GyJ">
-                                            <rect key="frame" x="0.0" y="40" width="288" height="329.5"/>
+                                            <rect key="frame" x="0.0" y="40" width="288" height="335.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a 6-digit passcode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7d6-Sn-iYm" userLabel="Prompt Label">
                                                     <rect key="frame" x="45" y="0.0" width="198" height="20.5"/>
@@ -89,38 +90,38 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YPG-kg-a0c" userLabel="Passcode Stack View">
-                                                    <rect key="frame" x="32" y="55.5" width="224" height="24"/>
+                                                    <rect key="frame" x="32" y="55.5" width="224" height="30"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="SYV-Wh-ZWs" userLabel="Symbols Stack">
-                                                            <rect key="frame" x="0.0" y="0.0" width="224" height="24"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="224" height="30"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fuT-1x-jVF">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="30"/>
                                                                     <color key="tintColor" name="primaryLabel"/>
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="y49-WO-ETM">
-                                                                    <rect key="frame" x="40" y="0.0" width="24" height="24"/>
+                                                                    <rect key="frame" x="40" y="0.0" width="24" height="30"/>
                                                                     <color key="tintColor" name="primaryLabel"/>
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fCO-oL-b5t">
-                                                                    <rect key="frame" x="80" y="0.0" width="24" height="24"/>
+                                                                    <rect key="frame" x="80" y="0.0" width="24" height="30"/>
                                                                     <color key="tintColor" name="primaryLabel"/>
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Mru-Ll-pW4">
-                                                                    <rect key="frame" x="120" y="0.0" width="24" height="24"/>
+                                                                    <rect key="frame" x="120" y="0.0" width="24" height="30"/>
                                                                     <color key="tintColor" name="primaryLabel"/>
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8YU-kv-7CK">
-                                                                    <rect key="frame" x="160" y="0.0" width="24" height="24"/>
+                                                                    <rect key="frame" x="160" y="0.0" width="24" height="30"/>
                                                                     <color key="tintColor" name="primaryLabel"/>
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="et6-Im-aAP">
-                                                                    <rect key="frame" x="200" y="0.0" width="24" height="24"/>
+                                                                    <rect key="frame" x="200" y="0.0" width="24" height="30"/>
                                                                     <color key="tintColor" name="primaryLabel"/>
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
                                                                 </imageView>
@@ -135,13 +136,13 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The passcode will be needed to open the app and sign transactions." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fop-nf-olR" userLabel="Detail Label">
-                                                    <rect key="frame" x="0.0" y="114.5" width="288" height="41"/>
+                                                    <rect key="frame" x="0.0" y="120.5" width="288" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1B-3I-Pbb" userLabel="Button">
-                                                    <rect key="frame" x="0.0" y="190.5" width="288" height="44"/>
+                                                    <rect key="frame" x="0.0" y="196.5" width="288" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="9jx-IN-eGU"/>
                                                     </constraints>
@@ -154,7 +155,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p1H-gA-Df6">
-                                                    <rect key="frame" x="114" y="269.5" width="60" height="60"/>
+                                                    <rect key="frame" x="114" y="275.5" width="60" height="60"/>
                                                     <color key="tintColor" name="button"/>
                                                     <state key="normal" image="ic-face-id"/>
                                                     <connections>
@@ -169,17 +170,27 @@
                                         <constraint firstItem="gX9-uu-GyJ" firstAttribute="width" secondItem="Wf2-ts-X9S" secondAttribute="width" id="oEr-r8-1jd"/>
                                     </constraints>
                                 </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNI-eP-u76">
+                                    <rect key="frame" x="48" y="132.5" width="224" height="30"/>
+                                    <connections>
+                                        <action selector="didTapSymbolsButton:" destination="-1" eventType="touchUpInside" id="Joc-bX-yBK"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <viewLayoutGuide key="safeArea" id="Zav-DC-lch"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
+                                <constraint firstItem="MNI-eP-u76" firstAttribute="leading" secondItem="YPG-kg-a0c" secondAttribute="leading" id="37C-Pj-s3T"/>
                                 <constraint firstAttribute="bottom" secondItem="Wf2-ts-X9S" secondAttribute="bottom" id="6CQ-LF-tZK"/>
+                                <constraint firstItem="MNI-eP-u76" firstAttribute="top" secondItem="YPG-kg-a0c" secondAttribute="top" id="XQv-2L-ihc"/>
                                 <constraint firstItem="StU-YF-A2H" firstAttribute="bottom" secondItem="SYV-Wh-ZWs" secondAttribute="bottom" id="c1s-8T-qpY"/>
                                 <constraint firstItem="Wf2-ts-X9S" firstAttribute="leading" secondItem="wwN-VV-c8b" secondAttribute="leading" constant="16" id="dK8-77-S31"/>
                                 <constraint firstItem="StU-YF-A2H" firstAttribute="top" secondItem="SYV-Wh-ZWs" secondAttribute="top" id="dyX-oF-9Eh"/>
                                 <constraint firstItem="7d6-Sn-iYm" firstAttribute="top" secondItem="Zav-DC-lch" secondAttribute="top" constant="77" id="f0G-Ng-3on"/>
                                 <constraint firstItem="StU-YF-A2H" firstAttribute="leading" secondItem="SYV-Wh-ZWs" secondAttribute="leading" id="gWi-Hh-G9w"/>
                                 <constraint firstItem="StU-YF-A2H" firstAttribute="trailing" secondItem="SYV-Wh-ZWs" secondAttribute="trailing" id="jcr-E5-Cc8"/>
+                                <constraint firstItem="MNI-eP-u76" firstAttribute="bottom" secondItem="YPG-kg-a0c" secondAttribute="bottom" id="mOk-75-Iga"/>
+                                <constraint firstItem="MNI-eP-u76" firstAttribute="trailing" secondItem="YPG-kg-a0c" secondAttribute="trailing" id="rVk-dT-O39"/>
                                 <constraint firstAttribute="trailing" secondItem="Wf2-ts-X9S" secondAttribute="trailing" constant="16" id="szP-CR-KsW"/>
                             </constraints>
                         </view>
