@@ -38,6 +38,9 @@ class PasscodeSettingsViewController: UITableViewController {
         super.viewDidLoad()
         navigationItem.title = "Passcode"
 
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(biometryActicated), name: .biometricsActivated, object: nil)
+
         tableView.registerCell(SwitchTableViewCell.self)
         tableView.registerCell(BasicCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HelpCell")
@@ -56,6 +59,10 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     // MARK: - Actions
+
+    @objc private func biometryActicated() {
+        reloadData()
+    }
 
     private func reloadData() {
         if isPasscodeSet {
