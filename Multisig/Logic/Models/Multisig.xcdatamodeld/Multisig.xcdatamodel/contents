@@ -10,6 +10,7 @@
         <attribute name="lastBuildVersion" optional="YES" attributeType="String"/>
         <attribute name="lastMarketingVersion" optional="YES" attributeType="String"/>
         <attribute name="passcodeBannerDismissed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="passcodeOptions" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="passcodeWasSetAtLeastOnce" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
         <attribute name="termsAccepted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
     </entity>
@@ -34,7 +35,7 @@
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="selection" inverseEntity="Safe"/>
     </entity>
     <elements>
-        <element name="AppSettings" positionX="54" positionY="18" width="128" height="194"/>
+        <element name="AppSettings" positionX="54" positionY="18" width="128" height="209"/>
         <element name="AppUser" positionX="54" positionY="63" width="128" height="89"/>
         <element name="KeyInfo" positionX="63" positionY="72" width="128" height="74"/>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>

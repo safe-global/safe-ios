@@ -18,6 +18,7 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var biometryButton: UIButton!
 
     var hidesHeadline = true
 
@@ -37,6 +38,7 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
         headlineContainerView.isHidden = hidesHeadline
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
         keyboardBehavior.hidesKeyboardOnTap = false
+        biometryButton.isHidden = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +57,10 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
     @IBAction func didTapButton(_ sender: Any) {
         navigationController?.dismiss(animated: true, completion: nil)
         trackEvent(.userPasscodeSkipped)
+    }
+
+    @IBAction func didTapBiometry(_ sender: Any) {
+        // to override in a subclass
     }
 
     // MARK: - UITextFieldDelegate
@@ -199,11 +205,19 @@ class EnterPasscodeViewController: PasscodeViewController {
         detailLabel.isHidden = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
+
+        biometryButton.isHidden = !canUseBiometry
+        biometryButton.setImage(App.shared.auth.isFaceID ? UIImage(named: "ic-face-id") : UIImage(named: "ic-touch-id"), for: .normal)
+    }
+
+    var canUseBiometry: Bool {
+        App.shared.auth.isBiometryPossible && AppSettings.passcodeOptions.contains(.useBiometry)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         trackEvent(screenTrackingEvent)
+        authenticateWithBiometry()
     }
 
     override func willChangeText(_ text: String) {
@@ -234,12 +248,14 @@ class EnterPasscodeViewController: PasscodeViewController {
     override func didTapButton(_ sender: Any) {
         let alertController = UIAlertController(
             title: nil,
-            message: "You can disable your passcode. This will remove all imported owners from the app.",
+            message: "You can disable your passcode. This will remove all data from the app.",
             preferredStyle: .actionSheet)
         let remove = UIAlertAction(title: "Disable Passcode", style: .destructive) { [unowned self] _ in
             do {
                 try App.shared.auth.deletePasscode(trackingEvent: .userPasscodeReset)
                 try PrivateKeyController.deleteAllKeys()
+                try Safe.removeAll()
+                App.shared.snackbar.show(message: "All data removed from this app")
                 completion(false)
             } catch {
                 showGenericError(description: "Failed to remove passcode", error: error)
@@ -250,6 +266,18 @@ class EnterPasscodeViewController: PasscodeViewController {
         alertController.addAction(remove)
         alertController.addAction(cancel)
         present(alertController, animated: true)
+    }
+
+    override func didTapBiometry(_ sender: Any) {
+        authenticateWithBiometry()
+    }
+
+    private func authenticateWithBiometry() {
+        guard canUseBiometry else { return }
+        let success = App.shared.auth.authenticateWithBiometry()
+        if success {
+            completion(true)
+        }
     }
 }
 

@@ -60,7 +60,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if App.shared.auth.isPasscodeSet {
+        if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForConfirmation) {
             let vc = EnterPasscodeViewController()
             vc.completion = { [weak self] success in
                 guard let `self` = self else { return }
