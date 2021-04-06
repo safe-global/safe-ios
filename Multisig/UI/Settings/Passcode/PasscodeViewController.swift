@@ -19,6 +19,7 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var biometryButton: UIButton!
+    @IBOutlet weak var symbolsButton: UIButton!
 
     var hidesHeadline = true
 
@@ -61,6 +62,10 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func didTapBiometry(_ sender: Any) {
         // to override in a subclass
+    }
+
+    @IBAction func didTapSymbolsButton(_ sender: Any) {
+        textField.becomeFirstResponder()
     }
 
     // MARK: - UITextFieldDelegate
@@ -192,6 +197,7 @@ class EnterPasscodeViewController: PasscodeViewController {
     var completion: (Bool) -> Void = { _ in }
     var navigationItemTitle = "Enter Passcode"
     var screenTrackingEvent = TrackingEvent.enterPasscode
+    var showsCloseButton: Bool = true
 
     convenience init() {
         self.init(namedClass: PasscodeViewController.self)
@@ -203,8 +209,13 @@ class EnterPasscodeViewController: PasscodeViewController {
         promptLabel.text = "Enter your current passcode"
         button.setText("Forgot your passcode?", .plain)
         detailLabel.isHidden = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
+
+        if showsCloseButton {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .close,
+                target: self,
+                action: #selector(didTapCloseButton))
+        }
 
         biometryButton.isHidden = !canUseBiometry
         biometryButton.setImage(App.shared.auth.isFaceID ? UIImage(named: "ic-face-id") : UIImage(named: "ic-touch-id"), for: .normal)

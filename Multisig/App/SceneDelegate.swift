@@ -12,6 +12,8 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private var window: WindowWithViewOnTop?
     private var privacyProtectionWindow: UIWindow?
+    private var offscreenRootController: UIViewController?
+
     var snackbarViewController = SnackbarViewController(nibName: nil, bundle: nil)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -42,10 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         App.shared.notificationHandler.appStarted()
-
-        if connectionOptions.notificationResponse == nil {
-            App.shared.appReview.pullAppReviewTrigger()
-        }
+        App.shared.appReview.startedFromNotification = connectionOptions.notificationResponse != nil
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -73,6 +72,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
         App.shared.notificationHandler.appEnteredForeground()
+
+        // show the passcode on app login
+        if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForLogin) {
+            offscreenRootController = window?.rootViewController
+
+            let vc = EnterPasscodeViewController()
+            vc.showsCloseButton = false
+            vc.completion = { [unowned self] success in
+                guard success else { return }
+                window?.rootViewController = offscreenRootController
+                offscreenRootController = nil
+            }
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            window?.rootViewController = nav
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
