@@ -85,6 +85,13 @@ class AuthenticationController {
         Tracker.shared.track(event: trackingEvent)
     }
 
+    func deleteAllData() throws {
+        try PrivateKeyController.deleteAllKeys(showingMessage: false)
+        try Safe.removeAll()
+        try deletePasscode(trackingEvent: .userPasscodeReset)
+        App.shared.snackbar.show(message: "All data removed from this app")
+    }
+
     func migrateFromPasscodeV1() {
         // if passcode is set but all options are 0, then we have inconsistent settings.
         // to restore, we will enable passcode entry for confirmations, as this is the expected

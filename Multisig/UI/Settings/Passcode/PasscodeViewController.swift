@@ -272,10 +272,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             preferredStyle: .actionSheet)
         let remove = UIAlertAction(title: "Disable Passcode", style: .destructive) { [unowned self] _ in
             do {
-                try App.shared.auth.deletePasscode(trackingEvent: .userPasscodeReset)
-                try PrivateKeyController.deleteAllKeys()
-                try Safe.removeAll()
-                App.shared.snackbar.show(message: "All data removed from this app")
+                try App.shared.auth.deleteAllData()
                 completion(false)
             } catch {
                 showGenericError(description: "Failed to remove passcode", error: error)
