@@ -10,11 +10,43 @@ import UIKit
 import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    private var window: WindowWithViewOnTop?
-    private var privacyProtectionWindow: UIWindow?
-    private var offscreenRootController: UIViewController?
+
+    /// States of the window state machine governing when and which windows to show
+    ///
+    /// Allowed transitions:
+    ///
+    /// - from `none`
+    ///     - to `main` - on startup, if no passcode needed
+    ///     - to `privacy` - on startup, if passcode is needed
+    /// - from `privacy`
+    ///     - to `privacyPasscode` - on enter foreground, if passcode is needed
+    ///     - to `main` - on become active
+    /// - from `privacyPasscode`
+    ///     - to `main` - when passcode challenge is closed
+    /// - from `main`
+    ///     - to `privacy` - on resign active
+    ///
+    private enum WindowState {
+        /// None of the windows is shown
+        case none
+        /// Main window is shown
+        case main
+        /// Privacy window is shown
+        case privacy
+        /// Privacy window is shown and the passcode prompt is presented
+        case privacyPasscode
+    }
 
     var snackbarViewController = SnackbarViewController(nibName: nil, bundle: nil)
+
+    private var mainWindow: UIWindow?
+    private var privacyProtectionWindow: UIWindow?
+
+    private var windowState: WindowState = .none
+
+    private var shouldShowPasscode: Bool {
+        App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForLogin)
+    }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         App.shared.tokenRegistry.load()
@@ -27,19 +59,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         lightNavBar.barTintColor = nil
         lightNavBar.isTranslucent = true
 
-        // Use a UIHostingController as window root view controller.
-        if let windowScene = scene as? UIWindowScene {
-            let window = WindowWithViewOnTop(windowScene: windowScene)
-            self.window = window
-            window.rootViewController = ViewControllerFactory.rootViewController()
+        if let scene = scene as? UIWindowScene {
+            mainWindow = makeMainWindow(scene: scene)
+            privacyProtectionWindow = makePrivacyWindow(scene: scene)
+            showStartingWindow()
 
-            SnackbarViewController.instance = snackbarViewController
-            snackbarViewController.view.frame = window.bounds
-            snackbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            window.addSubviewAlwaysOnTop(snackbarViewController.view)
-
-            window.tintColor = .button
-            window.makeKeyAndVisible()
             App.shared.theme.setUp()
         }
 
@@ -58,35 +82,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         App.shared.clientGatewayHostObserver.startObserving()
-        hidePrivacyProtectionWindow()
+
+        if windowState == .privacy {
+            showMainWindow()
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
         App.shared.clientGatewayHostObserver.stopObserving()
-        showPrivacyProtectionWindow()
+
+        if windowState == .main {
+            showPrivacyWindow()
+        }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        // The `sceneDidBecomeActive()` is called after this method.
+
         App.shared.notificationHandler.appEnteredForeground()
-
-        // show the passcode on app login
-        if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForLogin) {
-            offscreenRootController = window?.rootViewController
-
-            let vc = EnterPasscodeViewController()
-            vc.showsCloseButton = false
-            vc.completion = { [unowned self] success in
-                guard success else { return }
-                window?.rootViewController = offscreenRootController
-                offscreenRootController = nil
-            }
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            window?.rootViewController = nav
+        if windowState == .privacy {
+            showPasscodePrompt()
         }
     }
 
@@ -99,22 +118,69 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         App.shared.coreDataStack.saveContext()
     }
 
-    // MARK: Privacy Protection
+    // MARK: - Window Management
 
-    private func showPrivacyProtectionWindow() {
-        guard let windowScene = self.window?.windowScene else {
-            return
+    private func showStartingWindow() {
+        if shouldShowPasscode {
+            showPrivacyWindow()
+        } else {
+            showMainWindow()
         }
-
-        privacyProtectionWindow = UIWindow(windowScene: windowScene)
-        privacyProtectionWindow?.rootViewController = PrivacyProtectionScreenViewController()
-        privacyProtectionWindow?.windowLevel = .alert + 1
-        privacyProtectionWindow?.makeKeyAndVisible()
     }
 
-    private func hidePrivacyProtectionWindow() {
-        privacyProtectionWindow?.isHidden = true
-        privacyProtectionWindow = nil
+    private func showMainWindow() {
+        mainWindow?.makeKeyAndVisible()
+        windowState = .main
+    }
+
+    private func showPrivacyWindow() {
+        privacyProtectionWindow?.makeKeyAndVisible()
+        windowState = .privacy
+    }
+
+    private func makeMainWindow(scene: UIWindowScene) -> UIWindow {
+        let window = WindowWithViewOnTop(windowScene: scene)
+        window.rootViewController = ViewControllerFactory.rootViewController()
+
+        SnackbarViewController.instance = snackbarViewController
+        snackbarViewController.view.frame = window.bounds
+        snackbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        window.addSubviewAlwaysOnTop(snackbarViewController.view)
+
+        window.tintColor = .button
+        return window
+    }
+
+    private func makePrivacyWindow(scene: UIWindowScene) -> UIWindow {
+        let window = UIWindow(windowScene: scene)
+        window.rootViewController = PrivacyProtectionScreenViewController()
+        return window
+    }
+
+    // MARK: - Passcode
+
+    private func showPasscodePrompt() {
+        guard shouldShowPasscode else { return }
+        // assumes the privacy window is active
+        assert(privacyProtectionWindow?.isKeyWindow == true && privacyProtectionWindow?.isHidden == false)
+
+        let vc = EnterPasscodeViewController()
+        vc.showsCloseButton = false
+
+        // because close button is hidden, this will complete only
+        // if passcode is correct or if the data is deleted.
+        // in both cases, we want to show the main window.
+        vc.completion = { [weak self] _ in
+            self?.privacyProtectionWindow?.rootViewController?.dismiss(animated: true) { [weak self] in
+                self?.showMainWindow()
+            }
+        }
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+
+        privacyProtectionWindow?.rootViewController?.present(nav, animated: true, completion: nil)
+
+        windowState = .privacyPasscode
     }
 }
 

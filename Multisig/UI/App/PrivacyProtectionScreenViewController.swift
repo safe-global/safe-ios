@@ -8,8 +8,4 @@
 
 import UIKit
 
-class PrivacyProtectionScreenViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-}
+class PrivacyProtectionScreenViewController: UIViewController { }
