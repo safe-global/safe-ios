@@ -88,6 +88,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
         App.shared.notificationHandler.appEnteredForeground()
+
+        // Check if we have copied WalletConnect url in the Pasteboard and handle it
+        if let potentialWCUrl = Pasteboard.string, potentialWCUrl.hasPrefix("wc:") {
+            do {
+                App.shared.snackbar.show(message: "Creating WalletConnect session. This might take some time.")
+                try WalletConnectController.shared.connect(url: potentialWCUrl)
+                // if setting nil it will crash
+                Pasteboard.string = ""
+            } catch {
+                App.shared.snackbar.show(message: "Failed to create a WalletConnect session.")
+            }
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
