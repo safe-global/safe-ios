@@ -85,6 +85,14 @@ class AuthenticationController {
         Tracker.shared.track(event: trackingEvent)
     }
 
+    func migrateFromPasscodeV1() {
+        // if passcode is set but all options are 0, then we have inconsistent settings.
+        // to restore, we will enable passcode entry for confirmations, as this is the expected
+        // behavior in the v1.
+        guard isPasscodeSet && AppSettings.passcodeOptions.isEmpty else { return }
+        AppSettings.passcodeOptions = .useForConfirmation
+    }
+
     /// Returns saved user, if any
     private var user: User? {
         try? AppUser.all().first?.user()
