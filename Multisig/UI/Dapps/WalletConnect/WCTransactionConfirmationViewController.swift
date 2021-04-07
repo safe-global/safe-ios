@@ -9,6 +9,7 @@
 import UIKit
 import WalletConnectSwift
 import Kingfisher
+import SwiftCryptoTokenFormatter
 
 class WCTransactionConfirmationViewController: UIViewController {
     @IBOutlet private weak var dappImageView: UIImageView!
@@ -23,9 +24,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     private var transaction: Transaction!
     private var session: Session!
 
-    typealias TransactionCell = (title: String, value: String)
-
-    private var cells = [TransactionCell]()
+    private var cells = [UITableViewCell]()
 
     @IBAction func reject(_ sender: Any) {
         onReject?()
@@ -58,8 +57,15 @@ class WCTransactionConfirmationViewController: UIViewController {
         submitButton.setText("Submit", .filled)
 
         tableView.dataSource = self
+
+        tableView.registerCell(DetailTransferInfoCell.self)
+        tableView.registerCell(DetailAccountCell.self)
+
         tableView.registerCell(InfoCell.self)
         tableView.registerCell(DetailExpandableTextCell.self)
+
+
+
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
 
@@ -67,14 +73,65 @@ class WCTransactionConfirmationViewController: UIViewController {
     }
 
     private func buildCells() {
-        cells = [
-            (title: "safe", value: transaction.safe!.description),
-            (title: "to", value: transaction.to.description),
-            (title: "value", value: transaction.value.description),
-            (title: "data", value: transaction.data?.description ?? ""),
-            (title: "safeTxGas", value: transaction.safeTxGas.description),
-            (title: "nonce", value: transaction.nonce.description)
-        ]
+        cells.append(contentsOf: [
+            safeCell(),
+            transactionCell(),
+            dataCell(),
+            infoCell(title: "nonce", value: transaction.nonce.description),
+            infoCell(title: "safeTxGas", value: transaction.safeTxGas.description)
+        ])
+    }
+
+    private func safeCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(DetailAccountCell.self)
+        cell.setAccount(
+            address: transaction.safe!.address,
+            label: Safe.cachedName(by: transaction.safe!)
+        )
+        return cell
+    }
+
+    private func transactionCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
+
+        let eth = App.shared.tokenRegistry.token(address: .ether)!
+        let decimalAmount = BigDecimal(
+            Int256(transaction.value.value) * -1,
+            eth.decimals.map { Int($0) }!
+        )
+        let amount = TokenFormatter().string(
+            from: decimalAmount,
+            decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ","
+        )
+        let tokenText = "\(amount) \(eth.symbol)"
+        let tokenDetail = amount == "0" ? "\(transaction.data?.data.count ?? 0) Bytes" : nil
+
+        cell.setToken(text: tokenText, style: .secondary)
+        cell.setToken(image: UIImage(named: "ico-ether"))
+        cell.setDetail(tokenDetail)
+        cell.setAddress(transaction.to.address, label: nil, imageUri: nil)
+        cell.setOutgoing(true)
+
+        return cell
+    }
+
+    private func dataCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(DetailExpandableTextCell.self)
+        let data = transaction.data?.description ?? ""
+        cell.tableView = tableView
+        cell.setTitle("data")
+        cell.setText(data)
+        cell.setCopyText(data)
+        cell.setExpandableTitle("\(transaction.data?.data.count ?? 0) Bytes")
+        return cell
+    }
+
+    private func infoCell(title: String, value: String) -> UITableViewCell {
+        let cell = tableView.dequeueCell(InfoCell.self)
+        cell.setTitle(title)
+        cell.setInfo(value)
+        return cell
     }
 }
 
@@ -84,20 +141,6 @@ extension WCTransactionConfirmationViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if cells[indexPath.row].title == "data" {
-            let cell = tableView.dequeueCell(DetailExpandableTextCell.self)
-            let data = cells[indexPath.row].value
-            cell.tableView = tableView
-            cell.setTitle(cells[indexPath.row].title)
-            cell.setText(data)
-            cell.setCopyText(cells[indexPath.row].value)
-            cell.setExpandableTitle("\(transaction.data?.data.count ?? 0) Bytes")
-            return cell
-        } else {
-            let cell = tableView.dequeueCell(InfoCell.self)
-            cell.setTitle(cells[indexPath.row].title)
-            cell.setInfo(cells[indexPath.row].value)
-            return cell
-        }
+        cells[indexPath.row]
     }
 }
