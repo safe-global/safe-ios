@@ -49,6 +49,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("PAY_FOR_CANCELLATION_URL")
         var payForCancellationURL: URL
+
+        @ConfigurationKey("CONNECT_DAPP_ON_MOBILE_URL")
+        var connectDappOnMobileURL: URL
     }
 
     struct Legal {

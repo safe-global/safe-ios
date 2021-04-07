@@ -43,8 +43,11 @@ class DappsViewController: UITableViewController {
     private func configureTableView() {
         tableView.backgroundColor = .primaryBackground
         tableView.registerHeaderFooterView(BasicHeaderView.self)
+        tableView.registerHeaderFooterView(ExternalLinkHeaderFooterView.self)
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailedCell.self)
+        tableView.sectionFooterHeight = UITableView.automaticDimension
+        tableView.estimatedSectionFooterHeight = BasicHeaderView.headerHeight
     }
 
     private func addWCButton() {
@@ -214,8 +217,25 @@ class DappsViewController: UITableViewController {
         return view
     }
 
+    override func tableView(_ tableView: UITableView, viewForFooterInSection _section: Int) -> UIView? {
+        guard case Section.walletConnect(_) = sections[_section].section else {
+            return nil
+        }
+        let view = tableView.dequeueHeaderFooterView(ExternalLinkHeaderFooterView.self)
+        view.set(label: "How to connect dapp to Gnosis Safe Multisig?")
+        view.set(url: App.configuration.help.connectDappOnMobileURL)
+        return view
+    }
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         return BasicHeaderView.headerHeight
+    }
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection _section: Int) -> CGFloat {
+        guard case Section.walletConnect(_) = sections[_section].section else {
+            return 0
+        }
+        return UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

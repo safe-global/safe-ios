@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ExternalLinkHeaderFooterView" customModule="Multisig" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="571" height="102"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="plk-mb-DMc">
+                    <rect key="frame" x="0.0" y="0.0" width="571" height="102"/>
+                    <color key="backgroundColor" name="primaryBackground"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gn-vk-0LP">
+                    <rect key="frame" x="16" y="12" width="539" height="70"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ged-qV-Aye">
+                    <rect key="frame" x="0.0" y="0.0" width="571" height="102"/>
+                    <connections>
+                        <action selector="openURLButtonTouched:" destination="-2" eventType="touchUpInside" id="hZg-7W-AKL"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ged-qV-Aye" secondAttribute="trailing" id="8K0-lX-TOP"/>
+                <constraint firstAttribute="bottom" secondItem="plk-mb-DMc" secondAttribute="bottom" id="Anj-Al-7Ou"/>
+                <constraint firstItem="3gn-vk-0LP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="FpS-5A-7iC"/>
+                <constraint firstItem="plk-mb-DMc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="InJ-Bo-4qX"/>
+                <constraint firstItem="3gn-vk-0LP" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="JAM-SC-7yu"/>
+                <constraint firstItem="ged-qV-Aye" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="OXc-cz-PxZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="plk-mb-DMc" secondAttribute="trailing" id="QSE-qK-feS"/>
+                <constraint firstItem="ged-qV-Aye" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="S0a-3Z-fcv"/>
+                <constraint firstAttribute="bottom" secondItem="ged-qV-Aye" secondAttribute="bottom" id="SfY-a8-5Be"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="3gn-vk-0LP" secondAttribute="trailing" constant="16" id="UqZ-Y3-oQq"/>
+                <constraint firstItem="plk-mb-DMc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="hxg-HV-EvZ"/>
+                <constraint firstAttribute="bottom" secondItem="3gn-vk-0LP" secondAttribute="bottom" constant="20" id="iah-YN-eel"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="3gn-vk-0LP" id="2vs-1T-8fo"/>
+                <outlet property="openURLButton" destination="ged-qV-Aye" id="sy6-ns-cqe"/>
+            </connections>
+            <point key="canvasLocation" x="103.62318840579711" y="-129.91071428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="primaryBackground">
+            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
