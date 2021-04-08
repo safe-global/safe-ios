@@ -116,7 +116,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                         let results = summary.items.map { TokenBalance($0, code: AppSettings.selectedFiatCode) }
                         let total = TokenBalance.displayCurrency(from: summary.fiatTotal, code: AppSettings.selectedFiatCode)
                         guard let `self` = self else { return }
-                        self.sections = self.makeItems(items: results, total: total)
+                        self.sections = self.makeSections(items: results, total: total)
                         self.onSuccess()
                     }
                 }
@@ -126,7 +126,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         }
     }
 
-    private func makeItems(items: [TokenBalance], total: String) -> [Section] {
+    private func makeSections(items: [TokenBalance], total: String) -> [Section] {
         guard !items.isEmpty else { return [] }
 
         var sections = [Section]()
@@ -184,12 +184,16 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         cell.setButton("Import owner key now")
         cell.onClose = { [unowned self] in
             importKeyBannerWasShown = true
-            updateSection(indexPath.section)
+
+            remakeSections()
+
             trackEvent(.bannerImportOwnerKeySkipped)
         }
         cell.onImport = { [unowned self] in
             importKeyBannerWasShown = true
-            updateSection(indexPath.section)
+
+            remakeSections()
+
             let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
             present(vc, animated: true)
             trackEvent(.bannerImportOwnerKeyImported)
@@ -204,13 +208,14 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         cell.setButton("Create passcode now")
         cell.onClose = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true
-            updateSection(indexPath.section)
+            remakeSections()
         }
         cell.onImport = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true
-            updateSection(indexPath.section)
+            remakeSections()
+
             let vc = CreatePasscodeViewController { [weak self] in
-                self?.updateSection(indexPath.section)
+                self?.remakeSections()
             }
             let nav = UINavigationController(rootViewController: vc)
             present(nav, animated: true)
@@ -218,9 +223,17 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         return cell
     }
 
-    private func updateSection(_ section: Int) {
-        tableView.beginUpdates()
-        tableView.reloadSections([section], with: .automatic)
-        tableView.endUpdates()
+    private func remakeSections() {
+        var items = [TokenBalance]()
+        var total = ""
+        for section in sections {
+            switch section {
+            case .balances(items: let balances): items = balances
+            case .total(text: let text): total = text
+            default: continue
+            }
+        }
+        sections = makeSections(items: items, total: total)
+        tableView.reloadData()
     }
 }
