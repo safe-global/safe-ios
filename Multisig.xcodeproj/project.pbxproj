@@ -366,6 +366,7 @@
 		5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C82449A1980067505A /* LogServiceTests.swift */; };
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
+		55454C99261F516A00E8C4D6 /* idn2Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 55454C98261F516A00E8C4D6 /* idn2Swift */; };
 		555312E9250653800008206B /* BIP32HDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312E8250653800008206B /* BIP32HDNode.swift */; };
 		555312EB2506608D0008206B /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EA2506608D0008206B /* Base58.swift */; };
 		555312ED250663420008206B /* SECP256K1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EC250663420008206B /* SECP256K1.swift */; };
@@ -962,6 +963,7 @@
 				55888DFF260C4F6200940347 /* SwiftAccessPolicy in Frameworks */,
 				55D3FF79260B28CF008ABD2B /* FirebaseAnalytics in Frameworks */,
 				55D3FE85260A0F66008ABD2B /* Web3 in Frameworks */,
+				55454C99261F516A00E8C4D6 /* idn2Swift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2313,6 +2315,7 @@
 				55D3FF8F260B2B21008ABD2B /* TrustKit */,
 				55888DFE260C4F6200940347 /* SwiftAccessPolicy */,
 				5591CEED260C725C0067DFDF /* BlockiesSwift */,
+				55454C98261F516A00E8C4D6 /* idn2Swift */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig.app */;
@@ -2417,6 +2420,7 @@
 				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */,
 				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */,
 				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
+				55454C97261F516A00E8C4D6 /* XCRemoteSwiftPackageReference "pod-idn2" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -5422,6 +5426,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		55454C97261F516A00E8C4D6 /* XCRemoteSwiftPackageReference "pod-idn2" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gnosis/pod-idn2.git";
+			requirement = {
+				branch = swiftpm;
+				kind = branch;
+			};
+		};
 		55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/SwiftAccessPolicy.git";
@@ -5481,6 +5493,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		55454C98261F516A00E8C4D6 /* idn2Swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55454C97261F516A00E8C4D6 /* XCRemoteSwiftPackageReference "pod-idn2" */;
+			productName = idn2Swift;
+		};
 		55888DFE260C4F6200940347 /* SwiftAccessPolicy */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */;

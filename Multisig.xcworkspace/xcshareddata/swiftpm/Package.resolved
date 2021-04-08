@@ -128,6 +128,15 @@
         }
       },
       {
+        "package": "idn2Swift",
+        "repositoryURL": "https://github.com/gnosis/pod-idn2.git",
+        "state": {
+          "branch": "swiftpm",
+          "revision": "765b688f7de14802a1e80d3751440a2a0110b430",
+          "version": null
+        }
+      },
+      {
         "package": "PromiseKit",
         "repositoryURL": "https://github.com/mxcl/PromiseKit.git",
         "state": {
