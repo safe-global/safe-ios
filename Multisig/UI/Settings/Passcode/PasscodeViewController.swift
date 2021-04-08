@@ -207,6 +207,7 @@ class EnterPasscodeViewController: PasscodeViewController {
     var navigationItemTitle = "Enter Passcode"
     var screenTrackingEvent = TrackingEvent.enterPasscode
     var showsCloseButton: Bool = true
+    var usesBiometry: Bool = true
 
     convenience init() {
         self.init(namedClass: PasscodeViewController.self)
@@ -230,8 +231,8 @@ class EnterPasscodeViewController: PasscodeViewController {
         biometryButton.setImage(App.shared.auth.isFaceID ? UIImage(named: "ic-face-id") : UIImage(named: "ic-touch-id"), for: .normal)
     }
 
-    var canUseBiometry: Bool {
-        App.shared.auth.isBiometryPossible && AppSettings.passcodeOptions.contains(.useBiometry)
+    private var canUseBiometry: Bool {
+        usesBiometry && App.shared.auth.isBiometryPossible && AppSettings.passcodeOptions.contains(.useBiometry)
     }
 
     override func viewDidAppear(_ animated: Bool) {
