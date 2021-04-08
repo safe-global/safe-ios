@@ -73,15 +73,16 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         NotificationCenter.default.addObserver(
             self, selector: #selector(lazyReloadData), name: .selectedFiatCurrencyChanged, object: nil)
 
+        recreateSectionsWithCurrentItems()
     }
 
     @objc private func ownerKeyImported() {
         importKeyBannerWasShown = true
-        tableView.reloadData()
+        recreateSectionsWithCurrentItems()
     }
 
     @objc private func updatePasscodeBanner() {
-        tableView.reloadData()
+        recreateSectionsWithCurrentItems()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -185,14 +186,14 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         cell.onClose = { [unowned self] in
             importKeyBannerWasShown = true
 
-            remakeSections()
+            recreateSectionsWithCurrentItems()
 
             trackEvent(.bannerImportOwnerKeySkipped)
         }
         cell.onImport = { [unowned self] in
             importKeyBannerWasShown = true
 
-            remakeSections()
+            recreateSectionsWithCurrentItems()
 
             let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
             present(vc, animated: true)
@@ -208,14 +209,14 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         cell.setButton("Create passcode now")
         cell.onClose = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true
-            remakeSections()
+            recreateSectionsWithCurrentItems()
         }
         cell.onImport = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true
-            remakeSections()
+            recreateSectionsWithCurrentItems()
 
             let vc = CreatePasscodeViewController { [weak self] in
-                self?.remakeSections()
+                self?.recreateSectionsWithCurrentItems()
             }
             let nav = UINavigationController(rootViewController: vc)
             present(nav, animated: true)
@@ -223,7 +224,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         return cell
     }
 
-    private func remakeSections() {
+    private func recreateSectionsWithCurrentItems() {
         var items = [TokenBalance]()
         var total = ""
         for section in sections {
