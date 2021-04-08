@@ -9,6 +9,7 @@
 import Foundation
 import SwiftAccessPolicy
 import CommonCrypto
+import LocalAuthentication
 
 class AuthenticationController {
 
@@ -46,7 +47,11 @@ class AuthenticationController {
         let password = derivedKey(from: plaintextPasscode)
         try accessService.registerUser(password: password)
         AppSettings.passcodeWasSetAtLeastOnce = true
+
+        AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
+
         NotificationCenter.default.post(name: .passcodeCreated, object: nil)
+
         Tracker.shared.setPasscodeIsSet(to: true)
         Tracker.shared.track(event: TrackingEvent.userPasscodeEnabled)
     }
@@ -73,9 +78,26 @@ class AuthenticationController {
     func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) throws {
         guard let user = user else { return }
         try accessService.deleteUser(userID: user.id)
+
         NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+
         Tracker.shared.setPasscodeIsSet(to: false)
         Tracker.shared.track(event: trackingEvent)
+    }
+
+    func deleteAllData() throws {
+        try PrivateKeyController.deleteAllKeys(showingMessage: false)
+        try Safe.removeAll()
+        try deletePasscode(trackingEvent: .userPasscodeReset)
+        App.shared.snackbar.show(message: "All data removed from this app")
+    }
+
+    func migrateFromPasscodeV1() {
+        // if passcode is set but all options are 0, then we have inconsistent settings.
+        // to restore, we will enable passcode entry for confirmations, as this is the expected
+        // behavior in the v1.
+        guard isPasscodeSet && AppSettings.passcodeOptions.isEmpty else { return }
+        AppSettings.passcodeOptions = .useForConfirmation
     }
 
     /// Returns saved user, if any
@@ -101,6 +123,43 @@ class AuthenticationController {
             return plaintext
         }
         return Data(derivedKey).toHexString()
+    }
+
+
+    // MARK: - Biometry
+
+    /// Is device hardware supports the biometry
+    var isBiometricsSupported: Bool {
+        let context = LAContext()
+        _ = context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
+        switch context.biometryType {
+        case .touchID, .faceID:
+            return true
+        case .none:
+            return false
+        @unknown default:
+            return false
+        }
+    }
+
+    var isBiometryPossible: Bool {
+        guard let user = user else { return false }
+        return (try? accessService.isAuthenticationMethodPossible(userID: user.id, method: .biometry)) ?? false
+    }
+
+    var isFaceID: Bool {
+        return (try? accessService.biometryService.biometryType()) == .faceID
+    }
+
+    func activateBiometry() throws -> Bool {
+        guard let user = user else { return false }
+        return try accessService.requestBiometryAccess(userID: user.id)
+    }
+
+    func authenticateWithBiometry() -> Bool {
+        guard let user = user else { return false }
+        let status = (try? accessService.authenticateUser(userID: user.id, request: .biometry)) ?? .notAuthenticated
+        return status == .authenticated
     }
 }
 

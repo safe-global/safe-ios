@@ -20,4 +20,7 @@ extension NSNotification.Name {
     static let selectedFiatCurrencyChanged = NSNotification.Name("io.gnosis.safe.selectedFiatCurrencyChanged")
     static let networkHostReachable = NSNotification.Name("io.gnosis.safe.networkHostReachable")
     static let networkHostUnreachable = NSNotification.Name("io.gnosis.safe.networkHostUnreachable")
+    static let incommingTxNotificationReceived = NSNotification.Name("io.gnosis.safe.incommingTxNotification")
+    static let queuedTxNotificationReceived = NSNotification.Name("io.gnosis.safe.queuedTxNotificationReceived")
+    static let biometricsActivated = NSNotification.Name("io.gnosis.safe.biometricsActivated")
 }

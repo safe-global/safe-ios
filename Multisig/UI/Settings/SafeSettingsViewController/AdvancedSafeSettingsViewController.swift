@@ -49,8 +49,6 @@ class AdvancedSafeSettingsViewController: UITableViewController {
         }
 
         navigationItem.title = "Advanced"
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 60
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(HelpLinkTableViewCell.self)
@@ -96,7 +94,7 @@ extension AdvancedSafeSettingsViewController {
         switch item {
         case Section.FallbackHandler.fallbackHandler(let info):
             if let info = info {
-                return addressDetailsCell(address: info.address, title: namingPolicy.name(info: info), indexPath: indexPath)
+                return addressDetailsCell(address: info.address, title: namingPolicy.name(info: info), imageUri: info.logoUri, indexPath: indexPath)
             } else {
                 return basicCell(name: "Not set", indexPath: indexPath)
             }
@@ -105,7 +103,7 @@ extension AdvancedSafeSettingsViewController {
         case Section.Nonce.nonce(let nonce):
             return basicCell(name: nonce, indexPath: indexPath)
         case Section.Module.module(let info):
-            return addressDetailsCell(address: info.address, title: namingPolicy.name(info: info), indexPath: indexPath)
+            return addressDetailsCell(address: info.address, title: namingPolicy.name(info: info), imageUri: info.logoUri, indexPath: indexPath)
         default:
             return UITableViewCell()
         }
@@ -132,6 +130,25 @@ extension AdvancedSafeSettingsViewController {
         return BasicHeaderView.headerHeight
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.FallbackHandler.fallbackHandler(let info):
+            if info == nil {
+                return BasicCell.rowHeight
+            }
+        case Section.Nonce.nonce:
+            return BasicCell.rowHeight
+        default:
+            break
+        }
+        return UITableView.automaticDimension
+    }
+
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        BasicCell.rowHeight
+    }
+
     private func basicCell(name: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
         cell.setTitle(name)
@@ -140,9 +157,9 @@ extension AdvancedSafeSettingsViewController {
         return cell
     }
 
-    private func addressDetailsCell(address: Address, title: String?, indexPath: IndexPath) -> UITableViewCell {
+    private func addressDetailsCell(address: Address, title: String?, imageUri: URL?, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: title)
+        cell.setAccount(address: address, label: title, imageUri: imageUri)
         return cell
     }
 

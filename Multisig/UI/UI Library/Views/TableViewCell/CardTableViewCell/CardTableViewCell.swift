@@ -8,16 +8,30 @@
 
 import UIKit
 
-class CardTableViewCell: UITableViewCell {
+class CardTableViewCell: UITableViewCell, ExternalURLSource {
     @IBOutlet private weak var bodyLabel: UILabel!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
+    @IBOutlet weak var linkLabel: UILabel!
+    @IBOutlet weak var linkButton: UIButton!
+
+    private(set) var url: URL?
+
+    @IBAction func openUrl(_ sender: Any) {
+        openExternalURL()
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.headline)
         bodyLabel.setStyle(.primary)
         selectionStyle = .none
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        linkLabel.isHidden = false
+        linkButton.isHidden = false
     }
 
     func set(image: UIImage?) {
@@ -30,5 +44,16 @@ class CardTableViewCell: UITableViewCell {
     
     func set(body: String) {
         bodyLabel.text = body
+    }
+
+    func set(linkTitle: String?, url: URL?) {
+        guard let linkTitle = linkTitle,
+              let url = url else {
+            linkLabel.isHidden = true
+            linkButton.isHidden = true
+            return
+        }
+        linkLabel.hyperLinkLabel(linkText: linkTitle)
+        self.url = url
     }
 }

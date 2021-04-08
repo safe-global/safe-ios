@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PrivateKeyController.cleanUpKeys()
         PrivateKeyController.migrateLegacySigningKey()
 
+        App.shared.auth.migrateFromPasscodeV1()
+
         // The requirement is to set num_safes property to "0" when there are no Safes
         Tracker.shared.setSafeCount(Safe.count)
         Tracker.shared.setNumKeysImported(KeyInfo.count)
