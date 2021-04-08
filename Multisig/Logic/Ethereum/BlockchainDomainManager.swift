@@ -11,11 +11,11 @@ import UnstoppableDomainsResolution
 
 class BlockchainDomainManager {
     
-    let ens: ENS;
-    let resolution: Resolution?;
+    let ens: ENS
+    let resolution: Resolution?
     
     init() {
-        ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e");
+        ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
         self.resolution = try? Resolution(
             configs: Configurations(
                 cns: NamingServiceConfig(
@@ -23,30 +23,30 @@ class BlockchainDomainManager {
                     network: App.configuration.app.network.rawValue.lowercased()
                 )
             )
-        );
+        )
     }
     
     func resolveUD(_ domain: String) throws -> Address {
-        guard resolution != nil else {
-            throw GSError.UDUnsupportedNetwork();
+        guard let resolution = resolution else {
+            throw GSError.UDUnsupportedNetwork()
         }
         
-        var address: String = "";
-        var resolutionError: Error? = nil;
+        var address: String = ""
+        var resolutionError: Error? = nil
         
-        let dispatchGroup = DispatchGroup();
-        dispatchGroup.enter();
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
         
-        resolution!.addr(domain: domain, ticker: "eth") { result in
+        resolution.addr(domain: domain, ticker: "eth") { result in
             switch result {
                 case .success(let returnValue):
-                    address = returnValue;
+                    address = returnValue
                 case .failure(let error):
-                  resolutionError = error;
+                  resolutionError = error
             }
-            dispatchGroup.leave();
-        };
-        dispatchGroup.wait();
+            dispatchGroup.leave()
+        }
+        dispatchGroup.wait()
         
         if let error = resolutionError as? ResolutionError {
           throw self.throwCorrectUdError(error, domain)
@@ -54,11 +54,11 @@ class BlockchainDomainManager {
           throw error
         }
 
-        return try Address(from: address);
+        return try Address(from: address)
     }
     
     func resolve(domain: String) throws -> Address {
-        return domain.isUDdomain() ? try self.resolveUD(domain) : try ens.address(for: domain);
+        return domain.isUDdomain() ? try self.resolveUD(domain) : try ens.address(for: domain)
     }
     
     func throwCorrectUdError(_ error: ResolutionError, _ domain: String) -> DetailedLocalizedError {
