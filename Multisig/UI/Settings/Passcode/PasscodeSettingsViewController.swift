@@ -199,6 +199,7 @@ class PasscodeSettingsViewController: UITableViewController {
         authenticated: @escaping (_ success: Bool, _ nav: UINavigationController?, _ finish: @escaping () -> Void) -> Void
     ) {
         let vc = EnterPasscodeViewController()
+        vc.usesBiometry = false
         vc.navigationItemTitle = reason
         if let event = tracking {
             vc.screenTrackingEvent = event
