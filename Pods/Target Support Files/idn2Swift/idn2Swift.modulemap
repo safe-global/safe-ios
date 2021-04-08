@@ -1,6 +1,0 @@
-module idn2Swift {
-  umbrella header "idn2Swift-umbrella.h"
-
-  export *
-  module * { export * }
-}
