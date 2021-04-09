@@ -11,6 +11,8 @@ import WalletConnectSwift
 import Kingfisher
 import SwiftCryptoTokenFormatter
 
+fileprivate protocol SectionItem {}
+
 class WCTransactionConfirmationViewController: UIViewController {
     @IBOutlet private weak var dappImageView: UIImageView!
     @IBOutlet private weak var dappNameLabel: UILabel!
@@ -24,7 +26,27 @@ class WCTransactionConfirmationViewController: UIViewController {
     private var transaction: Transaction!
     private var session: Session!
 
-    private var cells = [UITableViewCell]()
+    enum Section {
+        case basic
+        case advanced
+
+        enum Basic: SectionItem {
+            case safe(UITableViewCell)
+            case transaction(UITableViewCell)
+            case data(UITableViewCell)
+            case advanced(UITableViewCell)
+        }
+
+        enum Advanced: SectionItem {
+            case nonce(UITableViewCell)
+            case safeTxGas(UITableViewCell)
+        }
+    }
+
+    private typealias SectionItems = (section: Section, items: [SectionItem])
+    private var sections = [SectionItems]()
+
+    private var isAdvancedOptionsShown = false
 
     @IBAction func reject(_ sender: Any) {
         onReject?()
@@ -52,34 +74,55 @@ class WCTransactionConfirmationViewController: UIViewController {
             dappImageView.image = #imageLiteral(resourceName: "ico-empty-circle")
         }
         dappNameLabel.text = session.dAppInfo.peerMeta.name
+        dappNameLabel.setStyle(.headline)
 
-        rejectButton.setText("Reject", .primary)
+        rejectButton.setText("Reject", .filledError)
         submitButton.setText("Submit", .filled)
 
         tableView.dataSource = self
+        tableView.delegate = self
 
         tableView.registerCell(DetailTransferInfoCell.self)
         tableView.registerCell(DetailAccountCell.self)
-
         tableView.registerCell(InfoCell.self)
         tableView.registerCell(DetailExpandableTextCell.self)
-
-
+        tableView.registerCell(BasicCell.self)
 
         tableView.separatorStyle = .none
-        tableView.allowsSelection = false
 
-        buildCells()
+        buildSections()
     }
 
-    private func buildCells() {
-        cells.append(contentsOf: [
-            safeCell(),
-            transactionCell(),
-            dataCell(),
-            infoCell(title: "nonce", value: transaction.nonce.description),
-            infoCell(title: "safeTxGas", value: transaction.safeTxGas.description)
-        ])
+    private func buildSections() {
+        let advancedSectionItems = !isAdvancedOptionsShown ? [] : [
+            Section.Advanced.nonce(infoCell(title: "nonce", value: transaction.nonce.description)),
+            Section.Advanced.safeTxGas(infoCell(title: "safeTxGas", value: transaction.safeTxGas.description))
+        ]
+        sections = [
+            (section: .basic, items: [
+                Section.Basic.safe(safeCell()),
+                Section.Basic.transaction(transactionCell()),
+                Section.Basic.data(dataCell()),
+                Section.Basic.advanced(advancedCell())
+            ]),
+            (section: .advanced, items: advancedSectionItems)
+        ]
+    }
+
+    private func reloadAdvancedSection() {
+        buildSections()
+        tableView.beginUpdates()
+        tableView.reloadRows(at: [IndexPath(row: 3, section: 0)], with: .automatic)
+        let advancedRows = [
+            IndexPath(row: 0, section: 1),
+            IndexPath(row: 1, section: 1)
+        ]
+        if isAdvancedOptionsShown {
+            tableView.insertRows(at: advancedRows, with: .bottom)
+        } else {
+            tableView.deleteRows(at: advancedRows, with: .fade)
+        }
+        tableView.endUpdates()
     }
 
     private func safeCell() -> UITableViewCell {
@@ -88,6 +131,7 @@ class WCTransactionConfirmationViewController: UIViewController {
             address: transaction.safe!.address,
             label: Safe.cachedName(by: transaction.safe!)
         )
+        cell.selectionStyle = .none
         return cell
     }
 
@@ -112,6 +156,7 @@ class WCTransactionConfirmationViewController: UIViewController {
         cell.setDetail(tokenDetail)
         cell.setAddress(transaction.to.address, label: nil, imageUri: nil)
         cell.setOutgoing(true)
+        cell.selectionStyle = .none
 
         return cell
     }
@@ -124,6 +169,18 @@ class WCTransactionConfirmationViewController: UIViewController {
         cell.setText(data)
         cell.setCopyText(data)
         cell.setExpandableTitle("\(transaction.data?.data.count ?? 0) Bytes")
+        cell.selectionStyle = .none
+        return cell
+    }
+
+    private func advancedCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(BasicCell.self)
+        cell.setTitle("Advanced")
+        let image = UIImage(systemName: isAdvancedOptionsShown ? "chevron.up" : "chevron.down")!
+            .applyingSymbolConfiguration(.init(weight: .bold))!
+        cell.setDisclosureImage(image)
+        cell.setDisclosureImageTintColor(.secondaryLabel)
+        cell.selectedBackgroundView = UIView()
         return cell
     }
 
@@ -131,16 +188,47 @@ class WCTransactionConfirmationViewController: UIViewController {
         let cell = tableView.dequeueCell(InfoCell.self)
         cell.setTitle(title)
         cell.setInfo(value)
+        cell.selectionStyle = .none
         return cell
     }
 }
 
 extension WCTransactionConfirmationViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        sections.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        cells.count
+        sections[section].items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        cells[indexPath.row]
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.Basic.safe(let cell): return cell
+        case Section.Basic.transaction(let cell): return cell
+        case Section.Basic.data(let cell): return cell
+        case Section.Basic.advanced(let cell): return cell
+        case Section.Advanced.nonce(let cell): return cell
+        case Section.Advanced.safeTxGas(let cell): return cell
+        default: return UITableViewCell()
+        }
+    }
+}
+
+extension WCTransactionConfirmationViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard case Section.Basic.advanced(_) = sections[indexPath.section].items[indexPath.row] else { return }
+        tableView.deselectRow(at: indexPath, animated: true)
+        isAdvancedOptionsShown.toggle()
+        reloadAdvancedSection()
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.Basic.advanced(_): return BasicCell.rowHeight
+        default: return UITableView.automaticDimension
+        }
     }
 }

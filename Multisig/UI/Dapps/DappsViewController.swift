@@ -32,7 +32,7 @@ class DappsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureTableView()
         addWCButton()
         subscribeToNotifications()
