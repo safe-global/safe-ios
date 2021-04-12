@@ -29,7 +29,7 @@ class SelectKeyTypeViewController: UIViewController {
         walletConnectKeyButtonView.set(image: UIImage(named: "wc-button")!)
         walletConnectKeyButtonView.set(text: "Connect key via WalletConnect")
         walletConnectKeyButtonView.onSecect = {
-            let onboardingVC = OnboardingImportOwnerKeyViewController()
+            let onboardingVC = OnboardingConnectOwnerKeyViewController()
             self.navigationController?.pushViewController(onboardingVC, animated: true)
         }
     }

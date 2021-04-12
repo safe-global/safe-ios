@@ -424,6 +424,10 @@
 		559A77362623F72B002B89E7 /* SelectKeyTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559A77342623F72B002B89E7 /* SelectKeyTypeViewController.xib */; };
 		559A77402623F93F002B89E7 /* BigImageWithTextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A773F2623F93F002B89E7 /* BigImageWithTextButtonView.swift */; };
 		559A77462623F95F002B89E7 /* BigImageWithTextButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559A77452623F95F002B89E7 /* BigImageWithTextButtonView.xib */; };
+		559A775226240FF1002B89E7 /* OnboardingConnectOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A775126240FF1002B89E7 /* OnboardingConnectOwnerKeyViewController.swift */; };
+		559A775C26242588002B89E7 /* ConnectWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A775B26242588002B89E7 /* ConnectWalletViewController.swift */; };
+		559A7762262427AD002B89E7 /* WalletsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7761262427AD002B89E7 /* WalletsDataSource.swift */; };
+		559A776C26242CE9002B89E7 /* wallets.json in Resources */ = {isa = PBXBuildFile; fileRef = 559A776B26242CE9002B89E7 /* wallets.json */; };
 		55A58534250140B1005E778B /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A58533250140B1005E778B /* PrivateKey.swift */; };
 		55A5853D2501479C005E778B /* BIP39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853C2501479C005E778B /* BIP39.swift */; };
 		55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853E25014AD7005E778B /* BIP39+WordLists.swift */; };
@@ -991,6 +995,10 @@
 		559A77342623F72B002B89E7 /* SelectKeyTypeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectKeyTypeViewController.xib; sourceTree = "<group>"; };
 		559A773F2623F93F002B89E7 /* BigImageWithTextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigImageWithTextButtonView.swift; sourceTree = "<group>"; };
 		559A77452623F95F002B89E7 /* BigImageWithTextButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BigImageWithTextButtonView.xib; sourceTree = "<group>"; };
+		559A775126240FF1002B89E7 /* OnboardingConnectOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingConnectOwnerKeyViewController.swift; sourceTree = "<group>"; };
+		559A775B26242588002B89E7 /* ConnectWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWalletViewController.swift; sourceTree = "<group>"; };
+		559A7761262427AD002B89E7 /* WalletsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsDataSource.swift; sourceTree = "<group>"; };
+		559A776B26242CE9002B89E7 /* wallets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = wallets.json; sourceTree = "<group>"; };
 		55A58533250140B1005E778B /* PrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
 		55A5853C2501479C005E778B /* BIP39.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP39.swift; sourceTree = "<group>"; };
 		55A5853E25014AD7005E778B /* BIP39+WordLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BIP39+WordLists.swift"; sourceTree = "<group>"; };
@@ -1698,8 +1706,6 @@
 		0A93DD552445CC8A00688050 /* Multisig */ = {
 			isa = PBXGroup;
 			children = (
-				558319A1261589570015F0D7 /* dapps-mainnet.json */,
-				558319A0261589570015F0D7 /* dapps-rinkeby.json */,
 				0AF2730E24DAAAB6007E4012 /* Multisig.entitlements */,
 				047A658025AE088000AE8845 /* App */,
 				0A93DD88244603A400688050 /* UI */,
@@ -1745,6 +1751,7 @@
 				0A6886A52588FB0F0045CAB5 /* Settings */,
 				0A6886B02588FB370045CAB5 /* Safe Management */,
 				0AF432C4244DF8FC00E22E50 /* App */,
+				5583197D261588A40015F0D7 /* WalletConnect */,
 				0AF432CA244DFAFB00E22E50 /* Resources */,
 			);
 			path = UI;
@@ -2299,7 +2306,8 @@
 			children = (
 				5583197B261588A40015F0D7 /* DappsViewController.swift */,
 				5583197C261588A40015F0D7 /* DappsDataSource.swift */,
-				5583197D261588A40015F0D7 /* WalletConnect */,
+				558319A1261589570015F0D7 /* dapps-mainnet.json */,
+				558319A0261589570015F0D7 /* dapps-rinkeby.json */,
 			);
 			path = Dapps;
 			sourceTree = "<group>";
@@ -2312,6 +2320,8 @@
 				55831980261588A40015F0D7 /* WCRequestsHandler.swift */,
 				55831981261588A40015F0D7 /* WalletConnectController.swift */,
 				55831982261588A40015F0D7 /* WCSendTransactionRequest.swift */,
+				559A7761262427AD002B89E7 /* WalletsDataSource.swift */,
+				559A776B26242CE9002B89E7 /* wallets.json */,
 			);
 			path = WalletConnect;
 			sourceTree = "<group>";
@@ -2389,6 +2399,26 @@
 				559A77452623F95F002B89E7 /* BigImageWithTextButtonView.xib */,
 			);
 			path = SelectKeyTypeViewController;
+			sourceTree = "<group>";
+		};
+		559A774F26240F68002B89E7 /* ImportOwnerKey */ = {
+			isa = PBXGroup;
+			children = (
+				55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */,
+				55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */,
+				04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */,
+				04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */,
+			);
+			path = ImportOwnerKey;
+			sourceTree = "<group>";
+		};
+		559A775026240FAE002B89E7 /* ConnectOwnerKey */ = {
+			isa = PBXGroup;
+			children = (
+				559A775126240FF1002B89E7 /* OnboardingConnectOwnerKeyViewController.swift */,
+				559A775B26242588002B89E7 /* ConnectWalletViewController.swift */,
+			);
+			path = ConnectOwnerKey;
 			sourceTree = "<group>";
 		};
 		55A585352501417E005E778B /* PrivateKey */ = {
@@ -2472,15 +2502,13 @@
 		55F91A8E25BEABA100938475 /* OwnerKeyManagement */ = {
 			isa = PBXGroup;
 			children = (
-				559A77322623F6BB002B89E7 /* SelectKeyTypeViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
+				559A775026240FAE002B89E7 /* ConnectOwnerKey */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
-				049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */,
+				559A774F26240F68002B89E7 /* ImportOwnerKey */,
 				0A478D4D25B865150038363E /* KeyPickerController */,
-				55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */,
-				55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */,
-				04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */,
-				04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */,
+				049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */,
+				559A77322623F6BB002B89E7 /* SelectKeyTypeViewController */,
 			);
 			path = OwnerKeyManagement;
 			sourceTree = "<group>";
@@ -2802,6 +2830,7 @@
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				555312F425068E0F0008206B /* README in Resources */,
+				559A776C26242CE9002B89E7 /* wallets.json in Resources */,
 				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
 				0A478D3C25B863D60038363E /* DerivedKeyTableViewCell.xib in Resources */,
 				0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */,
@@ -3137,6 +3166,7 @@
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				0A63C7B42602087E00D36B22 /* SafeInfoRequest.swift in Sources */,
 				555E4447261D644A0083E2FA /* ExternalLinkHeaderFooterView.swift in Sources */,
+				559A775226240FF1002B89E7 /* OnboardingConnectOwnerKeyViewController.swift in Sources */,
 				0A57C5D72577F9E600420303 /* ConfirmationStatusPiece.swift in Sources */,
 				0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
@@ -3159,6 +3189,7 @@
 				0A791DA124D30FE100D70DA9 /* Spacing.swift in Sources */,
 				55A58534250140B1005E778B /* PrivateKey.swift in Sources */,
 				55B6465C253050200050BD95 /* Transaction.swift in Sources */,
+				559A775C26242588002B89E7 /* ConnectWalletViewController.swift in Sources */,
 				0AE46C87257684B8001DC62B /* LoadSafeViewController.swift in Sources */,
 				0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */,
 				0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */,
@@ -3271,6 +3302,7 @@
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
 				0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */,
 				0AF1C8302540923C00E28669 /* LoadableViewController.swift in Sources */,
+				559A7762262427AD002B89E7 /* WalletsDataSource.swift in Sources */,
 				04D1309E25E2BB830032FA03 /* RejectionConfirmationViewController.swift in Sources */,
 				0AA9F25724991988005BD60F /* TokenBalance.swift in Sources */,
 				555312ED250663420008206B /* SECP256K1.swift in Sources */,

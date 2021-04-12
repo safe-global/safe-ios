@@ -152,7 +152,7 @@ class DappsViewController: UITableViewController {
                     description: nil,
                     indexPath: indexPath,
                     canSelect: false,
-                    placeholderImage: #imageLiteral(resourceName: "ico-empty-circle"))
+                    placeholderImage: UIImage(named: "ico-empty-circle"))
             case .connected:
                 let session = try! Session.from(wcSession)
                 return tableView.detailedCell(
