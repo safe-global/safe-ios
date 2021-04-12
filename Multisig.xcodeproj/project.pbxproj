@@ -68,7 +68,6 @@
 		04B4B6DE25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */; };
 		04B4B6E525B9A08D00CFE24B /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B6E325B9A08D00CFE24B /* CardTableViewCell.swift */; };
 		04B4B6E625B9A08D00CFE24B /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */; };
-		04B4B6FE25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B6FD25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift */; };
 		04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B88825BF36F900CFE24B /* ExecutionStatusPiece.swift */; };
 		04B4B88B25BF36F900CFE24B /* ExecutionStatusPiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B88925BF36F900CFE24B /* ExecutionStatusPiece.xib */; };
 		04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97A99246C3E5F00EBA0F1 /* ViewState.swift */; };
@@ -421,6 +420,10 @@
 		5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */; };
 		5596C0482550813B00EF23A5 /* CollectiblesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */; };
 		5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */; };
+		559A77352623F72B002B89E7 /* SelectKeyTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A77332623F72B002B89E7 /* SelectKeyTypeViewController.swift */; };
+		559A77362623F72B002B89E7 /* SelectKeyTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559A77342623F72B002B89E7 /* SelectKeyTypeViewController.xib */; };
+		559A77402623F93F002B89E7 /* BigImageWithTextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A773F2623F93F002B89E7 /* BigImageWithTextButtonView.swift */; };
+		559A77462623F95F002B89E7 /* BigImageWithTextButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559A77452623F95F002B89E7 /* BigImageWithTextButtonView.xib */; };
 		55A58534250140B1005E778B /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A58533250140B1005E778B /* PrivateKey.swift */; };
 		55A5853D2501479C005E778B /* BIP39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853C2501479C005E778B /* BIP39.swift */; };
 		55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853E25014AD7005E778B /* BIP39+WordLists.swift */; };
@@ -575,7 +578,6 @@
 		04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingImportOwnerKeyViewController.xib; sourceTree = "<group>"; };
 		04B4B6E325B9A08D00CFE24B /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
-		04B4B6FD25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationItem.swift"; sourceTree = "<group>"; };
 		04B4B88825BF36F900CFE24B /* ExecutionStatusPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionStatusPiece.swift; sourceTree = "<group>"; };
 		04B4B88925BF36F900CFE24B /* ExecutionStatusPiece.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExecutionStatusPiece.xib; sourceTree = "<group>"; };
 		04C97A99246C3E5F00EBA0F1 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
@@ -985,6 +987,10 @@
 		5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleTableViewCell.swift; sourceTree = "<group>"; };
 		5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesHeaderView.swift; sourceTree = "<group>"; };
 		5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectiblesHeaderView.xib; sourceTree = "<group>"; };
+		559A77332623F72B002B89E7 /* SelectKeyTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectKeyTypeViewController.swift; sourceTree = "<group>"; };
+		559A77342623F72B002B89E7 /* SelectKeyTypeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectKeyTypeViewController.xib; sourceTree = "<group>"; };
+		559A773F2623F93F002B89E7 /* BigImageWithTextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigImageWithTextButtonView.swift; sourceTree = "<group>"; };
+		559A77452623F95F002B89E7 /* BigImageWithTextButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BigImageWithTextButtonView.xib; sourceTree = "<group>"; };
 		55A58533250140B1005E778B /* PrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
 		55A5853C2501479C005E778B /* BIP39.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP39.swift; sourceTree = "<group>"; };
 		55A5853E25014AD7005E778B /* BIP39+WordLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BIP39+WordLists.swift"; sourceTree = "<group>"; };
@@ -1660,7 +1666,6 @@
 				044A54432448D0B6009CBB80 /* QRCodeScannerViewController */,
 				0AC60C982549D44300A63AE2 /* SegmentViewController */,
 				0AF1C90D2541B67200E28669 /* LoadableViewController */,
-				04B4B6FD25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -2375,6 +2380,17 @@
 			path = "Safe Transaction Service";
 			sourceTree = "<group>";
 		};
+		559A77322623F6BB002B89E7 /* SelectKeyTypeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				559A77332623F72B002B89E7 /* SelectKeyTypeViewController.swift */,
+				559A77342623F72B002B89E7 /* SelectKeyTypeViewController.xib */,
+				559A773F2623F93F002B89E7 /* BigImageWithTextButtonView.swift */,
+				559A77452623F95F002B89E7 /* BigImageWithTextButtonView.xib */,
+			);
+			path = SelectKeyTypeViewController;
+			sourceTree = "<group>";
+		};
 		55A585352501417E005E778B /* PrivateKey */ = {
 			isa = PBXGroup;
 			children = (
@@ -2456,6 +2472,7 @@
 		55F91A8E25BEABA100938475 /* OwnerKeyManagement */ = {
 			isa = PBXGroup;
 			children = (
+				559A77322623F6BB002B89E7 /* SelectKeyTypeViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
 				049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */,
@@ -2719,6 +2736,7 @@
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
+				559A77462623F95F002B89E7 /* BigImageWithTextButtonView.xib in Resources */,
 				04B4B68F25B8857F00CFE24B /* SafeInfoViewV2.xib in Resources */,
 				0A86EE6F25CC2B4C0059876E /* RetryFooterView.xib in Resources */,
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
@@ -2733,6 +2751,7 @@
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */,
+				559A77362623F72B002B89E7 /* SelectKeyTypeViewController.xib in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
@@ -3043,6 +3062,7 @@
 				0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */,
 				04D1306C25DD525A0032FA03 /* ProposeTransactionRequest.swift in Sources */,
 				55831975261588830015F0D7 /* WCSession.swift in Sources */,
+				559A77352623F72B002B89E7 /* SelectKeyTypeViewController.swift in Sources */,
 				55BCFC562554627100020CE7 /* BasicCell.swift in Sources */,
 				0A9A1A34257924C600B44405 /* DetailAccountCell.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
@@ -3087,6 +3107,7 @@
 				0A86EE6925CC2B410059876E /* IdleFooterView.swift in Sources */,
 				048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */,
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
+				559A77402623F93F002B89E7 /* BigImageWithTextButtonView.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
 				0A09839C24BC522B009EE296 /* Token.swift in Sources */,
@@ -3123,7 +3144,6 @@
 				55831986261588A40015F0D7 /* WCTransactionConfirmationViewController.swift in Sources */,
 				55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */,
 				0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */,
-				04B4B6FE25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift in Sources */,
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
 				555312EF2506641D0008206B /* RIPEMD160.swift in Sources */,
 				04CE3F9D24B62F0800826AEE /* CollectibleMetaDataAttribute.swift in Sources */,

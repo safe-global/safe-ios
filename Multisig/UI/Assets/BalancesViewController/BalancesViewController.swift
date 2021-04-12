@@ -187,7 +187,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         cell.onImport = { [unowned self] in
             importKeyBannerWasShown = true
             updateSection(indexPath.section)
-            let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
+            let vc = ViewControllerFactory.selectKeyTypeViewController(presenter: self)
             present(vc, animated: true)
             trackEvent(.bannerImportOwnerKeyImported)
         }

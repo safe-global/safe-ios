@@ -25,7 +25,6 @@ class OnboardingImportOwnerKeyViewController: UIViewController {
         navigationItem.title = "Import Owner Key"
         
         nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton(_:)))
-        createCloseButton()
         navigationItem.rightBarButtonItem = nextButton
     }
 
