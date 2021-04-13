@@ -341,6 +341,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct CouldNotCreateWallectConnectURL: DetailedLocalizedError {
+        let description = "Could not create connection URL"
+        let reason = "We could not connect to WalletConnect bridge server."
+        let howToFix = "Please try again later or contact Safe support if the issue persists"
+        let domain = clientErrorDomain
+        let code = 1114
+        let loggable = false
+    }
+
     // MARK: - iOS errors
 
     struct UnknownAppError: DetailedLocalizedError {

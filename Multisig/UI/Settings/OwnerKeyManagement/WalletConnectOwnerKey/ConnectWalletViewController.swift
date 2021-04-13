@@ -16,7 +16,10 @@ fileprivate struct InstalledWallet {
 
     init?(walletEntry: WalletEntry) {
         let scheme = walletEntry.mobile.native
-        let universalLink = walletEntry.mobile.universal
+        var universalLink = walletEntry.mobile.universal
+        if universalLink.last == "/" {
+            universalLink = String(universalLink.dropLast())
+        }
 
         guard let schemeUrl = URL(string: scheme),
               UIApplication.shared.canOpenURL(schemeUrl),
@@ -76,9 +79,23 @@ class ConnectWalletViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let wallet = installedWallets[indexPath.row]
-            
+            do {
+                let connectionURL = try getConnectionURL(universalLink: wallet.universalLink)
+                print("LINK: \(connectionURL.absoluteString)")
+                UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
+            } catch {
+                App.shared.snackbar.show(
+                    error: GSError.error(description: "Could not create connection URL", error: error))
+            }
         } else {
-
+            // show QR code screen
         }
+    }
+
+    private func getConnectionURL(universalLink: String) throws -> URL {
+        let connectionUrlString = try WalletConnectClientController.shared.connect()
+
+        // https://docs.walletconnect.org/mobile-linking#for-ios
+        return URL(string: "\(universalLink)/wc?uri=\(connectionUrlString)")!
     }
 }

@@ -11,7 +11,7 @@ import WalletConnectSwift
 
 class WalletConnectServerController {
     static let shared = WalletConnectServerController()
-    private let server: Server
+    private var server: Server!
     private let notificationCenter = NotificationCenter.default
     private var showedNotificationsSessionTopics = [String]()
 
