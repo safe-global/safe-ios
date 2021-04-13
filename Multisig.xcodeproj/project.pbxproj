@@ -2412,13 +2412,13 @@
 			path = ImportOwnerKey;
 			sourceTree = "<group>";
 		};
-		559A775026240FAE002B89E7 /* ConnectOwnerKey */ = {
+		559A775026240FAE002B89E7 /* WalletConnectOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
 				559A775126240FF1002B89E7 /* OnboardingConnectOwnerKeyViewController.swift */,
 				559A775B26242588002B89E7 /* ConnectWalletViewController.swift */,
 			);
-			path = ConnectOwnerKey;
+			path = WalletConnectOwnerKey;
 			sourceTree = "<group>";
 		};
 		55A585352501417E005E778B /* PrivateKey */ = {
@@ -2503,7 +2503,7 @@
 			isa = PBXGroup;
 			children = (
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
-				559A775026240FAE002B89E7 /* ConnectOwnerKey */,
+				559A775026240FAE002B89E7 /* WalletConnectOwnerKey */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
 				559A774F26240F68002B89E7 /* ImportOwnerKey */,
 				0A478D4D25B865150038363E /* KeyPickerController */,

@@ -9,25 +9,21 @@
 import UIKit
 
 fileprivate struct InstalledWallet {
-    let imageUrl: URL
     let name: String
+    let imageName: String
     let scheme: String
     let universalLink: String
 
     init?(walletEntry: WalletEntry) {
-        let homepage = walletEntry.homepage
-        let name = walletEntry.name
         let scheme = walletEntry.mobile.native
         let universalLink = walletEntry.mobile.universal
-        let faviconPath = homepage.last == "/" ? "favicon.ico" : "/favicon.ico"
 
-        guard let imageUrl = URL(string: homepage + faviconPath),
-              let schemeUrl = URL(string: scheme),
+        guard let schemeUrl = URL(string: scheme),
               UIApplication.shared.canOpenURL(schemeUrl),
               !universalLink.isEmpty else { return nil }
 
-        self.imageUrl = imageUrl
-        self.name = name
+        self.name = walletEntry.name
+        self.imageName = walletEntry.imageName
         self.scheme = scheme
         self.universalLink = universalLink
     }
@@ -64,12 +60,12 @@ class ConnectWalletViewController: UITableViewController {
         if indexPath.section == 0 {
             let wallet = installedWallets[indexPath.row]
             return tableView.detailedCell(
-                imageUrl: wallet.imageUrl,
+                imageUrl: nil,
                 header: wallet.name,
                 description: nil,
                 indexPath: indexPath,
                 canSelect: false,
-                placeholderImage: UIImage(named: "ico-empty-circle"))
+                placeholderImage: UIImage(named: wallet.imageName))
         } else {
             return UITableViewCell()
         }

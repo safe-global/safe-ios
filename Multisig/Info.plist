@@ -156,5 +156,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>metamask</string>
+		<string>trust</string>
+		<string>rainbow</string>
+		<string>argent</string>
+		<string>pillarwallet</string>
+		<string>imtoken2</string>
+		<string>ledgerlive</string>
+		<string>huobiwallet</string>
+		<string>tongue</string>
+	</array>
 </dict>
 </plist>
