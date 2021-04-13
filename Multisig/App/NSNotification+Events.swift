@@ -20,8 +20,12 @@ extension NSNotification.Name {
 
     static let wcConnecting = NSNotification.Name("io.gnosis.safe.wcConnecting")
     static let wcDidFailToConnect = NSNotification.Name("io.gnosis.safe.wcDidFailToConnect")
-    static let wcDidConnect = NSNotification.Name("io.gnosis.safe.wcShouldStartSession")
+    static let wcDidConnect = NSNotification.Name("io.gnosis.safe.wcDidConnect")
     static let wcDidDisconnect = NSNotification.Name("io.gnosis.safe.wcDidDisconnect")
+
+    static let wcDidFailToConnectClient = NSNotification.Name("io.gnosis.safe.wcDidFailToConnectClient")
+    static let wcDidConnectClient = NSNotification.Name("io.gnosis.safe.wcDidConnectClient")
+    static let wcDidDisconnectClient = NSNotification.Name("io.gnosis.safe.wcDidDisconnectClient")
 
     // MARK: - Passcode
 

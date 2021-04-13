@@ -189,7 +189,7 @@ class DappsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
 
         if case Section.WalletConnect.activeSession(let session) = item {
-            WalletConnectController.shared.disconnect(topic: session.topic!)
+            WalletConnectServerController.shared.disconnect(topic: session.topic!)
         }
     }
 
@@ -250,7 +250,7 @@ class DappsViewController: UITableViewController {
 extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         do {
-            try WalletConnectController.shared.connect(url: code)
+            try WalletConnectServerController.shared.connect(url: code)
             dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>APP_STORE_REVIEW_URL</key>
+	<string>$(APP_STORE_REVIEW_URL)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -18,22 +20,37 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>99.2.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>io.gnosis.multisig</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>gnosissafe</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CLIENT_GATEWAY_URL</key>
 	<string>$(CLIENT_GATEWAY_URL)</string>
 	<key>CONFLICT_URL</key>
 	<string>$(CONFLICT_URL)</string>
+	<key>CONNECT_DAPP_ON_MOBILE_URL</key>
+	<string>$(CONNECT_DAPP_ON_MOBILE_URL)</string>
 	<key>CONTACT_EMAIL</key>
 	<string>$(CONTACT_EMAIL)</string>
-	<key>APP_STORE_REVIEW_URL</key>
-	<string>$(APP_STORE_REVIEW_URL)</string>
 	<key>DISCORD_URL</key>
 	<string>$(DISCORD_URL)</string>
 	<key>ETH_BLOCK_BROWSER_URL</key>
 	<string>$(ETH_BLOCK_BROWSER_URL)</string>
 	<key>ETH_RPC_URL</key>
 	<string>$(ETH_RPC_URL)</string>
+	<key>FALLBACKHANDLER_URL</key>
+	<string>$(FALLBACKHANDLER_URL)</string>
 	<key>FEATURE_SUGGESTION_URL</key>
 	<string>$(FEATURE_SUGGESTION_URL)</string>
 	<key>GNOSIS_SAFE_WEB_URL</key>
@@ -48,12 +65,26 @@
 	<string>$(LOGGERS)</string>
 	<key>LOG_LEVEL</key>
 	<string>$(LOG_LEVEL)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>metamask</string>
+		<string>trust</string>
+		<string>rainbow</string>
+		<string>argent</string>
+		<string>pillarwallet</string>
+		<string>imtoken2</string>
+		<string>ledgerlive</string>
+		<string>huobiwallet</string>
+		<string>tongue</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NETWORK</key>
 	<string>$(NETWORK)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Safe need to use camera to scan QR code.</string>
+	<key>PAY_FOR_CANCELLATION_URL</key>
+	<string>$(PAY_FOR_CANCELLATION_URL)</string>
 	<key>PRIVACY_URL</key>
 	<string>$(PRIVACY_URL)</string>
 	<key>RELAY_SERVICE_URL</key>
@@ -62,14 +93,8 @@
 	<string>$(SERVICE_ENV)</string>
 	<key>TERMS_URL</key>
 	<string>$(TERMS_URL)</string>
-	<key>FALLBACKHANDLER_URL</key>
-	<string>$(FALLBACKHANDLER_URL)</string>
-	<key>PAY_FOR_CANCELLATION_URL</key>
-	<string>$(PAY_FOR_CANCELLATION_URL)</string>
 	<key>TRANSACTION_SERVICE_URL</key>
 	<string>$(TRANSACTION_SERVICE_URL)</string>
-	<key>CONNECT_DAPP_ON_MOBILE_URL</key>
-	<string>$(CONNECT_DAPP_ON_MOBILE_URL)</string>
 	<key>TSKConfiguration</key>
 	<dict>
 		<key>TSKPinnedDomains</key>
@@ -155,18 +180,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>metamask</string>
-		<string>trust</string>
-		<string>rainbow</string>
-		<string>argent</string>
-		<string>pillarwallet</string>
-		<string>imtoken2</string>
-		<string>ledgerlive</string>
-		<string>huobiwallet</string>
-		<string>tongue</string>
 	</array>
 </dict>
 </plist>

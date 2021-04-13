@@ -392,7 +392,7 @@
 		55831985261588A40015F0D7 /* WCTransactionConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5583197E261588A40015F0D7 /* WCTransactionConfirmationViewController.xib */; };
 		55831986261588A40015F0D7 /* WCTransactionConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5583197F261588A40015F0D7 /* WCTransactionConfirmationViewController.swift */; };
 		55831987261588A40015F0D7 /* WCRequestsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55831980261588A40015F0D7 /* WCRequestsHandler.swift */; };
-		55831988261588A40015F0D7 /* WalletConnectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55831981261588A40015F0D7 /* WalletConnectController.swift */; };
+		55831988261588A40015F0D7 /* WalletConnectServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55831981261588A40015F0D7 /* WalletConnectServerController.swift */; };
 		55831989261588A40015F0D7 /* WCSendTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55831982261588A40015F0D7 /* WCSendTransactionRequest.swift */; };
 		55831993261589120015F0D7 /* UITableView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55831992261589120015F0D7 /* UITableView+Cells.swift */; };
 		5583199A2615893C0015F0D7 /* DetailedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558319982615893C0015F0D7 /* DetailedCell.xib */; };
@@ -428,6 +428,7 @@
 		559A775C26242588002B89E7 /* ConnectWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A775B26242588002B89E7 /* ConnectWalletViewController.swift */; };
 		559A7762262427AD002B89E7 /* WalletsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7761262427AD002B89E7 /* WalletsDataSource.swift */; };
 		559A776C26242CE9002B89E7 /* wallets.json in Resources */ = {isa = PBXBuildFile; fileRef = 559A776B26242CE9002B89E7 /* wallets.json */; };
+		559A777A26255168002B89E7 /* WalletConnectClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A777926255168002B89E7 /* WalletConnectClientController.swift */; };
 		55A58534250140B1005E778B /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A58533250140B1005E778B /* PrivateKey.swift */; };
 		55A5853D2501479C005E778B /* BIP39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853C2501479C005E778B /* BIP39.swift */; };
 		55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853E25014AD7005E778B /* BIP39+WordLists.swift */; };
@@ -964,7 +965,7 @@
 		5583197E261588A40015F0D7 /* WCTransactionConfirmationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCTransactionConfirmationViewController.xib; sourceTree = "<group>"; };
 		5583197F261588A40015F0D7 /* WCTransactionConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCTransactionConfirmationViewController.swift; sourceTree = "<group>"; };
 		55831980261588A40015F0D7 /* WCRequestsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCRequestsHandler.swift; sourceTree = "<group>"; };
-		55831981261588A40015F0D7 /* WalletConnectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectController.swift; sourceTree = "<group>"; };
+		55831981261588A40015F0D7 /* WalletConnectServerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectServerController.swift; sourceTree = "<group>"; };
 		55831982261588A40015F0D7 /* WCSendTransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCSendTransactionRequest.swift; sourceTree = "<group>"; };
 		55831992261589120015F0D7 /* UITableView+Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Cells.swift"; sourceTree = "<group>"; };
 		558319982615893C0015F0D7 /* DetailedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailedCell.xib; sourceTree = "<group>"; };
@@ -999,6 +1000,7 @@
 		559A775B26242588002B89E7 /* ConnectWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWalletViewController.swift; sourceTree = "<group>"; };
 		559A7761262427AD002B89E7 /* WalletsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsDataSource.swift; sourceTree = "<group>"; };
 		559A776B26242CE9002B89E7 /* wallets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = wallets.json; sourceTree = "<group>"; };
+		559A777926255168002B89E7 /* WalletConnectClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectClientController.swift; sourceTree = "<group>"; };
 		55A58533250140B1005E778B /* PrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
 		55A5853C2501479C005E778B /* BIP39.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP39.swift; sourceTree = "<group>"; };
 		55A5853E25014AD7005E778B /* BIP39+WordLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BIP39+WordLists.swift"; sourceTree = "<group>"; };
@@ -2318,10 +2320,11 @@
 				5583197E261588A40015F0D7 /* WCTransactionConfirmationViewController.xib */,
 				5583197F261588A40015F0D7 /* WCTransactionConfirmationViewController.swift */,
 				55831980261588A40015F0D7 /* WCRequestsHandler.swift */,
-				55831981261588A40015F0D7 /* WalletConnectController.swift */,
+				55831981261588A40015F0D7 /* WalletConnectServerController.swift */,
 				55831982261588A40015F0D7 /* WCSendTransactionRequest.swift */,
 				559A7761262427AD002B89E7 /* WalletsDataSource.swift */,
 				559A776B26242CE9002B89E7 /* wallets.json */,
+				559A777926255168002B89E7 /* WalletConnectClientController.swift */,
 			);
 			path = WalletConnect;
 			sourceTree = "<group>";
@@ -3007,7 +3010,7 @@
 			files = (
 				0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */,
 				049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */,
-				55831988261588A40015F0D7 /* WalletConnectController.swift in Sources */,
+				55831988261588A40015F0D7 /* WalletConnectServerController.swift in Sources */,
 				55831967261587E80015F0D7 /* LatestTransactionRequest.swift in Sources */,
 				049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */,
 				558835EF255BFEDB0014E8C7 /* AddressInfoView.swift in Sources */,
@@ -3161,6 +3164,7 @@
 				0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */,
 				55B64666253051630050BD95 /* SelectOwnerAddressViewModel.swift in Sources */,
 				0428DB1225CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift in Sources */,
+				559A777A26255168002B89E7 /* WalletConnectClientController.swift in Sources */,
 				0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */,
 				0A8AEB1825A4726E002A3FE1 /* ActionDetailExpandableCell.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,

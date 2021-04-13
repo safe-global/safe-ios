@@ -70,4 +70,15 @@ class ConnectWalletViewController: UITableViewController {
             return UITableViewCell()
         }
     }
+
+    // MARK: - Table view delegate
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let wallet = installedWallets[indexPath.row]
+            
+        } else {
+
+        }
+    }
 }

@@ -61,7 +61,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        try? WalletConnectController.shared.connect(url: wcURL)
+        try? WalletConnectServerController.shared.connect(url: wcURL)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -93,7 +93,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let potentialWCUrl = Pasteboard.string, potentialWCUrl.hasPrefix("wc:") {
             do {
                 App.shared.snackbar.show(message: "Creating WalletConnect session. This might take some time.")
-                try WalletConnectController.shared.connect(url: potentialWCUrl)
+                try WalletConnectServerController.shared.connect(url: potentialWCUrl)
                 // if setting nil it will crash
                 Pasteboard.string = ""
             } catch {
@@ -138,7 +138,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        try? WalletConnectController.shared.connect(url: wcURL)
+        try? WalletConnectServerController.shared.connect(url: wcURL)
     }
 }
 

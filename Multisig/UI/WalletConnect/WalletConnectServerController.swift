@@ -1,5 +1,5 @@
 //
-//  WalletConnectController.swift
+//  WalletConnectServerController.swift
 //  Multisig
 //
 //  Created by Andrey Scherbovich on 20.01.21.
@@ -9,9 +9,9 @@
 import Foundation
 import WalletConnectSwift
 
-class WalletConnectController {
-    static let shared = WalletConnectController()
-    private var server: Server!
+class WalletConnectServerController {
+    static let shared = WalletConnectServerController()
+    private let server: Server
     private let notificationCenter = NotificationCenter.default
     private var showedNotificationsSessionTopics = [String]()
 
@@ -100,7 +100,7 @@ class WalletConnectController {
     }
 }
 
-extension WalletConnectController: ServerDelegate {
+extension WalletConnectServerController: ServerDelegate {
     func server(_ server: Server, didFailToConnect url: WCURL) {
         DispatchQueue.main.sync {
             WCSession.remove(topic: url.topic)
