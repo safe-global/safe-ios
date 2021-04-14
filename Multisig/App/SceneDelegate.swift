@@ -161,8 +161,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func showPasscodePrompt() {
         guard shouldShowPasscode else { return }
-        // assumes the privacy window is active
-        assert(privacyProtectionWindow?.isKeyWindow == true && privacyProtectionWindow?.isHidden == false)
 
         let vc = EnterPasscodeViewController()
         vc.showsCloseButton = false
