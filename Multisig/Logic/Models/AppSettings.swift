@@ -24,6 +24,13 @@ extension AppSettings {
     @AppSetting(\.termsAccepted)
     static var termsAccepted: Bool
 
+    @AppSetting(\.trackingEnabled)
+    static var trackingEnabled: Bool {
+        didSet {
+            Tracker.shared.setTrackingEnabled(trackingEnabled)
+        }
+    }
+
     @AppSetting(\.importKeyOnBoardingShown)
     static var hasShownImportKeyOnboarding: Bool
 

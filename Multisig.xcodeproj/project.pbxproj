@@ -1622,28 +1622,28 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
-				551BC70C2538965700E4CC79 /* LoadingModel.swift */,
-				0A451C05252DDB93001DB7D2 /* NetworkContentView.swift */,
-				0A451BFF252DDB67001DB7D2 /* ReloadButton.swift */,
-				0A451BEF252DDB49001DB7D2 /* NoDataView.swift */,
-				0A451BE9252DDB39001DB7D2 /* FullScreenLoadingView.swift */,
-				0A451BDD252DDB17001DB7D2 /* String+Error.swift */,
-				0A451C17252DDCDE001DB7D2 /* ProgressIndicatorCell.swift */,
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
 				0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */,
+				043913A024BF4E480006517D /* BrowseLinkButton.swift */,
+				0A451BE9252DDB39001DB7D2 /* FullScreenLoadingView.swift */,
 				0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */,
 				0A0EFCA7246EB13300D3D8BF /* KeyValueRow.swift */,
+				551BC70C2538965700E4CC79 /* LoadingModel.swift */,
+				0A451C05252DDB93001DB7D2 /* NetworkContentView.swift */,
+				0A451BEF252DDB49001DB7D2 /* NoDataView.swift */,
+				0A451C17252DDCDE001DB7D2 /* ProgressIndicatorCell.swift */,
 				041C2A592456F53E0044A24C /* QRView.swift */,
+				0A451BFF252DDB67001DB7D2 /* ReloadButton.swift */,
 				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
 				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
 				047691582464026400D73D8B /* SectionHeader.swift */,
+				0A451BDD252DDB17001DB7D2 /* String+Error.swift */,
 				0A9BC3442460515800EB9C5D /* Address */,
 				0AFA72A324BF39D900A370EE /* Buttons */,
 				0A465C35246C23E800AFA467 /* Frame */,
 				55B66E8A247FE0F500249E98 /* Overlays */,
 				0AF432D4244F063800E22E50 /* Styleguide */,
 				0A9BC3432460514B00EB9C5D /* Text */,
-				043913A024BF4E480006517D /* BrowseLinkButton.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";

@@ -28,6 +28,10 @@ struct AdvancedAppSettings: View {
                             value: DisplayURL(App.shared.clientGatewayService.url).absoluteString)
             }
 
+            Section(header: SectionHeader("TRACKING")) {
+                ToggleTrackingRow()
+            }
+
             if !(App.configuration.services.environment == .production) {
                 Section(header: SectionHeader("DEBUG")) {
                     Button(action: {
@@ -42,6 +46,32 @@ struct AdvancedAppSettings: View {
             self.trackEvent(.settingsAppAdvanced)
         }
         .navigationBarTitle("Advanced", displayMode: .inline)
+    }
+
+    struct ToggleTrackingRow: View {
+        @State
+        var trackingEnabled = AppSettings.trackingEnabled
+
+        var body: some View {
+            Toggle(isOn: $trackingEnabled.didSet { enabled in
+                AppSettings.trackingEnabled = enabled
+            }) {
+                Text("Share Usage Data").headline()
+            }
+        }
+    }
+}
+
+/// https://stackoverflow.com/questions/56996272/how-can-i-trigger-an-action-when-a-swiftui-toggle-is-toggled
+fileprivate extension Binding {
+    func didSet(execute: @escaping (Value) -> Void) -> Binding {
+        return Binding(
+            get: { self.wrappedValue },
+            set: {
+                self.wrappedValue = $0
+                execute($0)
+            }
+        )
     }
 }
 

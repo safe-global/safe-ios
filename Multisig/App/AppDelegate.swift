@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.shared.append(handler: ConsoleTracker())
         #endif
         Tracker.shared.append(handler: FirebaseTrackingHandler())
+        Tracker.shared.setTrackingEnabled(AppSettings.trackingEnabled)
 
         AppSettings.saveCurrentRunVersionNumber()
 
