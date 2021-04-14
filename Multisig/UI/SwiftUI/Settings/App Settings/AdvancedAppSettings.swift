@@ -32,6 +32,8 @@ struct AdvancedAppSettings: View {
                 ToggleTrackingRow()
             }
 
+            DataSharingInfo()
+
             if !(App.configuration.services.environment == .production) {
                 Section(header: SectionHeader("DEBUG")) {
                     Button(action: {
@@ -53,11 +55,30 @@ struct AdvancedAppSettings: View {
         var trackingEnabled = AppSettings.trackingEnabled
 
         var body: some View {
-            Toggle(isOn: $trackingEnabled.didSet { enabled in
-                AppSettings.trackingEnabled = enabled
-            }) {
-                Text("Share Usage Data").headline()
+            VStack {
+                Toggle(isOn: $trackingEnabled.didSet { enabled in
+                    AppSettings.trackingEnabled = enabled
+                }) {
+                    Text("Share Usage Data").headline()
+                }
+                .frame(height: 60)
             }
+        }
+    }
+
+    struct DataSharingInfo: View {
+        var body: some View {
+            VStack {
+                Text("By sharing usage data with Gnosis, you are helping us improve the app with anonymized app usage data")
+                    .body(.gray)
+                HStack {
+                    BrowseLinkButton(title: "What data is shared?", url: App.configuration.legal.privacyURL)
+                    Spacer()
+                }
+            }
+            .padding()
+            .background(Color.primaryBackground)
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         }
     }
 }
