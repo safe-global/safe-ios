@@ -122,6 +122,10 @@
 		0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22E12525E4FA3200D24DE1 /* SwitchTableViewCell.swift */; };
 		0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */; };
 		0A339C5D24C1D16E00DAD84B /* Image+Blockies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */; };
+		0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3DAD9226270F4D00743E38 /* unistring.xcframework */; };
+		0A3DAD9526270F4D00743E38 /* idn2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3DAD9326270F4D00743E38 /* idn2.xcframework */; };
+		0A3DAD9B26270F5500743E38 /* IDN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DAD9A26270F5500743E38 /* IDN.swift */; };
+		0A3DADA526270FA100743E38 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DADA426270FA100743E38 /* README.md */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
 		0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A433E5E25500F87006FFF75 /* BalancesRequest.swift */; };
 		0A433E8125516A9A006FFF75 /* TotalBalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */; };
@@ -369,7 +373,6 @@
 		5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C82449A1980067505A /* LogServiceTests.swift */; };
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
-		55454C99261F516A00E8C4D6 /* idn2Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 55454C98261F516A00E8C4D6 /* idn2Swift */; };
 		555312E9250653800008206B /* BIP32HDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312E8250653800008206B /* BIP32HDNode.swift */; };
 		555312EB2506608D0008206B /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EA2506608D0008206B /* Base58.swift */; };
 		555312ED250663420008206B /* SECP256K1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EC250663420008206B /* SECP256K1.swift */; };
@@ -606,6 +609,10 @@
 		0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
 		0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Blockies.swift"; sourceTree = "<group>"; };
 		0A35CC2F24810CF6005E45BA /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
+		0A3DAD9226270F4D00743E38 /* unistring.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = unistring.xcframework; sourceTree = "<group>"; };
+		0A3DAD9326270F4D00743E38 /* idn2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = idn2.xcframework; sourceTree = "<group>"; };
+		0A3DAD9A26270F5500743E38 /* IDN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDN.swift; sourceTree = "<group>"; };
+		0A3DADA426270FA100743E38 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		0A433E5E25500F87006FFF75 /* BalancesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesRequest.swift; sourceTree = "<group>"; };
 		0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceTableViewCell.swift; sourceTree = "<group>"; };
@@ -965,11 +972,12 @@
 				55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */,
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
 				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
+				0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */,
+				0A3DAD9526270F4D00743E38 /* idn2.xcframework in Frameworks */,
 				55D3FF7D260B28CF008ABD2B /* FirebaseCrashlytics in Frameworks */,
 				55888DFF260C4F6200940347 /* SwiftAccessPolicy in Frameworks */,
 				55D3FF79260B28CF008ABD2B /* FirebaseAnalytics in Frameworks */,
 				55D3FE85260A0F66008ABD2B /* Web3 in Frameworks */,
-				55454C99261F516A00E8C4D6 /* idn2Swift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1273,6 +1281,17 @@
 			path = Transaction;
 			sourceTree = "<group>";
 		};
+		0A3DADAE26270FA900743E38 /* idn2 */ = {
+			isa = PBXGroup;
+			children = (
+				0A3DAD9326270F4D00743E38 /* idn2.xcframework */,
+				0A3DAD9226270F4D00743E38 /* unistring.xcframework */,
+				0A3DAD9A26270F5500743E38 /* IDN.swift */,
+				0A3DADA426270FA100743E38 /* README.md */,
+			);
+			path = idn2;
+			sourceTree = "<group>";
+		};
 		0A465C35246C23E800AFA467 /* Frame */ = {
 			isa = PBXGroup;
 			children = (
@@ -1483,6 +1502,7 @@
 		0A6C85B02450712D0026139E /* Ethereum */ = {
 			isa = PBXGroup;
 			children = (
+				0A3DADAE26270FA900743E38 /* idn2 */,
 				0A9BC33224602A7400EB9C5D /* Contract.swift */,
 				0A9BC32E246022BD00EB9C5D /* ENS.swift */,
 				0A9BC3302460233300EB9C5D /* ENSContracts.swift */,
@@ -2324,7 +2344,6 @@
 				55D3FF8F260B2B21008ABD2B /* TrustKit */,
 				55888DFE260C4F6200940347 /* SwiftAccessPolicy */,
 				5591CEED260C725C0067DFDF /* BlockiesSwift */,
-				55454C98261F516A00E8C4D6 /* idn2Swift */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig.app */;
@@ -2429,7 +2448,6 @@
 				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */,
 				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */,
 				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
-				55454C97261F516A00E8C4D6 /* XCRemoteSwiftPackageReference "pod-idn2" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -2490,6 +2508,7 @@
 				0A8AEB1125A4712B002A3FE1 /* ActionDetailTextCell.xib in Resources */,
 				0A478D5925B876AF0038363E /* ButtonTableViewCell.xib in Resources */,
 				0428DA5B25CBFC25002CF4A9 /* HelpLinkTableViewCell.xib in Resources */,
+				0A3DADA526270FA100743E38 /* README.md in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
@@ -2817,6 +2836,7 @@
 				0A451C06252DDB93001DB7D2 /* NetworkContentView.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
 				04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */,
+				0A3DAD9B26270F5500743E38 /* IDN.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */,
 				0A451C0C252DDBE5001DB7D2 /* CollectibleBalancesModel.swift in Sources */,
@@ -5438,14 +5458,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		55454C97261F516A00E8C4D6 /* XCRemoteSwiftPackageReference "pod-idn2" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/gnosis/pod-idn2.git";
-			requirement = {
-				branch = swiftpm;
-				kind = branch;
-			};
-		};
 		55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/SwiftAccessPolicy.git";
@@ -5505,11 +5517,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		55454C98261F516A00E8C4D6 /* idn2Swift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 55454C97261F516A00E8C4D6 /* XCRemoteSwiftPackageReference "pod-idn2" */;
-			productName = idn2Swift;
-		};
 		55888DFE260C4F6200940347 /* SwiftAccessPolicy */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */;
