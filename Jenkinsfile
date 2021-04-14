@@ -20,10 +20,14 @@ pipeline {
             steps {
                 ansiColor('xterm') {
                     // new param for uikit enabled - alternative
-                    sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/test.sh \"Multisig - Staging Rinkeby\""
-                    junit 'Build/reports/junit.xml'
-                    archiveArtifacts 'Build/*/xcodebuild-test.log'
-                    archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
+                    // sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/test.sh \"Multisig - Staging Rinkeby\""
+                    // junit 'Build/reports/junit.xml'
+                    // archiveArtifacts 'Build/*/xcodebuild-test.log'
+                    // archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
+
+                    sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Rinkeby\""
+                    archiveArtifacts 'Build/*/xcodebuild-*.log'
+
                 }
             }
         }

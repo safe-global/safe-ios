@@ -148,15 +148,19 @@ class CreatePasscodeViewController: PasscodeViewController {
     override func willChangeText(_ text: String) {
         super.willChangeText(text)
         if text.count == passcodeLength {
-            let vc = RepeatPasscodeViewController(passcode: text) { [unowned self] in
+            let vc = RepeatPasscodeViewController(passcode: text) { [weak self] in
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                    if let activated = try? App.shared.auth.activateBiometry(), activated {
-                        AppSettings.passcodeOptions.insert(.useBiometry)
-                        NotificationCenter.default.post(name: .biometricsActivated, object: nil)
-                        App.shared.snackbar.show(message: "Biometrics activated.")
+
+                    App.shared.auth.activateBiometry { result in
+                        if case let Result.success(activated) = result, activated {
+                            AppSettings.passcodeOptions.insert(.useBiometry)
+                            NotificationCenter.default.post(name: .biometricsActivated, object: nil)
+                            App.shared.snackbar.show(message: "Biometrics activated.")
+                        }
                     }
+
                 }
-                self.completion()
+                self?.completion()
             }
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -292,9 +296,11 @@ class EnterPasscodeViewController: PasscodeViewController {
 
     private func authenticateWithBiometry() {
         guard canUseBiometry else { return }
-        let success = App.shared.auth.authenticateWithBiometry()
-        if success {
-            completion(true)
+        App.shared.auth.authenticateWithBiometry { [weak self] success in
+            guard let `self` = self else { return }
+            if success {
+                self.completion(true)
+            }
         }
     }
 }

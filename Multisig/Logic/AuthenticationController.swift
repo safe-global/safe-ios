@@ -151,15 +151,43 @@ class AuthenticationController {
         return (try? accessService.biometryService.biometryType()) == .faceID
     }
 
-    func activateBiometry() throws -> Bool {
-        guard let user = user else { return false }
-        return try accessService.requestBiometryAccess(userID: user.id)
+    func activateBiometry(_ completion: @escaping (_ result: Result<Bool, Error>) -> Void) {
+        let mainThreadCompletion: (Result<Bool, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        DispatchQueue.global().async { [weak self] in
+            guard let `self` = self else { return }
+            guard let user = self.user else {
+                mainThreadCompletion(.success(false))
+                return
+            }
+            do {
+                let success = try self.accessService.requestBiometryAccess(userID: user.id)
+                mainThreadCompletion(.success(success))
+            } catch {
+                mainThreadCompletion(.failure(error))
+            }
+        }
     }
 
-    func authenticateWithBiometry() -> Bool {
-        guard let user = user else { return false }
-        let status = (try? accessService.authenticateUser(userID: user.id, request: .biometry)) ?? .notAuthenticated
-        return status == .authenticated
+    func authenticateWithBiometry(_ completion: @escaping (_ success: Bool) -> Void) {
+        let mainThreadCompletion: (Bool) -> Void = { success in
+            DispatchQueue.main.async {
+                completion(success)
+            }
+        }
+        DispatchQueue.global().async { [weak self] in
+            guard let `self` = self else { return }
+            guard let user = self.user else {
+                mainThreadCompletion(false)
+                return
+            }
+            let status = (try? self.accessService.authenticateUser(userID: user.id, request: .biometry)) ?? .notAuthenticated
+            let success = status == .authenticated
+            mainThreadCompletion(success)
+        }
     }
 }
 

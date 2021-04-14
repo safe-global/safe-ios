@@ -154,34 +154,39 @@ class PasscodeSettingsViewController: UITableViewController {
             if success && AppSettings.passcodeOptions.contains(.useBiometry) {
                 AppSettings.passcodeOptions.remove(.useBiometry)
                 App.shared.snackbar.show(message: "Biometrics disabled.")
+                finish()
             } else if success {
-                do {
-                    let activated = try App.shared.auth.activateBiometry()
-                    if activated {
-                        AppSettings.passcodeOptions.insert(.useBiometry)
-                        App.shared.snackbar.show(message: "Biometrics activated.")
-                    } else {
-                        let uiError = GSError.GenericPasscodeError(reason: "Biometrics activation denied.")
-                        App.shared.snackbar.show(error: uiError)
+                App.shared.auth.activateBiometry { result in
+                    switch result {
+                    case .success(let activated):
+                        if activated {
+                            AppSettings.passcodeOptions.insert(.useBiometry)
+                            App.shared.snackbar.show(message: "Biometrics activated.")
+                        } else {
+                            let uiError = GSError.GenericPasscodeError(reason: "Biometrics activation denied.")
+                            App.shared.snackbar.show(error: uiError)
+                        }
+                        finish()
+
+                    case .failure:
+                        let vc = UIAlertController(
+                            title: "Failed to activate biometrics",
+                            message: "Please check in Settings that biometrics is enrolled and unblocked.",
+                            preferredStyle: .alert)
+                        vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                            finish()
+                        }))
+                        vc.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
+                            let url = URL(string: UIApplication.openSettingsURLString)!
+                            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                            finish()
+                        }))
+                        nav?.present(vc, animated: true, completion: nil)
                     }
-                } catch {
-                    let vc = UIAlertController(
-                        title: "Failed to activate biometrics",
-                        message: "Please check in Settings that biometrics is enrolled and unblocked.",
-                        preferredStyle: .alert)
-                    vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-                        finish()
-                    }))
-                    vc.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
-                        let url = URL(string: UIApplication.openSettingsURLString)!
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                        finish()
-                    }))
-                    nav?.present(vc, animated: true, completion: nil)
-                    return
                 }
+            } else {
+                finish()
             }
-            finish()
         }
     }
 
