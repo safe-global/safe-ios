@@ -46,19 +46,26 @@ struct TermsView: View {
             }
 
             Button("Agree") {
-                AppSettings.termsAccepted = true 
-                self.acceptedTerms = true
-                self.onStart()
+                agreeWithTerms()
             }
             .buttonStyle(GNOFilledButtonStyle())
 
-            Button("No Thanks") { self.isAgreeWithTermsPresented = false }
-                .buttonStyle(GNOPlainButtonStyle())
+            Button("Agree without Sharing Usage Data") {
+                agreeWithTerms()
+                AppSettings.trackingEnabled = false
+            }
+            .buttonStyle(GNOPlainButtonStyle())
         }
         .padding(.top, topPadding)
         .padding(.bottom, bottomPadding)
         .padding(.horizontal)
         .background(Color.secondaryBackground)
+    }
+
+    private func agreeWithTerms() {
+        AppSettings.termsAccepted = true
+        self.acceptedTerms = true
+        self.onStart()
     }
 
     struct BulletText: View {

@@ -44,10 +44,6 @@ final class FirebaseTrackingHandler: TrackingHandler {
 
     /// Tracks an event with parameters, verifying that event name, parameter count, parameter names and values
     /// are conforming to Firebase's limitations specified in the FIRAnalytics.h
-    ///
-    /// - Parameters:
-    ///   - event: event name
-    ///   - parameters: parameters to supply with the event
     func track(event: String, parameters: [String: Any]?) {
         // check event name
         assert(!reservedNames.contains(event), "reserved name: \(event)")
@@ -72,17 +68,16 @@ final class FirebaseTrackingHandler: TrackingHandler {
         Analytics.logEvent(event, parameters: parameters)
     }
 
-    /// Sets user property.
-    ///
-    /// - Parameters:
-    ///   - value: String value
-    ///   - property: UserProperty
     func setUserProperty(_ value: String, for property: UserProperty) {
         assert(propertyNameLengthRange.contains(property.rawValue.count), "wrong property name length")
         assert(propertyValueLengthRange.contains(value.count), "wrong property value length")
         checkPrefix(value: value)
 
         Analytics.setUserProperty(value, forName: property.rawValue)
+    }
+
+    func setTrackingEnabled(_ value: Bool) {
+        Analytics.setAnalyticsCollectionEnabled(value)
     }
 
     /// Verifies that the name is correct.
