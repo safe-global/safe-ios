@@ -92,4 +92,6 @@ class TestHandler: TrackingHandler {
     func setUserProperty(_ value: String, for property: UserProperty) {
         properties.append((property: property.rawValue, value: value))
     }
+
+    func setTrackingEnabled(_ value: Bool) {}
 }
