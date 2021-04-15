@@ -20,6 +20,7 @@ pipeline {
             steps {
                 ansiColor('xterm') {
                     // new param for uikit enabled - alternative
+                    sh "env"
                     sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/test.sh \"Multisig - Staging Rinkeby\""
                     junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/*/xcodebuild-test.log'
