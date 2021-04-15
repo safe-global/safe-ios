@@ -39,8 +39,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var snackbarViewController = SnackbarViewController(nibName: nil, bundle: nil)
 
-    private var mainWindow: UIWindow?
-    private var privacyProtectionWindow: UIWindow?
+    private var mainWindow: WindowWithViewOnTop?
+    private var privacyProtectionWindow: WindowWithViewOnTop?
 
     private var windowState: WindowState = .none
 
@@ -129,16 +129,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func showMainWindow() {
+        if snackbarViewController.view.window != mainWindow, let window = mainWindow {
+            window.addSubviewAlwaysOnTop(snackbarViewController.view)
+        }
         mainWindow?.makeKeyAndVisible()
         windowState = .main
     }
 
     private func showPrivacyWindow() {
+        if snackbarViewController.view.window != privacyProtectionWindow, let window = privacyProtectionWindow {
+            window.addSubviewAlwaysOnTop(snackbarViewController.view)
+        }
         privacyProtectionWindow?.makeKeyAndVisible()
         windowState = .privacy
     }
 
-    private func makeMainWindow(scene: UIWindowScene) -> UIWindow {
+    private func makeMainWindow(scene: UIWindowScene) -> WindowWithViewOnTop {
         let window = WindowWithViewOnTop(windowScene: scene)
         window.rootViewController = ViewControllerFactory.rootViewController()
 
@@ -151,8 +157,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return window
     }
 
-    private func makePrivacyWindow(scene: UIWindowScene) -> UIWindow {
-        let window = UIWindow(windowScene: scene)
+    private func makePrivacyWindow(scene: UIWindowScene) -> WindowWithViewOnTop {
+        let window = WindowWithViewOnTop(windowScene: scene)
         window.rootViewController = PrivacyProtectionScreenViewController()
         return window
     }
