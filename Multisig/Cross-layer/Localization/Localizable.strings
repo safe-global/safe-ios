@@ -12,3 +12,73 @@
 "scanner_not_supported_title" = "Scanning not supported";
 "scanner_not_supported_message" = "Your device does not support scanning a code from an item.";
 "ok" = "OK";
+
+
+
+/* ===== IDN2 ==== */
+
+/* Forbidden two hyphens */
+"ios_error_idn_2hyphen" = "The string has forbidden two hyphens.";
+
+/* A-U label roundtrip failed */
+"ios_error_idn_alabel_roundtrip_failed" = "A-label roundtrip result differs from the input. Please try again.";
+
+/* Forbidden bi-directional symbol */
+"ios_error_idn_bidi" = "The string has forbidden bi-directional properties.";
+
+/* Forbidden context-j symbol */
+"ios_error_idn_contextj" = "The string has forbidden context-j character.";
+
+/* Forbidden context-j without rule */
+"ios_error_idn_contextj_no_rule" = "The string has context-j character with no rule.";
+
+/* Forbiden context-o symbol */
+"ios_error_idn_contexto" = "The string has forbidden context-o character.";
+
+/* Forbidden context-o without rule */
+"ios_error_idn_contexto_no_rule" = "The string has context-o character with no rule.";
+
+/* Disallowed symbol */
+"ios_error_idn_disallowed" = "The string has disallowed character";
+
+/* Domain too big */
+"ios_error_idn_domain_too_big" = "The name is longer than 255 characters";
+
+/* Forbidden type of dot symbol */
+"ios_error_idn_dot_in_label" = "The label has forbidden dot.";
+
+/* Forbidden hyphen at start or end */
+"ios_error_idn_hyphen_startend" = "The string has forbidden starting/ending hyphen.";
+
+/* Invalid a-label */
+"ios_error_idn_invalid_alabel" = "Input A-label is not valid.";
+
+/* Invalid non-transitional symbol */
+"ios_error_idn_invalid_nontransitional" = "The label has character forbidden in the non-transitional mode.";
+
+/* Punycode */
+"ios_error_idn_invalid_punycode" = "Invalid punycode. Please try again.";
+
+/* Invalid transitional symbols */
+"ios_error_idn_invalid_transitional" = "The label has character forbidden in transitional mode.";
+
+/* Label too big */
+"ios_error_idn_label_too_big" = "The name's label is longer than 63 characters.";
+
+/* Forbidden symbol */
+"ios_error_idn_leading_combining" = "The string has forbidden leading combining character.";
+
+/* Invalid normalization */
+"ios_error_idn_not_nfc" = "The string is not in Unicode Normalization Form NFC";
+
+/* Label mismatch */
+"ios_error_idn_ualabel_mismatch" = "Input A-label and U-label does not match.";
+
+/* Forbidden unassigned symbol */
+"ios_error_idn_unassigned" = "The string has forbidden unassigned character.";
+
+/* Internal error %s */
+"ios_idn_error_internal_format" = "Internal IDN error (%li)";
+
+
+/* ===== END OF IDN2 ==== */
