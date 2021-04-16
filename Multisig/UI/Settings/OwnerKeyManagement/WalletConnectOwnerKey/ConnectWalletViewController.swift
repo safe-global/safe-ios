@@ -43,7 +43,11 @@ class ConnectWalletViewController: UITableViewController {
             InstalledWallet(walletEntry: $0)
         }
 
+        tableView.backgroundColor = .primaryBackground
         tableView.registerCell(DetailedCell.self)
+        tableView.registerCell(BasicCell.self)
+        tableView.registerHeaderFooterView(BasicHeaderView.self)
+        tableView.rowHeight = DetailedCell.rowHeight
     }
 
     // MARK: - Table view data source
@@ -54,21 +58,26 @@ class ConnectWalletViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return installedWallets.count
+            return installedWallets.count != 0 ? installedWallets.count : 1
         }
         return 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let wallet = installedWallets[indexPath.row]
-            return tableView.detailedCell(
-                imageUrl: nil,
-                header: wallet.name,
-                description: nil,
-                indexPath: indexPath,
-                canSelect: false,
-                placeholderImage: UIImage(named: wallet.imageName))
+            if installedWallets.count != 0 {
+                let wallet = installedWallets[indexPath.row]
+                return tableView.detailedCell(
+                    imageUrl: nil,
+                    header: wallet.name,
+                    description: nil,
+                    indexPath: indexPath,
+                    canSelect: false,
+                    placeholderImage: UIImage(named: wallet.imageName))
+            } else {
+                return tableView.basicCell(
+                    name: "Known wallets not found", indexPath: indexPath, withDisclosure: false, canSelect: false)
+            }
         } else {
             return tableView.detailedCell(
                 imageUrl: nil,
@@ -97,6 +106,16 @@ class ConnectWalletViewController: UITableViewController {
                 error: GSError.error(description: "Could not create connection URL", error: error))
             return
         }
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+        view.setName(section == 0 ? "INSTALLED WALLETS" : "EXTERNAL DEVICE")
+        return view
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
+        return BasicHeaderView.headerHeight
     }
 
     /// https://docs.walletconnect.org/mobile-linking#for-ios
