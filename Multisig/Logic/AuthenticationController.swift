@@ -162,11 +162,9 @@ class AuthenticationController {
 
             switch result {
             case .success:
-
                 AppSettings.passcodeOptions.insert(.useBiometry)
                 NotificationCenter.default.post(name: .biometricsActivated, object: nil)
                 App.shared.snackbar.show(message: "Biometrics activated.")
-
                 completion(.success(()))
 
             case .failure(let error):
@@ -208,9 +206,7 @@ class AuthenticationController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success:
-
                         completion(.success(()))
-
                     case .failure(let error):
                         let gsError = errorConverter(error.localizedDescription)
                         App.shared.snackbar.show(error: gsError)
