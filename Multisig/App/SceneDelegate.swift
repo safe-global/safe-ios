@@ -115,6 +115,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     #warning("TODO: finish deep links support for WalletConnect")
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         for context in URLContexts {
+            print("[WALLETCONNECT]")
             print("url: \(context.url.absoluteURL)")
             print("scheme: \(context.url.scheme)")
             print("host: \(context.url.host)")

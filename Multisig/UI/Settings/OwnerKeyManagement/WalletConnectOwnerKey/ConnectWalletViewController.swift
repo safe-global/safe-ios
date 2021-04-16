@@ -70,32 +70,40 @@ class ConnectWalletViewController: UITableViewController {
                 canSelect: false,
                 placeholderImage: UIImage(named: wallet.imageName))
         } else {
-            return UITableViewCell()
+            return tableView.detailedCell(
+                imageUrl: nil,
+                header: "Display QR Code",
+                description: nil,
+                indexPath: indexPath,
+                canSelect: false,
+                placeholderImage: UIImage(systemName: "qrcode"))
         }
     }
 
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            let wallet = installedWallets[indexPath.row]
-            do {
+        do {
+            if indexPath.section == 0 {
+                let wallet = installedWallets[indexPath.row]
                 let connectionURL = try getConnectionURL(universalLink: wallet.universalLink)
-                print("LINK: \(connectionURL.absoluteString)")
                 UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
-            } catch {
-                App.shared.snackbar.show(
-                    error: GSError.error(description: "Could not create connection URL", error: error))
+            } else {
+                let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
+                show(WalletConnectQRCodeViewController.create(code: connectionURI), sender: nil)
             }
-        } else {
-            // show QR code screen
+        } catch {
+            App.shared.snackbar.show(
+                error: GSError.error(description: "Could not create connection URL", error: error))
+            return
         }
     }
 
+    /// https://docs.walletconnect.org/mobile-linking#for-ios
     private func getConnectionURL(universalLink: String) throws -> URL {
-        let connectionUrlString = try WalletConnectClientController.shared.connect()
-
-        // https://docs.walletconnect.org/mobile-linking#for-ios
-        return URL(string: "\(universalLink)/wc?uri=\(connectionUrlString)")!
+        let connectionUriString = try WalletConnectClientController.shared.connect().urlEncodedStr
+        let urlStr = "\(universalLink)/wc?uri=\(connectionUriString)"
+        return URL(string: urlStr)!
     }
 }
+

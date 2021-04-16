@@ -27,14 +27,15 @@ class WalletConnectClientController {
     @UserDefault(key: "io.gnosis.multisig.wcClientSession")
     private var clientSessionData: Data?
 
-    func connect() throws -> String {
+    func connect() throws -> WCURL {
         // Currently controller supports only one session at the time.
         disconnect()
 
         // gnosis wc bridge: https://safe-walletconnect.gnosis.io
+        // zerion wc bridge: https://wcbridge.zerion.io
         // test bridge with latest protocol version: https://bridge.walletconnect.org
         let wcUrl =  WCURL(topic: UUID().uuidString,
-                           bridgeURL: URL(string: "https://bridge.walletconnect.org")!,
+                           bridgeURL: URL(string: "https://wcbridge.zerion.io")!,
                            key: randomKey()!)
         LogService.shared.info("WalletConnect Client URL: \(wcUrl.absoluteString)")
 
@@ -55,7 +56,7 @@ class WalletConnectClientController {
             throw GSError.CouldNotCreateWallectConnectURL()
         }
 
-        return wcUrl.absoluteString
+        return wcUrl
     }
 
     func reconnectIfNeeded() {
@@ -110,5 +111,13 @@ extension WalletConnectClientController: ClientDelegate {
 
     private func isActiveSession(_ session: Session) -> Bool {
         return self.session?.dAppInfo.peerId == session.dAppInfo.peerId
+    }
+}
+
+extension WCURL {
+    var urlEncodedStr: String {
+        let params = "bridge=\(bridgeURL.absoluteString)&key=\(key)"
+            .addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
+        return "wc:\(topic)@\(version)?\(params))"
     }
 }

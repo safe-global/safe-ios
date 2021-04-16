@@ -108,6 +108,7 @@ extension WalletConnectServerController: ServerDelegate {
         notificationCenter.post(name: .wcDidFailToConnect, object: url)
     }
 
+    #warning("TODO: cancel request if safe does not exist yet")
     func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> Void) {
         guard let safe = try? Safe.getSelected(), let address = safe.address else { return }
 

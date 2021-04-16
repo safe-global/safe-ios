@@ -400,6 +400,8 @@
 		558319A2261589570015F0D7 /* dapps-rinkeby.json in Resources */ = {isa = PBXBuildFile; fileRef = 558319A0261589570015F0D7 /* dapps-rinkeby.json */; };
 		558319A3261589570015F0D7 /* dapps-mainnet.json in Resources */ = {isa = PBXBuildFile; fileRef = 558319A1261589570015F0D7 /* dapps-mainnet.json */; };
 		558319AA261592D80015F0D7 /* WalletConnectSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 558319A9261592D80015F0D7 /* WalletConnectSwift */; };
+		5583345526298F1900E5FE8A /* WalletConnectQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5583345326298F1900E5FE8A /* WalletConnectQRCodeViewController.swift */; };
+		5583345626298F1900E5FE8A /* WalletConnectQRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5583345426298F1900E5FE8A /* WalletConnectQRCodeViewController.xib */; };
 		558835E0255A907B0014E8C7 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */; };
 		558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835E5255AEA390014E8C7 /* InfoCell.swift */; };
 		558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835E6255AEA390014E8C7 /* InfoCell.xib */; };
@@ -972,6 +974,8 @@
 		558319992615893C0015F0D7 /* DetailedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedCell.swift; sourceTree = "<group>"; };
 		558319A0261589570015F0D7 /* dapps-rinkeby.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-rinkeby.json"; sourceTree = "<group>"; };
 		558319A1261589570015F0D7 /* dapps-mainnet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-mainnet.json"; sourceTree = "<group>"; };
+		5583345326298F1900E5FE8A /* WalletConnectQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectQRCodeViewController.swift; sourceTree = "<group>"; };
+		5583345426298F1900E5FE8A /* WalletConnectQRCodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletConnectQRCodeViewController.xib; sourceTree = "<group>"; };
 		558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		558835E5255AEA390014E8C7 /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		558835E6255AEA390014E8C7 /* InfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
@@ -2420,6 +2424,8 @@
 			children = (
 				559A775126240FF1002B89E7 /* OnboardingConnectOwnerKeyViewController.swift */,
 				559A775B26242588002B89E7 /* ConnectWalletViewController.swift */,
+				5583345326298F1900E5FE8A /* WalletConnectQRCodeViewController.swift */,
+				5583345426298F1900E5FE8A /* WalletConnectQRCodeViewController.xib */,
 			);
 			path = WalletConnectOwnerKey;
 			sourceTree = "<group>";
@@ -2781,6 +2787,7 @@
 				0A57C5DD2577F9ED00420303 /* ConfirmationStatusPiece.xib in Resources */,
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
+				5583345626298F1900E5FE8A /* WalletConnectQRCodeViewController.xib in Resources */,
 				0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */,
 				559A77362623F72B002B89E7 /* SelectKeyTypeViewController.xib in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
@@ -3287,6 +3294,7 @@
 				049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */,
 				0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */,
 				0AD0274525A3586800886671 /* ActionDetailViewController.swift in Sources */,
+				5583345526298F1900E5FE8A /* WalletConnectQRCodeViewController.swift in Sources */,
 				0AD6EF1E25CAF5EC00EE5512 /* AppReviewController.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
