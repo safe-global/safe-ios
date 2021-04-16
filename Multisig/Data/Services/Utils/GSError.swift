@@ -369,4 +369,22 @@ enum GSError {
         let code = 1312
         let loggable = false
     }
+
+    struct BiometryActivationError: DetailedLocalizedError {
+        let description = "Failed to enable biometry"
+        let reason: String
+        let howToFix = "Please try again"
+        let domain = iOSErrorDomain
+        let code = 1313
+        let loggable = false
+    }
+
+    struct BiometryAuthenticationError: DetailedLocalizedError {
+        let description = "Failed to login with biometry"
+        let reason: String
+        let howToFix = "Please try again"
+        let domain = iOSErrorDomain
+        let code = 1314
+        let loggable = false
+    }
 }
