@@ -1,1 +1,0 @@
-../../../Target Support Files/idn2Swift/idn2Swift-umbrella.h

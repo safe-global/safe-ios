@@ -1,6 +1,0 @@
-module SwiftAccessPolicy {
-  umbrella header "SwiftAccessPolicy-umbrella.h"
-
-  export *
-  module * { export * }
-}

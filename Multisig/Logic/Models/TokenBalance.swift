@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftCryptoTokenFormatter
+import UIKit
 
 struct TokenBalance: Identifiable, Hashable {
     var id: String {
