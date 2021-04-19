@@ -17,7 +17,14 @@ enum ViewControllerFactory {
     static func rootViewController() -> UIViewController {
         let tabBarVC = MainTabBarViewController()
 
-        if !AppSettings.termsAccepted {
+        if let updateViewController = App.shared.updateController.appUpdateStatus() {
+            updateViewController.modalPresentationStyle = .fullScreen
+            updateViewController.modalTransitionStyle = .crossDissolve
+
+            DispatchQueue.main.async {
+                tabBarVC.present(updateViewController, animated: false, completion: nil)
+            }
+        } else if !AppSettings.termsAccepted {
             let nav = UINavigationController()
             nav.modalPresentationStyle = .fullScreen
             nav.modalTransitionStyle = .crossDissolve
