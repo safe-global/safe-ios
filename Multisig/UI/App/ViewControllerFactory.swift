@@ -19,7 +19,7 @@ enum ViewControllerFactory {
 
         if let updateViewController = App.shared.updateController.appUpdateStatus() {
             updateViewController.modalPresentationStyle = .fullScreen
-            updateViewController.modalTransitionStyle = .crossDissolve
+            updateViewController.modalTransitionStyle = .coverVertical
 
             DispatchQueue.main.async {
                 tabBarVC.present(updateViewController, animated: false, completion: nil)
