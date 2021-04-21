@@ -31,6 +31,10 @@ class BlockchainDomainManager {
             throw GSError.UDUnsupportedNetwork()
         }
         
+        guard domain.hasSuffix(".crypto") || domain.hasSuffix(".zil") else {
+            throw GSError.UDUnsuportedName()
+        }
+
         var address: String = ""
         var resolutionError: Error? = nil
         
@@ -57,8 +61,8 @@ class BlockchainDomainManager {
         return try Address(from: address)
     }
     
-    func resolve(domain: String) throws -> Address {
-        return domain.isUDdomain() ? try self.resolveUD(domain) : try ens.address(for: domain)
+    func resolveEnsDomain(domain: String) throws -> Address {
+        return try ens.address(for: domain)
     }
     
     func throwCorrectUdError(_ error: ResolutionError, _ domain: String) -> DetailedLocalizedError {
@@ -72,11 +76,5 @@ class BlockchainDomainManager {
                 reason: error.localizedDescription
             )
         }
-    }
-}
-
-fileprivate extension String {
-    func isUDdomain() -> Bool {
-        return self.hasSuffix(".crypto") || self.hasSuffix(".zil")
     }
 }

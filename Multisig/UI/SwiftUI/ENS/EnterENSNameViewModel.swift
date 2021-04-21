@@ -53,7 +53,7 @@ class EnterENSNameViewModel: ObservableObject {
                     }
                     .receive(on: DispatchQueue.global())
                     .tryMap { ensName -> Result<Address, Error> in
-                        let address = try App.shared.blockchainDomainManager.resolve(domain: ensName)
+                        let address = try App.shared.blockchainDomainManager.resolveEnsDomain(domain: ensName)
                         return .success(address)
                     }
                     .receive(on: RunLoop.main)

@@ -297,6 +297,15 @@ enum GSError {
         let loggable = false
     }
     
+    struct UDUnsuportedName: DetailedLocalizedError {
+        let description = "Can't use this name"
+        let reason = "This name is not supported."
+        let howToFix = "Name should end with .crypto or .zil"
+        let domain = clientErrorDomain
+        let code = 1120
+        let loggable = false
+    }
+    
     struct UDResolverNotFound: DetailedLocalizedError {
         let description = "Can't use this name"
         let reason = "This name is not configured."
@@ -313,7 +322,6 @@ enum GSError {
         let domain = clientErrorDomain
         let code = 1122
         let loggable = false
-        
     }
 
 
