@@ -38,7 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     var snackbarViewController = SnackbarViewController(nibName: nil, bundle: nil)
-    private var shouldBePresentedController: UIViewController?
+    private var delayedMainPresentedViewController: UIViewController?
 
     private var mainWindow: WindowWithViewOnTop?
     private var privacyProtectionWindow: WindowWithViewOnTop?
@@ -125,7 +125,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if windowState == .main {
             mainWindow?.rootViewController?.present(controller, animated: true)
         } else {
-            shouldBePresentedController = controller
+            delayedMainPresentedViewController = controller
         }
     }
 
@@ -142,9 +142,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.addSubviewAlwaysOnTop(snackbarViewController.view)
         }
         mainWindow?.makeKeyAndVisible()
-        if shouldBePresentedController != nil {
-            mainWindow?.rootViewController?.present(shouldBePresentedController!, animated: true)
-            shouldBePresentedController = nil
+        if delayedMainPresentedViewController != nil {
+            mainWindow?.rootViewController?.present(delayedMainPresentedViewController!, animated: true)
+            delayedMainPresentedViewController = nil
         }
         windowState = .main
     }
