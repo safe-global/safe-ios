@@ -198,8 +198,11 @@ internal class CNS: CommonNamingService, NamingService {
             if let owners = unfoldAddressForMany(dict[Contract.ownersKey]),
                let resolvers = unfoldAddressForMany(dict[Contract.resolversKey]),
                let valuesArray = dict[Contract.valuesKey] as? [[String]] {
-                guard Utillities.isNotEmpty(owners[0]),
-                      Utillities.isNotEmpty(resolvers[0]),
+                guard Utillities.isNotEmpty(owners[0]) else {
+                    throw ResolutionError.unregisteredDomain
+                }
+
+                guard Utillities.isNotEmpty(resolvers[0]),
                       valuesArray.count > 0,
                       valuesArray[0].count > 0 else {
                     throw ResolutionError.unspecifiedResolver

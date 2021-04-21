@@ -13,7 +13,8 @@ internal class ZNS: CommonNamingService, NamingService {
 
     let registryAddress: String
     let registryMap: [String: String] = [
-        "mainnet": "0x9611c53be6d1b32058b2747bdececed7e1216793"
+        "mainnet": "0x9611c53be6d1b32058b2747bdececed7e1216793",
+        "testnet": "0xB925adD1d5EaF13f40efD43451bF97A22aB3d727"
     ]
 
     init(_ config: NamingServiceConfig) throws {
