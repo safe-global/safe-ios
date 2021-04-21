@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     /// - from `main`
     ///     - to `privacy` - on resign active
     ///
-    private enum WindowState {
+    enum WindowState {
         /// None of the windows is shown
         case none
         /// Main window is shown
@@ -38,11 +38,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     var snackbarViewController = SnackbarViewController(nibName: nil, bundle: nil)
+    var shouldBePresentedController: UIViewController?
 
-    private var mainWindow: WindowWithViewOnTop?
+    private(set) var mainWindow: WindowWithViewOnTop?
     private var privacyProtectionWindow: WindowWithViewOnTop?
 
-    private var windowState: WindowState = .none
+    private(set) var windowState: WindowState = .none
 
     private var shouldShowPasscode: Bool {
         App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForLogin)
@@ -133,6 +134,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.addSubviewAlwaysOnTop(snackbarViewController.view)
         }
         mainWindow?.makeKeyAndVisible()
+        if shouldBePresentedController != nil {
+            mainWindow?.rootViewController?.present(shouldBePresentedController!, animated: true)
+            shouldBePresentedController = nil
+        }
         windowState = .main
     }
 

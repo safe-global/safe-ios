@@ -258,11 +258,19 @@ class RemoteNotificationHandler {
 
             if let safeTxHash = payload.safeTxHash,
                let hashData = Data(exactlyHex: safeTxHash) {
-                let vc = TransactionDetailsViewController(safeTxHash: hashData)
-                vc.navigationItem.leftBarButtonItem =
-                    UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
-                let navController = UINavigationController(rootViewController: vc)
-                UIWindow.topMostController()!.present(navController, animated: true)
+
+                if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                    let vc = TransactionDetailsViewController(safeTxHash: hashData)
+                    vc.navigationItem.leftBarButtonItem =
+                        UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
+                    let navController = UINavigationController(rootViewController: vc)
+
+                    if sceneDelegate.windowState == .main {
+                        sceneDelegate.mainWindow?.rootViewController?.present(navController, animated: true)
+                    } else {
+                        sceneDelegate.shouldBePresentedController = navController
+                    }
+                }
             } else if ["INCOMING_ETHER", "INCOMING_TOKEN"].contains(payload.type) {
                 NotificationCenter.default.post(name: .incommingTxNotificationReceived, object: nil)
             } else if ["EXECUTED_MULTISIG_TRANSACTION", "NEW_CONFIRMATION", "CONFIRMATION_REQUEST"].contains(payload.type) {
