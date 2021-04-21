@@ -68,7 +68,7 @@ class BlockchainDomainManager {
     func throwCorrectUdError(_ error: ResolutionError, _ domain: String) -> DetailedLocalizedError {
         switch error {
         case .unregisteredDomain:
-            return GSError.BlockhainAddressNotFound()
+            return GSError.UDUnregisteredName()
         case .unspecifiedResolver:
             return GSError.UDResolverNotFound()
         default:
