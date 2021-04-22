@@ -28,13 +28,13 @@ class EnterUnstoppableNameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Enter Unstoppable domain"
+        navigationItem.title = "Enter Unstoppable Name"
 
         confirmButton = UIBarButtonItem(title: "Confirm", style: .done, target: self, action: #selector(didTapConfirmButton))
         confirmButton.isEnabled = false
         navigationItem.rightBarButtonItem = confirmButton
 
-        textField.setPlaceholder("Enter Unstoppable domain")
+        textField.setPlaceholder("Enter Unstoppable name")
         textField.textField.autocorrectionType = .no
         textField.textField.autocapitalizationType = .none
         textField.textField.keyboardType = .URL
