@@ -413,11 +413,8 @@ class TransactionDetailCellBuilder {
         case .settingsChange(_):
             type = "Modify settings"
             icon = #imageLiteral(resourceName: "ico-settings-tx")
-        case .custom(let customInfo):
-            if let importedSafeName = Safe.cachedName(by: customInfo.to) {
-                type = importedSafeName
-                placeholderAddress = customInfo.to
-            } else if let safeAppInfo = tx.safeAppInfo {
+        case .custom(_):
+            if let safeAppInfo = tx.safeAppInfo {
                 type = safeAppInfo.name
                 imageURL = URL(string: safeAppInfo.logoUrl)
                 tag = "App"
