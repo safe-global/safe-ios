@@ -264,12 +264,7 @@ class RemoteNotificationHandler {
                     vc.navigationItem.leftBarButtonItem =
                         UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
                     let navController = UINavigationController(rootViewController: vc)
-
-                    if sceneDelegate.windowState == .main {
-                        sceneDelegate.mainWindow?.rootViewController?.present(navController, animated: true)
-                    } else {
-                        sceneDelegate.shouldBePresentedController = navController
-                    }
+                    sceneDelegate.presentForMain(navController)
                 }
             } else if ["INCOMING_ETHER", "INCOMING_TOKEN"].contains(payload.type) {
                 NotificationCenter.default.post(name: .incommingTxNotificationReceived, object: nil)

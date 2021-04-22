@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     /// - from `main`
     ///     - to `privacy` - on resign active
     ///
-    enum WindowState {
+    private enum WindowState {
         /// None of the windows is shown
         case none
         /// Main window is shown
@@ -38,12 +38,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     var snackbarViewController = SnackbarViewController(nibName: nil, bundle: nil)
-    var shouldBePresentedController: UIViewController?
+    private var delayedMainPresentedViewController: UIViewController?
 
-    private(set) var mainWindow: WindowWithViewOnTop?
+    private var mainWindow: WindowWithViewOnTop?
     private var privacyProtectionWindow: WindowWithViewOnTop?
 
-    private(set) var windowState: WindowState = .none
+    private var windowState: WindowState = .none
 
     private var shouldShowPasscode: Bool {
         App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForLogin)
@@ -121,6 +121,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - Window Management
 
+    func presentForMain(_ controller: UIViewController) {
+        if windowState == .main {
+            mainWindow?.rootViewController?.present(controller, animated: true)
+        } else {
+            delayedMainPresentedViewController = controller
+        }
+    }
+
     private func showStartingWindow() {
         if shouldShowPasscode {
             showPrivacyWindow()
@@ -134,9 +142,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.addSubviewAlwaysOnTop(snackbarViewController.view)
         }
         mainWindow?.makeKeyAndVisible()
-        if shouldBePresentedController != nil {
-            mainWindow?.rootViewController?.present(shouldBePresentedController!, animated: true)
-            shouldBePresentedController = nil
+        if delayedMainPresentedViewController != nil {
+            mainWindow?.rootViewController?.present(delayedMainPresentedViewController!, animated: true)
+            delayedMainPresentedViewController = nil
         }
         windowState = .main
     }
