@@ -14,8 +14,8 @@ struct LinkText: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 4) {
-            Text(title).body(.gnoHold)
-            Image("icon-external-link").foregroundColor(.gnoHold)
+            Text(title).body(.button)
+            Image("icon-external-link").foregroundColor(.button)
         }
     }
 }

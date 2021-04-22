@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "red.pdf",
+      "filename" : "ico-outgoing-tx-light.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-outgoing-tx-dark.pdf",
       "idiom" : "universal"
     }
   ],

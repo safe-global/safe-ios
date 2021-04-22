@@ -3,6 +3,16 @@
     {
       "filename" : "arrow.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "chevronRight.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

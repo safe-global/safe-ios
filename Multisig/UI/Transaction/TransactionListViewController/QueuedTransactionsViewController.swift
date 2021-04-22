@@ -17,6 +17,12 @@ class QueuedTransactionsViewController: TransactionListViewController {
         trackingEvent = .transactionsQueued
         // Do any additional setup after loading the view.
         startTimer()
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(lazyReloadData),
+            name: .queuedTxNotificationReceived,
+            object: nil)
     }
     
     override func asyncTransactionList(address: Address, completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
@@ -45,6 +51,15 @@ class QueuedTransactionsViewController: TransactionListViewController {
 
     override func formatted(date: Date) -> String {
         date.timeAgo()
+    }
+
+    override func shouldHighlight(transaction: SCGModels.TxSummary) -> Bool {
+        switch transaction.txInfo {
+        case .rejection(_):
+            return true
+        default:
+            return false
+        }
     }
 
     deinit {

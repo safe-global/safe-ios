@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AddressString: Hashable, Decodable {
+struct AddressString: Hashable, Codable {
     let address: Address
 
     var data32: Data {
@@ -34,6 +34,11 @@ struct AddressString: Hashable, Decodable {
             let context = DecodingError.Context.init(codingPath: container.codingPath, debugDescription: message)
             throw DecodingError.typeMismatch(Address.self, context)
         }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(address.checksummed)
     }
 }
 

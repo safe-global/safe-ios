@@ -31,19 +31,19 @@ extension Font {
 
 // common text stylings
 extension Text {
-    func body(_ color: Color? = .gnoDarkBlue) -> Self {
+    func body(_ color: Color? = .primaryLabel) -> Self {
         font(.gnoBody).foregroundColor(color)
     }
 
-    func footnote(_ color: Color? = .gnoDarkGrey) -> Self {
+    func footnote(_ color: Color? = .primaryLabel) -> Self {
         font(.gnoFootnote2).foregroundColor(color)
     }
 
-    func headline(_ color: Color? = .gnoDarkBlue) -> Self {
+    func headline(_ color: Color? = .primaryLabel) -> Self {
         font(.gnoHeadline).foregroundColor(color)
     }
 
-    func title(_ color: Color? = .gnoDarkBlue) -> Self {
+    func title(_ color: Color? = .primaryLabel) -> Self {
         font(.gnoTitle3).foregroundColor(color)
     }
 
@@ -53,7 +53,7 @@ extension Text {
 
     func error() -> some View {
         font(.gnoCallout)
-            .foregroundColor(.gnoTomato)
+            .foregroundColor(.error)
             .padding(.trailing)
             .padding(.top, 12)
     }

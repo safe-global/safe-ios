@@ -43,6 +43,12 @@ struct AppConfiguration {
     struct Help {
         @ConfigurationKey("CONFLICT_URL")
         var conflictURL: URL
+
+        @ConfigurationKey("FALLBACKHANDLER_URL")
+        var fallbackHandlerURL: URL
+
+        @ConfigurationKey("PAY_FOR_CANCELLATION_URL")
+        var payForCancellationURL: URL
     }
 
     struct Legal {
@@ -71,6 +77,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("CONTACT_EMAIL")
         var contactEmail: URL
+
+        @ConfigurationKey("APP_STORE_REVIEW_URL")
+        var appStoreReviewURL: URL
     }
 
     struct App {
@@ -94,7 +103,7 @@ struct AppConfiguration {
     }
 
     struct FeatureToggles {
-        let signing: Bool = true
+        // empty for now
     }
 
     let services = Services()

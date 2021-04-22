@@ -21,27 +21,27 @@ class GnosisSafe {
         ("0x8942595A2dC5181Df0465AF0D7be08c8f23C93af", "0.1.0"),
         ("0xb6029EA3B2c51D09a50B53CA8012FeEB05bDa35A", "1.0.0"),
         ("0xaE32496491b53841efb51829d6f886387708F99B", "1.1.0"),
-        ("0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F", "1.1.1")
+        ("0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F", "1.1.1"),
+        ("0x6851d6fdfafd08c0295c392436245e5bc78b0185", "1.2.0")
     ]
 
-    var supportedVersions: [String] = ["1.0.0", "1.1.0", "1.1.1"]
+    var supportedVersions: [String] = ["1.0.0", "1.1.0", "1.1.1", "1.2.0"]
 
     var fallbackHandlers:[(fallbackHandler: Address, label: String)] = [("0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44", "DefaultFallbackHandler")]
 
-    func hasFallbackHandler(safe: Safe) -> Bool {
-        safe.fallbackHandler?.isZero == false
-    }
-
-    func fallbackHandlerLabel(fallbackHandler: Address?) -> String {
-        guard let fallbackHandler = fallbackHandler else {
-            return "Not set"
+    func fallbackHandlerInfo(_ info: AddressInfo?) -> AddressInfo? {
+        guard let info = info, !info.address.isZero else {
+            return nil
         }
 
-        guard let handler = fallbackHandlers.first(where: { $0.fallbackHandler == fallbackHandler }) else {
-            return "Unknown"
+        var result = info
+        guard let handler = fallbackHandlers.first(where: { $0.fallbackHandler == info.address }) else {
+            result.name = info.name ?? "Unknown"
+            return result
         }
 
-        return handler.label
+        result.name = handler.label
+        return result
     }
 
     func version(implementation: Address) -> VersionStatus {
@@ -49,7 +49,8 @@ class GnosisSafe {
             return .unknown
         }
         let version = versions[versionIndex].version
-        let isUpToDate = versionIndex == versions.count - 1
+        // Here we will consider both 1.1.1 & 1.2.0 are up to date until web interface allow to upgrade to 1.2.0
+        let isUpToDate = versionIndex == versions.count - 1 || versionIndex == versions.count - 2
         return isUpToDate ? .upToDate(version) : .upgradeAvailable(version)
     }
 

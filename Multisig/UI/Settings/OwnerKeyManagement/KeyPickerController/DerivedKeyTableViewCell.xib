@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="77" id="KGk-i7-Jjw" customClass="DerivedKeyTableViewCell" customModule="Multisig" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="KrS-YH-u2W">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Flm-X8-jva">
+                                <rect key="frame" x="16" y="28.5" width="20.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bS8-qH-Rr5">
+                                <rect key="frame" x="52.5" y="15.5" width="251.5" height="46"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="stA-Gp-tkh" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="207.5" height="46"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" placeholder="YES" id="Fn6-wu-F4s"/>
+                                        </constraints>
+                                    </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="RGd-v1-DKg">
+                                        <rect key="frame" x="227.5" y="13" width="24" height="20.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="2Ws-gu-s1d"/>
+                                            <constraint firstAttribute="width" constant="24" id="R2m-9Q-Csq"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <directionalEdgeInsets key="directionalLayoutMargins" top="12" leading="16" bottom="12" trailing="16"/>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="KrS-YH-u2W" secondAttribute="trailing" id="Bo5-vK-Sc5"/>
+                    <constraint firstAttribute="bottom" secondItem="KrS-YH-u2W" secondAttribute="bottom" id="ZcL-D6-B3C"/>
+                    <constraint firstItem="KrS-YH-u2W" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="oWy-2T-4qg"/>
+                    <constraint firstItem="KrS-YH-u2W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="tss-Z7-Ii9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addressView" destination="stA-Gp-tkh" id="pgw-Ly-slY"/>
+                <outlet property="iconImageView" destination="RGd-v1-DKg" id="C6B-Z7-nyd"/>
+                <outlet property="leftLabel" destination="Flm-X8-jva" id="UlC-SS-sGS"/>
+            </connections>
+            <point key="canvasLocation" x="73.913043478260875" y="138.28125"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

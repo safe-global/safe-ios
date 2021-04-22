@@ -30,6 +30,7 @@ class MultiSendListTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 72
         tableView.rowHeight = UITableView.automaticDimension
         tableView.registerCell(MultiSendRowTableViewCell.self)
+        tableView.backgroundColor = .secondaryBackground
     }
 
     override func viewDidAppear(_ animated: Bool) {

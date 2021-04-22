@@ -1,6 +1,0 @@
-module Pods_Multisig {
-  umbrella header "Pods-Multisig-umbrella.h"
-
-  export *
-  module * { export * }
-}

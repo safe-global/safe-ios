@@ -48,9 +48,9 @@ struct RoundedTextField: View {
 
     var strokeColor: Color {
         if isValid.wrappedValue == false {
-            return Color.gnoTomato
+            return Color.error
         } else {
-            return Color.gnoWhitesmoke
+            return Color.gray4
         }
     }
 

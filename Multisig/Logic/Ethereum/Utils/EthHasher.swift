@@ -16,4 +16,7 @@ struct EthHasher {
         return Data(result)
     }
 
+    static func hash(_ msg: String) -> Data {
+        hash(msg.data(using: .utf8)!)
+    }
 }

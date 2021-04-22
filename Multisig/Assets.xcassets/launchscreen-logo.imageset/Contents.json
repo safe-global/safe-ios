@@ -3,6 +3,16 @@
     {
       "filename" : "logo_with_name.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "gnosisSafeMultisig2019LogoRgbVerticalDarkblue.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

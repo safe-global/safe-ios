@@ -23,6 +23,7 @@ agvtool new-marketing-version x.y.z
 
 **AFTER PRODUCT OWNER APPROVAL**
 
+- [ ] Update screenshots in the App Store
 - [ ] Submit to the App Store Review with developer approval for distribution
 - [ ] Notify the team that release was submitted using the template below:
 ```

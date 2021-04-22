@@ -27,12 +27,12 @@ class AddressField: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        placeholderLabel.setStyle(GNOTextStyle.body.color(.gnoMediumGrey))
-        inputLabel.setStyle(.body)
+        placeholderLabel.setStyle(.tertiary)
+        inputLabel.setStyle(.primary)
         addressView.setDetailImage(nil)
-        errorLabel.setStyle(GNOTextStyle.callout.color(.gnoTomato))
+        errorLabel.setStyle(.error)
 
-        ellipsis.tintColor = .gnoMediumGrey
+        ellipsis.tintColor = .tertiaryLabel
 
         setPlaceholderText(nil)
         setInputText(nil)
@@ -57,7 +57,7 @@ class AddressField: UINibView {
     func setAddress(_ address: Address?) {
         self.address = address
         if let address = address {
-            addressView.setAddress(address, label: nil)
+            addressView.setAddress(address)
             showInputView(addressView)
         } else {
             showInputView(placeholderLabel)
@@ -92,10 +92,10 @@ class AddressField: UINibView {
         self.error = error
         if let error = error {
             errorLabel.text = error.localizedDescription
-            borderView.tintColor = .gnoTomato
+            borderView.tintColor = .error
             errorLabel.isHidden = false
         } else {
-            borderView.tintColor = .gnoWhitesmoke
+            borderView.tintColor = .gray4
             errorLabel.text = nil
             errorLabel.isHidden = true
         }

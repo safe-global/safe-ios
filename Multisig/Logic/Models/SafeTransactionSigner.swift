@@ -10,25 +10,16 @@ import Foundation
 import Web3
 
 class SafeTransactionSigner {
-
-    func sign(_ transaction: Transaction, by safeAddress: Address) throws -> Signer.Signature {
+    func sign(_ transaction: Transaction, by safeAddress: Address, keyInfo: KeyInfo) throws -> Signature {
         let hashToSign = Data(ethHex: transaction.safeTxHash!.description)
         let data = transaction.encodeTransactionData(for: AddressString(safeAddress))
+        guard let key = try keyInfo.privateKey() else {
+            throw GSError.MissingPrivateKeyError()
+        }
         guard EthHasher.hash(data) == hashToSign else {
             throw GSError.TransactionSigningError()            
         }
 
-        return try Signer.sign(hash: hashToSign)        
+        return try key.sign(hash: hashToSign)
     }
-
-    class func numberOfKeysImported() -> Int {
-        do {
-            let pkData = try App.shared.keychainService.data(forKey: KeychainKey.ownerPrivateKey.rawValue)
-            return pkData == nil ? 0 : 1
-        } catch {
-            App.shared.snackbar.show(error: GSError.error(description: "Failed to load keychain data", error: error))
-            return 0
-        }
-    }
-
 }

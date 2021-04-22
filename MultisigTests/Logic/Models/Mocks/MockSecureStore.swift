@@ -10,6 +10,7 @@ import Foundation
 @testable import Multisig
 
 class MockSecureStore: SecureStore {
+
     private var _store = [String: Data]()
 
     func save(data: Data, forKey: String) throws {
@@ -18,6 +19,10 @@ class MockSecureStore: SecureStore {
 
     func data(forKey: String) throws -> Data? {
         return _store[forKey]
+    }
+
+    func allKeys() throws -> [String] {
+        Array(_store.keys)
     }
 
     func removeData(forKey: String) throws {

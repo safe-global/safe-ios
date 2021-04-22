@@ -16,8 +16,8 @@ class InfoCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLable.setStyle(.body)
-        infoLable.setStyle(GNOTextStyle.body.color(.gnoDarkGrey))
+        titleLable.setStyle(.primary)
+        infoLable.setStyle(.secondary)
     }
 
     func setTitle(_ value: String) {

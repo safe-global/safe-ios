@@ -3,6 +3,16 @@
     {
       "filename" : "helpCenter.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "logoHelpCenter.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

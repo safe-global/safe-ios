@@ -42,7 +42,7 @@ class EnterUnstoppableNameViewController: UIViewController {
         textField.textField.becomeFirstResponder()
 
         addressFoundStackView.isHidden = true
-        foundHeaderLabel.setStyle(.body)
+        foundHeaderLabel.setStyle(.primary)
     }
 
     override func viewDidAppear(_ animated: Bool) {

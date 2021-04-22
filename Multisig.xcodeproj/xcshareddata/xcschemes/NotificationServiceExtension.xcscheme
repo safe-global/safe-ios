@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1230"
+   LastUpgradeVersion = "1240"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -30,7 +30,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0A93DD522445CC8A00688050"
-               BuildableName = "Multisig.app"
+               BuildableName = "Multisig_PROD_MAINNET.app"
                BlueprintName = "Multisig"
                ReferencedContainer = "container:Multisig.xcodeproj">
             </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A93DD522445CC8A00688050"
-            BuildableName = "Multisig.app"
+            BuildableName = "Multisig_PROD_MAINNET.app"
             BlueprintName = "Multisig"
             ReferencedContainer = "container:Multisig.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A93DD522445CC8A00688050"
-            BuildableName = "Multisig.app"
+            BuildableName = "Multisig_PROD_MAINNET.app"
             BlueprintName = "Multisig"
             ReferencedContainer = "container:Multisig.xcodeproj">
          </BuildableReference>

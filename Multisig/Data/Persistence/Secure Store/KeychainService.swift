@@ -56,6 +56,23 @@ public final class KeychainService: SecureStore {
         return data
     }
 
+    /// Returns all keys stored in the secured store
+    ///
+    /// - Throws: May throw error if there was a problem with accessing Keychain.
+    /// - Returns: List of keys found.
+    public func allKeys() throws -> [String] {
+        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
+                                    kSecAttrService as String: serviceIdentifier,
+                                    kSecMatchLimit as String: kSecMatchLimitAll,
+                                    kSecReturnAttributes as String: true,
+                                    kSecReturnData as String: false]
+        if let existingItems = try get(query: query) as? [[String: Any]] {
+            let keys = existingItems.compactMap { $0[kSecAttrAccount as String] as? String }
+            return keys
+        }
+        return []
+    }
+
     /// Removes data associated with the key. If the key does not exist, this method is harmless.
     ///
     /// - Parameter key: Key to remove from the store.

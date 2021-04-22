@@ -118,6 +118,8 @@ SSL_ENFORCE_PINNING = 1
 
 // Help URLs
 CONFLICT_URL = https:/$()/help.gnosis-safe.io/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
+FALLBACKHANDLER_URL = https:/$()/help.gnosis-safe.io/en/articles/4738352-what-is-a-fallback-handler-and-how-does-it-relate-to-the-gnosis-safe
+PAY_FOR_CANCELLATION_URL = https:/$()/help.gnosis-safe.io/en/articles/4738501-why-do-i-need-to-pay-for-cancelling-a-transaction
 
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/
@@ -131,6 +133,16 @@ HELP_CENTER_URL         = https:/$()/help.gnosis-safe.io/
 FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
 CONTACT_EMAIL           = safe@gnosis.io
 
+// App Review URLs
+_APP_STORE_REVIEW_URL_DEV_RINKEBY        = https:/$()/apps.apple.com/app/id1515758247?action=write-review
+_APP_STORE_REVIEW_URL_DEV_MAINNET        = https:/$()/apps.apple.com/app/id1515758190?action=write-review
+_APP_STORE_REVIEW_URL_STAGING_RINKEBY    = https:/$()/apps.apple.com/app/id1515758920?action=write-review
+_APP_STORE_REVIEW_URL_STAGING_MAINNET    = https:/$()/apps.apple.com/app/id1518013939?action=write-review
+_APP_STORE_REVIEW_URL_PROD_RINKEBY       = https:/$()/apps.apple.com/app/id1510351303?action=write-review
+_APP_STORE_REVIEW_URL_PROD_MAINNET       = https:/$()/apps.apple.com/app/id1515759131?action=write-review
+
+APP_STORE_REVIEW_URL = $(_APP_STORE_REVIEW_URL_$(SERVICE_ENV)_$(NETWORK):default=$(_APP_STORE_REVIEW_URL_PROD_MAINNET))
+
 // App name on the home screen (will be used for CFBundleDisplayName)
 DISPLAY_NAME = $(_DISPLAY_NAME_$(SERVICE_ENV)_$(NETWORK):default=$(_DISPLAY_NAME_PROD_MAINNET))
 
@@ -139,7 +151,9 @@ PRODUCT_BUNDLE_IDENTIFIER           = $(_APP_BUNDLE_ID_$(SERVICE_ENV)_$(NETWORK)
 
 // Different product names are fixing an iOS bug that disables Touch ID
 // or Face ID when multiple apps with the same executable name are installed.
-PRODUCT_NAME                        = Multisig_$(SERVICE_ENV)_$(NETWORK)
+APP_PRODUCT_NAME                    = Multisig_$(SERVICE_ENV)_$(NETWORK)
+
+PRODUCT_NAME = $(APP_PRODUCT_NAME)
 
 ASSETCATALOG_COMPILER_APPICON_NAME  = AppIcon_$(SERVICE_ENV)_$(NETWORK)
 

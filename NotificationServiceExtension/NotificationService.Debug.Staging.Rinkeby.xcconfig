@@ -10,7 +10,6 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 
 #include "NotificationService.Config.xcconfig"
-#include "../Pods/Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.staging.rinkeby.xcconfig"
 
 SERVICE_ENV = STAGING
 NETWORK = RINKEBY

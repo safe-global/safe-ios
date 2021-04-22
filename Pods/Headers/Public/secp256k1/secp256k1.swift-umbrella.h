@@ -1,1 +1,0 @@
-../../../Target Support Files/secp256k1.swift/secp256k1.swift-umbrella.h

@@ -46,18 +46,26 @@ struct TermsView: View {
             }
 
             Button("Agree") {
-                AppSettings.acceptTerms()
-                self.acceptedTerms = true
-                self.onStart()
+                agreeWithTerms()
             }
             .buttonStyle(GNOFilledButtonStyle())
 
-            Button("No Thanks") { self.isAgreeWithTermsPresented = false }
-                .buttonStyle(GNOPlainButtonStyle())
+            Button("Agree without Sharing Usage Data") {
+                agreeWithTerms()
+                AppSettings.trackingEnabled = false
+            }
+            .buttonStyle(GNOPlainButtonStyle())
         }
         .padding(.top, topPadding)
         .padding(.bottom, bottomPadding)
         .padding(.horizontal)
+        .background(Color.secondaryBackground)
+    }
+
+    private func agreeWithTerms() {
+        AppSettings.termsAccepted = true
+        self.acceptedTerms = true
+        self.onStart()
     }
 
     struct BulletText: View {
@@ -71,7 +79,7 @@ struct TermsView: View {
         var body: some View {
             HStack(alignment: .top) {
                 Image("ico-bullet-point")
-                    .foregroundColor(.gnoHold)
+                    .foregroundColor(.button)
                     .padding(.top, bulletTopPadding)
                 Text(text)
                     .font(.gnoBody)

@@ -35,6 +35,7 @@ class TransactionDetailCellBuilder {
         tableView.registerCell(DetailDisclosingCell.self)
         tableView.registerCell(ExternalURLCell.self)
         tableView.registerCell(DetailTransferInfoCell.self)
+        tableView.registerCell(DetailRejectionInfoCell.self)
         tableView.registerCell(DetailStatusCell.self)
     }
 
@@ -73,7 +74,7 @@ class TransactionDetailCellBuilder {
 
     func buildFactoryUsed(_ creationTx: SCGModels.TxInfo.Creation) {
         if let factory = creationTx.factory?.address {
-            address(factory, label: nil, title: "Factory used")
+            address(factory, label: creationTx.factoryInfo?.name, title: "Factory used", imageUri: creationTx.factoryInfo?.logoUri)
         } else {
             text("No factory used", title: "Factory used", expandableTitle: nil, copyText: nil)
         }
@@ -83,8 +84,9 @@ class TransactionDetailCellBuilder {
         if let implementation = creationTx.implementation?.address {
             address(
                 implementation,
-                label: App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? "Unknown",
-                title: "Mastercopy used")
+                label: App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? (creationTx.implementationInfo?.name ?? "Unknown"),
+                title: "Mastercopy used",
+                imageUri: creationTx.implementationInfo?.logoUri)
         } else {
             text(
                 "Not available",
@@ -103,7 +105,11 @@ class TransactionDetailCellBuilder {
     }
 
     func buildCreatorAddress(_ creationTx: SCGModels.TxInfo.Creation) {
-        address(creationTx.creator.address, label: nil, title: "Creator address")
+        let info = displayNameAndImageUri(address: creationTx.creator, addressInfo: creationTx.creatorInfo)
+        return address(creationTx.creator.address,
+                       label: info.name,
+                       title: "Creator address",
+                       imageUri: info.imageUri)
     }
 
     func buildHeader(_ tx: SCGModels.TransactionDetails) {
@@ -112,13 +118,27 @@ class TransactionDetailCellBuilder {
 
         case .transfer(let transferTx):
             let isOutgoing = transferTx.direction == .outgoing
-            let address = isOutgoing ? transferTx.recipient.address : transferTx.sender.address
+
+            var address: Address
+            var label: String?
+            var addressLogoUri: URL?
+            if isOutgoing {
+                address = transferTx.recipient.address
+                (label, addressLogoUri) = displayNameAndImageUri(address: transferTx.recipient,
+                                                                 addressInfo: transferTx.recipientInfo)
+            } else {
+                address = transferTx.sender.address
+                (label, addressLogoUri) = displayNameAndImageUri(address: transferTx.sender,
+                                                                 addressInfo: transferTx.senderInfo)
+            }
 
             switch transferTx.transferInfo {
 
             case .erc20(let erc20Tx):
                 buildTransferHeader(
                     address: address,
+                    label: label,
+                    addressLogoUri: addressLogoUri,
                     isOutgoing: isOutgoing,
                     status: tx.txStatus,
                     value: erc20Tx.value.value,
@@ -129,6 +149,8 @@ class TransactionDetailCellBuilder {
             case .erc721(let erc721Tx):
                 buildTransferHeader(
                     address: address,
+                    label: label,
+                    addressLogoUri: addressLogoUri,
                     isOutgoing: isOutgoing,
                     status: tx.txStatus,
                     value: 1,
@@ -143,6 +165,8 @@ class TransactionDetailCellBuilder {
 
                 buildTransferHeader(
                     address: address,
+                    label: label,
+                    addressLogoUri: addressLogoUri,
                     isOutgoing: isOutgoing,
                     status: tx.txStatus,
                     value: etherTx.value.value,
@@ -154,6 +178,8 @@ class TransactionDetailCellBuilder {
             case .unknown:
                 buildTransferHeader(
                     address: address,
+                    label: label,
+                    addressLogoUri: addressLogoUri,
                     isOutgoing: isOutgoing,
                     status: tx.txStatus,
                     value: nil,
@@ -169,31 +195,47 @@ class TransactionDetailCellBuilder {
 
             case .setFallbackHandler(let fallbackTx):
                 let handler: Address = fallbackTx.handler.address
+                var (label, imageUri) = displayNameAndImageUri(address: fallbackTx.handler,
+                                                               addressInfo: fallbackTx.handlerInfo)
+                if label == nil {
+                    label = App.shared.gnosisSafe.fallbackHandlerInfo(AddressInfo(address: handler))?.name ?? "Not set"
+                }
                 address(
                     handler,
-                    label: App.shared.gnosisSafe.fallbackHandlerLabel(fallbackHandler: handler),
-                    title: "Set fallback handler:")
+                    label: label,
+                    title: "Set fallback handler:",
+                    imageUri: imageUri)
 
             case .addOwner(let addOwnerTx):
+                let (label, imgageUri) = displayNameAndImageUri(address: addOwnerTx.owner,
+                                                                addressInfo: addOwnerTx.ownerInfo)
                 addressAndText(
                     addOwnerTx.owner.address,
-                    label: nil,
+                    label: label,
+                    imageUri: imgageUri,
                     addressTitle: "Add owner:",
                     text: "\(addOwnerTx.threshold)",
                     textTitle: "Change required confirmations:")
 
             case .removeOwner(let removeOwnerTx):
+                let (label, imageUri) = displayNameAndImageUri(address: removeOwnerTx.owner,
+                                                               addressInfo: removeOwnerTx.ownerInfo)
                 addressAndText(
                     removeOwnerTx.owner.address,
-                    label: nil,
+                    label: label,
+                    imageUri: imageUri,
                     addressTitle: "Remove owner:",
                     text: "\(removeOwnerTx.threshold)",
                     textTitle: "Change required confirmations:")
 
             case .swapOwner(let swapOwnerTx):
+                let (oldOwnerLabel, oldOwnerImgageUri) = displayNameAndImageUri(address: swapOwnerTx.oldOwner,
+                                                                                addressInfo: swapOwnerTx.oldOwnerInfo)
+                let (newOwnerLabel, newOwnerImgageUri) = displayNameAndImageUri(address: swapOwnerTx.newOwner,
+                                                                                addressInfo: swapOwnerTx.newOwnerInfo)
                 addresses(
-                    [(address: swapOwnerTx.oldOwner.address, label: nil, title: "Remove owner:"),
-                     (address: swapOwnerTx.newOwner.address, label: nil, title: "Add owner:")
+                    [(address: swapOwnerTx.oldOwner.address, label: oldOwnerLabel, imageUri: oldOwnerImgageUri, title: "Remove owner:"),
+                     (address: swapOwnerTx.newOwner.address, label: newOwnerLabel, imageUri: newOwnerImgageUri, title: "Add owner:")
                     ])
 
             case .changeThreshold(let thresholdTx):
@@ -205,15 +247,23 @@ class TransactionDetailCellBuilder {
 
             case .changeImplementation(let implementationTx):
                 let implementation = implementationTx.implementation.address
+                var (label, imageUri) = displayNameAndImageUri(address: implementationTx.implementation,
+                                                               addressInfo: implementationTx.implementationInfo)
+                if label == nil {
+                    label = App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? "Unknown"
+                }
                 address(implementation,
-                        label: App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? "Unknown",
-                        title: "New mastercopy:")
+                        label: label,
+                        title: "New mastercopy:",
+                        imageUri: imageUri)
 
             case .enableModule(let moduleTx):
-                address(moduleTx.module.address, label: nil, title: "Enable module:")
+                let (label, imageUri) = displayNameAndImageUri(address: moduleTx.module, addressInfo: moduleTx.moduleInfo)
+                address(moduleTx.module.address, label: label, title: "Enable module:", imageUri: imageUri)
 
             case .disableModule(let moduleTx):
-                address(moduleTx.module.address, label: nil, title: "Disable module:")
+                let (label, imageUri) = displayNameAndImageUri(address: moduleTx.module, addressInfo: moduleTx.moduleInfo)
+                address(moduleTx.module.address, label: label, title: "Disable module:", imageUri: imageUri)
 
             case .unknown:
                 text("Unknown operation", title: "Settings change:", expandableTitle: nil, copyText: nil)
@@ -221,9 +271,12 @@ class TransactionDetailCellBuilder {
 
         case .custom(let customTx):
             let eth = App.shared.tokenRegistry.token(address: .ether)!
+            let (label, addressLogoUri) = displayNameAndImageUri(address: customTx.to, addressInfo: customTx.toInfo)
 
             buildTransferHeader(
                 address: customTx.to.address,
+                label: label,
+                addressLogoUri: addressLogoUri,
                 isOutgoing: true,
                 status: tx.txStatus,
                 value: customTx.value.value,
@@ -234,7 +287,12 @@ class TransactionDetailCellBuilder {
                 detail: "\(customTx.dataSize.value) bytes")
             buildActions(tx)
             buildHexData(tx)
-
+        case .rejection(_):
+            if case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigInfo)? = tx.detailedExecutionInfo {
+                rejectionHeader(nonce: multisigInfo.nonce.value, isQueued: tx.txStatus.isInQueue)
+            } else {
+                rejectionHeader(nonce: nil, isQueued: tx.txStatus.isInQueue)
+            }
         case .creation(_):
             // ignore
             fallthrough
@@ -248,7 +306,8 @@ class TransactionDetailCellBuilder {
 
     func buildTransferHeader(
         address: Address,
-        label: String? = nil,
+        label: String?,
+        addressLogoUri: URL?,
         isOutgoing: Bool,
         status txStatus: SCGModels.TxStatus,
         value: UInt256?,
@@ -276,7 +335,7 @@ class TransactionDetailCellBuilder {
         }
 
 
-        let style = GNOTextStyle.body.color(isOutgoing ? .gnoDarkBlue : .gnoHold)
+        let style: GNOTextStyle = isOutgoing ? .secondary : .primaryButton
 
         let iconURL = logoUri.flatMap { URL(string: $0) }
 
@@ -291,6 +350,7 @@ class TransactionDetailCellBuilder {
             detail: detail,
             address: address,
             label: label,
+            addressLogoUri: addressLogoUri,
             isOutgoing: isOutgoing)
     }
 
@@ -339,21 +399,45 @@ class TransactionDetailCellBuilder {
     }
 
     func buildStatus(_ tx: SCGModels.TransactionDetails) {
+        var type = ""
+        var tag: String = ""
+        var icon: UIImage?
+        var imageURL: URL?
+        var placeholderAddress: AddressString?
+
         switch tx.txInfo {
         case .transfer(let transferTx):
             let isOutgoing = transferTx.direction == .outgoing
-            let type = isOutgoing ? "Outgoing transfer" : "Incoming transfer"
-            let icon = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incoming-tx")
-            status(tx.txStatus, type: type, icon: icon)
+            type = isOutgoing ? "Outgoing transfer" : "Incoming transfer"
+            icon = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incomming-tx")
         case .settingsChange(_):
-            status(tx.txStatus, type: "Modify settings", icon: #imageLiteral(resourceName: "ico-settings-tx"))
-        case .custom(_):
-            status(tx.txStatus, type: "Contract interaction", icon: #imageLiteral(resourceName: "ico-custom-tx"))
+            type = "Modify settings"
+            icon = #imageLiteral(resourceName: "ico-settings-tx")
+        case .custom(let customInfo):
+            if let importedSafeName = Safe.cachedName(by: customInfo.to) {
+                type = importedSafeName
+                placeholderAddress = customInfo.to
+            } else if let safeAppInfo = tx.safeAppInfo {
+                type = safeAppInfo.name
+                imageURL = URL(string: safeAppInfo.logoUrl)
+                tag = "App"
+                icon = #imageLiteral(resourceName: "ico-custom-tx")
+            } else {
+                type = "Contract interaction"
+                icon = #imageLiteral(resourceName: "ico-custom-tx")
+            }
+        case .rejection(_):
+            type = "On-chain rejection"
+            icon = #imageLiteral(resourceName: "ico-rejection-tx")
         case .creation(_):
-            status(tx.txStatus, type: "Safe created", icon: #imageLiteral(resourceName: "ico-settings-tx"))
+            type = "Safe created"
+            icon = #imageLiteral(resourceName: "ico-settings-tx")
         case .unknown:
-            status(tx.txStatus, type: "Unknown operation", icon: #imageLiteral(resourceName: "ico-custom-tx"))
+            type = "Unknown operation"
+            icon = #imageLiteral(resourceName: "ico-custom-tx")
         }
+
+        status(tx.txStatus, type: type, icon: icon, iconURL: imageURL, address: placeholderAddress, tag: tag)
     }
 
     func buildMultisigInfo(_ tx: SCGModels.TransactionDetails) {
@@ -361,10 +445,11 @@ class TransactionDetailCellBuilder {
                 tx.detailedExecutionInfo else {
             return
         }
+
         confirmation(multisigInfo.confirmations.map { $0.signer.address },
                      required: Int(multisigInfo.confirmationsRequired),
                      status: tx.txStatus,
-                     executor: multisigInfo.executor?.address)
+                     executor: multisigInfo.executor?.address, isRejectionTx: tx.txInfo.isRejection)
 
         buildCreatedDate(multisigInfo.submittedAt)
     }
@@ -456,48 +541,75 @@ class TransactionDetailCellBuilder {
     }
 
 
-    func confirmation(_ confirmations: [Address], required: Int, status: SCGModels.TxStatus, executor: Address?) {
+    func confirmation(_ confirmations: [Address], required: Int, status: SCGModels.TxStatus, executor: Address?, isRejectionTx: Bool) {
         let cell = newCell(DetailConfirmationCell.self)
         cell.setConfirmations(confirmations,
                               required: required,
                               status: status,
-                              executor: executor)
+                              executor: executor,
+                              isRejectionTx: isRejectionTx)
         result.append(cell)
     }
 
-    func status(_ status: SCGModels.TxStatus, type: String, icon: UIImage) {
+    func status(_ status: SCGModels.TxStatus, type: String, icon: UIImage?, iconURL: URL? = nil, address: AddressString? = nil, tag: String = "") {
         let cell = newCell(DetailStatusCell.self)
         cell.setTitle(type)
-        cell.setIcon(icon)
+
         cell.setStatus(status)
+        cell.set(tag: tag)
+        if let imageURL = iconURL, let placeholderAddress = address {
+            cell.set(contractImageUrl: imageURL, contractAddress: placeholderAddress)
+        } else if let imageURL = iconURL {
+            cell.set(imageUrl: imageURL, placeholder: icon)
+        } else if let image = icon {
+            cell.setIcon(image)
+        } else if let placeholderAddress = address {
+            cell.set(contractAddress: placeholderAddress)
+        }
+
         result.append(cell)
     }
-    func transfer(token: String, style: GNOTextStyle, icon: UIImage?, iconURL: URL?, alpha: CGFloat, detail: String?, address: Address, label: String?, isOutgoing: Bool) {
+
+    func transfer(token: String,
+                  style: GNOTextStyle,
+                  icon: UIImage?,
+                  iconURL: URL?,
+                  alpha: CGFloat,
+                  detail: String?,
+                  address: Address,
+                  label: String?, // todo: rename
+                  addressLogoUri: URL?,
+                  isOutgoing: Bool) {
         let cell = newCell(DetailTransferInfoCell.self)
-        cell.setAddress(address, label: label)
         cell.setToken(text: token, style: style)
         cell.setToken(image: iconURL, placeholder: icon)
         cell.setToken(alpha: alpha)
         cell.setDetail(detail)
-        cell.setAddress(address, label: label)
+        cell.setAddress(address, label: label, imageUri: addressLogoUri)
         cell.setOutgoing(isOutgoing)
         result.append(cell)
     }
 
-    func address(_ address: Address, label: String?, title: String?) {
-        let cell = newCell(DetailAccountCell.self)
-        cell.setAccount(address: address.checksummed, label: label, title: title)
+    func rejectionHeader(nonce: UInt256?, isQueued: Bool) {
+        let cell = newCell(DetailRejectionInfoCell.self)
+        cell.setNonce(nonce, showHelpLink: isQueued)
         result.append(cell)
     }
 
-    func addressAndText(_ address: Address, label: String?, addressTitle: String, text: String, textTitle: String) {
+    func address(_ address: Address, label: String?, title: String?, imageUri: URL? = nil) {
+        let cell = newCell(DetailAccountCell.self)
+        cell.setAccount(address: address, label: label, title: title, imageUri: imageUri)
+        result.append(cell)
+    }
+
+    func addressAndText(_ address: Address, label: String?, imageUri: URL?, addressTitle: String, text: String, textTitle: String) {
         let cell = newCell(DetailAccountAndTextCell.self)
         cell.setText(title: textTitle, details: text)
-        cell.setAccount(address: address, label: label, title: addressTitle)
+        cell.setAccount(address: address, label: label, title: addressTitle, imageUri: imageUri)
         result.append(cell)
     }
 
-    func addresses(_ accounts: [(address: Address, label: String?, title: String?)]) {
+    func addresses(_ accounts: [(address: Address, label: String?, imageUri: URL?, title: String?)]) {
         let cell = newCell(DetailMultiAccountsCell.self)
         cell.setAccounts(accounts: accounts)
         result.append(cell)
@@ -506,6 +618,18 @@ class TransactionDetailCellBuilder {
 
     func newCell<T: UITableViewCell>(_ cls: T.Type) -> T {
         tableView.dequeueCell(cls)
+    }
+
+    func displayNameAndImageUri(address: AddressString, addressInfo: SCGModels.AddressInfo?) -> (name: String?, imageUri: URL?) {
+        if let importedSafeName = Safe.cachedName(by: address) {
+            return (importedSafeName, nil)
+        }
+
+        if let ownerName = KeyInfo.name(address: address.address) {
+            return (ownerName, nil)
+        }
+        
+        return (addressInfo?.name, addressInfo?.logoUri)
     }
 }
 
@@ -516,5 +640,15 @@ extension SCGModels.Operation {
     ]
     var string: String {
         Self.strings[self]!
+    }
+}
+
+extension SCGModels.TxInfo {
+    var isRejection: Bool {
+        if case SCGModels.TxInfo.rejection(_) = self {
+            return true
+        }
+
+        return false
     }
 }

@@ -25,6 +25,12 @@ protocol SecureStore {
     /// - Throws: This method could throw if there was a problem in the secure store.
     func data(forKey: String) throws -> Data?
 
+    /// Returns all keys stored in the secured store
+    ///
+    /// - Throws: May throw error if there was a problem with accessing Keychain.
+    /// - Returns: List of keys found.
+    func allKeys() throws -> [String]
+
     /// Removes stored data by key. If there's no data assigned to the key, the method is harmless.
     ///
     /// - Parameter forKey: Key of the stored data

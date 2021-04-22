@@ -23,24 +23,37 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     @IBOutlet private weak var bottomStackView: UIStackView!
     @IBOutlet private weak var confirmationsCountLabel: UILabel!
     @IBOutlet private weak var confirmationsCountImageView: UIImageView!
+    @IBOutlet private weak var highlightBarView: UIView!
+    @IBOutlet private weak var highlightView: UIView!
+    @IBOutlet private weak var tagView: TagView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.body)
+        titleLabel.setStyle(.primary)
         nonceLabel.setStyle(.footnote2)
         dateLabel.setStyle(.footnote2)
-        infoLabel.setStyle(.body)
+        infoLabel.setStyle(.primary)
         appendixLabel.setStyle(.footnote2)
         statusLabel.setStyle(.footnote2)
         confirmationsCountLabel.setStyle(.footnote2)
+        highlightView.clipsToBounds = true
+        highlightView.layer.cornerRadius = 4
     }
 
-    func set (title: String) {
+    func set(title: String) {
         titleLabel.text = title
     }
 
     func set(image: UIImage) {
         typeImageView.image = image
+    }
+
+    func set(contractImageUrl: URL? = nil, contractAddress: AddressString) {
+        typeImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address)
+    }
+
+    func set(imageUrl: URL? = nil, placeholder: UIImage?) {
+        typeImageView.setCircleShapeImage(url: imageUrl, placeholder: placeholder)
     }
 
     func set(conflictType: SCGModels.ConflictType) {
@@ -57,7 +70,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         dateLabel.text = date
     }
 
-    func set(info: String, color: UIColor = .gnoDarkBlue) {
+    func set(info: String, color: UIColor = .primaryLabel) {
         infoLabel.text = info
         infoLabel.textColor = color
     }
@@ -79,16 +92,26 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         self.contentView.alpha = containerViewAlpha(status: status)
     }
 
+    func set(highlight: Bool) {
+        highlightBarView.isHidden = !highlight
+        highlightView.backgroundColor = highlight ? .rejection : .clear
+    }
+
+    func set(tag: String) {
+        tagView.isHidden = tag.isEmpty
+        tagView.set(title: tag)
+    }
+
     private func statusColor(status: SCGModels.TxStatus) -> UIColor {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
-            return .gnoPending
+            return .pending
         case .failed:
-            return .gnoTomato
+            return .error
         case .cancelled:
-            return .gnoDarkGrey
+            return .secondaryLabel
         case .success:
-            return .gnoHold
+            return .button
         }
     }
 
@@ -98,6 +121,6 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     private func confirmationColor(_ confirmationsSubmitted: UInt64 = 0, _ confirmationsRequired: UInt64 = 0) -> UIColor {
         let reminingConfirmations = confirmationsSubmitted > confirmationsRequired ? 0 : confirmationsRequired - confirmationsSubmitted
-        return reminingConfirmations > 0 ? .gnoMediumGrey : .gnoHold
+        return reminingConfirmations > 0 ? .tertiaryLabel : .button
     }
 }
