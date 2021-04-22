@@ -278,7 +278,7 @@ enum GSError {
         let loggable = false
     }
 
-    struct BlockhainAddressNotFound: DetailedLocalizedError {
+    struct ENSAddressNotFound: DetailedLocalizedError {
         let description = "Can’t use this name"
         let reason = "Address not found."
         let howToFix = "Please enter a valid blockchain name"
