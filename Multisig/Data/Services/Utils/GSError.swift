@@ -281,7 +281,7 @@ enum GSError {
     struct ENSAddressNotFound: DetailedLocalizedError {
         let description = "Can’t use this name"
         let reason = "Address not found."
-        let howToFix = "Please enter a valid blockchain name"
+        let howToFix = "Please enter a valid ENS name"
         let domain = clientErrorDomain
         let code = 1106
         let loggable = false
