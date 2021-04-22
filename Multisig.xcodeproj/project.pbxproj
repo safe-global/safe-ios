@@ -396,8 +396,8 @@
 		5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588365325652E4B0014E8C7 /* LoadingValueCell.xib */; };
 		558836702565385F0014E8C7 /* RemoveSafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588366E2565385F0014E8C7 /* RemoveSafeCell.swift */; };
 		558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588366F2565385F0014E8C7 /* RemoveSafeCell.xib */; };
-		55888DFF260C4F6200940347 /* SwiftAccessPolicy in Frameworks */ = {isa = PBXBuildFile; productRef = 55888DFE260C4F6200940347 /* SwiftAccessPolicy */; };
-		5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5591CEED260C725C0067DFDF /* BlockiesSwift */; };
+		55888DFF260C4F6200940347 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 55888DFE260C4F6200940347 /* SwiftPackageProductDependency */; };
+		5591CEEE260C725C0067DFDF /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 5591CEED260C725C0067DFDF /* SwiftPackageProductDependency */; };
 		5596710D256E935F0097D3A2 /* MockSecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596710C256E935F0097D3A2 /* MockSecureStore.swift */; };
 		55967123256EB7690097D3A2 /* ConfirmationRequestNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967122256EB7690097D3A2 /* ConfirmationRequestNotification.swift */; };
 		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
@@ -436,14 +436,14 @@
 		55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1D24939503003B2B19 /* View+Tracking.swift */; };
 		55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1F24939525003B2B19 /* TrackingEvent.swift */; };
 		55D3654325078560004D5047 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654225078560004D5047 /* TextView.swift */; };
-		55D3FE85260A0F66008ABD2B /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE84260A0F66008ABD2B /* Web3 */; };
-		55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */; };
-		55D3FF0E260B2247008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */; };
-		55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF64260B2551008ABD2B /* Kingfisher */; };
-		55D3FF79260B28CF008ABD2B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF78260B28CF008ABD2B /* FirebaseAnalytics */; };
-		55D3FF7B260B28CF008ABD2B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF7A260B28CF008ABD2B /* FirebaseMessaging */; };
-		55D3FF7D260B28CF008ABD2B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF7C260B28CF008ABD2B /* FirebaseCrashlytics */; };
-		55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF8F260B2B21008ABD2B /* TrustKit */; };
+		55D3FE85260A0F66008ABD2B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE84260A0F66008ABD2B /* SwiftPackageProductDependency */; };
+		55D3FE8C260A0F88008ABD2B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE8B260A0F88008ABD2B /* SwiftPackageProductDependency */; };
+		55D3FF0E260B2247008ABD2B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF0D260B2247008ABD2B /* SwiftPackageProductDependency */; };
+		55D3FF65260B2551008ABD2B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF64260B2551008ABD2B /* SwiftPackageProductDependency */; };
+		55D3FF79260B28CF008ABD2B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF78260B28CF008ABD2B /* SwiftPackageProductDependency */; };
+		55D3FF7B260B28CF008ABD2B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF7A260B28CF008ABD2B /* SwiftPackageProductDependency */; };
+		55D3FF7D260B28CF008ABD2B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF7C260B28CF008ABD2B /* SwiftPackageProductDependency */; };
+		55D3FF90260B2B21008ABD2B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF8F260B2B21008ABD2B /* SwiftPackageProductDependency */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
 		55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */; };
 		55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */; };
@@ -965,17 +965,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55D3FF7B260B28CF008ABD2B /* FirebaseMessaging in Frameworks */,
-				55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */,
-				55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */,
-				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
-				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
+				55D3FF7B260B28CF008ABD2B /* BuildFile in Frameworks */,
+				55D3FF65260B2551008ABD2B /* BuildFile in Frameworks */,
+				55D3FF90260B2B21008ABD2B /* BuildFile in Frameworks */,
+				55D3FE8C260A0F88008ABD2B /* BuildFile in Frameworks */,
+				5591CEEE260C725C0067DFDF /* BuildFile in Frameworks */,
 				0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */,
 				0A3DAD9526270F4D00743E38 /* idn2.xcframework in Frameworks */,
-				55D3FF7D260B28CF008ABD2B /* FirebaseCrashlytics in Frameworks */,
-				55888DFF260C4F6200940347 /* SwiftAccessPolicy in Frameworks */,
-				55D3FF79260B28CF008ABD2B /* FirebaseAnalytics in Frameworks */,
-				55D3FE85260A0F66008ABD2B /* Web3 in Frameworks */,
+				55D3FF7D260B28CF008ABD2B /* BuildFile in Frameworks */,
+				55888DFF260C4F6200940347 /* BuildFile in Frameworks */,
+				55D3FF79260B28CF008ABD2B /* BuildFile in Frameworks */,
+				55D3FE85260A0F66008ABD2B /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -997,7 +997,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55D3FF0E260B2247008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
+				55D3FF0E260B2247008ABD2B /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2332,15 +2332,15 @@
 			);
 			name = Multisig;
 			packageProductDependencies = (
-				55D3FE84260A0F66008ABD2B /* Web3 */,
-				55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */,
-				55D3FF64260B2551008ABD2B /* Kingfisher */,
-				55D3FF78260B28CF008ABD2B /* FirebaseAnalytics */,
-				55D3FF7A260B28CF008ABD2B /* FirebaseMessaging */,
-				55D3FF7C260B28CF008ABD2B /* FirebaseCrashlytics */,
-				55D3FF8F260B2B21008ABD2B /* TrustKit */,
-				55888DFE260C4F6200940347 /* SwiftAccessPolicy */,
-				5591CEED260C725C0067DFDF /* BlockiesSwift */,
+				55D3FE84260A0F66008ABD2B /* SwiftPackageProductDependency */,
+				55D3FE8B260A0F88008ABD2B /* SwiftPackageProductDependency */,
+				55D3FF64260B2551008ABD2B /* SwiftPackageProductDependency */,
+				55D3FF78260B28CF008ABD2B /* SwiftPackageProductDependency */,
+				55D3FF7A260B28CF008ABD2B /* SwiftPackageProductDependency */,
+				55D3FF7C260B28CF008ABD2B /* SwiftPackageProductDependency */,
+				55D3FF8F260B2B21008ABD2B /* SwiftPackageProductDependency */,
+				55888DFE260C4F6200940347 /* SwiftPackageProductDependency */,
+				5591CEED260C725C0067DFDF /* SwiftPackageProductDependency */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD_MAINNET.app */;
@@ -2396,7 +2396,7 @@
 			);
 			name = NotificationServiceExtension;
 			packageProductDependencies = (
-				55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */,
+				55D3FF0D260B2247008ABD2B /* SwiftPackageProductDependency */,
 			);
 			productName = NotificationServiceExtension;
 			productReference = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */;
@@ -2438,13 +2438,13 @@
 			);
 			mainGroup = 0A93DD4A2445CC8A00688050;
 			packageReferences = (
-				55D3FE83260A0F66008ABD2B /* XCRemoteSwiftPackageReference "Web3.swift" */,
-				55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */,
-				55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */,
-				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */,
-				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
+				55D3FE83260A0F66008ABD2B /* RemoteSwiftPackageReference */,
+				55D3FE8A260A0F88008ABD2B /* RemoteSwiftPackageReference */,
+				55D3FF63260B2550008ABD2B /* RemoteSwiftPackageReference */,
+				55D3FF77260B28CF008ABD2B /* RemoteSwiftPackageReference */,
+				55D3FF8E260B2B21008ABD2B /* RemoteSwiftPackageReference */,
+				55888DFD260C4F6200940347 /* RemoteSwiftPackageReference */,
+				5591CEEC260C725B0067DFDF /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -5454,7 +5454,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */ = {
+		55888DFD260C4F6200940347 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/SwiftAccessPolicy.git";
 			requirement = {
@@ -5462,7 +5462,7 @@
 				kind = branch;
 			};
 		};
-		5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */ = {
+		5591CEEC260C725B0067DFDF /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/BlockiesSwift.git";
 			requirement = {
@@ -5470,7 +5470,7 @@
 				kind = branch;
 			};
 		};
-		55D3FE83260A0F66008ABD2B /* XCRemoteSwiftPackageReference "Web3.swift" */ = {
+		55D3FE83260A0F66008ABD2B /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Boilertalk/Web3.swift.git";
 			requirement = {
@@ -5478,7 +5478,7 @@
 				minimumVersion = 0.5.3;
 			};
 		};
-		55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */ = {
+		55D3FE8A260A0F88008ABD2B /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/SwiftCryptoTokenFormatter.git";
 			requirement = {
@@ -5486,7 +5486,7 @@
 				kind = branch;
 			};
 		};
-		55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		55D3FF63260B2550008ABD2B /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -5494,7 +5494,7 @@
 				minimumVersion = 6.2.1;
 			};
 		};
-		55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		55D3FF77260B28CF008ABD2B /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
@@ -5502,7 +5502,7 @@
 				minimumVersion = 7.8.0;
 			};
 		};
-		55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */ = {
+		55D3FF8E260B2B21008ABD2B /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/datatheorem/TrustKit.git";
 			requirement = {
@@ -5513,54 +5513,54 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		55888DFE260C4F6200940347 /* SwiftAccessPolicy */ = {
+		55888DFE260C4F6200940347 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */;
+			package = 55888DFD260C4F6200940347 /* RemoteSwiftPackageReference */;
 			productName = SwiftAccessPolicy;
 		};
-		5591CEED260C725C0067DFDF /* BlockiesSwift */ = {
+		5591CEED260C725C0067DFDF /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */;
+			package = 5591CEEC260C725B0067DFDF /* RemoteSwiftPackageReference */;
 			productName = BlockiesSwift;
 		};
-		55D3FE84260A0F66008ABD2B /* Web3 */ = {
+		55D3FE84260A0F66008ABD2B /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FE83260A0F66008ABD2B /* XCRemoteSwiftPackageReference "Web3.swift" */;
+			package = 55D3FE83260A0F66008ABD2B /* RemoteSwiftPackageReference */;
 			productName = Web3;
 		};
-		55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */ = {
+		55D3FE8B260A0F88008ABD2B /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
+			package = 55D3FE8A260A0F88008ABD2B /* RemoteSwiftPackageReference */;
 			productName = SwiftCryptoTokenFormatter;
 		};
-		55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */ = {
+		55D3FF0D260B2247008ABD2B /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
+			package = 55D3FE8A260A0F88008ABD2B /* RemoteSwiftPackageReference */;
 			productName = SwiftCryptoTokenFormatter;
 		};
-		55D3FF64260B2551008ABD2B /* Kingfisher */ = {
+		55D3FF64260B2551008ABD2B /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = 55D3FF63260B2550008ABD2B /* RemoteSwiftPackageReference */;
 			productName = Kingfisher;
 		};
-		55D3FF78260B28CF008ABD2B /* FirebaseAnalytics */ = {
+		55D3FF78260B28CF008ABD2B /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 55D3FF77260B28CF008ABD2B /* RemoteSwiftPackageReference */;
 			productName = FirebaseAnalytics;
 		};
-		55D3FF7A260B28CF008ABD2B /* FirebaseMessaging */ = {
+		55D3FF7A260B28CF008ABD2B /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 55D3FF77260B28CF008ABD2B /* RemoteSwiftPackageReference */;
 			productName = FirebaseMessaging;
 		};
-		55D3FF7C260B28CF008ABD2B /* FirebaseCrashlytics */ = {
+		55D3FF7C260B28CF008ABD2B /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FF77260B28CF008ABD2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 55D3FF77260B28CF008ABD2B /* RemoteSwiftPackageReference */;
 			productName = FirebaseCrashlytics;
 		};
-		55D3FF8F260B2B21008ABD2B /* TrustKit */ = {
+		55D3FF8F260B2B21008ABD2B /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */;
+			package = 55D3FF8E260B2B21008ABD2B /* RemoteSwiftPackageReference */;
 			productName = TrustKit;
 		};
 /* End XCSwiftPackageProductDependency section */
