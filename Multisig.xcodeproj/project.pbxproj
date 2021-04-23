@@ -130,6 +130,10 @@
 		0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22E12525E4FA3200D24DE1 /* SwitchTableViewCell.swift */; };
 		0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */; };
 		0A339C5D24C1D16E00DAD84B /* Image+Blockies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */; };
+		0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3DAD9226270F4D00743E38 /* unistring.xcframework */; };
+		0A3DAD9526270F4D00743E38 /* idn2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3DAD9326270F4D00743E38 /* idn2.xcframework */; };
+		0A3DAD9B26270F5500743E38 /* IDN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DAD9A26270F5500743E38 /* IDN.swift */; };
+		0A3DADA526270FA100743E38 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DADA426270FA100743E38 /* README.md */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
 		0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A433E5E25500F87006FFF75 /* BalancesRequest.swift */; };
 		0A433E8125516A9A006FFF75 /* TotalBalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */; };
@@ -377,7 +381,6 @@
 		5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C82449A1980067505A /* LogServiceTests.swift */; };
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
-		55454C99261F516A00E8C4D6 /* idn2Swift in Frameworks */ = {isa = PBXBuildFile; productRef = 55454C98261F516A00E8C4D6 /* idn2Swift */; };
 		555312E9250653800008206B /* BIP32HDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312E8250653800008206B /* BIP32HDNode.swift */; };
 		555312EB2506608D0008206B /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EA2506608D0008206B /* Base58.swift */; };
 		555312ED250663420008206B /* SECP256K1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EC250663420008206B /* SECP256K1.swift */; };
@@ -416,7 +419,6 @@
 		55A5854325014E05005E778B /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5854225014E05005E778B /* String+Extension.swift */; };
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
-		55B24E55257A0B2700058809 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B24E54257A0B2700058809 /* UIWindow+Extension.swift */; };
 		55B6465A253050200050BD95 /* HashString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64657253050200050BD95 /* HashString.swift */; };
 		55B6465B253050200050BD95 /* SignatureString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64658253050200050BD95 /* SignatureString.swift */; };
 		55B6465C253050200050BD95 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64659253050200050BD95 /* Transaction.swift */; };
@@ -615,6 +617,10 @@
 		0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
 		0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Blockies.swift"; sourceTree = "<group>"; };
 		0A35CC2F24810CF6005E45BA /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
+		0A3DAD9226270F4D00743E38 /* unistring.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = unistring.xcframework; sourceTree = "<group>"; };
+		0A3DAD9326270F4D00743E38 /* idn2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = idn2.xcframework; sourceTree = "<group>"; };
+		0A3DAD9A26270F5500743E38 /* IDN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDN.swift; sourceTree = "<group>"; };
+		0A3DADA426270FA100743E38 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		0A433E5E25500F87006FFF75 /* BalancesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesRequest.swift; sourceTree = "<group>"; };
 		0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceTableViewCell.swift; sourceTree = "<group>"; };
@@ -710,7 +716,7 @@
 		0A8AEB1F25A4764F002A3FE1 /* ActionDetailAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionDetailAddressCell.xib; sourceTree = "<group>"; };
 		0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollecitbleSectionSeparatorView.swift; sourceTree = "<group>"; };
 		0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollecitbleSectionSeparatorView.xib; sourceTree = "<group>"; };
-		0A93DD532445CC8A00688050 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A93DD532445CC8A00688050 /* Multisig_PROD_MAINNET.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig_PROD_MAINNET.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0A93DD5F2445CC8B00688050 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -930,7 +936,6 @@
 		55A5854225014E05005E778B /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
-		55B24E54257A0B2700058809 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		55B64657253050200050BD95 /* HashString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashString.swift; sourceTree = "<group>"; };
 		55B64658253050200050BD95 /* SignatureString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureString.swift; sourceTree = "<group>"; };
 		55B64659253050200050BD95 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -975,11 +980,12 @@
 				0463F5BF26296924009C04FA /* FirebaseAnalytics in Frameworks */,
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
 				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
+				0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */,
+				0A3DAD9526270F4D00743E38 /* idn2.xcframework in Frameworks */,
 				55888DFF260C4F6200940347 /* SwiftAccessPolicy in Frameworks */,
 				0463F5C326296924009C04FA /* FirebaseCrashlytics in Frameworks */,
 				55D3FE85260A0F66008ABD2B /* Web3 in Frameworks */,
 				0463F5C526296924009C04FA /* FirebaseMessaging in Frameworks */,
-				55454C99261F516A00E8C4D6 /* idn2Swift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1283,6 +1289,17 @@
 			path = Transaction;
 			sourceTree = "<group>";
 		};
+		0A3DADAE26270FA900743E38 /* idn2 */ = {
+			isa = PBXGroup;
+			children = (
+				0A3DAD9326270F4D00743E38 /* idn2.xcframework */,
+				0A3DAD9226270F4D00743E38 /* unistring.xcframework */,
+				0A3DAD9A26270F5500743E38 /* IDN.swift */,
+				0A3DADA426270FA100743E38 /* README.md */,
+			);
+			path = idn2;
+			sourceTree = "<group>";
+		};
 		0A465C35246C23E800AFA467 /* Frame */ = {
 			isa = PBXGroup;
 			children = (
@@ -1320,7 +1337,6 @@
 				0AF1C9252541E09C00E28669 /* UIView+UINib.swift */,
 				55883611255C15870014E8C7 /* UIViewController+Safari.swift */,
 				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
-				55B24E54257A0B2700058809 /* UIWindow+Extension.swift */,
 				0A839B5F2578EB9500103AD9 /* View Controllers */,
 				558835ED255BFEA80014E8C7 /* Views */,
 			);
@@ -1493,6 +1509,7 @@
 		0A6C85B02450712D0026139E /* Ethereum */ = {
 			isa = PBXGroup;
 			children = (
+				0A3DADAE26270FA900743E38 /* idn2 */,
 				0A9BC33224602A7400EB9C5D /* Contract.swift */,
 				0A9BC32E246022BD00EB9C5D /* ENS.swift */,
 				0A9BC3302460233300EB9C5D /* ENSContracts.swift */,
@@ -1569,7 +1586,7 @@
 		0A93DD542445CC8A00688050 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0A93DD532445CC8A00688050 /* Multisig.app */,
+				0A93DD532445CC8A00688050 /* Multisig_PROD_MAINNET.app */,
 				0A93DD6C2445CC8C00688050 /* MultisigTests.xctest */,
 				0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */,
 				0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */,
@@ -1632,28 +1649,28 @@
 		0A93DD8B244603DB00688050 /* UI Library */ = {
 			isa = PBXGroup;
 			children = (
-				551BC70C2538965700E4CC79 /* LoadingModel.swift */,
-				0A451C05252DDB93001DB7D2 /* NetworkContentView.swift */,
-				0A451BFF252DDB67001DB7D2 /* ReloadButton.swift */,
-				0A451BEF252DDB49001DB7D2 /* NoDataView.swift */,
-				0A451BE9252DDB39001DB7D2 /* FullScreenLoadingView.swift */,
-				0A451BDD252DDB17001DB7D2 /* String+Error.swift */,
-				0A451C17252DDCDE001DB7D2 /* ProgressIndicatorCell.swift */,
 				0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */,
 				0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */,
+				043913A024BF4E480006517D /* BrowseLinkButton.swift */,
+				0A451BE9252DDB39001DB7D2 /* FullScreenLoadingView.swift */,
 				0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */,
 				0A0EFCA7246EB13300D3D8BF /* KeyValueRow.swift */,
+				551BC70C2538965700E4CC79 /* LoadingModel.swift */,
+				0A451C05252DDB93001DB7D2 /* NetworkContentView.swift */,
+				0A451BEF252DDB49001DB7D2 /* NoDataView.swift */,
+				0A451C17252DDCDE001DB7D2 /* ProgressIndicatorCell.swift */,
 				041C2A592456F53E0044A24C /* QRView.swift */,
+				0A451BFF252DDB67001DB7D2 /* ReloadButton.swift */,
 				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
 				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
 				047691582464026400D73D8B /* SectionHeader.swift */,
+				0A451BDD252DDB17001DB7D2 /* String+Error.swift */,
 				0A9BC3442460515800EB9C5D /* Address */,
 				0AFA72A324BF39D900A370EE /* Buttons */,
 				0A465C35246C23E800AFA467 /* Frame */,
 				55B66E8A247FE0F500249E98 /* Overlays */,
 				0AF432D4244F063800E22E50 /* Styleguide */,
 				0A9BC3432460514B00EB9C5D /* Text */,
-				043913A024BF4E480006517D /* BrowseLinkButton.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -2319,7 +2336,6 @@
 				0A93DD502445CC8A00688050 /* Frameworks */,
 				0A93DD512445CC8A00688050 /* Resources */,
 				0ACDC01924926081002035A2 /* [FIREBASE] Copy config file */,
-				555EA87024B58E350060E2F7 /* Crashlytics */,
 				0AF2732824DAABDC007E4012 /* Embed App Extensions */,
 			);
 			buildRules = (
@@ -2335,14 +2351,13 @@
 				55D3FF8F260B2B21008ABD2B /* TrustKit */,
 				55888DFE260C4F6200940347 /* SwiftAccessPolicy */,
 				5591CEED260C725C0067DFDF /* BlockiesSwift */,
-				55454C98261F516A00E8C4D6 /* idn2Swift */,
 				0463F5BE26296924009C04FA /* FirebaseAnalytics */,
 				0463F5C026296924009C04FA /* FirebaseRemoteConfig */,
 				0463F5C226296924009C04FA /* FirebaseCrashlytics */,
 				0463F5C426296924009C04FA /* FirebaseMessaging */,
 			);
 			productName = Multisig;
-			productReference = 0A93DD532445CC8A00688050 /* Multisig.app */;
+			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD_MAINNET.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0A93DD6B2445CC8C00688050 /* MultisigTests */ = {
@@ -2443,7 +2458,6 @@
 				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */,
 				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */,
 				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
-				55454C97261F516A00E8C4D6 /* XCRemoteSwiftPackageReference "pod-idn2" */,
 				0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
@@ -2506,6 +2520,7 @@
 				0A8AEB1125A4712B002A3FE1 /* ActionDetailTextCell.xib in Resources */,
 				0A478D5925B876AF0038363E /* ButtonTableViewCell.xib in Resources */,
 				0428DA5B25CBFC25002CF4A9 /* HelpLinkTableViewCell.xib in Resources */,
+				0A3DADA526270FA100743E38 /* README.md in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
@@ -2601,25 +2616,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "FIREBASE_SRC=\"${SRCROOT}/Multisig/Cross-layer/Analytics/Firebase/${FIREBASE_CONFIG}.plist\"\nFIREBASE_DST=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nif [ -f \"${FIREBASE_SRC}\" ]; then\n    rsync -a \"${FIREBASE_SRC}\" \"${FIREBASE_DST}/GoogleService-Info.plist\"\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		555EA87024B58E350060E2F7 /* Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = Crashlytics;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "FIREBASE_SRC=\"${SRCROOT}/Multisig/Cross-layer/Analytics/Firebase/${FIREBASE_CONFIG}.plist\"\nif [[ $CONFIGURATION == Release* ]] && [ -f \"${FIREBASE_SRC}\" ]; then\n    \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2835,6 +2831,7 @@
 				0A451C06252DDB93001DB7D2 /* NetworkContentView.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
 				04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */,
+				0A3DAD9B26270F5500743E38 /* IDN.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */,
 				0A451C0C252DDBE5001DB7D2 /* CollectibleBalancesModel.swift in Sources */,
@@ -2870,7 +2867,6 @@
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
 				0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */,
-				55B24E55257A0B2700058809 /* UIWindow+Extension.swift in Sources */,
 				0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */,
 				5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */,
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
@@ -3103,7 +3099,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3127,7 +3123,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Production.Rinkeby;
 		};
@@ -3147,7 +3143,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Production.Rinkeby;
 		};
@@ -3230,7 +3226,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3254,7 +3250,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Staging.Rinkeby;
 		};
@@ -3274,7 +3270,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Staging.Rinkeby;
 		};
@@ -3351,7 +3347,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3375,7 +3371,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Production.Rinkeby;
 		};
@@ -3395,7 +3391,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Production.Rinkeby;
 		};
@@ -3472,7 +3468,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3496,7 +3492,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Staging.Rinkeby;
 		};
@@ -3516,7 +3512,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Staging.Rinkeby;
 		};
@@ -3655,7 +3651,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3679,7 +3675,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3703,7 +3699,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Production.Mainnet;
 		};
@@ -3724,7 +3720,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Production.Mainnet;
 		};
@@ -3744,7 +3740,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Production.Mainnet;
 		};
@@ -3764,7 +3760,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Production.Mainnet;
 		};
@@ -3847,7 +3843,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3871,7 +3867,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Staging.Mainnet;
 		};
@@ -3891,7 +3887,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Staging.Mainnet;
 		};
@@ -3968,7 +3964,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3992,7 +3988,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Staging.Mainnet;
 		};
@@ -4012,7 +4008,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Staging.Mainnet;
 		};
@@ -4935,7 +4931,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -4959,7 +4955,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Development.Rinkeby;
 		};
@@ -4979,7 +4975,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Development.Rinkeby;
 		};
@@ -5058,7 +5054,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -5082,7 +5078,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Development.Rinkeby;
 		};
@@ -5102,7 +5098,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Development.Rinkeby;
 		};
@@ -5181,7 +5177,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -5205,7 +5201,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Development.Mainnet;
 		};
@@ -5225,7 +5221,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Release.Development.Mainnet;
 		};
@@ -5308,7 +5304,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_NAME = Multisig;
+				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -5332,7 +5328,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Development.Mainnet;
 		};
@@ -5352,7 +5348,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
 			name = Debug.Development.Mainnet;
 		};
@@ -5465,14 +5461,6 @@
 				minimumVersion = 7.10.0;
 			};
 		};
-		55454C97261F516A00E8C4D6 /* XCRemoteSwiftPackageReference "pod-idn2" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/gnosis/pod-idn2.git";
-			requirement = {
-				branch = swiftpm;
-				kind = branch;
-			};
-		};
 		55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/SwiftAccessPolicy.git";
@@ -5543,11 +5531,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
-		};
-		55454C98261F516A00E8C4D6 /* idn2Swift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 55454C97261F516A00E8C4D6 /* XCRemoteSwiftPackageReference "pod-idn2" */;
-			productName = idn2Swift;
 		};
 		55888DFE260C4F6200940347 /* SwiftAccessPolicy */ = {
 			isa = XCSwiftPackageProductDependency;

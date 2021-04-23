@@ -13,7 +13,7 @@ bin/configure.sh
 
 set -o pipefail && \
 xcrun xcodebuild test \
-    -workspace Multisig.xcworkspace \
+    -project Multisig.xcodeproj \
     -scheme "$XCODE_SCHEME" \
     -destination "platform=iOS Simulator,name=iPhone 11 Pro" \
     -resultBundlePath "$TEST_BUNDLE_PATH" \

@@ -38,9 +38,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     var snackbarViewController = SnackbarViewController(nibName: nil, bundle: nil)
+    private var delayedMainPresentedViewController: UIViewController?
 
-    private var mainWindow: UIWindow?
-    private var privacyProtectionWindow: UIWindow?
+    private var mainWindow: WindowWithViewOnTop?
+    private var privacyProtectionWindow: WindowWithViewOnTop?
 
     private var windowState: WindowState = .none
 
@@ -120,6 +121,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - Window Management
 
+    func presentForMain(_ controller: UIViewController) {
+        if windowState == .main {
+            mainWindow?.rootViewController?.present(controller, animated: true)
+        } else {
+            delayedMainPresentedViewController = controller
+        }
+    }
+
     private func showStartingWindow() {
         if shouldShowPasscode {
             showPrivacyWindow()
@@ -129,16 +138,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func showMainWindow() {
+        if snackbarViewController.view.window != mainWindow, let window = mainWindow {
+            window.addSubviewAlwaysOnTop(snackbarViewController.view)
+        }
         mainWindow?.makeKeyAndVisible()
+        if delayedMainPresentedViewController != nil {
+            mainWindow?.rootViewController?.present(delayedMainPresentedViewController!, animated: true)
+            delayedMainPresentedViewController = nil
+        }
         windowState = .main
     }
 
     private func showPrivacyWindow() {
+        if snackbarViewController.view.window != privacyProtectionWindow, let window = privacyProtectionWindow {
+            window.addSubviewAlwaysOnTop(snackbarViewController.view)
+        }
         privacyProtectionWindow?.makeKeyAndVisible()
         windowState = .privacy
     }
 
-    private func makeMainWindow(scene: UIWindowScene) -> UIWindow {
+    private func makeMainWindow(scene: UIWindowScene) -> WindowWithViewOnTop {
         let window = WindowWithViewOnTop(windowScene: scene)
         window.rootViewController = ViewControllerFactory.rootViewController()
 
@@ -151,8 +170,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return window
     }
 
-    private func makePrivacyWindow(scene: UIWindowScene) -> UIWindow {
-        let window = UIWindow(windowScene: scene)
+    private func makePrivacyWindow(scene: UIWindowScene) -> WindowWithViewOnTop {
+        let window = WindowWithViewOnTop(windowScene: scene)
         window.rootViewController = PrivacyProtectionScreenViewController()
         return window
     }
@@ -161,8 +180,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func showPasscodePrompt() {
         guard shouldShowPasscode else { return }
-        // assumes the privacy window is active
-        assert(privacyProtectionWindow?.isKeyWindow == true && privacyProtectionWindow?.isHidden == false)
 
         let vc = EnterPasscodeViewController()
         vc.showsCloseButton = false

@@ -80,7 +80,7 @@ class PasscodeSettingsViewController: UITableViewController {
             // if user disables biometry, we can't keep it enabled in app settings.
             // Having this on reloadData() works because when biometry settings changed on the device
             // the system kills the app process and the app will have to restart.
-            if !App.shared.auth.isBiometryPossible {
+            if !App.shared.auth.isBiometryActivationPossible {
                 AppSettings.passcodeOptions.remove(.useBiometry)
             }
         } else {
@@ -154,34 +154,14 @@ class PasscodeSettingsViewController: UITableViewController {
             if success && AppSettings.passcodeOptions.contains(.useBiometry) {
                 AppSettings.passcodeOptions.remove(.useBiometry)
                 App.shared.snackbar.show(message: "Biometrics disabled.")
+                finish()
             } else if success {
-                do {
-                    let activated = try App.shared.auth.activateBiometry()
-                    if activated {
-                        AppSettings.passcodeOptions.insert(.useBiometry)
-                        App.shared.snackbar.show(message: "Biometrics activated.")
-                    } else {
-                        let uiError = GSError.GenericPasscodeError(reason: "Biometrics activation denied.")
-                        App.shared.snackbar.show(error: uiError)
-                    }
-                } catch {
-                    let vc = UIAlertController(
-                        title: "Failed to activate biometrics",
-                        message: "Please check in Settings that biometrics is enrolled and unblocked.",
-                        preferredStyle: .alert)
-                    vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-                        finish()
-                    }))
-                    vc.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
-                        let url = URL(string: UIApplication.openSettingsURLString)!
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                        finish()
-                    }))
-                    nav?.present(vc, animated: true, completion: nil)
-                    return
+                App.shared.auth.activateBiometrics { _ in
+                    finish()
                 }
+            } else {
+                finish()
             }
-            finish()
         }
     }
 

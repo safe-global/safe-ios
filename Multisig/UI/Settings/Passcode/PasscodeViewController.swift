@@ -147,27 +147,62 @@ class CreatePasscodeViewController: PasscodeViewController {
 
     override func willChangeText(_ text: String) {
         super.willChangeText(text)
-        if text.count == passcodeLength {
-            let vc = RepeatPasscodeViewController(passcode: text) { [unowned self] in
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                    if let activated = try? App.shared.auth.activateBiometry(), activated {
-                        AppSettings.passcodeOptions.insert(.useBiometry)
-                        NotificationCenter.default.post(name: .biometricsActivated, object: nil)
-                        App.shared.snackbar.show(message: "Biometrics activated.")
-                    }
-                }
-                self.completion()
+        guard text.count == passcodeLength else { return }
+
+        // repeat the same passcode
+        let repeatVC = RepeatPasscodeViewController(passcode: text)
+        navigationController?.pushViewController(repeatVC, animated: true)
+
+        // after that, enable biometry
+
+        repeatVC.completion = { [weak self, weak repeatVC] in
+            //  when repeated successfully
+
+            // if device does not support biometrics, finish right away
+            guard App.shared.auth.isBiometricsSupported else {
+                self?.completion()
+                self?.navigationController?.dismiss(animated: true, completion: nil)
+                return
             }
-            navigationController?.pushViewController(vc, animated: true)
+
+            //   if device supports it, ask if to enable biometry
+            let shouldEnableVC = UIAlertController(
+                title: "Activate Biometry?",
+                message: "Would you like to enable login with biometrics?",
+                preferredStyle: .alert)
+
+            //      if yes, ask to authenticate with biometry
+            shouldEnableVC.addAction(UIAlertAction(title: "Enable", style: .default, handler: { [weak self] _ in
+
+                App.shared.auth.activateBiometrics { _ in
+                    // in any resulting case, finish.
+
+                    self?.completion()
+                    self?.navigationController?.dismiss(animated: true, completion: nil)
+
+                }
+
+            }))
+
+            //      if no, finish right away
+            shouldEnableVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+
+                self?.completion()
+                self?.navigationController?.dismiss(animated: true, completion: nil)
+
+            }))
+
+            repeatVC?.present(shouldEnableVC, animated: true, completion: nil)
         }
     }
+
 }
 
 class RepeatPasscodeViewController: PasscodeViewController {
     var passcode: String!
-    private var completion: () -> Void = {}
+    var completion: () -> Void = {}
 
-    convenience init(passcode: String, completionHandler: @escaping () -> Void) {
+    convenience init(passcode: String, completionHandler: @escaping () -> Void = {}) {
         self.init(namedClass: PasscodeViewController.self)
         self.passcode = passcode
         completion = completionHandler
@@ -191,7 +226,6 @@ class RepeatPasscodeViewController: PasscodeViewController {
             do {
                 try App.shared.auth.createPasscode(plaintextPasscode: text)
                 App.shared.snackbar.show(message: "Passcode created")
-                navigationController?.dismiss(animated: true, completion: nil)
                 completion()
             } catch {
                 showGenericError(description: "Failed to create passcode", error: error)
@@ -232,7 +266,7 @@ class EnterPasscodeViewController: PasscodeViewController {
     }
 
     private var canUseBiometry: Bool {
-        usesBiometry && App.shared.auth.isBiometryPossible && AppSettings.passcodeOptions.contains(.useBiometry)
+        usesBiometry && App.shared.auth.isBiometryAuthenticationPossible && AppSettings.passcodeOptions.contains(.useBiometry)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -292,9 +326,16 @@ class EnterPasscodeViewController: PasscodeViewController {
 
     private func authenticateWithBiometry() {
         guard canUseBiometry else { return }
-        let success = App.shared.auth.authenticateWithBiometry()
-        if success {
-            completion(true)
+
+        App.shared.auth.authenticateWithBiometrics { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .success:
+                self.completion(true)
+
+            case .failure(_):
+                self.biometryButton.isHidden = !self.canUseBiometry
+            }
         }
     }
 }
