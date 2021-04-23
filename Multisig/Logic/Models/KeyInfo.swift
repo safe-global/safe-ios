@@ -161,7 +161,6 @@ extension KeyInfo {
         item.address = address
         item.keyID = "walletconnect:\(address.checksummed)"
         item.keyType = .walletConnect
-        item.imageName = "wc-logo"
         item.metadata = walletInfo.data
 
         item.save()

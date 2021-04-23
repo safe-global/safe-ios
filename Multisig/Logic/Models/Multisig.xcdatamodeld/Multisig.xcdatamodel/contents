@@ -21,7 +21,6 @@
     </entity>
     <entity name="KeyInfo" representedClassName="KeyInfo" syncable="YES" codeGenerationType="class">
         <attribute name="addressString" attributeType="String"/>
-        <attribute name="imageName" attributeType="String" defaultValueString="ico-device-key"/>
         <attribute name="keyID" optional="YES" attributeType="String"/>
         <attribute name="metadata" optional="YES" attributeType="Binary"/>
         <attribute name="name" attributeType="String"/>
@@ -51,7 +50,7 @@
     <elements>
         <element name="AppSettings" positionX="54" positionY="18" width="128" height="58"/>
         <element name="AppUser" positionX="54" positionY="63" width="128" height="89"/>
-        <element name="KeyInfo" positionX="63" positionY="72" width="128" height="119"/>
+        <element name="KeyInfo" positionX="63" positionY="72" width="128" height="104"/>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
         <element name="WCPendingTransaction" positionX="54" positionY="27" width="128" height="74"/>
