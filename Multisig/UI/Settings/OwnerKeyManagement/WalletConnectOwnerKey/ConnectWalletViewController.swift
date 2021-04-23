@@ -58,12 +58,7 @@ class ConnectWalletViewController: UITableViewController {
         guard let session = notification.object as? Session else { return }
 
         DispatchQueue.main.sync { [unowned self] in
-            do {
-                try KeyInfo.import(from: session)
-            } catch {
-                let err = GSError.error(description: "Failed to add WalletConnect signer", error: error)
-                App.shared.snackbar.show(error: err)
-            }
+            _ = PrivateKeyController.importKey(from: session)
             self.dismiss(animated: true, completion: nil)
         }
     }

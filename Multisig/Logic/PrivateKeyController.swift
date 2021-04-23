@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import WalletConnectSwift
 
-#warning("TODO: use for importing WC key; rename")
+#warning("TODO: rename to OwnerKeyController after merge to main branch")
 class PrivateKeyController {
     static func importKey(_ privateKey: PrivateKey, name: String, isDrivedFromSeedPhrase: Bool) -> Bool {
         do {
@@ -23,6 +24,24 @@ class PrivateKeyController {
             return true
         } catch {
             App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key.", error: error))
+            return false
+        }
+    }
+
+    static func importKey(from session: Session) -> Bool {
+        do {
+            try KeyInfo.import(from: session)
+
+            Tracker.shared.setNumKeysImported(KeyInfo.count)
+            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+            return true
+        } catch {
+            if let err = error as? GSError.CouldNotImportOwnerKeyWithSameAddress {
+                App.shared.snackbar.show(error: err)
+            } else {
+                let err = GSError.error(description: "Failed to add WalletConnect owner", error: error)
+                App.shared.snackbar.show(error: err)
+            }
             return false
         }
     }

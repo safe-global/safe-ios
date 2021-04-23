@@ -202,7 +202,9 @@ class RemoteNotificationHandler {
     /// - Returns: If there are any keys, then returns preimage of the hash, the hash that was signed, timestamp used, and array of signatures corresponding to the signing keys.
     static func sign(safes: [String], deviceID: String, token: String, timestamp: String? = nil) throws -> (preimage: String, hash: String, timestamp: String, signatures: [String])? {
         // sign the registration data by each private key.
-        let privateKeys = try KeyInfo.all().compactMap { try $0.privateKey() }
+        let privateKeys = try KeyInfo.all()
+            .filter { $0.keyType == .device }
+            .compactMap { try $0.privateKey() }
 
         guard !privateKeys.isEmpty else {
             return nil

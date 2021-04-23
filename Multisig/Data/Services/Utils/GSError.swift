@@ -350,6 +350,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct CouldNotImportOwnerKeyWithSameAddress: DetailedLocalizedError {
+        let description = "Could not import owner key"
+        let reason = "The owner key is already imported."
+        let howToFix = "Please use already imported key or remove it and try again."
+        let domain = clientErrorDomain
+        let code = 1115
+        let loggable = false
+    }
+
     // MARK: - iOS errors
 
     struct UnknownAppError: DetailedLocalizedError {
