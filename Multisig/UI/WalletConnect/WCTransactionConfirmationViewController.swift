@@ -25,6 +25,7 @@ class WCTransactionConfirmationViewController: UIViewController {
 
     private var transaction: Transaction!
     private var session: Session!
+    private var importedKeysForSafe: [Address]!
 
     enum Section {
         case basic
@@ -53,15 +54,67 @@ class WCTransactionConfirmationViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
+    #warning("TODO: handle errors properly")
+    #warning("TODO: use client gateway service for submitting transactions")
     @IBAction func submit(_ sender: Any) {
-        onSubmit?()
-        dismiss(animated: true, completion: nil)
+        let owners = (try? KeyInfo.keys(addresses: importedKeysForSafe)) ?? []
+        let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
+        let vc = ChooseOwnerKeyViewController(owners: owners, descriptionText: descriptionText) {
+            [unowned self] keyInfo in
+
+            // dismiss presented ChooseOwnerKeyViewController right after receiving the completion
+            dismiss(animated: true, completion: nil)
+
+            guard let keyInfo = keyInfo else {
+                return
+            }
+
+            switch keyInfo.keyType {
+
+            case .device:
+                // TODO: show loading indicator
+                DispatchQueue.global().async {
+                    guard let signature = try? keyInfo.privateKey()?.sign(hash: transaction.safeTxHash!.hash) else {
+                        // TODO: show info message for error
+                        return
+                    }
+                    let request = CreateTransactionRequest(safe: transaction.safe!,
+                                                           sender: AddressString(keyInfo.address),
+                                                           signature: signature.hexadecimal,
+                                                           transaction: transaction)
+                    do {
+                        try App.shared.safeTransactionService.createTransaction(request: request)
+                        DispatchQueue.main.async { [weak self] in
+                            // dismiss WCTransactionConfirmationViewController
+                            self?.dismiss(animated: true, completion: nil)
+
+                            App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners. Once it is executed the dapp will get a response with the transaction hash.")
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            App.shared.snackbar.show(error: GSError.CouldNotSubmitWalletConnectTransaction())
+                        }
+                    }
+
+                    onSubmit?()
+                }
+
+
+
+            case .walletConnect:
+                break
+            }
+        }
+
+        let navigationController = UINavigationController(rootViewController: vc)
+        present(navigationController, animated: true)
     }
 
-    convenience init(transaction: Transaction, topic: String) {
+    convenience init(transaction: Transaction, topic: String, importedKeysForSafe: [Address]) {
         self.init()
         self.transaction = transaction
         self.session = try! Session.from(WCSession.get(topic: topic)!)
+        self.importedKeysForSafe = importedKeysForSafe
     }
 
     override func viewDidLoad() {

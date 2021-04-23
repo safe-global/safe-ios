@@ -43,50 +43,70 @@ class WCRequestsHandler: RequestHandler {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
         if request.method == "eth_sendTransaction" {
-            guard let signingKeyAddress = try? KeyInfo.all().map({ $0.address.checksummed }).first else {
+
+            // make transformation of incoming request into internal data types
+            // and fetch information about safe from the request
+
+            guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
+                  let requestId = request.id,
+                  var transaction = Transaction(wcRequest: wcRequest),
+                  let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(address: transaction.safe!.address),
+                  let importedKeysAddresses = try? KeyInfo.all().map({ $0.address })
+            else {
+                server.send(try! Response(request: request, error: .requestRejected))
+                return
+            }
+
+            // check if safe owner is imported to initiate transactions
+
+            let safeOwnerAddresses = Set(safeInfo.owners.map { $0.value.address })
+            let importedKeysForSafe = safeOwnerAddresses.intersection(importedKeysAddresses)
+            guard !importedKeysForSafe.isEmpty else {
                 DispatchQueue.main.async {
-                    App.shared.snackbar.show(message: "Please import Signing Key to initiate WalletConnect transactions!")
+                    App.shared.snackbar.show(message: "Please import Safe Owner Key to initiate WalletConnect transactions")
                 }
                 server.send(try! Response(request: request, error: .requestRejected))
                 return
             }
 
-            guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
-                  let requestId = request.id,
-                  var transaction = Transaction(wcRequest: wcRequest) else {
-                server.send(try! Response(request: request, error: .requestRejected))
-                return
-            }
+            // calculate safeTxHash
 
             let hash = EthHasher.hash(transaction.encodeTransactionData(for: wcRequest.from))
             transaction.safeTxHash = HashString(hash)
 
+            // present confirmation controller
+
             DispatchQueue.main.async { [unowned self] in
-                let confirmationController =
-                    WCTransactionConfirmationViewController(transaction: transaction, topic: request.url.topic)
+                let confirmationController = WCTransactionConfirmationViewController(
+                    transaction: transaction,
+                    topic: request.url.topic,
+                    importedKeysForSafe: [Address](importedKeysForSafe))
 
                 confirmationController.onReject = {
                     self.server.send(try! Response(request: request, error: .requestRejected))
                 }
 
                 confirmationController.onSubmit = {
-                    // TODO: make proper checks here
-                    let key = try! KeyInfo.all().first!
-                    let signature = try! key.privateKey()!.sign(hash: hash)
-                    let createTxRequest = CreateTransactionRequest(
-                        safe: wcRequest.from,
-                        sender: AddressString(signingKeyAddress)!,
-                        signature: signature.hexadecimal,
-                        transaction: transaction)
-                    self.submitCreateTransactionRequest(createTxRequest,
-                                                        topic: request.url.topic,
-                                                        requestId: requestId.description)
+                    // transaction is successfully submitted to our backend
+                    // add pending transacion for monitoring
+                    DispatchQueue.main.async {
+                        guard let wcSession = WCSession.get(topic: request.url.topic) else { return }
+                        WCPendingTransaction.create(
+                            wcSession: wcSession,
+                            nonce: transaction.nonce,
+                            requestId: requestId.description)
+
+                    }
                 }
+
+                // TODO: modify it here after merge: use SceneDelegate instead of topMostController
+                // let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
+
                 UIWindow.topMostController()!.present(confirmationController, animated: true)
             }
         } else if request.method == "gs_multi_send" {
-            // TODO: do we need to support it?
-            preconditionFailure("gs_multi_send not supported")
+            // TODO: add support
+            server.send(try! Response(request: request, error: .requestRejected))
         } else {
             do {
                 let result = try App.shared.nodeService.rawCall(payload: request.jsonString)
@@ -94,26 +114,6 @@ class WCRequestsHandler: RequestHandler {
                 self.server.send(response)
             } catch {
                 // TODO: finish
-            }
-        }
-    }
-
-    private func submitCreateTransactionRequest(_ request: CreateTransactionRequest, topic: String, requestId: String) {
-        DispatchQueue.global().async {
-            do {
-                try App.shared.safeTransactionService.createTransaction(request: request)
-                DispatchQueue.main.async {
-                    App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners. Once it is executed the dapp will get a response with the transaction hash.", duration: 6)
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    App.shared.snackbar.show(error: GSError.CouldNotSubmitWalletConnectTransaction())
-                }
-            }
-            let nonce = request.transaction.nonce
-            guard let wcSession = WCSession.get(topic: topic) else { return }
-            DispatchQueue.main.async {
-                WCPendingTransaction.create(wcSession: wcSession, nonce: nonce, requestId: requestId)
             }
         }
     }

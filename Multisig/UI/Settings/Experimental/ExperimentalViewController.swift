@@ -58,7 +58,7 @@ class ExperimentalViewController: UITableViewController {
             let cell = tableView.dequeueCell(UITableViewCell.self, reuseID: "WalletConnectDescription", for: indexPath)
             cell.textLabel?.setStyle(.secondary)
             cell.backgroundColor = .primaryBackground
-            cell.textLabel?.text = "Try out connecting signing key and interacting with Dapps via WalletConnect."
+            cell.textLabel?.text = "Try out connecting owner key and interacting with Dapps via WalletConnect."
             cell.textLabel?.numberOfLines = 0
             cell.selectionStyle = .none
             return cell
