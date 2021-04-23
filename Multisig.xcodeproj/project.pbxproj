@@ -2337,7 +2337,6 @@
 				0A93DD512445CC8A00688050 /* Resources */,
 				0ACDC01924926081002035A2 /* [FIREBASE] Copy config file */,
 				0AF2732824DAABDC007E4012 /* Embed App Extensions */,
-				0A200AF2263302EC00CCE960 /* [Xcode 12.5 and Firebase Fix] */,
 			);
 			buildRules = (
 			);
@@ -2599,24 +2598,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0A200AF2263302EC00CCE960 /* [Xcode 12.5 and Firebase Fix] */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Xcode 12.5 and Firebase Fix]";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Fixes binary framework bug, see:\n# https://developer.apple.com/documentation/xcode-release-notes/xcode-12_4-release-notes#Swift-Packages\n# https://github.com/firebase/firebase-ios-sdk/issues/6472\n#\n\necho \"Removing static frameworks from ${PRODUCT_NAME}.app\"\nfind \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/\" -name '*.framework' -print0 | while IFS= read -r -d '' fm; do\n    name=$(basename \"${fm}\" .framework)\n    target=\"${fm}/${name}\"\n    echo \"Checking: ${fm}\"\n    if file \"${target}\" | grep -q \"current ar archive\"; then\n        rm -rf \"${fm}\"\n        echo \"Removed static framework: ${fm}\"\n    fi\ndone\n";
-		};
 		0ACDC01924926081002035A2 /* [FIREBASE] Copy config file */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3107,7 +3088,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -3234,7 +3215,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -3355,7 +3336,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -3476,7 +3457,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -3659,7 +3640,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -3683,7 +3664,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -3851,7 +3832,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -3972,7 +3953,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -4939,7 +4920,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -5062,7 +5043,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -5185,7 +5166,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -5312,7 +5293,7 @@
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
