@@ -9,12 +9,24 @@
 import Foundation
 import CoreData
 import Web3
+import WalletConnectSwift
+
+/// Enum for storing key type in the presistanse store. The order of existing items should not be changed.
+enum KeyType: Int, CaseIterable {
+    case device
+    case walletConnect
+}
 
 extension KeyInfo {
     /// Blockchain address that this key controls
     var address: Address {
         get { addressString.flatMap(Address.init) ?? Address.zero}
         set { addressString = newValue.checksummed }
+    }
+
+    var keyType: KeyType {
+        get { KeyType(rawValue: Int(type)) ?? .device }
+        set { type = Int16(newValue.rawValue) }
     }
 
     var hasPrivateKey: Bool {
@@ -33,10 +45,14 @@ extension KeyInfo {
     /// Returns number of existing key infos
     static var count: Int {
         do {
-            let context = App.shared.coreDataStack.viewContext
-            let fr = KeyInfo.fetchRequest().all()
-            let itemCount = try context.count(for: fr)
-            return itemCount
+            if App.configuration.toggles.walletConnectEnabled {
+                let context = App.shared.coreDataStack.viewContext
+                let fr = KeyInfo.fetchRequest().all()
+                let itemCount = try context.count(for: fr)
+                return itemCount
+            } else {
+                return try all().count
+            }
         } catch {
             LogService.shared.error("Failed to fetch safe count: \(error)")
             return 0
@@ -47,7 +63,10 @@ extension KeyInfo {
     static func all() throws -> [KeyInfo] {
         let context = App.shared.coreDataStack.viewContext
         let fr = KeyInfo.fetchRequest().all()
-        let items = try context.fetch(fr)
+        var items = try context.fetch(fr)
+        if !App.configuration.toggles.walletConnectEnabled {
+            items = items.filter { $0.keyType == .device }
+        }
         return items
     }
 
@@ -99,9 +118,49 @@ extension KeyInfo {
         item.address = address
         item.name = name
         item.keyID = privateKey.id
+        item.keyType = .device
 
         item.save()
         try privateKey.save()
+
+        return item
+    }
+
+    /// Will save the key info from WalletConnect session in the persistence store.
+    /// - Parameters:
+    ///   - session: WalletConnect session object
+    @discardableResult
+    static func `import`(from session: Session) throws -> KeyInfo? {
+        guard let walletInfo = session.walletInfo,
+              let addressString = walletInfo.accounts.first,
+              let address = Address(addressString) else {
+            return nil
+        }
+
+        let context = App.shared.coreDataStack.viewContext
+
+        // see if already exists - then update existing, otherwise
+        // create a new one
+        let fr = KeyInfo.fetchRequest().by(address: address)
+        let item: KeyInfo
+
+        if let existing = try context.fetch(fr).first {
+            // do not update key name for already imported WalletConnect key
+            item = existing
+        } else {
+            item = KeyInfo(context: context)
+            item.name = walletInfo.peerMeta.name
+        }
+
+        item.address = address
+        item.keyID = "walletconnect:\(address.checksummed)"
+        item.keyType = .walletConnect
+        item.imageName = "wc-logo"
+        item.metadata = walletInfo.data
+
+        item.save()
+
+        NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
 
         return item
     }
@@ -133,7 +192,7 @@ extension KeyInfo {
     /// Will delete the key info and the stored private key
     /// - Throws: in case of underlying error
     func delete() throws {
-        if let keyID = keyID {
+        if let keyID = keyID, keyType == .device {
             try PrivateKey.remove(id: keyID)
         }
         App.shared.coreDataStack.viewContext.delete(self)

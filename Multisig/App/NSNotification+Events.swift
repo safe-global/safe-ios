@@ -9,6 +9,8 @@
 import Foundation
 
 extension NSNotification.Name {
+    // MARK: - Core
+
     static let selectedSafeChanged = NSNotification.Name("io.gnosis.safe.selectedSafeChanged")
     static let selectedSafeUpdated = NSNotification.Name("io.gnosis.safe.selectedSafeUpdated")
     static let ownerKeyImported = NSNotification.Name("io.gnosis.safe.ownerKeyImported")
@@ -16,7 +18,7 @@ extension NSNotification.Name {
     static let ownerKeyUpdated = NSNotification.Name("io.gnosis.safe.ownerKeyUpdated")
     static let transactionDataInvalidated = NSNotification.Name("io.gnosis.safe.transactionDataInvalidated")
 
-    // MARK: - WalletConnecdt
+    // MARK: - WalletConnect
 
     static let wcConnecting = NSNotification.Name("io.gnosis.safe.wcConnecting")
     static let wcDidFailToConnect = NSNotification.Name("io.gnosis.safe.wcDidFailToConnect")
@@ -37,5 +39,11 @@ extension NSNotification.Name {
     static let networkHostReachable = NSNotification.Name("io.gnosis.safe.networkHostReachable")
     static let networkHostUnreachable = NSNotification.Name("io.gnosis.safe.networkHostUnreachable")
 
+    // MARK: - Fiat
+
     static let selectedFiatCurrencyChanged = NSNotification.Name("io.gnosis.safe.selectedFiatCurrencyChanged")
+
+    // MARK: - Experemental
+
+    static let updatedExperemental = NSNotification.Name("io.gnosis.safe.updatedExperemental")
 }

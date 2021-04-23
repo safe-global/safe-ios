@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WalletConnectSwift
 
 fileprivate struct InstalledWallet {
     let name: String
@@ -48,6 +49,23 @@ class ConnectWalletViewController: UITableViewController {
         tableView.registerCell(BasicCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.rowHeight = DetailedCell.rowHeight
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(walletConnectSessionCreated(_:)), name: .wcDidConnectClient, object: nil)
+    }
+
+    @objc private func walletConnectSessionCreated(_ notification: Notification) {
+        guard let session = notification.object as? Session else { return }
+
+        DispatchQueue.main.sync { [unowned self] in
+            do {
+                try KeyInfo.import(from: session)
+            } catch {
+                let err = GSError.error(description: "Failed to add WalletConnect signer", error: error)
+                App.shared.snackbar.show(error: err)
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 
     // MARK: - Table view data source

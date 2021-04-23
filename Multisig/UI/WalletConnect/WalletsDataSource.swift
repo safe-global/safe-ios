@@ -38,6 +38,7 @@ class WalletsDataSource {
 
     let wallets: [WalletEntry]
 
+    #warning("TODO: add sorting for wallets by priority")
     init() {
         let path = Bundle.main.path(forResource: "wallets", ofType: "json")!
         let url = URL(fileURLWithPath: path)

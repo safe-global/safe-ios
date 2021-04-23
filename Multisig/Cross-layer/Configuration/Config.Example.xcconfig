@@ -116,6 +116,15 @@ LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD)
 // Range of values: 1 is YES, 0 is NO.
 SSL_ENFORCE_PINNING = 1
 
+
+// Whether to display 'Experimental' section in App Settings
+// Range of values: Y is YES, N is NO.
+SHOW_EXPERIMENTAL = Y
+// Whether to display 'WalletConnect' feature in Experimental.
+// If SHOW_EXPERIMENTAL != Y, then this config does not apply
+// Range of values: Y is YES, N is NO.
+WALLETCONNECT_ELIGABLE = Y
+
 // Help URLs
 CONFLICT_URL = https:/$()/help.gnosis-safe.io/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
 FALLBACKHANDLER_URL = https:/$()/help.gnosis-safe.io/en/articles/4738352-what-is-a-fallback-handler-and-how-does-it-relate-to-the-gnosis-safe

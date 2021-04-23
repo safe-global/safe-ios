@@ -32,6 +32,7 @@ class AppSettingsViewController: UITableViewController {
             case passcode(String)
             case appearance(String)
             case fiat(String, String)
+            case experimental(String)
         }
 
         enum General: SectionItem {
@@ -90,6 +91,10 @@ class AppSettingsViewController: UITableViewController {
             ]),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
         ]
+
+        if App.configuration.toggles.experimental {
+            sections[0].items.append(Section.App.experimental("Experimental 🧪"))
+        }
     }
 
     @objc func hidePresentedController() {
@@ -104,7 +109,10 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func addObservers() {
-        for notification in [Notification.Name.ownerKeyRemoved, .ownerKeyImported, .selectedFiatCurrencyChanged] {
+        for notification in [Notification.Name.ownerKeyRemoved,
+                             .ownerKeyImported,
+                             .selectedFiatCurrencyChanged,
+                             .updatedExperemental] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(reload),
@@ -148,6 +156,9 @@ class AppSettingsViewController: UITableViewController {
 
         case Section.App.fiat(let name, let value):
             return basicCell(name: name, info: value, indexPath: indexPath)
+
+        case Section.App.experimental(let name):
+            return basicCell(name: name, indexPath: indexPath)
 
         case Section.General.terms(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
@@ -212,6 +223,10 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.fiat:
             let selectFiatViewController = SelectFiatViewController()
             show(selectFiatViewController, sender: self)
+
+        case Section.App.experimental:
+            let experimentalViewController = ExperimentalViewController()
+            show(experimentalViewController, sender: self)
 
         case Section.General.terms:
             openInSafari(legal.termsURL)

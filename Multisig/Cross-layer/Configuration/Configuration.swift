@@ -106,7 +106,18 @@ struct AppConfiguration {
     }
 
     struct FeatureToggles {
-        // empty for now
+        @ConfigurationKey("SHOW_EXPERIMENTAL")
+        var experimental: Bool
+
+        @ConfigurationKey("WALLETCONNECT_ELIGABLE")
+        private var _walletConnectEligable: Bool
+
+        @UserDefault(key: "io.gnosis.multisig.experimental.walletConnect")
+        private var _walletConnectEnabled: Bool?
+
+        var walletConnectEnabled: Bool {
+            return experimental && _walletConnectEligable && _walletConnectEnabled ?? false
+        }
     }
 
     let services = Services()

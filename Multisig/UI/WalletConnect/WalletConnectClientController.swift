@@ -15,12 +15,16 @@ class WalletConnectClientController {
 
     private var client: Client?
     private var session: Session? {
-        didSet {
-            if let session = session {
-                clientSessionData = try! JSONEncoder().encode(session)
-            } else {
+        get {
+            clientSessionData == nil ? nil : Session.from(data: clientSessionData!)
+        }
+        set {
+            if newValue == nil {
                 clientSessionData = nil
+            } else {
+                clientSessionData = newValue!.data
             }
+
         }
     }
 
@@ -80,6 +84,13 @@ class WalletConnectClientController {
         }
     }
 
+    /// Checks if active session's wallet peerId equal with provided to the method
+    /// - Parameter peerId: WalletInfo.peerId
+    /// - Returns: true is wallet with `peerId` is connected
+    func isConnected(peerId: String) -> Bool {
+        return session?.walletInfo?.peerId == peerId
+    }
+
     // https://developer.apple.com/documentation/security/1399291-secrandomcopybytes
     private func randomKey() -> String? {
         var bytes = [Int8](repeating: 0, count: 32)
@@ -99,7 +110,7 @@ extension WalletConnectClientController: ClientDelegate {
 
     func client(_ client: Client, didConnect session: Session) {
         self.session = session
-        NotificationCenter.default.post(name: .wcDidConnectClient, object: nil)
+        NotificationCenter.default.post(name: .wcDidConnectClient, object: session)
     }
 
     func client(_ client: Client, didDisconnect session: Session) {
@@ -119,5 +130,25 @@ extension WCURL {
         let params = "bridge=\(bridgeURL.absoluteString)&key=\(key)"
             .addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
         return "wc:\(topic)@\(version)?\(params))"
+    }
+}
+
+extension Session {
+    var data: Data {
+        try! JSONEncoder().encode(self)
+    }
+
+    static func from(data: Data) -> Self? {
+        try? JSONDecoder().decode(Self.self, from: data)
+    }
+}
+
+extension Session.WalletInfo {
+    var data: Data {
+        try! JSONEncoder().encode(self)
+    }
+
+    static func from(data: Data) -> Self? {
+        try? JSONDecoder().decode(Self.self, from: data)
     }
 }

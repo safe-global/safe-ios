@@ -133,6 +133,10 @@
 	</dict>
 	<key>TWITTER_URL</key>
 	<string>$(TWITTER_URL)</string>
+	<key>SHOW_EXPERIMENTAL</key>
+	<string>$(SHOW_EXPERIMENTAL)</string>
+	<key>WALLETCONNECT_ELIGABLE</key>
+	<string>$(WALLETCONNECT_ELIGABLE)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Averta-Regular.otf</string>

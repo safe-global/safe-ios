@@ -347,6 +347,8 @@
 		0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729F24BF368900A370EE /* SlicedText+Address.swift */; };
 		0AFC33ED25DE9C3200067D41 /* AuthenticationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC33EC25DE9C3200067D41 /* AuthenticationControllerTests.swift */; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
+		5509DC68263142290000A85F /* SigningKeyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5509DC66263142290000A85F /* SigningKeyTableViewCell.swift */; };
+		5509DC69263142290000A85F /* SigningKeyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5509DC67263142290000A85F /* SigningKeyTableViewCell.xib */; };
 		551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551BC70C2538965700E4CC79 /* LoadingModel.swift */; };
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
 		551DDEEE244F19AE00C719D3 /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */; };
@@ -457,6 +459,7 @@
 		55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BCFC67255469C200020CE7 /* BasicHeaderView.xib */; };
 		55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EB8250A234F0080DF7F /* SecureStore.swift */; };
 		55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBA250A237C0080DF7F /* KeychainService.swift */; };
+		55CB71FE262FF29D0099E034 /* ExperimentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB71FD262FF29D0099E034 /* ExperimentalViewController.swift */; };
 		55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0824939079003B2B19 /* ConsoleTracker.swift */; };
 		55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */; };
 		55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0B24939079003B2B19 /* Tracker.swift */; };
@@ -920,6 +923,8 @@
 		50229A8638C363BCFA97A9B1 /* Pods-Multisig.release.development.mainnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.development.mainnet.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.development.mainnet.xcconfig"; sourceTree = "<group>"; };
 		54742DDC33F72556636E2FB7 /* Pods-Multisig.debugstagingrinkeby.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debugstagingrinkeby.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debugstagingrinkeby.xcconfig"; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
+		5509DC66263142290000A85F /* SigningKeyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningKeyTableViewCell.swift; sourceTree = "<group>"; };
+		5509DC67263142290000A85F /* SigningKeyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SigningKeyTableViewCell.xib; sourceTree = "<group>"; };
 		551BC70C2538965700E4CC79 /* LoadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModel.swift; sourceTree = "<group>"; };
 		551DDEE8244F183500C719D3 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		551DDEED244F19AE00C719D3 /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
@@ -1032,6 +1037,7 @@
 		55CA3EB8250A234F0080DF7F /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		55CA3EBA250A237C0080DF7F /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceIntegrationTests.swift; sourceTree = "<group>"; };
+		55CB71FD262FF29D0099E034 /* ExperimentalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentalViewController.swift; sourceTree = "<group>"; };
 		55CEFC0824939079003B2B19 /* ConsoleTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
 		55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		55CEFC0B24939079003B2B19 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
@@ -1276,6 +1282,8 @@
 				049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */,
 				049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */,
 				049A9D1E25F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib */,
+				5509DC66263142290000A85F /* SigningKeyTableViewCell.swift */,
+				5509DC67263142290000A85F /* SigningKeyTableViewCell.xib */,
 			);
 			path = OwnerKeysListViewController;
 			sourceTree = "<group>";
@@ -1575,6 +1583,7 @@
 		0A6886A52588FB0F0045CAB5 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				55CB71FC262FF27A0099E034 /* Experimental */,
 				558835DE255A90420014E8C7 /* AppSettingsViewController */,
 				55BCFC372552FCA900020CE7 /* SafeSettingsViewController */,
 				55F91A8E25BEABA100938475 /* OwnerKeyManagement */,
@@ -2500,6 +2509,14 @@
 			path = "Secure Store";
 			sourceTree = "<group>";
 		};
+		55CB71FC262FF27A0099E034 /* Experimental */ = {
+			isa = PBXGroup;
+			children = (
+				55CB71FD262FF29D0099E034 /* ExperimentalViewController.swift */,
+			);
+			path = Experimental;
+			sourceTree = "<group>";
+		};
 		55CEFC0724938FEC003B2B19 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -2770,6 +2787,7 @@
 				555E444D261D64660083E2FA /* ExternalLinkHeaderFooterView.xib in Resources */,
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */,
+				5509DC69263142290000A85F /* SigningKeyTableViewCell.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
@@ -3180,6 +3198,7 @@
 				559A775226240FF1002B89E7 /* OnboardingConnectOwnerKeyViewController.swift in Sources */,
 				0A57C5D72577F9E600420303 /* ConfirmationStatusPiece.swift in Sources */,
 				0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */,
+				5509DC68263142290000A85F /* SigningKeyTableViewCell.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
 				0AE8C08F25793B9400E62B34 /* DetailArrowPiece.swift in Sources */,
 				55831986261588A40015F0D7 /* WCTransactionConfirmationViewController.swift in Sources */,
@@ -3189,6 +3208,7 @@
 				555312EF2506641D0008206B /* RIPEMD160.swift in Sources */,
 				04CE3F9D24B62F0800826AEE /* CollectibleMetaDataAttribute.swift in Sources */,
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,
+				55CB71FE262FF29D0099E034 /* ExperimentalViewController.swift in Sources */,
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
 				04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */,
 				0A9BC3412460449E00EB9C5D /* EnterENSNameViewModel.swift in Sources */,

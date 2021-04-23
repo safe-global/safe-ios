@@ -8,6 +8,7 @@
 
 import Foundation
 
+#warning("TODO: use for importing WC key; rename")
 class PrivateKeyController {
     static func importKey(_ privateKey: PrivateKey, name: String, isDrivedFromSeedPhrase: Bool) -> Bool {
         do {
@@ -29,6 +30,9 @@ class PrivateKeyController {
     static func remove(keyInfo: KeyInfo) {
         do {
             try keyInfo.delete()
+            if keyInfo.keyType == .walletConnect {
+                WalletConnectClientController.shared.disconnect()
+            }
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key removed from this app")
             Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
@@ -123,8 +127,8 @@ class PrivateKeyController {
                 try PrivateKey.deleteAll()
             }
 
-            // delete all key infos whos private keys do not exist
-            let infos = try KeyInfo.all().filter { !$0.hasPrivateKey }
+            // delete all device key infos whos private keys do not exist
+            let infos = try KeyInfo.all().filter { $0.keyType == .device && !$0.hasPrivateKey }
             try infos.forEach { try $0.delete() }
         } catch {
             LogService.shared.error("Failed to delete all keys: \(error)")
