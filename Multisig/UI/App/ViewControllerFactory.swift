@@ -17,7 +17,7 @@ enum ViewControllerFactory {
     static func rootViewController() -> UIViewController {
         let tabBarVC = MainTabBarViewController()
 
-        if let updateViewController = App.shared.updateController.appUpdateStatus() {
+        if let updateViewController = App.shared.updateController.makeUpdateAppViewController() {
             updateViewController.modalPresentationStyle = .fullScreen
             updateViewController.modalTransitionStyle = .coverVertical
 

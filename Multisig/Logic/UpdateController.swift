@@ -9,11 +9,12 @@
 import Foundation
 
 class UpdateController {
-    func appUpdateStatus() -> UpdateAppViewController? {
+    func makeUpdateAppViewController() -> UpdateAppViewController? {
         let remoteConfig = FirebaseRemoteConfig.shared
         let appVersion = App.configuration.app.marketingVersion
 
-        let latestAppVersion: String? = remoteConfig.value(key: .newestVersion)
+        guard let latestAppVersion: String? = remoteConfig.value(key: .newestVersion),
+              !latestAppVersion!.isEmpty else { return nil }
 
         if appVersion == latestAppVersion { return nil }
         let deprecatedVersions: String? = remoteConfig.value(key: .deprecated)
@@ -28,16 +29,25 @@ class UpdateController {
     }
 
     private func check(value: String, in range: String) -> Bool {
+        guard !range.isEmpty else { return false }
         let ranges = range.split(separator: ",")
         for range in ranges {
-            let minVersion = range.components(separatedBy: "..")[0]
-            let maxVersion = range.components(separatedBy: "..")[1]
+            let rangeBound = range.components(separatedBy: "-")
+            let minVersion = rangeBound.first!
+            let maxVersion = rangeBound.last!
 
-            if value >= minVersion && value <= maxVersion {
+            let compareWithMinResult = compareNumeric(minVersion, value)
+            let compareWithMaxResult = compareNumeric(value, maxVersion)
+            if [.orderedAscending, .orderedSame].contains(compareWithMinResult) &&
+                [.orderedAscending, .orderedSame].contains(compareWithMaxResult) {
                 return true
             }
         }
 
         return false
+    }
+
+    private func compareNumeric(_ version1: String, _ version2: String) -> ComparisonResult {
+        return version1.compare(version2, options: .numeric)
     }
 }

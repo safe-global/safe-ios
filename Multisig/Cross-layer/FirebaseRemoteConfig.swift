@@ -18,7 +18,7 @@ class FirebaseRemoteConfig {
     }
 
     private var remoteConfig: RemoteConfig!
-    private let defaultValues: [String : NSObject] = [Key.newestVersion.rawValue : App.configuration.app.marketingVersion as NSObject,
+    private let defaultValues: [String : NSObject] = [Key.newestVersion.rawValue : "" as NSObject,
                                                       Key.deprecatedSoon.rawValue : "" as NSObject,
                                                       Key.deprecated.rawValue : "" as NSObject]
     private init() {
