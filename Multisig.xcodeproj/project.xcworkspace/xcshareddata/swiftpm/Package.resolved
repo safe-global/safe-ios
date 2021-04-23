@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk.git",
         "state": {
           "branch": null,
-          "revision": "c6328a01c4db4c5dfd5ce0159a48a129ef6f4505",
-          "version": "7.11.0"
+          "revision": "6caa3bbb0fa73782ac80fe198c06ba0c8ba08269",
+          "version": "7.8.0"
         }
       },
       {
@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/google/GoogleAppMeasurement.git",
         "state": {
           "branch": null,
-          "revision": "7a263c22915db6e421dbf84bd3b4367a870588d9",
-          "version": "7.11.0"
+          "revision": "e451106148d7842b1ef1ecfce98d07dd4cfa5f8b",
+          "version": "7.8.0"
         }
       },
       {
@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/google/GoogleDataTransport.git",
         "state": {
           "branch": null,
-          "revision": "369716b8d7518a530ce3c3a251436d72546debd8",
-          "version": "8.4.0"
+          "revision": "3615a4ca10961d82ed2b5459cd9a5cb5ebc03ff2",
+          "version": "8.3.1"
         }
       },
       {
@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/firebase/nanopb.git",
         "state": {
           "branch": null,
-          "revision": "7ee9ef9f627d85cbe1b8c4f49a3ed26eed216c77",
-          "version": "2.30908.0"
+          "revision": "c2d43e59d8ec880ed261366818f0cacc5c8cc2e6",
+          "version": "2.30907.0"
         }
       },
       {
