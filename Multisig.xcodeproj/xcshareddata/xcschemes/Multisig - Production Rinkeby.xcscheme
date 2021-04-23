@@ -100,5 +100,23 @@
    <ArchiveAction
       buildConfiguration = "Release.Production.Rinkeby"
       revealArchiveInOrganizer = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "# Fixes binary framework bug, see:&#10;# https://developer.apple.com/documentation/xcode-release-notes/xcode-12_4-release-notes#Swift-Packages&#10;# https://github.com/firebase/firebase-ios-sdk/issues/6472&#10;#&#10;&#10;echo &quot;Removing static frameworks from ${PRODUCT_NAME}.app&quot;&#10;find &quot;${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/&quot; -name &apos;*.framework&apos; -print0 | while IFS= read -r -d &apos;&apos; fm; do&#10;    name=$(basename &quot;${fm}&quot; .framework)&#10;    target=&quot;${fm}/${name}&quot;&#10;    echo &quot;Checking: ${fm}&quot;&#10;    if file &quot;${target}&quot; | grep -q &quot;current ar archive&quot;; then&#10;        rm -rf &quot;${fm}&quot;&#10;        echo &quot;Removed static framework: ${fm}&quot;&#10;    fi&#10;done&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "0A93DD522445CC8A00688050"
+                     BuildableName = "Multisig_PROD_MAINNET.app"
+                     BlueprintName = "Multisig"
+                     ReferencedContainer = "container:Multisig.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
    </ArchiveAction>
 </Scheme>
