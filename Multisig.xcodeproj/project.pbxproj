@@ -467,6 +467,8 @@
 		55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1D24939503003B2B19 /* View+Tracking.swift */; };
 		55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1F24939525003B2B19 /* TrackingEvent.swift */; };
 		55D3654325078560004D5047 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654225078560004D5047 /* TextView.swift */; };
+		55D3EDEF263652160066E161 /* WCPedingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3EDED263652160066E161 /* WCPedingConfirmationViewController.swift */; };
+		55D3EDF0263652160066E161 /* WCPedingConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D3EDEE263652160066E161 /* WCPedingConfirmationViewController.xib */; };
 		55D3FE85260A0F66008ABD2B /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE84260A0F66008ABD2B /* Web3 */; };
 		55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */; };
 		55D3FF0E260B2247008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */; };
@@ -1045,6 +1047,8 @@
 		55CEFC1D24939503003B2B19 /* View+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Tracking.swift"; sourceTree = "<group>"; };
 		55CEFC1F24939525003B2B19 /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
 		55D3654225078560004D5047 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		55D3EDED263652160066E161 /* WCPedingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCPedingConfirmationViewController.swift; sourceTree = "<group>"; };
+		55D3EDEE263652160066E161 /* WCPedingConfirmationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WCPedingConfirmationViewController.xib; sourceTree = "<group>"; };
 		55DCC332258A4C71003346FC /* GSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSError.swift; sourceTree = "<group>"; };
 		55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterKeyOrSeedPhraseViewController.xib; sourceTree = "<group>"; };
 		55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterKeyOrSeedPhraseViewController.swift; sourceTree = "<group>"; };
@@ -2338,6 +2342,8 @@
 				559A7761262427AD002B89E7 /* WalletsDataSource.swift */,
 				559A776B26242CE9002B89E7 /* wallets.json */,
 				559A777926255168002B89E7 /* WalletConnectClientController.swift */,
+				55D3EDED263652160066E161 /* WCPedingConfirmationViewController.swift */,
+				55D3EDEE263652160066E161 /* WCPedingConfirmationViewController.xib */,
 			);
 			path = WalletConnect;
 			sourceTree = "<group>";
@@ -2785,6 +2791,7 @@
 				0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				555E444D261D64660083E2FA /* ExternalLinkHeaderFooterView.xib in Resources */,
+				55D3EDF0263652160066E161 /* WCPedingConfirmationViewController.xib in Resources */,
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */,
 				5509DC69263142290000A85F /* SigningKeyTableViewCell.xib in Resources */,
@@ -3069,6 +3076,7 @@
 				0A86EE6325CC2B350059876E /* LoadingFooterView.swift in Sources */,
 				55D3654325078560004D5047 /* TextView.swift in Sources */,
 				0A451C18252DDCDE001DB7D2 /* ProgressIndicatorCell.swift in Sources */,
+				55D3EDEF263652160066E161 /* WCPedingConfirmationViewController.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,

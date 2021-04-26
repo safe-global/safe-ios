@@ -102,7 +102,9 @@ class WCTransactionConfirmationViewController: UIViewController {
 
 
             case .walletConnect:
-                break
+                let pendingConfirmationVC = WCPedingConfirmationViewController()
+                pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
+                present(pendingConfirmationVC, animated: true)
             }
         }
 
@@ -122,7 +124,7 @@ class WCTransactionConfirmationViewController: UIViewController {
 
         if !session.dAppInfo.peerMeta.icons.isEmpty {
             let imageUrl = session.dAppInfo.peerMeta.icons[0]
-            dappImageView.kf.setImage(with: imageUrl, placeholder: #imageLiteral(resourceName: "ico-empty-circle"))
+            dappImageView.kf.setImage(with: imageUrl, placeholder: UIImage(named: "ico-empty-circle"))
         } else {
             dappImageView.image = #imageLiteral(resourceName: "ico-empty-circle")
         }
