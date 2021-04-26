@@ -30,7 +30,6 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
             "0x2F4A6d752c8F433c5BbCde73FAc97Aa4bdE787AB",
             "0xCF5486D8C09D49A7396311950D1761c5fEF22551",
             "0x5d2F66B7b591198cA36450EFB56823EE26967144",
-            "0xb19BDaFf408bB502Ae348aF731C3812670667224",
             "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
         ]
         continueAfterFailure = false
@@ -39,24 +38,43 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         }
     }
 
-    func goThroughAllTransactions(safe: Address, line: UInt = #line) {
-        var receivedError: Error?
-        let semaphore = DispatchSemaphore(value: 0)
-        DispatchQueue.global().async {
-            do {
-                var page = try self.service.transactionSummaryList(address: safe)
-                var pages: [TransactionSummaryListRequest.ResponseType] = [page]
-                while let nextPageUri = page.next {
-                    page = try self.service.transactionSummaryList(pageUri: nextPageUri)
-                    pages.append(page)
-                }
-            } catch {
-                receivedError = error
+    private func goThroughAllTransactions(safe: Address, line: UInt = #line) {
+        var semaphore = DispatchSemaphore(value: 0)
+        var page: Page<SCGModels.TransactionSummaryItem>?
+        var pages = [Page<SCGModels.TransactionSummaryItem>]()
+
+        _ = service.asyncHistoryTransactionsSummaryList(address: safe) { result in
+            guard case .success(let response) = result else {
+                XCTFail("Unexpected error: \(result); Safe \(safe.checksummed)", line: line)
+                semaphore.signal()
+                return
             }
+            page = response
+            pages.append(page!)
             semaphore.signal()
         }
+
         semaphore.wait()
-        XCTAssertNil(receivedError, "Safe \(safe.checksummed): \(String(describing: receivedError))", line: line)
+
+        while let nextPageUri = page?.next {
+            semaphore = DispatchSemaphore(value: 0)
+            do {
+                _ = try service.asyncHistoryTransactionsSummaryList(pageUri: nextPageUri) { result in
+                    guard case .success(let response) = result else {
+                        XCTFail("Unexpected error: \(result); Safe \(safe.checksummed)", line: line)
+                        semaphore.signal()
+                        return
+                    }
+                    page = response
+                    pages.append(response)
+                    semaphore.signal()
+                }
+            } catch {
+                XCTFail("Unexpected error :\(error.localizedDescription); Safe \(safe.checksummed)", line: line)
+                semaphore.signal()
+            }
+            semaphore.wait()
+        }
     }
 
     func testTransactionDetails() {
@@ -64,8 +82,8 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         let safeTx = fetchTransaction(safeTxHash: safeTxHash)
         switch safeTx {
         case .success(let tx):
-            if let info = tx.detailedExecutionInfo as? MultisigExecutionDetails {
-                XCTAssertEqual(info.safeTxHash.data, Data(hex: safeTxHash))
+            if case .multisig(let info) = tx.detailedExecutionInfo {
+                XCTAssertEqual(info.safeTxHash.hash, Data(hex: safeTxHash))
             } else {
                 XCTFail("Unexpected tx: \(tx)")
             }
@@ -75,18 +93,18 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         }
 
         // currently unsupported by the server
-        let ethTxHash = "0x48e31efdd79cd6689f0e42c3aa02993a2f6906662671a72e646dc28c8935422a"
-        let ethTx = fetchTransaction(safeTxHash: ethTxHash)
-        switch ethTx {
-        case .success(let tx):
-            if let info = tx.detailedExecutionInfo as? MultisigExecutionDetails {
-                XCTAssertEqual(info.safeTxHash.data, Data(hex: safeTxHash))
-            } else {
-                XCTFail("Unexpected tx: \(tx)")
-            }
-        case .failure(let error):
-            XCTFail("Existing transaction not found: \(error)")
-        }
+//        let ethTxHash = "0x48e31efdd79cd6689f0e42c3aa02993a2f6906662671a72e646dc28c8935422a"
+//        let ethTx = fetchTransaction(safeTxHash: ethTxHash)
+//        switch ethTx {
+//        case .success(let tx):
+//            if case .multisig(let info) = tx.detailedExecutionInfo {
+//                XCTAssertEqual(info.safeTxHash.hash, Data(hex: safeTxHash))
+//            } else {
+//                XCTFail("Unexpected tx: \(tx)")
+//            }
+//        case .failure(let error):
+//            XCTFail("Existing transaction not found: \(error)")
+//        }
 
         let invalidHash = "0x0000000000000000000042c3aa02993a2f6906662671a72e646dc28c8935422a"
         let invalidTx = fetchTransaction(safeTxHash: invalidHash)
@@ -94,19 +112,18 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         case .success(let tx):
             XCTFail("Unexpected transaction: \(tx)")
         case .failure(let error):
-            guard error is HTTPClientError.EntityNotFound else {
+            guard error is GSError.EntityNotFound else {
                 XCTFail("Expected 'not found' error, got this: \(error)")
                 return
-            }            
+            }
         }
 
-
-        let id = "multisig_0xc05ee463c932c3de977274edb5d2e603b0d431b787bf8ca60a2c22b79c395467"
+        let id = "multisig_0xEefFcdEAB4AC6005E90566B08EAda3994A573C1E_0xcef14524299252e348b299e23f6e36e66e2c6307993c0875d0640db482051c6b"
         let idTx = fetchTransaction(id: id)
         switch idTx {
         case .success(let tx):
-            if let info = tx.txInfo as? CustomTransactionInfo {
-                XCTAssertEqual(info.dataSize.value, 36)
+            if case .custom(let info) = tx.txInfo {
+                XCTAssertEqual(info.dataSize.value, 75)
             } else {
                 XCTFail("Unexpected tx: \(tx)")
             }
@@ -116,17 +133,13 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         }
     }
 
-    func fetchTransaction(safeTxHash: String) -> Result<TransactionDetails, Error> {
+    private func fetchTransaction(safeTxHash: String) -> Result<SCGModels.TransactionDetails, Error> {
         let hash = Data(hex: safeTxHash)
-        var result: Result<TransactionDetails, Error>?
+        var result: Result<SCGModels.TransactionDetails, Error>?
         let semaphore = DispatchSemaphore(value: 0)
-        DispatchQueue.global().async {
-            do {
-                let tx = try self.service.transactionDetails(safeTxHash: hash)
-                result = .success(tx)
-            } catch {
-                result = .failure(error)
-            }
+
+        _ = service.asyncTransactionDetails(safeTxHash: hash) { _result in
+            result = _result
             semaphore.signal()
         }
         semaphore.wait()
@@ -134,17 +147,12 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         return result!
     }
 
-    func fetchTransaction(id: String) -> Result<TransactionDetails, Error> {
-        let txID = TransactionID(value: id)
-        var result: Result<TransactionDetails, Error>?
+    private func fetchTransaction(id: String) -> Result<SCGModels.TransactionDetails, Error> {
+        var result: Result<SCGModels.TransactionDetails, Error>?
         let semaphore = DispatchSemaphore(value: 0)
-        DispatchQueue.global().async {
-            do {
-                let tx = try self.service.transactionDetails(id: txID)
-                result = .success(tx)
-            } catch {
-                result = .failure(error)
-            }
+
+        _ = service.asyncTransactionDetails(id: id) { _result in
+            result = _result
             semaphore.signal()
         }
         semaphore.wait()
@@ -152,4 +160,50 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         return result!
     }
 
+    func testSafeInfo() {
+        let semaphore = DispatchSemaphore(value: 0)
+        _ = service.asyncSafeInfo(address: Address("0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")) { result in
+            guard case .success(let info) = result else {
+                XCTFail("Failed to load safe info.")
+                semaphore.signal()
+                return
+            }
+            XCTAssertEqual(info.implementation.addressInfo.address,
+                           Address("0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F"))
+            semaphore.signal()
+        }
+        semaphore.wait()
+    }
+
+    func test_safeInfo_whenSendingNotASafe_returns404Error() {
+        let semaphore = DispatchSemaphore(value: 0)
+        _ = service.asyncSafeInfo(address: Address("0xc778417E063141139Fce010982780140Aa0cD5Ab")) { result in
+            guard case .failure(let error) = result else {
+                XCTFail("Expected error.")
+                semaphore.signal()
+                return
+            }
+            guard error is GSError.EntityNotFound else {
+                XCTFail("Wrong error type \(error)")
+                semaphore.signal()
+                return
+            }
+            semaphore.signal()
+        }
+        semaphore.wait()
+    }
+
+    func testBalances() {
+        let semaphore = DispatchSemaphore(value: 0)
+        _ = service.asyncBalances(address: Address("0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")) { result in
+            guard case .success(let response) = result else {
+                XCTFail("Failed to load balances.")
+                semaphore.signal()
+                return
+            }
+            XCTAssertTrue(response.items.count > 0)
+            semaphore.signal()
+        }
+        semaphore.wait()
+    }
 }
