@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol OwnerKeysListTableViewCellDelegate: class {
+protocol OwnerKeysListTableViewCellDelegate: AnyObject {
     func ownerKeysListTableViewDidEdit(cell: OwnerKeysListTableViewCell)
     func ownerKeysListTableViewCellDidRemove(cell: OwnerKeysListTableViewCell)
 }

@@ -94,7 +94,7 @@ class Tracker {
 }
 
 /// Concrete implementations of tracking systems should conform to this protocol to be registered with the Tracker.
-protocol TrackingHandler: class {
+protocol TrackingHandler: AnyObject {
     /// Track event with parameters.
     ///
     /// - Parameters:
