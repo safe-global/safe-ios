@@ -36,9 +36,9 @@ class FirebaseRemoteConfig {
     func fetchConfig() {
         remoteConfig.fetchAndActivate { status, error in
             if [RemoteConfigFetchAndActivateStatus.successFetchedFromRemote, .successUsingPreFetchedData].contains(status) {
-                print("Config fetched!")
+                LogService.shared.info("Config fetched!")
             } else {
-                print("Error: \(error?.localizedDescription ?? "Config not fetched")")
+                LogService.shared.info("Error: \(error?.localizedDescription ?? "Config not fetched")")
             }
         }
     }
