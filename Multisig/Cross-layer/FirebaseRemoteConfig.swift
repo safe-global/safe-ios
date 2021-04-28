@@ -26,9 +26,20 @@ class FirebaseRemoteConfig {
         let settings = RemoteConfigSettings()
         remoteConfig.configSettings = settings
         remoteConfig.setDefaults(defaultValues)
+        fetchConfig()
     }
 
-    func value<T>(key: Key) -> T? {
-        remoteConfig.configValue(forKey: key.rawValue) as? T
+    func value(key: Key) -> String? {
+        remoteConfig[key.rawValue].stringValue
+    }
+
+    func fetchConfig() {
+        remoteConfig.fetchAndActivate { status, error in
+            if [RemoteConfigFetchAndActivateStatus.successFetchedFromRemote, .successUsingPreFetchedData].contains(status) {
+                print("Config fetched!")
+            } else {
+                print("Error: \(error?.localizedDescription ?? "Config not fetched")")
+            }
+        }
     }
 }

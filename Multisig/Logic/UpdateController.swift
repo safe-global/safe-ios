@@ -13,11 +13,11 @@ class UpdateController {
         let remoteConfig = FirebaseRemoteConfig.shared
         let appVersion = App.configuration.app.marketingVersion
 
-        guard let latestAppVersion: String? = remoteConfig.value(key: .newestVersion),
-              !latestAppVersion!.isEmpty else { return nil }
+        guard let latestAppVersion = remoteConfig.value(key: .newestVersion),
+              !latestAppVersion.isEmpty else { return nil }
 
         if appVersion == latestAppVersion { return nil }
-        let deprecatedVersions: String? = remoteConfig.value(key: .deprecated)
+        let deprecatedVersions = remoteConfig.value(key: .deprecated)
         var style = UpdateAppViewController.Style.optional
         if let deprecatedVersionsRange = deprecatedVersions, check(value: appVersion, in: deprecatedVersionsRange) {
             style = .required
