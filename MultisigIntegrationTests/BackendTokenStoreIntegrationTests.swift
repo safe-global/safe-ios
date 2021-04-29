@@ -10,7 +10,6 @@ import XCTest
 @testable import Multisig
 
 class BackendTokenStoreIntegrationTests: XCTestCase {
-
     let store = BackendTokenStore()
 
     func testTokens() {
