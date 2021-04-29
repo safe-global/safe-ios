@@ -53,7 +53,6 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
             pages.append(page!)
             semaphore.signal()
         }
-
         semaphore.wait()
 
         while let nextPageUri = page?.next {
