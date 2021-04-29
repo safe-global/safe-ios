@@ -176,9 +176,9 @@
         "package": "SwiftCryptoTokenFormatter",
         "repositoryURL": "https://github.com/gnosis/SwiftCryptoTokenFormatter.git",
         "state": {
-          "branch": "update-deps",
-          "revision": "44b53dec200f4050bf1d835f8d0e4bc9aa6cb936",
-          "version": null
+          "branch": null,
+          "revision": "6f605fd7bd61327a6006919e28bf3f0632d1c556",
+          "version": "1.1.0"
         }
       },
       {
