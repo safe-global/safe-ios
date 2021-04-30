@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import WalletConnectSwift
 
 #warning("Handle properly errors")
@@ -116,6 +117,32 @@ class WalletConnectClientController {
             }
         } catch {
             completion(.failure(error))
+        }
+    }
+
+    func sign(message: String, from controller: UIViewController, completion: @escaping (String) -> Void) {
+        guard controller.presentedViewController == nil else { return }
+
+        let pendingConfirmationVC = WCPedingConfirmationViewController()
+        pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
+        controller.present(pendingConfirmationVC, animated: false)
+
+        sign(message: message) { result in
+            switch result {
+            case .success(let signature):
+                DispatchQueue.main.async {
+                    // dismiss pending confirmation view controller overlay
+                    controller.dismiss(animated: false, completion: nil)
+                }
+                completion(signature)
+
+            case .failure(_):
+                DispatchQueue.main.async {
+                    // dismiss pending confirmation view controller overlay
+                    controller.dismiss(animated: false, completion: nil)
+                    App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
+                }
+            }
         }
     }
 

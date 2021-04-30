@@ -50,6 +50,11 @@ extension KeyInfo {
         }
     }
 
+    var installedWallet: InstalledWallet? {
+        guard let metadata = metadata else { return nil }
+        return WalletConnectKeyMetadata.from(data: metadata)?.installedWallet
+    }
+
     static func name(address: Address) -> String? {
         guard let keyInfo = try? KeyInfo.keys(addresses: [address]).first else { return nil }
         return keyInfo.name

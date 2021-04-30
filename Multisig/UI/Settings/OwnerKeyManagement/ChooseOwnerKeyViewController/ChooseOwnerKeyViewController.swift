@@ -107,31 +107,18 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         if App.configuration.toggles.walletConnectEnabled && keyInfo.keyType == .walletConnect {
             guard WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) else {
                 // try to reconnect
-
-                if let installedWallet = WalletsDataSource.shared.installedWallet(by: keyInfo) {
-                    let alertController = UIAlertController(title: "How would you like to connect this wallet?",
-                                                            message: nil,
-                                                            preferredStyle: .alert)
-
-                    let walletAction = UIAlertAction(title: "Open Installed Wallet", style: .default) {
-                        [unowned self] _ in
-                        self.openInstalledWallet(installedWallet)
-                    }
-
-                    let qrCodeAction = UIAlertAction(title: "Show QR Code", style: .default) {
-                        [unowned self] _ in
-                        self.showQRCodeController()
-                    }
-
-                    alertController.addAction(walletAction)
-                    alertController.addAction(qrCodeAction)
-                    present(alertController, animated: true, completion: nil)
+                if let installedWallet = keyInfo.installedWallet {
+                    reconnectWithInstalledWallet(installedWallet)
                 } else {
-                    showQRCodeController()
+                    showConnectionQRCodeController()
                 }
-
                 return
             }
+
+            // do not request passcode for connected wallets
+            // as they have own protection
+            completionHandler?(keyInfo)
+            return
         }
 
         if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForConfirmation) {
@@ -146,7 +133,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
 
-    private func openInstalledWallet(_ installedWallet: InstalledWallet) {
+    private func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) {
         do {
             let (topic, connectionURL) = try WalletConnectClientController.shared
                 .getTopicAndConnectionURL(universalLink: installedWallet.universalLink)
@@ -158,7 +145,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
 
-    private func showQRCodeController() {
+    private func showConnectionQRCodeController() {
         do {
             let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
             let qrCodeVC = WalletConnectQRCodeViewController.create(code: connectionURI)

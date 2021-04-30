@@ -332,10 +332,10 @@ enum GSError {
         let loggable = false
     }
 
-    struct CouldNotSubmitWalletConnectTransaction: DetailedLocalizedError {
-        let description = "Could not sumbit a multisig transaction"
-        let reason = "Our backed restricted this operation."
-        let howToFix = "Please ensure that imported signing key belongs to the connected Safe"
+    struct CouldNotSignWithWalletConnect: DetailedLocalizedError {
+        let description = "Could not sign with connected wallet"
+        let reason = "Wallet rejected the request."
+        let howToFix = "Please confirm the request with your wallet."
         let domain = clientErrorDomain
         let code = 1113
         let loggable = false

@@ -24,14 +24,6 @@ class WalletsDataSource {
             .sorted { AllowedWallet($0)!.priority < AllowedWallet($1)!.priority }
             .compactMap { InstalledWallet(walletEntry: $0) }
     }
-
-    func installedWallet(by keyInfo: KeyInfo) -> InstalledWallet? {
-        guard let metadata = keyInfo.metadata,
-              let installedWallet = KeyInfo.WalletConnectKeyMetadata.from(data: metadata)?.installedWallet else {
-            return nil
-        }
-        return installedWallet
-    }
 }
 
 fileprivate struct WalletEntry: Decodable {

@@ -54,7 +54,6 @@ class WCTransactionConfirmationViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    #warning("TODO: handle errors properly")
     #warning("TODO: use client gateway service for submitting transactions")
     @IBAction func submit(_ sender: Any) {
         let owners = (try? KeyInfo.keys(addresses: importedKeysForSafe)) ?? []
@@ -72,58 +71,28 @@ class WCTransactionConfirmationViewController: UIViewController {
             switch keyInfo.keyType {
 
             case .device:
-                // TODO: show loading indicator
-                DispatchQueue.global().async {
-                    guard let signature = try? keyInfo.privateKey()?.sign(hash: transaction.safeTxHash!.hash) else {
-                        // TODO: show info message for error
-                        return
-                    }
-                    let request = CreateTransactionRequest(safe: transaction.safe!,
-                                                           sender: AddressString(keyInfo.address),
-                                                           signature: signature.hexadecimal,
-                                                           transaction: transaction)
+                DispatchQueue.global().async { [unowned self] in
                     do {
-                        try App.shared.safeTransactionService.createTransaction(request: request)
-                        DispatchQueue.main.async { [weak self] in
-                            // dismiss WCTransactionConfirmationViewController
-                            self?.dismiss(animated: true, completion: nil)
-
-                            App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners. Once it is executed the dapp will get a response with the transaction hash.")
-                        }
+                        let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
+                        self.sendConfirmationAndDismiss(keyInfo: keyInfo, signature: signature.hexadecimal)
                     } catch {
                         DispatchQueue.main.async {
-                            App.shared.snackbar.show(error: GSError.CouldNotSubmitWalletConnectTransaction())
-                        }
-                    }
-
-                    onSubmit?()
-                }
-
-
-
-            case .walletConnect:
-                let pendingConfirmationVC = WCPedingConfirmationViewController()
-                pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
-                present(pendingConfirmationVC, animated: true)
-
-                WalletConnectClientController.shared.sign(message: transaction.safeTxHash!.description) { result in
-                    switch result {
-                    case .success(let signature):
-                        print("Signature: \(signature)")
-
-                        DispatchQueue.main.async {
-                            // dismiss pending confirmation view controller overlay
-                            dismiss(animated: false, completion: nil)
-                        }
-                    case .failure(let error):
-                        DispatchQueue.main.async {
-                            // dismiss pending confirmation view controller overlay
-                            dismiss(animated: false, completion: nil)
-
                             App.shared.snackbar.show(
                                 error: GSError.error(description: "Could not sign transaction.", error: error))
                         }
                     }
+                }
+
+            case .walletConnect:
+                WalletConnectClientController.shared.sign(message: transaction.safeTxHash!.description, from: self) {
+                    [unowned self] signature in
+                    self.sendConfirmationAndDismiss(keyInfo: keyInfo, signature: signature)
+                }
+
+                if let installedWallet = keyInfo.installedWallet {
+                    // MetaMask shows error alert if nothing is provided to the link
+                    // https://github.com/MetaMask/metamask-mobile/blob/194a1858b96b1f88762f8679380b09dda3c8b29e/app/core/DeeplinkManager.js#L89
+                    UIApplication.shared.open(URL(string: installedWallet.universalLink.appending("/focus"))!)
                 }
             }
         }
@@ -132,12 +101,37 @@ class WCTransactionConfirmationViewController: UIViewController {
         present(navigationController, animated: true)
     }
 
+    private func sendConfirmationAndDismiss(keyInfo: KeyInfo, signature: String) {
+        do {
+            let request = CreateTransactionRequest(safe: transaction.safe!,
+                                                   sender: AddressString(keyInfo.address),
+                                                   signature: signature,
+                                                   transaction: transaction)
+            try App.shared.safeTransactionService.createTransaction(request: request)
+
+            DispatchQueue.main.async { [weak self] in
+                // dismiss WCTransactionConfirmationViewController
+                self?.dismiss(animated: true, completion: nil)
+                App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners. Once it is executed the dapp will get a response with the transaction hash.")
+            }
+
+            onSubmit?()
+        } catch {
+            DispatchQueue.main.async {
+                App.shared.snackbar.show(
+                    error: GSError.error(description: "Could not sign transaction.", error: error))
+            }
+        }
+    }
+
     convenience init(transaction: Transaction, topic: String, importedKeysForSafe: [Address]) {
         self.init()
         self.transaction = transaction
         self.session = try! Session.from(WCSession.get(topic: topic)!)
         self.importedKeysForSafe = importedKeysForSafe
     }
+
+    // MARK: - ViewController life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()

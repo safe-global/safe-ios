@@ -95,7 +95,6 @@ class WCRequestsHandler: RequestHandler {
                             wcSession: wcSession,
                             nonce: transaction.nonce,
                             requestId: requestId.description)
-
                     }
                 }
 

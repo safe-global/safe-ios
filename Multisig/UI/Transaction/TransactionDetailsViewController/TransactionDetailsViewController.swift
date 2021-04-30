@@ -179,10 +179,11 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
         let vc = ChooseOwnerKeyViewController(owners: signers,
                                               descriptionText: descriptionText) { [unowned self] keyInfo in
-            if let info = keyInfo {
-                sign(info)
+            dismiss(animated: true) {
+                if let info = keyInfo {
+                    sign(info)
+                }
             }
-            dismiss(animated: true)
         }
 
         let navigationController = UINavigationController(rootViewController: vc)
@@ -201,29 +202,53 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             preconditionFailure("Unexpected Error")            
         }
         super.reloadData()
-        do {
-            let safeAddress = try Address(from: try Safe.getSelected()!.address!)
-            let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress, keyInfo: keyInfo)
+
+        switch keyInfo.keyType {
+
+        case .device:
+            do {
+                let safeAddress = try Address(from: try Safe.getSelected()!.address!)
+                let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress, keyInfo: keyInfo)
+                let safeTxHash = transaction.safeTxHash!.description
+                confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal)
+            } catch {
+                onError(GSError.error(description: "Failed to confirm transaction", error: error))
+            }
+
+        case .walletConnect:
             let safeTxHash = transaction.safeTxHash!.description
-            confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash, with: signature.hexadecimal, completion: { [weak self] result in
+            WalletConnectClientController.shared.sign(message: safeTxHash, from: self) {
+                [unowned self] signature in
+                self.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature)
+            }
 
-                // NOTE: sometimes the data of the transaction list is not
-                // updated right away, we'll give a moment for the backend
-                // to catch up before finishing with this request.
-                DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(600)) { [weak self] in
-                    if case Result.success(_) = result {
-                        DispatchQueue.main.async {
-                            NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
-                            App.shared.snackbar.show(message: "Confirmation successfully submitted")
-                        }
+            if let installedWallet = keyInfo.installedWallet {
+                // MetaMask shows error alert if nothing is provided to the link
+                // https://github.com/MetaMask/metamask-mobile/blob/194a1858b96b1f88762f8679380b09dda3c8b29e/app/core/DeeplinkManager.js#L89
+                UIApplication.shared.open(URL(string: installedWallet.universalLink.appending("/focus"))!)
+            }
+        }
+
+    }
+
+    private func confirmAndRefresh(safeTxHash: String, signature: String) {
+        confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash, with: signature) {
+            [weak self] result in
+
+            // NOTE: sometimes the data of the transaction list is not
+            // updated right away, we'll give a moment for the backend
+            // to catch up before finishing with this request.
+            DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(600)) { [weak self] in
+                if case Result.success(_) = result {
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
+                        Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
+                        App.shared.snackbar.show(message: "Confirmation successfully submitted")
                     }
-
-                    self?.onLoadingCompleted(result: result)
                 }
-            })
-        } catch {
-            onError(GSError.error(description: "Failed to confirm transaction", error: error))
+
+                self?.onLoadingCompleted(result: result)
+            }
         }
     }
 
