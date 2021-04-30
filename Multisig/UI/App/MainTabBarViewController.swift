@@ -12,14 +12,26 @@ class MainTabBarViewController: UITabBarController {
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
 
+    lazy var balancesTabVC: UIViewController = {
+        balancesTabViewController()
+    }()
+
+    lazy var transactionsTabVC: UIViewController = {
+        transactionsTabViewController()
+    }()
+
+    lazy var dappsTabVC: UIViewController = {
+        dappsTabViewController()
+    }()
+
+    lazy var settingsTabVC: UIViewController = {
+        settingsTabViewController()
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let balancesTabVC = balancesTabViewController()
-        let transactionsTabVC = transactionsTabViewController()
-        let dappsTabVC = dappsTabViewController()
-        let settingsTabVC = settingsTabViewController()
-        viewControllers = [balancesTabVC, transactionsTabVC, dappsTabVC, settingsTabVC]
+        updateTabs()
         tabBar.barTintColor = .secondaryBackground
 
         NotificationCenter.default.addObserver(
@@ -32,6 +44,12 @@ class MainTabBarViewController: UITabBarController {
             self,
             selector: #selector(showQueuedTransactions),
             name: .queuedTxNotificationReceived,
+            object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateTabs),
+            name: .updatedExperemental,
             object: nil)
     }
 
@@ -132,14 +150,21 @@ class MainTabBarViewController: UITabBarController {
         return nav
     }
 
-    @objc func showQueuedTransactions() {
+    @objc private func showQueuedTransactions() {
         selectedIndex = 1
         transactionsSegementControl?.selectedIndex = 0
     }
 
-    @objc func showHistoryTransactions() {
+    @objc private func showHistoryTransactions() {
         selectedIndex = 1
         transactionsSegementControl?.selectedIndex = 1
     }
 
+    @objc private func updateTabs() {
+        if App.configuration.toggles.walletConnectEnabled {
+            viewControllers = [balancesTabVC, transactionsTabVC, dappsTabVC, settingsTabVC]
+        } else {
+            viewControllers = [balancesTabVC, transactionsTabVC, settingsTabVC]
+        }
+    }
 }
