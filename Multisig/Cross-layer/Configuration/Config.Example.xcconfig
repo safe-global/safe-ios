@@ -161,7 +161,9 @@ PRODUCT_BUNDLE_IDENTIFIER           = $(_APP_BUNDLE_ID_$(SERVICE_ENV)_$(NETWORK)
 
 // Different product names are fixing an iOS bug that disables Touch ID
 // or Face ID when multiple apps with the same executable name are installed.
-PRODUCT_NAME                        = Multisig_$(SERVICE_ENV)_$(NETWORK)
+APP_PRODUCT_NAME                    = Multisig_$(SERVICE_ENV)_$(NETWORK)
+
+PRODUCT_NAME = $(APP_PRODUCT_NAME)
 
 ASSETCATALOG_COMPILER_APPICON_NAME  = AppIcon_$(SERVICE_ENV)_$(NETWORK)
 

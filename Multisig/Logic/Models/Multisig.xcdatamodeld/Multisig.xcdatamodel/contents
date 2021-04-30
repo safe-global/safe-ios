@@ -10,9 +10,11 @@
         <attribute name="lastBuildVersion" optional="YES" attributeType="String"/>
         <attribute name="lastMarketingVersion" optional="YES" attributeType="String"/>
         <attribute name="passcodeBannerDismissed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="passcodeOptions" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="passcodeWasSetAtLeastOnce" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
         <attribute name="termsAccepted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-    </entity>
+        <attribute name="trackingEnabled" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+    </entity>     
     <entity name="AppUser" representedClassName="AppUser" syncable="YES" codeGenerationType="class">
         <attribute name="accessBlockedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="failedAuthAttempts" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

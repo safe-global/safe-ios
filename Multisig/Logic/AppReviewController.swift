@@ -11,6 +11,8 @@ import StoreKit
 
 /// Encapsulates the app review triggering logic.
 class AppReviewController {
+    /// Set this to true when the app starts from opening a notification
+    var startedFromNotification: Bool = false
 
     /// Call this on the app start except when starting from notification.
     ///
@@ -23,7 +25,7 @@ class AppReviewController {
     ///
     /// This means count to 3 again, not including starts from push notifications.
     func pullAppReviewTrigger() {
-        guard AppSettings.termsAccepted else { return }
+        guard AppSettings.termsAccepted && !startedFromNotification else { return }
 
         // will be 0 if never counted yet
         AppSettings.appReviewEventCount += 1

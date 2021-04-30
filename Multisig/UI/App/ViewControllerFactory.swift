@@ -15,115 +15,35 @@ enum ViewControllerFactory {
     // of UIKit memory leaking issues when switching root view controller
     // of the UIWindow.
     static func rootViewController() -> UIViewController {
-        let tabBarVC = UITabBarController()
-        let balancesTabVC = balancesTabViewController()
-        let transactionsTabVC = transactionsTabViewController()
-        let dappsTabVC = dappsTabViewController()
-        let settingsTabVC = settingsTabViewController()
-        tabBarVC.viewControllers = [balancesTabVC, transactionsTabVC, dappsTabVC, settingsTabVC]
-        tabBarVC.tabBar.barTintColor = .secondaryBackground
+        let tabBarVC = MainTabBarViewController()
 
-        if !AppSettings.termsAccepted {
-            let start = LaunchView(acceptedTerms: .constant(false), onStart: { [weak tabBarVC] in
-                tabBarVC?.dismiss(animated: true, completion: nil)
+        if let updateViewController = App.shared.updateController.makeUpdateAppViewController() {
+            updateViewController.modalPresentationStyle = .fullScreen
+            updateViewController.modalTransitionStyle = .coverVertical
+
+            DispatchQueue.main.async {
+                tabBarVC.present(updateViewController, animated: false, completion: nil)
+            }
+        } else if !AppSettings.termsAccepted {
+            let nav = UINavigationController()
+            nav.modalPresentationStyle = .fullScreen
+            nav.modalTransitionStyle = .crossDissolve
+
+            let start = LaunchView(acceptedTerms: .constant(false), onStart: { [weak nav] in
+                nav?.popViewController(animated: false)
             })
             .environment(\.managedObjectContext, App.shared.coreDataStack.viewContext)
-            let vc = UIHostingController(rootView: start)
-            vc.modalPresentationStyle = .fullScreen
-            vc.modalTransitionStyle = .crossDissolve
+
+            let startVC = UIHostingController(rootView: start)
+            let createPasswordVC = CreatePasscodeViewController()
+
+            nav.viewControllers = [createPasswordVC, startVC]
+
             DispatchQueue.main.async {
-                tabBarVC.present(vc, animated: false, completion: nil)
+                tabBarVC.present(nav, animated: false, completion: nil)
             }
         }
         return tabBarVC
-    }
-
-    private static func balancesTabViewController() -> UIViewController {
-        let segmentVC = SegmentViewController(namedClass: nil)
-        segmentVC.segmentItems = [
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-coins"), title: "Coins"),
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-collectibles"), title: "Collectibles")
-        ]
-        segmentVC.viewControllers = [
-            BalancesViewController(),
-            CollectiblesViewController()
-        ]
-        segmentVC.selectedIndex = 0
-
-        let noSafesVC = NoSafesViewController()
-        let loadSafeViewController = LoadSafeViewController()
-        loadSafeViewController.trackingEvent = .assetsNoSafe
-        noSafesVC.hasSafeViewController = segmentVC
-        noSafesVC.noSafeViewController = loadSafeViewController
-
-        let tabRoot = HeaderViewController(rootViewController: noSafesVC)
-        return tabViewController(root: tabRoot, title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
-    }
-
-    private static func transactionsTabViewController() -> UIViewController {
-        let queuedTransactionsViewController = QueuedTransactionsViewController()
-        let historyTransactionsViewController = HistoryTransactionsViewController()
-
-        let segmentVC = SegmentViewController(namedClass: nil)
-        segmentVC.segmentItems = [
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-queued-transactions"), title: "QUEUE"),
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-history-transactions"), title: "HISTORY")
-        ]
-        segmentVC.viewControllers = [
-            queuedTransactionsViewController,
-            historyTransactionsViewController
-        ]
-        segmentVC.selectedIndex = 0
-
-        let noSafesVC = NoSafesViewController()
-        let loadSafeViewController = LoadSafeViewController()
-        loadSafeViewController.trackingEvent = .transactionsNoSafe
-        noSafesVC.hasSafeViewController = segmentVC
-        noSafesVC.noSafeViewController = loadSafeViewController
-        
-        let tabRoot = HeaderViewController(rootViewController: noSafesVC)
-        return tabViewController(root: tabRoot, title: "Transactions", image: #imageLiteral(resourceName: "tab-icon-transactions"), tag: 1)
-    }
-
-    #warning("fix tracking")
-    private static func dappsTabViewController() -> UIViewController {
-        let noSafesVC = NoSafesViewController()
-        let loadSafeViewController = LoadSafeViewController()
-        loadSafeViewController.trackingEvent = .settingsSafeNoSafe
-        noSafesVC.hasSafeViewController = DappsViewController()
-        noSafesVC.noSafeViewController = loadSafeViewController
-
-        let tabRoot = HeaderViewController(rootViewController: noSafesVC)
-        return tabViewController(root: tabRoot, title: "Dapps", image: #imageLiteral(resourceName: "ico-custom-tx"), tag: 2)
-    }
-
-    private static func settingsTabViewController() -> UIViewController {
-        let noSafesVC = NoSafesViewController()
-        let loadSafeViewController = LoadSafeViewController()
-        loadSafeViewController.trackingEvent = .settingsSafeNoSafe
-        noSafesVC.hasSafeViewController = SafeSettingsViewController()
-        noSafesVC.noSafeViewController = loadSafeViewController
-
-        let segmentVC = SegmentViewController(namedClass: nil)
-        segmentVC.segmentItems = [
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-safe-settings"), title: "Safe Settings"),
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-app-settings"), title: "App Settings")
-        ]
-        segmentVC.viewControllers = [
-            noSafesVC,
-            AppSettingsViewController()
-        ]
-        segmentVC.selectedIndex = 0
-
-        let tabRoot = HeaderViewController(rootViewController: segmentVC)
-        return tabViewController(root: tabRoot, title: "Settings", image: #imageLiteral(resourceName: "tab-icon-settings"), tag: 3)
-    }
-
-    static func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
-        let nav = UINavigationController(rootViewController: root)
-        let tabItem = UITabBarItem(title: title, image: image, tag: tag)
-        nav.tabBarItem = tabItem
-        return nav
     }
 
     static func selectKeyTypeViewController(presenter: UIViewController & CloseModal) -> UIViewController {

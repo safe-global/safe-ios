@@ -105,7 +105,11 @@ class TransactionDetailCellBuilder {
     }
 
     func buildCreatorAddress(_ creationTx: SCGModels.TxInfo.Creation) {
-        address(creationTx.creator.address, label: creationTx.creatorInfo?.name, title: "Creator address", imageUri: creationTx.creatorInfo?.logoUri)
+        let info = displayNameAndImageUri(address: creationTx.creator, addressInfo: creationTx.creatorInfo)
+        return address(creationTx.creator.address,
+                       label: info.name,
+                       title: "Creator address",
+                       imageUri: info.imageUri)
     }
 
     func buildHeader(_ tx: SCGModels.TransactionDetails) {
@@ -409,19 +413,12 @@ class TransactionDetailCellBuilder {
         case .settingsChange(_):
             type = "Modify settings"
             icon = #imageLiteral(resourceName: "ico-settings-tx")
-        case .custom(let customInfo):
-            if let importedSafeName = Safe.cachedName(by: customInfo.to) {
-                type = importedSafeName
-                placeholderAddress = customInfo.to
-            } else if let safeAppInfo = tx.safeAppInfo {
+        case .custom(_):
+            if let safeAppInfo = tx.safeAppInfo {
                 type = safeAppInfo.name
                 imageURL = URL(string: safeAppInfo.logoUrl)
                 tag = "App"
                 icon = #imageLiteral(resourceName: "ico-custom-tx")
-            } else if let toInfo = customInfo.toInfo {
-                type = toInfo.name
-                imageURL = toInfo.logoUri
-                placeholderAddress = customInfo.to
             } else {
                 type = "Contract interaction"
                 icon = #imageLiteral(resourceName: "ico-custom-tx")

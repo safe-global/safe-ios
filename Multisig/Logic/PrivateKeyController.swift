@@ -155,10 +155,12 @@ class PrivateKeyController {
     }
 
     /// Call this when you want to wipe out all of the keys by the user's request
-    static func deleteAllKeys() throws {
+    static func deleteAllKeys(showingMessage: Bool = true) throws {
         try KeyInfo.deleteAll()
         App.shared.notificationHandler.signingKeyUpdated()
-        App.shared.snackbar.show(message: "All owner keys removed from this app")
+        if showingMessage {
+            App.shared.snackbar.show(message: "All owner keys removed from this app")
+        }
         Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
         Tracker.shared.setNumKeysImported(KeyInfo.count)
         NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)

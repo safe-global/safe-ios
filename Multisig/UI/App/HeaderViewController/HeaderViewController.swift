@@ -42,7 +42,7 @@ final class HeaderViewController: ContainerViewController {
 
     private func addObservers() {
         let updateNotifications: [NSNotification.Name] = [
-            .selectedSafeChanged, .ownerKeyImported, .ownerKeyRemoved
+            .selectedSafeChanged, .selectedSafeUpdated, .ownerKeyImported, .ownerKeyRemoved
         ]
         for name in updateNotifications {
             notificationCenter.addObserver(self,

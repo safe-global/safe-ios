@@ -18,24 +18,27 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sT-sp-vyR">
-                        <rect key="frame" x="16" y="20.5" width="231" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <switch opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eJM-bn-bW4">
-                        <rect key="frame" x="255" y="15" width="51" height="31"/>
-                        <color key="onTintColor" name="button"/>
-                    </switch>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SBm-20-vIS">
+                        <rect key="frame" x="16" y="15" width="288" height="31"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sT-sp-vyR">
+                                <rect key="frame" x="0.0" y="0.0" width="140" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eJM-bn-bW4">
+                                <rect key="frame" x="239" y="0.0" width="51" height="31"/>
+                                <color key="onTintColor" name="button"/>
+                            </switch>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="eJM-bn-bW4" secondAttribute="trailing" constant="16" id="5Xm-cU-WFT"/>
-                    <constraint firstAttribute="bottom" secondItem="eJM-bn-bW4" secondAttribute="bottom" constant="14" id="5m8-Hg-uhS"/>
-                    <constraint firstItem="eJM-bn-bW4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="O4i-pG-jKw"/>
-                    <constraint firstItem="9sT-sp-vyR" firstAttribute="centerY" secondItem="eJM-bn-bW4" secondAttribute="centerY" id="ZJY-vq-DhM"/>
-                    <constraint firstItem="eJM-bn-bW4" firstAttribute="leading" secondItem="9sT-sp-vyR" secondAttribute="trailing" constant="8" symbolic="YES" id="m7E-CH-dhu"/>
-                    <constraint firstItem="9sT-sp-vyR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="vxX-Yy-O8L"/>
+                    <constraint firstItem="SBm-20-vIS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Ox5-h2-JdV"/>
+                    <constraint firstItem="SBm-20-vIS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="XTC-cY-2kL"/>
+                    <constraint firstAttribute="trailing" secondItem="SBm-20-vIS" secondAttribute="trailing" constant="16" id="nBe-vJ-HnL"/>
+                    <constraint firstAttribute="bottom" secondItem="SBm-20-vIS" secondAttribute="bottom" constant="14" id="qVA-yH-reN"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -49,7 +52,7 @@
     </objects>
     <resources>
         <namedColor name="button">
-            <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="secondaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

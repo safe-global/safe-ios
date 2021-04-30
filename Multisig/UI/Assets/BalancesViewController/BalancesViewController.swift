@@ -10,24 +10,26 @@ import UIKit
 
 // Loads and displays balances
 class BalancesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
+
+    private enum Section {
+        case importKeyBanner
+        case passcodeBanner
+        case total(text: String)
+        case balances(items: [TokenBalance])
+    }
+
     var clientGatewayService = App.shared.clientGatewayService
 
-    override var isEmpty: Bool { results.isEmpty }
+    override var isEmpty: Bool { sections.isEmpty }
 
     private var currentDataTask: URLSessionTask?
 
-    private var results: [TokenBalance] = []
-
-    private var totalBalance: String = "0.00"
+    private var sections: [Section] = []
 
     private let tableBackgroundColor: UIColor = .primaryBackground
 
     @UserDefault(key: "io.gnosis.multisig.importKeyBannerWasShown")
     private var importKeyBannerWasShown: Bool?
-
-    private var shouldShowBanner: Bool {
-        shouldShowImportKeyBanner || shouldShowPasscodeBanner
-    }
 
     private var shouldShowImportKeyBanner: Bool {
         importKeyBannerWasShown != true
@@ -36,10 +38,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     private var shouldShowPasscodeBanner: Bool {
         PrivateKeyController.hasPrivateKey &&
             !(AppSettings.passcodeBannerDismissed || AppSettings.passcodeWasSetAtLeastOnce)
-    }
-
-    enum Section: Int {
-        case banner = 0, total, balances
     }
 
     convenience init() {
@@ -75,15 +73,16 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         NotificationCenter.default.addObserver(
             self, selector: #selector(lazyReloadData), name: .selectedFiatCurrencyChanged, object: nil)
 
+        recreateSectionsWithCurrentItems()
     }
 
     @objc private func ownerKeyImported() {
         importKeyBannerWasShown = true
-        tableView.reloadData()
+        recreateSectionsWithCurrentItems()
     }
 
     @objc private func updatePasscodeBanner() {
-        tableView.reloadData()
+        recreateSectionsWithCurrentItems()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -118,8 +117,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                         let results = summary.items.map { TokenBalance($0, code: AppSettings.selectedFiatCode) }
                         let total = TokenBalance.displayCurrency(from: summary.fiatTotal, code: AppSettings.selectedFiatCode)
                         guard let `self` = self else { return }
-                        self.results = results
-                        self.totalBalance = total
+                        self.sections = self.makeSections(items: results, total: total)
                         self.onSuccess()
                     }
                 }
@@ -129,30 +127,44 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         }
     }
 
+    private func makeSections(items: [TokenBalance], total: String) -> [Section] {
+        guard !items.isEmpty else { return [] }
+
+        var sections = [Section]()
+        if shouldShowImportKeyBanner {
+            sections.append(.importKeyBanner)
+        } else if shouldShowPasscodeBanner {
+            sections.append(.passcodeBanner)
+        }
+        sections.append(.total(text: total))
+        sections.append(.balances(items: items))
+        return sections
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        3
+        sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch Section(rawValue: section)! {
-        case .balances:
-            return results.count
-        case .total:
-            return 1
-        case .banner:
-            return shouldShowBanner ? 1 : 0
+        switch sections[section] {
+        case .importKeyBanner, .passcodeBanner, .total: return 1
+        case .balances(items: let items): return items.count
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch Section(rawValue: indexPath.section)! {
-        case .total:
+        switch sections[indexPath.section] {
+        case .importKeyBanner:
+            return importKeyBanner(indexPath: indexPath)
+        case .passcodeBanner:
+            return createPasscodeBanner(indexPath: indexPath)
+        case .total(text: let text):
             let cell = tableView.dequeueCell(TotalBalanceTableViewCell.self, for: indexPath)
             cell.setMainText("Total")
-            cell.setDetailText(totalBalance)
+            cell.setDetailText(text)
             return cell
-        case .balances:
-            let item = results[indexPath.row]
+        case .balances(items: let items):
+            let item = items[indexPath.row]
             let cell = tableView.dequeueCell(BalanceTableViewCell.self, for: indexPath)
             cell.setMainText(item.symbol)
             cell.setDetailText(item.balance)
@@ -163,14 +175,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                 cell.setImage(with: item.imageURL, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
             }
             return cell
-        case .banner:
-            if shouldShowImportKeyBanner {
-                return importKeyBanner(indexPath: indexPath)
-            } else if shouldShowPasscodeBanner {
-                return createPasscodeBanner(indexPath: indexPath)
-            } else {
-                preconditionFailure("Programmer error: check the cell count")
-            }
         }
     }
 
@@ -181,12 +185,16 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         cell.setButton("Import owner key now")
         cell.onClose = { [unowned self] in
             importKeyBannerWasShown = true
-            updateSection(indexPath.section)
+
+            recreateSectionsWithCurrentItems()
+
             trackEvent(.bannerImportOwnerKeySkipped)
         }
         cell.onImport = { [unowned self] in
             importKeyBannerWasShown = true
-            updateSection(indexPath.section)
+
+            recreateSectionsWithCurrentItems()
+
             let vc = ViewControllerFactory.selectKeyTypeViewController(presenter: self)
             present(vc, animated: true)
             trackEvent(.bannerImportOwnerKeyImported)
@@ -197,17 +205,18 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     private func createPasscodeBanner(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BannerTableViewCell.self, for: indexPath)
         cell.setHeader("Create passcode")
-        cell.setBody("Secure your owner keys by setting up a passcode. The passcode will be needed to sign transactions. ")
+        cell.setBody("Secure your owner keys by setting up a passcode. The passcode will be needed to open the app and sign transactions.")
         cell.setButton("Create passcode now")
         cell.onClose = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true
-            updateSection(indexPath.section)
+            recreateSectionsWithCurrentItems()
         }
         cell.onImport = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true
-            updateSection(indexPath.section)
+            recreateSectionsWithCurrentItems()
+
             let vc = CreatePasscodeViewController { [weak self] in
-                self?.updateSection(indexPath.section)
+                self?.recreateSectionsWithCurrentItems()
             }
             let nav = UINavigationController(rootViewController: vc)
             present(nav, animated: true)
@@ -215,9 +224,17 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         return cell
     }
 
-    private func updateSection(_ section: Int) {
-        tableView.beginUpdates()
-        tableView.reloadSections([section], with: .automatic)
-        tableView.endUpdates()
+    private func recreateSectionsWithCurrentItems() {
+        var items = [TokenBalance]()
+        var total = ""
+        for section in sections {
+            switch section {
+            case .balances(items: let balances): items = balances
+            case .total(text: let text): total = text
+            default: continue
+            }
+        }
+        sections = makeSections(items: items, total: total)
+        tableView.reloadData()
     }
 }

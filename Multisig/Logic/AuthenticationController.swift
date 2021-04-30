@@ -9,6 +9,7 @@
 import Foundation
 import SwiftAccessPolicy
 import CommonCrypto
+import LocalAuthentication
 
 class AuthenticationController {
 
@@ -46,7 +47,11 @@ class AuthenticationController {
         let password = derivedKey(from: plaintextPasscode)
         try accessService.registerUser(password: password)
         AppSettings.passcodeWasSetAtLeastOnce = true
+
+        AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
+
         NotificationCenter.default.post(name: .passcodeCreated, object: nil)
+
         Tracker.shared.setPasscodeIsSet(to: true)
         Tracker.shared.track(event: TrackingEvent.userPasscodeEnabled)
     }
@@ -73,9 +78,26 @@ class AuthenticationController {
     func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) throws {
         guard let user = user else { return }
         try accessService.deleteUser(userID: user.id)
+
         NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+
         Tracker.shared.setPasscodeIsSet(to: false)
         Tracker.shared.track(event: trackingEvent)
+    }
+
+    func deleteAllData() throws {
+        try PrivateKeyController.deleteAllKeys(showingMessage: false)
+        try Safe.removeAll()
+        try deletePasscode(trackingEvent: .userPasscodeReset)
+        App.shared.snackbar.show(message: "All data removed from this app")
+    }
+
+    func migrateFromPasscodeV1() {
+        // if passcode is set but all options are 0, then we have inconsistent settings.
+        // to restore, we will enable passcode entry for confirmations, as this is the expected
+        // behavior in the v1.
+        guard isPasscodeSet && AppSettings.passcodeOptions.isEmpty else { return }
+        AppSettings.passcodeOptions = .useForConfirmation
     }
 
     /// Returns saved user, if any
@@ -102,7 +124,170 @@ class AuthenticationController {
         }
         return Data(derivedKey).toHexString()
     }
+
+
+    // MARK: - Biometry
+
+    /// Is device hardware supports the biometry
+    var isBiometricsSupported: Bool {
+        let context = LAContext()
+        switch context.evaluatedBiometryType {
+        case .touchID, .faceID:
+            return true
+        case .none:
+            return false
+        @unknown default:
+            return false
+        }
+    }
+
+    var isBiometryActivationPossible: Bool {
+        canEvaluate(policy: .deviceOwnerAuthenticationWithBiometrics)
+    }
+
+    var isBiometryAuthenticationPossible: Bool {
+        canEvaluate(policy: .deviceOwnerAuthentication)
+    }
+
+    var isFaceID: Bool {
+        let context = LAContext()
+        return context.evaluatedBiometryType == .faceID
+    }
+
+    func activateBiometrics(completion: @escaping (Result<Void, Error>) -> Void) {
+        evaluate(policy: .deviceOwnerAuthenticationWithBiometrics,
+                 reason: "Enable login with biometrics",
+                 showsFallback: false,
+                 errorConverter: GSError.BiometryActivationError.init(reason:)) { result in
+
+            switch result {
+            case .success:
+                AppSettings.passcodeOptions.insert(.useBiometry)
+                NotificationCenter.default.post(name: .biometricsActivated, object: nil)
+                App.shared.snackbar.show(message: "Biometrics activated.")
+                completion(.success(()))
+
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func authenticateWithBiometrics(completion: @escaping (Result<Void, Error>) -> Void) {
+        evaluate(policy: .deviceOwnerAuthentication,
+                 reason: "Login with biometrics",
+                 showsFallback: true,
+                 errorConverter: GSError.BiometryAuthenticationError.init(reason:),
+                 completion: completion)
+    }
+
+    private func evaluate(
+        policy: LAPolicy,
+        reason: String,
+        showsFallback: Bool,
+        errorConverter: @escaping (_ reason: String) -> DetailedLocalizedError,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        let context = LAContext()
+        context.localizedFallbackTitle = showsFallback ? nil : ""
+
+        let canEvaluate = context.canEvaluate(policy: policy)
+
+        switch canEvaluate {
+
+        case .failure(let error):
+            let gsError = errorConverter(error.localizedDescription)
+            App.shared.snackbar.show(error: gsError)
+            completion(.failure(gsError))
+
+        case .success:
+            context.evaluate(policy: policy, reason: reason) { result in
+
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success:
+                        completion(.success(()))
+                    case .failure(let error):
+                        let gsError = errorConverter(error.localizedDescription)
+                        App.shared.snackbar.show(error: gsError)
+                        completion(.failure(gsError))
+                    }
+                }
+            }
+        }
+    }
+
+    private func canEvaluate(policy: LAPolicy) -> Bool {
+        guard user != nil else { return false }
+        let context = LAContext()
+        let result = context.canEvaluate(policy: policy)
+        switch result {
+        case .success:
+            return true
+        case .failure(_):
+            return false
+        }
+    }
+
 }
+
+extension LAContext {
+
+    var evaluatedBiometryType: LABiometryType {
+        _ = canEvaluate(policy: .deviceOwnerAuthentication)
+        return biometryType
+    }
+
+    func canEvaluate(policy: LAPolicy) -> Result<Void, Error> {
+        var error: NSError!
+        let success = canEvaluatePolicy(policy, error: &error)
+        if success {
+            return .success(())
+        } else {
+            return .failure(error as Error)
+        }
+    }
+
+    func evaluate(policy: LAPolicy, reason: String, completion: @escaping (_ result: Result<Void, Error>) -> Void) {
+        evaluatePolicy(policy, localizedReason: reason) { (success, error) in
+            DispatchQueue.main.async {
+                if success {
+                    completion(.success(()))
+                } else {
+                    completion(.failure(error!))
+                }
+            }
+        }
+    }
+}
+extension LABiometryType {
+    var displayValue: String {
+        switch self {
+        case .none:
+            return "None"
+        case .touchID:
+            return "Touch ID"
+        case .faceID:
+            return "Face ID"
+        @unknown default:
+            return "Unknown"
+        }
+    }
+}
+
+extension LAPolicy {
+    var displayValue: String {
+        switch self {
+        case .deviceOwnerAuthenticationWithBiometrics:
+            return "Biometry"
+        case .deviceOwnerAuthentication:
+            return "Biometry or Device Passcode"
+        @unknown default:
+            return "unknown"
+        }
+    }
+}
+
 
 class AuthUserRepository: UserRepository {
 

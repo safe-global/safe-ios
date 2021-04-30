@@ -82,10 +82,19 @@ class Tracker {
             handler.setUserProperty(value, for: property)
         }
     }
+
+    /// Specifies if tracking should be enabled for tracking handlers
+    ///
+    /// - Parameter value: Bool value to indicate if tracking should be enabled
+    func setTrackingEnabled(_ value: Bool) {
+        for handler in trackingHandlers {
+            handler.setTrackingEnabled(value)
+        }
+    }
 }
 
 /// Concrete implementations of tracking systems should conform to this protocol to be registered with the Tracker.
-protocol TrackingHandler: class {
+protocol TrackingHandler: AnyObject {
     /// Track event with parameters.
     ///
     /// - Parameters:
@@ -99,6 +108,11 @@ protocol TrackingHandler: class {
     ///   - value: String value
     ///   - property: UserProperty
     func setUserProperty(_ value: String, for property: UserProperty)
+
+    /// Specifies if tracking should be enabled for tracking handler
+    ///
+    /// - Parameter value: Bool value to indicate if tracking should be enabled
+    func setTrackingEnabled(_ value: Bool)
 }
 
 /// Conform your enum to this protocol to use it as a user property.

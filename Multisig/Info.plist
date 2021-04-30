@@ -83,6 +83,8 @@
 	<string>$(NETWORK)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Safe need to use camera to scan QR code.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>This will allow Safe Multisig to access your Face ID to open app and sign transactions.</string>
 	<key>PAY_FOR_CANCELLATION_URL</key>
 	<string>$(PAY_FOR_CANCELLATION_URL)</string>
 	<key>PRIVACY_URL</key>

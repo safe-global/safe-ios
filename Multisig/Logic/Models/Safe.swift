@@ -188,6 +188,12 @@ extension Safe: Identifiable {
 
         updateCachedNames()
     }
+
+    static func removeAll() throws {
+        for safe in try getAll() {
+            remove(safe: safe)
+        }
+    }
 }
 
 extension Safe {

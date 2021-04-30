@@ -99,10 +99,8 @@ class WCRequestsHandler: RequestHandler {
                     }
                 }
 
-                // TODO: modify it here after merge: use SceneDelegate instead of topMostController
-                // let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
-
-                UIWindow.topMostController()!.present(confirmationController, animated: true)
+                let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
+                sceneDelegate.presentForMain(confirmationController)
             }
         } else if request.method == "gs_multi_send" {
             // TODO: add support
