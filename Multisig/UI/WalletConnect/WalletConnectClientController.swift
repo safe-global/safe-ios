@@ -15,16 +15,12 @@ class WalletConnectClientController {
 
     private var client: Client?
     private var session: Session? {
-        get {
-            clientSessionData == nil ? nil : Session.from(data: clientSessionData!)
-        }
-        set {
-            if newValue == nil {
-                clientSessionData = nil
+        didSet {
+            if let session = session {
+                clientSessionData = session.data
             } else {
-                clientSessionData = newValue!.data
+                clientSessionData = nil
             }
-
         }
     }
 
@@ -63,6 +59,13 @@ class WalletConnectClientController {
         return wcUrl
     }
 
+    /// https://docs.walletconnect.org/mobile-linking#for-ios
+    func getTopicAndConnectionURL(universalLink: String) throws -> (String, URL) {
+        let wcUrl = try connect()
+        let urlStr = "\(universalLink)/wc?uri=\(wcUrl.urlEncodedStr)"
+        return (wcUrl.topic, URL(string: urlStr)!)
+    }
+
     func reconnectIfNeeded() {
         guard session == nil else { return }
         if let clientSessionData = clientSessionData,
@@ -78,6 +81,8 @@ class WalletConnectClientController {
         guard let client = client, let session = session else { return }
         do {
             try client.disconnect(from: session)
+            // remove cached data immediately
+            clientSessionData = nil
         } catch {
             // we ignore disconnect errors
             LogService.shared.debug("Error disconnecting WC client: \(error.localizedDescription)")
@@ -91,6 +96,29 @@ class WalletConnectClientController {
         return session?.walletInfo?.peerId == peerId
     }
 
+    func sign(message: String, completion: @escaping (Result<String, Error>) -> Void) {
+        guard let session = session,
+              let client = client,
+              let walletAddress = session.walletInfo?.accounts.first else {
+            // TODO: use GSError
+            completion(.failure("Failed to sign: wallet not connected. Please connect your wallet."))
+            return
+        }
+
+        do {
+            try client.eth_sign(url: session.url, account: walletAddress, message: message) { response in
+                do {
+                    let signature = try response.result(as: String.self)
+                    completion(.success(signature))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+
     // https://developer.apple.com/documentation/security/1399291-secrandomcopybytes
     private func randomKey() -> String? {
         var bytes = [Int8](repeating: 0, count: 32)
@@ -102,6 +130,8 @@ class WalletConnectClientController {
         }
     }
 }
+
+// MARK: - ClientDelegate
 
 extension WalletConnectClientController: ClientDelegate {
     func client(_ client: Client, didFailToConnect url: WCURL) {
@@ -125,6 +155,20 @@ extension WalletConnectClientController: ClientDelegate {
     }
 }
 
+// MARK: - WalletConnectClientController + KeyInfo
+
+extension WalletConnectClientController {
+    func isConnected(keyInfo: KeyInfo) -> Bool {
+        guard let metadata = keyInfo.metadata,
+              let walletMetadata = KeyInfo.WalletConnectKeyMetadata.from(data: metadata) else {
+            return false
+        }
+        return isConnected(peerId: walletMetadata.walletInfo.peerId)
+    }
+}
+
+// MARK: - WalletConnectSwift + Extension
+
 extension WCURL {
     var urlEncodedStr: String {
         let params = "bridge=\(bridgeURL.absoluteString)&key=\(key)"
@@ -134,16 +178,6 @@ extension WCURL {
 }
 
 extension Session {
-    var data: Data {
-        try! JSONEncoder().encode(self)
-    }
-
-    static func from(data: Data) -> Self? {
-        try? JSONDecoder().decode(Self.self, from: data)
-    }
-}
-
-extension Session.WalletInfo {
     var data: Data {
         try! JSONEncoder().encode(self)
     }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import WalletConnectSwift
 
 class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     private var keys: [KeyInfo] = []
@@ -87,33 +86,12 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         if App.configuration.toggles.walletConnectEnabled {
             let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
             cell.selectionStyle = .none
-
-            cell.set(address: keyInfo.address, title: keyInfo.displayName)
-
-            switch keyInfo.keyType {
-            case .device:
-                cell.set(keyImageUrl: nil, placeholder: UIImage(named: "ico-device-key")!)
-                cell.set(wcConnectionStatus: .none)
-
-            case .walletConnect:
-                cell.set(keyImageUrl: nil, placeholder: UIImage(named: "wc-logo")!)
-                if let metadata = keyInfo.metadata,
-                   let walletInfo = Session.WalletInfo.from(data: metadata) {
-                    let isConnected = WalletConnectClientController.shared.isConnected(peerId: walletInfo.peerId)
-                    cell.set(wcConnectionStatus: isConnected ? .connected : .disconnected)
-                } else {
-                    // might happen if WalletInfo structure changes with library update
-                    cell.set(wcConnectionStatus: .disconnected)
-                }
-            }
-
+            cell.configure(keyInfo: keyInfo)
             return cell
         } else {
             let cell = tableView.dequeueCell(OwnerKeysListTableViewCell.self, for: indexPath)
-
             cell.set(address: keyInfo.address, title: keyInfo.displayName)
             cell.delegate = self
-
             return cell
         }
     }

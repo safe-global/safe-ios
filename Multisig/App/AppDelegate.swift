@@ -43,6 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Reconnect all WalletConnect sessions
         WalletConnectServerController.shared.reconnectAllSessions()
+        WalletConnectClientController.shared.reconnectIfNeeded()
+
         return true
     }
 

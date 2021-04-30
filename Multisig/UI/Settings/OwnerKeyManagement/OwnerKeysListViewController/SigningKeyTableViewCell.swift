@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import Kingfisher
+import WalletConnectSwift
 
 class SigningKeyTableViewCell: UITableViewCell {
     @IBOutlet weak var addressInfoView: AddressInfoView!
@@ -27,6 +27,21 @@ class SigningKeyTableViewCell: UITableViewCell {
         case none
         case connected
         case disconnected
+    }
+
+    func configure(keyInfo: KeyInfo) {
+        set(address: keyInfo.address, title: keyInfo.displayName)
+
+        switch keyInfo.keyType {
+        case .device:
+            set(keyImageUrl: nil, placeholder: UIImage(named: "ico-device-key")!)
+            set(wcConnectionStatus: .none)
+
+        case .walletConnect:
+            set(keyImageUrl: nil, placeholder: UIImage(named: "wc-logo")!)
+            let isConnected = WalletConnectClientController.shared.isConnected(keyInfo: keyInfo)
+            set(wcConnectionStatus: isConnected ? .connected : .disconnected)
+        }
     }
 
     func set(address: Address, title: String) {

@@ -37,6 +37,19 @@ extension KeyInfo {
         name ?? "Key \(address.ellipsized())"
     }
 
+    struct WalletConnectKeyMetadata: Codable {
+        let walletInfo: Session.WalletInfo
+        let installedWallet: InstalledWallet?
+
+        var data: Data {
+            try! JSONEncoder().encode(self)
+        }
+
+        static func from(data: Data) -> Self? {
+            try? JSONDecoder().decode(Self.self, from: data)
+        }
+    }
+
     static func name(address: Address) -> String? {
         guard let keyInfo = try? KeyInfo.keys(addresses: [address]).first else { return nil }
         return keyInfo.name
@@ -133,7 +146,7 @@ extension KeyInfo {
     /// - Parameters:
     ///   - session: WalletConnect session object
     @discardableResult
-    static func `import`(from session: Session) throws -> KeyInfo? {
+    static func `import`(session: Session, installedWallet: InstalledWallet?) throws -> KeyInfo? {
         guard let walletInfo = session.walletInfo,
               let addressString = walletInfo.accounts.first,
               let address = Address(addressString) else {
@@ -161,7 +174,7 @@ extension KeyInfo {
         item.address = address
         item.keyID = "walletconnect:\(address.checksummed)"
         item.keyType = .walletConnect
-        item.metadata = walletInfo.data
+        item.metadata = WalletConnectKeyMetadata(walletInfo: walletInfo, installedWallet: installedWallet).data
 
         item.save()
 

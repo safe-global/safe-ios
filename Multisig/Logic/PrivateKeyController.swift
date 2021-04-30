@@ -28,9 +28,9 @@ class PrivateKeyController {
         }
     }
 
-    static func importKey(from session: Session) -> Bool {
+    static func importKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
         do {
-            try KeyInfo.import(from: session)
+            try KeyInfo.import(session: session, installedWallet: installedWallet)
 
             Tracker.shared.setNumKeysImported(KeyInfo.count)
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
@@ -46,12 +46,24 @@ class PrivateKeyController {
         }
     }
 
+    static func updateKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
+        do {
+            try KeyInfo.import(session: session, installedWallet: installedWallet)
+            return true
+        } catch {
+            let err = GSError.error(description: "Failed to update WalletConnect owner key", error: error)
+            App.shared.snackbar.show(error: err)
+            return false
+        }
+    }
+
     static func remove(keyInfo: KeyInfo) {
         do {
-            try keyInfo.delete()
+            // this should be done before calling keyInfo.delete()
             if keyInfo.keyType == .walletConnect {
                 WalletConnectClientController.shared.disconnect()
             }
+            try keyInfo.delete()
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key removed from this app")
             Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)

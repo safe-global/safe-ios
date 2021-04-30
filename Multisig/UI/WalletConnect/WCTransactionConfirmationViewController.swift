@@ -105,6 +105,26 @@ class WCTransactionConfirmationViewController: UIViewController {
                 let pendingConfirmationVC = WCPedingConfirmationViewController()
                 pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
                 present(pendingConfirmationVC, animated: true)
+
+                WalletConnectClientController.shared.sign(message: transaction.safeTxHash!.description) { result in
+                    switch result {
+                    case .success(let signature):
+                        print("Signature: \(signature)")
+
+                        DispatchQueue.main.async {
+                            // dismiss pending confirmation view controller overlay
+                            dismiss(animated: false, completion: nil)
+                        }
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            // dismiss pending confirmation view controller overlay
+                            dismiss(animated: false, completion: nil)
+
+                            App.shared.snackbar.show(
+                                error: GSError.error(description: "Could not sign transaction.", error: error))
+                        }
+                    }
+                }
             }
         }
 

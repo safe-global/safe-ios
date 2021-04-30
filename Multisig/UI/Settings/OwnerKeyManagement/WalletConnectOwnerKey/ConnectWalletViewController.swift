@@ -9,40 +9,14 @@
 import UIKit
 import WalletConnectSwift
 
-fileprivate struct InstalledWallet {
-    let name: String
-    let imageName: String
-    let scheme: String
-    let universalLink: String
-
-    init?(walletEntry: WalletEntry) {
-        let scheme = walletEntry.mobile.native
-        var universalLink = walletEntry.mobile.universal
-        if universalLink.last == "/" {
-            universalLink = String(universalLink.dropLast())
-        }
-
-        guard let schemeUrl = URL(string: scheme),
-              UIApplication.shared.canOpenURL(schemeUrl),
-              !universalLink.isEmpty else { return nil }
-
-        self.name = walletEntry.name
-        self.imageName = walletEntry.imageName
-        self.scheme = scheme
-        self.universalLink = universalLink
-    }
-}
-
 class ConnectWalletViewController: UITableViewController {
-    private var installedWallets = [InstalledWallet]()
+    private var installedWallets = WalletsDataSource.shared.installedWallets
+
+    private var walletPerTopic = [String: InstalledWallet]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Connect Wallet"
-
-        installedWallets = WalletsDataSource.shared.wallets.compactMap {
-            InstalledWallet(walletEntry: $0)
-        }
 
         tableView.backgroundColor = .primaryBackground
         tableView.registerCell(DetailedCell.self)
@@ -58,7 +32,7 @@ class ConnectWalletViewController: UITableViewController {
         guard let session = notification.object as? Session else { return }
 
         DispatchQueue.main.sync { [unowned self] in
-            _ = PrivateKeyController.importKey(from: session)
+            _ = PrivateKeyController.importKey(session: session, installedWallet: walletPerTopic[session.url.topic])
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -107,8 +81,9 @@ class ConnectWalletViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         do {
             if indexPath.section == 0 {
-                let wallet = installedWallets[indexPath.row]
-                let connectionURL = try getConnectionURL(universalLink: wallet.universalLink)
+                let (topic, connectionURL) = try WalletConnectClientController.shared
+                    .getTopicAndConnectionURL(universalLink: installedWallets[indexPath.row].universalLink)
+                walletPerTopic[topic] = installedWallets[indexPath.row]
                 UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
             } else {
                 let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
@@ -130,12 +105,4 @@ class ConnectWalletViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         return BasicHeaderView.headerHeight
     }
-
-    /// https://docs.walletconnect.org/mobile-linking#for-ios
-    private func getConnectionURL(universalLink: String) throws -> URL {
-        let connectionUriString = try WalletConnectClientController.shared.connect().urlEncodedStr
-        let urlStr = "\(universalLink)/wc?uri=\(connectionUriString)"
-        return URL(string: urlStr)!
-    }
 }
-
