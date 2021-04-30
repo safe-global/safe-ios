@@ -52,13 +52,28 @@ class ChooseOwnerKeyViewController: UIViewController {
     }
 
     @objc private func walletConnectSessionCreated(_ notification: Notification) {
-        guard let session = notification.object as? Session else { return }
+        guard let session = notification.object as? Session,
+              let account = Address(session.walletInfo?.accounts.first ?? ""),
+              owners.first(where: { $0.address == account }) != nil else {
+            WalletConnectClientController.shared.disconnect()
+            DispatchQueue.main.async { [unowned self] in
+                self.hidePresentedIfNeeded()
+                App.shared.snackbar.show(message: "Wrong wallet connected. Please try again.")
+            }
+            return
+        }
 
         DispatchQueue.main.async { [unowned self] in
             // we need to update to always properly refresh session.walletInfo.peedId
             // that we use to identify if the wallet is connected
             _ = PrivateKeyController.updateKey(session: session,
                                                installedWallet: walletPerTopic[session.url.topic])
+
+            if let presented = presentedViewController {
+                // QR code controller
+                presented.dismiss(animated: false, completion: nil)
+            }
+
             App.shared.snackbar.show(message: "Owner key wallet connected")
             tableView.reloadData()
         }
@@ -94,22 +109,25 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
                 // try to reconnect
 
                 if let installedWallet = WalletsDataSource.shared.installedWallet(by: keyInfo) {
-                    // TODO:
-                    // show alert offering one of two actoins:
-                    // - connect to installed wallet
-                    // - show QR code
+                    let alertController = UIAlertController(title: "How would you like to connect this wallet?",
+                                                            message: nil,
+                                                            preferredStyle: .alert)
 
-                    do {
-                        let (topic, connectionURL) = try WalletConnectClientController.shared
-                            .getTopicAndConnectionURL(universalLink: installedWallet.universalLink)
-                        walletPerTopic[topic] = installedWallet
-                        UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
-                    } catch {
-                        App.shared.snackbar.show(
-                            error: GSError.error(description: "Could not create connection URL", error: error))
+                    let walletAction = UIAlertAction(title: "Open Installed Wallet", style: .default) {
+                        [unowned self] _ in
+                        self.openInstalledWallet(installedWallet)
                     }
+
+                    let qrCodeAction = UIAlertAction(title: "Show QR Code", style: .default) {
+                        [unowned self] _ in
+                        self.showQRCodeController()
+                    }
+
+                    alertController.addAction(walletAction)
+                    alertController.addAction(qrCodeAction)
+                    present(alertController, animated: true, completion: nil)
                 } else {
-                    // TODO: show QR code
+                    showQRCodeController()
                 }
 
                 return
@@ -125,6 +143,35 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
            show(vc, sender: self)
         } else {
             completionHandler?(keyInfo)
+        }
+    }
+
+    private func openInstalledWallet(_ installedWallet: InstalledWallet) {
+        do {
+            let (topic, connectionURL) = try WalletConnectClientController.shared
+                .getTopicAndConnectionURL(universalLink: installedWallet.universalLink)
+            walletPerTopic[topic] = installedWallet
+            UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
+        } catch {
+            App.shared.snackbar.show(
+                error: GSError.error(description: "Could not create connection URL", error: error))
+        }
+    }
+
+    private func showQRCodeController() {
+        do {
+            let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
+            let qrCodeVC = WalletConnectQRCodeViewController.create(code: connectionURI)
+            present(qrCodeVC, animated: true, completion: nil)
+        } catch {
+            App.shared.snackbar.show(
+                error: GSError.error(description: "Could not create connection URL", error: error))
+        }
+    }
+
+    private func hidePresentedIfNeeded() {
+        if let presented = presentedViewController {
+            presented.dismiss(animated: false, completion: nil)
         }
     }
 }
