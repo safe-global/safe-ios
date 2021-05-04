@@ -18,3 +18,6 @@ fi
 FIREBASE_ENCRYPTED="Firebase.dat"
 FIREBASE_DST="Multisig/Cross-layer/Analytics"
 bin/decrypt.sh "${ENCRYPTION_KEY}" "${FIREBASE_ENCRYPTED}" "${FIREBASE_DST}"
+
+# Export UTF-8 locale for xcpretty to work
+export LC_CTYPE=en_US.UTF-8
