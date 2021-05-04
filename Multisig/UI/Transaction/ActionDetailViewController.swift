@@ -77,7 +77,7 @@ class ActionDetailViewController: UITableViewController {
                 decimals: eth.decimals.flatMap { try? UInt64($0) },
                 symbol: eth.symbol,
                 logoUri: nil,
-                logo: #imageLiteral(resourceName: "ico-ether"))
+                logo: UIImage(named: "ico-ether"))
             append(txBuilder.result)
         }
     }

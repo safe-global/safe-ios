@@ -173,7 +173,7 @@ class TransactionDetailCellBuilder {
                     decimals: eth.decimals.flatMap { try? UInt64($0) },
                     symbol: eth.symbol,
                     logoUri: nil,
-                    logo: #imageLiteral(resourceName: "ico-ether"))
+                    logo: UIImage(named: "ico-ether"))
 
             case .unknown:
                 buildTransferHeader(
@@ -283,7 +283,7 @@ class TransactionDetailCellBuilder {
                 decimals: eth.decimals.flatMap { try? UInt64($0) },
                 symbol: eth.symbol,
                 logoUri: nil,
-                logo: #imageLiteral(resourceName: "ico-ether"),
+                logo: UIImage(named: "ico-ether"),
                 detail: "\(customTx.dataSize.value) bytes")
             buildActions(tx)
             buildHexData(tx)
@@ -314,7 +314,7 @@ class TransactionDetailCellBuilder {
         decimals: UInt64?,
         symbol: String,
         logoUri: String?,
-        logo: UIImage? = #imageLiteral(resourceName:"ico-token-placeholder"),
+        logo: UIImage? = UIImage(named: "ico-token-placeholder"),
         detail: String? = nil
     ) {
         let tokenText: String
@@ -365,7 +365,9 @@ class TransactionDetailCellBuilder {
 
                 disclosure(text: "Multisend (\(multiSendTxs.count) actions)") { [weak self] in
                     guard let `self` = self else { return }
-                    let vc = MultiSendListTableViewController(multiSendTxs)
+                    let addressInfoIndex = tx.txData?.addressInfoIndex
+                    let vc = MultiSendListTableViewController(transactions: multiSendTxs,
+                                                              addressInfoIndex: addressInfoIndex)
                     self.vc.show(vc, sender: self)
                 }
             } else {
@@ -403,38 +405,37 @@ class TransactionDetailCellBuilder {
         var tag: String = ""
         var icon: UIImage?
         var imageURL: URL?
-        var placeholderAddress: AddressString?
 
         switch tx.txInfo {
         case .transfer(let transferTx):
             let isOutgoing = transferTx.direction == .outgoing
             type = isOutgoing ? "Outgoing transfer" : "Incoming transfer"
-            icon = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incomming-tx")
+            icon = isOutgoing ? UIImage(named: "ico-outgoing-tx") : UIImage(named: "ico-incomming-tx")
         case .settingsChange(_):
             type = "Modify settings"
-            icon = #imageLiteral(resourceName: "ico-settings-tx")
+            icon = UIImage(named: "ico-settings-tx")
         case .custom(_):
             if let safeAppInfo = tx.safeAppInfo {
                 type = safeAppInfo.name
                 imageURL = URL(string: safeAppInfo.logoUrl)
                 tag = "App"
-                icon = #imageLiteral(resourceName: "ico-custom-tx")
+                icon = UIImage(named: "ico-custom-tx")
             } else {
                 type = "Contract interaction"
-                icon = #imageLiteral(resourceName: "ico-custom-tx")
+                icon = UIImage(named: "ico-custom-tx")
             }
         case .rejection(_):
             type = "On-chain rejection"
-            icon = #imageLiteral(resourceName: "ico-rejection-tx")
+            icon = UIImage(named: "ico-rejection-tx")
         case .creation(_):
             type = "Safe created"
-            icon = #imageLiteral(resourceName: "ico-settings-tx")
+            icon = UIImage(named: "ico-settings-tx")
         case .unknown:
             type = "Unknown operation"
-            icon = #imageLiteral(resourceName: "ico-custom-tx")
+            icon = UIImage(named: "ico-custom-tx")
         }
 
-        status(tx.txStatus, type: type, icon: icon, iconURL: imageURL, address: placeholderAddress, tag: tag)
+        status(tx.txStatus, type: type, icon: icon, iconURL: imageURL, address: nil, tag: tag)
     }
 
     func buildMultisigInfo(_ tx: SCGModels.TransactionDetails) {

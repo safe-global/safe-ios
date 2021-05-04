@@ -44,8 +44,8 @@ class MainTabBarViewController: UITabBarController {
     private func balancesTabViewController() -> UIViewController {
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-coins"), title: "Coins"),
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-collectibles"), title: "Collectibles")
+            SegmentBarItem(image: UIImage(named: "ico-coins")!, title: "Coins"),
+            SegmentBarItem(image: UIImage(named: "ico-collectibles")!, title: "Collectibles")
         ]
         segmentVC.viewControllers = [
             BalancesViewController(),
@@ -60,7 +60,8 @@ class MainTabBarViewController: UITabBarController {
         noSafesVC.noSafeViewController = loadSafeViewController
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
-        return tabViewController(root: tabRoot, title: "Assets", image: #imageLiteral(resourceName: "tab-icon-balances.pdf"), tag: 0)
+        return tabViewController(
+            root: tabRoot, title: "Assets", image: UIImage(named: "tab-icon-balances.pdf")!, tag: 0)
     }
 
     private func transactionsTabViewController() -> UIViewController {
@@ -69,8 +70,8 @@ class MainTabBarViewController: UITabBarController {
 
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-queued-transactions"), title: "QUEUE"),
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-history-transactions"), title: "HISTORY")
+            SegmentBarItem(image: UIImage(named: "ico-queued-transactions")!, title: "QUEUE"),
+            SegmentBarItem(image: UIImage(named: "ico-history-transactions")!, title: "HISTORY")
         ]
         segmentVC.viewControllers = [
             queuedTransactionsViewController,
@@ -87,7 +88,8 @@ class MainTabBarViewController: UITabBarController {
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         transactionsSegementControl = segmentVC
         
-        return tabViewController(root: tabRoot, title: "Transactions", image: #imageLiteral(resourceName: "tab-icon-transactions"), tag: 1)
+        return tabViewController(
+            root: tabRoot, title: "Transactions", image: UIImage(named: "tab-icon-transactions")!, tag: 1)
     }
 
     private func settingsTabViewController() -> UIViewController {
@@ -99,8 +101,8 @@ class MainTabBarViewController: UITabBarController {
 
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-safe-settings"), title: "Safe Settings"),
-            SegmentBarItem(image: #imageLiteral(resourceName: "ico-app-settings"), title: "App Settings")
+            SegmentBarItem(image: UIImage(named: "ico-safe-settings")!, title: "Safe Settings"),
+            SegmentBarItem(image: UIImage(named: "ico-app-settings")!, title: "App Settings")
         ]
         segmentVC.viewControllers = [
             noSafesVC,
@@ -109,7 +111,7 @@ class MainTabBarViewController: UITabBarController {
         segmentVC.selectedIndex = 0
 
         let tabRoot = HeaderViewController(rootViewController: segmentVC)
-        return tabViewController(root: tabRoot, title: "Settings", image: #imageLiteral(resourceName: "tab-icon-settings"), tag: 2)
+        return tabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 2)
     }
 
     private func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {

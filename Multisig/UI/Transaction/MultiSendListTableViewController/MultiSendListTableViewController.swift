@@ -11,17 +11,15 @@ import UIKit
 class MultiSendListTableViewController: UITableViewController {
 
     typealias Transaction = SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx
+    typealias AddressInfoIndex = SCGModels.AddressInfoIndex
 
-    var transactions: [Transaction] = [] {
-        didSet {
-            guard isViewLoaded else { return }
-            tableView.reloadData()
-        }
-    }
+    var transactions: [Transaction] = []
+    var addressInfoIndex: AddressInfoIndex?
 
-    convenience init(_ txes: [Transaction]) {
+    convenience init(transactions: [Transaction], addressInfoIndex: AddressInfoIndex?) {
         self.init()
-        self.transactions = txes
+        self.transactions = transactions
+        self.addressInfoIndex = addressInfoIndex
     }
 
     override func viewDidLoad() {
@@ -47,8 +45,15 @@ class MultiSendListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(MultiSendRowTableViewCell.self, for: indexPath)
         let tx = transactions[indexPath.row]
-        cell.setIdenticon(tx.to.address.hexadecimal)
-        cell.setMainText(tx.to.address.ellipsized())
+
+        let address = tx.to.address
+        var label: String?
+        var imageUri: URL?
+        if let knownAddress = addressInfoIndex?.values[AddressString(address)] {
+            label = knownAddress.name
+            imageUri = knownAddress.logoUri
+        }
+        cell.setAddress(tx.to.address, label: label, imageUri: imageUri)
         cell.setAction(tx.dataDecoded?.method ?? "Action #\(indexPath.row + 1)")
         return cell
     }
