@@ -11,8 +11,10 @@ import UIKit
 class ActionDetailViewController: UITableViewController {
     typealias MultiSendTx = SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx
     typealias DataDecoded = SCGModels.DataDecoded
+    typealias AddressInfoIndex = SCGModels.AddressInfoIndex
 
     private var multiSendTx: MultiSendTx?
+    private var addressInfoIndex: AddressInfoIndex?
     private var dataDecoded: DataDecoded?
     private var data: DataString?
     private var placeholderTitle: String?
@@ -24,15 +26,21 @@ class ActionDetailViewController: UITableViewController {
     /// Container for all cells in the table
     private var cells = [UITableViewCell]()
 
-    convenience init(decoded: DataDecoded, data: DataString? = nil) {
+    convenience init(decoded: DataDecoded,
+                     addressInfoIndex: AddressInfoIndex?,
+                     data: DataString? = nil) {
         self.init()
         self.dataDecoded = decoded
+        self.addressInfoIndex = addressInfoIndex
         self.data = data
     }
 
-    convenience init(tx: MultiSendTx, placeholderTitle: String?) {
+    convenience init(tx: MultiSendTx,
+                     addressInfoIndex: AddressInfoIndex?,
+                     placeholderTitle: String?) {
         self.init()
         multiSendTx = tx
+        self.addressInfoIndex = addressInfoIndex
         dataDecoded = tx.dataDecoded
         data = tx.data
         self.placeholderTitle = placeholderTitle
@@ -67,10 +75,11 @@ class ActionDetailViewController: UITableViewController {
         if let tx = multiSendTx {
             let eth = App.shared.tokenRegistry.token(address: .ether)!
             txBuilder.result = []
+            let nameAndLogo = addressInfoIndex?.values[AddressString(tx.to.address)]
             txBuilder.buildTransferHeader(
                 address: tx.to.address,
-                label: nil,
-                addressLogoUri: nil,
+                label: nameAndLogo?.name,
+                addressLogoUri: nameAndLogo?.logoUri,
                 isOutgoing: true,
                 status: .success,
                 value: tx.value.value,
@@ -205,7 +214,8 @@ class ActionDetailViewController: UITableViewController {
 
     private func addressCell(_ address: Address, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailAddressCell.self)
-        cell.setAddress(address)
+        let nameAndLogo = addressInfoIndex?.values[AddressString(address)]
+        cell.setAddress(address, label: nameAndLogo?.name, imageUri: nameAndLogo?.logoUri)
         cell.selectionStyle = .none
         cell.margins.leading += indentation
         return cell

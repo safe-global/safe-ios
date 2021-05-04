@@ -357,6 +357,7 @@ class TransactionDetailCellBuilder {
 
     func buildActions(_ tx: SCGModels.TransactionDetails) {
         if let dataDecoded = tx.txData?.dataDecoded {
+            let addressInfoIndex = tx.txData?.addressInfoIndex
 
             if dataDecoded.method == "multiSend",
                let param = dataDecoded.parameters?.first,
@@ -365,7 +366,6 @@ class TransactionDetailCellBuilder {
 
                 disclosure(text: "Multisend (\(multiSendTxs.count) actions)") { [weak self] in
                     guard let `self` = self else { return }
-                    let addressInfoIndex = tx.txData?.addressInfoIndex
                     let vc = MultiSendListTableViewController(transactions: multiSendTxs,
                                                               addressInfoIndex: addressInfoIndex)
                     self.vc.show(vc, sender: self)
@@ -373,7 +373,9 @@ class TransactionDetailCellBuilder {
             } else {
                 disclosure(text: "Action (\(dataDecoded.method))") { [weak self] in
                     guard let `self` = self else { return }
-                    let vc = ActionDetailViewController(decoded: dataDecoded, data: tx.txData?.hexData)
+                    let vc = ActionDetailViewController(decoded: dataDecoded,
+                                                        addressInfoIndex: addressInfoIndex,
+                                                        data: tx.txData?.hexData)
                     self.vc.show(vc, sender: self)
                 }
             }
