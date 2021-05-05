@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AppTrackingTransparency
 
 struct AdvancedAppSettings: View {
 
@@ -58,6 +59,13 @@ struct AdvancedAppSettings: View {
             VStack {
                 Toggle(isOn: $trackingEnabled.didSet { enabled in
                     AppSettings.trackingEnabled = enabled
+                    // https://firebase.google.com/docs/ios/supporting-ios-14
+                    // This is required only for IDFA that we do not use
+                    if #available(iOS 14, *) {
+                        if ATTrackingManager.trackingAuthorizationStatus == .notDetermined && enabled {
+                            ATTrackingManager.requestTrackingAuthorization { _ in }
+                        }
+                    }
                 }) {
                     Text("Share Usage Data").headline()
                 }

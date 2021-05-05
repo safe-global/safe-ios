@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import AppTrackingTransparency
 
 enum ViewControllerFactory {
 
@@ -22,7 +23,20 @@ enum ViewControllerFactory {
             nav.modalPresentationStyle = .fullScreen
             nav.modalTransitionStyle = .crossDissolve
 
-            let start = LaunchView(acceptedTerms: .constant(false), onStart: { [weak nav] in
+            let start = LaunchView(acceptedTerms: .constant(false), onStart: { [weak nav] trackingEnabled in
+                AppSettings.trackingEnabled = trackingEnabled
+                if trackingEnabled {
+                    // https://firebase.google.com/docs/ios/supporting-ios-14
+                    // This is required only for IDFA that we do not use
+                    if #available(iOS 14, *) {
+                        ATTrackingManager.requestTrackingAuthorization { status in
+                            DispatchQueue.main.async {
+                                nav?.popViewController(animated: false)
+                            }
+                        }
+                        return
+                    }
+                }
                 nav?.popViewController(animated: false)
             })
             .environment(\.managedObjectContext, App.shared.coreDataStack.viewContext)

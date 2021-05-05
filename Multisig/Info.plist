@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.15.0</string>
+	<string>2.15.1</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CLIENT_GATEWAY_URL</key>
@@ -58,6 +58,8 @@
 	<string>Safe need to use camera to scan QR code.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>This will allow Safe Multisig to access your Face ID to open app and sign transactions.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string></string>
 	<key>PAY_FOR_CANCELLATION_URL</key>
 	<string>$(PAY_FOR_CANCELLATION_URL)</string>
 	<key>PRIVACY_URL</key>

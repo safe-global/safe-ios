@@ -39,7 +39,7 @@ struct LaunchView: View {
     @State
     var showTerms = false
 
-    var onStart: () -> Void = { }
+    var onStart: ((Bool) -> Void)?
 
     private let logoToTextSpacing: CGFloat = 40
     private let textToButtonSpacing: CGFloat = 60
