@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AppTrackingTransparency
 
 class MainTabBarViewController: UITabBarController {
     private weak var transactionsSegementControl: SegmentViewController?
@@ -38,7 +39,16 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidAppear(animated)
         guard appearsFirstTime else { return }
         appearsFirstTime = false
-        App.shared.appReview.pullAppReviewTrigger()
+        // request for users prior 2.15.0 release to confirm IDFA tracking
+        if #available(iOS 14, *) {
+            if AppSettings.termsAccepted && ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
+                ATTrackingManager.requestTrackingAuthorization { _ in }
+            } else {
+                App.shared.appReview.pullAppReviewTrigger()
+            }
+        } else {
+            App.shared.appReview.pullAppReviewTrigger()
+        }
     }
     
     private func balancesTabViewController() -> UIViewController {
