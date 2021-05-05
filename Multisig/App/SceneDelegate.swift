@@ -64,8 +64,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             mainWindow = makeMainWindow(scene: scene)
             privacyProtectionWindow = makePrivacyWindow(scene: scene)
             showStartingWindow()
-
-            App.shared.theme.setUp()
         }
 
         App.shared.notificationHandler.appStarted()
@@ -147,6 +145,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             delayedMainPresentedViewController = nil
         }
         windowState = .main
+
+        App.shared.theme.setUp()
     }
 
     private func showPrivacyWindow() {
@@ -155,6 +155,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         privacyProtectionWindow?.makeKeyAndVisible()
         windowState = .privacy
+
+        App.shared.theme.setUp()
     }
 
     private func makeMainWindow(scene: UIWindowScene) -> WindowWithViewOnTop {
