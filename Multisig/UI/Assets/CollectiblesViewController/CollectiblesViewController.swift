@@ -38,7 +38,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         tableView.separatorStyle = .none
 
         emptyView.setText("Collectibles will appear here")
-        emptyView.setImage(#imageLiteral(resourceName: "ico-no-collectibles"))
+        emptyView.setImage(UIImage(named: "ico-no-collectibles")!)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -97,7 +97,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         let collectible = sections[indexPath.section].collectibles[indexPath.row]
         cell.setName(collectible.name)
         cell.setDescription(collectible.description)
-        cell.setImage(with: collectible.imageURL, placeholder: #imageLiteral(resourceName: "ico-collectible-placeholder"))
+        cell.setImage(with: collectible.imageURL, placeholder: UIImage(named: "ico-collectible-placeholder")!)
         return cell
     }
 
@@ -115,7 +115,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         let view = tableView.dequeueHeaderFooterView(CollectiblesHeaderView.self)
         let collectibleSection = sections[section]
         view.setName(collectibleSection.name)
-        view.setImage(with: collectibleSection.imageURL, placeholder: #imageLiteral(resourceName: "ico-nft-placeholder"))
+        view.setImage(with: collectibleSection.imageURL, placeholder: UIImage(named: "ico-nft-placeholder")!)
         return view
     }
 

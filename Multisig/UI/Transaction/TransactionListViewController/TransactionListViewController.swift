@@ -19,7 +19,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     private var model = FlatTransactionsListViewModel()
     internal var trackingEvent: TrackingEvent?
     internal var emptyText: String = "Transactions will appear here"
-    internal var emptyImage: UIImage = #imageLiteral(resourceName: "ico-no-transactions")
+    internal var emptyImage: UIImage = UIImage(named: "ico-no-transactions")!
 
     internal var dateFormatter: DateFormatter! = DateFormatter()
 
@@ -312,13 +312,13 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         switch tx.txInfo {
         case .transfer(let transferInfo):
             let isOutgoing = transferInfo.direction == .outgoing
-            image = isOutgoing ? #imageLiteral(resourceName: "ico-outgoing-tx") : #imageLiteral(resourceName: "ico-incomming-tx")
+            image = isOutgoing ? UIImage(named: "ico-outgoing-tx") : UIImage(named: "ico-incomming-tx")
             title = isOutgoing ? "Send" : "Receive"
             info = formattedAmount(transferInfo: transferInfo)
             infoColor = isOutgoing ? .primaryLabel : .button
         case .settingsChange(let settingsChangeInfo):
             title = settingsChangeInfo.dataDecoded.method
-            image = #imageLiteral(resourceName: "ico-settings-tx")
+            image = UIImage(named: "ico-settings-tx")
         case .custom(let customInfo):
             if let importedSafeName = Safe.cachedName(by: customInfo.to) {
                 title = importedSafeName
@@ -327,24 +327,24 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                 title = safeAppInfo.name
                 tag = "App"
                 imageURL = URL(string: safeAppInfo.logoUrl)
-                image = #imageLiteral(resourceName: "ico-custom-tx")
+                image = UIImage(named: "ico-custom-tx")
             } else if let toInfo = customInfo.toInfo {
                 title = toInfo.name
                 imageURL = toInfo.logoUri
                 placeholderAddress = customInfo.to
             } else {
                 title = "Contract interaction"
-                image = #imageLiteral(resourceName: "ico-custom-tx")
+                image = UIImage(named: "ico-custom-tx")
             }
             info = customInfo.actionCount != nil ? "\(customInfo.actionCount!) actions" : customInfo.methodName ?? ""
         case .rejection(_):
             title = "On-chain rejection"
-            image = #imageLiteral(resourceName: "ico-rejection-tx")
+            image = UIImage(named: "ico-rejection-tx")
         case .creation(_):
-            image = #imageLiteral(resourceName: "ico-settings-tx")
+            image = UIImage(named: "ico-settings-tx")
             title = "Safe created"
         case .unknown:
-            image = #imageLiteral(resourceName: "ico-custom-tx")
+            image = UIImage(named: "ico-custom-tx")
             title = "Unknown operation"
         }
 

@@ -73,6 +73,51 @@ extension SCGModels {
         var logoUrl: URL?
     }
 
+    /// This is a temporary solution for Known Addresses V3 before a proper refactoring with
+    /// Known Addresses V4 is implemented. This structure is used for TxData.addressInfoIndex
+    struct NameAndLogo: Decodable {
+        var name: String
+        var logoUri: URL
+    }
+
+    /// This is a temporary solution for Known Addresses V3 before a proper refactoring with
+    /// Known Addresses V4 is implemented.
+    ///
+    /// "addressInfoIndex": {
+    ///   "0x8D29bE29923b68abfDD21e541b9374737B49cdAD": {
+    ///     "name": "Gnosis Safe: Multi Send 1.1.1",
+    ///     "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0x8D29bE29923b68abfDD21e541b9374737B49cdAD.png"
+    ///   }
+    /// }
+    ///
+    struct AddressInfoIndex: Decodable {
+        var values: [AddressString: NameAndLogo]
+
+        init(from decoder: Decoder) throws {
+            struct DynamicKey: CodingKey {
+                var stringValue: String
+                init?(stringValue: String) {
+                    self.stringValue = stringValue
+                }
+                var intValue: Int?
+                init?(intValue: Int) {
+                    return nil
+                }
+            }
+
+            values = [:]
+            let container = try decoder.container(keyedBy: DynamicKey.self)
+            try container.allKeys.forEach { key in
+                let nameAndLogo = try container.decode(NameAndLogo.self,
+                                                       forKey: DynamicKey(stringValue: key.stringValue)!)
+                guard let addressStr = AddressString(key.stringValue) else {
+                    throw "Unexpected address format"
+                }
+                values[addressStr] = nameAndLogo
+            }
+        }
+    }
+
     struct TxSummary: Decodable {
         var id: String
         var timestamp: Date
@@ -442,6 +487,7 @@ extension SCGModels {
         var operation: Operation
         var hexData: DataString?
         var dataDecoded: DataDecoded?
+        var addressInfoIndex: AddressInfoIndex?
     }
 
     struct SafeAppInfo: Decodable {
