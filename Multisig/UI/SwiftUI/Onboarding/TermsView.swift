@@ -21,7 +21,7 @@ struct TermsView: View {
     @State
     private var showTerms = false
 
-    var onStart: () -> Void = { }
+    var onStart: () -> Void
 
     private let topPadding: CGFloat = Spacing.extraLarge
     private let bottomPadding: CGFloat = Spacing.large
@@ -46,13 +46,14 @@ struct TermsView: View {
             }
 
             Button("Agree") {
-                agreeWithTerms()
+                AppSettings.termsAccepted = true
+                self.acceptedTerms = true
+                self.onStart()
             }
             .buttonStyle(GNOFilledButtonStyle())
 
-            Button("Agree without Sharing Usage Data") {
-                agreeWithTerms()
-                AppSettings.trackingEnabled = false
+            Button("No Thanks") {
+                self.isAgreeWithTermsPresented = false
             }
             .buttonStyle(GNOPlainButtonStyle())
         }
@@ -60,12 +61,6 @@ struct TermsView: View {
         .padding(.bottom, bottomPadding)
         .padding(.horizontal)
         .background(Color.secondaryBackground)
-    }
-
-    private func agreeWithTerms() {
-        AppSettings.termsAccepted = true
-        self.acceptedTerms = true
-        self.onStart()
     }
 
     struct BulletText: View {
@@ -91,6 +86,6 @@ struct TermsView: View {
 struct TermsView_Previews: PreviewProvider {
     static var previews: some View {
         TermsView(acceptedTerms: .constant(false),
-                  isAgreeWithTermsPresented: .constant(true))
+                  isAgreeWithTermsPresented: .constant(true), onStart: {})
     }
 }

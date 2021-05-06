@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import AppTrackingTransparency
 
 enum ViewControllerFactory {
 
@@ -17,19 +18,29 @@ enum ViewControllerFactory {
     static func rootViewController() -> UIViewController {
         let tabBarVC = MainTabBarViewController()
 
-        if let updateViewController = App.shared.updateController.makeUpdateAppViewController() {
-            updateViewController.modalPresentationStyle = .fullScreen
-            updateViewController.modalTransitionStyle = .coverVertical
-
-            DispatchQueue.main.async {
-                tabBarVC.present(updateViewController, animated: false, completion: nil)
-            }
-        } else if !AppSettings.termsAccepted {
+        if !AppSettings.termsAccepted {
             let nav = UINavigationController()
             nav.modalPresentationStyle = .fullScreen
             nav.modalTransitionStyle = .crossDissolve
 
             let start = LaunchView(acceptedTerms: .constant(false), onStart: { [weak nav] in
+                if #available(iOS 14, *) {
+                    ATTrackingManager.requestTrackingAuthorization { status in
+                        DispatchQueue.main.async {
+                            switch status {
+                            case .authorized:
+                                AppSettings.trackingEnabled = true
+                            case .denied, .notDetermined, .restricted:
+                                AppSettings.trackingEnabled = false
+                            @unknown default:
+                                AppSettings.trackingEnabled = false
+                            }
+                            nav?.popViewController(animated: false)
+                        }
+                    }
+                    return
+                }
+                AppSettings.trackingEnabled = true
                 nav?.popViewController(animated: false)
             })
             .environment(\.managedObjectContext, App.shared.coreDataStack.viewContext)
