@@ -94,12 +94,12 @@ struct AdvancedAppSettings: View {
                         AppSettings.trackingEnabled = enabled
                     }
                 }) {
-                    Text("Share Usage Data").headline()
+                    Text("Share Usage and Crash Data").headline()
                 }
                 .frame(height: 60)
             }
             .alert(isPresented: $showingSettingsAlert) {
-                Alert(title: Text("Please allow tracking in phone settings"),
+                Alert(title: Text("Please allow tracking in Settings"),
                       message: Text("Currently tracking is disabled for the app."),
                       primaryButton: .cancel {
                         trackingEnabled = false
