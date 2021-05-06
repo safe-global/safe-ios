@@ -26,11 +26,11 @@ extension AppSettings {
     static var termsAccepted: Bool
 
     @AppSetting(\.trackingEnabled)
-    private static var _trackingEnabled: Bool
+    private static var trackingEnabledSetting: Bool
 
     static var trackingEnabled: Bool {
         set {
-            _trackingEnabled = newValue
+            trackingEnabledSetting = newValue
             Tracker.shared.setTrackingEnabled(trackingEnabled)
         } get {
             let systemTrackingEnabled: Bool
@@ -39,7 +39,7 @@ extension AppSettings {
             } else {
                 systemTrackingEnabled = true
             }
-            return _trackingEnabled && systemTrackingEnabled
+            return trackingEnabledSetting && systemTrackingEnabled
         }
     }
 
