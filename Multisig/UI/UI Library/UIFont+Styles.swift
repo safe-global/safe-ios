@@ -180,30 +180,30 @@ extension GNOButtonStyle {
     ])
 
     static let filled = GNOButtonStyle(appearance: [
-        (.normal, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-filled-normal"), textAttributes: [
+        (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-filled-normal"), textAttributes: [
             .foregroundColor: UIColor.primaryBackground,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
-        (.highlighted, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-filled-pressed"), textAttributes: [
+        (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-filled-pressed"), textAttributes: [
             .foregroundColor: UIColor.primaryBackground,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
-        (.disabled, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-filled-inactive"), textAttributes: [
+        (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-filled-inactive"), textAttributes: [
             .foregroundColor: UIColor.primaryBackground,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])
 
     static let filledError = GNOButtonStyle(appearance: [
-        (.normal, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-error-filled-normal"), textAttributes: [
+        (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-normal"), textAttributes: [
             .foregroundColor: UIColor.primaryBackground,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
-        (.highlighted, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-error-filled-pressed"), textAttributes: [
+        (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-pressed"), textAttributes: [
             .foregroundColor: UIColor.primaryBackground,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
-        (.disabled, GNOButtonAppearance(backgroundImage: #imageLiteral(resourceName: "btn-error-filled-inactive"), textAttributes: [
+        (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-inactive"), textAttributes: [
             .foregroundColor: UIColor.primaryBackground,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))

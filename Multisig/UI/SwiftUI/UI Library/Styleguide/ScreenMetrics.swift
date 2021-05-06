@@ -29,7 +29,7 @@ enum ScreenMetrics {
     }
 
     static func aboveKeyboard(_ frame: CGRect) -> CGFloat {
-        frame.height + (isBigScreen ? -Spacing.medium : Spacing.medium)
+        frame.height + Spacing.medium
     }
 
     static var aboveBottomEdge: CGFloat {
