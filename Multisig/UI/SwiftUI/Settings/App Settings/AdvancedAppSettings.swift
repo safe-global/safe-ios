@@ -106,7 +106,7 @@ struct AdvancedAppSettings: View {
                       },
                       secondaryButton: .default(Text("Settings")) {
                         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-                        trackingEnabled = false
+                        trackingEnabled = true
                       })
             }
         }
