@@ -35,6 +35,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         case privacy
         /// Privacy window is shown and the passcode prompt is presented
         case privacyPasscode
+        /// App update is shown when we there is new app version
+        case appUpdate
     }
 
     var snackbarViewController = SnackbarViewController(nibName: nil, bundle: nil)
@@ -45,6 +47,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private var appUpdateWindow: WindowWithViewOnTop?
 
     private var windowState: WindowState = .none
+
+    private var shouldShowAppUpdate: Bool {
+        appUpdateWindow != nil && windowState == .none
+    }
 
     private var shouldShowPasscode: Bool {
         App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForLogin)
@@ -66,7 +72,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             privacyProtectionWindow = makePrivacyWindow(scene: scene)
             appUpdateWindow = makeAppUpdateWindow(scene: scene)
 
-            showAppUpdate()
+            showStartingWindow()
         }
 
         App.shared.notificationHandler.appStarted()
@@ -130,16 +136,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
 
-    private func showAppUpdate() {
-        if appUpdateWindow != nil {
-            showAppUpdatePrompt()
-        } else {
-            showStartingWindow()
-        }
-    }
-
     private func showStartingWindow() {
-        if shouldShowPasscode {
+        if shouldShowAppUpdate {
+            showAppUpdatePrompt()
+        } else if shouldShowPasscode {
             showPrivacyWindow()
         } else {
             showMainWindow()
@@ -175,6 +175,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.addSubviewAlwaysOnTop(snackbarViewController.view)
         }
         appUpdateWindow?.makeKeyAndVisible()
+        windowState = .appUpdate
 
         App.shared.theme.setUp()
     }
@@ -202,6 +203,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let updateViewController = App.shared.updateController.makeUpdateAppViewController() else { return nil }
         updateViewController.completion = { [weak self] in
             self?.appUpdateWindow?.rootViewController?.dismiss(animated: true) { [weak self] in
+                self?.windowState = .privacy
                 self?.showStartingWindow()
             }
         }
