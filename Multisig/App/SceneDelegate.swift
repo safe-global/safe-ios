@@ -42,6 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private var mainWindow: WindowWithViewOnTop?
     private var privacyProtectionWindow: WindowWithViewOnTop?
+    private var appUpdateWindow: WindowWithViewOnTop?
 
     private var windowState: WindowState = .none
 
@@ -63,7 +64,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let scene = scene as? UIWindowScene {
             mainWindow = makeMainWindow(scene: scene)
             privacyProtectionWindow = makePrivacyWindow(scene: scene)
-            showStartingWindow()
+            appUpdateWindow = makeAppUpdateWindow(scene: scene)
+
+            showAppUpdate()
         }
 
         App.shared.notificationHandler.appStarted()
@@ -127,6 +130,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
 
+    private func showAppUpdate() {
+        if appUpdateWindow != nil {
+            showAppUpdatePrompt()
+        } else {
+            showStartingWindow()
+        }
+    }
+
     private func showStartingWindow() {
         if shouldShowPasscode {
             showPrivacyWindow()
@@ -159,6 +170,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         App.shared.theme.setUp()
     }
 
+    private func showAppUpdatePrompt() {
+        if snackbarViewController.view.window != appUpdateWindow, let window = appUpdateWindow {
+            window.addSubviewAlwaysOnTop(snackbarViewController.view)
+        }
+        appUpdateWindow?.makeKeyAndVisible()
+
+        App.shared.theme.setUp()
+    }
+
     private func makeMainWindow(scene: UIWindowScene) -> WindowWithViewOnTop {
         let window = WindowWithViewOnTop(windowScene: scene)
         window.rootViewController = ViewControllerFactory.rootViewController()
@@ -175,6 +195,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func makePrivacyWindow(scene: UIWindowScene) -> WindowWithViewOnTop {
         let window = WindowWithViewOnTop(windowScene: scene)
         window.rootViewController = PrivacyProtectionScreenViewController()
+        return window
+    }
+
+    private func makeAppUpdateWindow(scene: UIWindowScene) -> WindowWithViewOnTop? {
+        guard let updateViewController = App.shared.updateController.makeUpdateAppViewController() else { return nil }
+        updateViewController.completion = { [weak self] in
+            self?.appUpdateWindow?.rootViewController?.dismiss(animated: true) { [weak self] in
+                self?.showStartingWindow()
+            }
+        }
+
+        let window = WindowWithViewOnTop(windowScene: scene)
+        window.rootViewController = updateViewController
         return window
     }
 

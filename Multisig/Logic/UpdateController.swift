@@ -29,7 +29,7 @@ class UpdateController {
     }
 
     private func check(value: String, in range: String) -> Bool {
-        guard !range.isEmpty else { return false }
+        if range.isEmpty { return false }
         let ranges = range.split(separator: ",")
         for range in ranges {
             let rangeBound = range.components(separatedBy: "-")
