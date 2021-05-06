@@ -53,23 +53,61 @@ struct AdvancedAppSettings: View {
 
     struct ToggleTrackingRow: View {
         @State
-        var trackingEnabled = AppSettings.trackingEnabled
+        private var trackingEnabled = AppSettings.trackingEnabled
+
+        @State
+        private var showingSettingsAlert = false
 
         var body: some View {
             VStack {
                 Toggle(isOn: $trackingEnabled.didSet { enabled in
-                    AppSettings.trackingEnabled = enabled
-                    // https://firebase.google.com/docs/ios/supporting-ios-14
-                    // This is required only for IDFA that we do not use
                     if #available(iOS 14, *) {
-                        if ATTrackingManager.trackingAuthorizationStatus == .notDetermined && enabled {
-                            ATTrackingManager.requestTrackingAuthorization { _ in }
+
+                        switch ATTrackingManager.trackingAuthorizationStatus {
+                        case .notDetermined:
+                            ATTrackingManager.requestTrackingAuthorization { status in
+                                switch status {
+                                case .authorized:
+                                    AppSettings.trackingEnabled = true
+                                    trackingEnabled = true
+                                case .denied, .notDetermined, .restricted:
+                                    AppSettings.trackingEnabled = false
+                                    trackingEnabled = false
+                                @unknown default:
+                                    AppSettings.trackingEnabled = false
+                                    trackingEnabled = false
+                                }
+                            }
+                            return
+
+                        case .authorized:
+                            AppSettings.trackingEnabled = enabled
+
+                        case .denied, .restricted:
+                            showingSettingsAlert = true
+
+                        @unknown default:
+                            showingSettingsAlert = true
                         }
+
+                    } else /* !#available(iOS 14, *) */ {
+                        AppSettings.trackingEnabled = enabled
                     }
                 }) {
                     Text("Share Usage Data").headline()
                 }
                 .frame(height: 60)
+            }
+            .alert(isPresented: $showingSettingsAlert) {
+                Alert(title: Text("Please allow tracking in phone settings"),
+                      message: Text("Currently tracking is disabled for the app."),
+                      primaryButton: .cancel {
+                        trackingEnabled = false
+                      },
+                      secondaryButton: .default(Text("Settings")) {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                        trackingEnabled = false
+                      })
             }
         }
     }

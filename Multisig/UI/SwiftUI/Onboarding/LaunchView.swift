@@ -39,7 +39,7 @@ struct LaunchView: View {
     @State
     var showTerms = false
 
-    var onStart: ((Bool) -> Void)?
+    var onStart: () -> Void
 
     private let logoToTextSpacing: CGFloat = 40
     private let textToButtonSpacing: CGFloat = 60
@@ -90,10 +90,10 @@ struct LaunchView: View {
 struct LaunchView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LaunchView(acceptedTerms: .constant(false), showTerms: true)
+            LaunchView(acceptedTerms: .constant(false), showTerms: true, onStart: {})
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE (2nd generation)"))
                 .previewDisplayName("iPhone SE2")
-            LaunchView(acceptedTerms: .constant(false), showTerms: true)
+            LaunchView(acceptedTerms: .constant(false), showTerms: true, onStart: {})
                 .previewDevice(PreviewDevice(rawValue: "iPhone 11 Pro Max"))
                 .previewDisplayName("iPhone 11 Pro Max")
         }

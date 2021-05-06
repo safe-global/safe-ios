@@ -4,6 +4,7 @@
 
 import Foundation
 import FirebaseAnalytics
+import Firebase
 
 final class FirebaseTrackingHandler: TrackingHandler {
 
@@ -78,6 +79,7 @@ final class FirebaseTrackingHandler: TrackingHandler {
 
     func setTrackingEnabled(_ value: Bool) {
         Analytics.setAnalyticsCollectionEnabled(value)
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(value)
     }
 
     /// Verifies that the name is correct.

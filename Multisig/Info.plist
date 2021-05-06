@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.15.1</string>
+	<string>2.16.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CLIENT_GATEWAY_URL</key>
@@ -59,7 +59,7 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>This will allow Safe Multisig to access your Face ID to open app and sign transactions.</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string></string>
+	<string>We collect anonymized app usage data and crash reports to ensure the quality of our app.</string>
 	<key>PAY_FOR_CANCELLATION_URL</key>
 	<string>$(PAY_FOR_CANCELLATION_URL)</string>
 	<key>PRIVACY_URL</key>
@@ -158,5 +158,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>FirebaseCrashlyticsCollectionEnabled</key>
+	<false/>
 </dict>
 </plist>
