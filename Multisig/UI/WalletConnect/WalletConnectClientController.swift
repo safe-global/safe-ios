@@ -32,11 +32,11 @@ class WalletConnectClientController {
         // Currently controller supports only one session at the time.
         disconnect()
 
-        // gnosis wc bridge: https://safe-walletconnect.gnosis.io
+        // gnosis wc bridge: https://safe-walletconnect.gnosis.io/
         // zerion wc bridge: https://wcbridge.zerion.io
         // test bridge with latest protocol version: https://bridge.walletconnect.org
         let wcUrl =  WCURL(topic: UUID().uuidString,
-                           bridgeURL: URL(string: "https://wcbridge.zerion.io")!,
+                           bridgeURL: URL(string: "https://safe-walletconnect.gnosis.io/")!,
                            key: randomKey()!)
         LogService.shared.info("WalletConnect Client URL: \(wcUrl.absoluteString)")
 
@@ -86,6 +86,7 @@ class WalletConnectClientController {
             clientSessionData = nil
         } catch {
             // we ignore disconnect errors
+            NotificationCenter.default.post(name: .wcDidDisconnectClient, object: nil)
             LogService.shared.debug("Error disconnecting WC client: \(error.localizedDescription)")
         }
     }

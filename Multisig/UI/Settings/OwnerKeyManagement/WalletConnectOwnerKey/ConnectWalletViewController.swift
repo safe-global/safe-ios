@@ -79,6 +79,7 @@ class ConnectWalletViewController: UITableViewController {
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         do {
             if indexPath.section == 0 {
                 let (topic, connectionURL) = try WalletConnectClientController.shared
