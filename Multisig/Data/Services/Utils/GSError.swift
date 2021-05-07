@@ -316,28 +316,28 @@ enum GSError {
     
     struct UDUnsuportedName: DetailedLocalizedError {
         let description = "Can't use this name"
-        let reason = "Unstoppable name is invalid."
-        let howToFix = "Name should end with .crypto or .zil"
+        let reason = "Invalid domain name"
+        let howToFix = "Please check the domain, it should end with .crypto or .zil"
         let domain = clientErrorDomain
-        let code = 1120
+        let code = 6357
         let loggable = false
     }
     
     struct UDUnregisteredName: DetailedLocalizedError {
         let description = "Address not found"
-        let reason = "Name is not registered."
-        let howToFix = "Please check if the domain name is spelled correctly"
+        let reason = "This domain is not registered with UD."
+        let howToFix = "Check if domain is correct"
         let domain = clientErrorDomain
-        let code = 1121
+        let code = 6358
         let loggable = false
     }
     
     struct UDResolverNotFound: DetailedLocalizedError {
         let description = "Can't use this name"
-        let reason = "This name is not configured."
-        let howToFix = "Please check that the name has resolver contract attached"
+        let reason = "Domain is not configured correctly."
+        let howToFix = "Ask Domain owner to configure resolver contract"
         let domain = clientErrorDomain
-        let code = 1122
+        let code = 6360
         let loggable = false
     }
     
@@ -346,7 +346,7 @@ enum GSError {
         let reason = "Selected network is not supported by Unstoppable Domains."
         let howToFix = "Make sure you are connected to the mainnet or rinkeby to operate"
         let domain = clientErrorDomain
-        let code = 1123
+        let code = 6362
         let loggable = false
     }
 

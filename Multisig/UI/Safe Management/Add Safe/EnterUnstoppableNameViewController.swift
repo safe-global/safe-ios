@@ -47,7 +47,7 @@ class EnterUnstoppableNameViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.safeAddEns)
+        trackEvent(.safeAddUd)
     }
 
     @objc private func didTapConfirmButton() {
