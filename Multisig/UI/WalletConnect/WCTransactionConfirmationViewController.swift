@@ -24,6 +24,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     var onSubmit: (() -> Void)?
 
     private var transaction: Transaction!
+    private var minimalNonce: UInt256String!
     private var session: Session!
     private var importedKeysForSafe: [Address]!
 
@@ -41,6 +42,7 @@ class WCTransactionConfirmationViewController: UIViewController {
         enum Advanced: SectionItem {
             case nonce(UITableViewCell)
             case safeTxGas(UITableViewCell)
+            case edit(UITableViewCell)
         }
     }
 
@@ -124,9 +126,13 @@ class WCTransactionConfirmationViewController: UIViewController {
         }
     }
 
-    convenience init(transaction: Transaction, topic: String, importedKeysForSafe: [Address]) {
+    convenience init(transaction: Transaction,
+                     minimalNonce: UInt256String,
+                     topic: String,
+                     importedKeysForSafe: [Address]) {
         self.init()
         self.transaction = transaction
+        self.minimalNonce = minimalNonce
         self.session = try! Session.from(WCSession.get(topic: topic)!)
         self.importedKeysForSafe = importedKeysForSafe
     }
@@ -156,16 +162,28 @@ class WCTransactionConfirmationViewController: UIViewController {
         tableView.registerCell(InfoCell.self)
         tableView.registerCell(DetailExpandableTextCell.self)
         tableView.registerCell(BasicCell.self)
+        tableView.registerCell(EditCell.self)
 
         tableView.separatorStyle = .none
 
         buildSections()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
     private func buildSections() {
         let advancedSectionItems = !isAdvancedOptionsShown ? [] : [
             Section.Advanced.nonce(infoCell(title: "nonce", value: transaction.nonce.description)),
-            Section.Advanced.safeTxGas(infoCell(title: "safeTxGas", value: transaction.safeTxGas.description))
+            Section.Advanced.safeTxGas(infoCell(title: "safeTxGas", value: transaction.safeTxGas.description)),
+            Section.Advanced.edit(editCell())
         ]
         sections = [
             (section: .basic, items: [
@@ -184,7 +202,8 @@ class WCTransactionConfirmationViewController: UIViewController {
         tableView.reloadRows(at: [IndexPath(row: 3, section: 0)], with: .automatic)
         let advancedRows = [
             IndexPath(row: 0, section: 1),
-            IndexPath(row: 1, section: 1)
+            IndexPath(row: 1, section: 1),
+            IndexPath(row: 2, section: 1)
         ]
         if isAdvancedOptionsShown {
             tableView.insertRows(at: advancedRows, with: .bottom)
@@ -260,6 +279,29 @@ class WCTransactionConfirmationViewController: UIViewController {
         cell.selectionStyle = .none
         return cell
     }
+
+    private func editCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(EditCell.self)
+        cell.onEdit = { [unowned self] in
+            self.showEditParameters()
+        }
+        cell.selectionStyle = .none
+        return cell
+    }
+
+    private func showEditParameters() {
+        let editParamsController = WCEditParametersViewController.create(nonce: transaction.nonce,
+                                                                         minimalNonce: minimalNonce,
+                                                                         safeTxGas: transaction.safeTxGas) {
+            [unowned self] nonce, safeTxGas in
+            self.transaction.nonce = nonce
+            self.transaction.safeTxGas = safeTxGas
+            self.transaction.updateSafeTxHash()
+            self.buildSections()
+            self.tableView.reloadData()
+        }
+        show(editParamsController, sender: self)
+    }
 }
 
 extension WCTransactionConfirmationViewController: UITableViewDataSource {
@@ -280,6 +322,7 @@ extension WCTransactionConfirmationViewController: UITableViewDataSource {
         case Section.Basic.advanced(let cell): return cell
         case Section.Advanced.nonce(let cell): return cell
         case Section.Advanced.safeTxGas(let cell): return cell
+        case Section.Advanced.edit(let cell): return cell
         default: return UITableViewCell()
         }
     }
@@ -287,10 +330,19 @@ extension WCTransactionConfirmationViewController: UITableViewDataSource {
 
 extension WCTransactionConfirmationViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard case Section.Basic.advanced(_) = sections[indexPath.section].items[indexPath.row] else { return }
-        tableView.deselectRow(at: indexPath, animated: true)
-        isAdvancedOptionsShown.toggle()
-        reloadAdvancedSection()
+        switch sections[indexPath.section].items[indexPath.row] {
+
+        case Section.Basic.advanced(_):
+            tableView.deselectRow(at: indexPath, animated: true)
+            isAdvancedOptionsShown.toggle()
+            reloadAdvancedSection()
+
+        case Section.Advanced.edit(_):
+            showEditParameters()
+
+        default:
+            break
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

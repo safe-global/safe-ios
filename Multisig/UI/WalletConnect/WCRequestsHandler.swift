@@ -69,16 +69,12 @@ class WCRequestsHandler: RequestHandler {
                 return
             }
 
-            // calculate safeTxHash
-
-            let hash = EthHasher.hash(transaction.encodeTransactionData(for: wcRequest.from))
-            transaction.safeTxHash = HashString(hash)
-
             // present confirmation controller
 
             DispatchQueue.main.async { [unowned self] in
                 let confirmationController = WCTransactionConfirmationViewController(
                     transaction: transaction,
+                    minimalNonce: safeInfo.nonce,
                     topic: request.url.topic,
                     importedKeysForSafe: [Address](importedKeysForSafe))
 
@@ -98,8 +94,9 @@ class WCRequestsHandler: RequestHandler {
                     }
                 }
 
+                let navController = UINavigationController(rootViewController: confirmationController)
                 let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
-                sceneDelegate.presentForMain(confirmationController)
+                sceneDelegate.presentForMain(navController)
             }
         } else if request.method == "gs_multi_send" {
             // TODO: add support

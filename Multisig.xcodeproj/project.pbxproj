@@ -382,6 +382,8 @@
 		5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C82449A1980067505A /* LogServiceTests.swift */; };
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
+		5533AEB42642448100DB6B48 /* WCEditParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533AEB22642448100DB6B48 /* WCEditParametersViewController.swift */; };
+		5533AEB52642448100DB6B48 /* WCEditParametersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5533AEB32642448100DB6B48 /* WCEditParametersViewController.xib */; };
 		555312E9250653800008206B /* BIP32HDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312E8250653800008206B /* BIP32HDNode.swift */; };
 		555312EB2506608D0008206B /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EA2506608D0008206B /* Base58.swift */; };
 		555312ED250663420008206B /* SECP256K1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EC250663420008206B /* SECP256K1.swift */; };
@@ -422,6 +424,8 @@
 		558836702565385F0014E8C7 /* RemoveSafeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588366E2565385F0014E8C7 /* RemoveSafeCell.swift */; };
 		558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588366F2565385F0014E8C7 /* RemoveSafeCell.xib */; };
 		55888DFF260C4F6200940347 /* SwiftAccessPolicy in Frameworks */ = {isa = PBXBuildFile; productRef = 55888DFE260C4F6200940347 /* SwiftAccessPolicy */; };
+		5588A133264241FF008BA9F7 /* EditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5588A131264241FF008BA9F7 /* EditCell.swift */; };
+		5588A134264241FF008BA9F7 /* EditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5588A132264241FF008BA9F7 /* EditCell.xib */; };
 		5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5591CEED260C725C0067DFDF /* BlockiesSwift */; };
 		559246B7263BDDED0022D1A6 /* dapps-mainnet.json in Resources */ = {isa = PBXBuildFile; fileRef = 559246B5263BDDED0022D1A6 /* dapps-mainnet.json */; };
 		559246B8263BDDED0022D1A6 /* dapps-rinkeby.json in Resources */ = {isa = PBXBuildFile; fileRef = 559246B6263BDDED0022D1A6 /* dapps-rinkeby.json */; };
@@ -934,6 +938,8 @@
 		5532D4D02449A1E40067505A /* MockLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLogger.swift; sourceTree = "<group>"; };
 		5532D4DD2449A34A0067505A /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		5532D4E32449A4FC0067505A /* SafeTransactionServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionServiceIntegrationTests.swift; sourceTree = "<group>"; };
+		5533AEB22642448100DB6B48 /* WCEditParametersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCEditParametersViewController.swift; sourceTree = "<group>"; };
+		5533AEB32642448100DB6B48 /* WCEditParametersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WCEditParametersViewController.xib; sourceTree = "<group>"; };
 		555312E8250653800008206B /* BIP32HDNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP32HDNode.swift; sourceTree = "<group>"; };
 		555312EA2506608D0008206B /* Base58.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
 		555312EC250663420008206B /* SECP256K1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SECP256K1.swift; sourceTree = "<group>"; };
@@ -973,6 +979,8 @@
 		5588365325652E4B0014E8C7 /* LoadingValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingValueCell.xib; sourceTree = "<group>"; };
 		5588366E2565385F0014E8C7 /* RemoveSafeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveSafeCell.swift; sourceTree = "<group>"; };
 		5588366F2565385F0014E8C7 /* RemoveSafeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoveSafeCell.xib; sourceTree = "<group>"; };
+		5588A131264241FF008BA9F7 /* EditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCell.swift; sourceTree = "<group>"; };
+		5588A132264241FF008BA9F7 /* EditCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCell.xib; sourceTree = "<group>"; };
 		559246B5263BDDED0022D1A6 /* dapps-mainnet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-mainnet.json"; sourceTree = "<group>"; };
 		559246B6263BDDED0022D1A6 /* dapps-rinkeby.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-rinkeby.json"; sourceTree = "<group>"; };
 		559246B9263BDE0F0022D1A6 /* DetailedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedCell.swift; sourceTree = "<group>"; };
@@ -2268,6 +2276,10 @@
 				559A777926255168002B89E7 /* WalletConnectClientController.swift */,
 				55D3EDED263652160066E161 /* WCPedingConfirmationViewController.swift */,
 				55D3EDEE263652160066E161 /* WCPedingConfirmationViewController.xib */,
+				5588A131264241FF008BA9F7 /* EditCell.swift */,
+				5588A132264241FF008BA9F7 /* EditCell.xib */,
+				5533AEB22642448100DB6B48 /* WCEditParametersViewController.swift */,
+				5533AEB32642448100DB6B48 /* WCEditParametersViewController.xib */,
 			);
 			path = WalletConnect;
 			sourceTree = "<group>";
@@ -2646,6 +2658,7 @@
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */,
 				5509DC69263142290000A85F /* SigningKeyTableViewCell.xib in Resources */,
+				5588A134264241FF008BA9F7 /* EditCell.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
@@ -2679,6 +2692,7 @@
 				559246B7263BDDED0022D1A6 /* dapps-mainnet.json in Resources */,
 				04B4B6DE25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.xib in Resources */,
 				0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */,
+				5533AEB52642448100DB6B48 /* WCEditParametersViewController.xib in Resources */,
 				049A9D3B25F81F2C00CA5723 /* EditOwnerKeyViewController.xib in Resources */,
 				0A8AEB1125A4712B002A3FE1 /* ActionDetailTextCell.xib in Resources */,
 				0A478D5925B876AF0038363E /* ButtonTableViewCell.xib in Resources */,
@@ -2932,6 +2946,7 @@
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
+				5533AEB42642448100DB6B48 /* WCEditParametersViewController.swift in Sources */,
 				0A09839C24BC522B009EE296 /* Token.swift in Sources */,
 				0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */,
 				0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */,
@@ -3000,6 +3015,7 @@
 				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
 				0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */,
 				0A0983A024BC55ED009EE296 /* TokenRequest.swift in Sources */,
+				5588A133264241FF008BA9F7 /* EditCell.swift in Sources */,
 				55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */,
 				0AE8C0632579355800E62B34 /* TokenInfoView.swift in Sources */,
 				0A86EE5D25CC2B2B0059876E /* RetryFooterView.swift in Sources */,

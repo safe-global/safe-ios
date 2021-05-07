@@ -17,13 +17,15 @@ struct Transaction: Codable {
     let value: UInt256String
     let data: DataString?
     let operation: SCGModels.Operation
-    let safeTxGas: UInt256String
+    // can be modified for WalletConnect transactions
+    var safeTxGas: UInt256String
     let baseGas: UInt256String
     let gasPrice: UInt256String
     let gasToken: AddressString
     // zero address if no refund receiver is set
     let refundReceiver: AddressString
-    let nonce: UInt256String
+    // can be modified for WalletConnect transactions
+    var nonce: UInt256String
     // computed based on other properties
     var safeTxHash: HashString?
     var transactionHash: HashString?
@@ -73,23 +75,12 @@ extension Transaction {
         gasPrice = "0"
         gasToken = AddressString.zero
         refundReceiver = AddressString.zero
+
+        updateSafeTxHash()
     }
 
-    var safeEncodedTxData: Data {
-        [
-            Safe.DefaultEIP712SafeAppTxTypeHash,
-            to.data32,
-            value.data32,
-            EthHasher.hash(data!.data),
-            operation.data32,
-            safeTxGas.data32,
-            baseGas.data32,
-            gasPrice.data32,
-            gasToken.data32,
-            refundReceiver.data32,
-            nonce.data32
-        ]
-        .reduce(Data()) { $0 + $1 }
+    mutating func updateSafeTxHash() {
+        safeTxHash = safeTxHash(by: safe!.address)
     }
 
     func encodeTransactionData(for safe: AddressString) -> Data {
@@ -120,7 +111,24 @@ extension Transaction {
         return transaction
     }
 
-    func safeTxHash(by safeAddress: Address) -> HashString? {
+    private var safeEncodedTxData: Data {
+        [
+            Safe.DefaultEIP712SafeAppTxTypeHash,
+            to.data32,
+            value.data32,
+            EthHasher.hash(data!.data),
+            operation.data32,
+            safeTxGas.data32,
+            baseGas.data32,
+            gasPrice.data32,
+            gasToken.data32,
+            refundReceiver.data32,
+            nonce.data32
+        ]
+        .reduce(Data()) { $0 + $1 }
+    }
+
+    private func safeTxHash(by safeAddress: Address) -> HashString? {
         let data = encodeTransactionData(for: AddressString(safeAddress))
         return try? HashString(hex: EthHasher.hash(data).toHexString())
     }
