@@ -64,43 +64,44 @@ class WCTransactionConfirmationViewController: UIViewController {
             [unowned self] keyInfo in
 
             // dismiss presented ChooseOwnerKeyViewController right after receiving the completion
-            dismiss(animated: true, completion: nil)
-
-            guard let keyInfo = keyInfo else {
-                return
-            }
-
-            switch keyInfo.keyType {
-
-            case .device:
-                DispatchQueue.global().async { [unowned self] in
-                    do {
-                        let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                        self.sendConfirmationAndDismiss(keyInfo: keyInfo, signature: signature.hexadecimal)
-                    } catch {
-                        DispatchQueue.main.async {
-                            App.shared.snackbar.show(
-                                error: GSError.error(description: "Could not sign transaction.", error: error))
-                        }
-                    }
-                }
-
-            case .walletConnect:
-                WalletConnectClientController.shared.sign(message: transaction.safeTxHash!.description, from: self) {
-                    [unowned self] signature in
-                    self.sendConfirmationAndDismiss(keyInfo: keyInfo, signature: signature)
-                }
-
-                if let installedWallet = keyInfo.installedWallet {
-                    // MetaMask shows error alert if nothing is provided to the link
-                    // https://github.com/MetaMask/metamask-mobile/blob/194a1858b96b1f88762f8679380b09dda3c8b29e/app/core/DeeplinkManager.js#L89
-                    UIApplication.shared.open(URL(string: installedWallet.universalLink.appending("/focus"))!)
-                }
+            dismiss(animated: true) {
+                guard let keyInfo = keyInfo else { return }
+                sign(keyInfo: keyInfo)
             }
         }
 
         let navigationController = UINavigationController(rootViewController: vc)
         present(navigationController, animated: true)
+    }
+
+    private func sign(keyInfo: KeyInfo) {
+        switch keyInfo.keyType {
+
+        case .device:
+            DispatchQueue.global().async { [unowned self] in
+                do {
+                    let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
+                    self.sendConfirmationAndDismiss(keyInfo: keyInfo, signature: signature.hexadecimal)
+                } catch {
+                    DispatchQueue.main.async {
+                        App.shared.snackbar.show(
+                            error: GSError.error(description: "Could not sign transaction.", error: error))
+                    }
+                }
+            }
+
+        case .walletConnect:
+            WalletConnectClientController.shared.sign(message: transaction.safeTxHash!.description, from: self) {
+                [unowned self] signature in
+                self.sendConfirmationAndDismiss(keyInfo: keyInfo, signature: signature)
+            }
+
+            if let installedWallet = keyInfo.installedWallet {
+                // MetaMask shows error alert if nothing is provided to the link
+                // https://github.com/MetaMask/metamask-mobile/blob/194a1858b96b1f88762f8679380b09dda3c8b29e/app/core/DeeplinkManager.js#L89
+                UIApplication.shared.open(URL(string: installedWallet.universalLink.appending("/focus"))!)
+            }
+        }
     }
 
     private func sendConfirmationAndDismiss(keyInfo: KeyInfo, signature: String) {

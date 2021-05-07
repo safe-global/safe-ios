@@ -85,7 +85,10 @@ class ConnectWalletViewController: UITableViewController {
                 let (topic, connectionURL) = try WalletConnectClientController.shared
                     .getTopicAndConnectionURL(universalLink: installedWallets[indexPath.row].universalLink)
                 walletPerTopic[topic] = installedWallets[indexPath.row]
-                UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
+                // we need a delay so that WalletConnectClient can send handshake request
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+                    UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
+                }
             } else {
                 let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
                 show(WalletConnectQRCodeViewController.create(code: connectionURI), sender: nil)

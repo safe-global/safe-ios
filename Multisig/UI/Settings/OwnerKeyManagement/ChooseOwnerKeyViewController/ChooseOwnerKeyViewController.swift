@@ -16,6 +16,7 @@ class ChooseOwnerKeyViewController: UIViewController {
     private var owners: [KeyInfo] = []
     private var descriptionText: String!
     private var walletPerTopic = [String: InstalledWallet]()
+    private var waitingForSession = false
 
     var completionHandler: ((KeyInfo?) -> Void)?
 
@@ -52,6 +53,9 @@ class ChooseOwnerKeyViewController: UIViewController {
     }
 
     @objc private func walletConnectSessionCreated(_ notification: Notification) {
+        guard waitingForSession else { return }
+        waitingForSession = false
+
         guard let session = notification.object as? Session,
               let account = Address(session.walletInfo?.accounts.first ?? ""),
               owners.first(where: { $0.address == account }) != nil else {
@@ -133,12 +137,44 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
 
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let keyInfo = owners[indexPath.row]
+        guard App.configuration.toggles.walletConnectEnabled && keyInfo.keyType == .walletConnect else { return nil }
+
+        let isConnected = WalletConnectClientController.shared.isConnected(keyInfo: keyInfo)
+
+        let action = UIContextualAction(style: .normal, title: isConnected ? "Disconnect" : "Connect") {
+            [unowned self] _, _, completion in
+
+            if isConnected {
+                WalletConnectClientController.shared.disconnect()
+            } else {
+                // try to reconnect
+                if let installedWallet = keyInfo.installedWallet {
+                    self.reconnectWithInstalledWallet(installedWallet)
+                } else {
+                    self.showConnectionQRCodeController()
+                }
+            }
+
+            completion(true)
+        }
+        action.backgroundColor = isConnected ? .orange : .button
+
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+
+    #warning("TODO: move - code duplication")
     private func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) {
         do {
             let (topic, connectionURL) = try WalletConnectClientController.shared
                 .getTopicAndConnectionURL(universalLink: installedWallet.universalLink)
             walletPerTopic[topic] = installedWallet
-            UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
+            waitingForSession = true
+            // we need a delay so that WalletConnectClient can send handshake request
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+                UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
+            }
         } catch {
             App.shared.snackbar.show(
                 error: GSError.error(description: "Could not create connection URL", error: error))
@@ -149,6 +185,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         do {
             let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
             let qrCodeVC = WalletConnectQRCodeViewController.create(code: connectionURI)
+            waitingForSession = true
             present(qrCodeVC, animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(

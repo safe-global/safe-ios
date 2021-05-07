@@ -17,6 +17,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     }
 
     private var walletPerTopic = [String: InstalledWallet]()
+    private var waitingForSession = false
     
     convenience init() {
         self.init(namedClass: LoadableViewController.self)
@@ -93,6 +94,9 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     }
 
     @objc private func walletConnectSessionCreated(_ notification: Notification) {
+        guard waitingForSession else { return }
+        waitingForSession = false
+
         guard let session = notification.object as? Session,
               let account = Address(session.walletInfo?.accounts.first ?? ""),
               keys.first(where: { $0.address == account }) != nil else {
@@ -177,7 +181,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         actions.append(editAction)
 
         if keyInfo.keyType == .walletConnect {
-            let isConnected = WalletConnectClientController.shared.isConnected(keyInfo: keys[indexPath.row])
+            let isConnected = WalletConnectClientController.shared.isConnected(keyInfo: keyInfo)
 
             let wcAction = UIContextualAction(style: .normal, title: isConnected ? "Disconnect" : "Connect") {
                 [unowned self] _, _, completion in
@@ -227,7 +231,11 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
             let (topic, connectionURL) = try WalletConnectClientController.shared
                 .getTopicAndConnectionURL(universalLink: installedWallet.universalLink)
             walletPerTopic[topic] = installedWallet
-            UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
+            waitingForSession = true
+            // we need a delay so that WalletConnectClient can send handshake request
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+                UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
+            }
         } catch {
             App.shared.snackbar.show(
                 error: GSError.error(description: "Could not create connection URL", error: error))
@@ -238,6 +246,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         do {
             let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
             let qrCodeVC = WalletConnectQRCodeViewController.create(code: connectionURI)
+            waitingForSession = true
             present(qrCodeVC, animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(

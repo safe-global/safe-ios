@@ -175,14 +175,14 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             assertionFailure()
             return
         }
-
         let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
-        let vc = ChooseOwnerKeyViewController(owners: signers,
-                                              descriptionText: descriptionText) { [unowned self] keyInfo in
+        let vc = ChooseOwnerKeyViewController(owners: signers, descriptionText: descriptionText) {
+            [unowned self] keyInfo in
+
+            // dismiss presented ChooseOwnerKeyViewController right after receiving the completion
             dismiss(animated: true) {
-                if let info = keyInfo {
-                    sign(info)
-                }
+                guard let keyInfo = keyInfo else { return }
+                sign(keyInfo)
             }
         }
 
