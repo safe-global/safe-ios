@@ -44,6 +44,12 @@ enum ViewControllerFactory {
         let nav = UINavigationController(rootViewController: view)
         return nav
     }
+
+    static func importOwnerViewController(presenter: UIViewController & CloseModal) -> UIViewController {
+        let view = OnboardingImportOwnerKeyViewController()
+        let nav = UINavigationController(rootViewController: view)
+        return nav
+    }
 }
 
 @objc protocol CloseModal {

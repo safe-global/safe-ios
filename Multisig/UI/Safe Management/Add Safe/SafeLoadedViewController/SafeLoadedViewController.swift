@@ -43,8 +43,15 @@ class SafeLoadedViewController: UIViewController {
 
     @IBAction func importOwnerButtonTouched(_ sender: Any) {
         Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerImport)
-        let vc = ViewControllerFactory.selectKeyTypeViewController(presenter: self)
-        present(vc, animated: true)
+
+        var controller: UIViewController
+        if App.configuration.toggles.walletConnectEnabled {
+            controller = ViewControllerFactory.selectKeyTypeViewController(presenter: self)
+        } else {
+            controller = ViewControllerFactory.importOwnerViewController(presenter: self)
+        }
+
+        present(controller, animated: true)
     }
 
     @IBAction func skipButtonTouched(_ sender: Any) {

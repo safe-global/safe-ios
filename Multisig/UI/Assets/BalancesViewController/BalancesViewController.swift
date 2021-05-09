@@ -195,8 +195,13 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
             recreateSectionsWithCurrentItems()
 
-            let vc = ViewControllerFactory.selectKeyTypeViewController(presenter: self)
-            present(vc, animated: true)
+            var controller: UIViewController
+            if App.configuration.toggles.walletConnectEnabled {
+                controller = ViewControllerFactory.selectKeyTypeViewController(presenter: self)
+            } else {
+                controller = ViewControllerFactory.importOwnerViewController(presenter: self)
+            }
+            present(controller, animated: true)
             trackEvent(.bannerImportOwnerKeyImported)
         }
         return cell

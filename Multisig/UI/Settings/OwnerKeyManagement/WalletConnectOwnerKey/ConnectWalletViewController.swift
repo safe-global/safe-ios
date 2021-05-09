@@ -82,6 +82,7 @@ class ConnectWalletViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         do {
             if indexPath.section == 0 {
+                guard !installedWallets.isEmpty else { return }
                 let (topic, connectionURL) = try WalletConnectClientController.shared
                     .getTopicAndConnectionURL(universalLink: installedWallets[indexPath.row].universalLink)
                 walletPerTopic[topic] = installedWallets[indexPath.row]
@@ -102,7 +103,7 @@ class ConnectWalletViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-        view.setName(section == 0 ? "INSTALLED WALLETS" : "EXTERNAL DEVICE")
+        view.setName(section == 0 ? "LOCAL" : "EXTERNAL")
         return view
     }
 
