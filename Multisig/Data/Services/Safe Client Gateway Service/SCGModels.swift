@@ -458,6 +458,10 @@ extension SCGModels {
             UInt256(self.rawValue).data32
         }
 
+        var uint256: UInt256 {
+            UInt256(self.rawValue)
+        }
+
         var name: String {
             switch self {
             case .call:

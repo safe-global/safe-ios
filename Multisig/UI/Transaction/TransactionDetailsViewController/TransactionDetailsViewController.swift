@@ -20,6 +20,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var builder: TransactionDetailCellBuilder!
     private var confirmButton: UIButton!
     private var rejectButton: UIButton!
+    private var executeButton: UIButton!
     private var actionsContainerView: UIStackView!
 
     private enum TransactionSource {
@@ -105,6 +106,11 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         confirmButton.addTarget(self, action: #selector(didTapConfirm), for: .touchUpInside)
         actionsContainerView.addArrangedSubview(confirmButton)
 
+        executeButton = UIButton(type: .custom)
+        executeButton.setText("Execute", .filled)
+        executeButton.addTarget(self, action: #selector(didTapExecute), for: .touchUpInside)
+        actionsContainerView.addArrangedSubview(executeButton)
+
         view.addSubview(actionsContainerView)
         NSLayoutConstraint.activate([
             actionsContainerView.heightAnchor.constraint(equalToConstant: 56),
@@ -117,15 +123,16 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     override func showOnly(view: UIView) {
         super.showOnly(view: view)
         actionsContainerView.isHidden = view !== tableView || !showsActionsViewContrainer
-        confirmButton.isHidden = !showConfirmButton
+        confirmButton.isHidden = !showsConfirmButton
         rejectButton.isHidden = !showsRejectButton
+        executeButton.isHidden = !showsExecuteButton
 
         confirmButton.isEnabled = enableConfirmButton
         rejectButton.isEnabled = enableRejectionButton
     }
 
     private var showsActionsViewContrainer: Bool  {
-        tx?.multisigInfo?.canSign == true && (showsRejectButton || showConfirmButton)
+        tx?.multisigInfo?.canSign == true && (showsRejectButton || showsConfirmButton)
     }
 
     private var showsRejectButton: Bool {
@@ -147,13 +154,17 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
     }
 
-    private var showConfirmButton: Bool {
+    private var showsConfirmButton: Bool {
         switch self.tx?.txInfo {
         case .rejection(_):
             return tx!.needsYourConfirmation
         default:
             return tx?.txStatus.isAwatingConfiramtions ?? false
         }
+    }
+
+    private var showsExecuteButton: Bool {
+        tx?.needsYourExecution ?? false
     }
 
     private var enableRejectionButton: Bool {
@@ -196,6 +207,25 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         show(confirmRejectionViewController, sender: self)
     }
 
+    @objc private func didTapExecute() {
+        guard let signers = tx?.multisigInfo?.executionKeys() else {
+            return
+        }
+
+        let descriptionText = "You are about to execute this transaction. Please select which owner key to use."
+        let vc = ChooseOwnerKeyViewController(owners: signers,
+                                              descriptionText: descriptionText) { [unowned self] keyInfo in
+            dismiss(animated: true) {
+                if let keyInfo = keyInfo {
+                    execute(keyInfo)
+                }
+            }
+        }
+
+        let navigationController = UINavigationController(rootViewController: vc)
+        present(navigationController, animated: true)
+    }
+
     private func sign(_ keyInfo: KeyInfo) {
         guard let tx = tx,
               let transaction = Transaction(tx: tx) else {
@@ -222,11 +252,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 self.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature)
             }
 
-            if let installedWallet = keyInfo.installedWallet {
-                // MetaMask shows error alert if nothing is provided to the link
-                // https://github.com/MetaMask/metamask-mobile/blob/194a1858b96b1f88762f8679380b09dda3c8b29e/app/core/DeeplinkManager.js#L89
-                UIApplication.shared.open(URL(string: installedWallet.universalLink.appending("/focus"))!)
-            }
+            openWalletIfInstalled(keyInfo: keyInfo)
         }
 
     }
@@ -249,6 +275,69 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
                 self?.onLoadingCompleted(result: result)
             }
+        }
+    }
+
+    #warning("TODO: finish UX wise. Reload view controller.")
+    private func execute(_ keyInfo: KeyInfo) {
+        guard let tx = tx,
+              var transaction = Transaction(tx: tx),
+              let multisigInfo = tx.multisigInfo,
+              keyInfo.keyType == .walletConnect else {
+            preconditionFailure("Unexpected Error")
+        }
+        super.reloadData()
+
+        do {
+            let safeAddress = try Address(from: try Safe.getSelected()!.address!)
+            transaction.safe = AddressString(safeAddress)
+        } catch {
+            onError(GSError.error(description: "Failed to execute transaction", error: error))
+        }
+
+        WalletConnectClientController.shared.execute(
+            transaction: transaction,
+            confirmations: tx.ecdsaConfirmations,
+            confirmationsRequired: multisigInfo.confirmationsRequired,
+            from: self,
+            onSend: {
+                [unowned self] result in
+
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(_):
+                        self.openWalletIfInstalled(keyInfo: keyInfo)
+                    case .failure(let error):
+                        App.shared.snackbar.show(
+                            error: GSError.error(description: "Failed to execute transaction", error: error))
+                    }
+                }
+            },
+            onResult: {
+                result in
+
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let hash):
+                        // show tx hash?
+                        // monitor transaction and notify once it is executed?
+                        // TODO: refresh view / disable execute button?
+                        App.shared.snackbar.show(message: "Transaction submitted. Transaction hash: \(hash)")
+                    case .failure(let error):
+                        App.shared.snackbar.show(
+                            error: GSError.error(description: "Failed to execute transaction", error: error))
+                    }
+                }
+            })
+    }
+
+    private func openWalletIfInstalled(keyInfo: KeyInfo) {
+        if let installedWallet = keyInfo.installedWallet {
+            // MetaMask shows error alert if nothing is provided to the link
+            // https://github.com/MetaMask/metamask-mobile/blob/194a1858b96b1f88762f8679380b09dda3c8b29e/app/core/DeeplinkManager.js#L89
+            UIApplication.shared.open(URL(string: installedWallet.universalLink.appending("/focus"))!)
+        } else {
+            App.shared.snackbar.show(message: "Please open your wallet to submit the execution transaction.")
         }
     }
 
@@ -338,6 +427,24 @@ extension SCGModels.TransactionDetails {
         return false
     }
 
+    #warning("TODO: remove ecdsaConfirmations once other signature types are implemented")
+    var needsYourExecution: Bool {
+        if txStatus == .awaitingExecution,
+           let multisigInfo = multisigInfo,
+           ecdsaConfirmations.count >= multisigInfo.confirmationsRequired,
+           !multisigInfo.executionKeys().isEmpty {
+            return true
+        }
+        return false
+    }
+
+    var ecdsaConfirmations: [SCGModels.Confirmation] {
+        guard let multisigInfo = multisigInfo else { return [] }
+        return multisigInfo.confirmations.filter{
+            Int(try! Data($0.signature.data.suffix(1)).toHexString(), radix: 16) ?? 0 > 26
+        }
+    }
+
     var multisigInfo: SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig? {
         if case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigTx)? = detailedExecutionInfo {
             return multisigTx
@@ -372,6 +479,12 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
         }).map( { $0.address } )
 
         return (try? KeyInfo.keys(addresses: reminingSigners)) ?? []
+    }
+
+    func executionKeys() -> [KeyInfo] {
+        let signerAddresses = signers.map( { $0.address } )
+        let keys = (try? KeyInfo.keys(addresses: signerAddresses)) ?? []
+        return keys.filter { $0.keyType == .walletConnect }
     }
 
     func rejectorKeys() -> [KeyInfo] {

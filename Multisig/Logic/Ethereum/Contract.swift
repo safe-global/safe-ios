@@ -22,7 +22,6 @@ class Contract {
         return EthHasher.hash(selector.data(using: .ascii)!).prefix(4)
     }
 
-
     func encodeUInt(_ value: Int) -> Data {
         return encodeUInt(UInt256(value))
     }

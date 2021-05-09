@@ -121,10 +121,11 @@ class WalletConnectClientController {
         }
     }
 
+    #warning("TODO: handle closing modal manually")
     func sign(message: String, from controller: UIViewController, completion: @escaping (String) -> Void) {
         guard controller.presentedViewController == nil else { return }
 
-        let pendingConfirmationVC = WCPedingConfirmationViewController()
+        let pendingConfirmationVC = WCPedingConfirmationViewController.create()
         pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
         controller.present(pendingConfirmationVC, animated: false)
 
@@ -143,6 +144,55 @@ class WalletConnectClientController {
                     controller.dismiss(animated: false, completion: nil)
                     App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
                 }
+            }
+        }
+    }
+
+    func execute(transaction: Transaction,
+                 confirmations: [SCGModels.Confirmation],
+                 confirmationsRequired: UInt64,
+                 from controller: UIViewController,
+                 onSend: @escaping (Result<Bool, Error>) -> Void,
+                 onResult: @escaping (Result<HashString, Error>) -> Void) {
+        guard controller.presentedViewController == nil else { return }
+
+        let pendingConfirmationVC = WCPedingConfirmationViewController.create(headerText: "Pending Execution")
+        pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
+        controller.present(pendingConfirmationVC, animated: false)
+
+        guard let session = session,
+              let client = client,
+              let walletAddress = session.walletInfo?.accounts.first else {
+            // TODO: use GSError
+            onSend(.failure("Failed to execute: wallet not connected. Please connect your wallet."))
+            return
+        }
+
+        DispatchQueue.global().async {
+            do {
+                let nonceResponse = try App.shared.nodeService.rawCall(
+                    payload: Request.nonce(for: walletAddress, session: session).jsonString)
+                let response = try Response(url: session.url, jsonString: nonceResponse)
+                let nonce = try response.result(as: String.self)
+
+                let clientTransaction = Client.Transaction.from(address: walletAddress,
+                                                                transaction: transaction,
+                                                                confirmations: confirmations,
+                                                                confirmationsRequired: confirmationsRequired,
+                                                                nonce: nonce)
+
+                try client.eth_sendTransaction(url: session.url, transaction: clientTransaction) { response in
+                    do {
+                        let txHash = try response.result(as: HashString.self)
+                        onResult(.success(txHash))
+                    } catch {
+                        onResult(.failure(error))
+                    }
+                }
+
+                onSend(.success(true))
+            } catch {
+                onSend(.failure(error))
             }
         }
     }
@@ -212,5 +262,35 @@ extension Session {
 
     static func from(data: Data) -> Self? {
         try? JSONDecoder().decode(Self.self, from: data)
+    }
+}
+
+extension Request {
+    static func nonce(for address: String, session: Session) -> Request {
+        return .eth_getTransactionCount(url: session.url, account: address)
+    }
+
+    private static func eth_getTransactionCount(url: WCURL, account: String) -> Request {
+        return try! Request(url: url, method: "eth_getTransactionCount", params: [account, "latest"])
+    }
+}
+
+extension Client.Transaction {
+    static func from(address: String,
+                     transaction: Transaction,
+                     confirmations: [SCGModels.Confirmation],
+                     confirmationsRequired: UInt64,
+                     nonce: String) -> Client.Transaction {
+        Client.Transaction(
+            from: address,
+            to: transaction.safe!.description,
+            data: SafeContract().execTransaction(transaction,
+                                                 confirmations: confirmations,
+                                                 confirmationsRequired: confirmationsRequired).toHexString(),
+            gas: nil,
+            gasPrice: nil,
+            value: nil,
+            nonce: nonce
+        )
     }
 }

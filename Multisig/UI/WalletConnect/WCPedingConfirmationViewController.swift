@@ -16,12 +16,18 @@ class WCPedingConfirmationViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
 
+    var headerText = "Pending Confirmation"
+
     @IBAction func cancel(_ sender: Any) {
         close()
     }
 
-    static func create() -> WCPedingConfirmationViewController {
-        let controller = WCPedingConfirmationViewController(nibName: "WCPedingConfirmationViewController", bundle: Bundle.main)
+    static func create(headerText: String? = nil) -> WCPedingConfirmationViewController {
+        let controller = WCPedingConfirmationViewController(nibName: "WCPedingConfirmationViewController",
+                                                            bundle: Bundle.main)
+        if let headerText = headerText {
+            controller.headerText = headerText
+        }
         return controller
     }
 
@@ -34,6 +40,7 @@ class WCPedingConfirmationViewController: UIViewController {
         bottomView.layer.cornerRadius = 10
         bottomView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
 
+        headerLabel.text = headerText
         headerLabel.setStyle(.headline)
         activityIndicator.startAnimating()
         descriptionLabel.setStyle(.callout)
