@@ -18,11 +18,19 @@ class UpdateController {
 
         if appVersion == latestAppVersion { return nil }
         let deprecatedVersions = remoteConfig.value(key: .deprecated)
+        let deprecatedSoonVersions = remoteConfig.value(key: .deprecatedSoon)
         var style = UpdateAppViewController.Style.optional
         if let deprecatedVersionsRange = deprecatedVersions, check(value: appVersion, in: deprecatedVersionsRange) {
             style = .required
-        } else {
+            AppSettings.lastIgnoredUpdateVersion = nil
+        } else if let deprecatedSoonVersionsRange = deprecatedSoonVersions, check(value: appVersion, in: deprecatedSoonVersionsRange) {
             style = .recommended
+            AppSettings.lastIgnoredUpdateVersion = nil
+        } else if latestAppVersion == AppSettings.lastIgnoredUpdateVersion {
+            return nil
+        }
+        else {
+            AppSettings.lastIgnoredUpdateVersion = latestAppVersion
         }
 
         return UpdateAppViewController(style: style)

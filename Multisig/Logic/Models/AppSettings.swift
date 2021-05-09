@@ -94,6 +94,9 @@ extension AppSettings {
 
     @AppSetting(\.passcodeOptions)
     private static var rawPasscodeOptions: Int64
+
+    @AppSetting(\.lastIgnoredUpdateVersion)
+    static var lastIgnoredUpdateVersion: String?
 }
 
 extension AppSettings {
