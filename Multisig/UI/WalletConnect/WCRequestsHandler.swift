@@ -49,7 +49,7 @@ class WCRequestsHandler: RequestHandler {
 
             guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
                   let requestId = request.id,
-                  var transaction = Transaction(wcRequest: wcRequest),
+                  let transaction = Transaction(wcRequest: wcRequest),
                   let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(address: transaction.safe!.address),
                   let importedKeysAddresses = try? KeyInfo.all().map({ $0.address })
             else {

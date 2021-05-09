@@ -45,7 +45,22 @@ class ChooseOwnerKeyViewController: UIViewController {
         descriptionLabel.setStyle(.primary)
 
         NotificationCenter.default.addObserver(
-            self, selector: #selector(walletConnectSessionCreated(_:)), name: .wcDidConnectClient, object: nil)
+            self,
+            selector: #selector(walletConnectSessionCreated(_:)),
+            name: .wcDidConnectClient,
+            object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reload),
+            name: .wcDidDisconnectClient,
+            object: nil)
+    }
+
+    @objc private func reload() {
+        DispatchQueue.main.async { [unowned self] in
+            self.tableView.reloadData()
+        }
     }
 
     @objc private func didTapCloseButton() {

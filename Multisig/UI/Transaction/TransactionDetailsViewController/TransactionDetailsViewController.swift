@@ -23,6 +23,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var executeButton: UIButton!
     private var actionsContainerView: UIStackView!
 
+    private var pendingExecution = false
+
     private enum TransactionSource {
         case id(String)
         case safeTxHash(Data)
@@ -129,10 +131,11 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         confirmButton.isEnabled = enableConfirmButton
         rejectButton.isEnabled = enableRejectionButton
+        executeButton.isEnabled = !pendingExecution
     }
 
     private var showsActionsViewContrainer: Bool  {
-        tx?.multisigInfo?.canSign == true && (showsRejectButton || showsConfirmButton)
+        tx?.multisigInfo?.canSign == true && (showsRejectButton || showsConfirmButton || showsExecuteButton)
     }
 
     private var showsRejectButton: Bool {
@@ -144,7 +147,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                   let status = tx?.txStatus
                     else { return false }
 
-            if status == .awaitingExecution && !multisigInfo.isRejected() {
+            if status == .awaitingExecution && !multisigInfo.isRejected() && !pendingExecution {
                  return true
             } else if status.isAwatingConfiramtions {
                 return true
@@ -247,12 +250,11 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         case .walletConnect:
             let safeTxHash = transaction.safeTxHash!.description
-            WalletConnectClientController.shared.sign(message: safeTxHash, from: self) {
-                [unowned self] signature in
+            WalletConnectClientController.shared.sign(message: safeTxHash, from: self) { [unowned self] signature in
                 self.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature)
             }
 
-            openWalletIfInstalled(keyInfo: keyInfo)
+            WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
         }
 
     }
@@ -300,45 +302,32 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             confirmations: tx.ecdsaConfirmations,
             confirmationsRequired: multisigInfo.confirmationsRequired,
             from: self,
-            onSend: {
-                [unowned self] result in
-
+            onSend: { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(_):
-                        self.openWalletIfInstalled(keyInfo: keyInfo)
+                        WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
                     case .failure(let error):
                         App.shared.snackbar.show(
                             error: GSError.error(description: "Failed to execute transaction", error: error))
                     }
                 }
             },
-            onResult: {
-                result in
-
-                DispatchQueue.main.async {
+            onResult: { result in
+                DispatchQueue.main.async { [unowned self] in
                     switch result {
                     case .success(let hash):
-                        // show tx hash?
-                        // monitor transaction and notify once it is executed?
-                        // TODO: refresh view / disable execute button?
+                        presentedViewController?.dismiss(animated: true)
+                        self.pendingExecution = true
+                        self.reloadData()
                         App.shared.snackbar.show(message: "Transaction submitted. Transaction hash: \(hash)")
+
                     case .failure(let error):
                         App.shared.snackbar.show(
                             error: GSError.error(description: "Failed to execute transaction", error: error))
                     }
                 }
             })
-    }
-
-    private func openWalletIfInstalled(keyInfo: KeyInfo) {
-        if let installedWallet = keyInfo.installedWallet {
-            // MetaMask shows error alert if nothing is provided to the link
-            // https://github.com/MetaMask/metamask-mobile/blob/194a1858b96b1f88762f8679380b09dda3c8b29e/app/core/DeeplinkManager.js#L89
-            UIApplication.shared.open(URL(string: installedWallet.universalLink.appending("/focus"))!)
-        } else {
-            App.shared.snackbar.show(message: "Please open your wallet to submit the execution transaction.")
-        }
     }
 
     // MARK: - Loading Data

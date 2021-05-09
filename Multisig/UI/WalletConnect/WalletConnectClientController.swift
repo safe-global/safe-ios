@@ -207,6 +207,16 @@ class WalletConnectClientController {
             return nil
         }
     }
+
+    static func openWalletIfInstalled(keyInfo: KeyInfo) {
+        if let installedWallet = keyInfo.installedWallet {
+            // MetaMask shows error alert if nothing is provided to the link
+            // https://github.com/MetaMask/metamask-mobile/blob/194a1858b96b1f88762f8679380b09dda3c8b29e/app/core/DeeplinkManager.js#L89
+            UIApplication.shared.open(URL(string: installedWallet.universalLink.appending("/focus"))!)
+        } else {
+            App.shared.snackbar.show(message: "Please open your wallet to submit the execution transaction.")
+        }
+    }
 }
 
 // MARK: - ClientDelegate
