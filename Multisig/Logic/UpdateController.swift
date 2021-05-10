@@ -9,6 +9,7 @@
 import Foundation
 
 class UpdateController {
+
     func makeUpdateAppViewController() -> UpdateAppViewController? {
         let remoteConfig = FirebaseRemoteConfig.shared
         let appVersion = App.configuration.app.marketingVersion

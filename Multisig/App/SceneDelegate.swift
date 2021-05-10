@@ -8,53 +8,31 @@
 
 import UIKit
 import SwiftUI
+import AppTrackingTransparency
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    /// States of the window state machine governing when and which windows to show
-    ///
-    /// Allowed transitions:
-    ///
-    /// - from `none`
-    ///     - to `main` - on startup, if no passcode needed
-    ///     - to `privacy` - on startup, if passcode is needed
-    /// - from `privacy`
-    ///     - to `privacyPasscode` - on enter foreground, if passcode is needed
-    ///     - to `main` - on become active
-    /// - from `privacyPasscode`
-    ///     - to `main` - when passcode challenge is closed
-    /// - from `main`
-    ///     - to `privacy` - on resign active
-    ///
-    private enum WindowState {
-        /// None of the windows is shown
-        case none
-        /// Main window is shown
-        case main
-        /// Privacy window is shown
-        case privacy
-        /// Privacy window is shown and the passcode prompt is presented
-        case privacyPasscode
-        /// App update is shown when we there is new app version
-        case appUpdate
-    }
-
     var snackbarViewController = SnackbarViewController(nibName: nil, bundle: nil)
-    private var delayedMainPresentedViewController: UIViewController?
 
-    private var mainWindow: WindowWithViewOnTop?
-    private var privacyProtectionWindow: WindowWithViewOnTop?
-    private var appUpdateWindow: WindowWithViewOnTop?
+    var updateAppWindow: UIWindow?
+    var tabBarWindow: UIWindow?
+    var privacyShieldWindow: UIWindow?
 
-    private var windowState: WindowState = .none
-
-    private var shouldShowAppUpdate: Bool {
-        appUpdateWindow != nil && windowState == .none
-    }
+    // the window to present
+    var presentedWindow: UIWindow?
 
     private var shouldShowPasscode: Bool {
         App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForLogin)
     }
+
+    private var startedFromNotification: Bool {
+        get { App.shared.appReview.startedFromNotification }
+        set { App.shared.appReview.startedFromNotification = newValue }
+    }
+
+    weak var scene: UIWindowScene?
+
+    // MARK: - Scene Life Cycle
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         App.shared.tokenRegistry.load()
@@ -67,23 +45,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         lightNavBar.barTintColor = nil
         lightNavBar.isTranslucent = true
 
-        if let scene = scene as? UIWindowScene {
-            mainWindow = makeMainWindow(scene: scene)
-            privacyProtectionWindow = makePrivacyWindow(scene: scene)
-            appUpdateWindow = makeAppUpdateWindow(scene: scene)
-
-            showStartingWindow()
-        }
-
         App.shared.notificationHandler.appStarted()
-        App.shared.appReview.startedFromNotification = connectionOptions.notificationResponse != nil
+        startedFromNotification = connectionOptions.notificationResponse != nil
+
+        if let scene = scene as? UIWindowScene {
+            self.scene = scene
+            makeWindows(scene: scene)
+        }
     }
 
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        App.shared.notificationHandler.appEnteredForeground()
+
+        if scene.activationState == .unattached && updateAppWindow?.rootViewController != nil {
+            showWindow(updateAppWindow)
+        } else {
+            onAppUpdateCompletion()
+        }
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -91,151 +69,166 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         App.shared.clientGatewayHostObserver.startObserving()
 
-        if windowState == .privacy {
-            showMainWindow()
-        }
+        privacyShieldWindow?.isHidden = true
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
         App.shared.clientGatewayHostObserver.stopObserving()
 
-        if windowState == .main {
-            showPrivacyWindow()
-        }
-    }
-
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-        // The `sceneDidBecomeActive()` is called after this method.
-
-        App.shared.notificationHandler.appEnteredForeground()
-        if windowState == .privacy {
-            showPasscodePrompt()
+        if presentedWindow === tabBarWindow {
+            privacyShieldWindow?.isHidden = false
         }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-
         // Save changes in the application's managed object context when the application transitions to the background.
         App.shared.coreDataStack.saveContext()
     }
 
+    func sceneDidDisconnect(_ scene: UIScene) {
+        // do nothing
+    }
+
     // MARK: - Window Management
 
-    func presentForMain(_ controller: UIViewController) {
-        if windowState == .main {
-            mainWindow?.rootViewController?.present(controller, animated: true)
-        } else {
-            delayedMainPresentedViewController = controller
-        }
-    }
-
-    private func showStartingWindow() {
-        if shouldShowAppUpdate {
-            showAppUpdatePrompt()
-        } else if shouldShowPasscode {
-            showPrivacyWindow()
-        } else {
-            showMainWindow()
-        }
-    }
-
-    private func showMainWindow() {
-        if snackbarViewController.view.window != mainWindow, let window = mainWindow {
-            window.addSubviewAlwaysOnTop(snackbarViewController.view)
-        }
-        mainWindow?.makeKeyAndVisible()
-        if delayedMainPresentedViewController != nil {
-            mainWindow?.rootViewController?.present(delayedMainPresentedViewController!, animated: true)
-            delayedMainPresentedViewController = nil
-        }
-        windowState = .main
-
-        App.shared.theme.setUp()
-    }
-
-    private func showPrivacyWindow() {
-        if snackbarViewController.view.window != privacyProtectionWindow, let window = privacyProtectionWindow {
-            window.addSubviewAlwaysOnTop(snackbarViewController.view)
-        }
-        privacyProtectionWindow?.makeKeyAndVisible()
-        windowState = .privacy
-
-        App.shared.theme.setUp()
-    }
-
-    private func showAppUpdatePrompt() {
-        if snackbarViewController.view.window != appUpdateWindow, let window = appUpdateWindow {
-            window.addSubviewAlwaysOnTop(snackbarViewController.view)
-        }
-        appUpdateWindow?.makeKeyAndVisible()
-        windowState = .appUpdate
-
-        App.shared.theme.setUp()
-    }
-
-    private func makeMainWindow(scene: UIWindowScene) -> WindowWithViewOnTop {
+    private func makeWindow(scene: UIWindowScene) -> UIWindow {
         let window = WindowWithViewOnTop(windowScene: scene)
-        window.rootViewController = ViewControllerFactory.rootViewController()
-
-        SnackbarViewController.instance = snackbarViewController
-        snackbarViewController.view.frame = window.bounds
-        snackbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        window.addSubviewAlwaysOnTop(snackbarViewController.view)
-
         window.tintColor = .button
         return window
     }
 
-    private func makePrivacyWindow(scene: UIWindowScene) -> WindowWithViewOnTop {
-        let window = WindowWithViewOnTop(windowScene: scene)
-        window.rootViewController = PrivacyProtectionScreenViewController()
-        return window
-    }
+    private func showWindow(_ window: UIWindow?) {
+        guard let window = window else { return }
 
-    private func makeAppUpdateWindow(scene: UIWindowScene) -> WindowWithViewOnTop? {
-        guard let updateViewController = App.shared.updateController.makeUpdateAppViewController() else { return nil }
-        updateViewController.completion = { [weak self] in
-            self?.appUpdateWindow?.rootViewController?.dismiss(animated: true) { [weak self] in
-                self?.windowState = .privacy
-                self?.showStartingWindow()
-            }
+        if let customWindow = window as? WindowWithViewOnTop {
+            snackbarViewController.view.frame = customWindow.bounds
+            customWindow.addSubviewAlwaysOnTop(snackbarViewController.view)
         }
 
-        let window = WindowWithViewOnTop(windowScene: scene)
-        window.rootViewController = updateViewController
-        return window
+        window.makeKeyAndVisible()
+        App.shared.theme.setUp()
+
+        presentedWindow = window
     }
 
-    // MARK: - Passcode
+    private func makeWindows(scene: UIWindowScene) {
+        // snack bar
+        SnackbarViewController.instance = snackbarViewController
+        snackbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-    private func showPasscodePrompt() {
-        guard shouldShowPasscode else { return }
+        updateAppWindow = makeUpdateAppWindow()
+        tabBarWindow = makeTabBarWindow()
+        privacyShieldWindow = makePrivacyShieldWindow()
+    }
 
-        let vc = EnterPasscodeViewController()
-        vc.showsCloseButton = false
+    func makeUpdateAppWindow() -> UIWindow {
+        let updateAppWindow = makeWindow(scene: scene!)
+        if let controller = App.shared.updateController.makeUpdateAppViewController() {
+            updateAppWindow.rootViewController = controller
 
-        // because close button is hidden, this will complete only
-        // if passcode is correct or if the data is deleted.
-        // in both cases, we want to show the main window.
-        vc.completion = { [weak self] _ in
-            self?.privacyProtectionWindow?.rootViewController?.dismiss(animated: true) { [weak self] in
-                self?.showMainWindow()
+            controller.completion = { [unowned self] in
+                onAppUpdateCompletion()
             }
         }
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .fullScreen
-
-        privacyProtectionWindow?.rootViewController?.present(nav, animated: true, completion: nil)
-
-        windowState = .privacyPasscode
+        return updateAppWindow
     }
+
+    func makeTabBarWindow() -> UIWindow {
+        let tabBarWindow = makeWindow(scene: scene!)
+        tabBarWindow.rootViewController = ViewControllerFactory.tabBarViewController(completion: { [unowned self] tabBar in
+            onTabBarAppearance(of: tabBar)
+        })
+        return tabBarWindow
+    }
+
+    func makeEnterPasscodeWindow() -> UIWindow {
+        let enterPasscodeWindow = makeWindow(scene: scene!)
+        enterPasscodeWindow.rootViewController = ViewControllerFactory.enterPasscodeViewController { [unowned self] in
+            onEnterPasscodeCompletion()
+        }
+        return enterPasscodeWindow
+    }
+
+    func makeCreatePasscodeWindow() -> UIWindow {
+        let createPasscodeWindow = makeWindow(scene: scene!)
+        createPasscodeWindow.rootViewController = ViewControllerFactory.createPasscodeViewController { [unowned self] in
+            onCreatePasscodeCompletion()
+        }
+        return createPasscodeWindow
+    }
+
+    func makePrivacyShieldWindow() -> UIWindow {
+        let privacyShieldWindow = makeWindow(scene: scene!)
+        privacyShieldWindow.rootViewController = PrivacyProtectionScreenViewController()
+        return privacyShieldWindow
+    }
+
+    func makeTermsWindow() -> UIWindow {
+        let termsWindow = makeWindow(scene: scene!)
+        termsWindow.rootViewController = ViewControllerFactory.termsViewController { [unowned self] in
+            onTermsCompletion()
+        }
+        return termsWindow
+    }
+
+    func onAppUpdateCompletion() {
+        if !AppSettings.termsAccepted {
+            showWindow(makeTermsWindow())
+        } else if shouldShowPasscode {
+            showWindow(makeEnterPasscodeWindow())
+        } else {
+            showWindow(tabBarWindow)
+        }
+    }
+
+    func onTermsCompletion() {
+        showWindow(makeCreatePasscodeWindow())
+    }
+
+    func onCreatePasscodeCompletion() {
+        showWindow(tabBarWindow)
+    }
+
+    func onEnterPasscodeCompletion() {
+        showWindow(tabBarWindow)
+    }
+
+    func onTabBarAppearance(of tabBar: MainTabBarViewController) {
+        if startedFromNotification, let safeTxHash = App.shared.notificationHandler.transactionDetailsPayload {
+            // present transaction details
+            App.shared.notificationHandler.transactionDetailsPayload = nil
+            let vc = ViewControllerFactory.transactionDetailsViewController(safeTxHash: safeTxHash)
+            tabBar.present(vc, animated: true, completion: nil)
+
+        } else if App.shared.notificationHandler.needsToRequestNotificationPermission {
+            App.shared.notificationHandler.requestUserPermissionAndRegister()
+
+        } else if #available(iOS 14, *),
+                  AppSettings.termsAccepted,
+                  ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
+            // request for users prior 2.16.0 release to confirm data tracking
+            presentTrackingPermission()
+        } else {
+            App.shared.appReview.pullAppReviewTrigger()
+        }
+    }
+
+    func presentTrackingPermission() {
+        guard #available(iOS 14, *) else { return }
+        ATTrackingManager.requestTrackingAuthorization { status in
+            DispatchQueue.main.async {
+                switch status {
+                case .authorized:
+                    AppSettings.trackingEnabled = true
+                case .denied, .notDetermined, .restricted:
+                    AppSettings.trackingEnabled = false
+                @unknown default:
+                    AppSettings.trackingEnabled = false
+                }
+            }
+        }
+    }
+
 }
 
 // Window that can keep some view always on top of other views
@@ -255,3 +248,4 @@ class WindowWithViewOnTop: UIWindow {
         }
     }
 }
+

@@ -10,6 +10,8 @@ import UIKit
 import AppTrackingTransparency
 
 class MainTabBarViewController: UITabBarController {
+    var onFirstAppear: (_ vc: MainTabBarViewController) -> Void = { _ in }
+
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
 
@@ -33,33 +35,20 @@ class MainTabBarViewController: UITabBarController {
             selector: #selector(showQueuedTransactions),
             name: .queuedTxNotificationReceived,
             object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showTransactionDetails),
+            name: .confirmationTxNotificationReceived,
+            object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard appearsFirstTime else { return }
         appearsFirstTime = false
-        // request for users prior 2.16.0 release to confirm data tracking
-        if #available(iOS 14, *) {
-            if AppSettings.termsAccepted && ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
-                ATTrackingManager.requestTrackingAuthorization { status in
-                    DispatchQueue.main.async {
-                        switch status {
-                        case .authorized:
-                            AppSettings.trackingEnabled = true
-                        case .denied, .notDetermined, .restricted:
-                            AppSettings.trackingEnabled = false
-                        @unknown default:
-                            AppSettings.trackingEnabled = false
-                        }
-                    }
-                }
-            } else {
-                App.shared.appReview.pullAppReviewTrigger()
-            }
-        } else {
-            App.shared.appReview.pullAppReviewTrigger()
-        }
+
+        onFirstAppear(self)
     }
     
     private func balancesTabViewController() -> UIViewController {
@@ -150,6 +139,13 @@ class MainTabBarViewController: UITabBarController {
     @objc func showHistoryTransactions() {
         selectedIndex = 1
         transactionsSegementControl?.selectedIndex = 1
+    }
+
+    @objc func showTransactionDetails(_ notification: Notification) {
+        guard let safeTxHash = App.shared.notificationHandler.transactionDetailsPayload else { return }
+        App.shared.notificationHandler.transactionDetailsPayload = nil
+        let vc = ViewControllerFactory.transactionDetailsViewController(safeTxHash: safeTxHash)
+        present(vc, animated: true, completion: nil)
     }
 
 }
