@@ -205,6 +205,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self?.appUpdateWindow?.rootViewController?.dismiss(animated: true) { [weak self] in
                 self?.windowState = .privacy
                 self?.showStartingWindow()
+                self?.showPasscodePrompt()
             }
         }
 
