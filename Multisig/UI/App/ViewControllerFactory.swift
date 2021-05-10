@@ -79,6 +79,14 @@ enum ViewControllerFactory {
         let nav = UINavigationController(rootViewController: view)
         return nav
     }
+
+    static func transactionDetailsViewController(safeTxHash: Data) -> UIViewController {
+        let vc = TransactionDetailsViewController(safeTxHash: safeTxHash)
+        vc.navigationItem.leftBarButtonItem =
+            UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
+        let navController = UINavigationController(rootViewController: vc)
+        return navController
+    }
 }
 
 @objc protocol CloseModal {

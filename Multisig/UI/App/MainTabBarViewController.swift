@@ -35,6 +35,12 @@ class MainTabBarViewController: UITabBarController {
             selector: #selector(showQueuedTransactions),
             name: .queuedTxNotificationReceived,
             object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showTransactionDetails),
+            name: .confirmationTxNotificationReceived,
+            object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -133,6 +139,13 @@ class MainTabBarViewController: UITabBarController {
     @objc func showHistoryTransactions() {
         selectedIndex = 1
         transactionsSegementControl?.selectedIndex = 1
+    }
+
+    @objc func showTransactionDetails(_ notification: Notification) {
+        guard let safeTxHash = App.shared.notificationHandler.transactionDetailsPayload else { return }
+        App.shared.notificationHandler.transactionDetailsPayload = nil
+        let vc = ViewControllerFactory.transactionDetailsViewController(safeTxHash: safeTxHash)
+        present(vc, animated: true, completion: nil)
     }
 
 }

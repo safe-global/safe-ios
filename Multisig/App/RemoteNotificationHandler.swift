@@ -12,6 +12,9 @@ import UserNotifications
 import Firebase
 
 class RemoteNotificationHandler {
+
+    var transactionDetailsPayload: Data?
+
     @UserDefault(key: "io.gnosis.multisig.deviceID")
     private var storedDeviceID: String?
 
@@ -263,6 +266,8 @@ class RemoteNotificationHandler {
 
                 transactionDetailsPayload = hashData
 
+                NotificationCenter.default.post(name: .confirmationTxNotificationReceived, object: nil)
+
             } else if ["INCOMING_ETHER", "INCOMING_TOKEN"].contains(payload.type) {
                 NotificationCenter.default.post(name: .incommingTxNotificationReceived, object: nil)
             } else if ["EXECUTED_MULTISIG_TRANSACTION", "NEW_CONFIRMATION", "CONFIRMATION_REQUEST"].contains(payload.type) {
@@ -272,8 +277,6 @@ class RemoteNotificationHandler {
             logError("Error during opening notification", error)
         }
     }
-
-    var transactionDetailsPayload: Data?
 
  }
 

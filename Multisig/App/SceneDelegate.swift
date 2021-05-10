@@ -196,13 +196,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func onTabBarAppearance(of tabBar: MainTabBarViewController) {
         if startedFromNotification, let safeTxHash = App.shared.notificationHandler.transactionDetailsPayload {
             // present transaction details
-            let vc = TransactionDetailsViewController(safeTxHash: safeTxHash)
-            vc.navigationItem.leftBarButtonItem =
-                UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
-            let navController = UINavigationController(rootViewController: vc)
-            tabBar.present(navController, animated: true, completion: nil)
-
             App.shared.notificationHandler.transactionDetailsPayload = nil
+            let vc = ViewControllerFactory.transactionDetailsViewController(safeTxHash: safeTxHash)
+            tabBar.present(vc, animated: true, completion: nil)
 
         } else if App.shared.notificationHandler.needsToRequestNotificationPermission {
             App.shared.notificationHandler.requestUserPermissionAndRegister()
