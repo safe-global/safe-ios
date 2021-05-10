@@ -16,6 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var updateAppWindow: UIWindow?
     var tabBarWindow: UIWindow?
+    var privacyShieldWindow: UIWindow?
 
     // the window to present
     var presentedWindow: UIWindow?
@@ -68,18 +69,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         App.shared.clientGatewayHostObserver.startObserving()
 
-        // show the previosly presented window to remove privacy shield window
-        showWindow(presentedWindow)
+        privacyShieldWindow?.isHidden = true
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         App.shared.clientGatewayHostObserver.stopObserving()
 
-        let currentWindow = presentedWindow
-        showWindow(makePrivacyShieldWindow())
-        presentedWindow = currentWindow
+        if presentedWindow === tabBarWindow {
+            privacyShieldWindow?.isHidden = false
+        }
     }
-
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Save changes in the application's managed object context when the application transitions to the background.
@@ -100,7 +99,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func showWindow(_ window: UIWindow?) {
         guard let window = window else { return }
-        presentedWindow = window
 
         if let customWindow = window as? WindowWithViewOnTop {
             snackbarViewController.view.frame = customWindow.bounds
@@ -109,6 +107,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window.makeKeyAndVisible()
         App.shared.theme.setUp()
+
+        presentedWindow = window
     }
 
     private func makeWindows(scene: UIWindowScene) {
@@ -118,6 +118,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         updateAppWindow = makeUpdateAppWindow()
         tabBarWindow = makeTabBarWindow()
+        privacyShieldWindow = makePrivacyShieldWindow()
     }
 
     func makeUpdateAppWindow() -> UIWindow {

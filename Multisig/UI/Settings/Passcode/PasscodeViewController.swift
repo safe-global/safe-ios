@@ -150,6 +150,11 @@ class CreatePasscodeViewController: PasscodeViewController {
         trackEvent(.createPasscode)
     }
 
+    override func didTapButton(_ sender: Any) {
+        super.didTapButton(sender)
+        completion()
+    }
+
     override func willChangeText(_ text: String) {
         super.willChangeText(text)
         guard text.count == passcodeLength else { return }

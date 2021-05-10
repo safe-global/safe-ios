@@ -70,7 +70,9 @@ class UpdateAppViewController: UIViewController {
 
     @IBAction func updateButtonTouched(_ sender: Any) {
         let url = App.configuration.contact.appStoreReviewURL
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
         if !style.unskippable {
             completion()
         }
