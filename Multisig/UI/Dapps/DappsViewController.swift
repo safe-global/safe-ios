@@ -11,7 +11,9 @@ import WalletConnectSwift
 
 fileprivate protocol SectionItem {}
 
-class DappsViewController: UITableViewController {
+class DappsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet private weak var tableView: UITableView!
+
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
     private var sections = [SectionItems]()
@@ -30,17 +32,32 @@ class DappsViewController: UITableViewController {
         }
     }
 
+    @IBAction func scan(_ sender: Any) {
+        let vc = QRCodeScannerViewController()
+        vc.scannedValueValidator = { value in
+            guard value.starts(with: "wc:") else {
+                return .failure(GSError.InvalidWalletConnectQRCode())
+            }
+            return .success(value)
+        }
+        vc.modalPresentationStyle = .overFullScreen
+        vc.delegate = self
+        vc.setup()
+        present(vc, animated: true, completion: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureTableView()
-        addWCButton()
         subscribeToNotifications()
         
         update()
     }
 
     private func configureTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
         tableView.backgroundColor = .primaryBackground
         tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.registerHeaderFooterView(ExternalLinkHeaderFooterView.self)
@@ -48,20 +65,6 @@ class DappsViewController: UITableViewController {
         tableView.registerCell(DetailedCell.self)
         tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.estimatedSectionFooterHeight = BasicHeaderView.headerHeight
-    }
-
-    private func addWCButton() {
-        let button = UIButton()
-        button.setImage(UIImage(named: "wc-button"), for: .normal)
-        button.addTarget(self, action: #selector(scan), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(button)
-        NSLayoutConstraint.activate([
-            button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            button.widthAnchor.constraint(equalToConstant: 60),
-            button.heightAnchor.constraint(equalToConstant: 60)
-        ])
     }
 
     @objc private func update() {
@@ -111,31 +114,17 @@ class DappsViewController: UITableViewController {
             self, selector: #selector(update), name: .selectedSafeChanged, object: nil)
     }
 
-    @objc private func scan() {
-        let vc = QRCodeScannerViewController()
-        vc.scannedValueValidator = { value in
-            guard value.starts(with: "wc:") else {
-                return .failure(GSError.InvalidWalletConnectQRCode())
-            }
-            return .success(value)
-        }
-        vc.modalPresentationStyle = .overFullScreen
-        vc.delegate = self
-        vc.setup()
-        present(vc, animated: true, completion: nil)
-    }
-
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         sections[section].items.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
 
         switch item {
@@ -177,7 +166,7 @@ class DappsViewController: UITableViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         let item = sections[indexPath.section].items[indexPath.row]
         if case Section.WalletConnect.activeSession(_) = item {
             return true
@@ -185,7 +174,7 @@ class DappsViewController: UITableViewController {
         return false
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let item = sections[indexPath.section].items[indexPath.row]
 
         if case Section.WalletConnect.activeSession(let session) = item {
@@ -195,7 +184,7 @@ class DappsViewController: UITableViewController {
 
     // MARK: - Table view delegate
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = sections[indexPath.section].items[indexPath.row]
         if case Section.Dapp.dapp(let dapp) = item {
             UIApplication.shared.open(dapp.url)
@@ -203,7 +192,7 @@ class DappsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
         let section = sections[_section].section
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
         switch section {
@@ -217,7 +206,7 @@ class DappsViewController: UITableViewController {
         return view
     }
 
-    override func tableView(_ tableView: UITableView, viewForFooterInSection _section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection _section: Int) -> UIView? {
         guard case Section.walletConnect(_) = sections[_section].section else {
             return nil
         }
@@ -227,22 +216,22 @@ class DappsViewController: UITableViewController {
         return view
     }
 
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         return BasicHeaderView.headerHeight
     }
 
-    override func tableView(_ tableView: UITableView, heightForFooterInSection _section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection _section: Int) -> CGFloat {
         guard case Section.walletConnect(_) = sections[_section].section else {
             return 0
         }
         return UITableView.automaticDimension
     }
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return DetailedCell.rowHeight
     }
 
-    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Disconnect"
     }
 }

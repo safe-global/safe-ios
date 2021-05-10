@@ -11,7 +11,30 @@
         "logo": "https://app.uniswap.org/favicon.png",
         "url": "https://app.uniswap.org/"
     },
-
+    {
+        "name": "Sushi",
+        "description": "Swap, earn, stack yields, lend, borrow, leverage",
+        "logo": "https://app.sushi.com/static/media/logo.11fafaa5.png",
+        "url": "https://app.sushi.com/"
+    },
+    {
+        "name": "Balancer",
+        "description": "Balancer is a protocol for programmable liquidity",
+        "logo": "https://balancer.exchange/favicon.ico",
+        "url": "https://balancer.exchange/#/swap"
+    },
+    {
+        "name": "Compound",
+        "description": "Algorithmic, autonomous interest rate protocol",
+        "logo": "https://compound.finance/favicon.ico",
+        "url": "https://app.compound.finance/"
+    },
+    {
+        "name": "Aave",
+        "description": "Open source and non-custodial liquidity protocol for earning interest on deposits and borrowing assets.",
+        "logo": "https://app.aave.com/favicon.ico",
+        "url": "https://app.aave.com/"
+    },
     {
         "name": "Idle Finance",
         "description": "Always the best yield",

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DappsViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="U7f-Mf-Vgq" id="frx-Pr-zwm"/>
+                <outlet property="view" destination="iN0-l3-epB" id="TRJ-jn-RME"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="U7f-Mf-Vgq">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bpc-nf-Jd6">
+                    <rect key="frame" x="338" y="786" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="9fc-eC-rB9"/>
+                        <constraint firstAttribute="width" constant="60" id="I3y-c4-w9x"/>
+                    </constraints>
+                    <state key="normal" image="wc-button"/>
+                    <connections>
+                        <action selector="scan:" destination="-1" eventType="touchUpInside" id="UYs-Jr-nJ3"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="U7f-Mf-Vgq" secondAttribute="bottom" id="1f2-Vt-2C5"/>
+                <constraint firstItem="U7f-Mf-Vgq" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="2fU-gT-bOF"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="U7f-Mf-Vgq" secondAttribute="trailing" id="61G-WR-k38"/>
+                <constraint firstItem="Bpc-nf-Jd6" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-16" id="ePt-J5-qMP"/>
+                <constraint firstItem="U7f-Mf-Vgq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="iUV-xW-xtL"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Bpc-nf-Jd6" secondAttribute="trailing" constant="16" id="yRp-3I-YHc"/>
+            </constraints>
+            <point key="canvasLocation" x="25" y="153"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="wc-button" width="56" height="57"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

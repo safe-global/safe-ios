@@ -491,6 +491,7 @@
 		55D3FF0E260B2247008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */; };
 		55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF64260B2551008ABD2B /* Kingfisher */; };
 		55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF8F260B2B21008ABD2B /* TrustKit */; };
+		55DA82252649656400FB99A4 /* DappsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55DA82242649656400FB99A4 /* DappsViewController.xib */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
 		55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */; };
 		55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */; };
@@ -1042,6 +1043,7 @@
 		55D3654225078560004D5047 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		55D3EDED263652160066E161 /* WCPedingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCPedingConfirmationViewController.swift; sourceTree = "<group>"; };
 		55D3EDEE263652160066E161 /* WCPedingConfirmationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WCPedingConfirmationViewController.xib; sourceTree = "<group>"; };
+		55DA82242649656400FB99A4 /* DappsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DappsViewController.xib; sourceTree = "<group>"; };
 		55DCC332258A4C71003346FC /* GSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSError.swift; sourceTree = "<group>"; };
 		55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterKeyOrSeedPhraseViewController.xib; sourceTree = "<group>"; };
 		55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterKeyOrSeedPhraseViewController.swift; sourceTree = "<group>"; };
@@ -2466,6 +2468,7 @@
 				559246B6263BDDED0022D1A6 /* dapps-rinkeby.json */,
 				55CB94EC263BD26C00FF7EF1 /* DappsViewController.swift */,
 				55CB94ED263BD26C00FF7EF1 /* DappsDataSource.swift */,
+				55DA82242649656400FB99A4 /* DappsViewController.xib */,
 			);
 			path = Dapps;
 			sourceTree = "<group>";
@@ -2728,6 +2731,7 @@
 				559246C0263BDE0F0022D1A6 /* ExternalLinkHeaderFooterView.xib in Resources */,
 				0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
+				55DA82252649656400FB99A4 /* DappsViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
 				0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */,
