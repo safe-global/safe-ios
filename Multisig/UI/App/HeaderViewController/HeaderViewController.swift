@@ -33,7 +33,7 @@ final class HeaderViewController: ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         safeBarView.addTarget(self, action: #selector(didTapSafeBarView(_:)), for: .touchUpInside)
-        reloadHeaderBar()
+        reloadHeaderBar(updateReadOnlyLabel: false)
         displayRootController()
         addObservers()
         headerBarHeightConstraint.constant = ScreenMetrics.safeHeaderHeight
@@ -92,7 +92,7 @@ final class HeaderViewController: ContainerViewController {
         reloadHeaderBar()
     }
 
-    @objc private func reloadHeaderBar() {
+    @objc private func reloadHeaderBar(updateReadOnlyLabel: Bool = true) {
         do {
             let selectedSafe = try Safe.getSelected()
             let hasSafe = selectedSafe != nil
@@ -103,7 +103,9 @@ final class HeaderViewController: ContainerViewController {
             if let safe = selectedSafe {
                 safeBarView.setAddress(safe.addressValue)
                 safeBarView.setName(safe.displayName)
-                safeBarView.setReadOnly(safe.isReadOnly)
+                if updateReadOnlyLabel {
+                    safeBarView.setReadOnly(safe.isReadOnly)
+                }
             }
         } catch {
             App.shared.snackbar.show(
