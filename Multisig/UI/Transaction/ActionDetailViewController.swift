@@ -82,7 +82,7 @@ class ActionDetailViewController: UITableViewController {
                 addressLogoUri: nameAndLogo?.logoUri,
                 isOutgoing: true,
                 status: .success,
-                value: tx.value.value,
+                value: tx.value?.value,
                 decimals: eth.decimals.flatMap { try? UInt64($0) },
                 symbol: eth.symbol,
                 logoUri: nil,
