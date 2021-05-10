@@ -74,13 +74,6 @@ extension SCGModels {
     }
 
     /// This is a temporary solution for Known Addresses V3 before a proper refactoring with
-    /// Known Addresses V4 is implemented. This structure is used for TxData.addressInfoIndex
-    struct NameAndLogo: Decodable {
-        var name: String
-        var logoUri: URL
-    }
-
-    /// This is a temporary solution for Known Addresses V3 before a proper refactoring with
     /// Known Addresses V4 is implemented.
     ///
     /// "addressInfoIndex": {
@@ -91,7 +84,7 @@ extension SCGModels {
     /// }
     ///
     struct AddressInfoIndex: Decodable {
-        var values: [AddressString: NameAndLogo]
+        var values: [AddressString: AddressInfo]
 
         init(from decoder: Decoder) throws {
             struct DynamicKey: CodingKey {
@@ -108,7 +101,7 @@ extension SCGModels {
             values = [:]
             let container = try decoder.container(keyedBy: DynamicKey.self)
             try container.allKeys.forEach { key in
-                let nameAndLogo = try container.decode(NameAndLogo.self,
+                let nameAndLogo = try container.decode(AddressInfo.self,
                                                        forKey: DynamicKey(stringValue: key.stringValue)!)
                 guard let addressStr = AddressString(key.stringValue) else {
                     throw "Unexpected address format"
