@@ -10,6 +10,8 @@ import UIKit
 import AppTrackingTransparency
 
 class MainTabBarViewController: UITabBarController {
+    var onFirstAppear: (_ vc: MainTabBarViewController) -> Void = { _ in }
+
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
 
@@ -39,27 +41,8 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidAppear(animated)
         guard appearsFirstTime else { return }
         appearsFirstTime = false
-        // request for users prior 2.16.0 release to confirm data tracking
-        if #available(iOS 14, *) {
-            if AppSettings.termsAccepted && ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
-                ATTrackingManager.requestTrackingAuthorization { status in
-                    DispatchQueue.main.async {
-                        switch status {
-                        case .authorized:
-                            AppSettings.trackingEnabled = true
-                        case .denied, .notDetermined, .restricted:
-                            AppSettings.trackingEnabled = false
-                        @unknown default:
-                            AppSettings.trackingEnabled = false
-                        }
-                    }
-                }
-            } else {
-                App.shared.appReview.pullAppReviewTrigger()
-            }
-        } else {
-            App.shared.appReview.pullAppReviewTrigger()
-        }
+
+        onFirstAppear(self)
     }
     
     private func balancesTabViewController() -> UIViewController {

@@ -45,14 +45,19 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         keyboardBehavior.start()
-        textField.text = nil
-        updateSymbols(text: "")
-        textField.becomeFirstResponder()
+        reset()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardBehavior.stop()
+    }
+
+    func reset() {
+        textField.text = nil
+        updateSymbols(text: "")
+        textField.becomeFirstResponder()
+        errorLabel.isHidden = true
     }
 
     @IBAction func didTapButton(_ sender: Any) {

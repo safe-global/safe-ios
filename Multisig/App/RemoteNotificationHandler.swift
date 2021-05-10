@@ -109,12 +109,14 @@ class RemoteNotificationHandler {
                     }
                 }
             }
-        } else if Safe.count > 0 {
-            requestUserPermissionAndRegister()
         }
     }
 
-    private func requestUserPermissionAndRegister() {
+    var needsToRequestNotificationPermission: Bool {
+        authorizationStatus == nil && Safe.count > 0
+    }
+
+    func requestUserPermissionAndRegister() {
         if !Thread.isMainThread {
             DispatchQueue.main.async { self.requestUserPermissionAndRegister() }
             return
@@ -259,13 +261,8 @@ class RemoteNotificationHandler {
             if let safeTxHash = payload.safeTxHash,
                let hashData = Data(exactlyHex: safeTxHash) {
 
-                if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-                    let vc = TransactionDetailsViewController(safeTxHash: hashData)
-                    vc.navigationItem.leftBarButtonItem =
-                        UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
-                    let navController = UINavigationController(rootViewController: vc)
-                    sceneDelegate.presentForMain(navController)
-                }
+                transactionDetailsPayload = hashData
+
             } else if ["INCOMING_ETHER", "INCOMING_TOKEN"].contains(payload.type) {
                 NotificationCenter.default.post(name: .incommingTxNotificationReceived, object: nil)
             } else if ["EXECUTED_MULTISIG_TRANSACTION", "NEW_CONFIRMATION", "CONFIRMATION_REQUEST"].contains(payload.type) {
@@ -275,6 +272,9 @@ class RemoteNotificationHandler {
             logError("Error during opening notification", error)
         }
     }
+
+    var transactionDetailsPayload: Data?
+
  }
 
 fileprivate func logDebug(_ msg: String) {
