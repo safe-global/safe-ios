@@ -39,7 +39,7 @@ class UpdateController {
         if range.isEmpty { return false }
         let ranges = range.split(separator: ",")
         for range in ranges {
-            let rangeBound = range.components(separatedBy: "-")
+            let rangeBound = range.components(separatedBy: "...")
             let minVersion = rangeBound.first!
             let maxVersion = rangeBound.last!
 
