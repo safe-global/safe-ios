@@ -65,6 +65,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
             vc.completion = { [weak self] success in
                 guard let `self` = self else { return }
                 self.completionHandler?(success ? self.owners[indexPath.row] : nil)
+                self.dismiss(animated: true, completion: nil)
             }
            show(vc, sender: self)
         } else {
