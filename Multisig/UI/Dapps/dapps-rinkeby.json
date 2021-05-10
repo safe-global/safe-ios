@@ -10,5 +10,11 @@
         "description": "Algorithmic, autonomous interest rate protocol",
         "logo": "https://compound.finance/favicon.ico",
         "url": "https://app.compound.finance/"
+    },
+    {
+        "name": "WalletConnect Example Dapp",
+        "description": "Try out WalletConnect",
+        "logo": "https://example.walletconnect.org/favicon.ico",
+        "url": "https://example.walletconnect.org/"
     }
 ]
