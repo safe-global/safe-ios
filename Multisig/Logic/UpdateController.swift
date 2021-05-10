@@ -28,8 +28,7 @@ class UpdateController {
             AppSettings.lastIgnoredUpdateVersion = nil
         } else if latestAppVersion == AppSettings.lastIgnoredUpdateVersion {
             return nil
-        }
-        else {
+        } else {
             AppSettings.lastIgnoredUpdateVersion = latestAppVersion
         }
 
