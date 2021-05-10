@@ -38,9 +38,6 @@ class PasscodeSettingsViewController: UITableViewController {
         super.viewDidLoad()
         navigationItem.title = "Passcode"
 
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(biometryActicated), name: .biometricsActivated, object: nil)
-
         tableView.registerCell(SwitchTableViewCell.self)
         tableView.registerCell(BasicCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HelpCell")
@@ -49,6 +46,11 @@ class PasscodeSettingsViewController: UITableViewController {
         tableView.backgroundColor = .secondaryBackground
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(reloadData), name: .biometricsActivated, object: nil)
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(reloadData), name: .passcodeDeleted, object: nil)
 
         reloadData()
     }
@@ -60,11 +62,7 @@ class PasscodeSettingsViewController: UITableViewController {
 
     // MARK: - Actions
 
-    @objc private func biometryActicated() {
-        reloadData()
-    }
-
-    private func reloadData() {
+    @objc private func reloadData() {
         if isPasscodeSet {
             var lockRows: [Row] = [.usePasscode, .changePasscode]
 
@@ -186,9 +184,8 @@ class PasscodeSettingsViewController: UITableViewController {
         }
         let nav = UINavigationController(rootViewController: vc)
 
-        vc.completion = { [weak nav, unowned self] success in
-            authenticated(success, nav) { [unowned self] in
-                reloadData()
+        vc.completion = { [weak nav] success in
+            authenticated(success, nav) {
                 nav?.dismiss(animated: true, completion: nil)
             }
         }
