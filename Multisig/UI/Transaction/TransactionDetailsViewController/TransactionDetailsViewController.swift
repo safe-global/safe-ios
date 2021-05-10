@@ -24,6 +24,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var actionsContainerView: UIStackView!
 
     private var pendingExecution = false
+    private var safe: Safe!
+    private var loadSafeInfoDataTask: URLSessionTask?
 
     private enum TransactionSource {
         case id(String)
@@ -54,6 +56,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         builder = TransactionDetailCellBuilder(vc: self, tableView: tableView)
 
+        updateSafeInfo()
+
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -72,6 +76,21 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         tableView.backgroundColor = .secondaryBackground
     }
 
+    private func updateSafeInfo() {
+        safe = try! Safe.getSelected()!
+        loadSafeInfoDataTask = App.shared.clientGatewayService.asyncSafeInfo(address: safe.addressValue) { result in
+            DispatchQueue.main.async { [weak self] in
+                switch result {
+                case .success(let safeInfo):
+                    self?.safe.update(from: safeInfo)
+                    self?.onSuccess()
+                case .failure(_):
+                    break
+                }
+            }
+        }
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         trackEvent(.transactionsDetails)
@@ -84,7 +103,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         navigationController?.popViewController(animated: isVisible)
     }
 
-    // MARK: - Signing
+    // MARK: - Buttons
 
     fileprivate func configureActionButtons() {
         // Actions Container View sticks to the bottom of the screen
@@ -167,7 +186,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private var showsExecuteButton: Bool {
-        tx?.needsYourExecution ?? false
+        guard let nonce = safe.nonce, nonce == tx?.multisigInfo?.nonce.value else {
+            return false
+        }
+        return tx?.needsYourExecution ?? false
     }
 
     private var enableRejectionButton: Bool {
@@ -183,6 +205,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var enableConfirmButton: Bool {
         tx?.needsYourConfirmation ?? false
     }
+
+    // MARK: - Signing, Rejection, Execution
 
     @objc private func didTapConfirm() {
         guard let signers = tx?.multisigInfo?.signerKeys() else {
@@ -240,7 +264,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         case .device:
             do {
-                let safeAddress = try Address(from: try Safe.getSelected()!.address!)
+                let safeAddress = try Address(from: safe.address!)
                 let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress, keyInfo: keyInfo)
                 let safeTxHash = transaction.safeTxHash!.description
                 confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal)
