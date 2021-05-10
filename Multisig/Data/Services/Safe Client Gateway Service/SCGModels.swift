@@ -415,7 +415,7 @@ extension SCGModels {
                     var operation: Operation
                     var to: AddressString
                     var value: UInt256String
-                    var data: DataString
+                    var data: DataString?
                     var dataDecoded: DataDecoded?
                 }
                 
