@@ -26,7 +26,7 @@ class FirebaseRemoteConfig {
         let settings = RemoteConfigSettings()
         remoteConfig.configSettings = settings
         // we have this codition to make it faster to test on staging
-        if Bundle.main.isStaging {
+        if App.configuration.services.environment != .production {
             settings.minimumFetchInterval = 0
         }
         remoteConfig.setDefaults(defaultValues)
@@ -45,11 +45,5 @@ class FirebaseRemoteConfig {
                 LogService.shared.info("Error: \(error?.localizedDescription ?? "Config not fetched")")
             }
         }
-    }
-}
-
-extension Bundle {
-    var isStaging: Bool {
-        (Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String)?.lowercased().contains("staging") ?? false
     }
 }
