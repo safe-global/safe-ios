@@ -26,4 +26,4 @@ xcrun xccov view --report --only-targets "$TEST_BUNDLE_PATH"
 tar -czf "$TEST_BUNDLE_PATH".tgz "$TEST_BUNDLE_PATH"
 
 # upload code coverage report
-bash codecov.sh -D Build
+bash bin/codecov.sh -D Build
