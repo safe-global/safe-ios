@@ -16,7 +16,6 @@ extension NSNotification.Name {
     static let ownerKeyRemoved = NSNotification.Name("io.gnosis.safe.ownerKeyRemoved")
     static let ownerKeyUpdated = NSNotification.Name("io.gnosis.safe.ownerKeyUpdated")
 
-
     static let passcodeCreated = NSNotification.Name("io.gnosis.safe.passcodeCreated")
     static let passcodeDeleted = NSNotification.Name("io.gnosis.safe.passcodeDeleted")
 
@@ -30,7 +29,6 @@ extension NSNotification.Name {
     static let confirmationTxNotificationReceived = NSNotification.Name("io.gnosis.safe.confirmationTxNotificationReceived")
 
     static let transactionDataInvalidated = NSNotification.Name("io.gnosis.safe.transactionDataInvalidated")
-
 
     static let biometricsActivated = NSNotification.Name("io.gnosis.safe.biometricsActivated")
 }
