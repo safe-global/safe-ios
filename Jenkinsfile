@@ -3,6 +3,8 @@ pipeline {
     environment {
         // this enables ruby gem binaries, such as xcpretty
         PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
+        // to enable utf-8 in logs output
+        LC_CTYPE = "en_US.UTF-8"
         INFURA_STAGING_KEY = credentials('INFURA_STAGING_KEY')
         INFURA_PROD_KEY = credentials('INFURA_PROD_KEY')
         ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
