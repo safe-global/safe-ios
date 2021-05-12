@@ -10,7 +10,7 @@ import UIKit
 
 class ActionDetailAddressCell: ActionDetailTableViewCell {
     @IBOutlet private weak var addressView: AddressInfoView!
-    func setAddress(_ value: Address) {
-        addressView.setAddress(value)
+    func setAddress(_ value: Address, label: String?, imageUri: URL?) {
+        addressView.setAddress(value, label: label, imageUri: imageUri)
     }
 }

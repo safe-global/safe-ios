@@ -13,7 +13,7 @@ bin/configure.sh
 
 set -o pipefail && \
 xcrun xcodebuild test \
-    -workspace Multisig.xcworkspace \
+    -project Multisig.xcodeproj \
     -scheme "$XCODE_SCHEME" \
     -destination "platform=iOS Simulator,name=iPhone 11 Pro" \
     -resultBundlePath "$TEST_BUNDLE_PATH" \
@@ -26,4 +26,4 @@ xcrun xccov view --report --only-targets "$TEST_BUNDLE_PATH"
 tar -czf "$TEST_BUNDLE_PATH".tgz "$TEST_BUNDLE_PATH"
 
 # upload code coverage report
-bash <(curl -s https://codecov.io/bash) -D Build
+bash bin/codecov.sh -D Build

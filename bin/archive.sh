@@ -12,7 +12,7 @@ xcrun agvtool new-version -all $BUILD_NUMBER
 
 set -o pipefail && \
 xcrun xcodebuild archive \
-    -workspace Multisig.xcworkspace \
+    -project Multisig.xcodeproj \
     -scheme "$XCODE_SCHEME" \
     -destination "generic/platform=iOS" \
     -archivePath "$ARCHIVE_PATH" \

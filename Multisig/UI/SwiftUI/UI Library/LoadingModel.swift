@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-protocol LoadingModel: class {
+protocol LoadingModel: AnyObject {
     associatedtype ResultType
     var status: ViewLoadingStatus { get set }
     var result: ResultType { get set }

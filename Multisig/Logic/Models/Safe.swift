@@ -29,8 +29,8 @@ extension Safe: Identifiable {
     var displayENSName: String { ensName ?? "" }
 
     var isReadOnly: Bool {
-        if let owners = ownersInfo, !owners.isEmpty,
-           let keys = try? KeyInfo.keys(addresses: owners.map(\.address)), !keys.isEmpty {
+        guard let owners = ownersInfo else { return false }
+        if let keys = try? KeyInfo.keys(addresses: owners.map(\.address)), !keys.isEmpty {
             return false
         } else {
             return true

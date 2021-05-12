@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.shared.append(handler: ConsoleTracker())
         #endif
         Tracker.shared.append(handler: FirebaseTrackingHandler())
+
+        // When user modifies tracking app settings from phone settings the app restarts
         Tracker.shared.setTrackingEnabled(AppSettings.trackingEnabled)
 
         AppSettings.saveCurrentRunVersionNumber()

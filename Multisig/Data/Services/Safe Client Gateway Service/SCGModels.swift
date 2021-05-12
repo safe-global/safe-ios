@@ -73,6 +73,44 @@ extension SCGModels {
         var logoUrl: URL?
     }
 
+    /// This is a temporary solution for Known Addresses V3 before a proper refactoring with
+    /// Known Addresses V4 is implemented.
+    ///
+    /// "addressInfoIndex": {
+    ///   "0x8D29bE29923b68abfDD21e541b9374737B49cdAD": {
+    ///     "name": "Gnosis Safe: Multi Send 1.1.1",
+    ///     "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0x8D29bE29923b68abfDD21e541b9374737B49cdAD.png"
+    ///   }
+    /// }
+    ///
+    struct AddressInfoIndex: Decodable {
+        var values: [AddressString: AddressInfo]
+
+        init(from decoder: Decoder) throws {
+            struct DynamicKey: CodingKey {
+                var stringValue: String
+                init?(stringValue: String) {
+                    self.stringValue = stringValue
+                }
+                var intValue: Int?
+                init?(intValue: Int) {
+                    return nil
+                }
+            }
+
+            values = [:]
+            let container = try decoder.container(keyedBy: DynamicKey.self)
+            try container.allKeys.forEach { key in
+                let nameAndLogo = try container.decode(AddressInfo.self,
+                                                       forKey: DynamicKey(stringValue: key.stringValue)!)
+                guard let addressStr = AddressString(key.stringValue) else {
+                    throw "Unexpected address format"
+                }
+                values[addressStr] = nameAndLogo
+            }
+        }
+    }
+
     struct TxSummary: Decodable {
         var id: String
         var timestamp: Date
@@ -376,8 +414,8 @@ extension SCGModels {
                 struct MultiSendTx: Decodable {
                     var operation: Operation
                     var to: AddressString
-                    var value: UInt256String
-                    var data: DataString
+                    var value: UInt256String?
+                    var data: DataString?
                     var dataDecoded: DataDecoded?
                 }
                 
@@ -442,6 +480,7 @@ extension SCGModels {
         var operation: Operation
         var hexData: DataString?
         var dataDecoded: DataDecoded?
+        var addressInfoIndex: AddressInfoIndex?
     }
 
     struct SafeAppInfo: Decodable {

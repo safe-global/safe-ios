@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E241" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AppSettings" representedClassName="AppSettings" syncable="YES" codeGenerationType="class">
         <attribute name="appReviewEventCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="dismissedImportKeyBanner" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -8,12 +8,13 @@
         <attribute name="importedOwnerKey" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="importKeyOnBoardingShown" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastBuildVersion" optional="YES" attributeType="String"/>
+        <attribute name="lastIgnoredUpdateVersion" optional="YES" attributeType="String"/>
         <attribute name="lastMarketingVersion" optional="YES" attributeType="String"/>
         <attribute name="passcodeBannerDismissed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="passcodeOptions" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="passcodeWasSetAtLeastOnce" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
         <attribute name="termsAccepted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="trackingEnabled" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="trackingEnabled" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
     </entity>
     <entity name="AppUser" representedClassName="AppUser" syncable="YES" codeGenerationType="class">
         <attribute name="accessBlockedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -36,7 +37,7 @@
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="selection" inverseEntity="Safe"/>
     </entity>
     <elements>
-        <element name="AppSettings" positionX="54" positionY="18" width="128" height="224"/>
+        <element name="AppSettings" positionX="54" positionY="18" width="128" height="239"/>
         <element name="AppUser" positionX="54" positionY="63" width="128" height="89"/>
         <element name="KeyInfo" positionX="63" positionY="72" width="128" height="74"/>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="103"/>

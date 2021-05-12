@@ -18,6 +18,7 @@ class App {
 
     let appReview = AppReviewController()
 
+    let updateController = UpdateController()
     // Business Logic Layer
 
     let blockchainDomainManager = BlockchainDomainManager()

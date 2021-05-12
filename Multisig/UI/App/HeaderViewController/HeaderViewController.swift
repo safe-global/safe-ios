@@ -103,7 +103,7 @@ final class HeaderViewController: ContainerViewController {
             if let safe = selectedSafe {
                 safeBarView.setAddress(safe.addressValue)
                 safeBarView.setName(safe.displayName)
-                safeBarView.setReadOnly(safe.isReadOnly)
+                safeBarView.setReadOnly(safe.isReadOnly)                
             }
         } catch {
             App.shared.snackbar.show(

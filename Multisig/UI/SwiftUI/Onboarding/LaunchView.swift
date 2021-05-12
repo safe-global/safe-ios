@@ -39,7 +39,7 @@ struct LaunchView: View {
     @State
     var showTerms = false
 
-    var onStart: () -> Void = { }
+    var onStart: () -> Void = {}
 
     private let logoToTextSpacing: CGFloat = 40
     private let textToButtonSpacing: CGFloat = 60
@@ -74,7 +74,6 @@ struct LaunchView: View {
             }
             .padding(.horizontal)
         }
-        .navigationBarHidden(true)
         .overlay(BottomOverlayView(isPresented: $showTerms) {
             TermsView(acceptedTerms: $acceptedTerms,
                       isAgreeWithTermsPresented: $showTerms,

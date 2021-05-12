@@ -3,6 +3,8 @@ pipeline {
     environment {
         // this enables ruby gem binaries, such as xcpretty
         PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
+        // to enable utf-8 in logs output
+        LC_CTYPE = "en_US.UTF-8"
         INFURA_STAGING_KEY = credentials('INFURA_STAGING_KEY')
         INFURA_PROD_KEY = credentials('INFURA_PROD_KEY')
         ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
@@ -20,7 +22,7 @@ pipeline {
             steps {
                 ansiColor('xterm') {
                     // new param for uikit enabled - alternative
-                    sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/test.sh \"Multisig - Staging Rinkeby\""
+                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/test.sh \"Multisig - Staging Rinkeby\"'
                     junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/*/xcodebuild-test.log'
                     archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
@@ -43,10 +45,10 @@ pipeline {
                     // the uploading to AppStoreConnect started to work.
 
                     // new param for uikit enabled
-                    sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Rinkeby\""
-                    sh "INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Mainnet\""
-                    sh "INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production Rinkeby\""
-                    sh "INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${params.SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production Mainnet\""
+                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Rinkeby\"'
+                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Mainnet\"'
+                    sh 'INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production Rinkeby\"'
+                    sh 'INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production Mainnet\"'
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
             }
