@@ -495,8 +495,14 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
     }
 
     func executionKeys() -> [KeyInfo] {
+        // to execute a transaction there should be an owner key added
         let signerAddresses = signers.map( { $0.address } )
-        let keys = (try? KeyInfo.keys(addresses: signerAddresses)) ?? []
+        guard !((try? KeyInfo.keys(addresses: signerAddresses)) ?? []).isEmpty else {
+            return []
+        }
+
+        // but any WalletConnect key can execute a transaction
+        let keys = (try? KeyInfo.all()) ?? []
         return keys.filter { $0.keyType == .walletConnect }
     }
 

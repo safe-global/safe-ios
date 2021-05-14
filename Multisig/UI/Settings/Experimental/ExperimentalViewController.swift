@@ -47,6 +47,8 @@ class ExperimentalViewController: UITableViewController {
         tableView.registerCell(SwitchTableViewCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "WalletConnectDescription")
 
+        tableView.backgroundColor = .primaryBackground
+
         if walletConnectEnabled == nil {
             walletConnectEnabled = false
         }

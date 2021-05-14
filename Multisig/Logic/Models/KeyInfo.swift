@@ -96,8 +96,11 @@ extension KeyInfo {
         let context = App.shared.coreDataStack.viewContext
         return try addresses.compactMap { address in
             let fr = KeyInfo.fetchRequest().by(address: address)
-            let item = try context.fetch(fr)
-            return item.first
+            var items = try context.fetch(fr)
+            if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
+                items = items.filter { $0.keyType == .device }
+            }
+            return items.first
         }
     }
 
