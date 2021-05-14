@@ -36,8 +36,8 @@ class UpdateAppViewController: UIViewController {
             }
         }
 
-        var skippable: Bool {
-            self != .required
+        var unskippable: Bool {
+            self == .required
         }
     }
 
@@ -60,7 +60,7 @@ class UpdateAppViewController: UIViewController {
         descriptionLabel.setStyle(.primary)
         updateButton.setText("Update now", .filled)
         skipButton.setText("Skip", .primary)
-        skipButton.isHidden = style.skippable
+        skipButton.isHidden = style.unskippable
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -70,13 +70,15 @@ class UpdateAppViewController: UIViewController {
 
     @IBAction func updateButtonTouched(_ sender: Any) {
         let url = App.configuration.contact.appStoreReviewURL
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        if style != .required {
-            dismiss(animated: true, completion: nil)
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        if !style.unskippable {
+            completion()
         }
     }
 
     @IBAction func skipButtonTouched(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        completion()
     }
 }

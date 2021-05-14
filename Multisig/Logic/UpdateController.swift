@@ -9,6 +9,7 @@
 import Foundation
 
 class UpdateController {
+
     func makeUpdateAppViewController() -> UpdateAppViewController? {
         let remoteConfig = FirebaseRemoteConfig.shared
         let appVersion = App.configuration.app.marketingVersion
@@ -18,21 +19,28 @@ class UpdateController {
 
         if appVersion == latestAppVersion { return nil }
         let deprecatedVersions = remoteConfig.value(key: .deprecated)
+        let deprecatedSoonVersions = remoteConfig.value(key: .deprecatedSoon)
         var style = UpdateAppViewController.Style.optional
         if let deprecatedVersionsRange = deprecatedVersions, check(value: appVersion, in: deprecatedVersionsRange) {
             style = .required
-        } else {
+            AppSettings.lastIgnoredUpdateVersion = nil
+        } else if let deprecatedSoonVersionsRange = deprecatedSoonVersions, check(value: appVersion, in: deprecatedSoonVersionsRange) {
             style = .recommended
+            AppSettings.lastIgnoredUpdateVersion = nil
+        } else if latestAppVersion == AppSettings.lastIgnoredUpdateVersion {
+            return nil
+        } else {
+            AppSettings.lastIgnoredUpdateVersion = latestAppVersion
         }
 
         return UpdateAppViewController(style: style)
     }
 
     private func check(value: String, in range: String) -> Bool {
-        guard !range.isEmpty else { return false }
+        if range.isEmpty { return false }
         let ranges = range.split(separator: ",")
         for range in ranges {
-            let rangeBound = range.components(separatedBy: "-")
+            let rangeBound = range.components(separatedBy: "...")
             let minVersion = rangeBound.first!
             let maxVersion = rangeBound.last!
 

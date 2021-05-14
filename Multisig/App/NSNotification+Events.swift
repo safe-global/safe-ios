@@ -19,6 +19,7 @@ extension NSNotification.Name {
     static let transactionDataInvalidated = NSNotification.Name("io.gnosis.safe.transactionDataInvalidated")
     static let incommingTxNotificationReceived = NSNotification.Name("io.gnosis.safe.incommingTxNotification")
     static let queuedTxNotificationReceived = NSNotification.Name("io.gnosis.safe.queuedTxNotificationReceived")
+    static let confirmationTxNotificationReceived = NSNotification.Name("io.gnosis.safe.confirmationTxNotificationReceived")
     static let biometricsActivated = NSNotification.Name("io.gnosis.safe.biometricsActivated")
 
     // MARK: - WalletConnect

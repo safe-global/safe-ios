@@ -35,7 +35,7 @@ class CollectibleDetailViewController: UIViewController {
         descriptionLabel.text = collectible.description
 
         if let url = collectible.imageURL {
-            svgView.setImage(url: url, placeholder: #imageLiteral(resourceName: "ico-collectible-placeholder"), onError: { [weak self] in
+            svgView.setImage(url: url, placeholder: UIImage(named: "ico-collectible-placeholder"), onError: { [weak self] in
                 self?.imageContainerView.isHidden = true
             })
         }

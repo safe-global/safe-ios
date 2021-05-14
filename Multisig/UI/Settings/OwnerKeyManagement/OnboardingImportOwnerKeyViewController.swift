@@ -37,13 +37,19 @@ class OnboardingImportOwnerKeyViewController: UIViewController {
         navigationItem.title = "Import Owner Key"
         
         nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton(_:)))
-        createCloseButton()
         navigationItem.rightBarButtonItem = nextButton
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
     }
 
     @objc private func didTapNextButton(_ sender: Any) {
         let controller = EnterKeyOrSeedPhraseViewController()
         show(controller, sender: self)
+    }
+
+    @objc private func didTapCloseButton() {
+        dismiss(animated: true, completion: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -172,7 +172,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             if let image = item.image {
                 cell.setImage(image)
             } else {
-                cell.setImage(with: item.imageURL, placeholder: #imageLiteral(resourceName: "ico-token-placeholder"))
+                cell.setImage(with: item.imageURL, placeholder: UIImage(named: "ico-token-placeholder")!)
             }
             return cell
         }

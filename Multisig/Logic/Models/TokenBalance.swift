@@ -49,7 +49,7 @@ extension TokenBalance {
         self.imageURL = logoUri.flatMap { URL(string: $0) }
 
         if address == .ether {
-            image = #imageLiteral(resourceName: "ico-ether")
+            image = UIImage(named: "ico-ether")
         }
 
         let tokenFormatter = TokenFormatter()

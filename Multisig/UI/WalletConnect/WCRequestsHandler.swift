@@ -96,7 +96,7 @@ class WCRequestsHandler: RequestHandler {
 
                 let navController = UINavigationController(rootViewController: confirmationController)
                 let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
-                sceneDelegate.presentForMain(navController)
+                sceneDelegate.present(navController)
             }
         } else if request.method == "gs_multi_send" {
             // TODO: add support
