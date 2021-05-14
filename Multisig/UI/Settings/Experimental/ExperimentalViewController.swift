@@ -17,12 +17,24 @@ class ExperimentalViewController: UITableViewController {
         }
     }
 
+    @UserDefault(key: "io.gnosis.multisig.experimental.walletConnectOwnerKey")
+    var walletConnectOwnerKeyEnabled: Bool? {
+        didSet {
+            tableView.reloadData()
+            NotificationCenter.default.post(name: .updatedExperemental, object: nil)
+        }
+    }
+
     enum Row: Int, CaseIterable {
         case walletConnect
         case walletConnectDescription
+        case walletConnectOwnerKey
+        case walletConnectOwnerKeyDescription
     }
 
-    private var rows: [Row] = [.walletConnect, .walletConnectDescription]
+    private var rows: [Row] = [
+        .walletConnect, .walletConnectDescription, .walletConnectOwnerKey, .walletConnectOwnerKeyDescription
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +50,10 @@ class ExperimentalViewController: UITableViewController {
         if walletConnectEnabled == nil {
             walletConnectEnabled = false
         }
+
+        if walletConnectOwnerKeyEnabled == nil {
+            walletConnectOwnerKeyEnabled = false
+        }
     }
 
     // MARK: - Table view data source
@@ -50,19 +66,38 @@ class ExperimentalViewController: UITableViewController {
         switch rows[indexPath.row] {
         case .walletConnect:
             let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
-            cell.setText("WalletConnect")
+            cell.setText("Enable WalletConnect for Dapps")
             cell.setOn(walletConnectEnabled!, animated: false)
             return cell
 
         case .walletConnectDescription:
-            let cell = tableView.dequeueCell(UITableViewCell.self, reuseID: "WalletConnectDescription", for: indexPath)
-            cell.textLabel?.setStyle(.secondary)
-            cell.backgroundColor = .primaryBackground
-            cell.textLabel?.text = "Try out connecting owner key and interacting with Dapps via WalletConnect."
-            cell.textLabel?.numberOfLines = 0
-            cell.selectionStyle = .none
+            return descriptionCell(
+                "Try out interacting with Dapps via WalletConnect.",
+                indexPath: indexPath
+            )
+
+        case .walletConnectOwnerKey:
+            let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
+            cell.setText("Enable WalletConnect for owner keys")
+            cell.setOn(walletConnectOwnerKeyEnabled!, animated: false)
             return cell
+
+        case .walletConnectOwnerKeyDescription:
+            return descriptionCell(
+                "Try out connecting owner key and executing transactions via WalletConnect.",
+                indexPath: indexPath
+            )
         }
+    }
+
+    private func descriptionCell(_ text: String, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(UITableViewCell.self, reuseID: "WalletConnectDescription", for: indexPath)
+        cell.textLabel?.setStyle(.secondary)
+        cell.backgroundColor = .primaryBackground
+        cell.textLabel?.text = text
+        cell.textLabel?.numberOfLines = 0
+        cell.selectionStyle = .none
+        return cell
     }
 
     // MARK: - Table view delegate
@@ -73,6 +108,9 @@ class ExperimentalViewController: UITableViewController {
         switch rows[indexPath.row] {
         case .walletConnect:
             walletConnectEnabled!.toggle()
+
+        case .walletConnectOwnerKey:
+            walletConnectOwnerKeyEnabled!.toggle()
 
         default:
             break

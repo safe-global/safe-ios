@@ -139,6 +139,8 @@
 	<string>$(SHOW_EXPERIMENTAL)</string>
 	<key>WALLETCONNECT_ELIGABLE</key>
 	<string>$(WALLETCONNECT_ELIGABLE)</string>
+	<key>WALLETCONNECT_OWNER_KEY_ELIGABLE</key>
+	<string>$(WALLETCONNECT_OWNER_KEY_ELIGABLE)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Averta-Regular.otf</string>

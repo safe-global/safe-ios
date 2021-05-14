@@ -124,6 +124,8 @@ SHOW_EXPERIMENTAL = Y
 // If SHOW_EXPERIMENTAL != Y, then this config does not apply
 // Range of values: Y is YES, N is NO.
 WALLETCONNECT_ELIGABLE = Y
+// Whether to display 'Allow to connect owner keys via WalletConnect' feature in Experimental.
+WALLETCONNECT_OWNER_KEY_ELIGABLE = Y
 
 // Help URLs
 CONFLICT_URL = https:/$()/help.gnosis-safe.io/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other

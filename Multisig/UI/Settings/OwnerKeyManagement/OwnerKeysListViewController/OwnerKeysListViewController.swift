@@ -82,7 +82,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     @objc private func didTapAddButton(_ sender: Any) {
         var controller: UIViewController
-        if App.configuration.toggles.walletConnectEnabled {
+        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
             controller = ViewControllerFactory.selectKeyTypeViewController(presenter: self)
         } else {
             controller = ViewControllerFactory.importOwnerViewController(presenter: self)
@@ -149,7 +149,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let keyInfo = keys[indexPath.row]
-        if App.configuration.toggles.walletConnectEnabled {
+        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
             let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
             cell.selectionStyle = .none
             cell.configure(keyInfo: keyInfo)
@@ -166,14 +166,14 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if App.configuration.toggles.walletConnectEnabled {
+        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
             let vc = EditOwnerKeyViewController(keyInfo: keys[indexPath.row])
             show(vc, sender: self)
         }
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard App.configuration.toggles.walletConnectEnabled else { return nil }
+        guard App.configuration.toggles.walletConnectOwnerKeyEnabled else { return nil }
 
         let keyInfo = keys[indexPath.row]
 

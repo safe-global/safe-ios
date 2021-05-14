@@ -45,7 +45,7 @@ class SafeLoadedViewController: UIViewController {
         Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerImport)
 
         var controller: UIViewController
-        if App.configuration.toggles.walletConnectEnabled {
+        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
             controller = ViewControllerFactory.selectKeyTypeViewController(presenter: self)
         } else {
             controller = ViewControllerFactory.importOwnerViewController(presenter: self)

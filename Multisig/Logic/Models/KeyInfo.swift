@@ -63,7 +63,7 @@ extension KeyInfo {
     /// Returns number of existing key infos
     static var count: Int {
         do {
-            if App.configuration.toggles.walletConnectEnabled {
+            if App.configuration.toggles.walletConnectOwnerKeyEnabled {
                 let context = App.shared.coreDataStack.viewContext
                 let fr = KeyInfo.fetchRequest().all()
                 let itemCount = try context.count(for: fr)
@@ -82,7 +82,7 @@ extension KeyInfo {
         let context = App.shared.coreDataStack.viewContext
         let fr = KeyInfo.fetchRequest().all()
         var items = try context.fetch(fr)
-        if !App.configuration.toggles.walletConnectEnabled {
+        if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
             items = items.filter { $0.keyType == .device }
         }
         return items
