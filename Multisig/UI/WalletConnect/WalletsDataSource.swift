@@ -102,9 +102,7 @@ struct InstalledWallet: Codable {
             universalLink = String(universalLink.dropLast())
         }
 
-        guard let schemeUrl = URL(string: scheme),
-              UIApplication.shared.canOpenURL(schemeUrl),
-              !universalLink.isEmpty else { return nil }
+        guard let schemeUrl = URL(string: scheme), UIApplication.shared.canOpenURL(schemeUrl) else { return nil }
 
         self.name = walletEntry.name
         self.imageName = walletEntry.imageName

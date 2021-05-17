@@ -61,9 +61,18 @@ class WalletConnectClientController {
     }
 
     /// https://docs.walletconnect.org/mobile-linking#for-ios
-    func getTopicAndConnectionURL(universalLink: String) throws -> (String, URL) {
+    func getTopicAndConnectionURL(link: String) throws -> (String, URL) {
         let wcUrl = try connect()
-        let urlStr = "\(universalLink)/wc?uri=\(wcUrl.urlEncodedStr)"
+        var delimiter: String
+        var uri: String
+        if link.contains("http") {
+            delimiter = "/"
+            uri = wcUrl.urlEncodedStr
+        } else {
+            delimiter = "//"
+            uri = wcUrl.absoluteString
+        }
+        let urlStr = "\(link)\(delimiter)wc?uri=\(uri)"
         return (wcUrl.topic, URL(string: urlStr)!)
     }
 

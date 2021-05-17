@@ -233,8 +233,9 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     private func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) {
         do {
+            let link = installedWallet.universalLink.isEmpty ? installedWallet.scheme : installedWallet.universalLink
             let (topic, connectionURL) = try WalletConnectClientController.shared
-                .getTopicAndConnectionURL(universalLink: installedWallet.universalLink)
+                .getTopicAndConnectionURL(link: link)
             walletPerTopic[topic] = installedWallet
             waitingForSession = true
             // we need a delay so that WalletConnectClient can send handshake request

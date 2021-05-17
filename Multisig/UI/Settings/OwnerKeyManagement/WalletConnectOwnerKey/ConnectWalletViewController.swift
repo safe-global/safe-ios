@@ -83,9 +83,13 @@ class ConnectWalletViewController: UITableViewController {
         do {
             if indexPath.section == 0 {
                 guard !installedWallets.isEmpty else { return }
+                let installedWallet = installedWallets[indexPath.row]
+                let link = installedWallet.universalLink.isEmpty ?
+                    installedWallet.scheme :
+                    installedWallet.universalLink
                 let (topic, connectionURL) = try WalletConnectClientController.shared
-                    .getTopicAndConnectionURL(universalLink: installedWallets[indexPath.row].universalLink)
-                walletPerTopic[topic] = installedWallets[indexPath.row]
+                    .getTopicAndConnectionURL(link: link)
+                walletPerTopic[topic] = installedWallet
                 // we need a delay so that WalletConnectClient can send handshake request
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
                     UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
