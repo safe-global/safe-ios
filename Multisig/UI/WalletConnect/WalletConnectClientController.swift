@@ -71,6 +71,12 @@ class WalletConnectClientController {
         } else {
             delimiter = "//"
             uri = wcUrl.absoluteString
+            // special handling for ledgerlive app
+            if link.contains("ledgerlive") {
+                uri = wcUrl.urlEncodedStr2
+            } else {
+                uri = wcUrl.absoluteString
+            }
         }
         let urlStr = "\(link)\(delimiter)wc?uri=\(uri)"
         return (wcUrl.topic, URL(string: urlStr)!)
@@ -219,11 +225,15 @@ class WalletConnectClientController {
 
     static func openWalletIfInstalled(keyInfo: KeyInfo) {
         if let installedWallet = keyInfo.installedWallet {
-            // MetaMask shows error alert if nothing is provided to the link
-            // https://github.com/MetaMask/metamask-mobile/blob/194a1858b96b1f88762f8679380b09dda3c8b29e/app/core/DeeplinkManager.js#L89
-            UIApplication.shared.open(URL(string: installedWallet.universalLink.appending("/focus"))!)
+            if !installedWallet.universalLink.isEmpty {
+                // MetaMask shows error alert if nothing is provided to the link
+                // https://github.com/MetaMask/metamask-mobile/blob/194a1858b96b1f88762f8679380b09dda3c8b29e/app/core/DeeplinkManager.js#L89
+                UIApplication.shared.open(URL(string: installedWallet.universalLink.appending("/focus"))!)
+            } else {
+                UIApplication.shared.open(URL(string: installedWallet.scheme)!)
+            }
         } else {
-            App.shared.snackbar.show(message: "Please open your wallet to submit the execution transaction.")
+            App.shared.snackbar.show(message: "Please open your wallet to sign the transaction.")
         }
     }
 }
@@ -266,11 +276,16 @@ extension WalletConnectClientController {
 
 // MARK: - WalletConnectSwift + Extension
 
+/// Different wallets implemented different encoding styles
 extension WCURL {
     var urlEncodedStr: String {
         let params = "bridge=\(bridgeURL.absoluteString)&key=\(key)"
             .addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
         return "wc:\(topic)@\(version)?\(params))"
+    }
+
+    var urlEncodedStr2: String {
+        absoluteString.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
     }
 }
 
