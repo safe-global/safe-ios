@@ -320,14 +320,14 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             title = settingsChangeInfo.dataDecoded.method
             image = UIImage(named: "ico-settings-tx")
         case .custom(let customInfo):
-            if let importedSafeName = Safe.cachedName(by: customInfo.to) {
-                title = importedSafeName
-                placeholderAddress = customInfo.to
-            } else if let safeAppInfo = tx.safeAppInfo {
+            if let safeAppInfo = tx.safeAppInfo {
                 title = safeAppInfo.name
                 tag = "App"
                 imageURL = URL(string: safeAppInfo.logoUrl)
                 image = UIImage(named: "ico-custom-tx")
+            } else if let importedSafeName = Safe.cachedName(by: customInfo.to) {
+                title = importedSafeName
+                placeholderAddress = customInfo.to
             } else if let toInfo = customInfo.toInfo {
                 title = toInfo.name
                 imageURL = toInfo.logoUri
