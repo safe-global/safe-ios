@@ -42,8 +42,17 @@
         "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
         "state": {
           "branch": null,
-          "revision": "4e31051c63cc0ddf10a25cf5318856c510cf77f4",
-          "version": "1.4.0"
+          "revision": "3a2acbb32ab68215ee1596ee6004da8e90c3721b",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "EthereumAddress",
+        "repositoryURL": "https://github.com/shamatar/EthereumAddress.git",
+        "state": {
+          "branch": null,
+          "revision": "a8eb4fc1dc03c068bf88585d8f5a2dd3572664ca",
+          "version": "1.3.0"
         }
       },
       {
@@ -143,6 +152,15 @@
           "branch": null,
           "revision": "afa9a1ace74e116848d4f743599ab83e584ff8cb",
           "version": "1.2.12"
+        }
+      },
+      {
+        "package": "UnstoppableDomainsResolution",
+        "repositoryURL": "https://github.com/unstoppabledomains/resolution-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "f64a56c528b81b4c5fdfcf25064005f283353986",
+          "version": "0.3.6"
         }
       },
       {

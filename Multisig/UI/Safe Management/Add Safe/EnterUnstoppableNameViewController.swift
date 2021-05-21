@@ -1,14 +1,14 @@
 //
-//  EnterENSNameViewController.swift
+//  EnterUnstoppableNameViewController.swift
 //  Multisig
 //
-//  Created by Dmitry Bespalov on 15.12.20.
-//  Copyright © 2020 Gnosis Ltd. All rights reserved.
+//  Created by Johnny Good on 4/21/21.
+//  Copyright © 2021 Gnosis Ltd. All rights reserved.
 //
 
 import UIKit
 
-class EnterENSNameViewController: UIViewController {
+class EnterUnstoppableNameViewController: UIViewController {
     var onConfirm: () -> Void = { }
     var manager = App.shared.blockchainDomainManager
     var address: Address?
@@ -28,13 +28,13 @@ class EnterENSNameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Enter ENS Name"
+        navigationItem.title = "Enter Unstoppable Name"
 
         confirmButton = UIBarButtonItem(title: "Confirm", style: .done, target: self, action: #selector(didTapConfirmButton))
         confirmButton.isEnabled = false
         navigationItem.rightBarButtonItem = confirmButton
 
-        textField.setPlaceholder("Enter ENS name")
+        textField.setPlaceholder("Enter Unstoppable name")
         textField.textField.autocorrectionType = .no
         textField.textField.autocapitalizationType = .none
         textField.textField.keyboardType = .URL
@@ -47,14 +47,14 @@ class EnterENSNameViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.safeAddEns)
+        trackEvent(.safeAddUd)
     }
 
     @objc private func didTapConfirmButton() {
         onConfirm()
     }
 
-    fileprivate func resolveENSName() {
+    fileprivate func resolveUnstoppableName() {
         cancelResolving()
         textField.setError(nil)
         addressFoundStackView.isHidden = true
@@ -73,7 +73,7 @@ class EnterENSNameViewController: UIViewController {
         DispatchQueue.global().async { [weak self] in
             guard let `self` = self else { return }
             do {
-                let address = try self.manager.resolveEnsDomain(domain: text)
+                let address = try self.manager.resolveUD(text)
 
                 if self.isCancelled(taskID) { return }
 
@@ -119,11 +119,11 @@ class EnterENSNameViewController: UIViewController {
     }
 }
 
-extension EnterENSNameViewController: UITextFieldDelegate {
+extension EnterUnstoppableNameViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         debounceTimer?.invalidate()
         debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceDuration, repeats: false, block: { [weak self] _ in
-            self?.resolveENSName()
+            self?.resolveUnstoppableName()
         })
         return true
     }

@@ -103,6 +103,16 @@ class EnterSafeAddressViewController: UIViewController {
             }
             self?.show(vc, sender: nil)
         }))
+        
+        vc.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
+            let vc = EnterUnstoppableNameViewController()
+            vc.onConfirm = { [weak self] in
+                guard let `self` = self else { return }
+                self.navigationController?.popViewController(animated: true)
+                self.didEnterText(vc.address?.checksummed)
+            }
+            self?.show(vc, sender: nil)
+        }))
 
         vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 

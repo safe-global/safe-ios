@@ -360,6 +360,11 @@
 		0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729D24BF363400A370EE /* SlicedText.swift */; };
 		0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729F24BF368900A370EE /* SlicedText+Address.swift */; };
 		0AFC33ED25DE9C3200067D41 /* AuthenticationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC33EC25DE9C3200067D41 /* AuthenticationControllerTests.swift */; };
+		3E373F6F263155CD00D8107A /* UnstoppableDomainsResolution in Frameworks */ = {isa = PBXBuildFile; productRef = 3E373F6E263155CD00D8107A /* UnstoppableDomainsResolution */; };
+		3E373F762631781A00D8107A /* EnterUnstoppableNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */; };
+		3E373F772631781A00D8107A /* EnterUnstoppableNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */; };
+		3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */; };
+		3EDB64CA263026C500008CE5 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
 		551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551BC70C2538965700E4CC79 /* LoadingModel.swift */; };
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
@@ -875,6 +880,9 @@
 		0AFA729D24BF363400A370EE /* SlicedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlicedText.swift; sourceTree = "<group>"; };
 		0AFA729F24BF368900A370EE /* SlicedText+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SlicedText+Address.swift"; sourceTree = "<group>"; };
 		0AFC33EC25DE9C3200067D41 /* AuthenticationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationControllerTests.swift; sourceTree = "<group>"; };
+		3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterUnstoppableNameViewController.xib; sourceTree = "<group>"; };
+		3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterUnstoppableNameViewController.swift; sourceTree = "<group>"; };
+		3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainDomainManager.swift; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
 		551BC70C2538965700E4CC79 /* LoadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModel.swift; sourceTree = "<group>"; };
 		551DDEE8244F183500C719D3 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
@@ -977,6 +985,7 @@
 				55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */,
 				0463F5BF26296924009C04FA /* FirebaseAnalytics in Frameworks */,
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
+				3E373F6F263155CD00D8107A /* UnstoppableDomainsResolution in Frameworks */,
 				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
 				0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */,
 				0A3DAD9526270F4D00743E38 /* idn2.xcframework in Frameworks */,
@@ -1444,6 +1453,8 @@
 		0A6886982588FADF0045CAB5 /* Add Safe */ = {
 			isa = PBXGroup;
 			children = (
+				3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */,
+				3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */,
 				04B4B5F425B754A400CFE24B /* SafeLoadedViewController */,
 				0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */,
 				0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */,
@@ -1507,6 +1518,7 @@
 		0A6C85B02450712D0026139E /* Ethereum */ = {
 			isa = PBXGroup;
 			children = (
+				3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */,
 				0A3DADAE26270FA900743E38 /* idn2 */,
 				0A9BC33224602A7400EB9C5D /* Contract.swift */,
 				0A9BC32E246022BD00EB9C5D /* ENS.swift */,
@@ -1975,7 +1987,7 @@
 				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
 			);
 			name = Resources;
-			path = ..;
+			path = "..";
 			sourceTree = "<group>";
 		};
 		0AF432D4244F063800E22E50 /* Styleguide */ = {
@@ -2348,6 +2360,7 @@
 				55D3FF8F260B2B21008ABD2B /* TrustKit */,
 				55888DFE260C4F6200940347 /* SwiftAccessPolicy */,
 				5591CEED260C725C0067DFDF /* BlockiesSwift */,
+				3E373F6E263155CD00D8107A /* UnstoppableDomainsResolution */,
 				0463F5BE26296924009C04FA /* FirebaseAnalytics */,
 				0463F5C026296924009C04FA /* FirebaseRemoteConfig */,
 				0463F5C226296924009C04FA /* FirebaseCrashlytics */,
@@ -2455,6 +2468,7 @@
 				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */,
 				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */,
 				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
+				3E373F6D263155CD00D8107A /* XCRemoteSwiftPackageReference "resolution-swift" */,
 				0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
@@ -2493,6 +2507,7 @@
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */,
 				0AEEBC74258CDF9400F3A6F9 /* CollectibleDetailViewController.xib in Resources */,
+				3E373F762631781A00D8107A /* EnterUnstoppableNameViewController.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */,
 				0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */,
@@ -2500,6 +2515,7 @@
 				0A57C5A52577DC5600420303 /* DetailExpandableTextCell.xib in Resources */,
 				0A57C5DD2577F9ED00420303 /* ConfirmationStatusPiece.xib in Resources */,
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
+				3EDB64CA263026C500008CE5 /* (null) in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
@@ -2625,6 +2641,7 @@
 				0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */,
 				049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */,
 				049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */,
+				3E373F772631781A00D8107A /* EnterUnstoppableNameViewController.swift in Sources */,
 				558835EF255BFEDB0014E8C7 /* AddressInfoView.swift in Sources */,
 				0A57C5E42577FBD900420303 /* DetailConfirmationCell.swift in Sources */,
 				047691372461B2E200D73D8B /* AddressCell.swift in Sources */,
@@ -2800,6 +2817,7 @@
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				55F91B0F25BF081900938475 /* PrivateKeyController.swift in Sources */,
 				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,
+				3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
 				0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */,
@@ -2843,6 +2861,7 @@
 				0A478D3B25B863D60038363E /* DerivedKeyTableViewCell.swift in Sources */,
 				55883612255C15870014E8C7 /* UIViewController+Safari.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
+				3EDB64C02630246C00008CE5 /* (null) in Sources */,
 				0A0256242449F7BF00C91D73 /* AddressView.swift in Sources */,
 				0468FB45259106F400541536 /* StyledView.swift in Sources */,
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
@@ -2887,6 +2906,7 @@
 				0AD0274525A3586800886671 /* ActionDetailViewController.swift in Sources */,
 				0AD6EF1E25CAF5EC00EE5512 /* AppReviewController.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
+				3E59F14D25B9667F00BB2788 /* (null) in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */,
@@ -5449,6 +5469,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3E373F6D263155CD00D8107A /* XCRemoteSwiftPackageReference "resolution-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/unstoppabledomains/resolution-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.6;
+			};
+		};
 		0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -5508,6 +5536,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3E373F6E263155CD00D8107A /* UnstoppableDomainsResolution */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E373F6D263155CD00D8107A /* XCRemoteSwiftPackageReference "resolution-swift" */;
+			productName = UnstoppableDomainsResolution;
+		};
 		0463F5BE26296924009C04FA /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

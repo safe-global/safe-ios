@@ -313,6 +313,43 @@ enum GSError {
         let code = 1110
         let loggable = false
     }
+    
+    struct UDUnsuportedName: DetailedLocalizedError {
+        let description = "Can't use this name"
+        let reason = "Invalid domain name"
+        let howToFix = "Please check the domain, it should end with .crypto or .zil"
+        let domain = clientErrorDomain
+        let code = 6357
+        let loggable = false
+    }
+    
+    struct UDUnregisteredName: DetailedLocalizedError {
+        let description = "Address not found"
+        let reason = "This domain is not registered with UD."
+        let howToFix = "Check if domain is correct"
+        let domain = clientErrorDomain
+        let code = 6358
+        let loggable = false
+    }
+    
+    struct UDResolverNotFound: DetailedLocalizedError {
+        let description = "Can't use this name"
+        let reason = "Domain is not configured correctly."
+        let howToFix = "Ask Domain owner to configure resolver contract"
+        let domain = clientErrorDomain
+        let code = 6360
+        let loggable = false
+    }
+    
+    struct UDUnsupportedNetwork: DetailedLocalizedError {
+        let description = "Incorrect network"
+        let reason = "Selected network is not supported by Unstoppable Domains."
+        let howToFix = "Make sure you are connected to the mainnet or rinkeby to operate"
+        let domain = clientErrorDomain
+        let code = 6362
+        let loggable = false
+    }
+
 
     // MARK: - iOS errors
 
