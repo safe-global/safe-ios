@@ -179,7 +179,12 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var showsConfirmButton: Bool {
         switch self.tx?.txInfo {
         case .rejection(_):
-            return tx!.needsYourConfirmation
+            if tx!.txStatus.isAwatingConfiramtions,
+               let multisigInfo = tx!.multisigInfo,
+               multisigInfo.canSign {
+                return true
+            }
+            return false
         default:
             return tx?.txStatus.isAwatingConfiramtions ?? false
         }

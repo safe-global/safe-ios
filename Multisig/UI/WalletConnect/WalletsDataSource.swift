@@ -56,7 +56,7 @@ fileprivate struct AllowedWallet {
     static let all: [AllowedWallet] = [
         .init(priority: 0, scheme: "metamask:", imageName: "metamask"),
 //        .init(priority: 1, scheme: "trust:", imageName: "trust"),
-        .init(priority: 2, scheme: "ledgerlive:", imageName: "ledgerlive"),
+//        .init(priority: 2, scheme: "ledgerlive:", imageName: "ledgerlive"),
 //        .init(priority: 3, scheme: "rainbow:", imageName: "rainbow"),
 //        .init(priority: 0, scheme: "argent:", imageName: "argent"),
 //        .init(priority: 0, scheme: "pillarwallet:", imageName: "pillarwallet"),

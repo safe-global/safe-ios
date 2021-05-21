@@ -542,3 +542,19 @@ extension SCGModels.AddressInfo {
         .init(address: .zero, name: name, logoUri: logoUri)
     }
 }
+
+func displayNameAndImageUri(address: AddressString, addressInfoIndex: SCGModels.AddressInfoIndex?) -> (name: String?, imageUri: URL?) {
+    if let importedSafeName = Safe.cachedName(by: address) {
+        return (importedSafeName, nil)
+    }
+
+    if let ownerName = KeyInfo.name(address: address.address) {
+        return (ownerName, nil)
+    }
+
+    if let knownAddress = addressInfoIndex?.values[address] {
+        return (knownAddress.name, knownAddress.logoUri)
+    }
+
+    return (nil, nil)
+}

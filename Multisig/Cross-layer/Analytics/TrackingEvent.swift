@@ -52,6 +52,7 @@ enum TrackingEvent: String, Trackable {
     case safeAddAddress                             = "screen_safe_add_address"
     case safeAddName                                = "screen_safe_add_name"
     case safeAddEns                                 = "screen_safe_add_ens"
+    case safeAddUd                                  = "screen_safe_add_ud"
 
     case transactionsQueued                         = "screen_transactions_queue"
     case transactionsHistory                        = "screen_transactions_history"

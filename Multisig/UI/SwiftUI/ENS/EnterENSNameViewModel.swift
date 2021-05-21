@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UnstoppableDomainsResolution
 
 class EnterENSNameViewModel: ObservableObject {
 
@@ -52,7 +53,7 @@ class EnterENSNameViewModel: ObservableObject {
                     }
                     .receive(on: DispatchQueue.global())
                     .tryMap { ensName -> Result<Address, Error> in
-                        let address = try App.shared.ens.address(for: ensName)
+                        let address = try App.shared.blockchainDomainManager.resolveEnsDomain(domain: ensName)
                         return .success(address)
                     }
                     .receive(on: RunLoop.main)

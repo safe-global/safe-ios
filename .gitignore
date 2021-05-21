@@ -4,6 +4,9 @@
 
 .env.default
 
+fastlane/
+.DS_Store
+
 ## Build generated
 build/
 Build/

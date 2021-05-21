@@ -75,11 +75,11 @@ class ActionDetailViewController: UITableViewController {
         if let tx = multiSendTx {
             let eth = App.shared.tokenRegistry.token(address: .ether)!
             txBuilder.result = []
-            let nameAndLogo = addressInfoIndex?.values[AddressString(tx.to.address)]
+            let (name, imageUri) = displayNameAndImageUri(address: tx.to, addressInfoIndex: addressInfoIndex)
             txBuilder.buildTransferHeader(
                 address: tx.to.address,
-                label: nameAndLogo?.name,
-                addressLogoUri: nameAndLogo?.logoUri,
+                label: name,
+                addressLogoUri: imageUri,
                 isOutgoing: true,
                 status: .success,
                 value: tx.value?.value,
@@ -214,8 +214,9 @@ class ActionDetailViewController: UITableViewController {
 
     private func addressCell(_ address: Address, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailAddressCell.self)
-        let nameAndLogo = addressInfoIndex?.values[AddressString(address)]
-        cell.setAddress(address, label: nameAndLogo?.name, imageUri: nameAndLogo?.logoUri)
+        let (name, imageUri) = displayNameAndImageUri(address: AddressString(address),
+                                                      addressInfoIndex: addressInfoIndex)
+        cell.setAddress(address, label: name, imageUri: imageUri)
         cell.selectionStyle = .none
         cell.margins.leading += indentation
         return cell
