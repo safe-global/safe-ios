@@ -45,12 +45,9 @@ extension KeyInfo {
     static func count(_ type: KeyType? = nil) -> Int {
         do {
             let items = try KeyInfo.all()
-            switch type {
-            case .deviceGenerted:
-                return items.filter({ keyInfo in keyInfo.keyType == .deviceGenerted }).count
-            case .deviceImported:
-                return items.filter({ keyInfo in keyInfo.keyType == .deviceImported }).count
-            default:
+            if let type = type {
+                return items.filter({ keyInfo in keyInfo.keyType == type }).count
+            } else {
                 return items.count
             }
         } catch {
