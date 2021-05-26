@@ -139,7 +139,7 @@ class PrivateKeyController {
             App.shared.snackbar.show(message: "All owner keys removed from this app")
         }
         Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
-        Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerted), type: .deviceGenerted)
+        Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
         Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
         NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
     }

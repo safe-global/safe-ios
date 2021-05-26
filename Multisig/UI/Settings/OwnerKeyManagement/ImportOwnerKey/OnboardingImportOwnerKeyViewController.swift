@@ -9,7 +9,6 @@
 import UIKit
 
 class OnboardingImportOwnerKeyViewController: UIViewController {
-
     @IBOutlet weak var tableView: UITableView!
     private var nextButton: UIBarButtonItem!
 
@@ -37,7 +36,6 @@ class OnboardingImportOwnerKeyViewController: UIViewController {
         navigationItem.title = "Import Owner Key"
         
         nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton(_:)))
-        createCloseButton()
         navigationItem.rightBarButtonItem = nextButton
     }
 
@@ -69,5 +67,3 @@ extension OnboardingImportOwnerKeyViewController: UITableViewDelegate, UITableVi
         return cell
     }
 }
-
-

@@ -64,7 +64,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     }
 
     @objc private func didTapAddButton(_ sender: Any) {
-        let vc = ViewControllerFactory.importOwnerViewController(presenter: self)
+        let vc = ViewControllerFactory.addOwnerViewController(presenter: self)
         present(vc, animated: true)
     }
 

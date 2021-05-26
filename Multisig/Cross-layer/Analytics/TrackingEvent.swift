@@ -26,7 +26,7 @@ extension Tracker {
     }
 
     func setNumKeys(_ count: Int, type: KeyType) {
-        if type == .deviceGenerted {
+        if type == .deviceGenerated {
             setUserProperty("\(count)", for: TrackingUserProperty.numKeysGenerated)
         } else if type == .deviceImported {
             setUserProperty("\(count)", for: TrackingUserProperty.numKeysImported)
@@ -89,9 +89,11 @@ enum TrackingEvent: String, Trackable {
     case userOnboardingOwnerSkip                    = "user_onboarding_owner_skip"
     case userOnboardingOwnerImport                  = "user_onboarding_owner_import"
     case ownerKeysList                              = "screen_owner_list"
+    case ownerKeysOptions                           = "screen_owner_options"
     case ownerKeyDetails                            = "screen_owner_details"
     case editOwnerKey                               = "screen_owner_edit_name"
     case importOwnerOnboarding                      = "screen_owner_info"
+    case generateOwnerOnboarding                    = "screen_owner_generate_info"
     case ownerEnterSeed                             = "screen_owner_enter_seed"
     case ownerConfirmPrivateKey                     = "screen_owner_confirm_private_key"
     case ownerSelectAccount                         = "screen_owner_select_account"
