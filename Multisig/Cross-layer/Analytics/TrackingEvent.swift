@@ -26,9 +26,10 @@ extension Tracker {
     }
 
     func setNumKeys(_ count: Int, type: KeyType) {
-        if type == .deviceGenerated {
+        switch type {
+        case .deviceGenerated:
             setUserProperty("\(count)", for: TrackingUserProperty.numKeysGenerated)
-        } else if type == .deviceImported {
+        case .deviceImported:
             setUserProperty("\(count)", for: TrackingUserProperty.numKeysImported)
         }
     }
