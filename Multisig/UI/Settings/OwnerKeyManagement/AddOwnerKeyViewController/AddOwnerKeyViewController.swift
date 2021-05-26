@@ -28,6 +28,11 @@ class AddOwnerKeyViewController: UITableViewController {
         tableView.backgroundColor = .primaryBackground
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.ownerKeysOptions)
+    }
+
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,7 +53,8 @@ class AddOwnerKeyViewController: UITableViewController {
             let controller = OnboardingImportOwnerKeyViewController()
             show(controller, sender: self)
         case .deviceGenerated:
-            break
+            let controller = OnboardingGenerateKeyViewController()
+            show(controller, sender: self)
         }
     }
 }

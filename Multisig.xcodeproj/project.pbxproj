@@ -387,6 +387,7 @@
 		55413673265E493500796F91 /* AddOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413672265E493500796F91 /* AddOwnerKeyViewController.swift */; };
 		55413677265E4A0000796F91 /* AddOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */; };
 		55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */; };
+		5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */; };
 		555312E9250653800008206B /* BIP32HDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312E8250653800008206B /* BIP32HDNode.swift */; };
 		555312EB2506608D0008206B /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EA2506608D0008206B /* Base58.swift */; };
 		555312ED250663420008206B /* SECP256K1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EC250663420008206B /* SECP256K1.swift */; };
@@ -908,6 +909,7 @@
 		55413672265E493500796F91 /* AddOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyCell.swift; sourceTree = "<group>"; };
 		55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerKeyCell.xib; sourceTree = "<group>"; };
+		5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGenerateKeyViewController.swift; sourceTree = "<group>"; };
 		555312E8250653800008206B /* BIP32HDNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP32HDNode.swift; sourceTree = "<group>"; };
 		555312EA2506608D0008206B /* Base58.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
 		555312EC250663420008206B /* SECP256K1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SECP256K1.swift; sourceTree = "<group>"; };
@@ -1161,7 +1163,6 @@
 		049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */ = {
 			isa = PBXGroup;
 			children = (
-				049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */,
 				049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */,
 				049A9D1E25F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib */,
 			);
@@ -2166,6 +2167,26 @@
 			path = AddOwnerKeyViewController;
 			sourceTree = "<group>";
 		};
+		55413679265E558A00796F91 /* ImportOwnerKey */ = {
+			isa = PBXGroup;
+			children = (
+				0A478D4D25B865150038363E /* KeyPickerController */,
+				55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */,
+				55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */,
+				04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */,
+				04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */,
+			);
+			path = ImportOwnerKey;
+			sourceTree = "<group>";
+		};
+		5541367A265E566B00796F91 /* GenerateOwnerKey */ = {
+			isa = PBXGroup;
+			children = (
+				5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */,
+			);
+			path = GenerateOwnerKey;
+			sourceTree = "<group>";
+		};
 		555312F0250673840008206B /* Private Key */ = {
 			isa = PBXGroup;
 			children = (
@@ -2226,6 +2247,7 @@
 				04B4B68E25B8857F00CFE24B /* SafeInfoViewV2.xib */,
 				0422005F25EFDF3700CAC173 /* TagView.swift */,
 				0422006F25EFDF4E00CAC173 /* TagView.xib */,
+				049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2338,12 +2360,9 @@
 				55413674265E49E100796F91 /* AddOwnerKeyViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
+				5541367A265E566B00796F91 /* GenerateOwnerKey */,
+				55413679265E558A00796F91 /* ImportOwnerKey */,
 				049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */,
-				0A478D4D25B865150038363E /* KeyPickerController */,
-				55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */,
-				55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */,
-				04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */,
-				04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */,
 			);
 			path = OwnerKeyManagement;
 			sourceTree = "<group>";
@@ -2834,6 +2853,7 @@
 				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,
 				3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
+				5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
 				0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
