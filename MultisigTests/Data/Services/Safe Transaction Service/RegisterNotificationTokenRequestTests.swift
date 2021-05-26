@@ -33,7 +33,7 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
 
     func testSignWithMnemonic() throws {
         // test vector from requirements doc
-        let mnemonic = "display bless asset brother fish sauce lyrics grit friend online tumble useless".split(separator: " ").map { String($0) }
+        let mnemonic = "display bless asset brother fish sauce lyrics grit friend online tumble useless"
         let key = try PrivateKey(mnemonic: mnemonic, pathIndex: 0)
         try KeyInfo.import(address: key.address, name: "Key 2", privateKey: key)
 

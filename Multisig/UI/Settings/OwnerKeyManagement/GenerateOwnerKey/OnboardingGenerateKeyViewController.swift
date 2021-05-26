@@ -11,6 +11,15 @@ import UIKit
 class OnboardingGenerateKeyViewController: UITableViewController {
     private var nextButton: UIBarButtonItem!
 
+    private lazy var mnemonic: String = {
+        let seed = Data.randomBytes(length: 32)!
+        return BIP39.generateMnemonicsFromEntropy(entropy: seed)!
+    }()
+
+    private lazy var privateKey: PrivateKey = {
+        try! PrivateKey(mnemonic: mnemonic, pathIndex: 0)
+    }()
+
     private let cards: [(image: UIImage?, title: String, body: String, link: (title: String?, url: URL?))] = [
         (UIImage(named: "ico-onbaording-import-key-1"),
          "How does it work?",
@@ -43,7 +52,30 @@ class OnboardingGenerateKeyViewController: UITableViewController {
         trackEvent(.generateOwnerOnboarding)
     }
 
-    @objc private func didTapNextButton(_ sender: Any) {        
+    @objc private func didTapNextButton(_ sender: Any) {
+        let vc = EnterAddressNameViewController()
+        vc.actionTitle = "Save"
+        vc.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        vc.screenTitle = "Enter Key Name"
+        vc.trackingEvent = .enterKeyName
+        vc.placeholder = "Enter name"
+        vc.address = privateKey.address
+        vc.completion = { [unowned self, vc] name in
+            guard PrivateKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true) else { return }
+            if App.shared.auth.isPasscodeSet {
+                App.shared.snackbar.show(message: "Owner key successfully imported")
+                vc.dismiss(animated: true, completion: nil)
+            } else {
+                let createPasscodeViewController = CreatePasscodeViewController()
+                createPasscodeViewController.navigationItem.hidesBackButton = true
+                createPasscodeViewController.hidesHeadline = false
+                vc.show(createPasscodeViewController, sender: vc)
+            }
+
+            AppSettings.hasShownImportKeyOnboarding = true
+        }
+
+        show(vc, sender: self)
     }
 
     // MARK: - Table view data source
