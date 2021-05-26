@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 import Web3
 
-/// Enum for storing key type in the presistanse store. The order of existing items should not be changed.
+/// Enum for storing key type in the persistence store. The order of existing items should not be changed.
 enum KeyType: Int, CaseIterable {
-    case deviceImported
-    case deviceGenerted
+    case deviceImported = 0
+    case deviceGenerted = 1
 }
 
 extension KeyInfo {
