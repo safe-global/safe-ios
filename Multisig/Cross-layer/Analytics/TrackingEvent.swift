@@ -96,6 +96,9 @@ enum TrackingEvent: String, Trackable {
     case bannerImportOwnerKeyImported               = "user_banner_owner_import"
     case camera                                     = "screen_camera"
 
+    case exportSeed                                 = "screen_owner_export_seed"
+    case exportKey                                  = "screen_owner_export_key"
+
     case createPasscode                             = "screen_passcode_create"
     case repeatPasscode                             = "screen_passcode_create_repeat"
     case enterPasscode                              = "screen_passcode_enter"
