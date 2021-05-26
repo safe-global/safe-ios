@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,43 +20,25 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="cZs-xS-VI3">
-                    <rect key="frame" x="16" y="72" width="382" height="106"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HTh-u1-hyM" customClass="GNOTextField" customModule="Multisig" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="56" placeholder="YES" id="LMF-0V-Lde"/>
-                            </constraints>
-                        </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9q-Ap-Kld">
-                            <rect key="frame" x="0.0" y="80" width="382" height="26"/>
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                            <color key="tintColor" name="error"/>
-                            <state key="normal" title="  Remove Owner Key" image="trash" catalog="system"/>
-                            <connections>
-                                <action selector="removeButtonTouched:" destination="-1" eventType="touchUpInside" id="Axe-a7-eRO"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HTh-u1-hyM" customClass="GNOTextField" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="16" y="72" width="382" height="56"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" placeholder="YES" id="LMF-0V-Lde"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="cZs-xS-VI3" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="28" id="FhA-YS-zIm"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cZs-xS-VI3" secondAttribute="trailing" constant="16" id="Uas-7B-XIr"/>
-                <constraint firstItem="cZs-xS-VI3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="py0-kW-zzw"/>
+                <constraint firstItem="HTh-u1-hyM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="0H8-p7-MJx"/>
+                <constraint firstItem="HTh-u1-hyM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="28" id="quF-iY-lHI"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="HTh-u1-hyM" secondAttribute="trailing" constant="16" id="rVh-4U-5ga"/>
             </constraints>
             <point key="canvasLocation" x="83" y="132"/>
         </view>
     </objects>
     <resources>
-        <image name="trash" catalog="system" width="121" height="128"/>
-        <namedColor name="error">
-            <color red="0.93725490196078431" green="0.14117647058823529" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

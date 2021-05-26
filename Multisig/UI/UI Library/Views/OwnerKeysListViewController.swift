@@ -85,39 +85,11 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let keyInfo = keys[indexPath.row]
 
         cell.set(address: keyInfo.address, title: keyInfo.displayName)
-        cell.delegate = self
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-
-    private func remove(key: KeyInfo) {
-        let alertController = UIAlertController(
-            title: nil,
-            message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
-            preferredStyle: .actionSheet)
-        let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
-            PrivateKeyController.remove(keyInfo: key)
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(remove)
-        alertController.addAction(cancel)
-        present(alertController, animated: true)
-    }
-}
-
-extension OwnerKeysListViewController: OwnerKeysListTableViewCellDelegate {
-    func ownerKeysListTableViewDidEdit(cell: OwnerKeysListTableViewCell) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        let vc = EditOwnerKeyViewController(keyInfo: keys[indexPath.row])
-        show(vc, sender: self)
-    }
-
-    func ownerKeysListTableViewCellDidRemove(cell: OwnerKeysListTableViewCell) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        remove(key: keys[indexPath.row])
     }
 }
