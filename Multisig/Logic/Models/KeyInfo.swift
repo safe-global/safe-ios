@@ -10,11 +10,22 @@ import Foundation
 import CoreData
 import Web3
 
+/// Enum for storing key type in the persistence store. The order of existing items should not be changed.
+enum KeyType: Int, CaseIterable {
+    case deviceImported = 0
+    case deviceGenerted = 1
+}
+
 extension KeyInfo {
     /// Blockchain address that this key controls
     var address: Address {
         get { addressString.flatMap(Address.init) ?? Address.zero}
         set { addressString = newValue.checksummed }
+    }
+
+    var keyType: KeyType {
+        get { KeyType(rawValue: Int(type)) ?? .deviceImported }
+        set { type = Int16(newValue.rawValue) }
     }
 
     var hasPrivateKey: Bool {
@@ -99,6 +110,7 @@ extension KeyInfo {
         item.address = address
         item.name = name
         item.keyID = privateKey.id
+        item.keyType = .deviceImported
 
         item.save()
         try privateKey.save()
