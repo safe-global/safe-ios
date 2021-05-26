@@ -78,7 +78,6 @@
 		04B4B6DE25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */; };
 		04B4B6E525B9A08D00CFE24B /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B6E325B9A08D00CFE24B /* CardTableViewCell.swift */; };
 		04B4B6E625B9A08D00CFE24B /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */; };
-		04B4B6FE25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B6FD25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift */; };
 		04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B88825BF36F900CFE24B /* ExecutionStatusPiece.swift */; };
 		04B4B88B25BF36F900CFE24B /* ExecutionStatusPiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B88925BF36F900CFE24B /* ExecutionStatusPiece.xib */; };
 		04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97A99246C3E5F00EBA0F1 /* ViewState.swift */; };
@@ -385,6 +384,10 @@
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
 		55413671265E438500796F91 /* UnstoppableDomainsResolution in Frameworks */ = {isa = PBXBuildFile; productRef = 55413670265E438500796F91 /* UnstoppableDomainsResolution */; };
+		55413673265E493500796F91 /* AddOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413672265E493500796F91 /* AddOwnerKeyViewController.swift */; };
+		55413677265E4A0000796F91 /* AddOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */; };
+		55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */; };
+		5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */; };
 		555312E9250653800008206B /* BIP32HDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312E8250653800008206B /* BIP32HDNode.swift */; };
 		555312EB2506608D0008206B /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EA2506608D0008206B /* Base58.swift */; };
 		555312ED250663420008206B /* SECP256K1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EC250663420008206B /* SECP256K1.swift */; };
@@ -567,7 +570,6 @@
 		04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingImportOwnerKeyViewController.xib; sourceTree = "<group>"; };
 		04B4B6E325B9A08D00CFE24B /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
-		04B4B6FD25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationItem.swift"; sourceTree = "<group>"; };
 		04B4B88825BF36F900CFE24B /* ExecutionStatusPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionStatusPiece.swift; sourceTree = "<group>"; };
 		04B4B88925BF36F900CFE24B /* ExecutionStatusPiece.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExecutionStatusPiece.xib; sourceTree = "<group>"; };
 		04C97A99246C3E5F00EBA0F1 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
@@ -904,6 +906,10 @@
 		5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleLoggerTests.swift; sourceTree = "<group>"; };
 		5532D4D02449A1E40067505A /* MockLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLogger.swift; sourceTree = "<group>"; };
 		5532D4DD2449A34A0067505A /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		55413672265E493500796F91 /* AddOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyViewController.swift; sourceTree = "<group>"; };
+		55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyCell.swift; sourceTree = "<group>"; };
+		55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerKeyCell.xib; sourceTree = "<group>"; };
+		5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGenerateKeyViewController.swift; sourceTree = "<group>"; };
 		555312E8250653800008206B /* BIP32HDNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP32HDNode.swift; sourceTree = "<group>"; };
 		555312EA2506608D0008206B /* Base58.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
 		555312EC250663420008206B /* SECP256K1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SECP256K1.swift; sourceTree = "<group>"; };
@@ -1157,7 +1163,6 @@
 		049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */ = {
 			isa = PBXGroup;
 			children = (
-				049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */,
 				049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */,
 				049A9D1E25F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib */,
 			);
@@ -1576,7 +1581,6 @@
 				044A54432448D0B6009CBB80 /* QRCodeScannerViewController */,
 				0AC60C982549D44300A63AE2 /* SegmentViewController */,
 				0AF1C90D2541B67200E28669 /* LoadableViewController */,
-				04B4B6FD25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -2153,6 +2157,36 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		55413674265E49E100796F91 /* AddOwnerKeyViewController */ = {
+			isa = PBXGroup;
+			children = (
+				55413672265E493500796F91 /* AddOwnerKeyViewController.swift */,
+				55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */,
+				55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */,
+			);
+			path = AddOwnerKeyViewController;
+			sourceTree = "<group>";
+		};
+		55413679265E558A00796F91 /* ImportOwnerKey */ = {
+			isa = PBXGroup;
+			children = (
+				0A478D4D25B865150038363E /* KeyPickerController */,
+				55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */,
+				55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */,
+				04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */,
+				04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */,
+			);
+			path = ImportOwnerKey;
+			sourceTree = "<group>";
+		};
+		5541367A265E566B00796F91 /* GenerateOwnerKey */ = {
+			isa = PBXGroup;
+			children = (
+				5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */,
+			);
+			path = GenerateOwnerKey;
+			sourceTree = "<group>";
+		};
 		555312F0250673840008206B /* Private Key */ = {
 			isa = PBXGroup;
 			children = (
@@ -2213,6 +2247,7 @@
 				04B4B68E25B8857F00CFE24B /* SafeInfoViewV2.xib */,
 				0422005F25EFDF3700CAC173 /* TagView.swift */,
 				0422006F25EFDF4E00CAC173 /* TagView.xib */,
+				049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2322,14 +2357,12 @@
 		55F91A8E25BEABA100938475 /* OwnerKeyManagement */ = {
 			isa = PBXGroup;
 			children = (
+				55413674265E49E100796F91 /* AddOwnerKeyViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
+				5541367A265E566B00796F91 /* GenerateOwnerKey */,
+				55413679265E558A00796F91 /* ImportOwnerKey */,
 				049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */,
-				0A478D4D25B865150038363E /* KeyPickerController */,
-				55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */,
-				55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */,
-				04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */,
-				04B4B6DC25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.xib */,
 			);
 			path = OwnerKeyManagement;
 			sourceTree = "<group>";
@@ -2523,6 +2556,7 @@
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
+				55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */,
 				0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
@@ -2686,6 +2720,7 @@
 				0A57C8E92587AECB00B7C019 /* EnterSafeAddressViewController.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
 				0AD062E62577AE7E0030810D /* TransactionDetailCellBuilder.swift in Sources */,
+				55413673265E493500796F91 /* AddOwnerKeyViewController.swift in Sources */,
 				5532D4BB2449A17D0067505A /* Logger.swift in Sources */,
 				0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
@@ -2794,7 +2829,6 @@
 				0AE8C08F25793B9400E62B34 /* DetailArrowPiece.swift in Sources */,
 				55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */,
 				0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */,
-				04B4B6FE25BB0F3F00CFE24B /* UIViewController+NavigationItem.swift in Sources */,
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
 				555312EF2506641D0008206B /* RIPEMD160.swift in Sources */,
 				04CE3F9D24B62F0800826AEE /* CollectibleMetaDataAttribute.swift in Sources */,
@@ -2819,6 +2853,7 @@
 				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,
 				3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
+				5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
 				0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
@@ -2897,6 +2932,7 @@
 				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
 				0AE8C06A2579371A00E62B34 /* DetailTransferInfoCell.swift in Sources */,
+				55413677265E4A0000796F91 /* AddOwnerKeyCell.swift in Sources */,
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,
 				0468FB8725912E6800541536 /* FlatTransactionsListViewModel.swift in Sources */,
 				043ABD0E24EF0C33008826D5 /* TransactionDetailsRequest.swift in Sources */,
