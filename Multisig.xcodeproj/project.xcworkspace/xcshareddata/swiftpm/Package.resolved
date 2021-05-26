@@ -42,17 +42,17 @@
         "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
         "state": {
           "branch": null,
-          "revision": "3a2acbb32ab68215ee1596ee6004da8e90c3721b",
-          "version": "1.0.0"
+          "revision": "4e31051c63cc0ddf10a25cf5318856c510cf77f4",
+          "version": "1.4.0"
         }
       },
       {
         "package": "EthereumAddress",
-        "repositoryURL": "https://github.com/shamatar/EthereumAddress.git",
+        "repositoryURL": "https://github.com/sche/EthereumAddress.git",
         "state": {
-          "branch": null,
-          "revision": "a8eb4fc1dc03c068bf88585d8f5a2dd3572664ca",
-          "version": "1.3.0"
+          "branch": "update-CryptoSwift-version",
+          "revision": "6726437315d1f50bc24adea258d04ede3d0f73cb",
+          "version": null
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "66f5945ac3a4c4ac268bf94c31f226116b14e327",
-          "version": "7.4.0"
+          "revision": "58359415d4ea29ebdc8fa5b41ce96c434d76d901",
+          "version": "7.4.1"
         }
       },
       {
@@ -156,11 +156,11 @@
       },
       {
         "package": "UnstoppableDomainsResolution",
-        "repositoryURL": "https://github.com/unstoppabledomains/resolution-swift.git",
+        "repositoryURL": "https://github.com/sche/resolution-swift.git",
         "state": {
-          "branch": null,
-          "revision": "f64a56c528b81b4c5fdfcf25064005f283353986",
-          "version": "0.3.6"
+          "branch": "update-deps",
+          "revision": "9da1a31c88a867a70555311143fed14b9fd88f5c",
+          "version": null
         }
       },
       {
@@ -177,8 +177,8 @@
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
           "branch": null,
-          "revision": "bfe4255ff60f22a41cafa113059668571ed5d461",
-          "version": "1.16.0"
+          "revision": "1f62db409f2c9b0223a3f68567b4a01333aae778",
+          "version": "1.17.0"
         }
       },
       {
