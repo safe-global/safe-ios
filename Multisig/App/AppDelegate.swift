@@ -31,7 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // The requirement is to set num_safes property to "0" when there are no Safes
         Tracker.shared.setSafeCount(Safe.count)
-        Tracker.shared.setNumKeysImported(KeyInfo.count)
+        Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerted), type: .deviceGenerted)
+        Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
         Tracker.shared.setPasscodeIsSet(to: App.shared.auth.isPasscodeSet)
 
         Safe.updateCachedNames()

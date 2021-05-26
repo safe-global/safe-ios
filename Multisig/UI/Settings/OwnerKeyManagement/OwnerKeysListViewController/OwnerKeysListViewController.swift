@@ -91,5 +91,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let vc = OwnerKeyDetailsViewController(keyInfo: keys[indexPath.row])
+        show(vc, sender: true)
     }
 }

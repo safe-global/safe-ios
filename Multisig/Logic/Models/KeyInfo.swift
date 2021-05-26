@@ -42,12 +42,17 @@ extension KeyInfo {
     }
 
     /// Returns number of existing key infos
-    static var count: Int {
+    static func count(_ type: KeyType? = nil) -> Int {
         do {
-            let context = App.shared.coreDataStack.viewContext
-            let fr = KeyInfo.fetchRequest().all()
-            let itemCount = try context.count(for: fr)
-            return itemCount
+            let items = try KeyInfo.all()
+            switch type {
+            case .deviceGenerted:
+                return items.filter({ keyInfo in keyInfo.keyType == .deviceGenerted }).count
+            case .deviceImported:
+                return items.filter({ keyInfo in keyInfo.keyType == .deviceImported }).count
+            default:
+                return items.count
+            }
         } catch {
             LogService.shared.error("Failed to fetch safe count: \(error)")
             return 0
