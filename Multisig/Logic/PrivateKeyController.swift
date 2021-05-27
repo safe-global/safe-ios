@@ -15,11 +15,11 @@ class PrivateKeyController {
 
             App.shared.notificationHandler.signingKeyUpdated()
 
-            Tracker.shared.setNumKeysImported(KeyInfo.count)
-
             if privateKey.mnemonic != nil { // generating key on mobile
+                Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
                 Tracker.shared.track(event: TrackingEvent.ownerKeyGenerated)
             } else { // importing key
+                Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
                 Tracker.shared.track(event: TrackingEvent.ownerKeyImported,
                                      parameters: ["import_type": isDrivedFromSeedPhrase ? "seed" : "key"])
             }
@@ -38,7 +38,7 @@ class PrivateKeyController {
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key removed from this app")
             Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
-            Tracker.shared.setNumKeysImported(KeyInfo.count)
+            Tracker.shared.setNumKeys(KeyInfo.count(keyInfo.keyType), type: keyInfo.keyType)
             NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
         } catch {
             App.shared.snackbar.show(
@@ -53,7 +53,7 @@ class PrivateKeyController {
     }
 
     static var hasPrivateKey: Bool {
-        KeyInfo.count > 0
+        KeyInfo.count() > 0
     }
 
     static func exists(_ privateKey: PrivateKey) -> Bool {
@@ -145,7 +145,8 @@ class PrivateKeyController {
             App.shared.snackbar.show(message: "All owner keys removed from this app")
         }
         Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
-        Tracker.shared.setNumKeysImported(KeyInfo.count)
+        Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
+        Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
         NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
     }
 }
