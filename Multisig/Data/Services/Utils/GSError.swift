@@ -424,4 +424,22 @@ enum GSError {
         let code = 1314
         let loggable = false
     }
+
+    struct PrivateKeyDataNotFound: DetailedLocalizedError {
+        let description = "Failed to find private key data"
+        let reason: String
+        let howToFix = "Please remove this key"
+        let domain = iOSErrorDomain
+        let code = 1315
+        let loggable = true
+    }
+
+    struct PrivateKeyFetchError: DetailedLocalizedError {
+        let description = "Failed to fetch private key"
+        let reason: String
+        let howToFix = "Please try again"
+        let domain = iOSErrorDomain
+        let code = 1316
+        let loggable = true
+    }
 }

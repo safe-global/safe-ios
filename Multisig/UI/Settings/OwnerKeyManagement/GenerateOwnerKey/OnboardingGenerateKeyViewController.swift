@@ -12,7 +12,8 @@ class OnboardingGenerateKeyViewController: UITableViewController {
     private var nextButton: UIBarButtonItem!
 
     private lazy var mnemonic: String = {
-        let seed = Data.randomBytes(length: 32)!
+        // 16 bit = 12 words
+        let seed = Data.randomBytes(length: 16)!
         return BIP39.generateMnemonicsFromEntropy(entropy: seed)!
     }()
 
