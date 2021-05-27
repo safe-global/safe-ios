@@ -48,7 +48,7 @@ class AuthenticationController {
         try accessService.registerUser(password: password)
         AppSettings.passcodeWasSetAtLeastOnce = true
 
-        AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
+        AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation, .useForExportingKeys]
 
         NotificationCenter.default.post(name: .passcodeCreated, object: nil)
 

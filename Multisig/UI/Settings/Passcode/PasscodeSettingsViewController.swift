@@ -23,6 +23,7 @@ class PasscodeSettingsViewController: UITableViewController {
         case loginWithBiometrics
         case requireToOpenApp
         case requireForConfirmations
+        case requireForExportingKeys
         case oneOptionSelectedText
     }
 
@@ -72,7 +73,7 @@ class PasscodeSettingsViewController: UITableViewController {
 
             data = [
                 (section: .lockMethod, rows: lockRows),
-                (section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .oneOptionSelectedText])
+                (section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .requireForExportingKeys, .oneOptionSelectedText])
             ]
 
             // if user disables biometry, we can't keep it enabled in app settings.
@@ -139,7 +140,7 @@ class PasscodeSettingsViewController: UITableViewController {
                 AppSettings.passcodeOptions.insert(option)
             }
 
-            if AppSettings.passcodeOptions.isDisjoint(with: [.useForConfirmation, .useForLogin]) {
+            if AppSettings.passcodeOptions.isDisjoint(with: [.useForConfirmation, .useForLogin, .useForExportingKeys]) {
                 disablePasscode()
             }
 
@@ -230,6 +231,10 @@ class PasscodeSettingsViewController: UITableViewController {
             return makeSwitch(for: indexPath,
                               with: "Require for confirmations",
                               isOn: AppSettings.passcodeOptions.contains(.useForConfirmation))
+        case .requireForExportingKeys:
+            return makeSwitch(for: indexPath,
+                              with: "Require for exporting keys",
+                              isOn: AppSettings.passcodeOptions.contains(.useForExportingKeys))
 
         case .oneOptionSelectedText:
             return makeHelp(for: indexPath, with: "At least one option must be selected")
@@ -259,6 +264,8 @@ class PasscodeSettingsViewController: UITableViewController {
         case .requireForConfirmations:
             toggleUsage(option: .useForConfirmation, reason: "Require for confirmations")
 
+        case .requireForExportingKeys:
+            toggleUsage(option: .useForExportingKeys, reason: "Require for exporting keys")
         default:
             break
         }
