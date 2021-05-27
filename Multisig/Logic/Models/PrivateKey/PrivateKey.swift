@@ -25,8 +25,7 @@ struct PrivateKey {
         let mnemonic: String?
     }
 
-    /// needed for PrivateKeyController.migrateLegacySigningKey()
-    var legacyKeyData: Data {
+    var keyData: Data {
         Data(_store.rawPrivateKey)
     }
 

@@ -67,14 +67,16 @@ class OnboardingGenerateKeyViewController: UITableViewController {
                 return
             }
 
+            let message = "The key successfully created. Add it to the safe using the desktop app and then restart mobile app."
+
             if App.shared.auth.isPasscodeSet {
                 vc.dismiss(animated: false) {
-                    App.shared.snackbar.show(message: "Owner key successfully imported")
+                    App.shared.snackbar.show(message: message)
                     sceneDelegate.show(OwnerKeyDetailsViewController(keyInfo: keyInfo))
                 }
             } else {
                 let createPasscodeViewController = CreatePasscodeViewController {
-                    App.shared.snackbar.show(message: "Owner key successfully imported")
+                    App.shared.snackbar.show(message: message)
 
                     let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
                     if let tabBarVC = sceneDelegate.tabBarWindow?.rootViewController as? MainTabBarViewController,

@@ -88,7 +88,7 @@ class PrivateKeyController {
                 return
             }
 
-            let updatedKey = try PrivateKey(data: legacyKey.legacyKeyData)
+            let updatedKey = try PrivateKey(data: legacyKey.keyData)
             let existingKeyInfoOrNil = try KeyInfo.keys(addresses: [legacyKey.address]).first
 
             // wipe out any existing keys associated with the info.
