@@ -61,6 +61,20 @@ class OwnerKeyDetailsViewController: UIViewController {
 
     @objc private func didTapExportButton() {
         let exportViewController = ExportViewController()
+
+        do {
+            if let privateKey = try keyInfo.privateKey() {
+                exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()
+                exportViewController.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }
+            } else {
+                App.shared.snackbar.show(error: GSError.PrivateKeyDataNotFound(reason: "Key data does not exist"))
+                return
+            }
+        } catch {
+            App.shared.snackbar.show(error: GSError.PrivateKeyFetchError(reason: error.localizedDescription))
+            return
+        }
+
         if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForExportingKeys) {
             let vc = EnterPasscodeViewController()
             vc.completion = { [weak self] success in
@@ -75,7 +89,7 @@ class OwnerKeyDetailsViewController: UIViewController {
             show(exportViewController, sender: self)
         }
     }
-
+    
     @objc private func bindData() {
         nameLabel.text = keyInfo.name
         identiconView.setCircleImage(url: nil, address: keyInfo.address)
