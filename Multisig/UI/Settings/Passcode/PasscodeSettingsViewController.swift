@@ -145,21 +145,25 @@ class PasscodeSettingsViewController: UITableViewController {
             }
 
             finish()
+            reloadData()
         }
     }
 
     private func toggleBiometrics() {
-        withPasscodeAuthentication(for: "Login with biometrics") { success, nav, finish in
+        withPasscodeAuthentication(for: "Login with biometrics") { [unowned self] success, nav, finish in
             if success && AppSettings.passcodeOptions.contains(.useBiometry) {
                 AppSettings.passcodeOptions.remove(.useBiometry)
                 App.shared.snackbar.show(message: "Biometrics disabled.")
                 finish()
+                reloadData()
             } else if success {
                 App.shared.auth.activateBiometrics { _ in
                     finish()
+                    reloadData()
                 }
             } else {
                 finish()
+                reloadData()
             }
         }
     }
