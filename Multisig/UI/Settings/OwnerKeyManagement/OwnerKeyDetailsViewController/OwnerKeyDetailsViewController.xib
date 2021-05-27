@@ -15,6 +15,7 @@
                 <outlet property="addressInfoView" destination="qJp-t9-y2g" id="VtH-KN-bbW"/>
                 <outlet property="identiconView" destination="fMq-1d-RxI" id="UWO-cU-9hz"/>
                 <outlet property="nameLabel" destination="yq1-lZ-6eZ" id="adO-LO-ycK"/>
+                <outlet property="qrView" destination="fPq-uD-SkE" id="LNe-LW-DUA"/>
                 <outlet property="titleLabel" destination="Dmp-VD-VOT" id="YH9-hl-6q2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="07n-XO-TRT">
-                    <rect key="frame" x="0.0" y="72" width="414" height="383"/>
+                    <rect key="frame" x="0.0" y="72" width="414" height="549"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fMq-1d-RxI">
                             <rect key="frame" x="179" y="0.0" width="56" height="56"/>
@@ -88,8 +89,16 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPq-uD-SkE" customClass="QRCodeView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="132" y="361" width="150" height="150"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="fPq-uD-SkE" secondAttribute="height" id="6S7-fa-YBZ"/>
+                                <constraint firstAttribute="height" constant="150" id="9eR-ZK-LjI"/>
+                            </constraints>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dkz-ky-nar">
-                            <rect key="frame" x="116.5" y="361" width="181" height="22"/>
+                            <rect key="frame" x="116.5" y="527" width="181" height="22"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <color key="tintColor" name="error"/>
                             <state key="normal" title="  Remove Owner Key" image="trash" catalog="system"/>

@@ -12,9 +12,10 @@ class OwnerKeyDetailsViewController: UIViewController {
     private var keyInfo: KeyInfo!
     private var exportButton: UIBarButtonItem!
     @IBOutlet private weak var identiconView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var addressInfoView: AddressInfoView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var addressInfoView: AddressInfoView!
+    @IBOutlet private weak var qrView: QRCodeView!
+    @IBOutlet private weak var titleLabel: UILabel!
 
     convenience init(keyInfo: KeyInfo) {
         self.init()
@@ -59,13 +60,35 @@ class OwnerKeyDetailsViewController: UIViewController {
     }
 
     @objc private func didTapExportButton() {
-
+        let exportViewController = ExportViewController()
+        if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForExportingKeys) {
+            let vc = EnterPasscodeViewController()
+            vc.completion = { [weak self] success in
+                guard let `self` = self else { return }
+                self.navigationController?.popViewController(animated: false)
+                if success {
+                    self.show(exportViewController, sender: self)
+                }
+            }
+           show(vc, sender: self)
+        } else {
+            show(exportViewController, sender: self)
+        }
     }
 
     @objc private func bindData() {
         nameLabel.text = keyInfo.name
         identiconView.setCircleImage(url: nil, address: keyInfo.address)
         addressInfoView.setAddress(keyInfo.address, showIdenticon: false)
+
+        if let addressString = keyInfo.addressString {
+            qrView.value = addressString
+            qrView.isHidden = false
+            titleLabel.isHidden = false
+        } else {
+            qrView.isHidden = true
+            titleLabel.isHidden = true
+        }
     }
 
     private func remove(key: KeyInfo) {
