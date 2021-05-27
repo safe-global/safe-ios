@@ -43,7 +43,7 @@ class SafeLoadedViewController: UIViewController {
 
     @IBAction func importOwnerButtonTouched(_ sender: Any) {
         Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerImport)
-        let vc = ViewControllerFactory.addOwnerViewController(presenter: self)
+        let vc = ViewControllerFactory.addOwnerViewController()
         present(vc, animated: true)
     }
 

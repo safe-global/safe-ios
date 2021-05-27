@@ -64,7 +64,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     }
 
     @objc private func didTapAddButton(_ sender: Any) {
-        let vc = ViewControllerFactory.addOwnerViewController(presenter: self)
+        let vc = ViewControllerFactory.addOwnerViewController()
         present(vc, animated: true)
     }
 
@@ -92,6 +92,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let vc = OwnerKeyDetailsViewController(keyInfo: keys[indexPath.row])
-        show(vc, sender: true)
+        show(vc, sender: nil)
     }
 }

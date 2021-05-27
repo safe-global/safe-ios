@@ -195,7 +195,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
             recreateSectionsWithCurrentItems()
 
-            let vc = ViewControllerFactory.addOwnerViewController(presenter: self)
+            let vc = ViewControllerFactory.addOwnerViewController()
             present(vc, animated: true)
             trackEvent(.bannerImportOwnerKeyImported)
         }

@@ -62,12 +62,34 @@ class OnboardingGenerateKeyViewController: UITableViewController {
         vc.placeholder = "Enter name"
         vc.address = privateKey.address
         vc.completion = { [unowned self, vc] name in
-            guard PrivateKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true) else { return }
+            guard PrivateKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true),
+                  let keyInfo = try? KeyInfo.keys(addresses: [privateKey.address]).first,
+                  let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {
+                return
+            }
+
+            let message = "The key successfully created. Add it to the safe using the desktop app and then restart mobile app."
+
             if App.shared.auth.isPasscodeSet {
-                App.shared.snackbar.show(message: "Owner key successfully imported")
-                vc.dismiss(animated: true, completion: nil)
+                vc.dismiss(animated: false) {
+                    App.shared.snackbar.show(message: message)
+                    sceneDelegate.show(OwnerKeyDetailsViewController(keyInfo: keyInfo))
+                }
             } else {
-                let createPasscodeViewController = CreatePasscodeViewController()
+                let createPasscodeViewController = CreatePasscodeViewController {
+                    App.shared.snackbar.show(message: message)
+
+                    let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
+                    if let tabBarVC = sceneDelegate.tabBarWindow?.rootViewController as? MainTabBarViewController,
+                       tabBarVC.selectedViewController?.navigationController != nil {
+                        sceneDelegate.show(vc)
+                    } else { // opened from Balances controller
+                        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                            barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
+                        let navController = UINavigationController(rootViewController: vc)
+                        sceneDelegate.show(navController)
+                    }
+                }
                 createPasscodeViewController.navigationItem.hidesBackButton = true
                 createPasscodeViewController.hidesHeadline = false
                 vc.show(createPasscodeViewController, sender: vc)
