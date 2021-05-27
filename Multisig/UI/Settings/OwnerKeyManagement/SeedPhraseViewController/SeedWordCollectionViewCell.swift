@@ -4,7 +4,6 @@
 
 import UIKit
 
-
 class SeedWordCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var numberLabel: UILabel!
