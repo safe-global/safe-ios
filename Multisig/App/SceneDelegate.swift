@@ -91,6 +91,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - Window Management
 
+    func show(_ controller: UIViewController) {
+        (tabBarWindow?.rootViewController as? MainTabBarViewController)?
+            .selectedViewController?.show(controller, sender: nil)
+    }
+
     private func makeWindow(scene: UIWindowScene) -> UIWindow {
         let window = WindowWithViewOnTop(windowScene: scene)
         window.tintColor = .button

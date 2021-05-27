@@ -170,8 +170,9 @@ class CreatePasscodeViewController: PasscodeViewController {
 
             // if device does not support biometrics, finish right away
             guard App.shared.auth.isBiometricsSupported else {
-                self?.completion()
-                self?.navigationController?.dismiss(animated: true, completion: nil)
+                self?.navigationController?.dismiss(animated: true) {
+                    self?.completion()
+                }
                 return
             }
 
@@ -186,10 +187,9 @@ class CreatePasscodeViewController: PasscodeViewController {
 
                 App.shared.auth.activateBiometrics { _ in
                     // in any resulting case, finish.
-
-                    self?.completion()
-                    self?.navigationController?.dismiss(animated: true, completion: nil)
-
+                    self?.navigationController?.dismiss(animated: true) {
+                        self?.completion()
+                    }
                 }
 
             }))
@@ -197,8 +197,9 @@ class CreatePasscodeViewController: PasscodeViewController {
             //      if no, finish right away
             shouldEnableVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
 
-                self?.completion()
-                self?.navigationController?.dismiss(animated: true, completion: nil)
+                self?.navigationController?.dismiss(animated: true) {
+                    self?.completion()
+                }
 
             }))
 
@@ -414,8 +415,9 @@ class RepeatChangedPasscodeViewController: PasscodeViewController {
             do {
                 try App.shared.auth.changePasscode(newPasscodeInPlaintext: text)
                 App.shared.snackbar.show(message: "Passcode changed")
-                navigationController?.dismiss(animated: true, completion: nil)
-                completion()
+                navigationController?.dismiss(animated: true) { [unowned self] in
+                    self.completion()
+                }
             } catch {
                 showGenericError(description: "Failed to change passcode", error: error)
             }

@@ -1198,6 +1198,7 @@
 		049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */ = {
 			isa = PBXGroup;
 			children = (
+				049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */,
 				049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */,
 				049A9D1E25F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib */,
 			);
@@ -2298,7 +2299,6 @@
 				04B4B68E25B8857F00CFE24B /* SafeInfoViewV2.xib */,
 				0422005F25EFDF3700CAC173 /* TagView.swift */,
 				0422006F25EFDF4E00CAC173 /* TagView.xib */,
-				049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

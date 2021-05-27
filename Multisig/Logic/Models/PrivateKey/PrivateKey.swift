@@ -26,7 +26,7 @@ struct PrivateKey {
     }
 
     /// needed for PrivateKeyController.migrateLegacySigningKey()
-    var keyData: Data {
+    var legacyKeyData: Data {
         Data(_store.rawPrivateKey)
     }
 
