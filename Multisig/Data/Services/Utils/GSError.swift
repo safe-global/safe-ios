@@ -431,7 +431,7 @@ enum GSError {
         let howToFix = "Please remove this key"
         let domain = iOSErrorDomain
         let code = 1315
-        let loggable = false
+        let loggable = true
     }
 
     struct PrivateKeyFetchError: DetailedLocalizedError {
@@ -440,6 +440,6 @@ enum GSError {
         let howToFix = "Please try again"
         let domain = iOSErrorDomain
         let code = 1316
-        let loggable = false
+        let loggable = true
     }
 }
