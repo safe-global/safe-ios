@@ -19,7 +19,7 @@ struct QRView: View {
     var body: some View {
         VStack {
             if value != nil && !value!.isEmpty {
-                Image(uiImage: Self.generateQRCode(value: value))
+                Image(uiImage: UIImage.generateQRCode(value: value))
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
@@ -33,21 +33,6 @@ struct QRView: View {
             .strokeBorder(Color.gray4, lineWidth: 2)
         )
         .frame(width: width, height: height)
-    }
-    
-    static func generateQRCode(value: String) -> UIImage {
-        let data = Data(value.utf8)
-        let context = CIContext()
-        let filter = CIFilter.qrCodeGenerator()
-        filter.setValue(data, forKey: "inputMessage")
-
-        if let outputImage = filter.outputImage {
-            if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
-                return UIImage(cgImage: cgimg)
-            }
-        }
-
-        return UIImage(systemName: "xmark.circle") ?? UIImage()
     }
 }
 
