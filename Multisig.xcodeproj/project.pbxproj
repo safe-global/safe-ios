@@ -23,6 +23,8 @@
 		044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */; };
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
+		04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */; };
+		04626EB7265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04626EB5265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.xib */; };
 		0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */; };
 		0463F5BF26296924009C04FA /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5BE26296924009C04FA /* FirebaseAnalytics */; };
 		0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C026296924009C04FA /* FirebaseRemoteConfig */; };
@@ -529,6 +531,8 @@
 		044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
+		04626EB5265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OwnerKeyDetailsViewController.xib; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
 		0468EE9C26148A3B008270BF /* PrivacyProtectionScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivacyProtectionScreenViewController.xib; sourceTree = "<group>"; };
@@ -1108,6 +1112,15 @@
 				04F533602490E7BF00F28099 /* TransactionDetails */,
 			);
 			path = Transactions;
+			sourceTree = "<group>";
+		};
+		04626EB3265E6B8D00CC7FC8 /* OwnerKeyDetailsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */,
+				04626EB5265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.xib */,
+			);
+			path = OwnerKeyDetailsViewController;
 			sourceTree = "<group>";
 		};
 		0468FB8D25912E8300541536 /* Cells */ = {
@@ -2399,6 +2412,7 @@
 				0ADD19B6265EA23200EB0F2B /* PrivateKeyViewController */,
 				0ADD19B9265EA23200EB0F2B /* SeedPhraseViewController */,
 				55413674265E49E100796F91 /* AddOwnerKeyViewController */,
+				04626EB3265E6B8D00CC7FC8 /* OwnerKeyDetailsViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
 				5541367A265E566B00796F91 /* GenerateOwnerKey */,
@@ -2639,6 +2653,7 @@
 				04B4B6E625B9A08D00CFE24B /* CardTableViewCell.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
 				0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */,
+				04626EB7265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.xib in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
@@ -2999,6 +3014,7 @@
 				04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */,
 				0ADDA20F245340540066457E /* CorrectAddressView.swift in Sources */,
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
+				04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */,
 				0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */,
 				0A573F2925876B9E009EF0C1 /* AddressField.swift in Sources */,
 				0AD0273925A34FF600886671 /* MultiSendRowTableViewCell.swift in Sources */,

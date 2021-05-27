@@ -12,6 +12,7 @@ enum TrackingUserProperty: String, UserProperty {
     case numSafes = "num_safes" // string, number of user safes, "0" on fresh install
     case pushInfo = "push_info" // string: ["unknown", "disabled", "enabled"]
     case numKeysImported = "num_keys_imported" // string, number of keys imported, "0" on fresh install
+    case numKeysGenerated = " num_keys_generated" // string, number of keys generated "0" on fresh install
     case passcodeIsSet = "passcode_is_set" // string, "true" or "false" depending on if app passcode is set
 }
 
@@ -24,9 +25,15 @@ extension Tracker {
         setUserProperty(status, for: TrackingUserProperty.pushInfo)
     }
 
-    func setNumKeysImported(_ count: Int) {
-        setUserProperty("\(count)", for: TrackingUserProperty.numKeysImported)
+    func setNumKeys(_ count: Int, type: KeyType) {
+        switch type {
+        case .deviceGenerated:
+            setUserProperty("\(count)", for: TrackingUserProperty.numKeysGenerated)
+        case .deviceImported:
+            setUserProperty("\(count)", for: TrackingUserProperty.numKeysImported)
+        }
     }
+
 
     func setPasscodeIsSet(to status: Bool) {
         let property = status ? "true" : "false"
@@ -84,6 +91,7 @@ enum TrackingEvent: String, Trackable {
     case userOnboardingOwnerImport                  = "user_onboarding_owner_import"
     case ownerKeysList                              = "screen_owner_list"
     case ownerKeysOptions                           = "screen_owner_options"
+    case ownerKeyDetails                            = "screen_owner_details"
     case editOwnerKey                               = "screen_owner_edit_name"
     case importOwnerOnboarding                      = "screen_owner_info"
     case generateOwnerOnboarding                    = "screen_owner_generate_info"
