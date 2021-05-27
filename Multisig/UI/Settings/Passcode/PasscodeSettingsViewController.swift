@@ -185,7 +185,7 @@ class PasscodeSettingsViewController: UITableViewController {
         }
         let nav = UINavigationController(rootViewController: vc)
 
-        vc.completion = { [weak nav] success in
+        vc.passcodeCompletion = { [weak nav] success in
             authenticated(success, nav) {
                 nav?.dismiss(animated: true, completion: nil)
             }

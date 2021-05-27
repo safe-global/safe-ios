@@ -23,10 +23,21 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
 
     var hidesHeadline = true
 
+    var completion: () -> Void = { }
+
     var keyboardBehavior: KeyboardAvoidingBehavior!
 
     var passcodeLength: Int {
         symbolsStack.arrangedSubviews.count
+    }
+
+    convenience init() {
+        self.init(namedClass: PasscodeViewController.self)
+    }
+
+    convenience init(_ completionHandler: @escaping () -> Void) {
+        self.init(namedClass: PasscodeViewController.self)
+        completion = completionHandler
     }
 
     override func viewDidLoad() {
@@ -61,7 +72,7 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func didTapButton(_ sender: Any) {
-        navigationController?.dismiss(animated: true, completion: nil)
+        navigationController?.dismiss(animated: true, completion: completion)
         trackEvent(.userPasscodeSkipped)
     }
 
@@ -124,16 +135,6 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
 
 
 class CreatePasscodeViewController: PasscodeViewController {
-    private var completion: () -> Void = {}
-
-    convenience init() {
-        self.init(namedClass: PasscodeViewController.self)
-    }
-
-    convenience init(_ completionHandler: @escaping () -> Void) {
-        self.init(namedClass: PasscodeViewController.self)
-        completion = completionHandler
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,11 +149,6 @@ class CreatePasscodeViewController: PasscodeViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         trackEvent(.createPasscode)
-    }
-
-    override func didTapButton(_ sender: Any) {
-        super.didTapButton(sender)
-        completion()
     }
 
     override func willChangeText(_ text: String) {
@@ -211,12 +207,11 @@ class CreatePasscodeViewController: PasscodeViewController {
 
 class RepeatPasscodeViewController: PasscodeViewController {
     var passcode: String!
-    var completion: () -> Void = {}
 
     convenience init(passcode: String, completionHandler: @escaping () -> Void = {}) {
         self.init(namedClass: PasscodeViewController.self)
         self.passcode = passcode
-        completion = completionHandler
+        self.completion = completionHandler
     }
 
     override func viewDidLoad() {
@@ -248,7 +243,7 @@ class RepeatPasscodeViewController: PasscodeViewController {
 }
 
 class EnterPasscodeViewController: PasscodeViewController {
-    var completion: (Bool) -> Void = { _ in }
+    var passcodeCompletion: (Bool) -> Void = { _ in }
     var navigationItemTitle = "Enter Passcode"
     var screenTrackingEvent = TrackingEvent.enterPasscode
     var showsCloseButton: Bool = true
@@ -300,7 +295,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             }
 
             if isCorrect {
-                completion(true)
+                passcodeCompletion(true)
             } else {
                 showError("Wrong passcode")
             }
@@ -308,7 +303,7 @@ class EnterPasscodeViewController: PasscodeViewController {
     }
 
     @objc func didTapCloseButton() {
-        completion(false)
+        passcodeCompletion(false)
     }
 
     override func didTapButton(_ sender: Any) {
@@ -319,7 +314,7 @@ class EnterPasscodeViewController: PasscodeViewController {
         let remove = UIAlertAction(title: "Disable Passcode", style: .destructive) { [unowned self] _ in
             do {
                 try App.shared.auth.deleteAllData()
-                completion(false)
+                self.passcodeCompletion(false)
             } catch {
                 showGenericError(description: "Failed to remove passcode", error: error)
                 return
@@ -342,7 +337,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             guard let `self` = self else { return }
             switch result {
             case .success:
-                self.completion(true)
+                self.passcodeCompletion(true)
 
             case .failure(_):
                 self.biometryButton.isHidden = !self.canUseBiometry
@@ -352,12 +347,6 @@ class EnterPasscodeViewController: PasscodeViewController {
 }
 
 class ChangePasscodeEnterNewViewController: PasscodeViewController {
-    var completion: () -> Void = { }
-
-    convenience init(_ completionHandler: @escaping () -> Void = { }) {
-        self.init(namedClass: PasscodeViewController.self)
-        completion = completionHandler
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -388,7 +377,6 @@ class ChangePasscodeEnterNewViewController: PasscodeViewController {
 
 class RepeatChangedPasscodeViewController: PasscodeViewController {
     var passcode: String!
-    private var completion: () -> Void = {}
 
     convenience init(passcode: String, completionHandler: @escaping () -> Void) {
         self.init(namedClass: PasscodeViewController.self)

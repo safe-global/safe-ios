@@ -63,8 +63,7 @@ class OnboardingGenerateKeyViewController: UITableViewController {
         vc.address = privateKey.address
         vc.completion = { [unowned self, vc] name in
             guard PrivateKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true),
-                  let keyInfo = try? KeyInfo.keys(addresses: [privateKey.address]).first,
-                  let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {
+                  let keyInfo = try? KeyInfo.keys(addresses: [privateKey.address]).first else {
                 return
             }
 
@@ -73,22 +72,12 @@ class OnboardingGenerateKeyViewController: UITableViewController {
             if App.shared.auth.isPasscodeSet {
                 vc.dismiss(animated: false) {
                     App.shared.snackbar.show(message: message)
-                    sceneDelegate.show(OwnerKeyDetailsViewController(keyInfo: keyInfo))
+                    self.showOwnerKeyDetails(keyInfo: keyInfo)
                 }
             } else {
                 let createPasscodeViewController = CreatePasscodeViewController {
                     App.shared.snackbar.show(message: message)
-
-                    let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
-                    if let tabBarVC = sceneDelegate.tabBarWindow?.rootViewController as? MainTabBarViewController,
-                       tabBarVC.selectedViewController?.navigationController != nil {
-                        sceneDelegate.show(vc)
-                    } else { // opened from Balances controller
-                        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(
-                            barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
-                        let navController = UINavigationController(rootViewController: vc)
-                        sceneDelegate.show(navController)
-                    }
+                    self.showOwnerKeyDetails(keyInfo: keyInfo)
                 }
                 createPasscodeViewController.navigationItem.hidesBackButton = true
                 createPasscodeViewController.hidesHeadline = false
@@ -99,6 +88,11 @@ class OnboardingGenerateKeyViewController: UITableViewController {
         }
 
         show(vc, sender: self)
+    }
+
+    private func showOwnerKeyDetails(keyInfo: KeyInfo) {
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+        sceneDelegate.show(OwnerKeyDetailsViewController(keyInfo: keyInfo))
     }
 
     // MARK: - Table view data source
