@@ -112,7 +112,7 @@ extension KeyInfo {
         item.address = address
         item.name = name
         item.keyID = privateKey.id
-        item.keyType = .deviceImported
+        item.keyType = privateKey.mnemonic == nil ? .deviceImported : .deviceGenerated
 
         item.save()
         try privateKey.save()

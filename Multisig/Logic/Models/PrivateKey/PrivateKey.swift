@@ -11,6 +11,7 @@ import Web3
 
 struct PrivateKey {
     var id: KeyID
+    var mnemonic: String?
     private var _store: EthereumPrivateKey
 
     typealias KeyID = String
@@ -19,26 +20,36 @@ struct PrivateKey {
         Address(_store.address)
     }
 
-    var data: Data {
+    struct PKData: Codable {
+        let key: Data
+        let mnemonic: String?
+    }
+
+    /// needed for PrivateKeyController.migrateLegacySigningKey()
+    var keyData: Data {
         Data(_store.rawPrivateKey)
+    }
+
+    var keychainData: Data {
+        let pkData = PKData(key: Data(_store.rawPrivateKey), mnemonic: mnemonic)
+        return try! JSONEncoder().encode(pkData)
     }
 }
 
 extension PrivateKey {
-
-    init(mnemonic: [String], pathIndex: Int, id: KeyID? = nil) throws {
-        guard
-            let seed = BIP39.seedFromMmemonics(mnemonic.joined(separator: " ")),
-            let seedNode = HDNode(seed: seed),
-            let prefixNode = seedNode.derive(
+    init(mnemonic: String, pathIndex: Int, id: KeyID? = nil) throws {
+        guard let seed = BIP39.seedFromMmemonics(mnemonic),
+              let seedNode = HDNode(seed: seed),
+              let prefixNode = seedNode.derive(
                 path: HDNode.defaultPathMetamaskPrefix,
                 derivePrivateKey: true),
-            let keyNode = prefixNode.derive(index: UInt32(pathIndex), derivePrivateKey: true),
-            let keyData = keyNode.privateKey
-            else {
+              let keyNode = prefixNode.derive(index: UInt32(pathIndex), derivePrivateKey: true),
+              let keyData = keyNode.privateKey
+        else {
             throw GSError.ThirdPartyError(reason: "Invalid mnemonic or key index")
         }
         _store = try EthereumPrivateKey(keyData)
+        self.mnemonic = mnemonic
         if let value = id {
             self.id = value
         } else {
@@ -47,7 +58,13 @@ extension PrivateKey {
     }
 
     init(data: Data, id: KeyID? = nil) throws {
-        _store = try EthereumPrivateKey(data)
+        // For backward compatibility before generating key on mobile feature
+        if let pkData = try? JSONDecoder().decode(PrivateKey.PKData.self, from: data) {
+            _store = try EthereumPrivateKey(pkData.key)
+            mnemonic = pkData.mnemonic
+        } else {
+            _store = try EthereumPrivateKey(data)
+        }
         if let value = id {
             self.id = value
         } else {
@@ -96,7 +113,7 @@ extension PrivateKey {
     func save() throws {
         do {
             try App.shared.keychainService.removeData(forKey: id)
-            try App.shared.keychainService.save(data: data, forKey: id)
+            try App.shared.keychainService.save(data: keychainData, forKey: id)
         } catch {
             throw GSError.KeychainError(reason: error.localizedDescription)
         }

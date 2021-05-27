@@ -15,8 +15,14 @@ class PrivateKeyController {
 
             App.shared.notificationHandler.signingKeyUpdated()
 
-            Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
-            Tracker.shared.track(event: TrackingEvent.ownerKeyImported, parameters: ["import_type": isDrivedFromSeedPhrase ? "seed" : "key"])
+            if privateKey.mnemonic != nil { // generating key on mobile
+                Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
+                Tracker.shared.track(event: TrackingEvent.ownerKeyGenerated)
+            } else { // importing key
+                Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
+                Tracker.shared.track(event: TrackingEvent.ownerKeyImported,
+                                     parameters: ["import_type": isDrivedFromSeedPhrase ? "seed" : "key"])
+            }
 
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
             return true
@@ -82,7 +88,7 @@ class PrivateKeyController {
                 return
             }
 
-            let updatedKey = try PrivateKey(data: legacyKey.data)
+            let updatedKey = try PrivateKey(data: legacyKey.keyData)
             let existingKeyInfoOrNil = try KeyInfo.keys(addresses: [legacyKey.address]).first
 
             // wipe out any existing keys associated with the info.
