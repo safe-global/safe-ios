@@ -79,12 +79,14 @@ class OwnerKeyDetailsViewController: UIViewController {
             let vc = EnterPasscodeViewController()
             vc.passcodeCompletion = { [weak self] success in
                 guard let `self` = self else { return }
-                self.navigationController?.popViewController(animated: false)
-                if success {
-                    self.show(exportViewController, sender: self)
+                self.dismiss(animated: true) {
+                    if success {
+                        self.show(exportViewController, sender: self)
+                    }
                 }
             }
-           show(vc, sender: self)
+
+            present(vc, animated: true, completion: nil)
         } else {
             show(exportViewController, sender: self)
         }
