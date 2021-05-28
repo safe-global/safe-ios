@@ -77,7 +77,7 @@ class OwnerKeyDetailsViewController: UIViewController {
 
         if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForExportingKeys) {
             let vc = EnterPasscodeViewController()
-            vc.completion = { [weak self] success in
+            vc.passcodeCompletion = { [weak self] success in
                 guard let `self` = self else { return }
                 self.navigationController?.popViewController(animated: false)
                 if success {
