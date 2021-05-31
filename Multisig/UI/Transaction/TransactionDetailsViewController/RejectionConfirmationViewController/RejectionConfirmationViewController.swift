@@ -96,7 +96,7 @@ class RejectionConfirmationViewController: UIViewController {
         let tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
 
         switch keyInfo.keyType {
-        case .device:
+        case .deviceImported, .deviceGenerated:
             do {
                 let signature = try SafeTransactionSigner().sign(tx, by: safeAddress, keyInfo: keyInfo)
                 rejectAndCloseController(transaction: tx,

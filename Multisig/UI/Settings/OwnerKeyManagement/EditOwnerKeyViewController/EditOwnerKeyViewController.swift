@@ -23,7 +23,7 @@ class EditOwnerKeyViewController: UIViewController {
         super.viewDidLoad()
         assert(keyInfo != nil, "Developer error: expect to have a key")
 
-        navigationItem.title = "Edit Owner Key"
+        navigationItem.title = "Edit Key Name"
 
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(didTapSaveButton))
         navigationItem.rightBarButtonItem = saveButton
@@ -54,26 +54,5 @@ class EditOwnerKeyViewController: UIViewController {
 
         name = text
         saveButton.isEnabled = true
-    }
-
-    @IBAction func removeButtonTouched(_ sender: Any) {
-        remove(key: keyInfo)
-    }
-
-    private func remove(key: KeyInfo) {
-        let alertController = UIAlertController(
-            title: nil,
-            message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
-            preferredStyle: .actionSheet)
-        let remove = UIAlertAction(title: "Remove", style: .destructive) { [unowned self] _ in
-            DispatchQueue.main.async {
-                PrivateKeyController.remove(keyInfo: key)
-                navigationController?.popViewController(animated: true)
-            }
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(remove)
-        alertController.addAction(cancel)
-        present(alertController, animated: true)
     }
 }

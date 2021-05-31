@@ -33,7 +33,7 @@ class SigningKeyTableViewCell: UITableViewCell {
         set(address: keyInfo.address, title: keyInfo.displayName)
 
         switch keyInfo.keyType {
-        case .device:
+        case .deviceImported, .deviceGenerated:
             set(keyImageUrl: nil, placeholder: UIImage(named: "ico-device-key")!)
             set(wcConnectionStatus: .none)
 

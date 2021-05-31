@@ -12,6 +12,7 @@ enum TrackingUserProperty: String, UserProperty {
     case numSafes = "num_safes" // string, number of user safes, "0" on fresh install
     case pushInfo = "push_info" // string: ["unknown", "disabled", "enabled"]
     case numKeysImported = "num_keys_imported" // string, number of keys imported, "0" on fresh install
+    case numKeysGenerated = " num_keys_generated" // string, number of keys generated "0" on fresh install
     case passcodeIsSet = "passcode_is_set" // string, "true" or "false" depending on if app passcode is set
 }
 
@@ -24,9 +25,18 @@ extension Tracker {
         setUserProperty(status, for: TrackingUserProperty.pushInfo)
     }
 
-    func setNumKeysImported(_ count: Int) {
-        setUserProperty("\(count)", for: TrackingUserProperty.numKeysImported)
+    #warning("TODO: finish implementation")
+    func setNumKeys(_ count: Int, type: KeyType) {
+        switch type {
+        case .deviceGenerated:
+            setUserProperty("\(count)", for: TrackingUserProperty.numKeysGenerated)
+        case .deviceImported:
+            setUserProperty("\(count)", for: TrackingUserProperty.numKeysImported)
+        case .walletConnect:
+            break
+        }
     }
+
 
     func setPasscodeIsSet(to status: Bool) {
         let property = status ? "true" : "false"
@@ -83,18 +93,25 @@ enum TrackingEvent: String, Trackable {
     case userOnboardingOwnerSkip                    = "user_onboarding_owner_skip"
     case userOnboardingOwnerImport                  = "user_onboarding_owner_import"
     case ownerKeysList                              = "screen_owner_list"
+    case ownerKeysOptions                           = "screen_owner_options"
+    case ownerKeyDetails                            = "screen_owner_details"
     case editOwnerKey                               = "screen_owner_edit_name"
     case importOwnerOnboarding                      = "screen_owner_info"
+    case generateOwnerOnboarding                    = "screen_owner_generate_info"
     case ownerEnterSeed                             = "screen_owner_enter_seed"
     case ownerConfirmPrivateKey                     = "screen_owner_confirm_private_key"
     case ownerSelectAccount                         = "screen_owner_select_account"
     case enterKeyName                               = "screen_owner_enter_name"
     case ownerKeyImported                           = "user_key_imported"
+    case ownerKeyGenerated                          = "user_key_generated"
     case ownerKeyRemoved                            = "user_key_deleted"
     case chooseOwner                                = "screen_owner_choose"
     case bannerImportOwnerKeySkipped                = "user_banner_owner_skip"
     case bannerImportOwnerKeyImported               = "user_banner_owner_import"
     case camera                                     = "screen_camera"
+
+    case exportSeed                                 = "screen_owner_export_seed"
+    case exportKey                                  = "screen_owner_export_key"
 
     case createPasscode                             = "screen_passcode_create"
     case repeatPasscode                             = "screen_passcode_create_repeat"

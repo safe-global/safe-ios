@@ -267,7 +267,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         switch keyInfo.keyType {
 
-        case .device:
+        case .deviceImported, .deviceGenerated:
             do {
                 let safeAddress = try Address(from: safe.address!)
                 let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress, keyInfo: keyInfo)

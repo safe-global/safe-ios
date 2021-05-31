@@ -17,8 +17,14 @@ class PrivateKeyController {
 
             App.shared.notificationHandler.signingKeyUpdated()
 
-            Tracker.shared.setNumKeysImported(KeyInfo.count)
-            Tracker.shared.track(event: TrackingEvent.ownerKeyImported, parameters: ["import_type": isDrivedFromSeedPhrase ? "seed" : "key"])
+            if privateKey.mnemonic != nil { // generating key on mobile
+                Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
+                Tracker.shared.track(event: TrackingEvent.ownerKeyGenerated)
+            } else { // importing key
+                Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
+                Tracker.shared.track(event: TrackingEvent.ownerKeyImported,
+                                     parameters: ["import_type": isDrivedFromSeedPhrase ? "seed" : "key"])
+            }
 
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
             return true
@@ -28,11 +34,11 @@ class PrivateKeyController {
         }
     }
 
+    #warning("TODO: setNumKeys for walletConnect type")
     static func importKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
         do {
             try KeyInfo.import(session: session, installedWallet: installedWallet)
-
-            Tracker.shared.setNumKeysImported(KeyInfo.count)
+            
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
             return true
         } catch {
@@ -67,7 +73,7 @@ class PrivateKeyController {
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key removed from this app")
             Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
-            Tracker.shared.setNumKeysImported(KeyInfo.count)
+            Tracker.shared.setNumKeys(KeyInfo.count(keyInfo.keyType), type: keyInfo.keyType)
             NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
         } catch {
             App.shared.snackbar.show(
@@ -82,7 +88,7 @@ class PrivateKeyController {
     }
 
     static var hasPrivateKey: Bool {
-        KeyInfo.count > 0
+        KeyInfo.count() > 0
     }
 
     static func exists(_ privateKey: PrivateKey) -> Bool {
@@ -117,7 +123,7 @@ class PrivateKeyController {
                 return
             }
 
-            let updatedKey = try PrivateKey(data: legacyKey.data)
+            let updatedKey = try PrivateKey(data: legacyKey.keyData)
             let existingKeyInfoOrNil = try KeyInfo.keys(addresses: [legacyKey.address]).first
 
             // wipe out any existing keys associated with the info.
@@ -159,7 +165,9 @@ class PrivateKeyController {
             }
 
             // delete all device key infos whos private keys do not exist
-            let infos = try KeyInfo.all().filter { $0.keyType == .device && !$0.hasPrivateKey }
+            let infos = try KeyInfo.all().filter {
+                ($0.keyType == .deviceImported || $0.keyType == .deviceGenerated) && !$0.hasPrivateKey
+            }
             try infos.forEach { try $0.delete() }
         } catch {
             LogService.shared.error("Failed to delete all keys: \(error)")
@@ -174,7 +182,8 @@ class PrivateKeyController {
             App.shared.snackbar.show(message: "All owner keys removed from this app")
         }
         Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
-        Tracker.shared.setNumKeysImported(KeyInfo.count)
+        Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
+        Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
         NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
     }
 }

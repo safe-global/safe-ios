@@ -38,7 +38,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
 
-        emptyView.setText("There are no imported owner keys")
+        emptyView.setText("There are no added owner keys")
         emptyView.setImage(UIImage(named: "ico-no-keys")!)
 
         addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton(_:)))
@@ -81,13 +81,8 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     }
 
     @objc private func didTapAddButton(_ sender: Any) {
-        var controller: UIViewController
-        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
-            controller = ViewControllerFactory.selectKeyTypeViewController(presenter: self)
-        } else {
-            controller = ViewControllerFactory.importOwnerViewController(presenter: self)
-        }
-        present(controller, animated: true)
+        let vc = ViewControllerFactory.addOwnerViewController()
+        present(vc, animated: true)
     }
 
     override func reloadData() {
@@ -157,7 +152,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         } else {
             let cell = tableView.dequeueCell(OwnerKeysListTableViewCell.self, for: indexPath)
             cell.set(address: keyInfo.address, title: keyInfo.displayName)
-            cell.delegate = self
             return cell
         }
     }
@@ -166,10 +160,8 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
-            let vc = EditOwnerKeyViewController(keyInfo: keys[indexPath.row])
-            show(vc, sender: self)
-        }
+        let vc = OwnerKeyDetailsViewController(keyInfo: keys[indexPath.row])
+        show(vc, sender: nil)
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -258,18 +250,5 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
             App.shared.snackbar.show(
                 error: GSError.error(description: "Could not create connection URL", error: error))
         }
-    }
-}
-
-extension OwnerKeysListViewController: OwnerKeysListTableViewCellDelegate {
-    func ownerKeysListTableViewDidEdit(cell: OwnerKeysListTableViewCell) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        let vc = EditOwnerKeyViewController(keyInfo: keys[indexPath.row])
-        show(vc, sender: self)
-    }
-
-    func ownerKeysListTableViewCellDidRemove(cell: OwnerKeysListTableViewCell) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        remove(key: keys[indexPath.row])
     }
 }

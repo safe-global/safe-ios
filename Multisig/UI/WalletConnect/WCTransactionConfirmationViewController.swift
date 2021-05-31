@@ -77,7 +77,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     private func sign(keyInfo: KeyInfo) {
         switch keyInfo.keyType {
 
-        case .device:
+        case .deviceImported, .deviceGenerated:
             DispatchQueue.global().async { [unowned self] in
                 do {
                     let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)

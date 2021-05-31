@@ -11,10 +11,11 @@ import CoreData
 import Web3
 import WalletConnectSwift
 
-/// Enum for storing key type in the presistanse store. The order of existing items should not be changed.
+/// Enum for storing key type in the persistence store. The order of existing items should not be changed.
 enum KeyType: Int, CaseIterable {
-    case device
-    case walletConnect
+    case deviceImported = 0
+    case deviceGenerated = 1
+    case walletConnect = 2
 }
 
 extension KeyInfo {
@@ -25,7 +26,7 @@ extension KeyInfo {
     }
 
     var keyType: KeyType {
-        get { KeyType(rawValue: Int(type)) ?? .device }
+        get { KeyType(rawValue: Int(type)) ?? .deviceImported }
         set { type = Int16(newValue.rawValue) }
     }
 
@@ -61,15 +62,13 @@ extension KeyInfo {
     }
 
     /// Returns number of existing key infos
-    static var count: Int {
+    static func count(_ type: KeyType? = nil) -> Int {
         do {
-            if App.configuration.toggles.walletConnectOwnerKeyEnabled {
-                let context = App.shared.coreDataStack.viewContext
-                let fr = KeyInfo.fetchRequest().all()
-                let itemCount = try context.count(for: fr)
-                return itemCount
+            let items = try KeyInfo.all()
+            if let type = type {
+                return items.filter({ keyInfo in keyInfo.keyType == type }).count
             } else {
-                return try all().count
+                return items.count
             }
         } catch {
             LogService.shared.error("Failed to fetch safe count: \(error)")
@@ -83,7 +82,7 @@ extension KeyInfo {
         let fr = KeyInfo.fetchRequest().all()
         var items = try context.fetch(fr)
         if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
-            items = items.filter { $0.keyType == .device }
+            items = items.filter { $0.keyType != .walletConnect }
         }
         return items
     }
@@ -98,7 +97,7 @@ extension KeyInfo {
             let fr = KeyInfo.fetchRequest().by(address: address)
             var items = try context.fetch(fr)
             if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
-                items = items.filter { $0.keyType == .device }
+                items = items.filter { $0.keyType != .walletConnect }
             }
             return items.first
         }
@@ -132,7 +131,7 @@ extension KeyInfo {
 
         if let existing = try context.fetch(fr).first {
             item = existing
-            guard existing.keyType == .device else {
+            guard existing.keyType == .deviceImported || existing.keyType == .deviceGenerated else {
                 throw GSError.CouldNotImportOwnerKeyWithSameAddress()
             }
         } else {
@@ -142,7 +141,7 @@ extension KeyInfo {
         item.address = address
         item.name = name
         item.keyID = privateKey.id
-        item.keyType = .device
+        item.keyType = privateKey.mnemonic == nil ? .deviceImported : .deviceGenerated
 
         item.save()
         try privateKey.save()
@@ -216,7 +215,7 @@ extension KeyInfo {
     /// Will delete the key info and the stored private key
     /// - Throws: in case of underlying error
     func delete() throws {
-        if let keyID = keyID, keyType == .device {
+        if let keyID = keyID, keyType == .deviceImported || keyType == .deviceGenerated {
             try PrivateKey.remove(id: keyID)
         }
         App.shared.coreDataStack.viewContext.delete(self)

@@ -208,7 +208,7 @@ class RemoteNotificationHandler {
     static func sign(safes: [String], deviceID: String, token: String, timestamp: String? = nil) throws -> (preimage: String, hash: String, timestamp: String, signatures: [String])? {
         // sign the registration data by each private key.
         let privateKeys = try KeyInfo.all()
-            .filter { $0.keyType == .device }
+            .filter { $0.keyType == .deviceImported || $0.keyType == .deviceGenerated }
             .compactMap { try $0.privateKey() }
 
         guard !privateKeys.isEmpty else {

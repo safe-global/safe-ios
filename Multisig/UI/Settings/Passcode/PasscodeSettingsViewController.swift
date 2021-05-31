@@ -23,6 +23,7 @@ class PasscodeSettingsViewController: UITableViewController {
         case loginWithBiometrics
         case requireToOpenApp
         case requireForConfirmations
+        case requireForExportingKeys
         case oneOptionSelectedText
     }
 
@@ -72,7 +73,7 @@ class PasscodeSettingsViewController: UITableViewController {
 
             data = [
                 (section: .lockMethod, rows: lockRows),
-                (section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .oneOptionSelectedText])
+                (section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .requireForExportingKeys, .oneOptionSelectedText])
             ]
 
             // if user disables biometry, we can't keep it enabled in app settings.
@@ -139,26 +140,30 @@ class PasscodeSettingsViewController: UITableViewController {
                 AppSettings.passcodeOptions.insert(option)
             }
 
-            if AppSettings.passcodeOptions.isDisjoint(with: [.useForConfirmation, .useForLogin]) {
+            if AppSettings.passcodeOptions.isDisjoint(with: [.useForConfirmation, .useForLogin, .useForExportingKeys]) {
                 disablePasscode()
             }
 
             finish()
+            reloadData()
         }
     }
 
     private func toggleBiometrics() {
-        withPasscodeAuthentication(for: "Login with biometrics") { success, nav, finish in
+        withPasscodeAuthentication(for: "Login with biometrics") { [unowned self] success, nav, finish in
             if success && AppSettings.passcodeOptions.contains(.useBiometry) {
                 AppSettings.passcodeOptions.remove(.useBiometry)
                 App.shared.snackbar.show(message: "Biometrics disabled.")
                 finish()
+                reloadData()
             } else if success {
                 App.shared.auth.activateBiometrics { _ in
                     finish()
+                    reloadData()
                 }
             } else {
                 finish()
+                reloadData()
             }
         }
     }
@@ -184,7 +189,7 @@ class PasscodeSettingsViewController: UITableViewController {
         }
         let nav = UINavigationController(rootViewController: vc)
 
-        vc.completion = { [weak nav] success in
+        vc.passcodeCompletion = { [weak nav] success in
             authenticated(success, nav) {
                 nav?.dismiss(animated: true, completion: nil)
             }
@@ -230,6 +235,10 @@ class PasscodeSettingsViewController: UITableViewController {
             return makeSwitch(for: indexPath,
                               with: "Require for confirmations",
                               isOn: AppSettings.passcodeOptions.contains(.useForConfirmation))
+        case .requireForExportingKeys:
+            return makeSwitch(for: indexPath,
+                              with: "Require for exporting keys",
+                              isOn: AppSettings.passcodeOptions.contains(.useForExportingKeys))
 
         case .oneOptionSelectedText:
             return makeHelp(for: indexPath, with: "At least one option must be selected")
@@ -259,6 +268,8 @@ class PasscodeSettingsViewController: UITableViewController {
         case .requireForConfirmations:
             toggleUsage(option: .useForConfirmation, reason: "Require for confirmations")
 
+        case .requireForExportingKeys:
+            toggleUsage(option: .useForExportingKeys, reason: "Require for exporting keys")
         default:
             break
         }
