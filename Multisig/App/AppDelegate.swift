@@ -18,19 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.shared.append(handler: ConsoleTracker())
         #endif
         Tracker.shared.append(handler: FirebaseTrackingHandler())
-        Tracker.shared.setTrackingEnabled(AppSettings.trackingEnabled)
-
-        AppSettings.saveCurrentRunVersionNumber()
-
-        PrivateKeyController.cleanUpKeys()
-        PrivateKeyController.migrateLegacySigningKey()
-
-        App.shared.auth.migrateFromPasscodeV1()
-
-        AppSettings.saveCurrentRunVersionNumber()
-
-        PrivateKeyController.cleanUpKeys()
-        PrivateKeyController.migrateLegacySigningKey()
 
         // When user modifies tracking app settings from phone settings the app restarts
         Tracker.shared.setTrackingEnabled(AppSettings.trackingEnabled)

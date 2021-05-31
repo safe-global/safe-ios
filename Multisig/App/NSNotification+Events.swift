@@ -13,21 +13,25 @@ extension NSNotification.Name {
 
     static let selectedSafeChanged = NSNotification.Name("io.gnosis.safe.selectedSafeChanged")
     static let selectedSafeUpdated = NSNotification.Name("io.gnosis.safe.selectedSafeUpdated")
+
     static let ownerKeyImported = NSNotification.Name("io.gnosis.safe.ownerKeyImported")
     static let ownerKeyRemoved = NSNotification.Name("io.gnosis.safe.ownerKeyRemoved")
     static let ownerKeyUpdated = NSNotification.Name("io.gnosis.safe.ownerKeyUpdated")
+
     static let transactionDataInvalidated = NSNotification.Name("io.gnosis.safe.transactionDataInvalidated")
+
     static let incommingTxNotificationReceived = NSNotification.Name("io.gnosis.safe.incommingTxNotification")
     static let queuedTxNotificationReceived = NSNotification.Name("io.gnosis.safe.queuedTxNotificationReceived")
     static let confirmationTxNotificationReceived = NSNotification.Name("io.gnosis.safe.confirmationTxNotificationReceived")
+
     static let biometricsActivated = NSNotification.Name("io.gnosis.safe.biometricsActivated")
 
     // MARK: - WalletConnect
 
-    static let wcConnecting = NSNotification.Name("io.gnosis.safe.wcConnecting")
-    static let wcDidFailToConnect = NSNotification.Name("io.gnosis.safe.wcDidFailToConnect")
-    static let wcDidConnect = NSNotification.Name("io.gnosis.safe.wcDidConnect")
-    static let wcDidDisconnect = NSNotification.Name("io.gnosis.safe.wcDidDisconnect")
+    static let wcConnectingServer = NSNotification.Name("io.gnosis.safe.wcConnectingServer")
+    static let wcDidFailToConnectServer = NSNotification.Name("io.gnosis.safe.wcDidFailToConnectServer")
+    static let wcDidConnectServer = NSNotification.Name("io.gnosis.safe.wcDidConnectServer")
+    static let wcDidDisconnectServer = NSNotification.Name("io.gnosis.safe.wcDidDisconnectServer")
 
     static let wcDidFailToConnectClient = NSNotification.Name("io.gnosis.safe.wcDidFailToConnectClient")
     static let wcDidConnectClient = NSNotification.Name("io.gnosis.safe.wcDidConnectClient")

@@ -25,7 +25,7 @@ class WalletConnectServerController {
         do {
             WCSession.create(wcurl: wcurl)
             try server.connect(to: wcurl)
-            notificationCenter.post(name: .wcConnecting, object: wcurl)
+            notificationCenter.post(name: .wcConnectingServer, object: wcurl)
         } catch {
             throw GSError.CouldNotStartWallectConnectSession()
         }
@@ -52,7 +52,7 @@ class WalletConnectServerController {
             try server.disconnect(from: try Session.from(wcSession))
         } catch {
             WCSession.remove(topic: topic)
-            notificationCenter.post(name: .wcDidDisconnect, object: nil)
+            notificationCenter.post(name: .wcDidDisconnectServer, object: nil)
         }
     }
 
@@ -105,7 +105,7 @@ extension WalletConnectServerController: ServerDelegate {
         DispatchQueue.main.sync {
             WCSession.remove(topic: url.topic)
         }
-        notificationCenter.post(name: .wcDidFailToConnect, object: url)
+        notificationCenter.post(name: .wcDidFailToConnectServer, object: url)
     }
 
     #warning("TODO: cancel request if safe does not exist yet")
@@ -130,7 +130,7 @@ extension WalletConnectServerController: ServerDelegate {
         DispatchQueue.main.sync {
             WCSession.update(session: session, status: .connected)
         }
-        notificationCenter.post(name: .wcDidConnect, object: session)
+        notificationCenter.post(name: .wcDidConnectServer, object: session)
 
         // skip snackbar notification for reconnect cases
         if !showedNotificationsSessionTopics.contains(session.url.topic) {
@@ -145,6 +145,6 @@ extension WalletConnectServerController: ServerDelegate {
         DispatchQueue.main.sync {
             WCSession.remove(topic: session.url.topic)
         }
-        notificationCenter.post(name: .wcDidDisconnect, object: session)
+        notificationCenter.post(name: .wcDidDisconnectServer, object: session)
     }
 }
