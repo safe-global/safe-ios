@@ -214,6 +214,11 @@ class RepeatPasscodeViewController: PasscodeViewController {
         self.completion = completionHandler
     }
 
+    override func didTapButton(_ sender: Any) {
+        trackEvent(.userPasscodeSkipped)
+        completion()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Create Passcode"

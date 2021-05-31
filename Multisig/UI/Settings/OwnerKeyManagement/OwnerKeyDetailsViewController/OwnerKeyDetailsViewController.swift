@@ -43,6 +43,12 @@ class OwnerKeyDetailsViewController: UIViewController {
             selector: #selector(bindData),
             name: .ownerKeyUpdated,
             object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(pop),
+            name: .ownerKeyRemoved,
+            object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -107,16 +113,17 @@ class OwnerKeyDetailsViewController: UIViewController {
         }
     }
 
+    @objc private func pop() {
+        navigationController?.popViewController(animated: true)
+    }
+
     private func remove(key: KeyInfo) {
         let alertController = UIAlertController(
             title: nil,
             message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
             preferredStyle: .actionSheet)
-        let remove = UIAlertAction(title: "Remove", style: .destructive) { [unowned self] _ in
-            DispatchQueue.main.async {
-                PrivateKeyController.remove(keyInfo: key)
-                navigationController?.popViewController(animated: true)
-            }
+        let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
+            PrivateKeyController.remove(keyInfo: key)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(remove)
