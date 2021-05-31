@@ -36,7 +36,7 @@
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oYL-xU-2zO">
-                            <rect key="frame" x="145.5" y="72" width="123" height="174.5"/>
+                            <rect key="frame" x="140.5" y="72" width="133.5" height="174.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5SJ-iz-SdL">
                                     <rect key="frame" x="8" y="144.5" width="30" height="30"/>
@@ -46,13 +46,13 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yq1-lZ-6eZ">
-                                    <rect key="frame" x="38" y="0.0" width="47" height="174.5"/>
+                                    <rect key="frame" x="46" y="0.0" width="41.5" height="174.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dvv-h8-UkI">
-                                    <rect key="frame" x="85" y="144.5" width="30" height="30"/>
+                                    <rect key="frame" x="95.5" y="144.5" width="30" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="1us-Im-gI8"/>
                                         <constraint firstAttribute="width" secondItem="Dvv-h8-UkI" secondAttribute="height" id="2wd-k3-XtF"/>
@@ -69,8 +69,8 @@
                                 <constraint firstItem="5SJ-iz-SdL" firstAttribute="leading" secondItem="oYL-xU-2zO" secondAttribute="leading" constant="8" id="1rf-Ip-cef"/>
                                 <constraint firstAttribute="bottom" secondItem="yq1-lZ-6eZ" secondAttribute="bottom" id="BCK-2B-wsz"/>
                                 <constraint firstAttribute="trailing" secondItem="Dvv-h8-UkI" secondAttribute="trailing" constant="8" id="BQp-Cc-SFA"/>
-                                <constraint firstItem="Dvv-h8-UkI" firstAttribute="leading" secondItem="yq1-lZ-6eZ" secondAttribute="trailing" id="CUd-Ts-LLo"/>
-                                <constraint firstItem="5SJ-iz-SdL" firstAttribute="trailing" secondItem="yq1-lZ-6eZ" secondAttribute="leading" id="Oga-EI-ndv"/>
+                                <constraint firstItem="Dvv-h8-UkI" firstAttribute="leading" secondItem="yq1-lZ-6eZ" secondAttribute="trailing" constant="8" id="CUd-Ts-LLo"/>
+                                <constraint firstItem="5SJ-iz-SdL" firstAttribute="trailing" secondItem="yq1-lZ-6eZ" secondAttribute="leading" constant="-8" id="Oga-EI-ndv"/>
                                 <constraint firstItem="5SJ-iz-SdL" firstAttribute="centerY" secondItem="Dvv-h8-UkI" secondAttribute="centerY" id="PLn-Qc-xi6"/>
                                 <constraint firstItem="yq1-lZ-6eZ" firstAttribute="top" secondItem="oYL-xU-2zO" secondAttribute="top" id="Yni-MH-l06"/>
                                 <constraint firstItem="5SJ-iz-SdL" firstAttribute="width" secondItem="Dvv-h8-UkI" secondAttribute="width" id="puk-J4-tXQ"/>
