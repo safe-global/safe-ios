@@ -108,14 +108,24 @@ extension WalletConnectServerController: ServerDelegate {
         notificationCenter.post(name: .wcDidFailToConnectServer, object: url)
     }
 
-    #warning("TODO: cancel request if safe does not exist yet")
     func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> Void) {
-        guard let safe = try? Safe.getSelected(), let address = safe.address else { return }
-
         let walletMeta = Session.ClientMeta(name: "Gnosis Safe Multisig",
                                             description: "The most trusted platform to manage digital assets.",
                                             icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
                                             url: URL(string: "https://safe.gnosis.io")!)
+
+        guard let safe = try? Safe.getSelected(), let address = safe.address else {
+            let walletInfo = Session.WalletInfo(
+                approved: false,
+                accounts: [],
+                chainId: App.configuration.app.network.chainId,
+                peerId: UUID().uuidString,
+                peerMeta: walletMeta)
+
+            completion(walletInfo)
+            return
+        }
+
         let walletInfo = Session.WalletInfo(
             approved: true,
             accounts: [address],

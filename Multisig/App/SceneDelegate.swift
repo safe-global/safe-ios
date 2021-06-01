@@ -53,22 +53,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         App.shared.appReview.startedFromNotification = connectionOptions.notificationResponse != nil
 
-        // Get URL components from the incoming user activity.
-        guard let userActivity = connectionOptions.userActivities.first,
-              userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-              let incomingURL = userActivity.webpageURL,
-              let components = NSURLComponents(url: incomingURL, resolvingAgainstBaseURL: true) else {
-            return
+        if let userActivity = connectionOptions.userActivities.first {
+            handleUserActivity(userActivity)
         }
-
-        // Check if URL is a potential WalletConnect session
-        guard let params = components.queryItems,
-              !params.isEmpty,
-              let wcURL = params[0].value else {
-            return
-        }
-
-        try? WalletConnectServerController.shared.connect(url: wcURL)
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -80,8 +67,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             onAppUpdateCompletion()
         }
 
-        // Check if we have copied WalletConnect url in the Pasteboard and handle it
-        if let potentialWCUrl = Pasteboard.string, potentialWCUrl.hasPrefix("wc:") {
+        checkPasteboardForWalletConnectURL()
+    }
+
+    private func checkPasteboardForWalletConnectURL() {
+        if let potentialWCUrl = Pasteboard.string, potentialWCUrl.hasPrefix("wc:"),
+           let _ = try? Safe.getSelected() {
             do {
                 App.shared.snackbar.show(message: "Creating WalletConnect session. This might take some time.")
                 try WalletConnectServerController.shared.connect(url: potentialWCUrl)
@@ -120,19 +111,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // do nothing
     }
 
-    #warning("TODO: finish deep links support for WalletConnect")
-    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        for context in URLContexts {
-            print("[WALLETCONNECT]")
-            print("url: \(context.url.absoluteURL)")
-            print("scheme: \(String(describing: context.url.scheme))")
-            print("host: \(String(describing: context.url.host))")
-            print("path: \(context.url.path)")
-            print("components: \(context.url.pathComponents)")
-        }
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        handleUserActivity(userActivity)
     }
 
-    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+    private func handleUserActivity(_ userActivity: NSUserActivity) {
+        // Does not make scense to handle WalletConnect URLs without a safe
+        guard let _ = try? Safe.getSelected() else { return }
+
         // Get URL components from the incoming user activity.
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
               let incomingURL = userActivity.webpageURL,

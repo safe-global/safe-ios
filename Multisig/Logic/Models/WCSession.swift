@@ -42,11 +42,14 @@ extension WCSession {
 
     static func create(wcurl: WCURL) {
         dispatchPrecondition(condition: .onQueue(.main))
+        guard let safe = try? Safe.getSelected() else { return }
+
         let context = App.shared.coreDataStack.viewContext
         let wcSession = WCSession(context: context)
         wcSession.status = .connecting
         wcSession.created = Date()
         wcSession.topic = wcurl.topic
+        wcSession.safe = safe
         App.shared.coreDataStack.saveContext()
     }
 
