@@ -420,7 +420,7 @@
 		555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */; };
 		555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555DA310250A4C7C00C3A0BE /* KeychainKey.swift */; };
 		5583195C261587B20015F0D7 /* Repeater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5583195A261587B20015F0D7 /* Repeater.swift */; };
-		5583195D261587B20015F0D7 /* SynchronizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5583195B261587B20015F0D7 /* SynchronizationService.swift */; };
+		5583195D261587B20015F0D7 /* MonitoringService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5583195B261587B20015F0D7 /* MonitoringService.swift */; };
 		55831965261587E80015F0D7 /* TransactionByNonceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55831962261587E80015F0D7 /* TransactionByNonceRequest.swift */; };
 		55831966261587E80015F0D7 /* CreateTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55831963261587E80015F0D7 /* CreateTransactionRequest.swift */; };
 		55831967261587E80015F0D7 /* LatestTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55831964261587E80015F0D7 /* LatestTransactionRequest.swift */; };
@@ -993,7 +993,7 @@
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		555DA310250A4C7C00C3A0BE /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
 		5583195A261587B20015F0D7 /* Repeater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repeater.swift; sourceTree = "<group>"; };
-		5583195B261587B20015F0D7 /* SynchronizationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationService.swift; sourceTree = "<group>"; };
+		5583195B261587B20015F0D7 /* MonitoringService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitoringService.swift; sourceTree = "<group>"; };
 		55831962261587E80015F0D7 /* TransactionByNonceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionByNonceRequest.swift; sourceTree = "<group>"; };
 		55831963261587E80015F0D7 /* CreateTransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTransactionRequest.swift; sourceTree = "<group>"; };
 		55831964261587E80015F0D7 /* LatestTransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LatestTransactionRequest.swift; sourceTree = "<group>"; };
@@ -2355,7 +2355,7 @@
 			isa = PBXGroup;
 			children = (
 				5583195A261587B20015F0D7 /* Repeater.swift */,
-				5583195B261587B20015F0D7 /* SynchronizationService.swift */,
+				5583195B261587B20015F0D7 /* MonitoringService.swift */,
 			);
 			path = Synchronization;
 			sourceTree = "<group>";
@@ -2919,7 +2919,7 @@
 				558835EF255BFEDB0014E8C7 /* AddressInfoView.swift in Sources */,
 				0A57C5E42577FBD900420303 /* DetailConfirmationCell.swift in Sources */,
 				047691372461B2E200D73D8B /* AddressCell.swift in Sources */,
-				5583195D261587B20015F0D7 /* SynchronizationService.swift in Sources */,
+				5583195D261587B20015F0D7 /* MonitoringService.swift in Sources */,
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				0422006025EFDF3700CAC173 /* TagView.swift in Sources */,
 				55CB94F1263BD26C00FF7EF1 /* DappsDataSource.swift in Sources */,

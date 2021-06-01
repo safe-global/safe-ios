@@ -51,6 +51,8 @@ extension KeyInfo {
         }
     }
 
+    /// WalletConnect keys store metadata with information if a key was connected with installed wallet on a device.
+    /// This parameter is a helper to fetch this data.
     var installedWallet: InstalledWallet? {
         guard let metadata = metadata else { return nil }
         return WalletConnectKeyMetadata.from(data: metadata)?.installedWallet

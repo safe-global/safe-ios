@@ -25,6 +25,7 @@ extension WCPendingTransaction {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let pendingTransaction = WCPendingTransaction(context: context)
+        pendingTransaction.created = Date()
         pendingTransaction.session = wcSession
         pendingTransaction.nonce = nonce.description
         pendingTransaction.requestId = requestId

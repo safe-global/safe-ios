@@ -76,11 +76,18 @@ class WalletConnectServerController {
             guard let pendingTransactions = try? WCPendingTransaction.getAll() else { return }
             LogService.shared.debug("PENDING WC TRANSACTIONS: \(pendingTransactions.count)")
             for pendingTx in pendingTransactions {
-                let nonce = UInt256String(UInt256(pendingTx.nonce!)!)
                 let wcSession = pendingTx.session!
                 let session = try! Session.from(wcSession)
                 let safeAddress = AddressString(session.walletInfo!.accounts[0])!
+
+                // stop monitoring pending WalletConnect transactions after 24h
+                if Date().timeIntervalSince(pendingTx.created!) > 60*60*24 {
+                    WCPendingTransaction.remove(nonce: pendingTx.nonce!)
+                    continue
+                }
+
                 DispatchQueue.global().async { [unowned self] in
+                    let nonce = UInt256String(UInt256(pendingTx.nonce!)!)
                     if let transaction = try? App.shared.safeTransactionService
                         .transaction(nonce: nonce, safe: safeAddress),
                        let txHash = transaction.transactionHash,

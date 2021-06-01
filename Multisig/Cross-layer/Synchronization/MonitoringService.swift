@@ -1,5 +1,5 @@
 //
-//  SynchronizationService.swift
+//  MonitoringService.swift
 //  Multisig
 //
 //  Created by Andrey Scherbovich on 04.02.21.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-class SynchronizationService {
-    static let shared = SynchronizationService()
+class MonitoringService {
+    static let shared = MonitoringService()
 
     private var syncLoopRepeater: Repeater?
     private let syncInterval: TimeInterval
@@ -20,7 +20,7 @@ class SynchronizationService {
 
     /// Starts synchronisation loop on a background thread. Every `syncInterval` seconds the loop executes
     /// If inbetween of these udpates the synchronisation is stopped, then all further actions are skipped.
-    func startSyncLoop() {
+    func startMonitoring() {
         guard syncLoopRepeater == nil else { return }
         DispatchQueue.global().async { [unowned self] in
             // repeat syncronization loop every `syncInterval`
