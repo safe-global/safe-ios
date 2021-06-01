@@ -87,6 +87,10 @@ extension KeyInfo {
         return items
     }
 
+    static func keys(types: [KeyType]) throws -> [KeyInfo] {
+        try all().filter { types.contains(KeyType(rawValue: Int($0.type))!) }
+    }
+
     /// This will return a list of KeyInfo for the addresses that it finds in the app.
     /// At most one key info per address will be returned.
     /// - Parameter addresses: all the infos for the same address

@@ -164,8 +164,8 @@ class OwnerKeyController {
             }
 
             // delete all device key infos whos private keys do not exist
-            let infos = try KeyInfo.all().filter {
-                ($0.keyType == .deviceImported || $0.keyType == .deviceGenerated) && !$0.hasPrivateKey
+            let infos = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated]).filter {
+                !$0.hasPrivateKey
             }
             try infos.forEach { try $0.delete() }
         } catch {
