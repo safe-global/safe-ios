@@ -39,6 +39,23 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
 
         emptyView.setText("Collectibles will appear here")
         emptyView.setImage(UIImage(named: "ico-no-collectibles")!)
+
+        let gs = UITapGestureRecognizer(target: self, action: #selector(scrollToBottom))
+        gs.numberOfTapsRequired = 3
+        tableView.addGestureRecognizer(gs)
+    }
+
+    @objc func scrollToBottom() {
+//        tableView.setContentOffset(
+//            CGPoint(x: tableView.bounds.minX, y: ),
+//            animated: false)
+        let numSections = tableView.numberOfSections
+        if numSections > 0 {
+            let numRows = tableView.numberOfRows(inSection: numSections - 1)
+            if numRows > 0 {
+                tableView.scrollToRow(at: IndexPath(row: numRows - 1, section: numSections - 1), at: .bottom, animated: true)
+            }
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

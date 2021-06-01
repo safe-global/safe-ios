@@ -332,8 +332,8 @@
 		0AEE149F2540233C00046EE7 /* UINibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEE149E2540233C00046EE7 /* UINibView.swift */; };
 		0AEEBC73258CDF9400F3A6F9 /* CollectibleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEBC71258CDF9400F3A6F9 /* CollectibleDetailViewController.swift */; };
 		0AEEBC74258CDF9400F3A6F9 /* CollectibleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AEEBC72258CDF9400F3A6F9 /* CollectibleDetailViewController.xib */; };
-		0AEEBC7A258CE24A00F3A6F9 /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEBC79258CE24A00F3A6F9 /* SVGView.swift */; };
-		0AEEBC80258CE25700F3A6F9 /* SVGView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AEEBC7F258CE25700F3A6F9 /* SVGView.xib */; };
+		0AEEBC7A258CE24A00F3A6F9 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEBC79258CE24A00F3A6F9 /* WebImageView.swift */; };
+		0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AEEBC7F258CE25700F3A6F9 /* WebImageView.xib */; };
 		0AF1C7F42540887300E28669 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C7F22540887300E28669 /* HeaderViewController.swift */; };
 		0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C7F32540887300E28669 /* HeaderViewController.xib */; };
 		0AF1C7FB25408A4D00E28669 /* SafeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C7FA25408A4D00E28669 /* SafeBarView.swift */; };
@@ -849,8 +849,8 @@
 		0AEE149E2540233C00046EE7 /* UINibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINibView.swift; sourceTree = "<group>"; };
 		0AEEBC71258CDF9400F3A6F9 /* CollectibleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleDetailViewController.swift; sourceTree = "<group>"; };
 		0AEEBC72258CDF9400F3A6F9 /* CollectibleDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleDetailViewController.xib; sourceTree = "<group>"; };
-		0AEEBC79258CE24A00F3A6F9 /* SVGView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGView.swift; sourceTree = "<group>"; };
-		0AEEBC7F258CE25700F3A6F9 /* SVGView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SVGView.xib; sourceTree = "<group>"; };
+		0AEEBC79258CE24A00F3A6F9 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
+		0AEEBC7F258CE25700F3A6F9 /* WebImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebImageView.xib; sourceTree = "<group>"; };
 		0AF1C7F22540887300E28669 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		0AF1C7F32540887300E28669 /* HeaderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderViewController.xib; sourceTree = "<group>"; };
 		0AF1C7FA25408A4D00E28669 /* SafeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBarView.swift; sourceTree = "<group>"; };
@@ -2116,8 +2116,8 @@
 				0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */,
 				5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */,
 				5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */,
-				0AEEBC79258CE24A00F3A6F9 /* SVGView.swift */,
-				0AEEBC7F258CE25700F3A6F9 /* SVGView.xib */,
+				0AEEBC79258CE24A00F3A6F9 /* WebImageView.swift */,
+				0AEEBC7F258CE25700F3A6F9 /* WebImageView.xib */,
 			);
 			path = CollectiblesViewController;
 			sourceTree = "<group>";
@@ -2629,7 +2629,7 @@
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
-				0AEEBC80258CE25700F3A6F9 /* SVGView.xib in Resources */,
+				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
@@ -2929,7 +2929,7 @@
 				0A86EE5D25CC2B2B0059876E /* RetryFooterView.swift in Sources */,
 				0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */,
 				0AA9F1F42497BCA9005BD60F /* TokenInfo.swift in Sources */,
-				0AEEBC7A258CE24A00F3A6F9 /* SVGView.swift in Sources */,
+				0AEEBC7A258CE24A00F3A6F9 /* WebImageView.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
 				0A6430E2247EC2C7006FD30A /* ConfigurationKey.swift in Sources */,
 				0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */,
