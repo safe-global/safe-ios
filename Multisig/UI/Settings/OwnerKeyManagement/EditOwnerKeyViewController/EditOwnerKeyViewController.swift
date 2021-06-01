@@ -41,7 +41,7 @@ class EditOwnerKeyViewController: UIViewController {
     }
 
     @objc private func didTapSaveButton() {
-        PrivateKeyController.edit(keyInfo: keyInfo, name: name)
+        OwnerKeyController.edit(keyInfo: keyInfo, name: name)
         navigationController?.popViewController(animated: true)
     }
 

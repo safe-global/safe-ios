@@ -85,7 +85,7 @@ class ChooseOwnerKeyViewController: UIViewController {
         DispatchQueue.main.async { [unowned self] in
             // we need to update to always properly refresh session.walletInfo.peedId
             // that we use to identify if the wallet is connected
-            _ = PrivateKeyController.updateKey(session: session,
+            _ = OwnerKeyController.updateKey(session: session,
                                                installedWallet: walletPerTopic[session.url.topic])
 
             if let presented = presentedViewController {

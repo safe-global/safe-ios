@@ -1,5 +1,5 @@
 //
-//  PrivateKeyController.swift
+//  OwnerKeyController.swift
 //  Multisig
 //
 //  Created by Andrey Scherbovich on 25.01.21.
@@ -9,8 +9,7 @@
 import Foundation
 import WalletConnectSwift
 
-#warning("TODO: rename to OwnerKeyController after merge to main branch")
-class PrivateKeyController {
+class OwnerKeyController {
     static func importKey(_ privateKey: PrivateKey, name: String, isDrivedFromSeedPhrase: Bool) -> Bool {
         do {
             try KeyInfo.import(address: privateKey.address, name: name, privateKey: privateKey)

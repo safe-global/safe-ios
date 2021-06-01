@@ -32,7 +32,7 @@ class ConnectWalletViewController: UITableViewController {
         guard let session = notification.object as? Session else { return }
 
         DispatchQueue.main.sync { [unowned self] in
-            _ = PrivateKeyController.importKey(session: session, installedWallet: walletPerTopic[session.url.topic])
+            _ = OwnerKeyController.importKey(session: session, installedWallet: walletPerTopic[session.url.topic])
             self.dismiss(animated: true, completion: nil)
         }
     }

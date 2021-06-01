@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AppSettings.saveCurrentRunVersionNumber()
 
-        PrivateKeyController.cleanUpKeys()
-        PrivateKeyController.migrateLegacySigningKey()
+        OwnerKeyController.cleanUpKeys()
+        OwnerKeyController.migrateLegacySigningKey()
 
         App.shared.auth.migrateFromPasscodeV1()
 

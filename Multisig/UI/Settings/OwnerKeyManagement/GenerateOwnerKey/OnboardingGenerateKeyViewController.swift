@@ -62,7 +62,7 @@ class OnboardingGenerateKeyViewController: UITableViewController {
         vc.placeholder = "Enter name"
         vc.address = privateKey.address
         vc.completion = { [unowned self, vc] name in
-            guard PrivateKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true),
+            guard OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true),
                   let keyInfo = try? KeyInfo.keys(addresses: [privateKey.address]).first else {
                 return
             }

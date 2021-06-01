@@ -395,7 +395,6 @@
 		55413673265E493500796F91 /* AddOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413672265E493500796F91 /* AddOwnerKeyViewController.swift */; };
 		55413677265E4A0000796F91 /* AddOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */; };
 		55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */; };
-		5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */; };
 		5543CA1B26653C77007F6FD9 /* DerivedKeyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5543CA0F26653C76007F6FD9 /* DerivedKeyTableViewCell.swift */; };
 		5543CA1C26653C77007F6FD9 /* DerivedKeyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5543CA1026653C76007F6FD9 /* DerivedKeyTableViewCell.xib */; };
 		5543CA1D26653C77007F6FD9 /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5543CA1126653C76007F6FD9 /* ButtonTableViewCell.xib */; };
@@ -518,7 +517,7 @@
 		55DA82252649656400FB99A4 /* DappsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55DA82242649656400FB99A4 /* DappsViewController.xib */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
 		55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */; };
-		55F91B0F25BF081900938475 /* PrivateKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91B0E25BF081900938475 /* PrivateKeyController.swift */; };
+		55F91B0F25BF081900938475 /* OwnerKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91B0E25BF081900938475 /* OwnerKeyController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1090,7 +1089,7 @@
 		55DA82242649656400FB99A4 /* DappsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DappsViewController.xib; sourceTree = "<group>"; };
 		55DCC332258A4C71003346FC /* GSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSError.swift; sourceTree = "<group>"; };
 		55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingBehavior.swift; sourceTree = "<group>"; };
-		55F91B0E25BF081900938475 /* PrivateKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyController.swift; sourceTree = "<group>"; };
+		55F91B0E25BF081900938475 /* OwnerKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2235,7 +2234,7 @@
 				0AF432D5244F075800E22E50 /* Models */,
 				0AD6EF1D25CAF5EC00EE5512 /* AppReviewController.swift */,
 				0493A28A262979820056EC49 /* UpdateController.swift */,
-				55F91B0E25BF081900938475 /* PrivateKeyController.swift */,
+				55F91B0E25BF081900938475 /* OwnerKeyController.swift */,
 				0AC5F56A25DD4A4B00DEF0D7 /* AuthenticationController.swift */,
 			);
 			path = Logic;
@@ -3139,7 +3138,7 @@
 				0A0983A624BC5CA1009EE296 /* HardcodedTokenStore.swift in Sources */,
 				0471B3BD262742CD001F2D3B /* UpdateAppViewController.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
-				55F91B0F25BF081900938475 /* PrivateKeyController.swift in Sources */,
+				55F91B0F25BF081900938475 /* OwnerKeyController.swift in Sources */,
 				0ADD19A6265E53BE00EB0F2B /* QRCodeView.swift in Sources */,
 				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,
 				3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */,

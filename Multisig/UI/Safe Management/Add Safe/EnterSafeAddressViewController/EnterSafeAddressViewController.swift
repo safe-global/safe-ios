@@ -65,7 +65,7 @@ class EnterSafeAddressViewController: UIViewController {
         vc.placeholder = "Enter name"
         vc.completion = { [unowned vc, unowned self] name in
             Safe.create(address: address.checksummed, name: name)
-            if !AppSettings.hasShownImportKeyOnboarding && !PrivateKeyController.hasPrivateKey {
+            if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
                 let safeLoadedViewController = SafeLoadedViewController()
                 safeLoadedViewController.completion = self.completion
                 safeLoadedViewController.hidesBottomBarWhenPushed = true

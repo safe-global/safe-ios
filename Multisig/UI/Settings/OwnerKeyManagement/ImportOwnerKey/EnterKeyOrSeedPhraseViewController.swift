@@ -83,7 +83,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
             nextButton.isEnabled = true
         } else if isValidPK(phrase), let privateKey = try? PrivateKey(data: Data(exactlyHex: phrase)!) {
 
-            if PrivateKeyController.exists(privateKey) {
+            if OwnerKeyController.exists(privateKey) {
                 setError(GSError.KeyAlreadyImported())
                 return
             }
@@ -96,7 +96,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
             vc.placeholder = "Enter name"
             vc.address = privateKey.address
             vc.completion = { [unowned vc] name in
-                let success = PrivateKeyController.importKey(
+                let success = OwnerKeyController.importKey(
                     privateKey,
                     name: name,
                     isDrivedFromSeedPhrase: false)

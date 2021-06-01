@@ -111,7 +111,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         DispatchQueue.main.async { [unowned self] in
             // we need to update to always properly refresh session.walletInfo.peedId
             // that we use to identify if the wallet is connected
-            _ = PrivateKeyController.updateKey(session: session,
+            _ = OwnerKeyController.updateKey(session: session,
                                                installedWallet: walletPerTopic[session.url.topic])
 
             if let presented = presentedViewController {
@@ -215,7 +215,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
             message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
             preferredStyle: .actionSheet)
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
-            PrivateKeyController.remove(keyInfo: key)
+            OwnerKeyController.remove(keyInfo: key)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(remove)

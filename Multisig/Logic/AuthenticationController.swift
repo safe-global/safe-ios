@@ -86,7 +86,7 @@ class AuthenticationController {
     }
 
     func deleteAllData() throws {
-        try PrivateKeyController.deleteAllKeys(showingMessage: false)
+        try OwnerKeyController.deleteAllKeys(showingMessage: false)
         try Safe.removeAll()
         try deletePasscode(trackingEvent: .userPasscodeReset)
         App.shared.snackbar.show(message: "All data removed from this app")

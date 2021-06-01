@@ -77,7 +77,7 @@ class KeyPickerController: UITableViewController {
         vc.placeholder = "Enter name"
         vc.address = privateKey.address
         vc.completion = { [unowned vc] name in
-            let success = PrivateKeyController.importKey(
+            let success = OwnerKeyController.importKey(
                 privateKey,
                 name: name,
                 isDrivedFromSeedPhrase: true)
