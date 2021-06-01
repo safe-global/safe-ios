@@ -16,7 +16,7 @@ class OwnerKeysListTableViewCell: UITableViewCell {
 
         addressInfoView.setDetailImage(nil)
         addressInfoView.copyEnabled = false
-        addressInfoView.setDetailImage(UIImage(named: "arrow"))
+        addressInfoView.setDetailImage(nil)
     }
 
     func set(address: Address, title: String) {
