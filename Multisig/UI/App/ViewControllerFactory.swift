@@ -74,12 +74,6 @@ enum ViewControllerFactory {
         return UINavigationController(rootViewController: vc)
     }
 
-    static func selectKeyTypeViewController(presenter: UIViewController & CloseModal) -> UIViewController {
-        let view = SelectKeyTypeViewController()
-        let nav = UINavigationController(rootViewController: view)
-        return nav
-    }
-
     static func addOwnerViewController() -> UIViewController {
         let controller = AddOwnerKeyViewController()
         let nav = UINavigationController(rootViewController: controller)

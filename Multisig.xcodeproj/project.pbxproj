@@ -457,16 +457,12 @@
 		559246BE263BDE0F0022D1A6 /* ExternalLinkHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559246BA263BDE0F0022D1A6 /* ExternalLinkHeaderFooterView.swift */; };
 		559246BF263BDE0F0022D1A6 /* DetailedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559246BB263BDE0F0022D1A6 /* DetailedCell.xib */; };
 		559246C0263BDE0F0022D1A6 /* ExternalLinkHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559246BC263BDE0F0022D1A6 /* ExternalLinkHeaderFooterView.xib */; };
-		559246C1263BE3FE0022D1A6 /* BigImageWithTextButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559A77452623F95F002B89E7 /* BigImageWithTextButtonView.xib */; };
 		5596710D256E935F0097D3A2 /* MockSecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596710C256E935F0097D3A2 /* MockSecureStore.swift */; };
 		55967123256EB7690097D3A2 /* ConfirmationRequestNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967122256EB7690097D3A2 /* ConfirmationRequestNotification.swift */; };
 		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
 		5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */; };
 		5596C0482550813B00EF23A5 /* CollectiblesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */; };
 		5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */; };
-		559A77352623F72B002B89E7 /* SelectKeyTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A77332623F72B002B89E7 /* SelectKeyTypeViewController.swift */; };
-		559A77362623F72B002B89E7 /* SelectKeyTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559A77342623F72B002B89E7 /* SelectKeyTypeViewController.xib */; };
-		559A77402623F93F002B89E7 /* BigImageWithTextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A773F2623F93F002B89E7 /* BigImageWithTextButtonView.swift */; };
 		559A775226240FF1002B89E7 /* OnboardingConnectOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A775126240FF1002B89E7 /* OnboardingConnectOwnerKeyViewController.swift */; };
 		559A775C26242588002B89E7 /* ConnectWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A775B26242588002B89E7 /* ConnectWalletViewController.swift */; };
 		559A7762262427AD002B89E7 /* WalletsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7761262427AD002B89E7 /* WalletsDataSource.swift */; };
@@ -1040,10 +1036,6 @@
 		5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleTableViewCell.swift; sourceTree = "<group>"; };
 		5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesHeaderView.swift; sourceTree = "<group>"; };
 		5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectiblesHeaderView.xib; sourceTree = "<group>"; };
-		559A77332623F72B002B89E7 /* SelectKeyTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectKeyTypeViewController.swift; sourceTree = "<group>"; };
-		559A77342623F72B002B89E7 /* SelectKeyTypeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectKeyTypeViewController.xib; sourceTree = "<group>"; };
-		559A773F2623F93F002B89E7 /* BigImageWithTextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigImageWithTextButtonView.swift; sourceTree = "<group>"; };
-		559A77452623F95F002B89E7 /* BigImageWithTextButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BigImageWithTextButtonView.xib; sourceTree = "<group>"; };
 		559A775126240FF1002B89E7 /* OnboardingConnectOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingConnectOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		559A775B26242588002B89E7 /* ConnectWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWalletViewController.swift; sourceTree = "<group>"; };
 		559A7761262427AD002B89E7 /* WalletsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsDataSource.swift; sourceTree = "<group>"; };
@@ -2455,17 +2447,6 @@
 			path = "Safe Transaction Service";
 			sourceTree = "<group>";
 		};
-		559A77322623F6BB002B89E7 /* SelectKeyTypeViewController */ = {
-			isa = PBXGroup;
-			children = (
-				559A77332623F72B002B89E7 /* SelectKeyTypeViewController.swift */,
-				559A77342623F72B002B89E7 /* SelectKeyTypeViewController.xib */,
-				559A773F2623F93F002B89E7 /* BigImageWithTextButtonView.swift */,
-				559A77452623F95F002B89E7 /* BigImageWithTextButtonView.xib */,
-			);
-			path = SelectKeyTypeViewController;
-			sourceTree = "<group>";
-		};
 		559A774F26240F68002B89E7 /* ImportOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
@@ -2601,7 +2582,6 @@
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
 				559A774F26240F68002B89E7 /* ImportOwnerKey */,
 				049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */,
-				559A77322623F6BB002B89E7 /* SelectKeyTypeViewController */,
 			);
 			path = OwnerKeyManagement;
 			sourceTree = "<group>";
@@ -2799,7 +2779,6 @@
 				5583345626298F1900E5FE8A /* WalletConnectQRCodeViewController.xib in Resources */,
 				5543CA1D26653C77007F6FD9 /* ButtonTableViewCell.xib in Resources */,
 				0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */,
-				559A77362623F72B002B89E7 /* SelectKeyTypeViewController.xib in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
@@ -2820,7 +2799,6 @@
 				0A3DADA526270FA100743E38 /* README.md in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
-				559246C1263BE3FE0022D1A6 /* BigImageWithTextButtonView.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* SVGView.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
@@ -3027,7 +3005,6 @@
 				0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */,
 				04D1306C25DD525A0032FA03 /* ProposeTransactionRequest.swift in Sources */,
 				55831975261588830015F0D7 /* WCSession.swift in Sources */,
-				559A77352623F72B002B89E7 /* SelectKeyTypeViewController.swift in Sources */,
 				55BCFC562554627100020CE7 /* BasicCell.swift in Sources */,
 				0A9A1A34257924C600B44405 /* DetailAccountCell.swift in Sources */,
 				0ADDB3552451BA710056B284 /* TestCoreDataStack.swift in Sources */,
@@ -3074,7 +3051,6 @@
 				0A86EE6925CC2B410059876E /* IdleFooterView.swift in Sources */,
 				048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */,
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
-				559A77402623F93F002B89E7 /* BigImageWithTextButtonView.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,

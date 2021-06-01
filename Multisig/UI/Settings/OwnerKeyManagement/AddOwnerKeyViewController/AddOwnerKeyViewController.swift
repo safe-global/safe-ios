@@ -9,9 +9,9 @@
 import UIKit
 
 class AddOwnerKeyViewController: UITableViewController {
-    private let keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
-        (.deviceImported, "Import existing key", "Imort an existing key or seed phrase"),
-        (.deviceGenerated, "Create New Key", "Create a new key that you can use as owner of your Gnosis Safe ")
+    private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
+        (.deviceImported, "Import Existing Key", "Imort an existing key or seed phrase"),
+        (.deviceGenerated, "Create New Key", "Create a new key that you can use as owner of your Gnosis Safe")
     ]
 
     override func viewDidLoad() {
@@ -26,6 +26,12 @@ class AddOwnerKeyViewController: UITableViewController {
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .primaryBackground
+
+        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
+            keyTypes.append(
+                (.walletConnect, "Connect Key", "Connect an existing key using WalletConnect")
+            )
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -48,15 +54,18 @@ class AddOwnerKeyViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller: UIViewController
+
         switch keyTypes[indexPath.row].type {
         case .deviceImported:
-            let controller = OnboardingImportOwnerKeyViewController()
-            show(controller, sender: self)
+            controller = OnboardingImportOwnerKeyViewController()
+
         case .deviceGenerated:
-            let controller = OnboardingGenerateKeyViewController()
-            show(controller, sender: self)
+            controller = OnboardingGenerateKeyViewController()
+
         case .walletConnect:
-            break
+            controller = OnboardingConnectOwnerKeyViewController()
         }
+        show(controller, sender: self)
     }
 }
