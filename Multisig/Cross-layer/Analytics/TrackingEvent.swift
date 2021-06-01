@@ -12,7 +12,8 @@ enum TrackingUserProperty: String, UserProperty {
     case numSafes = "num_safes" // string, number of user safes, "0" on fresh install
     case pushInfo = "push_info" // string: ["unknown", "disabled", "enabled"]
     case numKeysImported = "num_keys_imported" // string, number of keys imported, "0" on fresh install
-    case numKeysGenerated = " num_keys_generated" // string, number of keys generated "0" on fresh install
+    case numKeysGenerated = "num_keys_generated" // string, number of keys generated, "0" on fresh install
+    case numKeysWalletConnect = "num_keys_walletconnect" // string, number of WalletConnect keys, "0" on fresh install
     case passcodeIsSet = "passcode_is_set" // string, "true" or "false" depending on if app passcode is set
 }
 
@@ -25,7 +26,6 @@ extension Tracker {
         setUserProperty(status, for: TrackingUserProperty.pushInfo)
     }
 
-    #warning("TODO: finish implementation")
     func setNumKeys(_ count: Int, type: KeyType) {
         switch type {
         case .deviceGenerated:
@@ -33,7 +33,7 @@ extension Tracker {
         case .deviceImported:
             setUserProperty("\(count)", for: TrackingUserProperty.numKeysImported)
         case .walletConnect:
-            break
+            setUserProperty("\(count)", for: TrackingUserProperty.numKeysWalletConnect)
         }
     }
 

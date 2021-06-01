@@ -33,15 +33,15 @@ class OwnerKeyController {
         }
     }
 
-    #warning("TODO: setNumKeys for walletConnect type")
     static func importKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
         do {
             try KeyInfo.import(session: session, installedWallet: installedWallet)
+            Tracker.shared.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
             
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
             return true
         } catch {
-            if let err = error as? GSError.CouldNotImportOwnerKeyWithSameAddress {
+            if let err = error as? GSError.CouldNotImportOwnerKeyWithSameAddressAndDifferentType {
                 App.shared.snackbar.show(error: err)
             } else {
                 let err = GSError.error(description: "Failed to add WalletConnect owner", error: error)

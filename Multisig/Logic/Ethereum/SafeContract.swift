@@ -52,7 +52,6 @@ class SafeContract: Contract {
                    signaturesEncoded)
     }
 
-    #warning("TODO: implement Pre-validated and Contract Signatures")
     //  https://docs.gnosis.io/safe/docs/contracts_signatures/
     func signatures(confirmations: [SCGModels.Confirmation], confirmationsRequired: UInt64) -> Data {
         // The most gas efficient are ECDSA signatures

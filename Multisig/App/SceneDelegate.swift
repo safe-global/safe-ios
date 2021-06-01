@@ -72,7 +72,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func checkPasteboardForWalletConnectURL() {
         if let potentialWCUrl = Pasteboard.string, potentialWCUrl.hasPrefix("wc:"),
-           let _ = try? Safe.getSelected() {
+           let _ = try? Safe.getSelected(),
+           App.configuration.toggles.walletConnectEnabled {
             do {
                 App.shared.snackbar.show(message: "Creating WalletConnect session. This might take some time.")
                 try WalletConnectServerController.shared.connect(url: potentialWCUrl)
@@ -117,7 +118,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func handleUserActivity(_ userActivity: NSUserActivity) {
         // Does not make scense to handle WalletConnect URLs without a safe
-        guard let _ = try? Safe.getSelected() else { return }
+        guard let _ = try? Safe.getSelected(), App.configuration.toggles.walletConnectEnabled else { return }
 
         // Get URL components from the incoming user activity.
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,

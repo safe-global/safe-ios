@@ -15,26 +15,6 @@ struct DappData: Decodable {
     let url: URL
 }
 
-/**
- Only quite old dapps with old WC lib are supported at the moment.
-
- Dapps without mobile-to-mobile WC support.
- - Safe
- - Compound
- - Sushiswap
- - 1inch.exchange
- - aave
- - Balancer
- - dHedge
- - Sablier (no WC on mobile at all)
- - Synthetix (seems like working on their own mobile app)
- - Yearn
- - Badger.Finance
- - Curve
- - dYdX
- -
- */
-
 class DappsDataSource {
     static let shared = DappsDataSource()
 
