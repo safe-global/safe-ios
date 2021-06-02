@@ -45,7 +45,7 @@ struct AdvancedAppSettings: View {
                         Text("Crash the App").body()
                     }
                 }
-             }
+            }
         }
         .onAppear {
             self.trackEvent(.settingsAppAdvanced)
