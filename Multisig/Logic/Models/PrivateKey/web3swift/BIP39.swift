@@ -164,7 +164,7 @@ public class BIP39 {
         //
         // new CommonCrypto implementation is quick taking ~0.5 seconds.
         let salt = "mnemonic" + password
-        let seedArray = pbkdf2(password: password, salt: Array(salt.data(using: .utf8)!), iterations: 2048, hmac: .sha512)
+        let seedArray = pbkdf2(password: formattedMnemonics, salt: Array(salt.data(using: .utf8)!), iterations: 2048, hmac: .sha512)
         // end of performance optimization
         let seed = Data(seedArray)
         return seed

@@ -68,10 +68,10 @@ extension PrivateKey {
         // For backward compatibility before generating key on mobile feature
         if let pkData = try? JSONDecoder().decode(PrivateKey.PKData.self, from: data) {
             // performance optimization: passing self-managed context
-            _store = try EthereumPrivateKey(privateKey: Array(pkData.key), ctx: Self.context)
+            _store = try EthereumPrivateKey(privateKey: pkData.key.makeBytes(), ctx: Self.context)
             mnemonic = pkData.mnemonic
         } else {
-            _store = try EthereumPrivateKey(privateKey: Array(data), ctx: Self.context)
+            _store = try EthereumPrivateKey(privateKey: data.makeBytes(), ctx: Self.context)
         }
         if let value = id {
             self.id = value
