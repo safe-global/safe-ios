@@ -35,7 +35,8 @@ struct AdvancedAppSettings: View {
 
             DataSharingInfo()
 
-            if !(App.configuration.services.environment == .production) {
+            // NOTE: disabling to debug if crash reporting works in production
+            // if !(App.configuration.services.environment == .production) {
                 Section(header: SectionHeader("DEBUG")) {
                     Button(action: {
                         fatalError()
@@ -43,7 +44,7 @@ struct AdvancedAppSettings: View {
                         Text("Crash the App").body()
                     }
                 }
-            }
+            // } // end of 'if production'
         }
         .onAppear {
             self.trackEvent(.settingsAppAdvanced)
