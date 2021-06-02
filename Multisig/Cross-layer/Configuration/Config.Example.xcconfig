@@ -123,9 +123,9 @@ SHOW_EXPERIMENTAL = Y
 // Whether to display 'WalletConnect' feature in Experimental.
 // If SHOW_EXPERIMENTAL != Y, then this config does not apply
 // Range of values: Y is YES, N is NO.
-WALLETCONNECT_ELIGABLE = Y
+WALLETCONNECT_ELIGIBLE = Y
 // Whether to display 'Allow to connect owner keys via WalletConnect' feature in Experimental.
-WALLETCONNECT_OWNER_KEY_ELIGABLE = Y
+WALLETCONNECT_OWNER_KEY_ELIGIBLE = Y
 
 // WalletConnect bridge server for client
 // gnosis wc bridge: https://safe-walletconnect.gnosis.io/

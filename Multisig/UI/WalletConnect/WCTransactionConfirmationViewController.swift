@@ -51,13 +51,12 @@ class WCTransactionConfirmationViewController: UIViewController {
 
     private var isAdvancedOptionsShown = false
 
-    @IBAction func reject(_ sender: Any) {
+    @IBAction private func reject(_ sender: Any) {
         onReject?()
         dismiss(animated: true, completion: nil)
     }
 
-    #warning("TODO: use client gateway service for submitting transactions")
-    @IBAction func submit(_ sender: Any) {
+    @IBAction private func submit(_ sender: Any) {
         let owners = (try? KeyInfo.keys(addresses: importedKeysForSafe)) ?? []
         let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
         let vc = ChooseOwnerKeyViewController(owners: owners, descriptionText: descriptionText) {
@@ -92,8 +91,8 @@ class WCTransactionConfirmationViewController: UIViewController {
 
         case .walletConnect:
             WalletConnectClientController.shared.sign(message: transaction.safeTxHash!.description, from: self) {
-                [unowned self] signature in
-                self.sendConfirmationAndDismiss(keyInfo: keyInfo, signature: signature)
+                [weak self] signature in
+                self?.sendConfirmationAndDismiss(keyInfo: keyInfo, signature: signature)
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
@@ -143,7 +142,7 @@ class WCTransactionConfirmationViewController: UIViewController {
             let imageUrl = session.dAppInfo.peerMeta.icons[0]
             dappImageView.kf.setImage(with: imageUrl, placeholder: UIImage(named: "ico-empty-circle"))
         } else {
-            dappImageView.image = #imageLiteral(resourceName: "ico-empty-circle")
+            dappImageView.image = UIImage(named: "ico-empty-circle")
         }
         dappNameLabel.text = session.dAppInfo.peerMeta.name
         dappNameLabel.setStyle(.headline)
@@ -161,6 +160,7 @@ class WCTransactionConfirmationViewController: UIViewController {
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(EditCell.self)
 
+        tableView.estimatedRowHeight = BasicCell.rowHeight
         tableView.separatorStyle = .none
 
         buildSections()
@@ -198,9 +198,9 @@ class WCTransactionConfirmationViewController: UIViewController {
         tableView.beginUpdates()
         tableView.reloadRows(at: [IndexPath(row: 3, section: 0)], with: .automatic)
         let advancedRows = [
-            IndexPath(row: 0, section: 1),
-            IndexPath(row: 1, section: 1),
-            IndexPath(row: 2, section: 1)
+            IndexPath(row: 0, section: 1), // nonce
+            IndexPath(row: 1, section: 1), // safeTxGas
+            IndexPath(row: 2, section: 1) // edit
         ]
         if isAdvancedOptionsShown {
             tableView.insertRows(at: advancedRows, with: .bottom)

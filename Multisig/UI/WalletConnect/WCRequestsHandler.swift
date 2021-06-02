@@ -30,7 +30,8 @@ class WCRequestsHandler: RequestHandler {
         "eth_sign",
         "eth_signTypedData",
         "eth_signTransaction",
-        "eth_sendRawTransaction"
+        "eth_sendRawTransaction",
+        "gs_multi_send"
     ]
 
     func canHandle(request: Request) -> Bool {
@@ -96,8 +97,6 @@ class WCRequestsHandler: RequestHandler {
                 let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
                 sceneDelegate.present(navController)
             }
-        } else if request.method == "gs_multi_send" {
-            server.send(try! Response(request: request, error: .requestRejected))
         } else {
             do {
                 let result = try App.shared.nodeService.rawCall(payload: request.jsonString)

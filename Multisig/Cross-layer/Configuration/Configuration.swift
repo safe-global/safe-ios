@@ -114,24 +114,24 @@ struct AppConfiguration {
         @ConfigurationKey("SHOW_EXPERIMENTAL")
         var experimental: Bool
 
-        @ConfigurationKey("WALLETCONNECT_ELIGABLE")
-        private var _walletConnectEligable: Bool
+        @ConfigurationKey("WALLETCONNECT_ELIGIBLE")
+        private var walletConnectEligible: Bool
 
-        @ConfigurationKey("WALLETCONNECT_OWNER_KEY_ELIGABLE")
-        private var _walletConnectOwnerKeyEligable: Bool
+        @ConfigurationKey("WALLETCONNECT_OWNER_KEY_ELIGIBLE")
+        private var walletConnectOwnerKeyEligible: Bool
 
         @UserDefault(key: "io.gnosis.multisig.experimental.walletConnect")
-        private var _walletConnectEnabled: Bool?
+        private var walletConnectEnabledSetting: Bool?
 
         @UserDefault(key: "io.gnosis.multisig.experimental.walletConnectOwnerKey")
-        private var _walletConnectOwnerKeyEnabled: Bool?
+        private var walletConnectOwnerKeyEnabledSetting: Bool?
 
         var walletConnectEnabled: Bool {
-            return experimental && _walletConnectEligable && _walletConnectEnabled ?? false
+            return experimental && walletConnectEligible && walletConnectEnabledSetting ?? false
         }
 
         var walletConnectOwnerKeyEnabled: Bool {
-            return experimental && _walletConnectOwnerKeyEligable && _walletConnectOwnerKeyEnabled ?? false
+            return experimental && walletConnectOwnerKeyEligible && walletConnectOwnerKeyEnabledSetting ?? false
         }
     }
 

@@ -141,10 +141,10 @@
 	<string>$(TWITTER_URL)</string>
 	<key>SHOW_EXPERIMENTAL</key>
 	<string>$(SHOW_EXPERIMENTAL)</string>
-	<key>WALLETCONNECT_ELIGABLE</key>
-	<string>$(WALLETCONNECT_ELIGABLE)</string>
-	<key>WALLETCONNECT_OWNER_KEY_ELIGABLE</key>
-	<string>$(WALLETCONNECT_OWNER_KEY_ELIGABLE)</string>
+	<key>WALLETCONNECT_ELIGIBLE</key>
+	<string>$(WALLETCONNECT_ELIGIBLE)</string>
+	<key>WALLETCONNECT_OWNER_KEY_ELIGIBLE</key>
+	<string>$(WALLETCONNECT_OWNER_KEY_ELIGIBLE)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Averta-Regular.otf</string>
