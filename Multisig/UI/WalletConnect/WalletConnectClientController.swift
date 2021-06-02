@@ -236,6 +236,26 @@ class WalletConnectClientController {
             App.shared.snackbar.show(message: "Please open your wallet to sign the transaction.")
         }
     }
+
+    static func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) -> String? {
+        do {
+            let link = installedWallet.universalLink.isEmpty ? installedWallet.scheme : installedWallet.universalLink
+            let (topic, connectionURL) = try WalletConnectClientController.shared
+                .getTopicAndConnectionURL(link: link)
+
+            // we need a delay so that WalletConnectClient can send handshake request
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+                UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
+            }
+
+            return topic
+        } catch {
+            App.shared.snackbar.show(
+                error: GSError.error(description: "Could not create connection URL", error: error))
+        }
+
+        return nil
+    }
 }
 
 // MARK: - ClientDelegate

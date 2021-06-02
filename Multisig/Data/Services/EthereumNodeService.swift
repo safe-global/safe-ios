@@ -67,7 +67,6 @@ class EthereumNodeService {
         }
     }
 
-    #warning("Finish implementation with proper errors handling")
     public func rawCall(payload: String) throws -> String {
         // all requests are proxied to the infura service as is because it is simple to do it now.
         struct RawJSONRPCRequest: HTTPRequest {
@@ -78,13 +77,13 @@ class EthereumNodeService {
             var headers: [String: String] { return ["Content-Type": "application/json"] }
         }
         guard let body = payload.data(using: .utf8) else {
-            throw "Issue with decoding payload"
+            throw GSError.ThirdPartyError(reason: "Request payload is malformed")
         }
         let request = RawJSONRPCRequest(body: body, url: self.url)
         let client = HTTPClient(url: self.url, logger: LogService.shared)
         let response = try client.execute(request: request)
         guard let result = String(data: response, encoding: .utf8) else {
-            throw "No response"
+            throw GSError.ThirdPartyError(reason: "Response is empty")
         }
         return result
     }

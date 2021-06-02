@@ -224,20 +224,9 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     }
 
     private func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) {
-        do {
-            let link = installedWallet.universalLink.isEmpty ? installedWallet.scheme : installedWallet.universalLink
-            let (topic, connectionURL) = try WalletConnectClientController.shared
-                .getTopicAndConnectionURL(link: link)
-            walletPerTopic[topic] = installedWallet
-            waitingForSession = true
-            // we need a delay so that WalletConnectClient can send handshake request
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
-                UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
-            }
-        } catch {
-            App.shared.snackbar.show(
-                error: GSError.error(description: "Could not create connection URL", error: error))
-        }
+        guard let topic = WalletConnectClientController.reconnectWithInstalledWallet(installedWallet) else { return }
+        walletPerTopic[topic] = installedWallet
+        waitingForSession = true
     }
 
     private func showConnectionQRCodeController() {

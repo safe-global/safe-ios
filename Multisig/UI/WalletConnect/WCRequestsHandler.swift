@@ -37,8 +37,6 @@ class WCRequestsHandler: RequestHandler {
         return !unsupportedWalletConnectRequests.contains(request.method)
     }
 
-    #warning("Finish impplementation")
-    #warning("FIXME!!!")
     func handle(request: Request) {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
@@ -99,7 +97,6 @@ class WCRequestsHandler: RequestHandler {
                 sceneDelegate.present(navController)
             }
         } else if request.method == "gs_multi_send" {
-            // TODO: add support
             server.send(try! Response(request: request, error: .requestRejected))
         } else {
             do {
@@ -107,7 +104,11 @@ class WCRequestsHandler: RequestHandler {
                 let response = try Response(url: request.url, jsonString: result)
                 self.server.send(response)
             } catch {
-                // TODO: finish
+                DispatchQueue.main.async {
+                    App.shared.snackbar.show(
+                        error: GSError.error(description: "Could not handle WalletConnect request", error: error)
+                    )
+                }
             }
         }
     }
