@@ -4,6 +4,7 @@
 
 import Foundation
 import CryptoSwift
+import CommonCrypto
 
 // https://github.com/matter-labs/web3swift
 
@@ -156,15 +157,55 @@ public class BIP39 {
         if (!valid) {
             return nil
         }
-        guard let mnemData = formattedMnemonics.decomposedStringWithCompatibilityMapping.data(using: .utf8) else { return nil }
+        // performance optimization
+        //
+        // previous implementation used CryptoSwift's PKCS5.PBKDF2 function to compute key from the mnemonic
+        // but it is very slow (~1-2 seconds) when running on a device.
+        //
+        // new CommonCrypto implementation is quick taking ~0.5 seconds.
         let salt = "mnemonic" + password
-        guard let saltData = salt.decomposedStringWithCompatibilityMapping.data(using: .utf8) else { return nil }
-        guard let seedArray = try? PKCS5.PBKDF2(password: mnemData.bytes,
-                                                salt: saltData.bytes,
-                                                iterations: 2048,
-                                                keyLength: 64,
-                                                variant: HMAC.Variant.sha512).calculate() else { return nil }
+        let seedArray = pbkdf2(password: password, salt: Array(salt.data(using: .utf8)!), iterations: 2048, hmac: .sha512)
+        // end of performance optimization
         let seed = Data(seedArray)
         return seed
     }
+
+    // Copied from https://github.com/status-im/Keycard.swift/blob/abf2be41c70846ab6f11c8bd445faf81b0befc1f/Sources/Keycard/Crypto.swift#L124
+    // MIT license.
+    enum PBKDF2HMac {
+        case sha256
+        case sha512
+    }
+    private static func pbkdf2(password: String, salt: [UInt8], iterations: Int, hmac: PBKDF2HMac) -> [UInt8] {
+        // implemented using CommonCrypto because it is much faster (ms vs s) on the device than CryptoSwfit implementation.
+        let keyLength: Int
+        let prf: CCPseudoRandomAlgorithm
+
+        switch hmac {
+        case .sha256:
+            keyLength = 32
+            prf = CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256)
+        case .sha512:
+            keyLength = 64
+            prf = CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA512)
+        }
+
+        precondition(salt.count < 133, "Salt must be less than 133 bytes length")
+        var saltBytes = salt
+        var outKey: [UInt8] = [UInt8](repeating: 0, count: keyLength)
+        let result = CCKeyDerivationPBKDF(CCPBKDFAlgorithm(kCCPBKDF2),
+                                          password,
+                                          password.lengthOfBytes(using: String.Encoding.utf8),
+                                          &saltBytes,
+                                          saltBytes.count,
+                                          prf,
+                                          UInt32(iterations),
+                                          &outKey,
+                                          keyLength)
+        if result == kCCParamError {
+            preconditionFailure("PBKDF error")
+        }
+        return outKey
+    }
+
 }
