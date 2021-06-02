@@ -38,7 +38,7 @@ class WalletConnectServerController {
             guard $0.session != nil, let session = try? Session.from($0) else {
                 // Trying to reconnect a session without handshake process finished.
                 // This could happed when the app restarts in the middle of the process.
-                WCSession.remove(topic: $0.topic!)
+                $0.delete()
                 return
             }
 
@@ -51,7 +51,7 @@ class WalletConnectServerController {
         do {
             try server.disconnect(from: try Session.from(wcSession))
         } catch {
-            WCSession.remove(topic: topic)
+            wcSession.delete()
             notificationCenter.post(name: .wcDidDisconnectServer, object: nil)
         }
     }
@@ -64,7 +64,7 @@ class WalletConnectServerController {
             do {
                 sessions.append(try Session.from(wcSession))
             } catch {
-                WCSession.remove(topic: wcSession.topic!)
+                wcSession.delete()
             }
         }
 
@@ -81,8 +81,8 @@ class WalletConnectServerController {
                 let safeAddress = AddressString(session.walletInfo!.accounts[0])!
 
                 // stop monitoring pending WalletConnect transactions after 24h
-                if Date().timeIntervalSince(pendingTx.created!) > 60*60*24 {
-                    WCPendingTransaction.remove(nonce: pendingTx.nonce!)
+                if Date().timeIntervalSince(pendingTx.created!) > 60 * 60 * 24 {
+                    pendingTx.delete()
                     continue
                 }
 
@@ -97,7 +97,7 @@ class WalletConnectServerController {
                         self.server.send(response)
                         DispatchQueue.main.async {
                             let nonce = pendingTx.nonce!
-                            WCPendingTransaction.remove(nonce: nonce)
+                            pendingTx.delete()
                             App.shared.snackbar.show(message: "WalletConnect transaction with nonce \(nonce) is executed. Please return back to the browser.")
                         }
                     }
@@ -110,7 +110,8 @@ class WalletConnectServerController {
 extension WalletConnectServerController: ServerDelegate {
     func server(_ server: Server, didFailToConnect url: WCURL) {
         DispatchQueue.main.sync {
-            WCSession.remove(topic: url.topic)
+            guard let wcSession = WCSession.get(topic: url.topic) else { return }
+            wcSession.delete()
         }
         notificationCenter.post(name: .wcDidFailToConnectServer, object: url)
     }
@@ -119,7 +120,7 @@ extension WalletConnectServerController: ServerDelegate {
         let walletMeta = Session.ClientMeta(name: "Gnosis Safe Multisig",
                                             description: "The most trusted platform to manage digital assets.",
                                             icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
-                                            url: URL(string: "https://safe.gnosis.io")!)
+                                            url: URL(string: "https://gnosis-safe.io")!)
 
         guard let safe = try? Safe.getSelected(), let address = safe.address else {
             let walletInfo = Session.WalletInfo(
@@ -160,7 +161,8 @@ extension WalletConnectServerController: ServerDelegate {
 
     func server(_ server: Server, didDisconnect session: Session) {
         DispatchQueue.main.sync {
-            WCSession.remove(topic: session.url.topic)
+            guard let wcSession = WCSession.get(topic: session.url.topic) else { return }
+            wcSession.delete()
         }
         notificationCenter.post(name: .wcDidDisconnectServer, object: session)
     }

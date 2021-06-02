@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import WalletConnectSwift
 
-#warning("Handle properly errors")
 class WalletConnectClientController {
     static let shared = WalletConnectClientController()
 
@@ -117,8 +116,7 @@ class WalletConnectClientController {
         guard let session = session,
               let client = client,
               let walletAddress = session.walletInfo?.accounts.first else {
-            // TODO: use GSError
-            completion(.failure("Failed to sign: wallet not connected. Please connect your wallet."))
+            completion(.failure(GSError.WalletNotConnected(description: "Could not sign transaction")))
             return
         }
 
@@ -136,7 +134,6 @@ class WalletConnectClientController {
         }
     }
 
-    #warning("TODO: handle closing modal manually")
     func sign(message: String, from controller: UIViewController, completion: @escaping (String) -> Void) {
         guard controller.presentedViewController == nil else { return }
 
@@ -144,19 +141,19 @@ class WalletConnectClientController {
         pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
         controller.present(pendingConfirmationVC, animated: false)
 
-        sign(message: message) { result in
+        sign(message: message) { [weak controller] result in
             switch result {
             case .success(let signature):
                 DispatchQueue.main.async {
                     // dismiss pending confirmation view controller overlay
-                    controller.dismiss(animated: false, completion: nil)
+                    controller?.dismiss(animated: false, completion: nil)
                 }
                 completion(signature)
 
             case .failure(_):
                 DispatchQueue.main.async {
                     // dismiss pending confirmation view controller overlay
-                    controller.dismiss(animated: false, completion: nil)
+                    controller?.dismiss(animated: false, completion: nil)
                     App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
                 }
             }
@@ -178,8 +175,7 @@ class WalletConnectClientController {
         guard let session = session,
               let client = client,
               let walletAddress = session.walletInfo?.accounts.first else {
-            // TODO: use GSError
-            onSend(.failure("Failed to execute: wallet not connected. Please connect your wallet."))
+            onSend(.failure(GSError.WalletNotConnected(description: "Could not execute transaction")))
             return
         }
 

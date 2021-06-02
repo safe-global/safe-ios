@@ -445,7 +445,6 @@ extension SCGModels.TransactionDetails {
         return false
     }
 
-    #warning("TODO: remove ecdsaConfirmations once other signature types are implemented")
     var needsYourExecution: Bool {
         if txStatus == .awaitingExecution,
            let multisigInfo = multisigInfo,

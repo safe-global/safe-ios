@@ -102,7 +102,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
               keys.first(where: { $0.address == account }) != nil else {
             WalletConnectClientController.shared.disconnect()
             DispatchQueue.main.async { [unowned self] in
-                self.hidePresentedIfNeeded()
+                presentedViewController?.dismiss(animated: false, completion: nil)
                 App.shared.snackbar.show(message: "Wrong wallet connected. Please try again.")
             }
             return
@@ -127,12 +127,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     @objc private func reload() {
         DispatchQueue.main.async { [unowned self] in
             self.reloadData()
-        }
-    }
-
-    private func hidePresentedIfNeeded() {
-        if let presented = presentedViewController {
-            presented.dismiss(animated: false, completion: nil)
         }
     }
 

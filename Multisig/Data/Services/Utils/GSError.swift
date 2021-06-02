@@ -362,6 +362,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct WalletNotConnected: DetailedLocalizedError {
+        let description: String
+        let reason = "The owner key is not connected."
+        let howToFix = "Please connect your owner key via WalletConnect."
+        let domain = clientErrorDomain
+        let code = 9906
+        let loggable = false
+    }
+
     // MARK: - iOS errors
 
     struct UnknownAppError: DetailedLocalizedError {

@@ -32,12 +32,10 @@ extension WCPendingTransaction {
         App.shared.coreDataStack.saveContext()
     }
 
-    static func remove(nonce: String) {
+    func delete() {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-        let fr = WCPendingTransaction.fetchRequest().by(nonce: nonce)
-        guard let transaction = try? context.fetch(fr).first else { return }
-        context.delete(transaction)
+        context.delete(self)
         App.shared.coreDataStack.saveContext()
     }
 }

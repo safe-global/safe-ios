@@ -63,12 +63,10 @@ extension WCSession {
         App.shared.coreDataStack.saveContext()
     }
 
-    static func remove(topic: String) {
+    func delete() {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-        let fr = WCSession.fetchRequest().by(topic: topic)
-        guard let session = try? context.fetch(fr).first else { return }
-        context.delete(session)
+        context.delete(self)
         App.shared.coreDataStack.saveContext()
     }
 }

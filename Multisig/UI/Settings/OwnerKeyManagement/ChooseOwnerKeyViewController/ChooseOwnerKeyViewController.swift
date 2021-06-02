@@ -76,7 +76,7 @@ class ChooseOwnerKeyViewController: UIViewController {
               owners.first(where: { $0.address == account }) != nil else {
             WalletConnectClientController.shared.disconnect()
             DispatchQueue.main.async { [unowned self] in
-                self.hidePresentedIfNeeded()
+                presentedViewController?.dismiss(animated: false, completion: nil)
                 App.shared.snackbar.show(message: "Wrong wallet connected. Please try again.")
             }
             return
@@ -196,12 +196,6 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         } catch {
             App.shared.snackbar.show(
                 error: GSError.error(description: "Could not create connection URL", error: error))
-        }
-    }
-
-    private func hidePresentedIfNeeded() {
-        if let presented = presentedViewController {
-            presented.dismiss(animated: false, completion: nil)
         }
     }
 }
