@@ -36,8 +36,8 @@ struct AdvancedAppSettings: View {
             DataSharingInfo()
 
             // NOTE: disabling to debug crash reporting in production environment
-            // if !(App.configuration.services.environment == .production) {
-            if FirebaseRemoteConfig.shared.value(key: .crashDebugEnabled) == "YES" {
+            if !(App.configuration.services.environment == .production) ||
+                FirebaseRemoteConfig.shared.value(key: .crashDebugEnabled) == "YES" {
                 Section(header: SectionHeader("DEBUG")) {
                     Button(action: {
                         fatalError()
