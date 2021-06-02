@@ -51,6 +51,8 @@ class OwnerKeyController {
         }
     }
 
+    // we need to update to always properly refresh session.walletInfo.peerId
+    // that we use to identify if the wallet is connected
     static func updateKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
         do {
             try KeyInfo.import(session: session, installedWallet: installedWallet)

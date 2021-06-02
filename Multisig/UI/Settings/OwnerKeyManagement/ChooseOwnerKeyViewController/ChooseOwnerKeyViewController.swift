@@ -125,12 +125,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         // For WalletConnect key check that it is still connected
         if App.configuration.toggles.walletConnectOwnerKeyEnabled && keyInfo.keyType == .walletConnect {
             guard WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) else {
-                // try to reconnect
-                if let installedWallet = keyInfo.installedWallet {
-                    reconnectWithInstalledWallet(installedWallet)
-                } else {
-                    showConnectionQRCodeController()
-                }
+                reconnect(key: keyInfo)
                 return
             }
 
@@ -152,6 +147,14 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
 
+    private func reconnect(key keyInfo: KeyInfo) {
+        if let installedWallet = keyInfo.installedWallet {
+            reconnectWithInstalledWallet(installedWallet)
+        } else {
+            showConnectionQRCodeController()
+        }
+    }
+
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let keyInfo = owners[indexPath.row]
         guard App.configuration.toggles.walletConnectOwnerKeyEnabled && keyInfo.keyType == .walletConnect else {
@@ -166,12 +169,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
             if isConnected {
                 WalletConnectClientController.shared.disconnect()
             } else {
-                // try to reconnect
-                if let installedWallet = keyInfo.installedWallet {
-                    self.reconnectWithInstalledWallet(installedWallet)
-                } else {
-                    self.showConnectionQRCodeController()
-                }
+                reconnect(key: keyInfo)
             }
 
             completion(true)
