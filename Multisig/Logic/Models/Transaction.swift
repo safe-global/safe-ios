@@ -55,6 +55,7 @@ extension Transaction {
 
         safe = wcRequest.from
 
+        // When submitting a transacion we need properly specify nonce
         var _nonce: UInt256String
         if let latestTx = try? App.shared.safeTransactionService.latestTransaction(for: wcRequest.from) {
             _nonce = UInt256String(latestTx.nonce.value + 1)

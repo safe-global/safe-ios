@@ -12,7 +12,8 @@ import WalletConnectSwift
 
 extension WCSession {
     enum WCSessionStatus: Int {
-        case connecting = 0, connected
+        case connecting = 0
+        case connected = 1
     }
 
     var status: WCSessionStatus {
@@ -44,12 +45,19 @@ extension WCSession {
         dispatchPrecondition(condition: .onQueue(.main))
         guard let safe = try? Safe.getSelected() else { return }
 
-        let context = App.shared.coreDataStack.viewContext
-        let wcSession = WCSession(context: context)
+        let wcSession: WCSession
+        if let existing = get(topic: wcurl.topic) {
+            wcSession = existing
+        } else {
+            let context = App.shared.coreDataStack.viewContext
+            wcSession = WCSession(context: context)
+        }
+
         wcSession.status = .connecting
         wcSession.created = Date()
         wcSession.topic = wcurl.topic
         wcSession.safe = safe
+        
         App.shared.coreDataStack.saveContext()
     }
 
@@ -79,7 +87,7 @@ extension NSFetchRequest where ResultType == WCSession {
 
     func by(topic: String) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "topic CONTAINS[c] %@", topic)
+        predicate = NSPredicate(format: "topic == %@", topic)
         fetchLimit = 1
         return self
     }

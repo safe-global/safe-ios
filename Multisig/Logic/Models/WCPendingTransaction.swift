@@ -45,11 +45,4 @@ extension NSFetchRequest where ResultType == WCPendingTransaction {
         sortDescriptors = []
         return self
     }
-
-    func by(nonce: String) -> Self {
-        sortDescriptors = []
-        predicate = NSPredicate(format: "nonce CONTAINS[c] %@", nonce)
-        fetchLimit = 1
-        return self
-    }
 }

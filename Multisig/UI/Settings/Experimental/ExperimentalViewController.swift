@@ -80,7 +80,7 @@ class ExperimentalViewController: UITableViewController {
 
         case .walletConnectOwnerKey:
             let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
-            cell.setText("Enable WalletConnect for owner keys")
+            cell.setText("Enable WalletConnect for keys")
             cell.setOn(walletConnectOwnerKeyEnabled!, animated: false)
             return cell
 
