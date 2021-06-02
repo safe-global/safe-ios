@@ -163,8 +163,15 @@ public class BIP39 {
         // but it is very slow (~1-2 seconds) when running on a device.
         //
         // new CommonCrypto implementation is quick taking ~0.5 seconds.
+
+        guard formattedMnemonics.decomposedStringWithCompatibilityMapping.data(using: .utf8) != nil else { return nil }
         let salt = "mnemonic" + password
-        let seedArray = pbkdf2(password: formattedMnemonics, salt: Array(salt.data(using: .utf8)!), iterations: 2048, hmac: .sha512)
+        guard let saltData = salt.decomposedStringWithCompatibilityMapping.data(using: .utf8) else { return nil }
+
+        let seedArray = pbkdf2(password: formattedMnemonics.decomposedStringWithCompatibilityMapping,
+                               salt: Array(saltData),
+                               iterations: 2048,
+                               hmac: .sha512)
         // end of performance optimization
         let seed = Data(seedArray)
         return seed
