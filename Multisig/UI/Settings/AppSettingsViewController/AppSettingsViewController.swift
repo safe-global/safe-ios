@@ -141,24 +141,23 @@ class AppSettingsViewController: UITableViewController {
         sections[section].items.count
     }
 
-    #warning("TODO: change basicCell")
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.App.ownerKeys(let name, let count):
-            return basicCell(name: name, info: count, indexPath: indexPath)
+            return tableView.basicCell(name: name, detail: count, indexPath: indexPath)
 
         case Section.App.passcode(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.App.appearance(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.App.fiat(let name, let value):
-            return basicCell(name: name, info: value, indexPath: indexPath)
+            return tableView.basicCell(name: name, detail: value, indexPath: indexPath)
 
         case Section.App.experimental(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.terms(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
@@ -173,13 +172,13 @@ class AppSettingsViewController: UITableViewController {
             return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.rateTheApp(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.appVersion(let name, let version):
-            return infoCell(name: name, info: version, indexPath: indexPath)
+            return tableView.infoCell(name: name, info: version, indexPath: indexPath)
 
         case Section.General.network(let name, let network):
-            return infoCell(name: name, info: network, indexPath: indexPath)
+            return tableView.infoCell(name: name, info: network, indexPath: indexPath)
 
         case Section.Advanced.advanced(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
@@ -187,21 +186,6 @@ class AppSettingsViewController: UITableViewController {
         default:
             return UITableViewCell()
         }
-    }
-
-    private func basicCell(name: String, info: String? = nil, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-        cell.setTitle(name)
-        cell.setDetail(info)
-        return cell
-    }
-
-    private func infoCell(name: String, info: String, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(InfoCell.self, for: indexPath)
-        cell.setTitle(name)
-        cell.setInfo(info)
-        cell.selectionStyle = .none
-        return cell
     }
 
     // MARK: - Table view delegate

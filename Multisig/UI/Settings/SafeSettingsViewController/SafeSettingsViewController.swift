@@ -164,10 +164,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Name.name(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.RequiredConfirmations.confirmations(let name):
-            return basicCell(name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
+            return tableView.basicCell(name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
 
         case Section.OwnerAddresses.ownerInfo(let info):
             return addressDetailsCell(address: info.address, name: namingPolicy.name(info: info), indexPath: indexPath)
@@ -183,7 +183,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             }
 
         case Section.Advanced.advanced(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.Advanced.removeSafe:
             return removeSafeCell(indexPath: indexPath)
@@ -191,17 +191,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         default:
             return UITableViewCell()
         }
-    }
-
-    private func basicCell(name: String,
-                           indexPath: IndexPath,
-                           withDisclosure: Bool = true,
-                           canSelect: Bool = true) -> UITableViewCell {
-        let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-        cell.setTitle(name)
-        cell.setDisclosureImage(withDisclosure ? UIImage(named: "arrow") : nil)
-        cell.selectionStyle = canSelect ? .default : .none
-        return cell
     }
 
     private func addressDetailsCell(address: Address, name: String?, indexPath: IndexPath) -> UITableViewCell {

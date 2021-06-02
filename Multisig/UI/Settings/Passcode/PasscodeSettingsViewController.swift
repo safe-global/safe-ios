@@ -211,34 +211,32 @@ class PasscodeSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch data[indexPath.section].rows[indexPath.row] {
         case .usePasscode:
-            return makeSwitch(for: indexPath, with: "Use passcode", isOn: isPasscodeSet)
+            return tableView.switchCell(for: indexPath, with: "Use passcode", isOn: isPasscodeSet)
 
         case .changePasscode:
-            let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-            cell.setTitle("Change passcode")
-            return cell
+            return tableView.basicCell(name: "Change passcode", indexPath: indexPath)
 
         case .helpText:
             return makeHelp(for: indexPath, with: "The passcode is needed to sign transactions.")
 
         case .loginWithBiometrics:
-            return makeSwitch(for: indexPath,
-                              with: "Login with biometrics",
-                              isOn: AppSettings.passcodeOptions.contains(.useBiometry))
+            return tableView.switchCell(for: indexPath,
+                                        with: "Login with biometrics",
+                                        isOn: AppSettings.passcodeOptions.contains(.useBiometry))
 
         case .requireToOpenApp:
-            return makeSwitch(for: indexPath,
-                              with: "Require to open app",
-                              isOn: AppSettings.passcodeOptions.contains(.useForLogin))
+            return tableView.switchCell(for: indexPath,
+                                        with: "Require to open app",
+                                        isOn: AppSettings.passcodeOptions.contains(.useForLogin))
 
         case .requireForConfirmations:
-            return makeSwitch(for: indexPath,
-                              with: "Require for confirmations",
-                              isOn: AppSettings.passcodeOptions.contains(.useForConfirmation))
+            return tableView.switchCell(for: indexPath,
+                                        with: "Require for confirmations",
+                                        isOn: AppSettings.passcodeOptions.contains(.useForConfirmation))
         case .requireForExportingKeys:
-            return makeSwitch(for: indexPath,
-                              with: "Require for exporting keys",
-                              isOn: AppSettings.passcodeOptions.contains(.useForExportingKeys))
+            return tableView.switchCell(for: indexPath,
+                                        with: "Require for exporting keys",
+                                        isOn: AppSettings.passcodeOptions.contains(.useForExportingKeys))
 
         case .oneOptionSelectedText:
             return makeHelp(for: indexPath, with: "At least one option must be selected")
@@ -291,13 +289,6 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     // MARK: - Factory methods
-
-    private func makeSwitch(for indexPath: IndexPath, with text: String, isOn: Bool) -> SwitchTableViewCell {
-        let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
-        cell.setText(text)
-        cell.setOn(isOn, animated: false)
-        return cell
-    }
 
     private func makeHelp(for indexPath: IndexPath, with text: String) -> UITableViewCell {
         let cell = tableView.dequeueCell(UITableViewCell.self, reuseID: "HelpCell", for: indexPath)
