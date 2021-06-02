@@ -76,6 +76,9 @@ enum TrackingEvent: String, Trackable {
     case transactionDetailsTransactionConfirmed     = "user_transaction_confirmed"
     case transactionDetailsTransactionRejected      = "user_transaction_rejected"
 
+    case dapps                                      = "screen_dapps"
+    case dappsNoSafe                                = "screen_dapps_no_safe"
+
     case settingsApp                                = "screen_settings_app"
     case settingsAppAdvanced                        = "screen_settings_app_advanced"
     case settingsAppEditFiat                        = "screen_settings_app_edit_fiat"

@@ -55,6 +55,11 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         update()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.dapps)
+    }
+
     private func configureTableView() {
         tableView.dataSource = self
         tableView.delegate = self

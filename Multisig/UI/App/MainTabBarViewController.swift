@@ -121,11 +121,10 @@ class MainTabBarViewController: UITabBarController {
             root: tabRoot, title: "Transactions", image: UIImage(named: "tab-icon-transactions")!, tag: 1)
     }
 
-    #warning("fix tracking")
     private func dappsTabViewController() -> UIViewController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
-        loadSafeViewController.trackingEvent = .settingsSafeNoSafe
+        loadSafeViewController.trackingEvent = .dappsNoSafe
         noSafesVC.hasSafeViewController = DappsViewController()
         noSafesVC.noSafeViewController = loadSafeViewController
 
