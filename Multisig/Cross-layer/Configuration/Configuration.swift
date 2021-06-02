@@ -105,6 +105,11 @@ struct AppConfiguration {
         var logLevel: String
     }
 
+    struct WalletConnect {
+        @ConfigurationKey("WALLETCONNECT_BRIDGE_URL")
+        var bridgeURL: URL
+    }
+
     struct FeatureToggles {
         @ConfigurationKey("SHOW_EXPERIMENTAL")
         var experimental: Bool
@@ -135,6 +140,7 @@ struct AppConfiguration {
     let legal = Legal()
     let contact = Contact()
     let app = App()
+    let walletConnect = WalletConnect()
     let toggles = FeatureToggles()
 }
 

@@ -31,11 +31,8 @@ class WalletConnectClientController {
         // Currently controller supports only one session at the time.
         disconnect()
 
-        // gnosis wc bridge: https://safe-walletconnect.gnosis.io/
-        // zerion wc bridge: https://wcbridge.zerion.io
-        // test bridge with latest protocol version: https://bridge.walletconnect.org
         let wcUrl =  WCURL(topic: UUID().uuidString,
-                           bridgeURL: URL(string: "https://safe-walletconnect.gnosis.io/")!,
+                           bridgeURL: App.configuration.walletConnect.bridgeURL,
                            key: randomKey()!)
         LogService.shared.info("WalletConnect Client URL: \(wcUrl.absoluteString)")
 
@@ -60,19 +57,19 @@ class WalletConnectClientController {
     }
 
     /// https://docs.walletconnect.org/mobile-linking#for-ios
-    func getTopicAndConnectionURL(link: String) throws -> (String, URL) {
+    func connectToWallet(link: String) throws -> (topic: String, connectionURL: URL) {
         let wcUrl = try connect()
         var delimiter: String
         var uri: String
         if link.contains("http") {
             delimiter = "/"
-            uri = wcUrl.urlEncodedStr
+            uri = wcUrl.partiallyPercentEncodedStr
         } else {
             delimiter = "//"
             uri = wcUrl.absoluteString
             // special handling for ledgerlive app
             if link.contains("ledgerlive") {
-                uri = wcUrl.urlEncodedStr2
+                uri = wcUrl.fullyPercentEncodedStr
             } else {
                 uri = wcUrl.absoluteString
             }
@@ -164,7 +161,7 @@ class WalletConnectClientController {
                  confirmations: [SCGModels.Confirmation],
                  confirmationsRequired: UInt64,
                  from controller: UIViewController,
-                 onSend: @escaping (Result<Bool, Error>) -> Void,
+                 onSend: @escaping (Result<Void, Error>) -> Void,
                  onResult: @escaping (Result<HashString, Error>) -> Void) {
         guard controller.presentedViewController == nil else { return }
 
@@ -201,7 +198,7 @@ class WalletConnectClientController {
                     }
                 }
 
-                onSend(.success(true))
+                onSend(.success(()))
             } catch {
                 onSend(.failure(error))
             }
@@ -209,6 +206,7 @@ class WalletConnectClientController {
     }
 
     // https://developer.apple.com/documentation/security/1399291-secrandomcopybytes
+    // used as a secret key for initiating new session
     private func randomKey() -> String? {
         var bytes = [Int8](repeating: 0, count: 32)
         let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
@@ -220,7 +218,10 @@ class WalletConnectClientController {
     }
 
     static func openWalletIfInstalled(keyInfo: KeyInfo) {
-        if let installedWallet = keyInfo.installedWallet {
+        if let installedWallet = keyInfo.installedWallet,
+           let schemeUrl = URL(string: installedWallet.scheme),
+           UIApplication.shared.canOpenURL(schemeUrl) {
+
             if !installedWallet.universalLink.isEmpty {
                 // MetaMask shows error alert if nothing is provided to the link
                 // https://github.com/MetaMask/metamask-mobile/blob/194a1858b96b1f88762f8679380b09dda3c8b29e/app/core/DeeplinkManager.js#L89
@@ -236,8 +237,7 @@ class WalletConnectClientController {
     static func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) -> String? {
         do {
             let link = installedWallet.universalLink.isEmpty ? installedWallet.scheme : installedWallet.universalLink
-            let (topic, connectionURL) = try WalletConnectClientController.shared
-                .getTopicAndConnectionURL(link: link)
+            let (topic, connectionURL) = try WalletConnectClientController.shared.connectToWallet(link: link)
 
             // we need a delay so that WalletConnectClient can send handshake request
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
@@ -294,13 +294,13 @@ extension WalletConnectClientController {
 
 /// Different wallets implemented different encoding styles
 extension WCURL {
-    var urlEncodedStr: String {
+    var partiallyPercentEncodedStr: String {
         let params = "bridge=\(bridgeURL.absoluteString)&key=\(key)"
             .addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
         return "wc:\(topic)@\(version)?\(params))"
     }
 
-    var urlEncodedStr2: String {
+    var fullyPercentEncodedStr: String {
         absoluteString.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ""
     }
 }

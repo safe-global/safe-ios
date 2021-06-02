@@ -87,8 +87,7 @@ class ConnectWalletViewController: UITableViewController {
                 let link = installedWallet.universalLink.isEmpty ?
                     installedWallet.scheme :
                     installedWallet.universalLink
-                let (topic, connectionURL) = try WalletConnectClientController.shared
-                    .getTopicAndConnectionURL(link: link)
+                let (topic, connectionURL) = try WalletConnectClientController.shared.connectToWallet(link: link)
                 walletPerTopic[topic] = installedWallet
                 // we need a delay so that WalletConnectClient can send handshake request
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {

@@ -57,6 +57,8 @@
 	<string>$(GNOSIS_SAFE_WEB_URL)</string>
 	<key>HELP_CENTER_URL</key>
 	<string>$(HELP_CENTER_URL)</string>
+	<key>WALLETCONNECT_BRIDGE_URL</key>
+	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LICENSES_URL</key>

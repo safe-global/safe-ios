@@ -28,8 +28,10 @@ class OwnerKeyDetailsViewController: UIViewController {
 
         navigationItem.title = "Owner Key"
 
-        exportButton = UIBarButtonItem(title: "Export", style: .done, target: self, action: #selector(didTapExportButton))
-        navigationItem.rightBarButtonItem = exportButton
+        if keyInfo.keyType != .walletConnect {
+            exportButton = UIBarButtonItem(title: "Export", style: .done, target: self, action: #selector(didTapExportButton))
+            navigationItem.rightBarButtonItem = exportButton
+        }
 
         nameLabel.setStyle(.headline)
 
