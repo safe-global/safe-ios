@@ -10,7 +10,7 @@ import UIKit
 
 class CollectibleDetailViewController: UIViewController {
     @IBOutlet private weak var imageContainerView: UIView!
-    @IBOutlet private weak var svgView: SVGView!
+    @IBOutlet private weak var imageView: WebImageView!
 
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var detailLabel: UILabel!
@@ -27,15 +27,15 @@ class CollectibleDetailViewController: UIViewController {
         detailLabel.setStyle(.footnote2)
         descriptionLabel.setStyle(.primary)
 
-        svgView.layer.cornerRadius = 10
-        svgView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
 
         titleLabel.text = collectible.name
         detailLabel.text = collectible.tokenID
         descriptionLabel.text = collectible.description
 
         if let url = collectible.imageURL {
-            svgView.setImage(url: url, placeholder: UIImage(named: "ico-collectible-placeholder"), onError: { [weak self] in
+            imageView.setImage(url: url, placeholder: UIImage(named: "ico-collectible-placeholder"), onError: { [weak self] in
                 self?.imageContainerView.isHidden = true
             })
         }
@@ -43,5 +43,4 @@ class CollectibleDetailViewController: UIViewController {
 
         addressView.setAddress(.init(exactly: collectible.address), label: "Asset Contract")
     }
-
 }
