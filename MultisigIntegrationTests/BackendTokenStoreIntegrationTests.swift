@@ -9,7 +9,7 @@
 import XCTest
 @testable import Multisig
 
-class BackendTokenStoreIntegrationTests: XCTestCase {
+class BackendTokenStoreIntegrationTests: RinkebyTestCase {
     let store = BackendTokenStore()
 
     func testTokens() {
@@ -19,22 +19,28 @@ class BackendTokenStoreIntegrationTests: XCTestCase {
             tokens = self.store.tokens()
             exp.fulfill()
         }
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: 20)
 
         XCTAssertFalse(tokens.isEmpty)
     }
 
     func testToken() {
+        let expectedTokens: [Address] = [
+            "0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF",
+            "0xFFadE30f03a17581362171982F95657C1306a68f",
+            "0x63704B63Ac04f3a173Dfe677C7e3D330c347CD88"
+        ]
+
         let exp = expectation(description: "Wait")
-        var tokens: [Token?] = []
+        var tokens: [Token] = []
         DispatchQueue.global().async { [unowned self] in
-            tokens.append(self.store.token(address: "0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF"))
-            tokens.append(self.store.token(address: "0xFFadE30f03a17581362171982F95657C1306a68f"))
-            tokens.append(self.store.token(address: "0x63704B63Ac04f3a173Dfe677C7e3D330c347CD88"))
+            tokens = expectedTokens.compactMap { self.store.token(address: $0) }
             exp.fulfill()
         }
-        waitForExpectations(timeout: 2)
-        XCTAssertTrue(tokens.compactMap { $0 }.count == 3, "Some tokens are unknown")
+        waitForExpectations(timeout: 10)
+
+        let actualTokens = tokens.map { $0.address }
+        XCTAssertEqual(expectedTokens, actualTokens, "Some tokens are unknown")
     }
 
 }

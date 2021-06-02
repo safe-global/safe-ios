@@ -9,18 +9,21 @@
 import XCTest
 @testable import Multisig
 
-class TokenRegistryIntegrationTests: XCTestCase {
+class RinkebyTestCase: XCTestCase {
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        XCTAssertEqual(App.configuration.app.network, .rinkeby,
+                      "The test users rinkeby addresses")
+    }
+}
+
+class TokenRegistryIntegrationTests: RinkebyTestCase {
 
     let registry = TokenRegistry()
 
     let cryptoKitties: Address = "0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF"
     let chainLinkNotInBackend: Address = "0x01be23585060835e02b77ef475b0cc51aa1e0709"
     let notAToken: Address = "0x9bcd3162694994f67d49a8ead6e5a196c9dd2fd2"
-
-    override func setUpWithError() throws {
-        XCTAssertEqual(App.configuration.app.network, .rinkeby,
-                      "The test users rinkeby addresses")
-    }
 
     func testLoad() {
         let exp = expectation(description: "Wait")
@@ -54,7 +57,7 @@ class TokenRegistryIntegrationTests: XCTestCase {
             XCTAssertNil(shouldBeNil)
             exp.fulfill()
         }
-        waitForExpectations(timeout: 3)
+        waitForExpectations(timeout: 20)
 
         XCTAssertEqual(tokens.compactMap { $0 }.count, 3)
     }
