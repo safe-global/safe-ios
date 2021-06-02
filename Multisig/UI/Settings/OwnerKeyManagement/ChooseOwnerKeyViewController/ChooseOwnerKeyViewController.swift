@@ -88,8 +88,8 @@ class ChooseOwnerKeyViewController: UIViewController {
             _ = OwnerKeyController.updateKey(session: session,
                                                installedWallet: walletPerTopic[session.url.topic])
 
-            if let presented = presentedViewController {
-                // QR code controller
+            // If the session is initiated with QR code, then we need to hide QR code controller
+            if let presented = presentedViewController {                
                 presented.dismiss(animated: false, completion: nil)
             }
 

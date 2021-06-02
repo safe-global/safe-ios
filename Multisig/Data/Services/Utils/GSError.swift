@@ -314,49 +314,15 @@ enum GSError {
         let loggable = false
     }
     
-    struct UDUnsuportedName: DetailedLocalizedError {
-        let description = "Can't use this name"
-        let reason = "Invalid domain name"
-        let howToFix = "Please check the domain, it should end with .crypto or .zil"
-        let domain = clientErrorDomain
-        let code = 6357
-        let loggable = false
-    }
-    
-    struct UDUnregisteredName: DetailedLocalizedError {
-        let description = "Address not found"
-        let reason = "This domain is not registered with UD."
-        let howToFix = "Check if domain is correct"
-        let domain = clientErrorDomain
-        let code = 6358
-        let loggable = false
-    }
-    
-    struct UDResolverNotFound: DetailedLocalizedError {
-        let description = "Can't use this name"
-        let reason = "Domain is not configured correctly."
-        let howToFix = "Ask Domain owner to configure resolver contract"
-        let domain = clientErrorDomain
-        let code = 6360
-        let loggable = false
-    }
-    
-    struct UDUnsupportedNetwork: DetailedLocalizedError {
-        let description = "Incorrect network"
-        let reason = "Selected network is not supported by Unstoppable Domains."
-        let howToFix = "Make sure you are connected to the mainnet or rinkeby to operate"
-        let domain = clientErrorDomain
-        let code = 6362
-        let loggable = false
-    }
 
+    // MARK: - WalletConnect experimental feature errors
 
     struct InvalidWalletConnectQRCode: DetailedLocalizedError {
         let description = "Can’t use this QR code"
-        let reason = "Scaned QR code is not in a format that we expect."
+        let reason = "Scanned QR code is not in the format that we expect."
         let howToFix = "Please assure that the displayed QR code is in a valid format"
         let domain = clientErrorDomain
-        let code = 1111
+        let code = 9901
         let loggable = false
     }
 
@@ -365,7 +331,7 @@ enum GSError {
         let reason = "We could not start a session with this QR code."
         let howToFix = "Please try with another QR code"
         let domain = clientErrorDomain
-        let code = 1112
+        let code = 9902
         let loggable = false
     }
 
@@ -374,16 +340,16 @@ enum GSError {
         let reason = "Wallet rejected the request."
         let howToFix = "Please confirm the request with your wallet."
         let domain = clientErrorDomain
-        let code = 1113
+        let code = 9903
         let loggable = false
     }
 
     struct CouldNotCreateWallectConnectURL: DetailedLocalizedError {
         let description = "Could not create connection URL"
-        let reason = "We could not connect to WalletConnect bridge server."
+        let reason = "We could not connect to the WalletConnect bridge server."
         let howToFix = "Please try again later or contact Safe support if the issue persists"
         let domain = clientErrorDomain
-        let code = 1114
+        let code = 9904
         let loggable = false
     }
 
@@ -392,7 +358,7 @@ enum GSError {
         let reason = "The owner key is already imported."
         let howToFix = "Please use already imported key or remove it and try again."
         let domain = clientErrorDomain
-        let code = 1115
+        let code = 9905
         let loggable = false
     }
 
@@ -486,5 +452,43 @@ enum GSError {
         let domain = iOSErrorDomain
         let code = 1316
         let loggable = true
+    }
+
+    // - MARK: - Unstoppable domain errors
+
+    struct UDUnsuportedName: DetailedLocalizedError {
+        let description = "Can't use this name"
+        let reason = "Invalid domain name"
+        let howToFix = "Please check the domain, it should end with .crypto or .zil"
+        let domain = clientErrorDomain
+        let code = 6357
+        let loggable = false
+    }
+
+    struct UDUnregisteredName: DetailedLocalizedError {
+        let description = "Address not found"
+        let reason = "This domain is not registered with UD."
+        let howToFix = "Check if domain is correct"
+        let domain = clientErrorDomain
+        let code = 6358
+        let loggable = false
+    }
+
+    struct UDResolverNotFound: DetailedLocalizedError {
+        let description = "Can't use this name"
+        let reason = "Domain is not configured correctly."
+        let howToFix = "Ask Domain owner to configure resolver contract"
+        let domain = clientErrorDomain
+        let code = 6360
+        let loggable = false
+    }
+
+    struct UDUnsupportedNetwork: DetailedLocalizedError {
+        let description = "Incorrect network"
+        let reason = "Selected network is not supported by Unstoppable Domains."
+        let howToFix = "Make sure you are connected to the mainnet or rinkeby to operate"
+        let domain = clientErrorDomain
+        let code = 6362
+        let loggable = false
     }
 }
