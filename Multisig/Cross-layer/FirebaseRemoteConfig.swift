@@ -15,6 +15,7 @@ class FirebaseRemoteConfig {
         case newestVersion
         case deprecatedSoon
         case deprecated
+        case crashDebugEnabled
     }
 
     private var remoteConfig: RemoteConfig!
