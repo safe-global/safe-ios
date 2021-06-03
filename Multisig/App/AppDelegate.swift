@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.shared.setSafeCount(Safe.count)
         Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
         Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
+        Tracker.shared.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
         Tracker.shared.setPasscodeIsSet(to: App.shared.auth.isPasscodeSet)
 
         Safe.updateCachedNames()

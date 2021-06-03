@@ -31,6 +31,11 @@ class ConnectWalletViewController: UITableViewController {
             self, selector: #selector(walletConnectSessionCreated(_:)), name: .wcDidConnectClient, object: nil)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.walletConnectKeyOptions)
+    }
+
     @objc private func walletConnectSessionCreated(_ notification: Notification) {
         guard let session = notification.object as? Session, waitingForSession else { return }
         waitingForSession = false

@@ -35,6 +35,11 @@ class OnboardingConnectOwnerKeyViewController: UITableViewController {
         tableView.registerCell(CardTableViewCell.self)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.connectOwnerOnboarding)
+    }
+
     @objc private func didTapNextButton(_ sender: Any) {
         let controller = ConnectWalletViewController()
         show(controller, sender: self)

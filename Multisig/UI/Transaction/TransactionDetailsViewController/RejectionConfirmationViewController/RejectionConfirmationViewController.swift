@@ -102,7 +102,8 @@ class RejectionConfirmationViewController: UIViewController {
                 rejectAndCloseController(transaction: tx,
                                          safeAddress: safeAddress,
                                          sender: keyInfo.address.hexadecimal,
-                                         signature: signature.hexadecimal)
+                                         signature: signature.hexadecimal,
+                                         keyType: keyInfo.keyType)
             } catch {
                 App.shared.snackbar.show(message: "Failed to Reject transaction")
             }
@@ -113,7 +114,8 @@ class RejectionConfirmationViewController: UIViewController {
                 self.rejectAndCloseController(transaction: tx,
                                               safeAddress: safeAddress,
                                               sender: keyInfo.address.hexadecimal,
-                                              signature: signature)
+                                              signature: signature,
+                                              keyType: keyInfo.keyType)
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
@@ -133,7 +135,8 @@ class RejectionConfirmationViewController: UIViewController {
     private func rejectAndCloseController(transaction: Transaction,
                                           safeAddress: Address,
                                           sender: String,
-                                          signature: String) {
+                                          signature: String,
+                                          keyType: KeyType) {
         _ = App.shared.clientGatewayService.propose(
             transaction: transaction,
             safeAddress: safeAddress,
@@ -157,7 +160,14 @@ class RejectionConfirmationViewController: UIViewController {
                         App.shared.snackbar.show(error: GSError.error(description: "Failed to Reject transaction", error: error))
                     case .success(_):
                         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-                        Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionRejected)
+
+                        switch keyType {
+                        case .deviceGenerated, .deviceImported:
+                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionRejected)
+                        case .walletConnect:
+                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTxRejectedWC)
+                        }
+
                         App.shared.snackbar.show(message: "Rejection successfully submitted")
                         self?.navigationController?.popToRootViewController(animated: true)
                     }
