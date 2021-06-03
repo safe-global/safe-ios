@@ -100,6 +100,15 @@ class AuthenticationController {
         AppSettings.passcodeOptions = .useForConfirmation
     }
 
+    func migrateUsePasscodeForExportingKey() {
+        guard !AppSettings.migrateUsePasscodeForExportingKey else { return }
+        if isPasscodeSet {
+            AppSettings.passcodeOptions.insert(.useForExportingKeys)
+        }
+
+        AppSettings.usePasscodeForExportingKeyMigarated = true
+    }
+
     /// Returns saved user, if any
     private var user: User? {
         try? AppUser.all().first?.user()
