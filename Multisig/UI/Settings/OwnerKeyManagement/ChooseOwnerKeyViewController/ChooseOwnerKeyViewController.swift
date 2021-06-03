@@ -186,14 +186,14 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
     }
 
     private func showConnectionQRCodeController() {
-        do {
-            let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
-            let qrCodeVC = WalletConnectQRCodeViewController.create(code: connectionURI)
-            waitingForSession = true
-            present(qrCodeVC, animated: true, completion: nil)
-        } catch {
-            App.shared.snackbar.show(
-                error: GSError.error(description: "Could not create connection URL", error: error))
+        WalletConnectClientController.showConnectionQRCodeController(from: self) { result in
+            switch result {
+            case .success(_):
+                waitingForSession = true
+            case .failure(let error):
+                App.shared.snackbar.show(
+                    error: GSError.error(description: "Could not create connection URL", error: error))
+            }
         }
     }
 }
