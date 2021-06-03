@@ -68,10 +68,11 @@ class RejectionConfirmationViewController: UIViewController {
         let vc = ChooseOwnerKeyViewController(owners: rejectors,
                                               descriptionText: descriptionText) { [weak self] keyInfo in
             guard let `self` = self else { return }
-            if let info = keyInfo {
-                self.rejectTransaction(info)
+            self.dismiss(animated: true) {
+                if let info = keyInfo {
+                    self.rejectTransaction(info)
+                }
             }
-            self.dismiss(animated: true)
         }
 
         let navigationController = UINavigationController(rootViewController: vc)
@@ -84,16 +85,61 @@ class RejectionConfirmationViewController: UIViewController {
 
     private func rejectTransaction(_ keyInfo: KeyInfo) {
         startLoading()
-        do {
-            let safeAddress = try Safe.getSelected()!.addressValue
-            let tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
-            let signature = try SafeTransactionSigner().sign(tx, by: safeAddress, keyInfo: keyInfo)
-            _ = App.shared.clientGatewayService.propose(transaction: tx,
-                                                        safeAddress: safeAddress,
-                                                        sender: signature.signer.checksummed,
-                                                        signature: signature.hexadecimal,
-                                                        completion: { [weak self] result in
 
+        var safeAddress: Address
+        do {
+            safeAddress = try Safe.getSelected()!.addressValue
+        } catch {
+            App.shared.snackbar.show(message: "Failed to Reject transaction")
+            return
+        }
+        let tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
+
+        switch keyInfo.keyType {
+        case .deviceImported, .deviceGenerated:
+            do {
+                let signature = try SafeTransactionSigner().sign(tx, by: safeAddress, keyInfo: keyInfo)
+                rejectAndCloseController(transaction: tx,
+                                         safeAddress: safeAddress,
+                                         sender: keyInfo.address.hexadecimal,
+                                         signature: signature.hexadecimal)
+            } catch {
+                App.shared.snackbar.show(message: "Failed to Reject transaction")
+            }
+
+        case .walletConnect:
+            let safeTxHash = tx.safeTxHash!.description
+            WalletConnectClientController.shared.sign(message: safeTxHash, from: self) { [unowned self] signature in
+                self.rejectAndCloseController(transaction: tx,
+                                              safeAddress: safeAddress,
+                                              sender: keyInfo.address.hexadecimal,
+                                              signature: signature)
+            }
+
+            WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
+        }
+    }
+
+    private func startLoading() {
+        loadingView.isHidden = false
+        contentContainerView.isHidden = true
+    }
+
+    private func endLoading() {
+        loadingView.isHidden = true
+        contentContainerView.isHidden = false
+    }
+
+    private func rejectAndCloseController(transaction: Transaction,
+                                          safeAddress: Address,
+                                          sender: String,
+                                          signature: String) {
+        _ = App.shared.clientGatewayService.propose(
+            transaction: transaction,
+            safeAddress: safeAddress,
+            sender: sender,
+            signature: signature,
+            completion: { [weak self] result in
                 // NOTE: sometimes the data of the transaction list is not
                 // updated right away, we'll give a moment for the backend
                 // to catch up before finishing with this request.
@@ -119,18 +165,5 @@ class RejectionConfirmationViewController: UIViewController {
                     self?.endLoading()
                 }
             })
-        } catch {
-            App.shared.snackbar.show(message: "Failed to Reject transaction")
-        }
-    }
-
-    func startLoading() {
-        loadingView.isHidden = false
-        contentContainerView.isHidden = true
-    }
-
-    func endLoading() {
-        loadingView.isHidden = true
-        contentContainerView.isHidden = false
     }
 }

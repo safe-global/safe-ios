@@ -96,12 +96,13 @@ extension AdvancedSafeSettingsViewController {
             if let info = info {
                 return addressDetailsCell(address: info.address, title: namingPolicy.name(info: info), imageUri: info.logoUri, indexPath: indexPath)
             } else {
-                return basicCell(name: "Not set", indexPath: indexPath)
+                return tableView.basicCell(
+                    name: "Not set", indexPath: indexPath, withDisclosure: false, canSelect: false)
             }
         case Section.FallbackHandler.fallbackHandlerHelpLink:
             return fallbackHandlerHelpLinkCell(indexPath: indexPath)
         case Section.Nonce.nonce(let nonce):
-            return basicCell(name: nonce, indexPath: indexPath)
+            return tableView.basicCell(name: nonce, indexPath: indexPath, withDisclosure: false, canSelect: false)
         case Section.Module.module(let info):
             return addressDetailsCell(address: info.address, title: namingPolicy.name(info: info), imageUri: info.logoUri, indexPath: indexPath)
         default:
@@ -147,14 +148,6 @@ extension AdvancedSafeSettingsViewController {
 
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         BasicCell.rowHeight
-    }
-
-    private func basicCell(name: String, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-        cell.setTitle(name)
-        cell.setDisclosureImage(nil)
-        cell.selectionStyle = .none
-        return cell
     }
 
     private func addressDetailsCell(address: Address, title: String?, imageUri: URL?, indexPath: IndexPath) -> UITableViewCell {

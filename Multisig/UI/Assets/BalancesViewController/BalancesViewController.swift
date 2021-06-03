@@ -36,7 +36,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
 
     private var shouldShowPasscodeBanner: Bool {
-        PrivateKeyController.hasPrivateKey &&
+        OwnerKeyController.hasPrivateKey &&
             !(AppSettings.passcodeBannerDismissed || AppSettings.passcodeWasSetAtLeastOnce)
     }
 
@@ -58,7 +58,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         tableView.delegate = self
         tableView.dataSource = self
 
-        if importKeyBannerWasShown != true && PrivateKeyController.hasPrivateKey {
+        if importKeyBannerWasShown != true && OwnerKeyController.hasPrivateKey {
             importKeyBannerWasShown = true
         }
 

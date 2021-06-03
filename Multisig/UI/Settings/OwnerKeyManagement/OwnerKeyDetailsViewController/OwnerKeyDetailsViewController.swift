@@ -28,8 +28,10 @@ class OwnerKeyDetailsViewController: UIViewController {
 
         navigationItem.title = "Owner Key"
 
-        exportButton = UIBarButtonItem(title: "Export", style: .done, target: self, action: #selector(didTapExportButton))
-        navigationItem.rightBarButtonItem = exportButton
+        if keyInfo.keyType != .walletConnect {
+            exportButton = UIBarButtonItem(title: "Export", style: .done, target: self, action: #selector(didTapExportButton))
+            navigationItem.rightBarButtonItem = exportButton
+        }
 
         nameLabel.setStyle(.headline)
 
@@ -123,7 +125,7 @@ class OwnerKeyDetailsViewController: UIViewController {
             message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
             preferredStyle: .actionSheet)
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
-            PrivateKeyController.remove(keyInfo: key)
+            OwnerKeyController.remove(keyInfo: key)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(remove)

@@ -10,9 +10,6 @@ import Foundation
 import CoreData
 import Combine
 
-// this typealias helps to not import CoreData in SwiftUI views
-typealias CoreDataContext = NSManagedObjectContext
-
 class CoreDataStack: CoreDataProtocol {
     private var subscribers = Set<AnyCancellable>()
 

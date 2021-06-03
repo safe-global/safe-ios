@@ -33,4 +33,8 @@ class BasicCell: UITableViewCell {
     func setDisclosureImage(_ image: UIImage?) {
         disclosureImageView.image = image
     }
+
+    func setDisclosureImageTintColor(_ tintColor: UIColor) {
+        disclosureImageView.tintColor = tintColor
+    }
 }

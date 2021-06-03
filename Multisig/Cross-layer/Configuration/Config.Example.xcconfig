@@ -116,10 +116,28 @@ LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD)
 // Range of values: 1 is YES, 0 is NO.
 SSL_ENFORCE_PINNING = 1
 
+
+// Whether to display 'Experimental' section in App Settings
+// Range of values: Y is YES, N is NO.
+SHOW_EXPERIMENTAL = Y
+// Whether to display 'WalletConnect' feature in Experimental.
+// If SHOW_EXPERIMENTAL != Y, then this config does not apply
+// Range of values: Y is YES, N is NO.
+WALLETCONNECT_ELIGIBLE = Y
+// Whether to display 'Allow to connect owner keys via WalletConnect' feature in Experimental.
+WALLETCONNECT_OWNER_KEY_ELIGIBLE = Y
+
+// WalletConnect bridge server for client
+// gnosis wc bridge: https://safe-walletconnect.gnosis.io/
+// zerion wc bridge: https://wcbridge.zerion.io
+// test bridge with latest protocol version: https://bridge.walletconnect.org
+WALLETCONNECT_BRIDGE_URL = https:/$()/safe-walletconnect.gnosis.io/
+
 // Help URLs
 CONFLICT_URL = https:/$()/help.gnosis-safe.io/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
 FALLBACKHANDLER_URL = https:/$()/help.gnosis-safe.io/en/articles/4738352-what-is-a-fallback-handler-and-how-does-it-relate-to-the-gnosis-safe
 PAY_FOR_CANCELLATION_URL = https:/$()/help.gnosis-safe.io/en/articles/4738501-why-do-i-need-to-pay-for-cancelling-a-transaction
+CONNECT_DAPP_ON_MOBILE_URL = https:/$()/gist.github.com/sche/4618df0058640099354da73ccbe630b5
 
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/

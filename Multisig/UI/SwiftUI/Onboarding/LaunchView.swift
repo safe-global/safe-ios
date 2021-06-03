@@ -74,6 +74,7 @@ struct LaunchView: View {
             }
             .padding(.horizontal)
         }
+        .navigationBarHidden(true)
         .overlay(BottomOverlayView(isPresented: $showTerms) {
             TermsView(acceptedTerms: $acceptedTerms,
                       isAgreeWithTermsPresented: $showTerms,

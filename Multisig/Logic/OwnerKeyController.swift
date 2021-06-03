@@ -1,5 +1,5 @@
 //
-//  PrivateKeyController.swift
+//  OwnerKeyController.swift
 //  Multisig
 //
 //  Created by Andrey Scherbovich on 25.01.21.
@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import WalletConnectSwift
 
-class PrivateKeyController {
+class OwnerKeyController {
     static func importKey(_ privateKey: PrivateKey, name: String, isDrivedFromSeedPhrase: Bool) -> Bool {
         do {
             try KeyInfo.import(address: privateKey.address, name: name, privateKey: privateKey)
@@ -32,8 +33,43 @@ class PrivateKeyController {
         }
     }
 
+    static func importKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
+        do {
+            try KeyInfo.import(session: session, installedWallet: installedWallet)
+            Tracker.shared.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
+            
+            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+            return true
+        } catch {
+            if let err = error as? GSError.CouldNotImportOwnerKeyWithSameAddressAndDifferentType {
+                App.shared.snackbar.show(error: err)
+            } else {
+                let err = GSError.error(description: "Failed to add WalletConnect owner", error: error)
+                App.shared.snackbar.show(error: err)
+            }
+            return false
+        }
+    }
+
+    // we need to update to always properly refresh session.walletInfo.peerId
+    // that we use to identify if the wallet is connected
+    static func updateKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
+        do {
+            try KeyInfo.import(session: session, installedWallet: installedWallet)
+            return true
+        } catch {
+            let err = GSError.error(description: "Failed to update WalletConnect owner key", error: error)
+            App.shared.snackbar.show(error: err)
+            return false
+        }
+    }
+
     static func remove(keyInfo: KeyInfo) {
         do {
+            // this should be done before calling keyInfo.delete()
+            if keyInfo.keyType == .walletConnect {
+                WalletConnectClientController.shared.disconnect()
+            }
             try keyInfo.delete()
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key removed from this app")
@@ -129,8 +165,10 @@ class PrivateKeyController {
                 try PrivateKey.deleteAll()
             }
 
-            // delete all key infos whos private keys do not exist
-            let infos = try KeyInfo.all().filter { !$0.hasPrivateKey }
+            // delete all device key infos whos private keys do not exist
+            let infos = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated]).filter {
+                !$0.hasPrivateKey
+            }
             try infos.forEach { try $0.delete() }
         } catch {
             LogService.shared.error("Failed to delete all keys: \(error)")

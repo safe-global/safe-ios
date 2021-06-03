@@ -15,13 +15,26 @@ class MainTabBarViewController: UITabBarController {
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
 
+    lazy var balancesTabVC: UIViewController = {
+        balancesTabViewController()
+    }()
+
+    lazy var transactionsTabVC: UIViewController = {
+        transactionsTabViewController()
+    }()
+
+    lazy var dappsTabVC: UIViewController = {
+        dappsTabViewController()
+    }()
+
+    lazy var settingsTabVC: UIViewController = {
+        settingsTabViewController()
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let balancesTabVC = balancesTabViewController()
-        let transactionsTabVC = transactionsTabViewController()
-        let settingsTabVC = settingsTabViewController()
-        viewControllers = [balancesTabVC, transactionsTabVC, settingsTabVC]
+        updateTabs()
         tabBar.barTintColor = .secondaryBackground
 
         NotificationCenter.default.addObserver(
@@ -40,6 +53,12 @@ class MainTabBarViewController: UITabBarController {
             self,
             selector: #selector(showTransactionDetails),
             name: .confirmationTxNotificationReceived,
+            object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateTabs),
+            name: .updatedExperemental,
             object: nil)
     }
 
@@ -102,6 +121,17 @@ class MainTabBarViewController: UITabBarController {
             root: tabRoot, title: "Transactions", image: UIImage(named: "tab-icon-transactions")!, tag: 1)
     }
 
+    private func dappsTabViewController() -> UIViewController {
+        let noSafesVC = NoSafesViewController()
+        let loadSafeViewController = LoadSafeViewController()
+        loadSafeViewController.trackingEvent = .dappsNoSafe
+        noSafesVC.hasSafeViewController = DappsViewController()
+        noSafesVC.noSafeViewController = loadSafeViewController
+
+        let tabRoot = HeaderViewController(rootViewController: noSafesVC)
+        return tabViewController(root: tabRoot, title: "Dapps", image: #imageLiteral(resourceName: "ico-custom-tx"), tag: 2)
+    }
+
     private func settingsTabViewController() -> UIViewController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
@@ -131,14 +161,22 @@ class MainTabBarViewController: UITabBarController {
         return nav
     }
 
-    @objc func showQueuedTransactions() {
+    @objc private func showQueuedTransactions() {
         selectedIndex = 1
         transactionsSegementControl?.selectedIndex = 0
     }
 
-    @objc func showHistoryTransactions() {
+    @objc private func showHistoryTransactions() {
         selectedIndex = 1
         transactionsSegementControl?.selectedIndex = 1
+    }
+
+    @objc private func updateTabs() {
+        if App.configuration.toggles.walletConnectEnabled {
+            viewControllers = [balancesTabVC, transactionsTabVC, dappsTabVC, settingsTabVC]
+        } else {
+            viewControllers = [balancesTabVC, transactionsTabVC, settingsTabVC]
+        }
     }
 
     @objc func showTransactionDetails(_ notification: Notification) {
@@ -147,5 +185,4 @@ class MainTabBarViewController: UITabBarController {
         let vc = ViewControllerFactory.transactionDetailsViewController(safeTxHash: safeTxHash)
         present(vc, animated: true, completion: nil)
     }
-
 }

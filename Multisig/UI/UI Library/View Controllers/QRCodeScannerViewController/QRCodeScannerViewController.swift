@@ -21,6 +21,7 @@ class QRCodeScannerViewController: UIViewController {
     var captureSession: AVCaptureSession!
     var delegate: QRCodeScannerViewControllerDelegate?
     var header: String?
+    var scannedValueValidator: ((String) -> Result<String, Error>)?
 
     enum Strings {
         static let cameraAlertTitle = NSLocalizedString("camera_title", comment: "")
@@ -158,24 +159,29 @@ extension QRCodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
             .compactMap { $0.stringValue }
             .filter { !$0.isEmpty }
             .first
-        
-        if let code = scannedValue {
-            if Address(code) != nil {
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                scannerDidScan(code: code)
-            } else {
-                captureSession.stopRunning()
-                let message = GSError.error(description: "Can’t use this QR code",
-                                            error: GSError.SafeAddressNotValid()).localizedDescription
-                let alert = UIAlertController(title: "Error",
-                                              message: message,
-                                              preferredStyle: .alert)
-                let retryButton = UIAlertAction(title: "Retry", style: .default) { [weak self] _ in
-                    self?.captureSession.startRunning()
-                }
-                alert.addAction(retryButton)
-                present(alert, animated: true)
+
+        guard let code = scannedValue else { return }
+
+        guard let validator = scannedValueValidator else {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+            scannerDidScan(code: code)
+            return
+        }
+
+        switch validator(code) {
+        case .success(let validatedCode):
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+            scannerDidScan(code: validatedCode)
+        case .failure(let error):
+            captureSession.stopRunning()
+            let alert = UIAlertController(title: "Error",
+                                          message: error.localizedDescription,
+                                          preferredStyle: .alert)
+            let retryButton = UIAlertAction(title: "Retry", style: .default) { [weak self] _ in
+                self?.captureSession.startRunning()
             }
+            alert.addAction(retryButton)
+            present(alert, animated: true)
         }
     }
 }

@@ -9,11 +9,13 @@
 import Foundation
 import CoreData
 import Web3
+import WalletConnectSwift
 
 /// Enum for storing key type in the persistence store. The order of existing items should not be changed.
 enum KeyType: Int, CaseIterable {
     case deviceImported = 0
     case deviceGenerated = 1
+    case walletConnect = 2
 }
 
 extension KeyInfo {
@@ -34,6 +36,26 @@ extension KeyInfo {
 
     var displayName: String {
         name ?? "Key \(address.ellipsized())"
+    }
+
+    struct WalletConnectKeyMetadata: Codable {
+        let walletInfo: Session.WalletInfo
+        let installedWallet: InstalledWallet?
+
+        var data: Data {
+            try! JSONEncoder().encode(self)
+        }
+
+        static func from(data: Data) -> Self? {
+            try? JSONDecoder().decode(Self.self, from: data)
+        }
+    }
+
+    /// WalletConnect keys store metadata with information if a key was connected with installed wallet on a device.
+    /// This parameter is a helper to fetch this data.
+    var installedWallet: InstalledWallet? {
+        guard let metadata = metadata else { return nil }
+        return WalletConnectKeyMetadata.from(data: metadata)?.installedWallet
     }
 
     static func name(address: Address) -> String? {
@@ -60,8 +82,15 @@ extension KeyInfo {
     static func all() throws -> [KeyInfo] {
         let context = App.shared.coreDataStack.viewContext
         let fr = KeyInfo.fetchRequest().all()
-        let items = try context.fetch(fr)
+        var items = try context.fetch(fr)
+        if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
+            items = items.filter { $0.keyType != .walletConnect }
+        }
         return items
+    }
+
+    static func keys(types: [KeyType]) throws -> [KeyInfo] {
+        try all().filter { types.contains(KeyType(rawValue: Int($0.type))!) }
     }
 
     /// This will return a list of KeyInfo for the addresses that it finds in the app.
@@ -72,8 +101,11 @@ extension KeyInfo {
         let context = App.shared.coreDataStack.viewContext
         return try addresses.compactMap { address in
             let fr = KeyInfo.fetchRequest().by(address: address)
-            let item = try context.fetch(fr)
-            return item.first
+            var items = try context.fetch(fr)
+            if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
+                items = items.filter { $0.keyType != .walletConnect }
+            }
+            return items.first
         }
     }
 
@@ -105,6 +137,9 @@ extension KeyInfo {
 
         if let existing = try context.fetch(fr).first {
             item = existing
+            guard existing.keyType == .deviceImported || existing.keyType == .deviceGenerated else {
+                throw GSError.CouldNotImportOwnerKeyWithSameAddressAndDifferentType()
+            }
         } else {
             item = KeyInfo(context: context)
         }
@@ -116,6 +151,45 @@ extension KeyInfo {
 
         item.save()
         try privateKey.save()
+
+        return item
+    }
+
+    /// Will save the key info from WalletConnect session in the persistence store.
+    /// - Parameters:
+    ///   - session: WalletConnect session object
+    @discardableResult
+    static func `import`(session: Session, installedWallet: InstalledWallet?) throws -> KeyInfo? {
+        guard let walletInfo = session.walletInfo,
+              let addressString = walletInfo.accounts.first,
+              let address = Address(addressString) else {
+            return nil
+        }
+
+        let context = App.shared.coreDataStack.viewContext
+
+        // see if already exists - then update existing, otherwise
+        // create a new one
+        let fr = KeyInfo.fetchRequest().by(address: address)
+        let item: KeyInfo
+
+        if let existing = try context.fetch(fr).first {
+            // It is possible to update only key of the same type. Do not update key name for already imported WalletConnect key.
+            guard existing.keyType == .walletConnect else {
+                throw GSError.CouldNotImportOwnerKeyWithSameAddressAndDifferentType()
+            }
+            item = existing
+        } else {
+            item = KeyInfo(context: context)
+            item.name = walletInfo.peerMeta.name
+        }
+
+        item.address = address
+        item.keyID = "walletconnect:\(address.checksummed)"
+        item.keyType = .walletConnect
+        item.metadata = WalletConnectKeyMetadata(walletInfo: walletInfo, installedWallet: installedWallet).data
+
+        item.save()
 
         return item
     }
@@ -147,7 +221,7 @@ extension KeyInfo {
     /// Will delete the key info and the stored private key
     /// - Throws: in case of underlying error
     func delete() throws {
-        if let keyID = keyID {
+        if let keyID = keyID, keyType == .deviceImported || keyType == .deviceGenerated {
             try PrivateKey.remove(id: keyID)
         }
         App.shared.coreDataStack.viewContext.delete(self)

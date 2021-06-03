@@ -49,6 +49,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("PAY_FOR_CANCELLATION_URL")
         var payForCancellationURL: URL
+
+        @ConfigurationKey("CONNECT_DAPP_ON_MOBILE_URL")
+        var connectDappOnMobileURL: URL
     }
 
     struct Legal {
@@ -102,8 +105,34 @@ struct AppConfiguration {
         var logLevel: String
     }
 
+    struct WalletConnect {
+        @ConfigurationKey("WALLETCONNECT_BRIDGE_URL")
+        var bridgeURL: URL
+    }
+
     struct FeatureToggles {
-        // empty for now
+        @ConfigurationKey("SHOW_EXPERIMENTAL")
+        var experimental: Bool
+
+        @ConfigurationKey("WALLETCONNECT_ELIGIBLE")
+        private var walletConnectEligible: Bool
+
+        @ConfigurationKey("WALLETCONNECT_OWNER_KEY_ELIGIBLE")
+        private var walletConnectOwnerKeyEligible: Bool
+
+        @UserDefault(key: "io.gnosis.multisig.experimental.walletConnect")
+        private var walletConnectEnabledSetting: Bool?
+
+        @UserDefault(key: "io.gnosis.multisig.experimental.walletConnectOwnerKey")
+        private var walletConnectOwnerKeyEnabledSetting: Bool?
+
+        var walletConnectEnabled: Bool {
+            return experimental && walletConnectEligible && walletConnectEnabledSetting ?? false
+        }
+
+        var walletConnectOwnerKeyEnabled: Bool {
+            return experimental && walletConnectOwnerKeyEligible && walletConnectOwnerKeyEnabledSetting ?? false
+        }
     }
 
     let services = Services()
@@ -111,12 +140,20 @@ struct AppConfiguration {
     let legal = Legal()
     let contact = Contact()
     let app = App()
+    let walletConnect = WalletConnect()
     let toggles = FeatureToggles()
 }
 
 enum Network: String, InfoPlistValueType {
     case mainnet = "Mainnet"
     case rinkeby = "Rinkeby"
+
+    var chainId: Int {
+        switch self {
+        case .mainnet: return 1
+        case .rinkeby: return 4
+        }
+    }
 
     static func convert(from value: Any) -> Self {
         (value as? String).flatMap { Self(rawValue: $0.capitalized) } ?? .mainnet

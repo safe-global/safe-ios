@@ -5,7 +5,6 @@
 //  Created by Dmitry Bespalov. on 14.04.20.
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
-
 import UIKit
 import SwiftUI
 import AppTrackingTransparency
@@ -33,7 +32,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     weak var scene: UIWindowScene?
 
     // MARK: - Scene Life Cycle
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         App.shared.tokenRegistry.load()
 
@@ -52,6 +50,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.scene = scene
             makeWindows(scene: scene)
         }
+
+        App.shared.appReview.startedFromNotification = connectionOptions.notificationResponse != nil
+
+        if let userActivity = connectionOptions.userActivities.first {
+            handleUserActivity(userActivity)
+        }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -62,12 +66,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             onAppUpdateCompletion()
         }
+
+        checkPasteboardForWalletConnectURL()
+    }
+
+    private func checkPasteboardForWalletConnectURL() {
+        if let potentialWCUrl = Pasteboard.string, potentialWCUrl.hasPrefix("wc:"),
+           let _ = try? Safe.getSelected(),
+           App.configuration.toggles.walletConnectEnabled {
+            do {
+                App.shared.snackbar.show(message: "Creating WalletConnect session. This might take some time.")
+                try WalletConnectServerController.shared.connect(url: potentialWCUrl)
+                // if setting nil it will crash
+                Pasteboard.string = ""
+            } catch {
+                App.shared.snackbar.show(message: "Failed to create a WalletConnect session.")
+            }
+        }
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         App.shared.clientGatewayHostObserver.startObserving()
+        MonitoringService.shared.startMonitoring()
 
         privacyShieldWindow?.isHidden = true
     }
@@ -83,6 +105,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Save changes in the application's managed object context when the application transitions to the background.
         App.shared.coreDataStack.saveContext()
+        MonitoringService.shared.stopSyncLoop()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -90,7 +113,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         PrivateKey.cleanup()
     }
 
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        handleUserActivity(userActivity)
+    }
+
+    private func handleUserActivity(_ userActivity: NSUserActivity) {
+        // Does not make scense to handle WalletConnect URLs without a safe
+        guard let _ = try? Safe.getSelected(), App.configuration.toggles.walletConnectEnabled else { return }
+
+        // Get URL components from the incoming user activity.
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+              let incomingURL = userActivity.webpageURL,
+              let components = NSURLComponents(url: incomingURL, resolvingAgainstBaseURL: true) else {
+            return
+        }
+
+        // Check if URL is a potential WalletConnect session
+        guard let params = components.queryItems,
+              !params.isEmpty,
+              let wcURL = params[0].value else {
+            return
+        }
+
+        try? WalletConnectServerController.shared.connect(url: wcURL)
+    }
+
     // MARK: - Window Management
+
+    func present(_ controller: UIViewController) {
+        tabBarWindow?.rootViewController?.present(controller, animated: true)
+    }
 
     func show(_ controller: UIViewController) {
         (tabBarWindow?.rootViewController as? MainTabBarViewController)?
@@ -254,4 +306,3 @@ class WindowWithViewOnTop: UIWindow {
         }
     }
 }
-

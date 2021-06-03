@@ -11,6 +11,8 @@ import Foundation
 struct AddressString: Hashable, Codable {
     let address: Address
 
+    static let zero = AddressString(Address.zero)
+
     var data32: Data {
         return address.data.leftPadded(to: 32)
     }

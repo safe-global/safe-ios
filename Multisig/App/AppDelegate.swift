@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AppSettings.saveCurrentRunVersionNumber()
 
-        PrivateKeyController.cleanUpKeys()
-        PrivateKeyController.migrateLegacySigningKey()
+        OwnerKeyController.cleanUpKeys()
+        OwnerKeyController.migrateLegacySigningKey()
 
         App.shared.auth.migrateFromPasscodeV1()
         App.shared.auth.migrateUsePasscodeForExportingKey()
@@ -39,6 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Safe.updateCachedNames()
 
         App.shared.notificationHandler.setUpMessaging(delegate: self)
+
+        // Reconnect all WalletConnect sessions
+        WalletConnectServerController.shared.reconnectAllSessions()
+        WalletConnectClientController.shared.reconnectIfNeeded()
+
         return true
     }
 

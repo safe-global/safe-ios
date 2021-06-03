@@ -35,10 +35,14 @@ class ChangeDisplayModeTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-
-        cell.setTitle("\(items[indexPath.row].name)")
-        cell.setDisclosureImage(items[indexPath.row].style == selectedDisplayMode ? UIImage(systemName: "checkmark")?.withTintColor(.button) : nil)
+        let disclosureImage = items[indexPath.row].style == selectedDisplayMode ?
+            UIImage(systemName: "checkmark")?.withTintColor(.button) : nil
+        let cell = tableView.basicCell(
+            name: "\(items[indexPath.row].name)",
+            indexPath: indexPath,
+            withDisclosure: false,
+            disclosureImage: disclosureImage
+        )
         return cell
     }
 

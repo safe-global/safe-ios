@@ -20,12 +20,27 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>2.17.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>io.gnosis.multisig</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>gnosissafe</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CLIENT_GATEWAY_URL</key>
 	<string>$(CLIENT_GATEWAY_URL)</string>
 	<key>CONFLICT_URL</key>
 	<string>$(CONFLICT_URL)</string>
+	<key>CONNECT_DAPP_ON_MOBILE_URL</key>
+	<string>$(CONNECT_DAPP_ON_MOBILE_URL)</string>
 	<key>CONTACT_EMAIL</key>
 	<string>$(CONTACT_EMAIL)</string>
 	<key>DISCORD_URL</key>
@@ -42,6 +57,8 @@
 	<string>$(GNOSIS_SAFE_WEB_URL)</string>
 	<key>HELP_CENTER_URL</key>
 	<string>$(HELP_CENTER_URL)</string>
+	<key>WALLETCONNECT_BRIDGE_URL</key>
+	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LICENSES_URL</key>
@@ -50,6 +67,18 @@
 	<string>$(LOGGERS)</string>
 	<key>LOG_LEVEL</key>
 	<string>$(LOG_LEVEL)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>metamask</string>
+		<string>trust</string>
+		<string>rainbow</string>
+		<string>argent</string>
+		<string>pillarwallet</string>
+		<string>imtoken2</string>
+		<string>ledgerlive</string>
+		<string>huobiwallet</string>
+		<string>tongue</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NETWORK</key>
@@ -110,6 +139,12 @@
 	</dict>
 	<key>TWITTER_URL</key>
 	<string>$(TWITTER_URL)</string>
+	<key>SHOW_EXPERIMENTAL</key>
+	<string>$(SHOW_EXPERIMENTAL)</string>
+	<key>WALLETCONNECT_ELIGIBLE</key>
+	<string>$(WALLETCONNECT_ELIGIBLE)</string>
+	<key>WALLETCONNECT_OWNER_KEY_ELIGIBLE</key>
+	<string>$(WALLETCONNECT_OWNER_KEY_ELIGIBLE)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Averta-Regular.otf</string>

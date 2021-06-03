@@ -70,11 +70,17 @@ extension SelectFiatViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
         let code = currencies[indexPath.row]
+        let disclosureImage = currencies[indexPath.row] == AppSettings.selectedFiatCode ?
+            UIImage(systemName: "checkmark")?.withTintColor(.button) : nil
 
-        cell.setTitle(NSLocale.getCurrencyFullName(code: code))
-        cell.setDisclosureImage(currencies[indexPath.row] == AppSettings.selectedFiatCode ? UIImage(systemName: "checkmark")?.withTintColor(.button) : nil)
+        let cell = tableView.basicCell(
+            name: NSLocale.getCurrencyFullName(code: code),
+            indexPath: indexPath,
+            withDisclosure: false,
+            disclosureImage: disclosureImage
+        )
+
         return cell
     }
 

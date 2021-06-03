@@ -9,21 +9,26 @@
 import Foundation
 
 // Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
-struct Transaction: Encodable {
+struct Transaction: Codable {
+    var safe: AddressString?
+
     // required by a smart contract
     let to: AddressString
     let value: UInt256String
-    let data: DataString
+    let data: DataString?
     let operation: SCGModels.Operation
-    let safeTxGas: UInt256String
+    // can be modified for WalletConnect transactions
+    var safeTxGas: UInt256String
     let baseGas: UInt256String
     let gasPrice: UInt256String
     let gasToken: AddressString
     // zero address if no refund receiver is set
     let refundReceiver: AddressString
-    let nonce: UInt256String
+    // can be modified for WalletConnect transactions
+    var nonce: UInt256String
     // computed based on other properties
     var safeTxHash: HashString?
+    var transactionHash: HashString?
 }
 
 extension Transaction {
@@ -45,21 +50,38 @@ extension Transaction {
         safeTxHash = multiSigTxInfo.safeTxHash
     }
 
-    var safeEncodedTxData: Data {
-        [
-            Safe.DefaultEIP712SafeAppTxTypeHash,
-            to.data32,
-            value.data32,
-            EthHasher.hash(data.data),
-            operation.data32,
-            safeTxGas.data32,
-            baseGas.data32,
-            gasPrice.data32,
-            gasToken.data32,
-            refundReceiver.data32,
-            nonce.data32
-        ]
-        .reduce(Data()) { $0 + $1 }
+    init?(wcRequest: WCSendTransactionRequest) {
+        dispatchPrecondition(condition: .notOnQueue(.main))
+
+        safe = wcRequest.from
+
+        // When submitting a transacion we need properly specify nonce
+        var _nonce: UInt256String
+        if let latestTx = try? App.shared.safeTransactionService.latestTransaction(for: wcRequest.from) {
+            _nonce = UInt256String(latestTx.nonce.value + 1)
+        } else if let contractNonce = try? SafeContract(wcRequest.from.address).nonce() {
+            // contract nonce is the next one
+            _nonce = UInt256String(contractNonce)
+        } else {
+            return nil
+        }
+        nonce = _nonce
+
+        to = wcRequest.to ?? AddressString.zero
+        value = wcRequest.value ?? "0"
+        data = wcRequest.data
+        operation = .call
+        safeTxGas = wcRequest.gas ?? "0"
+        baseGas = "0"
+        gasPrice = "0"
+        gasToken = AddressString.zero
+        refundReceiver = AddressString.zero
+
+        updateSafeTxHash()
+    }
+
+    mutating func updateSafeTxHash() {
+        safeTxHash = safeTxHash(by: safe!.address)
     }
 
     func encodeTransactionData(for safe: AddressString) -> Data {
@@ -90,7 +112,24 @@ extension Transaction {
         return transaction
     }
 
-    func safeTxHash(by safeAddress: Address) -> HashString? {
+    var safeEncodedTxData: Data {
+        [
+            Safe.DefaultEIP712SafeAppTxTypeHash,
+            to.data32,
+            value.data32,
+            EthHasher.hash(data!.data),
+            operation.data32,
+            safeTxGas.data32,
+            baseGas.data32,
+            gasPrice.data32,
+            gasToken.data32,
+            refundReceiver.data32,
+            nonce.data32
+        ]
+        .reduce(Data()) { $0 + $1 }
+    }
+
+    private func safeTxHash(by safeAddress: Address) -> HashString? {
         let data = encodeTransactionData(for: AddressString(safeAddress))
         return try? HashString(hex: EthHasher.hash(data).toHexString())
     }

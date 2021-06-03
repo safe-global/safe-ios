@@ -32,6 +32,7 @@ class AppSettingsViewController: UITableViewController {
             case passcode(String)
             case appearance(String)
             case fiat(String, String)
+            case experimental(String)
         }
 
         enum General: SectionItem {
@@ -90,6 +91,10 @@ class AppSettingsViewController: UITableViewController {
             ]),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
         ]
+
+        if App.configuration.toggles.experimental {
+            sections[0].items.append(Section.App.experimental("Experimental 🧪"))
+        }
     }
 
     @objc func hidePresentedController() {
@@ -104,7 +109,10 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func addObservers() {
-        for notification in [Notification.Name.ownerKeyRemoved, .ownerKeyImported, .selectedFiatCurrencyChanged] {
+        for notification in [Notification.Name.ownerKeyRemoved,
+                             .ownerKeyImported,
+                             .selectedFiatCurrencyChanged,
+                             .updatedExperemental] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(reload),
@@ -137,59 +145,47 @@ class AppSettingsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.App.ownerKeys(let name, let count):
-            return basicCell(name: name, info: count, indexPath: indexPath)
+            return tableView.basicCell(name: name, detail: count, indexPath: indexPath)
 
         case Section.App.passcode(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.App.appearance(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.App.fiat(let name, let value):
-            return basicCell(name: name, info: value, indexPath: indexPath)
+            return tableView.basicCell(name: name, detail: value, indexPath: indexPath)
+
+        case Section.App.experimental(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.terms(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.privacyPolicy(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.licenses(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.getInTouch(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.rateTheApp(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.General.appVersion(let name, let version):
-            return infoCell(name: name, info: version, indexPath: indexPath)
+            return tableView.infoCell(name: name, info: version, indexPath: indexPath)
 
         case Section.General.network(let name, let network):
-            return infoCell(name: name, info: network, indexPath: indexPath)
+            return tableView.infoCell(name: name, info: network, indexPath: indexPath)
 
         case Section.Advanced.advanced(let name):
-            return basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         default:
             return UITableViewCell()
         }
-    }
-
-    private func basicCell(name: String, info: String? = nil, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
-        cell.setTitle(name)
-        cell.setDetail(info)
-        return cell
-    }
-
-    private func infoCell(name: String, info: String, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(InfoCell.self, for: indexPath)
-        cell.setTitle(name)
-        cell.setInfo(info)
-        cell.selectionStyle = .none
-        return cell
     }
 
     // MARK: - Table view delegate
@@ -211,6 +207,10 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.fiat:
             let selectFiatViewController = SelectFiatViewController()
             show(selectFiatViewController, sender: self)
+
+        case Section.App.experimental:
+            let experimentalViewController = ExperimentalViewController()
+            show(experimentalViewController, sender: self)
 
         case Section.General.terms:
             openInSafari(legal.termsURL)
