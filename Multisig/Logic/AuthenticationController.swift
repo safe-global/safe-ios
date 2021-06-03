@@ -101,12 +101,12 @@ class AuthenticationController {
     }
 
     func migrateUsePasscodeForExportingKey() {
-        guard !AppSettings.migrateUsePasscodeForExportingKey else { return }
+        guard !AppSettings.usePasscodeForExportingKeyMigrated else { return }
         if isPasscodeSet {
             AppSettings.passcodeOptions.insert(.useForExportingKeys)
         }
 
-        AppSettings.usePasscodeForExportingKeyMigarated = true
+        AppSettings.usePasscodeForExportingKeyMigrated = true
     }
 
     /// Returns saved user, if any
