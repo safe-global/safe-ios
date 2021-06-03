@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -15,7 +17,7 @@
                 <outlet property="descriptionLabel" destination="VaK-hI-KCh" id="SuF-73-2kK"/>
                 <outlet property="detailLabel" destination="vf8-Wa-9Pl" id="EIM-KC-oQ6"/>
                 <outlet property="imageContainerView" destination="3gd-zm-b1T" id="9iy-wV-9DO"/>
-                <outlet property="svgView" destination="XIh-OK-2DI" id="YFB-gf-6P1"/>
+                <outlet property="imageView" destination="XIh-OK-2DI" id="Hza-Tv-Ekc"/>
                 <outlet property="titleLabel" destination="vwM-oQ-VAt" id="0gg-FB-PvZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -41,7 +43,7 @@
                                                     <rect key="frame" x="16" y="16" width="382" height="382"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-background" translatesAutoresizingMaskIntoConstraints="NO" id="IoM-Yq-SGD">
-                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="382"/>
+                                                            <rect key="frame" x="-9" y="-8" width="402" height="402"/>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XIh-OK-2DI" userLabel="SVG View" customClass="WebImageView" customModule="Multisig" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="382" height="382"/>
@@ -158,7 +160,7 @@
     <resources>
         <image name="card-background" width="37" height="37"/>
         <namedColor name="separator">
-            <color red="0.96899998188018799" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

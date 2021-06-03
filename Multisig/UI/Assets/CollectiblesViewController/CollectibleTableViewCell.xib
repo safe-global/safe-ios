@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tertiary-card-background" translatesAutoresizingMaskIntoConstraints="NO" id="ZpE-xX-bRz">
-                        <rect key="frame" x="16" y="6" width="487" height="150"/>
+                        <rect key="frame" x="7" y="-2" width="507" height="170"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uo4-L9-zv1">
                         <rect key="frame" x="16" y="6" width="487" height="150"/>
@@ -70,8 +72,8 @@
             <color key="backgroundColor" name="secondaryBackground"/>
             <connections>
                 <outlet property="cellDescriptionLabel" destination="pXt-pW-2KI" id="cPl-xv-7v5"/>
+                <outlet property="cellImageView" destination="JUO-dL-AL2" id="YNW-UP-gCk"/>
                 <outlet property="cellNameLabel" destination="0LA-pv-ogc" id="Oqn-Jh-H1b"/>
-                <outlet property="cellSVGView" destination="JUO-dL-AL2" id="aty-Jb-GY6"/>
             </connections>
             <point key="canvasLocation" x="70.28985507246378" y="-380.35714285714283"/>
         </tableViewCell>
