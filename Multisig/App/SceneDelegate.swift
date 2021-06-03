@@ -86,7 +86,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        // do nothing
+        // cleanup memory
+        PrivateKey.cleanup()
     }
 
     // MARK: - Window Management
