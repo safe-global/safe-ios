@@ -65,7 +65,7 @@ class RemoteNotificationHandler {
         if authorizationStatus == nil {
             requestUserPermissionAndRegister()
         } else {
-            register(addresses: [address])
+            registerAll()
         }
     }
 
