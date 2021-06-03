@@ -100,6 +100,15 @@ class AuthenticationController {
         AppSettings.passcodeOptions = .useForConfirmation
     }
 
+    func migrateUsePasscodeForExportingKey() {
+        guard !AppSettings.usePasscodeForExportingKeyMigrated else { return }
+        if isPasscodeSet {
+            AppSettings.passcodeOptions.insert(.useForExportingKeys)
+        }
+
+        AppSettings.usePasscodeForExportingKeyMigrated = true
+    }
+
     /// Returns saved user, if any
     private var user: User? {
         try? AppUser.all().first?.user()
@@ -295,6 +304,7 @@ class AuthUserRepository: UserRepository {
         do {
             let appUser = try AppUser.user(id: user.id) ?? AppUser.newUser(id: user.id)
             appUser.update(with: user)
+            AppSettings.usePasscodeForExportingKeyMigrated = true
             appUser.save()
         } catch {
             LogService.shared.error("Failed to save user", error: error)
