@@ -112,7 +112,7 @@ extension Transaction {
         return transaction
     }
 
-    private var safeEncodedTxData: Data {
+    var safeEncodedTxData: Data {
         [
             Safe.DefaultEIP712SafeAppTxTypeHash,
             to.data32,
