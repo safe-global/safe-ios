@@ -304,6 +304,7 @@ class AuthUserRepository: UserRepository {
         do {
             let appUser = try AppUser.user(id: user.id) ?? AppUser.newUser(id: user.id)
             appUser.update(with: user)
+            AppSettings.usePasscodeForExportingKeyMigrated = true
             appUser.save()
         } catch {
             LogService.shared.error("Failed to save user", error: error)
