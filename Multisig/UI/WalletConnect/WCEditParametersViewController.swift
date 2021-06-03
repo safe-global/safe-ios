@@ -20,6 +20,8 @@ class WCEditParametersViewController: UIViewController {
     private var safeTxGas: UInt256String!
     private var onUpdate: ((UInt256String, UInt256String) -> Void)!
 
+    private let blockGasLimit = 15_000_000
+
     static func create(nonce: UInt256String,
                        minimalNonce: UInt256String,
                        safeTxGas: UInt256String,
@@ -63,7 +65,7 @@ class WCEditParametersViewController: UIViewController {
               let nonce = UInt256(nonceText), nonce >= minimalNonce.value,
               let safeTxGasText = safeTxGasTextField.textField.text?
                 .trimmingCharacters(in: .whitespacesAndNewlines), !safeTxGasText.isEmpty,
-              let safeTxGas = UInt256(safeTxGasText), safeTxGas <= 15_000_000 else {
+              let safeTxGas = UInt256(safeTxGasText), safeTxGas <= blockGasLimit else {
             return
         }
         self.nonce = UInt256String(nonce)

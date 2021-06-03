@@ -1,5 +1,5 @@
 //
-//  WCPedingConfirmationViewController.swift
+//  WCPendingConfirmationViewController.swift
 //  Multisig
 //
 //  Created by Andrey Scherbovich on 26.04.21.
@@ -8,23 +8,23 @@
 
 import UIKit
 
-class WCPedingConfirmationViewController: UIViewController {
-    @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var headerLabel: UILabel!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var cancelButton: UIButton!
+class WCPendingConfirmationViewController: UIViewController {
+    @IBOutlet private weak var topView: UIView!
+    @IBOutlet private weak var bottomView: UIView!
+    @IBOutlet private weak var headerLabel: UILabel!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var cancelButton: UIButton!
 
     var headerText = "Pending Confirmation"
 
-    @IBAction func cancel(_ sender: Any) {
+    @IBAction private func cancel(_ sender: Any) {
         close()
     }
 
-    static func create(headerText: String? = nil) -> WCPedingConfirmationViewController {
-        let controller = WCPedingConfirmationViewController(nibName: "WCPedingConfirmationViewController",
-                                                            bundle: Bundle.main)
+    static func create(headerText: String? = nil) -> WCPendingConfirmationViewController {
+        let controller = WCPendingConfirmationViewController(nibName: "WCPedingConfirmationViewController",
+                                                             bundle: Bundle.main)
         if let headerText = headerText {
             controller.headerText = headerText
         }

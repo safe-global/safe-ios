@@ -457,7 +457,7 @@ extension SCGModels.TransactionDetails {
     var ecdsaConfirmations: [SCGModels.Confirmation] {
         guard let multisigInfo = multisigInfo else { return [] }
         return multisigInfo.confirmations.filter {
-            Int(try! Data($0.signature.data.suffix(1)).toHexString(), radix: 16) ?? 0 > 26
+            $0.signature.data.bytes.last ?? 0 > 26
         }
     }
 
@@ -497,8 +497,9 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
         return (try? KeyInfo.keys(addresses: reminingSigners)) ?? []
     }
 
+    // In general, a transaction can be executed with any ethereum key.
+    // However, we restrict the ability to execute only to owners for additional protection.
     func executionKeys() -> [KeyInfo] {
-        // to execute a transaction there should be an owner key added
         let signerAddresses = signers.map( { $0.address } )
         guard !((try? KeyInfo.keys(addresses: signerAddresses)) ?? []).isEmpty else {
             return []
