@@ -15,11 +15,22 @@ struct BackendTokenStore {
     }
 
     func tokens() -> [Token] {
-        (try? App.shared.safeTransactionService.tokens().results.map { Token($0) }) ?? []
+        do {
+            let tokens = try App.shared.safeTransactionService.tokens().results
+            return tokens.map { Token($0) }
+        } catch {
+            return []
+        }
     }
 
     func token(address: Address) -> Token? {
-        (try? App.shared.safeTransactionService.token(address)).map { Token($0) }
+        do {
+            let result = try App.shared.safeTransactionService.token(address)
+            return Token(result)
+        } catch {
+            // not found on in backend or some other error
+            return nil
+        }
     }
 
     func add(_ token: Token) {
