@@ -12,7 +12,10 @@ import WalletConnectSwift
 class ConnectWalletViewController: UITableViewController {
     private var installedWallets = WalletsDataSource.shared.installedWallets
 
+    // technically it is possible to select several wallets but to finish connection with one of them
     private var walletPerTopic = [String: InstalledWallet]()
+    // `wcDidConnectClient` happens when app eneters foreground. This parameter should throttle unexpected events
+    private var waitingForSession = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +32,8 @@ class ConnectWalletViewController: UITableViewController {
     }
 
     @objc private func walletConnectSessionCreated(_ notification: Notification) {
-        guard let session = notification.object as? Session else { return }
+        guard let session = notification.object as? Session, waitingForSession else { return }
+        waitingForSession = false
 
         DispatchQueue.main.sync { [unowned self] in
             _ = OwnerKeyController.importKey(session: session, installedWallet: walletPerTopic[session.url.topic])
@@ -87,14 +91,18 @@ class ConnectWalletViewController: UITableViewController {
                 let link = installedWallet.universalLink.isEmpty ?
                     installedWallet.scheme :
                     installedWallet.universalLink
+
                 let (topic, connectionURL) = try WalletConnectClientController.shared.connectToWallet(link: link)
                 walletPerTopic[topic] = installedWallet
+                waitingForSession = true
+
                 // we need a delay so that WalletConnectClient can send handshake request
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
                     UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
                 }
             } else {
                 let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
+                waitingForSession = true
                 show(WalletConnectQRCodeViewController.create(code: connectionURI), sender: nil)
             }
         } catch {
@@ -106,7 +114,7 @@ class ConnectWalletViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-        view.setName(section == 0 ? "LOCAL" : "EXTERNAL")
+        view.setName(section == 0 ? "ON THIS DEVICE" : "ON OTHER DEVICE")
         return view
     }
 

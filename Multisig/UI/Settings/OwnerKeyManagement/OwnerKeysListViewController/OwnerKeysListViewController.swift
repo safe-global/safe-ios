@@ -164,7 +164,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let keyInfo = keys[indexPath.row]
 
         var actions = [UIContextualAction]()
-        let editAction = UIContextualAction(style: .normal, title: "Edit") { [unowned self] _, _, completion in
+        let editAction = UIContextualAction(style: .normal, title: "Rename") { [unowned self] _, _, completion in
             let vc = EditOwnerKeyViewController(keyInfo: self.keys[indexPath.row])
             self.show(vc, sender: self)
             completion(true)

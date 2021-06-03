@@ -137,8 +137,8 @@ class RejectionConfirmationViewController: UIViewController {
         _ = App.shared.clientGatewayService.propose(
             transaction: transaction,
             safeAddress: safeAddress,
-            sender: sender, //signature.signer.checksummed,
-            signature: signature, //signature.hexadecimal,
+            sender: sender,
+            signature: signature,
             completion: { [weak self] result in
                 // NOTE: sometimes the data of the transaction list is not
                 // updated right away, we'll give a moment for the backend

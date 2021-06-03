@@ -15,7 +15,10 @@ class ChooseOwnerKeyViewController: UIViewController {
 
     private var owners: [KeyInfo] = []
     private var descriptionText: String!
+
+    // technically it is possible to select several wallets but to finish connection with one of them
     private var walletPerTopic = [String: InstalledWallet]()
+    // `wcDidConnectClient` happens when app eneters foreground. This parameter should throttle unexpected events
     private var waitingForSession = false
 
     var completionHandler: ((KeyInfo?) -> Void)?

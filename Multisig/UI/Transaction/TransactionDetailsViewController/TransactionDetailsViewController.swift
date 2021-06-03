@@ -279,8 +279,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         case .walletConnect:
             let safeTxHash = transaction.safeTxHash!.description
-            WalletConnectClientController.shared.sign(message: safeTxHash, from: self) { [unowned self] signature in
-                self.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature)
+            WalletConnectClientController.shared.sign(message: safeTxHash, from: self) { [weak self] signature in
+                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature)
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
@@ -309,7 +309,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
     }
 
-    #warning("TODO: finish UX wise. Reload view controller.")
     private func execute(_ keyInfo: KeyInfo) {
         guard let tx = tx,
               var transaction = Transaction(tx: tx),
@@ -320,7 +319,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         super.reloadData()
 
         do {
-            let safeAddress = try Address(from: try Safe.getSelected()!.address!)
+            let safeAddress = try Address(from: safe.address!)
             transaction.safe = AddressString(safeAddress)
         } catch {
             onError(GSError.error(description: "Failed to execute transaction", error: error))
@@ -457,7 +456,7 @@ extension SCGModels.TransactionDetails {
 
     var ecdsaConfirmations: [SCGModels.Confirmation] {
         guard let multisigInfo = multisigInfo else { return [] }
-        return multisigInfo.confirmations.filter{
+        return multisigInfo.confirmations.filter {
             Int(try! Data($0.signature.data.suffix(1)).toHexString(), radix: 16) ?? 0 > 26
         }
     }
