@@ -22,13 +22,6 @@
         "identifier" : "0A93DD6B2445CC8C00688050",
         "name" : "MultisigTests"
       }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Pods\/Pods.xcodeproj",
-        "identifier" : "43E98F16D6931CEB766DA38CADFA01F5",
-        "name" : "idn2Swift-Unit-Tests"
-      }
     }
   ],
   "version" : 1

@@ -1,5 +1,5 @@
 //
-//  SVGView.swift
+//  WebImageView.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 18.12.20.
@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 import Kingfisher
 
-class SVGView: UINibView {
+class WebImageView: UINibView {
     var onError: () -> Void = {}
     @IBOutlet private weak var webView: WKWebView!
     @IBOutlet private weak var imageView: UIImageView!
@@ -19,25 +19,41 @@ class SVGView: UINibView {
         super.commonInit()
         webView.navigationDelegate = self
         imageView.backgroundColor = UIColor(named: "transparentBackground")
+        hideWebView()
     }
 
     func setImage(url: URL?, placeholder: UIImage?, onError: @escaping () -> Void = {}) {
-        self.onError = onError
-        if let url = url, url.pathExtension.caseInsensitiveCompare("svg") == .orderedSame {
-            imageView.image = placeholder
-            setSVG(url: url)
-        } else {
+        guard let url = url else {
+            showPlaceholder(placeholder)
+            return
+        }
+        // NOTE: huge memory leak when using UIImageView for displaying "gif" images -> instead, use the web view.
+        let fileExtension = url.pathExtension.lowercased()
+        switch fileExtension {
+        case "png", "jpg", "jpeg", "heif":
             hideWebView()
             webView.stopLoading()
+            self.onError = onError
             imageView.kf.setImage(with: url, placeholder: placeholder, completionHandler:  { [weak self] result in
                 if case Result.failure(_) = result, let `self` = self {
                     self.onError()
                 }
             })
+        case "gif", "svg":
+            imageView.image = placeholder
+            setWebImage(url: url)
+        default:
+            showPlaceholder(placeholder)
         }
     }
 
-    private func setSVG(url: URL) {
+    private func showPlaceholder(_ placeholder: UIImage?) {
+        imageView.image = placeholder
+        hideWebView()
+        webView.stopLoading()
+    }
+
+    private func setWebImage(url: URL) {
         hideWebView()
         let html = """
         <html>
@@ -63,7 +79,7 @@ class SVGView: UINibView {
     }
 }
 
-extension SVGView: WKNavigationDelegate {
+extension WebImageView: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         showWebView()
     }

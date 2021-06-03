@@ -177,4 +177,6 @@ ASSETCATALOG_COMPILER_APPICON_NAME  = AppIcon_$(SERVICE_ENV)_$(NETWORK)
 
 // This fixes SwiftUI previews not working due to code coverage enabled
 // see https://stackoverflow.com/questions/58127940/undefined-symbols-llvm-profile-runtime
-OTHER_LDFLAGS = $(inherited) -fprofile-instr-generate
+//
+// Also, Firebase Analytics requires clients to add -ObjC linker option.
+OTHER_LDFLAGS = $(inherited) -fprofile-instr-generate -ObjC

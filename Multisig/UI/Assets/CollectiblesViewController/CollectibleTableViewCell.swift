@@ -11,15 +11,15 @@ import UIKit
 class CollectibleTableViewCell: UITableViewCell {
     @IBOutlet private weak var cellNameLabel: UILabel!
     @IBOutlet private weak var cellDescriptionLabel: UILabel!
-    @IBOutlet private weak var cellSVGView: SVGView!
+    @IBOutlet private weak var cellImageView: WebImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         cellNameLabel.setStyle(.headline)
         cellDescriptionLabel.setStyle(.primary)
-        cellSVGView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
-        cellSVGView.layer.cornerRadius = 8
-        cellSVGView.clipsToBounds = true
+        cellImageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+        cellImageView.layer.cornerRadius = 8
+        cellImageView.clipsToBounds = true
     }
     
     func setName(_ value: String) {
@@ -31,6 +31,6 @@ class CollectibleTableViewCell: UITableViewCell {
     }
 
     func setImage(with url: URL?, placeholder: UIImage) {
-        cellSVGView.setImage(url: url, placeholder: placeholder)
+        cellImageView.setImage(url: url, placeholder: placeholder)
     }
 }

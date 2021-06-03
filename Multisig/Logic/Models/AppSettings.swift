@@ -58,6 +58,9 @@ extension AppSettings {
     @AppSetting(\.displayMode)
     static var displayMode: Int32
 
+    @AppSetting(\.usePasscodeForExportingKeyMigrated)
+    static var usePasscodeForExportingKeyMigrated: Bool
+
     @AppSetting(\.fiatCode)
     private static var fiatCode: String?
 

@@ -11,7 +11,7 @@ import XCTest
 
 class ENSIntegrationTests: XCTestCase {
 
-    let ensService = App.shared.ens
+    let ensService = App.shared.blockchainDomainManager.ens
 
     func test_forwardResolution() {
         XCTAssertNoThrow(try {

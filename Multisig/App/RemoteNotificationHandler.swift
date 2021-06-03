@@ -65,7 +65,7 @@ class RemoteNotificationHandler {
         if authorizationStatus == nil {
             requestUserPermissionAndRegister()
         } else {
-            register(addresses: [address])
+            registerAll()
         }
     }
 
@@ -245,7 +245,7 @@ class RemoteNotificationHandler {
     }
 
     private func registerAll() {
-        let addresses = Safe.all.map { Address(exactly: $0.address ?? "") }
+        let addresses = Safe.all.compactMap { $0.address }.compactMap { Address($0) }
         register(addresses: addresses)
     }
 

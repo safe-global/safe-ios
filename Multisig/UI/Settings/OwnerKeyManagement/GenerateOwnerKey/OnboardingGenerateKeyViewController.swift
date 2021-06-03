@@ -67,7 +67,7 @@ class OnboardingGenerateKeyViewController: UITableViewController {
                 return
             }
 
-            let message = "The key successfully created. Add it to the safe using the desktop app and then restart mobile app."
+            let message = "The key successfully created. Add it to a Safe on desktop and then restart the mobile app."
 
             if App.shared.auth.isPasscodeSet {
                 vc.dismiss(animated: false) {
