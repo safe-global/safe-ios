@@ -79,7 +79,7 @@ class ExperimentalViewController: UITableViewController {
 
         case .walletConnectDescription:
             return descriptionCell(
-                "Try out interacting with Dapps via WalletConnect.",
+                "This adds a tab to connect your Safe to dapps via WalletConnect.",
                 indexPath: indexPath
             )
 
@@ -91,7 +91,7 @@ class ExperimentalViewController: UITableViewController {
 
         case .walletConnectOwnerKeyDescription:
             return descriptionCell(
-                "Try out connecting owner key and executing transactions via WalletConnect.",
+                "This allows to use other wallets as owners in your Safe app via WalletConnect to sign and execute transactions on mobile.",
                 indexPath: indexPath
             )
         }

@@ -137,7 +137,7 @@ WALLETCONNECT_BRIDGE_URL = https:/$()/safe-walletconnect.gnosis.io/
 CONFLICT_URL = https:/$()/help.gnosis-safe.io/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
 FALLBACKHANDLER_URL = https:/$()/help.gnosis-safe.io/en/articles/4738352-what-is-a-fallback-handler-and-how-does-it-relate-to-the-gnosis-safe
 PAY_FOR_CANCELLATION_URL = https:/$()/help.gnosis-safe.io/en/articles/4738501-why-do-i-need-to-pay-for-cancelling-a-transaction
-CONNECT_DAPP_ON_MOBILE_URL = https:/$()/gist.github.com/sche/4618df0058640099354da73ccbe630b5
+CONNECT_DAPP_ON_MOBILE_URL = https:/$()/help.gnosis-safe.io/en/articles/5307197-how-to-connect-a-dapp-via-walletconnect-on-gnosis-safe-mobile
 
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/

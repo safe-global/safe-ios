@@ -29,7 +29,7 @@ class AddOwnerKeyViewController: UITableViewController {
 
         if App.configuration.toggles.walletConnectOwnerKeyEnabled {
             keyTypes.append(
-                (.walletConnect, "Connect Key", "Connect an existing key using WalletConnect")
+                (.walletConnect, "Connect Key", "Connect an existing key from another wallet using WalletConnect")
             )
         }
     }

@@ -14,15 +14,15 @@ class OnboardingConnectOwnerKeyViewController: UITableViewController {
     private let cards = [
         (UIImage(named: "ico-onbaording-import-key-1"),
          "How does it work?",
-         "You can connect owner key stored in other wallet. You will be proposed to select it from a list of already installed wallets on your phone, or you can display a QR code and scan it with other wallet."),
+         "You can connect an owner key from another wallet. You will be asked to select it from a list of already installed wallets on your phone or you can display a QR code and scan it with another wallet."),
 
         (UIImage(named: "ico-onbaording-import-key-2"),
          "How secure is that?",
-         "WalletConnect is a secure protocol for exchanging messages. Gnosis Safe Multisig app will not get access to your private key stored in your wallet"),
+         "WalletConnect is a secure protocol for exchanging messages. Gnosis Safe Multisig app will not get access to your private key stored in your wallet."),
 
         (UIImage(named: "ico-onbaording-import-key-3"),
          "Is my wallet supported?",
-         "Your wallet should support WalletConnect protocol.")
+         "You wallet needs to support the WalletConnect protocol.")
     ]
 
     override func viewDidLoad() {
@@ -57,6 +57,7 @@ class OnboardingConnectOwnerKeyViewController: UITableViewController {
         cell.set(image: card.0)
         cell.set(title: card.1)
         cell.set(body: card.2)
+        cell.set(linkTitle: nil, url: nil)
 
         return cell
     }
