@@ -216,7 +216,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
             return nil
         }
         let view = tableView.dequeueHeaderFooterView(ExternalLinkHeaderFooterView.self)
-        view.set(label: "How to connect dapp to Gnosis Safe Multisig?")
+        view.set(label: "How to connect a dapp via WalletConnect on Gnosis Safe Mobile?")
         view.set(url: App.configuration.help.connectDappOnMobileURL)
         return view
     }
