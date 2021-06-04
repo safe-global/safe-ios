@@ -37,7 +37,6 @@ extension Tracker {
         }
     }
 
-
     func setPasscodeIsSet(to status: Bool) {
         let property = status ? "true" : "false"
         setUserProperty(property, for: TrackingUserProperty.passcodeIsSet)
@@ -74,7 +73,10 @@ enum TrackingEvent: String, Trackable {
     case transactionsDetailsAction                  = "screen_transaction_details_action"
     case transactionDetailsActionList               = "screen_transaction_details_action_list"
     case transactionDetailsTransactionConfirmed     = "user_transaction_confirmed"
+    case transactionDetailsTxConfirmedWC            = "user_transaction_confirmed_walletconnect"
     case transactionDetailsTransactionRejected      = "user_transaction_rejected"
+    case transactionDetailsTxRejectedWC             = "user_transaction_rejected_walletconnect"
+    case transactionDetailsTxExecutedWC             = "user_transaction_executed_walletconnect"
 
     case dapps                                      = "screen_dapps"
     case dappsNoSafe                                = "screen_dapps_no_safe"
@@ -99,15 +101,20 @@ enum TrackingEvent: String, Trackable {
     case ownerKeysOptions                           = "screen_owner_options"
     case ownerKeyDetails                            = "screen_owner_details"
     case editOwnerKey                               = "screen_owner_edit_name"
+
     case importOwnerOnboarding                      = "screen_owner_info"
     case generateOwnerOnboarding                    = "screen_owner_generate_info"
+    case connectOwnerOnboarding                     = "screen_owner_walletconnect_info"
+
     case ownerEnterSeed                             = "screen_owner_enter_seed"
     case ownerConfirmPrivateKey                     = "screen_owner_confirm_private_key"
     case ownerSelectAccount                         = "screen_owner_select_account"
     case enterKeyName                               = "screen_owner_enter_name"
+
     case ownerKeyImported                           = "user_key_imported"
     case ownerKeyGenerated                          = "user_key_generated"
     case ownerKeyRemoved                            = "user_key_deleted"
+
     case chooseOwner                                = "screen_owner_choose"
     case bannerImportOwnerKeySkipped                = "user_banner_owner_skip"
     case bannerImportOwnerKeyImported               = "user_banner_owner_import"
@@ -127,4 +134,13 @@ enum TrackingEvent: String, Trackable {
     case userPasscodeDisabled                       = "user_passcode_disabled"
     case userPasscodeReset                          = "user_passcode_reset"
     case userPasscodeSkipped                        = "user_passcode_skipped"
+
+    case experimental                               = "screen_experimental"
+
+    case walletConnectKeyOptions                    = "screen_owner_walletconnect_options"
+    case walletConnectKeyQR                         = "screen_owner_walletconnect_qr_code"
+    case connectInstalledWallet                     = "user_owner_connected_installed_wallet"
+    case connectExternalWallet                      = "user_owner_connected_external_wallet"
+    case dappConnectedWithUniversalLink             = "user_dapp_connected_universal_link"
+    case dappConnectedWithPasteboardValue           = "user_dapp_connected_pasteboard"
 }

@@ -272,7 +272,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 let safeAddress = try Address(from: safe.address!)
                 let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress, keyInfo: keyInfo)
                 let safeTxHash = transaction.safeTxHash!.description
-                confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal)
+                confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyType: keyInfo.keyType)
             } catch {
                 onError(GSError.error(description: "Failed to confirm transaction", error: error))
             }
@@ -280,7 +280,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         case .walletConnect:
             let safeTxHash = transaction.safeTxHash!.description
             WalletConnectClientController.shared.sign(message: safeTxHash, from: self) { [weak self] signature in
-                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature)
+                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: keyInfo.keyType)
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
@@ -288,7 +288,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     }
 
-    private func confirmAndRefresh(safeTxHash: String, signature: String) {
+    private func confirmAndRefresh(safeTxHash: String, signature: String, keyType: KeyType) {
         confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash, with: signature) {
             [weak self] result in
 
@@ -299,8 +299,14 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 if case Result.success(_) = result {
                     DispatchQueue.main.async {
                         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-                        Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
                         App.shared.snackbar.show(message: "Confirmation successfully submitted")
+
+                        switch keyType {
+                        case .deviceGenerated, .deviceImported:
+                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
+                        case .walletConnect:
+                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTxConfirmedWC)
+                        }
                     }
                 }
 
@@ -349,6 +355,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                         self.pendingExecution = true
                         self.reloadData()
                         App.shared.snackbar.show(message: "Transaction submitted. Transaction hash: \(hash)")
+                        Tracker.shared.track(event: TrackingEvent.transactionDetailsTxExecutedWC)
 
                     case .failure(let error):
                         App.shared.snackbar.show(

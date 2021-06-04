@@ -37,8 +37,14 @@ class OwnerKeyController {
         do {
             try KeyInfo.import(session: session, installedWallet: installedWallet)
             Tracker.shared.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
-            
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+
+            if installedWallet != nil {
+                Tracker.shared.track(event: TrackingEvent.connectInstalledWallet)
+            } else {
+                Tracker.shared.track(event: TrackingEvent.connectExternalWallet)
+            }
+
             return true
         } catch {
             if let err = error as? GSError.CouldNotImportOwnerKeyWithSameAddressAndDifferentType {
@@ -185,6 +191,7 @@ class OwnerKeyController {
         Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
         Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
         Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
+        Tracker.shared.setNumKeys(KeyInfo.count(.walletConnect), type: .deviceImported)
         NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
     }
 }

@@ -32,4 +32,9 @@ class WalletConnectQRCodeViewController: UIViewController {
         let transform = CGAffineTransform(scaleX: 10, y: 10)
         qrCodeImageView.image = UIImage(ciImage: filter.outputImage!.transformed(by: transform))
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.walletConnectKeyQR)
+    }
 }

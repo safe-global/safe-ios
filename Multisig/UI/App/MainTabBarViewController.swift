@@ -129,7 +129,7 @@ class MainTabBarViewController: UITabBarController {
         noSafesVC.noSafeViewController = loadSafeViewController
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
-        return tabViewController(root: tabRoot, title: "Dapps", image: #imageLiteral(resourceName: "ico-custom-tx"), tag: 2)
+        return tabViewController(root: tabRoot, title: "Dapps", image: UIImage(named: "tab-icon-dapps")!, tag: 2)
     }
 
     private func settingsTabViewController() -> UIViewController {
