@@ -109,36 +109,14 @@ class WalletConnectClientController {
         return session?.walletInfo?.peerId == peerId
     }
 
-    func sign(message: String, completion: @escaping (Result<String, Error>) -> Void) {
-        guard let session = session,
-              let client = client,
-              let walletAddress = session.walletInfo?.accounts.first else {
-            completion(.failure(GSError.WalletNotConnected(description: "Could not sign transaction")))
-            return
-        }
-
-        do {
-            try client.eth_sign(url: session.url, account: walletAddress, message: message) { response in
-                do {
-                    let signature = try response.result(as: String.self)
-                    completion(.success(signature))
-                } catch {
-                    completion(.failure(error))
-                }
-            }
-        } catch {
-            completion(.failure(error))
-        }
-    }
-
-    func sign(message: String, from controller: UIViewController, completion: @escaping (String) -> Void) {
+    func sign(transaction: Transaction, from controller: UIViewController, completion: @escaping (String) -> Void) {
         guard controller.presentedViewController == nil else { return }
 
         let pendingConfirmationVC = WCPendingConfirmationViewController.create()
         pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
         controller.present(pendingConfirmationVC, animated: false)
 
-        sign(message: message) { [weak controller] result in
+        sign(transaction: transaction) { [weak controller] result in
             switch result {
             case .success(let signature):
                 DispatchQueue.main.async {
@@ -154,6 +132,45 @@ class WalletConnectClientController {
                     App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
                 }
             }
+        }
+    }
+
+    private func sign(transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
+        guard let session = session,
+              let client = client,
+              let walletAddress = session.walletInfo?.accounts.first,
+              let safeTxHash = transaction.safeTxHash else {
+            completion(.failure(GSError.WalletNotConnected(description: "Could not sign transaction")))
+            return
+        }
+
+        func handleResponse(_ response: Response) {
+            do {
+                let signature = try response.result(as: String.self)
+                completion(.success(signature))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+
+        do {
+            switch session.walletInfo?.peerMeta.name ?? "" {
+
+            // we call signTypedData only for wallets supporting this feature
+            case "MetaMask", "LedgerLive":
+                let message = EIP712Transformer.typedDataString(from: transaction)
+                try client.eth_signTypedData(url: session.url, account: walletAddress, message: message) {
+                    handleResponse($0)
+                }
+
+            default:
+                let message = safeTxHash.description
+                try client.eth_sign(url: session.url, account: walletAddress, message: message) {
+                    handleResponse($0)
+                }
+            }
+        } catch {
+            completion(.failure(error))
         }
     }
 

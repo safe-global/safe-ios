@@ -93,7 +93,8 @@ class RejectionConfirmationViewController: UIViewController {
             App.shared.snackbar.show(message: "Failed to Reject transaction")
             return
         }
-        let tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
+        var tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
+        tx.safe = AddressString(safeAddress)
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
@@ -109,13 +110,12 @@ class RejectionConfirmationViewController: UIViewController {
             }
 
         case .walletConnect:
-            let safeTxHash = tx.safeTxHash!.description
-            WalletConnectClientController.shared.sign(message: safeTxHash, from: self) { [unowned self] signature in
-                self.rejectAndCloseController(transaction: tx,
-                                              safeAddress: safeAddress,
-                                              sender: keyInfo.address.hexadecimal,
-                                              signature: signature,
-                                              keyType: keyInfo.keyType)
+            WalletConnectClientController.shared.sign(transaction: tx, from: self) { [unowned self] signature in
+                rejectAndCloseController(transaction: tx,
+                                         safeAddress: safeAddress,
+                                         sender: keyInfo.address.hexadecimal,
+                                         signature: signature,
+                                         keyType: keyInfo.keyType)
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
