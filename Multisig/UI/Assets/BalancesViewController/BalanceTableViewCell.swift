@@ -20,6 +20,11 @@ class BalanceTableViewCell: UITableViewCell {
         cellMainLabel.setStyle(.primary)
         cellDetailLabel.setStyle(.primary)
         cellSubDetailLabel.setStyle(.footnote2)
+
+        for label in [cellMainLabel, cellDetailLabel, cellSubDetailLabel] {
+            label?.text = nil
+        }
+        cellImageView.image = nil
     }
 
     func setMainText(_ value: String) {
