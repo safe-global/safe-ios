@@ -37,7 +37,7 @@ class WalletConnectClientController {
         LogService.shared.info("WalletConnect Client URL: \(wcUrl.absoluteString)")
 
         let clientMeta = Session.ClientMeta(
-            name: "Gnosis Safe Multisig",
+            name: "Gnosis Safe",
             description: "The most trusted platform to manage digital assets on Ethereum",
             icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
             url: URL(string: "https://gnosis-safe.io")!,

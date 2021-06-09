@@ -117,7 +117,7 @@ extension WalletConnectServerController: ServerDelegate {
     }
 
     func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> Void) {
-        let walletMeta = Session.ClientMeta(name: "Gnosis Safe Multisig",
+        let walletMeta = Session.ClientMeta(name: "Gnosis Safe",
                                             description: "The most trusted platform to manage digital assets.",
                                             icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
                                             url: URL(string: "https://gnosis-safe.io")!)

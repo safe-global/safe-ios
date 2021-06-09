@@ -18,7 +18,7 @@ class OnboardingConnectOwnerKeyViewController: UITableViewController {
 
         (UIImage(named: "ico-onbaording-import-key-2"),
          "How secure is that?",
-         "WalletConnect is a secure protocol for exchanging messages. Gnosis Safe Multisig app will not get access to your private key stored in your wallet."),
+         "WalletConnect is a secure protocol for exchanging messages. Gnosis Safe app will not get access to your private key stored in your wallet."),
 
         (UIImage(named: "ico-onbaording-import-key-3"),
          "Is my wallet supported?",
