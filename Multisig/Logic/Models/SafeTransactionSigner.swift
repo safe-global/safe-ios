@@ -12,7 +12,7 @@ import Web3
 class SafeTransactionSigner {
     func sign(_ transaction: Transaction, keyInfo: KeyInfo) throws -> Signature {
         // Check that transaction hash is calculated properly
-        let hashToSign = Data(ethHex: transaction.safeTxHash!.description)
+        let hashToSign = Data(ethHex: transaction.safeTxHash.description)
         let data = transaction.encodeTransactionData()
         guard EthHasher.hash(data) == hashToSign else {
             throw GSError.TransactionSigningError()
@@ -22,6 +22,6 @@ class SafeTransactionSigner {
             throw GSError.MissingPrivateKeyError()
         }
 
-        return try key.sign(hash: transaction.safeTxHash!.hash)
+        return try key.sign(hash: transaction.safeTxHash.hash)
     }
 }

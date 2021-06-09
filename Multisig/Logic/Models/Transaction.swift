@@ -27,7 +27,7 @@ struct Transaction: Codable {
     // can be modified for WalletConnect transactions
     var nonce: UInt256String
     // computed based on other properties
-    var safeTxHash: HashString?
+    var safeTxHash: HashString!
     var transactionHash: HashString?
 }
 

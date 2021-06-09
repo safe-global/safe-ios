@@ -138,15 +138,23 @@ class WalletConnectClientController {
     private func sign(transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
         guard let session = session,
               let client = client,
-              let walletAddress = session.walletInfo?.accounts.first,
-              let safeTxHash = transaction.safeTxHash else {
+              let walletAddress = session.walletInfo?.accounts.first else {
             completion(.failure(GSError.WalletNotConnected(description: "Could not sign transaction")))
             return
         }
 
         func handleResponse(_ response: Response) {
             do {
-                let signature = try response.result(as: String.self)
+                var signature = try response.result(as: String.self)
+
+                var signatureBytes = Data(hex: signature).bytes
+                var v = signatureBytes.last!
+                if v < 27 {
+                    v += 27
+                    signatureBytes[signatureBytes.count - 1] = v
+                    signature = Data(signatureBytes).toHexStringWithPrefix()
+                }
+
                 completion(.success(signature))
             } catch {
                 completion(.failure(error))
@@ -157,14 +165,14 @@ class WalletConnectClientController {
             switch session.walletInfo?.peerMeta.name ?? "" {
 
             // we call signTypedData only for wallets supporting this feature
-            case "MetaMask", "LedgerLive":
+            case "MetaMask", "LedgerLive", "🌈 Rainbow":
                 let message = EIP712Transformer.typedDataString(from: transaction)
                 try client.eth_signTypedData(url: session.url, account: walletAddress, message: message) {
                     handleResponse($0)
                 }
 
             default:
-                let message = safeTxHash.description
+                let message = transaction.safeTxHash.description
                 try client.eth_sign(url: session.url, account: walletAddress, message: message) {
                     handleResponse($0)
                 }
