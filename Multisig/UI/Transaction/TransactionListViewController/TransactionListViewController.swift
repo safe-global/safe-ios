@@ -11,20 +11,30 @@ import SwiftUI
 import SwiftCryptoTokenFormatter
 
 class TransactionListViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
+    // model
     var clientGatewayService = App.shared.clientGatewayService
 
+    // model
     private var loadFirstPageDataTask: URLSessionTask?
     private var loadNextPageDataTask: URLSessionTask?
 
+    // model
     private var model = FlatTransactionsListViewModel()
+
+    // model
     internal var trackingEvent: TrackingEvent?
+
+    // model
     internal var emptyText: String = "Transactions will appear here"
+    // ui?
     internal var emptyImage: UIImage = UIImage(named: "ico-no-transactions")!
 
+    // model
     internal var dateFormatter: DateFormatter! = DateFormatter()
 
     internal var timeFormatter: DateFormatter! = DateFormatter()
 
+    // model
     override var isEmpty: Bool {
         model.isEmpty
     }
