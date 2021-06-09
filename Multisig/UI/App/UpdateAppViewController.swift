@@ -46,7 +46,7 @@ class UpdateAppViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
 
     var completion: () -> Void = { }
-    private var style: Style = .optional
+    var style: Style = .optional
 
     convenience init(style: Style) {
         self.init(namedClass: UpdateAppViewController.self)

@@ -12,7 +12,7 @@ class UpdateController {
 
     func makeUpdateAppViewController() -> UpdateAppViewController? {
         let remoteConfig = FirebaseRemoteConfig.shared
-        let appVersion = App.configuration.app.marketingVersion
+        let appVersion =  "2.15.0"//App.configuration.app.marketingVersion
 
         guard let latestAppVersion = remoteConfig.value(key: .newestVersion),
               !latestAppVersion.isEmpty else { return nil }

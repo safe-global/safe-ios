@@ -92,6 +92,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         MonitoringService.shared.startMonitoring()
 
         privacyShieldWindow?.isHidden = true
+
+        if let viewController = updateAppWindow?.rootViewController as? UpdateAppViewController, viewController.style == .required {
+            showWindow(updateAppWindow)
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
