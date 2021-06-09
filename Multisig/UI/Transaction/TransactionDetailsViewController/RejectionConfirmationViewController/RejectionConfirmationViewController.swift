@@ -99,7 +99,7 @@ class RejectionConfirmationViewController: UIViewController {
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
             do {
-                let signature = try SafeTransactionSigner().sign(tx, by: safeAddress, keyInfo: keyInfo)
+                let signature = try SafeTransactionSigner().sign(tx, keyInfo: keyInfo)
                 rejectAndCloseController(transaction: tx,
                                          safeAddress: safeAddress,
                                          sender: keyInfo.address.hexadecimal,

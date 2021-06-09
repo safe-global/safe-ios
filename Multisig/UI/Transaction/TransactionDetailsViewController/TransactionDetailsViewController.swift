@@ -267,19 +267,19 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
         super.reloadData()
 
+        transaction.safe = AddressString(safeAddress)
+
         switch keyInfo.keyType {
 
         case .deviceImported, .deviceGenerated:
             do {
-                let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress, keyInfo: keyInfo)
+                let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
                 confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyType: keyInfo.keyType)
             } catch {
                 onError(GSError.error(description: "Failed to confirm transaction", error: error))
             }
 
         case .walletConnect:
-            transaction.safe = AddressString(safeAddress)
-
             WalletConnectClientController.shared.sign(transaction: transaction, from: self) {
                 [weak self] signature in
                 self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: keyInfo.keyType)
