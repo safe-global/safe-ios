@@ -26,15 +26,15 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="56" id="AxS-gU-FLh"/>
                     </constraints>
-                    <state key="normal" title="Load Safe">
+                    <state key="normal" title="Load Gnosis Safe">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="didTapLoadSafe:" destination="-1" eventType="touchUpInside" id="vNx-70-B3r"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get started by loading your Safe" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8Q-Q3-sw5">
-                    <rect key="frame" x="60" y="371.5" width="294" height="20.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get started by loading your Gnosis Safe" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8Q-Q3-sw5">
+                    <rect key="frame" x="60" y="351" width="294" height="41"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>

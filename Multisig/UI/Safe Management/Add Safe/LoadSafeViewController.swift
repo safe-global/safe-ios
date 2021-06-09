@@ -22,7 +22,7 @@ class LoadSafeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         callToActionLabel.setStyle(.title3)
-        loadSafeButton.setText("Load Safe", .filled)
+        loadSafeButton.setText("Load Gnosis Safe", .filled)
     }
 
     override func viewDidAppear(_ animated: Bool) {

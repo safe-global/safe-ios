@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Safe</string>
+	<string>Gnosis Safe</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -86,7 +86,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Safe need to use camera to scan QR code.</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>This will allow Safe to access your Face ID to open app and sign transactions.</string>
+	<string>This will allow Gnosis Safe to access your Face ID to open app and sign transactions.</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>We collect anonymized app usage data and crash reports to ensure the quality of our app.</string>
 	<key>PAY_FOR_CANCELLATION_URL</key>

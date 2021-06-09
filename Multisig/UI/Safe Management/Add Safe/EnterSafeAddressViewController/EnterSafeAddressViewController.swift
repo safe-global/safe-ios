@@ -28,7 +28,7 @@ class EnterSafeAddressViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Load Safe"
+        navigationItem.title = "Load Gnosis Safe"
 
         headerLabel.setStyle(.headline)
 

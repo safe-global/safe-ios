@@ -23,7 +23,7 @@ class SafeLoadedViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.hidesBackButton = true
-        navigationItem.title = "Load Safe"
+        navigationItem.title = "Load Gnosis Safe"
         do {
             safe = try Safe.getSelected()!
             descriptionLabel.text = (safe.name ?? "Safe") + descriptionText
