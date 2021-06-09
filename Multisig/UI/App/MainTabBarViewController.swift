@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AppTrackingTransparency
 
 class MainTabBarViewController: UITabBarController {
     var onFirstAppear: (_ vc: MainTabBarViewController) -> Void = { _ in }

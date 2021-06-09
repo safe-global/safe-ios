@@ -10,6 +10,7 @@ public protocol CrashlyticsProtocol {
     func record(error: Error)
     func setUserID(_ identifier: String)
     func log(format: String, arguments: CVaListPointer)
+    func setCrashlyticsCollectionEnabled(_ enabled: Bool)
 }
 
 /// Implements Crashlytics error logging. Logs are send to Crashlytics if log message contains non-nil `error` argument.
@@ -22,6 +23,8 @@ final class CrashlyticsLogger: LogWriter {
     /// - Parameter crashlytics: default value is the Crashlytics shared instance.
     init(crashlytics: CrashlyticsProtocol = Crashlytics.crashlytics()) {
         self.crashlytics = crashlytics
+        // we always collect crashlytics reports
+        self.crashlytics.setCrashlyticsCollectionEnabled(true)
     }
 
     func log(_ message: String,

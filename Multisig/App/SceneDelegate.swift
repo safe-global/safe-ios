@@ -7,7 +7,6 @@
 //
 import UIKit
 import SwiftUI
-import AppTrackingTransparency
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -263,32 +262,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else if App.shared.notificationHandler.needsToRequestNotificationPermission {
             App.shared.notificationHandler.requestUserPermissionAndRegister()
 
-        } else if #available(iOS 14, *),
-                  AppSettings.termsAccepted,
-                  ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
-            // request for users prior 2.16.0 release to confirm data tracking
-            presentTrackingPermission()
         } else {
             App.shared.appReview.pullAppReviewTrigger()
         }
     }
-
-    func presentTrackingPermission() {
-        guard #available(iOS 14, *) else { return }
-        ATTrackingManager.requestTrackingAuthorization { status in
-            DispatchQueue.main.async {
-                switch status {
-                case .authorized:
-                    AppSettings.trackingEnabled = true
-                case .denied, .notDetermined, .restricted:
-                    AppSettings.trackingEnabled = false
-                @unknown default:
-                    AppSettings.trackingEnabled = false
-                }
-            }
-        }
-    }
-
 }
 
 // Window that can keep some view always on top of other views
