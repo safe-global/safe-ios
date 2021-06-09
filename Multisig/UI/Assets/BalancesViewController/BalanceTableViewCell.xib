@@ -29,6 +29,7 @@
                         <rect key="frame" x="56" y="0.0" width="194.5" height="60"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="5Oe-4f-zHg"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="cWl-KU-m9w"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
