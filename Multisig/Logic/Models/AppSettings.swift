@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreData
-import AppTrackingTransparency
 
 extension AppSettings {
     static func current() -> AppSettings {
@@ -26,20 +25,9 @@ extension AppSettings {
     static var termsAccepted: Bool
 
     @AppSetting(\.trackingEnabled)
-    private static var trackingEnabledSetting: Bool
-
     static var trackingEnabled: Bool {
-        set {
-            trackingEnabledSetting = newValue
+        didSet {
             Tracker.shared.setTrackingEnabled(trackingEnabled)
-        } get {
-            let systemTrackingEnabled: Bool
-            if #available(iOS 14, *) {
-                systemTrackingEnabled = ATTrackingManager.trackingAuthorizationStatus == .authorized
-            } else {
-                systemTrackingEnabled = true
-            }
-            return trackingEnabledSetting && systemTrackingEnabled
         }
     }
 

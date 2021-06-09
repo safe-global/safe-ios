@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import AppTrackingTransparency
 
 struct AdvancedAppSettings: View {
 
@@ -63,38 +62,7 @@ struct AdvancedAppSettings: View {
         var body: some View {
             VStack {
                 Toggle(isOn: $trackingEnabled.didSet { enabled in
-                    if #available(iOS 14, *) {
-
-                        switch ATTrackingManager.trackingAuthorizationStatus {
-                        case .notDetermined:
-                            ATTrackingManager.requestTrackingAuthorization { status in
-                                switch status {
-                                case .authorized:
-                                    AppSettings.trackingEnabled = true
-                                    trackingEnabled = true
-                                case .denied, .notDetermined, .restricted:
-                                    AppSettings.trackingEnabled = false
-                                    trackingEnabled = false
-                                @unknown default:
-                                    AppSettings.trackingEnabled = false
-                                    trackingEnabled = false
-                                }
-                            }
-                            return
-
-                        case .authorized:
-                            AppSettings.trackingEnabled = enabled
-
-                        case .denied, .restricted:
-                            showingSettingsAlert = true
-
-                        @unknown default:
-                            showingSettingsAlert = true
-                        }
-
-                    } else /* !#available(iOS 14, *) */ {
-                        AppSettings.trackingEnabled = enabled
-                    }
+                    AppSettings.trackingEnabled = enabled
                 }) {
                     Text("Share Usage and Crash Data").headline()
                 }

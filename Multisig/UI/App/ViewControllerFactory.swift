@@ -8,7 +8,6 @@
 
 import UIKit
 import SwiftUI
-import AppTrackingTransparency
 
 enum ViewControllerFactory {
 
@@ -17,36 +16,8 @@ enum ViewControllerFactory {
     // of the UIWindow.
 
     static func termsViewController(completion: @escaping () -> Void) -> UIViewController {
-        let start = LaunchView(acceptedTerms: .constant(false), onStart: {
-            // user agreed to terms
-
-            if #available(iOS 14, *) {
-                // will present the tracking authorization pop-up
-                ATTrackingManager.requestTrackingAuthorization { status in
-                    // user gave the response
-                    DispatchQueue.main.async {
-                        switch status {
-                        case .authorized:
-                            AppSettings.trackingEnabled = true
-                        case .denied, .notDetermined, .restricted:
-                            AppSettings.trackingEnabled = false
-                        @unknown default:
-                            AppSettings.trackingEnabled = false
-                        }
-                        // tracking authorization pop-up is dismissed.
-
-                        completion()
-                    }
-                }
-                // tracking authorization pop-up presented.
-                return
-            }
-            // on pre-iOS 14, enables tracking
-            AppSettings.trackingEnabled = true
-
-            completion()
-        })
-        .environment(\.managedObjectContext, App.shared.coreDataStack.viewContext)
+        let start = LaunchView(acceptedTerms: .constant(false), onStart: completion)
+            .environment(\.managedObjectContext, App.shared.coreDataStack.viewContext)
 
         let startVC = UIHostingController(rootView: start)
         return startVC
