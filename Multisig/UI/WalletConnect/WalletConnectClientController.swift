@@ -59,20 +59,12 @@ class WalletConnectClientController {
     /// https://docs.walletconnect.org/mobile-linking#for-ios
     func connectToWallet(link: String) throws -> (topic: String, connectionURL: URL) {
         let wcUrl = try connect()
+        let uri = wcUrl.fullyPercentEncodedStr
         var delimiter: String
-        var uri: String
         if link.contains("http") {
             delimiter = "/"
-            uri = wcUrl.partiallyPercentEncodedStr
         } else {
             delimiter = "//"
-            uri = wcUrl.absoluteString
-            // special handling for ledgerlive app
-            if link.contains("ledgerlive") {
-                uri = wcUrl.fullyPercentEncodedStr
-            } else {
-                uri = wcUrl.absoluteString
-            }
         }
         let urlStr = "\(link)\(delimiter)wc?uri=\(uri)"
         return (wcUrl.topic, URL(string: urlStr)!)
@@ -165,7 +157,7 @@ class WalletConnectClientController {
             switch session.walletInfo?.peerMeta.name ?? "" {
 
             // we call signTypedData only for wallets supporting this feature
-            case "MetaMask", "LedgerLive", "🌈 Rainbow":
+            case "MetaMask", "LedgerLive", "🌈 Rainbow", "Trust Wallet":
                 let message = EIP712Transformer.typedDataString(from: transaction)
                 try client.eth_signTypedData(url: session.url, account: walletAddress, message: message) {
                     handleResponse($0)
@@ -329,7 +321,7 @@ extension WalletConnectClientController {
 
 // MARK: - WalletConnectSwift + Extension
 
-/// Different wallets implemented different encoding styles
+/// Different wallets might implemented different encoding styles
 extension WCURL {
     var partiallyPercentEncodedStr: String {
         let params = "bridge=\(bridgeURL.absoluteString)&key=\(key)"
