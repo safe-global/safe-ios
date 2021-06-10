@@ -195,16 +195,40 @@ class WalletConnectClientController {
 
         DispatchQueue.global().async {
             do {
-                let nonceResponse = try App.shared.nodeService.rawCall(
+                // get wallet nonce
+                let nonceJSONResponse = try App.shared.nodeService.rawCall(
                     payload: Request.nonce(for: walletAddress, session: session).jsonString)
-                let response = try Response(url: session.url, jsonString: nonceResponse)
-                let nonce = try response.result(as: String.self)
+                let nonceResponse = try Response(url: session.url, jsonString: nonceJSONResponse)
+                let nonce = try nonceResponse.result(as: String.self)
 
-                let clientTransaction = Client.Transaction.from(address: walletAddress,
-                                                                transaction: transaction,
-                                                                confirmations: confirmations,
-                                                                confirmationsRequired: confirmationsRequired,
-                                                                nonce: nonce)
+                // estimage tx gas
+                let clientTxNotEstimated = Client.Transaction.from(
+                    address: walletAddress,
+                    transaction: transaction,
+                    confirmations: confirmations,
+                    confirmationsRequired: confirmationsRequired,
+                    nonce: nonce)
+                let gasJSONResponse = try App.shared.nodeService.rawCall(
+                    payload: Request.estimateGas(transaction: clientTxNotEstimated, session: session).jsonString)
+                let gasResponse = try Response(url: session.url, jsonString: gasJSONResponse)
+                let gas = try gasResponse.result(as: String.self)
+
+                // Estimate tx gasPrice. For now we use RPC node, but we will improve it in future
+                // using our service.
+                let gasPriceJSONResponse = try App.shared.nodeService.rawCall(
+                    payload: Request.gasPrice(session: session).jsonString)
+                let gasPriceResponse = try Response(url: session.url, jsonString: gasPriceJSONResponse)
+                let gasPrice = try gasPriceResponse.result(as: String.self)
+
+                // Need to create it again as `Client.Transaction` fields are not public
+                let clientTransaction = Client.Transaction.from(
+                    address: walletAddress,
+                    transaction: transaction,
+                    confirmations: confirmations,
+                    confirmationsRequired: confirmationsRequired,
+                    nonce: nonce,
+                    gas: gas,
+                    gasPrice: gasPrice)
 
                 try client.eth_sendTransaction(url: session.url, transaction: clientTransaction) { response in
                     do {
@@ -346,11 +370,15 @@ extension Session {
 
 extension Request {
     static func nonce(for address: String, session: Session) -> Request {
-        return .eth_getTransactionCount(url: session.url, account: address)
+        return try! Request(url: session.url, method: "eth_getTransactionCount", params: [address, "latest"])
     }
 
-    private static func eth_getTransactionCount(url: WCURL, account: String) -> Request {
-        return try! Request(url: url, method: "eth_getTransactionCount", params: [account, "latest"])
+    static func estimateGas(transaction: Client.Transaction, session: Session) -> Request {
+        return try! Request(url: session.url, method: "eth_estimateGas", params: [transaction])
+    }
+
+    static func gasPrice(session: Session) -> Request {
+        return Request(url: session.url, method: "eth_gasPrice")
     }
 }
 
@@ -359,15 +387,17 @@ extension Client.Transaction {
                      transaction: Transaction,
                      confirmations: [SCGModels.Confirmation],
                      confirmationsRequired: UInt64,
-                     nonce: String) -> Client.Transaction {
+                     nonce: String,
+                     gas: String? = nil,
+                     gasPrice: String? = nil) -> Client.Transaction {
         Client.Transaction(
             from: address,
             to: transaction.safe!.description,
             data: SafeContract().execTransaction(transaction,
                                                  confirmations: confirmations,
-                                                 confirmationsRequired: confirmationsRequired).toHexString(),
-            gas: nil,
-            gasPrice: nil,
+                                                 confirmationsRequired: confirmationsRequired).toHexStringWithPrefix(),
+            gas: gas,
+            gasPrice: gasPrice,
             value: nil,
             nonce: nonce
         )
