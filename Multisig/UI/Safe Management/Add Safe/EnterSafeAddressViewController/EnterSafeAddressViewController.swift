@@ -59,7 +59,7 @@ class EnterSafeAddressViewController: UIViewController {
         let vc = EnterAddressNameViewController()
         vc.address = address
         vc.trackingEvent = .safeAddName
-        vc.screenTitle = "Load Safe"
+        vc.screenTitle = "Load Gnosis Safe"
         vc.descriptionText = "Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties."
         vc.actionTitle = "Next"
         vc.placeholder = "Enter name"
