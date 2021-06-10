@@ -167,6 +167,8 @@
 		0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */; };
 		0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */; };
 		0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307452543273F00E8A270 /* UIViewController+UINib.swift */; };
+		0A559A672672096B00E83A9E /* TotalBalanceTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A559A662672096B00E83A9E /* TotalBalanceTableViewCellTests.swift */; };
+		0A559A6926720E5300E83A9E /* BannerTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A559A6826720E5300E83A9E /* BannerTableViewCellTests.swift */; };
 		0A573F2925876B9E009EF0C1 /* AddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A573F2825876B9E009EF0C1 /* AddressField.swift */; };
 		0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A573F6D25877586009EF0C1 /* AddressField.xib */; };
 		0A57C5A42577DC5600420303 /* DetailExpandableTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C5A22577DC5600420303 /* DetailExpandableTextCell.swift */; };
@@ -188,6 +190,10 @@
 		0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */; };
 		0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F482F254C56CE0069C98D /* AddSafeTableViewCell.swift */; };
 		0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F4830254C56CE0069C98D /* AddSafeTableViewCell.xib */; };
+		0A61E83C2670DE68009D68A4 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 0A61E83B2670DE68009D68A4 /* SnapshotTesting */; };
+		0A61E83E2670DED5009D68A4 /* BalanceTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61E83D2670DED5009D68A4 /* BalanceTableViewCellTests.swift */; };
+		0A61E8422670E474009D68A4 /* CellTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61E8412670E474009D68A4 /* CellTestViewController.swift */; };
+		0A61E8452670E632009D68A4 /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = 0A61E8442670E632009D68A4 /* __Snapshots__ */; };
 		0A63C7B42602087E00D36B22 /* SafeInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63C7B32602087E00D36B22 /* SafeInfoRequest.swift */; };
 		0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63C7E22602725100D36B22 /* AddressInfo.swift */; };
 		0A6430E2247EC2C7006FD30A /* ConfigurationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */; };
@@ -709,6 +715,8 @@
 		0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmTransactionRequest.swift; sourceTree = "<group>"; };
 		0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionSigner.swift; sourceTree = "<group>"; };
 		0A5307452543273F00E8A270 /* UIViewController+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINib.swift"; sourceTree = "<group>"; };
+		0A559A662672096B00E83A9E /* TotalBalanceTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceTableViewCellTests.swift; sourceTree = "<group>"; };
+		0A559A6826720E5300E83A9E /* BannerTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTableViewCellTests.swift; sourceTree = "<group>"; };
 		0A573F2825876B9E009EF0C1 /* AddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressField.swift; sourceTree = "<group>"; };
 		0A573F6D25877586009EF0C1 /* AddressField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressField.xib; sourceTree = "<group>"; };
 		0A57C5A22577DC5600420303 /* DetailExpandableTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailExpandableTextCell.swift; sourceTree = "<group>"; };
@@ -732,6 +740,9 @@
 		0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeEntryTableViewCell.xib; sourceTree = "<group>"; };
 		0A5F482F254C56CE0069C98D /* AddSafeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeTableViewCell.swift; sourceTree = "<group>"; };
 		0A5F4830254C56CE0069C98D /* AddSafeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddSafeTableViewCell.xib; sourceTree = "<group>"; };
+		0A61E83D2670DED5009D68A4 /* BalanceTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCellTests.swift; sourceTree = "<group>"; };
+		0A61E8412670E474009D68A4 /* CellTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTestViewController.swift; sourceTree = "<group>"; };
+		0A61E8442670E632009D68A4 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		0A63C7B32602087E00D36B22 /* SafeInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoRequest.swift; sourceTree = "<group>"; };
 		0A63C7E22602725100D36B22 /* AddressInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInfo.swift; sourceTree = "<group>"; };
 		0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Production.Mainnet.xcconfig; sourceTree = "<group>"; };
@@ -1122,6 +1133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A61E83C2670DE68009D68A4 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1559,6 +1571,18 @@
 			path = EnterSafeAddressViewController;
 			sourceTree = "<group>";
 		};
+		0A61E8432670E5FF009D68A4 /* UI Snapshot Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0A61E8442670E632009D68A4 /* __Snapshots__ */,
+				0A61E83D2670DED5009D68A4 /* BalanceTableViewCellTests.swift */,
+				0A61E8412670E474009D68A4 /* CellTestViewController.swift */,
+				0A559A662672096B00E83A9E /* TotalBalanceTableViewCellTests.swift */,
+				0A559A6826720E5300E83A9E /* BannerTableViewCellTests.swift */,
+			);
+			path = "UI Snapshot Tests";
+			sourceTree = "<group>";
+		};
 		0A6430D8247EC180006FD30A /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -1893,6 +1917,7 @@
 				0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */,
 				55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */,
 				0A3DFEFD2667D3A700B45770 /* README.md */,
+				0A61E8432670E5FF009D68A4 /* UI Snapshot Tests */,
 			);
 			path = MultisigIntegrationTests;
 			sourceTree = "<group>";
@@ -2662,6 +2687,9 @@
 				0A9BC3592460581500EB9C5D /* PBXTargetDependency */,
 			);
 			name = MultisigIntegrationTests;
+			packageProductDependencies = (
+				0A61E83B2670DE68009D68A4 /* SnapshotTesting */,
+			);
 			productName = MultisigIntegrationTests;
 			productReference = 0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -2731,6 +2759,7 @@
 				0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */,
 				550FB1D02669204800C13D54 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */,
+				0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -2877,6 +2906,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A61E8452670E632009D68A4 /* __Snapshots__ in Resources */,
 				0A3DFEFE2667D3A700B45770 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3288,6 +3318,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A61E8422670E474009D68A4 /* CellTestViewController.swift in Sources */,
 				0A0983AD24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift in Sources */,
 				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,
 				0A3DFEF82667D22B00B45770 /* MockSecureStore.swift in Sources */,
@@ -3295,12 +3326,15 @@
 				0A0983B124BC67E6009EE296 /* TokenRegistryIntegrationTests.swift in Sources */,
 				0A3DFEFC2667D2DF00B45770 /* SafeTests.swift in Sources */,
 				555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */,
+				0A559A6926720E5300E83A9E /* BannerTableViewCellTests.swift in Sources */,
 				0A3DFEF62667D1A800B45770 /* AuthenticationControllerTests.swift in Sources */,
 				0A3DFEFA2667D2C100B45770 /* CoreDataStackTests.swift in Sources */,
 				0A3DFEF92667D27A00B45770 /* AppSettingsTests.swift in Sources */,
 				0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */,
+				0A61E83E2670DED5009D68A4 /* BalanceTableViewCellTests.swift in Sources */,
 				0A3DFEF72667D1C000B45770 /* CoreDataTestCase.swift in Sources */,
 				0A802B9024E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift in Sources */,
+				0A559A672672096B00E83A9E /* TotalBalanceTableViewCellTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5793,6 +5827,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.0;
+			};
+		};
 		550FB1D02669204800C13D54 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwift.git";
@@ -5879,6 +5921,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		0A61E83B2670DE68009D68A4 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
 		};
 		550FB1D12669204800C13D54 /* WalletConnectSwift */ = {
 			isa = XCSwiftPackageProductDependency;

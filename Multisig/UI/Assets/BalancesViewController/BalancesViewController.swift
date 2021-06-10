@@ -180,9 +180,9 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private func importKeyBanner(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BannerTableViewCell.self, for: indexPath)
-        cell.setHeader("Import owner key")
-        cell.setBody("We added signing support to the app! Now you can import your owner key and sign transactions on the go.")
-        cell.setButton("Import owner key now")
+        cell.setHeader(ImportKeyBanner.Strings.header)
+        cell.setBody(ImportKeyBanner.Strings.body)
+        cell.setButton(ImportKeyBanner.Strings.button)
         cell.onClose = { [unowned self] in
             importKeyBannerWasShown = true
 
@@ -204,9 +204,9 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private func createPasscodeBanner(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BannerTableViewCell.self, for: indexPath)
-        cell.setHeader("Create passcode")
-        cell.setBody("Secure your owner keys by setting up a passcode. The passcode will be needed to open the app and sign transactions.")
-        cell.setButton("Create passcode now")
+        cell.setHeader(PasscodeBanner.Strings.header)
+        cell.setBody(PasscodeBanner.Strings.body)
+        cell.setButton(PasscodeBanner.Strings.body)
         cell.onClose = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true
             recreateSectionsWithCurrentItems()
@@ -236,5 +236,23 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         }
         sections = makeSections(items: items, total: total)
         tableView.reloadData()
+    }
+}
+
+extension BalancesViewController {
+    enum ImportKeyBanner {
+        enum Strings {
+            static let header = "Import owner key"
+            static let body = "We added signing support to the app! Now you can import your owner key and sign transactions on the go."
+            static let button = "Import owner key now"
+        }
+    }
+
+    enum PasscodeBanner {
+        enum Strings {
+            static let header = "Create passcode"
+            static let body = "Secure your owner keys by setting up a passcode. The passcode will be needed to open the app and sign transactions."
+            static let button = "Create passcode now"
+        }
     }
 }
