@@ -240,7 +240,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 }
 
 extension BalancesViewController {
-
     enum ImportKeyBanner {
         enum Strings {
             static let header = "Import owner key"
