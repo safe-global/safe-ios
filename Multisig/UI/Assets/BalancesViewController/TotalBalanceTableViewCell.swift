@@ -16,6 +16,10 @@ class TotalBalanceTableViewCell: UITableViewCell {
         super.awakeFromNib()
         mainLabel.setStyle(.headline)
         detailLabel.setStyle(.headline)
+
+        for label in [mainLabel, detailLabel] {
+            label?.text = nil
+        }
     }
 
     func setMainText(_ value: String) {

@@ -11,7 +11,7 @@ import SnapshotTesting
 @testable import Multisig
 
 class BalanceTableViewCellTests: XCTestCase {
-    func testEthValue() {
+    func testWhenRealisitcValuesThenOk() {
         let vc = CellTestViewController<BalanceTableViewCell>(estimatedHeight: 60) { cell in
             cell.setMainText("ETH")
             cell.setDetailText("0,005")
@@ -21,12 +21,12 @@ class BalanceTableViewCellTests: XCTestCase {
         assertSnapshot(matching: vc, as: .image(on: .iPhoneX))
     }
 
-    func testNotConfigured() {
+    func testWhenNotConfiguredThenEmptyUI() {
         let vc = CellTestViewController<BalanceTableViewCell>(estimatedHeight: 60)
         assertSnapshot(matching: vc, as: .image(on: .iPhoneX))
     }
 
-    func testEmpty() {
+    func testWhenEmptyValuesThenEmptyUI() {
         let vc = CellTestViewController<BalanceTableViewCell>(estimatedHeight: 60) { cell in
             cell.setMainText("")
             cell.setDetailText("")
@@ -36,7 +36,7 @@ class BalanceTableViewCellTests: XCTestCase {
         assertSnapshot(matching: vc, as: .image(on: .iPhoneX))
     }
 
-    func testLongStrings() {
+    func testWhenLongStringsThenEllipsized() {
         let vc = CellTestViewController<BalanceTableViewCell>(estimatedHeight: 60) { cell in
             cell.setMainText(String(repeating: "ETH repeating ", count: 15))
             cell.setDetailText(String(repeating: "0,005", count: 15))

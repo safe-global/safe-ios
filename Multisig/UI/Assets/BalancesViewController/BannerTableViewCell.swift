@@ -20,6 +20,10 @@ class BannerTableViewCell: UITableViewCell {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
         bodyLabel.setStyle(.primary)
+        setButton("")
+        for label in [headerLabel, bodyLabel] {
+            label?.text = nil
+        }
         separatorInset.left = .greatestFiniteMagnitude
     }
 
@@ -32,7 +36,11 @@ class BannerTableViewCell: UITableViewCell {
     }
 
     func setButton(_ text: String) {
-        importButton.setText(text, .plain)
+        if text.isEmpty {
+            importButton.setTitle(text, for: .normal)
+        } else {
+            importButton.setText(text, .plain)
+        }
     }
 
     @IBAction func didTapClose(_ sender: Any) {
