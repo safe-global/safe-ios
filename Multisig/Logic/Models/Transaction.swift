@@ -27,7 +27,7 @@ struct Transaction: Codable {
     // can be modified for WalletConnect transactions
     var nonce: UInt256String
     // computed based on other properties
-    var safeTxHash: HashString?
+    var safeTxHash: HashString!
     var transactionHash: HashString?
 }
 
@@ -81,16 +81,16 @@ extension Transaction {
     }
 
     mutating func updateSafeTxHash() {
-        safeTxHash = safeTxHash(by: safe!.address)
+        safeTxHash = safeTransactionHash()
     }
 
-    func encodeTransactionData(for safe: AddressString) -> Data {
+    func encodeTransactionData() -> Data {
         let ERC191MagicByte = Data([0x19])
         let ERC191Version1Byte = Data([0x01])
         return [
             ERC191MagicByte,
             ERC191Version1Byte,
-            EthHasher.hash(Safe.domainData(for: safe)),
+            EthHasher.hash(Safe.domainData(for: safe!)),
             EthHasher.hash(safeEncodedTxData)
         ].reduce(Data()) { $0 + $1 }
     }
@@ -107,7 +107,8 @@ extension Transaction {
                                       refundReceiver: "0x0000000000000000000000000000000000000000",
                                       nonce: nonce,
                                       safeTxHash: nil)
-        transaction.safeTxHash = transaction.safeTxHash(by: safeAddress)
+        transaction.safe = AddressString(safeAddress)
+        transaction.safeTxHash = transaction.safeTransactionHash()
 
         return transaction
     }
@@ -129,8 +130,8 @@ extension Transaction {
         .reduce(Data()) { $0 + $1 }
     }
 
-    private func safeTxHash(by safeAddress: Address) -> HashString? {
-        let data = encodeTransactionData(for: AddressString(safeAddress))
+    private func safeTransactionHash() -> HashString? {
+        let data = encodeTransactionData()
         return try? HashString(hex: EthHasher.hash(data).toHexString())
     }
 }

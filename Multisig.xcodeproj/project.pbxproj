@@ -452,6 +452,7 @@
 		55413677265E4A0000796F91 /* AddOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */; };
 		55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */; };
 		5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */; };
+		554A16B3266E4D4900807049 /* EIP712Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A16B2266E4D4900807049 /* EIP712Transformer.swift */; };
 		555312E9250653800008206B /* BIP32HDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312E8250653800008206B /* BIP32HDNode.swift */; };
 		555312EB2506608D0008206B /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EA2506608D0008206B /* Base58.swift */; };
 		555312ED250663420008206B /* SECP256K1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EC250663420008206B /* SECP256K1.swift */; };
@@ -1030,6 +1031,7 @@
 		55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyCell.swift; sourceTree = "<group>"; };
 		55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerKeyCell.xib; sourceTree = "<group>"; };
 		5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGenerateKeyViewController.swift; sourceTree = "<group>"; };
+		554A16B2266E4D4900807049 /* EIP712Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712Transformer.swift; sourceTree = "<group>"; };
 		555312E8250653800008206B /* BIP32HDNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP32HDNode.swift; sourceTree = "<group>"; };
 		555312EA2506608D0008206B /* Base58.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
 		555312EC250663420008206B /* SECP256K1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SECP256K1.swift; sourceTree = "<group>"; };
@@ -2207,6 +2209,7 @@
 				0AC5F5B225DD510600DEF0D7 /* AppUser.swift */,
 				0AA9F2542498CC82005BD60F /* DataString.swift */,
 				0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */,
+				554A16B2266E4D4900807049 /* EIP712Transformer.swift */,
 				55B64657253050200050BD95 /* HashString.swift */,
 				0A95893F25EFBE1E005011D7 /* KeyInfo.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
@@ -3090,6 +3093,7 @@
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
+				554A16B3266E4D4900807049 /* EIP712Transformer.swift in Sources */,
 				0A09839C24BC522B009EE296 /* Token.swift in Sources */,
 				0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */,
 				0ADD19C4265EA23200EB0F2B /* SeedPhraseView.swift in Sources */,

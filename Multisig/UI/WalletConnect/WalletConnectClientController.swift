@@ -59,20 +59,12 @@ class WalletConnectClientController {
     /// https://docs.walletconnect.org/mobile-linking#for-ios
     func connectToWallet(link: String) throws -> (topic: String, connectionURL: URL) {
         let wcUrl = try connect()
+        let uri = wcUrl.fullyPercentEncodedStr
         var delimiter: String
-        var uri: String
         if link.contains("http") {
             delimiter = "/"
-            uri = wcUrl.partiallyPercentEncodedStr
         } else {
             delimiter = "//"
-            uri = wcUrl.absoluteString
-            // special handling for ledgerlive app
-            if link.contains("ledgerlive") {
-                uri = wcUrl.fullyPercentEncodedStr
-            } else {
-                uri = wcUrl.absoluteString
-            }
         }
         let urlStr = "\(link)\(delimiter)wc?uri=\(uri)"
         return (wcUrl.topic, URL(string: urlStr)!)
@@ -109,36 +101,14 @@ class WalletConnectClientController {
         return session?.walletInfo?.peerId == peerId
     }
 
-    func sign(message: String, completion: @escaping (Result<String, Error>) -> Void) {
-        guard let session = session,
-              let client = client,
-              let walletAddress = session.walletInfo?.accounts.first else {
-            completion(.failure(GSError.WalletNotConnected(description: "Could not sign transaction")))
-            return
-        }
-
-        do {
-            try client.eth_sign(url: session.url, account: walletAddress, message: message) { response in
-                do {
-                    let signature = try response.result(as: String.self)
-                    completion(.success(signature))
-                } catch {
-                    completion(.failure(error))
-                }
-            }
-        } catch {
-            completion(.failure(error))
-        }
-    }
-
-    func sign(message: String, from controller: UIViewController, completion: @escaping (String) -> Void) {
+    func sign(transaction: Transaction, from controller: UIViewController, completion: @escaping (String) -> Void) {
         guard controller.presentedViewController == nil else { return }
 
         let pendingConfirmationVC = WCPendingConfirmationViewController.create()
         pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
         controller.present(pendingConfirmationVC, animated: false)
 
-        sign(message: message) { [weak controller] result in
+        sign(transaction: transaction) { [weak controller] result in
             switch result {
             case .success(let signature):
                 DispatchQueue.main.async {
@@ -154,6 +124,53 @@ class WalletConnectClientController {
                     App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
                 }
             }
+        }
+    }
+
+    private func sign(transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
+        guard let session = session,
+              let client = client,
+              let walletAddress = session.walletInfo?.accounts.first else {
+            completion(.failure(GSError.WalletNotConnected(description: "Could not sign transaction")))
+            return
+        }
+
+        func handleResponse(_ response: Response) {
+            do {
+                var signature = try response.result(as: String.self)
+
+                var signatureBytes = Data(hex: signature).bytes
+                var v = signatureBytes.last!
+                if v < 27 {
+                    v += 27
+                    signatureBytes[signatureBytes.count - 1] = v
+                    signature = Data(signatureBytes).toHexStringWithPrefix()
+                }
+
+                completion(.success(signature))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+
+        do {
+            switch session.walletInfo?.peerMeta.name ?? "" {
+
+            // we call signTypedData only for wallets supporting this feature
+            case "MetaMask", "LedgerLive", "🌈 Rainbow", "Trust Wallet":
+                let message = EIP712Transformer.typedDataString(from: transaction)
+                try client.eth_signTypedData(url: session.url, account: walletAddress, message: message) {
+                    handleResponse($0)
+                }
+
+            default:
+                let message = transaction.safeTxHash.description
+                try client.eth_sign(url: session.url, account: walletAddress, message: message) {
+                    handleResponse($0)
+                }
+            }
+        } catch {
+            completion(.failure(error))
         }
     }
 
@@ -178,16 +195,40 @@ class WalletConnectClientController {
 
         DispatchQueue.global().async {
             do {
-                let nonceResponse = try App.shared.nodeService.rawCall(
+                // get wallet nonce
+                let nonceJSONResponse = try App.shared.nodeService.rawCall(
                     payload: Request.nonce(for: walletAddress, session: session).jsonString)
-                let response = try Response(url: session.url, jsonString: nonceResponse)
-                let nonce = try response.result(as: String.self)
+                let nonceResponse = try Response(url: session.url, jsonString: nonceJSONResponse)
+                let nonce = try nonceResponse.result(as: String.self)
 
-                let clientTransaction = Client.Transaction.from(address: walletAddress,
-                                                                transaction: transaction,
-                                                                confirmations: confirmations,
-                                                                confirmationsRequired: confirmationsRequired,
-                                                                nonce: nonce)
+                // estimage tx gas
+                let clientTxNotEstimated = Client.Transaction.from(
+                    address: walletAddress,
+                    transaction: transaction,
+                    confirmations: confirmations,
+                    confirmationsRequired: confirmationsRequired,
+                    nonce: nonce)
+                let gasJSONResponse = try App.shared.nodeService.rawCall(
+                    payload: Request.estimateGas(transaction: clientTxNotEstimated, session: session).jsonString)
+                let gasResponse = try Response(url: session.url, jsonString: gasJSONResponse)
+                let gas = try gasResponse.result(as: String.self)
+
+                // Estimate tx gasPrice. For now we use RPC node, but we will improve it in future
+                // using our service.
+                let gasPriceJSONResponse = try App.shared.nodeService.rawCall(
+                    payload: Request.gasPrice(session: session).jsonString)
+                let gasPriceResponse = try Response(url: session.url, jsonString: gasPriceJSONResponse)
+                let gasPrice = try gasPriceResponse.result(as: String.self)
+
+                // Need to create it again as `Client.Transaction` fields are not public
+                let clientTransaction = Client.Transaction.from(
+                    address: walletAddress,
+                    transaction: transaction,
+                    confirmations: confirmations,
+                    confirmationsRequired: confirmationsRequired,
+                    nonce: nonce,
+                    gas: gas,
+                    gasPrice: gasPrice)
 
                 try client.eth_sendTransaction(url: session.url, transaction: clientTransaction) { response in
                     do {
@@ -304,7 +345,7 @@ extension WalletConnectClientController {
 
 // MARK: - WalletConnectSwift + Extension
 
-/// Different wallets implemented different encoding styles
+/// Different wallets might implemented different encoding styles
 extension WCURL {
     var partiallyPercentEncodedStr: String {
         let params = "bridge=\(bridgeURL.absoluteString)&key=\(key)"
@@ -329,11 +370,15 @@ extension Session {
 
 extension Request {
     static func nonce(for address: String, session: Session) -> Request {
-        return .eth_getTransactionCount(url: session.url, account: address)
+        return try! Request(url: session.url, method: "eth_getTransactionCount", params: [address, "latest"])
     }
 
-    private static func eth_getTransactionCount(url: WCURL, account: String) -> Request {
-        return try! Request(url: url, method: "eth_getTransactionCount", params: [account, "latest"])
+    static func estimateGas(transaction: Client.Transaction, session: Session) -> Request {
+        return try! Request(url: session.url, method: "eth_estimateGas", params: [transaction])
+    }
+
+    static func gasPrice(session: Session) -> Request {
+        return Request(url: session.url, method: "eth_gasPrice")
     }
 }
 
@@ -342,15 +387,17 @@ extension Client.Transaction {
                      transaction: Transaction,
                      confirmations: [SCGModels.Confirmation],
                      confirmationsRequired: UInt64,
-                     nonce: String) -> Client.Transaction {
+                     nonce: String,
+                     gas: String? = nil,
+                     gasPrice: String? = nil) -> Client.Transaction {
         Client.Transaction(
             from: address,
             to: transaction.safe!.description,
             data: SafeContract().execTransaction(transaction,
                                                  confirmations: confirmations,
-                                                 confirmationsRequired: confirmationsRequired).toHexString(),
-            gas: nil,
-            gasPrice: nil,
+                                                 confirmationsRequired: confirmationsRequired).toHexStringWithPrefix(),
+            gas: gas,
+            gasPrice: gasPrice,
             value: nil,
             nonce: nonce
         )

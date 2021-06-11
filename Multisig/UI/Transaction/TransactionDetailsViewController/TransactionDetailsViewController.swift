@@ -260,26 +260,28 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     private func sign(_ keyInfo: KeyInfo) {
         guard let tx = tx,
-              let transaction = Transaction(tx: tx) else {
+              var transaction = Transaction(tx: tx),
+              let safeAddress = try? Address(from: safe.address!),
+              let safeTxHash = transaction.safeTxHash?.description else {
             preconditionFailure("Unexpected Error")            
         }
         super.reloadData()
+
+        transaction.safe = AddressString(safeAddress)
 
         switch keyInfo.keyType {
 
         case .deviceImported, .deviceGenerated:
             do {
-                let safeAddress = try Address(from: safe.address!)
-                let signature = try SafeTransactionSigner().sign(transaction, by: safeAddress, keyInfo: keyInfo)
-                let safeTxHash = transaction.safeTxHash!.description
+                let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
                 confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyType: keyInfo.keyType)
             } catch {
                 onError(GSError.error(description: "Failed to confirm transaction", error: error))
             }
 
         case .walletConnect:
-            let safeTxHash = transaction.safeTxHash!.description
-            WalletConnectClientController.shared.sign(message: safeTxHash, from: self) { [weak self] signature in
+            WalletConnectClientController.shared.sign(transaction: transaction, from: self) {
+                [weak self] signature in
                 self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: keyInfo.keyType)
             }
 

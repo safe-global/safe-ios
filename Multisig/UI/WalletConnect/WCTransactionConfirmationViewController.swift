@@ -90,8 +90,7 @@ class WCTransactionConfirmationViewController: UIViewController {
             }
 
         case .walletConnect:
-            WalletConnectClientController.shared.sign(message: transaction.safeTxHash!.description, from: self) {
-                [weak self] signature in
+            WalletConnectClientController.shared.sign(transaction: transaction, from: self) { [weak self] signature in
                 self?.sendConfirmationAndDismiss(keyInfo: keyInfo, signature: signature)
             }
 
