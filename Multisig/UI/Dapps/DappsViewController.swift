@@ -97,7 +97,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
         sections = [
             (section: .walletConnect("WalletConnect"), items: wcSessionItems),
-            (section: .dapp("Dapps supporting Safe Multisig"), items: dappSectionItems)
+            (section: .dapp("Dapps supporting Gnosis Safe"), items: dappSectionItems)
         ]
 
         DispatchQueue.main.async { [unowned self] in

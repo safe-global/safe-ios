@@ -125,7 +125,7 @@
   },
   "a5cfbd9a263c9dcfb59d6e9dc00933c46f00277ed78a6a0a1e38b0c17e09671f": {
     "id": "a5cfbd9a263c9dcfb59d6e9dc00933c46f00277ed78a6a0a1e38b0c17e09671f",
-    "name": "Gnosis Safe Multisig",
+    "name": "Gnosis Safe",
     "homepage": "https://gnosis-safe.io/",
     "chains": [
       "eip155:1"

@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>$(DISPLAY_NAME)</string>
+	<string>Gnosis Safe</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -53,12 +53,12 @@
 	<string>$(FALLBACKHANDLER_URL)</string>
 	<key>FEATURE_SUGGESTION_URL</key>
 	<string>$(FEATURE_SUGGESTION_URL)</string>
+	<key>FirebaseCrashlyticsCollectionEnabled</key>
+	<false/>
 	<key>GNOSIS_SAFE_WEB_URL</key>
 	<string>$(GNOSIS_SAFE_WEB_URL)</string>
 	<key>HELP_CENTER_URL</key>
 	<string>$(HELP_CENTER_URL)</string>
-	<key>WALLETCONNECT_BRIDGE_URL</key>
-	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LICENSES_URL</key>
@@ -86,7 +86,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Safe need to use camera to scan QR code.</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>This will allow Safe Multisig to access your Face ID to open app and sign transactions.</string>
+	<string>This will allow Gnosis Safe to access your Face ID to open app and sign transactions.</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>We collect anonymized app usage data and crash reports to ensure the quality of our app.</string>
 	<key>PAY_FOR_CANCELLATION_URL</key>
@@ -97,6 +97,8 @@
 	<string>$(RELAY_SERVICE_URL)</string>
 	<key>SERVICE_ENV</key>
 	<string>$(SERVICE_ENV)</string>
+	<key>SHOW_EXPERIMENTAL</key>
+	<string>$(SHOW_EXPERIMENTAL)</string>
 	<key>TERMS_URL</key>
 	<string>$(TERMS_URL)</string>
 	<key>TRANSACTION_SERVICE_URL</key>
@@ -139,12 +141,6 @@
 	</dict>
 	<key>TWITTER_URL</key>
 	<string>$(TWITTER_URL)</string>
-	<key>SHOW_EXPERIMENTAL</key>
-	<string>$(SHOW_EXPERIMENTAL)</string>
-	<key>WALLETCONNECT_ELIGIBLE</key>
-	<string>$(WALLETCONNECT_ELIGIBLE)</string>
-	<key>WALLETCONNECT_OWNER_KEY_ELIGIBLE</key>
-	<string>$(WALLETCONNECT_OWNER_KEY_ELIGIBLE)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Averta-Regular.otf</string>
@@ -193,7 +189,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>FirebaseCrashlyticsCollectionEnabled</key>
-	<false/>
+	<key>WALLETCONNECT_BRIDGE_URL</key>
+	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
+	<key>WALLETCONNECT_ELIGIBLE</key>
+	<string>$(WALLETCONNECT_ELIGIBLE)</string>
+	<key>WALLETCONNECT_OWNER_KEY_ELIGIBLE</key>
+	<string>$(WALLETCONNECT_OWNER_KEY_ELIGIBLE)</string>
 </dict>
 </plist>

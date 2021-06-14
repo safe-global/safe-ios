@@ -30,7 +30,7 @@ struct EmailSupportViewController: UIViewControllerRepresentable {
         let safe = try? App.shared.coreDataStack.viewContext.fetch(Safe.fetchRequest().selected()).first
 
         let message = """
-        Safe Multisig \(version)
+        Gnosis Safe \(version)
         Safe address: \(safe?.address ?? "None")
         Feedback:
         """
