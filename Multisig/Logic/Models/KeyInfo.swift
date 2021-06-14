@@ -138,7 +138,7 @@ extension KeyInfo {
         if let existing = try context.fetch(fr).first {
             item = existing
             guard existing.keyType == .deviceImported || existing.keyType == .deviceGenerated else {
-                throw GSError.CouldNotImportOwnerKeyWithSameAddressAndDifferentType()
+                throw GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType()
             }
         } else {
             item = KeyInfo(context: context)
@@ -176,7 +176,7 @@ extension KeyInfo {
         if let existing = try context.fetch(fr).first {
             // It is possible to update only key of the same type. Do not update key name for already imported WalletConnect key.
             guard existing.keyType == .walletConnect else {
-                throw GSError.CouldNotImportOwnerKeyWithSameAddressAndDifferentType()
+                throw GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType()
             }
             item = existing
         } else {

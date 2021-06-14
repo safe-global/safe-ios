@@ -16,7 +16,7 @@ class SafeLoadedViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
 
     private var safe: Safe!
-    private let descriptionText = " is read-only. Would you like to import owner key for this Safe to confirm transactions?"
+    private let descriptionText = " is read-only. Would you like to add owner key for this Safe to confirm transactions?"
     var completion: () -> Void = { }
 
     override func viewDidLoad() {
@@ -29,7 +29,7 @@ class SafeLoadedViewController: UIViewController {
             descriptionLabel.text = (safe.name ?? "Safe") + descriptionText
             titleLabel.setStyle(.headline)
             descriptionLabel.setStyle(.primary)
-            importOwnerKeyButton.setText("Import owner key", .filled)
+            importOwnerKeyButton.setText("Add owner key", .filled)
             skipButton.setText("Skip", .primary)
             safeInfoView.set(safe.name)
             safeInfoView.setAddress(safe.addressValue)
@@ -42,7 +42,7 @@ class SafeLoadedViewController: UIViewController {
     }
 
     @IBAction func importOwnerButtonTouched(_ sender: Any) {
-        Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerImport)
+        Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerAdd)
         let vc = ViewControllerFactory.addOwnerViewController()
         present(vc, animated: true)
     }
