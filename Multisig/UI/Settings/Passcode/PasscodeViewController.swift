@@ -201,12 +201,16 @@ class CreatePasscodeViewController: PasscodeViewController {
 
             repeatVC?.present(shouldEnableVC, animated: true, completion: nil)
         }
-    }
 
+        repeatVC.skipCompletion = { [weak self] in
+            self?.navigationController?.dismiss(animated: true, completion: self?.completion)
+        }
+    }
 }
 
 class RepeatPasscodeViewController: PasscodeViewController {
     var passcode: String!
+    var skipCompletion: () -> Void = {}
 
     convenience init(passcode: String, completionHandler: @escaping () -> Void = {}) {
         self.init(namedClass: PasscodeViewController.self)
@@ -216,7 +220,7 @@ class RepeatPasscodeViewController: PasscodeViewController {
 
     override func didTapButton(_ sender: Any) {
         trackEvent(.userPasscodeSkipped)
-        completion()
+        skipCompletion()
     }
 
     override func viewDidLoad() {
