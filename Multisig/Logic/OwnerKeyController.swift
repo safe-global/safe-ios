@@ -47,7 +47,7 @@ class OwnerKeyController {
 
             return true
         } catch {
-            if let err = error as? GSError.CouldNotImportOwnerKeyWithSameAddressAndDifferentType {
+            if let err = error as? GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType {
                 App.shared.snackbar.show(error: err)
             } else {
                 let err = GSError.error(description: "Failed to add WalletConnect owner", error: error)

@@ -353,10 +353,10 @@ enum GSError {
         let loggable = false
     }
 
-    struct CouldNotImportOwnerKeyWithSameAddressAndDifferentType: DetailedLocalizedError {
-        let description = "Could not import owner key"
-        let reason = "The owner key is already imported."
-        let howToFix = "Please use the already imported key or remove it and try again."
+    struct CouldNotAddOwnerKeyWithSameAddressAndDifferentType: DetailedLocalizedError {
+        let description = "Could not add owner key"
+        let reason = "The owner key is already added."
+        let howToFix = "Please use the already added key or remove it and try again."
         let domain = clientErrorDomain
         let code = 9905
         let loggable = false

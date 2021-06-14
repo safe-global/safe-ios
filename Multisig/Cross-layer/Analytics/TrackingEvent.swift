@@ -96,7 +96,7 @@ enum TrackingEvent: String, Trackable {
     case appUpdateOptional                          = "screen_update_new_version"
 
     case userOnboardingOwnerSkip                    = "user_onboarding_owner_skip"
-    case userOnboardingOwnerImport                  = "user_onboarding_owner_import"
+    case userOnboardingOwnerAdd                     = "user_onboarding_owner_add"
     case ownerKeysList                              = "screen_owner_list"
     case ownerKeysOptions                           = "screen_owner_options"
     case ownerKeyDetails                            = "screen_owner_details"
@@ -117,7 +117,7 @@ enum TrackingEvent: String, Trackable {
 
     case chooseOwner                                = "screen_owner_choose"
     case bannerImportOwnerKeySkipped                = "user_banner_owner_skip"
-    case bannerImportOwnerKeyImported               = "user_banner_owner_import"
+    case bannerImportOwnerKeyAdd                    = "user_banner_owner_add"
     case camera                                     = "screen_camera"
 
     case exportSeed                                 = "screen_owner_export_seed"
