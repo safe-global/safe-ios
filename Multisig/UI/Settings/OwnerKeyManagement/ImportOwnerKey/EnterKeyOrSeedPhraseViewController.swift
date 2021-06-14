@@ -81,7 +81,10 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
             let vc = KeyPickerController(node: rootNode)
             show(vc, sender: self)
             nextButton.isEnabled = true
-        } else if isValidPK(phrase), let privateKey = try? PrivateKey(data: Data(exactlyHex: phrase)!) {
+        } else if isValidPK(phrase),
+                  // we need to use Data(ethHex:) here in case if some software
+                  // exported private key without a leading 0
+                  let privateKey = try? PrivateKey(data: Data(ethHex: phrase)) {
 
             if OwnerKeyController.exists(privateKey) {
                 setError(GSError.KeyAlreadyImported())
