@@ -87,8 +87,6 @@
 	<string>Safe need to use camera to scan QR code.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>This will allow Gnosis Safe to access your Face ID to open app and sign transactions.</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>We collect anonymized app usage data and crash reports to ensure the quality of our app.</string>
 	<key>PAY_FOR_CANCELLATION_URL</key>
 	<string>$(PAY_FOR_CANCELLATION_URL)</string>
 	<key>PRIVACY_URL</key>
