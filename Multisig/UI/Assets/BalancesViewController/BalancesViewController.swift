@@ -206,7 +206,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueCell(BannerTableViewCell.self, for: indexPath)
         cell.setHeader(PasscodeBanner.Strings.header)
         cell.setBody(PasscodeBanner.Strings.body)
-        cell.setButton(PasscodeBanner.Strings.body)
+        cell.setButton(PasscodeBanner.Strings.button)
         cell.onClose = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true
             recreateSectionsWithCurrentItems()
