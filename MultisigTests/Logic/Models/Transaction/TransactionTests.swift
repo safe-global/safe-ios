@@ -94,7 +94,7 @@ class TransactionTests: XCTestCase {
     }
 
     func testTransactoinEncodedData() throws {
-        let tx = Transaction(to: "0x8e6A5aDb2B88257A3DAc7A76A7B4EcaCdA090b66",
+        var tx = Transaction(to: "0x8e6A5aDb2B88257A3DAc7A76A7B4EcaCdA090b66",
                              value: "1000123",
                              data: "0x561001057600080fd5b5060405161060a3803806106",
                              operation: .delegate,
@@ -105,6 +105,8 @@ class TransactionTests: XCTestCase {
                              refundReceiver: AddressString(.zero),
                              nonce: "12305734256",
                              safeTxHash: nil)
+
+        tx.safe = "0x092CC1854399ADc38Dad4f846E369C40D0a40307"
 
         let domainHashInput = oneline("""
 035aff83d86937d35b32e04f0ddc6ff469290eef2f1b692d8a815c89404d4749
@@ -134,8 +136,8 @@ ef8553f949acc5f0cb8002523b7a4f8e02664b6637eddc74ad72bb8e38588309
             Safe.domainData(for: "0x092CC1854399ADc38Dad4f846E369C40D0a40307").toHexString().lowercased(),
             domainHashInput.lowercased()
         )
-        XCTAssertEqual(
-            tx.encodeTransactionData(for: "0x092CC1854399ADc38Dad4f846E369C40D0a40307").toHexString().lowercased(),
+        XCTAssertEqual(            
+            tx.encodeTransactionData().toHexString().lowercased(),
             txHashInput.lowercased()
         )
     }
