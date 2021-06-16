@@ -54,4 +54,7 @@ class MockCrashlytics: CrashlyticsProtocol {
         // empty
     }
 
+    func setCrashlyticsCollectionEnabled(_ enabled: Bool) {
+        // empty
+    }
 }
