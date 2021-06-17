@@ -390,7 +390,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             decimals = 0
         case .ether(let etherTransferInfo):
             value = Int256(etherTransferInfo.value.value)
-            let eth = App.shared.tokenRegistry.token(address: .ether)!
+            let eth = App.shared.tokenRegistry.networkToken()
             decimals = eth.decimals!
             symbol = eth.symbol
         case .unknown:

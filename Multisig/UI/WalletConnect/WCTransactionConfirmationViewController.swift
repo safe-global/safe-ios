@@ -222,7 +222,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     private func transactionCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
 
-        let eth = App.shared.tokenRegistry.token(address: .ether)!
+        let eth = App.shared.tokenRegistry.networkToken()
         let decimalAmount = BigDecimal(
             Int256(transaction.value.value) * -1,
             eth.decimals.map { Int($0) }!

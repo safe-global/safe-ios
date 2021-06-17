@@ -73,7 +73,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func buildHeader() {
         if let tx = multiSendTx {
-            let eth = App.shared.tokenRegistry.token(address: .ether)!
+            let eth = App.shared.tokenRegistry.networkToken()
             txBuilder.result = []
             let (name, imageUri) = displayNameAndImageUri(address: tx.to, addressInfoIndex: addressInfoIndex)
             txBuilder.buildTransferHeader(

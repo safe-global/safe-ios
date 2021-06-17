@@ -32,8 +32,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - Scene Life Cycle
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        App.shared.tokenRegistry.load()
-
         let darkNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .dark))
         darkNavBar.barTintColor = .quaternaryBackground
         darkNavBar.isTranslucent = false
