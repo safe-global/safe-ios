@@ -279,7 +279,6 @@
 		0AA9F263249A188C005BD60F /* AdvancedTransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F261249A188C005BD60F /* AdvancedTransactionDetailsView.swift */; };
 		0AB34D5C24B7161000A43988 /* TokenRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5B24B7161000A43988 /* TokenRegistry.swift */; };
 		0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */; };
-		0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5F24B71D2400A43988 /* SafeStatusRequest.swift */; };
 		0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */; };
 		0AB34D6824B71DF700A43988 /* TokensRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6724B71DF700A43988 /* TokensRequest.swift */; };
 		0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */; };
@@ -839,7 +838,6 @@
 		0AA9F261249A188C005BD60F /* AdvancedTransactionDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedTransactionDetailsView.swift; sourceTree = "<group>"; };
 		0AB34D5B24B7161000A43988 /* TokenRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRegistry.swift; sourceTree = "<group>"; };
 		0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateDecodingStrategy+GnosisSafeServices.swift"; sourceTree = "<group>"; };
-		0AB34D5F24B71D2400A43988 /* SafeStatusRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeStatusRequest.swift; sourceTree = "<group>"; };
 		0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesRequest.swift; sourceTree = "<group>"; };
 		0AB34D6724B71DF700A43988 /* TokensRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensRequest.swift; sourceTree = "<group>"; };
 		0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarCenter.swift; sourceTree = "<group>"; };
@@ -1928,7 +1926,6 @@
 				550FB1B926691DB800C13D54 /* CreateTransactionRequest.swift */,
 				550FB1B826691DB800C13D54 /* LatestTransactionRequest.swift */,
 				048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */,
-				0AB34D5F24B71D2400A43988 /* SafeStatusRequest.swift */,
 				04769167246431D000D73D8B /* SafeTransactionService.swift */,
 				0A09839F24BC55ED009EE296 /* TokenRequest.swift */,
 				0AB34D6724B71DF700A43988 /* TokensRequest.swift */,
@@ -3092,7 +3089,6 @@
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
 				554A16B3266E4D4900807049 /* EIP712Transformer.swift in Sources */,
 				0A09839C24BC522B009EE296 /* Token.swift in Sources */,
-				0AB34D6024B71D2400A43988 /* SafeStatusRequest.swift in Sources */,
 				0ADD19C4265EA23200EB0F2B /* SeedPhraseView.swift in Sources */,
 				0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */,
 				0A95894025EFBE1E005011D7 /* KeyInfo.swift in Sources */,
