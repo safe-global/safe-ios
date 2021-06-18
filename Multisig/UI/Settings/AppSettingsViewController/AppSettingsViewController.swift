@@ -78,7 +78,8 @@ class AppSettingsViewController: UITableViewController {
                 Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
                 Section.App.passcode("Passcode"),
                 Section.App.appearance("Appearance"),
-                Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode)
+                Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
+                Section.App.experimental("Experimental 🧪")
             ]),
             (section: .general, items: [
                 Section.General.terms("Terms of use"),
@@ -91,10 +92,6 @@ class AppSettingsViewController: UITableViewController {
             ]),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
         ]
-
-        if App.configuration.toggles.experimental {
-            sections[0].items.append(Section.App.experimental("Experimental 🧪"))
-        }
     }
 
     @objc func hidePresentedController() {

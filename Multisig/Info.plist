@@ -95,8 +95,6 @@
 	<string>$(RELAY_SERVICE_URL)</string>
 	<key>SERVICE_ENV</key>
 	<string>$(SERVICE_ENV)</string>
-	<key>SHOW_EXPERIMENTAL</key>
-	<string>$(SHOW_EXPERIMENTAL)</string>
 	<key>TERMS_URL</key>
 	<string>$(TERMS_URL)</string>
 	<key>TRANSACTION_SERVICE_URL</key>
@@ -189,9 +187,5 @@
 	</array>
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
-	<key>WALLETCONNECT_ELIGIBLE</key>
-	<string>$(WALLETCONNECT_ELIGIBLE)</string>
-	<key>WALLETCONNECT_OWNER_KEY_ELIGIBLE</key>
-	<string>$(WALLETCONNECT_OWNER_KEY_ELIGIBLE)</string>
 </dict>
 </plist>
