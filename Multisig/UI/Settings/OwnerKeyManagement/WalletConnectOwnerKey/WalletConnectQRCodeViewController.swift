@@ -10,14 +10,20 @@ import UIKit
 
 class WalletConnectQRCodeViewController: UIViewController {
     @IBOutlet weak var header: UILabel!
-    @IBOutlet weak var qrCodeImageView: UIImageView!
+    @IBOutlet weak var qrCodeView: QRCodeView!
+    @IBOutlet weak var copyButton: UIButton!
 
     private var code: String!
 
     static func create(code: String) -> WalletConnectQRCodeViewController {
-        let controller = WalletConnectQRCodeViewController(nibName: "WalletConnectQRCodeViewController", bundle: Bundle.main)
+        let controller = WalletConnectQRCodeViewController(nibName: nil, bundle: nil)
         controller.code = code
         return controller
+    }
+
+    @IBAction func copyToClipboard(_ sender: Any) {
+        Pasteboard.string = code
+        App.shared.snackbar.show(message: "Copied to clipboard")
     }
 
     override func viewDidLoad() {
@@ -25,12 +31,9 @@ class WalletConnectQRCodeViewController: UIViewController {
 
         title = "WalletConnect"
         header.setStyle(.headline)
+        copyButton.setText("Copy to clipboard", .plain)
 
-        let data = code.data(using: .utf8)
-        let filter = CIFilter(name: "CIQRCodeGenerator")!
-        filter.setValue(data, forKey: "inputMessage")
-        let transform = CGAffineTransform(scaleX: 10, y: 10)
-        qrCodeImageView.image = UIImage(ciImage: filter.outputImage!.transformed(by: transform))
+        qrCodeView.value = code
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -11,8 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WalletConnectQRCodeViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="copyButton" destination="5mD-N2-LQX" id="kbw-cr-9U9"/>
                 <outlet property="header" destination="c1B-Kk-Dc0" id="wCb-jH-O4p"/>
-                <outlet property="qrCodeImageView" destination="wDY-2h-BxL" id="Jfr-1x-A1H"/>
+                <outlet property="qrCodeView" destination="csL-zl-jfn" id="Twl-4n-M4C"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,27 +22,38 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wDY-2h-BxL">
-                    <rect key="frame" x="52" y="293" width="310.5" height="310.5"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="wDY-2h-BxL" secondAttribute="height" multiplier="1:1" id="As1-9z-nK9"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan this QR code with your WalletConnect compatible wallet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1B-Kk-Dc0">
-                    <rect key="frame" x="16" y="64" width="382" height="41"/>
+                    <rect key="frame" x="16" y="64" width="382" height="209"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="csL-zl-jfn" customClass="QRCodeView" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="52" y="293" width="310.5" height="310.5"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="csL-zl-jfn" secondAttribute="height" multiplier="1:1" id="71u-uq-mgC"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mD-N2-LQX">
+                    <rect key="frame" x="146" y="623.5" width="122" height="30"/>
+                    <state key="normal" title="Copy to clipboard"/>
+                    <connections>
+                        <action selector="copyToClipboard:" destination="-1" eventType="touchUpInside" id="Hvn-3d-U0k"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="c1B-Kk-Dc0" secondAttribute="trailing" constant="16" id="1hI-St-Tgn"/>
-                <constraint firstItem="wDY-2h-BxL" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="3:4" id="2e7-da-u8Y"/>
-                <constraint firstItem="wDY-2h-BxL" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Mes-rY-TpY"/>
+                <constraint firstItem="csL-zl-jfn" firstAttribute="top" secondItem="c1B-Kk-Dc0" secondAttribute="bottom" constant="20" id="6Wg-ku-PWW"/>
+                <constraint firstItem="csL-zl-jfn" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="3:4" id="7WX-xZ-kLH"/>
+                <constraint firstItem="csL-zl-jfn" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="MWx-QM-5RV"/>
+                <constraint firstItem="5mD-N2-LQX" firstAttribute="top" secondItem="csL-zl-jfn" secondAttribute="bottom" constant="20" id="RCJ-M9-5vG"/>
+                <constraint firstItem="csL-zl-jfn" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="TXZ-Ly-49m"/>
                 <constraint firstItem="c1B-Kk-Dc0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="ef6-f4-vOB"/>
-                <constraint firstItem="wDY-2h-BxL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="leo-Bx-RoC"/>
+                <constraint firstItem="5mD-N2-LQX" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hdT-u7-sLG"/>
                 <constraint firstItem="c1B-Kk-Dc0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="xj5-jR-7Y5"/>
             </constraints>
             <point key="canvasLocation" x="139" y="153"/>
