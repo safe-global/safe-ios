@@ -161,7 +161,7 @@ class TransactionDetailCellBuilder {
                     detail: erc721Tx.tokenId.description)
 
             case .ether(let etherTx):
-                let eth = App.shared.tokenRegistry.token(address: .ether)!
+                let eth = App.shared.tokenRegistry.networkToken()
 
                 buildTransferHeader(
                     address: address,
@@ -270,7 +270,7 @@ class TransactionDetailCellBuilder {
             }
 
         case .custom(let customTx):
-            let eth = App.shared.tokenRegistry.token(address: .ether)!
+            let eth = App.shared.tokenRegistry.networkToken()
             let (label, addressLogoUri) = displayNameAndImageUri(address: customTx.to, addressInfo: customTx.toInfo)
 
             buildTransferHeader(

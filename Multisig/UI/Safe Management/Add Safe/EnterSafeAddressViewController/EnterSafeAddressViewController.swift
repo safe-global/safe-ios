@@ -12,7 +12,7 @@ import Web3
 class EnterSafeAddressViewController: UIViewController {
     var websiteURL = App.configuration.services.webAppURL
     var address: Address? { addressField?.address }
-    var transactionService = App.shared.safeTransactionService
+    var gatewayService = App.shared.clientGatewayService
     var completion: () -> Void = { }
 
     @IBOutlet private weak var headerLabel: UILabel!
@@ -160,7 +160,7 @@ class EnterSafeAddressViewController: UIViewController {
 
             // (3) and there exists safe at that address
             addressField.setLoading(true)
-            loadSafeTask = transactionService.asyncSafeInfo(at: address, completion: { [weak self] result in
+            loadSafeTask = gatewayService.asyncSafeInfo(address: address, completion: { [weak self] result in
                 DispatchQueue.main.async {
                     self?.addressField.setLoading(false)
                 }
@@ -188,8 +188,8 @@ class EnterSafeAddressViewController: UIViewController {
                         guard let `self` = self else { return }
 
             // (4) and its mastercopy is supported
-                        let implementation = info.implementation.address
-                        guard App.shared.gnosisSafe.isSupported(implementation) else {
+                        let implementation = info.implementation.value
+                        guard App.shared.gnosisSafe.isSupported(implementation.address) else {
                             let error = GSError.error(description: "Can’t use this address",
                                                       error: GSError.UnsupportedImplementationCopy())
                             self.addressField.setError(error.localizedDescription)

@@ -108,11 +108,6 @@ extension Safe: Identifiable {
             .appendingPathComponent("address").appendingPathComponent(address)
     }
 
-    @discardableResult
-    static func download(at address: Address) throws -> SafeStatusRequest.Response {
-        return try App.shared.safeTransactionService.safeInfo(at: address)
-    }
-
     static func exists(_ address: String) throws -> Bool {
         do {
             dispatchPrecondition(condition: .onQueue(.main))

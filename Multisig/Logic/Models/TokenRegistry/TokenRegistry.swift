@@ -9,60 +9,16 @@
 import Foundation
 
 class TokenRegistry {
-
-    private var hardcoded = HardcodedTokenStore()
-    private var cache = InMemoryTokenStore()
-    private var backend = BackendTokenStore()
-    private var blockchain = BlockchainTokenStore()
-
-    // added for thread safety
-    private var queue = DispatchQueue(label: "SerialTokenRegistry")
-
-    func load(completion: @escaping () -> Void = {}) {
-        dispatchPrecondition(condition: .notOnQueue(queue))
-        queue.async { [unowned self] in
-            let tokens = self.backend.tokens()
-            tokens.forEach { self.cache.add($0) }
-            completion()
-        }
+    func networkToken() -> Token {
+        Token(type: .erc20,
+              address: .ether,
+              logo: logo(.ether),
+              name: "Ether",
+              symbol: "ETH",
+              decimals: 18)
     }
 
-    func token(address: Address) -> Token? {
-        dispatchPrecondition(condition: .notOnQueue(queue))
-
-        var result: Token?
-        queue.sync { [unowned self] in
-            if let token = self.hardcoded.token(address: address) {
-                result = token
-            } else if let token = self.cache.token(address: address) {
-                result = token
-            } else if let token = self.backend.token(address: address) {
-                self.cache.add(token)
-                result = token
-            } else if let token = self.blockchain.token(address: address) {
-                self.cache.add(token)
-                result = token
-            } else {
-                result = nil
-            }
-        }
-        return result
+    private func logo(_ address: Address) -> URL? {
+        URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/\(address.checksummed).png")
     }
-
-    subscript(address: Address) -> Token? {
-        token(address: address)
-    }
-
-    subscript(address: String) -> Token? {
-        guard let address = Address(address) else { return nil }
-        return self[address]
-    }
-
-    func update(token: Token) {
-        dispatchPrecondition(condition: .notOnQueue(queue))
-        queue.sync { [unowned self] in
-            self.cache.add(token)
-        }
-    }
-
 }

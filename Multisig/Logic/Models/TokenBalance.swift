@@ -23,16 +23,6 @@ struct TokenBalance: Identifiable, Hashable {
 }
 
 extension TokenBalance {
-    init(_ response: SafeBalancesRequest.Response, code: String) {
-        self.init(address: response.tokenAddress?.address ?? .ether,
-                  symbol: response.token?.symbol,
-                  logoUri: response.token?.logoUri,
-                  tokenBalance: response.balance,
-                  decimals: response.token?.decimals,
-                  fiatBalance: response.balanceUsd,
-                  code: code)
-    }
-
     init(_ item: SCGBalance, code: String) {
         self.init(address: item.tokenInfo.address.address,
                   symbol: item.tokenInfo.symbol,
