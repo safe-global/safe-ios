@@ -125,6 +125,13 @@
 		0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22E12525E4FA3200D24DE1 /* SwitchTableViewCell.swift */; };
 		0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */; };
 		0A29B5622666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 0A29B5612666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F1A6D267A538E00C09F03 /* GSLabel.swift */; };
+		0A2F1A70267A53A800C09F03 /* GSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F1A6F267A53A800C09F03 /* GSButton.swift */; };
+		0A2F1A76267A5E5B00C09F03 /* BalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F1A72267A5E5B00C09F03 /* BalanceCell.swift */; };
+		0A2F1A77267A5E5B00C09F03 /* BalanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A2F1A73267A5E5B00C09F03 /* BalanceCell.xib */; };
+		0A2F1A78267A5E5B00C09F03 /* TotalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A2F1A74267A5E5B00C09F03 /* TotalCell.xib */; };
+		0A2F1A79267A5E5B00C09F03 /* TotalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F1A75267A5E5B00C09F03 /* TotalCell.swift */; };
+		0A2F1A7B267A5E9E00C09F03 /* GSImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F1A7A267A5E9E00C09F03 /* GSImageView.swift */; };
 		0A339C5D24C1D16E00DAD84B /* Image+Blockies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */; };
 		0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3DAD9226270F4D00743E38 /* unistring.xcframework */; };
 		0A3DAD9526270F4D00743E38 /* idn2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3DAD9326270F4D00743E38 /* idn2.xcframework */; };
@@ -318,9 +325,17 @@
 		0ADDA20F245340540066457E /* CorrectAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA20E245340540066457E /* CorrectAddressView.swift */; };
 		0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA2102453467A0066457E /* RoundedTextField.swift */; };
 		0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */; };
+		0ADFADA3267B496F007ACD65 /* BalancesTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADFADA2267B496F007ACD65 /* BalancesTableViewControllerTests.swift */; };
 		0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */; };
 		0AE46C87257684B8001DC62B /* LoadSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */; };
 		0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */; };
+		0AE5A9BF267A4A3E00468C90 /* BalancesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE5A9BE267A4A3E00468C90 /* BalancesTableViewController.swift */; };
+		0AE5A9C2267A4BDC00468C90 /* ImportKeyBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE5A9C0267A4BDC00468C90 /* ImportKeyBannerCell.swift */; };
+		0AE5A9C3267A4BDC00468C90 /* ImportKeyBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5A9C1267A4BDC00468C90 /* ImportKeyBannerCell.xib */; };
+		0AE5A9C6267A4BEB00468C90 /* CreatePasscodeBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE5A9C4267A4BEB00468C90 /* CreatePasscodeBannerCell.swift */; };
+		0AE5A9C7267A4BEB00468C90 /* CreatePasscodeBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5A9C5267A4BEB00468C90 /* CreatePasscodeBannerCell.xib */; };
+		0AE5A9C9267A4C2000468C90 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE5A9C8267A4C2000468C90 /* BannerView.swift */; };
+		0AE5A9CB267A4C2800468C90 /* BannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5A9CA267A4C2800468C90 /* BannerView.xib */; };
 		0AE8C0442579317700E62B34 /* DetailDisclosingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8C0422579317700E62B34 /* DetailDisclosingCell.swift */; };
 		0AE8C0452579317700E62B34 /* DetailDisclosingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8C0432579317700E62B34 /* DetailDisclosingCell.xib */; };
 		0AE8C0562579328800E62B34 /* ExternalURLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8C0542579328800E62B34 /* ExternalURLCell.swift */; };
@@ -672,6 +687,13 @@
 		0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeSettingsViewController.swift; sourceTree = "<group>"; };
 		0A22E12525E4FA3200D24DE1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
+		0A2F1A6D267A538E00C09F03 /* GSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSLabel.swift; sourceTree = "<group>"; };
+		0A2F1A6F267A53A800C09F03 /* GSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSButton.swift; sourceTree = "<group>"; };
+		0A2F1A72267A5E5B00C09F03 /* BalanceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceCell.swift; sourceTree = "<group>"; };
+		0A2F1A73267A5E5B00C09F03 /* BalanceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BalanceCell.xib; sourceTree = "<group>"; };
+		0A2F1A74267A5E5B00C09F03 /* TotalCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TotalCell.xib; sourceTree = "<group>"; };
+		0A2F1A75267A5E5B00C09F03 /* TotalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalCell.swift; sourceTree = "<group>"; };
+		0A2F1A7A267A5E9E00C09F03 /* GSImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSImageView.swift; sourceTree = "<group>"; };
 		0A339C5C24C1D16E00DAD84B /* Image+Blockies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Blockies.swift"; sourceTree = "<group>"; };
 		0A35CC2F24810CF6005E45BA /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		0A3DAD9226270F4D00743E38 /* unistring.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = unistring.xcframework; sourceTree = "<group>"; };
@@ -870,8 +892,16 @@
 		0ADDA20E245340540066457E /* CorrectAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAddressView.swift; sourceTree = "<group>"; };
 		0ADDA2102453467A0066457E /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		0ADFADA2267B496F007ACD65 /* BalancesTableViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesTableViewControllerTests.swift; sourceTree = "<group>"; };
 		0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSafeViewController.swift; sourceTree = "<group>"; };
 		0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadSafeViewController.xib; sourceTree = "<group>"; };
+		0AE5A9BE267A4A3E00468C90 /* BalancesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesTableViewController.swift; sourceTree = "<group>"; };
+		0AE5A9C0267A4BDC00468C90 /* ImportKeyBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportKeyBannerCell.swift; sourceTree = "<group>"; };
+		0AE5A9C1267A4BDC00468C90 /* ImportKeyBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportKeyBannerCell.xib; sourceTree = "<group>"; };
+		0AE5A9C4267A4BEB00468C90 /* CreatePasscodeBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeBannerCell.swift; sourceTree = "<group>"; };
+		0AE5A9C5267A4BEB00468C90 /* CreatePasscodeBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatePasscodeBannerCell.xib; sourceTree = "<group>"; };
+		0AE5A9C8267A4C2000468C90 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		0AE5A9CA267A4C2800468C90 /* BannerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerView.xib; sourceTree = "<group>"; };
 		0AE8C0422579317700E62B34 /* DetailDisclosingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDisclosingCell.swift; sourceTree = "<group>"; };
 		0AE8C0432579317700E62B34 /* DetailDisclosingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailDisclosingCell.xib; sourceTree = "<group>"; };
 		0AE8C0542579328800E62B34 /* ExternalURLCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalURLCell.swift; sourceTree = "<group>"; };
@@ -1421,6 +1451,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0A2F1A71267A552B00C09F03 /* BalancesV2 */ = {
+			isa = PBXGroup;
+			children = (
+				0A2F1A72267A5E5B00C09F03 /* BalanceCell.swift */,
+				0A2F1A73267A5E5B00C09F03 /* BalanceCell.xib */,
+				0A2F1A75267A5E5B00C09F03 /* TotalCell.swift */,
+				0A2F1A74267A5E5B00C09F03 /* TotalCell.xib */,
+				0AE5A9C8267A4C2000468C90 /* BannerView.swift */,
+				0AE5A9CA267A4C2800468C90 /* BannerView.xib */,
+				0AE5A9C0267A4BDC00468C90 /* ImportKeyBannerCell.swift */,
+				0AE5A9C1267A4BDC00468C90 /* ImportKeyBannerCell.xib */,
+				0AE5A9C4267A4BEB00468C90 /* CreatePasscodeBannerCell.swift */,
+				0AE5A9C5267A4BEB00468C90 /* CreatePasscodeBannerCell.xib */,
+				0AE5A9BE267A4A3E00468C90 /* BalancesTableViewController.swift */,
+			);
+			path = BalancesV2;
+			sourceTree = "<group>";
+		};
 		0A3DADAE26270FA900743E38 /* idn2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1561,6 +1609,7 @@
 				0A61E8412670E474009D68A4 /* CellTestViewController.swift */,
 				0A559A662672096B00E83A9E /* TotalBalanceTableViewCellTests.swift */,
 				0A559A6826720E5300E83A9E /* BannerTableViewCellTests.swift */,
+				0ADFADA2267B496F007ACD65 /* BalancesTableViewControllerTests.swift */,
 			);
 			path = "UI Snapshot Tests";
 			sourceTree = "<group>";
@@ -1927,6 +1976,7 @@
 				0A9E8E7625B9CA4200256AD3 /* BannerTableViewCell.xib */,
 				0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */,
 				0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */,
+				0A2F1A71267A552B00C09F03 /* BalancesV2 */,
 			);
 			path = BalancesViewController;
 			sourceTree = "<group>";
@@ -2448,6 +2498,9 @@
 		558835ED255BFEA80014E8C7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A2F1A7A267A5E9E00C09F03 /* GSImageView.swift */,
+				0A2F1A6F267A53A800C09F03 /* GSButton.swift */,
+				0A2F1A6D267A538E00C09F03 /* GSLabel.swift */,
 				558835EE255BFEDB0014E8C7 /* AddressInfoView.swift */,
 				55BCFC542554627100020CE7 /* BasicCell.swift */,
 				55BCFC5D255469B300020CE7 /* BasicHeaderView.swift */,
@@ -2758,6 +2811,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */,
+				0AE5A9C7267A4BEB00468C90 /* CreatePasscodeBannerCell.xib in Resources */,
 				04B4B5F825B754D600CFE24B /* SafeLoadedViewController.xib in Resources */,
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
 				0422007025EFDF4E00CAC173 /* TagView.xib in Resources */,
@@ -2775,6 +2829,7 @@
 				04B4B68F25B8857F00CFE24B /* SafeInfoViewV2.xib in Resources */,
 				0A86EE6F25CC2B4C0059876E /* RetryFooterView.xib in Resources */,
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
+				0AE5A9C3267A4BDC00468C90 /* ImportKeyBannerCell.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */,
 				0AEEBC74258CDF9400F3A6F9 /* CollectibleDetailViewController.xib in Resources */,
 				0ADD19C2265EA23200EB0F2B /* SeedPhraseViewController.xib in Resources */,
@@ -2806,8 +2861,10 @@
 				0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */,
 				049A9D3B25F81F2C00CA5723 /* EditOwnerKeyViewController.xib in Resources */,
 				0ADD19A8265E53C600EB0F2B /* QRCodeView.xib in Resources */,
+				0A2F1A78267A5E5B00C09F03 /* TotalCell.xib in Resources */,
 				0A8AEB1125A4712B002A3FE1 /* ActionDetailTextCell.xib in Resources */,
 				0A478D5925B876AF0038363E /* ButtonTableViewCell.xib in Resources */,
+				0A2F1A77267A5E5B00C09F03 /* BalanceCell.xib in Resources */,
 				0428DA5B25CBFC25002CF4A9 /* HelpLinkTableViewCell.xib in Resources */,
 				0A3DADA526270FA100743E38 /* README.md in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
@@ -2845,6 +2902,7 @@
 				04626EB7265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.xib in Resources */,
 				550FB19326691C8F00C13D54 /* WCPedingConfirmationViewController.xib in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
+				0AE5A9CB267A4C2800468C90 /* BannerView.xib in Resources */,
 				550FB1A026691CA300C13D54 /* DappsViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
@@ -2947,6 +3005,7 @@
 				0468FB8825912E6800541536 /* HistoryTransactionsViewController.swift in Sources */,
 				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
 				0A8AEB2025A4764F002A3FE1 /* ActionDetailAddressCell.swift in Sources */,
+				0AE5A9C2267A4BDC00468C90 /* ImportKeyBannerCell.swift in Sources */,
 				0AE8C0442579317700E62B34 /* DetailDisclosingCell.swift in Sources */,
 				0AD0273225A34E2F00886671 /* MultiSendListTableViewController.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
@@ -2961,6 +3020,8 @@
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
 				0A86EE6325CC2B350059876E /* LoadingFooterView.swift in Sources */,
+				0AE5A9C6267A4BEB00468C90 /* CreatePasscodeBannerCell.swift in Sources */,
+				0A2F1A7B267A5E9E00C09F03 /* GSImageView.swift in Sources */,
 				55D3654325078560004D5047 /* TextView.swift in Sources */,
 				0A451C18252DDCDE001DB7D2 /* ProgressIndicatorCell.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
@@ -2969,6 +3030,7 @@
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
 				04B4B60225B84D6900CFE24B /* SafeInfoViewV2.swift in Sources */,
+				0A2F1A76267A5E5B00C09F03 /* BalanceCell.swift in Sources */,
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
 				0AF1C8952541AD4E00E28669 /* ScrollableDataErrorView.swift in Sources */,
@@ -2998,6 +3060,7 @@
 				0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */,
 				0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */,
 				0468FB9625912E8300541536 /* TransactionListTableViewCell.swift in Sources */,
+				0AE5A9C9267A4C2000468C90 /* BannerView.swift in Sources */,
 				048AA142260D053400382E24 /* MainTabBarViewController.swift in Sources */,
 				0ACB4CD5256BC2B000845BF4 /* TransactionDetailsViewController.swift in Sources */,
 				5532D4BF2449A17D0067505A /* LoggableError.swift in Sources */,
@@ -3097,6 +3160,7 @@
 				0A57C5D72577F9E600420303 /* ConfirmationStatusPiece.swift in Sources */,
 				0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */,
 				550FB1A526691CD800C13D54 /* SigningKeyTableViewCell.swift in Sources */,
+				0A2F1A70267A53A800C09F03 /* GSButton.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
 				0AE8C08F25793B9400E62B34 /* DetailArrowPiece.swift in Sources */,
 				55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */,
@@ -3195,6 +3259,7 @@
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
 				0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */,
+				0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */,
 				0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */,
 				5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */,
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
@@ -3211,6 +3276,7 @@
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
 				0AE8C06A2579371A00E62B34 /* DetailTransferInfoCell.swift in Sources */,
 				550FB1AD26691D6700C13D54 /* WCSession.swift in Sources */,
+				0AE5A9BF267A4A3E00468C90 /* BalancesTableViewController.swift in Sources */,
 				55413677265E4A0000796F91 /* AddOwnerKeyCell.swift in Sources */,
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,
 				0468FB8725912E6800541536 /* FlatTransactionsListViewModel.swift in Sources */,
@@ -3248,6 +3314,7 @@
 				0A5F4829254C56580069C98D /* SafeEntryTableViewCell.swift in Sources */,
 				550FB1AE26691D6700C13D54 /* WCPendingTransaction.swift in Sources */,
 				555312E9250653800008206B /* BIP32HDNode.swift in Sources */,
+				0A2F1A79267A5E5B00C09F03 /* TotalCell.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
 				55BCFC5E255469B300020CE7 /* BasicHeaderView.swift in Sources */,
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
@@ -3292,6 +3359,7 @@
 			files = (
 				0A61E8422670E474009D68A4 /* CellTestViewController.swift in Sources */,
 				0A0983AD24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift in Sources */,
+				0ADFADA3267B496F007ACD65 /* BalancesTableViewControllerTests.swift in Sources */,
 				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,
 				0A3DFEF82667D22B00B45770 /* MockSecureStore.swift in Sources */,
 				0A0983AF24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift in Sources */,
