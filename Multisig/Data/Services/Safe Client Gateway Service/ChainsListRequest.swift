@@ -21,7 +21,8 @@ struct ChainsListRequest: JSONRequest {
 }
 
 extension SafeClientGatewayService {
-    func chains(completion: @escaping (Result<ChainsListRequest.ResponseType, Error>) -> Void) {
+    @discardableResult
+    func chains(completion: @escaping (Result<ChainsListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
         asyncExecute(request: ChainsListRequest(), completion: completion)
     }
 }

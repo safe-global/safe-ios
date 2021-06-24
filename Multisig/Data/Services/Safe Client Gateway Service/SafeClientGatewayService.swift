@@ -26,7 +26,7 @@ class SafeClientGatewayService {
     func execute<T: JSONRequest>(request: T) throws -> T.ResponseType {
         try httpClient.execute(request: request)
     }
-    @discardableResult
+
     func asyncExecute<T: JSONRequest>(request: T, completion: @escaping (Result<T.ResponseType, Error>) -> Void) -> URLSessionTask? {
         httpClient.asyncExecute(request: request, completion: completion)
     }
