@@ -61,6 +61,8 @@
 		048D72C126835CF90095999C /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C026835CF90095999C /* Chain.swift */; };
 		048D72C3268384EF0095999C /* ChainToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C2268384EF0095999C /* ChainToken.swift */; };
 		048D72C5268384F70095999C /* ChainTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C4268384F70095999C /* ChainTheme.swift */; };
+		048D72C82684CB500095999C /* SelectNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C62684CB500095999C /* SelectNetworkViewController.swift */; };
+		048D72C92684CB500095999C /* SelectNetworkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72C72684CB500095999C /* SelectNetworkViewController.xib */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
 		049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */; };
@@ -628,6 +630,8 @@
 		048D72C026835CF90095999C /* Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
 		048D72C2268384EF0095999C /* ChainToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainToken.swift; sourceTree = "<group>"; };
 		048D72C4268384F70095999C /* ChainTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainTheme.swift; sourceTree = "<group>"; };
+		048D72C62684CB500095999C /* SelectNetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNetworkViewController.swift; sourceTree = "<group>"; };
+		048D72C72684CB500095999C /* SelectNetworkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectNetworkViewController.xib; sourceTree = "<group>"; };
 		0493A28A262979820056EC49 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
 		049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListTableViewCell.swift; sourceTree = "<group>"; };
@@ -1675,6 +1679,8 @@
 				0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */,
 				0A6886CF2588FC180045CAB5 /* EnterAddressNameViewController.swift */,
 				0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */,
+				048D72C62684CB500095999C /* SelectNetworkViewController.swift */,
+				048D72C72684CB500095999C /* SelectNetworkViewController.xib */,
 			);
 			path = "Add Safe";
 			sourceTree = "<group>";
@@ -2889,6 +2895,7 @@
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
+				048D72C92684CB500095999C /* SelectNetworkViewController.xib in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				550FB1C226691E1500C13D54 /* WalletConnectQRCodeViewController.xib in Resources */,
@@ -3137,6 +3144,7 @@
 				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,
 				0AF1C89B2541AD5D00E28669 /* ScrollableEmptyView.swift in Sources */,
 				048D72C126835CF90095999C /* Chain.swift in Sources */,
+				048D72C82684CB500095999C /* SelectNetworkViewController.swift in Sources */,
 				0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */,
 				0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */,
 				55BCFC392552FCDB00020CE7 /* SafeSettingsViewController.swift in Sources */,
