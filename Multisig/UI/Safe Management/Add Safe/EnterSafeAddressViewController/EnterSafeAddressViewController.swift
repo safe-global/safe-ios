@@ -14,7 +14,7 @@ class EnterSafeAddressViewController: UIViewController {
     var address: Address? { addressField?.address }
     var gatewayService = App.shared.clientGatewayService
     var completion: () -> Void = { }
-
+    var network: SCGModels.Chain!
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var addressField: AddressField!
     @IBOutlet private weak var actionStackView: UIStackView!

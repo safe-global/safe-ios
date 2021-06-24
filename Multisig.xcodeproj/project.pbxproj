@@ -63,6 +63,8 @@
 		048D72C5268384F70095999C /* ChainTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C4268384F70095999C /* ChainTheme.swift */; };
 		048D72C82684CB500095999C /* SelectNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C62684CB500095999C /* SelectNetworkViewController.swift */; };
 		048D72C92684CB500095999C /* SelectNetworkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72C72684CB500095999C /* SelectNetworkViewController.xib */; };
+		048D72CD2685DC780095999C /* SelectNetworkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72CB2685DC780095999C /* SelectNetworkTableViewCell.swift */; };
+		048D72CE2685DC780095999C /* SelectNetworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72CC2685DC780095999C /* SelectNetworkTableViewCell.xib */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
 		049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */; };
@@ -632,6 +634,8 @@
 		048D72C4268384F70095999C /* ChainTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainTheme.swift; sourceTree = "<group>"; };
 		048D72C62684CB500095999C /* SelectNetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNetworkViewController.swift; sourceTree = "<group>"; };
 		048D72C72684CB500095999C /* SelectNetworkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectNetworkViewController.xib; sourceTree = "<group>"; };
+		048D72CB2685DC780095999C /* SelectNetworkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNetworkTableViewCell.swift; sourceTree = "<group>"; };
+		048D72CC2685DC780095999C /* SelectNetworkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectNetworkTableViewCell.xib; sourceTree = "<group>"; };
 		0493A28A262979820056EC49 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
 		049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListTableViewCell.swift; sourceTree = "<group>"; };
@@ -1321,6 +1325,17 @@
 			path = "Edit Safe";
 			sourceTree = "<group>";
 		};
+		048D72CA2685DC4C0095999C /* SelectNetworkViewController */ = {
+			isa = PBXGroup;
+			children = (
+				048D72C62684CB500095999C /* SelectNetworkViewController.swift */,
+				048D72C72684CB500095999C /* SelectNetworkViewController.xib */,
+				048D72CB2685DC780095999C /* SelectNetworkTableViewCell.swift */,
+				048D72CC2685DC780095999C /* SelectNetworkTableViewCell.xib */,
+			);
+			path = SelectNetworkViewController;
+			sourceTree = "<group>";
+		};
 		049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1669,6 +1684,7 @@
 		0A6886982588FADF0045CAB5 /* Add Safe */ = {
 			isa = PBXGroup;
 			children = (
+				048D72CA2685DC4C0095999C /* SelectNetworkViewController */,
 				3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */,
 				3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */,
 				04B4B5F425B754A400CFE24B /* SafeLoadedViewController */,
@@ -1679,8 +1695,6 @@
 				0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */,
 				0A6886CF2588FC180045CAB5 /* EnterAddressNameViewController.swift */,
 				0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */,
-				048D72C62684CB500095999C /* SelectNetworkViewController.swift */,
-				048D72C72684CB500095999C /* SelectNetworkViewController.xib */,
 			);
 			path = "Add Safe";
 			sourceTree = "<group>";
@@ -2943,6 +2957,7 @@
 				0AE8C0452579317700E62B34 /* DetailDisclosingCell.xib in Resources */,
 				0A478D3425B861D50038363E /* DefaultKeyTableViewCell.xib in Resources */,
 				0A9A1A36257924C600B44405 /* DetailAccountAndTextCell.xib in Resources */,
+				048D72CE2685DC780095999C /* SelectNetworkTableViewCell.xib in Resources */,
 				0A57C5C72577F75D00420303 /* ConfirmationConfirmedPiece.xib in Resources */,
 				0428DA4E25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib in Resources */,
 				0468FB9725912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib in Resources */,
@@ -3268,6 +3283,7 @@
 				550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */,
 				0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */,
 				550FB19126691C8F00C13D54 /* WCPendingConfirmationViewController.swift in Sources */,
+				048D72CD2685DC780095999C /* SelectNetworkTableViewCell.swift in Sources */,
 				0A57C5A42577DC5600420303 /* DetailExpandableTextCell.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				55A5854325014E05005E778B /* String+Extension.swift in Sources */,
