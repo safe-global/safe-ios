@@ -118,16 +118,18 @@ extension Safe: Identifiable {
         } catch {
             throw GSError.DatabaseError(reason: error.localizedDescription)
         }
-
     }
 
-    static func create(address: String, name: String, selected: Bool = true) {
+    // Chain shouldn't be optional, this should be removed when completing the implementation
+    static func create(address: String, name: String, chain: SCGModels.Chain? = nil, selected: Bool = true) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
         let safe = Safe(context: context)
         safe.address = address
         safe.name = name
+        
+        if let chain = chain { safe.chain = Chain.createOrUpdate(chain) }
 
         if selected {
             safe.select()
@@ -181,6 +183,10 @@ extension Safe: Identifiable {
             App.shared.notificationHandler.safeRemoved(address: address)
         }
 
+        if safe.chain?.safes().isEmpty ?? false {
+            Chain.remove(chain: safe.chain!)
+        }
+
         updateCachedNames()
     }
 
@@ -188,6 +194,8 @@ extension Safe: Identifiable {
         for safe in try getAll() {
             remove(safe: safe)
         }
+
+        try Chain.removeAll()
     }
 }
 
@@ -213,6 +221,12 @@ extension NSFetchRequest where ResultType == Safe {
         sortDescriptors = []
         predicate = NSPredicate(format: "address CONTAINS[c] %@", address)
         fetchLimit = 1
+        return self
+    }
+
+    func by(chain: Chain) -> Self {
+        sortDescriptors = []
+        predicate = NSPredicate(format: "chain = %@", chain)
         return self
     }
 

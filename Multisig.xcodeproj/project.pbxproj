@@ -56,6 +56,11 @@
 		048AA142260D053400382E24 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048AA141260D053300382E24 /* MainTabBarViewController.swift */; };
 		048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */; };
 		048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */; };
+		048D72BD26832FD70095999C /* ChainsListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72BC26832FD70095999C /* ChainsListRequest.swift */; };
+		048D72BF268359E20095999C /* ChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72BE268359E20095999C /* ChainManager.swift */; };
+		048D72C126835CF90095999C /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C026835CF90095999C /* Chain.swift */; };
+		048D72C3268384EF0095999C /* ChainToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C2268384EF0095999C /* ChainToken.swift */; };
+		048D72C5268384F70095999C /* ChainTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C4268384F70095999C /* ChainTheme.swift */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
 		049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */; };
@@ -618,6 +623,11 @@
 		048AA141260D053300382E24 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSafeNameViewController.swift; sourceTree = "<group>"; };
 		048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditSafeNameViewController.xib; sourceTree = "<group>"; };
+		048D72BC26832FD70095999C /* ChainsListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainsListRequest.swift; sourceTree = "<group>"; };
+		048D72BE268359E20095999C /* ChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainManager.swift; sourceTree = "<group>"; };
+		048D72C026835CF90095999C /* Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
+		048D72C2268384EF0095999C /* ChainToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainToken.swift; sourceTree = "<group>"; };
+		048D72C4268384F70095999C /* ChainTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainTheme.swift; sourceTree = "<group>"; };
 		0493A28A262979820056EC49 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
 		049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListTableViewCell.swift; sourceTree = "<group>"; };
@@ -1195,6 +1205,7 @@
 				0ABC898E2576B857005D555B /* SCGModels.swift */,
 				04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */,
 				04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */,
+				048D72BC26832FD70095999C /* ChainsListRequest.swift */,
 			);
 			path = "Safe Client Gateway Service";
 			sourceTree = "<group>";
@@ -2238,6 +2249,9 @@
 				554A16B2266E4D4900807049 /* EIP712Transformer.swift */,
 				55B64657253050200050BD95 /* HashString.swift */,
 				0A95893F25EFBE1E005011D7 /* KeyInfo.swift */,
+				048D72C026835CF90095999C /* Chain.swift */,
+				048D72C2268384EF0095999C /* ChainToken.swift */,
+				048D72C4268384F70095999C /* ChainTheme.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
 				0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */,
 				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
@@ -2380,6 +2394,7 @@
 				0AD6EF1D25CAF5EC00EE5512 /* AppReviewController.swift */,
 				0AC5F56A25DD4A4B00DEF0D7 /* AuthenticationController.swift */,
 				550FB1A726691D0A00C13D54 /* OwnerKeyController.swift */,
+				048D72BE268359E20095999C /* ChainManager.swift */,
 				0493A28A262979820056EC49 /* UpdateController.swift */,
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
@@ -3026,6 +3041,7 @@
 				0A451C18252DDCDE001DB7D2 /* ProgressIndicatorCell.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
+				048D72C5268384F70095999C /* ChainTheme.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
@@ -3120,6 +3136,7 @@
 				0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */,
 				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,
 				0AF1C89B2541AD5D00E28669 /* ScrollableEmptyView.swift in Sources */,
+				048D72C126835CF90095999C /* Chain.swift in Sources */,
 				0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */,
 				0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */,
 				55BCFC392552FCDB00020CE7 /* SafeSettingsViewController.swift in Sources */,
@@ -3130,10 +3147,12 @@
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
 				554A16B3266E4D4900807049 /* EIP712Transformer.swift in Sources */,
+				048D72BF268359E20095999C /* ChainManager.swift in Sources */,
 				0A09839C24BC522B009EE296 /* Token.swift in Sources */,
 				0ADD19C4265EA23200EB0F2B /* SeedPhraseView.swift in Sources */,
 				0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */,
 				0A95894025EFBE1E005011D7 /* KeyInfo.swift in Sources */,
+				048D72BD26832FD70095999C /* ChainsListRequest.swift in Sources */,
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
 				043ABD0F24EF0C33008826D5 /* SafeClientGatewayService.swift in Sources */,
 				04B4B6DD25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.swift in Sources */,
@@ -3318,6 +3337,7 @@
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
 				55BCFC5E255469B300020CE7 /* BasicHeaderView.swift in Sources */,
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
+				048D72C3268384EF0095999C /* ChainToken.swift in Sources */,
 				0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */,
 				04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */,
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,
