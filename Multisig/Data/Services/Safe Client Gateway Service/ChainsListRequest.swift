@@ -14,7 +14,7 @@ struct ChainsListRequest: JSONRequest {
     }
 
     var urlPath: String {
-        "v1/chains"
+        "/v1/chains"
     }
 
     typealias ResponseType = [SCGModels.Chain]
