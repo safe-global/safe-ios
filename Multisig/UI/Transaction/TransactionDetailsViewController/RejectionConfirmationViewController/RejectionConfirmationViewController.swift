@@ -101,8 +101,7 @@ class RejectionConfirmationViewController: UIViewController {
             do {
                 let signature = try SafeTransactionSigner().sign(tx, keyInfo: keyInfo)
                 rejectAndCloseController(transaction: tx,
-                                         safeAddress: safeAddress,
-                                         sender: keyInfo.address.hexadecimal,
+                                         sender: AddressString(keyInfo.address),
                                          signature: signature.hexadecimal,
                                          keyType: keyInfo.keyType)
             } catch {
@@ -112,8 +111,7 @@ class RejectionConfirmationViewController: UIViewController {
         case .walletConnect:
             WalletConnectClientController.shared.sign(transaction: tx, from: self) { [unowned self] signature in
                 rejectAndCloseController(transaction: tx,
-                                         safeAddress: safeAddress,
-                                         sender: keyInfo.address.hexadecimal,
+                                         sender: AddressString(keyInfo.address),
                                          signature: signature,
                                          keyType: keyInfo.keyType)
             }
@@ -133,13 +131,11 @@ class RejectionConfirmationViewController: UIViewController {
     }
 
     private func rejectAndCloseController(transaction: Transaction,
-                                          safeAddress: Address,
-                                          sender: String,
+                                          sender: AddressString,
                                           signature: String,
                                           keyType: KeyType) {
-        _ = App.shared.clientGatewayService.propose(
+        _ = App.shared.clientGatewayService.asyncProposeTransaction(
             transaction: transaction,
-            safeAddress: safeAddress,
             sender: sender,
             signature: signature,
             completion: { [weak self] result in
@@ -157,7 +153,8 @@ class RejectionConfirmationViewController: UIViewController {
                             return
                         }
 
-                        App.shared.snackbar.show(error: GSError.error(description: "Failed to Reject transaction", error: error))
+                        App.shared.snackbar.show(error: GSError.error(description: "Failed to Reject transaction",
+                                                                      error: error))
                     case .success(_):
                         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
 
