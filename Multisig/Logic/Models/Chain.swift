@@ -95,6 +95,7 @@ extension Chain {
     }
 
     static func remove(chain: Chain) {
+        dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         context.delete(chain)
         App.shared.coreDataStack.saveContext()

@@ -24,9 +24,7 @@ extension ChainToken {
         
         return currency
     }
-}
 
-extension ChainToken {
     func update(name: String, symbol: String, decimals: Int) {
         self.name = name
         self.symbol = symbol

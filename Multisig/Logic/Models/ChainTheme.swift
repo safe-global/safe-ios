@@ -21,9 +21,7 @@ extension ChainTheme {
         
         return theme
     }
-}
 
-extension ChainTheme {
     func update(textColor: String, backgroundColor: String) {
         self.textColor = textColor
         self.backgroundColor = backgroundColor
