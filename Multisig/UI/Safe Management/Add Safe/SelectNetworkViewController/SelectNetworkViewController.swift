@@ -29,7 +29,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         tableView.backgroundColor = tableBackgroundColor
-
+        navigationItem.title = "Load Gnosis Safe"
         tableView.delegate = self
         tableView.dataSource = self
 
