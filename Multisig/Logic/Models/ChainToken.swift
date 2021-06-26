@@ -15,14 +15,14 @@ extension ChainToken {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
-        let currency = ChainToken(context: context)
-        currency.name = name
-        currency.symbol = symbol
-        currency.decimals = Int32(decimals)
+        let token = ChainToken(context: context)
+        token.name = name
+        token.symbol = symbol
+        token.decimals = Int32(decimals)
 
         App.shared.coreDataStack.saveContext()
         
-        return currency
+        return token
     }
 
     func update(name: String, symbol: String, decimals: Int) {

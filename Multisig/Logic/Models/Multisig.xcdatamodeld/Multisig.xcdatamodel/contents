@@ -24,25 +24,25 @@
         <attribute name="sessionRenewedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Chain" representedClassName="Chain" syncable="YES" codeGenerationType="class">
-        <attribute name="blockExplorerUrl" optional="YES" attributeType="String"/>
-        <attribute name="chainId" optional="YES" attributeType="String"/>
-        <attribute name="chainName" optional="YES" attributeType="String"/>
-        <attribute name="rpcUrl" optional="YES" attributeType="String"/>
-        <attribute name="transactionService" optional="YES" attributeType="String"/>
+        <attribute name="blockExplorerUrl" attributeType="String"/>
+        <attribute name="chainId" attributeType="String"/>
+        <attribute name="chainName" attributeType="String"/>
+        <attribute name="rpcUrl" attributeType="String"/>
+        <attribute name="transactionService" attributeType="String"/>
         <relationship name="nativeCurrency" maxCount="1" deletionRule="Cascade" destinationEntity="ChainToken" inverseName="chain" inverseEntity="ChainToken"/>
         <relationship name="safe" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Safe" inverseName="chain" inverseEntity="Safe"/>
         <relationship name="theme" maxCount="1" deletionRule="Cascade" destinationEntity="ChainTheme" inverseName="chain" inverseEntity="ChainTheme"/>
     </entity>
     <entity name="ChainTheme" representedClassName="ChainTheme" syncable="YES" codeGenerationType="class">
-        <attribute name="backgroundColor" optional="YES" attributeType="String"/>
-        <attribute name="textColor" optional="YES" attributeType="String"/>
-        <relationship name="chain" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Chain" inverseName="theme" inverseEntity="Chain"/>
+        <attribute name="backgroundColor" attributeType="String"/>
+        <attribute name="textColor" attributeType="String"/>
+        <relationship name="chain" maxCount="1" deletionRule="Cascade" destinationEntity="Chain" inverseName="theme" inverseEntity="Chain"/>
     </entity>
     <entity name="ChainToken" representedClassName="ChainToken" syncable="YES" codeGenerationType="class">
-        <attribute name="decimals" optional="YES" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="symbol" optional="YES" attributeType="String"/>
-        <relationship name="chain" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Chain" inverseName="nativeCurrency" inverseEntity="Chain"/>
+        <attribute name="decimals" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="symbol" attributeType="String"/>
+        <relationship name="chain" maxCount="1" deletionRule="Cascade" destinationEntity="Chain" inverseName="nativeCurrency" inverseEntity="Chain"/>
     </entity>
     <entity name="KeyInfo" representedClassName="KeyInfo" syncable="YES" codeGenerationType="class">
         <attribute name="addressString" attributeType="String"/>
