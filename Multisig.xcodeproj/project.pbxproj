@@ -62,9 +62,10 @@
 		048D72C3268384EF0095999C /* ChainToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C2268384EF0095999C /* ChainToken.swift */; };
 		048D72C5268384F70095999C /* ChainTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C4268384F70095999C /* ChainTheme.swift */; };
 		048D72C82684CB500095999C /* SelectNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C62684CB500095999C /* SelectNetworkViewController.swift */; };
-		048D72C92684CB500095999C /* SelectNetworkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72C72684CB500095999C /* SelectNetworkViewController.xib */; };
 		048D72CD2685DC780095999C /* SelectNetworkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72CB2685DC780095999C /* SelectNetworkTableViewCell.swift */; };
 		048D72CE2685DC780095999C /* SelectNetworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72CC2685DC780095999C /* SelectNetworkTableViewCell.xib */; };
+		048D72D026875B1C0095999C /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72CF26875B1C0095999C /* TableHeaderView.swift */; };
+		048D72D226875B2D0095999C /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72D126875B2D0095999C /* TableHeaderView.xib */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
 		049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */; };
@@ -633,9 +634,10 @@
 		048D72C2268384EF0095999C /* ChainToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainToken.swift; sourceTree = "<group>"; };
 		048D72C4268384F70095999C /* ChainTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainTheme.swift; sourceTree = "<group>"; };
 		048D72C62684CB500095999C /* SelectNetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNetworkViewController.swift; sourceTree = "<group>"; };
-		048D72C72684CB500095999C /* SelectNetworkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectNetworkViewController.xib; sourceTree = "<group>"; };
 		048D72CB2685DC780095999C /* SelectNetworkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNetworkTableViewCell.swift; sourceTree = "<group>"; };
 		048D72CC2685DC780095999C /* SelectNetworkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectNetworkTableViewCell.xib; sourceTree = "<group>"; };
+		048D72CF26875B1C0095999C /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
+		048D72D126875B2D0095999C /* TableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
 		0493A28A262979820056EC49 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
 		049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListTableViewCell.swift; sourceTree = "<group>"; };
@@ -1329,11 +1331,19 @@
 			isa = PBXGroup;
 			children = (
 				048D72C62684CB500095999C /* SelectNetworkViewController.swift */,
-				048D72C72684CB500095999C /* SelectNetworkViewController.xib */,
 				048D72CB2685DC780095999C /* SelectNetworkTableViewCell.swift */,
 				048D72CC2685DC780095999C /* SelectNetworkTableViewCell.xib */,
 			);
 			path = SelectNetworkViewController;
+			sourceTree = "<group>";
+		};
+		048D72D3268776A20095999C /* TableHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				048D72CF26875B1C0095999C /* TableHeaderView.swift */,
+				048D72D126875B2D0095999C /* TableHeaderView.xib */,
+			);
+			path = TableHeaderView;
 			sourceTree = "<group>";
 		};
 		049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */ = {
@@ -1380,6 +1390,7 @@
 		04B4B6F325B9E09C00CFE24B /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				048D72D3268776A20095999C /* TableHeaderView */,
 				04B4B6F425B9E0A400CFE24B /* CardTableViewCell */,
 			);
 			path = TableViewCell;
@@ -2851,6 +2862,7 @@
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
 				0422007025EFDF4E00CAC173 /* TagView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
+				048D72D226875B2D0095999C /* TableHeaderView.xib in Resources */,
 				558835F9255BFEF80014E8C7 /* AddressInfoView.xib in Resources */,
 				0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
@@ -2909,7 +2921,6 @@
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
-				048D72C92684CB500095999C /* SelectNetworkViewController.xib in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				550FB1C226691E1500C13D54 /* WalletConnectQRCodeViewController.xib in Resources */,
@@ -3061,6 +3072,7 @@
 				0A2F1A7B267A5E9E00C09F03 /* GSImageView.swift in Sources */,
 				55D3654325078560004D5047 /* TextView.swift in Sources */,
 				0A451C18252DDCDE001DB7D2 /* ProgressIndicatorCell.swift in Sources */,
+				048D72D026875B1C0095999C /* TableHeaderView.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
 				048D72C5268384F70095999C /* ChainTheme.swift in Sources */,
