@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 extension ChainTheme {
     @discardableResult
     static func create(textColor: String, backgroundColor: String) -> ChainTheme {
@@ -21,9 +22,7 @@ extension ChainTheme {
         
         return theme
     }
-}
 
-extension ChainTheme {
     func update(textColor: String, backgroundColor: String) {
         self.textColor = textColor
         self.backgroundColor = backgroundColor

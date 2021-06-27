@@ -191,10 +191,6 @@ extension Safe: Identifiable {
     }
 
     static func removeAll() throws {
-        for safe in try getAll() {
-            remove(safe: safe)
-        }
-
         try Chain.removeAll()
     }
 }

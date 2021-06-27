@@ -20,7 +20,7 @@ extension Chain {
         return (try? context.fetch(Chain.fetchRequest().all())) ?? []
     }
 
-    static func exists(_ id: String) throws -> Bool {
+    static func exists(_ id: Int) throws -> Bool {
         do {
             dispatchPrecondition(condition: .onQueue(.main))
             let context = App.shared.coreDataStack.viewContext
@@ -32,7 +32,7 @@ extension Chain {
         }
     }
 
-    static func by(_ id: String) -> Chain? {
+    static func by(_ id: Int) -> Chain? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let fr = Chain.fetchRequest().by(id: id)
@@ -46,21 +46,22 @@ extension Chain {
         return chain
     }
 
-    static func create(chainId: String,
+    @discardableResult
+    static func create(chainId: Int,
                        chainName: String,
-                       rpcUrl: String,
-                       blockExplorerUrl: String,
+                       rpcUrl: URL,
+                       blockExplorerUrl: URL,
                        currencyName: String,
                        currencySymbl: String,
                        currencyDecimals: Int,
-                       transactionService: String,
+                       transactionService: URL,
                        themeTextColor: String,
-                       themeBackgroundColor: String) {
+                       themeBackgroundColor: String) -> Chain {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
         let chain = Chain(context: context)
-        chain.chainId = chainId
+        chain.chainId = Int32(chainId)
         chain.chainName = chainName
         chain.rpcUrl = rpcUrl
         chain.blockExplorerUrl = blockExplorerUrl
@@ -69,24 +70,22 @@ extension Chain {
         chain.nativeCurrency = ChainToken.create(name: currencyName, symbol: currencySymbl, decimals: currencyDecimals)
 
         App.shared.coreDataStack.saveContext()
+
+        return chain
     }
 
     @discardableResult
     static func create(_ chainInfo: SCGModels.Chain) -> Chain {
-        dispatchPrecondition(condition: .onQueue(.main))
-        let context = App.shared.coreDataStack.viewContext
-
-        let chain = Chain(context: context)
-        chain.chainId = chainInfo.chainId
-        chain.chainName = chainInfo.chainName
-        chain.rpcUrl = chainInfo.rpcUrl
-        chain.blockExplorerUrl = chainInfo.blockExplorerUrl
-        chain.transactionService = chainInfo.transactionService
-        chain.theme = ChainTheme.create(textColor: chainInfo.theme.textColor.description, backgroundColor: chainInfo.theme.backgroundColor.description)
-        chain.nativeCurrency = ChainToken.create(name: chainInfo.nativeCurrency.name, symbol: chainInfo.nativeCurrency.symbol, decimals: chainInfo.nativeCurrency.decimals)
-
-        App.shared.coreDataStack.saveContext()
-        return chain
+        Chain.create(chainId: chainInfo.chainId,
+                     chainName: chainInfo.chainName,
+                     rpcUrl: chainInfo.rpcUrl,
+                     blockExplorerUrl: chainInfo.blockExplorerUrl,
+                     currencyName: chainInfo.nativeCurrency.name,
+                     currencySymbl: chainInfo.nativeCurrency.symbol,
+                     currencyDecimals: chainInfo.nativeCurrency.decimals,
+                     transactionService: chainInfo.transactionService,
+                     themeTextColor: chainInfo.theme.textColor.description,
+                     themeBackgroundColor: chainInfo.theme.backgroundColor.description)
     }
 
     static func updateIfExist(_ chainInfo: SCGModels.Chain) {
@@ -95,6 +94,7 @@ extension Chain {
     }
 
     static func remove(chain: Chain) {
+        dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         context.delete(chain)
         App.shared.coreDataStack.saveContext()
@@ -130,9 +130,9 @@ extension NSFetchRequest where ResultType == Chain {
         return self
     }
 
-    func by(id: String) -> Self {
+    func by(id: Int) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "chainId == %@", id)
+        predicate = NSPredicate(format: "chainId == %d", id)
         fetchLimit = 1
         return self
     }

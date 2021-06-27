@@ -17,6 +17,7 @@ class ChainManager {
                     for chain in chains {
                         Chain.updateIfExist(chain)
                     }
+                    NotificationCenter.default.post(name: .networkInfoChanged, object: nil)
                 case .failure(_):
                     // Failed to load chains
                     break
