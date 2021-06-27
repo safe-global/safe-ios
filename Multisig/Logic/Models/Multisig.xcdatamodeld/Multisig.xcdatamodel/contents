@@ -24,11 +24,11 @@
         <attribute name="sessionRenewedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Chain" representedClassName="Chain" syncable="YES" codeGenerationType="class">
-        <attribute name="blockExplorerUrl" attributeType="String"/>
-        <attribute name="chainId" attributeType="String"/>
+        <attribute name="blockExplorerUrl" attributeType="URI"/>
+        <attribute name="chainId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="chainName" attributeType="String"/>
-        <attribute name="rpcUrl" attributeType="String"/>
-        <attribute name="transactionService" attributeType="String"/>
+        <attribute name="rpcUrl" attributeType="URI"/>
+        <attribute name="transactionService" attributeType="URI"/>
         <relationship name="nativeCurrency" maxCount="1" deletionRule="Cascade" destinationEntity="ChainToken" inverseName="chain" inverseEntity="ChainToken"/>
         <relationship name="safe" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Safe" inverseName="chain" inverseEntity="Safe"/>
         <relationship name="theme" maxCount="1" deletionRule="Cascade" destinationEntity="ChainTheme" inverseName="chain" inverseEntity="ChainTheme"/>

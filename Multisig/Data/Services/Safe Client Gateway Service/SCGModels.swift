@@ -532,12 +532,12 @@ extension SCGModels {
 
 
     struct Chain: Decodable {
-        let chainId: String
+        let chainId: Int
         let chainName: String
-        let rpcUrl: String
-        let blockExplorerUrl: String
+        let rpcUrl: URL
+        let blockExplorerUrl: URL
         let nativeCurrency: Currency
-        let transactionService: String
+        let transactionService: URL
         let theme: Theme
     }
 

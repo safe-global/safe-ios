@@ -20,7 +20,7 @@ extension Chain {
         return (try? context.fetch(Chain.fetchRequest().all())) ?? []
     }
 
-    static func exists(_ id: String) throws -> Bool {
+    static func exists(_ id: Int) throws -> Bool {
         do {
             dispatchPrecondition(condition: .onQueue(.main))
             let context = App.shared.coreDataStack.viewContext
@@ -32,7 +32,7 @@ extension Chain {
         }
     }
 
-    static func by(_ id: String) -> Chain? {
+    static func by(_ id: Int) -> Chain? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let fr = Chain.fetchRequest().by(id: id)
@@ -47,21 +47,21 @@ extension Chain {
     }
 
     @discardableResult
-    static func create(chainId: String,
+    static func create(chainId: Int,
                        chainName: String,
-                       rpcUrl: String,
-                       blockExplorerUrl: String,
+                       rpcUrl: URL,
+                       blockExplorerUrl: URL,
                        currencyName: String,
                        currencySymbl: String,
                        currencyDecimals: Int,
-                       transactionService: String,
+                       transactionService: URL,
                        themeTextColor: String,
                        themeBackgroundColor: String) -> Chain {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
         let chain = Chain(context: context)
-        chain.chainId = chainId
+        chain.chainId = Int32(chainId)
         chain.chainName = chainName
         chain.rpcUrl = rpcUrl
         chain.blockExplorerUrl = blockExplorerUrl
@@ -130,9 +130,9 @@ extension NSFetchRequest where ResultType == Chain {
         return self
     }
 
-    func by(id: String) -> Self {
+    func by(id: Int) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "chainId == %@", id)
+        predicate = NSPredicate(format: "chainId == %d", id)
         fetchLimit = 1
         return self
     }
