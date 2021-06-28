@@ -58,12 +58,22 @@ struct ProposeTransactionRequest: JSONRequest {
 }
 
 extension SafeClientGatewayService {
-    func propose(transaction: Transaction, safeAddress: Address, sender: String, signature: String, completion: @escaping (Result<ProposeTransactionRequest.EmptyResponse, Error>) -> Void) -> URLSessionTask? {
-        guard let senderAddress = AddressString(sender) else { fatalError() }
-        return asyncExecute(request: ProposeTransactionRequest(safe: AddressString(safeAddress),
-                                                        sender: senderAddress,
-                                                        signature: signature,
-                                                        transaction: transaction),
-                                                        completion: completion)
+    func asyncProposeTransaction(
+        transaction: Transaction,
+        sender: AddressString,
+        signature: String,
+        completion: @escaping (Result<ProposeTransactionRequest.EmptyResponse, Error>) -> Void) -> URLSessionTask? {
+
+        return asyncExecute(request: ProposeTransactionRequest(safe: transaction.safe!,
+                                                               sender: sender,
+                                                               signature: signature,
+                                                               transaction: transaction),
+                            completion: completion)
+    }
+
+    func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String) throws {
+        let request = ProposeTransactionRequest(
+            safe: transaction.safe!, sender: sender, signature: signature, transaction: transaction)
+        try execute(request: request)
     }
 }

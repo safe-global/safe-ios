@@ -29,5 +29,3 @@ extension UIColor {
     static let tertiaryLabel = UIColor(named: "tertiaryLabel")!
     static let quaternaryBackground = UIColor(named: "quaternaryBackground")!
 }
-
-

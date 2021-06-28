@@ -427,7 +427,6 @@
 		550FB1B626691D9500C13D54 /* DetailedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B226691D9500C13D54 /* DetailedCell.swift */; };
 		550FB1BA26691DB900C13D54 /* TransactionByNonceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B726691DB800C13D54 /* TransactionByNonceRequest.swift */; };
 		550FB1BB26691DB900C13D54 /* LatestTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B826691DB800C13D54 /* LatestTransactionRequest.swift */; };
-		550FB1BC26691DB900C13D54 /* CreateTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B926691DB800C13D54 /* CreateTransactionRequest.swift */; };
 		550FB1C226691E1500C13D54 /* WalletConnectQRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */; };
 		550FB1C326691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */; };
 		550FB1C426691E1500C13D54 /* ConnectWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1C026691E1500C13D54 /* ConnectWalletViewController.swift */; };
@@ -1012,7 +1011,6 @@
 		550FB1B226691D9500C13D54 /* DetailedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedCell.swift; sourceTree = "<group>"; };
 		550FB1B726691DB800C13D54 /* TransactionByNonceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionByNonceRequest.swift; sourceTree = "<group>"; };
 		550FB1B826691DB800C13D54 /* LatestTransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LatestTransactionRequest.swift; sourceTree = "<group>"; };
-		550FB1B926691DB800C13D54 /* CreateTransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTransactionRequest.swift; sourceTree = "<group>"; };
 		550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletConnectQRCodeViewController.xib; sourceTree = "<group>"; };
 		550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingConnectOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		550FB1C026691E1500C13D54 /* ConnectWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectWalletViewController.swift; sourceTree = "<group>"; };
@@ -1963,7 +1961,6 @@
 		0AB34D6924B71E4F00A43988 /* Safe Transaction Service */ = {
 			isa = PBXGroup;
 			children = (
-				550FB1B926691DB800C13D54 /* CreateTransactionRequest.swift */,
 				550FB1B826691DB800C13D54 /* LatestTransactionRequest.swift */,
 				048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */,
 				04769167246431D000D73D8B /* SafeTransactionService.swift */,
@@ -3086,7 +3083,6 @@
 				55DCC333258A4C71003346FC /* GSError.swift in Sources */,
 				0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */,
 				04D1306C25DD525A0032FA03 /* ProposeTransactionRequest.swift in Sources */,
-				550FB1BC26691DB900C13D54 /* CreateTransactionRequest.swift in Sources */,
 				55BCFC562554627100020CE7 /* BasicCell.swift in Sources */,
 				0A9A1A34257924C600B44405 /* DetailAccountCell.swift in Sources */,
 				0AEE149F2540233C00046EE7 /* UINibView.swift in Sources */,

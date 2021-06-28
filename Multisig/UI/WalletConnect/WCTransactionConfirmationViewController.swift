@@ -100,11 +100,8 @@ class WCTransactionConfirmationViewController: UIViewController {
 
     private func sendConfirmationAndDismiss(keyInfo: KeyInfo, signature: String) {
         do {
-            let request = CreateTransactionRequest(safe: transaction.safe!,
-                                                   sender: AddressString(keyInfo.address),
-                                                   signature: signature,
-                                                   transaction: transaction)
-            try App.shared.safeTransactionService.createTransaction(request: request)
+            try App.shared.clientGatewayService.proposeTransaction(
+                transaction: transaction, sender: AddressString(keyInfo.address), signature: signature)
 
             DispatchQueue.main.async { [weak self] in
                 // dismiss WCTransactionConfirmationViewController
