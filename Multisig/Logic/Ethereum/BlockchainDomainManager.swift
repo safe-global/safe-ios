@@ -13,13 +13,12 @@ class BlockchainDomainManager {
     let ens: ENS
     var resolution: Resolution?
 
-    #warning("Rework when the provider URL is set correctly")
     init(network: Network) {
         ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
         self.resolution = try? Resolution(
             configs: Configurations(
                 cns: NamingServiceConfig(
-                    providerUrl: App.configuration.services.ethereumServiceURL.absoluteString,
+                    providerUrl: network.rpcUrl!.absoluteString,
                     network: network.chainName!.lowercased()
                 )
             )
