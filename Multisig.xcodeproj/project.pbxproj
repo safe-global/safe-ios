@@ -59,8 +59,6 @@
 		048D72BD26832FD70095999C /* ChainsListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72BC26832FD70095999C /* ChainsListRequest.swift */; };
 		048D72BF268359E20095999C /* ChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72BE268359E20095999C /* ChainManager.swift */; };
 		048D72C126835CF90095999C /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C026835CF90095999C /* Chain.swift */; };
-		048D72C3268384EF0095999C /* ChainToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C2268384EF0095999C /* ChainToken.swift */; };
-		048D72C5268384F70095999C /* ChainTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C4268384F70095999C /* ChainTheme.swift */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
 		049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */; };
@@ -626,8 +624,6 @@
 		048D72BC26832FD70095999C /* ChainsListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainsListRequest.swift; sourceTree = "<group>"; };
 		048D72BE268359E20095999C /* ChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainManager.swift; sourceTree = "<group>"; };
 		048D72C026835CF90095999C /* Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
-		048D72C2268384EF0095999C /* ChainToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainToken.swift; sourceTree = "<group>"; };
-		048D72C4268384F70095999C /* ChainTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainTheme.swift; sourceTree = "<group>"; };
 		0493A28A262979820056EC49 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
 		049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListTableViewCell.swift; sourceTree = "<group>"; };
@@ -2250,8 +2246,6 @@
 				55B64657253050200050BD95 /* HashString.swift */,
 				0A95893F25EFBE1E005011D7 /* KeyInfo.swift */,
 				048D72C026835CF90095999C /* Chain.swift */,
-				048D72C2268384EF0095999C /* ChainToken.swift */,
-				048D72C4268384F70095999C /* ChainTheme.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
 				0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */,
 				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
@@ -3041,7 +3035,6 @@
 				0A451C18252DDCDE001DB7D2 /* ProgressIndicatorCell.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
-				048D72C5268384F70095999C /* ChainTheme.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
@@ -3337,7 +3330,6 @@
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
 				55BCFC5E255469B300020CE7 /* BasicHeaderView.swift in Sources */,
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
-				048D72C3268384EF0095999C /* ChainToken.swift in Sources */,
 				0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */,
 				04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */,
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,

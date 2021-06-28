@@ -537,7 +537,6 @@ extension SCGModels {
         let rpcUrl: URL
         let blockExplorerUrl: URL
         let nativeCurrency: Currency
-        let transactionService: URL
         let theme: Theme
     }
 
