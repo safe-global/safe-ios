@@ -41,7 +41,9 @@ extension Network {
     }
 
     static func createOrUpdate(_ networkInfo: SCGModels.Network) -> Network {
-        guard let chain = Network.by(networkInfo.chainId) else { return Network.create(networkInfo) }
+        guard let chain = Network.by(networkInfo.chainId) else {
+            return try! Network.create(networkInfo)
+        }
         chain.update(from: networkInfo)
         return chain
     }
@@ -55,35 +57,37 @@ extension Network {
                        currencySymbl: String,
                        currencyDecimals: Int,
                        themeTextColor: String,
-                       themeBackgroundColor: String) -> Network {
+                       themeBackgroundColor: String) throws -> Network {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
-        let chain = Network(context: context)
-        chain.chainId = Int32(chainId)
-        chain.chainName = chainName
-        chain.rpcUrl = rpcUrl
-        chain.blockExplorerUrl = blockExplorerUrl
+        let network = Network(context: context)
+        network.chainId = Int32(chainId)
+        network.chainName = chainName
+        network.rpcUrl = rpcUrl
+        network.blockExplorerUrl = blockExplorerUrl
 
         let theme = NetworkTheme(context: context)
-        theme.network = chain
         theme.textColor = themeTextColor
         theme.backgroundColor = themeBackgroundColor
 
+        network.theme = theme
+
         let token = NetworkToken(context: context)
-        token.network = chain
         token.name = currencyName
         token.symbol = currencySymbl
         token.decimals = Int32(currencyDecimals)
 
-        App.shared.coreDataStack.saveContext()
+        network.nativeCurrency = token
 
-        return chain
+        try App.shared.coreDataStack.viewContext.save()
+
+        return network
     }
 
     @discardableResult
-    static func create(_ networkInfo: SCGModels.Network) -> Network {
-        Network.create(chainId: networkInfo.chainId,
+    static func create(_ networkInfo: SCGModels.Network) throws -> Network {
+        try Network.create(chainId: networkInfo.chainId,
                      chainName: networkInfo.chainName,
                      rpcUrl: networkInfo.authenticatedRpcUrl,
                      blockExplorerUrl: networkInfo.blockExplorerUrl,
@@ -140,7 +144,7 @@ extension Network {
 
 extension NSFetchRequest where ResultType == Network {
     func all() -> Self {
-        sortDescriptors = [NSSortDescriptor(keyPath: \Network.id, ascending: true)]
+        sortDescriptors = [NSSortDescriptor(keyPath: \Network.chainId, ascending: true)]
         return self
     }
 
@@ -159,7 +163,7 @@ extension Network {
     }
 
     static func mainnetChain() -> Network {
-        Network.by(ChainID.ethereumMainnet) ?? Network.create(
+        try! Network.by(ChainID.ethereumMainnet) ?? Network.create(
             chainId: ChainID.ethereumMainnet,
             chainName: "Mainnet",
             rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!.appendingPathComponent(App.configuration.services.infuraKey),
