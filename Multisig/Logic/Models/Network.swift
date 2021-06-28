@@ -140,7 +140,7 @@ extension Network {
 
 extension NSFetchRequest where ResultType == Network {
     func all() -> Self {
-        sortDescriptors = [NSSortDescriptor(keyPath: \Network.id, ascending: true)]
+        sortDescriptors = [NSSortDescriptor(keyPath: \Network.chainId, ascending: true)]
         return self
     }
 
