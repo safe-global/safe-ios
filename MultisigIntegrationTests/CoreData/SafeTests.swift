@@ -17,25 +17,33 @@ class SafeTests: CoreDataTestCase {
         Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: mainnet)
         Safe.create(address: "0x0000000000000000000000000000000000000002", name: "2", network: mainnet, selected: false)
 
-        var result = try context.fetch(Safe.fetchRequest().all())
-        XCTAssertEqual(result.count, 3)
+        var safesResult = try context.fetch(Safe.fetchRequest().all())
+        var networksResult = try context.fetch(Network.fetchRequest().all())
+        XCTAssertEqual(safesResult.count, 3)
+        XCTAssertEqual(networksResult.count, 1)
 
-        var safe = result.first!
+        var safe = safesResult.first!
         Safe.remove(safe: safe)
-        result = try context.fetch(Safe.fetchRequest().all())
-        XCTAssertEqual(result.count, 2)
+        safesResult = try context.fetch(Safe.fetchRequest().all())
+        networksResult = try context.fetch(Network.fetchRequest().all())
+        XCTAssertEqual(safesResult.count, 2)
+        XCTAssertEqual(networksResult.count, 1)
 
-        safe = result.first!
+        safe = safesResult.first!
         XCTAssertTrue(safe.isSelected)
         Safe.remove(safe: safe)
-        result = try context.fetch(Safe.fetchRequest().all())
-        XCTAssertEqual(result.count, 1)
+        safesResult = try context.fetch(Safe.fetchRequest().all())
+        networksResult = try context.fetch(Network.fetchRequest().all())
+        XCTAssertEqual(safesResult.count, 1)
+        XCTAssertEqual(networksResult.count, 1)
 
-        safe = result.first!
+        safe = safesResult.first!
         XCTAssertNotNil(safe.selection)
         Safe.remove(safe: safe)
-        result = try context.fetch(Safe.fetchRequest().all())
-        XCTAssertEqual(result.count, 0)
+        safesResult = try context.fetch(Safe.fetchRequest().all())
+        networksResult = try context.fetch(Network.fetchRequest().all())
+        XCTAssertEqual(safesResult.count, 0)
+        XCTAssertEqual(networksResult.count, 0)
     }
 
     func test_allSafes() throws {
