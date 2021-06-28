@@ -193,5 +193,7 @@
 	<string>$(WALLETCONNECT_ELIGIBLE)</string>
 	<key>WALLETCONNECT_OWNER_KEY_ELIGIBLE</key>
 	<string>$(WALLETCONNECT_OWNER_KEY_ELIGIBLE)</string>
+	<key>INFURA_API_KEY</key>
+	<string>$(INFURA_API_KEY)</string>
 </dict>
 </plist>

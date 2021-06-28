@@ -120,16 +120,14 @@ extension Safe: Identifiable {
         }
     }
 
-    #warning("Network shouldn't be optional, this should be removed when completing the implementation")
-    static func create(address: String, name: String, network: SCGModels.Network? = nil, selected: Bool = true) {
+    static func create(address: String, name: String, network: Network, selected: Bool = true) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
         let safe = Safe(context: context)
         safe.address = address
         safe.name = name
-        
-        if let network = network { safe.network = Network.createOrUpdate(network) }
+        safe.network = network
 
         if selected {
             safe.select()

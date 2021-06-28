@@ -64,7 +64,9 @@ class EnterSafeAddressViewController: UIViewController {
         vc.actionTitle = "Next"
         vc.placeholder = "Enter name"
         vc.completion = { [unowned vc, unowned self] name in
-            Safe.create(address: address.checksummed, name: name)
+            #warning("Inject the network from outside")
+            Safe.create(address: address.checksummed, name: name, network: Network.mainnetChain())
+
             if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
                 let safeLoadedViewController = SafeLoadedViewController()
                 safeLoadedViewController.completion = self.completion

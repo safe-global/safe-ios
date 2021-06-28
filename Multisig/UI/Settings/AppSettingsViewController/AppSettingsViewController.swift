@@ -241,7 +241,14 @@ class AppSettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        BasicCell.rowHeight
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.General.appVersion:
+            return InfoCell.rowHeight
+
+        default:
+            return BasicCell.rowHeight
+        }
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {

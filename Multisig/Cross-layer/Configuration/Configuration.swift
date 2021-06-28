@@ -23,6 +23,9 @@ struct AppConfiguration {
         @ConfigurationKey("ETH_RPC_URL")
         var ethereumServiceURL: URL
 
+        @ConfigurationKey("INFURA_API_KEY")
+        var infuraKey: String
+
         @ConfigurationKey("ETH_BLOCK_BROWSER_URL")
         var etehreumBlockBrowserURL: URL
 

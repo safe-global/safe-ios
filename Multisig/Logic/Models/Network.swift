@@ -85,7 +85,7 @@ extension Network {
     static func create(_ networkInfo: SCGModels.Network) -> Network {
         Network.create(chainId: networkInfo.chainId,
                      chainName: networkInfo.chainName,
-                     rpcUrl: networkInfo.rpcUrl,
+                     rpcUrl: networkInfo.authenticatedRpcUrl,
                      blockExplorerUrl: networkInfo.blockExplorerUrl,
                      currencyName: networkInfo.nativeCurrency.name,
                      currencySymbl: networkInfo.nativeCurrency.symbol,
@@ -119,12 +119,19 @@ extension Network {
     }
 
     func update(from networkInfo: SCGModels.Network) {
-        chainId = chainId
-        chainName = chainName
-        rpcUrl = rpcUrl
-        blockExplorerUrl = blockExplorerUrl
+        guard chainId == networkInfo.chainId else {
+            assertionFailure("Trying to update a network with different chain id: \(chainId) != \(networkInfo.chainId)")
+            return
+        }
+
+        chainName =  networkInfo.chainName
+        rpcUrl = networkInfo.authenticatedRpcUrl
+        blockExplorerUrl = networkInfo.blockExplorerUrl
+
+        #warning("Is it fine for storing UIColor as text? Try out Transformable")
         theme?.textColor = networkInfo.theme.textColor.description
         theme?.backgroundColor = networkInfo.theme.backgroundColor.description
+
         nativeCurrency?.name = networkInfo.nativeCurrency.name
         nativeCurrency?.symbol = networkInfo.nativeCurrency.symbol
         nativeCurrency?.decimals = Int32(networkInfo.nativeCurrency.decimals)
@@ -151,17 +158,22 @@ extension Network {
         static let ethereumRinkeby = 4
     }
 
-    #warning("TODO: double check when production parameters are ready")
     static func mainnetChain() -> Network {
         Network.by(ChainID.ethereumMainnet) ?? Network.create(
             chainId: ChainID.ethereumMainnet,
-            chainName: "Main Ethereum Network",
-            rpcUrl: App.configuration.services.ethereumServiceURL,
-            blockExplorerUrl: App.configuration.services.etehreumBlockBrowserURL,
+            chainName: "Mainnet",
+            rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!.appendingPathComponent(App.configuration.services.infuraKey),
+            blockExplorerUrl: URL(string: "https://etherscan.io/")!,
             currencyName: "Ether",
             currencySymbl: "ETH",
             currencyDecimals: 18,
-            themeTextColor: "#fff",
-            themeBackgroundColor: "#000")
+            themeTextColor: "#001428",
+            themeBackgroundColor: "#E8E7E6")
+    }
+}
+
+extension SCGModels.Network {
+    var authenticatedRpcUrl: URL {
+        rpcUrl.appendingPathComponent(App.configuration.services.infuraKey)
     }
 }
