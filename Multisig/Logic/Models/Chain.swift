@@ -54,7 +54,6 @@ extension Chain {
                        currencyName: String,
                        currencySymbl: String,
                        currencyDecimals: Int,
-                       transactionService: URL,
                        themeTextColor: String,
                        themeBackgroundColor: String) -> Chain {
         dispatchPrecondition(condition: .onQueue(.main))
@@ -65,9 +64,19 @@ extension Chain {
         chain.chainName = chainName
         chain.rpcUrl = rpcUrl
         chain.blockExplorerUrl = blockExplorerUrl
-        chain.transactionService = transactionService
-        chain.theme = ChainTheme.create(textColor: themeTextColor, backgroundColor: themeBackgroundColor)
-        chain.nativeCurrency = ChainToken.create(name: currencyName, symbol: currencySymbl, decimals: currencyDecimals)
+
+        let theme = ChainTheme(context: context)
+        theme.chain = chain
+        theme.textColor = themeTextColor
+        theme.backgroundColor = themeBackgroundColor
+        chain.theme = theme
+
+        let token = ChainToken(context: context)
+        token.chain = chain
+        token.name = currencyName
+        token.symbol = currencySymbl
+        token.decimals = Int32(currencyDecimals)
+        chain.nativeCurrency = token
 
         App.shared.coreDataStack.saveContext()
 
@@ -83,7 +92,6 @@ extension Chain {
                      currencyName: chainInfo.nativeCurrency.name,
                      currencySymbl: chainInfo.nativeCurrency.symbol,
                      currencyDecimals: chainInfo.nativeCurrency.decimals,
-                     transactionService: chainInfo.transactionService,
                      themeTextColor: chainInfo.theme.textColor.description,
                      themeBackgroundColor: chainInfo.theme.backgroundColor.description)
     }
@@ -113,9 +121,11 @@ extension Chain {
         chainName = chainName
         rpcUrl = rpcUrl
         blockExplorerUrl = blockExplorerUrl
-        transactionService = transactionService
-        theme?.update(textColor: chain.theme.textColor.description, backgroundColor: chain.theme.backgroundColor.description)
-        nativeCurrency?.update(name: chain.nativeCurrency.name, symbol: chain.nativeCurrency.symbol, decimals: chain.nativeCurrency.decimals)
+        theme?.textColor = chain.theme.textColor.description
+        theme?.backgroundColor = chain.theme.backgroundColor.description
+        nativeCurrency?.name = chain.nativeCurrency.name
+        nativeCurrency?.symbol = chain.nativeCurrency.symbol
+        nativeCurrency?.decimals = Int32(chain.nativeCurrency.decimals)
     }
 
     func safes() -> [Safe] {
