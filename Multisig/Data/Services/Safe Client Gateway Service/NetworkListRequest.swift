@@ -22,7 +22,7 @@ struct NetworkListRequest: JSONRequest {
 
 extension SafeClientGatewayService {
     @discardableResult
-    func networks(completion: @escaping (Result<NetworkListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
+    func asyncNetworks(completion: @escaping (Result<NetworkListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
         asyncExecute(request: NetworkListRequest(), completion: completion)
     }
 }

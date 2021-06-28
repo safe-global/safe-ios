@@ -129,11 +129,6 @@ extension Network {
         nativeCurrency?.symbol = networkInfo.nativeCurrency.symbol
         nativeCurrency?.decimals = Int32(networkInfo.nativeCurrency.decimals)
     }
-
-    func safes() -> [Safe] {
-        let context = App.shared.coreDataStack.viewContext
-        return (try? context.fetch(Safe.fetchRequest().by(network: self))) ?? []
-    }
 }
 
 extension NSFetchRequest where ResultType == Network {
@@ -147,5 +142,26 @@ extension NSFetchRequest where ResultType == Network {
         predicate = NSPredicate(format: "chainId == %d", id)
         fetchLimit = 1
         return self
+    }
+}
+
+extension Network {
+    enum ChainID {
+        static let ethereumMainnet = 1
+        static let ethereumRinkeby = 4
+    }
+
+    #warning("TODO: double check when production parameters are ready")
+    static func mainnetChain() -> Network {
+        Network.by(ChainID.ethereumMainnet) ?? Network.create(
+            chainId: ChainID.ethereumMainnet,
+            chainName: "Main Ethereum Network",
+            rpcUrl: App.configuration.services.ethereumServiceURL,
+            blockExplorerUrl: App.configuration.services.etehreumBlockBrowserURL,
+            currencyName: "Ether",
+            currencySymbl: "ETH",
+            currencyDecimals: 18,
+            themeTextColor: "#fff",
+            themeBackgroundColor: "#000")
     }
 }

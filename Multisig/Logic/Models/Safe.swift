@@ -120,7 +120,7 @@ extension Safe: Identifiable {
         }
     }
 
-    // Network shouldn't be optional, this should be removed when completing the implementation
+    #warning("Network shouldn't be optional, this should be removed when completing the implementation")
     static func create(address: String, name: String, network: SCGModels.Network? = nil, selected: Bool = true) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
@@ -183,8 +183,8 @@ extension Safe: Identifiable {
             App.shared.notificationHandler.safeRemoved(address: address)
         }
 
-        if safe.network?.safes().isEmpty ?? false {
-            Network.remove(network: safe.network!)
+        if let network = safe.network, network.safe == nil || network.safe?.count == 0 {
+            Network.remove(network: network)
         }
 
         updateCachedNames()

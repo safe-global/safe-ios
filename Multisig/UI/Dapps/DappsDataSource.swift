@@ -21,13 +21,20 @@ class DappsDataSource {
     let dapps: [DappData]
 
     init() {
-        let network = try? Safe.getSelected()?.network
-        assert(network != nil, "Developer error: expect to have selected safe with network")
+        guard let network = try? Safe.getSelected()?.network else {
+            assertionFailure("Developer error: expect to have selected safe with network")
+            dapps = []
+            return
+        }
+
         let path: String
-        if network!.id == 1 {
+        if network.id == Network.ChainID.ethereumMainnet {
             path = Bundle.main.path(forResource: "dapps-mainnet", ofType: "json")!
-        } else {
+        } else if network.id == Network.ChainID.ethereumRinkeby {
             path = Bundle.main.path(forResource: "dapps-rinkeby", ofType: "json")!
+        } else {
+            dapps = []
+            return
         }
         let url = URL(fileURLWithPath: path)
         let data = try! Data(contentsOf: url)

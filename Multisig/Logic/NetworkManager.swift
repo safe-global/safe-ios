@@ -10,7 +10,7 @@ import Foundation
 
 class NetworkManager {
     static func updateChainsInfo() {
-        App.shared.clientGatewayService.networks { result in
+        App.shared.clientGatewayService.asyncNetworks { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let networks):
@@ -19,7 +19,7 @@ class NetworkManager {
                     }
                     NotificationCenter.default.post(name: .networkInfoChanged, object: nil)
                 case .failure(_):
-                    // Failed to load chains
+                    // Ignoring error because we'll try again in the next app start.
                     break
                 }
             }
@@ -28,26 +28,15 @@ class NetworkManager {
 
     // prior 2.19.0 safes did not have attached networks
     static func migrateOldSafes() {
-        let safes = try! Safe.getAll()
-        safes.forEach { safe in
-            if safe.network == nil {
-                safe.network = mainnetChain()
-                App.shared.coreDataStack.saveContext()
-            }
-        }
-    }
+        guard let allSafes = try? Safe.getAll() else { return }
 
-    #warning("TODO: double check when production parameters are ready")
-    static func mainnetChain() -> Network {
-        Network.by(1) ?? Network.create(
-            chainId: 1,
-            chainName: "Main Ethereum Network",
-            rpcUrl: App.configuration.services.ethereumServiceURL,
-            blockExplorerUrl: App.configuration.services.etehreumBlockBrowserURL,
-            currencyName: "Ether",
-            currencySymbl: "ETH",
-            currencyDecimals: 18,
-            themeTextColor: "#fff",
-            themeBackgroundColor: "#000")
+        let notMigrated = allSafes.filter { $0.network == nil }
+        if notMigrated.isEmpty { return }
+
+        let mainnet = Network.mainnetChain()
+        for safe in notMigrated {
+            safe.network = mainnet
+        }
+        App.shared.coreDataStack.saveContext()
     }
 }

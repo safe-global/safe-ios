@@ -126,7 +126,7 @@ extension WalletConnectServerController: ServerDelegate {
             let walletInfo = Session.WalletInfo(
                 approved: false,
                 accounts: [],
-                chainId: 1,
+                chainId: Network.ChainID.ethereumMainnet,
                 peerId: UUID().uuidString,
                 peerMeta: walletMeta)
 
