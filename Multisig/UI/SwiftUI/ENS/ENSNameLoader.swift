@@ -26,7 +26,7 @@ class ENSNameLoader: ObservableObject {
             .compactMap { Address($0) }
             .receive(on: DispatchQueue.global())
             .map { address -> String? in
-                return BlockchainDomainManager(network: safe.network!).ens.name(for: address)
+                return BlockchainDomainManager(network: safe.network!).ensName(for: address)
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
