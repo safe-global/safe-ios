@@ -10,8 +10,9 @@ import UIKit
 
 class EnterUnstoppableNameViewController: UIViewController {
     var onConfirm: () -> Void = { }
-    var manager = App.shared.blockchainDomainManager
+    var manager: BlockchainDomainManager!
     var address: Address?
+    var network: SCGModels.Network!
 
     // generated "task" ID to work around the asynchronous ENS resolving API
     private var currentResolutionTaskID: UUID?
@@ -28,6 +29,9 @@ class EnterUnstoppableNameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        assert(network != nil, "Developer error: expect to have network")
+        manager = BlockchainDomainManager(network: network)
+
         navigationItem.title = "Enter Unstoppable Name"
 
         confirmButton = UIBarButtonItem(title: "Confirm", style: .done, target: self, action: #selector(didTapConfirmButton))

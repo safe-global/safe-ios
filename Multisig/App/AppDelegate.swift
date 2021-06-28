@@ -23,8 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AppSettings.saveCurrentRunVersionNumber()
 
-        ChainManager.migrateOldSafes()
-        ChainManager.updateChainsInfo()
+        NetworkManager.migrateOldSafes()
+        NetworkManager.updateChainsInfo()
 
         OwnerKeyController.cleanUpKeys()
         OwnerKeyController.migrateLegacySigningKey()

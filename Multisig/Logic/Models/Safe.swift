@@ -120,8 +120,8 @@ extension Safe: Identifiable {
         }
     }
 
-    // Chain shouldn't be optional, this should be removed when completing the implementation
-    static func create(address: String, name: String, chain: SCGModels.Chain? = nil, selected: Bool = true) {
+    // Network shouldn't be optional, this should be removed when completing the implementation
+    static func create(address: String, name: String, network: SCGModels.Network? = nil, selected: Bool = true) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
@@ -129,7 +129,7 @@ extension Safe: Identifiable {
         safe.address = address
         safe.name = name
         
-        if let chain = chain { safe.chain = Chain.createOrUpdate(chain) }
+        if let network = network { safe.network = Network.createOrUpdate(network) }
 
         if selected {
             safe.select()
@@ -183,15 +183,15 @@ extension Safe: Identifiable {
             App.shared.notificationHandler.safeRemoved(address: address)
         }
 
-        if safe.chain?.safes().isEmpty ?? false {
-            Chain.remove(chain: safe.chain!)
+        if safe.network?.safes().isEmpty ?? false {
+            Network.remove(network: safe.network!)
         }
 
         updateCachedNames()
     }
 
     static func removeAll() throws {
-        try Chain.removeAll()
+        try Network.removeAll()
     }
 }
 
@@ -220,9 +220,9 @@ extension NSFetchRequest where ResultType == Safe {
         return self
     }
 
-    func by(chain: Chain) -> Self {
+    func by(network: Network) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "chain = %@", chain)
+        predicate = NSPredicate(format: "chain = %@", network)
         return self
     }
 

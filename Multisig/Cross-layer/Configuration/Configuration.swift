@@ -95,9 +95,6 @@ struct AppConfiguration {
         @ConfigurationKey("CFBundleIdentifier")
         var bundleIdentifier: String
 
-        @ConfigurationKey("NETWORK")
-        var network: Network
-
         @ConfigurationKey("LOGGERS")
         var loggers: String
 
@@ -142,20 +139,4 @@ struct AppConfiguration {
     let app = App()
     let walletConnect = WalletConnect()
     let toggles = FeatureToggles()
-}
-
-enum Network: String, InfoPlistValueType {
-    case mainnet = "Mainnet"
-    case rinkeby = "Rinkeby"
-
-    var chainId: Int {
-        switch self {
-        case .mainnet: return 1
-        case .rinkeby: return 4
-        }
-    }
-
-    static func convert(from value: Any) -> Self {
-        (value as? String).flatMap { Self(rawValue: $0.capitalized) } ?? .mainnet
-    }
 }

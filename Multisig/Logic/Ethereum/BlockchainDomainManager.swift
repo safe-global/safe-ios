@@ -12,15 +12,27 @@ import UnstoppableDomainsResolution
 class BlockchainDomainManager {
     
     let ens: ENS
-    let resolution: Resolution?
+    var resolution: Resolution?
     
-    init() {
+    init(network: SCGModels.Network) {
         ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
         self.resolution = try? Resolution(
             configs: Configurations(
                 cns: NamingServiceConfig(
                     providerUrl: App.configuration.services.ethereumServiceURL.absoluteString,
-                    network: App.configuration.app.network.rawValue.lowercased()
+                    network: network.chainName.lowercased()
+                )
+            )
+        )
+    }
+
+    init(network: Network) {
+        ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
+        self.resolution = try? Resolution(
+            configs: Configurations(
+                cns: NamingServiceConfig(
+                    providerUrl: App.configuration.services.ethereumServiceURL.absoluteString,
+                    network: network.chainName!.lowercased()
                 )
             )
         )

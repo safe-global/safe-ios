@@ -8,14 +8,14 @@
 
 import Foundation
 
-class ChainManager {
+class NetworkManager {
     static func updateChainsInfo() {
-        App.shared.clientGatewayService.chains { result in
+        App.shared.clientGatewayService.networks { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let chains):
-                    for chain in chains {
-                        Chain.updateIfExist(chain)
+                case .success(let networks):
+                    for network in networks {
+                        Network.updateIfExist(network)
                     }
                     NotificationCenter.default.post(name: .networkInfoChanged, object: nil)
                 case .failure(_):
@@ -30,16 +30,16 @@ class ChainManager {
     static func migrateOldSafes() {
         let safes = try! Safe.getAll()
         safes.forEach { safe in
-            if safe.chain == nil {
-                safe.chain = mainnetChain()
+            if safe.network == nil {
+                safe.network = mainnetChain()
                 App.shared.coreDataStack.saveContext()
             }
         }
     }
 
     #warning("TODO: double check when production parameters are ready")
-    static func mainnetChain() -> Chain {
-        Chain.by(1) ?? Chain.create(
+    static func mainnetChain() -> Network {
+        Network.by(1) ?? Network.create(
             chainId: 1,
             chainName: "Main Ethereum Network",
             rpcUrl: App.configuration.services.ethereumServiceURL,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ChainsListRequest: JSONRequest {
+struct NetworkListRequest: JSONRequest {
     var httpMethod: String {
         "GET"
     }
@@ -17,12 +17,12 @@ struct ChainsListRequest: JSONRequest {
         "/v1/chains"
     }
 
-    typealias ResponseType = [SCGModels.Chain]
+    typealias ResponseType = [SCGModels.Network]
 }
 
 extension SafeClientGatewayService {
     @discardableResult
-    func chains(completion: @escaping (Result<ChainsListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: ChainsListRequest(), completion: completion)
+    func networks(completion: @escaping (Result<NetworkListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: NetworkListRequest(), completion: completion)
     }
 }

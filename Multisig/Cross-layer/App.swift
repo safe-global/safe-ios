@@ -21,7 +21,6 @@ class App {
     let updateController = UpdateController()
     // Business Logic Layer
 
-    let blockchainDomainManager = BlockchainDomainManager()
     let gnosisSafe = GnosisSafe()
     let auth = AuthenticationController()
 
@@ -53,5 +52,5 @@ class App {
 
     let firebaseConfig = FirebaseConfig()
 
-    private init() {}
+    private init() { }
 }

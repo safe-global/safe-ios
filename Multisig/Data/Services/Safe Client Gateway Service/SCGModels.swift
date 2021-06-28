@@ -531,7 +531,7 @@ extension SCGModels {
     }
 
 
-    struct Chain: Decodable {
+    struct Network: Decodable {
         let chainId: Int
         let chainName: String
         let rpcUrl: URL

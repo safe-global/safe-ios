@@ -21,8 +21,10 @@ class DappsDataSource {
     let dapps: [DappData]
 
     init() {
+        let network = try? Safe.getSelected()?.network
+        assert(network != nil, "Developer error: expect to have selected safe with network")
         let path: String
-        if App.configuration.app.network == .mainnet {
+        if network!.id == 1 {
             path = Bundle.main.path(forResource: "dapps-mainnet", ofType: "json")!
         } else {
             path = Bundle.main.path(forResource: "dapps-rinkeby", ofType: "json")!
