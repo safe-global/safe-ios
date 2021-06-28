@@ -69,14 +69,12 @@ extension Chain {
         theme.chain = chain
         theme.textColor = themeTextColor
         theme.backgroundColor = themeBackgroundColor
-        chain.theme = theme
 
         let token = ChainToken(context: context)
         token.chain = chain
         token.name = currencyName
         token.symbol = currencySymbl
         token.decimals = Int32(currencyDecimals)
-        chain.nativeCurrency = token
 
         App.shared.coreDataStack.saveContext()
 
