@@ -541,8 +541,8 @@ extension SCGModels {
     }
 
     struct Theme: Decodable {
-        let textColor: DataString
-        let backgroundColor: DataString
+        let textColor: String
+        let backgroundColor: String
     }
 
     struct Currency: Decodable {
