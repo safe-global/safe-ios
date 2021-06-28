@@ -10,7 +10,6 @@ import Foundation
 import UnstoppableDomainsResolution
 
 class BlockchainDomainManager {
-    
     let ens: ENS
     var resolution: Resolution?
 
@@ -63,7 +62,11 @@ class BlockchainDomainManager {
     }
     
     func resolveEnsDomain(domain: String) throws -> Address {
-        return try ens.address(for: domain)
+        try ens.address(for: domain)
+    }
+
+    func ensName(for address: Address) -> String? {
+        ens.name(for: address)
     }
     
     func throwCorrectUdError(_ error: ResolutionError, _ domain: String) -> DetailedLocalizedError {

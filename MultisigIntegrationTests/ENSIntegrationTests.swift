@@ -9,23 +9,19 @@
 import XCTest
 @testable import Multisig
 
-class ENSIntegrationTests: XCTestCase {
-
-    let ensService = App.shared.blockchainDomainManager.ens
+class ENSIntegrationTests: CoreDataTestCase {
+    let domainManager = BlockchainDomainManager(network: Network.mainnetChain())
 
     func test_forwardResolution() {
         XCTAssertNoThrow(try {
-            let address = try ensService.address(for: "gnosissafeios.test")
+            let address = try domainManager.resolveEnsDomain(domain: "gnosissafeios.test")
             XCTAssertEqual(address, "0x2333b4CC1F89a0B4C43e9e733123C124aAE977EE")
         }())
     }
 
     // the resolver is expired.
     func disabled_test_reverseResolution() {
-        XCTAssertNoThrow(try {
-            let name = try ensService.name(for: "0x2333b4CC1F89a0B4C43e9e733123C124aAE977EE")
-            XCTAssertEqual(name, "gnosissafeios.test")
-        }())
+        let name = domainManager.ensName(for: "0x2333b4CC1F89a0B4C43e9e733123C124aAE977EE")
+        XCTAssertEqual(name, "gnosissafeios.test")
     }
-
 }
