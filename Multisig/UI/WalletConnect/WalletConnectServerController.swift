@@ -122,7 +122,11 @@ extension WalletConnectServerController: ServerDelegate {
                                             icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
                                             url: URL(string: "https://gnosis-safe.io")!)
 
-        guard let safe = try? Safe.getSelected(), let address = safe.address, let network = safe.network else {
+        guard let safe = try? Safe.getSelected(),
+              let address = safe.address,
+              let network = safe.network
+        else {
+            // we can't get address or network in the local database, we're closing connection.
             let walletInfo = Session.WalletInfo(
                 approved: false,
                 accounts: [],
