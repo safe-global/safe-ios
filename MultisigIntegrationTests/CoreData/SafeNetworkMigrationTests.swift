@@ -10,18 +10,27 @@ import XCTest
 @testable import Multisig
 
 class SafeNetworkMigrationTests: CoreDataTestCase {
-//    func test_removingNetworkDeletesSafe() throws {
-//        let mainnet = Network.mainnetChain()
-//
-//        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: mainnet, selected: false)
-//        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: mainnet)
-//
-//        var result = try context.fetch(Safe.fetchRequest().all())
-//        XCTAssertEqual(result.count, 2)
-//
-//        try Network.removeAll()
-//
-//        result = try context.fetch(Safe.fetchRequest().all())
-//        XCTAssertEqual(result.count, 0)
-//    }
+    func test_migratingOldSafes() throws {
+        var mainnet = Network.mainnetChain()
+
+        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: mainnet, selected: false)
+
+        var safe = try context.fetch(Safe.fetchRequest().all()).first!
+        safe.network = nil
+
+        try Network.removeAll()
+
+        let result = try context.fetch(Safe.fetchRequest().all())
+        XCTAssertEqual(result.count, 1, "Safe should not be removed")
+
+        safe = result.first!
+        XCTAssertNil(safe.network)
+
+        NetworkManager.migrateOldSafes()
+
+        mainnet = Network.mainnetChain()
+        XCTAssertEqual(safe.network, mainnet)
+        XCTAssertEqual(mainnet.id, Network.ChainID.ethereumMainnet)
+        XCTAssertEqual(mainnet.nativeCurrency?.symbol, "ETH")
+    }
 }
