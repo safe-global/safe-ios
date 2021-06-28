@@ -10,7 +10,9 @@ import UIKit
 
 /// Header bar will adapt to the devices size
 final class HeaderViewController: ContainerViewController {
+    @IBOutlet private weak var stackView: UIStackView!
     @IBOutlet private weak var headerBar: UIView!
+    @IBOutlet private weak var ribbonView: RibbonView!
     @IBOutlet private weak var barShadowView: UIImageView!
     @IBOutlet private weak var safeBarView: SafeBarView!
     @IBOutlet private weak var noSafeBarView: NoSafeBarView!
@@ -38,6 +40,11 @@ final class HeaderViewController: ContainerViewController {
         addObservers()
         headerBarHeightConstraint.constant = ScreenMetrics.safeHeaderHeight
         reloadSafeData()
+
+        #warning("Enable ribbon after Safe model implementation")
+        ribbonView.text = "Rinkeby"
+        ribbonView.textColor = .white
+        ribbonView.backgroundColor = .blue
     }
 
     private func addObservers() {
@@ -99,6 +106,7 @@ final class HeaderViewController: ContainerViewController {
             safeBarView.isHidden = !hasSafe
             switchSafeButton.isHidden = !hasSafe
             noSafeBarView.isHidden = hasSafe
+            ribbonView.isHidden = !hasSafe
 
             if let safe = selectedSafe {
                 safeBarView.setAddress(safe.addressValue)
