@@ -132,9 +132,8 @@ extension Network {
         rpcUrl = networkInfo.authenticatedRpcUrl
         blockExplorerUrl = networkInfo.blockExplorerUrl
 
-        #warning("Is it fine for storing UIColor as text? Try out Transformable")
-        theme?.textColor = networkInfo.theme.textColor.description
-        theme?.backgroundColor = networkInfo.theme.backgroundColor.description
+        theme?.textColor = networkInfo.theme.textColor
+        theme?.backgroundColor = networkInfo.theme.backgroundColor
 
         nativeCurrency?.name = networkInfo.nativeCurrency.name
         nativeCurrency?.symbol = networkInfo.nativeCurrency.symbol

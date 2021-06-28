@@ -45,6 +45,7 @@ class NetworkTests: CoreDataTestCase {
         // when found, returns network
 
     // MARK: create(params)
+
     func test_create_whenCreatedThenHasCorrectParameters() throws {
         let network = try makeNetwork(id: 1)
 
@@ -69,9 +70,9 @@ class NetworkTests: CoreDataTestCase {
 
     // update(from networkInfo)
         // when different chain id then throws
+        // when set the params, then updates with appropriate params
         // when no theme exists, creates it
         // when no native currency attached, creates it
-        // when set the params, then creates with appropriate params
 
     // createOrUpdate(info)
         // when no such network id, then creates it
@@ -87,6 +88,17 @@ class NetworkTests: CoreDataTestCase {
     // remove(network)
         // when removes then removed
         // when removes, then removes all safes in the network
+
+    //func test_removingNetworkDeletesSafe() throws {
+    //        let mainnet = Network.mainnetChain()
+    //        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: mainnet, selected: false)
+    //        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: mainnet)
+    //        var result = try context.fetch(Safe.fetchRequest().all())
+    //        XCTAssertEqual(result.count, 2)
+    //        try Network.removeAll()
+    //        result = try context.fetch(Safe.fetchRequest().all())
+    //        XCTAssertEqual(result.count, 0)
+    //    }
 
     // removeAll()
         // when empty then ok
@@ -117,13 +129,3 @@ class NetworkTests: CoreDataTestCase {
 
 // when created a safe, then the count of safes = 1, count of chain = 1, token, theme = 1
 
-    //func test_removingNetworkDeletesSafe() throws {
-    //        let mainnet = Network.mainnetChain()
-    //        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: mainnet, selected: false)
-    //        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: mainnet)
-    //        var result = try context.fetch(Safe.fetchRequest().all())
-    //        XCTAssertEqual(result.count, 2)
-    //        try Network.removeAll()
-    //        result = try context.fetch(Safe.fetchRequest().all())
-    //        XCTAssertEqual(result.count, 0)
-    //    }

@@ -187,5 +187,7 @@
 	</array>
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
+	<key>INFURA_API_KEY</key>
+	<string>$(INFURA_API_KEY)</string>
 </dict>
 </plist>
