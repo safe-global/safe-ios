@@ -41,7 +41,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.assetsCoins)
+        trackEvent(.networkSelect)
     }
 
     override func reloadData() {
