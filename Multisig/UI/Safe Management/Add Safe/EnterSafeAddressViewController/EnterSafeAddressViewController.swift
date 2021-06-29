@@ -64,7 +64,9 @@ class EnterSafeAddressViewController: UIViewController {
         vc.actionTitle = "Next"
         vc.placeholder = "Enter name"
         vc.completion = { [unowned vc, unowned self] name in
-            Safe.create(address: address.checksummed, name: name)
+            #warning("Inject the network from outside")
+            Safe.create(address: address.checksummed, name: name, network: Network.mainnetChain())
+
             if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
                 let safeLoadedViewController = SafeLoadedViewController()
                 safeLoadedViewController.completion = self.completion
@@ -104,6 +106,8 @@ class EnterSafeAddressViewController: UIViewController {
 
         vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
             let vc = EnterENSNameViewController()
+            #warning("This should be fixed when select network implemented")
+            vc.network = Network.mainnetChain()
             vc.onConfirm = { [weak self] in
                 guard let `self` = self else { return }
                 self.navigationController?.popViewController(animated: true)
@@ -114,6 +118,8 @@ class EnterSafeAddressViewController: UIViewController {
         
         vc.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
             let vc = EnterUnstoppableNameViewController()
+            #warning("This should be fixed when select network implemented")
+            vc.network = Network.mainnetChain()
             vc.onConfirm = { [weak self] in
                 guard let `self` = self else { return }
                 self.navigationController?.popViewController(animated: true)

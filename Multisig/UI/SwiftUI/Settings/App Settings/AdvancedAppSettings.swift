@@ -15,15 +15,7 @@ struct AdvancedAppSettings: View {
 
     var body: some View {
         List {
-            Section(header: SectionHeader("ENS RESOLVER ADDRESS")) {
-                AddressCell(address: App.shared.blockchainDomainManager.ens.registryAddress.checksummed)
-            }
-
             Section(header: SectionHeader("ENDPOINTS")) {
-                KeyValueRow("RPC endpoint",
-                            value: DisplayURL(App.shared.nodeService.url).absoluteString)
-                KeyValueRow("Transaction service",
-                            value: DisplayURL(App.shared.safeTransactionService.url).absoluteString)
                 KeyValueRow("Client Gateway service",
                             value: DisplayURL(App.shared.clientGatewayService.url).absoluteString)
             }

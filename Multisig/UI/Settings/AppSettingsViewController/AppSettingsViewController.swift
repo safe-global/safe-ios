@@ -42,7 +42,6 @@ class AppSettingsViewController: UITableViewController {
             case getInTouch(String)
             case rateTheApp(String)
             case appVersion(String, String)
-            case network(String, String)
         }
 
         enum Advanced: SectionItem {
@@ -88,7 +87,6 @@ class AppSettingsViewController: UITableViewController {
                 Section.General.getInTouch("Get in touch"),
                 Section.General.rateTheApp("Rate the app"),
                 Section.General.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
-                Section.General.network("Network", app.network.rawValue),
             ]),
             (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
         ]
@@ -174,9 +172,6 @@ class AppSettingsViewController: UITableViewController {
         case Section.General.appVersion(let name, let version):
             return tableView.infoCell(name: name, info: version, indexPath: indexPath)
 
-        case Section.General.network(let name, let network):
-            return tableView.infoCell(name: name, info: network, indexPath: indexPath)
-
         case Section.Advanced.advanced(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
 
@@ -245,7 +240,7 @@ class AppSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.General.appVersion, Section.General.network:
+        case Section.General.appVersion:
             return InfoCell.rowHeight
 
         default:

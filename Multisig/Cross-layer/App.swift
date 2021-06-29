@@ -21,7 +21,6 @@ class App {
     let updateController = UpdateController()
     // Business Logic Layer
 
-    let blockchainDomainManager = BlockchainDomainManager()
     let gnosisSafe = GnosisSafe()
     let auth = AuthenticationController()
 
@@ -39,6 +38,7 @@ class App {
         url: configuration.services.clientGatewayURL,
         logger: LogService.shared)
 
+    #warning("Remove and use network specific rpcUrl")
     let nodeService = EthereumNodeService(
         url: configuration.services.ethereumServiceURL)
 
@@ -53,5 +53,5 @@ class App {
 
     let firebaseConfig = FirebaseConfig()
 
-    private init() {}
+    private init() { }
 }
