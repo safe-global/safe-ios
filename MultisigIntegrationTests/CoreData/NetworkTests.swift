@@ -17,8 +17,6 @@ class NetworkTests: CoreDataTestCase {
 
     // MARK: count
     func test_count_whenNoNetworks_returns0() {
-        // nothing to set up, no networks exist by default.
-
         XCTAssertEqual(Network.count, 0)
     }
 
@@ -30,19 +28,38 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(Network.count, 3)
     }
 
-    // all
-        // when no networks, returns empty
-        // when some networks, returns all sorted by network id
+    func test_all() throws {
+        XCTAssertEqual(Network.count, 0)
+        let network0 = try makeNetwork(id: 1)
+        let network1 = try makeNetwork(id: 2)
+        let network2 = try makeNetwork(id: 3)
 
-    // exists(id)
-        // when no networks, returns false
-        // when not found, returns false
-        // when found, returns true
+        let networks = Network.all
+        XCTAssertEqual(networks.count, 3)
+        XCTAssertEqual(network0, networks[0])
+        XCTAssertEqual(network1, networks[1])
+        XCTAssertEqual(network2, networks[2])
+    }
 
-    // by(id)
-        // when empty, returns nil
-        // when not found, returns nil
-        // when found, returns network
+    func test_exists() {
+        XCTAssertFalse(try Network.exists(1))
+        _ = try? makeNetwork(id: 1)
+
+        XCTAssertFalse(try Network.exists(2))
+        XCTAssertFalse(try Network.exists(1))
+    }
+
+    func test_by() {
+        var network = Network.by(1)
+        XCTAssertNil(network)
+        _ = try? makeNetwork(id: 1)
+
+        network = Network.by(2)
+        XCTAssertNil(network)
+
+        network = Network.by(1)
+        XCTAssertNotNil(network)
+    }
 
     // MARK: create(params)
 
@@ -68,48 +85,95 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertThrowsError(try makeNetwork(id: 1))
     }
 
-    // update(from networkInfo)
-        // when different chain id then throws
-        // when set the params, then updates with appropriate params
-        // when no theme exists, creates it
-        // when no native currency attached, creates it
+    func test_update() {
+        let network = Network.mainnetChain()
 
-    // createOrUpdate(info)
-        // when no such network id, then creates it
-        // when exists with network id, then overwrites it
+        var networkInfo = makeTestNetworkInfo(id: Int(network.chainId) + 1)
+        network.update(from: networkInfo)
 
-    // create(scg network)
-        // when created, then creates with parameters
+        networkInfo = makeTestNetworkInfo(id: Int(network.chainId))
+        network.update(from: networkInfo)
 
-    // updateIfExist(scg network)
-        // when not exists, then nothing happens (existing is the same, no new added)
-        // when same id, then overwrites it
+        XCTAssertEqual(network.id, networkInfo.chainId)
+        XCTAssertEqual(network.chainName, networkInfo.chainName)
+        XCTAssertEqual(network.rpcUrl, networkInfo.rpcUrl)
+        XCTAssertEqual(network.blockExplorerUrl, networkInfo.blockExplorerUrl)
+        XCTAssertEqual(network.nativeCurrency?.name, networkInfo.nativeCurrency.name)
+        XCTAssertEqual(network.nativeCurrency?.symbol, networkInfo.nativeCurrency.symbol)
+        XCTAssertEqual(network.nativeCurrency?.decimals, Int32(networkInfo.nativeCurrency.decimals))
+        XCTAssertEqual(network.theme?.textColor, networkInfo.theme.textColor)
+        XCTAssertEqual(network.theme?.backgroundColor, networkInfo.theme.backgroundColor)
+    }
 
-    // remove(network)
-        // when removes then removed
-        // when removes, then removes all safes in the network
+    func test_createOrUpdate() {
+        let mainNetworkInfo = makeMainnetInfo()
+        var mainNetwork = Network.createOrUpdate(mainNetworkInfo)
+        XCTAssertEqual(Network.count, 1)
 
-    //func test_removingNetworkDeletesSafe() throws {
-    //        let mainnet = Network.mainnetChain()
-    //        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: mainnet, selected: false)
-    //        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: mainnet)
-    //        var result = try context.fetch(Safe.fetchRequest().all())
-    //        XCTAssertEqual(result.count, 2)
-    //        try Network.removeAll()
-    //        result = try context.fetch(Safe.fetchRequest().all())
-    //        XCTAssertEqual(result.count, 0)
-    //    }
+        let testNetworkInfo = makeTestNetworkInfo(id: mainNetworkInfo.chainId)
+        mainNetwork = Network.createOrUpdate(testNetworkInfo)
 
-    // removeAll()
-        // when empty then ok
-        // when some, then removes all
+        XCTAssertEqual(mainNetwork.id, testNetworkInfo.chainId)
+        XCTAssertEqual(mainNetwork.chainName, testNetworkInfo.chainName)
+        XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUrl)
+        XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUrl)
+        XCTAssertEqual(mainNetwork.nativeCurrency?.name, testNetworkInfo.nativeCurrency.name)
+        XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testNetworkInfo.nativeCurrency.symbol)
+        XCTAssertEqual(mainNetwork.nativeCurrency?.decimals, Int32(testNetworkInfo.nativeCurrency.decimals))
+        XCTAssertEqual(mainNetwork.theme?.textColor, testNetworkInfo.theme.textColor)
+        XCTAssertEqual(mainNetwork.theme?.backgroundColor, testNetworkInfo.theme.backgroundColor)
+    }
 
-    // mainnetChain()
-        // when not found by chain, then creates new one
-        // when existing, then returns it.
+    func test_create() {
+        let networkInfo = makeMainnetInfo()
+        let network = try? Network.create(networkInfo)
+        XCTAssertNotNil(network)
+    }
 
-    // authenticatedRpcUrl
-        // given the rpcURL, adds the path parameter
+    func test_updateIfExist() {
+        var testInfo = makeMainnetInfo()
+        Network.updateIfExist(testInfo)
+        XCTAssertEqual(Network.count, 0)
+
+        testInfo = makeTestNetworkInfo(id: testInfo.chainId)
+        let mainNetwork = Network.mainnetChain()
+        Network.updateIfExist(testInfo)
+
+        XCTAssertEqual(mainNetwork.id, testInfo.chainId)
+        XCTAssertEqual(mainNetwork.chainName, testInfo.chainName)
+        XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUrl)
+        XCTAssertEqual(mainNetwork.blockExplorerUrl, testInfo.blockExplorerUrl)
+        XCTAssertEqual(mainNetwork.nativeCurrency?.name, testInfo.nativeCurrency.name)
+        XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testInfo.nativeCurrency.symbol)
+        XCTAssertEqual(mainNetwork.nativeCurrency?.decimals, Int32(testInfo.nativeCurrency.decimals))
+        XCTAssertEqual(mainNetwork.theme?.textColor, testInfo.theme.textColor)
+        XCTAssertEqual(mainNetwork.theme?.backgroundColor, testInfo.theme.backgroundColor)
+    }
+
+    func test_removingNetworkDeletesSafe() throws {
+        let mainnet = Network.mainnetChain()
+        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: mainnet, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: mainnet)
+        XCTAssertEqual(Safe.all.count, 2)
+        Network.remove(network: mainnet)
+        XCTAssertEqual(Safe.all.count, 0)
+    }
+
+    func test_removeAll() {
+        Network.removeAll()
+        _ = try? makeNetwork(id: 1)
+        _ = try? makeNetwork(id: 2)
+        _ = try? makeNetwork(id: 3)
+
+        Network.removeAll()
+        XCTAssertEqual(Network.all.count, 0)
+    }
+
+    func test_mainnetChain() {
+        XCTAssertNil(Network.by(Network.ChainID.ethereumMainnet))
+        _ = Network.mainnetChain()
+        XCTAssertNotNil(Network.by(Network.ChainID.ethereumMainnet))
+    }
 
     // MARK: Utility
 
@@ -125,7 +189,48 @@ class NetworkTests: CoreDataTestCase {
             themeTextColor: "#ffffff",
             themeBackgroundColor: "#000000")
     }
+
+    func makeNetworkInfo(id: Int,
+                         chainName: String,
+                         rpcUrl: URL,
+                         blockExplorerUrl: URL,
+                         currencyName: String,
+                         currencySymbl: String,
+                         currencyDecimals: Int,
+                         themeTextColor: String,
+                         themeBackgroundColor: String) -> SCGModels.Network {
+        SCGModels.Network(chainId: id, chainName: chainName,
+                          rpcUrl: rpcUrl,
+                          blockExplorerUrl: blockExplorerUrl,
+                          nativeCurrency: SCGModels.Currency(name: currencyName,
+                                                             symbol: currencySymbl,
+                                                             decimals: currencyDecimals),
+                          theme: SCGModels.Theme(textColor: themeTextColor,
+                                                 backgroundColor: themeBackgroundColor))
+    }
+
+    func makeMainnetInfo() -> SCGModels.Network {
+        makeNetworkInfo(id: 1,
+                        chainName: "Mainnet",
+                        rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!.appendingPathComponent(App.configuration.services.infuraKey),
+                        blockExplorerUrl: URL(string: "https://etherscan.io/")!,
+                        currencyName: "Ether",
+                        currencySymbl: "ETH",
+                        currencyDecimals: 18,
+                        themeTextColor: "#001428",
+                        themeBackgroundColor: "#E8E7E6")
+
+    }
+
+    func makeTestNetworkInfo(id: Int) -> SCGModels.Network {
+        makeNetworkInfo(id: id,
+                        chainName: "Test",
+                        rpcUrl: URL(string: "https://rpc.com/")!,
+                        blockExplorerUrl: URL(string: "https://block.com/")!,
+                        currencyName: "Currency",
+                        currencySymbl: "CRY",
+                        currencyDecimals: 18,
+                        themeTextColor: "#ffffff",
+                        themeBackgroundColor: "#000000")
+    }
 }
-
-// when created a safe, then the count of safes = 1, count of chain = 1, token, theme = 1
-

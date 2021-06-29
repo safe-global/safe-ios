@@ -110,7 +110,7 @@ extension Network {
         App.shared.coreDataStack.saveContext()
     }
 
-    static func removeAll() throws {
+    static func removeAll() {
         for network in all {
             remove(network: network)
         }
