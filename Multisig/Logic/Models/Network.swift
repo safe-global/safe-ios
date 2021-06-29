@@ -44,7 +44,7 @@ extension Network {
         guard let chain = Network.by(networkInfo.chainId) else {
             return try! Network.create(networkInfo)
         }
-        chain.update(from: networkInfo)
+        try! chain.update(from: networkInfo)
         return chain
     }
 
@@ -100,7 +100,7 @@ extension Network {
 
     static func updateIfExist(_ networkInfo: SCGModels.Network) {
         guard let network = Network.by(networkInfo.chainId) else { return }
-        network.update(from: networkInfo)
+        try! network.update(from: networkInfo)
     }
 
     static func remove(network: Network) {
@@ -122,10 +122,9 @@ extension Network {
         Int(chainId)
     }
 
-    func update(from networkInfo: SCGModels.Network) {
+    func update(from networkInfo: SCGModels.Network) throws {
         guard chainId == networkInfo.chainId else {
-            assertionFailure("Trying to update a network with different chain id: \(chainId) != \(networkInfo.chainId)")
-            return
+            throw GSError.NetworkIdMismatch()
         }
 
         chainName =  networkInfo.chainName

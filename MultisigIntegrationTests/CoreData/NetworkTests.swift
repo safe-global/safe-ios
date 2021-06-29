@@ -89,10 +89,10 @@ class NetworkTests: CoreDataTestCase {
         let network = Network.mainnetChain()
 
         var networkInfo = makeTestNetworkInfo(id: Int(network.chainId) + 1)
-        network.update(from: networkInfo)
-
+        XCTAssertThrowsError(try network.update(from: networkInfo))
+        
         networkInfo = makeTestNetworkInfo(id: Int(network.chainId))
-        network.update(from: networkInfo)
+        try? network.update(from: networkInfo)
 
         XCTAssertEqual(network.id, networkInfo.chainId)
         XCTAssertEqual(network.chainName, networkInfo.chainName)
