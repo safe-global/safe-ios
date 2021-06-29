@@ -46,7 +46,7 @@ class NetworkTests: CoreDataTestCase {
         _ = try? makeNetwork(id: 1)
 
         XCTAssertFalse(try Network.exists(2))
-        XCTAssertFalse(try Network.exists(1))
+        XCTAssertTrue(try Network.exists(1))
     }
 
     func test_by() {
