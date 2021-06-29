@@ -125,6 +125,40 @@ class NetworkTests: CoreDataTestCase {
             themeTextColor: "#ffffff",
             themeBackgroundColor: "#000000")
     }
+
+    func test_networkSafes() throws {
+        let network1 = try makeNetwork(id: 1)
+        let network3 = try makeNetwork(id: 3)
+        let network2 = try makeNetwork(id: 2)
+
+        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "00", network: network1, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "01", network: network1, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000011", name: "11", network: network3, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000010", name: "10", network: network3, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000020", name: "20", network: network2, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000021", name: "21", network: network2, selected: true)
+        Safe.create(address: "0x0000000000000000000000000000000000000022", name: "22", network: network2, selected: false)
+
+        let networkSafes = Network.networkSafes()
+
+        XCTAssertEqual(networkSafes.count, 3)
+
+        XCTAssertEqual(networkSafes[0].network, network2)
+        XCTAssertEqual(networkSafes[0].safes.count, 3)
+        XCTAssertEqual(networkSafes[0].safes[0].name, "21")
+        XCTAssertEqual(networkSafes[0].safes[1].name, "20")
+        XCTAssertEqual(networkSafes[0].safes[2].name, "22")
+
+        XCTAssertEqual(networkSafes[1].network, network1)
+        XCTAssertEqual(networkSafes[1].safes.count, 2)
+        XCTAssertEqual(networkSafes[1].safes[0].name, "00")
+        XCTAssertEqual(networkSafes[1].safes[1].name, "01")
+
+        XCTAssertEqual(networkSafes[2].network, network3)
+        XCTAssertEqual(networkSafes[2].safes.count, 2)
+        XCTAssertEqual(networkSafes[2].safes[0].name, "11")
+        XCTAssertEqual(networkSafes[2].safes[1].name, "10")
+    }
 }
 
 // when created a safe, then the count of safes = 1, count of chain = 1, token, theme = 1
