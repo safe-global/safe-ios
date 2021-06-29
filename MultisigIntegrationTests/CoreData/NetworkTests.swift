@@ -212,7 +212,7 @@ class NetworkTests: CoreDataTestCase {
     func makeMainnetInfo() -> SCGModels.Network {
         makeNetworkInfo(id: 1,
                         chainName: "Mainnet",
-                        rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!.appendingPathComponent(App.configuration.services.infuraKey),
+                        rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!,
                         blockExplorerUrl: URL(string: "https://etherscan.io/")!,
                         currencyName: "Ether",
                         currencySymbl: "ETH",
