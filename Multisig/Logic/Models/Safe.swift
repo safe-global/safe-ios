@@ -190,7 +190,7 @@ extension Safe: Identifiable {
     }
 
     static func removeAll() throws {
-        try Network.removeAll()
+        Network.removeAll()
     }
 }
 

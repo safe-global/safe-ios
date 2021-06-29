@@ -85,18 +85,25 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertThrowsError(try makeNetwork(id: 1))
     }
 
-    func test_update() {
+    func test_update() throws {
         let network = Network.mainnetChain()
 
+        // updating with different chain id
         var networkInfo = makeTestNetworkInfo(id: Int(network.chainId) + 1)
-        XCTAssertThrowsError(try network.update(from: networkInfo))
-        
+        XCTAssertThrowsError(
+            try network.update(from: networkInfo)
+        )
+
         networkInfo = makeTestNetworkInfo(id: Int(network.chainId))
-        try? network.update(from: networkInfo)
+
+        // updating with same chain id
+        XCTAssertNoThrow(
+            try network.update(from: networkInfo)
+        )
 
         XCTAssertEqual(network.id, networkInfo.chainId)
         XCTAssertEqual(network.chainName, networkInfo.chainName)
-        XCTAssertEqual(network.rpcUrl, networkInfo.rpcUrl)
+        XCTAssertEqual(network.rpcUrl, networkInfo.authenticatedRpcUrl)
         XCTAssertEqual(network.blockExplorerUrl, networkInfo.blockExplorerUrl)
         XCTAssertEqual(network.nativeCurrency?.name, networkInfo.nativeCurrency.name)
         XCTAssertEqual(network.nativeCurrency?.symbol, networkInfo.nativeCurrency.symbol)
@@ -115,7 +122,7 @@ class NetworkTests: CoreDataTestCase {
 
         XCTAssertEqual(mainNetwork.id, testNetworkInfo.chainId)
         XCTAssertEqual(mainNetwork.chainName, testNetworkInfo.chainName)
-        XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUrl)
+        XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.authenticatedRpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUrl)
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testNetworkInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testNetworkInfo.nativeCurrency.symbol)
@@ -141,7 +148,7 @@ class NetworkTests: CoreDataTestCase {
 
         XCTAssertEqual(mainNetwork.id, testInfo.chainId)
         XCTAssertEqual(mainNetwork.chainName, testInfo.chainName)
-        XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUrl)
+        XCTAssertEqual(mainNetwork.rpcUrl, testInfo.authenticatedRpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testInfo.blockExplorerUrl)
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testInfo.nativeCurrency.symbol)
