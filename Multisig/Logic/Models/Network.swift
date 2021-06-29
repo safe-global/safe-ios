@@ -42,8 +42,10 @@ extension Network {
 
     static func createOrUpdate(_ networkInfo: SCGModels.Network) -> Network {
         guard let chain = Network.by(networkInfo.chainId) else {
+            // should not fail, otherwise programmer error
             return try! Network.create(networkInfo)
         }
+        // can't fail because chain id is correct
         try! chain.update(from: networkInfo)
         return chain
     }
