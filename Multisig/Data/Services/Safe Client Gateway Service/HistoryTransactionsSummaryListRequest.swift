@@ -26,18 +26,24 @@ struct HistoryTransactionsSummaryListRequest: JSONRequest {
 }
 
 extension HistoryTransactionsSummaryListRequest {
-    init(_ address: Address, chainId: Int) {
-        safeAddress = address.checksummed
-        self.chainId = chainId
+    init(_ safe: Safe) {
+        self.init(safeAddress: (try! Address(from: safe.address!)).checksummed,
+                  chainId: safe.network!.id)
     }
 }
 
 extension SafeClientGatewayService {
-    func asyncHistoryTransactionsSummaryList(address: Address, completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: HistoryTransactionsSummaryListRequest(address, chainId: chainId), completion: completion)
+    func asyncHistoryTransactionsSummaryList(
+        safe: Safe,
+        completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
+
+        asyncExecute(request: HistoryTransactionsSummaryListRequest(safe), completion: completion)
     }
 
-    func asyncHistoryTransactionsSummaryList(pageUri: String, completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+    func asyncHistoryTransactionsSummaryList(
+        pageUri: String,
+        completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+
         asyncExecute(request: try PagedRequest<SCGModels.TransactionSummaryItem>(pageUri), completion: completion)
     }
 }

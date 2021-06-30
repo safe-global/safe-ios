@@ -115,7 +115,7 @@ final class HeaderViewController: ContainerViewController {
         currentDataTask?.cancel()
         do {
             guard let safe = try Safe.getSelected() else { return }
-            currentDataTask = clientGatewayService.asyncSafeInfo(address: safe.addressValue) { [weak self] result in
+            currentDataTask = clientGatewayService.asyncSafeInfo(safe: safe) { [weak self] result in
                 DispatchQueue.main.async { [weak self] in
                     switch result {
                     case .failure(let error):

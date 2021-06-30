@@ -32,8 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         App.shared.auth.migrateFromPasscodeV1()
         App.shared.auth.migrateUsePasscodeForExportingKey()
 
-        App.shared.bindNetworkInfo()
-
         // The requirement is to set num_safes property to "0" when there are no Safes
         Tracker.shared.setSafeCount(Safe.count)
         Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)

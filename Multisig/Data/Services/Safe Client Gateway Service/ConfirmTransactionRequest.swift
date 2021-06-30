@@ -23,7 +23,13 @@ struct ConfirmTransactionRequest: JSONRequest {
 }
 
 extension SafeClientGatewayService {
-    func asyncConfirm(safeTxHash: String, with signature: String, completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: ConfirmTransactionRequest(safeTxHash: safeTxHash, signedSafeTxHash: signature, chainId: chainId), completion: completion)
+    func asyncConfirm(safeTxHash: String,
+                      signature: String,
+                      chainId: Int,
+                      completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: ConfirmTransactionRequest(safeTxHash: safeTxHash,
+                                                        signedSafeTxHash: signature,
+                                                        chainId: chainId),
+                     completion: completion)
     }
 }

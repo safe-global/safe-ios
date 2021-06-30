@@ -95,9 +95,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         currentDataTask?.cancel()
         do {
             let safe = try Safe.getSelected()!
-            let address = try Address(from: safe.address!)
-
-            currentDataTask = clientGatewayService.asyncBalances(address: address) { [weak self] result in
+            currentDataTask = clientGatewayService.asyncBalances(safe: safe) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):

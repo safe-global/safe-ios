@@ -51,23 +51,5 @@ class App {
 
     let firebaseConfig = FirebaseConfig()
 
-    private init() {
-        let updateNotifications: [NSNotification.Name] = [
-            .selectedSafeChanged, .selectedSafeUpdated, .networkInfoChanged
-        ]
-
-        for name in updateNotifications {
-            NotificationCenter.default.addObserver(self,
-                                           selector: #selector(bindNetworkInfo),
-                                           name: name,
-                                           object: nil)
-        }
-    }
-
-    @objc func bindNetworkInfo() {
-        if let network = try? Safe.getSelected()?.network {
-            clientGatewayService.bindNetwork(Int(network.chainId))
-            nodeService.bindNetwork(url: network.authenticatedRpcUrl)
-        }
-    }
+    private init() { }
 }

@@ -49,7 +49,8 @@ class WCRequestsHandler: RequestHandler {
             guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
                   let requestId = request.id,
                   let transaction = Transaction(wcRequest: wcRequest),
-                  let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(address: transaction.safe!.address),
+                  let safe = Safe.by(address: transaction.safe!.address.checksummed),
+                  let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(safe: safe),
                   let importedKeysAddresses = try? KeyInfo.all().map({ $0.address })
             else {
                 server.send(try! Response(request: request, error: .requestRejected))
@@ -73,6 +74,7 @@ class WCRequestsHandler: RequestHandler {
             DispatchQueue.main.async { [unowned self] in
                 let confirmationController = WCTransactionConfirmationViewController(
                     transaction: transaction,
+                    safe: safe,
                     minimalNonce: safeInfo.nonce,
                     topic: request.url.topic,
                     importedKeysForSafe: [Address](importedKeysForSafe))
@@ -99,7 +101,9 @@ class WCRequestsHandler: RequestHandler {
             }
         } else {
             do {
-                let result = try App.shared.nodeService.rawCall(payload: request.jsonString)
+                #warning("Make sure if this always works @Andrey")
+                let rpcURL = try! Safe.getSelected()!.network!.authenticatedRpcUrl
+                let result = try App.shared.nodeService.rawCall(payload: request.jsonString, rpcURL: rpcURL)
                 let response = try Response(url: request.url, jsonString: result)
                 self.server.send(response)
             } catch {

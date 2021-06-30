@@ -9,7 +9,7 @@
 import Foundation
 
 struct SafeInfoRequest: JSONRequest {
-    var safeAddress: String
+    let safeAddress: String
     let chainId: Int
     
     var httpMethod: String { "GET" }
@@ -19,17 +19,29 @@ struct SafeInfoRequest: JSONRequest {
 }
 
 extension SafeInfoRequest {
+    init(_ safe: Safe) {
+        self.init(safeAddress: (try! Address(from: safe.address!)).checksummed,
+                  chainId: safe.network!.id)
+    }
+
     init(_ address: Address, chainId: Int) {
         self.init(safeAddress: address.checksummed, chainId: chainId)
     }
 }
 
 extension SafeClientGatewayService {
-    func syncSafeInfo(address: Address) throws -> SCGModels.SafeInfoExtended {
-        try execute(request: SafeInfoRequest(address, chainId: chainId))
+    func syncSafeInfo(safe: Safe) throws -> SCGModels.SafeInfoExtended {
+        try execute(request: SafeInfoRequest(safe))
     }
 
-    func asyncSafeInfo(address: Address, completion: @escaping (Result<SCGModels.SafeInfoExtended, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: SafeInfoRequest(address, chainId: chainId), completion: completion)
+    func asyncSafeInfo(safe: Safe,
+                       completion: @escaping (Result<SCGModels.SafeInfoExtended, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: SafeInfoRequest(safe), completion: completion)
+    }
+
+    func asyncSafeInfo(safeAddress: Address,
+                       chainId: Int,
+                       completion: @escaping (Result<SCGModels.SafeInfoExtended, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: SafeInfoRequest(safeAddress, chainId: chainId), completion: completion)
     }
 }

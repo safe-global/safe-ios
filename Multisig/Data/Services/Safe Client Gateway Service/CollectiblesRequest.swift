@@ -19,19 +19,15 @@ struct CollectiblesRequest: JSONRequest {
 }
 
 extension CollectiblesRequest {
-    init(address: Address, chainId: Int) {
-        self.address = address.checksummed
-        self.chainId = chainId
+    init(_ safe: Safe) {
+        self.init(address: (try! Address(from: safe.address!)).checksummed,
+                  chainId: safe.network!.id)
     }
 }
 
 extension SafeClientGatewayService {
-    func collectibles(at address: Address) throws -> [Collectible] {
-        try execute(request: CollectiblesRequest(address: address, chainId: chainId))
-    }
-
-    func asyncCollectibles(at address: Address,
+    func asyncCollectibles(safe: Safe,
                            completion: @escaping (Result<[Collectible], Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: CollectiblesRequest(address: address, chainId: chainId), completion: completion)
+        asyncExecute(request: CollectiblesRequest(safe), completion: completion)
     }
 }

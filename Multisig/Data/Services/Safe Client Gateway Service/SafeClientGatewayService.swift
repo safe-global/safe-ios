@@ -10,7 +10,6 @@ import Foundation
 
 class SafeClientGatewayService {
     var url: URL
-    var chainId: Int = Network.ChainID.ethereumMainnet
     private let httpClient: JSONHTTPClient
 
     var jsonDecoder: JSONDecoder {
@@ -21,10 +20,6 @@ class SafeClientGatewayService {
         self.url = url
         httpClient = JSONHTTPClient(url: url, logger: logger)
         httpClient.jsonDecoder.dateDecodingStrategy = .millisecondsSince1970
-    }
-
-    func bindNetwork(_ chainId: Int) {
-        self.chainId = chainId
     }
 
     @discardableResult

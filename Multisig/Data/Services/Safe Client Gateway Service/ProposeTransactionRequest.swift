@@ -63,6 +63,7 @@ extension SafeClientGatewayService {
         transaction: Transaction,
         sender: AddressString,
         signature: String,
+        chainId: Int,
         completion: @escaping (Result<ProposeTransactionRequest.EmptyResponse, Error>) -> Void) -> URLSessionTask? {
 
         return asyncExecute(request: ProposeTransactionRequest(safe: transaction.safe!,
@@ -73,7 +74,7 @@ extension SafeClientGatewayService {
                             completion: completion)
     }
 
-    func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String) throws {
+    func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String, chainId: Int) throws {
         let request = ProposeTransactionRequest(safe: transaction.safe!,
                                                 sender: sender,
                                                 signature: signature,

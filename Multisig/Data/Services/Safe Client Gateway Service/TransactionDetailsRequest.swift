@@ -25,11 +25,20 @@ extension TransactionDetailsRequest {
 }
 
 extension SafeClientGatewayService {
-    func asyncTransactionDetails(id: String, completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+    func asyncTransactionDetails(
+        id: String,
+        chainId: Int,
+        completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+
         asyncExecute(request: TransactionDetailsRequest(id: id, chainId: chainId), completion: completion)
     }
 
-    func asyncTransactionDetails(safeTxHash: Data, completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: TransactionDetailsRequest(safeTxHash: safeTxHash, chainId: chainId), completion: completion)
+    func asyncTransactionDetails(
+        safeTxHash: Data,
+        chainId: Int,
+        completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+
+        asyncExecute(request: TransactionDetailsRequest(safeTxHash: safeTxHash, chainId: chainId),
+                     completion: completion)
     }
 }

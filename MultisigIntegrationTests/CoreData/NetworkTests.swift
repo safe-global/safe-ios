@@ -122,7 +122,7 @@ class NetworkTests: CoreDataTestCase {
 
         XCTAssertEqual(mainNetwork.id, testNetworkInfo.chainId)
         XCTAssertEqual(mainNetwork.chainName, testNetworkInfo.chainName)
-        XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.authenticatedRpcUrl)
+        XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUrl)
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testNetworkInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testNetworkInfo.nativeCurrency.symbol)
@@ -206,7 +206,8 @@ class NetworkTests: CoreDataTestCase {
                          currencyDecimals: Int,
                          themeTextColor: String,
                          themeBackgroundColor: String) -> SCGModels.Network {
-        SCGModels.Network(chainId: id, chainName: chainName,
+        SCGModels.Network(chainId: id,
+                          chainName: chainName,
                           rpcUrl: rpcUrl,
                           blockExplorerUrl: blockExplorerUrl,
                           nativeCurrency: SCGModels.Currency(name: currencyName,

@@ -252,31 +252,28 @@ class RemoteNotificationHandler {
     private func showDetails(_ userInfo: [AnyHashable : Any]) {
         UIApplication.shared.applicationIconBadgeNumber = 0
         let payload = NotificationPayload(userInfo: userInfo)
-        do {
-            guard let rawAddress = payload.address,
-                let safeAddress = Address(rawAddress) else { return }
+        
+        guard let rawAddress = payload.address,
+            let safeAddress = Address(rawAddress) else { return }
 
-            guard try Safe.exists(safeAddress.checksummed) else {
-                unregister(address: safeAddress)
-                return
-            }
+        guard Safe.exists(safeAddress.checksummed) else {
+            unregister(address: safeAddress)
+            return
+        }
 
-            Safe.select(address: rawAddress)
+        Safe.select(address: rawAddress)
 
-            if let safeTxHash = payload.safeTxHash,
-               let hashData = Data(exactlyHex: safeTxHash) {
+        if let safeTxHash = payload.safeTxHash,
+           let hashData = Data(exactlyHex: safeTxHash) {
 
-                transactionDetailsPayload = hashData
+            transactionDetailsPayload = hashData
 
-                NotificationCenter.default.post(name: .confirmationTxNotificationReceived, object: nil)
+            NotificationCenter.default.post(name: .confirmationTxNotificationReceived, object: nil)
 
-            } else if ["INCOMING_ETHER", "INCOMING_TOKEN"].contains(payload.type) {
-                NotificationCenter.default.post(name: .incommingTxNotificationReceived, object: nil)
-            } else if ["EXECUTED_MULTISIG_TRANSACTION", "NEW_CONFIRMATION", "CONFIRMATION_REQUEST"].contains(payload.type) {
-                NotificationCenter.default.post(name: .queuedTxNotificationReceived, object: nil)
-            }
-        } catch {
-            logError("Error during opening notification", error)
+        } else if ["INCOMING_ETHER", "INCOMING_TOKEN"].contains(payload.type) {
+            NotificationCenter.default.post(name: .incommingTxNotificationReceived, object: nil)
+        } else if ["EXECUTED_MULTISIG_TRANSACTION", "NEW_CONFIRMATION", "CONFIRMATION_REQUEST"].contains(payload.type) {
+            NotificationCenter.default.post(name: .queuedTxNotificationReceived, object: nil)
         }
     }
  }

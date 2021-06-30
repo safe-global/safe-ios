@@ -26,18 +26,24 @@ struct QueuedTransactionsSummaryListRequest: JSONRequest {
 }
 
 extension QueuedTransactionsSummaryListRequest {
-    init(_ address: Address, chainId: Int) {
-        safeAddress = address.checksummed
-        self.chainId = chainId
+    init(_ safe: Safe) {
+        self.init(safeAddress: (try! Address(from: safe.address!)).checksummed,
+                  chainId: safe.network!.id)
     }
 }
 
 extension SafeClientGatewayService {
-    func asyncQueuedTransactionsSummaryList(address: Address, completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: QueuedTransactionsSummaryListRequest(address, chainId: chainId), completion: completion)
+    func asyncQueuedTransactionsSummaryList(
+        safe: Safe,
+        completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
+
+        asyncExecute(request: QueuedTransactionsSummaryListRequest(safe), completion: completion)
     }
 
-    func asyncQueuedTransactionsSummaryList(pageUri: String, completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+    func asyncQueuedTransactionsSummaryList(
+        pageUri: String,
+        completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+
         asyncExecute(request: try PagedRequest<SCGModels.TransactionSummaryItem>(pageUri), completion: completion)
     }
 }

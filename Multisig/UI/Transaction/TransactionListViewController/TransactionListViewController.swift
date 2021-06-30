@@ -24,6 +24,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     internal var dateFormatter: DateFormatter! = DateFormatter()
 
     internal var timeFormatter: DateFormatter! = DateFormatter()
+    internal var safe: Safe!
 
     override var isEmpty: Bool {
         model.isEmpty
@@ -31,6 +32,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
     convenience init() {
         self.init(namedClass: LoadableViewController.self)
+        safe = try! Safe.getSelected()!
     }
 
     override func viewDidLoad() {
@@ -78,41 +80,35 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         loadNextPageDataTask?.cancel()
         pageLoadingState = .idle
 
-        do {
-            let address = try Address(from: try Safe.getSelected()!.address!)
-
-            loadFirstPageDataTask = asyncTransactionList(address: address) { [weak self] result in
-                guard let `self` = self else { return }
-                switch result {
-                case .failure(let error):
-                    DispatchQueue.main.async { [weak self] in
-                        guard let `self` = self else { return }
-                        // ignore cancellation error due to cancelling the
-                        // currently running task. Otherwise user will see
-                        // meaningless message.
-                        if (error as NSError).code == URLError.cancelled.rawValue &&
-                            (error as NSError).domain == NSURLErrorDomain {
-                            return
-                        }
-                        self.onError(GSError.error(description: "Failed to load transactions", error: error))
+        loadFirstPageDataTask = asyncTransactionList { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    // ignore cancellation error due to cancelling the
+                    // currently running task. Otherwise user will see
+                    // meaningless message.
+                    if (error as NSError).code == URLError.cancelled.rawValue &&
+                        (error as NSError).domain == NSURLErrorDomain {
+                        return
                     }
-                case .success(let page):
-                    var model = FlatTransactionsListViewModel(page.results)
-                    model.next = page.next
+                    self.onError(GSError.error(description: "Failed to load transactions", error: error))
+                }
+            case .success(let page):
+                var model = FlatTransactionsListViewModel(page.results)
+                model.next = page.next
 
-                    DispatchQueue.main.async { [weak self] in
-                        guard let `self` = self else { return }
-                        self.model = model
-                        self.onSuccess()
-                    }
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    self.model = model
+                    self.onSuccess()
                 }
             }
-        } catch {
-            onError(GSError.error(description: "Failed to load transactions", error: error))
         }
     }
 
-    func asyncTransactionList(address: Address, completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
+    func asyncTransactionList(completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
         // Should be overrided in subclass
         nil
     }

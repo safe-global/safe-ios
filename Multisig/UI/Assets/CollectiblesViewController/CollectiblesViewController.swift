@@ -50,9 +50,9 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         super.reloadData()
         currentDataTask?.cancel()
         do {
-            let address = try Address(from: try Safe.getSelected()!.address!)
+            let safe = try! Safe.getSelected()!
 
-            currentDataTask = clientGatewayService.asyncCollectibles(at: address) { [weak self] result in
+            currentDataTask = clientGatewayService.asyncCollectibles(safe: safe) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):

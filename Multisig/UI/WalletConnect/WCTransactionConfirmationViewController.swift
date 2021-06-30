@@ -24,6 +24,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     var onSubmit: (() -> Void)?
 
     private var transaction: Transaction!
+    private var safe: Safe!
     private var minimalNonce: UInt256String!
     private var session: Session!
     private var importedKeysForSafe: [Address]!
@@ -100,8 +101,10 @@ class WCTransactionConfirmationViewController: UIViewController {
 
     private func sendConfirmationAndDismiss(keyInfo: KeyInfo, signature: String) {
         do {
-            try App.shared.clientGatewayService.proposeTransaction(
-                transaction: transaction, sender: AddressString(keyInfo.address), signature: signature)
+            try App.shared.clientGatewayService.proposeTransaction(transaction: transaction,
+                                                                   sender: AddressString(keyInfo.address),
+                                                                   signature: signature,
+                                                                   chainId: safe.network!.id)
 
             DispatchQueue.main.async { [weak self] in
                 // dismiss WCTransactionConfirmationViewController
@@ -119,11 +122,13 @@ class WCTransactionConfirmationViewController: UIViewController {
     }
 
     convenience init(transaction: Transaction,
+                     safe: Safe,
                      minimalNonce: UInt256String,
                      topic: String,
                      importedKeysForSafe: [Address]) {
         self.init()
         self.transaction = transaction
+        self.safe = safe
         self.minimalNonce = minimalNonce
         self.session = try! Session.from(WCSession.get(topic: topic)!)
         self.importedKeysForSafe = importedKeysForSafe
