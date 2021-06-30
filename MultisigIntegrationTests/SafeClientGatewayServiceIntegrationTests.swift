@@ -140,7 +140,7 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         var result: Result<SCGModels.TransactionDetails, Error>?
         let semaphore = DispatchSemaphore(value: 0)
 
-        _ = service.asyncTransactionDetails(safeTxHash: hash, chainId: networkId) { _result in
+        _ = service.asyncTransactionDetails(safeTxHash: hash, networkId: networkId) { _result in
             result = _result
             semaphore.signal()
         }
@@ -153,7 +153,7 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         var result: Result<SCGModels.TransactionDetails, Error>?
         let semaphore = DispatchSemaphore(value: 0)
 
-        _ = service.asyncTransactionDetails(id: id, chainId: networkId) { _result in
+        _ = service.asyncTransactionDetails(id: id, networkId: networkId) { _result in
             result = _result
             semaphore.signal()
         }

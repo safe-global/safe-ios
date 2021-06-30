@@ -104,7 +104,7 @@ class WCTransactionConfirmationViewController: UIViewController {
             try App.shared.clientGatewayService.proposeTransaction(transaction: transaction,
                                                                    sender: AddressString(keyInfo.address),
                                                                    signature: signature,
-                                                                   chainId: safe.network!.id)
+                                                                   networkId: safe.network!.id)
 
             DispatchQueue.main.async { [weak self] in
                 // dismiss WCTransactionConfirmationViewController

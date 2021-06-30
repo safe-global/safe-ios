@@ -53,7 +53,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
 
         let safe = try! Safe.getSelected()!
 
-        currentDataTask = clientGatewayService.asyncCollectibles(safe: safe) { [weak self] result in
+        currentDataTask = clientGatewayService.asyncCollectibles(safeAddress: safe.addressValue, networkId: safe.network!.id) { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .failure(let error):

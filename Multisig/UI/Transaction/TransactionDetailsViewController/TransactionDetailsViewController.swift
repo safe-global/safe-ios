@@ -294,7 +294,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private func confirmAndRefresh(safeTxHash: String, signature: String, keyType: KeyType) {
         confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash,
                                                                        signature: signature,
-                                                                       chainId: safe.network!.id) {
+                                                                       networkId: safe.network!.id) {
             [weak self] result in
 
             // NOTE: sometimes the data of the transaction list is not
@@ -379,13 +379,13 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         switch txSource {
         case .id(let txID):
-            reloadDataTask = clientGatewayService.asyncTransactionDetails(id: txID, chainId: safe.network!.id) {
+            reloadDataTask = clientGatewayService.asyncTransactionDetails(id: txID, networkId: safe.network!.id) {
                 [weak self] in
                 
                 self?.onLoadingCompleted(result: $0)
             }
         case .safeTxHash(let safeTxHash):
-            reloadDataTask = clientGatewayService.asyncTransactionDetails(safeTxHash: safeTxHash, chainId: safe.network!.id) { [weak self] in
+            reloadDataTask = clientGatewayService.asyncTransactionDetails(safeTxHash: safeTxHash, networkId: safe.network!.id) { [weak self] in
                 self?.onLoadingCompleted(result: $0)
             }
         case .data(let tx):

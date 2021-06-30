@@ -9,7 +9,6 @@
 import Foundation
 
 struct FiatCodesRequest: JSONRequest {
-
     var httpMethod: String { "GET" }
 
     var urlPath: String {
