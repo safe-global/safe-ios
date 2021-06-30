@@ -10,7 +10,7 @@ import Foundation
 
 class SafeClientGatewayService {
     var url: URL
-    var chainId: Int! = 1
+    var chainId: Int = Network.ChainID.ethereumMainnet
     private let httpClient: JSONHTTPClient
 
     var jsonDecoder: JSONDecoder {

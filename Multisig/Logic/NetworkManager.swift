@@ -18,7 +18,7 @@ class NetworkManager {
                         Network.updateIfExist(network)
                     }
                     NotificationCenter.default.post(name: .networkInfoChanged, object: nil)
-                case .failure(let error):
+                case .failure(_):
                     // Ignoring error because we'll try again in the next app start.
                     break
                 }
