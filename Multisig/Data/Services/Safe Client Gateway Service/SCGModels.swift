@@ -538,6 +538,28 @@ extension SCGModels {
         let blockExplorerUrl: URL
         let nativeCurrency: Currency
         let theme: Theme
+
+        enum CodingKeys: String, CodingKey {
+            case chainId
+            case chainName
+            case rpcUrl
+            case blockExplorerUrl
+            case nativeCurrency
+            case theme
+        }
+
+        init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            var string = try! values.decode(String.self, forKey: .chainId)
+            chainId = Int(string) ?? 0
+            chainName = try values.decode(String.self, forKey: .chainName)
+            string = try! values.decode(String.self, forKey: .rpcUrl)
+            rpcUrl = URL(string: string)!
+            string = try! values.decode(String.self, forKey: .blockExplorerUrl)
+            blockExplorerUrl = URL(string: string)!
+            nativeCurrency = try values.decode(Currency.self, forKey: .nativeCurrency)
+            theme = try values.decode(Theme.self, forKey: .theme)
+        }
     }
 
     struct Theme: Decodable {

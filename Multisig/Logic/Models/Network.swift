@@ -91,7 +91,7 @@ extension Network {
     static func create(_ networkInfo: SCGModels.Network) throws -> Network {
         try Network.create(chainId: networkInfo.chainId,
                      chainName: networkInfo.chainName,
-                     rpcUrl: networkInfo.authenticatedRpcUrl,
+                     rpcUrl: networkInfo.rpcUrl,
                      blockExplorerUrl: networkInfo.blockExplorerUrl,
                      currencyName: networkInfo.nativeCurrency.name,
                      currencySymbl: networkInfo.nativeCurrency.symbol,
@@ -130,7 +130,7 @@ extension Network {
         }
 
         chainName =  networkInfo.chainName
-        rpcUrl = networkInfo.authenticatedRpcUrl
+        rpcUrl = networkInfo.rpcUrl
         blockExplorerUrl = networkInfo.blockExplorerUrl
 
         theme?.textColor = networkInfo.theme.textColor
@@ -176,8 +176,8 @@ extension Network {
     }
 }
 
-extension SCGModels.Network {
+extension Network {
     var authenticatedRpcUrl: URL {
-        rpcUrl.appendingPathComponent(App.configuration.services.infuraKey)
+        rpcUrl!.appendingPathComponent(App.configuration.services.infuraKey)
     }
 }

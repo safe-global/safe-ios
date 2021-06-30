@@ -17,7 +17,7 @@ struct NetworkListRequest: JSONRequest {
         "/v1/chains"
     }
 
-    typealias ResponseType = [SCGModels.Network]
+    typealias ResponseType = Page<SCGModels.Network>
 }
 
 extension SafeClientGatewayService {

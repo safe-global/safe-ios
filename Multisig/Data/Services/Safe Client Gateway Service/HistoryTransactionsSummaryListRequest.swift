@@ -11,9 +11,11 @@ import Foundation
 struct HistoryTransactionsSummaryListRequest: JSONRequest {
     let safeAddress: String
     let timezoneOffset = TimeZone.currentOffest()
+    let chainId: Int
+
     var httpMethod: String { "GET" }
     var urlPath: String {
-        "/v1/safes/\(safeAddress)/transactions/history"
+        "/\(chainId)/v1/safes/\(safeAddress)/transactions/history"
     }
 
     var query: String? {
@@ -24,14 +26,15 @@ struct HistoryTransactionsSummaryListRequest: JSONRequest {
 }
 
 extension HistoryTransactionsSummaryListRequest {
-    init(_ address: Address) {
+    init(_ address: Address, chainId: Int) {
         safeAddress = address.checksummed
+        self.chainId = chainId
     }
 }
 
 extension SafeClientGatewayService {
     func asyncHistoryTransactionsSummaryList(address: Address, completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: HistoryTransactionsSummaryListRequest(address), completion: completion)
+        asyncExecute(request: HistoryTransactionsSummaryListRequest(address, chainId: chainId), completion: completion)
     }
 
     func asyncHistoryTransactionsSummaryList(pageUri: String, completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {

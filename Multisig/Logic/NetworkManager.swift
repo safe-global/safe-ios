@@ -13,12 +13,12 @@ class NetworkManager {
         App.shared.clientGatewayService.asyncNetworks { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let networks):
-                    for network in networks {
+                case .success(let data):
+                    for network in data.results {
                         Network.updateIfExist(network)
                     }
                     NotificationCenter.default.post(name: .networkInfoChanged, object: nil)
-                case .failure(_):
+                case .failure(let error):
                     // Ignoring error because we'll try again in the next app start.
                     break
                 }

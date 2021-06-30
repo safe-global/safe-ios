@@ -9,12 +9,12 @@
 import Foundation
 
 struct FiatCodesRequest: JSONRequest {
-    var httpMethod: String {
-        "GET"
-    }
+    let chainId: Int
+    
+    var httpMethod: String { "GET" }
 
     var urlPath: String {
-        "/v1/balances/supported-fiat-codes"
+        "/\(chainId)/v1/balances/supported-fiat-codes"
     }
 
     typealias ResponseType = [String]
@@ -22,6 +22,6 @@ struct FiatCodesRequest: JSONRequest {
 
 extension SafeClientGatewayService {
     func fiatCurrencies(completion: @escaping (Result<FiatCodesRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: FiatCodesRequest(), completion: completion)
+        asyncExecute(request: FiatCodesRequest(chainId: chainId), completion: completion)
     }
 }

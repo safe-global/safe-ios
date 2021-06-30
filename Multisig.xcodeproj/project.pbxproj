@@ -1190,10 +1190,10 @@
 				043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */,
 				0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */,
 				04D1306B25DD525A0032FA03 /* ProposeTransactionRequest.swift */,
-				0ABC898E2576B857005D555B /* SCGModels.swift */,
 				04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */,
 				04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */,
 				048D72BC26832FD70095999C /* NetworkListRequest.swift */,
+				0ABC898E2576B857005D555B /* SCGModels.swift */,
 			);
 			path = "Safe Client Gateway Service";
 			sourceTree = "<group>";

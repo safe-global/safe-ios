@@ -26,7 +26,7 @@ class QueuedTransactionsViewController: TransactionListViewController {
     }
     
     override func asyncTransactionList(address: Address, completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
-        clientGatewayService.asyncExecute(request: QueuedTransactionsSummaryListRequest(address), completion: completion)
+        clientGatewayService.asyncQueuedTransactionsSummaryList(address: address, completion: completion)
     }
 
     override func asyncTransactionList(pageUri: String, completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) throws -> URLSessionTask? {
