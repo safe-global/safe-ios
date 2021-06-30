@@ -23,6 +23,7 @@ final class SwitchSafesViewController: UITableViewController {
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         tableView.register(AddSafeTableViewCell.nib(), forCellReuseIdentifier: "AddSafe")
         tableView.register(SafeEntryTableViewCell.nib(), forCellReuseIdentifier: "SafeEntry")
+        tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         notificationCenter.addObserver(
             self, selector: #selector(reloadData), name: .selectedSafeChanged, object: nil)
@@ -41,6 +42,17 @@ final class SwitchSafesViewController: UITableViewController {
         networkSafes = Network.networkSafes()
         tableView.reloadData()
     }
+
+    @objc override func closeModal() {
+        // this will close this controller when the load safe modal is closed
+        presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+
+    @objc private func didTapCloseButton() {
+        dismiss(animated: true, completion: nil)
+    }
+
+    // MARK: - UITableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         networkSafes.count + 1 /* for Add Safe button */
@@ -67,6 +79,8 @@ final class SwitchSafesViewController: UITableViewController {
         return cell
     }
 
+    // MARK: - UITableViewDelegate
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         indexPath.section == addSafeSection ? 54 : 66
     }
@@ -88,12 +102,14 @@ final class SwitchSafesViewController: UITableViewController {
         }
     }
 
-    @objc override func closeModal() {
-        // this will close this controller when the load safe modal is closed
-        presentingViewController?.dismiss(animated: true, completion: nil)
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section != addSafeSection else { return nil }
+        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+        view.setName(networkSafes[section - 1].network.chainName!)
+        return view
     }
 
-    @objc private func didTapCloseButton() {
-        dismiss(animated: true, completion: nil)
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        section == addSafeSection ? 0 : BasicHeaderView.headerHeight
     }
 }
