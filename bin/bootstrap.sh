@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-set -e
+set -e +o pipefail
 
 echo "Installing git configuration"
 mkdir -p .git/hooks

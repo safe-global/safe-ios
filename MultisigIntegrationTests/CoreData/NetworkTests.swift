@@ -101,7 +101,7 @@ class NetworkTests: CoreDataTestCase {
             try network.update(from: networkInfo)
         )
 
-        XCTAssertEqual(network.id, networkInfo.chainId)
+        XCTAssertEqual(network.id, networkInfo.id)
         XCTAssertEqual(network.chainName, networkInfo.chainName)
         XCTAssertEqual(network.rpcUrl, networkInfo.rpcUrl)
         XCTAssertEqual(network.blockExplorerUrl, networkInfo.blockExplorerUrl)
@@ -117,10 +117,10 @@ class NetworkTests: CoreDataTestCase {
         var mainNetwork = Network.createOrUpdate(mainNetworkInfo)
         XCTAssertEqual(Network.count, 1)
 
-        let testNetworkInfo = makeTestNetworkInfo(id: mainNetworkInfo.chainId)
+        let testNetworkInfo = makeTestNetworkInfo(id: mainNetworkInfo.id)
         mainNetwork = Network.createOrUpdate(testNetworkInfo)
 
-        XCTAssertEqual(mainNetwork.id, testNetworkInfo.chainId)
+        XCTAssertEqual(mainNetwork.id, testNetworkInfo.id)
         XCTAssertEqual(mainNetwork.chainName, testNetworkInfo.chainName)
         XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUrl)
@@ -142,11 +142,11 @@ class NetworkTests: CoreDataTestCase {
         Network.updateIfExist(testInfo)
         XCTAssertEqual(Network.count, 0)
 
-        testInfo = makeTestNetworkInfo(id: testInfo.chainId)
+        testInfo = makeTestNetworkInfo(id: testInfo.id)
         let mainNetwork = Network.mainnetChain()
         Network.updateIfExist(testInfo)
 
-        XCTAssertEqual(mainNetwork.id, testInfo.chainId)
+        XCTAssertEqual(mainNetwork.id, testInfo.id)
         XCTAssertEqual(mainNetwork.chainName, testInfo.chainName)
         XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testInfo.blockExplorerUrl)
@@ -206,7 +206,7 @@ class NetworkTests: CoreDataTestCase {
                          currencyDecimals: Int,
                          themeTextColor: String,
                          themeBackgroundColor: String) -> SCGModels.Network {
-        SCGModels.Network(chainId: id,
+        SCGModels.Network(chainId: UInt256String(id),
                           chainName: chainName,
                           rpcUrl: rpcUrl,
                           blockExplorerUrl: blockExplorerUrl,
