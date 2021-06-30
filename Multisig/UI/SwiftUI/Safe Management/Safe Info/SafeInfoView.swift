@@ -34,9 +34,11 @@ struct SafeInfoContentView: View {
             AddressImage(safe.address).frame(width: 56, height: 56)
             Text(safe.displayName).headline().padding(.top, 6)
 
-            #warning("Enable network indicator after Safe model implementation")
-            SwiftUINetworkIndicator(text: "Rinkeby", color: .green)
-                .padding(.top, 6)
+            if let name = safe.network?.chainName,
+               let backgroundColor = safe.network?.backgroundColor.map(Color.init) {
+                SwiftUINetworkIndicator(text: name, color: backgroundColor)
+                    .padding(.top, 6)
+            }
 
             if safe.hasAddress {
                 CenteredAddressWithLink(safe: safe).padding(.top, 3)

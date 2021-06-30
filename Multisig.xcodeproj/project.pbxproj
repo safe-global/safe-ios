@@ -107,8 +107,6 @@
 		0A096CC32608F4750034E6BC /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967104256E92470097D3A2 /* SignerTests.swift */; };
 		0A096CC82608F49E0034E6BC /* RegisterNotificationTokenRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */; };
 		0A09839C24BC522B009EE296 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839B24BC522B009EE296 /* Token.swift */; };
-		0A0983A924BC6222009EE296 /* InMemoryTokenStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */; };
-		0A0983AB24BC638C009EE296 /* HardcodedTokenStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */; };
 		0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */; };
 		0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */; };
 		0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */; };
@@ -118,11 +116,11 @@
 		0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */; };
 		0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106286248A885D00C1EE54 /* ERC20Metadata.swift */; };
 		0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106288248A892B00C1EE54 /* ERC721Metadata.swift */; };
-		0A109E2F268A240F00226708 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A109E2E268A240F00226708 /* NetworkTests.swift */; };
 		0A109E272689CB9A00226708 /* RibbonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A109E262689CB9A00226708 /* RibbonView.xib */; };
 		0A109E292689CBA100226708 /* RibbonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A109E282689CBA100226708 /* RibbonView.swift */; };
 		0A109E2B2689D17400226708 /* NetworkIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A109E2A2689D17300226708 /* NetworkIndicator.swift */; };
 		0A109E2D2689D17B00226708 /* NetworkIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A109E2C2689D17B00226708 /* NetworkIndicator.xib */; };
+		0A109E2F268A240F00226708 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A109E2E268A240F00226708 /* NetworkTests.swift */; };
 		0A19D439249A5B1500A316B6 /* QueuedTransactions.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D438249A5B1500A316B6 /* QueuedTransactions.json */; };
 		0A19D43B249A5BA500A316B6 /* TransferTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D43A249A5BA500A316B6 /* TransferTransaction.json */; };
 		0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */; };
@@ -314,6 +312,7 @@
 		0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2E1425628E30009808CB /* SnackbarViewController.xib */; };
 		0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADA911125656FEC0004DEC0 /* TransactionListViewController.swift */; };
 		0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */; };
+		0ADD04D6268CB9BF00C2B44A /* UIColorStylesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD04D5268CB9BF00C2B44A /* UIColorStylesTests.swift */; };
 		0ADD199E265E518600EB0F2B /* UIView+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD199D265E518600EB0F2B /* UIView+Pin.swift */; };
 		0ADD19A6265E53BE00EB0F2B /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD19A5265E53BD00EB0F2B /* QRCodeView.swift */; };
 		0ADD19A8265E53C600EB0F2B /* QRCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD19A7265E53C600EB0F2B /* QRCodeView.xib */; };
@@ -673,8 +672,6 @@
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		0A096CBD2608D9370034E6BC /* NetworkStatusObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusObserver.swift; sourceTree = "<group>"; };
 		0A09839B24BC522B009EE296 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryTokenStoreTests.swift; sourceTree = "<group>"; };
-		0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedTokenStoreTests.swift; sourceTree = "<group>"; };
 		0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAppSettings.swift; sourceTree = "<group>"; };
 		0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayURLTests.swift; sourceTree = "<group>"; };
@@ -684,11 +681,11 @@
 		0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyButton.swift; sourceTree = "<group>"; };
 		0A106286248A885D00C1EE54 /* ERC20Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ERC20Metadata.swift; sourceTree = "<group>"; };
 		0A106288248A892B00C1EE54 /* ERC721Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC721Metadata.swift; sourceTree = "<group>"; };
-		0A109E2E268A240F00226708 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		0A109E262689CB9A00226708 /* RibbonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RibbonView.xib; sourceTree = "<group>"; };
 		0A109E282689CBA100226708 /* RibbonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonView.swift; sourceTree = "<group>"; };
 		0A109E2A2689D17300226708 /* NetworkIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIndicator.swift; sourceTree = "<group>"; };
 		0A109E2C2689D17B00226708 /* NetworkIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NetworkIndicator.xib; sourceTree = "<group>"; };
+		0A109E2E268A240F00226708 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		0A19D438249A5B1500A316B6 /* QueuedTransactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = QueuedTransactions.json; sourceTree = "<group>"; };
 		0A19D43A249A5BA500A316B6 /* TransferTransaction.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TransferTransaction.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
@@ -884,6 +881,7 @@
 		0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyIdentifiable.swift; sourceTree = "<group>"; };
 		0ADA911125656FEC0004DEC0 /* TransactionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewController.swift; sourceTree = "<group>"; };
 		0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarBottomPaddingModifier.swift; sourceTree = "<group>"; };
+		0ADD04D5268CB9BF00C2B44A /* UIColorStylesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorStylesTests.swift; sourceTree = "<group>"; };
 		0ADD199D265E518600EB0F2B /* UIView+Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Pin.swift"; sourceTree = "<group>"; };
 		0ADD19A5265E53BD00EB0F2B /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		0ADD19A7265E53C600EB0F2B /* QRCodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRCodeView.xib; sourceTree = "<group>"; };
@@ -1854,6 +1852,7 @@
 				0A0EFCA2246EADE200D3D8BF /* Cross-layer */,
 				0A93DD722445CC8C00688050 /* Info.plist */,
 				0A6430F6247ECCF6006FD30A /* MultisigTests.xctestplan */,
+				0ADD04D5268CB9BF00C2B44A /* UIColorStylesTests.swift */,
 				0A0EFCA4246EADF800D3D8BF /* Utils */,
 			);
 			path = MultisigTests;
@@ -2380,8 +2379,6 @@
 				0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */,
 				0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */,
 				0A19D43C249A5BF100A316B6 /* Transaction */,
-				0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */,
-				0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */,
 				55967104256E92470097D3A2 /* SignerTests.swift */,
 			);
 			path = Models;
@@ -3349,7 +3346,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A0983AB24BC638C009EE296 /* HardcodedTokenStoreTests.swift in Sources */,
 				0A9BC33D24603AE800EB9C5D /* ENSTests.swift in Sources */,
 				5596710D256E935F0097D3A2 /* MockSecureStore.swift in Sources */,
 				0A9BC34C246053DB00EB9C5D /* DataInitWithHexTests.swift in Sources */,
@@ -3363,6 +3359,7 @@
 				55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */,
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
 				0AA9F25924992CB6005BD60F /* TransactionTests.swift in Sources */,
+				0ADD04D6268CB9BF00C2B44A /* UIColorStylesTests.swift in Sources */,
 				0A096CC82608F49E0034E6BC /* RegisterNotificationTokenRequestTests.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
@@ -3370,7 +3367,6 @@
 				0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */,
 				047300FE24781081004F1200 /* AddressTests.swift in Sources */,
 				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
-				0A0983A924BC6222009EE296 /* InMemoryTokenStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

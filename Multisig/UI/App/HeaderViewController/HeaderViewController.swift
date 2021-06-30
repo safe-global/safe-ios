@@ -40,11 +40,6 @@ final class HeaderViewController: ContainerViewController {
         addObservers()
         headerBarHeightConstraint.constant = ScreenMetrics.safeHeaderHeight
         reloadSafeData()
-
-        #warning("Enable ribbon after Safe model implementation")
-        ribbonView.text = "Rinkeby"
-        ribbonView.textColor = .white
-        ribbonView.backgroundColor = .blue
     }
 
     private func addObservers() {
@@ -61,6 +56,12 @@ final class HeaderViewController: ContainerViewController {
             self,
             selector: #selector(reloadSafeData),
             name: UIScene.willEnterForegroundNotification,
+            object: nil)
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(reloadHeaderBar),
+            name: .networkInfoChanged,
             object: nil)
     }
 
@@ -106,12 +107,23 @@ final class HeaderViewController: ContainerViewController {
             safeBarView.isHidden = !hasSafe
             switchSafeButton.isHidden = !hasSafe
             noSafeBarView.isHidden = hasSafe
-            ribbonView.isHidden = !hasSafe
 
             if let safe = selectedSafe {
                 safeBarView.setAddress(safe.addressValue)
                 safeBarView.setName(safe.displayName)
-                safeBarView.setReadOnly(safe.isReadOnly)                
+                safeBarView.setReadOnly(safe.isReadOnly)
+            }
+
+            if let network = selectedSafe?.network,
+               let name = network.chainName,
+               let textColor = network.textColor,
+               let backgroundColor = network.backgroundColor {
+                ribbonView.text = name
+                ribbonView.textColor = textColor
+                ribbonView.backgroundColor = backgroundColor
+                ribbonView.isHidden = false
+            } else {
+                ribbonView.isHidden = true
             }
         } catch {
             App.shared.snackbar.show(
@@ -143,5 +155,14 @@ final class HeaderViewController: ContainerViewController {
         } catch {
             LogService.shared.error("Failed to reload safe info: \(error)")
         }
+    }
+}
+
+extension Network {
+    var textColor: UIColor? {
+        theme?.textColor.flatMap(UIColor.init(hex:))
+    }
+    var backgroundColor: UIColor? {
+        theme?.backgroundColor.flatMap(UIColor.init(hex:))
     }
 }

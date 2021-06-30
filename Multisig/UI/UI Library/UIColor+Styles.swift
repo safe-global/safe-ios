@@ -29,3 +29,27 @@ extension UIColor {
     static let tertiaryLabel = UIColor(named: "tertiaryLabel")!
     static let quaternaryBackground = UIColor(named: "quaternaryBackground")!
 }
+
+extension UIColor {
+    convenience init?(hex: String) {
+        guard hex.hasPrefix("#") else { return nil }
+        var string = hex
+        string.removeFirst()
+
+        // rgb -> rr gg bb
+        if string.count == 3 {
+            string =
+                // rr
+                String(repeating: string[string.index(string.startIndex, offsetBy: 0)], count: 2) +
+                // gg
+                String(repeating: string[string.index(string.startIndex, offsetBy: 1)], count: 2) +
+                // bb
+                String(repeating: string[string.index(string.startIndex, offsetBy: 2)], count: 2)
+        }
+        guard string.count == 6, let uint32 = UInt32(string, radix: 16) else { return nil }
+        let r = CGFloat((uint32 & 0x00ff0000) >> 16) / 255
+        let g = CGFloat((uint32 & 0x0000ff00) >> 8 ) / 255
+        let b = CGFloat((uint32 & 0x000000ff) >> 0 ) / 255
+        self.init(red: r, green: g, blue: b, alpha: 1.0)
+    }
+}
