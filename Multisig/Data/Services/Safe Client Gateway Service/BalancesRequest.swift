@@ -12,22 +12,11 @@ struct BalancesRequest: JSONRequest {
     private let safeAddress: String
     private let networkId: Int
     private let fiat: String
-    #warning("Check if we need these two")
-    private var isTrusted: Bool?
-    private var isExcludeSpam: Bool?
 
     var httpMethod: String { "GET" }
 
     var urlPath: String {
         "/\(networkId)/v1/safes/\(safeAddress)/balances/\(fiat)"
-    }
-
-    var query: String? {
-        let output = [
-            isTrusted.map { "trusted=\($0)"},
-            isExcludeSpam.map { "exclude_spam=\($0)" }
-        ].compactMap { $0 }.joined(separator: "&")
-        return output.isEmpty ? nil : output
     }
 
     typealias ResponseType = SafeBalanceSummary
