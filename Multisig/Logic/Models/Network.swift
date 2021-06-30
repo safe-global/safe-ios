@@ -166,7 +166,7 @@ extension Network {
         try! Network.by(ChainID.ethereumMainnet) ?? Network.create(
             chainId: ChainID.ethereumMainnet,
             chainName: "Mainnet",
-            rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!.appendingPathComponent(App.configuration.services.infuraKey),
+            rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!,
             blockExplorerUrl: URL(string: "https://etherscan.io/")!,
             currencyName: "Ether",
             currencySymbl: "ETH",
