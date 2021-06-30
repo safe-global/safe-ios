@@ -13,14 +13,6 @@ import UIKit
 class UIColorStylesTests: XCTestCase {
 
     func test_initHex() {
-        // #rgb -> rr gg bb
-        XCTAssertEqual(UIColor(hex: "#a09"), UIColor(
-                        red: CGFloat(0xaa) / 0xff,
-                        green: CGFloat(0x00) / 0xff,
-                        blue: CGFloat(0x99) / 0xff,
-                        alpha: 1.0
-        ))
-        
         // #rrggbb -> rr gg bb
         XCTAssertEqual(UIColor(hex: "#aa0099"), UIColor(
                         red: CGFloat(0xaa) / 0xff,
@@ -37,7 +29,9 @@ class UIColorStylesTests: XCTestCase {
         XCTAssertNil(UIColor(hex: "#123456789"), "Invalid number of symbols: 9")
         XCTAssertNil(UIColor(hex: "#xxx"), "Invalid hex symbol: xx")
 
-        // NOTE: we agreed to implement only rgb and rrggbb formats for now.
+        // NOTE: we agreed to implement only rrggbb format for now because it is supported by all
+        // platforms (web, Android, and iOS)
+        XCTAssertNil(UIColor(hex: "#a09"), "Invalid format: rgb")
         XCTAssertNil(UIColor(hex: "#af38"), "Invalid format: rgba or argb")
         XCTAssertNil(UIColor(hex: "#aaff3388"), "Invalid format: rrggbbaa or aarrggbb")
     }
