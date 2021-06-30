@@ -169,7 +169,7 @@ class EnterSafeAddressViewController: UIViewController {
             #warning("This should be changed when implement Select network screen")
             let network = Network.mainnetChain()
             loadSafeTask = gatewayService.asyncSafeInfo(safeAddress: address,
-                                                        chainId: Int(network.chainId),
+                                                        networkId: network.id,
                                                         completion: { [weak self] result in
                 DispatchQueue.main.async {
                     self?.addressField.setLoading(false)

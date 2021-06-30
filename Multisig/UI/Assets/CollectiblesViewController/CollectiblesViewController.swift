@@ -48,37 +48,35 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
 
     override func reloadData() {
         super.reloadData()
+
         currentDataTask?.cancel()
-        do {
-            let safe = try! Safe.getSelected()!
 
-            currentDataTask = clientGatewayService.asyncCollectibles(safe: safe) { [weak self] result in
-                guard let `self` = self else { return }
-                switch result {
-                case .failure(let error):
-                    DispatchQueue.main.async { [weak self] in
-                        guard let `self` = self else { return }
-                        // ignore cancellation error due to cancelling the
-                        // currently running task. Otherwise user will see
-                        // meaningless message.
-                        if (error as NSError).code == URLError.cancelled.rawValue &&
-                            (error as NSError).domain == NSURLErrorDomain {
-                            return
-                        }
-                        self.onError(GSError.error(description: "Failed to load collectibles", error: error))
-                    }
-                case .success(let collectibles):
-                    let sections = CollectibleListSection.create(collectibles)
+        let safe = try! Safe.getSelected()!
 
-                    DispatchQueue.main.async { [weak self] in
-                        guard let `self` = self else { return }
-                        self.sections = sections
-                        self.onSuccess()
+        currentDataTask = clientGatewayService.asyncCollectibles(safe: safe) { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    // ignore cancellation error due to cancelling the
+                    // currently running task. Otherwise user will see
+                    // meaningless message.
+                    if (error as NSError).code == URLError.cancelled.rawValue &&
+                        (error as NSError).domain == NSURLErrorDomain {
+                        return
                     }
+                    self.onError(GSError.error(description: "Failed to load collectibles", error: error))
+                }
+            case .success(let collectibles):
+                let sections = CollectibleListSection.create(collectibles)
+
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    self.sections = sections
+                    self.onSuccess()
                 }
             }
-        } catch {
-            onError(GSError.error(description: "Failed to load collectibles", error: error))
         }
     }
 

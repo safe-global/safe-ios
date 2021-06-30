@@ -24,7 +24,6 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     internal var dateFormatter: DateFormatter! = DateFormatter()
 
     internal var timeFormatter: DateFormatter! = DateFormatter()
-    internal var safe: Safe!
 
     override var isEmpty: Bool {
         model.isEmpty
@@ -32,7 +31,6 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
     convenience init() {
         self.init(namedClass: LoadableViewController.self)
-        safe = try! Safe.getSelected()!
     }
 
     override func viewDidLoad() {

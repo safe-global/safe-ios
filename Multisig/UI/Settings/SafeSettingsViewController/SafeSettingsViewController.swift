@@ -97,7 +97,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         currentDataTask?.cancel()
         do {
             safe = try Safe.getSelected()!
-            currentDataTask = clientGatewayService.asyncSafeInfo(safe: safe) { [weak self] result in
+            currentDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
+                                                                 networkId: safe.network!.id) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):

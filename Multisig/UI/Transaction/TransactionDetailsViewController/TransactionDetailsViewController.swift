@@ -78,7 +78,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     private func updateSafeInfo() {
         let safe = try! Safe.getSelected()!
-        loadSafeInfoDataTask = App.shared.clientGatewayService.asyncSafeInfo(safe: safe) { result in
+        loadSafeInfoDataTask = App.shared.clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
+                                                                             networkId: safe.network!.id) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let safeInfo):

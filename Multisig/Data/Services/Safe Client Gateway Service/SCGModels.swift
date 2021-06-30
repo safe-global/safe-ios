@@ -548,6 +548,20 @@ extension SCGModels {
             case theme
         }
 
+        init(chainId: Int,
+             chainName: String,
+             rpcUrl: URL,
+             blockExplorerUrl: URL,
+             nativeCurrency: Currency,
+             theme: Theme) {
+            self.chainId = chainId
+            self.chainName = chainName
+            self.rpcUrl = rpcUrl
+            self.blockExplorerUrl = blockExplorerUrl
+            self.nativeCurrency = nativeCurrency
+            self.theme = theme
+        }
+
         init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             var string = try! values.decode(String.self, forKey: .chainId)

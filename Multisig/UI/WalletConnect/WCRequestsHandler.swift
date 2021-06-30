@@ -50,7 +50,8 @@ class WCRequestsHandler: RequestHandler {
                   let requestId = request.id,
                   let transaction = Transaction(wcRequest: wcRequest),
                   let safe = Safe.by(address: transaction.safe!.address.checksummed),
-                  let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(safe: safe),
+                  let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(safeAddress: safe.addressValue,
+                                                                                   networkId: safe.network!.id),
                   let importedKeysAddresses = try? KeyInfo.all().map({ $0.address })
             else {
                 server.send(try! Response(request: request, error: .requestRejected))

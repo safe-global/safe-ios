@@ -10,7 +10,7 @@ import Foundation
 
 struct BalancesRequest: JSONRequest {
     private let safeAddress: String
-    private let chainId: Int
+    private let networkId: Int
     private let fiat: String
     #warning("Check if we need these two")
     private var isTrusted: Bool?
@@ -19,7 +19,7 @@ struct BalancesRequest: JSONRequest {
     var httpMethod: String { "GET" }
 
     var urlPath: String {
-        "/\(chainId)/v1/safes/\(safeAddress)/balances/\(fiat)"
+        "/\(networkId)/v1/safes/\(safeAddress)/balances/\(fiat)"
     }
 
     var query: String? {
@@ -34,9 +34,9 @@ struct BalancesRequest: JSONRequest {
 }
 
 extension BalancesRequest {
-    init(_ safe: Safe) {
-        self.init(safeAddress: (try! Address(from: safe.address!)).checksummed,
-                  chainId: safe.network!.id,
+    init(_ safeAddress: Address, networkId: Int) {
+        self.init(safeAddress: safeAddress.checksummed,
+                  networkId: networkId,
                   fiat: AppSettings.selectedFiatCode)
     }
 }
@@ -54,8 +54,9 @@ struct SCGBalance: Decodable {
 }
 
 extension SafeClientGatewayService {
-    func asyncBalances(safe: Safe,
+    func asyncBalances(safeAddress: Address,
+                       networkId: Int,
                        completion: @escaping (Result<SafeBalanceSummary, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: BalancesRequest(safe), completion: completion)
+        asyncExecute(request: BalancesRequest(safeAddress, networkId: networkId), completion: completion)
     }
 }
