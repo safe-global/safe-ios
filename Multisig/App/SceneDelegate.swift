@@ -68,7 +68,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func checkPasteboardForWalletConnectURL() {
-        if let potentialWCUrl = Pasteboard.string, potentialWCUrl.hasPrefix("wc:"),
+        if let potentialWCUrl = Pasteboard.string,
+           potentialWCUrl.hasPrefix("wc:"),
+           !potentialWCUrl.contains(WalletConnectClientController.safeKeyPrefix),
            let _ = try? Safe.getSelected(),
            App.configuration.toggles.walletConnectEnabled {
             do {

@@ -13,6 +13,10 @@ import WalletConnectSwift
 class WalletConnectClientController {
     static let shared = WalletConnectClientController()
 
+    // We use specific key prefix to identify that this is our connection URL
+    // and not to connect to if it is in the Pasteboard on entering foreground
+    static let safeKeyPrefix = "gnosissafe".data(using: .utf8)!.toHexString()
+
     private var client: Client?
     private var session: Session? {
         didSet {
@@ -31,9 +35,10 @@ class WalletConnectClientController {
         // Currently controller supports only one session at the time.
         disconnect()
 
+        let key = randomKey()!.replacingCharacters(in: ..<Self.safeKeyPrefix.endIndex, with: Self.safeKeyPrefix)
         let wcUrl =  WCURL(topic: UUID().uuidString,
                            bridgeURL: App.configuration.walletConnect.bridgeURL,
-                           key: randomKey()!)
+                           key: key)
         LogService.shared.info("WalletConnect Client URL: \(wcUrl.absoluteString)")
 
         let clientMeta = Session.ClientMeta(

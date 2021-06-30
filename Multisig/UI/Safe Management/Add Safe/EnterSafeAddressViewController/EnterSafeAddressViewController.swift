@@ -104,6 +104,8 @@ class EnterSafeAddressViewController: UIViewController {
 
         vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
             let vc = EnterENSNameViewController()
+            #warning("This should be fixed when select network implemented")
+            vc.network = Network.mainnetChain()
             vc.onConfirm = { [weak self] in
                 guard let `self` = self else { return }
                 self.navigationController?.popViewController(animated: true)
@@ -114,6 +116,8 @@ class EnterSafeAddressViewController: UIViewController {
         
         vc.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
             let vc = EnterUnstoppableNameViewController()
+            #warning("This should be fixed when select network implemented")
+            vc.network = Network.mainnetChain()
             vc.onConfirm = { [weak self] in
                 guard let `self` = self else { return }
                 self.navigationController?.popViewController(animated: true)
