@@ -10,7 +10,6 @@ import Foundation
 
 // Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
 struct Transaction: Codable {
-    #warning("make it Safe")
     var safe: AddressString?
 
     // required by a smart contract

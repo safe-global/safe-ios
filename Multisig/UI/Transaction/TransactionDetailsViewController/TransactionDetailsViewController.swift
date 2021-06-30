@@ -77,7 +77,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private func updateSafeInfo() {
-        let safe = try! Safe.getSelected()!
+        safe = try! Safe.getSelected()!
         loadSafeInfoDataTask = App.shared.clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
                                                                              networkId: safe.network!.id) { result in
             DispatchQueue.main.async { [weak self] in
@@ -338,9 +338,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         WalletConnectClientController.shared.execute(
             transaction: transaction,
-            safe: safe,
             confirmations: tx.ecdsaConfirmations,
             confirmationsRequired: multisigInfo.confirmationsRequired,
+            rpcURL: safe.network!.authenticatedRpcUrl,
             from: self,
             onSend: { result in
                 DispatchQueue.main.async {
