@@ -56,6 +56,9 @@
 		048AA142260D053400382E24 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048AA141260D053300382E24 /* MainTabBarViewController.swift */; };
 		048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */; };
 		048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */; };
+		048D72BD26832FD70095999C /* NetworkListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72BC26832FD70095999C /* NetworkListRequest.swift */; };
+		048D72BF268359E20095999C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72BE268359E20095999C /* NetworkManager.swift */; };
+		048D72C126835CF90095999C /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C026835CF90095999C /* Network.swift */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
 		049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */; };
@@ -106,9 +109,6 @@
 		0A09839C24BC522B009EE296 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839B24BC522B009EE296 /* Token.swift */; };
 		0A0983A924BC6222009EE296 /* InMemoryTokenStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */; };
 		0A0983AB24BC638C009EE296 /* HardcodedTokenStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */; };
-		0A0983AD24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AC24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift */; };
-		0A0983AF24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AE24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift */; };
-		0A0983B124BC67E6009EE296 /* TokenRegistryIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */; };
 		0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */; };
 		0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */; };
 		0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */; };
@@ -118,6 +118,7 @@
 		0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */; };
 		0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106286248A885D00C1EE54 /* ERC20Metadata.swift */; };
 		0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A106288248A892B00C1EE54 /* ERC721Metadata.swift */; };
+		0A109E2F268A240F00226708 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A109E2E268A240F00226708 /* NetworkTests.swift */; };
 		0A109E272689CB9A00226708 /* RibbonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A109E262689CB9A00226708 /* RibbonView.xib */; };
 		0A109E292689CBA100226708 /* RibbonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A109E282689CBA100226708 /* RibbonView.swift */; };
 		0A109E2B2689D17400226708 /* NetworkIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A109E2A2689D17300226708 /* NetworkIndicator.swift */; };
@@ -266,8 +267,6 @@
 		0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */; };
 		0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33A2460352E00EB9C5D /* EthHasher.swift */; };
 		0A9BC33D24603AE800EB9C5D /* ENSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33C24603AE800EB9C5D /* ENSTests.swift */; };
-		0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33E2460447400EB9C5D /* EnterENSNameView.swift */; };
-		0A9BC3412460449E00EB9C5D /* EnterENSNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3402460449E00EB9C5D /* EnterENSNameViewModel.swift */; };
 		0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3472460539F00EB9C5D /* ContractTests.swift */; };
 		0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC349246053AD00EB9C5D /* ENSContractsTests.swift */; };
 		0A9BC34C246053DB00EB9C5D /* DataInitWithHexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC34B246053DB00EB9C5D /* DataInitWithHexTests.swift */; };
@@ -400,6 +399,7 @@
 		3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */; };
 		3EDB64CA263026C500008CE5 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
+		550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */; };
 		550FB18A26691C8F00C13D54 /* WCEditParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB17C26691C8F00C13D54 /* WCEditParametersViewController.swift */; };
 		550FB18B26691C8F00C13D54 /* WalletConnectServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB17D26691C8F00C13D54 /* WalletConnectServerController.swift */; };
 		550FB18C26691C8F00C13D54 /* WCTransactionConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB17E26691C8F00C13D54 /* WCTransactionConfirmationViewController.xib */; };
@@ -621,6 +621,9 @@
 		048AA141260D053300382E24 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSafeNameViewController.swift; sourceTree = "<group>"; };
 		048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditSafeNameViewController.xib; sourceTree = "<group>"; };
+		048D72BC26832FD70095999C /* NetworkListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkListRequest.swift; sourceTree = "<group>"; };
+		048D72BE268359E20095999C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		048D72C026835CF90095999C /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		0493A28A262979820056EC49 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
 		049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListTableViewCell.swift; sourceTree = "<group>"; };
@@ -672,9 +675,6 @@
 		0A09839B24BC522B009EE296 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryTokenStoreTests.swift; sourceTree = "<group>"; };
 		0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedTokenStoreTests.swift; sourceTree = "<group>"; };
-		0A0983AC24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainTokenStoreIntegrationTests.swift; sourceTree = "<group>"; };
-		0A0983AE24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendTokenStoreIntegrationTests.swift; sourceTree = "<group>"; };
-		0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRegistryIntegrationTests.swift; sourceTree = "<group>"; };
 		0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAppSettings.swift; sourceTree = "<group>"; };
 		0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayURLTests.swift; sourceTree = "<group>"; };
@@ -684,6 +684,7 @@
 		0A0EFCAB246EB32400D3D8BF /* CopyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyButton.swift; sourceTree = "<group>"; };
 		0A106286248A885D00C1EE54 /* ERC20Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ERC20Metadata.swift; sourceTree = "<group>"; };
 		0A106288248A892B00C1EE54 /* ERC721Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC721Metadata.swift; sourceTree = "<group>"; };
+		0A109E2E268A240F00226708 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		0A109E262689CB9A00226708 /* RibbonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RibbonView.xib; sourceTree = "<group>"; };
 		0A109E282689CBA100226708 /* RibbonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonView.swift; sourceTree = "<group>"; };
 		0A109E2A2689D17300226708 /* NetworkIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIndicator.swift; sourceTree = "<group>"; };
@@ -836,8 +837,6 @@
 		0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumNodeService.swift; sourceTree = "<group>"; };
 		0A9BC33A2460352E00EB9C5D /* EthHasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthHasher.swift; sourceTree = "<group>"; };
 		0A9BC33C24603AE800EB9C5D /* ENSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSTests.swift; sourceTree = "<group>"; };
-		0A9BC33E2460447400EB9C5D /* EnterENSNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterENSNameView.swift; sourceTree = "<group>"; };
-		0A9BC3402460449E00EB9C5D /* EnterENSNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterENSNameViewModel.swift; sourceTree = "<group>"; };
 		0A9BC3472460539F00EB9C5D /* ContractTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractTests.swift; sourceTree = "<group>"; };
 		0A9BC349246053AD00EB9C5D /* ENSContractsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSContractsTests.swift; sourceTree = "<group>"; };
 		0A9BC34B246053DB00EB9C5D /* DataInitWithHexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataInitWithHexTests.swift; sourceTree = "<group>"; };
@@ -988,6 +987,7 @@
 		3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterUnstoppableNameViewController.swift; sourceTree = "<group>"; };
 		3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainDomainManager.swift; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
+		550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeNetworkMigrationTests.swift; sourceTree = "<group>"; };
 		550FB17C26691C8F00C13D54 /* WCEditParametersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCEditParametersViewController.swift; sourceTree = "<group>"; };
 		550FB17D26691C8F00C13D54 /* WalletConnectServerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectServerController.swift; sourceTree = "<group>"; };
 		550FB17E26691C8F00C13D54 /* WCTransactionConfirmationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCTransactionConfirmationViewController.xib; sourceTree = "<group>"; };
@@ -1201,6 +1201,7 @@
 				0ABC898E2576B857005D555B /* SCGModels.swift */,
 				04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */,
 				04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */,
+				048D72BC26832FD70095999C /* NetworkListRequest.swift */,
 			);
 			path = "Safe Client Gateway Service";
 			sourceTree = "<group>";
@@ -1310,6 +1311,13 @@
 				048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */,
 			);
 			path = "Edit Safe";
+			sourceTree = "<group>";
+		};
+		048D72D52689D7850095999C /* Safe Client Gateway */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Safe Client Gateway";
 			sourceTree = "<group>";
 		};
 		049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */ = {
@@ -1495,6 +1503,8 @@
 				5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */,
 				55B66E8D24810BC800249E98 /* AppSettingsTests.swift */,
 				0AFC33EC25DE9C3200067D41 /* AuthenticationControllerTests.swift */,
+				550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */,
+				0A109E2E268A240F00226708 /* NetworkTests.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1949,9 +1959,6 @@
 				5532D4D02449A1E40067505A /* MockLogger.swift */,
 				0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */,
 				0A9BC3572460581500EB9C5D /* Info.plist */,
-				0A0983AC24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift */,
-				0A0983AE24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift */,
-				0A0983B024BC67E6009EE296 /* TokenRegistryIntegrationTests.swift */,
 				55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */,
 				0A3DFEFD2667D3A700B45770 /* README.md */,
 				0A61E8432670E5FF009D68A4 /* UI Snapshot Tests */,
@@ -2149,8 +2156,6 @@
 			children = (
 				0A7AEAF72463190100014184 /* LoadableENSNameText.swift */,
 				0A7AEAF32463185C00014184 /* ENSNameLoader.swift */,
-				0A9BC33E2460447400EB9C5D /* EnterENSNameView.swift */,
-				0A9BC3402460449E00EB9C5D /* EnterENSNameViewModel.swift */,
 			);
 			path = ENS;
 			sourceTree = "<group>";
@@ -2245,6 +2250,7 @@
 				554A16B2266E4D4900807049 /* EIP712Transformer.swift */,
 				55B64657253050200050BD95 /* HashString.swift */,
 				0A95893F25EFBE1E005011D7 /* KeyInfo.swift */,
+				048D72C026835CF90095999C /* Network.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
 				0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */,
 				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
@@ -2387,6 +2393,7 @@
 				0AD6EF1D25CAF5EC00EE5512 /* AppReviewController.swift */,
 				0AC5F56A25DD4A4B00DEF0D7 /* AuthenticationController.swift */,
 				550FB1A726691D0A00C13D54 /* OwnerKeyController.swift */,
+				048D72BE268359E20095999C /* NetworkManager.swift */,
 				0493A28A262979820056EC49 /* UpdateController.swift */,
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
@@ -2550,6 +2557,7 @@
 		55967116256EB1E50097D3A2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				048D72D52689D7850095999C /* Safe Client Gateway */,
 				55967117256EB1F10097D3A2 /* Safe Transaction Service */,
 			);
 			path = Services;
@@ -3062,7 +3070,6 @@
 				0AF1C9262541E09D00E28669 /* UIView+UINib.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
 				0AC5F5B325DD510600DEF0D7 /* AppUser.swift in Sources */,
-				0A9BC33F2460447400EB9C5D /* EnterENSNameView.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				0A433E8125516A9A006FFF75 /* TotalBalanceTableViewCell.swift in Sources */,
 				049A9D3A25F81F2C00CA5723 /* EditOwnerKeyViewController.swift in Sources */,
@@ -3130,6 +3137,7 @@
 				0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */,
 				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,
 				0AF1C89B2541AD5D00E28669 /* ScrollableEmptyView.swift in Sources */,
+				048D72C126835CF90095999C /* Network.swift in Sources */,
 				0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */,
 				0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */,
 				55BCFC392552FCDB00020CE7 /* SafeSettingsViewController.swift in Sources */,
@@ -3140,10 +3148,12 @@
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
 				554A16B3266E4D4900807049 /* EIP712Transformer.swift in Sources */,
+				048D72BF268359E20095999C /* NetworkManager.swift in Sources */,
 				0A09839C24BC522B009EE296 /* Token.swift in Sources */,
 				0ADD19C4265EA23200EB0F2B /* SeedPhraseView.swift in Sources */,
 				0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */,
 				0A95894025EFBE1E005011D7 /* KeyInfo.swift in Sources */,
+				048D72BD26832FD70095999C /* NetworkListRequest.swift in Sources */,
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
 				043ABD0F24EF0C33008826D5 /* SafeClientGatewayService.swift in Sources */,
 				04B4B6DD25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.swift in Sources */,
@@ -3181,7 +3191,6 @@
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
 				04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */,
-				0A9BC3412460449E00EB9C5D /* EnterENSNameViewModel.swift in Sources */,
 				0AF1C91F2541DB3F00E28669 /* BalanceTableViewCell.swift in Sources */,
 				0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */,
 				0A9A1A38257924C600B44405 /* DetailMultiAccountsCell.swift in Sources */,
@@ -3370,19 +3379,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A61E8422670E474009D68A4 /* CellTestViewController.swift in Sources */,
-				0A0983AD24BC6407009EE296 /* BlockchainTokenStoreIntegrationTests.swift in Sources */,
 				0ADFADA3267B496F007ACD65 /* BalancesTableViewControllerTests.swift in Sources */,
 				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,
 				0A3DFEF82667D22B00B45770 /* MockSecureStore.swift in Sources */,
-				0A0983AF24BC66EB009EE296 /* BackendTokenStoreIntegrationTests.swift in Sources */,
-				0A0983B124BC67E6009EE296 /* TokenRegistryIntegrationTests.swift in Sources */,
 				0A3DFEFC2667D2DF00B45770 /* SafeTests.swift in Sources */,
 				555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */,
 				0A559A6926720E5300E83A9E /* BannerTableViewCellTests.swift in Sources */,
 				0A3DFEF62667D1A800B45770 /* AuthenticationControllerTests.swift in Sources */,
 				0A3DFEFA2667D2C100B45770 /* CoreDataStackTests.swift in Sources */,
 				0A3DFEF92667D27A00B45770 /* AppSettingsTests.swift in Sources */,
+				0A109E2F268A240F00226708 /* NetworkTests.swift in Sources */,
 				0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */,
+				550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */,
 				0A61E83E2670DED5009D68A4 /* BalanceTableViewCellTests.swift in Sources */,
 				0A3DFEF72667D1C000B45770 /* CoreDataTestCase.swift in Sources */,
 				0A802B9024E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift in Sources */,

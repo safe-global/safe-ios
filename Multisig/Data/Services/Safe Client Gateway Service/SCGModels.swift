@@ -529,6 +529,27 @@ extension SCGModels {
         var fallbackHandler: AddressInfoExtended?
         var version: String
     }
+
+
+    struct Network: Decodable {
+        let chainId: Int
+        let chainName: String
+        let rpcUrl: URL
+        let blockExplorerUrl: URL
+        let nativeCurrency: Currency
+        let theme: Theme
+    }
+
+    struct Theme: Decodable {
+        let textColor: String
+        let backgroundColor: String
+    }
+
+    struct Currency: Decodable {
+        let name: String
+        let symbol: String
+        let decimals: Int
+    }
 }
 
 extension SCGModels.AddressInfoExtended {

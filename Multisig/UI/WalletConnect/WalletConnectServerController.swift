@@ -122,11 +122,15 @@ extension WalletConnectServerController: ServerDelegate {
                                             icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
                                             url: URL(string: "https://gnosis-safe.io")!)
 
-        guard let safe = try? Safe.getSelected(), let address = safe.address else {
+        guard let safe = try? Safe.getSelected(),
+              let address = safe.address,
+              let network = safe.network
+        else {
+            // we can't get address or network in the local database, we're closing connection.
             let walletInfo = Session.WalletInfo(
                 approved: false,
                 accounts: [],
-                chainId: App.configuration.app.network.chainId,
+                chainId: Network.ChainID.ethereumMainnet,
                 peerId: UUID().uuidString,
                 peerMeta: walletMeta)
 
@@ -137,7 +141,7 @@ extension WalletConnectServerController: ServerDelegate {
         let walletInfo = Session.WalletInfo(
             approved: true,
             accounts: [address],
-            chainId: App.configuration.app.network.chainId,
+            chainId: network.id,
             peerId: UUID().uuidString,
             peerMeta: walletMeta)
 

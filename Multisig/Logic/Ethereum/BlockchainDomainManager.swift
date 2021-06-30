@@ -10,17 +10,16 @@ import Foundation
 import UnstoppableDomainsResolution
 
 class BlockchainDomainManager {
-    
     let ens: ENS
-    let resolution: Resolution?
-    
-    init() {
+    var resolution: Resolution?
+
+    init(network: Network) {
         ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
         self.resolution = try? Resolution(
             configs: Configurations(
                 cns: NamingServiceConfig(
-                    providerUrl: App.configuration.services.ethereumServiceURL.absoluteString,
-                    network: App.configuration.app.network.rawValue.lowercased()
+                    providerUrl: network.rpcUrl!.absoluteString,
+                    network: network.chainName!.lowercased()
                 )
             )
         )
@@ -62,7 +61,11 @@ class BlockchainDomainManager {
     }
     
     func resolveEnsDomain(domain: String) throws -> Address {
-        return try ens.address(for: domain)
+        try ens.address(for: domain)
+    }
+
+    func ensName(for address: Address) -> String? {
+        ens.name(for: address)
     }
     
     func throwCorrectUdError(_ error: ResolutionError, _ domain: String) -> DetailedLocalizedError {

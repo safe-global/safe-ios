@@ -118,16 +118,16 @@ extension Safe: Identifiable {
         } catch {
             throw GSError.DatabaseError(reason: error.localizedDescription)
         }
-
     }
 
-    static func create(address: String, name: String, selected: Bool = true) {
+    static func create(address: String, name: String, network: Network, selected: Bool = true) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
         let safe = Safe(context: context)
         safe.address = address
         safe.name = name
+        safe.network = network
 
         if selected {
             safe.select()
@@ -164,7 +164,12 @@ extension Safe: Identifiable {
         let deletedSafeAddress = safe.address
         let context = App.shared.coreDataStack.viewContext
 
-        context.delete(safe)
+        if let network = safe.network, network.safe?.count == 1 {
+            // remove network with associated safe
+            Network.remove(network: network)
+        } else {
+            context.delete(safe)
+        }
 
         if let selection = safe.selection {
             let fr = Safe.fetchRequest().all()
@@ -185,9 +190,7 @@ extension Safe: Identifiable {
     }
 
     static func removeAll() throws {
-        for safe in try getAll() {
-            remove(safe: safe)
-        }
+        Network.removeAll()
     }
 }
 
@@ -213,6 +216,12 @@ extension NSFetchRequest where ResultType == Safe {
         sortDescriptors = []
         predicate = NSPredicate(format: "address CONTAINS[c] %@", address)
         fetchLimit = 1
+        return self
+    }
+
+    func by(network: Network) -> Self {
+        sortDescriptors = []
+        predicate = NSPredicate(format: "chain = %@", network)
         return self
     }
 

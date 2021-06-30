@@ -28,20 +28,6 @@ class TestCoreDataStack: CoreDataProtocol {
     func saveContext() {
         try! viewContext.save()
     }
-
-//    func setUp() -> Self {
-//        let context = persistentContainer.viewContext
-//        for i in 1...4 {
-//            let safe = Safe(context: context)
-//            safe.name = "Safe \(i)"
-//            safe.address = "0x\(i)"
-//        }
-//        let safe = Safe(context: context)
-//        safe.name = "Safe 5"
-//        safe.address = "0x55555555555"
-//        safe.select()
-//        return self
-//    }
 }
 
 #endif
