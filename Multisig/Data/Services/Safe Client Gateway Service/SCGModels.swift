@@ -532,7 +532,7 @@ extension SCGModels {
 
 
     struct Network: Decodable {
-        let chainId: Int
+        let chainId: UInt256String
         let chainName: String
         let rpcUrl: URL
         let blockExplorerUrl: URL
@@ -541,15 +541,6 @@ extension SCGModels {
         
         var id: Int {
             Int(chainId.value)
-        }
-
-        enum CodingKeys: String, CodingKey {
-            case chainId
-            case chainName
-            case rpcUrl
-            case blockExplorerUrl
-            case nativeCurrency
-            case theme
         }
     }
 
