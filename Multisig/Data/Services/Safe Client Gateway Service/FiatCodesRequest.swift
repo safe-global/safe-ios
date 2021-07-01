@@ -9,9 +9,7 @@
 import Foundation
 
 struct FiatCodesRequest: JSONRequest {
-    var httpMethod: String {
-        "GET"
-    }
+    var httpMethod: String { "GET" }
 
     var urlPath: String {
         "/v1/balances/supported-fiat-codes"

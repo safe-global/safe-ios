@@ -101,9 +101,9 @@ class NetworkTests: CoreDataTestCase {
             try network.update(from: networkInfo)
         )
 
-        XCTAssertEqual(network.id, networkInfo.chainId)
+        XCTAssertEqual(network.id, networkInfo.id)
         XCTAssertEqual(network.chainName, networkInfo.chainName)
-        XCTAssertEqual(network.rpcUrl, networkInfo.authenticatedRpcUrl)
+        XCTAssertEqual(network.rpcUrl, networkInfo.rpcUrl)
         XCTAssertEqual(network.blockExplorerUrl, networkInfo.blockExplorerUrl)
         XCTAssertEqual(network.nativeCurrency?.name, networkInfo.nativeCurrency.name)
         XCTAssertEqual(network.nativeCurrency?.symbol, networkInfo.nativeCurrency.symbol)
@@ -117,12 +117,12 @@ class NetworkTests: CoreDataTestCase {
         var mainNetwork = Network.createOrUpdate(mainNetworkInfo)
         XCTAssertEqual(Network.count, 1)
 
-        let testNetworkInfo = makeTestNetworkInfo(id: mainNetworkInfo.chainId)
+        let testNetworkInfo = makeTestNetworkInfo(id: mainNetworkInfo.id)
         mainNetwork = Network.createOrUpdate(testNetworkInfo)
 
-        XCTAssertEqual(mainNetwork.id, testNetworkInfo.chainId)
+        XCTAssertEqual(mainNetwork.id, testNetworkInfo.id)
         XCTAssertEqual(mainNetwork.chainName, testNetworkInfo.chainName)
-        XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.authenticatedRpcUrl)
+        XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUrl)
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testNetworkInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testNetworkInfo.nativeCurrency.symbol)
@@ -142,13 +142,13 @@ class NetworkTests: CoreDataTestCase {
         Network.updateIfExist(testInfo)
         XCTAssertEqual(Network.count, 0)
 
-        testInfo = makeTestNetworkInfo(id: testInfo.chainId)
+        testInfo = makeTestNetworkInfo(id: testInfo.id)
         let mainNetwork = Network.mainnetChain()
         Network.updateIfExist(testInfo)
 
-        XCTAssertEqual(mainNetwork.id, testInfo.chainId)
+        XCTAssertEqual(mainNetwork.id, testInfo.id)
         XCTAssertEqual(mainNetwork.chainName, testInfo.chainName)
-        XCTAssertEqual(mainNetwork.rpcUrl, testInfo.authenticatedRpcUrl)
+        XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testInfo.blockExplorerUrl)
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testInfo.nativeCurrency.symbol)
@@ -206,7 +206,8 @@ class NetworkTests: CoreDataTestCase {
                          currencyDecimals: Int,
                          themeTextColor: String,
                          themeBackgroundColor: String) -> SCGModels.Network {
-        SCGModels.Network(chainId: id, chainName: chainName,
+        SCGModels.Network(chainId: UInt256String(id),
+                          chainName: chainName,
                           rpcUrl: rpcUrl,
                           blockExplorerUrl: blockExplorerUrl,
                           nativeCurrency: SCGModels.Currency(name: currencyName,

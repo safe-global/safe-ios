@@ -13,7 +13,8 @@ struct ProposeTransactionRequest: JSONRequest {
     let sender: AddressString
     let signature: String
     let transaction: Transaction
-
+    let networkId: Int
+    
     enum CodingKeys: String, CodingKey {
         case sender
         case to
@@ -30,8 +31,8 @@ struct ProposeTransactionRequest: JSONRequest {
         case signature
     }
 
-    var httpMethod: String { return "POST" }
-    var urlPath: String { return "/v1/transactions/\(safe)/propose" }
+    var httpMethod: String { "POST" }
+    var urlPath: String { "/\(networkId)/v1/transactions/\(safe)/propose" }
 
     typealias ResponseType = EmptyResponse
 
@@ -62,18 +63,23 @@ extension SafeClientGatewayService {
         transaction: Transaction,
         sender: AddressString,
         signature: String,
+        networkId: Int,
         completion: @escaping (Result<ProposeTransactionRequest.EmptyResponse, Error>) -> Void) -> URLSessionTask? {
 
         return asyncExecute(request: ProposeTransactionRequest(safe: transaction.safe!,
                                                                sender: sender,
                                                                signature: signature,
-                                                               transaction: transaction),
+                                                               transaction: transaction,
+                                                               networkId: networkId),
                             completion: completion)
     }
 
-    func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String) throws {
-        let request = ProposeTransactionRequest(
-            safe: transaction.safe!, sender: sender, signature: signature, transaction: transaction)
+    func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String, networkId: Int) throws {
+        let request = ProposeTransactionRequest(safe: transaction.safe!,
+                                                sender: sender,
+                                                signature: signature,
+                                                transaction: transaction,
+                                                networkId: networkId)
         try execute(request: request)
     }
 }

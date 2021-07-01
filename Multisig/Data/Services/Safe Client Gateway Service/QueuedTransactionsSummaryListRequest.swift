@@ -10,10 +10,12 @@ import Foundation
 
 struct QueuedTransactionsSummaryListRequest: JSONRequest {
     let safeAddress: String
+    let networkId: Int
+    
     let timezoneOffset = TimeZone.currentOffest()
     var httpMethod: String { "GET" }
     var urlPath: String {
-        "/v1/safes/\(safeAddress)/transactions/queued"
+        "/\(networkId)/v1/safes/\(safeAddress)/transactions/queued"
     }
 
     var query: String? {
@@ -24,17 +26,24 @@ struct QueuedTransactionsSummaryListRequest: JSONRequest {
 }
 
 extension QueuedTransactionsSummaryListRequest {
-    init(_ address: Address) {
-        safeAddress = address.checksummed
+    init(_ safeAddress: Address, networkId: Int) {
+        self.init(safeAddress: safeAddress.checksummed, networkId: networkId)
     }
 }
 
 extension SafeClientGatewayService {
-    func asyncQueuedTransactionsSummaryList(address: Address, completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: QueuedTransactionsSummaryListRequest(address), completion: completion)
+    func asyncQueuedTransactionsSummaryList(
+        safeAddress: Address,
+        networkId: Int,
+        completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
+
+        asyncExecute(request: QueuedTransactionsSummaryListRequest(safeAddress, networkId: networkId), completion: completion)
     }
 
-    func asyncQueuedTransactionsSummaryList(pageUri: String, completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+    func asyncQueuedTransactionsSummaryList(
+        pageUri: String,
+        completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+
         asyncExecute(request: try PagedRequest<SCGModels.TransactionSummaryItem>(pageUri), completion: completion)
     }
 }

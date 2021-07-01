@@ -7,7 +7,7 @@ import XCTest
 
 class ContractTests: XCTestCase {
 
-    let contract = Contract(.zero)
+    let contract = Contract(.zero, rpcURL: URL(string: "https://example.com")!)
 
     func test_selectorToMethodId() {
         let selector = "abc()".data(using: .ascii)!

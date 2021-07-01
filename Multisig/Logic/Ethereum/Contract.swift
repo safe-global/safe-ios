@@ -7,15 +7,17 @@ import Foundation
 class Contract {
 
     private(set) var address: Address
+    private(set) var rpcURL: URL
 
     var nodeService: EthereumNodeService { App.shared.nodeService }
 
-    init(_ address: Address) {
+    init(_ address: Address, rpcURL: URL) {
         self.address = address
+        self.rpcURL = rpcURL
     }
 
-    convenience init() {
-        self.init(.zero)
+    convenience init(rpcURL: URL) {
+        self.init(.zero, rpcURL: rpcURL)
     }
 
     func method(_ selector: String) -> Data {
@@ -132,11 +134,11 @@ class Contract {
     }
 
     func invoke(_ selector: String, _ args: Data ...) throws -> Data {
-        return try nodeService.eth_call(to: address, data: invocation(selector, args: args))
+        return try nodeService.eth_call(to: address, rpcURL: rpcURL, data: invocation(selector, args: args))
     }
 
     func invoke(_ selector: String, args: [Data]) throws -> Data {
-        return try nodeService.eth_call(to: address, data: invocation(selector, args: args))
+        return try nodeService.eth_call(to: address, rpcURL: rpcURL, data: invocation(selector, args: args))
     }
 
     func invocation(_ selector: String, _ args: Data ...) -> Data {
