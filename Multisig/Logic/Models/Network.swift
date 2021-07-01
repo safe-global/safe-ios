@@ -72,6 +72,7 @@ extension Network {
         let theme = NetworkTheme(context: context)
         theme.textColor = themeTextColor
         theme.backgroundColor = themeBackgroundColor
+        theme.network = network
 
         network.theme = theme
 
@@ -79,6 +80,7 @@ extension Network {
         token.name = currencyName
         token.symbol = currencySymbl
         token.decimals = Int32(currencyDecimals)
+        token.network = network
 
         network.nativeCurrency = token
 

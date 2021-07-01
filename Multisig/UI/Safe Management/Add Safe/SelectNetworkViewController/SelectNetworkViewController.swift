@@ -17,11 +17,6 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
     private var model = NetworksListViewModel()
     
     var completion: () -> Void = { }
-    private var chains: [SCGModels.Network] = []
-
-    override var isEmpty: Bool {
-        chains.isEmpty
-    }
 
     convenience init() {
         self.init(namedClass: Self.superclass())
@@ -175,15 +170,15 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        chains.count
+        model.models.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(SelectNetworkTableViewCell.self, for: indexPath)
-        let chain = chains[indexPath.row]
+        let network = model.models[indexPath.row]
 
-        cell.nameLabel.text = chain.chainName
-        cell.colorImageView.tintColor = UIColor(hex: chain.theme.backgroundColor.description)
+        cell.nameLabel.text = network.chainName
+        cell.colorImageView.tintColor = UIColor(hex: network.theme.backgroundColor.description)
 
         return cell
     }
@@ -192,7 +187,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         tableView.deselectRow(at: indexPath, animated: true)
         let vc = EnterSafeAddressViewController()
         vc.completion = completion
-        vc.network = chains[indexPath.row]
+        vc.network = model.models[indexPath.row]
         show(vc, sender: self)
     }
 

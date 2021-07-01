@@ -542,6 +542,10 @@ extension SCGModels {
         var id: Int {
             Int(chainId.value)
         }
+
+        var authenticatedRpcUrl: URL {
+            rpcUrl.appendingPathComponent(App.configuration.services.infuraKey)
+        }
     }
 
     struct Theme: Decodable {
