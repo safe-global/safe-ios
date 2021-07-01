@@ -40,6 +40,7 @@ final class HeaderViewController: ContainerViewController {
         addObservers()
         headerBarHeightConstraint.constant = ScreenMetrics.safeHeaderHeight
         reloadSafeData()
+        ribbonView.observeSelectedSafe()
     }
 
     private func addObservers() {
@@ -56,12 +57,6 @@ final class HeaderViewController: ContainerViewController {
             self,
             selector: #selector(reloadSafeData),
             name: UIScene.willEnterForegroundNotification,
-            object: nil)
-
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(reloadHeaderBar),
-            name: .networkInfoChanged,
             object: nil)
     }
 
@@ -112,18 +107,6 @@ final class HeaderViewController: ContainerViewController {
                 safeBarView.setAddress(safe.addressValue)
                 safeBarView.setName(safe.displayName)
                 safeBarView.setReadOnly(safe.isReadOnly)
-            }
-
-            if let network = selectedSafe?.network,
-               let name = network.chainName,
-               let textColor = network.textColor,
-               let backgroundColor = network.backgroundColor {
-                ribbonView.text = name
-                ribbonView.textColor = textColor
-                ribbonView.backgroundColor = backgroundColor
-                ribbonView.isHidden = false
-            } else {
-                ribbonView.isHidden = true
             }
         } catch {
             App.shared.snackbar.show(

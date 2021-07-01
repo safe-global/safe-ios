@@ -25,6 +25,7 @@ class LoadableViewController: UIViewController {
     @IBOutlet weak var dataErrorView: ScrollableDataErrorView!
     @IBOutlet weak var emptyView: ScrollableEmptyView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var ribbonView: RibbonView!
     @IBOutlet private var allViews: [UIView]!
     private var refreshControls: [UIRefreshControl] = []
     private var needsReload: Bool = false

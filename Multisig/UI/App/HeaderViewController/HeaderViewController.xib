@@ -94,7 +94,7 @@
                             <rect key="frame" x="0.0" y="116" width="414" height="24"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="24" id="aIh-YZ-PPE"/>
+                                <constraint firstAttribute="height" constant="24" placeholder="YES" id="aIh-YZ-PPE"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xK2-pE-wZA" userLabel="contentView">
