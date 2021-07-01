@@ -163,6 +163,7 @@ extension Safe: Identifiable {
         let deletedSafeAddress = safe.address
         let context = App.shared.coreDataStack.viewContext
 
+        let selection = safe.selection
         if let network = safe.network, network.safe?.count == 1 {
             // remove network with associated safe
             Network.remove(network: network)
@@ -170,7 +171,7 @@ extension Safe: Identifiable {
             context.delete(safe)
         }
 
-        if let selection = safe.selection {
+        if let selection = selection {
             let fr = Safe.fetchRequest().all()
             if let safeToSelect = try? context.fetch(fr).first {
                 selection.safe = safeToSelect
