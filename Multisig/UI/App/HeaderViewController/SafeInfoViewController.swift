@@ -16,10 +16,21 @@ class SafeInfoViewController: ContainerViewController {
         super.viewDidLoad()
         let view = SafeInfoView()
             .environment(\.managedObjectContext, App.shared.coreDataStack.viewContext)
-        let viewConroller = UIHostingController(rootView: view)
-        viewConroller.view.backgroundColor = .secondaryBackground
-        viewControllers = [viewConroller]
+        let viewController = UIHostingController(rootView: view)
+        viewController.view.backgroundColor = .secondaryBackground
+        viewControllers = [viewController]
+
+        // Set explicit constraints instead of the autoresizing because otherwise the
+        // card content view is not resizing with resizing of the SwiftUI content.
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+
         displayChild(at: 0, in: cardContentView)
+
+        NSLayoutConstraint.activate([
+            cardContentView.heightAnchor.constraint(equalTo: viewController.view.heightAnchor),
+            cardContentView.widthAnchor.constraint(equalTo: viewController.view.widthAnchor)
+        ])
+        cardContentView.setNeedsUpdateConstraints()
     }
 
     @IBAction private func didTapClose(_ sender: Any) {
