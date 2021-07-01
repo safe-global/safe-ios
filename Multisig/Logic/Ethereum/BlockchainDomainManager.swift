@@ -14,7 +14,7 @@ class BlockchainDomainManager {
     var resolution: Resolution?
 
     init(rpcURL: URL, networkName: String) {
-        ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
+        ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e", rpcURL: rpcURL)
         self.resolution = try? Resolution(
             configs: Configurations(
                 cns: NamingServiceConfig(
