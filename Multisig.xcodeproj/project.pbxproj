@@ -64,6 +64,7 @@
 		048D72CE2685DC780095999C /* SelectNetworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72CC2685DC780095999C /* SelectNetworkTableViewCell.xib */; };
 		048D72D026875B1C0095999C /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72CF26875B1C0095999C /* TableHeaderView.swift */; };
 		048D72D226875B2D0095999C /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72D126875B2D0095999C /* TableHeaderView.xib */; };
+		048D72D7268DACAF0095999C /* NetworksListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72D6268DACAF0095999C /* NetworksListViewModel.swift */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
 		049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */; };
@@ -630,6 +631,7 @@
 		048D72CC2685DC780095999C /* SelectNetworkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectNetworkTableViewCell.xib; sourceTree = "<group>"; };
 		048D72CF26875B1C0095999C /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		048D72D126875B2D0095999C /* TableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
+		048D72D6268DACAF0095999C /* NetworksListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworksListViewModel.swift; sourceTree = "<group>"; };
 		0493A28A262979820056EC49 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
 		049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListTableViewCell.swift; sourceTree = "<group>"; };
@@ -1315,19 +1317,13 @@
 			path = "Edit Safe";
 			sourceTree = "<group>";
 		};
-		048D72D52689D7850095999C /* Safe Client Gateway */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Safe Client Gateway";
-			sourceTree = "<group>";
-		};
 		048D72CA2685DC4C0095999C /* SelectNetworkViewController */ = {
 			isa = PBXGroup;
 			children = (
 				048D72C62684CB500095999C /* SelectNetworkViewController.swift */,
 				048D72CB2685DC780095999C /* SelectNetworkTableViewCell.swift */,
 				048D72CC2685DC780095999C /* SelectNetworkTableViewCell.xib */,
+				048D72D6268DACAF0095999C /* NetworksListViewModel.swift */,
 			);
 			path = SelectNetworkViewController;
 			sourceTree = "<group>";
@@ -1339,6 +1335,13 @@
 				048D72D126875B2D0095999C /* TableHeaderView.xib */,
 			);
 			path = TableHeaderView;
+			sourceTree = "<group>";
+		};
+		048D72D52689D7850095999C /* Safe Client Gateway */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Safe Client Gateway";
 			sourceTree = "<group>";
 		};
 		049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */ = {
@@ -3322,6 +3325,7 @@
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,
 				0468FB8725912E6800541536 /* FlatTransactionsListViewModel.swift in Sources */,
 				043ABD0E24EF0C33008826D5 /* TransactionDetailsRequest.swift in Sources */,
+				048D72D7268DACAF0095999C /* NetworksListViewModel.swift in Sources */,
 				0ADD19C3265EA23200EB0F2B /* SeedPhraseViewController.swift in Sources */,
 				049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */,
 				0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */,

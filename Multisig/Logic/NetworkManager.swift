@@ -14,7 +14,7 @@ class NetworkManager {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let networks):
-                    for network in networks {
+                    for network in networks.results {
                         Network.updateIfExist(network)
                     }
                     NotificationCenter.default.post(name: .networkInfoChanged, object: nil)

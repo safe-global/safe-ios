@@ -14,7 +14,7 @@ class EnterSafeAddressViewController: UIViewController {
     var address: Address? { addressField?.address }
     var gatewayService = App.shared.clientGatewayService
     var completion: () -> Void = { }
-    var network: SCGModels.Chain!
+    var network: SCGModels.Network!
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var addressField: AddressField!
     @IBOutlet private weak var actionStackView: UIStackView!
@@ -64,7 +64,8 @@ class EnterSafeAddressViewController: UIViewController {
         vc.actionTitle = "Next"
         vc.placeholder = "Enter name"
         vc.completion = { [unowned vc, unowned self] name in
-            Safe.create(address: address.checksummed, name: name, chain: network)
+            let network = try! Network.create(network)
+            Safe.create(address: address.checksummed, name: name, network: network)
             if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
                 let safeLoadedViewController = SafeLoadedViewController()
                 safeLoadedViewController.completion = self.completion
@@ -104,8 +105,7 @@ class EnterSafeAddressViewController: UIViewController {
 
         vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
             let vc = EnterENSNameViewController()
-            #warning("This should be fixed when select network implemented")
-            vc.network = Network.mainnetChain()
+            vc.network = self?.network
             vc.onConfirm = { [weak self] in
                 guard let `self` = self else { return }
                 self.navigationController?.popViewController(animated: true)
@@ -116,8 +116,7 @@ class EnterSafeAddressViewController: UIViewController {
         
         vc.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
             let vc = EnterUnstoppableNameViewController()
-            #warning("This should be fixed when select network implemented")
-            vc.network = Network.mainnetChain()
+            vc.network = self?.network
             vc.onConfirm = { [weak self] in
                 guard let `self` = self else { return }
                 self.navigationController?.popViewController(animated: true)
