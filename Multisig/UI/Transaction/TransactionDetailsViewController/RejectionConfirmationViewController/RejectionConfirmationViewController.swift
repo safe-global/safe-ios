@@ -21,10 +21,12 @@ class RejectionConfirmationViewController: UIViewController {
     @IBOutlet private weak var descriptionLabel: UILabel!
     
     private var transaction: SCGModels.TransactionDetails!
+    private var safe: Safe!
 
     convenience init(transaction: SCGModels.TransactionDetails) {
         self.init(namedClass: RejectionConfirmationViewController.self)
         self.transaction = transaction
+        self.safe = try! Safe.getSelected()!
     }
 
     override func viewDidLoad() {
@@ -86,15 +88,9 @@ class RejectionConfirmationViewController: UIViewController {
     private func rejectTransaction(_ keyInfo: KeyInfo) {
         startLoading()
 
-        var safeAddress: Address
-        do {
-            safeAddress = try Safe.getSelected()!.addressValue
-        } catch {
-            App.shared.snackbar.show(message: "Failed to Reject transaction")
-            return
-        }
-        var tx = Transaction.rejectionTransaction(safeAddress: safeAddress, nonce: transaction.multisigInfo!.nonce)
-        tx.safe = AddressString(safeAddress)
+        var tx = Transaction.rejectionTransaction(safeAddress: safe.addressValue,
+                                                  nonce: transaction.multisigInfo!.nonce)
+        tx.safe = AddressString(safe.addressValue)
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
@@ -138,6 +134,7 @@ class RejectionConfirmationViewController: UIViewController {
             transaction: transaction,
             sender: sender,
             signature: signature,
+            networkId: safe.network!.id,
             completion: { [weak self] result in
                 // NOTE: sometimes the data of the transaction list is not
                 // updated right away, we'll give a moment for the backend

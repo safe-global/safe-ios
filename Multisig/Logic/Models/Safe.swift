@@ -58,6 +58,13 @@ extension Safe: Identifiable {
         return (try? context.fetch(Safe.fetchRequest().all())) ?? []
     }
 
+    static func by(address: String) -> Safe? {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let context = App.shared.coreDataStack.viewContext
+        let fr = Safe.fetchRequest().by(address: address)
+        return try? context.fetch(fr).first
+    }
+
     static func updateCachedNames() {
         guard let safes = try? Safe.getAll() else { return }
         cachedNames = safes.reduce(into: [AddressString: String]()) { names, safe in
@@ -108,16 +115,8 @@ extension Safe: Identifiable {
             .appendingPathComponent("address").appendingPathComponent(address)
     }
 
-    static func exists(_ address: String) throws -> Bool {
-        do {
-            dispatchPrecondition(condition: .onQueue(.main))
-            let context = App.shared.coreDataStack.viewContext
-            let fr = Safe.fetchRequest().by(address: address)
-            let count = try context.count(for: fr)
-            return count > 0
-        } catch {
-            throw GSError.DatabaseError(reason: error.localizedDescription)
-        }
+    static func exists(_ address: String) -> Bool {
+        by(address: address) != nil
     }
 
     static func create(address: String, name: String, network: Network, selected: Bool = true) {

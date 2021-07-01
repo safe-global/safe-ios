@@ -182,6 +182,7 @@ class WalletConnectClientController {
     func execute(transaction: Transaction,
                  confirmations: [SCGModels.Confirmation],
                  confirmationsRequired: UInt64,
+                 rpcURL: URL,
                  from controller: UIViewController,
                  onSend: @escaping (Result<Void, Error>) -> Void,
                  onResult: @escaping (Result<HashString, Error>) -> Void) {
@@ -202,7 +203,8 @@ class WalletConnectClientController {
             do {
                 // get wallet nonce
                 let nonceJSONResponse = try App.shared.nodeService.rawCall(
-                    payload: Request.nonce(for: walletAddress, session: session).jsonString)
+                    payload: Request.nonce(for: walletAddress, session: session).jsonString,
+                    rpcURL: rpcURL)
                 let nonceResponse = try Response(url: session.url, jsonString: nonceJSONResponse)
                 let nonce = try nonceResponse.result(as: String.self)
 
@@ -210,18 +212,21 @@ class WalletConnectClientController {
                 let clientTxNotEstimated = Client.Transaction.from(
                     address: walletAddress,
                     transaction: transaction,
+                    rpcURL: rpcURL,
                     confirmations: confirmations,
                     confirmationsRequired: confirmationsRequired,
                     nonce: nonce)
                 let gasJSONResponse = try App.shared.nodeService.rawCall(
-                    payload: Request.estimateGas(transaction: clientTxNotEstimated, session: session).jsonString)
+                    payload: Request.estimateGas(transaction: clientTxNotEstimated, session: session).jsonString,
+                    rpcURL: rpcURL)
                 let gasResponse = try Response(url: session.url, jsonString: gasJSONResponse)
                 let gas = try gasResponse.result(as: String.self)
 
                 // Estimate tx gasPrice. For now we use RPC node, but we will improve it in future
                 // using our service.
                 let gasPriceJSONResponse = try App.shared.nodeService.rawCall(
-                    payload: Request.gasPrice(session: session).jsonString)
+                    payload: Request.gasPrice(session: session).jsonString,
+                    rpcURL: rpcURL)
                 let gasPriceResponse = try Response(url: session.url, jsonString: gasPriceJSONResponse)
                 let gasPrice = try gasPriceResponse.result(as: String.self)
 
@@ -229,6 +234,7 @@ class WalletConnectClientController {
                 let clientTransaction = Client.Transaction.from(
                     address: walletAddress,
                     transaction: transaction,
+                    rpcURL: rpcURL,
                     confirmations: confirmations,
                     confirmationsRequired: confirmationsRequired,
                     nonce: nonce,
@@ -390,15 +396,17 @@ extension Request {
 extension Client.Transaction {
     static func from(address: String,
                      transaction: Transaction,
+                     rpcURL: URL,
                      confirmations: [SCGModels.Confirmation],
                      confirmationsRequired: UInt64,
                      nonce: String,
                      gas: String? = nil,
                      gasPrice: String? = nil) -> Client.Transaction {
+
         Client.Transaction(
             from: address,
             to: transaction.safe!.description,
-            data: SafeContract().execTransaction(transaction,
+            data: SafeContract(rpcURL: rpcURL).execTransaction(transaction,
                                                  confirmations: confirmations,
                                                  confirmationsRequired: confirmationsRequired).toHexStringWithPrefix(),
             gas: gas,

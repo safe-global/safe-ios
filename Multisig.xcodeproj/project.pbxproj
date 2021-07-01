@@ -113,8 +113,6 @@
 		0A096CC32608F4750034E6BC /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967104256E92470097D3A2 /* SignerTests.swift */; };
 		0A096CC82608F49E0034E6BC /* RegisterNotificationTokenRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */; };
 		0A09839C24BC522B009EE296 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09839B24BC522B009EE296 /* Token.swift */; };
-		0A0983A924BC6222009EE296 /* InMemoryTokenStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */; };
-		0A0983AB24BC638C009EE296 /* HardcodedTokenStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */; };
 		0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */; };
 		0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */; };
 		0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */; };
@@ -681,8 +679,6 @@
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		0A096CBD2608D9370034E6BC /* NetworkStatusObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusObserver.swift; sourceTree = "<group>"; };
 		0A09839B24BC522B009EE296 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryTokenStoreTests.swift; sourceTree = "<group>"; };
-		0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardcodedTokenStoreTests.swift; sourceTree = "<group>"; };
 		0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAppSettings.swift; sourceTree = "<group>"; };
 		0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayURLTests.swift; sourceTree = "<group>"; };
@@ -1202,10 +1198,10 @@
 				043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */,
 				0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */,
 				04D1306B25DD525A0032FA03 /* ProposeTransactionRequest.swift */,
-				0ABC898E2576B857005D555B /* SCGModels.swift */,
 				04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */,
 				04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */,
 				048D72BC26832FD70095999C /* NetworkListRequest.swift */,
+				0ABC898E2576B857005D555B /* SCGModels.swift */,
 			);
 			path = "Safe Client Gateway Service";
 			sourceTree = "<group>";
@@ -2404,8 +2400,6 @@
 				0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */,
 				0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */,
 				0A19D43C249A5BF100A316B6 /* Transaction */,
-				0A0983A824BC6222009EE296 /* InMemoryTokenStoreTests.swift */,
-				0A0983AA24BC638C009EE296 /* HardcodedTokenStoreTests.swift */,
 				55967104256E92470097D3A2 /* SignerTests.swift */,
 			);
 			path = Models;
@@ -3373,7 +3367,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A0983AB24BC638C009EE296 /* HardcodedTokenStoreTests.swift in Sources */,
 				0A9BC33D24603AE800EB9C5D /* ENSTests.swift in Sources */,
 				5596710D256E935F0097D3A2 /* MockSecureStore.swift in Sources */,
 				0A9BC34C246053DB00EB9C5D /* DataInitWithHexTests.swift in Sources */,
@@ -3394,7 +3387,6 @@
 				0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */,
 				047300FE24781081004F1200 /* AddressTests.swift in Sources */,
 				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
-				0A0983A924BC6222009EE296 /* InMemoryTokenStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

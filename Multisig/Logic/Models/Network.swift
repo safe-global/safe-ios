@@ -41,7 +41,7 @@ extension Network {
     }
 
     static func createOrUpdate(_ networkInfo: SCGModels.Network) -> Network {
-        guard let chain = Network.by(networkInfo.chainId) else {
+        guard let chain = Network.by(networkInfo.id) else {
             // should not fail, otherwise programmer error
             return try! Network.create(networkInfo)
         }
@@ -89,9 +89,9 @@ extension Network {
 
     @discardableResult
     static func create(_ networkInfo: SCGModels.Network) throws -> Network {
-        try Network.create(chainId: networkInfo.chainId,
+        try Network.create(chainId: networkInfo.id,
                      chainName: networkInfo.chainName,
-                     rpcUrl: networkInfo.authenticatedRpcUrl,
+                     rpcUrl: networkInfo.rpcUrl,
                      blockExplorerUrl: networkInfo.blockExplorerUrl,
                      currencyName: networkInfo.nativeCurrency.name,
                      currencySymbl: networkInfo.nativeCurrency.symbol,
@@ -101,7 +101,7 @@ extension Network {
     }
 
     static func updateIfExist(_ networkInfo: SCGModels.Network) {
-        guard let network = Network.by(networkInfo.chainId) else { return }
+        guard let network = Network.by(networkInfo.id) else { return }
         try! network.update(from: networkInfo)
     }
 
@@ -125,12 +125,12 @@ extension Network {
     }
 
     func update(from networkInfo: SCGModels.Network) throws {
-        guard chainId == networkInfo.chainId else {
+        guard chainId == networkInfo.id else {
             throw GSError.NetworkIdMismatch()
         }
 
         chainName =  networkInfo.chainName
-        rpcUrl = networkInfo.authenticatedRpcUrl
+        rpcUrl = networkInfo.rpcUrl
         blockExplorerUrl = networkInfo.blockExplorerUrl
 
         theme?.textColor = networkInfo.theme.textColor
@@ -166,7 +166,7 @@ extension Network {
         try! Network.by(ChainID.ethereumMainnet) ?? Network.create(
             chainId: ChainID.ethereumMainnet,
             chainName: "Mainnet",
-            rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!.appendingPathComponent(App.configuration.services.infuraKey),
+            rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!,
             blockExplorerUrl: URL(string: "https://etherscan.io/")!,
             currencyName: "Ether",
             currencySymbl: "ETH",
@@ -176,8 +176,8 @@ extension Network {
     }
 }
 
-extension SCGModels.Network {
+extension Network {
     var authenticatedRpcUrl: URL {
-        rpcUrl.appendingPathComponent(App.configuration.services.infuraKey)
+        rpcUrl!.appendingPathComponent(App.configuration.services.infuraKey)
     }
 }

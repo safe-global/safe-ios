@@ -158,12 +158,16 @@ class EnterSafeAddressViewController: UIViewController {
             addressField.setAddress(address)
 
             // (2) and that there's no such safe already
-            let exists = try Safe.exists(address.checksummed)
+            let exists = Safe.exists(address.checksummed)
             if exists { throw GSError.SafeAlreadyExists() }
 
             // (3) and there exists safe at that address
             addressField.setLoading(true)
-            loadSafeTask = gatewayService.asyncSafeInfo(address: address, completion: { [weak self] result in
+            #warning("This should be changed when implement Select network screen")
+            let network = Network.mainnetChain()
+            loadSafeTask = gatewayService.asyncSafeInfo(safeAddress: address,
+                                                        networkId: network.id,
+                                                        completion: { [weak self] result in
                 DispatchQueue.main.async {
                     self?.addressField.setLoading(false)
                 }

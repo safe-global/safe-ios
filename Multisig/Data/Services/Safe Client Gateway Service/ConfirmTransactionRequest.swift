@@ -11,8 +11,10 @@ import Foundation
 struct ConfirmTransactionRequest: JSONRequest {
     var safeTxHash: String
     var signedSafeTxHash: String
+    let networkId: Int
+    
     var httpMethod: String { "POST" }
-    var urlPath: String { "/v1/transactions/\(safeTxHash)/confirmations" }
+    var urlPath: String { "/\(networkId)/v1/transactions/\(safeTxHash)/confirmations" }
     typealias ResponseType = SCGModels.TransactionDetails
 
     enum CodingKeys: String, CodingKey {
@@ -21,7 +23,13 @@ struct ConfirmTransactionRequest: JSONRequest {
 }
 
 extension SafeClientGatewayService {
-    func asyncConfirm(safeTxHash: String, with signature: String, completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: ConfirmTransactionRequest(safeTxHash: safeTxHash, signedSafeTxHash: signature), completion: completion)
+    func asyncConfirm(safeTxHash: String,
+                      signature: String,
+                      networkId: Int,
+                      completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: ConfirmTransactionRequest(safeTxHash: safeTxHash,
+                                                        signedSafeTxHash: signature,
+                                                        networkId: networkId),
+                     completion: completion)
     }
 }

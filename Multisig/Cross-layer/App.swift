@@ -38,9 +38,7 @@ class App {
         url: configuration.services.clientGatewayURL,
         logger: LogService.shared)
 
-    #warning("Remove and use network specific rpcUrl")
-    let nodeService = EthereumNodeService(
-        url: configuration.services.ethereumServiceURL)
+    var nodeService = EthereumNodeService()
 
     let tokenRegistry = TokenRegistry()
 

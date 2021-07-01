@@ -9,34 +9,24 @@
 import Foundation
 
 struct BalancesRequest: JSONRequest {
-    var safeAddress: String
-    var fiat: String
-    var isTrusted: Bool?
-    var isExcludeSpam: Bool?
+    private let safeAddress: String
+    private let networkId: Int
+    private let fiat: String
 
-    var httpMethod: String {
-        "GET"
-    }
+    var httpMethod: String { "GET" }
 
     var urlPath: String {
-        "/v1/safes/\(safeAddress)/balances/\(fiat)"
-    }
-
-    var query: String? {
-        let output = [
-            isTrusted.map { "trusted=\($0)"},
-            isExcludeSpam.map { "exclude_spam=\($0)" }
-        ].compactMap { $0 }.joined(separator: "&")
-        return output.isEmpty ? nil : output
+        "/\(networkId)/v1/safes/\(safeAddress)/balances/\(fiat)"
     }
 
     typealias ResponseType = SafeBalanceSummary
-
 }
 
 extension BalancesRequest {
-    init(_ address: Address) {
-        self.init(safeAddress: address.checksummed, fiat: AppSettings.selectedFiatCode)
+    init(_ safeAddress: Address, networkId: Int) {
+        self.init(safeAddress: safeAddress.checksummed,
+                  networkId: networkId,
+                  fiat: AppSettings.selectedFiatCode)
     }
 }
 
@@ -53,11 +43,9 @@ struct SCGBalance: Decodable {
 }
 
 extension SafeClientGatewayService {
-    func balances(address: Address) throws -> SafeBalanceSummary {
-        try execute(request: BalancesRequest(address))
-    }
-
-    func asyncBalances(address: Address, completion: @escaping (Result<SafeBalanceSummary, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: BalancesRequest(address), completion: completion)
+    func asyncBalances(safeAddress: Address,
+                       networkId: Int,
+                       completion: @escaping (Result<SafeBalanceSummary, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: BalancesRequest(safeAddress, networkId: networkId), completion: completion)
     }
 }

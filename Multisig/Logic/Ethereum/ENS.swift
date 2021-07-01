@@ -7,13 +7,15 @@ import Foundation
 final class ENS {
 
     let registryAddress: Address
+    let rpcURL: URL
 
-    init(registryAddress: String) {
+    init(registryAddress: String, rpcURL: URL) {
         self.registryAddress = Address(exactly: registryAddress)
+        self.rpcURL = rpcURL
     }
 
-    init(registryAddress: Address) {
-        self.registryAddress = registryAddress
+    convenience init(registryAddress: Address, rpcURL: URL) {
+        self.init(registryAddress: registryAddress.checksummed, rpcURL: rpcURL)
     }
 
     func address(for name: String) throws -> Address {
@@ -25,14 +27,14 @@ final class ENS {
         }
 
         // get resolver
-        let registry = ENSRegistry(registryAddress)
+        let registry = ENSRegistry(registryAddress, rpcURL: rpcURL)
         let resolverAddress = try registry.resolver(node: node)
         if resolverAddress.isZero {
             throw GSError.ENSAddressNotFound()
         }
 
         // resolve address
-        let resolver = ENSResolver(resolverAddress)
+        let resolver = ENSResolver(resolverAddress, rpcURL: rpcURL)
         let isResolvingSupported = try resolver.supportsInterface(ENSResolver.Selectors.address)
         guard isResolvingSupported else {
             throw GSError.ENSAddressNotFound()
@@ -48,14 +50,14 @@ final class ENS {
         // construct a reverse node
         let addressString = address.data.toHexString()
         let reverseName = addressString + ".addr.reverse"
-        let registry = ENSRegistry(registryAddress)
+        let registry = ENSRegistry(registryAddress, rpcURL: rpcURL)
 
         // get resolver
         guard let node = try? namehash(normalized(reverseName)),
               let resolverAddress = try? registry.resolver(node: node),
               !resolverAddress.isZero else { return nil }
 
-        let reverseResolver = ENSReverseResolver(resolverAddress)
+        let reverseResolver = ENSReverseResolver(resolverAddress, rpcURL: rpcURL)
         // resolve the name
         guard let resolvedASCIIName = try? reverseResolver.name(node: node),
               let resolvedName = try? IDN.asciiToUTF8(resolvedASCIIName),

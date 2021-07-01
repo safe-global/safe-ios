@@ -60,9 +60,9 @@ class SafeTests: CoreDataTestCase {
         let safe = createSafe(name: "0")
         safe.address = "0x0"
         createSafe(name: "1")
-        let result = try context.fetch(Safe.fetchRequest().by(address: "0x0"))
-        XCTAssertEqual(result.count, 1)
-        XCTAssertEqual(result[0], safe)
+        let result = Safe.by(address: "0x0")
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result, safe)
     }
 
     @discardableResult
