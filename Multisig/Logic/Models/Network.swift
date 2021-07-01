@@ -74,15 +74,11 @@ extension Network {
         theme.backgroundColor = themeBackgroundColor
         theme.network = network
 
-        network.theme = theme
-
         let token = NetworkToken(context: context)
         token.name = currencyName
         token.symbol = currencySymbl
         token.decimals = Int32(currencyDecimals)
         token.network = network
-
-        network.nativeCurrency = token
 
         try App.shared.coreDataStack.viewContext.save()
 
