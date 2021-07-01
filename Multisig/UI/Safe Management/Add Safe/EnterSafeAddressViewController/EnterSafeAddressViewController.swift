@@ -14,6 +14,7 @@ class EnterSafeAddressViewController: UIViewController {
     var address: Address? { addressField?.address }
     var gatewayService = App.shared.clientGatewayService
     var completion: () -> Void = { }
+    var network: SCGModels.Network!
 
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var addressField: AddressField!
@@ -64,9 +65,8 @@ class EnterSafeAddressViewController: UIViewController {
         vc.actionTitle = "Next"
         vc.placeholder = "Enter name"
         vc.completion = { [unowned vc, unowned self] name in
-            #warning("Inject the network from outside")
-            Safe.create(address: address.checksummed, name: name, network: Network.mainnetChain())
-
+            let network = Network.createOrUpdate(network)
+            Safe.create(address: address.checksummed, name: name, network: network)
             if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
                 let safeLoadedViewController = SafeLoadedViewController()
                 safeLoadedViewController.completion = self.completion
@@ -106,8 +106,7 @@ class EnterSafeAddressViewController: UIViewController {
 
         vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
             let vc = EnterENSNameViewController()
-            #warning("This should be fixed when select network implemented")
-            vc.network = Network.mainnetChain()
+            vc.network = self?.network
             vc.onConfirm = { [weak self] in
                 guard let `self` = self else { return }
                 self.navigationController?.popViewController(animated: true)
@@ -118,8 +117,7 @@ class EnterSafeAddressViewController: UIViewController {
         
         vc.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
             let vc = EnterUnstoppableNameViewController()
-            #warning("This should be fixed when select network implemented")
-            vc.network = Network.mainnetChain()
+            vc.network = self?.network
             vc.onConfirm = { [weak self] in
                 guard let `self` = self else { return }
                 self.navigationController?.popViewController(animated: true)
@@ -166,8 +164,7 @@ class EnterSafeAddressViewController: UIViewController {
 
             // (3) and there exists safe at that address
             addressField.setLoading(true)
-            #warning("This should be changed when implement Select network screen")
-            let network = Network.mainnetChain()
+
             loadSafeTask = gatewayService.asyncSafeInfo(safeAddress: address,
                                                         networkId: network.id,
                                                         completion: { [weak self] result in

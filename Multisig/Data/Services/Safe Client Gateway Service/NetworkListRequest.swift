@@ -25,4 +25,8 @@ extension SafeClientGatewayService {
     func asyncNetworks(completion: @escaping (Result<NetworkListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
         asyncExecute(request: NetworkListRequest(), completion: completion)
     }
+
+    func asyncNetworks(pageUri: String, completion: @escaping (Result<NetworkListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+        asyncExecute(request: try PagedRequest<SCGModels.Network>(pageUri), completion: completion)
+    }
 }

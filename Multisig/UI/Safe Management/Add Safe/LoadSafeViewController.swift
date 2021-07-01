@@ -46,7 +46,7 @@ class LoadSafeViewController: UIViewController {
     }
 
     @IBAction private func didTapLoadSafe(_ sender: Any) {
-        let vc = EnterSafeAddressViewController()
+        let vc = SelectNetworkViewController()
         vc.completion = { [weak vc] in
             vc?.navigationController?.popToRootViewController(animated: true)
         }

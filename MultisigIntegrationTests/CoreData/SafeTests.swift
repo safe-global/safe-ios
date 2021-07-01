@@ -59,6 +59,7 @@ class SafeTests: CoreDataTestCase {
     func test_safeBy() throws {
         let safe = createSafe(name: "0")
         safe.address = "0x0"
+        try context.save()
         createSafe(name: "1")
         let result = Safe.by(address: "0x0")
         XCTAssertNotNil(result)

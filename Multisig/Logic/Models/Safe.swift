@@ -170,11 +170,8 @@ extension Safe: Identifiable {
             context.delete(safe)
         }
 
-        if let selection = safe.selection {
-            let fr = Safe.fetchRequest().all()
-            if let safeToSelect = try? context.fetch(fr).first {
-                selection.safe = safeToSelect
-            }
+        if let safe = try? Safe.getAll().first {
+            safe.select()
         }
 
         App.shared.coreDataStack.saveContext()
