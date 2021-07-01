@@ -121,7 +121,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
                             self.pageLoadingState = .idle
                             return
                         }
-                        self.onError(GSError.error(description: "Failed to load more networks", error: error))
+                        self.onError(GSError.error(description: "Failed to load chains", error: error))
                         self.pageLoadingState = .retry
                     }
                 case .success(let page):
@@ -138,7 +138,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
                 self.loadNextPageDataTask = nil
             }
         } catch {
-            onError(GSError.error(description: "Failed to load more networks", error: error))
+            onError(GSError.error(description: "Failed to load more chains", error: error))
             pageLoadingState = .retry
         }
     }
