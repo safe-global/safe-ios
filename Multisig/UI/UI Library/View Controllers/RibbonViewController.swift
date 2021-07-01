@@ -24,5 +24,8 @@ class RibbonViewController: ContainerViewController {
         super.viewDidLoad()
         displayChild(at: 0, in: contentView)
         ribbonView.observeSelectedSafe()
+        let title = viewControllers[0].title ?? viewControllers[0].navigationItem.title
+        navigationItem.title = title
+        self.title = title
     }
 }

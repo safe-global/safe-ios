@@ -504,6 +504,7 @@ class TransactionDetailCellBuilder {
                     hash: hash,
                     safeTxHash: safeTxHash)
                 let host = UIHostingController(rootView: view)
+                host.navigationItem.title = "Advanced"
                 let vc = RibbonViewController(rootViewController: host)
                 self.vc.show(vc, sender: self)
             }
