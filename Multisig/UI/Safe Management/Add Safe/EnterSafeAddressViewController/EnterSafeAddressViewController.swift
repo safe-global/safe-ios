@@ -15,6 +15,7 @@ class EnterSafeAddressViewController: UIViewController {
     var gatewayService = App.shared.clientGatewayService
     var completion: () -> Void = { }
     var network: SCGModels.Network!
+
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var addressField: AddressField!
     @IBOutlet private weak var actionStackView: UIStackView!
@@ -163,8 +164,7 @@ class EnterSafeAddressViewController: UIViewController {
 
             // (3) and there exists safe at that address
             addressField.setLoading(true)
-            #warning("This should be changed when implement Select network screen")
-            let network = Network.mainnetChain()
+
             loadSafeTask = gatewayService.asyncSafeInfo(safeAddress: address,
                                                         networkId: network.id,
                                                         completion: { [weak self] result in
