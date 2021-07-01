@@ -17,10 +17,6 @@ struct NetworkListRequest: JSONRequest {
         "/v1/chains"
     }
 
-    var query: String? {
-        return "limit=1000"
-    }
-
     typealias ResponseType = Page<SCGModels.Network>
 }
 
