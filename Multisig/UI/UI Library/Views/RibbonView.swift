@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Ribbon to show the network name. Hidden by default.
 class RibbonView: UINibView {
 
     var text: String? {
@@ -22,6 +23,10 @@ class RibbonView: UINibView {
 
     @IBOutlet private weak var label: GSLabel!
 
+    private var heightConstraint: NSLayoutConstraint!
+    private let heightWhenVisible: CGFloat = 24
+    private let heightWhenHidden: CGFloat = 0
+
     override func commonInit() {
         super.commonInit()
         text = nil
@@ -30,11 +35,21 @@ class RibbonView: UINibView {
         heightConstraint.isActive = true
     }
 
-    var network: Network?
-    var heightConstraint: NSLayoutConstraint!
-    let heightWhenVisible: CGFloat = 24
-    let heightWhenHidden: CGFloat = 0
+    /// Displays the ribbon
+    func show() {
+        isHidden = false
+        heightConstraint.constant = heightWhenVisible
+        setNeedsUpdateConstraints()
+    }
 
+    /// Hides the ribbon
+    func hide() {
+        isHidden = true
+        heightConstraint.constant = heightWhenHidden
+        setNeedsUpdateConstraints()
+    }
+
+    /// Updates the ribbon from currently selected safe's network and observes changes to the safe and network info
     func observeSelectedSafe() {
         NotificationCenter.default.removeObserver(self)
 
@@ -50,29 +65,25 @@ class RibbonView: UINibView {
         updateFromSafe()
     }
 
+    /// Updates ribbon UI based on safe's network
     @objc func updateFromSafe() {
         let safeOrNil = try? Safe.getSelected()
         update(network: safeOrNil?.network)
     }
 
+    /// Updates ribbon UI based on the network
+    /// - Parameter network: The network data. If nil, the ribbon will hide. If not nil, it will be shown.
     func update(network: Network?) {
         if let network = network,
            let name = network.chainName,
            let textColor = network.textColor,
            let backgroundColor = network.backgroundColor {
-            // data
             self.text = name
             self.textColor = textColor
             self.backgroundColor = backgroundColor
-            // show
-            isHidden = false
-            heightConstraint.constant = heightWhenVisible
-            setNeedsUpdateConstraints()
+            show()
         } else {
-            // hide
-            isHidden = true
-            heightConstraint.constant = heightWhenHidden
-            setNeedsUpdateConstraints()
+            hide()
         }
     }
 
