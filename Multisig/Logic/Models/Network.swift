@@ -190,7 +190,7 @@ extension Network {
         let selectedSafeNetwork = selectedSafe.network!
         let selectedSafeNetworkOtherSafes = groupedSafes[selectedSafeNetwork]!
             .filter { !$0.isSelected }
-            .sorted { $0.additionDate! < $1.additionDate! }
+            .sorted { $0.additionDate! > $1.additionDate! }
         networkSafes.append((network: selectedSafeNetwork, safes: [selectedSafe] + selectedSafeNetworkOtherSafes))
 
         // Add other networks sorted by id with safes sorted by most recently added
@@ -200,7 +200,7 @@ extension Network {
             .forEach { network in
                 networkSafes.append(
                     (network: network,
-                     safes: groupedSafes[network]!.sorted { $0.additionDate! < $1.additionDate!})
+                     safes: groupedSafes[network]!.sorted { $0.additionDate! > $1.additionDate!})
                 )
             }
 
