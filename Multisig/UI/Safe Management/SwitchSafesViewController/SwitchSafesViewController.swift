@@ -23,7 +23,7 @@ final class SwitchSafesViewController: UITableViewController {
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         tableView.register(AddSafeTableViewCell.nib(), forCellReuseIdentifier: "AddSafe")
         tableView.register(SafeEntryTableViewCell.nib(), forCellReuseIdentifier: "SafeEntry")
-        tableView.registerHeaderFooterView(BasicHeaderView.self)
+        tableView.registerHeaderFooterView(NetworkIndicatorHeaderView.self)
 
         notificationCenter.addObserver(
             self, selector: #selector(reloadData), name: .selectedSafeChanged, object: nil)
@@ -104,12 +104,15 @@ final class SwitchSafesViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section != addSafeSection else { return nil }
-        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-        view.setName(networkSafes[section - 1].network.chainName!)
+
+        let view = tableView.dequeueHeaderFooterView(NetworkIndicatorHeaderView.self)
+        let network = networkSafes[section - 1].network
+        view.text = network.chainName
+        view.dotColor = network.backgroundColor
         return view
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        section == addSafeSection ? 0 : BasicHeaderView.headerHeight
+        section == addSafeSection ? 0 : NetworkIndicatorHeaderView.height
     }
 }
