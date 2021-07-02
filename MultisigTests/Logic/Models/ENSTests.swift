@@ -10,9 +10,8 @@ import XCTest
 @testable import Multisig
 
 class ENSTests: XCTestCase {
-
     func test_namehash() {
-        let service = ENS(registryAddress: .zero)
+        let service = ENS(registryAddress: .zero, rpcURL: URL(string: "https://example.com")!)
         XCTAssertEqual(service.namehash(""),
                        Data(hex: "0x0000000000000000000000000000000000000000000000000000000000000000"))
         XCTAssertEqual(service.namehash("eth"),
@@ -20,5 +19,4 @@ class ENSTests: XCTestCase {
         XCTAssertEqual(service.namehash("foo.eth"),
         Data(hex: "0xde9b09fd7c5f901e23a3f19fecc54828e9c848539801e86591bd9801b019f84f"))
     }
-
 }

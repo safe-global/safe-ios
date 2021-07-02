@@ -11,15 +11,10 @@ import Web3
 
 class EthereumNodeService {
 
-    var url: URL
-    let web3: Web3
+    init() { }
 
-    init(url: URL) {
-        self.url = url
-        web3 = Web3(rpcURL: url.absoluteString)
-    }
-
-    func eth_call(to: Address, data: Data) throws -> Data {
+    func eth_call(to: Address, rpcURL: URL, data: Data) throws -> Data {
+        let web3 = Web3(rpcURL: rpcURL.absoluteString)
         let semaphore = DispatchSemaphore(value: 0)
 
         var result: Web3Response<EthereumData>!
@@ -67,7 +62,7 @@ class EthereumNodeService {
         }
     }
 
-    public func rawCall(payload: String) throws -> String {
+    public func rawCall(payload: String, rpcURL: URL) throws -> String {
         // all requests are proxied to the infura service as is because it is simple to do it now.
         struct RawJSONRPCRequest: HTTPRequest {
             var httpMethod: String { return "POST" }
@@ -79,8 +74,8 @@ class EthereumNodeService {
         guard let body = payload.data(using: .utf8) else {
             throw GSError.ThirdPartyError(reason: "Request payload is malformed")
         }
-        let request = RawJSONRPCRequest(body: body, url: self.url)
-        let client = HTTPClient(url: self.url, logger: LogService.shared)
+        let request = RawJSONRPCRequest(body: body, url: rpcURL)
+        let client = HTTPClient(url: rpcURL, logger: LogService.shared)
         let response = try client.execute(request: request)
         guard let result = String(data: response, encoding: .utf8) else {
             throw GSError.ThirdPartyError(reason: "Response is empty")

@@ -12,7 +12,7 @@ class EnterENSNameViewController: UIViewController {
     var onConfirm: () -> Void = { }
     var manager: BlockchainDomainManager!
     var address: Address?
-    var network: Network!
+    var network: SCGModels.Network!
     
     // generated "task" ID to work around the asynchronous ENS resolving API
     private var currentResolutionTaskID: UUID?
@@ -30,7 +30,7 @@ class EnterENSNameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(network != nil, "Developer error: expect to have network")
-        manager = BlockchainDomainManager(network: network)
+        manager = BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl, networkName: network.chainName)
         navigationItem.title = "Enter ENS Name"
 
         confirmButton = UIBarButtonItem(title: "Confirm", style: .done, target: self, action: #selector(didTapConfirmButton))

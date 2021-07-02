@@ -17,12 +17,16 @@ struct NetworkListRequest: JSONRequest {
         "/v1/chains"
     }
 
-    typealias ResponseType = [SCGModels.Network]
+    typealias ResponseType = Page<SCGModels.Network>
 }
 
 extension SafeClientGatewayService {
     @discardableResult
     func asyncNetworks(completion: @escaping (Result<NetworkListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
         asyncExecute(request: NetworkListRequest(), completion: completion)
+    }
+
+    func asyncNetworks(pageUri: String, completion: @escaping (Result<NetworkListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+        asyncExecute(request: try PagedRequest<SCGModels.Network>(pageUri), completion: completion)
     }
 }

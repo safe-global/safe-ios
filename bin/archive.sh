@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
+set -e +o pipefail
 
 XCODE_SCHEME=$1
 OUTPUT_DIR="Build/$XCODE_SCHEME"

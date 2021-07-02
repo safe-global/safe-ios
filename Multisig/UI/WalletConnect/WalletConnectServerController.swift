@@ -74,7 +74,6 @@ class WalletConnectServerController {
     func updatePendingTransactions() {
         DispatchQueue.main.async {
             guard let pendingTransactions = try? WCPendingTransaction.getAll() else { return }
-            LogService.shared.debug("PENDING WC TRANSACTIONS: \(pendingTransactions.count)")
             for pendingTx in pendingTransactions {
                 let wcSession = pendingTx.session!
                 let session = try! Session.from(wcSession)

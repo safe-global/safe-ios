@@ -532,12 +532,20 @@ extension SCGModels {
 
 
     struct Network: Decodable {
-        let chainId: Int
+        let chainId: UInt256String
         let chainName: String
         let rpcUrl: URL
         let blockExplorerUrl: URL
         let nativeCurrency: Currency
         let theme: Theme
+        
+        var id: Int {
+            Int(chainId.value)
+        }
+
+        var authenticatedRpcUrl: URL {
+            rpcUrl.appendingPathComponent(App.configuration.services.infuraKey)
+        }
     }
 
     struct Theme: Decodable {

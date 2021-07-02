@@ -11,9 +11,11 @@ import Foundation
 struct HistoryTransactionsSummaryListRequest: JSONRequest {
     let safeAddress: String
     let timezoneOffset = TimeZone.currentOffest()
+    let networkId: Int
+
     var httpMethod: String { "GET" }
     var urlPath: String {
-        "/v1/safes/\(safeAddress)/transactions/history"
+        "/\(networkId)/v1/safes/\(safeAddress)/transactions/history"
     }
 
     var query: String? {
@@ -24,17 +26,25 @@ struct HistoryTransactionsSummaryListRequest: JSONRequest {
 }
 
 extension HistoryTransactionsSummaryListRequest {
-    init(_ address: Address) {
-        safeAddress = address.checksummed
+    init(_ safeAddress: Address, networkId: Int) {
+        self.init(safeAddress: safeAddress.checksummed, networkId: networkId)
     }
 }
 
 extension SafeClientGatewayService {
-    func asyncHistoryTransactionsSummaryList(address: Address, completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: HistoryTransactionsSummaryListRequest(address), completion: completion)
+    func asyncHistoryTransactionsSummaryList(
+        safeAddress: Address,
+        networkId: Int,
+        completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
+
+        asyncExecute(request: HistoryTransactionsSummaryListRequest(safeAddress, networkId: networkId),
+                     completion: completion)
     }
 
-    func asyncHistoryTransactionsSummaryList(pageUri: String, completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+    func asyncHistoryTransactionsSummaryList(
+        pageUri: String,
+        completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+
         asyncExecute(request: try PagedRequest<SCGModels.TransactionSummaryItem>(pageUri), completion: completion)
     }
 }

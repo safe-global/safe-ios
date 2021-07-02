@@ -88,7 +88,7 @@ final class SwitchSafesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == addSafeSection {
-            let vc = EnterSafeAddressViewController()
+            let vc = SelectNetworkViewController()
             vc.completion = { [weak self] in
                 self?.didTapCloseButton()
             }

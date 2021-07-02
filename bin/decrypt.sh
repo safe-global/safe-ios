@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
+set -e +o pipefail
 
 KEY="$1"
 INPUT="$2"

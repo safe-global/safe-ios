@@ -41,10 +41,12 @@ extension Network {
     }
 
     static func createOrUpdate(_ networkInfo: SCGModels.Network) -> Network {
-        guard let chain = Network.by(networkInfo.chainId) else {
+        guard let chain = Network.by(networkInfo.id) else {
+            // should not fail, otherwise programmer error
             return try! Network.create(networkInfo)
         }
-        chain.update(from: networkInfo)
+        // can't fail because chain id is correct
+        try! chain.update(from: networkInfo)
         return chain
     }
 
@@ -70,15 +72,13 @@ extension Network {
         let theme = NetworkTheme(context: context)
         theme.textColor = themeTextColor
         theme.backgroundColor = themeBackgroundColor
-
-        network.theme = theme
+        theme.network = network
 
         let token = NetworkToken(context: context)
         token.name = currencyName
         token.symbol = currencySymbl
         token.decimals = Int32(currencyDecimals)
-
-        network.nativeCurrency = token
+        token.network = network
 
         try App.shared.coreDataStack.viewContext.save()
 
@@ -87,9 +87,9 @@ extension Network {
 
     @discardableResult
     static func create(_ networkInfo: SCGModels.Network) throws -> Network {
-        try Network.create(chainId: networkInfo.chainId,
+        try Network.create(chainId: networkInfo.id,
                      chainName: networkInfo.chainName,
-                     rpcUrl: networkInfo.authenticatedRpcUrl,
+                     rpcUrl: networkInfo.rpcUrl,
                      blockExplorerUrl: networkInfo.blockExplorerUrl,
                      currencyName: networkInfo.nativeCurrency.name,
                      currencySymbl: networkInfo.nativeCurrency.symbol,
@@ -99,8 +99,8 @@ extension Network {
     }
 
     static func updateIfExist(_ networkInfo: SCGModels.Network) {
-        guard let network = Network.by(networkInfo.chainId) else { return }
-        network.update(from: networkInfo)
+        guard let network = Network.by(networkInfo.id) else { return }
+        try! network.update(from: networkInfo)
     }
 
     static func remove(network: Network) {
@@ -110,7 +110,7 @@ extension Network {
         App.shared.coreDataStack.saveContext()
     }
 
-    static func removeAll() throws {
+    static func removeAll() {
         for network in all {
             remove(network: network)
         }
@@ -122,14 +122,13 @@ extension Network {
         Int(chainId)
     }
 
-    func update(from networkInfo: SCGModels.Network) {
-        guard chainId == networkInfo.chainId else {
-            assertionFailure("Trying to update a network with different chain id: \(chainId) != \(networkInfo.chainId)")
-            return
+    func update(from networkInfo: SCGModels.Network) throws {
+        guard chainId == networkInfo.id else {
+            throw GSError.NetworkIdMismatch()
         }
 
         chainName =  networkInfo.chainName
-        rpcUrl = networkInfo.authenticatedRpcUrl
+        rpcUrl = networkInfo.rpcUrl
         blockExplorerUrl = networkInfo.blockExplorerUrl
 
         theme?.textColor = networkInfo.theme.textColor
@@ -165,7 +164,7 @@ extension Network {
         try! Network.by(ChainID.ethereumMainnet) ?? Network.create(
             chainId: ChainID.ethereumMainnet,
             chainName: "Mainnet",
-            rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!.appendingPathComponent(App.configuration.services.infuraKey),
+            rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!,
             blockExplorerUrl: URL(string: "https://etherscan.io/")!,
             currencyName: "Ether",
             currencySymbl: "ETH",
@@ -209,8 +208,8 @@ extension Network {
     }
 }
 
-extension SCGModels.Network {
+extension Network {
     var authenticatedRpcUrl: URL {
-        rpcUrl.appendingPathComponent(App.configuration.services.infuraKey)
+        rpcUrl!.appendingPathComponent(App.configuration.services.infuraKey)
     }
 }

@@ -20,36 +20,6 @@ struct CollectibleListSection: Identifiable {
     }
 }
 
-class CollectibleBalancesModel: ObservableObject, LoadingModel {
-    var reloadSubject = PassthroughSubject<Void, Never>()
-    var cancellables = Set<AnyCancellable>()
-    var coreDataCancellable: AnyCancellable?
-    @Published var status: ViewLoadingStatus = .initial
-    @Published var result = [CollectibleListSection]()
-
-    init() {
-        buildCoreDataPipeline()
-        buildReload()
-    }
-
-    func buildReload() {
-        buildReloadPipelineWith { upstream in
-            upstream
-                .selectedSafe()
-                .safeToAddress()
-                .receive(on: DispatchQueue.global())
-                .tryMap { address in
-                    try App.shared.clientGatewayService.collectibles(at: address)
-                }
-                .map {
-                    CollectibleListSection.create($0)
-                }
-                .receive(on: RunLoop.main)
-                .eraseToAnyPublisher()
-        }
-    }
-}
-
 extension CollectibleListSection {
     static func create(_  collectibles: [Collectible]) -> [Self] {
         let groupedCollectibles = Dictionary(grouping: collectibles, by: { $0.address })

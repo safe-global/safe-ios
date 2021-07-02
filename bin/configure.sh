@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
+set -e +o pipefail
 
 CONFIG_DIR=Multisig/Cross-layer/Configuration
 EXAMPLE_CONFIG="${CONFIG_DIR}/Config.Example.xcconfig"

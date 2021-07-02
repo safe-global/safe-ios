@@ -10,7 +10,9 @@ import UIKit
 
 /// Header bar will adapt to the devices size
 final class HeaderViewController: ContainerViewController {
+    @IBOutlet private weak var stackView: UIStackView!
     @IBOutlet private weak var headerBar: UIView!
+    @IBOutlet private weak var ribbonView: RibbonView!
     @IBOutlet private weak var barShadowView: UIImageView!
     @IBOutlet private weak var safeBarView: SafeBarView!
     @IBOutlet private weak var noSafeBarView: NoSafeBarView!
@@ -54,6 +56,12 @@ final class HeaderViewController: ContainerViewController {
             self,
             selector: #selector(reloadSafeData),
             name: UIScene.willEnterForegroundNotification,
+            object: nil)
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(reloadHeaderBar),
+            name: .networkInfoChanged,
             object: nil)
     }
 
@@ -103,7 +111,19 @@ final class HeaderViewController: ContainerViewController {
             if let safe = selectedSafe {
                 safeBarView.setAddress(safe.addressValue)
                 safeBarView.setName(safe.displayName)
-                safeBarView.setReadOnly(safe.isReadOnly)                
+                safeBarView.setReadOnly(safe.isReadOnly)
+            }
+
+            if let network = selectedSafe?.network,
+               let name = network.chainName,
+               let textColor = network.textColor,
+               let backgroundColor = network.backgroundColor {
+                ribbonView.text = name
+                ribbonView.textColor = textColor
+                ribbonView.backgroundColor = backgroundColor
+                ribbonView.isHidden = false
+            } else {
+                ribbonView.isHidden = true
             }
         } catch {
             App.shared.snackbar.show(
@@ -115,7 +135,8 @@ final class HeaderViewController: ContainerViewController {
         currentDataTask?.cancel()
         do {
             guard let safe = try Safe.getSelected() else { return }
-            currentDataTask = clientGatewayService.asyncSafeInfo(address: safe.addressValue) { [weak self] result in
+            currentDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
+                                                                 networkId: safe.network!.id) { [weak self] result in
                 DispatchQueue.main.async { [weak self] in
                     switch result {
                     case .failure(let error):
@@ -135,5 +156,14 @@ final class HeaderViewController: ContainerViewController {
         } catch {
             LogService.shared.error("Failed to reload safe info: \(error)")
         }
+    }
+}
+
+extension Network {
+    var textColor: UIColor? {
+        theme?.textColor.flatMap(UIColor.init(hex:))
+    }
+    var backgroundColor: UIColor? {
+        theme?.backgroundColor.flatMap(UIColor.init(hex:))
     }
 }

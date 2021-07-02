@@ -54,12 +54,13 @@ extension Transaction {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
         safe = wcRequest.from
+        guard let network = Safe.by(address: safe!.description)?.network else { return nil }
 
         // When submitting a transacion we need properly specify nonce
         var _nonce: UInt256String
         if let latestTx = try? App.shared.safeTransactionService.latestTransaction(for: wcRequest.from) {
             _nonce = UInt256String(latestTx.nonce.value + 1)
-        } else if let contractNonce = try? SafeContract(wcRequest.from.address).nonce() {
+        } else if let contractNonce = try? SafeContract(wcRequest.from.address, rpcURL: network.authenticatedRpcUrl).nonce() {
             // contract nonce is the next one
             _nonce = UInt256String(contractNonce)
         } else {

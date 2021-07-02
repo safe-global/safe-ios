@@ -18,7 +18,7 @@ class SafeNetworkMigrationTests: CoreDataTestCase {
         var safe = try context.fetch(Safe.fetchRequest().all()).first!
         safe.network = nil
 
-        try Network.removeAll()
+        Network.removeAll()
 
         let result = try context.fetch(Safe.fetchRequest().all())
         XCTAssertEqual(result.count, 1, "Safe should not be removed")

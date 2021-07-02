@@ -10,12 +10,15 @@ import XCTest
 @testable import Multisig
 
 class ENSIntegrationTests: CoreDataTestCase {
-    let domainManager = BlockchainDomainManager(network: Network.mainnetChain())
+    lazy var domainManager: BlockchainDomainManager = {
+        let network = Network.mainnetChain()
+        return BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl, networkName: network.chainName!)
+    }()
 
     func test_forwardResolution() {
         XCTAssertNoThrow(try {
-            let address = try domainManager.resolveEnsDomain(domain: "gnosissafeios.test")
-            XCTAssertEqual(address, "0x2333b4CC1F89a0B4C43e9e733123C124aAE977EE")
+            let address = try domainManager.resolveEnsDomain(domain: "alice.eth")
+            XCTAssertEqual(address, "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75")
         }())
     }
 

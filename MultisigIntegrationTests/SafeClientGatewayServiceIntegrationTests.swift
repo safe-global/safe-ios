@@ -11,6 +11,7 @@ import XCTest
 
 class SafeClientGatewayServiceIntegrationTests: XCTestCase {
     var service = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL, logger: MockLogger())
+    let networkId = Network.ChainID.ethereumRinkeby
 
     func testTransactionsPageLoad() {
         let safes: [Address] = [
@@ -43,7 +44,9 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         var page: Page<SCGModels.TransactionSummaryItem>?
         var pages = [Page<SCGModels.TransactionSummaryItem>]()
 
-        _ = service.asyncHistoryTransactionsSummaryList(address: safe) { result in
+        _ = service.asyncHistoryTransactionsSummaryList(safeAddress: safe, networkId: networkId) {
+            result in
+
             guard case .success(let response) = result else {
                 XCTFail("Unexpected error: \(result); Safe \(safe.checksummed)", line: line)
                 semaphore.signal()
@@ -137,7 +140,7 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         var result: Result<SCGModels.TransactionDetails, Error>?
         let semaphore = DispatchSemaphore(value: 0)
 
-        _ = service.asyncTransactionDetails(safeTxHash: hash) { _result in
+        _ = service.asyncTransactionDetails(safeTxHash: hash, networkId: networkId) { _result in
             result = _result
             semaphore.signal()
         }
@@ -150,7 +153,7 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
         var result: Result<SCGModels.TransactionDetails, Error>?
         let semaphore = DispatchSemaphore(value: 0)
 
-        _ = service.asyncTransactionDetails(id: id) { _result in
+        _ = service.asyncTransactionDetails(id: id, networkId: networkId) { _result in
             result = _result
             semaphore.signal()
         }
@@ -161,7 +164,8 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
 
     func testSafeInfo() {
         let semaphore = DispatchSemaphore(value: 0)
-        _ = service.asyncSafeInfo(address: Address("0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")) { result in
+        _ = service.asyncSafeInfo(safeAddress: Address("0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"),
+                                  networkId: networkId) { result in
             guard case .success(let info) = result else {
                 XCTFail("Failed to load safe info.")
                 semaphore.signal()
@@ -176,7 +180,8 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
 
     func test_safeInfo_whenSendingNotASafe_returns404Error() {
         let semaphore = DispatchSemaphore(value: 0)
-        _ = service.asyncSafeInfo(address: Address("0xc778417E063141139Fce010982780140Aa0cD5Ab")) { result in
+        _ = service.asyncSafeInfo(safeAddress: Address("0xc778417E063141139Fce010982780140Aa0cD5Ab"),
+                                  networkId: networkId) { result in
             guard case .failure(let error) = result else {
                 XCTFail("Expected error.")
                 semaphore.signal()
@@ -194,7 +199,8 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
 
     func testBalances() {
         let semaphore = DispatchSemaphore(value: 0)
-        _ = service.asyncBalances(address: Address("0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")) { result in
+        _ = service.asyncBalances(safeAddress: Address("0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"),
+                                  networkId: networkId) { result in
             guard case .success(let response) = result else {
                 XCTFail("Failed to load balances.")
                 semaphore.signal()
