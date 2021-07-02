@@ -178,7 +178,7 @@ extension Network {
     /// Returns safes grouped by network with the following logic applied:
     /// - Selected safe network will be first in the list
     /// - Other networks are sorted by network id
-    /// - Selected safe will be the first in the list of network safes. Other safes are sorted by addition date.
+    /// - Selected safe will be the first in the list of network safes. Other safes are sorted by addition date with earlist on top.
     static func networkSafes() -> NetworkSafes {
         guard let safes = try? Safe.getAll() else { return [] }
 
