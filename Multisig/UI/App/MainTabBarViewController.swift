@@ -84,7 +84,9 @@ class MainTabBarViewController: UITabBarController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
         loadSafeViewController.trackingEvent = .assetsNoSafe
-        noSafesVC.hasSafeViewController = segmentVC
+
+        let ribbonVC = RibbonViewController(rootViewController: segmentVC)
+        noSafesVC.hasSafeViewController = ribbonVC
         noSafesVC.noSafeViewController = loadSafeViewController
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
@@ -110,7 +112,8 @@ class MainTabBarViewController: UITabBarController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
         loadSafeViewController.trackingEvent = .transactionsNoSafe
-        noSafesVC.hasSafeViewController = segmentVC
+        let ribbonVC = RibbonViewController(rootViewController: segmentVC)
+        noSafesVC.hasSafeViewController = ribbonVC
         noSafesVC.noSafeViewController = loadSafeViewController
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
@@ -124,7 +127,7 @@ class MainTabBarViewController: UITabBarController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
         loadSafeViewController.trackingEvent = .dappsNoSafe
-        noSafesVC.hasSafeViewController = DappsViewController()
+        noSafesVC.hasSafeViewController = RibbonViewController(rootViewController: DappsViewController())
         noSafesVC.noSafeViewController = loadSafeViewController
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
@@ -148,8 +151,9 @@ class MainTabBarViewController: UITabBarController {
             AppSettingsViewController()
         ]
         segmentVC.selectedIndex = 0
-
-        let tabRoot = HeaderViewController(rootViewController: segmentVC)
+        let ribbonVC = RibbonViewController(rootViewController: segmentVC)
+        
+        let tabRoot = HeaderViewController(rootViewController: ribbonVC)
         return tabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 2)
     }
 

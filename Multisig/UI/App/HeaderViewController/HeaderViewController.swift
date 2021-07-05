@@ -12,7 +12,6 @@ import UIKit
 final class HeaderViewController: ContainerViewController {
     @IBOutlet private weak var stackView: UIStackView!
     @IBOutlet private weak var headerBar: UIView!
-    @IBOutlet private weak var ribbonView: RibbonView!
     @IBOutlet private weak var barShadowView: UIImageView!
     @IBOutlet private weak var safeBarView: SafeBarView!
     @IBOutlet private weak var noSafeBarView: NoSafeBarView!
@@ -40,7 +39,6 @@ final class HeaderViewController: ContainerViewController {
         addObservers()
         headerBarHeightConstraint.constant = ScreenMetrics.safeHeaderHeight
         reloadSafeData()
-        ribbonView.observeSelectedSafe()
     }
 
     private func addObservers() {

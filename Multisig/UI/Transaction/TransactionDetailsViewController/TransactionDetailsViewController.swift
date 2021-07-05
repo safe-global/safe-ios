@@ -74,8 +74,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 object: nil)
         }
         tableView.backgroundColor = .secondaryBackground
-
-        ribbonView.observeSelectedSafe()
     }
 
     private func updateSafeInfo() {

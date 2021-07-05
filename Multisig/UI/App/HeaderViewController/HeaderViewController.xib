@@ -7,7 +7,6 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +17,6 @@
                 <outlet property="headerBar" destination="DDE-g1-nRC" id="6cl-Oy-pHH"/>
                 <outlet property="headerBarHeightConstraint" destination="Kjk-nM-fZF" id="BD9-gb-DWU"/>
                 <outlet property="noSafeBarView" destination="hZV-ZR-C0D" id="sZt-r3-4U8"/>
-                <outlet property="ribbonView" destination="5US-Wy-QOH" id="iYC-Qg-oj0"/>
                 <outlet property="safeBarView" destination="buv-cV-e9q" id="f4H-Rh-hUC"/>
                 <outlet property="stackView" destination="jfn-Zl-fDp" id="MNg-48-G5x"/>
                 <outlet property="switchSafeButton" destination="X1Y-Im-GQE" id="ioK-mQ-la4"/>
@@ -90,13 +88,6 @@
                                 <constraint firstAttribute="bottom" secondItem="X1Y-Im-GQE" secondAttribute="bottom" constant="12" id="uf7-PI-dsu"/>
                             </constraints>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5US-Wy-QOH" userLabel="ribbon" customClass="RibbonView" customModule="Multisig" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="116" width="414" height="24"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="24" placeholder="YES" id="aIh-YZ-PPE"/>
-                            </constraints>
-                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xK2-pE-wZA" userLabel="contentView">
                             <rect key="frame" x="0.0" y="116" width="414" height="746"/>
                             <color key="backgroundColor" name="secondaryBackground"/>
@@ -140,8 +131,5 @@
         <namedColor name="shadow">
             <color red="0.15686274509803921" green="0.21176470588235294" blue="0.23921568627450981" alpha="0.18000000715255737" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

@@ -14,7 +14,6 @@
                 <outlet property="dataErrorView" destination="PWE-M3-bUd" id="rxx-3t-aCk"/>
                 <outlet property="emptyView" destination="rYf-NZ-p5Y" id="fql-bP-gO1"/>
                 <outlet property="loadingView" destination="n7L-C1-bxQ" id="4DE-gn-2eQ"/>
-                <outlet property="ribbonView" destination="NX6-a3-Psh" id="hLQ-AI-Lg5"/>
                 <outlet property="tableView" destination="Kia-eh-nHJ" id="7LU-Rv-DBl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="allViews" destination="rYf-NZ-p5Y" collectionClass="NSMutableArray" id="6zz-o6-W0p"/>
@@ -40,15 +39,8 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NX6-a3-Psh" userLabel="ribbon" customClass="RibbonView" customModule="Multisig" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="44" width="414" height="24"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="24" placeholder="YES" id="LfZ-is-d4m"/>
-                    </constraints>
-                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kia-eh-nHJ">
-                    <rect key="frame" x="0.0" y="68" width="414" height="794"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>
@@ -61,15 +53,12 @@
                 <constraint firstItem="Kia-eh-nHJ" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="DLI-9i-QUc"/>
                 <constraint firstItem="Kia-eh-nHJ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Eu9-hj-IFa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rYf-NZ-p5Y" secondAttribute="trailing" id="K7K-m1-gxW"/>
+                <constraint firstItem="Kia-eh-nHJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="KaC-9g-Xb5"/>
                 <constraint firstItem="Kia-eh-nHJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="LuN-X5-wgT"/>
                 <constraint firstItem="PWE-M3-bUd" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Lv3-bw-eEB"/>
                 <constraint firstItem="n7L-C1-bxQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="RsE-Qu-beY"/>
                 <constraint firstItem="rYf-NZ-p5Y" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="SBm-mU-lZ4"/>
-                <constraint firstItem="NX6-a3-Psh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="TWk-oH-BIg"/>
                 <constraint firstItem="PWE-M3-bUd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ayn-4j-hgy"/>
-                <constraint firstItem="NX6-a3-Psh" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="evU-Lu-COE"/>
-                <constraint firstItem="Kia-eh-nHJ" firstAttribute="top" secondItem="NX6-a3-Psh" secondAttribute="bottom" id="h5h-Fc-V7R"/>
-                <constraint firstItem="NX6-a3-Psh" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="mbr-RZ-1wo"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="n7L-C1-bxQ" secondAttribute="bottom" id="nw5-13-eFE"/>
                 <constraint firstItem="PWE-M3-bUd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="t1x-5s-dmZ"/>
                 <constraint firstItem="rYf-NZ-p5Y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ysA-vI-fEH"/>
