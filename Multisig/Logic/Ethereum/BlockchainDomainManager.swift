@@ -10,12 +10,15 @@ import Foundation
 import UnstoppableDomainsResolution
 
 class BlockchainDomainManager {
-    let ens: ENS
-    var resolution: Resolution?
+    private(set) var ens: ENS?
+    private(set) var unstoppableDomainResolution: Resolution?
 
-    init(rpcURL: URL, networkName: String) {
-        ens = ENS(registryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e", rpcURL: rpcURL)
-        self.resolution = try? Resolution(
+    init(rpcURL: URL, networkName: String, ensRegistryAddress: AddressString?) {
+        if let ensRegistryAddress = ensRegistryAddress {
+            ens = ENS(registryAddress: ensRegistryAddress.address, rpcURL: rpcURL)
+        }
+
+        self.unstoppableDomainResolution = try? Resolution(
             configs: Configurations(
                 cns: NamingServiceConfig(
                     providerUrl: rpcURL.absoluteString,
@@ -26,7 +29,7 @@ class BlockchainDomainManager {
     }
     
     func resolveUD(_ domain: String) throws -> Address {
-        guard let resolution = resolution else {
+        guard let resolution = unstoppableDomainResolution else {
             throw GSError.UDUnsupportedNetwork()
         }
         
@@ -61,11 +64,11 @@ class BlockchainDomainManager {
     }
     
     func resolveEnsDomain(domain: String) throws -> Address {
-        try ens.address(for: domain)
+        try ens!.address(for: domain)
     }
 
     func ensName(for address: Address) -> String? {
-        ens.name(for: address)
+        ens!.name(for: address)
     }
     
     func throwCorrectUdError(_ error: ResolutionError, _ domain: String) -> DetailedLocalizedError {

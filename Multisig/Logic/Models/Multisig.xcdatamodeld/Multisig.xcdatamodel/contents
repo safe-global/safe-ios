@@ -34,6 +34,7 @@
         <attribute name="blockExplorerUrl" attributeType="URI"/>
         <attribute name="chainId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="chainName" attributeType="String"/>
+        <attribute name="ensRegistryAddress" optional="YES" attributeType="String"/>
         <attribute name="rpcUrl" attributeType="URI"/>
         <relationship name="nativeCurrency" maxCount="1" deletionRule="Cascade" destinationEntity="NetworkToken" inverseName="network" inverseEntity="NetworkToken"/>
         <relationship name="safe" toMany="YES" deletionRule="Cascade" destinationEntity="Safe" inverseName="network" inverseEntity="Safe"/>
@@ -84,7 +85,7 @@
         <element name="AppSettings" positionX="54" positionY="18" width="128" height="254"/>
         <element name="AppUser" positionX="54" positionY="63" width="128" height="89"/>
         <element name="KeyInfo" positionX="63" positionY="72" width="128" height="104"/>
-        <element name="Network" positionX="54" positionY="117" width="128" height="134"/>
+        <element name="Network" positionX="54" positionY="117" width="128" height="149"/>
         <element name="NetworkTheme" positionX="72" positionY="135" width="128" height="74"/>
         <element name="NetworkToken" positionX="63" positionY="126" width="128" height="89"/>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="119"/>

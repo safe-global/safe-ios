@@ -72,6 +72,7 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(network.chainName, "Test")
         XCTAssertEqual(network.rpcUrl, URL(string: "https://rpc.com/")!)
         XCTAssertEqual(network.blockExplorerUrl, URL(string: "https://block.com/")!)
+        XCTAssertEqual(network.ensRegistryAddress, "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
         XCTAssertEqual(network.nativeCurrency?.name, "Currency")
         XCTAssertEqual(network.nativeCurrency?.symbol, "CRY")
         XCTAssertEqual(network.nativeCurrency?.decimals, 18)
@@ -105,6 +106,7 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(network.chainName, networkInfo.chainName)
         XCTAssertEqual(network.rpcUrl, networkInfo.rpcUrl)
         XCTAssertEqual(network.blockExplorerUrl, networkInfo.blockExplorerUrl)
+        XCTAssertEqual(network.ensRegistryAddress, networkInfo.ensRegistryAddress?.description)
         XCTAssertEqual(network.nativeCurrency?.name, networkInfo.nativeCurrency.name)
         XCTAssertEqual(network.nativeCurrency?.symbol, networkInfo.nativeCurrency.symbol)
         XCTAssertEqual(network.nativeCurrency?.decimals, Int32(networkInfo.nativeCurrency.decimals))
@@ -124,6 +126,7 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(mainNetwork.chainName, testNetworkInfo.chainName)
         XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUrl)
+        XCTAssertEqual(mainNetwork.ensRegistryAddress, testNetworkInfo.ensRegistryAddress?.description)
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testNetworkInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testNetworkInfo.nativeCurrency.symbol)
         XCTAssertEqual(mainNetwork.nativeCurrency?.decimals, Int32(testNetworkInfo.nativeCurrency.decimals))
@@ -190,6 +193,7 @@ class NetworkTests: CoreDataTestCase {
             chainName: "Test",
             rpcUrl: URL(string: "https://rpc.com/")!,
             blockExplorerUrl: URL(string: "https://block.com/")!,
+            ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
             currencyName: "Currency",
             currencySymbl: "CRY",
             currencyDecimals: 18,
@@ -255,7 +259,8 @@ class NetworkTests: CoreDataTestCase {
                                                              symbol: currencySymbl,
                                                              decimals: currencyDecimals),
                           theme: SCGModels.Theme(textColor: themeTextColor,
-                                                 backgroundColor: themeBackgroundColor))
+                                                 backgroundColor: themeBackgroundColor),
+                          ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
     }
 
     func makeMainnetInfo() -> SCGModels.Network {

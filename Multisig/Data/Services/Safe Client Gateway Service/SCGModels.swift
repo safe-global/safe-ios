@@ -538,6 +538,7 @@ extension SCGModels {
         let blockExplorerUrl: URL
         let nativeCurrency: Currency
         let theme: Theme
+        let ensRegistryAddress: AddressString?
         
         var id: Int {
             Int(chainId.value)

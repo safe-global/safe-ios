@@ -27,8 +27,15 @@ class ENSNameLoader: ObservableObject {
             .receive(on: DispatchQueue.global())
             .map { address -> String? in
                 let network = safe.network!
-                return BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl,
-                                               networkName: network.chainName!).ensName(for: address)
+
+                if let ensRegistryAddress = AddressString(network.ensRegistryAddress ?? "") {
+                    let manager = BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl,
+                                                          networkName: network.chainName!,
+                                                          ensRegistryAddress: ensRegistryAddress)
+                    return manager.ensName(for: address)
+                }
+
+                return nil
             }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in

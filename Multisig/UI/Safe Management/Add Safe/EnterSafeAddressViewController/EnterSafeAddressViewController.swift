@@ -104,27 +104,35 @@ class EnterSafeAddressViewController: UIViewController {
             self?.present(vc, animated: true, completion: nil)
         }))
 
-        vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
-            let vc = EnterENSNameViewController()
-            vc.network = self?.network
-            vc.onConfirm = { [weak self] in
-                guard let `self` = self else { return }
-                self.navigationController?.popViewController(animated: true)
-                self.didEnterText(vc.address?.checksummed)
-            }
-            self?.show(vc, sender: nil)
-        }))
-        
-        vc.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
-            let vc = EnterUnstoppableNameViewController()
-            vc.network = self?.network
-            vc.onConfirm = { [weak self] in
-                guard let `self` = self else { return }
-                self.navigationController?.popViewController(animated: true)
-                self.didEnterText(vc.address?.checksummed)
-            }
-            self?.show(vc, sender: nil)
-        }))
+        let blockchainDomainManager = BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl,
+                                                              networkName: network.chainName,
+                                                              ensRegistryAddress: network.ensRegistryAddress)
+
+        if blockchainDomainManager.ens != nil {
+            vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
+                let vc = EnterENSNameViewController(manager: blockchainDomainManager)
+                vc.network = self?.network
+                vc.onConfirm = { [weak self] in
+                    guard let `self` = self else { return }
+                    self.navigationController?.popViewController(animated: true)
+                    self.didEnterText(vc.address?.checksummed)
+                }
+                self?.show(vc, sender: nil)
+            }))
+        }
+
+        if blockchainDomainManager.unstoppableDomainResolution != nil {
+            vc.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
+                let vc = EnterUnstoppableNameViewController(manager: blockchainDomainManager)
+                vc.network = self?.network
+                vc.onConfirm = { [weak self] in
+                    guard let `self` = self else { return }
+                    self.navigationController?.popViewController(animated: true)
+                    self.didEnterText(vc.address?.checksummed)
+                }
+                self?.show(vc, sender: nil)
+            }))
+        }
 
         vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
