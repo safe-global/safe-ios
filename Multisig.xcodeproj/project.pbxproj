@@ -221,6 +221,8 @@
 		0A6C85B2245071510026139E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A6C85B4245080620026139E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B3245080620026139E /* App.swift */; };
 		0A72AC622453169700840641 /* LinkText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC612453169700840641 /* LinkText.swift */; };
+		0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74EEFB268DF37100EB0EFB /* RibbonViewController.swift */; };
+		0A74EEFE268DF37100EB0EFB /* RibbonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A74EEFC268DF37100EB0EFB /* RibbonViewController.xib */; };
 		0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */; };
 		0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */; };
 		0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9C24D2FD5C00D70DA9 /* SnackbarHostView.swift */; };
@@ -792,6 +794,8 @@
 		0A6C85B1245071510026139E /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0A6C85B3245080620026139E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		0A72AC612453169700840641 /* LinkText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkText.swift; sourceTree = "<group>"; };
+		0A74EEFB268DF37100EB0EFB /* RibbonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonViewController.swift; sourceTree = "<group>"; };
+		0A74EEFC268DF37100EB0EFB /* RibbonViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RibbonViewController.xib; sourceTree = "<group>"; };
 		0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDecodingError.swift; sourceTree = "<group>"; };
 		0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodDecodingError.swift; sourceTree = "<group>"; };
 		0A791D9C24D2FD5C00D70DA9 /* SnackbarHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarHostView.swift; sourceTree = "<group>"; };
@@ -1827,6 +1831,8 @@
 				044A54432448D0B6009CBB80 /* QRCodeScannerViewController */,
 				0AC60C982549D44300A63AE2 /* SegmentViewController */,
 				0AF1C90D2541B67200E28669 /* LoadableViewController */,
+				0A74EEFB268DF37100EB0EFB /* RibbonViewController.swift */,
+				0A74EEFC268DF37100EB0EFB /* RibbonViewController.xib */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -2047,8 +2053,6 @@
 				0AC60C562549AF3800A63AE2 /* NoSafeBarView.xib */,
 				0AF1C7F22540887300E28669 /* HeaderViewController.swift */,
 				0AF1C7F32540887300E28669 /* HeaderViewController.xib */,
-				0A109E262689CB9A00226708 /* RibbonView.xib */,
-				0A109E282689CBA100226708 /* RibbonView.swift */,
 				0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */,
 				0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */,
 			);
@@ -2543,6 +2547,8 @@
 		558835ED255BFEA80014E8C7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A109E262689CB9A00226708 /* RibbonView.xib */,
+				0A109E282689CBA100226708 /* RibbonView.swift */,
 				0A2F1A7A267A5E9E00C09F03 /* GSImageView.swift */,
 				0A2F1A6F267A53A800C09F03 /* GSButton.swift */,
 				0A2F1A6D267A538E00C09F03 /* GSLabel.swift */,
@@ -2900,6 +2906,7 @@
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
 				550FB1A626691CD800C13D54 /* SigningKeyTableViewCell.xib in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
+				0A74EEFE268DF37100EB0EFB /* RibbonViewController.xib in Resources */,
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
@@ -3379,6 +3386,7 @@
 				0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */,
 				04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */,
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,
+				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
