@@ -144,6 +144,7 @@ extension Network {
     var textColor: UIColor? {
         theme?.textColor.flatMap(UIColor.init(hex:))
     }
+
     var backgroundColor: UIColor? {
         theme?.backgroundColor.flatMap(UIColor.init(hex:))
     }
