@@ -11,23 +11,24 @@ import XCTest
 
 class SafeTests: CoreDataTestCase {
     func test_removeSafe() throws {
-        let mainnet = Network.mainnetChain()
+        let network1 = try makeNetwork(id: 1)
+        let network2 = try makeNetwork(id: 2)
 
-        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: mainnet, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: mainnet)
-        Safe.create(address: "0x0000000000000000000000000000000000000002", name: "2", network: mainnet, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: network1, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: network1, selected: true)
+        Safe.create(address: "0x0000000000000000000000000000000000000002", name: "2", network: network2, selected: false)
 
         var safesResult = try context.fetch(Safe.fetchRequest().all())
         var networksResult = try context.fetch(Network.fetchRequest().all())
         XCTAssertEqual(safesResult.count, 3)
-        XCTAssertEqual(networksResult.count, 1)
+        XCTAssertEqual(networksResult.count, 2)
 
         var safe = safesResult.first!
         Safe.remove(safe: safe)
         safesResult = try context.fetch(Safe.fetchRequest().all())
         networksResult = try context.fetch(Network.fetchRequest().all())
         XCTAssertEqual(safesResult.count, 2)
-        XCTAssertEqual(networksResult.count, 1)
+        XCTAssertEqual(networksResult.count, 2)
 
         safe = safesResult.first!
         XCTAssertTrue(safe.isSelected)
