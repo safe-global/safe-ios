@@ -247,8 +247,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         switch item {
         case Section.Name.name(_):
             let editSafeNameViewController = EditSafeNameViewController()
-            editSafeNameViewController.address = safe.addressValue
-            editSafeNameViewController.name = safe.name ?? ""
+            editSafeNameViewController.safe = safe
             editSafeNameViewController.completion = {
                 DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }

@@ -58,10 +58,10 @@ extension Safe: Identifiable {
         return (try? context.fetch(Safe.fetchRequest().all())) ?? []
     }
 
-    static func by(address: String) -> Safe? {
+    static func by(address: String, networkId: Int) -> Safe? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-        let fr = Safe.fetchRequest().by(address: address)
+        let fr = Safe.fetchRequest().by(address: address, networkId: networkId)
         return try? context.fetch(fr).first
     }
 
@@ -115,8 +115,8 @@ extension Safe: Identifiable {
             .appendingPathComponent("address").appendingPathComponent(address)
     }
 
-    static func exists(_ address: String) -> Bool {
-        by(address: address) != nil
+    static func exists(_ address: String, networkId: Int) -> Bool {
+        by(address: address, networkId: networkId) != nil
     }
 
     static func create(address: String, name: String, network: Network, selected: Bool = true) {
@@ -138,23 +138,22 @@ extension Safe: Identifiable {
 
         updateCachedNames()
     }
-    
-    static func edit(address: String, name: String) {
+
+    func update(name: String) {
         dispatchPrecondition(condition: .onQueue(.main))
-        let context = App.shared.coreDataStack.viewContext
-        let fr = Safe.fetchRequest().by(address: address)
-        guard let safe = try? context.fetch(fr).first else { return }
-        safe.name = name
+
+        self.name = name
+
         App.shared.coreDataStack.saveContext()
         NotificationCenter.default.post(name: .selectedSafeUpdated, object: nil)
 
-        updateCachedNames()
+        Safe.updateCachedNames()
     }
 
-    static func select(address: String) {
+    static func select(address: String, networkId: Int) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-        let fr = Safe.fetchRequest().by(address: address)
+        let fr = Safe.fetchRequest().by(address: address, networkId: networkId)
         guard let safe = try? context.fetch(fr).first else { return }
         safe.select()
     }
@@ -208,16 +207,10 @@ extension NSFetchRequest where ResultType == Safe {
         return self
     }
 
-    func by(address: String) -> Self {
+    func by(address: String, networkId: Int) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "address CONTAINS[c] %@", address)
+        predicate = NSPredicate(format: "address == %@ AND network.chainId == %d", address, networkId)
         fetchLimit = 1
-        return self
-    }
-
-    func by(network: Network) -> Self {
-        sortDescriptors = []
-        predicate = NSPredicate(format: "chain = %@", network)
         return self
     }
 

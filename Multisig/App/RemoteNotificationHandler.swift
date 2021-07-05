@@ -249,6 +249,7 @@ class RemoteNotificationHandler {
         register(addresses: addresses)
     }
 
+    #warning("TODO: Update when push notifications payload is clear")
     private func showDetails(_ userInfo: [AnyHashable : Any]) {
         UIApplication.shared.applicationIconBadgeNumber = 0
         let payload = NotificationPayload(userInfo: userInfo)
@@ -256,12 +257,14 @@ class RemoteNotificationHandler {
         guard let rawAddress = payload.address,
             let safeAddress = Address(rawAddress) else { return }
 
-        guard Safe.exists(safeAddress.checksummed) else {
+        let network = Network.mainnetChain()
+
+        guard Safe.exists(safeAddress.checksummed, networkId: network.id) else {
             unregister(address: safeAddress)
             return
         }
 
-        Safe.select(address: rawAddress)
+        Safe.select(address: rawAddress, networkId: network.id)
 
         if let safeTxHash = payload.safeTxHash,
            let hashData = Data(exactlyHex: safeTxHash) {

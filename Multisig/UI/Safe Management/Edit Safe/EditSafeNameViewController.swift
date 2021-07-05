@@ -9,8 +9,13 @@
 import UIKit
 
 class EditSafeNameViewController: UIViewController {
-    var address: Address!
-    var name: String?
+    var safe: Safe! {
+        didSet {
+            name = safe.name
+        }
+    }
+
+    var name: String!
     var completion: () -> Void = { }
 
     private var saveButton: UIBarButtonItem!
@@ -18,7 +23,7 @@ class EditSafeNameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        assert(address != nil, "Developer error: expect to have an address")
+        assert(safe != nil, "Developer error: expect to have a safe")
 
         navigationItem.title = "Edit Safe Name"
 
@@ -39,8 +44,7 @@ class EditSafeNameViewController: UIViewController {
     }
 
     @objc private func didTapSaveButton() {
-        guard let name = name, let address = address else { return }
-        Safe.edit(address: address.checksummed, name: name)
+        safe.update(name: name)
         completion()
     }
 
