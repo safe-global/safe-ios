@@ -180,14 +180,14 @@ extension Network {
     /// - Other networks are sorted by network id
     /// - Selected safe will be the first in the list of network safes. Other safes are sorted by addition date with earlist on top.
     static func networkSafes() -> NetworkSafes {
-        guard let safes = try? Safe.getAll() else { return [] }
+        guard let safes = try? Safe.getAll(),
+              let selectedSafe = safes.first(where: { $0.isSelected }),
+              let selectedSafeNetwork = selectedSafe.network else { return [] }
 
         var networkSafes = NetworkSafes()
         let groupedSafes = Dictionary(grouping: safes, by: {$0.network!})
 
         // Add selected safe Network on top with selected safe on top within the group
-        let selectedSafe = safes.first { $0.isSelected }!
-        let selectedSafeNetwork = selectedSafe.network!
         let selectedSafeNetworkOtherSafes = groupedSafes[selectedSafeNetwork]!
             .filter { !$0.isSelected }
             .sorted { $0.additionDate! > $1.additionDate! }

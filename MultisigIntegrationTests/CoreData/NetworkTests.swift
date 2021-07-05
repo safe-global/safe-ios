@@ -198,19 +198,25 @@ class NetworkTests: CoreDataTestCase {
     }
 
     func test_networkSafes() throws {
+        var networkSafes = Network.networkSafes()
+        XCTAssertEqual(networkSafes.count, 0)
+
         let network1 = try makeNetwork(id: 1)
         let network3 = try makeNetwork(id: 3)
         let network2 = try makeNetwork(id: 2)
 
         Safe.create(address: "0x0000000000000000000000000000000000000000", name: "00", network: network1, selected: false)
         Safe.create(address: "0x0000000000000000000000000000000000000001", name: "01", network: network1, selected: false)
+
         Safe.create(address: "0x0000000000000000000000000000000000000011", name: "11", network: network3, selected: false)
         Safe.create(address: "0x0000000000000000000000000000000000000010", name: "10", network: network3, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "100", network: network3, selected: false)
+
         Safe.create(address: "0x0000000000000000000000000000000000000020", name: "20", network: network2, selected: false)
         Safe.create(address: "0x0000000000000000000000000000000000000021", name: "21", network: network2, selected: true)
         Safe.create(address: "0x0000000000000000000000000000000000000022", name: "22", network: network2, selected: false)
 
-        let networkSafes = Network.networkSafes()
+        networkSafes = Network.networkSafes()
 
         XCTAssertEqual(networkSafes.count, 3)
 
@@ -226,9 +232,10 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(networkSafes[1].safes[1].name, "00")
 
         XCTAssertEqual(networkSafes[2].network, network3)
-        XCTAssertEqual(networkSafes[2].safes.count, 2)
-        XCTAssertEqual(networkSafes[2].safes[0].name, "10")
-        XCTAssertEqual(networkSafes[2].safes[1].name, "11")
+        XCTAssertEqual(networkSafes[2].safes.count, 3)
+        XCTAssertEqual(networkSafes[2].safes[0].name, "100")
+        XCTAssertEqual(networkSafes[2].safes[1].name, "10")
+        XCTAssertEqual(networkSafes[2].safes[2].name, "11")
     }
 
     func makeNetworkInfo(id: Int,
