@@ -55,7 +55,8 @@ enum ViewControllerFactory {
         let vc = TransactionDetailsViewController(safeTxHash: safeTxHash)
         vc.navigationItem.leftBarButtonItem =
             UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
-        let navController = UINavigationController(rootViewController: vc)
+        let ribbon = RibbonViewController(rootViewController: vc)
+        let navController = UINavigationController(rootViewController: ribbon)
         return navController
     }
 }

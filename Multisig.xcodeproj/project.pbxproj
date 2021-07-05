@@ -221,6 +221,8 @@
 		0A6C85B2245071510026139E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A6C85B4245080620026139E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B3245080620026139E /* App.swift */; };
 		0A72AC622453169700840641 /* LinkText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC612453169700840641 /* LinkText.swift */; };
+		0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74EEFB268DF37100EB0EFB /* RibbonViewController.swift */; };
+		0A74EEFE268DF37100EB0EFB /* RibbonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A74EEFC268DF37100EB0EFB /* RibbonViewController.xib */; };
 		0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */; };
 		0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */; };
 		0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9C24D2FD5C00D70DA9 /* SnackbarHostView.swift */; };
@@ -478,8 +480,8 @@
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
 		555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */; };
 		555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555DA310250A4C7C00C3A0BE /* KeychainKey.swift */; };
-		5562DD6D268F1D8B00B56722 /* NetworkIndicatorHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5562DD6C268F1D8B00B56722 /* NetworkIndicatorHeaderView.swift */; };
-		5562DD6F268F1D9700B56722 /* NetworkIndicatorHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5562DD6E268F1D9700B56722 /* NetworkIndicatorHeaderView.xib */; };
+		5562DD722693425E00B56722 /* NetworkIndicatorHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5562DD702693425E00B56722 /* NetworkIndicatorHeaderView.xib */; };
+		5562DD732693425E00B56722 /* NetworkIndicatorHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5562DD712693425E00B56722 /* NetworkIndicatorHeaderView.swift */; };
 		558835E0255A907B0014E8C7 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */; };
 		558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835E5255AEA390014E8C7 /* InfoCell.swift */; };
 		558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835E6255AEA390014E8C7 /* InfoCell.xib */; };
@@ -794,6 +796,8 @@
 		0A6C85B1245071510026139E /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0A6C85B3245080620026139E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		0A72AC612453169700840641 /* LinkText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkText.swift; sourceTree = "<group>"; };
+		0A74EEFB268DF37100EB0EFB /* RibbonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonViewController.swift; sourceTree = "<group>"; };
+		0A74EEFC268DF37100EB0EFB /* RibbonViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RibbonViewController.xib; sourceTree = "<group>"; };
 		0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDecodingError.swift; sourceTree = "<group>"; };
 		0A791D9824D2E3C100D70DA9 /* MethodDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodDecodingError.swift; sourceTree = "<group>"; };
 		0A791D9C24D2FD5C00D70DA9 /* SnackbarHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarHostView.swift; sourceTree = "<group>"; };
@@ -1075,8 +1079,8 @@
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		555DA310250A4C7C00C3A0BE /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
-		5562DD6C268F1D8B00B56722 /* NetworkIndicatorHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIndicatorHeaderView.swift; sourceTree = "<group>"; };
-		5562DD6E268F1D9700B56722 /* NetworkIndicatorHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NetworkIndicatorHeaderView.xib; sourceTree = "<group>"; };
+		5562DD702693425E00B56722 /* NetworkIndicatorHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NetworkIndicatorHeaderView.xib; sourceTree = "<group>"; };
+		5562DD712693425E00B56722 /* NetworkIndicatorHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkIndicatorHeaderView.swift; sourceTree = "<group>"; };
 		558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		558835E5255AEA390014E8C7 /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		558835E6255AEA390014E8C7 /* InfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
@@ -1831,6 +1835,8 @@
 				044A54432448D0B6009CBB80 /* QRCodeScannerViewController */,
 				0AC60C982549D44300A63AE2 /* SegmentViewController */,
 				0AF1C90D2541B67200E28669 /* LoadableViewController */,
+				0A74EEFB268DF37100EB0EFB /* RibbonViewController.swift */,
+				0A74EEFC268DF37100EB0EFB /* RibbonViewController.xib */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -2051,8 +2057,6 @@
 				0AC60C562549AF3800A63AE2 /* NoSafeBarView.xib */,
 				0AF1C7F22540887300E28669 /* HeaderViewController.swift */,
 				0AF1C7F32540887300E28669 /* HeaderViewController.xib */,
-				0A109E262689CB9A00226708 /* RibbonView.xib */,
-				0A109E282689CBA100226708 /* RibbonView.swift */,
 				0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */,
 				0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */,
 			);
@@ -2568,10 +2572,12 @@
 				5588365325652E4B0014E8C7 /* LoadingValueCell.xib */,
 				0A109E2A2689D17300226708 /* NetworkIndicator.swift */,
 				0A109E2C2689D17B00226708 /* NetworkIndicator.xib */,
-				5562DD6C268F1D8B00B56722 /* NetworkIndicatorHeaderView.swift */,
-				5562DD6E268F1D9700B56722 /* NetworkIndicatorHeaderView.xib */,
+				5562DD712693425E00B56722 /* NetworkIndicatorHeaderView.swift */,
+				5562DD702693425E00B56722 /* NetworkIndicatorHeaderView.xib */,
 				0ADD19A5265E53BD00EB0F2B /* QRCodeView.swift */,
 				0ADD19A7265E53C600EB0F2B /* QRCodeView.xib */,
+				0A109E282689CBA100226708 /* RibbonView.swift */,
+				0A109E262689CB9A00226708 /* RibbonView.xib */,
 				04B4B60125B84D6900CFE24B /* SafeInfoViewV2.swift */,
 				04B4B68E25B8857F00CFE24B /* SafeInfoViewV2.xib */,
 				0468FB44259106F400541536 /* StyledView.swift */,
@@ -2906,7 +2912,9 @@
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
 				550FB1A626691CD800C13D54 /* SigningKeyTableViewCell.xib in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
+				0A74EEFE268DF37100EB0EFB /* RibbonViewController.xib in Resources */,
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
+				5562DD722693425E00B56722 /* NetworkIndicatorHeaderView.xib in Resources */,
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
 				55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */,
@@ -2929,7 +2937,6 @@
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
-				5562DD6F268F1D9700B56722 /* NetworkIndicatorHeaderView.xib in Resources */,
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
@@ -3251,7 +3258,6 @@
 				3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */,
-				5562DD6D268F1D8B00B56722 /* NetworkIndicatorHeaderView.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
 				550FB1CE26691F1500C13D54 /* Repeater.swift in Sources */,
 				0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */,
@@ -3353,6 +3359,7 @@
 				0AD0274525A3586800886671 /* ActionDetailViewController.swift in Sources */,
 				0AD6EF1E25CAF5EC00EE5512 /* AppReviewController.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
+				5562DD732693425E00B56722 /* NetworkIndicatorHeaderView.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */,
@@ -3387,6 +3394,7 @@
 				0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */,
 				04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */,
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,
+				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
