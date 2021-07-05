@@ -172,6 +172,40 @@ extension Network {
             themeTextColor: "#001428",
             themeBackgroundColor: "#E8E7E6")
     }
+
+    typealias NetworkSafes = [(network: Network, safes: [Safe])]
+
+    /// Returns safes grouped by network with the following logic applied:
+    /// - Selected safe network will be first in the list
+    /// - Other networks are sorted by network id
+    /// - Selected safe will be the first in the list of network safes. Other safes are sorted by addition date with earlist on top.
+    static func networkSafes() -> NetworkSafes {
+        guard let safes = try? Safe.getAll(),
+              let selectedSafe = safes.first(where: { $0.isSelected }),
+              let selectedSafeNetwork = selectedSafe.network else { return [] }
+
+        var networkSafes = NetworkSafes()
+        let groupedSafes = Dictionary(grouping: safes, by: {$0.network!})
+
+        // Add selected safe Network on top with selected safe on top within the group
+        let selectedSafeNetworkOtherSafes = groupedSafes[selectedSafeNetwork]!
+            .filter { !$0.isSelected }
+            .sorted { $0.additionDate! > $1.additionDate! }
+        networkSafes.append((network: selectedSafeNetwork, safes: [selectedSafe] + selectedSafeNetworkOtherSafes))
+
+        // Add other networks sorted by id with safes sorted by most recently added
+        groupedSafes.keys
+            .filter { $0 != selectedSafeNetwork }
+            .sorted { $0.id < $1.id }
+            .forEach { network in
+                networkSafes.append(
+                    (network: network,
+                     safes: groupedSafes[network]!.sorted { $0.additionDate! > $1.additionDate!})
+                )
+            }
+
+        return networkSafes
+    }
 }
 
 extension Network {

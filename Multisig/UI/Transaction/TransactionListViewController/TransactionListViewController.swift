@@ -246,8 +246,8 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         default:
             vc = TransactionDetailsViewController(transactionID: tx.id)
         }
-
-        show(vc, sender: self)
+        let ribbon = RibbonViewController(rootViewController: vc)
+        show(ribbon, sender: self)
 
         if tableView.contentOffset == .zero {
             setNeedsReload()

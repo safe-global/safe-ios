@@ -372,18 +372,20 @@ class TransactionDetailCellBuilder {
 
                 disclosure(text: "Multisend (\(multiSendTxs.count) actions)") { [weak self] in
                     guard let `self` = self else { return }
-                    let vc = MultiSendListTableViewController(transactions: multiSendTxs,
-                                                              addressInfoIndex: addressInfoIndex,
-                                                              networkId: self.networkId)
+                    let root = MultiSendListTableViewController(transactions: multiSendTxs,
+                                                                addressInfoIndex: addressInfoIndex,
+                                                                networkId: self.networkId)
+                    let vc = RibbonViewController(rootViewController: root)
                     self.vc.show(vc, sender: self)
                 }
             } else {
                 disclosure(text: "Action (\(dataDecoded.method))") { [weak self] in
                     guard let `self` = self else { return }
-                    let vc = ActionDetailViewController(decoded: dataDecoded,
-                                                        addressInfoIndex: addressInfoIndex,
-                                                        networkId: self.networkId,
-                                                        data: tx.txData?.hexData)
+                    let root = ActionDetailViewController(decoded: dataDecoded,
+                                                          addressInfoIndex: addressInfoIndex,
+                                                          networkId: self.networkId,
+                                                          data: tx.txData?.hexData)
+                    let vc = RibbonViewController(rootViewController: root)
                     self.vc.show(vc, sender: self)
                 }
             }
@@ -509,7 +511,9 @@ class TransactionDetailCellBuilder {
                     operation: operation,
                     hash: hash,
                     safeTxHash: safeTxHash)
-                let vc = UIHostingController(rootView: view)
+                let host = UIHostingController(rootView: view)
+                host.navigationItem.title = "Advanced"
+                let vc = RibbonViewController(rootViewController: host)
                 self.vc.show(vc, sender: self)
             }
             break
