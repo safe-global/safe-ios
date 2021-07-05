@@ -52,9 +52,12 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         title = "Transaction Details"
 
-        builder = TransactionDetailCellBuilder(vc: self, tableView: tableView)
+        safe = try! Safe.getSelected()!
+
+        builder = TransactionDetailCellBuilder(vc: self, tableView: tableView, networkId: safe.network!.id)
 
         updateSafeInfo()
 
@@ -77,7 +80,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private func updateSafeInfo() {
-        safe = try! Safe.getSelected()!
         loadSafeInfoDataTask = App.shared.clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
                                                                              networkId: safe.network!.id) { result in
             DispatchQueue.main.async { [weak self] in

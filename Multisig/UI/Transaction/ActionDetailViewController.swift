@@ -15,6 +15,7 @@ class ActionDetailViewController: UITableViewController {
 
     private var multiSendTx: MultiSendTx?
     private var addressInfoIndex: AddressInfoIndex?
+    private var networkId: Int!
     private var dataDecoded: DataDecoded?
     private var data: DataString?
     private var placeholderTitle: String?
@@ -28,19 +29,23 @@ class ActionDetailViewController: UITableViewController {
 
     convenience init(decoded: DataDecoded,
                      addressInfoIndex: AddressInfoIndex?,
+                     networkId: Int,
                      data: DataString? = nil) {
         self.init()
         self.dataDecoded = decoded
         self.addressInfoIndex = addressInfoIndex
+        self.networkId = networkId
         self.data = data
     }
 
     convenience init(tx: MultiSendTx,
                      addressInfoIndex: AddressInfoIndex?,
+                     networkId: Int,
                      placeholderTitle: String?) {
         self.init()
         multiSendTx = tx
         self.addressInfoIndex = addressInfoIndex
+        self.networkId = networkId
         dataDecoded = tx.dataDecoded
         data = tx.data
         self.placeholderTitle = placeholderTitle
@@ -48,7 +53,8 @@ class ActionDetailViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        txBuilder = TransactionDetailCellBuilder(vc: self, tableView: tableView)
+
+        txBuilder = TransactionDetailCellBuilder(vc: self, tableView: tableView, networkId: networkId)
         tableView.registerCell(ActionDetailTextCell.self)
         tableView.registerCell(ActionDetailExpandableCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
@@ -75,7 +81,8 @@ class ActionDetailViewController: UITableViewController {
         if let tx = multiSendTx {
             let eth = App.shared.tokenRegistry.networkToken()
             txBuilder.result = []
-            let (name, imageUri) = displayNameAndImageUri(address: tx.to, addressInfoIndex: addressInfoIndex)
+            let (name, imageUri) = displayNameAndImageUri(
+                address: tx.to, addressInfoIndex: addressInfoIndex, networkId: networkId)
             txBuilder.buildTransferHeader(
                 address: tx.to.address,
                 label: name,
@@ -215,7 +222,8 @@ class ActionDetailViewController: UITableViewController {
     private func addressCell(_ address: Address, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailAddressCell.self)
         let (name, imageUri) = displayNameAndImageUri(address: AddressString(address),
-                                                      addressInfoIndex: addressInfoIndex)
+                                                      addressInfoIndex: addressInfoIndex,
+                                                      networkId: networkId)
         cell.setAddress(address, label: name, imageUri: imageUri)
         cell.selectionStyle = .none
         cell.margins.leading += indentation

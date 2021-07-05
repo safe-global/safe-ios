@@ -50,11 +50,13 @@ extension Transaction {
         safeTxHash = multiSigTxInfo.safeTxHash
     }
 
-    init?(wcRequest: WCSendTransactionRequest) {
+    init?(wcRequest: WCSendTransactionRequest, safe: Safe) {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
-        safe = wcRequest.from
-        guard let network = Safe.by(address: safe!.description)?.network else { return nil }
+        guard safe.addressValue == wcRequest.from.address,
+              let network = safe.network else { return nil }
+
+        self.safe = wcRequest.from
 
         // When submitting a transacion we need properly specify nonce
         var _nonce: UInt256String

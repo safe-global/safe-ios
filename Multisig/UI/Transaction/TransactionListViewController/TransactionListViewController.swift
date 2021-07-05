@@ -17,6 +17,9 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     private var loadNextPageDataTask: URLSessionTask?
 
     private var model = FlatTransactionsListViewModel()
+
+    internal var safe: Safe!
+
     internal var trackingEvent: TrackingEvent?
     internal var emptyText: String = "Transactions will appear here"
     internal var emptyImage: UIImage = UIImage(named: "ico-no-transactions")!
@@ -319,7 +322,8 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                 tag = "App"
                 imageURL = URL(string: safeAppInfo.logoUrl)
                 image = UIImage(named: "ico-custom-tx")
-            } else if let importedSafeName = Safe.cachedName(by: customInfo.to) {
+                
+            } else if let importedSafeName = Safe.cachedName(by: customInfo.to, networkId: safe.network!.id) {
                 title = importedSafeName
                 placeholderAddress = customInfo.to
             } else if let toInfo = customInfo.toInfo {

@@ -167,7 +167,7 @@ class EnterSafeAddressViewController: UIViewController {
             addressField.setAddress(address)
 
             // (2) and that there's no such safe already
-            let exists = Safe.exists(address.checksummed)
+            let exists = Safe.exists(address.checksummed, networkId: network.id)
             if exists { throw GSError.SafeAlreadyExists() }
 
             // (3) and there exists safe at that address

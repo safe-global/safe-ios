@@ -41,6 +41,11 @@ class WCRequestsHandler: RequestHandler {
     func handle(request: Request) {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
+        guard let wcSession = WCSession.get(topic: request.url.topic), let safe = wcSession.safe else {
+            server.send(try! Response(request: request, error: .requestRejected))
+            return
+        }
+
         if request.method == "eth_sendTransaction" {
 
             // make transformation of incoming request into internal data types
@@ -48,8 +53,7 @@ class WCRequestsHandler: RequestHandler {
 
             guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
                   let requestId = request.id,
-                  let transaction = Transaction(wcRequest: wcRequest),
-                  let safe = Safe.by(address: transaction.safe!.address.checksummed),
+                  let transaction = Transaction(wcRequest: wcRequest, safe: safe),
                   let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(safeAddress: safe.addressValue,
                                                                                    networkId: safe.network!.id),
                   let importedKeysAddresses = try? KeyInfo.all().map({ $0.address })
@@ -102,8 +106,7 @@ class WCRequestsHandler: RequestHandler {
             }
         } else {
             do {
-                #warning("Make sure if this always works @Andrey")
-                let rpcURL = try! Safe.getSelected()!.network!.authenticatedRpcUrl
+                let rpcURL = safe.network!.authenticatedRpcUrl
                 let result = try App.shared.nodeService.rawCall(payload: request.jsonString, rpcURL: rpcURL)
                 let response = try Response(url: request.url, jsonString: result)
                 self.server.send(response)
