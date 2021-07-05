@@ -15,6 +15,10 @@ class TransactionDetailCellBuilder {
 
     private weak var vc: UIViewController!
     private weak var tableView: UITableView!
+
+    // needed for proper safe selection for known addresses functionality
+    private var networkId: Int
+
     private lazy var dateFormatter: DateFormatter = {
         let d = DateFormatter()
         d.locale = .autoupdatingCurrent
@@ -24,9 +28,11 @@ class TransactionDetailCellBuilder {
     }()
     var result: [UITableViewCell] = []
 
-    init(vc: UIViewController, tableView: UITableView) {
+    init(vc: UIViewController, tableView: UITableView, networkId: Int) {
         self.vc = vc
         self.tableView = tableView
+        self.networkId = networkId
+
         tableView.registerCell(DetailExpandableTextCell.self)
         tableView.registerCell(DetailConfirmationCell.self)
         tableView.registerCell(DetailAccountCell.self)
@@ -367,7 +373,8 @@ class TransactionDetailCellBuilder {
                 disclosure(text: "Multisend (\(multiSendTxs.count) actions)") { [weak self] in
                     guard let `self` = self else { return }
                     let vc = MultiSendListTableViewController(transactions: multiSendTxs,
-                                                              addressInfoIndex: addressInfoIndex)
+                                                              addressInfoIndex: addressInfoIndex,
+                                                              networkId: self.networkId)
                     self.vc.show(vc, sender: self)
                 }
             } else {
@@ -375,6 +382,7 @@ class TransactionDetailCellBuilder {
                     guard let `self` = self else { return }
                     let vc = ActionDetailViewController(decoded: dataDecoded,
                                                         addressInfoIndex: addressInfoIndex,
+                                                        networkId: self.networkId,
                                                         data: tx.txData?.hexData)
                     self.vc.show(vc, sender: self)
                 }
@@ -621,7 +629,7 @@ class TransactionDetailCellBuilder {
     }
 
     func displayNameAndImageUri(address: AddressString, addressInfo: SCGModels.AddressInfo?) -> (name: String?, imageUri: URL?) {
-        if let importedSafeName = Safe.cachedName(by: address) {
+        if let importedSafeName = Safe.cachedName(by: address, networkId: networkId) {
             return (importedSafeName, nil)
         }
 

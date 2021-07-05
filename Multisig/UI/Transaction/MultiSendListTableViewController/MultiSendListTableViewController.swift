@@ -14,11 +14,13 @@ class MultiSendListTableViewController: UITableViewController {
 
     var transactions: [Transaction] = []
     var addressInfoIndex: AddressInfoIndex?
+    var networkId: Int!
 
-    convenience init(transactions: [Transaction], addressInfoIndex: AddressInfoIndex?) {
+    convenience init(transactions: [Transaction], addressInfoIndex: AddressInfoIndex?, networkId: Int) {
         self.init()
         self.transactions = transactions
         self.addressInfoIndex = addressInfoIndex
+        self.networkId = networkId
     }
 
     override func viewDidLoad() {
@@ -45,7 +47,8 @@ class MultiSendListTableViewController: UITableViewController {
         let cell = tableView.dequeueCell(MultiSendRowTableViewCell.self, for: indexPath)
         let tx = transactions[indexPath.row]
 
-        let (name, imageUri) = displayNameAndImageUri(address: tx.to, addressInfoIndex: addressInfoIndex)
+        let (name, imageUri) = displayNameAndImageUri(
+            address: tx.to, addressInfoIndex: addressInfoIndex, networkId: networkId)
 
         cell.setAddress(tx.to.address, label: name, imageUri: imageUri)
         cell.setAction(tx.dataDecoded?.method ?? "Action #\(indexPath.row + 1)")
@@ -56,8 +59,10 @@ class MultiSendListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let tx = transactions[indexPath.row]
-        let vc = ActionDetailViewController(
-            tx: tx, addressInfoIndex: addressInfoIndex, placeholderTitle: "Action #\(indexPath.row + 1)")
+        let vc = ActionDetailViewController(tx: tx,
+                                            addressInfoIndex: addressInfoIndex,
+                                            networkId: networkId,
+                                            placeholderTitle: "Action #\(indexPath.row + 1)")
         show(vc, sender: self)
     }
 }

@@ -215,7 +215,7 @@ class WCTransactionConfirmationViewController: UIViewController {
         let cell = tableView.dequeueCell(DetailAccountCell.self)
         cell.setAccount(
             address: transaction.safe!.address,
-            label: Safe.cachedName(by: transaction.safe!)
+            label: Safe.cachedName(by: transaction.safe!, networkId: safe.network!.id)
         )
         cell.selectionStyle = .none
         return cell

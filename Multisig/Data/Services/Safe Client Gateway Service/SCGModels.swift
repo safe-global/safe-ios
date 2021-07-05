@@ -572,8 +572,10 @@ extension SCGModels.AddressInfo {
     }
 }
 
-func displayNameAndImageUri(address: AddressString, addressInfoIndex: SCGModels.AddressInfoIndex?) -> (name: String?, imageUri: URL?) {
-    if let importedSafeName = Safe.cachedName(by: address) {
+func displayNameAndImageUri(address: AddressString,
+                            addressInfoIndex: SCGModels.AddressInfoIndex?,
+                            networkId: Int) -> (name: String?, imageUri: URL?) {
+    if let importedSafeName = Safe.cachedName(by: address, networkId: networkId) {
         return (importedSafeName, nil)
     }
 

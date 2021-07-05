@@ -10,7 +10,8 @@ import Foundation
 import CoreData
 import FirebaseAnalytics
 
-fileprivate var cachedNames = [AddressString: String]()
+// "address:networkId" -> name
+fileprivate var cachedNames = [String: String]()
 
 extension Safe: Identifiable {
 
@@ -67,13 +68,17 @@ extension Safe: Identifiable {
 
     static func updateCachedNames() {
         guard let safes = try? Safe.getAll() else { return }
-        cachedNames = safes.reduce(into: [AddressString: String]()) { names, safe in
-            names[AddressString(safe.address!)!] = safe.name!
+
+        cachedNames = safes.reduce(into: [String: String]()) { names, safe in
+            let networkId = safe.network != nil ? "\(safe.network!.id)" : "1"
+            let key = "\(safe.displayAddress):\(networkId)"
+            names[key] = safe.name!
         }
     }
 
-    static func cachedName(by address: AddressString) -> String? {
-        cachedNames[address]
+    static func cachedName(by address: AddressString, networkId: Int) -> String? {
+        let key = "\(address.description):\(networkId)"
+        return cachedNames[key]
     }
 
     public override func awakeFromInsert() {

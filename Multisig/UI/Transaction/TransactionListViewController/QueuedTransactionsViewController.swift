@@ -27,7 +27,7 @@ class QueuedTransactionsViewController: TransactionListViewController {
     
     override func asyncTransactionList(
         completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
-        let safe = try! Safe.getSelected()!
+        safe = try! Safe.getSelected()!
         return clientGatewayService.asyncQueuedTransactionsSummaryList(safeAddress: safe.addressValue, networkId: safe.network!.id, completion: completion)
     }
 
