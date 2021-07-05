@@ -27,10 +27,14 @@ class EnterENSNameViewController: UIViewController {
     @IBOutlet private weak var foundIdenticonView: UIImageView!
     @IBOutlet private weak var foundAddressLabel: UILabel!
 
+    convenience init(manager: BlockchainDomainManager) {
+        self.init()
+        self.manager = manager
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(network != nil, "Developer error: expect to have network")
-        manager = BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl, networkName: network.chainName)
         navigationItem.title = "Enter ENS Name"
 
         confirmButton = UIBarButtonItem(title: "Confirm", style: .done, target: self, action: #selector(didTapConfirmButton))
