@@ -80,7 +80,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
            let networkId = selectedSafe.network?.id,
            !SafeTransactionService.supports(networkId: networkId) {
             wcButton.isHidden = true
-            wcSessionItems = [Section.WalletConnect.noSessions("This network is not supported")]
+            wcSessionItems = [Section.WalletConnect.noSessions("This network is not supported yet.")]
             sections = [
                 (section: .walletConnect("WalletConnect"), items: wcSessionItems)
             ]
