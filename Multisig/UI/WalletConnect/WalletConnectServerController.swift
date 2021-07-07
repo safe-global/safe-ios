@@ -88,9 +88,9 @@ class WalletConnectServerController {
 
                 DispatchQueue.global().async { [unowned self] in
                     let nonce = UInt256String(UInt256(pendingTx.nonce!)!)
-                    if let transaction = try? App.shared.safeTransactionService.transaction(nonce: nonce,
-                                                                                            safe: safeAddress,
-                                                                                            networkId: networkId),
+                    if let transaction = try? SafeTransactionService.transaction(nonce: nonce,
+                                                                                 safe: safeAddress,
+                                                                                 networkId: networkId),
                        let txHash = transaction.transactionHash,
                        // it might happen that pendingTx is removed, but the object still exists
                        let requestId = pendingTx.requestId,

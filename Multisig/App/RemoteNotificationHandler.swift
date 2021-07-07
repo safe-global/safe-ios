@@ -189,7 +189,7 @@ class RemoteNotificationHandler {
 
                 // will be changed with new registration request
                 guard let networkId = (try? Safe.getSelected())?.network?.id else { return }
-                try App.shared.safeTransactionService.execute(request: request, networkId: networkId)
+                try SafeTransactionService.execute(request: request, networkId: networkId)
             } catch {
                 logError("Failed to register device", error)
             }
@@ -238,9 +238,9 @@ class RemoteNotificationHandler {
     private func unregister(address: Address, networkId: Int) {
         queue.async { [unowned self] in
             do {
-                try App.shared.safeTransactionService.unregister(deviceID: self.storedDeviceID!,
-                                                                 address: address,
-                                                                 networkId: networkId)
+                try SafeTransactionService.unregister(deviceID: self.storedDeviceID!,
+                                                      address: address,
+                                                      networkId: networkId)
             } catch {
                 logError("Failed to unregister device", error)
             }

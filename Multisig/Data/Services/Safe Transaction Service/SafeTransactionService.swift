@@ -8,26 +8,26 @@
 
 import Foundation
 
+/// Safe transaction service will be used only by WalletConnect prototype for a while
 class SafeTransactionService {
-    var url: URL
-    private let httpClient: JSONHTTPClient
-
-    var jsonDecoder: JSONDecoder {
-        httpClient.jsonDecoder
+    static func supports(networkId: Int) -> Bool {
+        url(networkId: networkId) != nil
     }
 
-    init(url: URL, logger: Logger) {
-        self.url = url
-        httpClient = JSONHTTPClient(url: url, logger: logger)
-        httpClient.jsonDecoder.dateDecodingStrategy = .backendDateDecodingStrategy
+    static func url(networkId: Int) -> URL? {
+        switch networkId {
+        case Network.ChainID.ethereumMainnet: return URL(string: "https://safe-transaction.gnosis.io/api/")!
+        case Network.ChainID.ethereumRinkeby: return URL(string: "https://safe-transaction.rinkeby.gnosis.io/api/")!
+        case Network.ChainID.polygon: return URL(string: "https://safe-transaction.polygon.gnosis.io/api/")!
+        case Network.ChainID.xDai: return URL(string: "https://safe-transaction.xdai.gnosis.io/api/")!
+        default: return nil
+        }
     }
 
     @discardableResult
-    func execute<T: JSONRequest>(request: T, networkId: Int) throws -> T.ResponseType {
-        try httpClient.execute(request: request)
+    static func execute<T: JSONRequest>(request: T, networkId: Int) throws -> T.ResponseType {
+        let httpClient = JSONHTTPClient(url: url(networkId: networkId)!, logger: LogService.shared)
+        httpClient.jsonDecoder.dateDecodingStrategy = .backendDateDecodingStrategy
+        return try httpClient.execute(request: request)
     }
-
-//    func asyncExecute<T: JSONRequest>(request: T, completion: @escaping (Result<T.ResponseType, Error>) -> Void) -> URLSessionTask? {
-//        httpClient.asyncExecute(request: request, completion: completion)
-//    }
 }

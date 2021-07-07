@@ -162,6 +162,8 @@ extension Network {
     enum ChainID {
         static let ethereumMainnet = 1
         static let ethereumRinkeby = 4
+        static let polygon = 137
+        static let xDai = 100
     }
 
     static func mainnetChain() -> Network {
