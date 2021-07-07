@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="tableView" destination="U7f-Mf-Vgq" id="frx-Pr-zwm"/>
                 <outlet property="view" destination="iN0-l3-epB" id="TRJ-jn-RME"/>
+                <outlet property="wcButton" destination="Bpc-nf-Jd6" id="des-W0-IlO"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
