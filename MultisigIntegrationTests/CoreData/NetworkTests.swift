@@ -229,16 +229,16 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(networkSafes[0].safes[1].name, "22")
         XCTAssertEqual(networkSafes[0].safes[2].name, "20")
 
-        XCTAssertEqual(networkSafes[1].network, network1)
-        XCTAssertEqual(networkSafes[1].safes.count, 2)
-        XCTAssertEqual(networkSafes[1].safes[0].name, "01")
-        XCTAssertEqual(networkSafes[1].safes[1].name, "00")
+        XCTAssertEqual(networkSafes[2].network, network1)
+        XCTAssertEqual(networkSafes[2].safes.count, 2)
+        XCTAssertEqual(networkSafes[2].safes[0].name, "01")
+        XCTAssertEqual(networkSafes[2].safes[1].name, "00")
 
-        XCTAssertEqual(networkSafes[2].network, network3)
-        XCTAssertEqual(networkSafes[2].safes.count, 3)
-        XCTAssertEqual(networkSafes[2].safes[0].name, "100")
-        XCTAssertEqual(networkSafes[2].safes[1].name, "10")
-        XCTAssertEqual(networkSafes[2].safes[2].name, "11")
+        XCTAssertEqual(networkSafes[1].network, network3)
+        XCTAssertEqual(networkSafes[1].safes.count, 3)
+        XCTAssertEqual(networkSafes[1].safes[0].name, "100")
+        XCTAssertEqual(networkSafes[1].safes[1].name, "10")
+        XCTAssertEqual(networkSafes[1].safes[2].name, "11")
     }
 
     func makeNetworkInfo(id: UInt256,
