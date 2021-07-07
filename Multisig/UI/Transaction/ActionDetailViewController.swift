@@ -61,6 +61,12 @@ class ActionDetailViewController: UITableViewController {
         tableView.registerCell(DetailExpandableTextCell.self)
         tableView.backgroundColor = .secondaryBackground
         reloadData()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reloadData),
+            name: .networkInfoChanged,
+            object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -68,7 +74,7 @@ class ActionDetailViewController: UITableViewController {
         trackEvent(.transactionsDetailsAction)
     }
 
-    private func reloadData() {
+    @objc private func reloadData() {
         navigationItem.title = dataDecoded?.method ?? placeholderTitle
         cells = []
         buildHeader()
