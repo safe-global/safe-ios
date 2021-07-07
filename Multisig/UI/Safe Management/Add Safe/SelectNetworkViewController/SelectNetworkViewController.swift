@@ -29,8 +29,8 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         tableView.registerHeaderFooterView(IdleFooterView.self)
         tableView.registerHeaderFooterView(LoadingFooterView.self)
         tableView.registerHeaderFooterView(RetryFooterView.self)
-        tableView.backgroundColor = .primaryBackground
 
+        tableView.backgroundColor = .primaryBackground
         tableView.sectionHeaderHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
