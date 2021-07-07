@@ -252,6 +252,21 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(networkSafes[2].safes[2].name, "11")
     }
 
+    // nativeCurrency
+    func test_nativeCurrency() throws {
+        // when no safes then nil returned
+        XCTAssertNil(Network.nativeCoin)
+
+        // when no selected safe then nil returned
+        let network1 = try makeNetwork(id: 1)
+        let safe = Safe.create(address: "0x0000000000000000000000000000000000000000", name: "00", network: network1, selected: false)
+        XCTAssertNil(Network.nativeCoin)
+
+        // when selected safe then network's token returned
+        safe.select()
+        XCTAssertEqual(Network.nativeCoin, network1.nativeCurrency)
+    }
+
     func makeNetworkInfo(id: Int,
                          chainName: String,
                          rpcUrl: URL,

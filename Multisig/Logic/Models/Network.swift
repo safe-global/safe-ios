@@ -20,6 +20,10 @@ extension Network {
         return (try? context.fetch(Network.fetchRequest().all())) ?? []
     }
 
+    static var nativeCoin: NetworkToken? {
+        (try? Safe.getSelected())?.network?.nativeCurrency
+    }
+
     static func exists(_ id: Int) throws -> Bool {
         do {
             dispatchPrecondition(condition: .onQueue(.main))

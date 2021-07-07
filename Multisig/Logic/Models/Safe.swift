@@ -124,7 +124,8 @@ extension Safe: Identifiable {
         by(address: address, networkId: networkId) != nil
     }
 
-    static func create(address: String, name: String, network: Network, selected: Bool = true) {
+    @discardableResult
+    static func create(address: String, name: String, network: Network, selected: Bool = true) -> Safe {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
@@ -142,6 +143,8 @@ extension Safe: Identifiable {
         App.shared.notificationHandler.safeAdded(address: Address(exactly: address))
 
         updateCachedNames()
+
+        return safe
     }
 
     func update(name: String) {
