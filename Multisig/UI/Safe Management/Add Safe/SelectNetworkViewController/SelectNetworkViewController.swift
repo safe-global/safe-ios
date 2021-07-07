@@ -29,7 +29,9 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         tableView.registerHeaderFooterView(IdleFooterView.self)
         tableView.registerHeaderFooterView(LoadingFooterView.self)
         tableView.registerHeaderFooterView(RetryFooterView.self)
-        
+        tableView.backgroundColor = .primaryBackground
+
+        tableView.sectionHeaderHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         tableView.delegate = self
@@ -162,10 +164,6 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         let tableHeaderView = TableHeaderView()
         tableHeaderView.set("Select network on which your Safe was created:")
         return tableHeaderView
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        100
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
