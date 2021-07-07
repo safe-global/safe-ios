@@ -13,6 +13,7 @@ import SnapshotTesting
 class BalanceTableViewCellTests: XCTestCase {
     func testWhenRealisitcValuesThenOk() {
         let vc = CellTestViewController<BalanceTableViewCell>(estimatedHeight: 60) { cell in
+            // *nativeCoin*
             cell.setMainText("ETH")
             cell.setDetailText("0,005")
             cell.setSubDetailText("155,84 USD")
@@ -38,6 +39,7 @@ class BalanceTableViewCellTests: XCTestCase {
 
     func testWhenLongStringsThenEllipsized() {
         let vc = CellTestViewController<BalanceTableViewCell>(estimatedHeight: 60) { cell in
+            // *nativeCoin*
             cell.setMainText(String(repeating: "ETH repeating ", count: 15))
             cell.setDetailText(String(repeating: "0,005", count: 15))
             cell.setSubDetailText(String(repeating: "155,84 USD", count: 15))

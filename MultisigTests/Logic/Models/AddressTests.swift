@@ -19,6 +19,7 @@ class AddressTests: XCTestCase {
         address = try? Address(addressText, isERC681: true)
         XCTAssertNotNil(address)
 
+        // *nativeCoin*
         addressText = "ethereum:pay-0x71592E6Cbe7779D480C1D029e70904041F8f602A"
         address = try? Address(addressText, isERC681: false)
         XCTAssertNil(address)

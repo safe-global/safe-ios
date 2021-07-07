@@ -43,6 +43,7 @@ class WalletConnectClientController {
 
         let clientMeta = Session.ClientMeta(
             name: "Gnosis Safe",
+            // *nativeCoin*
             description: "The most trusted platform to manage digital assets on Ethereum",
             icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
             url: URL(string: "https://gnosis-safe.io")!,

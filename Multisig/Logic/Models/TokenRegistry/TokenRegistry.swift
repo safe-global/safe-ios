@@ -9,6 +9,7 @@
 import Foundation
 
 class TokenRegistry {
+    // *nativeCoin*
     func networkToken() -> Token {
         Token(type: .erc20,
               address: .ether,

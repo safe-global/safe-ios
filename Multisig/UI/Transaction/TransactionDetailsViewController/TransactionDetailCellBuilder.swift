@@ -167,6 +167,7 @@ class TransactionDetailCellBuilder {
                     detail: erc721Tx.tokenId.description)
 
             case .ether(let etherTx):
+                // *nativeCoin*
                 let eth = App.shared.tokenRegistry.networkToken()
 
                 buildTransferHeader(
@@ -176,6 +177,7 @@ class TransactionDetailCellBuilder {
                     isOutgoing: isOutgoing,
                     status: tx.txStatus,
                     value: etherTx.value.value,
+                    // *nativeCoin*
                     decimals: eth.decimals.flatMap { try? UInt64($0) },
                     symbol: eth.symbol,
                     logoUri: nil,
@@ -276,6 +278,7 @@ class TransactionDetailCellBuilder {
             }
 
         case .custom(let customTx):
+            // **
             let eth = App.shared.tokenRegistry.networkToken()
             let (label, addressLogoUri) = displayNameAndImageUri(address: customTx.to, addressInfo: customTx.toInfo)
 
@@ -286,9 +289,12 @@ class TransactionDetailCellBuilder {
                 isOutgoing: true,
                 status: tx.txStatus,
                 value: customTx.value.value,
+                // *nativeCoin*
                 decimals: eth.decimals.flatMap { try? UInt64($0) },
                 symbol: eth.symbol,
+
                 logoUri: nil,
+                // *nativeCoin*
                 logo: UIImage(named: "ico-ether"),
                 detail: "\(customTx.dataSize.value) bytes")
             buildActions(tx)

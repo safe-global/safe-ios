@@ -386,8 +386,10 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             symbol = erc721TransferInfo.tokenSymbol ?? "NFT"
             value = 1
             decimals = 0
+            // *nativeCoin*
         case .ether(let etherTransferInfo):
             value = Int256(etherTransferInfo.value.value)
+            // *nativeCoin*
             let eth = App.shared.tokenRegistry.networkToken()
             decimals = eth.decimals!
             symbol = eth.symbol

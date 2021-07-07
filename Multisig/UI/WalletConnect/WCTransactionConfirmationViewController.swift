@@ -224,9 +224,11 @@ class WCTransactionConfirmationViewController: UIViewController {
     private func transactionCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
 
+        // *nativeCoin*
         let eth = App.shared.tokenRegistry.networkToken()
         let decimalAmount = BigDecimal(
             Int256(transaction.value.value) * -1,
+            // *nativeCoin*
             eth.decimals.map { Int($0) }!
         )
         let amount = TokenFormatter().string(
@@ -234,10 +236,12 @@ class WCTransactionConfirmationViewController: UIViewController {
             decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
             thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ","
         )
+        // *nativeCoin*
         let tokenText = "\(amount) \(eth.symbol)"
         let tokenDetail = amount == "0" ? "\(transaction.data?.data.count ?? 0) Bytes" : nil
 
         cell.setToken(text: tokenText, style: .secondary)
+        // *nativeCoin*
         cell.setToken(image: UIImage(named: "ico-ether"))
         cell.setDetail(tokenDetail)
         cell.setAddress(transaction.to.address, label: nil, imageUri: nil)
