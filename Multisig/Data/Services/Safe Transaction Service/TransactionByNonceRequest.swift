@@ -20,8 +20,8 @@ struct TransactionByNonceRequest: JSONRequest {
 }
 
 extension SafeTransactionService {
-    func transaction(nonce: UInt256String, safe: AddressString) throws -> Transaction? {
-        let page = try execute(request: TransactionByNonceRequest(safe: safe, nonce: nonce))
+    func transaction(nonce: UInt256String, safe: AddressString, networkId: Int) throws -> Transaction? {
+        let page = try execute(request: TransactionByNonceRequest(safe: safe, nonce: nonce), networkId: networkId)
         guard !page.results.isEmpty else { return nil }
         return page.results[0]
     }

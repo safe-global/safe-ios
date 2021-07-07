@@ -21,8 +21,8 @@ struct LatestTransactionRequest: JSONRequest {
 }
 
 extension SafeTransactionService {
-    func latestTransaction(for safe: AddressString) throws -> Transaction? {
-        let page = try execute(request: LatestTransactionRequest(safe: safe))
+    func latestTransaction(for safe: AddressString, networkId: Int) throws -> Transaction? {
+        let page = try execute(request: LatestTransactionRequest(safe: safe), networkId: networkId)
         guard !page.results.isEmpty else { return nil }
         return page.results[0]
     }

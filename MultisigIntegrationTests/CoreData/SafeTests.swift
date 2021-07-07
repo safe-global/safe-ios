@@ -103,11 +103,11 @@ class SafeTests: CoreDataTestCase {
             chainName: "Test",
             rpcUrl: URL(string: "https://rpc.com/")!,
             blockExplorerUrl: URL(string: "https://block.com/")!,
+            ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
             currencyName: "Currency",
             currencySymbl: "CRY",
             currencyDecimals: 18,
             themeTextColor: "#ffffff",
             themeBackgroundColor: "#000000")
     }
-
 }

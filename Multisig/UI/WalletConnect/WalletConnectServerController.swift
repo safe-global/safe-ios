@@ -78,6 +78,7 @@ class WalletConnectServerController {
                 let wcSession = pendingTx.session!
                 let session = try! Session.from(wcSession)
                 let safeAddress = AddressString(session.walletInfo!.accounts[0])!
+                let networkId = wcSession.safe!.network!.id
 
                 // stop monitoring pending WalletConnect transactions after 24h
                 if Date().timeIntervalSince(pendingTx.created!) > 60 * 60 * 24 {
@@ -87,8 +88,9 @@ class WalletConnectServerController {
 
                 DispatchQueue.global().async { [unowned self] in
                     let nonce = UInt256String(UInt256(pendingTx.nonce!)!)
-                    if let transaction = try? App.shared.safeTransactionService
-                        .transaction(nonce: nonce, safe: safeAddress),
+                    if let transaction = try? App.shared.safeTransactionService.transaction(nonce: nonce,
+                                                                                            safe: safeAddress,
+                                                                                            networkId: networkId),
                        let txHash = transaction.transactionHash,
                        // it might happen that pendingTx is removed, but the object still exists
                        let requestId = pendingTx.requestId,

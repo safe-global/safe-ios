@@ -9,7 +9,6 @@
 import Foundation
 
 class SafeTransactionService {
-
     var url: URL
     private let httpClient: JSONHTTPClient
 
@@ -24,12 +23,11 @@ class SafeTransactionService {
     }
 
     @discardableResult
-    func execute<T: JSONRequest>(request: T) throws -> T.ResponseType {
+    func execute<T: JSONRequest>(request: T, networkId: Int) throws -> T.ResponseType {
         try httpClient.execute(request: request)
     }
 
-    func asyncExecute<T: JSONRequest>(request: T, completion: @escaping (Result<T.ResponseType, Error>) -> Void) -> URLSessionTask? {
-        httpClient.asyncExecute(request: request, completion: completion)
-    }
-
+//    func asyncExecute<T: JSONRequest>(request: T, completion: @escaping (Result<T.ResponseType, Error>) -> Void) -> URLSessionTask? {
+//        httpClient.asyncExecute(request: request, completion: completion)
+//    }
 }
