@@ -126,10 +126,11 @@ extension WalletConnectServerController: ServerDelegate {
               let network = safe.network
         else {
             // we can't get address or network in the local database, we're closing connection.
+            #warning("Check with Andrey")
             let walletInfo = Session.WalletInfo(
                 approved: false,
                 accounts: [],
-                chainId: Network.ChainID.ethereumMainnet,
+                chainId: Int(Network.ChainID.ethereumMainnet)!,
                 peerId: UUID().uuidString,
                 peerMeta: walletMeta)
 
@@ -140,7 +141,7 @@ extension WalletConnectServerController: ServerDelegate {
         let walletInfo = Session.WalletInfo(
             approved: true,
             accounts: [address],
-            chainId: network.id,
+            chainId: Int(network.chainId!)!,
             peerId: UUID().uuidString,
             peerMeta: walletMeta)
 

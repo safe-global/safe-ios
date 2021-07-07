@@ -10,7 +10,7 @@ import Foundation
 
 struct SafeInfoRequest: JSONRequest {
     let safeAddress: String
-    let networkId: Int
+    let networkId: String
     
     var httpMethod: String { "GET" }
     var urlPath: String { "/v1/chains/\(networkId)/safes/\(safeAddress)/" }
@@ -19,18 +19,18 @@ struct SafeInfoRequest: JSONRequest {
 }
 
 extension SafeInfoRequest {
-    init(_ safeAddress: Address, networkId: Int) {
+    init(_ safeAddress: Address, networkId: String) {
         self.init(safeAddress: safeAddress.checksummed, networkId: networkId)
     }
 }
 
 extension SafeClientGatewayService {
-    func syncSafeInfo(safeAddress: Address, networkId: Int) throws -> SCGModels.SafeInfoExtended {
+    func syncSafeInfo(safeAddress: Address, networkId: String) throws -> SCGModels.SafeInfoExtended {
         try execute(request: SafeInfoRequest(safeAddress, networkId: networkId))
     }
 
     func asyncSafeInfo(safeAddress: Address,
-                       networkId: Int,
+                       networkId: String,
                        completion: @escaping (Result<SCGModels.SafeInfoExtended, Error>) -> Void) -> URLSessionTask? {
         asyncExecute(request: SafeInfoRequest(safeAddress, networkId: networkId), completion: completion)
     }

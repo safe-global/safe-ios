@@ -11,7 +11,7 @@ import Foundation
 struct HistoryTransactionsSummaryListRequest: JSONRequest {
     let safeAddress: String
     let timezoneOffset = TimeZone.currentOffest()
-    let networkId: Int
+    let networkId: String
 
     var httpMethod: String { "GET" }
     var urlPath: String {
@@ -26,7 +26,7 @@ struct HistoryTransactionsSummaryListRequest: JSONRequest {
 }
 
 extension HistoryTransactionsSummaryListRequest {
-    init(_ safeAddress: Address, networkId: Int) {
+    init(_ safeAddress: Address, networkId: String) {
         self.init(safeAddress: safeAddress.checksummed, networkId: networkId)
     }
 }
@@ -34,7 +34,7 @@ extension HistoryTransactionsSummaryListRequest {
 extension SafeClientGatewayService {
     func asyncHistoryTransactionsSummaryList(
         safeAddress: Address,
-        networkId: Int,
+        networkId: String,
         completion: @escaping (Result<HistoryTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
 
         asyncExecute(request: HistoryTransactionsSummaryListRequest(safeAddress, networkId: networkId),

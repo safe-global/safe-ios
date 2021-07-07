@@ -13,7 +13,7 @@ struct ProposeTransactionRequest: JSONRequest {
     let sender: AddressString
     let signature: String
     let transaction: Transaction
-    let networkId: Int
+    let networkId: String
     
     enum CodingKeys: String, CodingKey {
         case sender
@@ -63,7 +63,7 @@ extension SafeClientGatewayService {
         transaction: Transaction,
         sender: AddressString,
         signature: String,
-        networkId: Int,
+        networkId: String,
         completion: @escaping (Result<ProposeTransactionRequest.EmptyResponse, Error>) -> Void) -> URLSessionTask? {
 
         return asyncExecute(request: ProposeTransactionRequest(safe: transaction.safe!,
@@ -74,7 +74,7 @@ extension SafeClientGatewayService {
                             completion: completion)
     }
 
-    func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String, networkId: Int) throws {
+    func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String, networkId: String) throws {
         let request = ProposeTransactionRequest(safe: transaction.safe!,
                                                 sender: sender,
                                                 signature: signature,

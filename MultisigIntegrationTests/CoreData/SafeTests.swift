@@ -11,8 +11,8 @@ import XCTest
 
 class SafeTests: CoreDataTestCase {
     func test_removeSafe() throws {
-        let network1 = try makeNetwork(id: 1)
-        let network2 = try makeNetwork(id: 2)
+        let network1 = try makeNetwork(id: "1")
+        let network2 = try makeNetwork(id: "2")
 
         Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: network1, selected: false)
         Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: network1, selected: true)
@@ -73,15 +73,15 @@ class SafeTests: CoreDataTestCase {
     }
 
     func test_select() throws {
-        let testNetwork1 = try makeNetwork(id: 1)
-        let testNetwork2 = try makeNetwork(id: 2)
-        let testNetwork3 = try makeNetwork(id: 3)
+        let testNetwork1 = try makeNetwork(id: "1")
+        let testNetwork2 = try makeNetwork(id: "2")
+        let testNetwork3 = try makeNetwork(id: "3")
 
         Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: testNetwork1, selected: false)
         Safe.create(address: "0x0000000000000000000000000000000000000001", name: "2", network: testNetwork2, selected: false)
         Safe.create(address: "0x0000000000000000000000000000000000000001", name: "3", network: testNetwork3, selected: true)
 
-        Safe.select(address: "0x0000000000000000000000000000000000000001", networkId: 2)
+        Safe.select(address: "0x0000000000000000000000000000000000000001", networkId: "2")
 
         let result = try Safe.getSelected()!
         XCTAssertEqual(result.name, "2")
@@ -97,12 +97,13 @@ class SafeTests: CoreDataTestCase {
         return safe
     }
 
-    private func makeNetwork(id: Int) throws -> Network {
+    private func makeNetwork(id: String) throws -> Network {
         try Network.create(
             chainId: id,
             chainName: "Test",
             rpcUrl: URL(string: "https://rpc.com/")!,
             blockExplorerUrl: URL(string: "https://block.com/")!,
+            ensRegistryAddress: nil,
             currencyName: "Currency",
             currencySymbl: "CRY",
             currencyDecimals: 18,

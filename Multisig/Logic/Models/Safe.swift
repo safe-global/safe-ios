@@ -59,7 +59,7 @@ extension Safe: Identifiable {
         return (try? context.fetch(Safe.fetchRequest().all())) ?? []
     }
 
-    static func by(address: String, networkId: Int) -> Safe? {
+    static func by(address: String, networkId: String) -> Safe? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let fr = Safe.fetchRequest().by(address: address, networkId: networkId)
@@ -70,13 +70,13 @@ extension Safe: Identifiable {
         guard let safes = try? Safe.getAll() else { return }
 
         cachedNames = safes.reduce(into: [String: String]()) { names, safe in
-            let networkId = safe.network != nil ? "\(safe.network!.id)" : "1"
+            let networkId = safe.network != nil ? safe.network!.chainId! : "1"
             let key = "\(safe.displayAddress):\(networkId)"
             names[key] = safe.name!
         }
     }
 
-    static func cachedName(by address: AddressString, networkId: Int) -> String? {
+    static func cachedName(by address: AddressString, networkId: String) -> String? {
         let key = "\(address.description):\(networkId)"
         return cachedNames[key]
     }
@@ -120,7 +120,7 @@ extension Safe: Identifiable {
             .appendingPathComponent("address").appendingPathComponent(address)
     }
 
-    static func exists(_ address: String, networkId: Int) -> Bool {
+    static func exists(_ address: String, networkId: String) -> Bool {
         by(address: address, networkId: networkId) != nil
     }
 
@@ -155,7 +155,7 @@ extension Safe: Identifiable {
         Safe.updateCachedNames()
     }
 
-    static func select(address: String, networkId: Int) {
+    static func select(address: String, networkId: String) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let fr = Safe.fetchRequest().by(address: address, networkId: networkId)
@@ -212,9 +212,9 @@ extension NSFetchRequest where ResultType == Safe {
         return self
     }
 
-    func by(address: String, networkId: Int) -> Self {
+    func by(address: String, networkId: String) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "address == %@ AND network.chainId == %d", address, networkId)
+        predicate = NSPredicate(format: "address == %@ AND network.chainId == %@", address, networkId)
         fetchLimit = 1
         return self
     }

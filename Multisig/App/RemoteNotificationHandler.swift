@@ -259,12 +259,12 @@ class RemoteNotificationHandler {
 
         let network = Network.mainnetChain()
 
-        guard Safe.exists(safeAddress.checksummed, networkId: network.id) else {
+        guard Safe.exists(safeAddress.checksummed, networkId: network.chainId!) else {
             unregister(address: safeAddress)
             return
         }
 
-        Safe.select(address: rawAddress, networkId: network.id)
+        Safe.select(address: rawAddress, networkId: network.chainId!)
 
         if let safeTxHash = payload.safeTxHash,
            let hashData = Data(exactlyHex: safeTxHash) {

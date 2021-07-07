@@ -539,9 +539,13 @@ extension SCGModels {
         let nativeCurrency: Currency
         let theme: Theme
         let ensRegistryAddress: AddressString?
+
+        var id: String {
+            chainId.description
+        }
         
-        var id: Int {
-            Int(chainId.value)
+        var idValue: UInt256 {
+            chainId.value
         }
 
         var authenticatedRpcUrl: URL {
@@ -575,7 +579,7 @@ extension SCGModels.AddressInfo {
 
 func displayNameAndImageUri(address: AddressString,
                             addressInfoIndex: SCGModels.AddressInfoIndex?,
-                            networkId: Int) -> (name: String?, imageUri: URL?) {
+                            networkId: String) -> (name: String?, imageUri: URL?) {
     if let importedSafeName = Safe.cachedName(by: address, networkId: networkId) {
         return (importedSafeName, nil)
     }

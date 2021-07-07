@@ -14,9 +14,9 @@ class MultiSendListTableViewController: UITableViewController {
 
     var transactions: [Transaction] = []
     var addressInfoIndex: AddressInfoIndex?
-    var networkId: Int!
+    var networkId: String!
 
-    convenience init(transactions: [Transaction], addressInfoIndex: AddressInfoIndex?, networkId: Int) {
+    convenience init(transactions: [Transaction], addressInfoIndex: AddressInfoIndex?, networkId: String) {
         self.init()
         self.transactions = transactions
         self.addressInfoIndex = addressInfoIndex

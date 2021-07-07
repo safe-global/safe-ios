@@ -42,22 +42,22 @@ class NetworkTests: CoreDataTestCase {
     }
 
     func test_exists() {
-        XCTAssertFalse(try Network.exists(1))
+        XCTAssertFalse(try Network.exists("1"))
         _ = try? makeNetwork(id: 1)
 
-        XCTAssertFalse(try Network.exists(2))
-        XCTAssertTrue(try Network.exists(1))
+        XCTAssertFalse(try Network.exists("2"))
+        XCTAssertTrue(try Network.exists("1"))
     }
 
     func test_by() {
-        var network = Network.by(1)
+        var network = Network.by("1")
         XCTAssertNil(network)
         _ = try? makeNetwork(id: 1)
 
-        network = Network.by(2)
+        network = Network.by("2")
         XCTAssertNil(network)
 
-        network = Network.by(1)
+        network = Network.by("1")
         XCTAssertNotNil(network)
     }
 
@@ -67,8 +67,7 @@ class NetworkTests: CoreDataTestCase {
         let network = try makeNetwork(id: 1)
 
         // assert
-        XCTAssertEqual(network.chainId, 1)
-        XCTAssertEqual(network.id, 1)
+        XCTAssertEqual(network.chainId, "1")
         XCTAssertEqual(network.chainName, "Test")
         XCTAssertEqual(network.rpcUrl, URL(string: "https://rpc.com/")!)
         XCTAssertEqual(network.blockExplorerUrl, URL(string: "https://block.com/")!)
@@ -90,19 +89,19 @@ class NetworkTests: CoreDataTestCase {
         let network = Network.mainnetChain()
 
         // updating with different chain id
-        var networkInfo = makeTestNetworkInfo(id: Int(network.chainId) + 1)
+        var networkInfo = makeTestNetworkInfo(id: UInt256(network.chainId!)! + 1)
         XCTAssertThrowsError(
             try network.update(from: networkInfo)
         )
 
-        networkInfo = makeTestNetworkInfo(id: Int(network.chainId))
+        networkInfo = makeTestNetworkInfo(id: UInt256(network.chainId!)!)
 
         // updating with same chain id
         XCTAssertNoThrow(
             try network.update(from: networkInfo)
         )
 
-        XCTAssertEqual(network.id, networkInfo.id)
+        XCTAssertEqual(network.chainId, networkInfo.id)
         XCTAssertEqual(network.chainName, networkInfo.chainName)
         XCTAssertEqual(network.rpcUrl, networkInfo.rpcUrl)
         XCTAssertEqual(network.blockExplorerUrl, networkInfo.blockExplorerUrl)
@@ -119,10 +118,10 @@ class NetworkTests: CoreDataTestCase {
         var mainNetwork = Network.createOrUpdate(mainNetworkInfo)
         XCTAssertEqual(Network.count, 1)
 
-        let testNetworkInfo = makeTestNetworkInfo(id: mainNetworkInfo.id)
+        let testNetworkInfo = makeTestNetworkInfo(id: mainNetworkInfo.idValue)
         mainNetwork = Network.createOrUpdate(testNetworkInfo)
 
-        XCTAssertEqual(mainNetwork.id, testNetworkInfo.id)
+        XCTAssertEqual(mainNetwork.chainId, testNetworkInfo.id)
         XCTAssertEqual(mainNetwork.chainName, testNetworkInfo.chainName)
         XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUrl)
@@ -145,11 +144,11 @@ class NetworkTests: CoreDataTestCase {
         Network.updateIfExist(testInfo)
         XCTAssertEqual(Network.count, 0)
 
-        testInfo = makeTestNetworkInfo(id: testInfo.id)
+        testInfo = makeTestNetworkInfo(id: testInfo.idValue)
         let mainNetwork = Network.mainnetChain()
         Network.updateIfExist(testInfo)
 
-        XCTAssertEqual(mainNetwork.id, testInfo.id)
+        XCTAssertEqual(mainNetwork.chainId, testInfo.id)
         XCTAssertEqual(mainNetwork.chainName, testInfo.chainName)
         XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testInfo.blockExplorerUrl)
@@ -189,7 +188,7 @@ class NetworkTests: CoreDataTestCase {
 
     func makeNetwork(id: Int) throws -> Network {
         try Network.create(
-            chainId: id,
+            chainId: String(id),
             chainName: "Test",
             rpcUrl: URL(string: "https://rpc.com/")!,
             blockExplorerUrl: URL(string: "https://block.com/")!,
@@ -242,7 +241,7 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(networkSafes[2].safes[2].name, "11")
     }
 
-    func makeNetworkInfo(id: Int,
+    func makeNetworkInfo(id: UInt256,
                          chainName: String,
                          rpcUrl: URL,
                          blockExplorerUrl: URL,
@@ -276,7 +275,7 @@ class NetworkTests: CoreDataTestCase {
 
     }
 
-    func makeTestNetworkInfo(id: Int) -> SCGModels.Network {
+    func makeTestNetworkInfo(id: UInt256) -> SCGModels.Network {
         makeNetworkInfo(id: id,
                         chainName: "Test",
                         rpcUrl: URL(string: "https://rpc.com/")!,
