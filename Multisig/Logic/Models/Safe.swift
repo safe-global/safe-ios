@@ -203,6 +203,7 @@ extension Safe {
         nonce = info.nonce.value
         modulesInfo = info.modules?.map { $0.addressInfo }
         fallbackHandlerInfo = info.fallbackHandler?.addressInfo
+        guardInfo = info.guardInfo?.addressInfo
     }
 }
 
