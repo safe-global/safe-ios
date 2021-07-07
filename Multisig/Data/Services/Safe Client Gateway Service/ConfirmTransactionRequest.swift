@@ -14,7 +14,7 @@ struct ConfirmTransactionRequest: JSONRequest {
     let networkId: Int
     
     var httpMethod: String { "POST" }
-    var urlPath: String { "/\(networkId)/v1/transactions/\(safeTxHash)/confirmations" }
+    var urlPath: String { "/v1/chains/\(networkId)/transactions/\(safeTxHash)/confirmations" }
     typealias ResponseType = SCGModels.TransactionDetails
 
     enum CodingKeys: String, CodingKey {

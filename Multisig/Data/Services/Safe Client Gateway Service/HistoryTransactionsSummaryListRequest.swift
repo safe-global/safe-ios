@@ -15,7 +15,7 @@ struct HistoryTransactionsSummaryListRequest: JSONRequest {
 
     var httpMethod: String { "GET" }
     var urlPath: String {
-        "/\(networkId)/v1/safes/\(safeAddress)/transactions/history"
+        "/v1/chains/\(networkId)/safes/\(safeAddress)/transactions/history"
     }
 
     var query: String? {

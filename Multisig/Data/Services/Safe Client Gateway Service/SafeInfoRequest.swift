@@ -13,7 +13,7 @@ struct SafeInfoRequest: JSONRequest {
     let networkId: Int
     
     var httpMethod: String { "GET" }
-    var urlPath: String { "/\(networkId)/v1/safes/\(safeAddress)/" }
+    var urlPath: String { "/v1/chains/\(networkId)/safes/\(safeAddress)/" }
 
     typealias ResponseType = SCGModels.SafeInfoExtended
 }

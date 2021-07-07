@@ -15,7 +15,7 @@ struct QueuedTransactionsSummaryListRequest: JSONRequest {
     let timezoneOffset = TimeZone.currentOffest()
     var httpMethod: String { "GET" }
     var urlPath: String {
-        "/\(networkId)/v1/safes/\(safeAddress)/transactions/queued"
+        "/v1/chains/\(networkId)/safes/\(safeAddress)/transactions/queued"
     }
 
     var query: String? {
