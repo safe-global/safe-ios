@@ -107,9 +107,12 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(network.rpcUrl, networkInfo.rpcUrl)
         XCTAssertEqual(network.blockExplorerUrl, networkInfo.blockExplorerUrl)
         XCTAssertEqual(network.ensRegistryAddress, networkInfo.ensRegistryAddress?.description)
+
         XCTAssertEqual(network.nativeCurrency?.name, networkInfo.nativeCurrency.name)
         XCTAssertEqual(network.nativeCurrency?.symbol, networkInfo.nativeCurrency.symbol)
         XCTAssertEqual(network.nativeCurrency?.decimals, Int32(networkInfo.nativeCurrency.decimals))
+        XCTAssertEqual(network.nativeCurrency?.logoUrl, networkInfo.nativeCurrency.logoUrl)
+
         XCTAssertEqual(network.theme?.textColor, networkInfo.theme.textColor)
         XCTAssertEqual(network.theme?.backgroundColor, networkInfo.theme.backgroundColor)
     }
@@ -127,9 +130,12 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUrl)
         XCTAssertEqual(mainNetwork.ensRegistryAddress, testNetworkInfo.ensRegistryAddress?.description)
+
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testNetworkInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testNetworkInfo.nativeCurrency.symbol)
         XCTAssertEqual(mainNetwork.nativeCurrency?.decimals, Int32(testNetworkInfo.nativeCurrency.decimals))
+        XCTAssertEqual(mainNetwork.nativeCurrency?.logoUrl, testNetworkInfo.nativeCurrency.logoUrl)
+
         XCTAssertEqual(mainNetwork.theme?.textColor, testNetworkInfo.theme.textColor)
         XCTAssertEqual(mainNetwork.theme?.backgroundColor, testNetworkInfo.theme.backgroundColor)
     }
@@ -153,9 +159,12 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(mainNetwork.chainName, testInfo.chainName)
         XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUrl)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testInfo.blockExplorerUrl)
+
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testInfo.nativeCurrency.symbol)
         XCTAssertEqual(mainNetwork.nativeCurrency?.decimals, Int32(testInfo.nativeCurrency.decimals))
+        XCTAssertEqual(mainNetwork.nativeCurrency?.logoUrl, testInfo.nativeCurrency.logoUrl)
+
         XCTAssertEqual(mainNetwork.theme?.textColor, testInfo.theme.textColor)
         XCTAssertEqual(mainNetwork.theme?.backgroundColor, testInfo.theme.backgroundColor)
     }
@@ -197,6 +206,7 @@ class NetworkTests: CoreDataTestCase {
             currencyName: "Currency",
             currencySymbl: "CRY",
             currencyDecimals: 18,
+            currencyLogo: URL(string: "https://example.com/mainnetlogo.png")!,
             themeTextColor: "#ffffff",
             themeBackgroundColor: "#000000")
     }
@@ -249,6 +259,7 @@ class NetworkTests: CoreDataTestCase {
                          currencyName: String,
                          currencySymbl: String,
                          currencyDecimals: Int,
+                         currencyLogo: URL,
                          themeTextColor: String,
                          themeBackgroundColor: String) -> SCGModels.Network {
         SCGModels.Network(chainId: UInt256String(id),
@@ -257,7 +268,8 @@ class NetworkTests: CoreDataTestCase {
                           blockExplorerUrl: blockExplorerUrl,
                           nativeCurrency: SCGModels.Currency(name: currencyName,
                                                              symbol: currencySymbl,
-                                                             decimals: currencyDecimals),
+                                                             decimals: currencyDecimals,
+                                                             logoUrl: currencyLogo),
                           theme: SCGModels.Theme(textColor: themeTextColor,
                                                  backgroundColor: themeBackgroundColor),
                           ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
@@ -271,6 +283,7 @@ class NetworkTests: CoreDataTestCase {
                         currencyName: "Ether",
                         currencySymbl: "ETH",
                         currencyDecimals: 18,
+                        currencyLogo: URL(string: "https://example.com/mainnet.png")!,
                         themeTextColor: "#001428",
                         themeBackgroundColor: "#E8E7E6")
 
@@ -284,6 +297,7 @@ class NetworkTests: CoreDataTestCase {
                         currencyName: "Currency",
                         currencySymbl: "CRY",
                         currencyDecimals: 18,
+                        currencyLogo: URL(string: "https://example.com/cry.png")!,
                         themeTextColor: "#ffffff",
                         themeBackgroundColor: "#000000")
     }
