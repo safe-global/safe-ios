@@ -167,8 +167,7 @@ class TransactionDetailCellBuilder {
                     detail: erc721Tx.tokenId.description)
 
             case .ether(let etherTx):
-                // *nativeCoin*
-                let eth = App.shared.tokenRegistry.networkToken()
+                let coin = Network.nativeCoin!
 
                 buildTransferHeader(
                     address: address,
@@ -177,11 +176,9 @@ class TransactionDetailCellBuilder {
                     isOutgoing: isOutgoing,
                     status: tx.txStatus,
                     value: etherTx.value.value,
-                    // *nativeCoin*
-                    decimals: eth.decimals.flatMap { try? UInt64($0) },
-                    symbol: eth.symbol,
-                    logoUri: nil,
-                    logo: UIImage(named: "ico-ether"))
+                    decimals: UInt64(coin.decimals),
+                    symbol: coin.symbol!,
+                    logoUri: coin.logoUrl.map(\.absoluteString))
 
             case .unknown:
                 buildTransferHeader(
@@ -278,8 +275,7 @@ class TransactionDetailCellBuilder {
             }
 
         case .custom(let customTx):
-            // **
-            let eth = App.shared.tokenRegistry.networkToken()
+            let coin = Network.nativeCoin!
             let (label, addressLogoUri) = displayNameAndImageUri(address: customTx.to, addressInfo: customTx.toInfo)
 
             buildTransferHeader(
@@ -289,13 +285,9 @@ class TransactionDetailCellBuilder {
                 isOutgoing: true,
                 status: tx.txStatus,
                 value: customTx.value.value,
-                // *nativeCoin*
-                decimals: eth.decimals.flatMap { try? UInt64($0) },
-                symbol: eth.symbol,
-
-                logoUri: nil,
-                // *nativeCoin*
-                logo: UIImage(named: "ico-ether"),
+                decimals: UInt64(coin.decimals),
+                symbol: coin.symbol!,
+                logoUri: coin.logoUrl.map(\.absoluteString),
                 detail: "\(customTx.dataSize.value) bytes")
             buildActions(tx)
             buildHexData(tx)

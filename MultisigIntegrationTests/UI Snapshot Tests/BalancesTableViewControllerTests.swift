@@ -61,7 +61,6 @@ class BalancesTableViewControllerTests: XCTestCase {
             summary: .init(
                 total: .init("3 000 000 EUR"),
                 entries: [
-                    // *nativeCoin*
                     .init(image: LocalImageData(image: UIImage(named: "ico-ether")),
                           name: "ETH",
                           tokenAmount: "1",

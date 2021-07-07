@@ -20,28 +20,5 @@ struct TokenInfo: Decodable, Hashable {
 enum TokenType: String, Decodable {
     case erc20 = "ERC20"
     case erc721 = "ERC721"
-    // *nativeCoin*
     case ether = "ETHER"
-}
-
-extension Token {
-
-    init(_ token: TokenInfo) {
-        type = token.type
-        address = token.address.address
-        logo = token.logoUri.flatMap { URL(string: $0) }
-        name = token.name ?? (token.type == .erc20 ? "ERC20" : "ERC721")
-        symbol = token.symbol ?? (token.type == .erc20 ? "ERC20" : "NFT")
-        decimals = token.decimals?.value ?? 0
-
-        // *nativeCoin*
-        if type == .ether {
-            address = .ether
-            logo = nil
-            name = "Ether"
-            symbol = "ETH"
-            decimals = 18
-        }
-    }
-
 }

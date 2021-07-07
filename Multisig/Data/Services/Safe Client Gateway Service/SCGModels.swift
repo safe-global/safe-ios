@@ -198,7 +198,6 @@ extension SCGModels {
             enum TransferInfo: Decodable {
                 case erc20(Erc20)
                 case erc721(Erc721)
-                // *nativeCoin*
                 case ether(Ether)
                 case unknown
 
@@ -212,7 +211,6 @@ extension SCGModels {
                         self = try .erc20(Erc20(from: decoder))
                     case "ERC721":
                         self = try .erc721(Erc721(from: decoder))
-                    // *nativeCoin*
                     case "ETHER":
                         self = try .ether(Ether(from: decoder))
                     default:
@@ -237,7 +235,6 @@ extension SCGModels {
                     var logoUri: String?
                 }
 
-                // *nativeCoin*
                 struct Ether: Decodable {
                     var value: UInt256String
                 }

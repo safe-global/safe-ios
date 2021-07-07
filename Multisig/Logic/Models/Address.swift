@@ -94,8 +94,7 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
     }
 
     static let zero = Self(exactly: Data(repeating: 0, count: 20))
-    // *nativeCoin*
-    static let ether = Self.zero
+    static let nativeCoin = Self.zero
 
     var isZero: Bool {
         self == .zero
@@ -118,7 +117,6 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         _store = try EthereumAddress(hex: addressString, eip55: false)
     }
 
-    // *nativeCoin*
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-681.md
     private static func addressFromERC681(_ address: String) -> String {
         let hexPrefix = "0x"

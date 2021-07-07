@@ -273,7 +273,6 @@ class RemoteNotificationHandler {
 
             NotificationCenter.default.post(name: .confirmationTxNotificationReceived, object: nil)
 
-            // *nativeCoin*
         } else if ["INCOMING_ETHER", "INCOMING_TOKEN"].contains(payload.type) {
             NotificationCenter.default.post(name: .incommingTxNotificationReceived, object: nil)
         } else if ["EXECUTED_MULTISIG_TRANSACTION", "NEW_CONFIRMATION", "CONFIRMATION_REQUEST"].contains(payload.type) {

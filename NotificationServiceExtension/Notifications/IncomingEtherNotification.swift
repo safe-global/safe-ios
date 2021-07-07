@@ -10,7 +10,6 @@ import Foundation
 import SwiftCryptoTokenFormatter
 import BigInt
 
-// *nativeCoin*
 struct IncomingEtherNotification: MultisigNotification {
     let address: PlainAddress
     let value: BigInt
@@ -31,21 +30,18 @@ struct IncomingEtherNotification: MultisigNotification {
     }
 
     var localizedTitle: String {
-        // *nativeCoin*
         "Incoming ETH"
     }
 
     var localizedBody: String {
         let safe = address.truncatedInMiddle
         let formatter = TokenFormatter()
-        // *nativeCoin*
-        let etherPrecision = 18
+        let decimals = 18
+        let symbol = "ETH"
         let amount = formatter.string(
-            // *nativeCoin*
-            from: BigDecimal(value, etherPrecision),
+            from: BigDecimal(value, decimals),
             decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
             thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
-        // *nativeCoin*
-        return "\(safe): \(amount) ETH received"
+        return "\(safe): \(amount) \(symbol) received"
     }
 }

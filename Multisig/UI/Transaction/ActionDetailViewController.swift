@@ -79,8 +79,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func buildHeader() {
         if let tx = multiSendTx {
-            // *nativeCoin*
-            let eth = App.shared.tokenRegistry.networkToken()
+            let coin = Network.nativeCoin!
             txBuilder.result = []
             let (name, imageUri) = displayNameAndImageUri(
                 address: tx.to, addressInfoIndex: addressInfoIndex, networkId: networkId)
@@ -91,11 +90,9 @@ class ActionDetailViewController: UITableViewController {
                 isOutgoing: true,
                 status: .success,
                 value: tx.value?.value,
-                // *nativeCoin*
-                decimals: eth.decimals.flatMap { try? UInt64($0) },
-                symbol: eth.symbol,
-                logoUri: nil,
-                logo: UIImage(named: "ico-ether"))
+                decimals: UInt64(coin.decimals),
+                symbol: coin.symbol!,
+                logoUri: coin.logoUrl.map(\.absoluteString))
             
             append(txBuilder.result)
         }

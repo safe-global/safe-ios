@@ -35,19 +35,14 @@ extension TokenBalance {
 
     init(address: Address, symbol: String?, logoUri: String?, tokenBalance: UInt256String, decimals: UInt256String?, fiatBalance: String, code: String) {
         self.address = address.checksummed
-        // *nativeCoin*
-        self.symbol = symbol ?? "ETH"
-        self.imageURL = logoUri.flatMap { URL(string: $0) }
+        let coin = Network.nativeCoin!
 
-        // *nativeCoin*
-        if address == .ether {
-            image = UIImage(named: "ico-ether")
-        }
+        self.symbol = symbol ?? coin.symbol!
+        self.imageURL = logoUri.flatMap { URL(string: $0) } ?? coin.logoUrl
 
         let tokenFormatter = TokenFormatter()
         let amount = Int256(tokenBalance.value)
-        // *nativeCoin*
-        let precision = decimals?.value ?? 18 // ETH
+        let precision = decimals?.value ?? UInt256(coin.decimals)
 
         self.balance = tokenFormatter.string(
             from: BigDecimal(amount, Int(clamping: precision)),

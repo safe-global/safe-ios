@@ -9,7 +9,6 @@
 import Foundation
 
 enum NotificationType: String {
-    // *nativeCoin*
     case incomingEther = "INCOMING_ETHER"
     case incomingToken = "INCOMING_TOKEN"
     case executedMultisigTx = "EXECUTED_MULTISIG_TRANSACTION"
