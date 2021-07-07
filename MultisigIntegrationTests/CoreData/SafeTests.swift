@@ -69,7 +69,7 @@ class SafeTests: CoreDataTestCase {
         let safe = createSafe(name: "0", address: Address.zero.checksummed)
         safe.update(name: "1")
         let result = Safe.by(address: Address.zero.checksummed, networkId: Network.ChainID.ethereumMainnet)
-        XCTAssertEqual(result?.name, "1")
+        XCTAssertEqual(result!.name, "1")
     }
 
     func test_select() throws {
