@@ -13,7 +13,7 @@ struct TransactionDetailsRequest: JSONRequest {
     let networkId: Int
     
     var httpMethod: String { "GET" }
-    var urlPath: String { "/\(networkId)/v1/transactions/\(id)" }
+    var urlPath: String { "/v1/chains/\(networkId)/transactions/\(id)" }
     typealias ResponseType = SCGModels.TransactionDetails
 }
 
