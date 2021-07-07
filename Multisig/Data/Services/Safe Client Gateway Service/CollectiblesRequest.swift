@@ -13,7 +13,7 @@ struct CollectiblesRequest: JSONRequest {
     let networkId: Int
     
     var httpMethod: String { "GET" }
-    var urlPath: String { "/\(networkId)/v1/safes/\(safeAddress)/collectibles/" }
+    var urlPath: String { "/v1/chains/\(networkId)/safes/\(safeAddress)/collectibles/" }
 
     typealias ResponseType = [Collectible]
 }
