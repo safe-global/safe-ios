@@ -32,7 +32,7 @@ struct ProposeTransactionRequest: JSONRequest {
     }
 
     var httpMethod: String { "POST" }
-    var urlPath: String { "/\(networkId)/v1/transactions/\(safe)/propose" }
+    var urlPath: String { "/v1/chains/\(networkId)/transactions/\(safe)/propose" }
 
     typealias ResponseType = EmptyResponse
 

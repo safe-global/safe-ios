@@ -16,7 +16,7 @@ struct BalancesRequest: JSONRequest {
     var httpMethod: String { "GET" }
 
     var urlPath: String {
-        "/\(networkId)/v1/safes/\(safeAddress)/balances/\(fiat)"
+        "/v1/chains/\(networkId)/safes/\(safeAddress)/balances/\(fiat)"
     }
 
     typealias ResponseType = SafeBalanceSummary
