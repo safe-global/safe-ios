@@ -527,20 +527,8 @@ extension SCGModels {
         var implementation: AddressInfoExtended
         var modules: [AddressInfoExtended]?
         var fallbackHandler: AddressInfoExtended?
-        var guardInfo: AddressInfoExtended?
+        var `guard`: AddressInfoExtended?
         var version: String
-
-        enum CodingKeys: String, CodingKey {
-            case address
-            case nonce
-            case threshold
-            case owners
-            case implementation
-            case modules
-            case fallbackHandler
-            case guardInfo = "guard"
-            case version
-        }
     }
 
 

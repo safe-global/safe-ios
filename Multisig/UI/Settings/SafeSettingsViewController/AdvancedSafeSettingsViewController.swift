@@ -111,8 +111,8 @@ extension AdvancedSafeSettingsViewController {
             }
         case Section.FallbackHandler.fallbackHandlerHelpLink:
             return helpLinkCell(text: "What is a fallback handler and how does it relate to the Gnosis Safe",
-                                               url: App.configuration.help.fallbackHandlerURL,
-                                               indexPath: indexPath)
+                                url: App.configuration.help.fallbackHandlerURL,
+                                indexPath: indexPath)
         case Section.GuardInfo.guardInfo(let info):
             return addressDetailsCell(address: info.address,
                                       title: namingPolicy.name(info: info),
@@ -120,8 +120,8 @@ extension AdvancedSafeSettingsViewController {
                                       indexPath: indexPath)
         case Section.GuardInfo.guardInfoHelpLink:
             return helpLinkCell(text: "What is a guard and how that is used",
-                                    url: App.configuration.help.guardURL,
-                                    indexPath: indexPath)
+                                url: App.configuration.help.guardURL,
+                                indexPath: indexPath)
         case Section.Nonce.nonce(let nonce):
             return tableView.basicCell(name: nonce,
                                        indexPath: indexPath,
@@ -186,7 +186,7 @@ extension AdvancedSafeSettingsViewController {
     }
 
     private func helpLinkCell(text: String, url: URL, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(HelpLinkTableViewCell.self, for: indexPath) as HelpLinkTableViewCell
+        let cell = tableView.dequeueCell(HelpLinkTableViewCell.self, for: indexPath)
         cell.descriptionLabel.hyperLinkLabel(linkText: text)
         cell.url = url
         return cell

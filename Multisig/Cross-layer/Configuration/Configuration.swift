@@ -49,6 +49,7 @@ struct AppConfiguration {
 
         @ConfigurationKey("FALLBACKHANDLER_URL")
         var fallbackHandlerURL: URL
+
         @ConfigurationKey("GUARD_URL")
         var guardURL: URL
 
