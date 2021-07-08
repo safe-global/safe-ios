@@ -111,5 +111,4 @@ class SafeTests: CoreDataTestCase {
             themeTextColor: "#ffffff",
             themeBackgroundColor: "#000000")
     }
-
 }

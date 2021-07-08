@@ -16,8 +16,6 @@ struct DappData: Decodable {
 }
 
 class DappsDataSource {
-    static let shared = DappsDataSource()
-
     let dapps: [DappData]
 
     init() {

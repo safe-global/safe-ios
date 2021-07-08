@@ -30,10 +30,6 @@ class App {
     var keychainService: SecureStore = KeychainService(identifier: App.configuration.app.bundleIdentifier)
 
     // Services
-    let safeTransactionService = SafeTransactionService(
-        url: configuration.services.transactionServiceURL,
-        logger: LogService.shared)
-
     let clientGatewayService = SafeClientGatewayService(
         url: configuration.services.clientGatewayURL,
         logger: LogService.shared)

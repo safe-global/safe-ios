@@ -14,18 +14,13 @@ struct AppConfiguration {
         @ConfigurationKey("SERVICE_ENV")
         var environment: ServiceEnvironment
 
-        @ConfigurationKey("TRANSACTION_SERVICE_URL")
-        var transactionServiceURL: URL
-
         @ConfigurationKey("CLIENT_GATEWAY_URL")
         var clientGatewayURL: URL
-
-        @ConfigurationKey("ETH_RPC_URL")
-        var ethereumServiceURL: URL
 
         @ConfigurationKey("INFURA_API_KEY")
         var infuraKey: String
 
+        #warning("TODO: remove")
         @ConfigurationKey("ETH_BLOCK_BROWSER_URL")
         var etehreumBlockBrowserURL: URL
 

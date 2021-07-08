@@ -170,9 +170,11 @@ extension Safe: Identifiable {
         let deletedSafeAddress = safe.address
         let context = App.shared.coreDataStack.viewContext
 
-        if let network = safe.network, network.safe?.count == 1 {
+        let networkId = safe.network!.id
+
+        if safe.network!.safe!.count == 1 {
             // remove network with associated safe
-            Network.remove(network: network)
+            Network.remove(network: safe.network!)
         } else {
             context.delete(safe)
         }
@@ -186,7 +188,7 @@ extension Safe: Identifiable {
         NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
 
         if let addressString = deletedSafeAddress, let address = Address(addressString) {
-            App.shared.notificationHandler.safeRemoved(address: address)
+            App.shared.notificationHandler.safeRemoved(address: address, networkId: networkId)
         }
 
         updateCachedNames()

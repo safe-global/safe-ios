@@ -12,7 +12,6 @@ import SwiftUI
 fileprivate protocol SectionItem {}
 
 class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
-    var safeTransactionService = App.shared.safeTransactionService
     var clientGatewayService = App.shared.clientGatewayService
     let tableBackgroundColor: UIColor = .primaryBackground
     let advancedSectionHeaderHeight: CGFloat = 28
