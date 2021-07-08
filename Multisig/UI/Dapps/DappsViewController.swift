@@ -75,17 +75,17 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     @objc private func update() {
         var wcSessionItems: [SectionItem]
+        var wcButtonIsHidden = false
 
         if let selectedSafe = try? Safe.getSelected(),
            let networkId = selectedSafe.network?.id,
            !SafeTransactionService.supports(networkId: networkId) {
-            wcButton.isHidden = true
+            wcButtonIsHidden = true
             wcSessionItems = [Section.WalletConnect.noSessions("This network is not supported yet.")]
             sections = [
                 (section: .walletConnect("WalletConnect"), items: wcSessionItems)
             ]
         } else {
-            wcButton.isHidden = false
             do {
                 wcSessionItems = try WCSession.getAll().compactMap {
                     guard $0.session != nil,
@@ -114,6 +114,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
 
         DispatchQueue.main.async { [unowned self] in
+            wcButton.isHidden = wcButtonIsHidden
             self.tableView.reloadData()
         }
     }

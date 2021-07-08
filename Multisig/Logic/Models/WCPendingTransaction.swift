@@ -21,13 +21,14 @@ extension WCPendingTransaction {
         }
     }
 
-    static func create(wcSession: WCSession, nonce: UInt256String, requestId: String) {
+    static func create(wcSession: WCSession, nonce: UInt256String, safeTxHash: HashString, requestId: String) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let pendingTransaction = WCPendingTransaction(context: context)
         pendingTransaction.created = Date()
         pendingTransaction.session = wcSession
         pendingTransaction.nonce = nonce.description
+        pendingTransaction.safeTxHash = safeTxHash.description
         pendingTransaction.requestId = requestId
         App.shared.coreDataStack.saveContext()
     }
