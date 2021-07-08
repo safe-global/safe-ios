@@ -21,7 +21,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     @IBOutlet private weak var submitButton: UIButton!
 
     var onReject: (() -> Void)?
-    var onSubmit: (() -> Void)?
+    var onSubmit: ((_ nonce: UInt256String, _ safeTxHash: HashString) -> Void)?
 
     private var transaction: Transaction!
     private var safe: Safe!
@@ -112,7 +112,7 @@ class WCTransactionConfirmationViewController: UIViewController {
                 App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners. Once it is executed the dapp will get a response with the transaction hash.")
             }
 
-            onSubmit?()
+            onSubmit?(transaction.nonce, transaction.safeTxHash)
         } catch {
             DispatchQueue.main.async {
                 App.shared.snackbar.show(

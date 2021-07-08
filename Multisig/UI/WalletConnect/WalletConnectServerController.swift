@@ -74,28 +74,33 @@ class WalletConnectServerController {
     func updatePendingTransactions() {
         DispatchQueue.main.async {
             guard let pendingTransactions = try? WCPendingTransaction.getAll() else { return }
+            
             for pendingTx in pendingTransactions {
-                let wcSession = pendingTx.session!
-                let session = try! Session.from(wcSession)
-                let safeAddress = AddressString(session.walletInfo!.accounts[0])!
-                let networkId = wcSession.safe!.network!.chainId!
-
                 // stop monitoring pending WalletConnect transactions after 24h
-                if Date().timeIntervalSince(pendingTx.created!) > 60 * 60 * 24 {
+                // remove legacy pending transactions without safeTxHash
+                guard let safeTxHash = pendingTx.safeTxHash,
+                      Date().timeIntervalSince(pendingTx.created!) < 60 * 60 * 24 else {
                     pendingTx.delete()
                     continue
                 }
 
+                let wcSession = pendingTx.session!
+                let session = try! Session.from(wcSession)
+                let networkId = wcSession.safe!.network!.id
+
                 DispatchQueue.global().async { [unowned self] in
-                    let nonce = UInt256String(UInt256(pendingTx.nonce!)!)
-                    if let transaction = try? SafeTransactionService.transaction(nonce: nonce,
-                                                                                 safe: safeAddress,
-                                                                                 networkId: networkId),
-                       let txHash = transaction.transactionHash,
-                       // it might happen that pendingTx is removed, but the object still exists
-                       let requestId = pendingTx.requestId,
-                       let response = try? Response(url: session.url, value: txHash, id: requestId) {
+                    App.shared.clientGatewayService.asyncTransactionDetails(id: safeTxHash,
+                                                                            networkId: networkId) { result in
+                        guard case .success(let transaction) = result,
+                              let txHash = transaction.txHash,
+                              // it might happen that pendingTx is removed, but the object still exists
+                              let requestId = pendingTx.requestId,
+                              let response = try? Response(url: session.url, value: txHash, id: requestId) else {
+                            return
+                        }
+
                         self.server.send(response)
+
                         DispatchQueue.main.async {
                             let nonce = pendingTx.nonce!
                             pendingTx.delete()
