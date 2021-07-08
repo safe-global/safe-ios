@@ -206,7 +206,7 @@ extension Network {
         // Add other networks sorted by id with safes sorted by most recently added
         groupedSafes.keys
             .filter { $0 != selectedSafeNetwork }
-            .sorted { $0.id < $1.id }
+            .sorted { UInt256($0.chainId!)! < UInt256($1.chainId!)! }
             .forEach { network in
                 networkSafes.append(
                     (network: network,

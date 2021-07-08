@@ -121,7 +121,7 @@ class NetworkTests: CoreDataTestCase {
         var mainNetwork = Network.createOrUpdate(mainNetworkInfo)
         XCTAssertEqual(Network.count, 1)
 
-        let testNetworkInfo = makeTestNetworkInfo(id: mainNetworkInfo.idValue)
+        let testNetworkInfo = makeTestNetworkInfo(id: mainNetworkInfo.chainId.value)
         mainNetwork = Network.createOrUpdate(testNetworkInfo)
 
         XCTAssertEqual(mainNetwork.chainId, testNetworkInfo.id)
@@ -150,7 +150,7 @@ class NetworkTests: CoreDataTestCase {
         Network.updateIfExist(testInfo)
         XCTAssertEqual(Network.count, 0)
 
-        testInfo = makeTestNetworkInfo(id: testInfo.idValue)
+        testInfo = makeTestNetworkInfo(id: testInfo.chainId.value)
         let mainNetwork = Network.mainnetChain()
         Network.updateIfExist(testInfo)
 
@@ -239,16 +239,16 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(networkSafes[0].safes[1].name, "22")
         XCTAssertEqual(networkSafes[0].safes[2].name, "20")
 
-        XCTAssertEqual(networkSafes[2].network, network1)
-        XCTAssertEqual(networkSafes[2].safes.count, 2)
-        XCTAssertEqual(networkSafes[2].safes[0].name, "01")
-        XCTAssertEqual(networkSafes[2].safes[1].name, "00")
+        XCTAssertEqual(networkSafes[1].network, network1)
+        XCTAssertEqual(networkSafes[1].safes.count, 2)
+        XCTAssertEqual(networkSafes[1].safes[0].name, "01")
+        XCTAssertEqual(networkSafes[1].safes[1].name, "00")
 
-        XCTAssertEqual(networkSafes[1].network, network3)
-        XCTAssertEqual(networkSafes[1].safes.count, 3)
-        XCTAssertEqual(networkSafes[1].safes[0].name, "100")
-        XCTAssertEqual(networkSafes[1].safes[1].name, "10")
-        XCTAssertEqual(networkSafes[1].safes[2].name, "11")
+        XCTAssertEqual(networkSafes[2].network, network3)
+        XCTAssertEqual(networkSafes[2].safes.count, 3)
+        XCTAssertEqual(networkSafes[2].safes[0].name, "100")
+        XCTAssertEqual(networkSafes[2].safes[1].name, "10")
+        XCTAssertEqual(networkSafes[2].safes[2].name, "11")
     }
 
     // nativeCurrency
