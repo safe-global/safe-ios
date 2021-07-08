@@ -544,10 +544,6 @@ extension SCGModels {
         var id: String {
             chainId.description
         }
-        
-        var idValue: UInt256 {
-            chainId.value
-        }
 
         var authenticatedRpcUrl: URL {
             rpcUrl.appendingPathComponent(App.configuration.services.infuraKey)
