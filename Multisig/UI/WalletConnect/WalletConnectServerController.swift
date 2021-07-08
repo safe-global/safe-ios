@@ -86,7 +86,7 @@ class WalletConnectServerController {
 
                 let wcSession = pendingTx.session!
                 let session = try! Session.from(wcSession)
-                let networkId = wcSession.safe!.network!.id
+                let networkId = wcSession.safe!.network!.chainId!
 
                 DispatchQueue.global().async { [unowned self] in
                     App.shared.clientGatewayService.asyncTransactionDetails(id: safeTxHash,
