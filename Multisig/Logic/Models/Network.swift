@@ -20,6 +20,10 @@ extension Network {
         return (try? context.fetch(Network.fetchRequest().all())) ?? []
     }
 
+    static var nativeCoin: NetworkToken? {
+        (try? Safe.getSelected())?.network?.nativeCurrency
+    }
+
     static func exists(_ id: Int) throws -> Bool {
         do {
             dispatchPrecondition(condition: .onQueue(.main))
@@ -59,6 +63,7 @@ extension Network {
                        currencyName: String,
                        currencySymbl: String,
                        currencyDecimals: Int,
+                       currencyLogo: URL,
                        themeTextColor: String,
                        themeBackgroundColor: String) throws -> Network {
         dispatchPrecondition(condition: .onQueue(.main))
@@ -81,6 +86,7 @@ extension Network {
         token.symbol = currencySymbl
         token.decimals = Int32(currencyDecimals)
         token.network = network
+        token.logoUrl = currencyLogo
 
         try App.shared.coreDataStack.viewContext.save()
 
@@ -97,6 +103,7 @@ extension Network {
                      currencyName: networkInfo.nativeCurrency.name,
                      currencySymbl: networkInfo.nativeCurrency.symbol,
                      currencyDecimals: networkInfo.nativeCurrency.decimals,
+                     currencyLogo: networkInfo.nativeCurrency.logoUrl,
                      themeTextColor: networkInfo.theme.textColor.description,
                      themeBackgroundColor: networkInfo.theme.backgroundColor.description)
     }
@@ -141,6 +148,7 @@ extension Network {
         nativeCurrency?.name = networkInfo.nativeCurrency.name
         nativeCurrency?.symbol = networkInfo.nativeCurrency.symbol
         nativeCurrency?.decimals = Int32(networkInfo.nativeCurrency.decimals)
+        nativeCurrency?.logoUrl = networkInfo.nativeCurrency.logoUrl
     }
 }
 
@@ -174,6 +182,7 @@ extension Network {
             currencyName: "Ether",
             currencySymbl: "ETH",
             currencyDecimals: 18,
+            currencyLogo: URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/ethereum-eth-logo.png")!,
             themeTextColor: "#001428",
             themeBackgroundColor: "#E8E7E6")
     }

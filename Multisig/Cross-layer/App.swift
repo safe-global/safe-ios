@@ -40,8 +40,6 @@ class App {
 
     var nodeService = EthereumNodeService()
 
-    let tokenRegistry = TokenRegistry()
-
     let notificationHandler = RemoteNotificationHandler()
 
     let clientGatewayHostObserver = NetworkHostStatusObserver(host: configuration.services.clientGatewayURL.host ?? "www.gnosis.io")
