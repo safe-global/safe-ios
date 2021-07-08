@@ -527,6 +527,7 @@ extension SCGModels {
         var implementation: AddressInfoExtended
         var modules: [AddressInfoExtended]?
         var fallbackHandler: AddressInfoExtended?
+        var `guard`: AddressInfoExtended?
         var version: String
     }
 
