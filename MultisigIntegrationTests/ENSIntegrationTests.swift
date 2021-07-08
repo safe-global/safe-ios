@@ -14,7 +14,7 @@ class ENSIntegrationTests: CoreDataTestCase {
         let network = Network.mainnetChain()
         return BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl,
                                        networkName: network.chainName!,
-                                       ensRegistryAddress: AddressString(network.ensRegistryAddress!))
+                                       ensRegistryAddress: network.ensRegistryAddress!)
     }()
 
     func test_forwardResolution() {
