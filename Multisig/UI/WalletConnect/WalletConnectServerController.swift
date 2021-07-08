@@ -126,7 +126,7 @@ extension WalletConnectServerController: ServerDelegate {
               let network = safe.network
         else {
             // we can't get address or network in the local database, we're closing connection.
-            #warning("Check with Andrey")
+            #warning("chainId should be changed to string after we update the library")
             let walletInfo = Session.WalletInfo(
                 approved: false,
                 accounts: [],
