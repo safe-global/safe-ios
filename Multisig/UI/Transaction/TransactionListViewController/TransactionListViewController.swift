@@ -59,7 +59,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         emptyView.setText(emptyText)
         emptyView.setImage(emptyImage)
 
-        for notification in [Notification.Name.transactionDataInvalidated, .ownerKeyImported, .ownerKeyRemoved] {
+        for notification in [Notification.Name.transactionDataInvalidated, .ownerKeyImported, .ownerKeyRemoved, .networkInfoChanged] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(lazyReloadData),
@@ -388,9 +388,9 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             decimals = 0
         case .ether(let etherTransferInfo):
             value = Int256(etherTransferInfo.value.value)
-            let eth = App.shared.tokenRegistry.networkToken()
-            decimals = eth.decimals!
-            symbol = eth.symbol
+            let coin = Network.nativeCoin!
+            decimals = UInt256(coin.decimals)
+            symbol = coin.symbol
         case .unknown:
             value = 0
             decimals = 0

@@ -69,7 +69,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         configureActionButtons()
 
-        for notification in [Notification.Name.ownerKeyImported, .ownerKeyRemoved, .ownerKeyUpdated] {
+        for notification in [Notification.Name.ownerKeyImported, .ownerKeyRemoved, .ownerKeyUpdated, .networkInfoChanged] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(lazyReloadData),

@@ -61,6 +61,12 @@ class ActionDetailViewController: UITableViewController {
         tableView.registerCell(DetailExpandableTextCell.self)
         tableView.backgroundColor = .secondaryBackground
         reloadData()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reloadData),
+            name: .networkInfoChanged,
+            object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -68,7 +74,7 @@ class ActionDetailViewController: UITableViewController {
         trackEvent(.transactionsDetailsAction)
     }
 
-    private func reloadData() {
+    @objc private func reloadData() {
         navigationItem.title = dataDecoded?.method ?? placeholderTitle
         cells = []
         buildHeader()
@@ -79,7 +85,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func buildHeader() {
         if let tx = multiSendTx {
-            let eth = App.shared.tokenRegistry.networkToken()
+            let coin = Network.nativeCoin!
             txBuilder.result = []
             let (name, imageUri) = displayNameAndImageUri(
                 address: tx.to, addressInfoIndex: addressInfoIndex, networkId: networkId)
@@ -90,10 +96,10 @@ class ActionDetailViewController: UITableViewController {
                 isOutgoing: true,
                 status: .success,
                 value: tx.value?.value,
-                decimals: eth.decimals.flatMap { try? UInt64($0) },
-                symbol: eth.symbol,
-                logoUri: nil,
-                logo: UIImage(named: "ico-ether"))
+                decimals: UInt64(coin.decimals),
+                symbol: coin.symbol!,
+                logoUri: coin.logoUrl.map(\.absoluteString))
+            
             append(txBuilder.result)
         }
     }
