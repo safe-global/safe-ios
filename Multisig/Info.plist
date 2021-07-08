@@ -51,6 +51,8 @@
 	<string>$(ETH_RPC_URL)</string>
 	<key>FALLBACKHANDLER_URL</key>
 	<string>$(FALLBACKHANDLER_URL)</string>
+	<key>GUARD_URL</key>
+	<string>$(GUARD_URL)</string>
 	<key>FEATURE_SUGGESTION_URL</key>
 	<string>$(FEATURE_SUGGESTION_URL)</string>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>

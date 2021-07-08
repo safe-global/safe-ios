@@ -20,4 +20,5 @@ public class Safe: NSManagedObject {
     var implementationInfo: AddressInfo?
     var modulesInfo: [AddressInfo]?
     var fallbackHandlerInfo: AddressInfo?
+    var guardInfo: AddressInfo?
 }
