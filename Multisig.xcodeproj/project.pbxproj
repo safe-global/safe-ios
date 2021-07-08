@@ -436,7 +436,6 @@
 		550FB1B426691D9500C13D54 /* ExternalLinkHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B026691D9400C13D54 /* ExternalLinkHeaderFooterView.swift */; };
 		550FB1B526691D9500C13D54 /* DetailedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB1B126691D9500C13D54 /* DetailedCell.xib */; };
 		550FB1B626691D9500C13D54 /* DetailedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B226691D9500C13D54 /* DetailedCell.swift */; };
-		550FB1BA26691DB900C13D54 /* TransactionByNonceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B726691DB800C13D54 /* TransactionByNonceRequest.swift */; };
 		550FB1BB26691DB900C13D54 /* LatestTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B826691DB800C13D54 /* LatestTransactionRequest.swift */; };
 		550FB1C226691E1500C13D54 /* WalletConnectQRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */; };
 		550FB1C326691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */; };
@@ -1033,7 +1032,6 @@
 		550FB1B026691D9400C13D54 /* ExternalLinkHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalLinkHeaderFooterView.swift; sourceTree = "<group>"; };
 		550FB1B126691D9500C13D54 /* DetailedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailedCell.xib; sourceTree = "<group>"; };
 		550FB1B226691D9500C13D54 /* DetailedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedCell.swift; sourceTree = "<group>"; };
-		550FB1B726691DB800C13D54 /* TransactionByNonceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionByNonceRequest.swift; sourceTree = "<group>"; };
 		550FB1B826691DB800C13D54 /* LatestTransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LatestTransactionRequest.swift; sourceTree = "<group>"; };
 		550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletConnectQRCodeViewController.xib; sourceTree = "<group>"; };
 		550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingConnectOwnerKeyViewController.swift; sourceTree = "<group>"; };
@@ -2015,7 +2013,6 @@
 				550FB1B826691DB800C13D54 /* LatestTransactionRequest.swift */,
 				048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */,
 				04769167246431D000D73D8B /* SafeTransactionService.swift */,
-				550FB1B726691DB800C13D54 /* TransactionByNonceRequest.swift */,
 				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
 			);
 			path = "Safe Transaction Service";
@@ -3178,7 +3175,6 @@
 				550FB18F26691C8F00C13D54 /* WalletsDataSource.swift in Sources */,
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,
 				04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */,
-				550FB1BA26691DB900C13D54 /* TransactionByNonceRequest.swift in Sources */,
 				558836702565385F0014E8C7 /* RemoveSafeCell.swift in Sources */,
 				0AF1C81225408EA000E28669 /* SegmentViewController.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,

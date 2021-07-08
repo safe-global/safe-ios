@@ -25,6 +25,7 @@ extension TransactionDetailsRequest {
 }
 
 extension SafeClientGatewayService {
+    @discardableResult
     func asyncTransactionDetails(
         id: String,
         networkId: Int,

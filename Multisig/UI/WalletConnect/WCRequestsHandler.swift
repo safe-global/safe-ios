@@ -88,14 +88,15 @@ class WCRequestsHandler: RequestHandler {
                     self.server.send(try! Response(request: request, error: .requestRejected))
                 }
 
-                confirmationController.onSubmit = {
+                confirmationController.onSubmit = { nonce, safeTxHash in
                     // transaction is successfully submitted to our backend
                     // add pending transacion for monitoring
                     DispatchQueue.main.async {
                         guard let wcSession = WCSession.get(topic: request.url.topic) else { return }
                         WCPendingTransaction.create(
                             wcSession: wcSession,
-                            nonce: transaction.nonce,
+                            nonce: nonce,
+                            safeTxHash: safeTxHash,
                             requestId: requestId.description)
                     }
                 }
