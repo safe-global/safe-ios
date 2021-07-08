@@ -15,7 +15,7 @@ class ActionDetailViewController: UITableViewController {
 
     private var multiSendTx: MultiSendTx?
     private var addressInfoIndex: AddressInfoIndex?
-    private var networkId: Int!
+    private var networkId: String!
     private var dataDecoded: DataDecoded?
     private var data: DataString?
     private var placeholderTitle: String?
@@ -29,7 +29,7 @@ class ActionDetailViewController: UITableViewController {
 
     convenience init(decoded: DataDecoded,
                      addressInfoIndex: AddressInfoIndex?,
-                     networkId: Int,
+                     networkId: String,
                      data: DataString? = nil) {
         self.init()
         self.dataDecoded = decoded
@@ -40,7 +40,7 @@ class ActionDetailViewController: UITableViewController {
 
     convenience init(tx: MultiSendTx,
                      addressInfoIndex: AddressInfoIndex?,
-                     networkId: Int,
+                     networkId: String,
                      placeholderTitle: String?) {
         self.init()
         multiSendTx = tx

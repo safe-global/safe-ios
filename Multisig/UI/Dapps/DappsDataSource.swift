@@ -26,9 +26,9 @@ class DappsDataSource {
         }
 
         let path: String
-        if network.id == Network.ChainID.ethereumMainnet {
+        if network.chainId == Network.ChainID.ethereumMainnet {
             path = Bundle.main.path(forResource: "dapps-mainnet", ofType: "json")!
-        } else if network.id == Network.ChainID.ethereumRinkeby {
+        } else if network.chainId == Network.ChainID.ethereumRinkeby {
             path = Bundle.main.path(forResource: "dapps-rinkeby", ofType: "json")!
         } else {
             dapps = []

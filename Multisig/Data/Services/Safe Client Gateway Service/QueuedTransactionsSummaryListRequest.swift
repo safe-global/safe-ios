@@ -10,7 +10,7 @@ import Foundation
 
 struct QueuedTransactionsSummaryListRequest: JSONRequest {
     let safeAddress: String
-    let networkId: Int
+    let networkId: String
     
     let timezoneOffset = TimeZone.currentOffest()
     var httpMethod: String { "GET" }
@@ -26,7 +26,7 @@ struct QueuedTransactionsSummaryListRequest: JSONRequest {
 }
 
 extension QueuedTransactionsSummaryListRequest {
-    init(_ safeAddress: Address, networkId: Int) {
+    init(_ safeAddress: Address, networkId: String) {
         self.init(safeAddress: safeAddress.checksummed, networkId: networkId)
     }
 }
@@ -34,7 +34,7 @@ extension QueuedTransactionsSummaryListRequest {
 extension SafeClientGatewayService {
     func asyncQueuedTransactionsSummaryList(
         safeAddress: Address,
-        networkId: Int,
+        networkId: String,
         completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
 
         asyncExecute(request: QueuedTransactionsSummaryListRequest(safeAddress, networkId: networkId), completion: completion)

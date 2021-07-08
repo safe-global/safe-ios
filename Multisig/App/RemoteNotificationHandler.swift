@@ -69,7 +69,7 @@ class RemoteNotificationHandler {
         }
     }
 
-    func safeRemoved(address: Address, networkId: Int) {
+    func safeRemoved(address: Address, networkId: String) {
         unregister(address: address, networkId: networkId)
     }
 
@@ -188,7 +188,7 @@ class RemoteNotificationHandler {
                     signatures: signResult?.signatures)
 
                 // will be changed with new registration request
-                guard let networkId = (try? Safe.getSelected())?.network?.id else { return }
+                guard let networkId = (try? Safe.getSelected())?.network?.chainId! else { return }
                 try SafeTransactionService.execute(request: request, networkId: networkId)
             } catch {
                 logError("Failed to register device", error)
@@ -235,7 +235,7 @@ class RemoteNotificationHandler {
         return (hashPreimage, hash.toHexStringWithPrefix(), timestamp, signatures)
     }
 
-    private func unregister(address: Address, networkId: Int) {
+    private func unregister(address: Address, networkId: String) {
         queue.async { [unowned self] in
             do {
                 try SafeTransactionService.unregister(deviceID: self.storedDeviceID!,
@@ -262,12 +262,12 @@ class RemoteNotificationHandler {
 
         let network = Network.mainnetChain()
 
-        guard Safe.exists(safeAddress.checksummed, networkId: network.id) else {
-            unregister(address: safeAddress, networkId: network.id)
+        guard Safe.exists(safeAddress.checksummed, networkId: network.chainId!) else {
+            unregister(address: safeAddress, networkId: network.chainId!)
             return
         }
 
-        Safe.select(address: rawAddress, networkId: network.id)
+        Safe.select(address: rawAddress, networkId: network.chainId!)
 
         if let safeTxHash = payload.safeTxHash,
            let hashData = Data(exactlyHex: safeTxHash) {

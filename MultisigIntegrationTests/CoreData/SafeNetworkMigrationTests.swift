@@ -30,7 +30,7 @@ class SafeNetworkMigrationTests: CoreDataTestCase {
 
         mainnet = Network.mainnetChain()
         XCTAssertEqual(safe.network, mainnet)
-        XCTAssertEqual(mainnet.id, Network.ChainID.ethereumMainnet)
+        XCTAssertEqual(mainnet.chainId, Network.ChainID.ethereumMainnet)
         XCTAssertEqual(mainnet.nativeCurrency?.symbol, "ETH")
     }
 }

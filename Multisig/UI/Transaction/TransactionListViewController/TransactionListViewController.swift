@@ -323,7 +323,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                 imageURL = URL(string: safeAppInfo.logoUrl)
                 image = UIImage(named: "ico-custom-tx")
                 
-            } else if let importedSafeName = Safe.cachedName(by: customInfo.to, networkId: safe.network!.id) {
+            } else if let importedSafeName = Safe.cachedName(by: customInfo.to, networkId: safe.network!.chainId!) {
                 title = importedSafeName
                 placeholderAddress = customInfo.to
             } else if let toInfo = customInfo.toInfo {

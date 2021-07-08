@@ -17,7 +17,7 @@ class TransactionDetailCellBuilder {
     private weak var tableView: UITableView!
 
     // needed for proper safe selection for known addresses functionality
-    private var networkId: Int
+    private var networkId: String
 
     private lazy var dateFormatter: DateFormatter = {
         let d = DateFormatter()
@@ -28,7 +28,7 @@ class TransactionDetailCellBuilder {
     }()
     var result: [UITableViewCell] = []
 
-    init(vc: UIViewController, tableView: UITableView, networkId: Int) {
+    init(vc: UIViewController, tableView: UITableView, networkId: String) {
         self.vc = vc
         self.tableView = tableView
         self.networkId = networkId

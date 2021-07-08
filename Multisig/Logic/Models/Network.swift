@@ -24,7 +24,7 @@ extension Network {
         (try? Safe.getSelected())?.network?.nativeCurrency
     }
 
-    static func exists(_ id: Int) throws -> Bool {
+    static func exists(_ id: String) throws -> Bool {
         do {
             dispatchPrecondition(condition: .onQueue(.main))
             let context = App.shared.coreDataStack.viewContext
@@ -36,7 +36,7 @@ extension Network {
         }
     }
 
-    static func by(_ id: Int) -> Network? {
+    static func by(_ id: String) -> Network? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let fr = Network.fetchRequest().by(id: id)
@@ -55,7 +55,7 @@ extension Network {
     }
 
     @discardableResult
-    static func create(chainId: Int,
+    static func create(chainId: String,
                        chainName: String,
                        rpcUrl: URL,
                        blockExplorerUrl: URL,
@@ -70,7 +70,7 @@ extension Network {
         let context = App.shared.coreDataStack.viewContext
 
         let network = Network(context: context)
-        network.chainId = Int32(chainId)
+        network.chainId = chainId
         network.chainName = chainName
         network.rpcUrl = rpcUrl
         network.blockExplorerUrl = blockExplorerUrl
@@ -109,7 +109,7 @@ extension Network {
     }
 
     static func updateIfExist(_ networkInfo: SCGModels.Network) {
-        guard let network = Network.by(networkInfo.id) else { return }
+        guard let network = Network.by(networkInfo.chainId.description) else { return }
         try! network.update(from: networkInfo)
     }
 
@@ -128,10 +128,6 @@ extension Network {
 }
 
 extension Network {
-    public var id: Int {
-        Int(chainId)
-    }
-
     func update(from networkInfo: SCGModels.Network) throws {
         guard chainId == networkInfo.id else {
             throw GSError.NetworkIdMismatch()
@@ -158,9 +154,9 @@ extension NSFetchRequest where ResultType == Network {
         return self
     }
 
-    func by(id: Int) -> Self {
+    func by(id: String) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "chainId == %d", id)
+        predicate = NSPredicate(format: "chainId == %@", id)
         fetchLimit = 1
         return self
     }
@@ -168,10 +164,10 @@ extension NSFetchRequest where ResultType == Network {
 
 extension Network {
     enum ChainID {
-        static let ethereumMainnet = 1
-        static let ethereumRinkeby = 4
-        static let polygon = 137
-        static let xDai = 100
+        static let ethereumMainnet = "1"
+        static let ethereumRinkeby = "4"
+        static let polygon = "137"
+        static let xDai = "100"
     }
 
     static func mainnetChain() -> Network {
@@ -212,7 +208,7 @@ extension Network {
         // Add other networks sorted by id with safes sorted by most recently added
         groupedSafes.keys
             .filter { $0 != selectedSafeNetwork }
-            .sorted { $0.id < $1.id }
+            .sorted { UInt256($0.chainId!)! < UInt256($1.chainId!)! }
             .forEach { network in
                 networkSafes.append(
                     (network: network,

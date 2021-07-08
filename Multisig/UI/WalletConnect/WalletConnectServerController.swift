@@ -86,7 +86,7 @@ class WalletConnectServerController {
 
                 let wcSession = pendingTx.session!
                 let session = try! Session.from(wcSession)
-                let networkId = wcSession.safe!.network!.id
+                let networkId = wcSession.safe!.network!.chainId!
 
                 DispatchQueue.global().async { [unowned self] in
                     App.shared.clientGatewayService.asyncTransactionDetails(id: safeTxHash,
@@ -133,10 +133,11 @@ extension WalletConnectServerController: ServerDelegate {
               let network = safe.network
         else {
             // we can't get address or network in the local database, we're closing connection.
+            #warning("chainId should be changed to string after we update the library")
             let walletInfo = Session.WalletInfo(
                 approved: false,
                 accounts: [],
-                chainId: Network.ChainID.ethereumMainnet,
+                chainId: Int(Network.ChainID.ethereumMainnet)!,
                 peerId: UUID().uuidString,
                 peerMeta: walletMeta)
 
@@ -147,7 +148,7 @@ extension WalletConnectServerController: ServerDelegate {
         let walletInfo = Session.WalletInfo(
             approved: true,
             accounts: [address],
-            chainId: network.id,
+            chainId: Int(network.chainId!)!,
             peerId: UUID().uuidString,
             peerMeta: walletMeta)
 

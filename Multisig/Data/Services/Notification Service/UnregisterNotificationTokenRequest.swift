@@ -28,7 +28,7 @@ struct UnregisterNotificationTokenRequest: JSONRequest {
 }
 
 extension SafeTransactionService {
-    static func unregister(deviceID: String, address: Address, networkId: Int) throws  {
+    static func unregister(deviceID: String, address: Address, networkId: String) throws  {
         try execute(request: UnregisterNotificationTokenRequest(deviceID: deviceID, address: address),
                     networkId: networkId)
     }
