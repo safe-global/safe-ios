@@ -170,7 +170,7 @@ extension Safe: Identifiable {
         let deletedSafeAddress = safe.address
         let context = App.shared.coreDataStack.viewContext
 
-        let networkId = safe.network!.id
+        let networkId = safe.network!.chainId!
 
         if safe.network!.safe!.count == 1 {
             // remove network with associated safe

@@ -77,7 +77,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         var wcSessionItems: [SectionItem]
 
         if let selectedSafe = try? Safe.getSelected(),
-           let networkId = selectedSafe.network?.id,
+           let networkId = selectedSafe.network?.chainId!,
            !SafeTransactionService.supports(networkId: networkId) {
             wcButton.isHidden = true
             wcSessionItems = [Section.WalletConnect.noSessions("This network is not supported yet.")]

@@ -78,7 +78,7 @@ class WalletConnectServerController {
                 let wcSession = pendingTx.session!
                 let session = try! Session.from(wcSession)
                 let safeAddress = AddressString(session.walletInfo!.accounts[0])!
-                let networkId = wcSession.safe!.network!.id
+                let networkId = wcSession.safe!.network!.chainId!
 
                 // stop monitoring pending WalletConnect transactions after 24h
                 if Date().timeIntervalSince(pendingTx.created!) > 60 * 60 * 24 {

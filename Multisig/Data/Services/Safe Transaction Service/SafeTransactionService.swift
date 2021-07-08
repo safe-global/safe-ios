@@ -10,11 +10,11 @@ import Foundation
 
 /// Safe transaction service will be used only by WalletConnect prototype for a while
 class SafeTransactionService {
-    static func supports(networkId: Int) -> Bool {
+    static func supports(networkId: String) -> Bool {
         url(networkId: networkId) != nil
     }
 
-    static func url(networkId: Int) -> URL? {
+    static func url(networkId: String) -> URL? {
         switch networkId {
         case Network.ChainID.ethereumMainnet: return URL(string: "https://safe-transaction.gnosis.io/api/")!
         case Network.ChainID.ethereumRinkeby: return URL(string: "https://safe-transaction.rinkeby.gnosis.io/api/")!
@@ -25,7 +25,7 @@ class SafeTransactionService {
     }
 
     @discardableResult
-    static func execute<T: JSONRequest>(request: T, networkId: Int) throws -> T.ResponseType {
+    static func execute<T: JSONRequest>(request: T, networkId: String) throws -> T.ResponseType {
         let httpClient = JSONHTTPClient(url: url(networkId: networkId)!, logger: LogService.shared)
         httpClient.jsonDecoder.dateDecodingStrategy = .backendDateDecodingStrategy
         return try httpClient.execute(request: request)
