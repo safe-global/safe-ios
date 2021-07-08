@@ -13,7 +13,7 @@ fileprivate protocol SectionItem {}
 
 class DappsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet weak var wcButton: UIButton!
+    @IBOutlet private weak var wcButton: UIButton!
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
