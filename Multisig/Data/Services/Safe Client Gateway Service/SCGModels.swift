@@ -527,6 +527,7 @@ extension SCGModels {
         var implementation: AddressInfoExtended
         var modules: [AddressInfoExtended]?
         var fallbackHandler: AddressInfoExtended?
+        var `guard`: AddressInfoExtended?
         var version: String
     }
 
@@ -558,6 +559,7 @@ extension SCGModels {
         let name: String
         let symbol: String
         let decimals: Int
+        let logoUrl: URL
     }
 }
 

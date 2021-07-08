@@ -20,12 +20,18 @@ class AdvancedSafeSettingsViewController: UITableViewController {
 
     enum Section {
         case fallbackHandler(String)
+        case guardInfo(String)
         case nonce(String)
         case modules(String)
 
         enum FallbackHandler: SectionItem {
             case fallbackHandler(AddressInfo?)
             case fallbackHandlerHelpLink
+        }
+
+        enum GuardInfo: SectionItem {
+            case guardInfo(AddressInfo)
+            case guardInfoHelpLink
         }
 
         enum Nonce: SectionItem {
@@ -35,7 +41,6 @@ class AdvancedSafeSettingsViewController: UITableViewController {
         enum Module: SectionItem {
             case module(AddressInfo)
         }
-
     }
 
     override func viewDidLoad() {
@@ -65,17 +70,19 @@ class AdvancedSafeSettingsViewController: UITableViewController {
         sections = [
             (section: .fallbackHandler("FALLBACK HANDLER"),
              items: [Section.FallbackHandler.fallbackHandler(App.shared.gnosisSafe.fallbackHandlerInfo(safe.fallbackHandlerInfo)),
-                     Section.FallbackHandler.fallbackHandlerHelpLink]),
+                     Section.FallbackHandler.fallbackHandlerHelpLink])]
+        if let guardInfo = safe.guardInfo {
+            sections.append((section: .guardInfo("GUARD"),
+                             items: [Section.GuardInfo.guardInfo(guardInfo),
+                                     Section.GuardInfo.guardInfoHelpLink]))
+        }
 
-            (section: .nonce("NONCE"),
-             items: [Section.Nonce.nonce(safe.nonce?.description ?? "0")]),
-        ]
+        sections.append((section: .nonce("NONCE"),
+             items: [Section.Nonce.nonce(safe.nonce?.description ?? "0")]))
 
         if let modules = safe.modulesInfo, !modules.isEmpty {
-            sections += [
-                (section: .modules("ADDRESSES OF ENABLED MODULES"),
-                 items: modules.map { Section.Module.module($0) })
-            ]
+            sections.append((section: .modules("ADDRESSES OF ENABLED MODULES"),
+                 items: modules.map { Section.Module.module($0) }))
         }
     }
 }
@@ -94,17 +101,37 @@ extension AdvancedSafeSettingsViewController {
         switch item {
         case Section.FallbackHandler.fallbackHandler(let info):
             if let info = info {
-                return addressDetailsCell(address: info.address, title: namingPolicy.name(info: info), imageUri: info.logoUri, indexPath: indexPath)
+                return addressDetailsCell(address: info.address,
+                                          title: namingPolicy.name(info: info),
+                                          imageUri: info.logoUri,
+                                          indexPath: indexPath)
             } else {
                 return tableView.basicCell(
                     name: "Not set", indexPath: indexPath, withDisclosure: false, canSelect: false)
             }
         case Section.FallbackHandler.fallbackHandlerHelpLink:
-            return fallbackHandlerHelpLinkCell(indexPath: indexPath)
+            return helpLinkCell(text: "What is a fallback handler and how does it relate to the Gnosis Safe",
+                                url: App.configuration.help.fallbackHandlerURL,
+                                indexPath: indexPath)
+        case Section.GuardInfo.guardInfo(let info):
+            return addressDetailsCell(address: info.address,
+                                      title: namingPolicy.name(info: info),
+                                      imageUri: info.logoUri,
+                                      indexPath: indexPath)
+        case Section.GuardInfo.guardInfoHelpLink:
+            return helpLinkCell(text: "What is a guard and how that is used",
+                                url: App.configuration.help.guardURL,
+                                indexPath: indexPath)
         case Section.Nonce.nonce(let nonce):
-            return tableView.basicCell(name: nonce, indexPath: indexPath, withDisclosure: false, canSelect: false)
+            return tableView.basicCell(name: nonce,
+                                       indexPath: indexPath,
+                                       withDisclosure: false,
+                                       canSelect: false)
         case Section.Module.module(let info):
-            return addressDetailsCell(address: info.address, title: namingPolicy.name(info: info), imageUri: info.logoUri, indexPath: indexPath)
+            return addressDetailsCell(address: info.address,
+                                      title: namingPolicy.name(info: info),
+                                      imageUri: info.logoUri,
+                                      indexPath: indexPath)
         default:
             return UITableViewCell()
         }
@@ -116,10 +143,10 @@ extension AdvancedSafeSettingsViewController {
         switch section {
         case Section.fallbackHandler(let name):
             view.setName(name)
-
+        case Section.guardInfo(let name):
+            view.setName(name)
         case Section.nonce(let name):
             view.setName(name)
-
         case Section.modules(let name):
             view.setName(name)
         }
@@ -138,6 +165,8 @@ extension AdvancedSafeSettingsViewController {
             if info == nil {
                 return BasicCell.rowHeight
             }
+        case Section.GuardInfo.guardInfo(_):
+            return BasicCell.rowHeight
         case Section.Nonce.nonce:
             return BasicCell.rowHeight
         default:
@@ -156,8 +185,10 @@ extension AdvancedSafeSettingsViewController {
         return cell
     }
 
-    private func fallbackHandlerHelpLinkCell(indexPath: IndexPath) -> UITableViewCell {
+    private func helpLinkCell(text: String, url: URL, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(HelpLinkTableViewCell.self, for: indexPath)
+        cell.descriptionLabel.hyperLinkLabel(linkText: text)
+        cell.url = url
         return cell
     }
 }

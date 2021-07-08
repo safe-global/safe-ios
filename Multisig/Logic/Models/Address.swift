@@ -94,7 +94,7 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
     }
 
     static let zero = Self(exactly: Data(repeating: 0, count: 20))
-    static let ether = Self.zero
+    static let nativeCoin = Self.zero
 
     var isZero: Bool {
         self == .zero
