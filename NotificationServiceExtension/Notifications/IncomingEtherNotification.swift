@@ -36,11 +36,12 @@ struct IncomingEtherNotification: MultisigNotification {
     var localizedBody: String {
         let safe = address.truncatedInMiddle
         let formatter = TokenFormatter()
-        let etherPrecision = 18
+        let decimals = 18
+        let symbol = "ETH"
         let amount = formatter.string(
-            from: BigDecimal(value, etherPrecision),
+            from: BigDecimal(value, decimals),
             decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
             thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
-        return "\(safe): \(amount) ETH received"
+        return "\(safe): \(amount) \(symbol) received"
     }
 }

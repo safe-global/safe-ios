@@ -24,8 +24,8 @@ class GnosisSafe {
         ("0xaE32496491b53841efb51829d6f886387708F99B", "1.1.0"),
         ("0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F", "1.1.1"),
         ("0x6851d6fdfafd08c0295c392436245e5bc78b0185", "1.2.0"),
-        // temporary measure to test polygon
-        ("0x3E5c63644E683549055b9Be8653de26E0B4CD36E", "1.3.0")
+        ("0x3E5c63644E683549055b9Be8653de26E0B4CD36E", "1.3.0"),
+        ("0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552", "1.3.0")
     ]
 
     var supportedVersions: [String] = ["1.0.0", "1.1.0", "1.1.1", "1.2.0", "1.3.0"]

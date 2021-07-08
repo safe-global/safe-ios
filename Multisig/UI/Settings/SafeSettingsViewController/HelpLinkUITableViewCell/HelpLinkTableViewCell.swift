@@ -11,11 +11,7 @@ import UIKit
 class HelpLinkTableViewCell: UITableViewCell, ExternalURLSource {
     @IBOutlet weak var openURLButton: UIButton!
     @IBOutlet weak var descriptionLabel: UILabel!
-    private(set) var url: URL? = App.configuration.help.fallbackHandlerURL
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        descriptionLabel.hyperLinkLabel(linkText: "What is a fallback handler and how does it relate to the Gnosis Safe")
-    }
+    var url: URL?
 
     @IBAction func openURLButtonTouched(_ sender: Any) {
         openExternalURL()
