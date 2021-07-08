@@ -13,9 +13,9 @@ class BlockchainDomainManager {
     private(set) var ens: ENS?
     private(set) var unstoppableDomainResolution: Resolution?
 
-    init(rpcURL: URL, networkName: String, ensRegistryAddress: AddressString?) {
-        if let ensRegistryAddress = ensRegistryAddress {
-            ens = ENS(registryAddress: ensRegistryAddress.address, rpcURL: rpcURL)
+    init(rpcURL: URL, networkName: String, ensRegistryAddress: String?) {
+        if let string = ensRegistryAddress, let address = Address(string) {
+            ens = ENS(registryAddress: address, rpcURL: rpcURL)
         }
 
         self.unstoppableDomainResolution = try? Resolution(
