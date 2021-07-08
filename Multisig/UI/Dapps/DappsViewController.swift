@@ -13,6 +13,7 @@ fileprivate protocol SectionItem {}
 
 class DappsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var wcButton: UIButton!
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
@@ -74,31 +75,43 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     @objc private func update() {
         var wcSessionItems: [SectionItem]
-        do {
-            wcSessionItems = try WCSession.getAll().compactMap {
-                guard $0.session != nil,
-                      let session = try? Session.from($0),
-                      let selectedSafe = try? Safe.getSelected(),
-                      session.walletInfo!.accounts.contains(selectedSafe.address!) else {
-                    return nil
+
+        if let selectedSafe = try? Safe.getSelected(),
+           let networkId = selectedSafe.network?.id,
+           !SafeTransactionService.supports(networkId: networkId) {
+            wcButton.isHidden = true
+            wcSessionItems = [Section.WalletConnect.noSessions("This network is not supported yet.")]
+            sections = [
+                (section: .walletConnect("WalletConnect"), items: wcSessionItems)
+            ]
+        } else {
+            wcButton.isHidden = false
+            do {
+                wcSessionItems = try WCSession.getAll().compactMap {
+                    guard $0.session != nil,
+                          let session = try? Session.from($0),
+                          let selectedSafe = try? Safe.getSelected(),
+                          session.walletInfo!.accounts.contains(selectedSafe.address!) else {
+                        return nil
+                    }
+                    return Section.WalletConnect.activeSession($0)
                 }
-                return Section.WalletConnect.activeSession($0)
+                if wcSessionItems.isEmpty {
+                    wcSessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
+                }
+            } catch {
+                wcSessionItems = [Section.WalletConnect.noSessions("No active sessions")]
+                App.shared.snackbar.show(
+                    error: GSError.error(description: "Could not load WalletConnect sessions", error: error))
             }
-            if wcSessionItems.isEmpty {
-                wcSessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
-            }
-        } catch {
-            wcSessionItems = [Section.WalletConnect.noSessions("No active sessions")]
-            App.shared.snackbar.show(
-                error: GSError.error(description: "Could not load WalletConnect sessions", error: error))
+
+            let dappSectionItems = DappsDataSource().dapps.map { Section.Dapp.dapp($0) }
+
+            sections = [
+                (section: .walletConnect("WalletConnect"), items: wcSessionItems),
+                (section: .dapp("Dapps supporting Gnosis Safe"), items: dappSectionItems)
+            ]
         }
-
-        let dappSectionItems = DappsDataSource.shared.dapps.map { Section.Dapp.dapp($0) }
-
-        sections = [
-            (section: .walletConnect("WalletConnect"), items: wcSessionItems),
-            (section: .dapp("Dapps supporting Gnosis Safe"), items: dappSectionItems)
-        ]
 
         DispatchQueue.main.async { [unowned self] in
             self.tableView.reloadData()
@@ -106,17 +119,13 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     private func subscribeToNotifications() {
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(update), name: .wcConnectingServer, object: nil)
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(update), name: .wcDidConnectServer, object: nil)
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(update), name: .wcDidDisconnectServer, object: nil)
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(update), name: .wcDidFailToConnectServer, object: nil)
-
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(update), name: .selectedSafeChanged, object: nil)
+        [NSNotification.Name.wcConnectingServer,
+         .wcDidConnectServer,
+         .wcDidDisconnectServer,
+         .wcDidFailToConnectServer,
+         .selectedSafeChanged].forEach {
+            NotificationCenter.default.addObserver(self, selector: #selector(update), name: $0, object: nil)
+         }
     }
 
     // MARK: - Table view data source

@@ -69,9 +69,8 @@ class RemoteNotificationHandler {
         }
     }
 
-    func safeRemoved(address: Address) {
-        logDebug("Safe removed: \(address)")
-        unregister(address: address)
+    func safeRemoved(address: Address, networkId: Int) {
+        unregister(address: address, networkId: networkId)
     }
 
     /// For add / remove signing key
@@ -188,7 +187,9 @@ class RemoteNotificationHandler {
                     timestamp: signResult?.timestamp,
                     signatures: signResult?.signatures)
 
-                try App.shared.safeTransactionService.execute(request: request)
+                // will be changed with new registration request
+                guard let networkId = (try? Safe.getSelected())?.network?.id else { return }
+                try SafeTransactionService.execute(request: request, networkId: networkId)
             } catch {
                 logError("Failed to register device", error)
             }
@@ -234,10 +235,12 @@ class RemoteNotificationHandler {
         return (hashPreimage, hash.toHexStringWithPrefix(), timestamp, signatures)
     }
 
-    private func unregister(address: Address) {
+    private func unregister(address: Address, networkId: Int) {
         queue.async { [unowned self] in
             do {
-                try App.shared.safeTransactionService.unregister(deviceID: self.storedDeviceID!, address: address)
+                try SafeTransactionService.unregister(deviceID: self.storedDeviceID!,
+                                                      address: address,
+                                                      networkId: networkId)
             } catch {
                 logError("Failed to unregister device", error)
             }
@@ -260,7 +263,7 @@ class RemoteNotificationHandler {
         let network = Network.mainnetChain()
 
         guard Safe.exists(safeAddress.checksummed, networkId: network.id) else {
-            unregister(address: safeAddress)
+            unregister(address: safeAddress, networkId: network.id)
             return
         }
 

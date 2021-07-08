@@ -15,7 +15,8 @@ class GnosisSafe {
         case upgradeAvailable(String)
         case unknown
     }
-    #warning ("This one should be changed when proper implementation of 1.3.0 support")
+
+    #warning("TODO: get versions from backend")
     var versions: [(implementation: Address, version: String)] = [
         ("0xAC6072986E985aaBE7804695EC2d8970Cf7541A2", "0.0.2"),
         ("0x8942595A2dC5181Df0465AF0D7be08c8f23C93af", "0.1.0"),
