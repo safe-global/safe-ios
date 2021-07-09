@@ -14,7 +14,7 @@ class EnterSafeAddressViewController: UIViewController {
     var address: Address? { addressField?.address }
     var gatewayService = App.shared.clientGatewayService
     var completion: () -> Void = { }
-    var network: Network!
+    var network: SCGModels.Network!
 
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var addressField: AddressField!
@@ -72,8 +72,8 @@ class EnterSafeAddressViewController: UIViewController {
         enterAddressVC.placeholder = "Enter name"
 
         enterAddressVC.completion = { [unowned enterAddressVC, unowned self] name in
-
-            Safe.create(address: address.checksummed, name: name, network: network)
+            let coreDataNetwork = Network.createOrUpdate(network)
+            Safe.create(address: address.checksummed, name: name, network: coreDataNetwork)
 
             if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
 
@@ -119,8 +119,8 @@ class EnterSafeAddressViewController: UIViewController {
         }))
 
         let blockchainDomainManager = BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl,
-                                                              networkName: network.chainName!,
-                                                              ensRegistryAddress: network.ensRegistryAddress)
+                                                              networkName: network.chainName,
+                                                              ensRegistryAddress: network.ensRegistryAddress?.description)
 
         if blockchainDomainManager.ens != nil {
             alertVC.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in

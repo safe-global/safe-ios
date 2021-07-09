@@ -10,7 +10,7 @@ import UIKit
 
 class RibbonViewController: ContainerViewController {
 
-    var network: Network?
+    var network: SCGModels.Network?
 
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var ribbonView: RibbonView!
@@ -28,7 +28,7 @@ class RibbonViewController: ContainerViewController {
         displayChild(at: 0, in: contentView)
 
         if let network = network {
-            ribbonView.update(network: network)
+            ribbonView.update(scgNetwork: network)
         } else {
             ribbonView.observeSelectedSafe()
         }

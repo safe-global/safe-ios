@@ -184,7 +184,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         tableView.deselectRow(at: indexPath, animated: true)
         let vc = EnterSafeAddressViewController()
         vc.completion = completion
-        vc.network = Network.createOrUpdate(model.models[indexPath.row])
+        vc.network = model.models[indexPath.row]
         let ribbon = RibbonViewController(rootViewController: vc)
         ribbon.network = vc.network
         show(ribbon, sender: self)

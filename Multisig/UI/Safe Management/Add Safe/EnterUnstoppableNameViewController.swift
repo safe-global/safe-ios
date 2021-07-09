@@ -12,7 +12,7 @@ class EnterUnstoppableNameViewController: UIViewController {
     var onConfirm: () -> Void = { }
     var manager: BlockchainDomainManager!
     var address: Address?
-    var network: Network!
+    var network: SCGModels.Network!
 
     // generated "task" ID to work around the asynchronous ENS resolving API
     private var currentResolutionTaskID: UUID?
