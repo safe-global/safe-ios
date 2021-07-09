@@ -120,7 +120,7 @@ class EnterSafeAddressViewController: UIViewController {
 
         let blockchainDomainManager = BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl,
                                                               networkName: network.chainName,
-                                                              ensRegistryAddress: network.ensRegistryAddress?.description)
+                                                              ensRegistryAddress: network.ensRegistryAddress)
 
         if blockchainDomainManager.ens != nil {
             alertVC.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
