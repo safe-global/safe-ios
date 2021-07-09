@@ -9,6 +9,9 @@
 import UIKit
 
 class RibbonViewController: ContainerViewController {
+
+    var network: SCGModels.Network?
+
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var ribbonView: RibbonView!
 
@@ -23,9 +26,15 @@ class RibbonViewController: ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         displayChild(at: 0, in: contentView)
-        ribbonView.observeSelectedSafe()
-        let title = viewControllers[0].title ?? viewControllers[0].navigationItem.title
-        navigationItem.title = title
-        self.title = title
+
+        if let network = network {
+            ribbonView.update(scgNetwork: network)
+        } else {
+            ribbonView.observeSelectedSafe()
+        }
+    }
+
+    override var navigationItem: UINavigationItem {
+        viewControllers.first?.navigationItem ?? super.navigationItem
     }
 }

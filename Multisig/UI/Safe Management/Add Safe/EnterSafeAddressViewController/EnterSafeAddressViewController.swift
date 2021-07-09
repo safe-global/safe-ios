@@ -57,38 +57,52 @@ class EnterSafeAddressViewController: UIViewController {
 
     @objc private func didTapNextButton(_ sender: Any) {
         guard let address = address else { return }
-        let vc = EnterAddressNameViewController()
-        vc.address = address
-        vc.trackingEvent = .safeAddName
-        vc.screenTitle = "Load Gnosis Safe"
-        vc.descriptionText = "Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties."
-        vc.actionTitle = "Next"
-        vc.placeholder = "Enter name"
-        vc.completion = { [unowned vc, unowned self] name in
-            let network = Network.createOrUpdate(network)
-            Safe.create(address: address.checksummed, name: name, network: network)
+        // NOTE: blank lines for better readability
+
+        let enterAddressVC = EnterAddressNameViewController()
+
+        let enterAddressWrapperVC = RibbonViewController(rootViewController: enterAddressVC)
+        enterAddressWrapperVC.network = network
+
+        enterAddressVC.address = address
+        enterAddressVC.trackingEvent = .safeAddName
+        enterAddressVC.screenTitle = "Load Gnosis Safe"
+        enterAddressVC.descriptionText = "Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterAddressVC.actionTitle = "Next"
+        enterAddressVC.placeholder = "Enter name"
+
+        enterAddressVC.completion = { [unowned enterAddressVC, unowned self] name in
+            let coreDataNetwork = Network.createOrUpdate(network)
+            Safe.create(address: address.checksummed, name: name, network: coreDataNetwork)
+
             if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
-                let safeLoadedViewController = SafeLoadedViewController()
-                safeLoadedViewController.completion = self.completion
-                safeLoadedViewController.hidesBottomBarWhenPushed = true
-                vc.show(safeLoadedViewController, sender: vc)
+
+                let loadedVC = SafeLoadedViewController()
+                loadedVC.completion = self.completion
+
+                let loadedWrapperVC = RibbonViewController(rootViewController: loadedVC)
+                loadedWrapperVC.network = self.network
+                loadedWrapperVC.hidesBottomBarWhenPushed = true
+
+                enterAddressVC.show(loadedWrapperVC, sender: enterAddressVC)
+
                 AppSettings.hasShownImportKeyOnboarding = true
             } else {
                 self.completion()
             }
         }
-        show(vc, sender: self)
+        show(enterAddressWrapperVC, sender: self)
     }
 
     private func didTapAddressField() {
-        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        vc.addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: { [weak self] _ in
+        alertVC.addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: { [weak self] _ in
             let text = Pasteboard.string
             self?.didEnterText(text)
         }))
 
-        vc.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [weak self] _ in
+        alertVC.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [weak self] _ in
             let vc = QRCodeScannerViewController()
             vc.scannedValueValidator = { value in
                 if Address(value) != nil {
@@ -109,34 +123,40 @@ class EnterSafeAddressViewController: UIViewController {
                                                               ensRegistryAddress: network.ensRegistryAddress)
 
         if blockchainDomainManager.ens != nil {
-            vc.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
-                let vc = EnterENSNameViewController(manager: blockchainDomainManager)
-                vc.network = self?.network
-                vc.onConfirm = { [weak self] in
+            alertVC.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
+                guard let self = self else { return }
+                let ensNameVC = EnterENSNameViewController(manager: blockchainDomainManager)
+                ensNameVC.network = self.network
+                ensNameVC.onConfirm = { [weak self] in
                     guard let `self` = self else { return }
                     self.navigationController?.popViewController(animated: true)
-                    self.didEnterText(vc.address?.checksummed)
+                    self.didEnterText(ensNameVC.address?.checksummed)
                 }
-                self?.show(vc, sender: nil)
+                let ensNameWrapperVC = RibbonViewController(rootViewController: ensNameVC)
+                ensNameWrapperVC.network = ensNameVC.network
+                self.show(ensNameWrapperVC, sender: nil)
             }))
         }
 
         if blockchainDomainManager.unstoppableDomainResolution != nil {
-            vc.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
-                let vc = EnterUnstoppableNameViewController(manager: blockchainDomainManager)
-                vc.network = self?.network
-                vc.onConfirm = { [weak self] in
+            alertVC.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
+                guard let self = self else { return }
+                let udNameVC = EnterUnstoppableNameViewController(manager: blockchainDomainManager)
+                udNameVC.network = self.network
+                udNameVC.onConfirm = { [weak self] in
                     guard let `self` = self else { return }
                     self.navigationController?.popViewController(animated: true)
-                    self.didEnterText(vc.address?.checksummed)
+                    self.didEnterText(udNameVC.address?.checksummed)
                 }
-                self?.show(vc, sender: nil)
+                let udNameWrapperVC = RibbonViewController(rootViewController: udNameVC)
+                udNameWrapperVC.network = udNameVC.network
+                self.show(udNameWrapperVC, sender: nil)
             }))
         }
 
-        vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
-        present(vc, animated: true, completion: nil)
+        present(alertVC, animated: true, completion: nil)
     }
 
     private func setSuggestionHidden(_ isHidden: Bool) {

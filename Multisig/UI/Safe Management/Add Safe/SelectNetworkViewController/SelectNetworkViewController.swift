@@ -185,7 +185,9 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         let vc = EnterSafeAddressViewController()
         vc.completion = completion
         vc.network = model.models[indexPath.row]
-        show(vc, sender: self)
+        let ribbon = RibbonViewController(rootViewController: vc)
+        ribbon.network = vc.network
+        show(ribbon, sender: self)
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
