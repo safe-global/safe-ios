@@ -10,13 +10,6 @@ mkdir -p "$OUTPUT_DIR"
 TEST_BUNDLE_PATH="$OUTPUT_DIR/tests-bundle.xcresult"
 rm -rf "$TEST_BUNDLE_PATH"
 
-# remove the app
-DEVICE="iPhone 11 Pro"
-APP_ID="io.gnosis.multisig.staging.rinkeby"
-set +e && xcrun simctl boot "${DEVICE}" 2>/dev/null
-xcrun simctl uninstall "${DEVICE}" "${APP_ID}"
-set -e
-
 set -o pipefail && \
 xcrun xcodebuild test \
     -project Multisig.xcodeproj \
