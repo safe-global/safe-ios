@@ -15,6 +15,7 @@ class EnterSafeAddressViewController: UIViewController {
     var gatewayService = App.shared.clientGatewayService
     var completion: () -> Void = { }
     var network: SCGModels.Network!
+    var safeVersion: String?
 
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var addressField: AddressField!
@@ -73,7 +74,7 @@ class EnterSafeAddressViewController: UIViewController {
 
         enterAddressVC.completion = { [unowned enterAddressVC, unowned self] name in
             let coreDataNetwork = Network.createOrUpdate(network)
-            Safe.create(address: address.checksummed, name: name, network: coreDataNetwork)
+            Safe.create(address: address.checksummed, version: safeVersion!, name: name, network: coreDataNetwork)
 
             if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
 
@@ -230,6 +231,8 @@ class EnterSafeAddressViewController: UIViewController {
                             self.addressField.setError(error.localizedDescription)
                             return
                         }
+
+                        self.safeVersion = info.version
                         self.nextButton.isEnabled = true
                     }
                 }

@@ -1438,13 +1438,6 @@
 			path = TransactionDetails;
 			sourceTree = "<group>";
 		};
-		0A0983A724BC5CC8009EE296 /* TokenRegistry */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TokenRegistry;
-			sourceTree = "<group>";
-		};
 		0A0EFCA1246EADD100D3D8BF /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -2301,7 +2294,6 @@
 				04CE3F9724B611FC00826AEE /* Collectible */,
 				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
 				55A585352501417E005E778B /* PrivateKey */,
-				0A0983A724BC5CC8009EE296 /* TokenRegistry */,
 			);
 			path = Models;
 			sourceTree = "<group>";

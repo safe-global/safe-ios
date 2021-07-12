@@ -14,9 +14,9 @@ class SafeTests: CoreDataTestCase {
         let network1 = try makeNetwork(id: "1")
         let network2 = try makeNetwork(id: "2")
 
-        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: network1, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: network1, selected: true)
-        Safe.create(address: "0x0000000000000000000000000000000000000002", name: "2", network: network2, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "0", network: network1, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", version: "1.2.0", name: "1", network: network1, selected: true)
+        Safe.create(address: "0x0000000000000000000000000000000000000002", version: "1.2.0", name: "2", network: network2, selected: false)
 
         var safesResult = try context.fetch(Safe.fetchRequest().all())
         var networksResult = try context.fetch(Network.fetchRequest().all())
@@ -77,9 +77,9 @@ class SafeTests: CoreDataTestCase {
         let testNetwork2 = try makeNetwork(id: "2")
         let testNetwork3 = try makeNetwork(id: "3")
 
-        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: testNetwork1, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "2", network: testNetwork2, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "3", network: testNetwork3, selected: true)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", version: "1.2.0", name: "1", network: testNetwork1, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", version: "1.2.0", name: "2", network: testNetwork2, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", version: "1.2.0", name: "3", network: testNetwork3, selected: true)
 
         Safe.select(address: "0x0000000000000000000000000000000000000001", networkId: "2")
 

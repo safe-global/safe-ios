@@ -13,7 +13,7 @@ class SafeNetworkMigrationTests: CoreDataTestCase {
     func test_migratingOldSafes() throws {
         var mainnet = Network.mainnetChain()
 
-        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: mainnet, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "0", network: mainnet, selected: false)
 
         var safe = try context.fetch(Safe.fetchRequest().all()).first!
         safe.network = nil

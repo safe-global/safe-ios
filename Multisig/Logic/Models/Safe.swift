@@ -125,12 +125,13 @@ extension Safe: Identifiable {
     }
 
     @discardableResult
-    static func create(address: String, name: String, network: Network, selected: Bool = true) -> Safe {
+    static func create(address: String, version: String, name: String, network: Network, selected: Bool = true) -> Safe {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
         let safe = Safe(context: context)
         safe.address = address
+        safe.contractVersion = version
         safe.name = name
         safe.network = network
 
@@ -201,10 +202,14 @@ extension Safe: Identifiable {
 
 extension Safe {
     func update(from info: SafeInfoRequest.ResponseType) {
+        DispatchQueue.main.async {
+            self.contractVersion = info.version
+            App.shared.coreDataStack.saveContext()
+        }
+
         threshold = info.threshold.value
         ownersInfo = info.owners.map { $0.addressInfo }
         implementationInfo = info.implementation.addressInfo
-        version = info.version
         nonce = info.nonce.value
         modulesInfo = info.modules?.map { $0.addressInfo }
         fallbackHandlerInfo = info.fallbackHandler?.addressInfo
