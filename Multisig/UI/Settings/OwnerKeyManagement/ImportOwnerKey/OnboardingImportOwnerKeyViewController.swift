@@ -10,6 +10,8 @@ import UIKit
 
 class OnboardingImportOwnerKeyViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    var completion: () -> Void = { }
+
     private var nextButton: UIBarButtonItem!
 
     private let cards: [(image: UIImage?, title: String, body: String, link: (title: String?, url: URL?))] = [
@@ -28,6 +30,11 @@ class OnboardingImportOwnerKeyViewController: UIViewController {
          "You can use your seed phrase from MetaMask or hardware wallet. We support private keys from any wallet in a hexadecimal 64 characters format. Importing the key will not show the balance for Ether or other assets from your MetaMask or hardware wallet.",
          (nil, nil))]
 
+    convenience init(completion: @escaping () -> Void) {
+        self.init()
+        self.completion = completion
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,7 +47,7 @@ class OnboardingImportOwnerKeyViewController: UIViewController {
     }
 
     @objc private func didTapNextButton(_ sender: Any) {
-        let controller = EnterKeyOrSeedPhraseViewController()
+        let controller = EnterKeyOrSeedPhraseViewController(completion: completion)
         show(controller, sender: self)
     }
 

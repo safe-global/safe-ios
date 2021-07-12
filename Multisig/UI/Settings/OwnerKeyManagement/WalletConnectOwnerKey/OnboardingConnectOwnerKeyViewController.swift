@@ -9,6 +9,8 @@
 import UIKit
 
 class OnboardingConnectOwnerKeyViewController: UITableViewController {
+    var completion: () -> Void = {}
+
     private var nextButton: UIBarButtonItem!
 
     private let cards = [
@@ -24,6 +26,11 @@ class OnboardingConnectOwnerKeyViewController: UITableViewController {
          "Is my wallet supported?",
          "You wallet needs to support the WalletConnect protocol.")
     ]
+
+    convenience init(completion: @escaping () -> Void) {
+        self.init()
+        self.completion = completion
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +48,7 @@ class OnboardingConnectOwnerKeyViewController: UITableViewController {
     }
 
     @objc private func didTapNextButton(_ sender: Any) {
-        let controller = ConnectWalletViewController()
+        let controller = ConnectWalletViewController(completion: completion)
         show(controller, sender: self)
     }
 

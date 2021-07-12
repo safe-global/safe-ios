@@ -10,12 +10,18 @@ import UIKit
 import WalletConnectSwift
 
 class ConnectWalletViewController: UITableViewController {
+    var completion: () -> Void = { }
     private var installedWallets = WalletsDataSource.shared.installedWallets
 
     // technically it is possible to select several wallets but to finish connection with one of them
     private var walletPerTopic = [String: InstalledWallet]()
     // `wcDidConnectClient` happens when app eneters foreground. This parameter should throttle unexpected events
     private var waitingForSession = false
+
+    convenience init(completion: @escaping () -> Void) {
+        self.init()
+        self.completion = completion
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +48,7 @@ class ConnectWalletViewController: UITableViewController {
 
         DispatchQueue.main.sync { [unowned self] in
             _ = OwnerKeyController.importKey(session: session, installedWallet: walletPerTopic[session.url.topic])
-            self.dismiss(animated: true, completion: nil)
+            self.completion()
         }
     }
 

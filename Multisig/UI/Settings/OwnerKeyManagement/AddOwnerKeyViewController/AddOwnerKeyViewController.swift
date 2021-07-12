@@ -9,10 +9,17 @@
 import UIKit
 
 class AddOwnerKeyViewController: UITableViewController {
+    var completion: () -> Void = {}
+
     private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
         (.deviceImported, "Import Existing Key", "Imort an existing key or seed phrase"),
         (.deviceGenerated, "Create New Key", "Create a new key that you can use as owner of your Gnosis Safe")
     ]
+
+    convenience init(completion: @escaping () -> Void) {
+        self.init()
+        self.completion = completion
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,13 +65,13 @@ class AddOwnerKeyViewController: UITableViewController {
 
         switch keyTypes[indexPath.row].type {
         case .deviceImported:
-            controller = OnboardingImportOwnerKeyViewController()
+            controller = OnboardingImportOwnerKeyViewController(completion: completion)
 
         case .deviceGenerated:
-            controller = OnboardingGenerateKeyViewController()
+            controller = OnboardingGenerateKeyViewController(completion: completion)
 
         case .walletConnect:
-            controller = OnboardingConnectOwnerKeyViewController()
+            controller = OnboardingConnectOwnerKeyViewController(completion: completion)
         }
         show(controller, sender: self)
     }

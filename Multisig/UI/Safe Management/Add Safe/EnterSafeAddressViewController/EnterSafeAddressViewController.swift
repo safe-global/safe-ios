@@ -73,6 +73,7 @@ class EnterSafeAddressViewController: UIViewController {
 
         enterAddressVC.completion = { [unowned enterAddressVC, unowned self] name in
             let coreDataNetwork = Network.createOrUpdate(network)
+            // here the notification request done, needs to be done on completion?
             Safe.create(address: address.checksummed, name: name, network: coreDataNetwork)
 
             if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {

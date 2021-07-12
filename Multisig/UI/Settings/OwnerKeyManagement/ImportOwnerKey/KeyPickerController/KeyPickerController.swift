@@ -25,6 +25,8 @@ class KeyPickerController: UITableViewController {
 
     typealias Item = SelectOwnerAddressViewModel.KeyAddressInfo
 
+    var completion: () -> Void = { }
+
     private var viewModel: SelectOwnerAddressViewModel!
     private var listState = ListState.collapsed
     private var items: [Item] {
@@ -45,9 +47,10 @@ class KeyPickerController: UITableViewController {
         return button
     }()
 
-    convenience init(node: HDNode) {
+    convenience init(node: HDNode, completion: @escaping () -> Void) {
         self.init()
         viewModel = SelectOwnerAddressViewModel(rootNode: node)
+        self.completion = completion
     }
 
     override func viewDidLoad() {
@@ -84,9 +87,11 @@ class KeyPickerController: UITableViewController {
             guard success else { return }
             if App.shared.auth.isPasscodeSet {
                 App.shared.snackbar.show(message: "Owner key successfully imported")
-                vc.dismiss(animated: true, completion: nil)
+                self.completion()
             } else {
-                let createPasscodeViewController = CreatePasscodeViewController()
+                let createPasscodeViewController = CreatePasscodeViewController { [unowned self] in
+                    self.completion()
+                }
                 createPasscodeViewController.navigationItem.hidesBackButton = true
                 createPasscodeViewController.hidesHeadline = false
                 vc.show(createPasscodeViewController, sender: vc)

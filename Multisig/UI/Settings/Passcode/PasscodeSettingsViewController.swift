@@ -92,7 +92,9 @@ class PasscodeSettingsViewController: UITableViewController {
 
     private func createPasscode() {
         let vc = CreatePasscodeViewController { [unowned self] in
-            reloadData()
+            self.dismiss(animated: true) {
+                self.reloadData()
+            }
         }
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true, completion: nil)

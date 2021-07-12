@@ -9,6 +9,9 @@
 import UIKit
 
 class EnterKeyOrSeedPhraseViewController: UIViewController {
+
+    var completion: () -> Void = { }
+
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var textView: UITextView!
     @IBOutlet private weak var placeholderLabel: UILabel!
@@ -19,8 +22,9 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
 
     private var keyboardBehavior: KeyboardAvoidingBehavior!
 
-    convenience init() {
+    convenience init(completion: @escaping () -> Void) {
         self.init(namedClass: EnterKeyOrSeedPhraseViewController.self)
+        self.completion = completion
     }
 
     override func viewDidLoad() {
@@ -78,7 +82,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
                 setError(GSError.WrongSeedPhrase())
                 return
             }
-            let vc = KeyPickerController(node: rootNode)
+            let vc = KeyPickerController(node: rootNode, completion: completion)
             show(vc, sender: self)
             nextButton.isEnabled = true
         } else if isValidPK(phrase),
@@ -98,7 +102,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
             vc.trackingEvent = .enterKeyName
             vc.placeholder = "Enter name"
             vc.address = privateKey.address
-            vc.completion = { [unowned vc] name in
+            vc.completion = { [unowned vc, unowned self] name in
                 let success = OwnerKeyController.importKey(
                     privateKey,
                     name: name,
@@ -106,9 +110,11 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
                 guard success else { return }
                 if App.shared.auth.isPasscodeSet {
                     App.shared.snackbar.show(message: "Owner key successfully imported")
-                    vc.dismiss(animated: true, completion: nil)
+                    self.completion()
                 } else {
-                    let createPasscodeViewController = CreatePasscodeViewController()
+                    let createPasscodeViewController = CreatePasscodeViewController.init { [unowned self] in
+                        self.completion()
+                    }
                     createPasscodeViewController.navigationItem.hidesBackButton = true
                     createPasscodeViewController.hidesHeadline = false
                     vc.show(createPasscodeViewController, sender: vc)

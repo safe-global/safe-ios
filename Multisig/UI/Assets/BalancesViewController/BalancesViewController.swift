@@ -196,7 +196,9 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
             recreateSectionsWithCurrentItems()
 
-            let vc = ViewControllerFactory.addOwnerViewController()
+            let vc = ViewControllerFactory.addOwnerViewController {
+                self.dismiss(animated: true, completion: nil)
+            }
             present(vc, animated: true)
             trackEvent(.bannerImportOwnerKeyAdd)
         }
@@ -217,7 +219,11 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             recreateSectionsWithCurrentItems()
 
             let vc = CreatePasscodeViewController { [weak self] in
-                self?.recreateSectionsWithCurrentItems()
+                
+                self?.dismiss(animated: true, completion: {
+                    self?.recreateSectionsWithCurrentItems()
+                })
+
             }
             let nav = UINavigationController(rootViewController: vc)
             present(nav, animated: true)
