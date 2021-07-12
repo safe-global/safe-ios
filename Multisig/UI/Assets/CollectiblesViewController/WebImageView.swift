@@ -39,11 +39,9 @@ class WebImageView: UINibView {
                     self.onError()
                 }
             })
-        case "gif", "svg":
+        default:
             imageView.image = placeholder
             setWebImage(url: url)
-        default:
-            showPlaceholder(placeholder)
         }
     }
 
@@ -55,12 +53,17 @@ class WebImageView: UINibView {
 
     private func setWebImage(url: URL) {
         hideWebView()
+        // https://www.w3docs.com/snippets/css/how-to-auto-resize-an-image-to-fit-an-html-container.html
+
         let html = """
+        <!DOCTYPE html>
         <html>
         <head>
-        <meta name="viewport" content="width=device-width, shrink-to-fit=YES"/>
+            <meta name="viewport" content="width=device-width, shrink-to-fit=YES"/>
         </head>
-        <body style="background-color: #ffffff"><img src="\(url)"/></body>
+        <body style="background-color: #ffffff">
+            <img src="\(url.absoluteString)" style="width: 100%; height: auto;"/>
+        </body>
         </html>
         """
         webView.loadHTMLString(html, baseURL: nil)
