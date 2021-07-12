@@ -53,8 +53,6 @@ class WebImageView: UINibView {
 
     private func setWebImage(url: URL) {
         hideWebView()
-        // https://www.w3docs.com/snippets/css/how-to-auto-resize-an-image-to-fit-an-html-container.html
-
         let html = """
         <!DOCTYPE html>
         <html>
