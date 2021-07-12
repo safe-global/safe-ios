@@ -47,10 +47,11 @@ extension Safe: Identifiable {
         static let v1_3_0 = Data(ethHex: "0x47e79534a245952e8b16893a336b85a3d9ea9fa8c573f3d803afb92a79469218")
     }
 
+    #warning("TODO: use semantic versioning comparison")
     static func domainData(for safe: AddressString, version: String, chainId: String) -> Data {
         switch version {
         case "1.3.0":
-            let chainIdData = (try! UInt256(chainId)).data32
+            let chainIdData = UInt256(chainId, radix: 10)!.data32
             return DomainSeparatorTypeHash.v1_3_0 + chainIdData + safe.data32
         default:
             return DomainSeparatorTypeHash.v1_1_1 + safe.data32
