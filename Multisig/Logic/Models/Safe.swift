@@ -140,7 +140,6 @@ extension Safe: Identifiable {
 
         App.shared.coreDataStack.saveContext()
         Tracker.shared.setSafeCount(count)
-        App.shared.notificationHandler.safeAdded(address: Address(exactly: address))
 
         updateCachedNames()
 
