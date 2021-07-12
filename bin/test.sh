@@ -10,6 +10,8 @@ mkdir -p "$OUTPUT_DIR"
 TEST_BUNDLE_PATH="$OUTPUT_DIR/tests-bundle.xcresult"
 rm -rf "$TEST_BUNDLE_PATH"
 
+bin/configure.sh
+
 set -o pipefail && \
 xcrun xcodebuild test \
     -project Multisig.xcodeproj \
