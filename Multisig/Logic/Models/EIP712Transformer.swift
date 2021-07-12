@@ -7,18 +7,26 @@
 //
 
 import Foundation
+import Version
 
 class EIP712Transformer {
     static func typedDataString(from transaction: Transaction) -> String {
         guard let safe = transaction.safe else { preconditionFailure("safe is required for typedData") }
 
-        let safeDomain = EIP712Domain(
+        var safeDomain = EIP712Domain(
             verifyingContract: safe.description
         )
+        var eip712Description = EIP712Domain.eip712Description
+
+        // Reference: https://github.com/gnosis/gnosis-py/blob/772a7da3a281c21931b8e5f01508a74cab7ecfb8/gnosis/safe/safe_tx.py#L169
+        if Version(transaction.safeVersion!)! >= Version("1.3.0")! {
+            safeDomain.chainId = transaction.chainId
+            eip712Description.members.insert(.init(name: "chainId", type: "uint256"), at: 0)
+        }
 
         let typedData = EIP712TypedData<Transaction>(
             types: [
-                EIP712Domain.eip712Description,
+                eip712Description,
                 Transaction.eip712Description
             ],
             primaryType: Transaction.eip712Description.name,
@@ -93,6 +101,7 @@ extension EIP712TypedData: Encodable {
 
 struct EIP712Domain: Encodable {
     var verifyingContract: String
+    var chainId: String?
 }
 
 extension EIP712Domain: EIP712Convertible {
