@@ -22,7 +22,8 @@ class BlockchainDomainManager {
             configs: Configurations(
                 cns: NamingServiceConfig(
                     providerUrl: rpcURL.absoluteString,
-                    network: networkName.lowercased()
+                    network: networkName.lowercased(),
+                    networking: GSNetworkingLayer()
                 )
             )
         )
@@ -77,10 +78,95 @@ class BlockchainDomainManager {
             return GSError.UDUnregisteredName()
         case .unspecifiedResolver:
             return GSError.UDResolverNotFound()
+        case .unknownError(let internalError):
+
+            switch internalError {
+            case APIError.decodingError:
+                return GSError.UDDecodingError()
+            case APIError.encodingError:
+                return GSError.UDEncodingError()
+            case let detailedError as DetailedLocalizedError:
+                return detailedError
+            default:
+                break
+            }
+
+            fallthrough
         default:
             return GSError.ThirdPartyError(
                 reason: error.localizedDescription
             )
         }
+    }
+}
+
+// Taken from the DefaultNetworkingLayer implementation to replace
+// the error handling with more descriptive error from HTTTPClient
+public struct GSNetworkingLayer: NetworkingLayer {
+    public init() { }
+
+    public func makeHttpPostRequest(url: URL,
+                                    httpMethod: String,
+                                    httpHeaderContentType: String,
+                                    httpBody: Data,
+                                    completion: @escaping(Result<JsonRpcResponseArray, Error>) -> Void) {
+
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = httpMethod
+        urlRequest.addValue(httpHeaderContentType, forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = httpBody
+
+        let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, httpError in
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 200,
+                  let jsonData = data else {
+                let error = HTTPClientError.error(urlRequest, response, data, httpError)
+                completion(.failure(error))
+                return
+            }
+
+            do {
+                let result = try JSONDecoder().decode(JsonRpcResponseArray.self, from: jsonData)
+                completion(.success(result))
+            } catch {
+                do {
+                    let result = try JSONDecoder().decode(JsonRpcResponse.self, from: jsonData)
+                    completion(.success([result]))
+                } catch {
+                    if let errorResponse = try? JSONDecoder().decode(NetworkErrorResponse.self, from: jsonData),
+                       let errorExplained = GSNetworkingLayer.gs_parse(errorResponse: errorResponse) {
+                        completion(.failure(errorExplained))
+                    } else {
+                        completion(.failure(APIError.decodingError))
+                    }
+                }
+            }
+        }
+        dataTask.resume()
+    }
+
+    struct NetworkErrorResponse: Decodable {
+        var jsonrpc: String
+        var id: String
+        var error: ErrorId
+    }
+
+    struct ErrorId: Codable {
+        var code: Int
+        var message: String
+    }
+
+    static let gs_tooManyResponsesCode = -32005
+    static let gs_badRequestOrResponseCode = -32042
+
+    static func gs_parse(errorResponse: NetworkErrorResponse) -> ResolutionError? {
+        let error = errorResponse.error
+        if error.code == gs_tooManyResponsesCode {
+            return .tooManyResponses
+        }
+        if error.code == gs_badRequestOrResponseCode {
+            return .badRequestOrResponse
+        }
+        return nil
     }
 }
