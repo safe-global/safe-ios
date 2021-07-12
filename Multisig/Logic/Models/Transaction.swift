@@ -14,8 +14,6 @@ struct Transaction: Codable {
     var safeVersion: String?
     var chainId: String?
 
-    // Alternative: pass here complete Safe object
-
     // required by a smart contract
     let to: AddressString
     let value: UInt256String
