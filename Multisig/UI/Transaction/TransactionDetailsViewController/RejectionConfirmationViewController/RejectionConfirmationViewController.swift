@@ -88,9 +88,10 @@ class RejectionConfirmationViewController: UIViewController {
     private func rejectTransaction(_ keyInfo: KeyInfo) {
         startLoading()
 
-        var tx = Transaction.rejectionTransaction(safeAddress: safe.addressValue,
-                                                  nonce: transaction.multisigInfo!.nonce)
-        tx.safe = AddressString(safe.addressValue)
+        let tx = Transaction.rejectionTransaction(safeAddress: safe.addressValue,
+                                                  nonce: transaction.multisigInfo!.nonce,
+                                                  safeVersion: safe.contractVersion!,
+                                                  chainId: safe.network!.chainId!)
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:

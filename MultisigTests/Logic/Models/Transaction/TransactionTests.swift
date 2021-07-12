@@ -107,6 +107,8 @@ class TransactionTests: XCTestCase {
                              safeTxHash: nil)
 
         tx.safe = "0x092CC1854399ADc38Dad4f846E369C40D0a40307"
+        tx.safeVersion = "1.2.0"
+        tx.chainId = "4"
 
         let domainHashInput = oneline("""
 035aff83d86937d35b32e04f0ddc6ff469290eef2f1b692d8a815c89404d4749
@@ -133,7 +135,8 @@ ef8553f949acc5f0cb8002523b7a4f8e02664b6637eddc74ad72bb8e38588309
 
         XCTAssertEqual(tx.safeEncodedTxData.toHexString().lowercased(), valueHashInput.lowercased())
         XCTAssertEqual(
-            Safe.domainData(for: "0x092CC1854399ADc38Dad4f846E369C40D0a40307").toHexString().lowercased(),
+            Safe.domainData(for: "0x092CC1854399ADc38Dad4f846E369C40D0a40307", version: "1.2.0", chainId: "4")
+                .toHexString().lowercased(),
             domainHashInput.lowercased()
         )
         XCTAssertEqual(            

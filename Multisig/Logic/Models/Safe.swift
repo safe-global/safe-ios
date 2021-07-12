@@ -42,11 +42,19 @@ extension Safe: Identifiable {
     static let DefaultEIP712SafeAppTxTypeHash =
         Data(ethHex: "0xbb8310d486368db6bd6f849402fdd73ad53d316b5a4b2644ad6efe0f941286d8")
 
-    static let DefaultEIP712SafeAppDomainSeparatorTypeHash =
-        Data(ethHex: "0x035aff83d86937d35b32e04f0ddc6ff469290eef2f1b692d8a815c89404d4749")
+    enum DomainSeparatorTypeHash {
+        static let v1_1_1 = Data(ethHex: "0x035aff83d86937d35b32e04f0ddc6ff469290eef2f1b692d8a815c89404d4749")
+        static let v1_3_0 = Data(ethHex: "0x47e79534a245952e8b16893a336b85a3d9ea9fa8c573f3d803afb92a79469218")
+    }
 
-    static func domainData(for safe: AddressString) -> Data {
-        Safe.DefaultEIP712SafeAppDomainSeparatorTypeHash + safe.data32
+    static func domainData(for safe: AddressString, version: String, chainId: String) -> Data {
+        switch version {
+        case "1.3.0":
+            let chainIdData = (try! UInt256(chainId)).data32
+            return DomainSeparatorTypeHash.v1_3_0 + chainIdData + safe.data32
+        default:
+            return DomainSeparatorTypeHash.v1_1_1 + safe.data32
+        }
     }
 
     static var count: Int {
