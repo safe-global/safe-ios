@@ -258,9 +258,9 @@ class RemoteNotificationHandler {
         let payload = NotificationPayload(userInfo: userInfo)
         
         guard let rawAddress = payload.address,
-            let safeAddress = Address(rawAddress) else { return }
-
-        let network = Network.mainnetChain()
+            let safeAddress = Address(rawAddress),
+            let chainId = payload.chainId,
+            let network = Network.by(chainId) else { return }
 
         guard Safe.exists(safeAddress.checksummed, networkId: network.chainId!) else {
             unregister(address: safeAddress, networkId: network.chainId!)
