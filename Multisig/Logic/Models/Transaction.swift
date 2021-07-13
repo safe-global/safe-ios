@@ -52,7 +52,7 @@ extension Transaction {
         safeTxHash = multiSigTxInfo.safeTxHash
     }
 
-    init?(wcRequest: WCSendTransactionRequest, safe: Safe) {
+    init?(wcRequest: WCSendTransactionRequest, safe: Safe, contractNonce: UInt256String) {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
         guard safe.addressValue == wcRequest.from.address,
@@ -62,19 +62,13 @@ extension Transaction {
         self.safe = wcRequest.from
         self.chainId = chainId
         self.safeVersion = safe.contractVersion
+        self.nonce = contractNonce
 
-        // When submitting a transacion we need properly specify nonce
-        var _nonce: UInt256String
-        if let latestTx = try? SafeTransactionService.latestTransaction(for: wcRequest.from, networkId: network.chainId!) {
-            _nonce = UInt256String(latestTx.nonce.value + 1)
-        } else if let contractNonce = try? SafeContract(wcRequest.from.address,
-                                                        rpcURL: network.authenticatedRpcUrl).nonce() {
-            // contract nonce is the next one
-            _nonce = UInt256String(contractNonce)
-        } else {
-            return nil
+        if let latestTxNonce = try? App.shared.clientGatewayService
+            .latestQueuedTransactionNonce(safeAddress: self.safe!.address, networkId: network.chainId!),
+           latestTxNonce.value >= nonce.value {
+            nonce = UInt256String(latestTxNonce.value + 1)
         }
-        nonce = _nonce
 
         to = wcRequest.to ?? AddressString.zero
         value = wcRequest.value ?? "0"

@@ -158,8 +158,8 @@ enum TrackingEvent: String, Trackable {
     case dappConnectedWithPasteboardValue           = "user_dapp_connected_pasteboard"
     case dappConnectedWithScanButton                = "user_dapp_connected_scan_button"
 
-    case walletConnectIncomingTransaction           = "screen_walletconnect_incoming_transaction"
-    case walletConnectEditParameters                = "screen_walletconnect_edit_parameters"
+    case walletConnectIncomingTransaction           = "screen_wc_incoming_transaction"
+    case walletConnectEditParameters                = "screen_wc_edit_parameters"
     case incomingTxConfirmed                        = "incoming_transaction_confirmed"
-    case incomingTxConfirmedWalletConnect           = "incoming_transaction_confirmed_walletconnect"
+    case incomingTxConfirmedWalletConnect           = "incoming_transaction_confirmed_wc"
 }
