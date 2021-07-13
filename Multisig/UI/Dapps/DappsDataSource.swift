@@ -26,14 +26,16 @@ class DappsDataSource {
         }
 
         let path: String
-        if network.chainId == Network.ChainID.ethereumMainnet {
-            path = Bundle.main.path(forResource: "dapps-mainnet", ofType: "json")!
-        } else if network.chainId == Network.ChainID.ethereumRinkeby {
-            path = Bundle.main.path(forResource: "dapps-rinkeby", ofType: "json")!
-        } else {
+        switch network.chainId {
+        case Network.ChainID.ethereumMainnet: path = Bundle.main.path(forResource: "dapps-mainnet", ofType: "json")!
+        case Network.ChainID.ethereumRinkeby: path = Bundle.main.path(forResource: "dapps-rinkeby", ofType: "json")!
+        case Network.ChainID.polygon: path = Bundle.main.path(forResource: "dapps-polygon", ofType: "json")!
+        case Network.ChainID.xDai: path = Bundle.main.path(forResource: "dapps-xdai", ofType: "json")!
+        default:
             dapps = []
             return
         }
+
         let url = URL(fileURLWithPath: path)
         let data = try! Data(contentsOf: url)
         dapps = try! JSONDecoder().decode([DappData].self, from: data)
