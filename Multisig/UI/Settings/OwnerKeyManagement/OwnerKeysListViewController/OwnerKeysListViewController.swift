@@ -81,7 +81,9 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     }
 
     @objc private func didTapAddButton(_ sender: Any) {
-        let vc = ViewControllerFactory.addOwnerViewController()
+        let vc = ViewControllerFactory.addOwnerViewController { [unowned self] in
+            self.dismiss(animated: true, completion: nil)
+        }
         present(vc, animated: true)
     }
 

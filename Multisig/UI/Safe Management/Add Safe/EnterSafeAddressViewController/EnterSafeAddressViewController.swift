@@ -75,10 +75,15 @@ class EnterSafeAddressViewController: UIViewController {
             let coreDataNetwork = Network.createOrUpdate(network)
             Safe.create(address: address.checksummed, name: name, network: coreDataNetwork)
 
+            let createdCompletion = { [unowned self] in
+                self.completion()
+                App.shared.notificationHandler.safeAdded(address: address)
+            }
+
             if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
 
                 let loadedVC = SafeLoadedViewController()
-                loadedVC.completion = self.completion
+                loadedVC.completion = createdCompletion
 
                 let loadedWrapperVC = RibbonViewController(rootViewController: loadedVC)
                 loadedWrapperVC.network = self.network
@@ -88,7 +93,7 @@ class EnterSafeAddressViewController: UIViewController {
 
                 AppSettings.hasShownImportKeyOnboarding = true
             } else {
-                self.completion()
+                createdCompletion()
             }
         }
         show(enterAddressWrapperVC, sender: self)

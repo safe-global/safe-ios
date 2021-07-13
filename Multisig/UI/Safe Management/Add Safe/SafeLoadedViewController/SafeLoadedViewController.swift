@@ -36,23 +36,20 @@ class SafeLoadedViewController: UIViewController {
         } catch {
             fatalError()
         }
-
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(ownerKeyImported), name: .ownerKeyImported, object: nil)
     }
 
     @IBAction func importOwnerButtonTouched(_ sender: Any) {
         Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerAdd)
-        let vc = ViewControllerFactory.addOwnerViewController()
+        let vc = ViewControllerFactory.addOwnerViewController { [unowned self] in
+            self.dismiss(animated: true) {
+                self.completion()
+            }
+        }
         present(vc, animated: true)
     }
 
     @IBAction func skipButtonTouched(_ sender: Any) {
         Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerSkip)
-        completion()
-    }
-
-    @objc private func ownerKeyImported() {
         completion()
     }
 }

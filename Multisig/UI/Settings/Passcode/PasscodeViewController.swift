@@ -166,9 +166,7 @@ class CreatePasscodeViewController: PasscodeViewController {
 
             // if device does not support biometrics, finish right away
             guard App.shared.auth.isBiometricsSupported else {
-                self?.navigationController?.dismiss(animated: true) {
-                    self?.completion()
-                }
+                self?.completion()
                 return
             }
 
@@ -183,28 +181,27 @@ class CreatePasscodeViewController: PasscodeViewController {
 
                 App.shared.auth.activateBiometrics { _ in
                     // in any resulting case, finish.
-                    self?.navigationController?.dismiss(animated: true) {
-                        self?.completion()
-                    }
+                    self?.completion()
                 }
 
             }))
 
             //      if no, finish right away
-            shouldEnableVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-
-                self?.navigationController?.dismiss(animated: true) {
-                    self?.completion()
-                }
-
+            shouldEnableVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak self] _ in
+                self?.completion()
             }))
 
             repeatVC?.present(shouldEnableVC, animated: true, completion: nil)
         }
 
         repeatVC.skipCompletion = { [weak self] in
-            self?.navigationController?.dismiss(animated: true, completion: self?.completion)
+            self?.completion()
         }
+    }
+
+    override func didTapButton(_ sender: Any) {
+        completion()
+        trackEvent(.userPasscodeSkipped)
     }
 }
 

@@ -9,6 +9,9 @@
 import UIKit
 
 class OwnerKeyDetailsViewController: UIViewController {
+    // if not nil, then back button replaced with 'Done' button
+    private var completion: (() -> Void)?
+
     private var keyInfo: KeyInfo!
     private var exportButton: UIBarButtonItem!
     @IBOutlet private weak var identiconView: UIImageView!
@@ -17,9 +20,10 @@ class OwnerKeyDetailsViewController: UIViewController {
     @IBOutlet private weak var qrView: QRCodeView!
     @IBOutlet private weak var titleLabel: UILabel!
 
-    convenience init(keyInfo: KeyInfo) {
+    convenience init(keyInfo: KeyInfo, completion: (() -> Void)? = nil) {
         self.init()
         self.keyInfo = keyInfo
+        self.completion = completion
     }
 
     override func viewDidLoad() {
@@ -39,6 +43,11 @@ class OwnerKeyDetailsViewController: UIViewController {
         titleLabel.text = "Key address"
 
         bindData()
+
+        if completion != nil {
+            let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(pop))
+            navigationItem.leftBarButtonItem = doneButton
+        }
 
         NotificationCenter.default.addObserver(
             self,
@@ -117,6 +126,7 @@ class OwnerKeyDetailsViewController: UIViewController {
 
     @objc private func pop() {
         navigationController?.popViewController(animated: true)
+        completion?()
     }
 
     private func remove(key: KeyInfo) {
