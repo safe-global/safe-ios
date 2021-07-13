@@ -133,24 +133,43 @@ extension WalletConnectServerController: ServerDelegate {
               let network = safe.network
         else {
             // we can't get address or network in the local database, we're closing connection.
-            #warning("chainId should be changed to string after we update the library")
-            let walletInfo = Session.WalletInfo(
-                approved: false,
-                accounts: [],
-                chainId: Int(Network.ChainID.ethereumMainnet)!,
-                peerId: UUID().uuidString,
-                peerMeta: walletMeta)
+            denySession(clientMeta: walletMeta, displayMessage: nil, completion: completion)
+            return
+        }
 
-            completion(walletInfo)
+        // Right now WalletConnect library expects chainId to be Int type.
+        guard let selectedSafeChainId = Int(network.chainId!) else {
+            denySession(clientMeta: walletMeta,
+                        displayMessage: "Selected safe chain is not supported yet.",
+                        completion: completion)
             return
         }
 
         let walletInfo = Session.WalletInfo(
             approved: true,
             accounts: [address],
-            chainId: Int(network.chainId!)!,
+            chainId: selectedSafeChainId,
             peerId: UUID().uuidString,
             peerMeta: walletMeta)
+
+        completion(walletInfo)
+    }
+
+    private func denySession(clientMeta: Session.ClientMeta,
+                             displayMessage: String? ,
+                             completion: (Session.WalletInfo) -> Void) {
+        let walletInfo = Session.WalletInfo(
+            approved: false,
+            accounts: [],
+            chainId: Int(Network.ChainID.ethereumMainnet)!,
+            peerId: UUID().uuidString,
+            peerMeta: clientMeta)
+
+        if let displayMessage = displayMessage {
+            DispatchQueue.main.async {
+                App.shared.snackbar.show(message: displayMessage)
+            }
+        }
 
         completion(walletInfo)
     }
@@ -176,5 +195,11 @@ extension WalletConnectServerController: ServerDelegate {
             wcSession.delete()
         }
         notificationCenter.post(name: .wcDidDisconnectServer, object: session)
+    }
+
+    func server(_ server: Server, didUpdate session: Session) {
+        DispatchQueue.main.sync {
+            WCSession.update(session: session, status: .connected)
+        }
     }
 }
