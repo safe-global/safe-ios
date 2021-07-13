@@ -187,8 +187,8 @@ class CreatePasscodeViewController: PasscodeViewController {
             }))
 
             //      if no, finish right away
-            shouldEnableVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-                    self?.completion()
+            shouldEnableVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak self] _ in
+                self?.completion()
             }))
 
             repeatVC?.present(shouldEnableVC, animated: true, completion: nil)
