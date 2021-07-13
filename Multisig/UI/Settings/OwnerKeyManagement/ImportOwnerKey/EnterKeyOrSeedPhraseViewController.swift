@@ -10,7 +10,7 @@ import UIKit
 
 class EnterKeyOrSeedPhraseViewController: UIViewController {
 
-    var completion: () -> Void = { }
+    private var completion: () -> Void = { }
 
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var textView: UITextView!

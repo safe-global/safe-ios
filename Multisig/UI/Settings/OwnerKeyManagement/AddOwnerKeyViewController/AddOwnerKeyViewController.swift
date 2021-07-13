@@ -9,7 +9,7 @@
 import UIKit
 
 class AddOwnerKeyViewController: UITableViewController {
-    var completion: () -> Void = {}
+    private var completion: () -> Void = {}
 
     private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
         (.deviceImported, "Import Existing Key", "Imort an existing key or seed phrase"),

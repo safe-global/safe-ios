@@ -9,7 +9,7 @@
 import UIKit
 
 class OnboardingGenerateKeyViewController: UITableViewController {
-    var completion: () -> Void = { }
+    private var completion: () -> Void = { }
 
     private var nextButton: UIBarButtonItem!
 

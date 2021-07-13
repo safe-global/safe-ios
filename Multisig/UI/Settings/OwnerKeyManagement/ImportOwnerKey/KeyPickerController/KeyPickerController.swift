@@ -25,7 +25,7 @@ class KeyPickerController: UITableViewController {
 
     typealias Item = SelectOwnerAddressViewModel.KeyAddressInfo
 
-    var completion: () -> Void = { }
+    private var completion: () -> Void = { }
 
     private var viewModel: SelectOwnerAddressViewModel!
     private var listState = ListState.collapsed

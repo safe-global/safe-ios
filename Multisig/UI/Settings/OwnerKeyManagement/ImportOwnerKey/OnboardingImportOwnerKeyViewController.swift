@@ -10,7 +10,7 @@ import UIKit
 
 class OnboardingImportOwnerKeyViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    var completion: () -> Void = { }
+    private var completion: () -> Void = { }
 
     private var nextButton: UIBarButtonItem!
 

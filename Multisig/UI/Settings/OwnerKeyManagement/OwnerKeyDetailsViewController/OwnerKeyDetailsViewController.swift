@@ -10,7 +10,7 @@ import UIKit
 
 class OwnerKeyDetailsViewController: UIViewController {
     // if not nil, then back button replaced with 'Done' button
-    var completion: (() -> Void)?
+    private var completion: (() -> Void)?
 
     private var keyInfo: KeyInfo!
     private var exportButton: UIBarButtonItem!

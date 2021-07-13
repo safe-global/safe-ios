@@ -10,7 +10,7 @@ import UIKit
 import WalletConnectSwift
 
 class ConnectWalletViewController: UITableViewController {
-    var completion: () -> Void = { }
+    private var completion: () -> Void = { }
     private var installedWallets = WalletsDataSource.shared.installedWallets
 
     // technically it is possible to select several wallets but to finish connection with one of them
