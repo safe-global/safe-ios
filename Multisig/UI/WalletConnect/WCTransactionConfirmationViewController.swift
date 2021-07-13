@@ -81,7 +81,9 @@ class WCTransactionConfirmationViewController: UIViewController {
             DispatchQueue.global().async { [unowned self] in
                 do {
                     let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                    self.sendConfirmationAndDismiss(keyInfo: keyInfo, signature: signature.hexadecimal)
+                    self.sendConfirmationAndDismiss(keyInfo: keyInfo,
+                                                    signature: signature.hexadecimal,
+                                                    trackingEvent: .incomingTxConfirmed)
                 } catch {
                     DispatchQueue.main.async {
                         App.shared.snackbar.show(
@@ -92,19 +94,22 @@ class WCTransactionConfirmationViewController: UIViewController {
 
         case .walletConnect:
             WalletConnectClientController.shared.sign(transaction: transaction, from: self) { [weak self] signature in
-                self?.sendConfirmationAndDismiss(keyInfo: keyInfo, signature: signature)
+                self?.sendConfirmationAndDismiss(keyInfo: keyInfo,
+                                                 signature: signature,
+                                                 trackingEvent: .incomingTxConfirmedWalletConnect)
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
         }
     }
 
-    private func sendConfirmationAndDismiss(keyInfo: KeyInfo, signature: String) {
+    private func sendConfirmationAndDismiss(keyInfo: KeyInfo, signature: String, trackingEvent: TrackingEvent) {
         do {
             try App.shared.clientGatewayService.proposeTransaction(transaction: transaction,
                                                                    sender: AddressString(keyInfo.address),
                                                                    signature: signature,
                                                                    networkId: safe.network!.chainId!)
+            trackEvent(trackingEvent)
 
             DispatchQueue.main.async { [weak self] in
                 // dismiss WCTransactionConfirmationViewController
@@ -165,6 +170,11 @@ class WCTransactionConfirmationViewController: UIViewController {
         tableView.separatorStyle = .none
 
         buildSections()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.walletConnectIncomingTransaction)
     }
 
     override func viewWillAppear(_ animated: Bool) {
