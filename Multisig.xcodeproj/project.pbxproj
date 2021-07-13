@@ -162,7 +162,7 @@
 		0A451BF0252DDB49001DB7D2 /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BEF252DDB49001DB7D2 /* NoDataView.swift */; };
 		0A451C00252DDB67001DB7D2 /* ReloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BFF252DDB67001DB7D2 /* ReloadButton.swift */; };
 		0A451C06252DDB93001DB7D2 /* NetworkContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451C05252DDB93001DB7D2 /* NetworkContentView.swift */; };
-		0A451C0C252DDBE5001DB7D2 /* CollectibleBalancesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451C0B252DDBE5001DB7D2 /* CollectibleBalancesModel.swift */; };
+		0A451C0C252DDBE5001DB7D2 /* CollectibleListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451C0B252DDBE5001DB7D2 /* CollectibleListSection.swift */; };
 		0A451C18252DDCDE001DB7D2 /* ProgressIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451C17252DDCDE001DB7D2 /* ProgressIndicatorCell.swift */; };
 		0A465C2E246C196900AFA467 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C2D246C196900AFA467 /* Theme.swift */; };
 		0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A465C33246C236A00AFA467 /* FrameForTapping.swift */; };
@@ -727,7 +727,7 @@
 		0A451BEF252DDB49001DB7D2 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		0A451BFF252DDB67001DB7D2 /* ReloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadButton.swift; sourceTree = "<group>"; };
 		0A451C05252DDB93001DB7D2 /* NetworkContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkContentView.swift; sourceTree = "<group>"; };
-		0A451C0B252DDBE5001DB7D2 /* CollectibleBalancesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleBalancesModel.swift; sourceTree = "<group>"; };
+		0A451C0B252DDBE5001DB7D2 /* CollectibleListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleListSection.swift; sourceTree = "<group>"; };
 		0A451C17252DDCDE001DB7D2 /* ProgressIndicatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorCell.swift; sourceTree = "<group>"; };
 		0A465C2D246C196900AFA467 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0A465C33246C236A00AFA467 /* FrameForTapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameForTapping.swift; sourceTree = "<group>"; };
@@ -1877,6 +1877,7 @@
 		0A93DD6F2445CC8C00688050 /* MultisigTests */ = {
 			isa = PBXGroup;
 			children = (
+				0AC1D4AD269C43C2008FF643 /* UI */,
 				0A0EFCA3246EADE900D3D8BF /* Logic */,
 				0A0EFCA1246EADD100D3D8BF /* Data */,
 				0A0EFCA2246EADE200D3D8BF /* Cross-layer */,
@@ -2031,6 +2032,13 @@
 				0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */,
 			);
 			path = SwitchSafesViewController;
+			sourceTree = "<group>";
+		};
+		0AC1D4AD269C43C2008FF643 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		0AC60C772549C50E00A63AE2 /* HeaderViewController */ = {
@@ -2313,7 +2321,7 @@
 		5503F62A255062070046545C /* CollectiblesViewController */ = {
 			isa = PBXGroup;
 			children = (
-				0A451C0B252DDBE5001DB7D2 /* CollectibleBalancesModel.swift */,
+				0A451C0B252DDBE5001DB7D2 /* CollectibleListSection.swift */,
 				04CE3F9E24B7191E00826AEE /* CollectibleViewModel.swift */,
 				0AEEBC71258CDF9400F3A6F9 /* CollectibleDetailViewController.swift */,
 				0AEEBC72258CDF9400F3A6F9 /* CollectibleDetailViewController.xib */,
@@ -3273,7 +3281,7 @@
 				550FB1B626691D9500C13D54 /* DetailedCell.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */,
-				0A451C0C252DDBE5001DB7D2 /* CollectibleBalancesModel.swift in Sources */,
+				0A451C0C252DDBE5001DB7D2 /* CollectibleListSection.swift in Sources */,
 				0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */,
 				55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */,
 				0A451BEA252DDB39001DB7D2 /* FullScreenLoadingView.swift in Sources */,
