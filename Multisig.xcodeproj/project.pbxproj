@@ -535,6 +535,7 @@
 		55D3FF0E260B2247008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */; };
 		55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF64260B2551008ABD2B /* Kingfisher */; };
 		55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF8F260B2B21008ABD2B /* TrustKit */; };
+		55DA0663269C9411006C9AA5 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = 55DA0662269C9411006C9AA5 /* Version */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
 		55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */; };
 		55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */; };
@@ -1142,6 +1143,7 @@
 				0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */,
 				55413671265E438500796F91 /* UnstoppableDomainsResolution in Frameworks */,
 				55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */,
+				55DA0663269C9411006C9AA5 /* Version in Frameworks */,
 				55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */,
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
 				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
@@ -2733,6 +2735,7 @@
 				55413670265E438500796F91 /* UnstoppableDomainsResolution */,
 				0A29B5612666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport */,
 				550FB1D12669204800C13D54 /* WalletConnectSwift */,
+				55DA0662269C9411006C9AA5 /* Version */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD_MAINNET.app */;
@@ -2843,6 +2846,7 @@
 				5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */,
 				550FB1D02669204800C13D54 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */,
 				0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -5999,6 +6003,14 @@
 				minimumVersion = 1.7.0;
 			};
 		};
+		55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/Version.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -6071,6 +6083,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */;
 			productName = TrustKit;
+		};
+		55DA0662269C9411006C9AA5 /* Version */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version" */;
+			productName = Version;
 		};
 /* End XCSwiftPackageProductDependency section */
 

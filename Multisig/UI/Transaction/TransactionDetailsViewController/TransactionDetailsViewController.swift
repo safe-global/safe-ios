@@ -265,12 +265,15 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         guard let tx = tx,
               var transaction = Transaction(tx: tx),
               let safeAddress = try? Address(from: safe.address!),
+              let chainId = safe.network?.chainId,
               let safeTxHash = transaction.safeTxHash?.description else {
             preconditionFailure("Unexpected Error")            
         }
         super.reloadData()
 
         transaction.safe = AddressString(safeAddress)
+        transaction.safeVersion = safe.contractVersion
+        transaction.chainId = chainId
 
         switch keyInfo.keyType {
 

@@ -170,8 +170,8 @@ class NetworkTests: CoreDataTestCase {
 
     func test_removingNetworkDeletesSafe() throws {
         let mainnet = Network.mainnetChain()
-        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "0", network: mainnet, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "1", network: mainnet)
+        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "0", network: mainnet, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", version: "1.2.0", name: "1", network: mainnet)
         XCTAssertEqual(Safe.all.count, 2)
         Network.remove(network: mainnet)
         XCTAssertEqual(Safe.all.count, 0)
@@ -218,16 +218,16 @@ class NetworkTests: CoreDataTestCase {
         let network3 = try makeNetwork(id: 3)
         let network2 = try makeNetwork(id: 2)
 
-        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "00", network: network1, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000001", name: "01", network: network1, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "00", network: network1, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", version: "1.2.0", name: "01", network: network1, selected: false)
 
-        Safe.create(address: "0x0000000000000000000000000000000000000011", name: "11", network: network3, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000010", name: "10", network: network3, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000000", name: "100", network: network3, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000011", version: "1.2.0", name: "11", network: network3, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000010", version: "1.2.0", name: "10", network: network3, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "100", network: network3, selected: false)
 
-        Safe.create(address: "0x0000000000000000000000000000000000000020", name: "20", network: network2, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000021", name: "21", network: network2, selected: true)
-        Safe.create(address: "0x0000000000000000000000000000000000000022", name: "22", network: network2, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000020", version: "1.2.0", name: "20", network: network2, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000021", version: "1.2.0", name: "21", network: network2, selected: true)
+        Safe.create(address: "0x0000000000000000000000000000000000000022", version: "1.2.0", name: "22", network: network2, selected: false)
 
         networkSafes = Network.networkSafes()
 
@@ -258,7 +258,7 @@ class NetworkTests: CoreDataTestCase {
 
         // when no selected safe then nil returned
         let network1 = try makeNetwork(id: 1)
-        let safe = Safe.create(address: "0x0000000000000000000000000000000000000000", name: "00", network: network1, selected: false)
+        let safe = Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "00", network: network1, selected: false)
         XCTAssertNil(Network.nativeCoin)
 
         // when selected safe then network's token returned

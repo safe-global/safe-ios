@@ -11,6 +11,8 @@ import Foundation
 // Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
 struct Transaction: Codable {
     var safe: AddressString?
+    var safeVersion: String?
+    var chainId: String?
 
     // required by a smart contract
     let to: AddressString
@@ -54,9 +56,12 @@ extension Transaction {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
         guard safe.addressValue == wcRequest.from.address,
+              let chainId = safe.network?.chainId,
               let network = safe.network else { return nil }
 
         self.safe = wcRequest.from
+        self.chainId = chainId
+        self.safeVersion = safe.contractVersion
 
         // When submitting a transacion we need properly specify nonce
         var _nonce: UInt256String
@@ -94,12 +99,16 @@ extension Transaction {
         return [
             ERC191MagicByte,
             ERC191Version1Byte,
-            EthHasher.hash(Safe.domainData(for: safe!)),
+            EthHasher.hash(Safe.domainData(for: safe!, version: safeVersion!, chainId: chainId!)),
             EthHasher.hash(safeEncodedTxData)
         ].reduce(Data()) { $0 + $1 }
     }
 
-    static func rejectionTransaction(safeAddress: Address, nonce: UInt256String) -> Transaction {
+    static func rejectionTransaction(safeAddress: Address,
+                                     nonce: UInt256String,
+                                     safeVersion: String,
+                                     chainId: String) -> Transaction {
+
         var transaction = Transaction(to: AddressString(safeAddress),
                                       value: "0",
                                       data: "0x",
@@ -112,6 +121,9 @@ extension Transaction {
                                       nonce: nonce,
                                       safeTxHash: nil)
         transaction.safe = AddressString(safeAddress)
+        transaction.safeVersion = safeVersion
+        transaction.chainId = chainId
+
         transaction.safeTxHash = transaction.safeTransactionHash()
 
         return transaction

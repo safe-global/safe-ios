@@ -20,4 +20,5 @@ extension Safe {
     @NSManaged public var name: String?
     @NSManaged public var selection: Selection?
     @NSManaged public var network: Network?
+    @NSManaged public var contractVersion: String?
 }

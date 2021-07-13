@@ -25,11 +25,11 @@ class CoreDataStackTests: CoreDataTestCase {
         XCTAssertEqual(oneSafeResult[0].name, "Safe 1")
 
         // Update object
-        newSafe1.version = "1.1.1"
+        newSafe1.threshold = 1
         try context.save()
         let updatedSafesResult = try context.fetch(Safe.fetchRequest().all())
         XCTAssertEqual(updatedSafesResult.count, 1)
-        XCTAssertEqual(updatedSafesResult[0].version, "1.1.1")
+        XCTAssertEqual(updatedSafesResult[0].threshold, 1)
 
         // Insert object using auto-generated class
         let newSafe0 = Safe(context: context)

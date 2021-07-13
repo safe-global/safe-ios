@@ -13,7 +13,6 @@ import CoreData
 public class Safe: NSManagedObject {
     var ensName: String?
     var threshold: UInt256?
-    var version: String?
     var nonce: UInt256?
     var addressInfo: AddressInfo?
     var ownersInfo: [AddressInfo]?

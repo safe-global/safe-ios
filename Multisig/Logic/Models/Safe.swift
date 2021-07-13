@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import FirebaseAnalytics
+import Version
 
 // "address:networkId" -> name
 fileprivate var cachedNames = [String: String]()
@@ -42,11 +43,18 @@ extension Safe: Identifiable {
     static let DefaultEIP712SafeAppTxTypeHash =
         Data(ethHex: "0xbb8310d486368db6bd6f849402fdd73ad53d316b5a4b2644ad6efe0f941286d8")
 
-    static let DefaultEIP712SafeAppDomainSeparatorTypeHash =
-        Data(ethHex: "0x035aff83d86937d35b32e04f0ddc6ff469290eef2f1b692d8a815c89404d4749")
+    enum DomainSeparatorTypeHash {
+        static let v1_1_1 = Data(ethHex: "0x035aff83d86937d35b32e04f0ddc6ff469290eef2f1b692d8a815c89404d4749")
+        static let v1_3_0 = Data(ethHex: "0x47e79534a245952e8b16893a336b85a3d9ea9fa8c573f3d803afb92a79469218")
+    }
 
-    static func domainData(for safe: AddressString) -> Data {
-        Safe.DefaultEIP712SafeAppDomainSeparatorTypeHash + safe.data32
+    static func domainData(for safe: AddressString, version: String, chainId: String) -> Data {
+        if let v = Version(version), v >= Version("1.3.0")! {
+            let chainIdData = UInt256(chainId, radix: 10)!.data32
+            return DomainSeparatorTypeHash.v1_3_0 + chainIdData + safe.data32
+        } else {
+            return DomainSeparatorTypeHash.v1_1_1 + safe.data32
+        }
     }
 
     static var count: Int {
@@ -125,12 +133,13 @@ extension Safe: Identifiable {
     }
 
     @discardableResult
-    static func create(address: String, name: String, network: Network, selected: Bool = true) -> Safe {
+    static func create(address: String, version: String, name: String, network: Network, selected: Bool = true) -> Safe {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
         let safe = Safe(context: context)
         safe.address = address
+        safe.contractVersion = version
         safe.name = name
         safe.network = network
 
@@ -200,10 +209,14 @@ extension Safe: Identifiable {
 
 extension Safe {
     func update(from info: SafeInfoRequest.ResponseType) {
+        DispatchQueue.main.async {
+            self.contractVersion = info.version
+            App.shared.coreDataStack.saveContext()
+        }
+
         threshold = info.threshold.value
         ownersInfo = info.owners.map { $0.addressInfo }
         implementationInfo = info.implementation.addressInfo
-        version = info.version
         nonce = info.nonce.value
         modulesInfo = info.modules?.map { $0.addressInfo }
         fallbackHandlerInfo = info.fallbackHandler?.addressInfo
