@@ -509,4 +509,22 @@ enum GSError {
         let code = 6362
         let loggable = false
     }
+
+    struct UDDecodingError: DetailedLocalizedError {
+        let description = "Unexpected server response"
+        let reason = "Can't decode response from the server."
+        let howToFix = "Please try another domain"
+        let domain = clientErrorDomain
+        let code = 6363
+        let loggable = false
+    }
+
+    struct UDEncodingError: DetailedLocalizedError {
+        let description = "Error creating server request"
+        let reason = "Can't encode request to the server."
+        let howToFix = "Please try another domain or try again later"
+        let domain = clientErrorDomain
+        let code = 6364
+        let loggable = false
+    }
 }
