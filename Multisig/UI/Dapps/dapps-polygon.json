@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Quickswap",
+        "description": "Next-gen Layer 2 DEX. Trade at lightning-fast speeds with near-zero gas fees.",
+        "logo": "https://quickswap.exchange/logo_circle.png",
+        "url": "https://quickswap.exchange/"
+    },
+    {
+        "name": "Sushi",
+        "description": "Swap, earn, stack yields, lend, borrow, leverage",
+        "logo": "https://app.sushi.com/favicon.ico",
+        "url": "https://app.sushi.com/"
+    },
+    {
+        "name": "Honeyswap",
+        "description": "Decentralized exchange",
+        "logo": "https://app.honeyswap.org/images/favicon.png",
+        "url": "https://app.honeyswap.org/"
+    },
+]

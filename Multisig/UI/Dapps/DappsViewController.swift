@@ -78,8 +78,8 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         var wcButtonIsHidden = false
 
         if let selectedSafe = try? Safe.getSelected(),
-           let networkId = selectedSafe.network?.chainId!,
-           !SafeTransactionService.supports(networkId: networkId) {
+           let chainId = selectedSafe.network?.chainId!,
+           !Network.ChainID.isKnown(chainId: chainId) {
             wcButtonIsHidden = true
             wcSessionItems = [Section.WalletConnect.noSessions("This network is not supported yet.")]
             sections = [
@@ -255,6 +255,7 @@ extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         do {
             try WalletConnectServerController.shared.connect(url: code)
+            trackEvent(.dappConnectedWithScanButton)
             dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)

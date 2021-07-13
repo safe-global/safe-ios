@@ -47,8 +47,13 @@ class WalletConnectClientController {
             icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
             url: URL(string: "https://gnosis-safe.io")!,
             scheme: "gnosissafe")
+
+        var chainId: Int?
+        if let networkChainId = try? Safe.getSelected()?.network?.chainId {
+            chainId = Int(networkChainId)
+        }
         
-        let dAppInfo = Session.DAppInfo(peerId: UUID().uuidString, peerMeta: clientMeta)
+        let dAppInfo = Session.DAppInfo(peerId: UUID().uuidString, peerMeta: clientMeta, chainId: chainId)
         client = Client(delegate: self, dAppInfo: dAppInfo)
 
         do {
@@ -325,6 +330,10 @@ extension WalletConnectClientController: ClientDelegate {
         NotificationCenter.default.post(name: .wcDidFailToConnectClient, object: nil)
     }
 
+    func client(_ client: Client, didConnect url: WCURL) {
+        // no op
+    }
+
     func client(_ client: Client, didConnect session: Session) {
         self.session = session
         NotificationCenter.default.post(name: .wcDidConnectClient, object: session)
@@ -335,6 +344,10 @@ extension WalletConnectClientController: ClientDelegate {
         guard isActiveSession(session) else { return }
         self.session = nil
         NotificationCenter.default.post(name: .wcDidDisconnectClient, object: nil)
+    }
+
+    func client(_ client: Client, didUpdate session: Session) {
+        self.session = session
     }
 
     private func isActiveSession(_ session: Session) -> Bool {

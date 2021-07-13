@@ -536,6 +536,8 @@
 		55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF64260B2551008ABD2B /* Kingfisher */; };
 		55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF8F260B2B21008ABD2B /* TrustKit */; };
 		55DA0663269C9411006C9AA5 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = 55DA0662269C9411006C9AA5 /* Version */; };
+		55DA0665269DD52E006C9AA5 /* dapps-polygon.json in Resources */ = {isa = PBXBuildFile; fileRef = 55DA0664269DD52E006C9AA5 /* dapps-polygon.json */; };
+		55DA0669269DD573006C9AA5 /* dapps-xdai.json in Resources */ = {isa = PBXBuildFile; fileRef = 55DA0668269DD573006C9AA5 /* dapps-xdai.json */; };
 		55DCC333258A4C71003346FC /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCC332258A4C71003346FC /* GSError.swift */; };
 		55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */; };
 		55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */; };
@@ -1129,6 +1131,8 @@
 		55CEFC1D24939503003B2B19 /* View+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Tracking.swift"; sourceTree = "<group>"; };
 		55CEFC1F24939525003B2B19 /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
 		55D3654225078560004D5047 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		55DA0664269DD52E006C9AA5 /* dapps-polygon.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "dapps-polygon.json"; sourceTree = "<group>"; };
+		55DA0668269DD573006C9AA5 /* dapps-xdai.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "dapps-xdai.json"; sourceTree = "<group>"; };
 		55DCC332258A4C71003346FC /* GSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSError.swift; sourceTree = "<group>"; };
 		55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterKeyOrSeedPhraseViewController.xib; sourceTree = "<group>"; };
 		55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterKeyOrSeedPhraseViewController.swift; sourceTree = "<group>"; };
@@ -2369,6 +2373,8 @@
 				550FB19B26691CA300C13D54 /* DappsViewController.xib */,
 				550FB19C26691CA300C13D54 /* dapps-rinkeby.json */,
 				550FB19D26691CA300C13D54 /* dapps-mainnet.json */,
+				55DA0664269DD52E006C9AA5 /* dapps-polygon.json */,
+				55DA0668269DD573006C9AA5 /* dapps-xdai.json */,
 			);
 			path = Dapps;
 			sourceTree = "<group>";
@@ -2888,6 +2894,7 @@
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
 				0AE5A9C3267A4BDC00468C90 /* ImportKeyBannerCell.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */,
+				55DA0665269DD52E006C9AA5 /* dapps-polygon.json in Resources */,
 				0AEEBC74258CDF9400F3A6F9 /* CollectibleDetailViewController.xib in Resources */,
 				0ADD19C2265EA23200EB0F2B /* SeedPhraseViewController.xib in Resources */,
 				0A109E272689CB9A00226708 /* RibbonView.xib in Resources */,
@@ -2914,6 +2921,7 @@
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
 				55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */,
 				0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */,
+				55DA0669269DD573006C9AA5 /* dapps-xdai.json in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
@@ -5944,7 +5952,7 @@
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.0;
+				minimumVersion = 1.5.0;
 			};
 		};
 		5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */ = {

@@ -168,6 +168,10 @@ extension Network {
         static let ethereumRinkeby = "4"
         static let polygon = "137"
         static let xDai = "100"
+
+        static func isKnown(chainId: String) -> Bool {
+            return [ChainID.ethereumMainnet, ChainID.ethereumRinkeby, ChainID.polygon, ChainID.xDai].contains(chainId)
+        }
     }
 
     static func mainnetChain() -> Network {

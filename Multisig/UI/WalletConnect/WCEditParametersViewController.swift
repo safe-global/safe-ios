@@ -52,6 +52,11 @@ class WCEditParametersViewController: UIViewController {
         safeTxGasTextField.textField.addTarget(self, action: #selector(validateInputs), for: .editingChanged)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        trackEvent(.walletConnectEditParameters)
+    }
+
     @objc private func save() {
         guard let nonce = nonce, let safeTxGas = safeTxGas else { return }
         onUpdate(nonce, safeTxGas)
