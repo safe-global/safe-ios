@@ -166,7 +166,7 @@ class TransactionDetailCellBuilder {
                     logo: UIImage(named: "ico-nft-placeholder"),
                     detail: erc721Tx.tokenId.description)
 
-            case .ether(let etherTx):
+            case .nativeCoin(let nativeCoinTx):
                 let coin = Network.nativeCoin!
 
                 buildTransferHeader(
@@ -175,7 +175,7 @@ class TransactionDetailCellBuilder {
                     addressLogoUri: addressLogoUri,
                     isOutgoing: isOutgoing,
                     status: tx.txStatus,
-                    value: etherTx.value.value,
+                    value: nativeCoinTx.value.value,
                     decimals: UInt64(coin.decimals),
                     symbol: coin.symbol!,
                     logoUri: coin.logoUrl.map(\.absoluteString))
