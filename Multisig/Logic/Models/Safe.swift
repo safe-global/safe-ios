@@ -49,8 +49,7 @@ extension Safe: Identifiable {
     }
 
     static func domainData(for safe: AddressString, version: String, chainId: String) -> Data {
-        let v = Version(version)
-        if let v = v, v >= Version("1.3.0")! {
+        if let v = Version(version), v >= Version("1.3.0")! {
             let chainIdData = UInt256(chainId, radix: 10)!.data32
             return DomainSeparatorTypeHash.v1_3_0 + chainIdData + safe.data32
         } else {
