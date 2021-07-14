@@ -35,6 +35,12 @@ struct AdvancedAppSettings: View {
                     }) {
                         Text("Crash the App").body()
                     }
+
+                    Button(action: {
+                        LogService.shared.error("Non-fatal triggerred", error: "Test non-fatal error (id \(Int.random(in: 0...10_000)))")
+                    }) {
+                        Text("Trigger non-fatal error").body()
+                    }
                 }
             }
         }

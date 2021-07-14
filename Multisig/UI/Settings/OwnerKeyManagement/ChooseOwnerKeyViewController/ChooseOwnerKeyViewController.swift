@@ -89,7 +89,7 @@ class ChooseOwnerKeyViewController: UIViewController {
             // we need to update to always properly refresh session.walletInfo.peerId
             // that we use to identify if the wallet is connected
             _ = OwnerKeyController.updateKey(session: session,
-                                               installedWallet: walletPerTopic[session.url.topic])
+                                             installedWallet: walletPerTopic[session.url.topic])
 
             // If the session is initiated with QR code, then we need to hide QR code controller
             if let presented = presentedViewController {                

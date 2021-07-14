@@ -75,46 +75,35 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     @objc private func update() {
         var wcSessionItems: [SectionItem]
-        var wcButtonIsHidden = false
-
-        if let selectedSafe = try? Safe.getSelected(),
-           let networkId = selectedSafe.network?.chainId!,
-           !SafeTransactionService.supports(networkId: networkId) {
-            wcButtonIsHidden = true
-            wcSessionItems = [Section.WalletConnect.noSessions("This network is not supported yet.")]
-            sections = [
-                (section: .walletConnect("WalletConnect"), items: wcSessionItems)
-            ]
-        } else {
-            do {
-                wcSessionItems = try WCSession.getAll().compactMap {
-                    guard $0.session != nil,
-                          let session = try? Session.from($0),
-                          let selectedSafe = try? Safe.getSelected(),
-                          session.walletInfo!.accounts.contains(selectedSafe.address!) else {
-                        return nil
-                    }
-                    return Section.WalletConnect.activeSession($0)
+        do {
+            wcSessionItems = try WCSession.getAll().compactMap {
+                guard $0.session != nil,
+                      let session = try? Session.from($0),
+                      let selectedSafe = try? Safe.getSelected(),
+                      session.walletInfo!.accounts.contains(selectedSafe.address!) else {
+                    return nil
                 }
-                if wcSessionItems.isEmpty {
-                    wcSessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
-                }
-            } catch {
-                wcSessionItems = [Section.WalletConnect.noSessions("No active sessions")]
-                App.shared.snackbar.show(
-                    error: GSError.error(description: "Could not load WalletConnect sessions", error: error))
+                return Section.WalletConnect.activeSession($0)
             }
+            if wcSessionItems.isEmpty {
+                wcSessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
+            }
+        } catch {
+            wcSessionItems = [Section.WalletConnect.noSessions("No active sessions")]
+            App.shared.snackbar.show(
+                error: GSError.error(description: "Could not load WalletConnect sessions", error: error))
+        }
 
-            let dappSectionItems = DappsDataSource().dapps.map { Section.Dapp.dapp($0) }
+        sections = [
+            (section: .walletConnect("WalletConnect"), items: wcSessionItems)
+        ]
 
-            sections = [
-                (section: .walletConnect("WalletConnect"), items: wcSessionItems),
-                (section: .dapp("Dapps supporting Gnosis Safe"), items: dappSectionItems)
-            ]
+        let dappSectionItems = DappsDataSource().dapps.map { Section.Dapp.dapp($0) }
+        if !dappSectionItems.isEmpty {
+            sections.append((section: .dapp("Dapps supporting Gnosis Safe"), items: dappSectionItems))
         }
 
         DispatchQueue.main.async { [unowned self] in
-            wcButton.isHidden = wcButtonIsHidden
             self.tableView.reloadData()
         }
     }
@@ -255,6 +244,7 @@ extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         do {
             try WalletConnectServerController.shared.connect(url: code)
+            trackEvent(.dappConnectedWithScanButton)
             dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
