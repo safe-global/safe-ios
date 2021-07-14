@@ -141,6 +141,11 @@ protocol ScreenTrackingEvent: Trackable {}
 
 extension Tracker {
     static func trackEvent(_ event: TrackingEvent, parameters: [String: Any]? = nil) {
+        var parameters = parameters ?? [String: Any]()
+        if event.rawValue.starts(with: "screen") && parameters["chain_id"] == nil {
+            let chainId = try? Safe.getSelected()?.network?.chainId ?? "none"
+            parameters["chain_id"] = chainId
+        }
         Tracker.shared.track(event: event, parameters: parameters)
     }
 

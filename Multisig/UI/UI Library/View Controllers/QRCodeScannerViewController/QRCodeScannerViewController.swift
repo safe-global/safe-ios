@@ -22,6 +22,7 @@ class QRCodeScannerViewController: UIViewController {
     var delegate: QRCodeScannerViewControllerDelegate?
     var header: String?
     var scannedValueValidator: ((String) -> Result<String, Error>)?
+    var trackingParameters: [String: Any]?
 
     enum Strings {
         static let cameraAlertTitle = NSLocalizedString("camera_title", comment: "")
@@ -45,7 +46,7 @@ class QRCodeScannerViewController: UIViewController {
         if captureSession?.isRunning == false {
             captureSession.startRunning()
         }
-        Tracker.trackEvent(.camera)
+        Tracker.trackEvent(.camera, parameters: trackingParameters)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

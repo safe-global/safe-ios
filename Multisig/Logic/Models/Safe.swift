@@ -148,7 +148,9 @@ extension Safe: Identifiable {
         }
 
         App.shared.coreDataStack.saveContext()
+
         Tracker.setSafeCount(count)
+        Tracker.trackEvent(.userSafeAdded, parameters: ["chain_id" : network.chainId!])
 
         updateCachedNames()
 
@@ -192,7 +194,10 @@ extension Safe: Identifiable {
         }
 
         App.shared.coreDataStack.saveContext()
+
         Tracker.setSafeCount(count)
+        Tracker.trackEvent(.userSafeRemoved, parameters: ["chain_id" : networkId])
+
         NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
 
         if let addressString = deletedSafeAddress, let address = Address(addressString) {

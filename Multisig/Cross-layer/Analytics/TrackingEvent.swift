@@ -112,6 +112,9 @@ enum TrackingEvent: String, Trackable {
     case userPasscodeReset                          = "user_passcode_reset"
     case userPasscodeSkipped                        = "user_passcode_skipped"
 
+    case userSafeAdded                              = "user_safe_added"
+    case userSafeRemoved                            = "user_safe_removed"
+
     case experimental                               = "screen_experimental"
 
     case walletConnectKeyOptions                    = "screen_owner_walletconnect_options"
