@@ -21,18 +21,18 @@ class NetworkTests: CoreDataTestCase {
     }
 
     func test_count_whenMultipleExists_thenReturnsCorrectCount() throws {
-        _ = try makeNetwork(id: 1)
-        _ = try makeNetwork(id: 2)
-        _ = try makeNetwork(id: 3)
+        _ = try makeNetwork(id: "1")
+        _ = try makeNetwork(id: "2")
+        _ = try makeNetwork(id: "3")
 
         XCTAssertEqual(Network.count, 3)
     }
 
     func test_all() throws {
         XCTAssertEqual(Network.count, 0)
-        let network0 = try makeNetwork(id: 1)
-        let network1 = try makeNetwork(id: 2)
-        let network2 = try makeNetwork(id: 3)
+        let network0 = try makeNetwork(id: "1")
+        let network1 = try makeNetwork(id: "2")
+        let network2 = try makeNetwork(id: "3")
 
         let networks = Network.all
         XCTAssertEqual(networks.count, 3)
@@ -43,7 +43,7 @@ class NetworkTests: CoreDataTestCase {
 
     func test_exists() {
         XCTAssertFalse(try Network.exists("1"))
-        _ = try? makeNetwork(id: 1)
+        _ = try? makeNetwork(id: "1")
 
         XCTAssertFalse(try Network.exists("2"))
         XCTAssertTrue(try Network.exists("1"))
@@ -52,7 +52,7 @@ class NetworkTests: CoreDataTestCase {
     func test_by() {
         var network = Network.by("1")
         XCTAssertNil(network)
-        _ = try? makeNetwork(id: 1)
+        _ = try? makeNetwork(id: "1")
 
         network = Network.by("2")
         XCTAssertNil(network)
@@ -64,7 +64,7 @@ class NetworkTests: CoreDataTestCase {
     // MARK: create(params)
 
     func test_create_whenCreatedThenHasCorrectParameters() throws {
-        let network = try makeNetwork(id: 1)
+        let network = try makeNetwork(id: "1")
 
         // assert
         XCTAssertEqual(network.chainId, "1")
@@ -80,9 +80,9 @@ class NetworkTests: CoreDataTestCase {
     }
 
     func test_create_whenCreatedWithDuplicateChainId_thenThrows() throws {
-        _ = try makeNetwork(id: 1)
+        _ = try makeNetwork(id: "1")
 
-        XCTAssertThrowsError(try makeNetwork(id: 1))
+        XCTAssertThrowsError(try makeNetwork(id: "1"))
     }
 
     func test_update() throws {
@@ -179,9 +179,9 @@ class NetworkTests: CoreDataTestCase {
 
     func test_removeAll() {
         Network.removeAll()
-        _ = try? makeNetwork(id: 1)
-        _ = try? makeNetwork(id: 2)
-        _ = try? makeNetwork(id: 3)
+        _ = try? makeNetwork(id: "1")
+        _ = try? makeNetwork(id: "2")
+        _ = try? makeNetwork(id: "3")
 
         Network.removeAll()
         XCTAssertEqual(Network.all.count, 0)
@@ -193,30 +193,13 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertNotNil(Network.by(Network.ChainID.ethereumMainnet))
     }
 
-    // MARK: Utility
-
-    func makeNetwork(id: Int) throws -> Network {
-        try Network.create(
-            chainId: String(id),
-            chainName: "Test",
-            rpcUrl: URL(string: "https://rpc.com/")!,
-            blockExplorerUrl: URL(string: "https://block.com/")!,
-            ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
-            currencyName: "Currency",
-            currencySymbl: "CRY",
-            currencyDecimals: 18,
-            currencyLogo: URL(string: "https://example.com/mainnetlogo.png")!,
-            themeTextColor: "#ffffff",
-            themeBackgroundColor: "#000000")
-    }
-
     func test_networkSafes() throws {
         var networkSafes = Network.networkSafes()
         XCTAssertEqual(networkSafes.count, 0)
 
-        let network1 = try makeNetwork(id: 1)
-        let network3 = try makeNetwork(id: 3)
-        let network2 = try makeNetwork(id: 2)
+        let network1 = try makeNetwork(id: "1")
+        let network3 = try makeNetwork(id: "3")
+        let network2 = try makeNetwork(id: "2")
 
         Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "00", network: network1, selected: false)
         Safe.create(address: "0x0000000000000000000000000000000000000001", version: "1.2.0", name: "01", network: network1, selected: false)
@@ -257,7 +240,7 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertNil(Network.nativeCoin)
 
         // when no selected safe then nil returned
-        let network1 = try makeNetwork(id: 1)
+        let network1 = try makeNetwork(id: "1")
         let safe = Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "00", network: network1, selected: false)
         XCTAssertNil(Network.nativeCoin)
 

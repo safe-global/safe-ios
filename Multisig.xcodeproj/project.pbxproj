@@ -220,6 +220,9 @@
 		0A6C85B2245071510026139E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A6C85B4245080620026139E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B3245080620026139E /* App.swift */; };
 		0A72AC622453169700840641 /* LinkText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC612453169700840641 /* LinkText.swift */; };
+		0A747198269F1122008E9F2D /* BalancesViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A747197269F1122008E9F2D /* BalancesViewControllerSnapshotTests.swift */; };
+		0A74719A269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A747199269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json */; };
+		0A7471A7269F2AA8008E9F2D /* XCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7471A6269F2AA8008E9F2D /* XCTestCase.swift */; };
 		0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74EEFB268DF37100EB0EFB /* RibbonViewController.swift */; };
 		0A74EEFE268DF37100EB0EFB /* RibbonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A74EEFC268DF37100EB0EFB /* RibbonViewController.xib */; };
 		0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */; };
@@ -794,6 +797,9 @@
 		0A6C85B1245071510026139E /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0A6C85B3245080620026139E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		0A72AC612453169700840641 /* LinkText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkText.swift; sourceTree = "<group>"; };
+		0A747197269F1122008E9F2D /* BalancesViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
+		0A747199269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json; sourceTree = "<group>"; };
+		0A7471A6269F2AA8008E9F2D /* XCTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestCase.swift; sourceTree = "<group>"; };
 		0A74EEFB268DF37100EB0EFB /* RibbonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonViewController.swift; sourceTree = "<group>"; };
 		0A74EEFC268DF37100EB0EFB /* RibbonViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RibbonViewController.xib; sourceTree = "<group>"; };
 		0A791D9624D2E38800D70DA9 /* TransferDecodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDecodingError.swift; sourceTree = "<group>"; };
@@ -1655,6 +1661,9 @@
 				0A559A662672096B00E83A9E /* TotalBalanceTableViewCellTests.swift */,
 				0A559A6826720E5300E83A9E /* BannerTableViewCellTests.swift */,
 				0ADFADA2267B496F007ACD65 /* BalancesTableViewControllerTests.swift */,
+				0A747197269F1122008E9F2D /* BalancesViewControllerSnapshotTests.swift */,
+				0A7471A6269F2AA8008E9F2D /* XCTestCase.swift */,
+				0A747199269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json */,
 			);
 			path = "UI Snapshot Tests";
 			sourceTree = "<group>";
@@ -3010,6 +3019,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A61E8452670E632009D68A4 /* __Snapshots__ in Resources */,
+				0A74719A269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json in Resources */,
 				0A3DFEFE2667D3A700B45770 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3431,6 +3441,8 @@
 				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,
 				0A3DFEF82667D22B00B45770 /* MockSecureStore.swift in Sources */,
 				0A3DFEFC2667D2DF00B45770 /* SafeTests.swift in Sources */,
+				0A747198269F1122008E9F2D /* BalancesViewControllerSnapshotTests.swift in Sources */,
+				0A7471A7269F2AA8008E9F2D /* XCTestCase.swift in Sources */,
 				555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */,
 				0A559A6926720E5300E83A9E /* BannerTableViewCellTests.swift in Sources */,
 				0A3DFEF62667D1A800B45770 /* AuthenticationControllerTests.swift in Sources */,
