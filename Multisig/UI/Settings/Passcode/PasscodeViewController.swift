@@ -73,7 +73,7 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func didTapButton(_ sender: Any) {
         navigationController?.dismiss(animated: true, completion: completion)
-        trackEvent(.userPasscodeSkipped)
+        Tracker.trackEvent(.userPasscodeSkipped)
     }
 
     @IBAction func didTapBiometry(_ sender: Any) {
@@ -148,7 +148,7 @@ class CreatePasscodeViewController: PasscodeViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.createPasscode)
+        Tracker.trackEvent(.createPasscode)
     }
 
     override func willChangeText(_ text: String) {
@@ -201,7 +201,7 @@ class CreatePasscodeViewController: PasscodeViewController {
 
     override func didTapButton(_ sender: Any) {
         completion()
-        trackEvent(.userPasscodeSkipped)
+        Tracker.trackEvent(.userPasscodeSkipped)
     }
 }
 
@@ -216,7 +216,7 @@ class RepeatPasscodeViewController: PasscodeViewController {
     }
 
     override func didTapButton(_ sender: Any) {
-        trackEvent(.userPasscodeSkipped)
+        Tracker.trackEvent(.userPasscodeSkipped)
         skipCompletion()
     }
 
@@ -228,7 +228,7 @@ class RepeatPasscodeViewController: PasscodeViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.repeatPasscode)
+        Tracker.trackEvent(.repeatPasscode)
     }
 
     override func willChangeText(_ text: String) {
@@ -283,7 +283,7 @@ class EnterPasscodeViewController: PasscodeViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(screenTrackingEvent)
+        Tracker.trackEvent(screenTrackingEvent)
         authenticateWithBiometry()
     }
 
@@ -366,7 +366,7 @@ class ChangePasscodeEnterNewViewController: PasscodeViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.changePasscodeEnterNew)
+        Tracker.trackEvent(.changePasscodeEnterNew)
     }
 
     @objc func didTapCloseButton() {
@@ -400,7 +400,7 @@ class RepeatChangedPasscodeViewController: PasscodeViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.changePasscodeRepeat)
+        Tracker.trackEvent(.changePasscodeRepeat)
     }
 
     override func willChangeText(_ text: String) {

@@ -77,7 +77,6 @@
 		049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049A9DB025FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib */; };
 		049A9DD026020C0B00CA5723 /* SelectFiatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9DCF26020C0B00CA5723 /* SelectFiatViewController.swift */; };
 		049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9DD92602211500CA5723 /* FiatCodesRequest.swift */; };
-		049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C24EA2575477900897D3C /* UIViewController+Tracking.swift */; };
 		049EB0E925AF435C00F66CEA /* HistoryTransactions.json in Resources */ = {isa = PBXBuildFile; fileRef = 049EB0E425AF427C00F66CEA /* HistoryTransactions.json */; };
 		049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */; };
 		04B4B5F725B754D600CFE24B /* SafeLoadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B5F525B754D600CFE24B /* SafeLoadedViewController.swift */; };
@@ -526,7 +525,6 @@
 		55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */; };
 		55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0B24939079003B2B19 /* Tracker.swift */; };
 		55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC102493923A003B2B19 /* TrackerTests.swift */; };
-		55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1D24939503003B2B19 /* View+Tracking.swift */; };
 		55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC1F24939525003B2B19 /* TrackingEvent.swift */; };
 		55D3654325078560004D5047 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654225078560004D5047 /* TextView.swift */; };
 		55D3FE85260A0F66008ABD2B /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE84260A0F66008ABD2B /* Web3 */; };
@@ -650,7 +648,6 @@
 		049A9DB025FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseOwnerTableViewCell.xib; sourceTree = "<group>"; };
 		049A9DCF26020C0B00CA5723 /* SelectFiatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFiatViewController.swift; sourceTree = "<group>"; };
 		049A9DD92602211500CA5723 /* FiatCodesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatCodesRequest.swift; sourceTree = "<group>"; };
-		049C24EA2575477900897D3C /* UIViewController+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Tracking.swift"; sourceTree = "<group>"; };
 		049EB0E425AF427C00F66CEA /* HistoryTransactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryTransactions.json; sourceTree = "<group>"; };
 		049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+Offset.swift"; sourceTree = "<group>"; };
 		04B4B5F525B754D600CFE24B /* SafeLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeLoadedViewController.swift; sourceTree = "<group>"; };
@@ -1126,7 +1123,6 @@
 		55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		55CEFC0B24939079003B2B19 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		55CEFC102493923A003B2B19 /* TrackerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerTests.swift; sourceTree = "<group>"; };
-		55CEFC1D24939503003B2B19 /* View+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Tracking.swift"; sourceTree = "<group>"; };
 		55CEFC1F24939525003B2B19 /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
 		55D3654225078560004D5047 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		55DA0664269DD52E006C9AA5 /* dapps-polygon.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "dapps-polygon.json"; sourceTree = "<group>"; };
@@ -2077,7 +2073,6 @@
 				55CEFC0B24939079003B2B19 /* Tracker.swift */,
 				55CEFC0824939079003B2B19 /* ConsoleTracker.swift */,
 				55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */,
-				55CEFC1D24939503003B2B19 /* View+Tracking.swift */,
 				55CEFC1F24939525003B2B19 /* TrackingEvent.swift */,
 				0ACDC012249253D7002035A2 /* Firebase */,
 			);
@@ -2211,7 +2206,6 @@
 				047A658525AE095700AE8845 /* SnackbarViewController */,
 				0AC60C772549C50E00A63AE2 /* HeaderViewController */,
 				0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */,
-				049C24EA2575477900897D3C /* UIViewController+Tracking.swift */,
 				0A465C2D246C196900AFA467 /* Theme.swift */,
 				048AA141260D053300382E24 /* MainTabBarViewController.swift */,
 				0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */,
@@ -3228,7 +3222,6 @@
 				0A2F1A70267A53A800C09F03 /* GSButton.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
 				0AE8C08F25793B9400E62B34 /* DetailArrowPiece.swift in Sources */,
-				55CEFC1E24939503003B2B19 /* View+Tracking.swift in Sources */,
 				0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */,
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
 				555312EF2506641D0008206B /* RIPEMD160.swift in Sources */,
@@ -3288,7 +3281,6 @@
 				0A3DAD9B26270F5500743E38 /* IDN.swift in Sources */,
 				550FB1B626691D9500C13D54 /* DetailedCell.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
-				049C24EB2575477900897D3C /* UIViewController+Tracking.swift in Sources */,
 				0A451C0C252DDBE5001DB7D2 /* CollectibleListSection.swift in Sources */,
 				0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */,
 				55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */,

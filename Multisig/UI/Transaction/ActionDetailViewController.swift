@@ -71,7 +71,7 @@ class ActionDetailViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.transactionsDetailsAction)
+        Tracker.trackEvent(.transactionsDetailsAction)
     }
 
     @objc private func reloadData() {

@@ -45,7 +45,7 @@ class QRCodeScannerViewController: UIViewController {
         if captureSession?.isRunning == false {
             captureSession.startRunning()
         }
-        trackEvent(.camera)
+        Tracker.trackEvent(.camera)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

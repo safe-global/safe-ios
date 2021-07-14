@@ -96,7 +96,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.transactionsDetails)
+        Tracker.trackEvent(.transactionsDetails)
     }
 
     // MARK: - Events
@@ -313,9 +313,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
                         switch keyType {
                         case .deviceGenerated, .deviceImported:
-                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionConfirmed)
+                            Tracker.trackEvent(.transactionDetailsTransactionConfirmed)
                         case .walletConnect:
-                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTxConfirmedWC)
+                            Tracker.trackEvent(.transactionDetailsTxConfirmedWC)
                         }
                     }
                 }
@@ -366,7 +366,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                         self.pendingExecution = true
                         self.reloadData()
                         App.shared.snackbar.show(message: "Transaction submitted. Transaction hash: \(hash)")
-                        Tracker.shared.track(event: TrackingEvent.transactionDetailsTxExecutedWC)
+                        Tracker.trackEvent(.transactionDetailsTxExecutedWC)
 
                     case .failure(let error):
                         App.shared.snackbar.show(

@@ -162,7 +162,7 @@ class RemoteNotificationHandler {
     }
 
     private func track(_ status: UNAuthorizationStatus) {
-        Tracker.shared.setPushInfo(status.trackingStatus.rawValue)
+        Tracker.setPushInfo(status.trackingStatus.rawValue)
     }
 
     private func register(addresses: [Address]) {

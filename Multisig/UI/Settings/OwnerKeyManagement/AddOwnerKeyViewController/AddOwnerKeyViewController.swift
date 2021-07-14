@@ -43,7 +43,7 @@ class AddOwnerKeyViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.ownerKeysOptions)
+        Tracker.trackEvent(.ownerKeysOptions)
     }
 
     // MARK: - Table view data source

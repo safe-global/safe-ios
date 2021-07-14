@@ -58,7 +58,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.dapps)
+        Tracker.trackEvent(.dapps)
     }
 
     private func configureTableView() {
@@ -244,7 +244,7 @@ extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         do {
             try WalletConnectServerController.shared.connect(url: code)
-            trackEvent(.dappConnectedWithScanButton)
+            Tracker.trackEvent(.dappConnectedWithScanButton)
             dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)

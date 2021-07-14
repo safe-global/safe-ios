@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import UIKit
 
 /**
  This class is a singleton used throughout the app to track events.
@@ -21,11 +22,11 @@ import Foundation
 
      }
 
- Then, from a view controller's `viewDidAppear` method call `trackEvent` method on UIViewController:
+ Then, from a view controller's `viewDidAppear` method call `Tracker.trackEvent` method on UIViewController:
 
      override func viewDidAppear(_ animated: Bool) {
          super.viewDidAppear(animated)
-         trackEvent(MyMenuEvent.eventName)
+         Tracker.trackEvent(MyMenuEvent.eventName)
      }
 
  Finally, you can subclass the Tracker for testing purposes. In that case, replace the singleton instance stored in
@@ -34,7 +35,7 @@ import Foundation
  */
 class Tracker {
     /// Singleton instance.
-    static var shared = Tracker()
+    fileprivate static var shared = Tracker()
 
     /// All registered objects handling tracking events
     private var trackingHandlers = [TrackingHandler]()
@@ -137,3 +138,51 @@ extension Trackable {
 }
 
 protocol ScreenTrackingEvent: Trackable {}
+
+extension Tracker {
+    static func trackEvent(_ event: TrackingEvent, parameters: [String: Any]? = nil) {
+        Tracker.shared.track(event: event, parameters: parameters)
+    }
+
+    static func setSafeCount(_ count: Int) {
+        Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
+    }
+
+    static func setPushInfo(_ status: String) {
+        Tracker.shared.setUserProperty(status, for: TrackingUserProperty.pushInfo)
+    }
+
+    static func setNumKeys(_ count: Int, type: KeyType) {
+        switch type {
+        case .deviceGenerated:
+            Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numKeysGenerated)
+        case .deviceImported:
+            Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numKeysImported)
+        case .walletConnect:
+            Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numKeysWalletConnect)
+        }
+    }
+
+    static func setPasscodeIsSet(to status: Bool) {
+        let property = status ? "true" : "false"
+        Tracker.shared.setUserProperty(property, for: TrackingUserProperty.passcodeIsSet)
+    }
+
+    static func setWalletConnectForDappsEnabled(_ enabled: Bool) {
+        let property = enabled ? "true" : "false"
+        Tracker.shared.setUserProperty(property, for: TrackingUserProperty.walletConnectForDappsEnabled)
+    }
+
+    static func setWalletConnectForKeysEnabled(_ enabled: Bool) {
+        let property = enabled ? "true" : "false"
+        Tracker.shared.setUserProperty(property, for: TrackingUserProperty.walletConnectForKeysEnabled)
+    }
+
+    static func append(handler: TrackingHandler) {
+        Tracker.shared.append(handler: handler)
+    }
+
+    static func setTrackingEnabled(_ value: Bool) {
+        Tracker.shared.setTrackingEnabled(value)
+    }
+}

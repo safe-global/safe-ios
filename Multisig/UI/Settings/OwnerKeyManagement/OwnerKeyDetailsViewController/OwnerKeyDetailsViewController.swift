@@ -64,7 +64,7 @@ class OwnerKeyDetailsViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.ownerKeyDetails)
+        Tracker.trackEvent(.ownerKeyDetails)
     }
 
     @IBAction func removeButtonTouched(_ sender: Any) {

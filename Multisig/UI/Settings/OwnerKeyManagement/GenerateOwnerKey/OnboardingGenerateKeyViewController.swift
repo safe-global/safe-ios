@@ -57,7 +57,7 @@ class OnboardingGenerateKeyViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.generateOwnerOnboarding)
+        Tracker.trackEvent(.generateOwnerOnboarding)
     }
 
     @objc private func didTapNextButton(_ sender: Any) {

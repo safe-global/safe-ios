@@ -17,12 +17,12 @@ class OwnerKeyController {
             App.shared.notificationHandler.signingKeyUpdated()
 
             if privateKey.mnemonic != nil { // generating key on mobile
-                Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
-                Tracker.shared.track(event: TrackingEvent.ownerKeyGenerated)
+                Tracker.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
+                Tracker.trackEvent(.ownerKeyGenerated)
             } else { // importing key
-                Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
-                Tracker.shared.track(event: TrackingEvent.ownerKeyImported,
-                                     parameters: ["import_type": isDrivedFromSeedPhrase ? "seed" : "key"])
+                Tracker.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
+                Tracker.trackEvent(.ownerKeyImported,
+                                   parameters: ["import_type": isDrivedFromSeedPhrase ? "seed" : "key"])
             }
 
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
@@ -36,13 +36,13 @@ class OwnerKeyController {
     static func importKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
         do {
             try KeyInfo.import(session: session, installedWallet: installedWallet)
-            Tracker.shared.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
+            Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
 
             if installedWallet != nil {
-                Tracker.shared.track(event: TrackingEvent.connectInstalledWallet)
+                Tracker.trackEvent(.connectInstalledWallet)
             } else {
-                Tracker.shared.track(event: TrackingEvent.connectExternalWallet)
+                Tracker.trackEvent(.connectExternalWallet)
             }
 
             return true
@@ -79,8 +79,8 @@ class OwnerKeyController {
             try keyInfo.delete()
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key removed from this app")
-            Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
-            Tracker.shared.setNumKeys(KeyInfo.count(keyInfo.keyType), type: keyInfo.keyType)
+            Tracker.trackEvent(.ownerKeyRemoved)
+            Tracker.setNumKeys(KeyInfo.count(keyInfo.keyType), type: keyInfo.keyType)
             NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
         } catch {
             App.shared.snackbar.show(
@@ -188,10 +188,10 @@ class OwnerKeyController {
         if showingMessage {
             App.shared.snackbar.show(message: "All owner keys removed from this app")
         }
-        Tracker.shared.track(event: TrackingEvent.ownerKeyRemoved)
-        Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
-        Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
-        Tracker.shared.setNumKeys(KeyInfo.count(.walletConnect), type: .deviceImported)
+        Tracker.trackEvent(.ownerKeyRemoved)
+        Tracker.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
+        Tracker.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
+        Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .deviceImported)
         NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
     }
 }

@@ -77,7 +77,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.ownerKeysList)
+        Tracker.trackEvent(.ownerKeysList)
     }
 
     @objc private func didTapAddButton(_ sender: Any) {

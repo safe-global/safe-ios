@@ -40,7 +40,7 @@ class EditSafeNameViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.settingsSafeEditName)
+        Tracker.trackEvent(.settingsSafeEditName)
     }
 
     @objc private func didTapSaveButton() {

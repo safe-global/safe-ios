@@ -65,7 +65,7 @@ class UpdateAppViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(style.trackEvent)
+        Tracker.trackEvent(style.trackEvent)
     }
 
     @IBAction func updateButtonTouched(_ sender: Any) {

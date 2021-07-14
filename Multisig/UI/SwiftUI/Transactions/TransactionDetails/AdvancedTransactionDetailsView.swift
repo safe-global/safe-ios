@@ -41,7 +41,7 @@ struct AdvancedTransactionDetailsView: View {
         }
         .navigationBarTitle("Advanced", displayMode: .inline)
         .onAppear {
-            self.trackEvent(.transactionsDetailsAdvanced)
+            Tracker.trackEvent(.transactionsDetailsAdvanced)
         }
     }
 }

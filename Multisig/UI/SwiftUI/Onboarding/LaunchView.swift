@@ -67,7 +67,7 @@ struct LaunchView: View {
                         self.showTerms = true
                         // overlay view is loaded immediately
                         // so we can not track on view appear
-                        self.trackEvent(.launchTems)
+                        Tracker.trackEvent(.launchTems)
                     }
                         .buttonStyle(GNOFilledButtonStyle())
                 }
@@ -82,7 +82,7 @@ struct LaunchView: View {
         })
         .edgesIgnoringSafeArea(.all)
         .onAppear {
-            self.trackEvent(.launch)
+            Tracker.trackEvent(.launch)
         }
     }
 }

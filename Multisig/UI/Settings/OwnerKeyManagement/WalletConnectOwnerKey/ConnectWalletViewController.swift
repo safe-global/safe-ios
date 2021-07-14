@@ -39,7 +39,7 @@ class ConnectWalletViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.walletConnectKeyOptions)
+        Tracker.trackEvent(.walletConnectKeyOptions)
     }
 
     @objc private func walletConnectSessionCreated(_ notification: Notification) {

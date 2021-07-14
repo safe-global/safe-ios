@@ -63,7 +63,7 @@ class AdvancedSafeSettingsViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.settingsSafeAdvanced)
+        Tracker.trackEvent(.settingsSafeAdvanced)
     }
 
     private func buildSections() {

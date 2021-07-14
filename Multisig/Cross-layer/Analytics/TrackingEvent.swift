@@ -8,7 +8,7 @@
 
 import Foundation
 
-fileprivate enum TrackingUserProperty: String, UserProperty {
+enum TrackingUserProperty: String, UserProperty {
     case numSafes = "num_safes" // string, number of user safes, "0" on fresh install
     case pushInfo = "push_info" // string: ["unknown", "disabled", "enabled"]
     case numKeysImported = "num_keys_imported" // string, number of keys imported, "0" on fresh install
@@ -17,42 +17,6 @@ fileprivate enum TrackingUserProperty: String, UserProperty {
     case passcodeIsSet = "passcode_is_set" // string, "true" or "false" depending on if app passcode is set
     case walletConnectForDappsEnabled = "wc_for_dapps_enabled" // string, "true" or "false"
     case walletConnectForKeysEnabled = "wc_for_keys_enabled" // string, "true" or "false"
-}
-
-extension Tracker {
-    func setSafeCount(_ count: Int) {
-        setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
-    }
-
-    func setPushInfo(_ status: String) {
-        setUserProperty(status, for: TrackingUserProperty.pushInfo)
-    }
-
-    func setNumKeys(_ count: Int, type: KeyType) {
-        switch type {
-        case .deviceGenerated:
-            setUserProperty("\(count)", for: TrackingUserProperty.numKeysGenerated)
-        case .deviceImported:
-            setUserProperty("\(count)", for: TrackingUserProperty.numKeysImported)
-        case .walletConnect:
-            setUserProperty("\(count)", for: TrackingUserProperty.numKeysWalletConnect)
-        }
-    }
-
-    func setPasscodeIsSet(to status: Bool) {
-        let property = status ? "true" : "false"
-        setUserProperty(property, for: TrackingUserProperty.passcodeIsSet)
-    }
-
-    func setWalletConnectForDappsEnabled(_ enabled: Bool) {
-        let property = enabled ? "true" : "false"
-        setUserProperty(property, for: TrackingUserProperty.walletConnectForDappsEnabled)
-    }
-
-    func setWalletConnectForKeysEnabled(_ enabled: Bool) {
-        let property = enabled ? "true" : "false"
-        setUserProperty(property, for: TrackingUserProperty.walletConnectForKeysEnabled)
-    }
 }
 
 enum TrackingPushState: String {

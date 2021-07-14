@@ -34,7 +34,7 @@ class MultiSendListTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.transactionDetailsActionList)
+        Tracker.trackEvent(.transactionDetailsActionList)
     }
 
     // MARK: - Table view data source

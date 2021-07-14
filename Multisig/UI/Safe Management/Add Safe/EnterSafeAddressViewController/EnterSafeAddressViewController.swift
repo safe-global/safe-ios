@@ -49,7 +49,7 @@ class EnterSafeAddressViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.safeAddAddress)
+        Tracker.trackEvent(.safeAddAddress)
     }
 
     @IBAction private func didTapOpenWebsiteButton(_ sender: Any) {
