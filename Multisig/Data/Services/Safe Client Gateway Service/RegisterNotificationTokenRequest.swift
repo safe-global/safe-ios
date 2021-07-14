@@ -10,11 +10,19 @@ import Foundation
 import Web3
 
 struct RegisterNotificationTokenRequest: JSONRequest {
-    var deviceData: DeviceData
+    //var deviceData: DeviceData
+    var uuid: String
+    var cloudMessagingToken: String
+    var buildNumber: String
+    var bundle: String
+    let deviceType: String = "IOS"
+    var version: String
+    var timestamp: String
+
     var safeRegistrations: [SafeRegistration]
 
     var httpMethod: String { return "POST" }
-    var urlPath: String { return "/api/v1/register/notifications/" }
+    var urlPath: String { return "/v1/register/notifications/" }
 
     typealias ResponseType = EmptyResponse
 
@@ -26,22 +34,22 @@ struct RegisterNotificationTokenRequest: JSONRequest {
 extension SafeClientGatewayService {
     @discardableResult
     func registerNotification(
-        deviceData: DeviceData,
+        uuid: String,
+        cloudMessagingToken: String,
+        buildNumber: String,
+        bundle: String,
+        version: String,
+        timestamp: String,
         safeRegistrations: [SafeRegistration],
         completion: @escaping (Result<RegisterNotificationTokenRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request:RegisterNotificationTokenRequest(deviceData: deviceData,
+        asyncExecute(request:RegisterNotificationTokenRequest(uuid: uuid,
+                                                              cloudMessagingToken: cloudMessagingToken,
+                                                              buildNumber: buildNumber,
+                                                              bundle: bundle,
+                                                              version: version,
+                                                              timestamp: timestamp,
                                                               safeRegistrations: safeRegistrations), completion: completion)
     }
-}
-
-struct DeviceData: Encodable {
-    var uuid: String
-    var cloudMessagingToken: String
-    var buildNumber: String
-    var bundle: String
-    var deviceType: String = "IOS"
-    var version: String
-    var timestamp: String?
 }
 
 struct SafeRegistration: Encodable {

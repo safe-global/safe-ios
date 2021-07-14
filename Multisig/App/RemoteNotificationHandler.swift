@@ -24,8 +24,6 @@ class RemoteNotificationHandler {
     @UserDefault(key: "io.gnosis.multisig.pushToken")
     private var token: String?
 
-    private var queue = DispatchQueue(label: "RemoteNotificationHandlerQueue")
-
     func setUpMessaging(delegate: MessagingDelegate & UNUserNotificationCenterDelegate) {
         logDebug("Setting up notification handling")
         Messaging.messaging().delegate = delegate
@@ -203,11 +201,9 @@ class RemoteNotificationHandler {
     }
 
     private func unregister(address: Address, networkId: String) {
-        queue.async { [unowned self] in
-            App.shared.clientGatewayService.unregister(deviceID: self.storedDeviceID!,
-                                                  address: address,
-                                                  networkId: networkId)
-        }
+        App.shared.clientGatewayService.unregister(deviceID: self.storedDeviceID!,
+                                              address: address,
+                                              networkId: networkId)
     }
 
     private func registerAll() {
@@ -216,29 +212,28 @@ class RemoteNotificationHandler {
             assertionFailure("Programmer error: missing device ID")
             return
         }
-        queue.async {
-            do {
-                let appConfig = App.configuration.app
-                let timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
-                let deviceData = DeviceData(uuid: deviceID,
-                                            cloudMessagingToken: token,
-                                            buildNumber: appConfig.buildVersion,
-                                            bundle: appConfig.bundleIdentifier,
-                                            version: appConfig.marketingVersion,
-                                            timestamp: timestamp)
 
-                var safeRegistration: [SafeRegistration] = []
-                for networkSafes in Network.networkSafes() {
-                    let safes = networkSafes.safes.compactMap { $0.address }.compactMap { Address($0) }.map { $0.checksummed }.sorted()
-                    let signResult = try Self.sign(safes: safes, deviceID: deviceID, token: token, timestamp: timestamp)
-                    safeRegistration.append(SafeRegistration(chainId: networkSafes.network.chainId!, safes: safes,
-                                                             signatures: signResult!.signatures))
-                }
+        do {
+            let appConfig = App.configuration.app
+            let timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
 
-                App.shared.clientGatewayService.registerNotification(deviceData: deviceData, safeRegistrations: safeRegistration) { _ in }
-            } catch {
-                logError("Failed to register device", error)
+            var safeRegistration: [SafeRegistration] = []
+            for networkSafes in Network.networkSafes() {
+                let safes = networkSafes.safes.compactMap { $0.address }.compactMap { Address($0) }.map { $0.checksummed }.sorted()
+                let signResult = try Self.sign(safes: safes, deviceID: deviceID, token: token, timestamp: timestamp)
+                safeRegistration.append(SafeRegistration(chainId: networkSafes.network.chainId!, safes: safes,
+                                                         signatures: signResult!.signatures))
             }
+
+            App.shared.clientGatewayService.registerNotification(uuid: deviceID,
+                                                                 cloudMessagingToken: token,
+                                                                 buildNumber: appConfig.buildVersion,
+                                                                 bundle: appConfig.bundleIdentifier,
+                                                                 version: appConfig.marketingVersion,
+                                                                 timestamp: timestamp,
+                                                                 safeRegistrations: safeRegistration) { _ in }
+        } catch {
+            logError("Failed to register device", error)
         }
     }
 
