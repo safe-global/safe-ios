@@ -434,7 +434,6 @@
 		550FB1B426691D9500C13D54 /* ExternalLinkHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B026691D9400C13D54 /* ExternalLinkHeaderFooterView.swift */; };
 		550FB1B526691D9500C13D54 /* DetailedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB1B126691D9500C13D54 /* DetailedCell.xib */; };
 		550FB1B626691D9500C13D54 /* DetailedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B226691D9500C13D54 /* DetailedCell.swift */; };
-		550FB1BB26691DB900C13D54 /* LatestTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B826691DB800C13D54 /* LatestTransactionRequest.swift */; };
 		550FB1C226691E1500C13D54 /* WalletConnectQRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */; };
 		550FB1C326691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */; };
 		550FB1C426691E1500C13D54 /* ConnectWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1C026691E1500C13D54 /* ConnectWalletViewController.swift */; };
@@ -1031,7 +1030,6 @@
 		550FB1B026691D9400C13D54 /* ExternalLinkHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalLinkHeaderFooterView.swift; sourceTree = "<group>"; };
 		550FB1B126691D9500C13D54 /* DetailedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailedCell.xib; sourceTree = "<group>"; };
 		550FB1B226691D9500C13D54 /* DetailedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedCell.swift; sourceTree = "<group>"; };
-		550FB1B826691DB800C13D54 /* LatestTransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LatestTransactionRequest.swift; sourceTree = "<group>"; };
 		550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletConnectQRCodeViewController.xib; sourceTree = "<group>"; };
 		550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingConnectOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		550FB1C026691E1500C13D54 /* ConnectWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectWalletViewController.swift; sourceTree = "<group>"; };
@@ -2005,7 +2003,6 @@
 		0AB34D6924B71E4F00A43988 /* Safe Transaction Service */ = {
 			isa = PBXGroup;
 			children = (
-				550FB1B826691DB800C13D54 /* LatestTransactionRequest.swift */,
 				048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */,
 				04769167246431D000D73D8B /* SafeTransactionService.swift */,
 				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
@@ -3169,7 +3166,6 @@
 				550FB18E26691C8F00C13D54 /* WCRequestsHandler.swift in Sources */,
 				04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */,
 				0AF2733F24DAC9FE007E4012 /* RemoteNotificationHandler.swift in Sources */,
-				550FB1BB26691DB900C13D54 /* LatestTransactionRequest.swift in Sources */,
 				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
 				0A802B8124E413450001790F /* HTTPClientError.swift in Sources */,
