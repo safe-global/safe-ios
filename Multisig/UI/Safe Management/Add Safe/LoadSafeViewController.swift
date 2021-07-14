@@ -28,7 +28,7 @@ class LoadSafeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let event = trackingEvent {
-            trackEvent(event)
+            Tracker.trackEvent(event)
         }
     }
 

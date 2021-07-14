@@ -63,7 +63,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.ownerEnterSeed)
+        Tracker.trackEvent(.ownerEnterSeed)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

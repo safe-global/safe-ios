@@ -90,7 +90,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.assetsCoins)
+        Tracker.trackEvent(.assetsCoins)
     }
 
     override func reloadData() {
@@ -190,7 +190,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
             recreateSectionsWithCurrentItems()
 
-            trackEvent(.bannerImportOwnerKeySkipped)
+            Tracker.trackEvent(.bannerImportOwnerKeySkipped)
         }
         cell.onImport = { [unowned self] in
             importKeyBannerWasShown = true
@@ -201,7 +201,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                 self.dismiss(animated: true, completion: nil)
             }
             present(vc, animated: true)
-            trackEvent(.bannerImportOwnerKeyAdd)
+            Tracker.trackEvent(.bannerImportOwnerKeyAdd)
         }
         return cell
     }

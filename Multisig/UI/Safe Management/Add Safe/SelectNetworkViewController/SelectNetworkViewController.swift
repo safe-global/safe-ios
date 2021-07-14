@@ -43,7 +43,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.networkSelect)
+        Tracker.trackEvent(.networkSelect)
     }
 
     override func reloadData() {

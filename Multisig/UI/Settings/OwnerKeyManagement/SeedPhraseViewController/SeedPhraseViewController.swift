@@ -24,7 +24,7 @@ class SeedPhraseViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.exportSeed)
+        Tracker.trackEvent(.exportSeed)
     }
 
 }

@@ -76,7 +76,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             do {
                 App.shared.snackbar.show(message: "Creating WalletConnect session. This might take some time.")
                 try WalletConnectServerController.shared.connect(url: potentialWCUrl)
-                Tracker.shared.track(event: TrackingEvent.dappConnectedWithPasteboardValue)
+                Tracker.trackEvent(.dappConnectedWithPasteboardValue)
                 // if setting nil it will crash
                 Pasteboard.string = ""
             } catch {
@@ -140,7 +140,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         try? WalletConnectServerController.shared.connect(url: wcURL)
-        Tracker.shared.track(event: TrackingEvent.dappConnectedWithUniversalLink)
+        Tracker.trackEvent(.dappConnectedWithUniversalLink)
     }
 
     // MARK: - Window Management

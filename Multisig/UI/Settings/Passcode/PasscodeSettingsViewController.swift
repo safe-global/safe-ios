@@ -59,7 +59,7 @@ class PasscodeSettingsViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.settingsAppPasscode)
+        Tracker.trackEvent(.settingsAppPasscode)
     }
 
     // MARK: - Actions

@@ -31,7 +31,7 @@ class PrivateKeyViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.exportKey)
+        Tracker.trackEvent(.exportKey)
     }
 
 }

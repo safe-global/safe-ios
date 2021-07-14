@@ -39,7 +39,7 @@ class SafeLoadedViewController: UIViewController {
     }
 
     @IBAction func importOwnerButtonTouched(_ sender: Any) {
-        Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerAdd)
+        Tracker.trackEvent(.userOnboardingOwnerAdd)
         let vc = ViewControllerFactory.addOwnerViewController { [unowned self] in
             self.dismiss(animated: true) {
                 self.completion()
@@ -49,7 +49,7 @@ class SafeLoadedViewController: UIViewController {
     }
 
     @IBAction func skipButtonTouched(_ sender: Any) {
-        Tracker.shared.track(event: TrackingEvent.userOnboardingOwnerSkip)
+        Tracker.trackEvent(.userOnboardingOwnerSkip)
         completion()
     }
 }

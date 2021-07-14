@@ -54,7 +54,7 @@ class EnterENSNameViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.safeAddEns)
+        Tracker.trackEvent(.safeAddEns)
     }
 
     @objc private func didTapConfirmButton() {

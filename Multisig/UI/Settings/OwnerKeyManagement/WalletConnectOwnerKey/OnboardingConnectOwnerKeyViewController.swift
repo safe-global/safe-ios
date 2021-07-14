@@ -44,7 +44,7 @@ class OnboardingConnectOwnerKeyViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.connectOwnerOnboarding)
+        Tracker.trackEvent(.connectOwnerOnboarding)
     }
 
     @objc private func didTapNextButton(_ sender: Any) {

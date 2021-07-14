@@ -52,8 +52,8 @@ class AuthenticationController {
 
         NotificationCenter.default.post(name: .passcodeCreated, object: nil)
 
-        Tracker.shared.setPasscodeIsSet(to: true)
-        Tracker.shared.track(event: TrackingEvent.userPasscodeEnabled)
+        Tracker.setPasscodeIsSet(to: true)
+        Tracker.trackEvent(.userPasscodeEnabled)
     }
 
     /// Changes the passcode to a new value.
@@ -81,8 +81,8 @@ class AuthenticationController {
 
         NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
 
-        Tracker.shared.setPasscodeIsSet(to: false)
-        Tracker.shared.track(event: trackingEvent)
+        Tracker.setPasscodeIsSet(to: false)
+        Tracker.trackEvent(trackingEvent)
     }
 
     func deleteAllData() throws {

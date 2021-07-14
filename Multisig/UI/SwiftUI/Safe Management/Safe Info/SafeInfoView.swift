@@ -50,7 +50,7 @@ struct SafeInfoContentView: View {
         }
         .multilineTextAlignment(.center)
         .onAppear {
-            self.trackEvent(.safeReceive)
+            Tracker.trackEvent(.safeReceive)
         }
     }
 

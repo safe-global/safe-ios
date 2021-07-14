@@ -54,7 +54,7 @@ class WCEditParametersViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.walletConnectEditParameters)
+        Tracker.trackEvent(.walletConnectEditParameters)
     }
 
     @objc private func save() {

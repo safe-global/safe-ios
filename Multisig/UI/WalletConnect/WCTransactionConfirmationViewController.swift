@@ -109,7 +109,7 @@ class WCTransactionConfirmationViewController: UIViewController {
                                                                    sender: AddressString(keyInfo.address),
                                                                    signature: signature,
                                                                    networkId: safe.network!.chainId!)
-            trackEvent(trackingEvent)
+            Tracker.trackEvent(trackingEvent)
 
             DispatchQueue.main.async { [weak self] in
                 // dismiss WCTransactionConfirmationViewController
@@ -174,7 +174,7 @@ class WCTransactionConfirmationViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.walletConnectIncomingTransaction)
+        Tracker.trackEvent(.walletConnectIncomingTransaction)
     }
 
     override func viewWillAppear(_ animated: Bool) {

@@ -37,7 +37,7 @@ class EditOwnerKeyViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.editOwnerKey)
+        Tracker.trackEvent(.editOwnerKey)
     }
 
     @objc private func didTapSaveButton() {

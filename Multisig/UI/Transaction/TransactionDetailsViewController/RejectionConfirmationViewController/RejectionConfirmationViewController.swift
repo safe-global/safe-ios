@@ -52,7 +52,7 @@ class RejectionConfirmationViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.transactionDetailsRejectionConfirmation)
+        Tracker.trackEvent(.transactionDetailsRejectionConfirmation)
     }
 
     @objc private func didRemoveOwner(_ notification: Notification) {
@@ -158,9 +158,9 @@ class RejectionConfirmationViewController: UIViewController {
 
                         switch keyType {
                         case .deviceGenerated, .deviceImported:
-                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTransactionRejected)
+                            Tracker.trackEvent(.transactionDetailsTransactionRejected)
                         case .walletConnect:
-                            Tracker.shared.track(event: TrackingEvent.transactionDetailsTxRejectedWC)
+                            Tracker.trackEvent(.transactionDetailsTxRejectedWC)
                         }
 
                         App.shared.snackbar.show(message: "Rejection successfully submitted")

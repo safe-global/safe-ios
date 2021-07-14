@@ -35,7 +35,7 @@ final class SwitchSafesViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.safeSwitch)
+        Tracker.trackEvent(.safeSwitch)
     }
 
     @objc private func reloadData() {

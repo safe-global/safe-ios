@@ -27,7 +27,7 @@ extension AppSettings {
     @AppSetting(\.trackingEnabled)
     static var trackingEnabled: Bool {
         didSet {
-            Tracker.shared.setTrackingEnabled(trackingEnabled)
+            Tracker.setTrackingEnabled(trackingEnabled)
         }
     }
 

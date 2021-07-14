@@ -67,7 +67,7 @@ class KeyPickerController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.ownerSelectAccount)
+        Tracker.trackEvent(.ownerSelectAccount)
     }
 
     @objc func didTapImport() {

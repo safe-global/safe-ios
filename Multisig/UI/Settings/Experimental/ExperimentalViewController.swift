@@ -13,7 +13,7 @@ class ExperimentalViewController: UITableViewController {
     var walletConnectEnabled: Bool? {
         didSet {
             tableView.reloadData()
-            Tracker.shared.setWalletConnectForDappsEnabled(walletConnectEnabled ?? false)
+            Tracker.setWalletConnectForDappsEnabled(walletConnectEnabled ?? false)
             NotificationCenter.default.post(name: .updatedExperemental, object: nil)
         }
     }
@@ -22,7 +22,7 @@ class ExperimentalViewController: UITableViewController {
     var walletConnectOwnerKeyEnabled: Bool? {
         didSet {
             tableView.reloadData()
-            Tracker.shared.setWalletConnectForKeysEnabled(walletConnectOwnerKeyEnabled ?? false)
+            Tracker.setWalletConnectForKeysEnabled(walletConnectOwnerKeyEnabled ?? false)
             NotificationCenter.default.post(name: .updatedExperemental, object: nil)
         }
     }
@@ -62,7 +62,7 @@ class ExperimentalViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.experimental)
+        Tracker.trackEvent(.experimental)
     }
 
     // MARK: - Table view data source

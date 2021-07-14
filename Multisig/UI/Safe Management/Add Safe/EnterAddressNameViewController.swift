@@ -53,7 +53,7 @@ class EnterAddressNameViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(trackingEvent)
+        Tracker.trackEvent(trackingEvent)
     }
 
     @objc private func didTapNextButton() {

@@ -32,7 +32,7 @@ class ChooseOwnerKeyViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.chooseOwner)
+        Tracker.trackEvent(.chooseOwner)
     }
 
     override func viewDidLoad() {

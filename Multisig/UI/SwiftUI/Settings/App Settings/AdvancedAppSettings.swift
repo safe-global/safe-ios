@@ -45,7 +45,7 @@ struct AdvancedAppSettings: View {
             }
         }
         .onAppear {
-            self.trackEvent(.settingsAppAdvanced)
+            Tracker.trackEvent(.settingsAppAdvanced)
         }
         .navigationBarTitle("Advanced", displayMode: .inline)
     }

@@ -71,7 +71,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let trackingEvent = trackingEvent {
-            trackEvent(trackingEvent)
+            Tracker.trackEvent(trackingEvent)
         }
     }
 

@@ -88,7 +88,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.settingsSafe)
+        Tracker.trackEvent(.settingsSafe)
     }
 
     override func reloadData() {

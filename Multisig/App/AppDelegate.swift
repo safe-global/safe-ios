@@ -15,11 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         App.shared.firebaseConfig.setUp()
 
         #if DEBUG
-        Tracker.shared.append(handler: ConsoleTracker())
+        Tracker.append(handler: ConsoleTracker())
         #endif
-        Tracker.shared.append(handler: FirebaseTrackingHandler())
+        Tracker.append(handler: FirebaseTrackingHandler())
 
-        Tracker.shared.setTrackingEnabled(AppSettings.trackingEnabled)
+        Tracker.setTrackingEnabled(AppSettings.trackingEnabled)
 
         AppSettings.saveCurrentRunVersionNumber()
 
@@ -33,11 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         App.shared.auth.migrateUsePasscodeForExportingKey()
 
         // The requirement is to set num_safes property to "0" when there are no Safes
-        Tracker.shared.setSafeCount(Safe.count)
-        Tracker.shared.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
-        Tracker.shared.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
-        Tracker.shared.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
-        Tracker.shared.setPasscodeIsSet(to: App.shared.auth.isPasscodeSet)
+        Tracker.setSafeCount(Safe.count)
+        Tracker.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
+        Tracker.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
+        Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
+        Tracker.setPasscodeIsSet(to: App.shared.auth.isPasscodeSet)
 
         Safe.updateCachedNames()
 

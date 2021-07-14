@@ -31,7 +31,7 @@ class SelectFiatViewController: LoadableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.settingsAppEditFiat)
+        Tracker.trackEvent(.settingsAppEditFiat)
     }
 
     override func reloadData() {

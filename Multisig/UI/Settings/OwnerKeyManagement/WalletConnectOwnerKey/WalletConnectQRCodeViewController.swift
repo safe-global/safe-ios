@@ -38,6 +38,6 @@ class WalletConnectQRCodeViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        trackEvent(.walletConnectKeyQR)
+        Tracker.trackEvent(.walletConnectKeyQR)
     }
 }
