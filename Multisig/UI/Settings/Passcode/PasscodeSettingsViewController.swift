@@ -165,7 +165,6 @@ class PasscodeSettingsViewController: UITableViewController {
                 completion()
             } else if success {
                 App.shared.auth.activateBiometrics { result in
-                    
                     if hasFailedBecauseBiometryNotEnabled(result) {
                         showBiometrySettings(presenter: nav!, completion: completion)
                     } else {
