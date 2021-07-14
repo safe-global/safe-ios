@@ -167,7 +167,7 @@ class AuthenticationController {
         evaluate(policy: .deviceOwnerAuthenticationWithBiometrics,
                  reason: "Enable login with biometrics",
                  showsFallback: false,
-                 errorConverter: GSError.BiometryActivationError.init(reason:)) { result in
+                 errorConverter: GSError.BiometryActivationError.init(underlyingError:)) { result in
 
             switch result {
             case .success:
@@ -186,7 +186,7 @@ class AuthenticationController {
         evaluate(policy: .deviceOwnerAuthentication,
                  reason: "Login with biometrics",
                  showsFallback: true,
-                 errorConverter: GSError.BiometryAuthenticationError.init(reason:),
+                 errorConverter: GSError.BiometryAuthenticationError.init(underlyingError:),
                  completion: completion)
     }
 
@@ -194,7 +194,7 @@ class AuthenticationController {
         policy: LAPolicy,
         reason: String,
         showsFallback: Bool,
-        errorConverter: @escaping (_ reason: String) -> DetailedLocalizedError,
+        errorConverter: @escaping (_ error: Error) -> DetailedLocalizedError,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         let context = LAContext()
@@ -205,7 +205,7 @@ class AuthenticationController {
         switch canEvaluate {
 
         case .failure(let error):
-            let gsError = errorConverter(error.localizedDescription)
+            let gsError = errorConverter(error)
             App.shared.snackbar.show(error: gsError)
             completion(.failure(gsError))
 
@@ -217,7 +217,7 @@ class AuthenticationController {
                     case .success:
                         completion(.success(()))
                     case .failure(let error):
-                        let gsError = errorConverter(error.localizedDescription)
+                        let gsError = errorConverter(error)
                         App.shared.snackbar.show(error: gsError)
                         completion(.failure(gsError))
                     }
