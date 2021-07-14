@@ -438,7 +438,8 @@ enum GSError {
 
     struct BiometryActivationError: DetailedLocalizedError {
         let description = "Failed to enable biometry"
-        let reason: String
+        var reason: String { underlyingError.localizedDescription }
+        let underlyingError: Error
         let howToFix = "Please try again"
         let domain = iOSErrorDomain
         let code = 1313
@@ -447,7 +448,8 @@ enum GSError {
 
     struct BiometryAuthenticationError: DetailedLocalizedError {
         let description = "Failed to login with biometry"
-        let reason: String
+        var reason: String { underlyingError.localizedDescription }
+        let underlyingError: Error
         let howToFix = "Please try again"
         let domain = iOSErrorDomain
         let code = 1314

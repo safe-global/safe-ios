@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class PasscodeSettingsViewController: UITableViewController {
 
@@ -153,21 +154,86 @@ class PasscodeSettingsViewController: UITableViewController {
 
     private func toggleBiometrics() {
         withPasscodeAuthentication(for: "Login with biometrics") { [unowned self] success, nav, finish in
-            if success && AppSettings.passcodeOptions.contains(.useBiometry) {
-                AppSettings.passcodeOptions.remove(.useBiometry)
-                App.shared.snackbar.show(message: "Biometrics disabled.")
-                finish()
-                reloadData()
-            } else if success {
-                App.shared.auth.activateBiometrics { _ in
-                    finish()
-                    reloadData()
-                }
-            } else {
+            let completion = { [unowned self] in
                 finish()
                 reloadData()
             }
+
+            if success && AppSettings.passcodeOptions.contains(.useBiometry) {
+                AppSettings.passcodeOptions.remove(.useBiometry)
+                App.shared.snackbar.show(message: "Biometrics disabled.")
+                completion()
+            } else if success {
+                App.shared.auth.activateBiometrics { result in
+                    
+                    if hasFailedBecauseBiometryNotEnabled(result) {
+                        showBiometrySettings(presenter: nav!, completion: completion)
+                    } else {
+                        completion()
+                    }
+                }
+            } else {
+                completion()
+            }
         }
+    }
+
+    private func hasFailedBecauseBiometryNotEnabled(_ result: Result<Void, Error>) -> Bool {
+        let FAILED_BECAUSE_BIOMETRY_NOT_ENABLED = true
+        let FAILED_FOR_OTHER_REASON = false
+
+        switch result {
+        case .success:
+            break
+
+        case .failure(let error):
+
+            switch error {
+            case let gsError as GSError.BiometryActivationError:
+
+                let underlyingError = gsError.underlyingError as NSError
+
+                guard underlyingError.domain == LAErrorDomain else {
+                    return FAILED_FOR_OTHER_REASON
+                }
+
+                let laError = LAError(_nsError: underlyingError)
+
+                switch laError.code {
+                case .biometryNotEnrolled, .passcodeNotSet:
+                    return FAILED_BECAUSE_BIOMETRY_NOT_ENABLED
+
+                default:
+                    break
+                }
+            default:
+                break
+            }
+        }
+        return FAILED_FOR_OTHER_REASON
+    }
+
+    private func showBiometrySettings(presenter: UIViewController, completion: @escaping () -> Void) {
+        let alertVC = UIAlertController(title: nil,
+                                        message: "To activate biometry, navigate to Settings.",
+                                        preferredStyle: .alert)
+
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            completion()
+        })
+        let settings = UIAlertAction(title: "Settings", style: .default) { _ in
+            // opens device settings
+            let url = URL(string: UIApplication.openSettingsURLString)!
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+
+            completion()
+        }
+        alertVC.addAction(cancel)
+        alertVC.addAction(settings)
+
+        presenter.present(alertVC, animated: true, completion: nil)
     }
 
     /// Requests passcode entry from the user and returns whether the entry was successful
