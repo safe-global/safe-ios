@@ -165,37 +165,6 @@ class RemoteNotificationHandler {
         Tracker.shared.setPushInfo(status.trackingStatus.rawValue)
     }
 
-    private func register(addresses: [Address]) {
-        guard let token = token else { return }
-        guard let deviceID = storedDeviceID?.lowercased() else {
-            assertionFailure("Programmer error: missing device ID")
-            return
-        }
-        queue.async {
-            do {
-                let safes = addresses.map { $0.checksummed }.sorted()
-                let signResult = try Self.sign(safes: safes, deviceID: deviceID, token: token)
-                let appConfig = App.configuration.app
-
-                let request = RegisterNotificationTokenRequest(
-                    uuid: deviceID,
-                    safes: safes,
-                    cloudMessagingToken: token,
-                    bundle: appConfig.bundleIdentifier,
-                    version: appConfig.marketingVersion,
-                    buildNumber: appConfig.buildVersion,
-                    timestamp: signResult?.timestamp,
-                    signatures: signResult?.signatures)
-
-                // will be changed with new registration request
-                guard let networkId = (try? Safe.getSelected())?.network?.chainId! else { return }
-                try SafeTransactionService.execute(request: request, networkId: networkId)
-            } catch {
-                logError("Failed to register device", error)
-            }
-        }
-    }
-
     /// Constructs the hash for the registration request and signs with all available
     /// private keys stored.
     ///
@@ -206,7 +175,7 @@ class RemoteNotificationHandler {
     ///   - timestamp: Unix timestamp or nil. If nil, the current time will be used.
     /// - Throws: Error in case of database failures, or private key signing errors
     /// - Returns: If there are any keys, then returns preimage of the hash, the hash that was signed, timestamp used, and array of signatures corresponding to the signing keys.
-    static func sign(safes: [String], deviceID: String, token: String, timestamp: String? = nil) throws -> (preimage: String, hash: String, timestamp: String, signatures: [String])? {
+    static func sign(safes: [String], deviceID: String, token: String, timestamp: String) throws -> (preimage: String, hash: String, signatures: [String])? {
         // sign the registration data by each private key.
 
         let privateKeys = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated])
@@ -215,8 +184,6 @@ class RemoteNotificationHandler {
         guard !privateKeys.isEmpty else {
             return nil
         }
-
-        let timestamp = timestamp ?? String(format: "%.0f", Date().timeIntervalSince1970)
 
         let hashPreimage = [
             "gnosis-safe",
@@ -232,24 +199,47 @@ class RemoteNotificationHandler {
             let sig = try key.sign(hash: hash)
             return sig.hexadecimal
         }
-        return (hashPreimage, hash.toHexStringWithPrefix(), timestamp, signatures)
+        return (hashPreimage, hash.toHexStringWithPrefix(), signatures)
     }
 
     private func unregister(address: Address, networkId: String) {
         queue.async { [unowned self] in
-            do {
-                try SafeTransactionService.unregister(deviceID: self.storedDeviceID!,
-                                                      address: address,
-                                                      networkId: networkId)
-            } catch {
-                logError("Failed to unregister device", error)
-            }
+            App.shared.clientGatewayService.unregister(deviceID: self.storedDeviceID!,
+                                                  address: address,
+                                                  networkId: networkId)
         }
     }
 
     private func registerAll() {
-        let addresses = Safe.all.compactMap { $0.address }.compactMap { Address($0) }
-        register(addresses: addresses)
+        guard let token = token else { return }
+        guard let deviceID = storedDeviceID?.lowercased() else {
+            assertionFailure("Programmer error: missing device ID")
+            return
+        }
+        queue.async {
+            do {
+                let appConfig = App.configuration.app
+                let timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
+                let deviceData = DeviceData(uuid: deviceID,
+                                            cloudMessagingToken: token,
+                                            buildNumber: appConfig.buildVersion,
+                                            bundle: appConfig.bundleIdentifier,
+                                            version: appConfig.marketingVersion,
+                                            timestamp: timestamp)
+
+                var safeRegistration: [SafeRegistration] = []
+                for networkSafes in Network.networkSafes() {
+                    let safes = networkSafes.safes.compactMap { $0.address }.compactMap { Address($0) }.map { $0.checksummed }.sorted()
+                    let signResult = try Self.sign(safes: safes, deviceID: deviceID, token: token, timestamp: timestamp)
+                    safeRegistration.append(SafeRegistration(chainId: networkSafes.network.chainId!, safes: safes,
+                                                             signatures: signResult!.signatures))
+                }
+
+                App.shared.clientGatewayService.registerNotification(deviceData: deviceData, safeRegistrations: safeRegistration) { _ in }
+            } catch {
+                logError("Failed to register device", error)
+            }
+        }
     }
 
     #warning("TODO: Update when push notifications payload is clear")

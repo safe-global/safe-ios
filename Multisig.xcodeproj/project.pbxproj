@@ -623,8 +623,8 @@
 		0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataClass.swift"; sourceTree = "<group>"; };
 		04769167246431D000D73D8B /* SafeTransactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionService.swift; sourceTree = "<group>"; };
 		0476916B24643A2A00D73D8B /* BrowseAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseAddressView.swift; sourceTree = "<group>"; };
-		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterNotificationTokenRequest.swift; path = "../Notification Service/RegisterNotificationTokenRequest.swift"; sourceTree = "<group>"; };
-		048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnregisterNotificationTokenRequest.swift; path = "../Notification Service/UnregisterNotificationTokenRequest.swift"; sourceTree = "<group>"; };
+		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
+		048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
 		048AA141260D053300382E24 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSafeNameViewController.swift; sourceTree = "<group>"; };
 		048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditSafeNameViewController.xib; sourceTree = "<group>"; };
@@ -1215,6 +1215,8 @@
 				04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */,
 				04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */,
 				048D72BC26832FD70095999C /* NetworkListRequest.swift */,
+				048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */,
+				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
 				0ABC898E2576B857005D555B /* SCGModels.swift */,
 			);
 			path = "Safe Client Gateway Service";
@@ -2002,9 +2004,7 @@
 			isa = PBXGroup;
 			children = (
 				550FB1B826691DB800C13D54 /* LatestTransactionRequest.swift */,
-				048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */,
 				04769167246431D000D73D8B /* SafeTransactionService.swift */,
-				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
 			);
 			path = "Safe Transaction Service";
 			sourceTree = "<group>";
