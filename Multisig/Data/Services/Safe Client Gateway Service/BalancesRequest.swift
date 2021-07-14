@@ -42,7 +42,13 @@ struct SCGBalance: Decodable {
     var fiatConversion: String
 }
 
-extension SafeClientGatewayService {
+protocol BalancesAPI {
+    func asyncBalances(safeAddress: Address,
+                       networkId: String,
+                       completion: @escaping (Result<SafeBalanceSummary, Error>) -> Void) -> URLSessionTask?
+}
+
+extension SafeClientGatewayService: BalancesAPI {
     func asyncBalances(safeAddress: Address,
                        networkId: String,
                        completion: @escaping (Result<SafeBalanceSummary, Error>) -> Void) -> URLSessionTask? {

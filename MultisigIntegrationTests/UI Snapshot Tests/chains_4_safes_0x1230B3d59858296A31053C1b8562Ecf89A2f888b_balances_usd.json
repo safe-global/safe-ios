@@ -1,0 +1,135 @@
+{
+  "fiatTotal": "15198.7892",
+  "items": [
+    {
+      "tokenInfo": {
+        "type": "NATIVE_TOKEN",
+        "address": "0x0000000000000000000000000000000000000000",
+        "decimals": 18,
+        "symbol": "ETH",
+        "name": "Ether",
+        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/ethereum-eth-logo.png"
+      },
+      "balance": "5178671897164424725",
+      "fiatBalance": "10079.168",
+      "fiatConversion": "1946.2843"
+    },
+    {
+      "tokenInfo": {
+        "type": "ERC20",
+        "address": "0xc778417E063141139Fce010982780140Aa0cD5Ab",
+        "decimals": 18,
+        "symbol": "WETH",
+        "name": "Wrapped Ether",
+        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xc778417E063141139Fce010982780140Aa0cD5Ab.png"
+      },
+      "balance": "2620791055600564800",
+      "fiatBalance": "5100.8046",
+      "fiatConversion": "1946.2843"
+    },
+    {
+      "tokenInfo": {
+        "type": "ERC20",
+        "address": "0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
+        "decimals": 18,
+        "symbol": "DAI",
+        "name": "Dai",
+        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa.png"
+      },
+      "balance": "1878594999999999999",
+      "fiatBalance": "10.9469",
+      "fiatConversion": "5.8272"
+    },
+    {
+      "tokenInfo": {
+        "type": "ERC20",
+        "address": "0xd6801a1DfFCd0a410336Ef88DeF4320D6DF1883e",
+        "decimals": 8,
+        "symbol": "cETH",
+        "name": "Compound Ether 📈",
+        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xd6801a1DfFCd0a410336Ef88DeF4320D6DF1883e.png"
+      },
+      "balance": "18365467",
+      "fiatBalance": "7.8696",
+      "fiatConversion": "42.8502"
+    },
+    {
+      "tokenInfo": {
+        "type": "ERC20",
+        "address": "0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02",
+        "decimals": 18,
+        "symbol": "USDT",
+        "name": "Compound USDT",
+        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02.png"
+      },
+      "balance": "210000000000000",
+      "fiatBalance": "0.0001",
+      "fiatConversion": "0.5133"
+    },
+    {
+      "tokenInfo": {
+        "type": "ERC20",
+        "address": "0xD81F7D71ed570D121A1Ef9e3Bc0fc2bd6192De46",
+        "decimals": 1,
+        "symbol": "BA-T",
+        "name": "BigAmount",
+        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD81F7D71ed570D121A1Ef9e3Bc0fc2bd6192De46.png"
+      },
+      "balance": "9999799766434159",
+      "fiatBalance": "0",
+      "fiatConversion": "0"
+    },
+    {
+      "tokenInfo": {
+        "type": "ERC20",
+        "address": "0x6D7F0754FFeb405d23C51CE938289d4835bE3b14",
+        "decimals": 8,
+        "symbol": "cDAI",
+        "name": "Compound Dai 📈",
+        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x6D7F0754FFeb405d23C51CE938289d4835bE3b14.png"
+      },
+      "balance": "4514962",
+      "fiatBalance": "0",
+      "fiatConversion": "0"
+    },
+    {
+      "tokenInfo": {
+        "type": "ERC20",
+        "address": "0x2fB298BDbeF468638AD6653FF8376575ea41e768",
+        "decimals": 8,
+        "symbol": "cUSDT",
+        "name": "Compound USDT",
+        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x2fB298BDbeF468638AD6653FF8376575ea41e768.png"
+      },
+      "balance": "499990000",
+      "fiatBalance": "0",
+      "fiatConversion": "0"
+    },
+    {
+      "tokenInfo": {
+        "type": "ERC20",
+        "address": "0x81D0FF4fE216fB6aC98ED609086A92d94dbfE666",
+        "decimals": 18,
+        "symbol": "LS",
+        "name": "LS",
+        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x81D0FF4fE216fB6aC98ED609086A92d94dbfE666.png"
+      },
+      "balance": "599330145000000000",
+      "fiatBalance": "0",
+      "fiatConversion": "0"
+    },
+    {
+      "tokenInfo": {
+        "type": "ERC20",
+        "address": "0x63704B63Ac04f3a173Dfe677C7e3D330c347CD88",
+        "decimals": 18,
+        "symbol": "AQER",
+        "name": "TEST AQER",
+        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x63704B63Ac04f3a173Dfe677C7e3D330c347CD88.png"
+      },
+      "balance": "1304793798999900000",
+      "fiatBalance": "0",
+      "fiatConversion": "0"
+    }
+  ]
+}

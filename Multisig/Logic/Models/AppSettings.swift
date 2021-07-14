@@ -63,6 +63,9 @@ extension AppSettings {
     @AppSetting(\.passcodeWasSetAtLeastOnce)
     static var passcodeWasSetAtLeastOnce: Bool
 
+    @UserDefault(key: "io.gnosis.multisig.importKeyBannerWasShown")
+    static var importKeyBannerWasShown: Bool?
+
     @AppSetting(\.lastMarketingVersion)
     static var lastMarketingVersion: String?
 

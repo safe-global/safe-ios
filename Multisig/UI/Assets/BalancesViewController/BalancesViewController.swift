@@ -17,8 +17,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         case total(text: String)
         case balances(items: [TokenBalance])
     }
-
-    var clientGatewayService = App.shared.clientGatewayService
+    var clientGatewayService: BalancesAPI = App.shared.clientGatewayService
 
     override var isEmpty: Bool { sections.isEmpty }
 
@@ -28,11 +27,13 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private let tableBackgroundColor: UIColor = .primaryBackground
 
-    @UserDefault(key: "io.gnosis.multisig.importKeyBannerWasShown")
-    private var importKeyBannerWasShown: Bool?
-
     private var shouldShowImportKeyBanner: Bool {
         importKeyBannerWasShown != true
+    }
+
+    private var importKeyBannerWasShown: Bool? {
+        get { AppSettings.importKeyBannerWasShown }
+        set { AppSettings.importKeyBannerWasShown = newValue }
     }
 
     private var shouldShowPasscodeBanner: Bool {
