@@ -19,17 +19,20 @@ class WCEditParametersViewController: UIViewController {
     private var minimalNonce: UInt256String!
     private var safeTxGas: UInt256String!
     private var onUpdate: ((UInt256String, UInt256String) -> Void)!
+    private var trackingParameters: [String: Any]!
 
     private let blockGasLimit = 15_000_000
 
     static func create(nonce: UInt256String,
                        minimalNonce: UInt256String,
                        safeTxGas: UInt256String,
+                       trackingParameters: [String: Any],
                        onUpdate: @escaping (UInt256String, UInt256String) -> Void) -> WCEditParametersViewController {
         let controller = WCEditParametersViewController(nibName: "WCEditParametersViewController", bundle: Bundle.main)
         controller.nonce = nonce
         controller.minimalNonce = minimalNonce
         controller.safeTxGas = safeTxGas
+        controller.trackingParameters = trackingParameters
         controller.onUpdate = onUpdate
         return controller
     }
@@ -54,7 +57,7 @@ class WCEditParametersViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.walletConnectEditParameters)
+        Tracker.trackEvent(.walletConnectEditParameters, parameters: trackingParameters)
     }
 
     @objc private func save() {

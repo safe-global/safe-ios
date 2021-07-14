@@ -142,11 +142,25 @@ protocol ScreenTrackingEvent: Trackable {}
 extension Tracker {
     static func trackEvent(_ event: TrackingEvent, parameters: [String: Any]? = nil) {
         var parameters = parameters ?? [String: Any]()
-        if event.rawValue.starts(with: "screen") && parameters["chain_id"] == nil {
+        if shouldAddChainIdParam(for: event) && parameters["chain_id"] == nil {
             let chainId = try? Safe.getSelected()?.network?.chainId ?? "none"
             parameters["chain_id"] = chainId
         }
         Tracker.shared.track(event: event, parameters: parameters)
+    }
+
+    private static func shouldAddChainIdParam(for event: TrackingEvent) -> Bool {
+        event.rawValue.starts(with: "screen") ||
+            [
+                TrackingEvent.transactionDetailsTransactionConfirmed,
+                .transactionDetailsTxConfirmedWC,
+                .transactionDetailsTransactionRejected,
+                .transactionDetailsTxRejectedWC,
+                .transactionDetailsTxExecutedWC,
+                .dappConnectedWithScanButton,
+                .dappConnectedWithUniversalLink,
+                .dappConnectedWithPasteboardValue
+            ].contains(event)
     }
 
     static func setSafeCount(_ count: Int) {
