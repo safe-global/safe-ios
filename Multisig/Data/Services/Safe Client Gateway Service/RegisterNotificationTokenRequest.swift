@@ -10,7 +10,6 @@ import Foundation
 import Web3
 
 struct RegisterNotificationTokenRequest: JSONRequest {
-    //var deviceData: DeviceData
     var uuid: String
     var cloudMessagingToken: String
     var buildNumber: String

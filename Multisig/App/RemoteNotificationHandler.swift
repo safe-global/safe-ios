@@ -179,7 +179,8 @@ class RemoteNotificationHandler {
         let privateKeys = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated])
             .compactMap { try $0.privateKey() }
 
-        guard !privateKeys.isEmpty else {
+        guard !privateKeys.isEmpty,
+              !safes.isEmpty else {
             return nil
         }
 
@@ -202,8 +203,8 @@ class RemoteNotificationHandler {
 
     private func unregister(address: Address, networkId: String) {
         App.shared.clientGatewayService.unregister(deviceID: self.storedDeviceID!,
-                                              address: address,
-                                              networkId: networkId)
+                                                   address: address,
+                                                   networkId: networkId)
     }
 
     private func registerAll() {
@@ -220,9 +221,13 @@ class RemoteNotificationHandler {
             var safeRegistration: [SafeRegistration] = []
             for networkSafes in Network.networkSafes() {
                 let safes = networkSafes.safes.compactMap { $0.address }.compactMap { Address($0) }.map { $0.checksummed }.sorted()
-                let signResult = try Self.sign(safes: safes, deviceID: deviceID, token: token, timestamp: timestamp)
+                guard let signResult = try Self.sign(safes: safes,
+                                                     deviceID: deviceID,
+                                                     token: token,
+                                                     timestamp: timestamp) else { continue }
+                
                 safeRegistration.append(SafeRegistration(chainId: networkSafes.network.chainId!, safes: safes,
-                                                         signatures: signResult!.signatures))
+                                                         signatures: signResult.signatures))
             }
 
             App.shared.clientGatewayService.registerNotification(uuid: deviceID,

@@ -12,9 +12,12 @@ struct UnregisterNotificationTokenRequest: JSONRequest {
     let deviceID: String
     let address: String
     let networkId: String
+    
     var httpMethod: String { return "DELETE" }
     var urlPath: String { return "/v1/chains/\(networkId)/notifications/devices/\(deviceID)/safes/\(address)/" }
+
     typealias ResponseType = EmptyResponse
+
     init(deviceID: String, address: Address, networkId: String) {
         self.address = address.checksummed
         self.deviceID = deviceID.lowercased()
