@@ -17,6 +17,7 @@ class EnterAddressNameViewController: UIViewController {
     var placeholder: String!
     var descriptionText: String!
     var completion: (String) -> Void = { _ in }
+    var trackingParameters: [String: Any]?
 
     private var nextButton: UIBarButtonItem!
     private var debounceTimer: Timer!
@@ -53,7 +54,7 @@ class EnterAddressNameViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(trackingEvent)
+        Tracker.trackEvent(trackingEvent, parameters: trackingParameters)
     }
 
     @objc private func didTapNextButton() {

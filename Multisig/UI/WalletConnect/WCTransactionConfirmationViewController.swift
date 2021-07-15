@@ -28,6 +28,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     private var minimalNonce: UInt256String!
     private var session: Session!
     private var importedKeysForSafe: [Address]!
+    private lazy var trackingParameters: [String: Any] = { ["chain_id": safe.network!.chainId!] }()
 
     enum Section {
         case basic
@@ -109,7 +110,7 @@ class WCTransactionConfirmationViewController: UIViewController {
                                                                    sender: AddressString(keyInfo.address),
                                                                    signature: signature,
                                                                    networkId: safe.network!.chainId!)
-            Tracker.trackEvent(trackingEvent)
+            Tracker.trackEvent(trackingEvent, parameters: trackingParameters)
 
             DispatchQueue.main.async { [weak self] in
                 // dismiss WCTransactionConfirmationViewController
@@ -174,7 +175,7 @@ class WCTransactionConfirmationViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.walletConnectIncomingTransaction)
+        Tracker.trackEvent(.walletConnectIncomingTransaction, parameters: trackingParameters)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -234,7 +235,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     private func transactionCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
 
-        let coin = Network.nativeCoin!
+        let coin = safe.network!.nativeCurrency!
 
         let decimalAmount = BigDecimal(
             Int256(transaction.value.value) * -1,
@@ -301,7 +302,8 @@ class WCTransactionConfirmationViewController: UIViewController {
     private func showEditParameters() {
         let editParamsController = WCEditParametersViewController.create(nonce: transaction.nonce,
                                                                          minimalNonce: minimalNonce,
-                                                                         safeTxGas: transaction.safeTxGas) {
+                                                                         safeTxGas: transaction.safeTxGas,
+                                                                         trackingParameters: trackingParameters) {
             [unowned self] nonce, safeTxGas in
             self.transaction.nonce = nonce
             self.transaction.safeTxGas = safeTxGas

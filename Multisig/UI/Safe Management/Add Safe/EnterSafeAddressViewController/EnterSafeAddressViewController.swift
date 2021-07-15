@@ -16,6 +16,7 @@ class EnterSafeAddressViewController: UIViewController {
     var completion: () -> Void = { }
     var network: SCGModels.Network!
     var safeVersion: String?
+    lazy var trackingParameters: [String: Any]  = { ["chain_id" : network.chainId.description] }()
 
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var addressField: AddressField!
@@ -49,7 +50,7 @@ class EnterSafeAddressViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.safeAddAddress)
+        Tracker.trackEvent(.safeAddAddress, parameters: trackingParameters)
     }
 
     @IBAction private func didTapOpenWebsiteButton(_ sender: Any) {
@@ -61,6 +62,7 @@ class EnterSafeAddressViewController: UIViewController {
         // NOTE: blank lines for better readability
 
         let enterAddressVC = EnterAddressNameViewController()
+        enterAddressVC.trackingParameters = trackingParameters
 
         let enterAddressWrapperVC = RibbonViewController(rootViewController: enterAddressVC)
         enterAddressWrapperVC.network = network
@@ -109,7 +111,9 @@ class EnterSafeAddressViewController: UIViewController {
         }))
 
         alertVC.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [weak self] _ in
+            guard let self = self else { return }
             let vc = QRCodeScannerViewController()
+            vc.trackingParameters = self.trackingParameters
             vc.scannedValueValidator = { value in
                 if Address(value) != nil {
                     return .success(value)
@@ -121,7 +125,7 @@ class EnterSafeAddressViewController: UIViewController {
             vc.modalPresentationStyle = .overFullScreen
             vc.delegate = self
             vc.setup()
-            self?.present(vc, animated: true, completion: nil)
+            self.present(vc, animated: true, completion: nil)
         }))
 
         let blockchainDomainManager = BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl,
@@ -132,14 +136,14 @@ class EnterSafeAddressViewController: UIViewController {
             alertVC.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
                 guard let self = self else { return }
                 let ensNameVC = EnterENSNameViewController(manager: blockchainDomainManager)
-                ensNameVC.network = self.network
+                ensNameVC.trackingParameters = self.trackingParameters
                 ensNameVC.onConfirm = { [weak self] in
                     guard let `self` = self else { return }
                     self.navigationController?.popViewController(animated: true)
                     self.didEnterText(ensNameVC.address?.checksummed)
                 }
                 let ensNameWrapperVC = RibbonViewController(rootViewController: ensNameVC)
-                ensNameWrapperVC.network = ensNameVC.network
+                ensNameWrapperVC.network = self.network
                 self.show(ensNameWrapperVC, sender: nil)
             }))
         }
@@ -148,14 +152,14 @@ class EnterSafeAddressViewController: UIViewController {
             alertVC.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
                 guard let self = self else { return }
                 let udNameVC = EnterUnstoppableNameViewController(manager: blockchainDomainManager)
-                udNameVC.network = self.network
+                udNameVC.trackingParameters = self.trackingParameters
                 udNameVC.onConfirm = { [weak self] in
                     guard let `self` = self else { return }
                     self.navigationController?.popViewController(animated: true)
                     self.didEnterText(udNameVC.address?.checksummed)
                 }
                 let udNameWrapperVC = RibbonViewController(rootViewController: udNameVC)
-                udNameWrapperVC.network = udNameVC.network
+                udNameWrapperVC.network = self.network
                 self.show(udNameWrapperVC, sender: nil)
             }))
         }
