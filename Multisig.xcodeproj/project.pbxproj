@@ -49,7 +49,6 @@
 		047691372461B2E200D73D8B /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691362461B2E200D73D8B /* AddressCell.swift */; };
 		047691592464026400D73D8B /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691582464026400D73D8B /* SectionHeader.swift */; };
 		0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
-		04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04769167246431D000D73D8B /* SafeTransactionService.swift */; };
 		0476916C24643A2A00D73D8B /* BrowseAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476916B24643A2A00D73D8B /* BrowseAddressView.swift */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
 		048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */; };
@@ -623,10 +622,9 @@
 		047691582464026400D73D8B /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataClass.swift"; sourceTree = "<group>"; };
-		04769167246431D000D73D8B /* SafeTransactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionService.swift; sourceTree = "<group>"; };
 		0476916B24643A2A00D73D8B /* BrowseAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseAddressView.swift; sourceTree = "<group>"; };
-		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterNotificationTokenRequest.swift; path = "../Notification Service/RegisterNotificationTokenRequest.swift"; sourceTree = "<group>"; };
-		048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnregisterNotificationTokenRequest.swift; path = "../Notification Service/UnregisterNotificationTokenRequest.swift"; sourceTree = "<group>"; };
+		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
+		048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
 		048AA141260D053300382E24 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSafeNameViewController.swift; sourceTree = "<group>"; };
 		048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditSafeNameViewController.xib; sourceTree = "<group>"; };
@@ -1219,6 +1217,8 @@
 				04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */,
 				04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */,
 				048D72BC26832FD70095999C /* NetworkListRequest.swift */,
+				048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */,
+				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
 				0ABC898E2576B857005D555B /* SCGModels.swift */,
 			);
 			path = "Safe Client Gateway Service";
@@ -2005,16 +2005,6 @@
 			path = MultisigIntegrationTests;
 			sourceTree = "<group>";
 		};
-		0AB34D6924B71E4F00A43988 /* Safe Transaction Service */ = {
-			isa = PBXGroup;
-			children = (
-				048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */,
-				04769167246431D000D73D8B /* SafeTransactionService.swift */,
-				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
-			);
-			path = "Safe Transaction Service";
-			sourceTree = "<group>";
-		};
 		0AB9F4C3254C64680044395F /* BalancesViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2484,7 +2474,6 @@
 				5532D4B72449A17D0067505A /* Utils */,
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
 				043ABD0924EF0C33008826D5 /* Safe Client Gateway Service */,
-				0AB34D6924B71E4F00A43988 /* Safe Transaction Service */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -3361,7 +3350,6 @@
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */,
-				04769168246431D000D73D8B /* SafeTransactionService.swift in Sources */,
 				0ADDA20F245340540066457E /* CorrectAddressView.swift in Sources */,
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */,
