@@ -40,42 +40,47 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
     }
 
     private func goThroughAllTransactions(safe: Address, line: UInt = #line) {
-        var semaphore = DispatchSemaphore(value: 0)
         var page: Page<SCGModels.TransactionSummaryItem>?
         var pages = [Page<SCGModels.TransactionSummaryItem>]()
 
-        _ = service.asyncHistoryTransactionsSummaryList(safeAddress: safe, networkId: networkId) {
-            result in
+        let firstPageExp = expectation(description: "first page")
 
+        _ = service.asyncHistoryTransactionsSummaryList(safeAddress: safe, networkId: networkId) { result in
             guard case .success(let response) = result else {
                 XCTFail("Unexpected error: \(result); Safe \(safe.checksummed)", line: line)
-                semaphore.signal()
+                firstPageExp.fulfill()
                 return
             }
             page = response
             pages.append(page!)
-            semaphore.signal()
+
+            firstPageExp.fulfill()
         }
-        semaphore.wait()
+        waitForExpectations(timeout: 3, handler: nil)
+
 
         while let nextPageUri = page?.next {
-            semaphore = DispatchSemaphore(value: 0)
+
             do {
+                let pageExp = expectation(description: "Page \(nextPageUri)")
+
                 _ = try service.asyncHistoryTransactionsSummaryList(pageUri: nextPageUri) { result in
                     guard case .success(let response) = result else {
                         XCTFail("Unexpected error: \(result); Safe \(safe.checksummed)", line: line)
-                        semaphore.signal()
+                        pageExp.fulfill()
                         return
                     }
+
                     page = response
                     pages.append(response)
-                    semaphore.signal()
+
+                    pageExp.fulfill()
                 }
+
+                waitForExpectations(timeout: 3, handler: nil)
             } catch {
                 XCTFail("Unexpected error :\(error.localizedDescription); Safe \(safe.checksummed)", line: line)
-                semaphore.signal()
             }
-            semaphore.wait()
         }
     }
 

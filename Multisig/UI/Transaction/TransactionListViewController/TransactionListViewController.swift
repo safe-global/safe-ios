@@ -290,15 +290,29 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         var imageURL: URL?
         var placeholderAddress: AddressString?
 
-        let nonce = tx.executionInfo?.nonce.description ?? ""
-        let confirmationsSubmitted = tx.executionInfo?.confirmationsSubmitted ?? 0
-        let confirmationsRequired = tx.executionInfo?.confirmationsRequired ?? 0
+        let nonce: String
+        let confirmationsSubmitted: UInt64
+        let confirmationsRequired: UInt64
+        let missingSigners: [String]
+        
+        if let executionInfo = tx.executionInfo,
+           case SCGModels.ExecutionInfo.multisig(let multisigExecutionInfo) = executionInfo {
+            nonce = multisigExecutionInfo.nonce.description
+            confirmationsSubmitted = multisigExecutionInfo.confirmationsSubmitted
+            confirmationsRequired = multisigExecutionInfo.confirmationsRequired
+            missingSigners = multisigExecutionInfo.missingSigners?.map { $0.value.address.checksummed } ?? []
+        } else {
+            nonce = ""
+            confirmationsSubmitted = 0
+            confirmationsRequired = 0
+            missingSigners = []
+        }
+
         let date = formatted(date: tx.timestamp)
         var info = ""
         var infoColor: UIColor = .primaryLabel
 
         var status: SCGModels.TxStatus = tx.txStatus
-        let missingSigners = tx.executionInfo?.missingSigners?.map { $0.address.checksummed } ?? []
         if let signingKeyAddresses = try? KeyInfo.all().map({ $0.address.checksummed }), status == .awaitingConfirmations {
             let reminingSigners = missingSigners.filter({ signingKeyAddresses.contains($0) })
             if !reminingSigners.isEmpty {
@@ -320,19 +334,20 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             if let safeAppInfo = tx.safeAppInfo {
                 title = safeAppInfo.name
                 tag = "App"
-                imageURL = URL(string: safeAppInfo.logoUrl)
+                imageURL = URL(string: safeAppInfo.logoUri)
                 image = UIImage(named: "ico-custom-tx")
                 
-            } else if let importedSafeName = Safe.cachedName(by: customInfo.to, networkId: safe.network!.chainId!) {
+            } else if let importedSafeName = Safe.cachedName(by: customInfo.to.value, networkId: safe.network!.chainId!) {
                 title = importedSafeName
-                placeholderAddress = customInfo.to
-            } else if let toInfo = customInfo.toInfo {
-                title = toInfo.name
-                imageURL = toInfo.logoUri
-                placeholderAddress = customInfo.to
+                placeholderAddress = customInfo.to.value
             } else {
-                title = "Contract interaction"
-                image = UIImage(named: "ico-custom-tx")
+                title = customInfo.to.name ?? "Contract interaction"
+                if let url = customInfo.to.logoUri {
+                    imageURL = url
+                } else {
+                    image = UIImage(named: "ico-custom-tx")
+                }
+                placeholderAddress = customInfo.to.value
             }
             info = customInfo.actionCount != nil ? "\(customInfo.actionCount!) actions" : customInfo.methodName ?? ""
         case .rejection(_):

@@ -1,48 +1,83 @@
 {
-    "executedAt": 1599575986000,
-    "txStatus": "SUCCESS",
-    "txInfo": {
-        "type": "Transfer",
-        "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-        "recipient": "0x938bae50a210b80EA233112800Cd5Bc2e7644300",
-        "direction": "OUTGOING",
-        "transferInfo": {
-            "type": "ETHER",
-            "value": "40000000000000"
-        }
+  "executedAt": 1599575986000,
+  "txStatus": "SUCCESS",
+  "txInfo": {
+    "type": "Transfer",
+    "sender": {
+      "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
     },
-    "txData": {
-        "hexData": null,
-        "dataDecoded": null,
-        "to": "0x938bae50a210b80EA233112800Cd5Bc2e7644300",
-        "value": "40000000000000",
-        "operation": 0
+    "recipient": {
+      "value": "0x938bae50a210b80EA233112800Cd5Bc2e7644300"
     },
-    "detailedExecutionInfo": {
-        "type": "MULTISIG",
-        "submittedAt": 1599575982054,
-        "nonce": 230,
-        "safeTxGas": 29563,
-        "baseGas": 0,
-        "gasPrice": "0",
-        "gasToken": "0x0000000000000000000000000000000000000000",
-        "refundReceiver": "0x0000000000000000000000000000000000000000",
-        "safeTxHash": "0xcb1c34c70414323afccd4e0645b081518a05f69f09d6d9a6b6e2d7c38e851ad4",
-        "executor": "0xBEA2F9227230976d2813a2f8b922c22bE1DE1B23",
-        "signers": [
-            "0xBEA2F9227230976d2813a2f8b922c22bE1DE1B23",
-            "0xA3DAa0d9Ae02dAA17a664c232aDa1B739eF5ae8D",
-            "0xF2CeA96575d6b10f51d9aF3b10e3e4E5738aa6bd",
-            "0x65F8236309e5A99Ff0d129d04E486EBCE20DC7B0"
-        ],
-        "confirmationsRequired": 1,
-        "confirmations": [
-            {
-                "signer": "0xBEA2F9227230976d2813a2f8b922c22bE1DE1B23",
-                "signature": "0x000000000000000000000000bea2f9227230976d2813a2f8b922c22be1de1b23000000000000000000000000000000000000000000000000000000000000000001",
-                "submittedAt": 1599576004084
-            }
-        ]
+    "direction": "OUTGOING",
+    "transferInfo": {
+      "type": "NATIVE_COIN",
+      "value": "40000000000000"
+    }
+  },
+  "txData": {
+    "hexData": null,
+    "dataDecoded": null,
+    "to": {
+      "value": "0x938bae50a210b80EA233112800Cd5Bc2e7644300"
     },
-    "txHash": "0x692526776173b119874af097118c8b13a4e8aaba3cfc221bc52171f412072896"
+    "value": "40000000000000",
+    "operation": 0
+  },
+  "detailedExecutionInfo": {
+    "type": "MULTISIG",
+    "submittedAt": 1599575986000,
+    "nonce": 230,
+    "safeTxGas": 29563,
+    "baseGas": 0,
+    "gasPrice": "0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": {
+      "value": "0x0000000000000000000000000000000000000000"
+    },
+    "safeTxHash": "0xcb1c34c70414323afccd4e0645b081518a05f69f09d6d9a6b6e2d7c38e851ad4",
+    "executor": {
+      "value": "0xBEA2F9227230976d2813a2f8b922c22bE1DE1B23"
+    },
+    "signers": [
+      {
+        "value": "0x6169b3e26fac6870208e12074d91DF7eD124339e"
+      },
+      {
+        "value": "0x12536c4952c71b32c9f97FdC2BAC8CFB156A9dAf"
+      },
+      {
+        "value": "0x365ffD124183EcD9c301F5aB2E754b6f74F15876"
+      },
+      {
+        "value": "0xd0ba955b8F34561907Abb588603a2400e06BD2d2"
+      },
+      {
+        "value": "0xec7b7F5C0031e6C933931Ade1833aac867c5CD5f"
+      },
+      {
+        "value": "0x65F8236309e5A99Ff0d129d04E486EBCE20DC7B0"
+      },
+      {
+        "value": "0xfDDB1e19a973d7EDf1211970AF3E42d40acfd20F"
+      },
+      {
+        "value": "0x8bc9Ab35a2A8b20ad8c23410C61db69F2e5d8164"
+      },
+      {
+        "value": "0xF2CeA96575d6b10f51d9aF3b10e3e4E5738aa6bd"
+      }
+    ],
+    "confirmationsRequired": 1,
+    "confirmations": [
+      {
+        "signer": {
+          "value": "0xBEA2F9227230976d2813a2f8b922c22bE1DE1B23"
+        },
+        "signature": "0x000000000000000000000000bea2f9227230976d2813a2f8b922c22be1de1b23000000000000000000000000000000000000000000000000000000000000000001",
+        "submittedAt": 1599575986000
+      }
+    ]
+  },
+  "txHash": "0x692526776173b119874af097118c8b13a4e8aaba3cfc221bc52171f412072896"
 }

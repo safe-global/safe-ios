@@ -103,14 +103,14 @@ class NetworkTests: CoreDataTestCase {
 
         XCTAssertEqual(network.chainId, networkInfo.id)
         XCTAssertEqual(network.chainName, networkInfo.chainName)
-        XCTAssertEqual(network.rpcUrl, networkInfo.rpcUrl)
-        XCTAssertEqual(network.blockExplorerUrl, networkInfo.blockExplorerUrl)
+        XCTAssertEqual(network.rpcUrl, networkInfo.rpcUri)
+        XCTAssertEqual(network.blockExplorerUrl, networkInfo.blockExplorerUri)
         XCTAssertEqual(network.ensRegistryAddress, networkInfo.ensRegistryAddress?.description)
 
         XCTAssertEqual(network.nativeCurrency?.name, networkInfo.nativeCurrency.name)
         XCTAssertEqual(network.nativeCurrency?.symbol, networkInfo.nativeCurrency.symbol)
         XCTAssertEqual(network.nativeCurrency?.decimals, Int32(networkInfo.nativeCurrency.decimals))
-        XCTAssertEqual(network.nativeCurrency?.logoUrl, networkInfo.nativeCurrency.logoUrl)
+        XCTAssertEqual(network.nativeCurrency?.logoUrl, networkInfo.nativeCurrency.logoUri)
 
         XCTAssertEqual(network.theme?.textColor, networkInfo.theme.textColor)
         XCTAssertEqual(network.theme?.backgroundColor, networkInfo.theme.backgroundColor)
@@ -126,14 +126,14 @@ class NetworkTests: CoreDataTestCase {
 
         XCTAssertEqual(mainNetwork.chainId, testNetworkInfo.id)
         XCTAssertEqual(mainNetwork.chainName, testNetworkInfo.chainName)
-        XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUrl)
-        XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUrl)
+        XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUri)
+        XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUri)
         XCTAssertEqual(mainNetwork.ensRegistryAddress, testNetworkInfo.ensRegistryAddress?.description)
 
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testNetworkInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testNetworkInfo.nativeCurrency.symbol)
         XCTAssertEqual(mainNetwork.nativeCurrency?.decimals, Int32(testNetworkInfo.nativeCurrency.decimals))
-        XCTAssertEqual(mainNetwork.nativeCurrency?.logoUrl, testNetworkInfo.nativeCurrency.logoUrl)
+        XCTAssertEqual(mainNetwork.nativeCurrency?.logoUrl, testNetworkInfo.nativeCurrency.logoUri)
 
         XCTAssertEqual(mainNetwork.theme?.textColor, testNetworkInfo.theme.textColor)
         XCTAssertEqual(mainNetwork.theme?.backgroundColor, testNetworkInfo.theme.backgroundColor)
@@ -156,13 +156,13 @@ class NetworkTests: CoreDataTestCase {
 
         XCTAssertEqual(mainNetwork.chainId, testInfo.id)
         XCTAssertEqual(mainNetwork.chainName, testInfo.chainName)
-        XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUrl)
-        XCTAssertEqual(mainNetwork.blockExplorerUrl, testInfo.blockExplorerUrl)
+        XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUri)
+        XCTAssertEqual(mainNetwork.blockExplorerUrl, testInfo.blockExplorerUri)
 
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testInfo.nativeCurrency.symbol)
         XCTAssertEqual(mainNetwork.nativeCurrency?.decimals, Int32(testInfo.nativeCurrency.decimals))
-        XCTAssertEqual(mainNetwork.nativeCurrency?.logoUrl, testInfo.nativeCurrency.logoUrl)
+        XCTAssertEqual(mainNetwork.nativeCurrency?.logoUrl, testInfo.nativeCurrency.logoUri)
 
         XCTAssertEqual(mainNetwork.theme?.textColor, testInfo.theme.textColor)
         XCTAssertEqual(mainNetwork.theme?.backgroundColor, testInfo.theme.backgroundColor)
@@ -261,12 +261,12 @@ class NetworkTests: CoreDataTestCase {
                          themeBackgroundColor: String) -> SCGModels.Network {
         SCGModels.Network(chainId: UInt256String(id),
                           chainName: chainName,
-                          rpcUrl: rpcUrl,
-                          blockExplorerUrl: blockExplorerUrl,
+                          rpcUri: rpcUrl,
+                          blockExplorerUri: blockExplorerUrl,
                           nativeCurrency: SCGModels.Currency(name: currencyName,
                                                              symbol: currencySymbl,
                                                              decimals: currencyDecimals,
-                                                             logoUrl: currencyLogo),
+                                                             logoUri: currencyLogo),
                           theme: SCGModels.Theme(textColor: themeTextColor,
                                                  backgroundColor: themeBackgroundColor),
                           ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
