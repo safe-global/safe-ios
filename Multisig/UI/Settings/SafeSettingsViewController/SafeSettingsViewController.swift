@@ -45,7 +45,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
 
         enum ContractVersion: SectionItem {
-            case versionInfo(AddressInfo)
+            case versionInfo(AddressInfo, SCGModels.ImplementationVersionState, String)
         }
 
         enum EnsName: SectionItem {
@@ -138,7 +138,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
              items: info.owners.map { Section.OwnerAddresses.ownerInfo($0.addressInfo) }),
 
             (section: .safeVersion("Safe version"),
-             items: [Section.ContractVersion.versionInfo(info.implementation.addressInfo)]),
+             items: [Section.ContractVersion.versionInfo(info.implementation.addressInfo, info.implementationVersionState, info.version)]),
 
             (section: .ensName("ENS name"), items: [Section.EnsName.ensName]),
 
@@ -170,8 +170,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.OwnerAddresses.ownerInfo(let info):
             return addressDetailsCell(address: info.address, name: namingPolicy.name(info: info), indexPath: indexPath)
 
-        case Section.ContractVersion.versionInfo(let info):
-            return safeVersionCell(info: info, indexPath: indexPath)
+        case Section.ContractVersion.versionInfo(let info, let status, let version):
+            return safeVersionCell(info: info, status: status, version: version, indexPath: indexPath)
 
         case Section.EnsName.ensName:
             if ensLoader.isLoading {
@@ -197,9 +197,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         return cell
     }
 
-    private func safeVersionCell(info: AddressInfo, indexPath: IndexPath) -> UITableViewCell {
+    private func safeVersionCell(info: AddressInfo, status: SCGModels.ImplementationVersionState, version: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(ContractVersionStatusCell.self, for: indexPath)
-        cell.setAddress(info)
+        cell.setAddress(info, status: status, version: version)
         cell.selectionStyle = .none
         cell.onViewDetails = { [weak self] in
             self?.openInSafari(Safe.browserURL(address: info.address.checksummed))

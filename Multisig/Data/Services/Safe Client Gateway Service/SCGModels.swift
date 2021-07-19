@@ -536,8 +536,14 @@ extension SCGModels {
         var fallbackHandler: AddressInfo?
         var `guard`: AddressInfo?
         var version: String
+        var implementationVersionState: ImplementationVersionState
     }
 
+    enum ImplementationVersionState: String, Decodable {
+        case upToDate = "UP_TO_DATE"
+        case upgradeAvailable = "OUTDATED"
+        case unknown = "UNKNOWN"
+    }
 
     struct Network: Decodable {
         let chainId: UInt256String

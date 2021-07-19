@@ -90,7 +90,7 @@ class TransactionDetailCellBuilder {
         if let implementation = creationTx.implementation?.value.address {
             address(
                 implementation,
-                label: App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? (creationTx.implementation?.name ?? "Unknown"),
+                label: creationTx.implementation?.name ?? "Unknown",
                 title: "Mastercopy used",
                 imageUri: creationTx.implementation?.logoUri)
         } else {
@@ -247,7 +247,7 @@ class TransactionDetailCellBuilder {
                 let implementation = implementationTx.implementation.value.address
                 var (label, imageUri) = displayNameAndImageUri(addressInfo: implementationTx.implementation)
                 if label == nil {
-                    label = App.shared.gnosisSafe.versionNumber(implementation: implementation) ?? "Unknown"
+                    label = implementationTx.implementation.name ?? "Unknown"
                 }
                 address(implementation,
                         label: label,

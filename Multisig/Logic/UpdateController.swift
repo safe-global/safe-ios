@@ -44,8 +44,8 @@ class UpdateController {
             let minVersion = rangeBound.first!
             let maxVersion = rangeBound.last!
 
-            let compareWithMinResult = compareNumeric(minVersion, value)
-            let compareWithMaxResult = compareNumeric(value, maxVersion)
+            let compareWithMinResult = minVersion.compareNumeric(value)
+            let compareWithMaxResult = value.compareNumeric(maxVersion)
             if [.orderedAscending, .orderedSame].contains(compareWithMinResult) &&
                 [.orderedAscending, .orderedSame].contains(compareWithMaxResult) {
                 return true
@@ -53,9 +53,5 @@ class UpdateController {
         }
 
         return false
-    }
-
-    private func compareNumeric(_ version1: String, _ version2: String) -> ComparisonResult {
-        return version1.compare(version2, options: .numeric)
     }
 }

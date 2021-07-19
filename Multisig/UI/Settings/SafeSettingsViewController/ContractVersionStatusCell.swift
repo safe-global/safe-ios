@@ -16,7 +16,8 @@ class ContractVersionStatusCell: UITableViewCell {
     @IBOutlet private weak var detailLabel: UILabel!
     @IBOutlet private weak var button: UIButton!
 
-    private var versionStatus: GnosisSafe.VersionStatus!
+    private var versionNumber: String!
+    private var versionStatus: SCGModels.ImplementationVersionState!
     private var address: Address?
 
     var onViewDetails: (() -> Void)?
@@ -34,24 +35,25 @@ class ContractVersionStatusCell: UITableViewCell {
         addTarget(self, action: #selector(copyAddress), for: .touchUpInside)
     }
 
-    func setAddress(_ info: AddressInfo) {
+    func setAddress(_ info: AddressInfo, status: SCGModels.ImplementationVersionState, version: String) {
         address = info.address
-        identiconView.setCircleImage(url: info.logoUri, address: info.address)
+        versionStatus = status
+        versionNumber = version
 
+        identiconView.setCircleImage(url: info.logoUri, address: info.address)
         detailLabel.text = info.address.ellipsized()
-        versionStatus = App.shared.gnosisSafe.version(implementation: info.address)
 
         let semiboldConfiguration = UIImage.SymbolConfiguration(weight: .semibold)
 
-        switch versionStatus! {
-        case .upToDate(let version):
+        switch versionStatus {
+        case .upToDate:
             headerLabel.text = version
             statusView.image = UIImage(systemName: "checkmark", withConfiguration: semiboldConfiguration)
             statusView.tintColor = .button
             statusLabel.setStyle(.primaryButton)
             statusLabel.text = "Up to date"
 
-        case .upgradeAvailable(let version):
+        case .upgradeAvailable:
             headerLabel.text = version
             statusView.image = UIImage(systemName: "exclamationmark.circle", withConfiguration: semiboldConfiguration)
             statusView.tintColor = .error
@@ -62,6 +64,8 @@ class ContractVersionStatusCell: UITableViewCell {
             headerLabel.text = info.name ?? "Unknown"
             statusView.image = nil
             statusLabel.text = nil
+        case .none:
+            break
         }
     }
 
