@@ -39,7 +39,7 @@ class TransactionTests: XCTestCase {
             }
             exp.fulfill()
         }
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: 1, handler: nil)
     }
 
     func testQueuedTransactions() {
@@ -72,7 +72,7 @@ class TransactionTests: XCTestCase {
             }
             exp.fulfill()
         }
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: 1, handler: nil)
     }
 
     func testTransactionDetails() {
@@ -99,7 +99,7 @@ class TransactionTests: XCTestCase {
 
             exp.fulfill()
         }
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: 1, handler: nil)
     }
 
     func testTransactoinEncodedData_v1_2_0() throws {

@@ -9,11 +9,17 @@
 import XCTest
 @testable import Multisig
 
-class SafeClientGatewayServiceIntegrationTests: XCTestCase {
+class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
     var service = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL, logger: MockLogger())
     let networkId = Network.ChainID.ethereumRinkeby
 
-    func testTransactionsPageLoad() {
+    func testTransactionsPageLoad() throws {
+        // configure dependency on nativeCoin to decode native token transactions
+        let chain = try makeNetwork(id: networkId)
+        let safe = createSafe(name: "safe", address: "0x1230B3d59858296A31053C1b8562Ecf89A2f888b", network: chain)
+        safe.select()
+        XCTAssertNotNil(Network.nativeCoin)
+
         let safes: [Address] = [
             "0x8E77c8D47372Be160b3DC613436927FCc34E1ec0",
             "0x3E742f4CcD32b3CD396218C25A321F38BD51597c",

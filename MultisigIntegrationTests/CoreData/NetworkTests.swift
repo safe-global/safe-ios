@@ -71,7 +71,7 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(network.chainName, "Test")
         XCTAssertEqual(network.rpcUrl, URL(string: "https://rpc.com/")!)
         XCTAssertEqual(network.blockExplorerUrl, URL(string: "https://block.com/")!)
-        XCTAssertEqual(network.ensRegistryAddress, "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
+        XCTAssertEqual(network.ensRegistryAddress, "0x0000000000000000000000000000000000000001")
         XCTAssertEqual(network.nativeCurrency?.name, "Currency")
         XCTAssertEqual(network.nativeCurrency?.symbol, "CRY")
         XCTAssertEqual(network.nativeCurrency?.decimals, 18)
