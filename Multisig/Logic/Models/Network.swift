@@ -99,14 +99,14 @@ extension Network {
     static func create(_ networkInfo: SCGModels.Network) throws -> Network {
         try Network.create(chainId: networkInfo.id,
                      chainName: networkInfo.chainName,
-                     rpcUrl: networkInfo.rpcUrl,
-                     blockExplorerUrl: networkInfo.blockExplorerUrl,
+                     rpcUrl: networkInfo.rpcUri,
+                     blockExplorerUrl: networkInfo.blockExplorerUri,
                      ensRegistryAddress: networkInfo.ensRegistryAddress?.description,
                      recommendedMasterCopyVersion: networkInfo.recommendedMasterCopyVersion,
                      currencyName: networkInfo.nativeCurrency.name,
                      currencySymbl: networkInfo.nativeCurrency.symbol,
                      currencyDecimals: networkInfo.nativeCurrency.decimals,
-                     currencyLogo: networkInfo.nativeCurrency.logoUrl,
+                     currencyLogo: networkInfo.nativeCurrency.logoUri,
                      themeTextColor: networkInfo.theme.textColor.description,
                      themeBackgroundColor: networkInfo.theme.backgroundColor.description)
     }
@@ -137,8 +137,8 @@ extension Network {
         }
 
         chainName =  networkInfo.chainName
-        rpcUrl = networkInfo.rpcUrl
-        blockExplorerUrl = networkInfo.blockExplorerUrl
+        rpcUrl = networkInfo.rpcUri
+        blockExplorerUrl = networkInfo.blockExplorerUri
         ensRegistryAddress = networkInfo.ensRegistryAddress?.description
         recommendedMasterCopyVersion = networkInfo.recommendedMasterCopyVersion
 
@@ -148,7 +148,7 @@ extension Network {
         nativeCurrency?.name = networkInfo.nativeCurrency.name
         nativeCurrency?.symbol = networkInfo.nativeCurrency.symbol
         nativeCurrency?.decimals = Int32(networkInfo.nativeCurrency.decimals)
-        nativeCurrency?.logoUrl = networkInfo.nativeCurrency.logoUrl
+        nativeCurrency?.logoUrl = networkInfo.nativeCurrency.logoUri
     }
 }
 

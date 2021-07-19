@@ -60,7 +60,7 @@ class SafeContract: Contract {
 
         // currently all confirmations are ECDSA signatures at this stage
         let sortedRequiredConfirmationsHex = confirmations
-            .sorted(by: { $0.signer.description < $1.signer.description })[0..<Int(confirmationsRequired)]
+            .sorted(by: { $0.signer.value.description < $1.signer.value.description })[0..<Int(confirmationsRequired)]
             .map { $0.signature.data.toHexString() }
             .joined()
 

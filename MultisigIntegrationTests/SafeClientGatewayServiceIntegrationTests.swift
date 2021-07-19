@@ -9,11 +9,17 @@
 import XCTest
 @testable import Multisig
 
-class SafeClientGatewayServiceIntegrationTests: XCTestCase {
+class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
     var service = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL, logger: MockLogger())
     let networkId = Network.ChainID.ethereumRinkeby
 
-    func testTransactionsPageLoad() {
+    func testTransactionsPageLoad() throws {
+        // configure dependency on nativeCoin to decode native token transactions
+        let chain = try makeNetwork(id: networkId)
+        let safe = createSafe(name: "safe", address: "0x1230B3d59858296A31053C1b8562Ecf89A2f888b", network: chain)
+        safe.select()
+        XCTAssertNotNil(Network.nativeCoin)
+
         let safes: [Address] = [
             "0x8E77c8D47372Be160b3DC613436927FCc34E1ec0",
             "0x3E742f4CcD32b3CD396218C25A321F38BD51597c",
@@ -40,42 +46,47 @@ class SafeClientGatewayServiceIntegrationTests: XCTestCase {
     }
 
     private func goThroughAllTransactions(safe: Address, line: UInt = #line) {
-        var semaphore = DispatchSemaphore(value: 0)
         var page: Page<SCGModels.TransactionSummaryItem>?
         var pages = [Page<SCGModels.TransactionSummaryItem>]()
 
-        _ = service.asyncHistoryTransactionsSummaryList(safeAddress: safe, networkId: networkId) {
-            result in
+        let firstPageExp = expectation(description: "first page")
 
+        _ = service.asyncHistoryTransactionsSummaryList(safeAddress: safe, networkId: networkId) { result in
             guard case .success(let response) = result else {
                 XCTFail("Unexpected error: \(result); Safe \(safe.checksummed)", line: line)
-                semaphore.signal()
+                firstPageExp.fulfill()
                 return
             }
             page = response
             pages.append(page!)
-            semaphore.signal()
+
+            firstPageExp.fulfill()
         }
-        semaphore.wait()
+        waitForExpectations(timeout: 3, handler: nil)
+
 
         while let nextPageUri = page?.next {
-            semaphore = DispatchSemaphore(value: 0)
+
             do {
+                let pageExp = expectation(description: "Page \(nextPageUri)")
+
                 _ = try service.asyncHistoryTransactionsSummaryList(pageUri: nextPageUri) { result in
                     guard case .success(let response) = result else {
                         XCTFail("Unexpected error: \(result); Safe \(safe.checksummed)", line: line)
-                        semaphore.signal()
+                        pageExp.fulfill()
                         return
                     }
+
                     page = response
                     pages.append(response)
-                    semaphore.signal()
+
+                    pageExp.fulfill()
                 }
+
+                waitForExpectations(timeout: 3, handler: nil)
             } catch {
                 XCTFail("Unexpected error :\(error.localizedDescription); Safe \(safe.checksummed)", line: line)
-                semaphore.signal()
             }
-            semaphore.wait()
         }
     }
 

@@ -1,556 +1,662 @@
 {
-    "next": "https://safe-client.rinkeby.staging.gnosisdev.com/v1/safes/0x1230B3d59858296A31053C1b8562Ecf89A2f888b/transactions/history?page_url=limit%3D20%26offset%3D20&timezone_offset=0",
-    "previous": null,
-    "results": [
-        {
-            "type": "DATE_LABEL",
-            "timestamp": 1612137600000
+  "next": "https://safe-client.staging.gnosisdev.com/v1/chains/4/safes/0x1230B3d59858296A31053C1b8562Ecf89A2f888b/transactions/history?cursor=limit%3D20%26offset%3D40&timezone_offset=0",
+  "previous": "https://safe-client.staging.gnosisdev.com/v1/chains/4/safes/0x1230B3d59858296A31053C1b8562Ecf89A2f888b/transactions/history?cursor=limit%3D20%26offset%3D0&timezone_offset=0",
+  "results": [
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x6f24ae74ffda29770ae3b2fe65f9c96d04436beb64c5762bae2b97879b540d3f",
+        "timestamp": 1624463263000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Custom",
+          "to": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "dataSize": "0",
+          "value": "0",
+          "methodName": null,
+          "isCancellation": true
         },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x191b1299a0dd3056b086ec9a2478aa02495866a9e5868298ec678ce1a61e0c9e",
-                "timestamp": 1612198486000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "recipient": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "direction": "OUTGOING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0x6D7F0754FFeb405d23C51CE938289d4835bE3b14",
-                        "tokenName": "Compound Dai 📈",
-                        "tokenSymbol": "cDAI",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x6D7F0754FFeb405d23C51CE938289d4835bE3b14.png",
-                        "decimals": 8,
-                        "value": "0"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 424,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x4efd046fa2b0b519c5f69d0e6f6a031a1337c34cbeb02381651d9d5fe74b957a",
-                "timestamp": 1612198441000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "recipient": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "direction": "OUTGOING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0xD81F7D71ed570D121A1Ef9e3Bc0fc2bd6192De46",
-                        "tokenName": "BigAmount",
-                        "tokenSymbol": "BA-T",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD81F7D71ed570D121A1Ef9e3Bc0fc2bd6192De46.png",
-                        "decimals": 1,
-                        "value": "0"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 423,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xdb64e5cffd0d88363ab4bf5b5cf3e2979c79b940ce442349b755f9f92c601806",
-                "timestamp": 1612197916000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "recipient": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "direction": "OUTGOING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0x63704B63Ac04f3a173Dfe677C7e3D330c347CD88",
-                        "tokenName": "TEST AQER",
-                        "tokenSymbol": "AQER",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x63704B63Ac04f3a173Dfe677C7e3D330c347CD88.png",
-                        "decimals": 18,
-                        "value": "400000000000000"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 422,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xd9dcaf4052cd66f0badc36aa72abcb9f96ba4777dfbe5d3f939e75b4416f1851_0x297028f7afe6722f",
-                "timestamp": 1612194133000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "recipient": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "direction": "INCOMING",
-                    "transferInfo": {
-                        "type": "ERC721",
-                        "tokenAddress": "0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF",
-                        "tokenId": "595",
-                        "tokenName": "CryptoKitties",
-                        "tokenSymbol": "CK",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF.png"
-                    }
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xc2672f12654eaf42f23442c76c7c591e724ee0e57b83a3cdcb0277f77135103b_0x2863a6d7fb363aa9",
-                "timestamp": 1612194013000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "recipient": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "direction": "INCOMING",
-                    "transferInfo": {
-                        "type": "ETHER",
-                        "value": "50000000"
-                    }
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xe234de5831be692922088a3b51e7e576bc65e9e6ba15e749c48fd88414ccf756_0x33367601998fb306",
-                "timestamp": 1612193023000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "recipient": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "direction": "INCOMING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
-                        "tokenName": "Dai",
-                        "tokenSymbol": "DAI",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa.png",
-                        "decimals": 18,
-                        "value": "5979690000000000000"
-                    }
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x55177f6a8698679dfe4b701b27371828ae71878ad7619aab6a138a3551feaa4a_0x35a78b5d44531d4d",
-                "timestamp": 1612173820000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "recipient": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "direction": "INCOMING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
-                        "tokenName": "Dai",
-                        "tokenSymbol": "DAI",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa.png",
-                        "decimals": 18,
-                        "value": "5000000000000"
-                    }
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "DATE_LABEL",
-            "timestamp": 1611792000000
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x526e4b1ea90c9e933d11562bb930ed1a13fae2f9e61032de9e467bf3e69ab329",
-                "timestamp": 1611849564000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "recipient": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "direction": "OUTGOING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0xD81F7D71ed570D121A1Ef9e3Bc0fc2bd6192De46",
-                        "tokenName": "BigAmount",
-                        "tokenSymbol": "BA-T",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD81F7D71ed570D121A1Ef9e3Bc0fc2bd6192De46.png",
-                        "decimals": 1,
-                        "value": "0"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 421,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x44a335af5858cbb36fb3f82ea5dc3609ff181a4d46f5dd466856079affba00bf",
-                "timestamp": 1611849504000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "recipient": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "direction": "OUTGOING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0x63704B63Ac04f3a173Dfe677C7e3D330c347CD88",
-                        "tokenName": "TEST AQER",
-                        "tokenSymbol": "AQER",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x63704B63Ac04f3a173Dfe677C7e3D330c347CD88.png",
-                        "decimals": 18,
-                        "value": "400000000000000"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 420,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "DATE_LABEL",
-            "timestamp": 1611705600000
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xde0b532c0ec3d45a4a9d1dfb92fc20f5f99adc14f59918fb2fcb2b4af94d5d33_0xaff94bf6a69158ab",
-                "timestamp": 1611741956000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1C8b9B78e3085866521FE206fa4c1a67F49f153A",
-                    "recipient": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "direction": "INCOMING",
-                    "transferInfo": {
-                        "type": "ETHER",
-                        "value": "1230000000000000000"
-                    }
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "DATE_LABEL",
-            "timestamp": 1611619200000
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xff6484cb4e934144f860bff61af7d31b9f6f59c877577db8a26db37cae869fdc",
-                "timestamp": 1611654399000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Custom",
-                    "to": "0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02",
-                    "dataSize": "68",
-                    "value": "0",
-                    "methodName": "approve",
-                    "toInfo": {
-                        "name": "Compound USDT",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02.png"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 419,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "DATE_LABEL",
-            "timestamp": 1611187200000
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xe75a084d0f7c348abf7cf77abdbfa7392880baeed9adf2a45db5b609a4903939",
-                "timestamp": 1611244730000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "recipient": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "direction": "OUTGOING",
-                    "transferInfo": {
-                        "type": "ERC721",
-                        "tokenAddress": "0xAad76bea7CFEc82927239415BB18D2e93518ecBB",
-                        "tokenId": "16901347448092016018370066087420610201854448193660137846183334589211113480159",
-                        "tokenName": ".crypto",
-                        "tokenSymbol": "UD",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xAad76bea7CFEc82927239415BB18D2e93518ecBB.png"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 418,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x7d021aa4c787b9005e4a903ac89cbfcca8dd90d40392e89d8adc88b34a1e1b2c",
-                "timestamp": 1611244340000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "recipient": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "direction": "OUTGOING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0x96382A82fd6517212F99AB335f74804D0460A5B5",
-                        "tokenName": "UXIO",
-                        "tokenSymbol": "UXI",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x96382A82fd6517212F99AB335f74804D0460A5B5.png",
-                        "decimals": 18,
-                        "value": "15600000000000"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 417,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "DATE_LABEL",
-            "timestamp": 1611100800000
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x179b0094f95c92f64243a79ce9e1e2ab2dc9aebb1692210d018a8c5297ed3b52_0xcd564708b697d479",
-                "timestamp": 1611143027000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "recipient": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "direction": "INCOMING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85",
-                        "tokenName": "Maker",
-                        "tokenSymbol": "MKR",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85.png",
-                        "decimals": 18,
-                        "value": "18651000000000000"
-                    }
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "DATE_LABEL",
-            "timestamp": 1611014400000
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x81706b77a02c1be2c18825ca0a79f8388c35095d4175eac8df0e12433f491d41",
-                "timestamp": 1611066502000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "recipient": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "direction": "OUTGOING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85",
-                        "tokenName": "Maker",
-                        "tokenSymbol": "MKR",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85.png",
-                        "decimals": 18,
-                        "value": "18651000000000000"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 416,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xf84150e76cc30ffba7f546079c1f83b5d65effecb16ae1e9b6e77746ebfa0208",
-                "timestamp": 1611066247000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "recipient": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "direction": "OUTGOING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
-                        "tokenName": "Dai",
-                        "tokenSymbol": "DAI",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa.png",
-                        "decimals": 18,
-                        "value": "10460000000000000"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 415,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x4b435365b2ebeee78e0a8ea4efb63aeb529438c9a93d6b8384354b92296268d5",
-                "timestamp": 1611066217000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Custom",
-                    "to": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "dataSize": "0",
-                    "value": "0",
-                    "methodName": null
-                },
-                "executionInfo": {
-                    "nonce": 414,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xcb41cf6b6e6a8d15e8fd240850380fc5a319a7db289cc8d6faa721647270f7f9",
-                "timestamp": 1611065602000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "recipient": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "direction": "OUTGOING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0xd6801a1DfFCd0a410336Ef88DeF4320D6DF1883e",
-                        "tokenName": "Compound Ether 📈",
-                        "tokenSymbol": "cETH",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xd6801a1DfFCd0a410336Ef88DeF4320D6DF1883e.png",
-                        "decimals": 8,
-                        "value": "5002"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 413,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x93829d8b46c2e895bf9a7ce9fbae61d34f9e6bbba24e03bfdd2061506d81c481",
-                "timestamp": 1611064656000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Transfer",
-                    "sender": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b",
-                    "recipient": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
-                    "direction": "OUTGOING",
-                    "transferInfo": {
-                        "type": "ERC20",
-                        "tokenAddress": "0xD81F7D71ed570D121A1Ef9e3Bc0fc2bd6192De46",
-                        "tokenName": "BigAmount",
-                        "tokenSymbol": "BA-T",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD81F7D71ed570D121A1Ef9e3Bc0fc2bd6192De46.png",
-                        "decimals": 1,
-                        "value": "10"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 412,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
-        },
-        {
-            "type": "TRANSACTION",
-            "transaction": {
-                "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xe9fe359440581412a8610ee39ef21388897b27fae3624b1d5f96a170056809f5",
-                "timestamp": 1611064461000,
-                "txStatus": "SUCCESS",
-                "txInfo": {
-                    "type": "Custom",
-                    "to": "0x81D0FF4fE216fB6aC98ED609086A92d94dbfE666",
-                    "dataSize": "68",
-                    "value": "0",
-                    "methodName": "approve",
-                    "toInfo": {
-                        "name": "LS",
-                        "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x81D0FF4fE216fB6aC98ED609086A92d94dbfE666.png"
-                    }
-                },
-                "executionInfo": {
-                    "nonce": 411,
-                    "confirmationsRequired": 2,
-                    "confirmationsSubmitted": 2
-                }
-            },
-            "conflictType": "None"
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 641,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
         }
-    ]
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "DATE_LABEL",
+      "timestamp": 1624233600000
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x8fec06ba3c79c25510204cf75195de781064643351620458c0e5ada92f4fb45a_0x8f03b6f9b9f6bc26",
+        "timestamp": 1624290859000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "recipient": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "direction": "INCOMING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0x2fB298BDbeF468638AD6653FF8376575ea41e768",
+            "tokenName": "Compound USDT",
+            "tokenSymbol": "cUSDT",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x2fB298BDbeF468638AD6653FF8376575ea41e768.png",
+            "decimals": 8,
+            "value": "100000000"
+          }
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xce4f5f231c7ca152e4e84c7786a09d977ebdd03e0278cd18b92956494faa405d_0xa382879881cf0b0f",
+        "timestamp": 1624290454000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "recipient": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "direction": "INCOMING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
+            "tokenName": "Dai",
+            "tokenSymbol": "DAI",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa.png",
+            "decimals": 18,
+            "value": "10000000000000"
+          }
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xc2584747fe80077ac4e30d92a7cc38f8b89760ef67ffd2c8eb18b2e89e519eee_0x6a5be1b9dd846e59",
+        "timestamp": 1624290139000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "recipient": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "direction": "INCOMING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02",
+            "tokenName": "Compound USDT",
+            "tokenSymbol": "USDT",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02.png",
+            "decimals": 18,
+            "value": "10000000000000"
+          }
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x7a8c407470583e388cb2e358c78b6bcaa2016c7437a0ec25aaf073865159a30d_0x1ee45bd5446d55ce",
+        "timestamp": 1624289824000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "recipient": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "direction": "INCOMING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02",
+            "tokenName": "Compound USDT",
+            "tokenSymbol": "USDT",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02.png",
+            "decimals": 18,
+            "value": "100000000000000"
+          }
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xfa80ad0627e57066c6505f3b22a9f584cd7b7ee084febff4d552179fde8fa2d6",
+        "timestamp": 1624289538000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "recipient": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "direction": "OUTGOING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0x2fB298BDbeF468638AD6653FF8376575ea41e768",
+            "tokenName": "Compound USDT",
+            "tokenSymbol": "cUSDT",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x2fB298BDbeF468638AD6653FF8376575ea41e768.png",
+            "decimals": 8,
+            "value": "10000"
+          }
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 640,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xd4660a5195fcca71b0eb94124f8003dbd0938533920faa73d3557682e2801e7f",
+        "timestamp": 1624289433000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Custom",
+          "to": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "dataSize": "0",
+          "value": "0",
+          "methodName": null,
+          "isCancellation": true
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 639,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
+        },
+        "safeAppInfo": {
+          "name": "Safe Test App",
+          "url": "https://cloudflare-ipfs.com/ipfs/QmfMq8NgxdDfai1qKv7bGbT8DegYX4mNzmpi9AkY1VJZBS/",
+          "logoUri": "https://cloudflare-ipfs.com/ipfs/QmfMq8NgxdDfai1qKv7bGbT8DegYX4mNzmpi9AkY1VJZBS//logo.svg"
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x9ba98ec2733228d96b4807eddf4b2efdbde8c63adc2b0363f3c0404c5a8a15a7",
+        "timestamp": 1624289373000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Custom",
+          "to": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "dataSize": "0",
+          "value": "0",
+          "methodName": null,
+          "isCancellation": true
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 638,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
+        },
+        "safeAppInfo": {
+          "name": "Safe Test App",
+          "url": "https://cloudflare-ipfs.com/ipfs/QmfMq8NgxdDfai1qKv7bGbT8DegYX4mNzmpi9AkY1VJZBS/",
+          "logoUri": "https://cloudflare-ipfs.com/ipfs/QmfMq8NgxdDfai1qKv7bGbT8DegYX4mNzmpi9AkY1VJZBS//logo.svg"
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "DATE_LABEL",
+      "timestamp": 1623888000000
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x4600235a1b7e6652e8007d7ec58070491356edcba25ca77524b4a45618c53b5d",
+        "timestamp": 1623925703000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "recipient": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "direction": "OUTGOING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0x6D7F0754FFeb405d23C51CE938289d4835bE3b14",
+            "tokenName": "Compound Dai 📈",
+            "tokenSymbol": "cDAI",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x6D7F0754FFeb405d23C51CE938289d4835bE3b14.png",
+            "decimals": 8,
+            "value": "1000"
+          }
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 637,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xf1c37ae3d3390e5bd88447b24013c2b5fff08981181b2ecec3425fe788b0eb37",
+        "timestamp": 1623925281000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "recipient": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "direction": "OUTGOING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
+            "tokenName": "Dai",
+            "tokenSymbol": "DAI",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa.png",
+            "decimals": 18,
+            "value": "10000000000000"
+          }
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 636,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "DATE_LABEL",
+      "timestamp": 1623801600000
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xd2eee97bdbaa8868218a1371531b8c4305a90ab16f14654171c952ef0e19830a",
+        "timestamp": 1623834973000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "recipient": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "direction": "OUTGOING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0x6D7F0754FFeb405d23C51CE938289d4835bE3b14",
+            "tokenName": "Compound Dai 📈",
+            "tokenSymbol": "cDAI",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x6D7F0754FFeb405d23C51CE938289d4835bE3b14.png",
+            "decimals": 8,
+            "value": "1000"
+          }
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 635,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x5ac67f6f02b982ba296e147ddd0e7e12ea4440a3cd56370181be870d4c08b850_0x2f1a423b001b9b08",
+        "timestamp": 1623834658000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "recipient": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "direction": "INCOMING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0x2fB298BDbeF468638AD6653FF8376575ea41e768",
+            "tokenName": "Compound USDT",
+            "tokenSymbol": "cUSDT",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x2fB298BDbeF468638AD6653FF8376575ea41e768.png",
+            "decimals": 8,
+            "value": "200000000"
+          }
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xc4418996865d8d2100f15a96ffc69e92ddcdc676c6d624e32211f1d83d71ba36_0x21b2d62ec8e03dd2",
+        "timestamp": 1623834478000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "recipient": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "direction": "INCOMING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0x2fB298BDbeF468638AD6653FF8376575ea41e768",
+            "tokenName": "Compound USDT",
+            "tokenSymbol": "cUSDT",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x2fB298BDbeF468638AD6653FF8376575ea41e768.png",
+            "decimals": 8,
+            "value": "200000000"
+          }
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xbbce1b5f73ecedee63a3dec2070e835f911abeaebce6fb19c8c9457965266dc3_0xda5ec9f7b93a6216",
+        "timestamp": 1623833938000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "recipient": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "direction": "INCOMING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0xd6801a1DfFCd0a410336Ef88DeF4320D6DF1883e",
+            "tokenName": "Compound Ether 📈",
+            "tokenSymbol": "cETH",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xd6801a1DfFCd0a410336Ef88DeF4320D6DF1883e.png",
+            "decimals": 8,
+            "value": "10011"
+          }
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "DATE_LABEL",
+      "timestamp": 1623715200000
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x4af14cf0e324b1a6f4f8e4686539cf3f8c61e904853050d662602faaabd7aede",
+        "timestamp": 1623776551000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "recipient": {
+            "value": "0xF01DbC309424Da8759F3ad69c10bE7969fF3d9E1"
+          },
+          "direction": "OUTGOING",
+          "transferInfo": {
+            "type": "ERC721",
+            "tokenAddress": "0xFFadE30f03a17581362171982F95657C1306a68f",
+            "tokenId": "50",
+            "tokenName": "ProjectP",
+            "tokenSymbol": "PP",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xFFadE30f03a17581362171982F95657C1306a68f.png"
+          }
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 634,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x00ad07a3cc4ec36df5e78ec8f5732952f7ca0e501a352af543c7ff0fac622185",
+        "timestamp": 1623776356000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "recipient": {
+            "value": "0xF01DbC309424Da8759F3ad69c10bE7969fF3d9E1"
+          },
+          "direction": "OUTGOING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
+            "tokenName": "Dai",
+            "tokenSymbol": "DAI",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa.png",
+            "decimals": 18,
+            "value": "100000000000000"
+          }
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 633,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "DATE_LABEL",
+      "timestamp": 1623283200000
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xcc9a83c696ce4333327d13134eb0250a1432d30f2ac2a8ba017ac746a650e8e2",
+        "timestamp": 1623342159000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Custom",
+          "to": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "dataSize": "0",
+          "value": "0",
+          "methodName": null,
+          "isCancellation": true
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 632,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x3f2bd45bf49387ae599b0c91686c54a7830ff4e3f247fd581eb8561a45e53c6f",
+        "timestamp": 1623329105000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "recipient": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "direction": "OUTGOING",
+          "transferInfo": {
+            "type": "ERC721",
+            "tokenAddress": "0xD1ee308642E3A19956934d6dcc51e180dc28821A",
+            "tokenId": "16",
+            "tokenName": "Copernicus.20200211.152538",
+            "tokenSymbol": "CP",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD1ee308642E3A19956934d6dcc51e180dc28821A.png"
+          }
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 631,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "ethereum_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xa36f1293965a745ba481c06fec91c6e2eb0ba4081fb52ac26ef46ef9ba366a14_0x7b91d2fb406e6d",
+        "timestamp": 1623328880000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "Transfer",
+          "sender": {
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD",
+            "name": "Lil's second safe",
+            "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD.png"
+          },
+          "recipient": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "direction": "INCOMING",
+          "transferInfo": {
+            "type": "ERC20",
+            "tokenAddress": "0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02",
+            "tokenName": "Compound USDT",
+            "tokenSymbol": "USDT",
+            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02.png",
+            "decimals": 18,
+            "value": "100000000000000"
+          }
+        }
+      },
+      "conflictType": "None"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x7b19b1497d74a2c10e7fe20492a3fd0b4a80123eecd86a7f7b600bbad5a3d91c",
+        "timestamp": 1623328655000,
+        "txStatus": "SUCCESS",
+        "txInfo": {
+          "type": "SettingsChange",
+          "dataDecoded": {
+            "method": "addOwnerWithThreshold",
+            "parameters": [
+              {
+                "name": "owner",
+                "type": "address",
+                "value": "0x12536c4952c71b32c9f97FdC2BAC8CFB156A9dAf"
+              },
+              {
+                "name": "_threshold",
+                "type": "uint256",
+                "value": "3"
+              }
+            ]
+          },
+          "settingsInfo": {
+            "type": "ADD_OWNER",
+            "owner": {
+              "value": "0x12536c4952c71b32c9f97FdC2BAC8CFB156A9dAf"
+            },
+            "threshold": 3
+          }
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 630,
+          "confirmationsRequired": 3,
+          "confirmationsSubmitted": 3
+        }
+      },
+      "conflictType": "None"
+    }
+  ]
 }
