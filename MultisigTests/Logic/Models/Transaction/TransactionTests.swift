@@ -15,6 +15,8 @@ class TransactionTests: XCTestCase {
     }
 
     func testDecodeDetails() throws {
+        // https://safe-client.staging.gnosisdev.com/v1/chains/4/transactions/multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xcb1c34c70414323afccd4e0645b081518a05f69f09d6d9a6b6e2d7c38e851ad4
+        
         let data = jsonData("TransferTransaction")
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .millisecondsSince1970
@@ -22,54 +24,62 @@ class TransactionTests: XCTestCase {
     }
 
     func testHistoryTransactions() {
+        // https://safe-client.staging.gnosisdev.com/v1/chains/4/safes/0x1230B3d59858296A31053C1b8562Ecf89A2f888b/transactions/history?cursor=limit%3D20%26offset%3D20&timezone_offset=0
         let txJson = jsonData("HistoryTransactions")
 
-        let sema = DispatchSemaphore(value: 0)
+        let exp = expectation(description: "async decode")
         DispatchQueue.global().async {
             do {
                 let clientGateway = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL,
                                                      logger: LogService.shared)
                 let page = try clientGateway.jsonDecoder.decode(HistoryTransactionsSummaryListRequest.ResponseType.self, from: txJson)
-                XCTAssertEqual(page.results.count, 27)
+                XCTAssertEqual(page.results.count, 25)
             } catch {
                 XCTFail("Failure in transactions: \(error)")
             }
-            sema.signal()
+            exp.fulfill()
         }
-        sema.wait()
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 
     func testQueuedTransactions() {
+        // https://safe-client.staging.gnosisdev.com/v1/chains/4/safes/0x1230B3d59858296A31053C1b8562Ecf89A2f888b/transactions/queued
         let txJson = jsonData("QueuedTransactions")
 
-        let sema = DispatchSemaphore(value: 0)
+        let exp = expectation(description: "async decode")
         DispatchQueue.global().async {
             do {
                 let clientGateway = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL,
                                                      logger: LogService.shared)
                 let page = try clientGateway.jsonDecoder.decode(QueuedTransactionsSummaryListRequest.ResponseType.self, from: txJson)
-                XCTAssertEqual(page.results.count, 18)
+                XCTAssertEqual(page.results.count, 4)
 
                 guard case let SCGModels.TransactionSummaryItem.transaction(transaction) = page.results[1],
-                      case let SCGModels.TxInfo.custom(customTx) = transaction.transaction.txInfo else {
+                      case let SCGModels.TxInfo.settingsChange(txInfo) = transaction.transaction.txInfo,
+                      case let SCGModels.TxInfo.SettingsChange.SettingsInfo.changeThreshold(changeThreshold) = txInfo.settingsInfo,
+                      let executionInfo = transaction.transaction.executionInfo,
+                      case let SCGModels.ExecutionInfo.multisig(multisigExecutionInfo) = executionInfo else {
                     XCTFail("Failed to decode transaction")
                     return
                 }
 
-                XCTAssertEqual(customTx.to.name, "Cripto LEU")
-                XCTAssertEqual(customTx.to.logoUri, URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD50931bb32fCa14ACBC0CaDe5850bA597F3eE1A6.png")!)
+                XCTAssertEqual(changeThreshold.threshold, 2)
+                XCTAssertEqual(multisigExecutionInfo.nonce.value, 652)
+                XCTAssertEqual(multisigExecutionInfo.confirmationsRequired, 1)
+                XCTAssertEqual(multisigExecutionInfo.confirmationsSubmitted, 1)
             } catch {
                 XCTFail("Failure in transactions: \(error)")
             }
-            sema.signal()
+            exp.fulfill()
         }
-        sema.wait()
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 
     func testTransactionDetails() {
+        // https://safe-client.staging.gnosisdev.com/v1/chains/4/transactions/multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xcb1c34c70414323afccd4e0645b081518a05f69f09d6d9a6b6e2d7c38e851ad4
         let txJson = jsonData("TransferTransaction")
 
-        let sema = DispatchSemaphore(value: 0)
+        let exp = expectation(description: "async decode")
         DispatchQueue.global().async {
             do {
                 let clientGateway = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL,
@@ -82,15 +92,14 @@ class TransactionTests: XCTestCase {
                     break
                 default:
                     XCTFail("Unexpected type: \(type(of: transaction))")
-                    sema.signal()
-                break
                 }
             } catch {
                 XCTFail("Failure in transactions: \(error)")
             }
-            sema.signal()
+
+            exp.fulfill()
         }
-        sema.wait()
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 
     func testTransactoinEncodedData_v1_2_0() throws {
