@@ -39,7 +39,7 @@ extension Transaction {
               case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multiSigTxInfo)? = tx.detailedExecutionInfo else {
             return nil
         }
-        to = txData.to
+        to = txData.to.value
         value = txData.value
         data = txData.hexData ?? DataString(Data())
         operation = SCGModels.Operation(rawValue: txData.operation.rawValue)!
@@ -47,7 +47,7 @@ extension Transaction {
         baseGas = multiSigTxInfo.baseGas
         gasPrice = multiSigTxInfo.gasPrice
         gasToken = multiSigTxInfo.gasToken
-        refundReceiver = multiSigTxInfo.refundReceiver
+        refundReceiver = multiSigTxInfo.refundReceiver.value
         nonce = multiSigTxInfo.nonce
         safeTxHash = multiSigTxInfo.safeTxHash
     }

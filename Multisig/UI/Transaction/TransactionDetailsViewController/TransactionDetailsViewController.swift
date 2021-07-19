@@ -496,7 +496,7 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
     }
 
     func hasRejected(address: AddressString) -> Bool {
-        rejectors?.contains(address) ?? false
+        rejectors?.map(\.value).contains(address) ?? false
     }
 
     func isRejected() -> Bool {
@@ -508,19 +508,19 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
     }
 
     func signerKeys() -> [KeyInfo] {
-        let confirmationAdresses = confirmations.map({ $0.signer })
+        let confirmationAdresses = confirmations.map({ $0.signer.value })
 
-        let reminingSigners = signers.filter({
+        let remainingSigners = signers.map(\.value).filter({
             !confirmationAdresses.contains($0)
         }).map( { $0.address } )
 
-        return (try? KeyInfo.keys(addresses: reminingSigners)) ?? []
+        return (try? KeyInfo.keys(addresses: remainingSigners)) ?? []
     }
 
     // In general, a transaction can be executed with any ethereum key.
     // However, we restrict the ability to execute only to owners for additional protection.
     func executionKeys() -> [KeyInfo] {
-        let signerAddresses = signers.map( { $0.address } )
+        let signerAddresses = signers.map(\.value).map( { $0.address } )
         guard !((try? KeyInfo.keys(addresses: signerAddresses)) ?? []).isEmpty else {
             return []
         }
@@ -531,16 +531,16 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
     }
 
     func rejectorKeys() -> [KeyInfo] {
-        let rejectorsAdresses = rejectors ?? []
-        let reminingSigners = signers.filter({
+        let rejectorsAdresses = rejectors?.map(\.value) ?? []
+        let remainingSigners = signers.map(\.value).filter({
             !rejectorsAdresses.contains($0)
         }).map( { $0.address } )
 
-        return (try? KeyInfo.keys(addresses: reminingSigners)) ?? []
+        return (try? KeyInfo.keys(addresses: remainingSigners)) ?? []
     }
 
     var canSign: Bool {
-        let signerAddresses = signers.map( { $0.address } )
+        let signerAddresses = signers.map(\.value).map( { $0.address } )
         let keys = (try? KeyInfo.keys(addresses: signerAddresses)) ?? []
         return !keys.isEmpty
     }

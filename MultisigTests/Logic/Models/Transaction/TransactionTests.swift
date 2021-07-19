@@ -56,8 +56,8 @@ class TransactionTests: XCTestCase {
                     return
                 }
 
-                XCTAssertEqual(customTx.toInfo?.name, "Cripto LEU")
-                XCTAssertEqual(customTx.toInfo?.logoUri, URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD50931bb32fCa14ACBC0CaDe5850bA597F3eE1A6.png")!)
+                XCTAssertEqual(customTx.to.name, "Cripto LEU")
+                XCTAssertEqual(customTx.to.logoUri, URL(string: "https://gnosis-safe-token-logos.s3.amazonaws.com/0xD50931bb32fCa14ACBC0CaDe5850bA597F3eE1A6.png")!)
             } catch {
                 XCTFail("Failure in transactions: \(error)")
             }

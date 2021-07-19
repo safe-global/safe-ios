@@ -63,14 +63,9 @@ extension SCGModels {
     }
 
     struct AddressInfo: Decodable {
-        var name: String
-        var logoUri: URL?
-    }
-
-    struct AddressInfoExtended: Decodable {
         var value: AddressString
         var name: String?
-        var logoUrl: URL?
+        var logoUri: URL?
     }
 
     /// This is a temporary solution for Known Addresses V3 before a proper refactoring with
@@ -130,17 +125,44 @@ extension SCGModels {
         case pending = "PENDING"
     }
 
-    struct ExecutionInfo: Decodable {
-        var nonce: UInt256String
-        var confirmationsRequired: UInt64
-        var confirmationsSubmitted: UInt64
-        var signers: [AddressString]?
-        var confirmations: [Confirmation]?
-        var missingSigners: [AddressString]?
+    enum ExecutionInfo: Decodable {
+        case multisig(Multisig)
+        case module(Module)
+        case unknown
+
+        init(from decoder: Decoder) throws {
+            enum Keys: String, CodingKey {
+                case type
+            }
+
+            let container = try decoder.container(keyedBy: Keys.self)
+            let type = try container.decode(String.self, forKey: .type)
+
+            switch type {
+            case "MULTISIG":
+                self = try .multisig(Multisig(from: decoder))
+            case "MODULE":
+                self = try .module(Module(from: decoder))
+            default:
+                self = .unknown
+            }
+        }
+
+        struct Multisig: Decodable {
+            var nonce: UInt256String
+            var confirmationsRequired: UInt64
+            var confirmationsSubmitted: UInt64
+            var confirmations: [Confirmation]?
+            var missingSigners: [AddressInfo]?
+        }
+
+        struct Module: Decodable {
+            var address: AddressInfo
+        }
     }
 
     struct Confirmation: Decodable {
-        var signer: AddressString
+        var signer: AddressInfo
         var signature: DataString
     }
 
@@ -182,10 +204,8 @@ extension SCGModels {
         }
 
         struct Transfer: Decodable {
-            var sender: AddressString
-            var senderInfo: AddressInfo?
-            var recipient: AddressString
-            var recipientInfo: AddressInfo?
+            var sender: AddressInfo
+            var recipient: AddressInfo
             var direction: Direction
             var transferInfo: TransferInfo
 
@@ -284,27 +304,22 @@ extension SCGModels {
                 }
 
                 struct SetFallbackHandler: Decodable {
-                    var handler: AddressString
-                    var handlerInfo: AddressInfo?
+                    var handler: AddressInfo
                 }
 
                 struct AddOwner: Decodable {
-                    var owner: AddressString
-                    var ownerInfo: AddressInfo?
+                    var owner: AddressInfo
                     var threshold: UInt64
                 }
 
                 struct RemoveOwner: Decodable {
-                    var owner: AddressString
-                    var ownerInfo: AddressInfo?
+                    var owner: AddressInfo
                     var threshold: UInt64
                 }
 
                 struct SwapOwner: Decodable {
-                    var newOwner: AddressString
-                    var newOwnerInfo: AddressInfo?
-                    var oldOwner: AddressString
-                    var oldOwnerInfo: AddressInfo?
+                    var newOwner: AddressInfo
+                    var oldOwner: AddressInfo
                 }
 
                 struct ChangeThreshold: Decodable {
@@ -312,25 +327,21 @@ extension SCGModels {
                 }
 
                 struct ChangeImplementation: Decodable {
-                    var implementation: AddressString
-                    var implementationInfo: AddressInfo?
+                    var implementation: AddressInfo
                 }
 
                 struct EnableModule: Decodable {
-                    var module: AddressString
-                    var moduleInfo: AddressInfo?
+                    var module: AddressInfo
                 }
 
                 struct DisableModule: Decodable {
-                    var module: AddressString
-                    var moduleInfo: AddressInfo?
+                    var module: AddressInfo
                 }
             }
         }
 
         struct Custom: Decodable {
-            var to: AddressString
-            var toInfo: AddressInfo?
+            var to: AddressInfo
             var dataSize: UInt256String
             var value: UInt256String
             var methodName: String?
@@ -338,8 +349,7 @@ extension SCGModels {
         }
 
         struct Rejection: Decodable {
-            var to: AddressString
-            var toInfo: AddressInfo?
+            var to: AddressInfo
             var dataSize: UInt256String
             var value: UInt256String
             var methodName: String?
@@ -347,13 +357,10 @@ extension SCGModels {
         }
 
         struct Creation: Decodable {
-            var creator: AddressString
-            var creatorInfo: AddressInfo?
+            var creator: AddressInfo
             var transactionHash: DataString
-            var implementation: AddressString?
-            var implementationInfo: AddressInfo?
-            var factory: AddressString?
-            var factoryInfo: AddressInfo?
+            var implementation: AddressInfo?
+            var factory: AddressInfo?
         }
     }
 
@@ -453,7 +460,7 @@ extension SCGModels {
             }
 
             struct Module: Decodable {
-                var address: AddressString
+                var address: AddressInfo
             }
 
             struct Multisig: Decodable {
@@ -461,13 +468,13 @@ extension SCGModels {
                 var baseGas: UInt256String
                 var gasPrice: UInt256String
                 var gasToken: AddressString
-                var refundReceiver: AddressString
+                var refundReceiver: AddressInfo
                 var safeTxHash: HashString
-                var signers: [AddressString]
+                var signers: [AddressInfo]
                 var confirmationsRequired: UInt64
                 var confirmations: [Confirmation]
-                var rejectors: [AddressString]?
-                var executor: AddressString?
+                var rejectors: [AddressInfo]?
+                var executor: AddressInfo?
                 var submittedAt: Date
                 var nonce: UInt256String
             }
@@ -475,7 +482,7 @@ extension SCGModels {
     }
 
     struct TxData: Decodable {
-        var to: AddressString
+        var to: AddressInfo
         var value: UInt256String
         var operation: Operation
         var hexData: DataString?
@@ -486,7 +493,7 @@ extension SCGModels {
     struct SafeAppInfo: Decodable {
         var name: String
         var url: String
-        var logoUrl: String
+        var logoUri: String
     }
 
     enum Operation: Int, Codable {
@@ -520,14 +527,14 @@ extension SCGModels {
     // MARK: - Safe Info Extended
 
     struct SafeInfoExtended: Decodable {
-        var address: AddressInfoExtended
+        var address: AddressInfo
         var nonce: UInt256String
         var threshold: UInt256String
-        var owners: [AddressInfoExtended]
-        var implementation: AddressInfoExtended
-        var modules: [AddressInfoExtended]?
-        var fallbackHandler: AddressInfoExtended?
-        var `guard`: AddressInfoExtended?
+        var owners: [AddressInfo]
+        var implementation: AddressInfo
+        var modules: [AddressInfo]?
+        var fallbackHandler: AddressInfo?
+        var `guard`: AddressInfo?
         var version: String
     }
 
@@ -535,8 +542,8 @@ extension SCGModels {
     struct Network: Decodable {
         let chainId: UInt256String
         let chainName: String
-        let rpcUrl: URL
-        let blockExplorerUrl: URL
+        let rpcUri: URL
+        let blockExplorerUri: URL
         let nativeCurrency: Currency
         let theme: Theme
         let ensRegistryAddress: AddressString?
@@ -546,7 +553,7 @@ extension SCGModels {
         }
 
         var authenticatedRpcUrl: URL {
-            rpcUrl.appendingPathComponent(App.configuration.services.infuraKey)
+            rpcUri.appendingPathComponent(App.configuration.services.infuraKey)
         }
     }
 
@@ -559,19 +566,13 @@ extension SCGModels {
         let name: String
         let symbol: String
         let decimals: Int
-        let logoUrl: URL
-    }
-}
-
-extension SCGModels.AddressInfoExtended {
-    var addressInfo: AddressInfo {
-        .init(address: value.address, name: name, logoUri: logoUrl)
+        let logoUri: URL
     }
 }
 
 extension SCGModels.AddressInfo {
     var addressInfo: AddressInfo {
-        .init(address: .zero, name: name, logoUri: logoUri)
+        .init(address: value.address, name: name, logoUri: logoUri)
     }
 }
 
