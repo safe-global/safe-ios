@@ -13,8 +13,8 @@ class GnosisSafeTests: XCTestCase {
     let safe = GnosisSafe()
 
     func testSupportedVersions() {
-        let supported: [String] = ["1.0.0", "1.1.0", "1.2.3"]
-        let notSupported: [String] = ["0.1.0", "2.0.1"]
+        let supported: [String] = ["1.0.0", "1.1.1" , "1.1.0", "1.2.3", "1.3.0"]
+        let notSupported: [String] = ["0.1.0", "2.0.1", "1.3.1", "1.4.0"]
 
         for v in supported {
             XCTAssertTrue(safe.isSupported(v), "Expected to support \(v)")
