@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Version
 
 class UpdateController {
 
@@ -37,25 +38,21 @@ class UpdateController {
     }
 
     private func check(value: String, in range: String) -> Bool {
-        if range.isEmpty { return false }
+        guard range.isEmpty, let version = Version(value) else { return false }
         let ranges = range.split(separator: ",")
         for range in ranges {
             let rangeBound = range.components(separatedBy: "...")
             let minVersion = rangeBound.first!
             let maxVersion = rangeBound.last!
 
-            let compareWithMinResult = compareNumeric(minVersion, value)
-            let compareWithMaxResult = compareNumeric(value, maxVersion)
-            if [.orderedAscending, .orderedSame].contains(compareWithMinResult) &&
-                [.orderedAscending, .orderedSame].contains(compareWithMaxResult) {
+            if let minVersion = Version(minVersion),
+               let maxVersion = Version(maxVersion),
+               version >= minVersion,
+               version <= maxVersion {
                 return true
             }
         }
 
         return false
-    }
-
-    private func compareNumeric(_ version1: String, _ version2: String) -> ComparisonResult {
-        return version1.compare(version2, options: .numeric)
     }
 }
