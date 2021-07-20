@@ -17,8 +17,10 @@ class GnosisSafe {
         case unknown
     }
 
-    private let minimumSupportedVersion = Version("1.0.0")!
-    private let maximumSupportedVersion = Version("1.3.0")!
+    var minimumSupportedVersionValue = "1.0.0"
+    var maximumSupportedVersionValue = "1.3.0"
+    private var minimumSupportedVersion: Version { Version(minimumSupportedVersionValue)! }
+    private var maximumSupportedVersion: Version { Version(maximumSupportedVersionValue)! }
 
     var fallbackHandlers:[(fallbackHandler: Address, label: String)] = [("0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44", "DefaultFallbackHandler")]
 
