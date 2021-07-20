@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Version
 
 class GnosisSafe {
 
@@ -16,8 +17,8 @@ class GnosisSafe {
         case unknown
     }
 
-    private let minimumSupportedVersion = "1.0.0"
-    private let latestSupportedVersion = "1.3.0"
+    private let minimumSupportedVersion = Version("1.0.0")!
+    private let maximumSupportedVersion = Version("1.3.0")!
 
     var fallbackHandlers:[(fallbackHandler: Address, label: String)] = [("0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44", "DefaultFallbackHandler")]
 
@@ -37,10 +38,7 @@ class GnosisSafe {
     }
 
     func isSupported(_ version: String) -> Bool {
-        let compareWithMinResult = minimumSupportedVersion.compareNumeric(version)
-        let compareWithMaxResult = version.compareNumeric(latestSupportedVersion)
-        if [.orderedAscending, .orderedSame].contains(compareWithMinResult) &&
-            [.orderedAscending, .orderedSame].contains(compareWithMaxResult) {
+        if let version = Version(version), version >= minimumSupportedVersion && version <= maximumSupportedVersion {
             return true
         }
         

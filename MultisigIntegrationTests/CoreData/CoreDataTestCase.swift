@@ -35,7 +35,6 @@ class CoreDataTestCase: XCTestCase {
             rpcUrl: URL(string: "https://rpc.com/")!,
             blockExplorerUrl: URL(string: "https://block.com/")!,
             ensRegistryAddress: "0x0000000000000000000000000000000000000001",
-            recommendedMasterCopyVersion: "0x0000000000000000000000000000000000000001",
             currencyName: "Currency",
             currencySymbl: "CRY",
             currencyDecimals: 18,

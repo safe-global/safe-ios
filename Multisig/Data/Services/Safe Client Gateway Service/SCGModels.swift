@@ -550,7 +550,6 @@ extension SCGModels {
         let chainName: String
         let rpcUri: URL
         let blockExplorerUri: URL
-        let recommendedMasterCopyVersion: String
         let nativeCurrency: Currency
         let theme: Theme
         let ensRegistryAddress: AddressString?

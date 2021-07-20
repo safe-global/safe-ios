@@ -60,7 +60,6 @@ extension Network {
                        rpcUrl: URL,
                        blockExplorerUrl: URL,
                        ensRegistryAddress: String?,
-                       recommendedMasterCopyVersion: String,
                        currencyName: String,
                        currencySymbl: String,
                        currencyDecimals: Int,
@@ -76,7 +75,6 @@ extension Network {
         network.rpcUrl = rpcUrl
         network.blockExplorerUrl = blockExplorerUrl
         network.ensRegistryAddress = ensRegistryAddress
-        network.recommendedMasterCopyVersion = recommendedMasterCopyVersion
 
         let theme = NetworkTheme(context: context)
         theme.textColor = themeTextColor
@@ -102,7 +100,6 @@ extension Network {
                      rpcUrl: networkInfo.rpcUri,
                      blockExplorerUrl: networkInfo.blockExplorerUri,
                      ensRegistryAddress: networkInfo.ensRegistryAddress?.description,
-                     recommendedMasterCopyVersion: networkInfo.recommendedMasterCopyVersion,
                      currencyName: networkInfo.nativeCurrency.name,
                      currencySymbl: networkInfo.nativeCurrency.symbol,
                      currencyDecimals: networkInfo.nativeCurrency.decimals,
@@ -140,7 +137,6 @@ extension Network {
         rpcUrl = networkInfo.rpcUri
         blockExplorerUrl = networkInfo.blockExplorerUri
         ensRegistryAddress = networkInfo.ensRegistryAddress?.description
-        recommendedMasterCopyVersion = networkInfo.recommendedMasterCopyVersion
 
         theme?.textColor = networkInfo.theme.textColor
         theme?.backgroundColor = networkInfo.theme.backgroundColor
@@ -181,7 +177,6 @@ extension Network {
             rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!,
             blockExplorerUrl: URL(string: "https://etherscan.io/")!,
             ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
-            recommendedMasterCopyVersion: "",
             currencyName: "Ether",
             currencySymbl: "ETH",
             currencyDecimals: 18,

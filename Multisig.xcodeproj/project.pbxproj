@@ -78,7 +78,6 @@
 		049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9DD92602211500CA5723 /* FiatCodesRequest.swift */; };
 		049EB0E925AF435C00F66CEA /* HistoryTransactions.json in Resources */ = {isa = PBXBuildFile; fileRef = 049EB0E425AF427C00F66CEA /* HistoryTransactions.json */; };
 		049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */; };
-		04AE4EB226A5E12300E15819 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE4EB126A5E12300E15819 /* String+Utils.swift */; };
 		04B4B5F725B754D600CFE24B /* SafeLoadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B5F525B754D600CFE24B /* SafeLoadedViewController.swift */; };
 		04B4B5F825B754D600CFE24B /* SafeLoadedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B5F625B754D600CFE24B /* SafeLoadedViewController.xib */; };
 		04B4B60225B84D6900CFE24B /* SafeInfoViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B60125B84D6900CFE24B /* SafeInfoViewV2.swift */; };
@@ -652,7 +651,6 @@
 		049A9DD92602211500CA5723 /* FiatCodesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatCodesRequest.swift; sourceTree = "<group>"; };
 		049EB0E425AF427C00F66CEA /* HistoryTransactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryTransactions.json; sourceTree = "<group>"; };
 		049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+Offset.swift"; sourceTree = "<group>"; };
-		04AE4EB126A5E12300E15819 /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		04B4B5F525B754D600CFE24B /* SafeLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeLoadedViewController.swift; sourceTree = "<group>"; };
 		04B4B5F625B754D600CFE24B /* SafeLoadedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeLoadedViewController.xib; sourceTree = "<group>"; };
 		04B4B60125B84D6900CFE24B /* SafeInfoViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoViewV2.swift; sourceTree = "<group>"; };
@@ -2454,7 +2452,6 @@
 				0A802B8024E413450001790F /* HTTPClientError.swift */,
 				0A802B9124E5843B0001790F /* PagedRequest.swift */,
 				0A096CBD2608D9370034E6BC /* NetworkStatusObserver.swift */,
-				04AE4EB126A5E12300E15819 /* String+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3139,7 +3136,6 @@
 				555312EB2506608D0008206B /* Base58.swift in Sources */,
 				55DCC333258A4C71003346FC /* GSError.swift in Sources */,
 				0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */,
-				04AE4EB226A5E12300E15819 /* String+Utils.swift in Sources */,
 				04D1306C25DD525A0032FA03 /* ProposeTransactionRequest.swift in Sources */,
 				55BCFC562554627100020CE7 /* BasicCell.swift in Sources */,
 				0A9A1A34257924C600B44405 /* DetailAccountCell.swift in Sources */,
