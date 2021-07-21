@@ -78,7 +78,7 @@ extension Safe: Identifiable {
         guard let safes = try? Safe.getAll() else { return }
 
         cachedNames = safes.reduce(into: [String: String]()) { names, safe in
-            let networkId = safe.network != nil ? safe.network!.chainId! : "1"
+            let networkId = safe.chain != nil ? safe.chain!.id! : "1"
             let key = "\(safe.displayAddress):\(networkId)"
             names[key] = safe.name!
         }
@@ -133,7 +133,7 @@ extension Safe: Identifiable {
     }
 
     @discardableResult
-    static func create(address: String, version: String, name: String, network: Network, selected: Bool = true) -> Safe {
+    static func create(address: String, version: String, name: String, chain: Chain, selected: Bool = true) -> Safe {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
@@ -141,7 +141,7 @@ extension Safe: Identifiable {
         safe.address = address
         safe.contractVersion = version
         safe.name = name
-        safe.network = network
+        safe.chain = chain
 
         if selected {
             safe.select()
@@ -150,7 +150,7 @@ extension Safe: Identifiable {
         App.shared.coreDataStack.saveContext()
 
         Tracker.setSafeCount(count)
-        Tracker.trackEvent(.userSafeAdded, parameters: ["chain_id" : network.chainId!])
+        Tracker.trackEvent(.userSafeAdded, parameters: ["chain_id" : chain.id!])
 
         updateCachedNames()
 
@@ -180,11 +180,11 @@ extension Safe: Identifiable {
         let deletedSafeAddress = safe.address
         let context = App.shared.coreDataStack.viewContext
 
-        let networkId = safe.network!.chainId!
+        let networkId = safe.chain!.id!
 
-        if safe.network!.safe!.count == 1 {
+        if safe.chain!.safe!.count == 1 {
             // remove network with associated safe
-            Network.remove(network: safe.network!)
+            Chain.remove(network: safe.chain!)
         } else {
             context.delete(safe)
         }
@@ -208,7 +208,7 @@ extension Safe: Identifiable {
     }
 
     static func removeAll() throws {
-        Network.removeAll()
+        Chain.removeAll()
     }
 }
 

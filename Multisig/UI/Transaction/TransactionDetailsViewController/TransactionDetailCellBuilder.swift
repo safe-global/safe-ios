@@ -165,7 +165,7 @@ class TransactionDetailCellBuilder {
                     detail: erc721Tx.tokenId.description)
 
             case .nativeCoin(let nativeCoinTx):
-                let coin = Network.nativeCoin!
+                let coin = Chain.nativeCoin!
 
                 buildTransferHeader(
                     address: address,
@@ -267,7 +267,7 @@ class TransactionDetailCellBuilder {
             }
 
         case .custom(let customTx):
-            let coin = Network.nativeCoin!
+            let coin = Chain.nativeCoin!
             let (label, addressLogoUri) = displayNameAndImageUri(addressInfo: customTx.to)
 
             buildTransferHeader(

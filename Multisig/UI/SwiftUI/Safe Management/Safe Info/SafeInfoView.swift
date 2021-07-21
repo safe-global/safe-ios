@@ -34,8 +34,8 @@ struct SafeInfoContentView: View {
             AddressImage(safe.address).frame(width: 56, height: 56)
             Text(safe.displayName).headline().padding(.top, 6)
 
-            if let name = safe.network?.chainName,
-               let backgroundColor = safe.network?.backgroundColor.map(Color.init) {
+            if let name = safe.chain?.name,
+               let backgroundColor = safe.chain?.backgroundColor.map(Color.init) {
                 SwiftUINetworkIndicator(text: name, color: backgroundColor)
                     .padding(.top, 6)
             }

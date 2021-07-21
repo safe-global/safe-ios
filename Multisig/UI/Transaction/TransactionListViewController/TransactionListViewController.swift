@@ -337,7 +337,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
                 imageURL = URL(string: safeAppInfo.logoUri)
                 image = UIImage(named: "ico-custom-tx")
                 
-            } else if let importedSafeName = Safe.cachedName(by: customInfo.to.value, networkId: safe.network!.chainId!) {
+            } else if let importedSafeName = Safe.cachedName(by: customInfo.to.value, networkId: safe.chain!.id!) {
                 title = importedSafeName
                 placeholderAddress = customInfo.to.value
             } else {
@@ -403,7 +403,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             decimals = 0
         case .nativeCoin(let nativeCoinTransferInfo):
             value = Int256(nativeCoinTransferInfo.value.value)
-            let coin = Network.nativeCoin!
+            let coin = Chain.nativeCoin!
             decimals = UInt256(coin.decimals)
             symbol = coin.symbol
         case .unknown:

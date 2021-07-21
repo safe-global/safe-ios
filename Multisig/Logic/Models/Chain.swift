@@ -8,27 +8,28 @@
 
 import Foundation
 import CoreData
+import UIKit
 
-extension Network {
+extension Chain {
     static var count: Int {
         let context = App.shared.coreDataStack.viewContext
-        return (try? context.count(for: Network.fetchRequest().all())) ?? 0
+        return (try? context.count(for: Chain.fetchRequest().all())) ?? 0
     }
 
-    static var all: [Network] {
+    static var all: [Chain] {
         let context = App.shared.coreDataStack.viewContext
-        return (try? context.fetch(Network.fetchRequest().all())) ?? []
+        return (try? context.fetch(Chain.fetchRequest().all())) ?? []
     }
 
-    static var nativeCoin: NetworkToken? {
-        (try? Safe.getSelected())?.network?.nativeCurrency
+    static var nativeCoin: ChainToken? {
+        (try? Safe.getSelected())?.chain?.nativeCurrency
     }
 
     static func exists(_ id: String) throws -> Bool {
         do {
             dispatchPrecondition(condition: .onQueue(.main))
             let context = App.shared.coreDataStack.viewContext
-            let fr = Network.fetchRequest().by(id: id)
+            let fr = Chain.fetchRequest().by(id: id)
             let count = try context.count(for: fr)
             return count > 0
         } catch {
@@ -36,18 +37,18 @@ extension Network {
         }
     }
 
-    static func by(_ id: String) -> Network? {
+    static func by(_ id: String) -> Chain? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-        let fr = Network.fetchRequest().by(id: id)
+        let fr = Chain.fetchRequest().by(id: id)
         guard let chain = try? context.fetch(fr).first else { return nil }
         return chain
     }
 
-    static func createOrUpdate(_ networkInfo: SCGModels.Network) -> Network {
-        guard let chain = Network.by(networkInfo.id) else {
+    static func createOrUpdate(_ networkInfo: SCGModels.Network) -> Chain {
+        guard let chain = Chain.by(networkInfo.id) else {
             // should not fail, otherwise programmer error
-            return try! Network.create(networkInfo)
+            return try! Chain.create(networkInfo)
         }
         // can't fail because chain id is correct
         try! chain.update(from: networkInfo)
@@ -65,55 +66,55 @@ extension Network {
                        currencyDecimals: Int,
                        currencyLogo: URL,
                        themeTextColor: String,
-                       themeBackgroundColor: String) throws -> Network {
+                       themeBackgroundColor: String) throws -> Chain {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
-        let network = Network(context: context)
-        network.chainId = chainId
-        network.chainName = chainName
-        network.rpcUrl = rpcUrl
-        network.blockExplorerUrl = blockExplorerUrl
-        network.ensRegistryAddress = ensRegistryAddress
+        let chain = Chain(context: context)
+        chain.id = chainId
+        chain.name = chainName
+        chain.rpcUrl = rpcUrl
+        chain.blockExplorerUrl = blockExplorerUrl
+        chain.ensRegistryAddress = ensRegistryAddress
 
-        let theme = NetworkTheme(context: context)
+        let theme = ChainTheme(context: context)
         theme.textColor = themeTextColor
         theme.backgroundColor = themeBackgroundColor
-        theme.network = network
+        theme.chain = chain
 
-        let token = NetworkToken(context: context)
+        let token = ChainToken(context: context)
         token.name = currencyName
         token.symbol = currencySymbl
         token.decimals = Int32(currencyDecimals)
-        token.network = network
+        token.chain = chain
         token.logoUrl = currencyLogo
 
         try App.shared.coreDataStack.viewContext.save()
 
-        return network
+        return chain
     }
 
     @discardableResult
-    static func create(_ networkInfo: SCGModels.Network) throws -> Network {
-        try Network.create(chainId: networkInfo.id,
-                     chainName: networkInfo.chainName,
-                     rpcUrl: networkInfo.rpcUri,
-                     blockExplorerUrl: networkInfo.blockExplorerUri,
-                     ensRegistryAddress: networkInfo.ensRegistryAddress?.description,
-                     currencyName: networkInfo.nativeCurrency.name,
-                     currencySymbl: networkInfo.nativeCurrency.symbol,
-                     currencyDecimals: networkInfo.nativeCurrency.decimals,
-                     currencyLogo: networkInfo.nativeCurrency.logoUri,
-                     themeTextColor: networkInfo.theme.textColor.description,
-                     themeBackgroundColor: networkInfo.theme.backgroundColor.description)
+    static func create(_ networkInfo: SCGModels.Network) throws -> Chain {
+        try Chain.create(chainId: networkInfo.id,
+                         chainName: networkInfo.chainName,
+                         rpcUrl: networkInfo.rpcUri,
+                         blockExplorerUrl: networkInfo.blockExplorerUri,
+                         ensRegistryAddress: networkInfo.ensRegistryAddress?.description,
+                         currencyName: networkInfo.nativeCurrency.name,
+                         currencySymbl: networkInfo.nativeCurrency.symbol,
+                         currencyDecimals: networkInfo.nativeCurrency.decimals,
+                         currencyLogo: networkInfo.nativeCurrency.logoUri,
+                         themeTextColor: networkInfo.theme.textColor.description,
+                         themeBackgroundColor: networkInfo.theme.backgroundColor.description)
     }
 
     static func updateIfExist(_ networkInfo: SCGModels.Network) {
-        guard let network = Network.by(networkInfo.chainId.description) else { return }
+        guard let network = Chain.by(networkInfo.chainId.description) else { return }
         try! network.update(from: networkInfo)
     }
 
-    static func remove(network: Network) {
+    static func remove(network: Chain) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         context.delete(network)
@@ -127,13 +128,13 @@ extension Network {
     }
 }
 
-extension Network {
+extension Chain {
     func update(from networkInfo: SCGModels.Network) throws {
-        guard chainId == networkInfo.id else {
+        guard id == networkInfo.id else {
             throw GSError.NetworkIdMismatch()
         }
 
-        chainName =  networkInfo.chainName
+        name =  networkInfo.chainName
         rpcUrl = networkInfo.rpcUri
         blockExplorerUrl = networkInfo.blockExplorerUri
         ensRegistryAddress = networkInfo.ensRegistryAddress?.description
@@ -148,21 +149,21 @@ extension Network {
     }
 }
 
-extension NSFetchRequest where ResultType == Network {
+extension NSFetchRequest where ResultType == Chain {
     func all() -> Self {
-        sortDescriptors = [NSSortDescriptor(keyPath: \Network.chainId, ascending: true)]
+        sortDescriptors = [NSSortDescriptor(keyPath: \Chain.id, ascending: true)]
         return self
     }
 
     func by(id: String) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "chainId == %@", id)
+        predicate = NSPredicate(format: "id == %@", id)
         fetchLimit = 1
         return self
     }
 }
 
-extension Network {
+extension Chain {
     enum ChainID {
         static let ethereumMainnet = "1"
         static let ethereumRinkeby = "4"
@@ -170,8 +171,8 @@ extension Network {
         static let xDai = "100"
     }
 
-    static func mainnetChain() -> Network {
-        try! Network.by(ChainID.ethereumMainnet) ?? Network.create(
+    static func mainnetChain() -> Chain {
+        try! Chain.by(ChainID.ethereumMainnet) ?? Chain.create(
             chainId: ChainID.ethereumMainnet,
             chainName: "Mainnet",
             rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!,
@@ -185,19 +186,19 @@ extension Network {
             themeBackgroundColor: "#E8E7E6")
     }
 
-    typealias NetworkSafes = [(network: Network, safes: [Safe])]
+    typealias ChainSafes = [(network: Chain, safes: [Safe])]
 
     /// Returns safes grouped by network with the following logic applied:
     /// - Selected safe network will be first in the list
     /// - Other networks are sorted by network id
     /// - Selected safe will be the first in the list of network safes. Other safes are sorted by addition date with earlist on top.
-    static func networkSafes() -> NetworkSafes {
+    static func networkSafes() -> ChainSafes {
         guard let safes = try? Safe.getAll(),
               let selectedSafe = safes.first(where: { $0.isSelected }),
-              let selectedSafeNetwork = selectedSafe.network else { return [] }
+              let selectedSafeNetwork = selectedSafe.chain else { return [] }
 
-        var networkSafes = NetworkSafes()
-        let groupedSafes = Dictionary(grouping: safes, by: {$0.network!})
+        var networkSafes = ChainSafes()
+        let groupedSafes = Dictionary(grouping: safes, by: {$0.chain!})
 
         // Add selected safe Network on top with selected safe on top within the group
         let selectedSafeNetworkOtherSafes = groupedSafes[selectedSafeNetwork]!
@@ -208,7 +209,7 @@ extension Network {
         // Add other networks sorted by id with safes sorted by most recently added
         groupedSafes.keys
             .filter { $0 != selectedSafeNetwork }
-            .sorted { UInt256($0.chainId!)! < UInt256($1.chainId!)! }
+            .sorted { UInt256($0.id!)! < UInt256($1.id!)! }
             .forEach { network in
                 networkSafes.append(
                     (network: network,
@@ -220,8 +221,16 @@ extension Network {
     }
 }
 
-extension Network {
+extension Chain {
     var authenticatedRpcUrl: URL {
         rpcUrl!.appendingPathComponent(App.configuration.services.infuraKey)
+    }
+
+    var textColor: UIColor? {
+        theme?.textColor.flatMap(UIColor.init(hex:))
+    }
+
+    var backgroundColor: UIColor? {
+        theme?.backgroundColor.flatMap(UIColor.init(hex:))
     }
 }

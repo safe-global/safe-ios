@@ -26,11 +26,11 @@ class ENSNameLoader: ObservableObject {
             .compactMap { Address($0) }
             .receive(on: DispatchQueue.global())
             .map { address -> String? in
-                let network = safe.network!
+                let chain = safe.chain!
 
-                if let ensRegistryAddress = AddressString(network.ensRegistryAddress ?? "") {
-                    let manager = BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl,
-                                                          networkName: network.chainName!,
+                if let ensRegistryAddress = AddressString(chain.ensRegistryAddress ?? "") {
+                    let manager = BlockchainDomainManager(rpcURL: chain.authenticatedRpcUrl,
+                                                          networkName: chain.name!,
                                                           ensRegistryAddress: ensRegistryAddress)
                     return manager.ensName(for: address)
                 }

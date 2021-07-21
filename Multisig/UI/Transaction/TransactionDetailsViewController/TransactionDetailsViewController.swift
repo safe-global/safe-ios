@@ -57,7 +57,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         safe = try! Safe.getSelected()!
 
-        builder = TransactionDetailCellBuilder(vc: self, tableView: tableView, networkId: safe.network!.chainId!)
+        builder = TransactionDetailCellBuilder(vc: self, tableView: tableView, networkId: safe.chain!.id!)
 
         updateSafeInfo()
 
@@ -81,7 +81,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     private func updateSafeInfo() {
         loadSafeInfoDataTask = App.shared.clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
-                                                                             networkId: safe.network!.chainId!) { result in
+                                                                             networkId: safe.chain!.id!) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let safeInfo):
@@ -265,7 +265,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         guard let tx = tx,
               var transaction = Transaction(tx: tx),
               let safeAddress = try? Address(from: safe.address!),
-              let chainId = safe.network?.chainId,
+              let chainId = safe.chain?.id,
               let safeTxHash = transaction.safeTxHash?.description else {
             preconditionFailure("Unexpected Error")            
         }
@@ -299,7 +299,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private func confirmAndRefresh(safeTxHash: String, signature: String, keyType: KeyType) {
         confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash,
                                                                        signature: signature,
-                                                                       networkId: safe.network!.chainId!) {
+                                                                       networkId: safe.chain!.id!) {
             [weak self] result in
 
             // NOTE: sometimes the data of the transaction list is not
@@ -345,7 +345,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             transaction: transaction,
             confirmations: tx.ecdsaConfirmations,
             confirmationsRequired: multisigInfo.confirmationsRequired,
-            rpcURL: safe.network!.authenticatedRpcUrl,
+            rpcURL: safe.chain!.authenticatedRpcUrl,
             from: self,
             onSend: { result in
                 DispatchQueue.main.async {
@@ -384,13 +384,13 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         switch txSource {
         case .id(let txID):
-            reloadDataTask = clientGatewayService.asyncTransactionDetails(id: txID, networkId: safe.network!.chainId!) {
+            reloadDataTask = clientGatewayService.asyncTransactionDetails(id: txID, networkId: safe.chain!.id!) {
                 [weak self] in
                 
                 self?.onLoadingCompleted(result: $0)
             }
         case .safeTxHash(let safeTxHash):
-            reloadDataTask = clientGatewayService.asyncTransactionDetails(safeTxHash: safeTxHash, networkId: safe.network!.chainId!) { [weak self] in
+            reloadDataTask = clientGatewayService.asyncTransactionDetails(safeTxHash: safeTxHash, networkId: safe.chain!.id!) { [weak self] in
                 self?.onLoadingCompleted(result: $0)
             }
         case .data(let tx):

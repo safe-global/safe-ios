@@ -99,7 +99,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         do {
             let safe = try Safe.getSelected()!
             currentDataTask = clientGatewayService.asyncBalances(safeAddress: safe.addressValue,
-                                                                 networkId: safe.network!.chainId!) { [weak self] result in
+                                                                 networkId: safe.chain!.id!) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):

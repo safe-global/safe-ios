@@ -57,7 +57,7 @@
 		048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */; };
 		048D72BD26832FD70095999C /* NetworkListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72BC26832FD70095999C /* NetworkListRequest.swift */; };
 		048D72BF268359E20095999C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72BE268359E20095999C /* NetworkManager.swift */; };
-		048D72C126835CF90095999C /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C026835CF90095999C /* Network.swift */; };
+		048D72C126835CF90095999C /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C026835CF90095999C /* Chain.swift */; };
 		048D72C82684CB500095999C /* SelectNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C62684CB500095999C /* SelectNetworkViewController.swift */; };
 		048D72CD2685DC780095999C /* SelectNetworkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72CB2685DC780095999C /* SelectNetworkTableViewCell.swift */; };
 		048D72CE2685DC780095999C /* SelectNetworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72CC2685DC780095999C /* SelectNetworkTableViewCell.xib */; };
@@ -630,7 +630,7 @@
 		048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditSafeNameViewController.xib; sourceTree = "<group>"; };
 		048D72BC26832FD70095999C /* NetworkListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkListRequest.swift; sourceTree = "<group>"; };
 		048D72BE268359E20095999C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		048D72C026835CF90095999C /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		048D72C026835CF90095999C /* Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
 		048D72C62684CB500095999C /* SelectNetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNetworkViewController.swift; sourceTree = "<group>"; };
 		048D72CB2685DC780095999C /* SelectNetworkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNetworkTableViewCell.swift; sourceTree = "<group>"; };
 		048D72CC2685DC780095999C /* SelectNetworkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectNetworkTableViewCell.xib; sourceTree = "<group>"; };
@@ -2280,7 +2280,7 @@
 				554A16B2266E4D4900807049 /* EIP712Transformer.swift */,
 				55B64657253050200050BD95 /* HashString.swift */,
 				0A95893F25EFBE1E005011D7 /* KeyInfo.swift */,
-				048D72C026835CF90095999C /* Network.swift */,
+				048D72C026835CF90095999C /* Chain.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
 				0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */,
 				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
@@ -3175,7 +3175,7 @@
 				0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */,
 				0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */,
 				0AF1C89B2541AD5D00E28669 /* ScrollableEmptyView.swift in Sources */,
-				048D72C126835CF90095999C /* Network.swift in Sources */,
+				048D72C126835CF90095999C /* Chain.swift in Sources */,
 				048D72C82684CB500095999C /* SelectNetworkViewController.swift in Sources */,
 				0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */,
 				0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */,

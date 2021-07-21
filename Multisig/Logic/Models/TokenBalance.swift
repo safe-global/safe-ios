@@ -35,7 +35,7 @@ extension TokenBalance {
 
     init(address: Address, symbol: String?, logoUri: String?, tokenBalance: UInt256String, decimals: UInt256String?, fiatBalance: String, code: String) {
         self.address = address.checksummed
-        let coin = Network.nativeCoin!
+        let coin = Chain.nativeCoin!
 
         self.symbol = symbol ?? coin.symbol!
         self.imageURL = logoUri.flatMap { URL(string: $0) } ?? coin.logoUrl

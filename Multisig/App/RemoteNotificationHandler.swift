@@ -219,14 +219,14 @@ class RemoteNotificationHandler {
             let timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
 
             var safeRegistration: [SafeRegistration] = []
-            for networkSafes in Network.networkSafes() {
+            for networkSafes in Chain.networkSafes() {
                 let safes = networkSafes.safes.compactMap { $0.address }.compactMap { Address($0) }.map { $0.checksummed }.sorted()
                 guard let signResult = try Self.sign(safes: safes,
                                                      deviceID: deviceID,
                                                      token: token,
                                                      timestamp: timestamp) else { continue }
                 
-                safeRegistration.append(SafeRegistration(chainId: networkSafes.network.chainId!, safes: safes,
+                safeRegistration.append(SafeRegistration(chainId: networkSafes.network.id!, safes: safes,
                                                          signatures: signResult.signatures))
             }
 
@@ -250,14 +250,14 @@ class RemoteNotificationHandler {
         guard let rawAddress = payload.address,
             let safeAddress = Address(rawAddress),
             let chainId = payload.chainId,
-            let network = Network.by(chainId) else { return }
+            let chain = Chain.by(chainId) else { return }
 
-        guard Safe.exists(safeAddress.checksummed, networkId: network.chainId!) else {
-            unregister(address: safeAddress, networkId: network.chainId!)
+        guard Safe.exists(safeAddress.checksummed, networkId: chain.id!) else {
+            unregister(address: safeAddress, networkId: chain.id!)
             return
         }
 
-        Safe.select(address: rawAddress, networkId: network.chainId!)
+        Safe.select(address: rawAddress, networkId: chain.id!)
 
         if let safeTxHash = payload.safeTxHash,
            let hashData = Data(exactlyHex: safeTxHash) {

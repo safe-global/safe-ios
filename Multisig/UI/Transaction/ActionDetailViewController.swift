@@ -85,7 +85,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func buildHeader() {
         if let tx = multiSendTx {
-            let coin = Network.nativeCoin!
+            let coin = Chain.nativeCoin!
             txBuilder.result = []
             let (name, imageUri) = displayNameAndImageUri(
                 address: tx.to, addressInfoIndex: addressInfoIndex, networkId: networkId)

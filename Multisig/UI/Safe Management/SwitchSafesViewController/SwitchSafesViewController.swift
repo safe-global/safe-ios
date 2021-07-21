@@ -11,7 +11,7 @@ import UIKit
 final class SwitchSafesViewController: UITableViewController {
     var notificationCenter = NotificationCenter.default
 
-    private var networkSafes = Network.NetworkSafes()
+    private var networkSafes = Chain.ChainSafes()
     private let addSafeSection = 0
 
     override func viewDidLoad() {
@@ -39,7 +39,7 @@ final class SwitchSafesViewController: UITableViewController {
     }
 
     @objc private func reloadData() {
-        networkSafes = Network.networkSafes()
+        networkSafes = Chain.networkSafes()
         tableView.reloadData()
     }
 
@@ -107,7 +107,7 @@ final class SwitchSafesViewController: UITableViewController {
 
         let view = tableView.dequeueHeaderFooterView(NetworkIndicatorHeaderView.self)
         let network = networkSafes[section - 1].network
-        view.text = network.chainName
+        view.text = network.name
         view.dotColor = network.backgroundColor
         return view
     }

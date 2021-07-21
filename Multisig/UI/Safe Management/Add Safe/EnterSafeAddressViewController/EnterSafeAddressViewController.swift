@@ -75,8 +75,8 @@ class EnterSafeAddressViewController: UIViewController {
         enterAddressVC.placeholder = "Enter name"
 
         enterAddressVC.completion = { [unowned enterAddressVC, unowned self] name in
-            let coreDataNetwork = Network.createOrUpdate(network)
-            Safe.create(address: address.checksummed, version: safeVersion!, name: name, network: coreDataNetwork)
+            let coreDataChain = Chain.createOrUpdate(network)
+            Safe.create(address: address.checksummed, version: safeVersion!, name: name, chain: coreDataChain)
 
             let createdCompletion = { [unowned self] in
                 self.completion()

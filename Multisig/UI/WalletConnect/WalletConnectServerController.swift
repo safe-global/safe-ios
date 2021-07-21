@@ -86,7 +86,7 @@ class WalletConnectServerController {
 
                 let wcSession = pendingTx.session!
                 let session = try! Session.from(wcSession)
-                let networkId = wcSession.safe!.network!.chainId!
+                let networkId = wcSession.safe!.chain!.id!
 
                 DispatchQueue.global().async { [unowned self] in
                     App.shared.clientGatewayService.asyncTransactionDetails(id: safeTxHash,
@@ -130,7 +130,7 @@ extension WalletConnectServerController: ServerDelegate {
 
         guard let safe = try? Safe.getSelected(),
               let address = safe.address,
-              let network = safe.network
+              let chain = safe.chain
         else {
             // we can't get address or network in the local database, we're closing connection.
             denySession(clientMeta: walletMeta, displayMessage: nil, completion: completion)
@@ -138,7 +138,7 @@ extension WalletConnectServerController: ServerDelegate {
         }
 
         // Right now WalletConnect library expects chainId to be Int type.
-        guard let selectedSafeChainId = Int(network.chainId!) else {
+        guard let selectedSafeChainId = Int(chain.id!) else {
             denySession(clientMeta: walletMeta,
                         displayMessage: "Selected safe chain is not supported yet.",
                         completion: completion)
@@ -161,7 +161,7 @@ extension WalletConnectServerController: ServerDelegate {
         let walletInfo = Session.WalletInfo(
             approved: false,
             accounts: [],
-            chainId: Int(Network.ChainID.ethereumMainnet)!,
+            chainId: Int(Chain.ChainID.ethereumMainnet)!,
             peerId: UUID().uuidString,
             peerMeta: clientMeta)
 

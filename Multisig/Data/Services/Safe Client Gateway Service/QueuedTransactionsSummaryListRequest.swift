@@ -32,8 +32,8 @@ extension QueuedTransactionsSummaryListRequest {
 }
 
 extension SafeClientGatewayService {
-    func latestQueuedTransactionNonce(safeAddress: Address, networkId: String) throws -> UInt256String? {
-        let page = try execute(request: QueuedTransactionsSummaryListRequest(safeAddress, networkId: networkId))
+    func latestQueuedTransactionNonce(safeAddress: Address, chainId: String) throws -> UInt256String? {
+        let page = try execute(request: QueuedTransactionsSummaryListRequest(safeAddress, networkId: chainId))
         for item in page.results {
             if case SCGModels.TransactionSummaryItem.transaction(let transaction) = item,
                let executionInfo = transaction.transaction.executionInfo,

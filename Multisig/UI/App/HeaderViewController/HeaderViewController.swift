@@ -117,7 +117,7 @@ final class HeaderViewController: ContainerViewController {
         do {
             guard let safe = try Safe.getSelected() else { return }
             currentDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
-                                                                 networkId: safe.network!.chainId!) { [weak self] result in
+                                                                 networkId: safe.chain!.id!) { [weak self] result in
                 DispatchQueue.main.async { [weak self] in
                     switch result {
                     case .failure(let error):
@@ -137,15 +137,5 @@ final class HeaderViewController: ContainerViewController {
         } catch {
             LogService.shared.error("Failed to reload safe info: \(error)")
         }
-    }
-}
-
-extension Network {
-    var textColor: UIColor? {
-        theme?.textColor.flatMap(UIColor.init(hex:))
-    }
-
-    var backgroundColor: UIColor? {
-        theme?.backgroundColor.flatMap(UIColor.init(hex:))
     }
 }

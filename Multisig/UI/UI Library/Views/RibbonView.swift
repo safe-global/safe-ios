@@ -68,16 +68,16 @@ class RibbonView: UINibView {
     /// Updates ribbon UI based on safe's network
     @objc func updateFromSafe() {
         let safeOrNil = try? Safe.getSelected()
-        update(network: safeOrNil?.network)
+        update(chain: safeOrNil?.chain)
     }
 
     /// Updates ribbon UI based on the network
     /// - Parameter network: The network data. If nil, the ribbon will hide. If not nil, it will be shown.
-    func update(network: Network?) {
-        if let network = network,
-           let name = network.chainName,
-           let textColor = network.textColor,
-           let backgroundColor = network.backgroundColor {
+    func update(chain: Chain?) {
+        if let chain = chain,
+           let name = chain.name,
+           let textColor = chain.textColor,
+           let backgroundColor = chain.backgroundColor {
             self.text = name
             self.textColor = textColor
             self.backgroundColor = backgroundColor

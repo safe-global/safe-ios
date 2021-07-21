@@ -143,7 +143,7 @@ extension Tracker {
     static func trackEvent(_ event: TrackingEvent, parameters: [String: Any]? = nil) {
         var parameters = parameters ?? [String: Any]()
         if shouldAddChainIdParam(for: event) && parameters["chain_id"] == nil {
-            let chainId = try? Safe.getSelected()?.network?.chainId ?? "none"
+            let chainId = try? Safe.getSelected()?.chain?.id ?? "none"
             parameters["chain_id"] = chainId
         }
         Tracker.shared.track(event: event, parameters: parameters)
