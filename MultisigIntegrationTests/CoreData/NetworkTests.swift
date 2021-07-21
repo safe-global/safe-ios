@@ -89,31 +89,32 @@ class NetworkTests: CoreDataTestCase {
         let chain = Chain.mainnetChain()
 
         // updating with different chain id
-        var networkInfo = makeTestNetworkInfo(id: UInt256(chain.id!)! + 1)
+        var chainInfo = makeTestNetworkInfo(id: UInt256(chain.id!)! + 1)
         XCTAssertThrowsError(
-            try chain.update(from: networkInfo)
+            try chain.update(from: chainInfo)
         )
 
-        networkInfo = makeTestNetworkInfo(id: UInt256(chain.id!)!)
+        chainInfo = makeTestNetworkInfo(id: UInt256(chain.id!)!)
 
         // updating with same chain id
         XCTAssertNoThrow(
-            try chain.update(from: networkInfo)
+            try chain.update(from: chainInfo)
         )
 
-        XCTAssertEqual(chain.id, networkInfo.id)
-        XCTAssertEqual(chain.name, networkInfo.chainName)
-        XCTAssertEqual(chain.rpcUrl, networkInfo.rpcUri)
-        XCTAssertEqual(chain.blockExplorerUrl, networkInfo.blockExplorerUri)
-        XCTAssertEqual(chain.ensRegistryAddress, networkInfo.ensRegistryAddress?.description)
+        XCTAssertEqual(chain.id, chainInfo.id)
+        XCTAssertEqual(chain.name, chainInfo.chainName)
+        XCTAssertEqual(chain.rpcUrl, chainInfo.rpcUri.value)
+        XCTAssertEqual(chain.rpcUrlAuthentication, chainInfo.rpcUri.authentication.rawValue)
+        XCTAssertEqual(chain.blockExplorerUrl, chainInfo.blockExplorerUri)
+        XCTAssertEqual(chain.ensRegistryAddress, chainInfo.ensRegistryAddress?.description)
 
-        XCTAssertEqual(chain.nativeCurrency?.name, networkInfo.nativeCurrency.name)
-        XCTAssertEqual(chain.nativeCurrency?.symbol, networkInfo.nativeCurrency.symbol)
-        XCTAssertEqual(chain.nativeCurrency?.decimals, Int32(networkInfo.nativeCurrency.decimals))
-        XCTAssertEqual(chain.nativeCurrency?.logoUrl, networkInfo.nativeCurrency.logoUri)
+        XCTAssertEqual(chain.nativeCurrency?.name, chainInfo.nativeCurrency.name)
+        XCTAssertEqual(chain.nativeCurrency?.symbol, chainInfo.nativeCurrency.symbol)
+        XCTAssertEqual(chain.nativeCurrency?.decimals, Int32(chainInfo.nativeCurrency.decimals))
+        XCTAssertEqual(chain.nativeCurrency?.logoUrl, chainInfo.nativeCurrency.logoUri)
 
-        XCTAssertEqual(chain.theme?.textColor, networkInfo.theme.textColor)
-        XCTAssertEqual(chain.theme?.backgroundColor, networkInfo.theme.backgroundColor)
+        XCTAssertEqual(chain.theme?.textColor, chainInfo.theme.textColor)
+        XCTAssertEqual(chain.theme?.backgroundColor, chainInfo.theme.backgroundColor)
     }
 
     func test_createOrUpdate() {
@@ -126,7 +127,9 @@ class NetworkTests: CoreDataTestCase {
 
         XCTAssertEqual(mainNetwork.id, testNetworkInfo.id)
         XCTAssertEqual(mainNetwork.name, testNetworkInfo.chainName)
-        XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUri)
+        XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUri.value)
+        XCTAssertEqual(mainNetwork.rpcUrlAuthentication, testNetworkInfo.rpcUri.authentication.rawValue)
+
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUri)
         XCTAssertEqual(mainNetwork.ensRegistryAddress, testNetworkInfo.ensRegistryAddress?.description)
 
@@ -156,7 +159,8 @@ class NetworkTests: CoreDataTestCase {
 
         XCTAssertEqual(mainNetwork.id, testInfo.id)
         XCTAssertEqual(mainNetwork.name, testInfo.chainName)
-        XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUri)
+        XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUri.value)
+        XCTAssertEqual(mainNetwork.rpcUrlAuthentication, testInfo.rpcUri.authentication.rawValue)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testInfo.blockExplorerUri)
 
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testInfo.nativeCurrency.name)
@@ -252,6 +256,7 @@ class NetworkTests: CoreDataTestCase {
     func makeNetworkInfo(id: UInt256,
                          chainName: String,
                          rpcUrl: URL,
+                         rpcUrlAuthentication: SCGModels.RpcAuthentication.Authentication = .apiKeyPath,
                          blockExplorerUrl: URL,
                          currencyName: String,
                          currencySymbl: String,
@@ -262,7 +267,7 @@ class NetworkTests: CoreDataTestCase {
 
         SCGModels.Chain(chainId: UInt256String(id),
                         chainName: chainName,
-                        rpcUri: rpcUrl,
+                        rpcUri: SCGModels.RpcAuthentication(authentication: rpcUrlAuthentication, value: rpcUrl),
                         blockExplorerUri: blockExplorerUrl,
                         nativeCurrency: SCGModels.Currency(name: currencyName,
                                                            symbol: currencySymbl,

@@ -548,7 +548,7 @@ extension SCGModels {
     struct Chain: Decodable {
         let chainId: UInt256String
         let chainName: String
-        let rpcUri: URL
+        let rpcUri: RpcAuthentication
         let blockExplorerUri: URL
         let nativeCurrency: Currency
         let theme: Theme
@@ -559,7 +559,25 @@ extension SCGModels {
         }
 
         var authenticatedRpcUrl: URL {
-            rpcUri.appendingPathComponent(App.configuration.services.infuraKey)
+            switch rpcUri.authentication {
+            case .apiKeyPath:
+                // assume for now that we're using INFURA API for every authenticated url
+                return rpcUri.value.appendingPathComponent(App.configuration.services.infuraKey)
+            case .none:
+                return rpcUri.value
+            }
+        }
+    }
+
+    struct RpcAuthentication: Codable {
+        var authentication: Authentication
+        var value: URL
+        
+        enum Authentication: String, Codable {
+            // append the api key as a last path component of the uri
+            case apiKeyPath = "API_KEY_PATH"
+            // use uri as is
+            case none = "NO_AUTHENTICATION"
         }
     }
 

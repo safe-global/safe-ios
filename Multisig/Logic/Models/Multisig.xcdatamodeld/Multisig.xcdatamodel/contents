@@ -29,6 +29,7 @@
         <attribute name="id" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="rpcUrl" attributeType="URI"/>
+        <attribute name="rpcUrlAuthentication" attributeType="String" defaultValueString="API_KEY_PATH"/>
         <relationship name="nativeCurrency" maxCount="1" deletionRule="Cascade" destinationEntity="ChainToken" inverseName="chain" inverseEntity="ChainToken"/>
         <relationship name="safe" toMany="YES" deletionRule="Cascade" destinationEntity="Safe" inverseName="chain" inverseEntity="Safe"/>
         <relationship name="theme" maxCount="1" deletionRule="Cascade" destinationEntity="ChainTheme" inverseName="chain" inverseEntity="ChainTheme"/>
@@ -87,10 +88,10 @@
     <elements>
         <element name="AppSettings" positionX="54" positionY="18" width="128" height="254"/>
         <element name="AppUser" positionX="54" positionY="63" width="128" height="89"/>
-        <element name="KeyInfo" positionX="63" positionY="72" width="128" height="104"/>
-        <element name="Chain" positionX="54" positionY="117" width="128" height="149"/>
+        <element name="Chain" positionX="54" positionY="117" width="128" height="164"/>
         <element name="ChainTheme" positionX="72" positionY="135" width="128" height="74"/>
         <element name="ChainToken" positionX="63" positionY="126" width="128" height="104"/>
+        <element name="KeyInfo" positionX="63" positionY="72" width="128" height="104"/>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="134"/>
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
         <element name="WCPendingTransaction" positionX="54" positionY="27" width="128" height="104"/>

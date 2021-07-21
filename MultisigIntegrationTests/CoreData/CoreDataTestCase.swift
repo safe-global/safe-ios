@@ -33,6 +33,7 @@ class CoreDataTestCase: XCTestCase {
             chainId: id,
             chainName: "Test",
             rpcUrl: URL(string: "https://rpc.com/")!,
+            rpcUrlAuthentication: SCGModels.RpcAuthentication.Authentication.apiKeyPath.rawValue,
             blockExplorerUrl: URL(string: "https://block.com/")!,
             ensRegistryAddress: "0x0000000000000000000000000000000000000001",
             currencyName: "Currency",
