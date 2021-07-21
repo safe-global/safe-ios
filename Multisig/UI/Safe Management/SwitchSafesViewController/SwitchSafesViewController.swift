@@ -11,7 +11,7 @@ import UIKit
 final class SwitchSafesViewController: UITableViewController {
     var notificationCenter = NotificationCenter.default
 
-    private var networkSafes = Network.NetworkSafes()
+    private var chainSafes = Chain.ChainSafes()
     private let addSafeSection = 0
 
     override func viewDidLoad() {
@@ -39,7 +39,7 @@ final class SwitchSafesViewController: UITableViewController {
     }
 
     @objc private func reloadData() {
-        networkSafes = Network.networkSafes()
+        chainSafes = Chain.chainSafes()
         tableView.reloadData()
     }
 
@@ -55,14 +55,14 @@ final class SwitchSafesViewController: UITableViewController {
     // MARK: - UITableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        networkSafes.count + 1 /* for Add Safe button */
+        chainSafes.count + 1 /* for Add Safe button */
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == addSafeSection {
             return 1
         } else {
-            return networkSafes[section - 1].safes.count
+            return chainSafes[section - 1].safes.count
         }
     }
 
@@ -72,7 +72,7 @@ final class SwitchSafesViewController: UITableViewController {
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "SafeEntry", for: indexPath) as! SafeEntryTableViewCell
-        let safe = networkSafes[indexPath.section - 1].safes[indexPath.row]
+        let safe = chainSafes[indexPath.section - 1].safes[indexPath.row]
         cell.setName(safe.displayName)
         cell.setAddress(safe.addressValue)
         cell.setSelection(safe.isSelected)
@@ -94,7 +94,7 @@ final class SwitchSafesViewController: UITableViewController {
             }
             show(vc, sender: self)
         } else {
-            let safe = networkSafes[indexPath.section - 1].safes[indexPath.row]
+            let safe = chainSafes[indexPath.section - 1].safes[indexPath.row]
             if !safe.isSelected {
                 safe.select()
                 didTapCloseButton()
@@ -106,9 +106,9 @@ final class SwitchSafesViewController: UITableViewController {
         guard section != addSafeSection else { return nil }
 
         let view = tableView.dequeueHeaderFooterView(NetworkIndicatorHeaderView.self)
-        let network = networkSafes[section - 1].network
-        view.text = network.chainName
-        view.dotColor = network.backgroundColor
+        let chain = chainSafes[section - 1].chain
+        view.text = chain.name
+        view.dotColor = chain.backgroundColor
         return view
     }
 

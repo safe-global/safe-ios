@@ -13,7 +13,7 @@ class BlockchainDomainManager {
     private(set) var ens: ENS?
     private(set) var unstoppableDomainResolution: Resolution?
 
-    init(rpcURL: URL, networkName: String, ensRegistryAddress: AddressString?) {
+    init(rpcURL: URL, chainName: String, ensRegistryAddress: AddressString?) {
         if let ensRegistryAddress = ensRegistryAddress {
             ens = ENS(registryAddress: ensRegistryAddress.address, rpcURL: rpcURL)
         }
@@ -22,7 +22,7 @@ class BlockchainDomainManager {
             configs: Configurations(
                 cns: NamingServiceConfig(
                     providerUrl: rpcURL.absoluteString,
-                    network: networkName.lowercased(),
+                    network: chainName.lowercased(),
                     networking: GSNetworkingLayer()
                 )
             )

@@ -10,12 +10,12 @@ import Foundation
 
 struct QueuedTransactionsSummaryListRequest: JSONRequest {
     let safeAddress: String
-    let networkId: String
+    let chainId: String
     
     let timezoneOffset = TimeZone.currentOffest()
     var httpMethod: String { "GET" }
     var urlPath: String {
-        "/v1/chains/\(networkId)/safes/\(safeAddress)/transactions/queued"
+        "/v1/chains/\(chainId)/safes/\(safeAddress)/transactions/queued"
     }
 
     var query: String? {
@@ -26,14 +26,14 @@ struct QueuedTransactionsSummaryListRequest: JSONRequest {
 }
 
 extension QueuedTransactionsSummaryListRequest {
-    init(_ safeAddress: Address, networkId: String) {
-        self.init(safeAddress: safeAddress.checksummed, networkId: networkId)
+    init(_ safeAddress: Address, chainId: String) {
+        self.init(safeAddress: safeAddress.checksummed, chainId: chainId)
     }
 }
 
 extension SafeClientGatewayService {
-    func latestQueuedTransactionNonce(safeAddress: Address, networkId: String) throws -> UInt256String? {
-        let page = try execute(request: QueuedTransactionsSummaryListRequest(safeAddress, networkId: networkId))
+    func latestQueuedTransactionNonce(safeAddress: Address, chainId: String) throws -> UInt256String? {
+        let page = try execute(request: QueuedTransactionsSummaryListRequest(safeAddress, chainId: chainId))
         for item in page.results {
             if case SCGModels.TransactionSummaryItem.transaction(let transaction) = item,
                let executionInfo = transaction.transaction.executionInfo,
@@ -46,10 +46,10 @@ extension SafeClientGatewayService {
 
     func asyncQueuedTransactionsSummaryList(
         safeAddress: Address,
-        networkId: String,
+        chainId: String,
         completion: @escaping (Result<QueuedTransactionsSummaryListRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
 
-        asyncExecute(request: QueuedTransactionsSummaryListRequest(safeAddress, networkId: networkId), completion: completion)
+        asyncExecute(request: QueuedTransactionsSummaryListRequest(safeAddress, chainId: chainId), completion: completion)
     }
 
     func asyncQueuedTransactionsSummaryList(

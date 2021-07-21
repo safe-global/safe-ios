@@ -314,10 +314,10 @@ enum GSError {
         let loggable = false
     }
 
-    struct NetworkIdMismatch: DetailedLocalizedError {
-        let description = "Trying to update a network with different chain id"
-        let reason = "Trying to update a network with different chain id"
-        let howToFix = "Network Id should be identical"
+    struct ChainIdMismatch: DetailedLocalizedError {
+        let description = "Trying to update a chain with different id"
+        let reason = "Trying to update a chain with different id"
+        let howToFix = "Chain Id should be identical"
         let domain = clientErrorDomain
         let code = 1111
         let loggable = false

@@ -14,9 +14,9 @@ class EnterSafeAddressViewController: UIViewController {
     var address: Address? { addressField?.address }
     var gatewayService = App.shared.clientGatewayService
     var completion: () -> Void = { }
-    var network: SCGModels.Network!
+    var chain: SCGModels.Chain!
     var safeVersion: String?
-    lazy var trackingParameters: [String: Any]  = { ["chain_id" : network.chainId.description] }()
+    lazy var trackingParameters: [String: Any]  = { ["chain_id" : chain.chainId.description] }()
 
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var addressField: AddressField!
@@ -65,7 +65,7 @@ class EnterSafeAddressViewController: UIViewController {
         enterAddressVC.trackingParameters = trackingParameters
 
         let enterAddressWrapperVC = RibbonViewController(rootViewController: enterAddressVC)
-        enterAddressWrapperVC.network = network
+        enterAddressWrapperVC.chain = chain
 
         enterAddressVC.address = address
         enterAddressVC.trackingEvent = .safeAddName
@@ -75,8 +75,8 @@ class EnterSafeAddressViewController: UIViewController {
         enterAddressVC.placeholder = "Enter name"
 
         enterAddressVC.completion = { [unowned enterAddressVC, unowned self] name in
-            let coreDataNetwork = Network.createOrUpdate(network)
-            Safe.create(address: address.checksummed, version: safeVersion!, name: name, network: coreDataNetwork)
+            let coreDataChain = Chain.createOrUpdate(chain)
+            Safe.create(address: address.checksummed, version: safeVersion!, name: name, chain: coreDataChain)
 
             let createdCompletion = { [unowned self] in
                 self.completion()
@@ -89,7 +89,7 @@ class EnterSafeAddressViewController: UIViewController {
                 loadedVC.completion = createdCompletion
 
                 let loadedWrapperVC = RibbonViewController(rootViewController: loadedVC)
-                loadedWrapperVC.network = self.network
+                loadedWrapperVC.chain = self.chain
                 loadedWrapperVC.hidesBottomBarWhenPushed = true
 
                 enterAddressVC.show(loadedWrapperVC, sender: enterAddressVC)
@@ -128,9 +128,9 @@ class EnterSafeAddressViewController: UIViewController {
             self.present(vc, animated: true, completion: nil)
         }))
 
-        let blockchainDomainManager = BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl,
-                                                              networkName: network.chainName,
-                                                              ensRegistryAddress: network.ensRegistryAddress)
+        let blockchainDomainManager = BlockchainDomainManager(rpcURL: chain.authenticatedRpcUrl,
+                                                              chainName: chain.chainName,
+                                                              ensRegistryAddress: chain.ensRegistryAddress)
 
         if blockchainDomainManager.ens != nil {
             alertVC.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
@@ -143,7 +143,7 @@ class EnterSafeAddressViewController: UIViewController {
                     self.didEnterText(ensNameVC.address?.checksummed)
                 }
                 let ensNameWrapperVC = RibbonViewController(rootViewController: ensNameVC)
-                ensNameWrapperVC.network = self.network
+                ensNameWrapperVC.chain = self.chain
                 self.show(ensNameWrapperVC, sender: nil)
             }))
         }
@@ -159,7 +159,7 @@ class EnterSafeAddressViewController: UIViewController {
                     self.didEnterText(udNameVC.address?.checksummed)
                 }
                 let udNameWrapperVC = RibbonViewController(rootViewController: udNameVC)
-                udNameWrapperVC.network = self.network
+                udNameWrapperVC.chain = self.chain
                 self.show(udNameWrapperVC, sender: nil)
             }))
         }
@@ -197,14 +197,14 @@ class EnterSafeAddressViewController: UIViewController {
             addressField.setAddress(address)
 
             // (2) and that there's no such safe already
-            let exists = Safe.exists(address.checksummed, networkId: network.id)
+            let exists = Safe.exists(address.checksummed, chainId: chain.id)
             if exists { throw GSError.SafeAlreadyExists() }
 
             // (3) and there exists safe at that address
             addressField.setLoading(true)
 
             loadSafeTask = gatewayService.asyncSafeInfo(safeAddress: address,
-                                                        networkId: network.id,
+                                                        chainId: chain.id,
                                                         completion: { [weak self] result in
                 DispatchQueue.main.async {
                     self?.addressField.setLoading(false)

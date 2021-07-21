@@ -15,7 +15,7 @@ class ActionDetailViewController: UITableViewController {
 
     private var multiSendTx: MultiSendTx?
     private var addressInfoIndex: AddressInfoIndex?
-    private var networkId: String!
+    private var chainId: String!
     private var dataDecoded: DataDecoded?
     private var data: DataString?
     private var placeholderTitle: String?
@@ -29,23 +29,23 @@ class ActionDetailViewController: UITableViewController {
 
     convenience init(decoded: DataDecoded,
                      addressInfoIndex: AddressInfoIndex?,
-                     networkId: String,
+                     chainId: String,
                      data: DataString? = nil) {
         self.init()
         self.dataDecoded = decoded
         self.addressInfoIndex = addressInfoIndex
-        self.networkId = networkId
+        self.chainId = chainId
         self.data = data
     }
 
     convenience init(tx: MultiSendTx,
                      addressInfoIndex: AddressInfoIndex?,
-                     networkId: String,
+                     chainId: String,
                      placeholderTitle: String?) {
         self.init()
         multiSendTx = tx
         self.addressInfoIndex = addressInfoIndex
-        self.networkId = networkId
+        self.chainId = chainId
         dataDecoded = tx.dataDecoded
         data = tx.data
         self.placeholderTitle = placeholderTitle
@@ -54,7 +54,7 @@ class ActionDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        txBuilder = TransactionDetailCellBuilder(vc: self, tableView: tableView, networkId: networkId)
+        txBuilder = TransactionDetailCellBuilder(vc: self, tableView: tableView, chainId: chainId)
         tableView.registerCell(ActionDetailTextCell.self)
         tableView.registerCell(ActionDetailExpandableCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
@@ -65,7 +65,7 @@ class ActionDetailViewController: UITableViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(reloadData),
-            name: .networkInfoChanged,
+            name: .chainInfoChanged,
             object: nil)
     }
 
@@ -85,10 +85,10 @@ class ActionDetailViewController: UITableViewController {
 
     private func buildHeader() {
         if let tx = multiSendTx {
-            let coin = Network.nativeCoin!
+            let coin = Chain.nativeCoin!
             txBuilder.result = []
             let (name, imageUri) = displayNameAndImageUri(
-                address: tx.to, addressInfoIndex: addressInfoIndex, networkId: networkId)
+                address: tx.to, addressInfoIndex: addressInfoIndex, chainId: chainId)
             txBuilder.buildTransferHeader(
                 address: tx.to.address,
                 label: name,
@@ -229,7 +229,7 @@ class ActionDetailViewController: UITableViewController {
         let cell = tableView.dequeueCell(ActionDetailAddressCell.self)
         let (name, imageUri) = displayNameAndImageUri(address: AddressString(address),
                                                       addressInfoIndex: addressInfoIndex,
-                                                      networkId: networkId)
+                                                      chainId: chainId)
         cell.setAddress(address, label: name, imageUri: imageUri)
         cell.selectionStyle = .none
         cell.margins.leading += indentation

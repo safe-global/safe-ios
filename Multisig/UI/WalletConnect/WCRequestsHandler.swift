@@ -54,7 +54,7 @@ class WCRequestsHandler: RequestHandler {
             guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
                   let requestId = request.id,
                   let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
-                    safeAddress: safe.addressValue, networkId: safe.network!.chainId!) else {
+                    safeAddress: safe.addressValue, chainId: safe.chain!.id!) else {
                 server.send(try! Response(request: request, error: .requestRejected))
                 return
             }
@@ -113,7 +113,7 @@ class WCRequestsHandler: RequestHandler {
             }
         } else {
             do {
-                let rpcURL = safe.network!.authenticatedRpcUrl
+                let rpcURL = safe.chain!.authenticatedRpcUrl
                 let result = try App.shared.nodeService.rawCall(payload: request.jsonString, rpcURL: rpcURL)
                 let response = try Response(url: request.url, jsonString: result)
                 self.server.send(response)

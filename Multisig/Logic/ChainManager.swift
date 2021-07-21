@@ -8,14 +8,14 @@
 
 import Foundation
 
-class NetworkManager {
+class ChainManager {
     static func updateChainsInfo() {
-        App.shared.clientGatewayService.asyncNetworks { result in
+        App.shared.clientGatewayService.asyncChains { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let networks):
-                    for network in networks.results { Network.updateIfExist(network) }
-                    NotificationCenter.default.post(name: .networkInfoChanged, object: nil)
+                case .success(let chains):
+                    for chain in chains.results { Chain.updateIfExist(chain) }
+                    NotificationCenter.default.post(name: .chainInfoChanged, object: nil)
                 case .failure(_):
                     // Ignoring error because we'll try again in the next app start.
                     break
@@ -28,12 +28,12 @@ class NetworkManager {
     static func migrateOldSafes() {
         guard let allSafes = try? Safe.getAll() else { return }
 
-        let notMigrated = allSafes.filter { $0.network == nil }
+        let notMigrated = allSafes.filter { $0.chain == nil }
         if notMigrated.isEmpty { return }
 
-        let mainnet = Network.mainnetChain()
+        let mainnet = Chain.mainnetChain()
         for safe in notMigrated {
-            safe.network = mainnet
+            safe.chain = mainnet
         }
         App.shared.coreDataStack.saveContext()
     }

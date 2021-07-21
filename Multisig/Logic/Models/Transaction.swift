@@ -56,8 +56,8 @@ extension Transaction {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
         guard safe.addressValue == wcRequest.from.address,
-              let chainId = safe.network?.chainId,
-              let network = safe.network else { return nil }
+              let chainId = safe.chain?.id,
+              let chain = safe.chain else { return nil }
 
         self.safe = wcRequest.from
         self.chainId = chainId
@@ -65,7 +65,7 @@ extension Transaction {
         self.nonce = contractNonce
 
         if let latestTxNonce = try? App.shared.clientGatewayService
-            .latestQueuedTransactionNonce(safeAddress: self.safe!.address, networkId: network.chainId!),
+            .latestQueuedTransactionNonce(safeAddress: self.safe!.address, chainId: chain.id!),
            latestTxNonce.value >= nonce.value {
             nonce = UInt256String(latestTxNonce.value + 1)
         }

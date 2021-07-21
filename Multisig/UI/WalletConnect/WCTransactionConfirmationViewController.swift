@@ -28,7 +28,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     private var minimalNonce: UInt256String!
     private var session: Session!
     private var importedKeysForSafe: [Address]!
-    private lazy var trackingParameters: [String: Any] = { ["chain_id": safe.network!.chainId!] }()
+    private lazy var trackingParameters: [String: Any] = { ["chain_id": safe.chain!.id!] }()
 
     enum Section {
         case basic
@@ -109,7 +109,7 @@ class WCTransactionConfirmationViewController: UIViewController {
             try App.shared.clientGatewayService.proposeTransaction(transaction: transaction,
                                                                    sender: AddressString(keyInfo.address),
                                                                    signature: signature,
-                                                                   networkId: safe.network!.chainId!)
+                                                                   chainId: safe.chain!.id!)
             Tracker.trackEvent(trackingEvent, parameters: trackingParameters)
 
             DispatchQueue.main.async { [weak self] in
@@ -226,7 +226,7 @@ class WCTransactionConfirmationViewController: UIViewController {
         let cell = tableView.dequeueCell(DetailAccountCell.self)
         cell.setAccount(
             address: transaction.safe!.address,
-            label: Safe.cachedName(by: transaction.safe!, networkId: safe.network!.chainId!)
+            label: Safe.cachedName(by: transaction.safe!, chainId: safe.chain!.id!)
         )
         cell.selectionStyle = .none
         return cell
@@ -235,7 +235,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     private func transactionCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
 
-        let coin = safe.network!.nativeCurrency!
+        let coin = safe.chain!.nativeCurrency!
 
         let decimalAmount = BigDecimal(
             Int256(transaction.value.value) * -1,

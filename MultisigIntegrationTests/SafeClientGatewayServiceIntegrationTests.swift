@@ -11,14 +11,14 @@ import XCTest
 
 class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
     var service = SafeClientGatewayService(url: App.configuration.services.clientGatewayURL, logger: MockLogger())
-    let networkId = Network.ChainID.ethereumRinkeby
+    let chainId = Chain.ChainID.ethereumRinkeby
 
     func testTransactionsPageLoad() throws {
         // configure dependency on nativeCoin to decode native token transactions
-        let chain = try makeNetwork(id: networkId)
-        let safe = createSafe(name: "safe", address: "0x1230B3d59858296A31053C1b8562Ecf89A2f888b", network: chain)
+        let chain = try makeChain(id: chainId)
+        let safe = createSafe(name: "safe", address: "0x1230B3d59858296A31053C1b8562Ecf89A2f888b", chain: chain)
         safe.select()
-        XCTAssertNotNil(Network.nativeCoin)
+        XCTAssertNotNil(Chain.nativeCoin)
 
         let safes: [Address] = [
             "0x8E77c8D47372Be160b3DC613436927FCc34E1ec0",
@@ -51,7 +51,7 @@ class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
 
         let firstPageExp = expectation(description: "first page")
 
-        _ = service.asyncHistoryTransactionsSummaryList(safeAddress: safe, networkId: networkId) { result in
+        _ = service.asyncHistoryTransactionsSummaryList(safeAddress: safe, chainId: chainId) { result in
             guard case .success(let response) = result else {
                 XCTFail("Unexpected error: \(result); Safe \(safe.checksummed)", line: line)
                 firstPageExp.fulfill()
@@ -151,7 +151,7 @@ class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
         var result: Result<SCGModels.TransactionDetails, Error>?
         let semaphore = DispatchSemaphore(value: 0)
 
-        _ = service.asyncTransactionDetails(safeTxHash: hash, networkId: networkId) { _result in
+        _ = service.asyncTransactionDetails(safeTxHash: hash, chainId: chainId) { _result in
             result = _result
             semaphore.signal()
         }
@@ -164,7 +164,7 @@ class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
         var result: Result<SCGModels.TransactionDetails, Error>?
         let semaphore = DispatchSemaphore(value: 0)
 
-        _ = service.asyncTransactionDetails(id: id, networkId: networkId) { _result in
+        _ = service.asyncTransactionDetails(id: id, chainId: chainId) { _result in
             result = _result
             semaphore.signal()
         }
@@ -176,7 +176,7 @@ class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
     func testSafeInfo() {
         let semaphore = DispatchSemaphore(value: 0)
         _ = service.asyncSafeInfo(safeAddress: Address("0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"),
-                                  networkId: networkId) { result in
+                                  chainId: chainId) { result in
             guard case .success(let info) = result else {
                 XCTFail("Failed to load safe info.")
                 semaphore.signal()
@@ -192,7 +192,7 @@ class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
     func test_safeInfo_whenSendingNotASafe_returns404Error() {
         let semaphore = DispatchSemaphore(value: 0)
         _ = service.asyncSafeInfo(safeAddress: Address("0xc778417E063141139Fce010982780140Aa0cD5Ab"),
-                                  networkId: networkId) { result in
+                                  chainId: chainId) { result in
             guard case .failure(let error) = result else {
                 XCTFail("Expected error.")
                 semaphore.signal()
@@ -211,7 +211,7 @@ class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
     func testBalances() {
         let semaphore = DispatchSemaphore(value: 0)
         _ = service.asyncBalances(safeAddress: Address("0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"),
-                                  networkId: networkId) { result in
+                                  chainId: chainId) { result in
             guard case .success(let response) = result else {
                 XCTFail("Failed to load balances.")
                 semaphore.signal()

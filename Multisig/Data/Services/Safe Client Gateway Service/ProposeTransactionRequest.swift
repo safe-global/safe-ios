@@ -13,7 +13,7 @@ struct ProposeTransactionRequest: JSONRequest {
     let sender: AddressString
     let signature: String
     let transaction: Transaction
-    let networkId: String
+    let chainId: String
     
     enum CodingKeys: String, CodingKey {
         case sender
@@ -32,7 +32,7 @@ struct ProposeTransactionRequest: JSONRequest {
     }
 
     var httpMethod: String { "POST" }
-    var urlPath: String { "/v1/chains/\(networkId)/transactions/\(safe)/propose" }
+    var urlPath: String { "/v1/chains/\(chainId)/transactions/\(safe)/propose" }
 
     typealias ResponseType = EmptyResponse
 
@@ -63,23 +63,23 @@ extension SafeClientGatewayService {
         transaction: Transaction,
         sender: AddressString,
         signature: String,
-        networkId: String,
+        chainId: String,
         completion: @escaping (Result<ProposeTransactionRequest.EmptyResponse, Error>) -> Void) -> URLSessionTask? {
 
         return asyncExecute(request: ProposeTransactionRequest(safe: transaction.safe!,
                                                                sender: sender,
                                                                signature: signature,
                                                                transaction: transaction,
-                                                               networkId: networkId),
+                                                               chainId: chainId),
                             completion: completion)
     }
 
-    func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String, networkId: String) throws {
+    func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String, chainId: String) throws {
         let request = ProposeTransactionRequest(safe: transaction.safe!,
                                                 sender: sender,
                                                 signature: signature,
                                                 transaction: transaction,
-                                                networkId: networkId)
+                                                chainId: chainId)
         try execute(request: request)
     }
 }

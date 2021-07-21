@@ -49,7 +49,7 @@ class WalletConnectClientController {
             scheme: "gnosissafe")
 
         var chainId: Int?
-        if let networkChainId = try? Safe.getSelected()?.network?.chainId {
+        if let networkChainId = try? Safe.getSelected()?.chain?.id {
             chainId = Int(networkChainId)
         }
         

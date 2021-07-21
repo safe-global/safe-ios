@@ -8,7 +8,7 @@
 
 import Foundation
 struct NetworksListViewModel {
-    var models: [SCGModels.Network] = []
+    var models: [SCGModels.Chain] = []
 
     var isEmpty: Bool {
         models.isEmpty
@@ -16,7 +16,7 @@ struct NetworksListViewModel {
 
     var next: String?
 
-    init(_ models: [SCGModels.Network] = []) {
+    init(_ models: [SCGModels.Chain] = []) {
         self.models = models
     }
 
@@ -25,11 +25,11 @@ struct NetworksListViewModel {
         add(list.models)
     }
 
-    mutating func add(_ models: [SCGModels.Network] = []) {
+    mutating func add(_ models: [SCGModels.Chain] = []) {
         self.models.append(contentsOf: models)
     }
 
-    var lastTransaction: SCGModels.Network? {
+    var lastTransaction: SCGModels.Chain? {
         models.last
     }
 }

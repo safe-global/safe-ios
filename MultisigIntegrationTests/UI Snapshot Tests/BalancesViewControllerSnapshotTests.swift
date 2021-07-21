@@ -19,11 +19,11 @@ class BalancesViewControllerSnapshotTests: CoreDataTestCase {
         let apiStub = StubBalancesAPI(response)
 
         // balances screen requires a safe that is selected.
-        let network = try makeNetwork(id: "1")
+        let chain = try makeChain(id: "1")
         let _ = Safe.create(address: "0x0000000000000000000000000000000000000001",
                             version: "1.2.0",
                             name: "safe",
-                            network: network,
+                            chain: chain,
                             selected: true)
 
         // balances screen shows 'import key banner' unless already shown or imported key
@@ -53,7 +53,7 @@ class StubBalancesAPI: BalancesAPI {
     }
 
     func asyncBalances(safeAddress: Address,
-                       networkId: String,
+                       chainId: String,
                        completion: @escaping (Result<SafeBalanceSummary, Error>) -> Void) -> URLSessionTask? {
         completion(.success(result))
         return nil

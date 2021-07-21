@@ -17,7 +17,7 @@ class TransactionDetailCellBuilder {
     private weak var tableView: UITableView!
 
     // needed for proper safe selection for known addresses functionality
-    private var networkId: String
+    private var chainId: String
 
     private lazy var dateFormatter: DateFormatter = {
         let d = DateFormatter()
@@ -28,10 +28,10 @@ class TransactionDetailCellBuilder {
     }()
     var result: [UITableViewCell] = []
 
-    init(vc: UIViewController, tableView: UITableView, networkId: String) {
+    init(vc: UIViewController, tableView: UITableView, chainId: String) {
         self.vc = vc
         self.tableView = tableView
-        self.networkId = networkId
+        self.chainId = chainId
 
         tableView.registerCell(DetailExpandableTextCell.self)
         tableView.registerCell(DetailConfirmationCell.self)
@@ -165,7 +165,7 @@ class TransactionDetailCellBuilder {
                     detail: erc721Tx.tokenId.description)
 
             case .nativeCoin(let nativeCoinTx):
-                let coin = Network.nativeCoin!
+                let coin = Chain.nativeCoin!
 
                 buildTransferHeader(
                     address: address,
@@ -267,7 +267,7 @@ class TransactionDetailCellBuilder {
             }
 
         case .custom(let customTx):
-            let coin = Network.nativeCoin!
+            let coin = Chain.nativeCoin!
             let (label, addressLogoUri) = displayNameAndImageUri(addressInfo: customTx.to)
 
             buildTransferHeader(
@@ -364,7 +364,7 @@ class TransactionDetailCellBuilder {
                     guard let `self` = self else { return }
                     let root = MultiSendListTableViewController(transactions: multiSendTxs,
                                                                 addressInfoIndex: addressInfoIndex,
-                                                                networkId: self.networkId)
+                                                                chainId: self.chainId)
                     let vc = RibbonViewController(rootViewController: root)
                     self.vc.show(vc, sender: self)
                 }
@@ -373,7 +373,7 @@ class TransactionDetailCellBuilder {
                     guard let `self` = self else { return }
                     let root = ActionDetailViewController(decoded: dataDecoded,
                                                           addressInfoIndex: addressInfoIndex,
-                                                          networkId: self.networkId,
+                                                          chainId: self.chainId,
                                                           data: tx.txData?.hexData)
                     let vc = RibbonViewController(rootViewController: root)
                     self.vc.show(vc, sender: self)
@@ -623,7 +623,7 @@ class TransactionDetailCellBuilder {
     }
 
     func displayNameAndImageUri(addressInfo: SCGModels.AddressInfo) -> (name: String?, imageUri: URL?) {
-        if let importedSafeName = Safe.cachedName(by: addressInfo.value, networkId: networkId) {
+        if let importedSafeName = Safe.cachedName(by: addressInfo.value, chainId: chainId) {
             return (importedSafeName, nil)
         }
 

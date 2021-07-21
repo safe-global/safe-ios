@@ -91,7 +91,7 @@ class RejectionConfirmationViewController: UIViewController {
         let tx = Transaction.rejectionTransaction(safeAddress: safe.addressValue,
                                                   nonce: transaction.multisigInfo!.nonce,
                                                   safeVersion: safe.contractVersion!,
-                                                  chainId: safe.network!.chainId!)
+                                                  chainId: safe.chain!.id!)
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
@@ -135,7 +135,7 @@ class RejectionConfirmationViewController: UIViewController {
             transaction: transaction,
             sender: sender,
             signature: signature,
-            networkId: safe.network!.chainId!,
+            chainId: safe.chain!.id!,
             completion: { [weak self] result in
                 // NOTE: sometimes the data of the transaction list is not
                 // updated right away, we'll give a moment for the backend

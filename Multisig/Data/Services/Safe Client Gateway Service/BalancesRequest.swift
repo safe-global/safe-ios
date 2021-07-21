@@ -10,22 +10,22 @@ import Foundation
 
 struct BalancesRequest: JSONRequest {
     private let safeAddress: String
-    private let networkId: String
+    private let chainId: String
     private let fiat: String
 
     var httpMethod: String { "GET" }
 
     var urlPath: String {
-        "/v1/chains/\(networkId)/safes/\(safeAddress)/balances/\(fiat)"
+        "/v1/chains/\(chainId)/safes/\(safeAddress)/balances/\(fiat)"
     }
 
     typealias ResponseType = SafeBalanceSummary
 }
 
 extension BalancesRequest {
-    init(_ safeAddress: Address, networkId: String) {
+    init(_ safeAddress: Address, chainId: String) {
         self.init(safeAddress: safeAddress.checksummed,
-                  networkId: networkId,
+                  chainId: chainId,
                   fiat: AppSettings.selectedFiatCode)
     }
 }
@@ -44,14 +44,14 @@ struct SCGBalance: Decodable {
 
 protocol BalancesAPI {
     func asyncBalances(safeAddress: Address,
-                       networkId: String,
+                       chainId: String,
                        completion: @escaping (Result<SafeBalanceSummary, Error>) -> Void) -> URLSessionTask?
 }
 
 extension SafeClientGatewayService: BalancesAPI {
     func asyncBalances(safeAddress: Address,
-                       networkId: String,
+                       chainId: String,
                        completion: @escaping (Result<SafeBalanceSummary, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: BalancesRequest(safeAddress, networkId: networkId), completion: completion)
+        asyncExecute(request: BalancesRequest(safeAddress, chainId: chainId), completion: completion)
     }
 }

@@ -74,7 +74,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         NotificationCenter.default.addObserver(
             self, selector: #selector(lazyReloadData), name: .selectedFiatCurrencyChanged, object: nil)
         NotificationCenter.default.addObserver(
-            self, selector: #selector(lazyReloadData), name: .networkInfoChanged, object: nil)
+            self, selector: #selector(lazyReloadData), name: .chainInfoChanged, object: nil)
 
         recreateSectionsWithCurrentItems()
     }
@@ -99,7 +99,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         do {
             let safe = try Safe.getSelected()!
             currentDataTask = clientGatewayService.asyncBalances(safeAddress: safe.addressValue,
-                                                                 networkId: safe.network!.chainId!) { [weak self] result in
+                                                                 chainId: safe.chain!.id!) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):

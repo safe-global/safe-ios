@@ -19,17 +19,17 @@ class CoreDataTestCase: XCTestCase {
     }
 
     @discardableResult
-    func createSafe(name: String, address: String, network: Network = Network.mainnetChain()) -> Safe {
+    func createSafe(name: String, address: String, chain: Chain = Chain.mainnetChain()) -> Safe {
         let safe = Safe(context: context)
         safe.name = name
         safe.address = address
-        safe.network = network
+        safe.chain = chain
         try! context.save()
         return safe
     }
 
-    func makeNetwork(id: String) throws -> Network {
-        try Network.create(
+    func makeChain(id: String) throws -> Chain {
+        try Chain.create(
             chainId: id,
             chainName: "Test",
             rpcUrl: URL(string: "https://rpc.com/")!,
