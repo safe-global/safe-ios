@@ -84,8 +84,8 @@ extension Safe: Identifiable {
         }
     }
 
-    static func cachedName(by address: AddressString, networkId: String) -> String? {
-        let key = "\(address.description):\(networkId)"
+    static func cachedName(by address: AddressString, chainId: String) -> String? {
+        let key = "\(address.description):\(chainId)"
         return cachedNames[key]
     }
 

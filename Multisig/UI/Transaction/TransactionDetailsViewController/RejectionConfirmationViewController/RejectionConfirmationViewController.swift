@@ -135,7 +135,7 @@ class RejectionConfirmationViewController: UIViewController {
             transaction: transaction,
             sender: sender,
             signature: signature,
-            networkId: safe.chain!.id!,
+            chainId: safe.chain!.id!,
             completion: { [weak self] result in
                 // NOTE: sometimes the data of the transaction list is not
                 // updated right away, we'll give a moment for the backend

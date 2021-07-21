@@ -86,11 +86,11 @@ class WalletConnectServerController {
 
                 let wcSession = pendingTx.session!
                 let session = try! Session.from(wcSession)
-                let networkId = wcSession.safe!.chain!.id!
+                let chainId = wcSession.safe!.chain!.id!
 
                 DispatchQueue.global().async { [unowned self] in
                     App.shared.clientGatewayService.asyncTransactionDetails(id: safeTxHash,
-                                                                            networkId: networkId) { result in
+                                                                            chainId: chainId) { result in
                         guard case .success(let transaction) = result,
                               let txHash = transaction.txHash,
                               // it might happen that pendingTx is removed, but the object still exists

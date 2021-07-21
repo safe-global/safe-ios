@@ -204,7 +204,7 @@ class EnterSafeAddressViewController: UIViewController {
             addressField.setLoading(true)
 
             loadSafeTask = gatewayService.asyncSafeInfo(safeAddress: address,
-                                                        networkId: chain.id,
+                                                        chainId: chain.id,
                                                         completion: { [weak self] result in
                 DispatchQueue.main.async {
                     self?.addressField.setLoading(false)

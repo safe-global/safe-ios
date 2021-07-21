@@ -97,7 +97,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         do {
             safe = try Safe.getSelected()!
             currentDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
-                                                                 networkId: safe.chain!.id!) { [weak self] result in
+                                                                 chainId: safe.chain!.id!) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):

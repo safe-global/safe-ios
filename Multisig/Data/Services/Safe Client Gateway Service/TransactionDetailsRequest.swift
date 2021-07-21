@@ -10,17 +10,17 @@ import Foundation
 
 struct TransactionDetailsRequest: JSONRequest {
     var id: String
-    let networkId: String
+    let chainId: String
     
     var httpMethod: String { "GET" }
-    var urlPath: String { "/v1/chains/\(networkId)/transactions/\(id)" }
+    var urlPath: String { "/v1/chains/\(chainId)/transactions/\(id)" }
     typealias ResponseType = SCGModels.TransactionDetails
 }
 
 extension TransactionDetailsRequest {
-    init(safeTxHash: Data, networkId: String) {
+    init(safeTxHash: Data, chainId: String) {
         id = safeTxHash.toHexStringWithPrefix()
-        self.networkId = networkId
+        self.chainId = chainId
     }
 }
 
@@ -28,18 +28,18 @@ extension SafeClientGatewayService {
     @discardableResult
     func asyncTransactionDetails(
         id: String,
-        networkId: String,
+        chainId: String,
         completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
 
-        asyncExecute(request: TransactionDetailsRequest(id: id, networkId: networkId), completion: completion)
+        asyncExecute(request: TransactionDetailsRequest(id: id, chainId: chainId), completion: completion)
     }
 
     func asyncTransactionDetails(
         safeTxHash: Data,
-        networkId: String,
+        chainId: String,
         completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
 
-        asyncExecute(request: TransactionDetailsRequest(safeTxHash: safeTxHash, networkId: networkId),
+        asyncExecute(request: TransactionDetailsRequest(safeTxHash: safeTxHash, chainId: chainId),
                      completion: completion)
     }
 }

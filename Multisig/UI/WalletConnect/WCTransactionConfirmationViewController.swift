@@ -109,7 +109,7 @@ class WCTransactionConfirmationViewController: UIViewController {
             try App.shared.clientGatewayService.proposeTransaction(transaction: transaction,
                                                                    sender: AddressString(keyInfo.address),
                                                                    signature: signature,
-                                                                   networkId: safe.chain!.id!)
+                                                                   chainId: safe.chain!.id!)
             Tracker.trackEvent(trackingEvent, parameters: trackingParameters)
 
             DispatchQueue.main.async { [weak self] in
@@ -226,7 +226,7 @@ class WCTransactionConfirmationViewController: UIViewController {
         let cell = tableView.dequeueCell(DetailAccountCell.self)
         cell.setAccount(
             address: transaction.safe!.address,
-            label: Safe.cachedName(by: transaction.safe!, networkId: safe.chain!.id!)
+            label: Safe.cachedName(by: transaction.safe!, chainId: safe.chain!.id!)
         )
         cell.selectionStyle = .none
         return cell

@@ -95,23 +95,23 @@ extension Chain {
     }
 
     @discardableResult
-    static func create(_ networkInfo: SCGModels.Chain) throws -> Chain {
-        try Chain.create(chainId: networkInfo.id,
-                         chainName: networkInfo.chainName,
-                         rpcUrl: networkInfo.rpcUri,
-                         blockExplorerUrl: networkInfo.blockExplorerUri,
-                         ensRegistryAddress: networkInfo.ensRegistryAddress?.description,
-                         currencyName: networkInfo.nativeCurrency.name,
-                         currencySymbl: networkInfo.nativeCurrency.symbol,
-                         currencyDecimals: networkInfo.nativeCurrency.decimals,
-                         currencyLogo: networkInfo.nativeCurrency.logoUri,
-                         themeTextColor: networkInfo.theme.textColor.description,
-                         themeBackgroundColor: networkInfo.theme.backgroundColor.description)
+    static func create(_ chainInfo: SCGModels.Chain) throws -> Chain {
+        try Chain.create(chainId: chainInfo.id,
+                         chainName: chainInfo.chainName,
+                         rpcUrl: chainInfo.rpcUri,
+                         blockExplorerUrl: chainInfo.blockExplorerUri,
+                         ensRegistryAddress: chainInfo.ensRegistryAddress?.description,
+                         currencyName: chainInfo.nativeCurrency.name,
+                         currencySymbl: chainInfo.nativeCurrency.symbol,
+                         currencyDecimals: chainInfo.nativeCurrency.decimals,
+                         currencyLogo: chainInfo.nativeCurrency.logoUri,
+                         themeTextColor: chainInfo.theme.textColor.description,
+                         themeBackgroundColor: chainInfo.theme.backgroundColor.description)
     }
 
-    static func updateIfExist(_ networkInfo: SCGModels.Chain) {
-        guard let network = Chain.by(networkInfo.chainId.description) else { return }
-        try! network.update(from: networkInfo)
+    static func updateIfExist(_ chainInfo: SCGModels.Chain) {
+        guard let chain = Chain.by(chainInfo.chainId.description) else { return }
+        try! chain.update(from: chainInfo)
     }
 
     static func remove(chain: Chain) {
@@ -129,23 +129,23 @@ extension Chain {
 }
 
 extension Chain {
-    func update(from networkInfo: SCGModels.Chain) throws {
-        guard id == networkInfo.id else {
-            throw GSError.NetworkIdMismatch()
+    func update(from chainInfo: SCGModels.Chain) throws {
+        guard id == chainInfo.id else {
+            throw GSError.ChainIdMismatch()
         }
 
-        name =  networkInfo.chainName
-        rpcUrl = networkInfo.rpcUri
-        blockExplorerUrl = networkInfo.blockExplorerUri
-        ensRegistryAddress = networkInfo.ensRegistryAddress?.description
+        name =  chainInfo.chainName
+        rpcUrl = chainInfo.rpcUri
+        blockExplorerUrl = chainInfo.blockExplorerUri
+        ensRegistryAddress = chainInfo.ensRegistryAddress?.description
 
-        theme?.textColor = networkInfo.theme.textColor
-        theme?.backgroundColor = networkInfo.theme.backgroundColor
+        theme?.textColor = chainInfo.theme.textColor
+        theme?.backgroundColor = chainInfo.theme.backgroundColor
 
-        nativeCurrency?.name = networkInfo.nativeCurrency.name
-        nativeCurrency?.symbol = networkInfo.nativeCurrency.symbol
-        nativeCurrency?.decimals = Int32(networkInfo.nativeCurrency.decimals)
-        nativeCurrency?.logoUrl = networkInfo.nativeCurrency.logoUri
+        nativeCurrency?.name = chainInfo.nativeCurrency.name
+        nativeCurrency?.symbol = chainInfo.nativeCurrency.symbol
+        nativeCurrency?.decimals = Int32(chainInfo.nativeCurrency.decimals)
+        nativeCurrency?.logoUrl = chainInfo.nativeCurrency.logoUri
     }
 }
 
@@ -188,10 +188,10 @@ extension Chain {
 
     typealias ChainSafes = [(chain: Chain, safes: [Safe])]
 
-    /// Returns safes grouped by network with the following logic applied:
-    /// - Selected safe network will be first in the list
-    /// - Other networks are sorted by network id
-    /// - Selected safe will be the first in the list of network safes. Other safes are sorted by addition date with earlist on top.
+    /// Returns safes grouped by chain with the following logic applied:
+    /// - Selected safe chain will be first in the list
+    /// - Other chains are sorted by chain id
+    /// - Selected safe will be the first in the list of chain safes. Other safes are sorted by addition date with earlist on top.
     static func chainSafes() -> ChainSafes {
         guard let safes = try? Safe.getAll(),
               let selectedSafe = safes.first(where: { $0.isSelected }),
@@ -200,13 +200,13 @@ extension Chain {
         var chainSafes = ChainSafes()
         let groupedSafes = Dictionary(grouping: safes, by: {$0.chain!})
 
-        // Add selected safe Network on top with selected safe on top within the group
+        // Add selected safe chain on top with selected safe on top within the group
         let selectedSafeChainOtherSafes = groupedSafes[selectedSafeChain]!
             .filter { !$0.isSelected }
             .sorted { $0.additionDate! > $1.additionDate! }
         chainSafes.append((chain: selectedSafeChain, safes: [selectedSafe] + selectedSafeChainOtherSafes))
 
-        // Add other networks sorted by id with safes sorted by most recently added
+        // Add other chains sorted by id with safes sorted by most recently added
         groupedSafes.keys
             .filter { $0 != selectedSafeChain }
             .sorted { UInt256($0.id!)! < UInt256($1.id!)! }

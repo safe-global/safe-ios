@@ -57,7 +57,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         safe = try! Safe.getSelected()!
 
-        builder = TransactionDetailCellBuilder(vc: self, tableView: tableView, networkId: safe.chain!.id!)
+        builder = TransactionDetailCellBuilder(vc: self, tableView: tableView, chainId: safe.chain!.id!)
 
         updateSafeInfo()
 
@@ -81,7 +81,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     private func updateSafeInfo() {
         loadSafeInfoDataTask = App.shared.clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
-                                                                             networkId: safe.chain!.id!) { result in
+                                                                             chainId: safe.chain!.id!) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let safeInfo):
@@ -299,7 +299,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private func confirmAndRefresh(safeTxHash: String, signature: String, keyType: KeyType) {
         confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash,
                                                                        signature: signature,
-                                                                       networkId: safe.chain!.id!) {
+                                                                       chainId: safe.chain!.id!) {
             [weak self] result in
 
             // NOTE: sometimes the data of the transaction list is not
@@ -384,13 +384,13 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         switch txSource {
         case .id(let txID):
-            reloadDataTask = clientGatewayService.asyncTransactionDetails(id: txID, networkId: safe.chain!.id!) {
+            reloadDataTask = clientGatewayService.asyncTransactionDetails(id: txID, chainId: safe.chain!.id!) {
                 [weak self] in
                 
                 self?.onLoadingCompleted(result: $0)
             }
         case .safeTxHash(let safeTxHash):
-            reloadDataTask = clientGatewayService.asyncTransactionDetails(safeTxHash: safeTxHash, networkId: safe.chain!.id!) { [weak self] in
+            reloadDataTask = clientGatewayService.asyncTransactionDetails(safeTxHash: safeTxHash, chainId: safe.chain!.id!) { [weak self] in
                 self?.onLoadingCompleted(result: $0)
             }
         case .data(let tx):

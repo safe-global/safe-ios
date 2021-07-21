@@ -117,7 +117,7 @@ final class HeaderViewController: ContainerViewController {
         do {
             guard let safe = try Safe.getSelected() else { return }
             currentDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
-                                                                 networkId: safe.chain!.id!) { [weak self] result in
+                                                                 chainId: safe.chain!.id!) { [weak self] result in
                 DispatchQueue.main.async { [weak self] in
                     switch result {
                     case .failure(let error):

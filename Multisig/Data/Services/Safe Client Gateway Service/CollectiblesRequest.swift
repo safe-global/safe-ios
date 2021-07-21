@@ -10,25 +10,25 @@ import Foundation
 
 struct CollectiblesRequest: JSONRequest {
     let safeAddress: String
-    let networkId: String
+    let chainId: String
     
     var httpMethod: String { "GET" }
-    var urlPath: String { "/v1/chains/\(networkId)/safes/\(safeAddress)/collectibles/" }
+    var urlPath: String { "/v1/chains/\(chainId)/safes/\(safeAddress)/collectibles/" }
 
     typealias ResponseType = [Collectible]
 }
 
 extension CollectiblesRequest {
-    init(_ safeAddress: Address, networkId: String) {
+    init(_ safeAddress: Address, chainId: String) {
         self.init(safeAddress: safeAddress.checksummed,
-                  networkId: networkId)
+                  chainId: chainId)
     }
 }
 
 extension SafeClientGatewayService {
     func asyncCollectibles(safeAddress: Address,
-                           networkId: String,
+                           chainId: String,
                            completion: @escaping (Result<[Collectible], Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: CollectiblesRequest(safeAddress, networkId: networkId), completion: completion)
+        asyncExecute(request: CollectiblesRequest(safeAddress, chainId: chainId), completion: completion)
     }
 }

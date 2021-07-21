@@ -29,7 +29,7 @@ class QueuedTransactionsViewController: TransactionListViewController {
         completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
         safe = try! Safe.getSelected()!
         return clientGatewayService.asyncQueuedTransactionsSummaryList(safeAddress: safe.addressValue,
-                                                                       networkId: safe.chain!.id!,
+                                                                       chainId: safe.chain!.id!,
                                                                        completion: completion)
     }
 

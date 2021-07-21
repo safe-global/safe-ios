@@ -40,7 +40,7 @@ class HistoryTransactionsViewController: TransactionListViewController {
         completion: @escaping (Result<Page<SCGModels.TransactionSummaryItem>, Error>) -> Void) -> URLSessionTask? {
         safe = try! Safe.getSelected()!
         return clientGatewayService.asyncHistoryTransactionsSummaryList(safeAddress: safe.addressValue,
-                                                                        networkId: safe.chain!.id!,
+                                                                        chainId: safe.chain!.id!,
                                                                         completion: completion)
     }
 

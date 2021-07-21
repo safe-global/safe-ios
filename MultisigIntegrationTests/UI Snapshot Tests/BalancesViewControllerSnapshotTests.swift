@@ -53,7 +53,7 @@ class StubBalancesAPI: BalancesAPI {
     }
 
     func asyncBalances(safeAddress: Address,
-                       networkId: String,
+                       chainId: String,
                        completion: @escaping (Result<SafeBalanceSummary, Error>) -> Void) -> URLSessionTask? {
         completion(.success(result))
         return nil

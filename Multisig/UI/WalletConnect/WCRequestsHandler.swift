@@ -54,7 +54,7 @@ class WCRequestsHandler: RequestHandler {
             guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
                   let requestId = request.id,
                   let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
-                    safeAddress: safe.addressValue, networkId: safe.chain!.id!) else {
+                    safeAddress: safe.addressValue, chainId: safe.chain!.id!) else {
                 server.send(try! Response(request: request, error: .requestRejected))
                 return
             }
