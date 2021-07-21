@@ -17,24 +17,24 @@ class NetworkTests: CoreDataTestCase {
 
     // MARK: count
     func test_count_whenNoNetworks_returns0() {
-        XCTAssertEqual(Network.count, 0)
+        XCTAssertEqual(Chain.count, 0)
     }
 
     func test_count_whenMultipleExists_thenReturnsCorrectCount() throws {
-        _ = try makeNetwork(id: "1")
-        _ = try makeNetwork(id: "2")
-        _ = try makeNetwork(id: "3")
+        _ = try makeChain(id: "1")
+        _ = try makeChain(id: "2")
+        _ = try makeChain(id: "3")
 
-        XCTAssertEqual(Network.count, 3)
+        XCTAssertEqual(Chain.count, 3)
     }
 
     func test_all() throws {
-        XCTAssertEqual(Network.count, 0)
-        let network0 = try makeNetwork(id: "1")
-        let network1 = try makeNetwork(id: "2")
-        let network2 = try makeNetwork(id: "3")
+        XCTAssertEqual(Chain.count, 0)
+        let network0 = try makeChain(id: "1")
+        let network1 = try makeChain(id: "2")
+        let network2 = try makeChain(id: "3")
 
-        let networks = Network.all
+        let networks = Chain.all
         XCTAssertEqual(networks.count, 3)
         XCTAssertEqual(network0, networks[0])
         XCTAssertEqual(network1, networks[1])
@@ -42,90 +42,90 @@ class NetworkTests: CoreDataTestCase {
     }
 
     func test_exists() {
-        XCTAssertFalse(try Network.exists("1"))
-        _ = try? makeNetwork(id: "1")
+        XCTAssertFalse(try Chain.exists("1"))
+        _ = try? makeChain(id: "1")
 
-        XCTAssertFalse(try Network.exists("2"))
-        XCTAssertTrue(try Network.exists("1"))
+        XCTAssertFalse(try Chain.exists("2"))
+        XCTAssertTrue(try Chain.exists("1"))
     }
 
     func test_by() {
-        var network = Network.by("1")
-        XCTAssertNil(network)
-        _ = try? makeNetwork(id: "1")
+        var chain = Chain.by("1")
+        XCTAssertNil(chain)
+        _ = try? makeChain(id: "1")
 
-        network = Network.by("2")
-        XCTAssertNil(network)
+        chain = Chain.by("2")
+        XCTAssertNil(chain)
 
-        network = Network.by("1")
-        XCTAssertNotNil(network)
+        chain = Chain.by("1")
+        XCTAssertNotNil(chain)
     }
 
     // MARK: create(params)
 
     func test_create_whenCreatedThenHasCorrectParameters() throws {
-        let network = try makeNetwork(id: "1")
+        let chain = try makeChain(id: "1")
 
         // assert
-        XCTAssertEqual(network.chainId, "1")
-        XCTAssertEqual(network.chainName, "Test")
-        XCTAssertEqual(network.rpcUrl, URL(string: "https://rpc.com/")!)
-        XCTAssertEqual(network.blockExplorerUrl, URL(string: "https://block.com/")!)
-        XCTAssertEqual(network.ensRegistryAddress, "0x0000000000000000000000000000000000000001")
-        XCTAssertEqual(network.nativeCurrency?.name, "Currency")
-        XCTAssertEqual(network.nativeCurrency?.symbol, "CRY")
-        XCTAssertEqual(network.nativeCurrency?.decimals, 18)
-        XCTAssertEqual(network.theme?.textColor, "#ffffff")
-        XCTAssertEqual(network.theme?.backgroundColor, "#000000")
+        XCTAssertEqual(chain.id, "1")
+        XCTAssertEqual(chain.name, "Test")
+        XCTAssertEqual(chain.rpcUrl, URL(string: "https://rpc.com/")!)
+        XCTAssertEqual(chain.blockExplorerUrl, URL(string: "https://block.com/")!)
+        XCTAssertEqual(chain.ensRegistryAddress, "0x0000000000000000000000000000000000000001")
+        XCTAssertEqual(chain.nativeCurrency?.name, "Currency")
+        XCTAssertEqual(chain.nativeCurrency?.symbol, "CRY")
+        XCTAssertEqual(chain.nativeCurrency?.decimals, 18)
+        XCTAssertEqual(chain.theme?.textColor, "#ffffff")
+        XCTAssertEqual(chain.theme?.backgroundColor, "#000000")
     }
 
     func test_create_whenCreatedWithDuplicateChainId_thenThrows() throws {
-        _ = try makeNetwork(id: "1")
+        _ = try makeChain(id: "1")
 
-        XCTAssertThrowsError(try makeNetwork(id: "1"))
+        XCTAssertThrowsError(try makeChain(id: "1"))
     }
 
     func test_update() throws {
-        let network = Network.mainnetChain()
+        let chain = Chain.mainnetChain()
 
         // updating with different chain id
-        var networkInfo = makeTestNetworkInfo(id: UInt256(network.chainId!)! + 1)
+        var networkInfo = makeTestNetworkInfo(id: UInt256(chain.id!)! + 1)
         XCTAssertThrowsError(
-            try network.update(from: networkInfo)
+            try chain.update(from: networkInfo)
         )
 
-        networkInfo = makeTestNetworkInfo(id: UInt256(network.chainId!)!)
+        networkInfo = makeTestNetworkInfo(id: UInt256(chain.id!)!)
 
         // updating with same chain id
         XCTAssertNoThrow(
-            try network.update(from: networkInfo)
+            try chain.update(from: networkInfo)
         )
 
-        XCTAssertEqual(network.chainId, networkInfo.id)
-        XCTAssertEqual(network.chainName, networkInfo.chainName)
-        XCTAssertEqual(network.rpcUrl, networkInfo.rpcUri)
-        XCTAssertEqual(network.blockExplorerUrl, networkInfo.blockExplorerUri)
-        XCTAssertEqual(network.ensRegistryAddress, networkInfo.ensRegistryAddress?.description)
+        XCTAssertEqual(chain.id, networkInfo.id)
+        XCTAssertEqual(chain.name, networkInfo.chainName)
+        XCTAssertEqual(chain.rpcUrl, networkInfo.rpcUri)
+        XCTAssertEqual(chain.blockExplorerUrl, networkInfo.blockExplorerUri)
+        XCTAssertEqual(chain.ensRegistryAddress, networkInfo.ensRegistryAddress?.description)
 
-        XCTAssertEqual(network.nativeCurrency?.name, networkInfo.nativeCurrency.name)
-        XCTAssertEqual(network.nativeCurrency?.symbol, networkInfo.nativeCurrency.symbol)
-        XCTAssertEqual(network.nativeCurrency?.decimals, Int32(networkInfo.nativeCurrency.decimals))
-        XCTAssertEqual(network.nativeCurrency?.logoUrl, networkInfo.nativeCurrency.logoUri)
+        XCTAssertEqual(chain.nativeCurrency?.name, networkInfo.nativeCurrency.name)
+        XCTAssertEqual(chain.nativeCurrency?.symbol, networkInfo.nativeCurrency.symbol)
+        XCTAssertEqual(chain.nativeCurrency?.decimals, Int32(networkInfo.nativeCurrency.decimals))
+        XCTAssertEqual(chain.nativeCurrency?.logoUrl, networkInfo.nativeCurrency.logoUri)
 
-        XCTAssertEqual(network.theme?.textColor, networkInfo.theme.textColor)
-        XCTAssertEqual(network.theme?.backgroundColor, networkInfo.theme.backgroundColor)
+        XCTAssertEqual(chain.theme?.textColor, networkInfo.theme.textColor)
+        XCTAssertEqual(chain.theme?.backgroundColor, networkInfo.theme.backgroundColor)
     }
 
     func test_createOrUpdate() {
         let mainNetworkInfo = makeMainnetInfo()
-        var mainNetwork = Network.createOrUpdate(mainNetworkInfo)
-        XCTAssertEqual(Network.count, 1)
+        var mainNetwork = Chain.createOrUpdate(mainNetworkInfo)
+        XCTAssertEqual(Chain.count, 1)
 
         let testNetworkInfo = makeTestNetworkInfo(id: mainNetworkInfo.chainId.value)
-        mainNetwork = Network.createOrUpdate(testNetworkInfo)
+        mainNetwork = Chain.createOrUpdate(testNetworkInfo)
 
-        XCTAssertEqual(mainNetwork.chainId, testNetworkInfo.id)
-        XCTAssertEqual(mainNetwork.chainName, testNetworkInfo.chainName)
+        XCTAssertEqual(mainNetwork.id, testNetworkInfo.id)
+        XCTAssertEqual(mainNetwork.name, testNetworkInfo.chainName)
         XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUri)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUri)
         XCTAssertEqual(mainNetwork.ensRegistryAddress, testNetworkInfo.ensRegistryAddress?.description)
@@ -141,21 +141,21 @@ class NetworkTests: CoreDataTestCase {
 
     func test_create() {
         let networkInfo = makeMainnetInfo()
-        let network = try? Network.create(networkInfo)
-        XCTAssertNotNil(network)
+        let chain = try? Chain.create(networkInfo)
+        XCTAssertNotNil(chain)
     }
 
     func test_updateIfExist() {
         var testInfo = makeMainnetInfo()
-        Network.updateIfExist(testInfo)
-        XCTAssertEqual(Network.count, 0)
+        Chain.updateIfExist(testInfo)
+        XCTAssertEqual(Chain.count, 0)
 
         testInfo = makeTestNetworkInfo(id: testInfo.chainId.value)
-        let mainNetwork = Network.mainnetChain()
-        Network.updateIfExist(testInfo)
+        let mainNetwork = Chain.mainnetChain()
+        Chain.updateIfExist(testInfo)
 
-        XCTAssertEqual(mainNetwork.chainId, testInfo.id)
-        XCTAssertEqual(mainNetwork.chainName, testInfo.chainName)
+        XCTAssertEqual(mainNetwork.id, testInfo.id)
+        XCTAssertEqual(mainNetwork.name, testInfo.chainName)
         XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUri)
         XCTAssertEqual(mainNetwork.blockExplorerUrl, testInfo.blockExplorerUri)
 
@@ -169,65 +169,65 @@ class NetworkTests: CoreDataTestCase {
     }
 
     func test_removingNetworkDeletesSafe() throws {
-        let mainnet = Network.mainnetChain()
-        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "0", network: mainnet, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000001", version: "1.2.0", name: "1", network: mainnet)
+        let mainnet = Chain.mainnetChain()
+        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "0", chain: mainnet, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", version: "1.2.0", name: "1", chain: mainnet)
         XCTAssertEqual(Safe.all.count, 2)
-        Network.remove(network: mainnet)
+        Chain.remove(chain: mainnet)
         XCTAssertEqual(Safe.all.count, 0)
     }
 
     func test_removeAll() {
-        Network.removeAll()
-        _ = try? makeNetwork(id: "1")
-        _ = try? makeNetwork(id: "2")
-        _ = try? makeNetwork(id: "3")
+        Chain.removeAll()
+        _ = try? makeChain(id: "1")
+        _ = try? makeChain(id: "2")
+        _ = try? makeChain(id: "3")
 
-        Network.removeAll()
-        XCTAssertEqual(Network.all.count, 0)
+        Chain.removeAll()
+        XCTAssertEqual(Chain.all.count, 0)
     }
 
     func test_mainnetChain() {
-        XCTAssertNil(Network.by(Network.ChainID.ethereumMainnet))
-        _ = Network.mainnetChain()
-        XCTAssertNotNil(Network.by(Network.ChainID.ethereumMainnet))
+        XCTAssertNil(Chain.by(Chain.ChainID.ethereumMainnet))
+        _ = Chain.mainnetChain()
+        XCTAssertNotNil(Chain.by(Chain.ChainID.ethereumMainnet))
     }
 
     func test_networkSafes() throws {
-        var networkSafes = Network.networkSafes()
+        var networkSafes = Chain.chainSafes()
         XCTAssertEqual(networkSafes.count, 0)
 
-        let network1 = try makeNetwork(id: "1")
-        let network3 = try makeNetwork(id: "3")
-        let network2 = try makeNetwork(id: "2")
+        let network1 = try makeChain(id: "1")
+        let network3 = try makeChain(id: "3")
+        let network2 = try makeChain(id: "2")
 
-        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "00", network: network1, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000001", version: "1.2.0", name: "01", network: network1, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "00", chain: network1, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000001", version: "1.2.0", name: "01", chain: network1, selected: false)
 
-        Safe.create(address: "0x0000000000000000000000000000000000000011", version: "1.2.0", name: "11", network: network3, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000010", version: "1.2.0", name: "10", network: network3, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "100", network: network3, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000011", version: "1.2.0", name: "11", chain: network3, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000010", version: "1.2.0", name: "10", chain: network3, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "100", chain: network3, selected: false)
 
-        Safe.create(address: "0x0000000000000000000000000000000000000020", version: "1.2.0", name: "20", network: network2, selected: false)
-        Safe.create(address: "0x0000000000000000000000000000000000000021", version: "1.2.0", name: "21", network: network2, selected: true)
-        Safe.create(address: "0x0000000000000000000000000000000000000022", version: "1.2.0", name: "22", network: network2, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000020", version: "1.2.0", name: "20", chain: network2, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000021", version: "1.2.0", name: "21", chain: network2, selected: true)
+        Safe.create(address: "0x0000000000000000000000000000000000000022", version: "1.2.0", name: "22", chain: network2, selected: false)
 
-        networkSafes = Network.networkSafes()
+        networkSafes = Chain.chainSafes()
 
         XCTAssertEqual(networkSafes.count, 3)
 
-        XCTAssertEqual(networkSafes[0].network, network2)
+        XCTAssertEqual(networkSafes[0].chain, network2)
         XCTAssertEqual(networkSafes[0].safes.count, 3)
         XCTAssertEqual(networkSafes[0].safes[0].name, "21")
         XCTAssertEqual(networkSafes[0].safes[1].name, "22")
         XCTAssertEqual(networkSafes[0].safes[2].name, "20")
 
-        XCTAssertEqual(networkSafes[1].network, network1)
+        XCTAssertEqual(networkSafes[1].chain, network1)
         XCTAssertEqual(networkSafes[1].safes.count, 2)
         XCTAssertEqual(networkSafes[1].safes[0].name, "01")
         XCTAssertEqual(networkSafes[1].safes[1].name, "00")
 
-        XCTAssertEqual(networkSafes[2].network, network3)
+        XCTAssertEqual(networkSafes[2].chain, network3)
         XCTAssertEqual(networkSafes[2].safes.count, 3)
         XCTAssertEqual(networkSafes[2].safes[0].name, "100")
         XCTAssertEqual(networkSafes[2].safes[1].name, "10")
@@ -237,16 +237,16 @@ class NetworkTests: CoreDataTestCase {
     // nativeCurrency
     func test_nativeCurrency() throws {
         // when no safes then nil returned
-        XCTAssertNil(Network.nativeCoin)
+        XCTAssertNil(Chain.nativeCoin)
 
         // when no selected safe then nil returned
-        let network1 = try makeNetwork(id: "1")
-        let safe = Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "00", network: network1, selected: false)
-        XCTAssertNil(Network.nativeCoin)
+        let chain1 = try makeChain(id: "1")
+        let safe = Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "00", chain: chain1, selected: false)
+        XCTAssertNil(Chain.nativeCoin)
 
-        // when selected safe then network's token returned
+        // when selected safe then chain's token returned
         safe.select()
-        XCTAssertEqual(Network.nativeCoin, network1.nativeCurrency)
+        XCTAssertEqual(Chain.nativeCoin, chain1.nativeCurrency)
     }
 
     func makeNetworkInfo(id: UInt256,
@@ -258,21 +258,22 @@ class NetworkTests: CoreDataTestCase {
                          currencyDecimals: Int,
                          currencyLogo: URL,
                          themeTextColor: String,
-                         themeBackgroundColor: String) -> SCGModels.Network {
-        SCGModels.Network(chainId: UInt256String(id),
-                          chainName: chainName,
-                          rpcUri: rpcUrl,
-                          blockExplorerUri: blockExplorerUrl,
-                          nativeCurrency: SCGModels.Currency(name: currencyName,
-                                                             symbol: currencySymbl,
-                                                             decimals: currencyDecimals,
-                                                             logoUri: currencyLogo),
-                          theme: SCGModels.Theme(textColor: themeTextColor,
-                                                 backgroundColor: themeBackgroundColor),
-                          ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
+                         themeBackgroundColor: String) -> SCGModels.Chain {
+
+        SCGModels.Chain(chainId: UInt256String(id),
+                        chainName: chainName,
+                        rpcUri: rpcUrl,
+                        blockExplorerUri: blockExplorerUrl,
+                        nativeCurrency: SCGModels.Currency(name: currencyName,
+                                                           symbol: currencySymbl,
+                                                           decimals: currencyDecimals,
+                                                           logoUri: currencyLogo),
+                        theme: SCGModels.Theme(textColor: themeTextColor,
+                                               backgroundColor: themeBackgroundColor),
+                        ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
     }
 
-    func makeMainnetInfo() -> SCGModels.Network {
+    func makeMainnetInfo() -> SCGModels.Chain {
         makeNetworkInfo(id: 1,
                         chainName: "Mainnet",
                         rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!,
@@ -286,7 +287,7 @@ class NetworkTests: CoreDataTestCase {
 
     }
 
-    func makeTestNetworkInfo(id: UInt256) -> SCGModels.Network {
+    func makeTestNetworkInfo(id: UInt256) -> SCGModels.Chain {
         makeNetworkInfo(id: id,
                         chainName: "Test",
                         rpcUrl: URL(string: "https://rpc.com/")!,

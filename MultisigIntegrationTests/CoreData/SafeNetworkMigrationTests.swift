@@ -11,26 +11,26 @@ import XCTest
 
 class SafeNetworkMigrationTests: CoreDataTestCase {
     func test_migratingOldSafes() throws {
-        var mainnet = Network.mainnetChain()
+        var mainnet = Chain.mainnetChain()
 
-        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "0", network: mainnet, selected: false)
+        Safe.create(address: "0x0000000000000000000000000000000000000000", version: "1.2.0", name: "0", chain: mainnet, selected: false)
 
         var safe = try context.fetch(Safe.fetchRequest().all()).first!
-        safe.network = nil
+        safe.chain = nil
 
-        Network.removeAll()
+        Chain.removeAll()
 
         let result = try context.fetch(Safe.fetchRequest().all())
         XCTAssertEqual(result.count, 1, "Safe should not be removed")
 
         safe = result.first!
-        XCTAssertNil(safe.network)
+        XCTAssertNil(safe.chain)
 
         ChainManager.migrateOldSafes()
 
-        mainnet = Network.mainnetChain()
-        XCTAssertEqual(safe.network, mainnet)
-        XCTAssertEqual(mainnet.chainId, Network.ChainID.ethereumMainnet)
+        mainnet = Chain.mainnetChain()
+        XCTAssertEqual(safe.chain, mainnet)
+        XCTAssertEqual(mainnet.id, Chain.ChainID.ethereumMainnet)
         XCTAssertEqual(mainnet.nativeCurrency?.symbol, "ETH")
     }
 }

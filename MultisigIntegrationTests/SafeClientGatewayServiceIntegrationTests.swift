@@ -15,8 +15,8 @@ class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
 
     func testTransactionsPageLoad() throws {
         // configure dependency on nativeCoin to decode native token transactions
-        let chain = try makeNetwork(id: chainId)
-        let safe = createSafe(name: "safe", address: "0x1230B3d59858296A31053C1b8562Ecf89A2f888b", network: chain)
+        let chain = try makeChain(id: chainId)
+        let safe = createSafe(name: "safe", address: "0x1230B3d59858296A31053C1b8562Ecf89A2f888b", chain: chain)
         safe.select()
         XCTAssertNotNil(Chain.nativeCoin)
 

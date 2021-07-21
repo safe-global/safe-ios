@@ -129,7 +129,7 @@ class EnterSafeAddressViewController: UIViewController {
         }))
 
         let blockchainDomainManager = BlockchainDomainManager(rpcURL: chain.authenticatedRpcUrl,
-                                                              networkName: chain.chainName,
+                                                              chainName: chain.chainName,
                                                               ensRegistryAddress: chain.ensRegistryAddress)
 
         if blockchainDomainManager.ens != nil {

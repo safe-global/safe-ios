@@ -11,10 +11,10 @@ import XCTest
 
 class ENSIntegrationTests: CoreDataTestCase {
     lazy var domainManager: BlockchainDomainManager = {
-        let network = Network.mainnetChain()
-        return BlockchainDomainManager(rpcURL: network.authenticatedRpcUrl,
-                                       networkName: network.chainName!,
-                                       ensRegistryAddress: AddressString(network.ensRegistryAddress!))
+        let chain = Chain.mainnetChain()
+        return BlockchainDomainManager(rpcURL: chain.authenticatedRpcUrl,
+                                       chainName: chain.name!,
+                                       ensRegistryAddress: AddressString(chain.ensRegistryAddress!))
     }()
 
     func test_forwardResolution() {
