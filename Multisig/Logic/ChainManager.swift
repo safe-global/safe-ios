@@ -10,7 +10,7 @@ import Foundation
 
 class ChainManager {
     static func updateChainsInfo() {
-        App.shared.clientGatewayService.asyncNetworks { result in
+        App.shared.clientGatewayService.asyncChains { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let chains):

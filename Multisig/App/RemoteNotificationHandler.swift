@@ -256,12 +256,12 @@ class RemoteNotificationHandler {
             let chainId = payload.chainId,
             let chain = Chain.by(chainId) else { return }
 
-        guard Safe.exists(safeAddress.checksummed, networkId: chain.id!) else {
+        guard Safe.exists(safeAddress.checksummed, chainId: chain.id!) else {
             unregister(address: safeAddress, chainId: chain.id!)
             return
         }
 
-        Safe.select(address: rawAddress, networkId: chain.id!)
+        Safe.select(address: rawAddress, chainId: chain.id!)
 
         if let safeTxHash = payload.safeTxHash,
            let hashData = Data(exactlyHex: safeTxHash) {

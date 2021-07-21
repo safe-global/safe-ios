@@ -67,10 +67,10 @@ extension Safe: Identifiable {
         return (try? context.fetch(Safe.fetchRequest().all())) ?? []
     }
 
-    static func by(address: String, networkId: String) -> Safe? {
+    static func by(address: String, chainId: String) -> Safe? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-        let fr = Safe.fetchRequest().by(address: address, networkId: networkId)
+        let fr = Safe.fetchRequest().by(address: address, chainId: chainId)
         return try? context.fetch(fr).first
     }
 
@@ -78,8 +78,8 @@ extension Safe: Identifiable {
         guard let safes = try? Safe.getAll() else { return }
 
         cachedNames = safes.reduce(into: [String: String]()) { names, safe in
-            let networkId = safe.chain != nil ? safe.chain!.id! : "1"
-            let key = "\(safe.displayAddress):\(networkId)"
+            let chainId = safe.chain != nil ? safe.chain!.id! : "1"
+            let key = "\(safe.displayAddress):\(chainId)"
             names[key] = safe.name!
         }
     }
@@ -128,8 +128,8 @@ extension Safe: Identifiable {
             .appendingPathComponent("address").appendingPathComponent(address)
     }
 
-    static func exists(_ address: String, networkId: String) -> Bool {
-        by(address: address, networkId: networkId) != nil
+    static func exists(_ address: String, chainId: String) -> Bool {
+        by(address: address, chainId: chainId) != nil
     }
 
     @discardableResult
@@ -168,10 +168,10 @@ extension Safe: Identifiable {
         Safe.updateCachedNames()
     }
 
-    static func select(address: String, networkId: String) {
+    static func select(address: String, chainId: String) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-        let fr = Safe.fetchRequest().by(address: address, networkId: networkId)
+        let fr = Safe.fetchRequest().by(address: address, chainId: chainId)
         guard let safe = try? context.fetch(fr).first else { return }
         safe.select()
     }
@@ -180,11 +180,11 @@ extension Safe: Identifiable {
         let deletedSafeAddress = safe.address
         let context = App.shared.coreDataStack.viewContext
 
-        let networkId = safe.chain!.id!
+        let chainId = safe.chain!.id!
 
         if safe.chain!.safe!.count == 1 {
-            // remove network with associated safe
-            Chain.remove(network: safe.chain!)
+            // remove chain with associated safe
+            Chain.remove(chain: safe.chain!)
         } else {
             context.delete(safe)
         }
@@ -196,12 +196,12 @@ extension Safe: Identifiable {
         App.shared.coreDataStack.saveContext()
 
         Tracker.setSafeCount(count)
-        Tracker.trackEvent(.userSafeRemoved, parameters: ["chain_id" : networkId])
+        Tracker.trackEvent(.userSafeRemoved, parameters: ["chain_id" : chainId])
 
         NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
 
         if let addressString = deletedSafeAddress, let address = Address(addressString) {
-            App.shared.notificationHandler.safeRemoved(address: address, chainId: networkId)
+            App.shared.notificationHandler.safeRemoved(address: address, chainId: chainId)
         }
 
         updateCachedNames()
@@ -235,9 +235,9 @@ extension NSFetchRequest where ResultType == Safe {
         return self
     }
 
-    func by(address: String, networkId: String) -> Self {
+    func by(address: String, chainId: String) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "address == %@ AND network.chainId == %@", address, networkId)
+        predicate = NSPredicate(format: "address == %@ AND chain.id == %@", address, chainId)
         fetchLimit = 1
         return self
     }

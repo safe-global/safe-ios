@@ -87,11 +87,11 @@ class RibbonView: UINibView {
         }
     }
 
-    func update(scgNetwork: SCGModels.Network?) {
-        if let network = scgNetwork,
-           let textColor = UIColor(hex: network.theme.textColor),
-           let backgroundColor = UIColor(hex: network.theme.backgroundColor) {
-            self.text = network.chainName
+    func update(scgChain: SCGModels.Chain?) {
+        if let chain = scgChain,
+           let textColor = UIColor(hex: chain.theme.textColor),
+           let backgroundColor = UIColor(hex: chain.theme.backgroundColor) {
+            self.text = chain.chainName
             self.textColor = textColor
             self.backgroundColor = backgroundColor
             show()

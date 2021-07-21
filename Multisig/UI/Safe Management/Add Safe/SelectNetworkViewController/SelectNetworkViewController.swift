@@ -52,7 +52,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         loadNextPageDataTask?.cancel()
         pageLoadingState = .idle
 
-        loadFirstPageDataTask = clientGatewayService.asyncNetworks { [weak self] result in
+        loadFirstPageDataTask = clientGatewayService.asyncChains { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .failure(let error):
@@ -108,7 +108,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
 
         pageLoadingState = .loading
         do {
-            loadNextPageDataTask = try clientGatewayService.asyncNetworks(pageUri: nextPageUri) { [weak self] result in
+            loadNextPageDataTask = try clientGatewayService.asyncChains(pageUri: nextPageUri) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):
@@ -184,9 +184,9 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         tableView.deselectRow(at: indexPath, animated: true)
         let vc = EnterSafeAddressViewController()
         vc.completion = completion
-        vc.network = model.models[indexPath.row]
+        vc.chain = model.models[indexPath.row]
         let ribbon = RibbonViewController(rootViewController: vc)
-        ribbon.network = vc.network
+        ribbon.chain = vc.chain
         show(ribbon, sender: self)
     }
 

@@ -45,13 +45,13 @@ extension Chain {
         return chain
     }
 
-    static func createOrUpdate(_ networkInfo: SCGModels.Network) -> Chain {
-        guard let chain = Chain.by(networkInfo.id) else {
+    static func createOrUpdate(_ chainInfo: SCGModels.Chain) -> Chain {
+        guard let chain = Chain.by(chainInfo.id) else {
             // should not fail, otherwise programmer error
-            return try! Chain.create(networkInfo)
+            return try! Chain.create(chainInfo)
         }
         // can't fail because chain id is correct
-        try! chain.update(from: networkInfo)
+        try! chain.update(from: chainInfo)
         return chain
     }
 
@@ -95,7 +95,7 @@ extension Chain {
     }
 
     @discardableResult
-    static func create(_ networkInfo: SCGModels.Network) throws -> Chain {
+    static func create(_ networkInfo: SCGModels.Chain) throws -> Chain {
         try Chain.create(chainId: networkInfo.id,
                          chainName: networkInfo.chainName,
                          rpcUrl: networkInfo.rpcUri,
@@ -109,27 +109,27 @@ extension Chain {
                          themeBackgroundColor: networkInfo.theme.backgroundColor.description)
     }
 
-    static func updateIfExist(_ networkInfo: SCGModels.Network) {
+    static func updateIfExist(_ networkInfo: SCGModels.Chain) {
         guard let network = Chain.by(networkInfo.chainId.description) else { return }
         try! network.update(from: networkInfo)
     }
 
-    static func remove(network: Chain) {
+    static func remove(chain: Chain) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-        context.delete(network)
+        context.delete(chain)
         App.shared.coreDataStack.saveContext()
     }
 
     static func removeAll() {
-        for network in all {
-            remove(network: network)
+        for chain in all {
+            remove(chain: chain)
         }
     }
 }
 
 extension Chain {
-    func update(from networkInfo: SCGModels.Network) throws {
+    func update(from networkInfo: SCGModels.Chain) throws {
         guard id == networkInfo.id else {
             throw GSError.NetworkIdMismatch()
         }

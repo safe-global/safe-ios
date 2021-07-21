@@ -545,7 +545,7 @@ extension SCGModels {
         case unknown = "UNKNOWN"
     }
 
-    struct Network: Decodable {
+    struct Chain: Decodable {
         let chainId: UInt256String
         let chainName: String
         let rpcUri: URL
