@@ -59,6 +59,7 @@ extension Chain {
     static func create(chainId: String,
                        chainName: String,
                        rpcUrl: URL,
+                       rpcUrlAuthentication: String,
                        blockExplorerUrl: URL,
                        ensRegistryAddress: String?,
                        currencyName: String,
@@ -74,6 +75,7 @@ extension Chain {
         chain.id = chainId
         chain.name = chainName
         chain.rpcUrl = rpcUrl
+        chain.rpcUrlAuthentication = rpcUrlAuthentication
         chain.blockExplorerUrl = blockExplorerUrl
         chain.ensRegistryAddress = ensRegistryAddress
 
@@ -98,7 +100,8 @@ extension Chain {
     static func create(_ chainInfo: SCGModels.Chain) throws -> Chain {
         try Chain.create(chainId: chainInfo.id,
                          chainName: chainInfo.chainName,
-                         rpcUrl: chainInfo.rpcUri,
+                         rpcUrl: chainInfo.rpcUri.value,
+                         rpcUrlAuthentication: chainInfo.rpcUri.authentication.rawValue,
                          blockExplorerUrl: chainInfo.blockExplorerUri,
                          ensRegistryAddress: chainInfo.ensRegistryAddress?.description,
                          currencyName: chainInfo.nativeCurrency.name,
@@ -135,7 +138,8 @@ extension Chain {
         }
 
         name =  chainInfo.chainName
-        rpcUrl = chainInfo.rpcUri
+        rpcUrl = chainInfo.rpcUri.value
+        rpcUrlAuthentication = chainInfo.rpcUri.authentication.rawValue
         blockExplorerUrl = chainInfo.blockExplorerUri
         ensRegistryAddress = chainInfo.ensRegistryAddress?.description
 
@@ -176,6 +180,7 @@ extension Chain {
             chainId: ChainID.ethereumMainnet,
             chainName: "Mainnet",
             rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!,
+            rpcUrlAuthentication: SCGModels.RpcAuthentication.Authentication.apiKeyPath.rawValue,
             blockExplorerUrl: URL(string: "https://etherscan.io/")!,
             ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
             currencyName: "Ether",
