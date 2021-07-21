@@ -67,8 +67,8 @@ class RemoteNotificationHandler {
         }
     }
 
-    func safeRemoved(address: Address, networkId: String) {
-        unregister(address: address, networkId: networkId)
+    func safeRemoved(address: Address, chainId: String) {
+        unregister(address: address, chainId: chainId)
     }
 
     /// For add / remove signing key
@@ -201,10 +201,10 @@ class RemoteNotificationHandler {
         return (hashPreimage, hash.toHexStringWithPrefix(), signatures)
     }
 
-    private func unregister(address: Address, networkId: String) {
+    private func unregister(address: Address, chainId: String) {
         App.shared.clientGatewayService.unregister(deviceID: self.storedDeviceID!,
                                                    address: address,
-                                                   networkId: networkId)
+                                                   chainId: chainId)
     }
 
     private func registerAll() {
@@ -219,14 +219,18 @@ class RemoteNotificationHandler {
             let timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
 
             var safeRegistration: [SafeRegistration] = []
-            for networkSafes in Chain.networkSafes() {
-                let safes = networkSafes.safes.compactMap { $0.address }.compactMap { Address($0) }.map { $0.checksummed }.sorted()
+            for chainSafes in Chain.chainSafes() {
+                let safes = chainSafes.safes
+                    .compactMap { $0.address }
+                    .compactMap { Address($0) }
+                    .map { $0.checksummed }
+                    .sorted()
                 guard let signResult = try Self.sign(safes: safes,
                                                      deviceID: deviceID,
                                                      token: token,
                                                      timestamp: timestamp) else { continue }
                 
-                safeRegistration.append(SafeRegistration(chainId: networkSafes.network.id!, safes: safes,
+                safeRegistration.append(SafeRegistration(chainId: chainSafes.chain.id!, safes: safes,
                                                          signatures: signResult.signatures))
             }
 
@@ -253,7 +257,7 @@ class RemoteNotificationHandler {
             let chain = Chain.by(chainId) else { return }
 
         guard Safe.exists(safeAddress.checksummed, networkId: chain.id!) else {
-            unregister(address: safeAddress, networkId: chain.id!)
+            unregister(address: safeAddress, chainId: chain.id!)
             return
         }
 

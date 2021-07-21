@@ -11,7 +11,7 @@ import CoreData
 import FirebaseAnalytics
 import Version
 
-// "address:networkId" -> name
+// "address:chainId" -> name
 fileprivate var cachedNames = [String: String]()
 
 extension Safe: Identifiable {
@@ -201,7 +201,7 @@ extension Safe: Identifiable {
         NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
 
         if let addressString = deletedSafeAddress, let address = Address(addressString) {
-            App.shared.notificationHandler.safeRemoved(address: address, networkId: networkId)
+            App.shared.notificationHandler.safeRemoved(address: address, chainId: networkId)
         }
 
         updateCachedNames()

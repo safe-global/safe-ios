@@ -53,7 +53,7 @@ class RibbonView: UINibView {
     func observeSelectedSafe() {
         NotificationCenter.default.removeObserver(self)
 
-        let notifications: [Notification.Name] = [.selectedSafeChanged, .selectedSafeUpdated, .networkInfoChanged]
+        let notifications: [Notification.Name] = [.selectedSafeChanged, .selectedSafeUpdated, .chainInfoChanged]
         for notificationName in notifications {
             NotificationCenter.default.addObserver(
                 self,

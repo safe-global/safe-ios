@@ -26,7 +26,7 @@ class SafeNetworkMigrationTests: CoreDataTestCase {
         safe = result.first!
         XCTAssertNil(safe.network)
 
-        NetworkManager.migrateOldSafes()
+        ChainManager.migrateOldSafes()
 
         mainnet = Network.mainnetChain()
         XCTAssertEqual(safe.network, mainnet)

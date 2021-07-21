@@ -65,7 +65,7 @@ class ActionDetailViewController: UITableViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(reloadData),
-            name: .networkInfoChanged,
+            name: .chainInfoChanged,
             object: nil)
     }
 

@@ -59,7 +59,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         emptyView.setText(emptyText)
         emptyView.setImage(emptyImage)
 
-        for notification in [Notification.Name.transactionDataInvalidated, .ownerKeyImported, .ownerKeyRemoved, .networkInfoChanged] {
+        for notification in [Notification.Name.transactionDataInvalidated, .ownerKeyImported, .ownerKeyRemoved, .chainInfoChanged] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(lazyReloadData),

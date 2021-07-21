@@ -56,7 +56,7 @@
 		048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */; };
 		048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */; };
 		048D72BD26832FD70095999C /* NetworkListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72BC26832FD70095999C /* NetworkListRequest.swift */; };
-		048D72BF268359E20095999C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72BE268359E20095999C /* NetworkManager.swift */; };
+		048D72BF268359E20095999C /* ChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72BE268359E20095999C /* ChainManager.swift */; };
 		048D72C126835CF90095999C /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C026835CF90095999C /* Chain.swift */; };
 		048D72C82684CB500095999C /* SelectNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72C62684CB500095999C /* SelectNetworkViewController.swift */; };
 		048D72CD2685DC780095999C /* SelectNetworkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72CB2685DC780095999C /* SelectNetworkTableViewCell.swift */; };
@@ -629,7 +629,7 @@
 		048B3B0C25A5E7AB0005219B /* EditSafeNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSafeNameViewController.swift; sourceTree = "<group>"; };
 		048B3B0D25A5E7AB0005219B /* EditSafeNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditSafeNameViewController.xib; sourceTree = "<group>"; };
 		048D72BC26832FD70095999C /* NetworkListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkListRequest.swift; sourceTree = "<group>"; };
-		048D72BE268359E20095999C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		048D72BE268359E20095999C /* ChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainManager.swift; sourceTree = "<group>"; };
 		048D72C026835CF90095999C /* Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
 		048D72C62684CB500095999C /* SelectNetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNetworkViewController.swift; sourceTree = "<group>"; };
 		048D72CB2685DC780095999C /* SelectNetworkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNetworkTableViewCell.swift; sourceTree = "<group>"; };
@@ -2421,7 +2421,7 @@
 				0AD6EF1D25CAF5EC00EE5512 /* AppReviewController.swift */,
 				0AC5F56A25DD4A4B00DEF0D7 /* AuthenticationController.swift */,
 				550FB1A726691D0A00C13D54 /* OwnerKeyController.swift */,
-				048D72BE268359E20095999C /* NetworkManager.swift */,
+				048D72BE268359E20095999C /* ChainManager.swift */,
 				0493A28A262979820056EC49 /* UpdateController.swift */,
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
@@ -3187,7 +3187,7 @@
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
 				554A16B3266E4D4900807049 /* EIP712Transformer.swift in Sources */,
-				048D72BF268359E20095999C /* NetworkManager.swift in Sources */,
+				048D72BF268359E20095999C /* ChainManager.swift in Sources */,
 				0ADD19C4265EA23200EB0F2B /* SeedPhraseView.swift in Sources */,
 				0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */,
 				0A95894025EFBE1E005011D7 /* KeyInfo.swift in Sources */,

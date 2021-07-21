@@ -186,38 +186,38 @@ extension Chain {
             themeBackgroundColor: "#E8E7E6")
     }
 
-    typealias ChainSafes = [(network: Chain, safes: [Safe])]
+    typealias ChainSafes = [(chain: Chain, safes: [Safe])]
 
     /// Returns safes grouped by network with the following logic applied:
     /// - Selected safe network will be first in the list
     /// - Other networks are sorted by network id
     /// - Selected safe will be the first in the list of network safes. Other safes are sorted by addition date with earlist on top.
-    static func networkSafes() -> ChainSafes {
+    static func chainSafes() -> ChainSafes {
         guard let safes = try? Safe.getAll(),
               let selectedSafe = safes.first(where: { $0.isSelected }),
-              let selectedSafeNetwork = selectedSafe.chain else { return [] }
+              let selectedSafeChain = selectedSafe.chain else { return [] }
 
-        var networkSafes = ChainSafes()
+        var chainSafes = ChainSafes()
         let groupedSafes = Dictionary(grouping: safes, by: {$0.chain!})
 
         // Add selected safe Network on top with selected safe on top within the group
-        let selectedSafeNetworkOtherSafes = groupedSafes[selectedSafeNetwork]!
+        let selectedSafeChainOtherSafes = groupedSafes[selectedSafeChain]!
             .filter { !$0.isSelected }
             .sorted { $0.additionDate! > $1.additionDate! }
-        networkSafes.append((network: selectedSafeNetwork, safes: [selectedSafe] + selectedSafeNetworkOtherSafes))
+        chainSafes.append((chain: selectedSafeChain, safes: [selectedSafe] + selectedSafeChainOtherSafes))
 
         // Add other networks sorted by id with safes sorted by most recently added
         groupedSafes.keys
-            .filter { $0 != selectedSafeNetwork }
+            .filter { $0 != selectedSafeChain }
             .sorted { UInt256($0.id!)! < UInt256($1.id!)! }
-            .forEach { network in
-                networkSafes.append(
-                    (network: network,
-                     safes: groupedSafes[network]!.sorted { $0.additionDate! > $1.additionDate!})
+            .forEach { chain in
+                chainSafes.append(
+                    (chain: chain,
+                     safes: groupedSafes[chain]!.sorted { $0.additionDate! > $1.additionDate!})
                 )
             }
 
-        return networkSafes
+        return chainSafes
     }
 }
 

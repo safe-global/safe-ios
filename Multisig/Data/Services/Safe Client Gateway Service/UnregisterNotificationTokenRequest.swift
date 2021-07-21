@@ -11,17 +11,17 @@ import Foundation
 struct UnregisterNotificationTokenRequest: JSONRequest {
     let deviceID: String
     let address: String
-    let networkId: String
+    let chainId: String
     
     var httpMethod: String { return "DELETE" }
-    var urlPath: String { return "/v1/chains/\(networkId)/notifications/devices/\(deviceID)/safes/\(address)/" }
+    var urlPath: String { return "/v1/chains/\(chainId)/notifications/devices/\(deviceID)/safes/\(address)/" }
 
     typealias ResponseType = EmptyResponse
 
-    init(deviceID: String, address: Address, networkId: String) {
+    init(deviceID: String, address: Address, chainId: String) {
         self.address = address.checksummed
         self.deviceID = deviceID.lowercased()
-        self.networkId = networkId
+        self.chainId = chainId
     }
 
     struct EmptyResponse: Decodable {
@@ -31,9 +31,9 @@ struct UnregisterNotificationTokenRequest: JSONRequest {
 
 extension SafeClientGatewayService {
     @discardableResult
-    func unregister(deviceID: String, address: Address, networkId: String) -> URLSessionTask?  {
+    func unregister(deviceID: String, address: Address, chainId: String) -> URLSessionTask?  {
         asyncExecute(request:
-                        UnregisterNotificationTokenRequest(deviceID: deviceID, address: address, networkId: networkId))
+                        UnregisterNotificationTokenRequest(deviceID: deviceID, address: address, chainId: chainId))
             {_ in }
     }
 }

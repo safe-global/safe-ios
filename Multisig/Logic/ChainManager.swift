@@ -8,14 +8,14 @@
 
 import Foundation
 
-class NetworkManager {
+class ChainManager {
     static func updateChainsInfo() {
         App.shared.clientGatewayService.asyncNetworks { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let networks):
-                    for network in networks.results { Chain.updateIfExist(network) }
-                    NotificationCenter.default.post(name: .networkInfoChanged, object: nil)
+                case .success(let chains):
+                    for chain in chains.results { Chain.updateIfExist(chain) }
+                    NotificationCenter.default.post(name: .chainInfoChanged, object: nil)
                 case .failure(_):
                     // Ignoring error because we'll try again in the next app start.
                     break

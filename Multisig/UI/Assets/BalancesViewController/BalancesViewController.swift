@@ -74,7 +74,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         NotificationCenter.default.addObserver(
             self, selector: #selector(lazyReloadData), name: .selectedFiatCurrencyChanged, object: nil)
         NotificationCenter.default.addObserver(
-            self, selector: #selector(lazyReloadData), name: .networkInfoChanged, object: nil)
+            self, selector: #selector(lazyReloadData), name: .chainInfoChanged, object: nil)
 
         recreateSectionsWithCurrentItems()
     }
