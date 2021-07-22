@@ -30,7 +30,7 @@ class AdvancedSafeSettingsViewController: UITableViewController {
         }
 
         enum GuardInfo: SectionItem {
-            case guardInfo(AddressInfo)
+            case guardInfo(AddressInfo?)
             case guardInfoHelpLink
         }
 
@@ -69,16 +69,16 @@ class AdvancedSafeSettingsViewController: UITableViewController {
     private func buildSections() {
         sections = [
             (section: .fallbackHandler("FALLBACK HANDLER"),
-             items: [Section.FallbackHandler.fallbackHandler(App.shared.gnosisSafe.fallbackHandlerInfo(safe.fallbackHandlerInfo)),
-                     Section.FallbackHandler.fallbackHandlerHelpLink])]
-        if let guardInfo = safe.guardInfo {
-            sections.append((section: .guardInfo("GUARD"),
-                             items: [Section.GuardInfo.guardInfo(guardInfo),
-                                     Section.GuardInfo.guardInfoHelpLink]))
-        }
+             items: [Section.FallbackHandler.fallbackHandler(safe.fallbackHandlerInfo),
+                     Section.FallbackHandler.fallbackHandlerHelpLink]),
 
-        sections.append((section: .nonce("NONCE"),
-             items: [Section.Nonce.nonce(safe.nonce?.description ?? "0")]))
+            (section: .guardInfo("GUARD"),
+             items: [Section.GuardInfo.guardInfo(safe.guardInfo),
+                     Section.GuardInfo.guardInfoHelpLink]),
+
+            (section: .nonce("NONCE"),
+             items: [Section.Nonce.nonce(safe.nonce?.description ?? "0")])
+        ]
 
         if let modules = safe.modulesInfo, !modules.isEmpty {
             sections.append((section: .modules("ADDRESSES OF ENABLED MODULES"),
@@ -99,6 +99,7 @@ extension AdvancedSafeSettingsViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
+
         case Section.FallbackHandler.fallbackHandler(let info):
             if let info = info {
                 return addressDetailsCell(address: info.address,
@@ -109,32 +110,44 @@ extension AdvancedSafeSettingsViewController {
                 return tableView.basicCell(
                     name: "Not set", indexPath: indexPath, withDisclosure: false, canSelect: false)
             }
+
         case Section.FallbackHandler.fallbackHandlerHelpLink:
             return helpLinkCell(text: "What is a fallback handler and how does it relate to the Gnosis Safe",
                                 url: App.configuration.help.fallbackHandlerURL,
                                 indexPath: indexPath)
+
         case Section.GuardInfo.guardInfo(let info):
-            return addressDetailsCell(address: info.address,
-                                      title: namingPolicy.name(info: info),
-                                      imageUri: info.logoUri,
-                                      indexPath: indexPath)
+            if let info = info {
+                return addressDetailsCell(address: info.address,
+                                          title: namingPolicy.name(info: info),
+                                          imageUri: info.logoUri,
+                                          indexPath: indexPath)
+            } else {
+                return tableView.basicCell(
+                    name: "Not set", indexPath: indexPath, withDisclosure: false, canSelect: false)
+            }
+
         case Section.GuardInfo.guardInfoHelpLink:
             return helpLinkCell(text: "What is a guard and how that is used",
                                 url: App.configuration.help.guardURL,
                                 indexPath: indexPath)
+
         case Section.Nonce.nonce(let nonce):
             return tableView.basicCell(name: nonce,
                                        indexPath: indexPath,
                                        withDisclosure: false,
                                        canSelect: false)
+
         case Section.Module.module(let info):
             return addressDetailsCell(address: info.address,
                                       title: namingPolicy.name(info: info),
                                       imageUri: info.logoUri,
                                       indexPath: indexPath)
+
         default:
             return UITableViewCell()
         }
+
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {

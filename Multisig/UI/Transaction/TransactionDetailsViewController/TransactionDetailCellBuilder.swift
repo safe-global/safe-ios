@@ -198,10 +198,7 @@ class TransactionDetailCellBuilder {
 
             case .setFallbackHandler(let fallbackTx):
                 let handler: Address = fallbackTx.handler.value.address
-                var (label, imageUri) = displayNameAndImageUri(addressInfo: fallbackTx.handler)
-                if label == nil {
-                    label = App.shared.gnosisSafe.fallbackHandlerInfo(AddressInfo(address: handler))?.name ?? "Not set"
-                }
+                let (label, imageUri) = displayNameAndImageUri(addressInfo: fallbackTx.handler)
                 address(
                     handler,
                     label: label,
