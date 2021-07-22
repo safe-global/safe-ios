@@ -198,7 +198,10 @@ class TransactionDetailCellBuilder {
 
             case .setFallbackHandler(let fallbackTx):
                 let handler: Address = fallbackTx.handler.value.address
-                let (label, imageUri) = displayNameAndImageUri(addressInfo: fallbackTx.handler)
+                var (label, imageUri) = displayNameAndImageUri(addressInfo: fallbackTx.handler)
+                if label == nil {
+                    label = handler.isZero ? "Not set" : "Unknown"
+                }
                 address(
                     handler,
                     label: label,
