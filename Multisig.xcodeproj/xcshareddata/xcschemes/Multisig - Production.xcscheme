@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0A93DD522445CC8A00688050"
-               BuildableName = "Multisig_PROD_MAINNET.app"
+               BuildableName = "Multisig_PROD.app"
                BlueprintName = "Multisig"
                ReferencedContainer = "container:Multisig.xcodeproj">
             </BuildableReference>
@@ -23,7 +23,7 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug.Staging.Mainnet"
+      buildConfiguration = "Debug.Production"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -43,6 +43,11 @@
                BlueprintName = "MultisigTests"
                ReferencedContainer = "container:Multisig.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "SafeRelayServiceIntegrationTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO">
@@ -57,9 +62,10 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug.Staging.Mainnet"
+      buildConfiguration = "Debug.Production"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      region = "DE"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -71,14 +77,24 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A93DD522445CC8A00688050"
-            BuildableName = "Multisig_PROD_MAINNET.app"
+            BuildableName = "Multisig_PROD.app"
             BlueprintName = "Multisig"
             ReferencedContainer = "container:Multisig.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-com.apple.CoreData.SQLDebug 1"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-com.apple.CoreData.ConcurrencyDebug 1"
+            isEnabled = "NO">
+         </CommandLineArgument>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release.Staging.Mainnet"
+      buildConfiguration = "Release.Production"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -88,17 +104,17 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A93DD522445CC8A00688050"
-            BuildableName = "Multisig_PROD_MAINNET.app"
+            BuildableName = "Multisig_PROD.app"
             BlueprintName = "Multisig"
             ReferencedContainer = "container:Multisig.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug.Staging.Mainnet">
+      buildConfiguration = "Debug.Production">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release.Staging.Mainnet"
+      buildConfiguration = "Release.Production"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

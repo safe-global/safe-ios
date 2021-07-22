@@ -55,6 +55,7 @@ class AddressInfoView: UINibView {
         if showIdenticon {
             identiconView.setCircleImage(url: imageUri, address: address)
         }
+        identiconView.isHidden = !showIdenticon
     }
 
     func setDetailImage(_ image: UIImage?, tintColor: UIColor = .button) {

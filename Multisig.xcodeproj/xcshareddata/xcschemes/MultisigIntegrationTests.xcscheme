@@ -7,7 +7,7 @@
       buildImplicitDependencies = "YES">
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug.Development.Rinkeby"
+      buildConfiguration = "Debug.Production"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -31,7 +31,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug.Development.Rinkeby"
+      buildConfiguration = "Debug.Production"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -44,24 +44,24 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A93DD522445CC8A00688050"
-            BuildableName = "Multisig_PROD_MAINNET.app"
+            BuildableName = "Multisig_PROD.app"
             BlueprintName = "Multisig"
             ReferencedContainer = "container:Multisig.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release.Staging.Rinkeby"
+      buildConfiguration = "Debug.Production"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug.Staging.Rinkeby">
+      buildConfiguration = "Debug.Production">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release.Staging.Rinkeby"
+      buildConfiguration = "Debug.Production"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

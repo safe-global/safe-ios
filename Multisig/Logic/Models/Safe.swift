@@ -24,7 +24,16 @@ extension Safe: Identifiable {
 
     var addressValue: Address { Address(address!)! }
 
-    var browserURL: URL { Self.browserURL(address: displayAddress) }
+    var browserURL: URL {
+        guard
+            let chain = chain,
+            let browserUrl = chain.blockExplorerUrl
+        else {
+            assertionFailure("Block explorer url called when no safe chain found")
+            return URL(string: "https://gnosis-safe.io/")!
+        }
+        return browserUrl.appendingPathComponent("address").appendingPathComponent(displayAddress)
+    }
 
     var displayName: String { name.flatMap { $0.isEmpty ? nil : $0 } ?? "Untitled Safe" }
 
@@ -124,8 +133,13 @@ extension Safe: Identifiable {
     }
 
     static func browserURL(address: String) -> URL {
-        App.configuration.services.etehreumBlockBrowserURL
-            .appendingPathComponent("address").appendingPathComponent(address)
+        guard
+            let safe = (try? Safe.getSelected())
+        else {
+            assertionFailure("Block explorer url called when no safe is selected")
+            return URL(string: "https://gnosis-safe.io/")!
+        }
+        return safe.browserURL.appendingPathComponent("address").appendingPathComponent(address)
     }
 
     static func exists(_ address: String, chainId: String) -> Bool {

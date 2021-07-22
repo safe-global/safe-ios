@@ -20,10 +20,6 @@ struct AppConfiguration {
         @ConfigurationKey("INFURA_API_KEY")
         var infuraKey: String
 
-        #warning("TODO: remove")
-        @ConfigurationKey("ETH_BLOCK_BROWSER_URL")
-        var etehreumBlockBrowserURL: URL
-
         @ConfigurationKey("GNOSIS_SAFE_WEB_URL")
         var webAppURL: URL
 

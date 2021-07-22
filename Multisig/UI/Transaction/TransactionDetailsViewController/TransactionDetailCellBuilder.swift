@@ -16,7 +16,7 @@ class TransactionDetailCellBuilder {
     private weak var vc: UIViewController!
     private weak var tableView: UITableView!
 
-    // needed for proper safe selection for known addresses functionality
+    // needed for proper safe selection for known addresses functionality. Also used to select the block explorer url.
     private var chainId: String
 
     private lazy var dateFormatter: DateFormatter = {
@@ -511,9 +511,12 @@ class TransactionDetailCellBuilder {
     }
 
     func buildOpenInExplorer(hash: DataString?) {
-        guard let txHash = hash?.description else { return }
-        let url = App.configuration.services.etehreumBlockBrowserURL
-            .appendingPathComponent("tx").appendingPathComponent(txHash)
+        guard
+            let txHash = hash?.description,
+            let chain = Chain.by(chainId),
+            let browserUrl = chain.blockExplorerUrl
+        else { return }
+        let url = browserUrl.appendingPathComponent("tx").appendingPathComponent(txHash)
         externalURL(text: "View transaction on Etherscan", url: url)
     }
 

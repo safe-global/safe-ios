@@ -19,9 +19,6 @@
 // DEV | STAGING | PROD
 SERVICE_ENV = STAGING
 
-// RINKEBY | MAINNET
-NETWORK = RINKEBY
-
 
 // Keys
 
@@ -32,48 +29,27 @@ INFURA_API_KEY = USE_YOUR_OWN_INFURA_KEY_HERE
 // Configuration Values
 
 // Gnosis Safe Client Gateway Service
-_CLIENT_GATEWAY_URL_DEV_RINKEBY        = https:/$()/safe-client.staging.gnosisdev.com/
-_CLIENT_GATEWAY_URL_DEV_MAINNET        = https:/$()/safe-client.staging.gnosisdev.com/
-_CLIENT_GATEWAY_URL_STAGING_RINKEBY    = https:/$()/safe-client.staging.gnosisdev.com/
-_CLIENT_GATEWAY_URL_STAGING_MAINNET    = https:/$()/safe-client.staging.gnosisdev.com/
-_CLIENT_GATEWAY_URL_PROD_RINKEBY       = https:/$()/safe-client.gnosis.io/
-_CLIENT_GATEWAY_URL_PROD_MAINNET       = https:/$()/safe-client.gnosis.io/
-
-// Etherscan -  Ethereum Block Browser
-_ETH_BLOCK_BROWSER_URL_RINKEBY = https:/$()/rinkeby.etherscan.io/
-_ETH_BLOCK_BROWSER_URL_MAINNET = https:/$()/etherscan.io/
-
-// OpenSea - Collectible Service URL
-_COLLECTIBLE_SERVICE_URL_RINKEBY = https:/$()/rinkeby-api.opensea.io/api/
-_COLLECTIBLE_SERVICE_URL_MAINNET = https:/$()/api.opensea.io/api/
+_CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_PROD       = https:/$()/safe-client.gnosis.io/
 
 // Gnosis Safe Web App
-_GNOSIS_SAFE_WEB_URL_RINKEBY = https:/$()/rinkeby.gnosis-safe.io/
-_GNOSIS_SAFE_WEB_URL_MAINNET = https:/$()/gnosis-safe.io/
+_GNOSIS_SAFE_WEB_URL = https:/$()/gnosis-safe.io/
 
 // Apps
-_APP_BUNDLE_ID_PROD_MAINNET     = io.gnosis.multisig.prod.mainnet
-_APP_BUNDLE_ID_PROD_RINKEBY     = io.gnosis.multisig.prerelease
-_APP_BUNDLE_ID_STAGING_MAINNET  = io.gnosis.multisig.staging.mainnet
-_APP_BUNDLE_ID_STAGING_RINKEBY  = io.gnosis.multisig.staging.rinkeby
-_APP_BUNDLE_ID_DEV_MAINNET      = io.gnosis.multisig.dev.mainnet
-_APP_BUNDLE_ID_DEV_RINKEBY      = io.gnosis.multisig.dev.rinkeby
+_APP_BUNDLE_ID_PROD     = io.gnosis.multisig.prod.mainnet
+_APP_BUNDLE_ID_STAGING  = io.gnosis.multisig.staging.mainnet
+_APP_BUNDLE_ID_DEV      = io.gnosis.multisig.dev.mainnet
 
 // User-facing name of the app on the Home screen
-_DISPLAY_NAME_PROD_MAINNET     = Safe Multisig
-_DISPLAY_NAME_PROD_RINKEBY     = Prod Rinkeby
-_DISPLAY_NAME_STAGING_MAINNET  = Staging Mainnet
-_DISPLAY_NAME_STAGING_RINKEBY  = Staging Rinkeby
-_DISPLAY_NAME_DEV_RINKEBY      = Dev Rinkeby
-_DISPLAY_NAME_DEV_MAINNET      = Dev Mainnet
+_DISPLAY_NAME_PROD     = Safe Multisig
+_DISPLAY_NAME_STAGING  = Safe Staging
+_DISPLAY_NAME_DEV      = Safe Dev
 
 // Firebase Config File Names
-_FIREBASE_CONFIG_PROD_MAINNET       = GoogleService-Info.Production.Mainnet
-_FIREBASE_CONFIG_PROD_RINKEBY       = GoogleService-Info.Production.Rinkeby
-_FIREBASE_CONFIG_STAGING_MAINNET    = GoogleService-Info.Staging.Mainnet
-_FIREBASE_CONFIG_STAGING_RINKEBY    = GoogleService-Info.Staging.Rinkeby
-_FIREBASE_CONFIG_DEV_MAINNET        = GoogleService-Info.Development.Mainnet
-_FIREBASE_CONFIG_DEV_RINKEBY        = GoogleService-Info.Development.Rinkeby
+_FIREBASE_CONFIG_PROD       = GoogleService-Info.Production.Mainnet
+_FIREBASE_CONFIG_STAGING    = GoogleService-Info.Staging.Rinkeby
+_FIREBASE_CONFIG_DEV        = GoogleService-Info.Development.Rinkeby
 
 // Loggers (comma-separated). Available options: [crashlytics, console]
 _LOGGERS_PROD               = crashlytics
@@ -86,11 +62,9 @@ _LOG_LEVEL_DEV              = DEBUG
 
 // Configuration variables for the app
 
-CLIENT_GATEWAY_URL = $(_CLIENT_GATEWAY_URL_$(SERVICE_ENV)_$(NETWORK):default=$(_CLIENT_GATEWAY_URL_PROD_MAINNET))
-ETH_BLOCK_BROWSER_URL   = $(_ETH_BLOCK_BROWSER_URL_$(NETWORK):default=$(_ETH_BLOCK_BROWSER_URL_MAINNET))
-COLLECTIBLE_SERVICE_URL = $(_COLLECTIBLE_SERVICE_URL_$(NETWORK):default=$(_COLLECTIBLE_SERVICE_URL_MAINNET))
-GNOSIS_SAFE_WEB_URL     = $(_GNOSIS_SAFE_WEB_URL_$(NETWORK):default=$(_GNOSIS_SAFE_WEB_URL_MAINNET))
-FIREBASE_CONFIG         = $(_FIREBASE_CONFIG_$(SERVICE_ENV)_$(NETWORK):default=$(_FIREBASE_CONFIG_PROD_MAINNET))
+CLIENT_GATEWAY_URL = $(_CLIENT_GATEWAY_URL_$(SERVICE_ENV):default=$(_CLIENT_GATEWAY_URL_PROD))
+GNOSIS_SAFE_WEB_URL     = $(_GNOSIS_SAFE_WEB_URL:default=$(_GNOSIS_SAFE_WEB_URL))
+FIREBASE_CONFIG         = $(_FIREBASE_CONFIG_$(SERVICE_ENV):default=$(_FIREBASE_CONFIG_PROD))
 LOGGERS                 = $(_LOGGERS_$(SERVICE_ENV):default=$(_LOGGERS_PROD))
 LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD))
 
@@ -130,28 +104,25 @@ FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
 CONTACT_EMAIL           = safe@gnosis.io
 
 // App Review URLs
-_APP_STORE_REVIEW_URL_DEV_RINKEBY        = https:/$()/apps.apple.com/app/id1515758247?action=write-review
-_APP_STORE_REVIEW_URL_DEV_MAINNET        = https:/$()/apps.apple.com/app/id1515758190?action=write-review
-_APP_STORE_REVIEW_URL_STAGING_RINKEBY    = https:/$()/apps.apple.com/app/id1515758920?action=write-review
-_APP_STORE_REVIEW_URL_STAGING_MAINNET    = https:/$()/apps.apple.com/app/id1518013939?action=write-review
-_APP_STORE_REVIEW_URL_PROD_RINKEBY       = https:/$()/apps.apple.com/app/id1510351303?action=write-review
-_APP_STORE_REVIEW_URL_PROD_MAINNET       = https:/$()/apps.apple.com/app/id1515759131?action=write-review
+_APP_STORE_REVIEW_URL_DEV        = https:/$()/apps.apple.com/app/id1515758190?action=write-review
+_APP_STORE_REVIEW_URL_STAGING    = https:/$()/apps.apple.com/app/id1518013939?action=write-review
+_APP_STORE_REVIEW_URL_PROD       = https:/$()/apps.apple.com/app/id1515759131?action=write-review
 
-APP_STORE_REVIEW_URL = $(_APP_STORE_REVIEW_URL_$(SERVICE_ENV)_$(NETWORK):default=$(_APP_STORE_REVIEW_URL_PROD_MAINNET))
+APP_STORE_REVIEW_URL = $(_APP_STORE_REVIEW_URL_$(SERVICE_ENV):default=$(_APP_STORE_REVIEW_URL_PROD))
 
 // App name on the home screen (will be used for CFBundleDisplayName)
-DISPLAY_NAME = $(_DISPLAY_NAME_$(SERVICE_ENV)_$(NETWORK):default=$(_DISPLAY_NAME_PROD_MAINNET))
+DISPLAY_NAME = $(_DISPLAY_NAME_$(SERVICE_ENV):default=$(_DISPLAY_NAME_PROD))
 
 // Xcode Build Settings
-PRODUCT_BUNDLE_IDENTIFIER           = $(_APP_BUNDLE_ID_$(SERVICE_ENV)_$(NETWORK):default=$(_APP_BUNDLE_ID_PROD_MAINNET))
+PRODUCT_BUNDLE_IDENTIFIER           = $(_APP_BUNDLE_ID_$(SERVICE_ENV):default=$(_APP_BUNDLE_ID_PROD))
 
 // Different product names are fixing an iOS bug that disables Touch ID
 // or Face ID when multiple apps with the same executable name are installed.
-APP_PRODUCT_NAME                    = Multisig_$(SERVICE_ENV)_$(NETWORK)
+APP_PRODUCT_NAME                    = Multisig_$(SERVICE_ENV)
 
 PRODUCT_NAME = $(APP_PRODUCT_NAME)
 
-ASSETCATALOG_COMPILER_APPICON_NAME  = AppIcon_$(SERVICE_ENV)_$(NETWORK)
+ASSETCATALOG_COMPILER_APPICON_NAME  = AppIcon_$(SERVICE_ENV)
 
 // This fixes SwiftUI previews not working due to code coverage enabled
 // see https://stackoverflow.com/questions/58127940/undefined-symbols-llvm-profile-runtime

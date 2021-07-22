@@ -45,20 +45,20 @@
 	<string>$(CONTACT_EMAIL)</string>
 	<key>DISCORD_URL</key>
 	<string>$(DISCORD_URL)</string>
-	<key>ETH_BLOCK_BROWSER_URL</key>
-	<string>$(ETH_BLOCK_BROWSER_URL)</string>
 	<key>FALLBACKHANDLER_URL</key>
 	<string>$(FALLBACKHANDLER_URL)</string>
-	<key>GUARD_URL</key>
-	<string>$(GUARD_URL)</string>
 	<key>FEATURE_SUGGESTION_URL</key>
 	<string>$(FEATURE_SUGGESTION_URL)</string>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<false/>
 	<key>GNOSIS_SAFE_WEB_URL</key>
 	<string>$(GNOSIS_SAFE_WEB_URL)</string>
+	<key>GUARD_URL</key>
+	<string>$(GUARD_URL)</string>
 	<key>HELP_CENTER_URL</key>
 	<string>$(HELP_CENTER_URL)</string>
+	<key>INFURA_API_KEY</key>
+	<string>$(INFURA_API_KEY)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LICENSES_URL</key>
@@ -81,8 +81,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NETWORK</key>
-	<string>$(NETWORK)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Safe need to use camera to scan QR code.</string>
 	<key>NSFaceIDUsageDescription</key>
@@ -91,8 +89,6 @@
 	<string>$(PAY_FOR_CANCELLATION_URL)</string>
 	<key>PRIVACY_URL</key>
 	<string>$(PRIVACY_URL)</string>
-	<key>RELAY_SERVICE_URL</key>
-	<string>$(RELAY_SERVICE_URL)</string>
 	<key>SERVICE_ENV</key>
 	<string>$(SERVICE_ENV)</string>
 	<key>TERMS_URL</key>
@@ -185,7 +181,5 @@
 	</array>
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
-	<key>INFURA_API_KEY</key>
-	<string>$(INFURA_API_KEY)</string>
 </dict>
 </plist>
