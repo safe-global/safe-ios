@@ -33,9 +33,6 @@ _CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client.staging.gnosisdev.com/
 _CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client.staging.gnosisdev.com/
 _CLIENT_GATEWAY_URL_PROD       = https:/$()/safe-client.gnosis.io/
 
-// Gnosis Safe Web App
-_GNOSIS_SAFE_WEB_URL = https:/$()/gnosis-safe.io/
-
 // Apps
 _APP_BUNDLE_ID_PROD     = io.gnosis.multisig.prod.mainnet
 _APP_BUNDLE_ID_STAGING  = io.gnosis.multisig.staging.mainnet
@@ -47,9 +44,9 @@ _DISPLAY_NAME_STAGING  = Safe Staging
 _DISPLAY_NAME_DEV      = Safe Dev
 
 // Firebase Config File Names
-_FIREBASE_CONFIG_PROD       = GoogleService-Info.Production.Mainnet
-_FIREBASE_CONFIG_STAGING    = GoogleService-Info.Staging.Rinkeby
-_FIREBASE_CONFIG_DEV        = GoogleService-Info.Development.Rinkeby
+_FIREBASE_CONFIG_PROD       = GoogleService-Info.Production
+_FIREBASE_CONFIG_STAGING    = GoogleService-Info.Staging
+_FIREBASE_CONFIG_DEV        = GoogleService-Info.Development
 
 // Loggers (comma-separated). Available options: [crashlytics, console]
 _LOGGERS_PROD               = crashlytics
@@ -63,7 +60,6 @@ _LOG_LEVEL_DEV              = DEBUG
 // Configuration variables for the app
 
 CLIENT_GATEWAY_URL = $(_CLIENT_GATEWAY_URL_$(SERVICE_ENV):default=$(_CLIENT_GATEWAY_URL_PROD))
-GNOSIS_SAFE_WEB_URL     = $(_GNOSIS_SAFE_WEB_URL:default=$(_GNOSIS_SAFE_WEB_URL))
 FIREBASE_CONFIG         = $(_FIREBASE_CONFIG_$(SERVICE_ENV):default=$(_FIREBASE_CONFIG_PROD))
 LOGGERS                 = $(_LOGGERS_$(SERVICE_ENV):default=$(_LOGGERS_PROD))
 LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD))
@@ -102,6 +98,9 @@ TWITTER_URL             = https:/$()/twitter.com/gnosisSafe
 HELP_CENTER_URL         = https:/$()/help.gnosis-safe.io/
 FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
 CONTACT_EMAIL           = safe@gnosis.io
+
+// Web app url
+GNOSIS_SAFE_WEB_URL     = https:/$()/gnosis-safe.io/
 
 // App Review URLs
 _APP_STORE_REVIEW_URL_DEV        = https:/$()/apps.apple.com/app/id1515758190?action=write-review
