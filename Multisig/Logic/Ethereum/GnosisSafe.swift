@@ -17,8 +17,10 @@ class GnosisSafe {
         case unknown
     }
 
-    private var minimumSupportedVersion: Version { Version("1.0.0")! }
-    private var maximumSupportedVersion: Version { Version("1.3.0")! }
+    var minimumSupportedVersionValue = "1.0.0"
+    var maximumSupportedVersionValue = "1.3.0"
+    private var minimumSupportedVersion: Version { Version(minimumSupportedVersionValue)! }
+    private var maximumSupportedVersion: Version { Version(maximumSupportedVersionValue)! }
 
     func isSupported(_ version: String) -> Bool {
         if let version = Version(version), version >= minimumSupportedVersion && version <= maximumSupportedVersion {
