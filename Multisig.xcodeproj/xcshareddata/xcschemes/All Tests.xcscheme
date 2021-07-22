@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0A93DD522445CC8A00688050"
-               BuildableName = "Multisig_PROD_MAINNET.app"
+               BuildableName = "Multisig_PROD.app"
                BlueprintName = "Multisig"
                ReferencedContainer = "container:Multisig.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A93DD522445CC8A00688050"
-            BuildableName = "Multisig_PROD_MAINNET.app"
+            BuildableName = "Multisig_PROD.app"
             BlueprintName = "Multisig"
             ReferencedContainer = "container:Multisig.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A93DD522445CC8A00688050"
-            BuildableName = "Multisig_PROD_MAINNET.app"
+            BuildableName = "Multisig_PROD.app"
             BlueprintName = "Multisig"
             ReferencedContainer = "container:Multisig.xcodeproj">
          </BuildableReference>
@@ -92,7 +92,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A93DD522445CC8A00688050"
-            BuildableName = "Multisig_PROD_MAINNET.app"
+            BuildableName = "Multisig_PROD.app"
             BlueprintName = "Multisig"
             ReferencedContainer = "container:Multisig.xcodeproj">
          </BuildableReference>

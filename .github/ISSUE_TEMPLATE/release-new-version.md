@@ -33,12 +33,7 @@ agvtool new-marketing-version x.y.z
 
 #### Download DSYMs manually
 - [ ] dSYMs are downloaded from AppStoreConnect and uploaded to Firebase Crashlytics.
-```
-# For the Multisig Production Rinkeby app:
-> ./bin/upload-symbols \
-  -gsp Multisig/Cross-layer/Analytics/Firebase/GoogleService-Info.Production.Rinkeby.plist \
-  -p ios /path/to/dSYMs
- 
+``` 
 # For the Multisig app (App Store version):
 > ./bin/upload-symbols \
   -gsp Multisig/Cross-layer/Analytics/Firebase/GoogleService-Info.Production.Mainnet.plist \

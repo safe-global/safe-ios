@@ -22,7 +22,7 @@ pipeline {
             steps {
                 ansiColor('xterm') {
                     // new param for uikit enabled - alternative
-                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/test.sh \"Multisig - Staging Rinkeby\"'
+                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/test.sh \"Multisig - Staging\"'
                     junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/*/xcodebuild-test.log'
                     archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
@@ -45,10 +45,8 @@ pipeline {
                     // the uploading to AppStoreConnect started to work.
 
                     // new param for uikit enabled
-                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Rinkeby\"'
-                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging Mainnet\"'
-                    sh 'INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production Rinkeby\"'
-                    sh 'INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production Mainnet\"'
+                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging\"'
+                    sh 'INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production\"'
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
             }

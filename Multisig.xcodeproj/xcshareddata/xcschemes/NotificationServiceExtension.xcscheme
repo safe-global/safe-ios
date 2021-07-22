@@ -30,7 +30,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0A93DD522445CC8A00688050"
-               BuildableName = "Multisig_PROD_MAINNET.app"
+               BuildableName = "Multisig_PROD.app"
                BlueprintName = "Multisig"
                ReferencedContainer = "container:Multisig.xcodeproj">
             </BuildableReference>
@@ -38,7 +38,7 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug.Development.Rinkeby"
+      buildConfiguration = "Debug.Production"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -46,7 +46,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug.Development.Rinkeby"
+      buildConfiguration = "Debug.Production"
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
@@ -62,14 +62,14 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A93DD522445CC8A00688050"
-            BuildableName = "Multisig_PROD_MAINNET.app"
+            BuildableName = "Multisig_PROD.app"
             BlueprintName = "Multisig"
             ReferencedContainer = "container:Multisig.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release.Development.Rinkeby"
+      buildConfiguration = "Debug.Production"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -80,17 +80,17 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A93DD522445CC8A00688050"
-            BuildableName = "Multisig_PROD_MAINNET.app"
+            BuildableName = "Multisig_PROD.app"
             BlueprintName = "Multisig"
             ReferencedContainer = "container:Multisig.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug.Development.Rinkeby">
+      buildConfiguration = "Debug.Production">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release.Development.Rinkeby"
+      buildConfiguration = "Debug.Production"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

@@ -42,6 +42,8 @@ class OwnerKeyDetailsViewController: UIViewController {
         titleLabel.setStyle(.headline)
         titleLabel.text = "Key address"
 
+        addressInfoView.setDetailImage(nil)
+
         bindData()
 
         if completion != nil {

@@ -124,8 +124,15 @@ extension Safe: Identifiable {
     }
 
     static func browserURL(address: String) -> URL {
-        App.configuration.services.etehreumBlockBrowserURL
-            .appendingPathComponent("address").appendingPathComponent(address)
+        guard
+            let safe = (try? Safe.getSelected()),
+            let chain = safe.chain,
+            let browserUrl = chain.blockExplorerUrl
+        else {
+            assertionFailure("Block explorer url called when no safe chain found")
+            return URL(string: "https://gnosis-safe.io/")!
+        }
+        return browserUrl.appendingPathComponent("address").appendingPathComponent(address)
     }
 
     static func exists(_ address: String, chainId: String) -> Bool {

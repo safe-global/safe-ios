@@ -677,9 +677,6 @@
 		04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueuedTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSafeSettingsViewController.swift; sourceTree = "<group>"; };
-		0A0070F6254AF22900A57CAF /* splash-screen-tagline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline@2x.png"; sourceTree = "<group>"; };
-		0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline@3x.png"; sourceTree = "<group>"; };
-		0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen-tagline.png"; sourceTree = "<group>"; };
 		0A007123254B255C00A57CAF /* UIFont+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Styles.swift"; sourceTree = "<group>"; };
 		0A007129254B379000A57CAF /* UIColor+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Styles.swift"; sourceTree = "<group>"; };
 		0A0256232449F7BF00C91D73 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
@@ -773,9 +770,7 @@
 		0A63C7B32602087E00D36B22 /* SafeInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoRequest.swift; sourceTree = "<group>"; };
 		0A63C7E22602725100D36B22 /* AddressInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInfo.swift; sourceTree = "<group>"; };
 		0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Production.Mainnet.xcconfig; sourceTree = "<group>"; };
-		0A6430DA247EC193006FD30A /* Production.Rinkeby.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Production.Rinkeby.xcconfig; sourceTree = "<group>"; };
 		0A6430DB247EC193006FD30A /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		0A6430DC247EC193006FD30A /* Staging.Rinkeby.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Staging.Rinkeby.xcconfig; sourceTree = "<group>"; };
 		0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationKey.swift; sourceTree = "<group>"; };
 		0A6430F4247ECB3E006FD30A /* ConfigurationKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationKeyTests.swift; sourceTree = "<group>"; };
 		0A6430F6247ECCF6006FD30A /* MultisigTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MultisigTests.xctestplan; sourceTree = "<group>"; };
@@ -823,7 +818,7 @@
 		0A8AEB1F25A4764F002A3FE1 /* ActionDetailAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionDetailAddressCell.xib; sourceTree = "<group>"; };
 		0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollecitbleSectionSeparatorView.swift; sourceTree = "<group>"; };
 		0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollecitbleSectionSeparatorView.xib; sourceTree = "<group>"; };
-		0A93DD532445CC8A00688050 /* Multisig_PROD_MAINNET.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig_PROD_MAINNET.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A93DD532445CC8A00688050 /* Multisig_PROD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig_PROD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0A93DD5F2445CC8B00688050 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -990,7 +985,6 @@
 		0AF2739924DD8D42007E4012 /* NewConfirmationNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConfirmationNotification.swift; sourceTree = "<group>"; };
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF7F765247FC28B00527014 /* Config.Example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.Example.xcconfig; sourceTree = "<group>"; };
-		0AF7F766247FC3FB00527014 /* Development.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.Rinkeby.xcconfig; sourceTree = "<group>"; };
 		0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.Mainnet.xcconfig; sourceTree = "<group>"; };
 		0AF8832125A5EC1F00029A43 /* ActionDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		0AFA729B24BF361600A370EE /* SlicedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlicedString.swift; sourceTree = "<group>"; };
@@ -1671,10 +1665,7 @@
 				0A6430DB247EC193006FD30A /* Config.xcconfig */,
 				0AF7F765247FC28B00527014 /* Config.Example.xcconfig */,
 				0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */,
-				0A6430DA247EC193006FD30A /* Production.Rinkeby.xcconfig */,
 				0ACDC00924925267002035A2 /* Staging.Mainnet.xcconfig */,
-				0A6430DC247EC193006FD30A /* Staging.Rinkeby.xcconfig */,
-				0AF7F766247FC3FB00527014 /* Development.Rinkeby.xcconfig */,
 				0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */,
 				0ACDBFFC248E4C5D002035A2 /* Configuration.swift */,
 			);
@@ -1851,7 +1842,7 @@
 		0A93DD542445CC8A00688050 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0A93DD532445CC8A00688050 /* Multisig_PROD_MAINNET.app */,
+				0A93DD532445CC8A00688050 /* Multisig_PROD.app */,
 				0A93DD6C2445CC8C00688050 /* MultisigTests.xctest */,
 				0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */,
 				0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */,
@@ -2245,9 +2236,6 @@
 			children = (
 				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
 				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
-				0A0070F8254AF22900A57CAF /* splash-screen-tagline.png */,
-				0A0070F6254AF22900A57CAF /* splash-screen-tagline@2x.png */,
-				0A0070F7254AF22900A57CAF /* splash-screen-tagline@3x.png */,
 				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
 			);
 			name = Resources;
@@ -2733,7 +2721,7 @@
 				55DA0662269C9411006C9AA5 /* Version */,
 			);
 			productName = Multisig;
-			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD_MAINNET.app */;
+			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0A93DD6B2445CC8C00688050 /* MultisigTests */ = {
@@ -3486,503 +3474,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0A6430E3247EC315006FD30A /* Debug.Production.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A6430DA247EC193006FD30A /* Production.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug.Production.Rinkeby;
-		};
-		0A6430E4247EC315006FD30A /* Debug.Production.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Multisig/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 0.2.0;
-				PRODUCT_MODULE_NAME = Multisig;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug.Production.Rinkeby;
-		};
-		0A6430E5247EC315006FD30A /* Debug.Production.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Debug.Production.Rinkeby;
-		};
-		0A6430E6247EC315006FD30A /* Debug.Production.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Debug.Production.Rinkeby;
-		};
-		0A6430E7247EC320006FD30A /* Debug.Staging.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A6430DC247EC193006FD30A /* Staging.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug.Staging.Rinkeby;
-		};
-		0A6430E8247EC320006FD30A /* Debug.Staging.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Multisig/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 0.2.0;
-				PRODUCT_MODULE_NAME = Multisig;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug.Staging.Rinkeby;
-		};
-		0A6430E9247EC320006FD30A /* Debug.Staging.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Debug.Staging.Rinkeby;
-		};
-		0A6430EA247EC320006FD30A /* Debug.Staging.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Debug.Staging.Rinkeby;
-		};
-		0A6430EB247EC32F006FD30A /* Release.Production.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A6430DA247EC193006FD30A /* Production.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release.Production.Rinkeby;
-		};
-		0A6430EC247EC32F006FD30A /* Release.Production.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Multisig/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 0.2.0;
-				PRODUCT_MODULE_NAME = Multisig;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release.Production.Rinkeby;
-		};
-		0A6430ED247EC32F006FD30A /* Release.Production.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Release.Production.Rinkeby;
-		};
-		0A6430EE247EC32F006FD30A /* Release.Production.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Release.Production.Rinkeby;
-		};
-		0A6430EF247EC338006FD30A /* Release.Staging.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A6430DC247EC193006FD30A /* Staging.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release.Staging.Rinkeby;
-		};
-		0A6430F0247EC338006FD30A /* Release.Staging.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Multisig/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 0.2.0;
-				PRODUCT_MODULE_NAME = Multisig;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release.Staging.Rinkeby;
-		};
-		0A6430F1247EC338006FD30A /* Release.Staging.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Release.Staging.Rinkeby;
-		};
-		0A6430F2247EC338006FD30A /* Release.Staging.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Release.Staging.Rinkeby;
-		};
-		0A93DD732445CC8C00688050 /* Debug.Production.Mainnet */ = {
+		0A93DD732445CC8C00688050 /* Debug.Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */;
 			buildSettings = {
@@ -4042,9 +3534,9 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Debug.Production.Mainnet;
+			name = Debug.Production;
 		};
-		0A93DD742445CC8C00688050 /* Release.Production.Mainnet */ = {
+		0A93DD742445CC8C00688050 /* Release.Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */;
 			buildSettings = {
@@ -4098,9 +3590,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release.Production.Mainnet;
+			name = Release.Production;
 		};
-		0A93DD762445CC8C00688050 /* Debug.Production.Mainnet */ = {
+		0A93DD762445CC8C00688050 /* Debug.Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
@@ -4122,9 +3614,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Debug.Production.Mainnet;
+			name = Debug.Production;
 		};
-		0A93DD772445CC8C00688050 /* Release.Production.Mainnet */ = {
+		0A93DD772445CC8C00688050 /* Release.Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
@@ -4146,9 +3638,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Release.Production.Mainnet;
+			name = Release.Production;
 		};
-		0A93DD792445CC8C00688050 /* Debug.Production.Mainnet */ = {
+		0A93DD792445CC8C00688050 /* Debug.Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -4167,9 +3659,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Debug.Production.Mainnet;
+			name = Debug.Production;
 		};
-		0A93DD7A2445CC8C00688050 /* Release.Production.Mainnet */ = {
+		0A93DD7A2445CC8C00688050 /* Release.Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -4188,9 +3680,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Release.Production.Mainnet;
+			name = Release.Production;
 		};
-		0A9BC35B2460581500EB9C5D /* Debug.Production.Mainnet */ = {
+		0A9BC35B2460581500EB9C5D /* Debug.Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -4208,9 +3700,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Debug.Production.Mainnet;
+			name = Debug.Production;
 		};
-		0A9BC35C2460581500EB9C5D /* Release.Production.Mainnet */ = {
+		0A9BC35C2460581500EB9C5D /* Release.Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -4228,9 +3720,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Release.Production.Mainnet;
+			name = Release.Production;
 		};
-		0ACDC00A249252AD002035A2 /* Debug.Staging.Mainnet */ = {
+		0ACDC00A249252AD002035A2 /* Debug.Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0ACDC00924925267002035A2 /* Staging.Mainnet.xcconfig */;
 			buildSettings = {
@@ -4290,9 +3782,9 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Debug.Staging.Mainnet;
+			name = Debug.Staging;
 		};
-		0ACDC00B249252AD002035A2 /* Debug.Staging.Mainnet */ = {
+		0ACDC00B249252AD002035A2 /* Debug.Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
@@ -4314,9 +3806,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Debug.Staging.Mainnet;
+			name = Debug.Staging;
 		};
-		0ACDC00C249252AD002035A2 /* Debug.Staging.Mainnet */ = {
+		0ACDC00C249252AD002035A2 /* Debug.Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -4335,9 +3827,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Debug.Staging.Mainnet;
+			name = Debug.Staging;
 		};
-		0ACDC00D249252AD002035A2 /* Debug.Staging.Mainnet */ = {
+		0ACDC00D249252AD002035A2 /* Debug.Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -4355,9 +3847,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Debug.Staging.Mainnet;
+			name = Debug.Staging;
 		};
-		0ACDC00E249252B6002035A2 /* Release.Staging.Mainnet */ = {
+		0ACDC00E249252B6002035A2 /* Release.Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0ACDC00924925267002035A2 /* Staging.Mainnet.xcconfig */;
 			buildSettings = {
@@ -4411,9 +3903,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release.Staging.Mainnet;
+			name = Release.Staging;
 		};
-		0ACDC00F249252B6002035A2 /* Release.Staging.Mainnet */ = {
+		0ACDC00F249252B6002035A2 /* Release.Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
@@ -4435,9 +3927,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Release.Staging.Mainnet;
+			name = Release.Staging;
 		};
-		0ACDC010249252B6002035A2 /* Release.Staging.Mainnet */ = {
+		0ACDC010249252B6002035A2 /* Release.Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -4456,9 +3948,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Release.Staging.Mainnet;
+			name = Release.Staging;
 		};
-		0ACDC011249252B6002035A2 /* Release.Staging.Mainnet */ = {
+		0ACDC011249252B6002035A2 /* Release.Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -4476,9 +3968,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Release.Staging.Mainnet;
+			name = Release.Staging;
 		};
-		0AF2731C24DAABDC007E4012 /* Debug.Production.Mainnet */ = {
+		0AF2731C24DAABDC007E4012 /* Debug.Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0AF2733A24DAB0B5007E4012 /* NotificationService.Debug.Production.Mainnet.xcconfig */;
 			buildSettings = {
@@ -4549,155 +4041,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Debug.Production.Mainnet;
+			name = Debug.Production;
 		};
-		0AF2731D24DAABDC007E4012 /* Debug.Production.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733824DAB0B5007E4012 /* NotificationService.Debug.Production.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug.Production.Rinkeby;
-		};
-		0AF2731E24DAABDC007E4012 /* Debug.Staging.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733724DAB0B5007E4012 /* NotificationService.Debug.Staging.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug.Staging.Rinkeby;
-		};
-		0AF2731F24DAABDC007E4012 /* Debug.Staging.Mainnet */ = {
+		0AF2731F24DAABDC007E4012 /* Debug.Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0AF2733924DAB0B5007E4012 /* NotificationService.Debug.Staging.Mainnet.xcconfig */;
 			buildSettings = {
@@ -4768,82 +4114,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Debug.Staging.Mainnet;
+			name = Debug.Staging;
 		};
-		0AF2732024DAABDC007E4012 /* Debug.Development.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733624DAB0B5007E4012 /* NotificationService.Debug.Development.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug.Development.Rinkeby;
-		};
-		0AF2732124DAABDC007E4012 /* Debug.Development.Mainnet */ = {
+		0AF2732124DAABDC007E4012 /* Debug.Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0AF2733B24DAB0B6007E4012 /* NotificationService.Debug.Development.Mainnet.xcconfig */;
 			buildSettings = {
@@ -4914,9 +4187,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Debug.Development.Mainnet;
+			name = Debug.Development;
 		};
-		0AF2732224DAABDC007E4012 /* Release.Production.Mainnet */ = {
+		0AF2732224DAABDC007E4012 /* Release.Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0AF2735A24DC4A10007E4012 /* NotificationService.Release.Production.Mainnet.xcconfig */;
 			buildSettings = {
@@ -4981,143 +4254,9 @@
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release.Production.Mainnet;
+			name = Release.Production;
 		};
-		0AF2732324DAABDC007E4012 /* Release.Production.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2735E24DC4A10007E4012 /* NotificationService.Release.Production.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release.Production.Rinkeby;
-		};
-		0AF2732424DAABDC007E4012 /* Release.Staging.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2735C24DC4A10007E4012 /* NotificationService.Release.Staging.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release.Staging.Rinkeby;
-		};
-		0AF2732524DAABDC007E4012 /* Release.Staging.Mainnet */ = {
+		0AF2732524DAABDC007E4012 /* Release.Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0AF2735D24DC4A10007E4012 /* NotificationService.Release.Staging.Mainnet.xcconfig */;
 			buildSettings = {
@@ -5182,76 +4321,9 @@
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release.Staging.Mainnet;
+			name = Release.Staging;
 		};
-		0AF2732624DAABDC007E4012 /* Release.Development.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2735924DC4910007E4012 /* NotificationService.Release.Development.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release.Development.Rinkeby;
-		};
-		0AF2732724DAABDC007E4012 /* Release.Development.Mainnet */ = {
+		0AF2732724DAABDC007E4012 /* Release.Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0AF2735B24DC4A10007E4012 /* NotificationService.Release.Development.Mainnet.xcconfig */;
 			buildSettings = {
@@ -5316,259 +4388,9 @@
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release.Development.Mainnet;
+			name = Release.Development;
 		};
-		0AF7F767247FC43300527014 /* Debug.Development.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF7F766247FC3FB00527014 /* Development.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug.Development.Rinkeby;
-		};
-		0AF7F768247FC43300527014 /* Debug.Development.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Multisig/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 0.2.0;
-				PRODUCT_MODULE_NAME = Multisig;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug.Development.Rinkeby;
-		};
-		0AF7F769247FC43300527014 /* Debug.Development.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Debug.Development.Rinkeby;
-		};
-		0AF7F76A247FC43300527014 /* Debug.Development.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Debug.Development.Rinkeby;
-		};
-		0AF7F76B247FC44300527014 /* Release.Development.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF7F766247FC3FB00527014 /* Development.Rinkeby.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release.Development.Rinkeby;
-		};
-		0AF7F76C247FC44300527014 /* Release.Development.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Multisig/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 0.2.0;
-				PRODUCT_MODULE_NAME = Multisig;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release.Development.Rinkeby;
-		};
-		0AF7F76D247FC44300527014 /* Release.Development.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Release.Development.Rinkeby;
-		};
-		0AF7F76E247FC44300527014 /* Release.Development.Rinkeby */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
-			};
-			name = Release.Development.Rinkeby;
-		};
-		0AF7F770247FC50400527014 /* Release.Development.Mainnet */ = {
+		0AF7F770247FC50400527014 /* Release.Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */;
 			buildSettings = {
@@ -5624,9 +4446,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release.Development.Mainnet;
+			name = Release.Development;
 		};
-		0AF7F771247FC50400527014 /* Release.Development.Mainnet */ = {
+		0AF7F771247FC50400527014 /* Release.Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
@@ -5648,9 +4470,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Release.Development.Mainnet;
+			name = Release.Development;
 		};
-		0AF7F772247FC50400527014 /* Release.Development.Mainnet */ = {
+		0AF7F772247FC50400527014 /* Release.Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -5669,9 +4491,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Release.Development.Mainnet;
+			name = Release.Development;
 		};
-		0AF7F773247FC50400527014 /* Release.Development.Mainnet */ = {
+		0AF7F773247FC50400527014 /* Release.Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -5689,9 +4511,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Release.Development.Mainnet;
+			name = Release.Development;
 		};
-		0AF7F774247FC50E00527014 /* Debug.Development.Mainnet */ = {
+		0AF7F774247FC50E00527014 /* Debug.Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */;
 			buildSettings = {
@@ -5751,9 +4573,9 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Debug.Development.Mainnet;
+			name = Debug.Development;
 		};
-		0AF7F775247FC50E00527014 /* Debug.Development.Mainnet */ = {
+		0AF7F775247FC50E00527014 /* Debug.Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
@@ -5775,9 +4597,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Debug.Development.Mainnet;
+			name = Debug.Development;
 		};
-		0AF7F776247FC50E00527014 /* Debug.Development.Mainnet */ = {
+		0AF7F776247FC50E00527014 /* Debug.Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -5796,9 +4618,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Debug.Development.Mainnet;
+			name = Debug.Development;
 		};
-		0AF7F777247FC50E00527014 /* Debug.Development.Mainnet */ = {
+		0AF7F777247FC50E00527014 /* Debug.Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -5816,7 +4638,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(APP_PRODUCT_NAME).app/$(APP_PRODUCT_NAME)";
 			};
-			name = Debug.Development.Mainnet;
+			name = Debug.Development;
 		};
 /* End XCBuildConfiguration section */
 
@@ -5824,97 +4646,67 @@
 		0A93DD4E2445CC8A00688050 /* Build configuration list for PBXProject "Multisig" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0A93DD732445CC8C00688050 /* Debug.Production.Mainnet */,
-				0A6430E3247EC315006FD30A /* Debug.Production.Rinkeby */,
-				0A6430E7247EC320006FD30A /* Debug.Staging.Rinkeby */,
-				0ACDC00A249252AD002035A2 /* Debug.Staging.Mainnet */,
-				0AF7F767247FC43300527014 /* Debug.Development.Rinkeby */,
-				0AF7F774247FC50E00527014 /* Debug.Development.Mainnet */,
-				0A93DD742445CC8C00688050 /* Release.Production.Mainnet */,
-				0A6430EB247EC32F006FD30A /* Release.Production.Rinkeby */,
-				0A6430EF247EC338006FD30A /* Release.Staging.Rinkeby */,
-				0ACDC00E249252B6002035A2 /* Release.Staging.Mainnet */,
-				0AF7F76B247FC44300527014 /* Release.Development.Rinkeby */,
-				0AF7F770247FC50400527014 /* Release.Development.Mainnet */,
+				0A93DD732445CC8C00688050 /* Debug.Production */,
+				0ACDC00A249252AD002035A2 /* Debug.Staging */,
+				0AF7F774247FC50E00527014 /* Debug.Development */,
+				0A93DD742445CC8C00688050 /* Release.Production */,
+				0ACDC00E249252B6002035A2 /* Release.Staging */,
+				0AF7F770247FC50400527014 /* Release.Development */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release.Production.Mainnet;
+			defaultConfigurationName = Release.Production;
 		};
 		0A93DD752445CC8C00688050 /* Build configuration list for PBXNativeTarget "Multisig" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0A93DD762445CC8C00688050 /* Debug.Production.Mainnet */,
-				0A6430E4247EC315006FD30A /* Debug.Production.Rinkeby */,
-				0A6430E8247EC320006FD30A /* Debug.Staging.Rinkeby */,
-				0ACDC00B249252AD002035A2 /* Debug.Staging.Mainnet */,
-				0AF7F768247FC43300527014 /* Debug.Development.Rinkeby */,
-				0AF7F775247FC50E00527014 /* Debug.Development.Mainnet */,
-				0A93DD772445CC8C00688050 /* Release.Production.Mainnet */,
-				0A6430EC247EC32F006FD30A /* Release.Production.Rinkeby */,
-				0A6430F0247EC338006FD30A /* Release.Staging.Rinkeby */,
-				0ACDC00F249252B6002035A2 /* Release.Staging.Mainnet */,
-				0AF7F76C247FC44300527014 /* Release.Development.Rinkeby */,
-				0AF7F771247FC50400527014 /* Release.Development.Mainnet */,
+				0A93DD762445CC8C00688050 /* Debug.Production */,
+				0ACDC00B249252AD002035A2 /* Debug.Staging */,
+				0AF7F775247FC50E00527014 /* Debug.Development */,
+				0A93DD772445CC8C00688050 /* Release.Production */,
+				0ACDC00F249252B6002035A2 /* Release.Staging */,
+				0AF7F771247FC50400527014 /* Release.Development */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release.Production.Mainnet;
+			defaultConfigurationName = Release.Production;
 		};
 		0A93DD782445CC8C00688050 /* Build configuration list for PBXNativeTarget "MultisigTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0A93DD792445CC8C00688050 /* Debug.Production.Mainnet */,
-				0A6430E5247EC315006FD30A /* Debug.Production.Rinkeby */,
-				0A6430E9247EC320006FD30A /* Debug.Staging.Rinkeby */,
-				0ACDC00C249252AD002035A2 /* Debug.Staging.Mainnet */,
-				0AF7F769247FC43300527014 /* Debug.Development.Rinkeby */,
-				0AF7F776247FC50E00527014 /* Debug.Development.Mainnet */,
-				0A93DD7A2445CC8C00688050 /* Release.Production.Mainnet */,
-				0A6430ED247EC32F006FD30A /* Release.Production.Rinkeby */,
-				0A6430F1247EC338006FD30A /* Release.Staging.Rinkeby */,
-				0ACDC010249252B6002035A2 /* Release.Staging.Mainnet */,
-				0AF7F76D247FC44300527014 /* Release.Development.Rinkeby */,
-				0AF7F772247FC50400527014 /* Release.Development.Mainnet */,
+				0A93DD792445CC8C00688050 /* Debug.Production */,
+				0ACDC00C249252AD002035A2 /* Debug.Staging */,
+				0AF7F776247FC50E00527014 /* Debug.Development */,
+				0A93DD7A2445CC8C00688050 /* Release.Production */,
+				0ACDC010249252B6002035A2 /* Release.Staging */,
+				0AF7F772247FC50400527014 /* Release.Development */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release.Production.Mainnet;
+			defaultConfigurationName = Release.Production;
 		};
 		0A9BC35A2460581500EB9C5D /* Build configuration list for PBXNativeTarget "MultisigIntegrationTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0A9BC35B2460581500EB9C5D /* Debug.Production.Mainnet */,
-				0A6430E6247EC315006FD30A /* Debug.Production.Rinkeby */,
-				0A6430EA247EC320006FD30A /* Debug.Staging.Rinkeby */,
-				0ACDC00D249252AD002035A2 /* Debug.Staging.Mainnet */,
-				0AF7F76A247FC43300527014 /* Debug.Development.Rinkeby */,
-				0AF7F777247FC50E00527014 /* Debug.Development.Mainnet */,
-				0A9BC35C2460581500EB9C5D /* Release.Production.Mainnet */,
-				0A6430EE247EC32F006FD30A /* Release.Production.Rinkeby */,
-				0A6430F2247EC338006FD30A /* Release.Staging.Rinkeby */,
-				0ACDC011249252B6002035A2 /* Release.Staging.Mainnet */,
-				0AF7F76E247FC44300527014 /* Release.Development.Rinkeby */,
-				0AF7F773247FC50400527014 /* Release.Development.Mainnet */,
+				0A9BC35B2460581500EB9C5D /* Debug.Production */,
+				0ACDC00D249252AD002035A2 /* Debug.Staging */,
+				0AF7F777247FC50E00527014 /* Debug.Development */,
+				0A9BC35C2460581500EB9C5D /* Release.Production */,
+				0ACDC011249252B6002035A2 /* Release.Staging */,
+				0AF7F773247FC50400527014 /* Release.Development */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release.Production.Mainnet;
+			defaultConfigurationName = Release.Production;
 		};
 		0AF2731B24DAABDC007E4012 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0AF2731C24DAABDC007E4012 /* Debug.Production.Mainnet */,
-				0AF2731D24DAABDC007E4012 /* Debug.Production.Rinkeby */,
-				0AF2731E24DAABDC007E4012 /* Debug.Staging.Rinkeby */,
-				0AF2731F24DAABDC007E4012 /* Debug.Staging.Mainnet */,
-				0AF2732024DAABDC007E4012 /* Debug.Development.Rinkeby */,
-				0AF2732124DAABDC007E4012 /* Debug.Development.Mainnet */,
-				0AF2732224DAABDC007E4012 /* Release.Production.Mainnet */,
-				0AF2732324DAABDC007E4012 /* Release.Production.Rinkeby */,
-				0AF2732424DAABDC007E4012 /* Release.Staging.Rinkeby */,
-				0AF2732524DAABDC007E4012 /* Release.Staging.Mainnet */,
-				0AF2732624DAABDC007E4012 /* Release.Development.Rinkeby */,
-				0AF2732724DAABDC007E4012 /* Release.Development.Mainnet */,
+				0AF2731C24DAABDC007E4012 /* Debug.Production */,
+				0AF2731F24DAABDC007E4012 /* Debug.Staging */,
+				0AF2732124DAABDC007E4012 /* Debug.Development */,
+				0AF2732224DAABDC007E4012 /* Release.Production */,
+				0AF2732524DAABDC007E4012 /* Release.Staging */,
+				0AF2732724DAABDC007E4012 /* Release.Development */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release.Production.Mainnet;
+			defaultConfigurationName = Release.Production;
 		};
 /* End XCConfigurationList section */
 
