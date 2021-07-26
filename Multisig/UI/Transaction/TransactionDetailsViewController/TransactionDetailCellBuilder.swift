@@ -514,9 +514,9 @@ class TransactionDetailCellBuilder {
         guard
             let txHash = hash?.description,
             let chain = Chain.by(chainId),
-            let browserUrl = chain.blockExplorerUrl
+            let txHashUrlTemplate = chain.blockExplorerUrlTxHash
         else { return }
-        let url = browserUrl.appendingPathComponent("tx").appendingPathComponent(txHash)
+        let url = URL(string: txHashUrlTemplate.replacingOccurrences(of: "{{txHash}}", with: txHash))!
         externalURL(text: "View transaction on Etherscan", url: url)
     }
 
