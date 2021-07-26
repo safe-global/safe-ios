@@ -38,6 +38,14 @@ _APP_BUNDLE_ID_PROD     = io.gnosis.multisig.prod.mainnet
 _APP_BUNDLE_ID_STAGING  = io.gnosis.multisig.staging.mainnet
 _APP_BUNDLE_ID_DEV      = io.gnosis.multisig.dev.mainnet
 
+// App Groups
+_APP_GROUP_ID_PROD     = group.io.gnosis.multisig.prod.mainnet
+_APP_GROUP_ID_STAGING  = group.io.gnosis.multisig.staging.mainnet
+_APP_GROUP_ID_DEV      = group.io.gnosis.multisig.dev.mainnet
+
+APP_GROUP_ID            = $(_APP_GROUP_ID_$(SERVICE_ENV):default=$(_APP_GROUP_ID_PROD))
+
+
 // User-facing name of the app on the Home screen
 _DISPLAY_NAME_PROD     = Safe Multisig
 _DISPLAY_NAME_STAGING  = Safe Staging
@@ -59,7 +67,7 @@ _LOG_LEVEL_DEV              = DEBUG
 
 // Configuration variables for the app
 
-CLIENT_GATEWAY_URL = $(_CLIENT_GATEWAY_URL_$(SERVICE_ENV):default=$(_CLIENT_GATEWAY_URL_PROD))
+CLIENT_GATEWAY_URL      = $(_CLIENT_GATEWAY_URL_$(SERVICE_ENV):default=$(_CLIENT_GATEWAY_URL_PROD))
 FIREBASE_CONFIG         = $(_FIREBASE_CONFIG_$(SERVICE_ENV):default=$(_FIREBASE_CONFIG_PROD))
 LOGGERS                 = $(_LOGGERS_$(SERVICE_ENV):default=$(_LOGGERS_PROD))
 LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD))

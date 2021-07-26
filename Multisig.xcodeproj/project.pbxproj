@@ -217,6 +217,7 @@
 		0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */; };
 		0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F482F254C56CE0069C98D /* AddSafeTableViewCell.swift */; };
 		0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F4830254C56CE0069C98D /* AddSafeTableViewCell.xib */; };
+		0A616B9126AEC53E00FCEDB9 /* ConfigurationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */; };
 		0A61E83C2670DE68009D68A4 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 0A61E83B2670DE68009D68A4 /* SnapshotTesting */; };
 		0A61E83E2670DED5009D68A4 /* BalanceTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61E83D2670DED5009D68A4 /* BalanceTableViewCellTests.swift */; };
 		0A61E8422670E474009D68A4 /* CellTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61E8412670E474009D68A4 /* CellTestViewController.swift */; };
@@ -785,6 +786,7 @@
 		0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeEntryTableViewCell.xib; sourceTree = "<group>"; };
 		0A5F482F254C56CE0069C98D /* AddSafeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeTableViewCell.swift; sourceTree = "<group>"; };
 		0A5F4830254C56CE0069C98D /* AddSafeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddSafeTableViewCell.xib; sourceTree = "<group>"; };
+		0A616B9026AEC4B900FCEDB9 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		0A61E83D2670DED5009D68A4 /* BalanceTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCellTests.swift; sourceTree = "<group>"; };
 		0A61E8412670E474009D68A4 /* CellTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTestViewController.swift; sourceTree = "<group>"; };
 		0A61E8442670E632009D68A4 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
@@ -1573,6 +1575,7 @@
 		0A3FDAF826AEB7F0006A7DC3 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */,
 				0A6C85B1245071510026139E /* Address.swift */,
 				0A63C7E22602725100D36B22 /* AddressInfo.swift */,
 				047300FB24780C81004F1200 /* CharacterSet+Hex.swift */,
@@ -1709,7 +1712,6 @@
 		0A6430D8247EC180006FD30A /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */,
 				0A6430DB247EC193006FD30A /* Config.xcconfig */,
 				0AF7F765247FC28B00527014 /* Config.Example.xcconfig */,
 				0A6430D9247EC193006FD30A /* Production.xcconfig */,
@@ -2176,6 +2178,7 @@
 		0AF2731424DAABDC007E4012 /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
+				0A616B9026AEC4B900FCEDB9 /* NotificationServiceExtension.entitlements */,
 				0AF2731724DAABDC007E4012 /* Info.plist */,
 				0AF2739B24DD8EB7007E4012 /* Notifications */,
 				0AF2736A24DC57C6007E4012 /* NotificationPayload.swift */,
@@ -3471,6 +3474,7 @@
 				0A3FDAE626AEB3E1006A7DC3 /* CoreDataStack.swift in Sources */,
 				0AF2739A24DD8D42007E4012 /* NewConfirmationNotification.swift in Sources */,
 				0A3FDADB26AEB1D7006A7DC3 /* AddressInfo.swift in Sources */,
+				0A616B9126AEC53E00FCEDB9 /* ConfigurationKey.swift in Sources */,
 				0A3FDAD926AEB0E3006A7DC3 /* Safe+CoreDataClass.swift in Sources */,
 				0AF2736B24DC57C6007E4012 /* NotificationPayload.swift in Sources */,
 				0AF2737524DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift in Sources */,
@@ -4050,6 +4054,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -4123,6 +4128,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -4196,6 +4202,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -4269,6 +4276,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -4336,6 +4344,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -4403,6 +4412,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;

@@ -181,5 +181,7 @@
 	</array>
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
+	<key>APP_GROUP_ID</key>
+	<string>$(APP_GROUP_ID)</string>
 </dict>
 </plist>
