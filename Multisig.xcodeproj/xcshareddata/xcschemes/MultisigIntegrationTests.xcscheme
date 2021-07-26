@@ -7,7 +7,7 @@
       buildImplicitDependencies = "YES">
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug.Development.Rinkeby"
+      buildConfiguration = "Debug.Development"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -31,7 +31,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug.Development.Rinkeby"
+      buildConfiguration = "Debug.Development"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -51,17 +51,17 @@
       </MacroExpansion>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release.Staging.Rinkeby"
+      buildConfiguration = "Release.Staging"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug.Staging.Rinkeby">
+      buildConfiguration = "Debug.Staging">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release.Staging.Rinkeby"
+      buildConfiguration = "Release.Staging"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

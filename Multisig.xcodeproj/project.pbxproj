@@ -131,6 +131,7 @@
 		0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22E12525E4FA3200D24DE1 /* SwitchTableViewCell.swift */; };
 		0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */; };
 		0A29B5622666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 0A29B5612666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		0A2A3A6D26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 0A2A3A6C26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter */; settings = {ATTRIBUTES = (Required, ); }; };
 		0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F1A6D267A538E00C09F03 /* GSLabel.swift */; };
 		0A2F1A70267A53A800C09F03 /* GSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F1A6F267A53A800C09F03 /* GSButton.swift */; };
 		0A2F1A76267A5E5B00C09F03 /* BalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F1A72267A5E5B00C09F03 /* BalanceCell.swift */; };
@@ -159,11 +160,17 @@
 		0A3FDADC26AEB1D7006A7DC3 /* UInt256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2062497BE9B005BD60F /* UInt256.swift */; };
 		0A3FDADD26AEB1D7006A7DC3 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A3FDADE26AEB1D7006A7DC3 /* Data+MultisigExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33424602CE200EB9C5D /* Data+MultisigExtension.swift */; };
-		0A3FDAE026AEB23C006A7DC3 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3FDADF26AEB23C006A7DC3 /* Web3 */; };
+		0A3FDAE026AEB23C006A7DC3 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3FDADF26AEB23C006A7DC3 /* Web3 */; settings = {ATTRIBUTES = (Required, ); }; };
 		0A3FDAE326AEB2F9006A7DC3 /* Address+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDAE226AEB2F9006A7DC3 /* Address+Extensions.swift */; };
 		0A3FDAE526AEB314006A7DC3 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
 		0A3FDAE626AEB3E1006A7DC3 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		0A3FDAE726AEB3E1006A7DC3 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
+		0A3FDAEC26AEB5BF006A7DC3 /* KeyInfo+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDAEB26AEB5BF006A7DC3 /* KeyInfo+Shared.swift */; };
+		0A3FDAED26AEB5BF006A7DC3 /* KeyInfo+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDAEB26AEB5BF006A7DC3 /* KeyInfo+Shared.swift */; };
+		0A3FDAEF26AEB603006A7DC3 /* Chain+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDAEE26AEB603006A7DC3 /* Chain+Shared.swift */; };
+		0A3FDAF026AEB603006A7DC3 /* Chain+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDAEE26AEB603006A7DC3 /* Chain+Shared.swift */; };
+		0A3FDAF226AEB691006A7DC3 /* Safe+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDAF126AEB691006A7DC3 /* Safe+Shared.swift */; };
+		0A3FDAF326AEB691006A7DC3 /* Safe+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDAF126AEB691006A7DC3 /* Safe+Shared.swift */; };
 		0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A433E5E25500F87006FFF75 /* BalancesRequest.swift */; };
 		0A433E8125516A9A006FFF75 /* TotalBalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */; };
 		0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A433E8025516A9A006FFF75 /* TotalBalanceTableViewCell.xib */; };
@@ -542,7 +549,6 @@
 		55D3654325078560004D5047 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3654225078560004D5047 /* TextView.swift */; };
 		55D3FE85260A0F66008ABD2B /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE84260A0F66008ABD2B /* Web3 */; };
 		55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */; };
-		55D3FF0E260B2247008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */; };
 		55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF64260B2551008ABD2B /* Kingfisher */; };
 		55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */ = {isa = PBXBuildFile; productRef = 55D3FF8F260B2B21008ABD2B /* TrustKit */; };
 		55DA0663269C9411006C9AA5 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = 55DA0662269C9411006C9AA5 /* Version */; };
@@ -728,6 +734,9 @@
 		0A3DFEFD2667D3A700B45770 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		0A3FDAE226AEB2F9006A7DC3 /* Address+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address+Extensions.swift"; sourceTree = "<group>"; };
+		0A3FDAEB26AEB5BF006A7DC3 /* KeyInfo+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyInfo+Shared.swift"; sourceTree = "<group>"; };
+		0A3FDAEE26AEB603006A7DC3 /* Chain+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chain+Shared.swift"; sourceTree = "<group>"; };
+		0A3FDAF126AEB691006A7DC3 /* Safe+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Safe+Shared.swift"; sourceTree = "<group>"; };
 		0A433E5E25500F87006FFF75 /* BalancesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesRequest.swift; sourceTree = "<group>"; };
 		0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceTableViewCell.swift; sourceTree = "<group>"; };
 		0A433E8025516A9A006FFF75 /* TotalBalanceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotalBalanceTableViewCell.xib; sourceTree = "<group>"; };
@@ -781,7 +790,7 @@
 		0A61E8442670E632009D68A4 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		0A63C7B32602087E00D36B22 /* SafeInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoRequest.swift; sourceTree = "<group>"; };
 		0A63C7E22602725100D36B22 /* AddressInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInfo.swift; sourceTree = "<group>"; };
-		0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Production.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0A6430D9247EC193006FD30A /* Production.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		0A6430DB247EC193006FD30A /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationKey.swift; sourceTree = "<group>"; };
 		0A6430F4247ECB3E006FD30A /* ConfigurationKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationKeyTests.swift; sourceTree = "<group>"; };
@@ -889,7 +898,7 @@
 		0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafe.swift; sourceTree = "<group>"; };
 		0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafeTests.swift; sourceTree = "<group>"; };
 		0ACDBFFC248E4C5D002035A2 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		0ACDC00924925267002035A2 /* Staging.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0ACDC00924925267002035A2 /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		0ACDC012249253D7002035A2 /* Firebase */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Firebase; sourceTree = "<group>"; };
 		0ACDC01424925A96002035A2 /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		0ACEF00024C1DE620040A058 /* AddressImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressImage.swift; sourceTree = "<group>"; };
@@ -972,21 +981,12 @@
 		0AF2731524DAABDC007E4012 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		0AF2731724DAABDC007E4012 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AF2732924DAAD67007E4012 /* NotificationService.Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Config.xcconfig; sourceTree = "<group>"; };
-		0AF2733624DAB0B5007E4012 /* NotificationService.Debug.Development.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Development.Rinkeby.xcconfig; sourceTree = "<group>"; };
-		0AF2733724DAB0B5007E4012 /* NotificationService.Debug.Staging.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Staging.Rinkeby.xcconfig; sourceTree = "<group>"; };
-		0AF2733824DAB0B5007E4012 /* NotificationService.Debug.Production.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Production.Rinkeby.xcconfig; sourceTree = "<group>"; };
-		0AF2733924DAB0B5007E4012 /* NotificationService.Debug.Staging.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Staging.Mainnet.xcconfig; sourceTree = "<group>"; };
-		0AF2733A24DAB0B5007E4012 /* NotificationService.Debug.Production.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Production.Mainnet.xcconfig; sourceTree = "<group>"; };
-		0AF2733B24DAB0B6007E4012 /* NotificationService.Debug.Development.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Debug.Development.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0AF2733924DAB0B5007E4012 /* NotificationService.Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Staging.xcconfig; sourceTree = "<group>"; };
+		0AF2733A24DAB0B5007E4012 /* NotificationService.Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Production.xcconfig; sourceTree = "<group>"; };
+		0AF2733B24DAB0B6007E4012 /* NotificationService.Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Development.xcconfig; sourceTree = "<group>"; };
 		0AF2733C24DABAAF007E4012 /* AppDelegate+Messaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Messaging.swift"; sourceTree = "<group>"; };
 		0AF2733E24DAC9FE007E4012 /* RemoteNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationHandler.swift; sourceTree = "<group>"; };
 		0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultPropertyWrapper.swift; sourceTree = "<group>"; };
-		0AF2735924DC4910007E4012 /* NotificationService.Release.Development.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Development.Rinkeby.xcconfig; sourceTree = "<group>"; };
-		0AF2735A24DC4A10007E4012 /* NotificationService.Release.Production.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Production.Mainnet.xcconfig; sourceTree = "<group>"; };
-		0AF2735B24DC4A10007E4012 /* NotificationService.Release.Development.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Development.Mainnet.xcconfig; sourceTree = "<group>"; };
-		0AF2735C24DC4A10007E4012 /* NotificationService.Release.Staging.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Staging.Rinkeby.xcconfig; sourceTree = "<group>"; };
-		0AF2735D24DC4A10007E4012 /* NotificationService.Release.Staging.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Staging.Mainnet.xcconfig; sourceTree = "<group>"; };
-		0AF2735E24DC4A10007E4012 /* NotificationService.Release.Production.Rinkeby.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = NotificationService.Release.Production.Rinkeby.xcconfig; sourceTree = "<group>"; };
 		0AF2736A24DC57C6007E4012 /* NotificationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPayload.swift; sourceTree = "<group>"; };
 		0AF2736C24DC57D5007E4012 /* PlainAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainAddress.swift; sourceTree = "<group>"; };
 		0AF2736E24DC57E8007E4012 /* MultisigNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigNotification.swift; sourceTree = "<group>"; };
@@ -996,7 +996,7 @@
 		0AF2739924DD8D42007E4012 /* NewConfirmationNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConfirmationNotification.swift; sourceTree = "<group>"; };
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF7F765247FC28B00527014 /* Config.Example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.Example.xcconfig; sourceTree = "<group>"; };
-		0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.Mainnet.xcconfig; sourceTree = "<group>"; };
+		0AF7F76F247FC49600527014 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		0AF8832125A5EC1F00029A43 /* ActionDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		0AFA729B24BF361600A370EE /* SlicedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlicedString.swift; sourceTree = "<group>"; };
 		0AFA729D24BF363400A370EE /* SlicedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlicedText.swift; sourceTree = "<group>"; };
@@ -1184,7 +1184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55D3FF0E260B2247008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
+				0A2A3A6D26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter in Frameworks */,
 				0A3FDAE026AEB23C006A7DC3 /* Web3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1549,18 +1549,37 @@
 		0A3FDAD726AEB07F006A7DC3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				0A3FDAF726AEB7CD006A7DC3 /* CoreData */,
+				0A3FDAF826AEB7F0006A7DC3 /* Utils */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		0A3FDAF726AEB7CD006A7DC3 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */,
+				5556A03424489F37003EC861 /* CoreDataStack.swift */,
+				0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */,
+				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
+				0A3FDAF126AEB691006A7DC3 /* Safe+Shared.swift */,
+				0A3FDAEB26AEB5BF006A7DC3 /* KeyInfo+Shared.swift */,
+				0A3FDAEE26AEB603006A7DC3 /* Chain+Shared.swift */,
+				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		0A3FDAF826AEB7F0006A7DC3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
 				0A6C85B1245071510026139E /* Address.swift */,
 				0A63C7E22602725100D36B22 /* AddressInfo.swift */,
 				047300FB24780C81004F1200 /* CharacterSet+Hex.swift */,
-				55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */,
-				5556A03424489F37003EC861 /* CoreDataStack.swift */,
-				0A9BC33424602CE200EB9C5D /* Data+MultisigExtension.swift */,
-				0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */,
-				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
 				0AA9F2062497BE9B005BD60F /* UInt256.swift */,
-				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
+				0A9BC33424602CE200EB9C5D /* Data+MultisigExtension.swift */,
 			);
-			path = Shared;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		0A465C35246C23E800AFA467 /* Frame */ = {
@@ -1693,9 +1712,9 @@
 				0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */,
 				0A6430DB247EC193006FD30A /* Config.xcconfig */,
 				0AF7F765247FC28B00527014 /* Config.Example.xcconfig */,
-				0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */,
-				0ACDC00924925267002035A2 /* Staging.Mainnet.xcconfig */,
-				0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */,
+				0A6430D9247EC193006FD30A /* Production.xcconfig */,
+				0ACDC00924925267002035A2 /* Staging.xcconfig */,
+				0AF7F76F247FC49600527014 /* Development.xcconfig */,
 				0ACDBFFC248E4C5D002035A2 /* Configuration.swift */,
 			);
 			path = Configuration;
@@ -2171,18 +2190,9 @@
 			isa = PBXGroup;
 			children = (
 				0AF2732924DAAD67007E4012 /* NotificationService.Config.xcconfig */,
-				0AF2733B24DAB0B6007E4012 /* NotificationService.Debug.Development.Mainnet.xcconfig */,
-				0AF2733624DAB0B5007E4012 /* NotificationService.Debug.Development.Rinkeby.xcconfig */,
-				0AF2733A24DAB0B5007E4012 /* NotificationService.Debug.Production.Mainnet.xcconfig */,
-				0AF2733824DAB0B5007E4012 /* NotificationService.Debug.Production.Rinkeby.xcconfig */,
-				0AF2733924DAB0B5007E4012 /* NotificationService.Debug.Staging.Mainnet.xcconfig */,
-				0AF2733724DAB0B5007E4012 /* NotificationService.Debug.Staging.Rinkeby.xcconfig */,
-				0AF2735B24DC4A10007E4012 /* NotificationService.Release.Development.Mainnet.xcconfig */,
-				0AF2735924DC4910007E4012 /* NotificationService.Release.Development.Rinkeby.xcconfig */,
-				0AF2735A24DC4A10007E4012 /* NotificationService.Release.Production.Mainnet.xcconfig */,
-				0AF2735E24DC4A10007E4012 /* NotificationService.Release.Production.Rinkeby.xcconfig */,
-				0AF2735D24DC4A10007E4012 /* NotificationService.Release.Staging.Mainnet.xcconfig */,
-				0AF2735C24DC4A10007E4012 /* NotificationService.Release.Staging.Rinkeby.xcconfig */,
+				0AF2733B24DAB0B6007E4012 /* NotificationService.Development.xcconfig */,
+				0AF2733A24DAB0B5007E4012 /* NotificationService.Production.xcconfig */,
+				0AF2733924DAB0B5007E4012 /* NotificationService.Staging.xcconfig */,
 			);
 			name = Configuration;
 			sourceTree = "<group>";
@@ -2797,8 +2807,8 @@
 			);
 			name = NotificationServiceExtension;
 			packageProductDependencies = (
-				55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */,
 				0A3FDADF26AEB23C006A7DC3 /* Web3 */,
+				0A2A3A6C26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter */,
 			);
 			productName = NotificationServiceExtension;
 			productReference = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */;
@@ -3114,6 +3124,7 @@
 				550FB1A826691D0A00C13D54 /* OwnerKeyController.swift in Sources */,
 				0A9E8E7725B9CA4200256AD3 /* BannerTableViewCell.swift in Sources */,
 				0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */,
+				0A3FDAEF26AEB603006A7DC3 /* Chain+Shared.swift in Sources */,
 				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,
 				0ABC898F2576B857005D555B /* SCGModels.swift in Sources */,
 				0AF1C9262541E09D00E28669 /* UIView+UINib.swift in Sources */,
@@ -3191,6 +3202,7 @@
 				0A86EE6925CC2B410059876E /* IdleFooterView.swift in Sources */,
 				048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */,
 				0A3FDAE326AEB2F9006A7DC3 /* Address+Extensions.swift in Sources */,
+				0A3FDAF226AEB691006A7DC3 /* Safe+Shared.swift in Sources */,
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
@@ -3278,6 +3290,7 @@
 				0ADD199E265E518600EB0F2B /* UIView+Pin.swift in Sources */,
 				04B4B6E525B9A08D00CFE24B /* CardTableViewCell.swift in Sources */,
 				5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */,
+				0A3FDAEC26AEB5BF006A7DC3 /* KeyInfo+Shared.swift in Sources */,
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
 				550FB19E26691CA300C13D54 /* DappsViewController.swift in Sources */,
@@ -3452,6 +3465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AF2737324DC580D007E4012 /* IncomingTokenNotification.swift in Sources */,
+				0A3FDAF026AEB603006A7DC3 /* Chain+Shared.swift in Sources */,
 				0AF2731624DAABDC007E4012 /* NotificationService.swift in Sources */,
 				0A3FDAE526AEB314006A7DC3 /* CharacterSet+Hex.swift in Sources */,
 				0A3FDAE626AEB3E1006A7DC3 /* CoreDataStack.swift in Sources */,
@@ -3460,8 +3474,10 @@
 				0A3FDAD926AEB0E3006A7DC3 /* Safe+CoreDataClass.swift in Sources */,
 				0AF2736B24DC57C6007E4012 /* NotificationPayload.swift in Sources */,
 				0AF2737524DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift in Sources */,
+				0A3FDAED26AEB5BF006A7DC3 /* KeyInfo+Shared.swift in Sources */,
 				0AF2736F24DC57E8007E4012 /* MultisigNotification.swift in Sources */,
 				55967123256EB7690097D3A2 /* ConfirmationRequestNotification.swift in Sources */,
+				0A3FDAF326AEB691006A7DC3 /* Safe+Shared.swift in Sources */,
 				0A3FDADD26AEB1D7006A7DC3 /* Address.swift in Sources */,
 				0A3FDADC26AEB1D7006A7DC3 /* UInt256.swift in Sources */,
 				0A3FDADE26AEB1D7006A7DC3 /* Data+MultisigExtension.swift in Sources */,
@@ -3507,7 +3523,7 @@
 /* Begin XCBuildConfiguration section */
 		0A93DD732445CC8C00688050 /* Debug.Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */;
+			baseConfigurationReference = 0A6430D9247EC193006FD30A /* Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3569,7 +3585,7 @@
 		};
 		0A93DD742445CC8C00688050 /* Release.Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A6430D9247EC193006FD30A /* Production.Mainnet.xcconfig */;
+			baseConfigurationReference = 0A6430D9247EC193006FD30A /* Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3755,7 +3771,7 @@
 		};
 		0ACDC00A249252AD002035A2 /* Debug.Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0ACDC00924925267002035A2 /* Staging.Mainnet.xcconfig */;
+			baseConfigurationReference = 0ACDC00924925267002035A2 /* Staging.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3882,7 +3898,7 @@
 		};
 		0ACDC00E249252B6002035A2 /* Release.Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0ACDC00924925267002035A2 /* Staging.Mainnet.xcconfig */;
+			baseConfigurationReference = 0ACDC00924925267002035A2 /* Staging.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4003,7 +4019,7 @@
 		};
 		0AF2731C24DAABDC007E4012 /* Debug.Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733A24DAB0B5007E4012 /* NotificationService.Debug.Production.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2733A24DAB0B5007E4012 /* NotificationService.Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4076,7 +4092,7 @@
 		};
 		0AF2731F24DAABDC007E4012 /* Debug.Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733924DAB0B5007E4012 /* NotificationService.Debug.Staging.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2733924DAB0B5007E4012 /* NotificationService.Staging.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4149,7 +4165,7 @@
 		};
 		0AF2732124DAABDC007E4012 /* Debug.Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2733B24DAB0B6007E4012 /* NotificationService.Debug.Development.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2733B24DAB0B6007E4012 /* NotificationService.Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4222,7 +4238,7 @@
 		};
 		0AF2732224DAABDC007E4012 /* Release.Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2735A24DC4A10007E4012 /* NotificationService.Release.Production.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2733A24DAB0B5007E4012 /* NotificationService.Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4289,7 +4305,7 @@
 		};
 		0AF2732524DAABDC007E4012 /* Release.Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2735D24DC4A10007E4012 /* NotificationService.Release.Staging.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2733924DAB0B5007E4012 /* NotificationService.Staging.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4356,7 +4372,7 @@
 		};
 		0AF2732724DAABDC007E4012 /* Release.Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF2735B24DC4A10007E4012 /* NotificationService.Release.Development.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF2733B24DAB0B6007E4012 /* NotificationService.Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4423,7 +4439,7 @@
 		};
 		0AF7F770247FC50400527014 /* Release.Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF7F76F247FC49600527014 /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4546,7 +4562,7 @@
 		};
 		0AF7F774247FC50E00527014 /* Debug.Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AF7F76F247FC49600527014 /* Development.Mainnet.xcconfig */;
+			baseConfigurationReference = 0AF7F76F247FC49600527014 /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4853,6 +4869,11 @@
 			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
 		};
+		0A2A3A6C26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
+			productName = SwiftCryptoTokenFormatter;
+		};
 		0A3FDADF26AEB23C006A7DC3 /* Web3 */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 55D3FE83260A0F66008ABD2B /* XCRemoteSwiftPackageReference "Web3.swift" */;
@@ -4889,11 +4910,6 @@
 			productName = Web3;
 		};
 		55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
-			productName = SwiftCryptoTokenFormatter;
-		};
-		55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
 			productName = SwiftCryptoTokenFormatter;

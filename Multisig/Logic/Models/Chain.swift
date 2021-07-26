@@ -158,13 +158,6 @@ extension NSFetchRequest where ResultType == Chain {
         sortDescriptors = [NSSortDescriptor(keyPath: \Chain.id, ascending: true)]
         return self
     }
-
-    func by(id: String) -> Self {
-        sortDescriptors = []
-        predicate = NSPredicate(format: "id == %@", id)
-        fetchLimit = 1
-        return self
-    }
 }
 
 extension Chain {

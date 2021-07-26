@@ -1,5 +1,5 @@
 //
-//  Staging.xcconfig
+//  ProductionMainnet.xcconfig
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 27.05.20.
@@ -9,7 +9,6 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-#include "NotificationService.Config.xcconfig"
+#include "Config.xcconfig"
 
-SERVICE_ENV = STAGING
-NETWORK = MAINNET
+SERVICE_ENV = PROD

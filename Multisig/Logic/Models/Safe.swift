@@ -26,8 +26,6 @@ extension Safe: Identifiable {
 
     var browserURL: URL { Self.browserURL(address: displayAddress) }
 
-    var displayName: String { name.flatMap { $0.isEmpty ? nil : $0 } ?? "Untitled Safe" }
-
     var displayENSName: String { ensName ?? "" }
 
     var isReadOnly: Bool {
@@ -239,13 +237,6 @@ extension Safe {
 extension NSFetchRequest where ResultType == Safe {
     func all() -> Self {
         sortDescriptors = [NSSortDescriptor(keyPath: \Safe.additionDate, ascending: true)]
-        return self
-    }
-
-    func by(address: String, chainId: String) -> Self {
-        sortDescriptors = []
-        predicate = NSPredicate(format: "address == %@ AND chain.id == %@", address, chainId)
-        fetchLimit = 1
         return self
     }
 

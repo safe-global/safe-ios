@@ -1,5 +1,5 @@
 //
-//  Development.Rinkeby.xcconfig
+//  Development.Mainnet.xcconfig
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 28.05.20.
@@ -9,7 +9,6 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-#include "NotificationService.Config.xcconfig"
+#include "Config.xcconfig"
 
 SERVICE_ENV = DEV
-NETWORK = RINKEBY
