@@ -91,6 +91,10 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         checksummed
     }
 
+    var truncatedInMiddle: String {
+        hexadecimal.prefix(6) + "…" + hexadecimal.suffix(4)
+    }
+
     init(_ value: String, isERC681: Bool) throws {
         var addressString = value
         if isERC681 {

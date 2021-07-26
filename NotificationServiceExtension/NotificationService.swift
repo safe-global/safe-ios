@@ -10,32 +10,31 @@ import UserNotifications
 
 class NotificationService: UNNotificationServiceExtension {
 
+    static var coreData: CoreDataProtocol = CoreDataStack()
+
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
 
+    // called on background thread
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
 
+        guard let content = bestAttemptContent else { return }
 
-        if let bestAttemptContent = bestAttemptContent {
-            let payload = NotificationPayload(userInfo: bestAttemptContent.userInfo)
-            guard let notification = ([
-                NewConfirmationNotification.self,
-                ExecutedMultisigTransactionNotification.self,
-                IncomingTokenNotification.self,
-                IncomingEtherNotification.self,
-                ConfirmationRequestNotification.self
-            ] as [MultisigNotification.Type])
-                .compactMap({ $0.init(payload: payload) })
-                .first
-            else {
-                return
+        do {
+            let notification = try MultisigNotification(from: content.userInfo)
+            notification.loadContent { contentOrNil in
+                guard let infoContent = contentOrNil else { return }
+
+                content.title = infoContent.title
+                content.body = infoContent.body
+                content.badge = 1
+                contentHandler(content)
             }
-            bestAttemptContent.title = notification.localizedTitle
-            bestAttemptContent.body = notification.localizedBody
-            bestAttemptContent.badge = 1
-            contentHandler(bestAttemptContent)
+        } catch {
+            print("Failed to parse notification: \(error)")
+            contentHandler(content)
         }
     }
     
@@ -46,5 +45,4 @@ class NotificationService: UNNotificationServiceExtension {
             contentHandler(bestAttemptContent)
         }
     }
-
 }

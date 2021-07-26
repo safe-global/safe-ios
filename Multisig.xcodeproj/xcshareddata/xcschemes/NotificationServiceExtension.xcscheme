@@ -49,7 +49,7 @@
       buildConfiguration = "Debug.Development"
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
-      launchStyle = "0"
+      launchStyle = "1"
       askForAppToLaunch = "Yes"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -58,8 +58,12 @@
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2"
       notificationPayloadFile = "PushNotificationPayload.apns">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "1"
+         BundleIdentifier = "io.gnosis.multisig.dev.mainnet"
+         RemotePath = "/var/containers/Bundle/Application/7AD5EC80-5D94-4190-8348-E0E7F565C2D1/Multisig_DEV.app">
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0A93DD522445CC8A00688050"
@@ -67,7 +71,7 @@
             BlueprintName = "Multisig"
             ReferencedContainer = "container:Multisig.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release.Development"
