@@ -152,6 +152,18 @@
 		0A3DFEFE2667D3A700B45770 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DFEFD2667D3A700B45770 /* README.md */; };
 		0A3DFEFF2667D3D100B45770 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
+		0A3FDAD826AEB0DE006A7DC3 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
+		0A3FDAD926AEB0E3006A7DC3 /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
+		0A3FDADA26AEB0E3006A7DC3 /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */; };
+		0A3FDADB26AEB1D7006A7DC3 /* AddressInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63C7E22602725100D36B22 /* AddressInfo.swift */; };
+		0A3FDADC26AEB1D7006A7DC3 /* UInt256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2062497BE9B005BD60F /* UInt256.swift */; };
+		0A3FDADD26AEB1D7006A7DC3 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
+		0A3FDADE26AEB1D7006A7DC3 /* Data+MultisigExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33424602CE200EB9C5D /* Data+MultisigExtension.swift */; };
+		0A3FDAE026AEB23C006A7DC3 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3FDADF26AEB23C006A7DC3 /* Web3 */; };
+		0A3FDAE326AEB2F9006A7DC3 /* Address+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDAE226AEB2F9006A7DC3 /* Address+Extensions.swift */; };
+		0A3FDAE526AEB314006A7DC3 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
+		0A3FDAE626AEB3E1006A7DC3 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
+		0A3FDAE726AEB3E1006A7DC3 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
 		0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A433E5E25500F87006FFF75 /* BalancesRequest.swift */; };
 		0A433E8125516A9A006FFF75 /* TotalBalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */; };
 		0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A433E8025516A9A006FFF75 /* TotalBalanceTableViewCell.xib */; };
@@ -268,8 +280,7 @@
 		0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC32E246022BD00EB9C5D /* ENS.swift */; };
 		0A9BC3312460233300EB9C5D /* ENSContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC3302460233300EB9C5D /* ENSContracts.swift */; };
 		0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33224602A7400EB9C5D /* Contract.swift */; };
-		0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33424602CE200EB9C5D /* Data+InitWithHex.swift */; };
-		0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33624602D0D00EB9C5D /* Data+Padding.swift */; };
+		0A9BC33524602CE200EB9C5D /* Data+MultisigExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33424602CE200EB9C5D /* Data+MultisigExtension.swift */; };
 		0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */; };
 		0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33A2460352E00EB9C5D /* EthHasher.swift */; };
 		0A9BC33D24603AE800EB9C5D /* ENSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33C24603AE800EB9C5D /* ENSTests.swift */; };
@@ -716,6 +727,7 @@
 		0A3DADA426270FA100743E38 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A3DFEFD2667D3A700B45770 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
+		0A3FDAE226AEB2F9006A7DC3 /* Address+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address+Extensions.swift"; sourceTree = "<group>"; };
 		0A433E5E25500F87006FFF75 /* BalancesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesRequest.swift; sourceTree = "<group>"; };
 		0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceTableViewCell.swift; sourceTree = "<group>"; };
 		0A433E8025516A9A006FFF75 /* TotalBalanceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotalBalanceTableViewCell.xib; sourceTree = "<group>"; };
@@ -841,8 +853,7 @@
 		0A9BC32E246022BD00EB9C5D /* ENS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENS.swift; sourceTree = "<group>"; };
 		0A9BC3302460233300EB9C5D /* ENSContracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSContracts.swift; sourceTree = "<group>"; };
 		0A9BC33224602A7400EB9C5D /* Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
-		0A9BC33424602CE200EB9C5D /* Data+InitWithHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+InitWithHex.swift"; sourceTree = "<group>"; };
-		0A9BC33624602D0D00EB9C5D /* Data+Padding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Padding.swift"; sourceTree = "<group>"; };
+		0A9BC33424602CE200EB9C5D /* Data+MultisigExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+MultisigExtension.swift"; sourceTree = "<group>"; };
 		0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumNodeService.swift; sourceTree = "<group>"; };
 		0A9BC33A2460352E00EB9C5D /* EthHasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthHasher.swift; sourceTree = "<group>"; };
 		0A9BC33C24603AE800EB9C5D /* ENSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSTests.swift; sourceTree = "<group>"; };
@@ -1174,6 +1185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55D3FF0E260B2247008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
+				0A3FDAE026AEB23C006A7DC3 /* Web3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1534,6 +1546,23 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		0A3FDAD726AEB07F006A7DC3 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				0A6C85B1245071510026139E /* Address.swift */,
+				0A63C7E22602725100D36B22 /* AddressInfo.swift */,
+				047300FB24780C81004F1200 /* CharacterSet+Hex.swift */,
+				55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */,
+				5556A03424489F37003EC861 /* CoreDataStack.swift */,
+				0A9BC33424602CE200EB9C5D /* Data+MultisigExtension.swift */,
+				0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */,
+				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
+				0AA9F2062497BE9B005BD60F /* UInt256.swift */,
+				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		0A465C35246C23E800AFA467 /* Frame */ = {
 			isa = PBXGroup;
 			children = (
@@ -1830,6 +1859,7 @@
 		0A93DD4A2445CC8A00688050 = {
 			isa = PBXGroup;
 			children = (
+				0A3FDAD726AEB07F006A7DC3 /* Shared */,
 				0A93DD552445CC8A00688050 /* Multisig */,
 				0A93DD6F2445CC8C00688050 /* MultisigTests */,
 				0A9BC3542460581500EB9C5D /* MultisigIntegrationTests */,
@@ -1948,9 +1978,6 @@
 			isa = PBXGroup;
 			children = (
 				0A9BC33A2460352E00EB9C5D /* EthHasher.swift */,
-				0A9BC33424602CE200EB9C5D /* Data+InitWithHex.swift */,
-				0A9BC33624602D0D00EB9C5D /* Data+Padding.swift */,
-				047300FB24780C81004F1200 /* CharacterSet+Hex.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2258,8 +2285,6 @@
 		0AF432D5244F075800E22E50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0A6C85B1245071510026139E /* Address.swift */,
-				0A63C7E22602725100D36B22 /* AddressInfo.swift */,
 				0AA9F2502498CC62005BD60F /* AddressString.swift */,
 				55B66E55247E494000249E98 /* AppSettings.swift */,
 				0AC5F5B225DD510600DEF0D7 /* AppUser.swift */,
@@ -2270,8 +2295,6 @@
 				0A95893F25EFBE1E005011D7 /* KeyInfo.swift */,
 				048D72C026835CF90095999C /* Chain.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
-				0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */,
-				0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */,
 				0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */,
 				551DDEE8244F183500C719D3 /* Selection.swift */,
 				55B64658253050200050BD95 /* SignatureString.swift */,
@@ -2279,13 +2302,12 @@
 				0AA9F25624991988005BD60F /* TokenBalance.swift */,
 				0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */,
 				55B64659253050200050BD95 /* Transaction.swift */,
-				0AA9F2062497BE9B005BD60F /* UInt256.swift */,
 				0AA9F2522498CC70005BD60F /* UInt256String.swift */,
 				550FB1AC26691D6700C13D54 /* WCPendingTransaction.swift */,
 				550FB1AB26691D6700C13D54 /* WCSession.swift */,
 				04CE3F9724B611FC00826AEE /* Collectible */,
-				5556A03524489F37003EC861 /* Multisig.xcdatamodeld */,
 				55A585352501417E005E778B /* PrivateKey */,
+				0A3FDAE226AEB2F9006A7DC3 /* Address+Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2508,8 +2530,6 @@
 			isa = PBXGroup;
 			children = (
 				55CA3EB7250A23280080DF7F /* Secure Store */,
-				5556A03424489F37003EC861 /* CoreDataStack.swift */,
-				55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -2778,6 +2798,7 @@
 			name = NotificationServiceExtension;
 			packageProductDependencies = (
 				55D3FF0D260B2247008ABD2B /* SwiftCryptoTokenFormatter */,
+				0A3FDADF26AEB23C006A7DC3 /* Web3 */,
 			);
 			productName = NotificationServiceExtension;
 			productReference = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */;
@@ -3132,7 +3153,7 @@
 				0AA9F2532498CC70005BD60F /* UInt256String.swift in Sources */,
 				049A9DB125FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift in Sources */,
 				0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */,
-				0A9BC33524602CE200EB9C5D /* Data+InitWithHex.swift in Sources */,
+				0A9BC33524602CE200EB9C5D /* Data+MultisigExtension.swift in Sources */,
 				55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */,
 				0A802B9224E5843B0001790F /* PagedRequest.swift in Sources */,
 				0AF1C7FB25408A4D00E28669 /* SafeBarView.swift in Sources */,
@@ -3147,7 +3168,6 @@
 				550FB18E26691C8F00C13D54 /* WCRequestsHandler.swift in Sources */,
 				04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */,
 				0AF2733F24DAC9FE007E4012 /* RemoteNotificationHandler.swift in Sources */,
-				0A9BC33724602D0D00EB9C5D /* Data+Padding.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
 				0A802B8124E413450001790F /* HTTPClientError.swift in Sources */,
 				0A6886D12588FC180045CAB5 /* EnterAddressNameViewController.swift in Sources */,
@@ -3170,6 +3190,7 @@
 				55BCFC392552FCDB00020CE7 /* SafeSettingsViewController.swift in Sources */,
 				0A86EE6925CC2B410059876E /* IdleFooterView.swift in Sources */,
 				048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */,
+				0A3FDAE326AEB2F9006A7DC3 /* Address+Extensions.swift in Sources */,
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
@@ -3432,13 +3453,23 @@
 			files = (
 				0AF2737324DC580D007E4012 /* IncomingTokenNotification.swift in Sources */,
 				0AF2731624DAABDC007E4012 /* NotificationService.swift in Sources */,
+				0A3FDAE526AEB314006A7DC3 /* CharacterSet+Hex.swift in Sources */,
+				0A3FDAE626AEB3E1006A7DC3 /* CoreDataStack.swift in Sources */,
 				0AF2739A24DD8D42007E4012 /* NewConfirmationNotification.swift in Sources */,
+				0A3FDADB26AEB1D7006A7DC3 /* AddressInfo.swift in Sources */,
+				0A3FDAD926AEB0E3006A7DC3 /* Safe+CoreDataClass.swift in Sources */,
 				0AF2736B24DC57C6007E4012 /* NotificationPayload.swift in Sources */,
 				0AF2737524DC581A007E4012 /* ExecutedMultisigTransactionNotification.swift in Sources */,
 				0AF2736F24DC57E8007E4012 /* MultisigNotification.swift in Sources */,
 				55967123256EB7690097D3A2 /* ConfirmationRequestNotification.swift in Sources */,
+				0A3FDADD26AEB1D7006A7DC3 /* Address.swift in Sources */,
+				0A3FDADC26AEB1D7006A7DC3 /* UInt256.swift in Sources */,
+				0A3FDADE26AEB1D7006A7DC3 /* Data+MultisigExtension.swift in Sources */,
+				0A3FDAE726AEB3E1006A7DC3 /* CoreDataProtocol.swift in Sources */,
 				0AF2736D24DC57D5007E4012 /* PlainAddress.swift in Sources */,
 				0AF2737124DC57FA007E4012 /* IncomingEtherNotification.swift in Sources */,
+				0A3FDADA26AEB0E3006A7DC3 /* Safe+CoreDataProperties.swift in Sources */,
+				0A3FDAD826AEB0DE006A7DC3 /* Multisig.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4821,6 +4852,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		0A3FDADF26AEB23C006A7DC3 /* Web3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55D3FE83260A0F66008ABD2B /* XCRemoteSwiftPackageReference "Web3.swift" */;
+			productName = Web3;
 		};
 		0A61E83B2670DE68009D68A4 /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
