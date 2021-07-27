@@ -1,3 +1,8 @@
+// See help here:
+// - https://www.jenkins.io/doc/book/pipeline/
+// - https://www.jenkins.io/doc/book/pipeline/syntax/ 
+// - https://www.jenkins.io/doc/pipeline/steps/
+//
 pipeline {
     agent any
     environment {
