@@ -60,7 +60,8 @@ extension Chain {
                        chainName: String,
                        rpcUrl: URL,
                        rpcUrlAuthentication: String,
-                       blockExplorerUrl: URL,
+                       blockExplorerUrlAddress: String,
+                       blockExplorerUrlTxHash: String,
                        ensRegistryAddress: String?,
                        currencyName: String,
                        currencySymbl: String,
@@ -76,7 +77,8 @@ extension Chain {
         chain.name = chainName
         chain.rpcUrl = rpcUrl
         chain.rpcUrlAuthentication = rpcUrlAuthentication
-        chain.blockExplorerUrl = blockExplorerUrl
+        chain.blockExplorerUrlAddress = blockExplorerUrlAddress
+        chain.blockExplorerUrlTxHash = blockExplorerUrlTxHash
         chain.ensRegistryAddress = ensRegistryAddress
 
         let theme = ChainTheme(context: context)
@@ -102,7 +104,8 @@ extension Chain {
                          chainName: chainInfo.chainName,
                          rpcUrl: chainInfo.rpcUri.value,
                          rpcUrlAuthentication: chainInfo.rpcUri.authentication.rawValue,
-                         blockExplorerUrl: chainInfo.blockExplorerUri,
+                         blockExplorerUrlAddress: chainInfo.blockExplorerUriTemplate.address,
+                         blockExplorerUrlTxHash: chainInfo.blockExplorerUriTemplate.txHash,
                          ensRegistryAddress: chainInfo.ensRegistryAddress?.description,
                          currencyName: chainInfo.nativeCurrency.name,
                          currencySymbl: chainInfo.nativeCurrency.symbol,
@@ -140,7 +143,8 @@ extension Chain {
         name =  chainInfo.chainName
         rpcUrl = chainInfo.rpcUri.value
         rpcUrlAuthentication = chainInfo.rpcUri.authentication.rawValue
-        blockExplorerUrl = chainInfo.blockExplorerUri
+        blockExplorerUrlAddress = chainInfo.blockExplorerUriTemplate.address
+        blockExplorerUrlTxHash = chainInfo.blockExplorerUriTemplate.txHash
         ensRegistryAddress = chainInfo.ensRegistryAddress?.description
 
         theme?.textColor = chainInfo.theme.textColor
@@ -181,7 +185,8 @@ extension Chain {
             chainName: "Mainnet",
             rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!,
             rpcUrlAuthentication: SCGModels.RpcAuthentication.Authentication.apiKeyPath.rawValue,
-            blockExplorerUrl: URL(string: "https://etherscan.io/")!,
+            blockExplorerUrlAddress: "https://etherscan.io/address/{{address}}",
+            blockExplorerUrlTxHash: "https://etherscan.io/tx/{{txHash}}",
             ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
             currencyName: "Ether",
             currencySymbl: "ETH",

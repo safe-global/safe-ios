@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E232" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AppSettings" representedClassName="AppSettings" syncable="YES" codeGenerationType="class">
         <attribute name="appReviewEventCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="dismissedImportKeyBanner" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -24,7 +24,8 @@
         <attribute name="sessionRenewedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Chain" representedClassName="Chain" syncable="YES" codeGenerationType="class">
-        <attribute name="blockExplorerUrl" attributeType="URI"/>
+        <attribute name="blockExplorerUrlAddress" attributeType="String"/>
+        <attribute name="blockExplorerUrlTxHash" optional="YES" attributeType="String"/>
         <attribute name="ensRegistryAddress" optional="YES" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
@@ -88,7 +89,7 @@
     <elements>
         <element name="AppSettings" positionX="54" positionY="18" width="128" height="254"/>
         <element name="AppUser" positionX="54" positionY="63" width="128" height="89"/>
-        <element name="Chain" positionX="54" positionY="117" width="128" height="164"/>
+        <element name="Chain" positionX="54" positionY="117" width="128" height="179"/>
         <element name="ChainTheme" positionX="72" positionY="135" width="128" height="74"/>
         <element name="ChainToken" positionX="63" positionY="126" width="128" height="104"/>
         <element name="KeyInfo" positionX="63" positionY="72" width="128" height="104"/>

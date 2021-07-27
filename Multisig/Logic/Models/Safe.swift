@@ -127,12 +127,12 @@ extension Safe: Identifiable {
         guard
             let safe = (try? Safe.getSelected()),
             let chain = safe.chain,
-            let browserUrl = chain.blockExplorerUrl
+            let addressUrlTemplate = chain.blockExplorerUrlAddress
         else {
             assertionFailure("Block explorer url called when no safe chain found")
             return URL(string: "https://gnosis-safe.io/")!
         }
-        return browserUrl.appendingPathComponent("address").appendingPathComponent(address)
+        return URL(string: addressUrlTemplate.replacingOccurrences(of: "{{address}}", with: address))!
     }
 
     static func exists(_ address: String, chainId: String) -> Bool {
