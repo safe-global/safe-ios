@@ -517,7 +517,7 @@ class TransactionDetailCellBuilder {
             let browserUrl = chain.blockExplorerUrl
         else { return }
         let url = browserUrl.appendingPathComponent("tx").appendingPathComponent(txHash)
-        externalURL(text: "View transaction on Etherscan", url: url)
+        externalURL(text: "View transaction on block explorer", url: url)
     }
 
     // MARK: - Cell Builder
