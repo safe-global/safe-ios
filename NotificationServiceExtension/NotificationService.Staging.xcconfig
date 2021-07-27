@@ -12,4 +12,3 @@
 #include "NotificationService.Config.xcconfig"
 
 SERVICE_ENV = STAGING
-NETWORK = MAINNET

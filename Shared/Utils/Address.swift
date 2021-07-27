@@ -68,23 +68,6 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         return value.prefix(prefix) + "…" + value.suffix(suffix)
     }
 
-    var highlighted: NSAttributedString {
-        let style = GNOTextStyle.tertiary
-        let attributedString = NSMutableAttributedString(
-            string: checksummed,
-            attributes: [
-                .font: UIFont.gnoFont(forTextStyle: style),
-                .foregroundColor: style.color!,
-                .kern: -0.41
-            ]
-        )
-        attributedString.addAttribute(
-            .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: 0, length: 4))
-        attributedString.addAttribute(
-            .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: 38, length: 4))
-        return attributedString
-    }
-
     var data: Data {
         Data(_store.rawAddress)
     }
@@ -106,6 +89,10 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
 
     var description: String {
         checksummed
+    }
+
+    var truncatedInMiddle: String {
+        hexadecimal.prefix(6) + "…" + hexadecimal.suffix(4)
     }
 
     init(_ value: String, isERC681: Bool) throws {

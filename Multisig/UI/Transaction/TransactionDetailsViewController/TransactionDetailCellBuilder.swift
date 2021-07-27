@@ -517,7 +517,7 @@ class TransactionDetailCellBuilder {
             let txHashUrlTemplate = chain.blockExplorerUrlTxHash
         else { return }
         let url = URL(string: txHashUrlTemplate.replacingOccurrences(of: "{{txHash}}", with: txHash))!
-        externalURL(text: "View transaction on Etherscan", url: url)
+        externalURL(text: "View transaction on block explorer", url: url)
     }
 
     // MARK: - Cell Builder

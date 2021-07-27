@@ -23,7 +23,7 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug.Development.Rinkeby"
+      buildConfiguration = "Debug.Development"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
@@ -62,7 +62,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug.Development.Rinkeby"
+      buildConfiguration = "Debug.Development"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -82,7 +82,7 @@
       </MacroExpansion>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release.Production.Mainnet"
+      buildConfiguration = "Release.Production"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -99,10 +99,10 @@
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug.Production.Mainnet">
+      buildConfiguration = "Debug.Production">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release.Production.Mainnet"
+      buildConfiguration = "Release.Production"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

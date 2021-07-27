@@ -70,7 +70,8 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(chain.id, "1")
         XCTAssertEqual(chain.name, "Test")
         XCTAssertEqual(chain.rpcUrl, URL(string: "https://rpc.com/")!)
-        XCTAssertEqual(chain.blockExplorerUrl, URL(string: "https://block.com/")!)
+        XCTAssertEqual(chain.blockExplorerUrlAddress, "https://block.com/address/{{address}}")
+        XCTAssertEqual(chain.blockExplorerUrlTxHash, "https://block.com/tx/{{txHash}}")
         XCTAssertEqual(chain.ensRegistryAddress, "0x0000000000000000000000000000000000000001")
         XCTAssertEqual(chain.nativeCurrency?.name, "Currency")
         XCTAssertEqual(chain.nativeCurrency?.symbol, "CRY")
@@ -105,7 +106,8 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(chain.name, chainInfo.chainName)
         XCTAssertEqual(chain.rpcUrl, chainInfo.rpcUri.value)
         XCTAssertEqual(chain.rpcUrlAuthentication, chainInfo.rpcUri.authentication.rawValue)
-        XCTAssertEqual(chain.blockExplorerUrl, chainInfo.blockExplorerUri)
+        XCTAssertEqual(chain.blockExplorerUrlAddress, chainInfo.blockExplorerUriTemplate.address)
+        XCTAssertEqual(chain.blockExplorerUrlTxHash, chainInfo.blockExplorerUriTemplate.txHash)
         XCTAssertEqual(chain.ensRegistryAddress, chainInfo.ensRegistryAddress?.description)
 
         XCTAssertEqual(chain.nativeCurrency?.name, chainInfo.nativeCurrency.name)
@@ -130,7 +132,8 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(mainNetwork.rpcUrl, testNetworkInfo.rpcUri.value)
         XCTAssertEqual(mainNetwork.rpcUrlAuthentication, testNetworkInfo.rpcUri.authentication.rawValue)
 
-        XCTAssertEqual(mainNetwork.blockExplorerUrl, testNetworkInfo.blockExplorerUri)
+        XCTAssertEqual(mainNetwork.blockExplorerUrlAddress, testNetworkInfo.blockExplorerUriTemplate.address)
+        XCTAssertEqual(mainNetwork.blockExplorerUrlTxHash, testNetworkInfo.blockExplorerUriTemplate.txHash)
         XCTAssertEqual(mainNetwork.ensRegistryAddress, testNetworkInfo.ensRegistryAddress?.description)
 
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testNetworkInfo.nativeCurrency.name)
@@ -161,7 +164,8 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(mainNetwork.name, testInfo.chainName)
         XCTAssertEqual(mainNetwork.rpcUrl, testInfo.rpcUri.value)
         XCTAssertEqual(mainNetwork.rpcUrlAuthentication, testInfo.rpcUri.authentication.rawValue)
-        XCTAssertEqual(mainNetwork.blockExplorerUrl, testInfo.blockExplorerUri)
+        XCTAssertEqual(mainNetwork.blockExplorerUrlAddress, testInfo.blockExplorerUriTemplate.address)
+        XCTAssertEqual(mainNetwork.blockExplorerUrlTxHash, testInfo.blockExplorerUriTemplate.txHash)
 
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testInfo.nativeCurrency.symbol)
@@ -257,7 +261,8 @@ class NetworkTests: CoreDataTestCase {
                          chainName: String,
                          rpcUrl: URL,
                          rpcUrlAuthentication: SCGModels.RpcAuthentication.Authentication = .apiKeyPath,
-                         blockExplorerUrl: URL,
+                         blockExplorerUrlAddress: String,
+                         blockExplorerUrlTxHash: String,
                          currencyName: String,
                          currencySymbl: String,
                          currencyDecimals: Int,
@@ -268,7 +273,8 @@ class NetworkTests: CoreDataTestCase {
         SCGModels.Chain(chainId: UInt256String(id),
                         chainName: chainName,
                         rpcUri: SCGModels.RpcAuthentication(authentication: rpcUrlAuthentication, value: rpcUrl),
-                        blockExplorerUri: blockExplorerUrl,
+                        blockExplorerUriTemplate: SCGModels.BlockExplorerUriTemplate(address: blockExplorerUrlAddress,
+                                                                                     txHash: blockExplorerUrlTxHash),
                         nativeCurrency: SCGModels.Currency(name: currencyName,
                                                            symbol: currencySymbl,
                                                            decimals: currencyDecimals,
@@ -282,7 +288,8 @@ class NetworkTests: CoreDataTestCase {
         makeNetworkInfo(id: 1,
                         chainName: "Mainnet",
                         rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!,
-                        blockExplorerUrl: URL(string: "https://etherscan.io/")!,
+                        blockExplorerUrlAddress: "https://etherscan.io/address/{{address}}",
+                        blockExplorerUrlTxHash: "https://etherscan.io/tx/{{txHash}}",
                         currencyName: "Ether",
                         currencySymbl: "ETH",
                         currencyDecimals: 18,
@@ -296,7 +303,8 @@ class NetworkTests: CoreDataTestCase {
         makeNetworkInfo(id: id,
                         chainName: "Test",
                         rpcUrl: URL(string: "https://rpc.com/")!,
-                        blockExplorerUrl: URL(string: "https://block.com/")!,
+                        blockExplorerUrlAddress: "https://block.com/address/{{address}}",
+                        blockExplorerUrlTxHash: "https://block.com/tx/{{txHash}}",
                         currencyName: "Currency",
                         currencySymbl: "CRY",
                         currencyDecimals: 18,

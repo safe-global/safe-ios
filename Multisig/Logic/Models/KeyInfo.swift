@@ -235,7 +235,6 @@ extension KeyInfo {
 }
 
 extension NSFetchRequest where ResultType == KeyInfo {
-
     /// all, sorted by name, ascending
     func all() -> Self {
         sortDescriptors = [
@@ -244,13 +243,4 @@ extension NSFetchRequest where ResultType == KeyInfo {
         ]
         return self
     }
-
-    /// return keys with matching address
-    func by(address: Address) -> Self {
-        sortDescriptors = []
-        predicate = NSPredicate(format: "addressString CONTAINS[c] %@", address.checksummed)
-        fetchLimit = 1
-        return self
-    }
-
 }

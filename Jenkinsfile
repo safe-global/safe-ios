@@ -1,3 +1,8 @@
+// See help here:
+// - https://www.jenkins.io/doc/book/pipeline/
+// - https://www.jenkins.io/doc/book/pipeline/syntax/ 
+// - https://www.jenkins.io/doc/pipeline/steps/
+//
 pipeline {
     agent any
     environment {
@@ -21,6 +26,10 @@ pipeline {
             }
             steps {
                 ansiColor('xterm') {
+                    // clean build dir
+                    // (was useful when CoreData code generation didn't work properly for some reason)
+                    // sh "rm -rf Build"
+
                     // new param for uikit enabled - alternative
                     sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/test.sh \"Multisig - Staging\"'
                     junit 'Build/reports/junit.xml'
