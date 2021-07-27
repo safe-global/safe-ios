@@ -549,7 +549,7 @@ extension SCGModels {
         let chainId: UInt256String
         let chainName: String
         let rpcUri: RpcAuthentication
-        let blockExplorerUri: URL
+        let blockExplorerUriTemplate: BlockExplorerUriTemplate
         let nativeCurrency: Currency
         let theme: Theme
         let ensRegistryAddress: AddressString?
@@ -570,8 +570,8 @@ extension SCGModels {
     }
 
     struct RpcAuthentication: Codable {
-        var authentication: Authentication
-        var value: URL
+        let authentication: Authentication
+        let value: URL
         
         enum Authentication: String, Codable {
             // append the api key as a last path component of the uri
@@ -579,6 +579,11 @@ extension SCGModels {
             // use uri as is
             case none = "NO_AUTHENTICATION"
         }
+    }
+
+    struct BlockExplorerUriTemplate: Codable {
+        let address: String
+        let txHash: String
     }
 
     struct Theme: Decodable {
