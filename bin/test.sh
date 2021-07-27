@@ -14,11 +14,12 @@ bin/configure.sh
 
 ############
 # uncomment when you need to delete the app from the simulator
-# DEVICE="iPhone 11 Pro"
-# APP_ID="io.gnosis.multisig.staging.rinkeby"
-# set +e && xcrun simctl boot "${DEVICE}" 2>/dev/null
-# xcrun simctl uninstall "${DEVICE}" "${APP_ID}"
-# set -e
+# (happens when introducing coredata breaking changes :-( )
+DEVICE="iPhone 11 Pro"
+APP_ID="io.gnosis.multisig.staging.mainnet"
+set +e && xcrun simctl boot "${DEVICE}" 2>/dev/null
+xcrun simctl uninstall "${DEVICE}" "${APP_ID}"
+set -e
 ############
 
 set -o pipefail && \
