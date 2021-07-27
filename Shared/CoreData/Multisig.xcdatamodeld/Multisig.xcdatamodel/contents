@@ -24,7 +24,7 @@
         <attribute name="sessionRenewedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Chain" representedClassName="Chain" syncable="YES" codeGenerationType="class">
-        <attribute name="blockExplorerUrlAddress" attributeType="String"/>
+        <attribute name="blockExplorerUrlAddress" optional="YES" attributeType="String"/>
         <attribute name="blockExplorerUrlTxHash" optional="YES" attributeType="String"/>
         <attribute name="ensRegistryAddress" optional="YES" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
