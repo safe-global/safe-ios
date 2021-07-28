@@ -11,6 +11,7 @@
 		041C2A5A2456F53E0044A24C /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A592456F53E0044A24C /* QRView.swift */; };
 		0422006025EFDF3700CAC173 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422005F25EFDF3700CAC173 /* TagView.swift */; };
 		0422007025EFDF4E00CAC173 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0422006F25EFDF4E00CAC173 /* TagView.xib */; };
+		04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5726AEE06500A14E95 /* BluetoothController.swift */; };
 		0428DA4D25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DA4B25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift */; };
 		0428DA4E25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0428DA4C25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib */; };
 		0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */; };
@@ -586,6 +587,7 @@
 		041C2A592456F53E0044A24C /* QRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
 		0422005F25EFDF3700CAC173 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		0422006F25EFDF4E00CAC173 /* TagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
+		04273E5726AEE06500A14E95 /* BluetoothController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothController.swift; sourceTree = "<group>"; };
 		0428DA4B25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackHandlerTableViewCell.swift; sourceTree = "<group>"; };
 		0428DA4C25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FallbackHandlerTableViewCell.xib; sourceTree = "<group>"; };
 		0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLinkTableViewCell.swift; sourceTree = "<group>"; };
@@ -818,7 +820,7 @@
 		0A8AEB1F25A4764F002A3FE1 /* ActionDetailAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionDetailAddressCell.xib; sourceTree = "<group>"; };
 		0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollecitbleSectionSeparatorView.swift; sourceTree = "<group>"; };
 		0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollecitbleSectionSeparatorView.xib; sourceTree = "<group>"; };
-		0A93DD532445CC8A00688050 /* Multisig_PROD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig_PROD.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A93DD532445CC8A00688050 /* Multisig_PROD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Multisig_PROD.app; path = Multisig_PROD_MAINNET.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0A93DD5F2445CC8B00688050 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -2411,6 +2413,7 @@
 				550FB1A726691D0A00C13D54 /* OwnerKeyController.swift */,
 				048D72BE268359E20095999C /* ChainManager.swift */,
 				0493A28A262979820056EC49 /* UpdateController.swift */,
+				04273E5726AEE06500A14E95 /* BluetoothController.swift */,
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
 			);
@@ -3284,6 +3287,7 @@
 				0468FB45259106F400541536 /* StyledView.swift in Sources */,
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
 				550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */,
+				04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */,
 				0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */,
 				550FB19126691C8F00C13D54 /* WCPendingConfirmationViewController.swift in Sources */,
 				048D72CD2685DC780095999C /* SelectNetworkTableViewCell.swift in Sources */,
