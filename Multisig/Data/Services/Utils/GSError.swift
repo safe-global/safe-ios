@@ -26,6 +26,7 @@ enum GSError {
     private static let networkErrorDomain = "NetworkError"
     private static let clientErrorDomain = "CommonClientError"
     private static let iOSErrorDomain = "iOSError"
+    private static let hardwareWalletDomain = "HardwareWalletError"
 
     private static func unexpectedError(_ code: Int = 0) -> Error {
         let errorID = Int("422\(code)") ?? code
@@ -378,6 +379,26 @@ enum GSError {
         let domain = clientErrorDomain
         let code = 9906
         let loggable = false
+    }
+
+    // - MARK: - Ledger error
+
+    struct LedgerCommandError: DetailedLocalizedError {
+        let description = "Ledger wallet error"
+        let reason = "Command not in correct format"
+        let howToFix = "Please check input data."
+        let domain = hardwareWalletDomain
+        let code = 8801
+        let loggable = true
+    }
+
+    struct LedgerResponseError: DetailedLocalizedError {
+        let description = "Ledger wallet error"
+        let reason = "Response not in correct format"
+        let howToFix = "Please check input data."
+        let domain = hardwareWalletDomain
+        let code = 8802
+        let loggable = true
     }
 
     // MARK: - iOS errors
