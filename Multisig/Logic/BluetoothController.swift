@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-protocol LedgerNanoXControllerDelegate {
+protocol BluetoothControllerDelegate {
     func bluetoothControllerDidReceive(response: String)
     func bluetoothControllerDidFailToConnectBluetooth()
     func bluetoothControllerDidDiscoverDevice()
@@ -19,12 +19,12 @@ protocol LedgerNanoXControllerDelegate {
 class BluetoothController: NSObject {
     static let shared = BluetoothController()
     private var centralManager: CBCentralManager!
-    var delegate: LedgerNanoXControllerDelegate?
+    var delegate: BluetoothControllerDelegate?
 
     private var devices: [BluetoothDevice] = []
     private var supportedDevices: [DeviceConstant] = []
 
-    private var supportedDeviceUuids: [CBUUID] { supportedDevices.compactMap { $0.uuid } }
+    private var supportedDeviceUUIDs: [CBUUID] { supportedDevices.compactMap { $0.uuid } }
     private var supportedDeviceNotifyUuids: [CBUUID] { supportedDevices.compactMap { $0.notifyUuid } }
 
     override init() {
@@ -45,7 +45,7 @@ extension BluetoothController: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
-            centralManager.scanForPeripherals(withServices: supportedDeviceUuids)
+            centralManager.scanForPeripherals(withServices: supportedDeviceUUIDs)
         default:
             // Bluetooth might be off or not permitted to use
             delegate?.bluetoothControllerDidFailToConnectBluetooth()
@@ -67,7 +67,7 @@ extension BluetoothController: CBCentralManagerDelegate {
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         peripheral.delegate = self
-        peripheral.discoverServices(supportedDeviceUuids)
+        peripheral.discoverServices(supportedDeviceUUIDs)
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -106,20 +106,20 @@ extension BluetoothController: CBPeripheralDelegate {
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if let error = error {
-            print(error.localizedDescription)
+            LogService.shared.error("Failed to connect with bluetooth device", error: error)
         }
 
         if supportedDeviceNotifyUuids.contains(characteristic.uuid) {
-            // 
+            // parse data received
         }
     }
 
     private func write(device: BluetoothDevice, data: Data) {
         guard let writeCharacteristic = device.writeCharacteristic else { return }
-        device.peripheral.writeValue(Data(), for: writeCharacteristic, type: .withResponse)
+        device.peripheral.writeValue(data, for: writeCharacteristic, type: .withResponse)
     }
 
-    func sendCommand(device: BluetoothDevice, complition: ([String]) -> ()) {
+    func sendCommand(device: BluetoothDevice, completion: ([String]) -> ()) {
         centralManager.connect(device.peripheral, options: nil)
     }
 
