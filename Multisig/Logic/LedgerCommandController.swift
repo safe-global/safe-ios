@@ -50,7 +50,7 @@ class LedgerCommandController {
         data.append(pathsData)
         let messageData = message.data(using: .ascii) ?? Data()
 
-        let array = withUnsafeBytes(of: messageData.count.bigEndian, Array.init)
+        let array = withUnsafeBytes(of: Int32(messageData.count).bigEndian, Array.init)
         array.forEach{ x in data.append(x) }
 
         data.append(messageData)

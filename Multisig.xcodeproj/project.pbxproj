@@ -12,6 +12,7 @@
 		0422006025EFDF3700CAC173 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422005F25EFDF3700CAC173 /* TagView.swift */; };
 		0422007025EFDF4E00CAC173 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0422006F25EFDF4E00CAC173 /* TagView.xib */; };
 		04273E5A26B1474700A14E95 /* LedgerCommandController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5926B1474700A14E95 /* LedgerCommandController.swift */; };
+		04273E5C26B41A3700A14E95 /* APDUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5B26B41A3700A14E95 /* APDUController.swift */; };
 		0428DA4D25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DA4B25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift */; };
 		0428DA4E25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0428DA4C25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib */; };
 		0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */; };
@@ -607,6 +608,7 @@
 		0422005F25EFDF3700CAC173 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		0422006F25EFDF4E00CAC173 /* TagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
 		04273E5926B1474700A14E95 /* LedgerCommandController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerCommandController.swift; sourceTree = "<group>"; };
+		04273E5B26B41A3700A14E95 /* APDUController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APDUController.swift; sourceTree = "<group>"; };
 		0428DA4B25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackHandlerTableViewCell.swift; sourceTree = "<group>"; };
 		0428DA4C25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FallbackHandlerTableViewCell.xib; sourceTree = "<group>"; };
 		0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLinkTableViewCell.swift; sourceTree = "<group>"; };
@@ -2438,6 +2440,7 @@
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
 				04273E5926B1474700A14E95 /* LedgerCommandController.swift */,
+				04273E5B26B41A3700A14E95 /* APDUController.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -3228,6 +3231,7 @@
 				55B64666253051630050BD95 /* SelectOwnerAddressViewModel.swift in Sources */,
 				0428DB1225CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift in Sources */,
 				0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */,
+				04273E5C26B41A3700A14E95 /* APDUController.swift in Sources */,
 				0A8AEB1825A4726E002A3FE1 /* ActionDetailExpandableCell.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				0A63C7B42602087E00D36B22 /* SafeInfoRequest.swift in Sources */,

@@ -401,6 +401,15 @@ enum GSError {
         let loggable = true
     }
 
+    struct LedgerAPDUResponseError: DetailedLocalizedError {
+        let description = "Ledger wallet error"
+        let reason = "APDU not in correct format"
+        let howToFix = "Please check input data."
+        let domain = hardwareWalletDomain
+        let code = 8803
+        let loggable = true
+    }
+
     // MARK: - iOS errors
 
     struct UnknownAppError: DetailedLocalizedError {
