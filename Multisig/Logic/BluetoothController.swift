@@ -10,10 +10,11 @@ import Foundation
 import CoreBluetooth
 
 protocol BluetoothControllerDelegate {
-    func bluetoothControllerDidReceive(response: String)
+    func bluetoothControllerDidReceive(response: Data, device: BluetoothDevice)
     func bluetoothControllerDidFailToConnectBluetooth()
     func bluetoothControllerDidDiscoverDevice()
     func bluetoothControllerDidDisconnectDevice()
+    func bluetoothControllerDataToSend(device: BluetoothDevice) -> Data?
 }
 
 class BluetoothController: NSObject {
@@ -23,7 +24,6 @@ class BluetoothController: NSObject {
 
     private var devices: [BluetoothDevice] = []
     private var supportedDevices: [DeviceConstant] = []
-
     private var supportedDeviceUUIDs: [CBUUID] { supportedDevices.compactMap { $0.uuid } }
     private var supportedDeviceNotifyUuids: [CBUUID] { supportedDevices.compactMap { $0.notifyUuid } }
 
@@ -31,7 +31,7 @@ class BluetoothController: NSObject {
         super.init()
     }
 
-    func scan(devices: [DeviceConstant]) {
+    func scan(devices: [DeviceConstant] = [.ledgerNanoX]) {
         supportedDevices = devices
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
@@ -100,6 +100,9 @@ extension BluetoothController: CBPeripheralDelegate {
             if characteristic.properties.contains(.write) {
                 peripheral.setNotifyValue(true, for: characteristic)
                 devices[indexFor(peripheral: peripheral)!].writeCharacteristic = characteristic
+                if let data = delegate?.bluetoothControllerDataToSend(device: devices[indexFor(peripheral: peripheral)!]) {
+                    peripheral.writeValue(data, for: characteristic, type: .withResponse)
+                }
             }
         }
     }
@@ -110,7 +113,10 @@ extension BluetoothController: CBPeripheralDelegate {
         }
 
         if supportedDeviceNotifyUuids.contains(characteristic.uuid) {
-            // parse data received
+            if let data = characteristic.value {
+                delegate?.bluetoothControllerDidReceive(response: data,
+                                                        device: devices[indexFor(peripheral: peripheral)!])
+            }
         }
     }
 
@@ -119,7 +125,7 @@ extension BluetoothController: CBPeripheralDelegate {
         device.peripheral.writeValue(data, for: writeCharacteristic, type: .withResponse)
     }
 
-    func sendCommand(device: BluetoothDevice, completion: ([String]) -> ()) {
+    func sendCommand(device: BluetoothDevice) {
         centralManager.connect(device.peripheral, options: nil)
     }
 
