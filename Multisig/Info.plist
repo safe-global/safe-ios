@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.19.0</string>
+	<string>3.1.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -81,6 +81,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Allow Gnosis Safe to connect hardware devices and sign transactions.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Safe need to use camera to scan QR code.</string>
 	<key>NSFaceIDUsageDescription</key>
