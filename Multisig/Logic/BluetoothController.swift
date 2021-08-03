@@ -11,9 +11,9 @@ import CoreBluetooth
 
 protocol BluetoothControllerDelegate {
     func bluetoothControllerDidReceive(response: Data, device: BluetoothDevice)
-    func bluetoothControllerDidFailToConnectBluetooth()
-    func bluetoothControllerDidDiscoverDevice()
-    func bluetoothControllerDidDisconnectDevice()
+    func bluetoothControllerDidFailToConnectBluetooth(error: Error)
+    func bluetoothControllerDidDiscover(device: BluetoothDevice)
+    func bluetoothControllerDidDisconnect(device: BluetoothDevice, error: Error?)
     func bluetoothControllerDataToSend(device: BluetoothDevice) -> Data?
 }
 
@@ -47,9 +47,7 @@ extension BluetoothController: CBCentralManagerDelegate {
         case .poweredOn:
             centralManager.scanForPeripherals(withServices: supportedDeviceUUIDs)
         default:
-            // Bluetooth might be off or not permitted to use
-            delegate?.bluetoothControllerDidFailToConnectBluetooth()
-            break
+            delegate?.bluetoothControllerDidFailToConnectBluetooth(error: GSError.ProblemConnectingBluetoothDevice())
         }
     }
 
@@ -58,8 +56,9 @@ extension BluetoothController: CBCentralManagerDelegate {
                         advertisementData: [String : Any],
                         rssi RSSI: NSNumber) {
         if deviceFor(peripheral: peripheral) == nil {
-            devices.append(BluetoothDevice(peripheral: peripheral))
-            delegate?.bluetoothControllerDidDiscoverDevice()
+            let device = BluetoothDevice(peripheral: peripheral)
+            devices.append(device)
+            delegate?.bluetoothControllerDidDiscover(device: device)
         }
 
         centralManager.stopScan()
@@ -71,8 +70,10 @@ extension BluetoothController: CBCentralManagerDelegate {
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        if let device = deviceFor(peripheral: peripheral) {
+            delegate?.bluetoothControllerDidDisconnect(device: device, error: error)
+        }
         devices.removeAll { p in p.peripheral == peripheral }
-        delegate?.bluetoothControllerDidDisconnectDevice()
     }
 }
 
@@ -154,5 +155,5 @@ enum DeviceConstant {
 
     var uuid: CBUUID { CBUUID(string: "13d63400-2c97-0004-0000-4c6564676572") }
     var notifyUuid: CBUUID { CBUUID(string: "13D63400-2C97-0004-0001-4C6564676572") }
-    var WriteUuid: CBUUID { CBUUID(string: "13d63400-2c97-0004-0002-4c6564676572") }
+    var writeUuid: CBUUID { CBUUID(string: "13d63400-2c97-0004-0002-4c6564676572") }
 }

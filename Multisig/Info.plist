@@ -82,7 +82,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>This will allow Gnosis Safe to connect hardware devices and sign transactions.</string>
+	<string>Allow Gnosis Safe to connect hardware devices and sign transactions.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Safe need to use camera to scan QR code.</string>
 	<key>NSFaceIDUsageDescription</key>
