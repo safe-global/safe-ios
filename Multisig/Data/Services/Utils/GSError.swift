@@ -381,20 +381,20 @@ enum GSError {
         let loggable = false
     }
 
-    // - MARK: - Ledger error
+    // MARK: - Ledger error
 
     struct LedgerCommandError: DetailedLocalizedError {
-        let description = "Ledger wallet error"
-        let reason = "Command not in correct format"
+        let description = "Ledger error"
+        let reason = "Command not in the correct format."
         let howToFix = "Please check input data."
         let domain = hardwareWalletDomain
         let code = 8801
-        let loggable = true
+        let loggable = false
     }
 
     struct LedgerResponseError: DetailedLocalizedError {
-        let description = "Ledger wallet error"
-        let reason = "Response not in correct format"
+        let description = "Ledger error"
+        let reason = "Response not in the correct format."
         let howToFix = "Please check input data."
         let domain = hardwareWalletDomain
         let code = 8802
@@ -402,8 +402,8 @@ enum GSError {
     }
 
     struct LedgerAPDUResponseError: DetailedLocalizedError {
-        let description = "Ledger wallet error"
-        let reason = "APDU not in correct format"
+        let description = "Ledger error"
+        let reason = "APDU not in the correct format."
         let howToFix = "Please check input data."
         let domain = hardwareWalletDomain
         let code = 8803

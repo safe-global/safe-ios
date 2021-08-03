@@ -1,12 +1,16 @@
 //
-//  ADPUHandler .swift
-//  Test
+//  ADPUHandler.swift
+//  Multisig
 //
-//  Created by Moaaz on 6/14/21.
+//  Created by Moaaz on 14.06.21.
+//  Copyright © 2021 Gnosis Ltd. All rights reserved.
 //
 
 import Foundation
 
+/// Application Protocol Data Unit
+/// https://blog.ledger.com/btchip-doc/bitcoin-technical.html#_lifecycle_management_apdus
+/// https://gist.github.com/Wollac/49f0c4e318e42f463b8306298dfb4f4a
 class APDUHandler {
     static let shared = APDUHandler()
 
