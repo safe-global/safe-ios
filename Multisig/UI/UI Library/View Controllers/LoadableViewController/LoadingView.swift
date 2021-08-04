@@ -9,4 +9,16 @@
 import UIKit
 
 class LoadingView: UINibView {
+    @IBOutlet private weak var titleLabel: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        titleLabel.text = nil
+        titleLabel.setStyle(.headline2)
+        backgroundColor = .primaryBackground
+    }
+
+    func set(title: String) {
+        titleLabel.text = title
+    }
 }

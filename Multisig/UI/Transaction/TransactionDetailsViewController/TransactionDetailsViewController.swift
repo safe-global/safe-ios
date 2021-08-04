@@ -276,7 +276,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         transaction.chainId = chainId
 
         switch keyInfo.keyType {
-
         case .deviceImported, .deviceGenerated:
             do {
                 let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
@@ -292,8 +291,11 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
-        }
 
+        #warning("TODO: implement")
+        case .ledgerNanoX:
+            break
+        }
     }
 
     private func confirmAndRefresh(safeTxHash: String, signature: String, keyType: KeyType) {
@@ -316,6 +318,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                             Tracker.trackEvent(.transactionDetailsTransactionConfirmed)
                         case .walletConnect:
                             Tracker.trackEvent(.transactionDetailsTxConfirmedWC)
+                        case .ledgerNanoX:
+                            Tracker.trackEvent(.transactionDetailsTxConfirmedLedgerNanoX)
                         }
                     }
                 }
