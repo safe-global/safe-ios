@@ -207,12 +207,6 @@ extension KeyInfo {
         try all().forEach { try $0.delete() }
     }
 
-    /// Deletes keys with matching addresses
-    /// - Parameter addresses: addresses of keys to delete
-    static func delete(addresses: [Address]) throws {
-        try keys(addresses: addresses).forEach { try $0.delete() }
-    }
-
     /// Saves the key to the persistent store
     func save() {
         App.shared.coreDataStack.saveContext()
