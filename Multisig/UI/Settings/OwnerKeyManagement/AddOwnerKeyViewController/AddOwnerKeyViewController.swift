@@ -72,6 +72,11 @@ class AddOwnerKeyViewController: UITableViewController {
 
         case .walletConnect:
             controller = OnboardingConnectOwnerKeyViewController(completion: completion)
+
+        #warning("TODO: enable when implementing Ledger support")
+//        case .ledgerNanoX:
+//            controller = OnboardingLedgerKeyViewController(completion: completion)
+        
         }
         show(controller, sender: self)
     }

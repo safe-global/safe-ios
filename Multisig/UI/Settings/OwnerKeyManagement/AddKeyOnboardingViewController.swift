@@ -42,6 +42,8 @@ class AddKeyOnboardingViewController: UITableViewController {
         navigationItem.rightBarButtonItem = nextButton
 
         tableView.registerCell(CardTableViewCell.self)
+
+        tableView.backgroundColor = .primaryBackground
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -392,6 +392,7 @@
 		0AEEBC7A258CE24A00F3A6F9 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEBC79258CE24A00F3A6F9 /* WebImageView.swift */; };
 		0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AEEBC7F258CE25700F3A6F9 /* WebImageView.xib */; };
 		0AF1042826BACD96009C4B14 /* AddKeyOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1042726BACD96009C4B14 /* AddKeyOnboardingViewController.swift */; };
+		0AF1042A26BACF59009C4B14 /* OnboardingLedgerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1042926BACF59009C4B14 /* OnboardingLedgerKeyViewController.swift */; };
 		0AF1C7F42540887300E28669 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C7F22540887300E28669 /* HeaderViewController.swift */; };
 		0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C7F32540887300E28669 /* HeaderViewController.xib */; };
 		0AF1C7FB25408A4D00E28669 /* SafeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C7FA25408A4D00E28669 /* SafeBarView.swift */; };
@@ -967,6 +968,7 @@
 		0AEEBC79258CE24A00F3A6F9 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		0AEEBC7F258CE25700F3A6F9 /* WebImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebImageView.xib; sourceTree = "<group>"; };
 		0AF1042726BACD96009C4B14 /* AddKeyOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKeyOnboardingViewController.swift; sourceTree = "<group>"; };
+		0AF1042926BACF59009C4B14 /* OnboardingLedgerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLedgerKeyViewController.swift; sourceTree = "<group>"; };
 		0AF1C7F22540887300E28669 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		0AF1C7F32540887300E28669 /* HeaderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderViewController.xib; sourceTree = "<group>"; };
 		0AF1C7FA25408A4D00E28669 /* SafeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBarView.swift; sourceTree = "<group>"; };
@@ -2701,6 +2703,7 @@
 			children = (
 				0ADD19B5265EA23200EB0F2B /* ExportViewController.swift */,
 				0AF1042726BACD96009C4B14 /* AddKeyOnboardingViewController.swift */,
+				0AF1042926BACF59009C4B14 /* OnboardingLedgerKeyViewController.swift */,
 				55413674265E49E100796F91 /* AddOwnerKeyViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
@@ -3213,6 +3216,7 @@
 				0ADD19C4265EA23200EB0F2B /* SeedPhraseView.swift in Sources */,
 				0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */,
 				0A95894025EFBE1E005011D7 /* KeyInfo.swift in Sources */,
+				0AF1042A26BACF59009C4B14 /* OnboardingLedgerKeyViewController.swift in Sources */,
 				048D72BD26832FD70095999C /* ChainsListRequest.swift in Sources */,
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
 				043ABD0F24EF0C33008826D5 /* SafeClientGatewayService.swift in Sources */,

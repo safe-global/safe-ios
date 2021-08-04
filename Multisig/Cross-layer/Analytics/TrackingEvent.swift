@@ -83,6 +83,9 @@ enum TrackingEvent: String, Trackable {
     case generateOwnerOnboarding                    = "screen_owner_generate_info"
     case connectOwnerOnboarding                     = "screen_owner_walletconnect_info"
 
+    #warning("TODO: correct ledger onboarding tracking event name after alignment")
+    case ledgerOwnerOnboarding                      = "screen_owner_ledger_info"
+
     case ownerEnterSeed                             = "screen_owner_enter_seed"
     case ownerConfirmPrivateKey                     = "screen_owner_confirm_private_key"
     case ownerSelectAccount                         = "screen_owner_select_account"
