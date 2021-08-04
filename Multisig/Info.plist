@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>APP_GROUP_ID</key>
+	<string>$(APP_GROUP_ID)</string>
 	<key>APP_STORE_REVIEW_URL</key>
 	<string>$(APP_STORE_REVIEW_URL)</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -83,6 +85,8 @@
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Allow Gnosis Safe to connect hardware devices and sign transactions.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Enable Bluetooth to connect your hardware wallet</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Safe need to use camera to scan QR code.</string>
 	<key>NSFaceIDUsageDescription</key>
@@ -183,7 +187,5 @@
 	</array>
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
-	<key>APP_GROUP_ID</key>
-	<string>$(APP_GROUP_ID)</string>
 </dict>
 </plist>
