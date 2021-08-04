@@ -85,16 +85,20 @@ extension SelectLedgerDeviceViewController: BluetoothControllerDelegate {
         // no-op
     }
 
-    func bluetoothControllerDidFailToConnectBluetooth(error: Error) {
+    func bluetoothControllerDidFailToConnectBluetooth(error: DetailedLocalizedError) {
         onSuccess()
+        App.shared.snackbar.show(error: error)
     }
 
     func bluetoothControllerDidDiscover(device: BluetoothDevice) {
         onSuccess()
     }
 
-    func bluetoothControllerDidDisconnect(device: BluetoothDevice, error: Error?) {
+    func bluetoothControllerDidDisconnect(device: BluetoothDevice, error: DetailedLocalizedError?) {
         onSuccess()
+        if let error = error {
+            App.shared.snackbar.show(error: error)
+        }
     }
 
     func bluetoothControllerDataToSend(device: BluetoothDevice) -> Data? {

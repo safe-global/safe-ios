@@ -34,9 +34,9 @@ struct LedgerNanoXDevice: SupportedDevice {
 
 protocol BluetoothControllerDelegate {
     func bluetoothControllerDidReceive(response: Data, device: BluetoothDevice)
-    func bluetoothControllerDidFailToConnectBluetooth(error: Error)
+    func bluetoothControllerDidFailToConnectBluetooth(error: DetailedLocalizedError)
     func bluetoothControllerDidDiscover(device: BluetoothDevice)
-    func bluetoothControllerDidDisconnect(device: BluetoothDevice, error: Error?)
+    func bluetoothControllerDidDisconnect(device: BluetoothDevice, error: DetailedLocalizedError?)
     func bluetoothControllerDataToSend(device: BluetoothDevice) -> Data?
 }
 
@@ -91,7 +91,9 @@ extension BluetoothController: CBCentralManagerDelegate {
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         if let device = deviceFor(peripheral: peripheral) {
-            delegate?.bluetoothControllerDidDisconnect(device: device, error: error)
+            let detailedError: DetailedLocalizedError? = error == nil ? nil :
+                GSError.error(description: "Bluetooth device disconnected", error: error!)
+            delegate?.bluetoothControllerDidDisconnect(device: device, error: detailedError)
         }
         devices.removeAll { p in p.peripheral == peripheral }
     }
