@@ -31,6 +31,7 @@ class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
     }
 
     override func didTapNextButton(_ sender: Any) {
-        #warning("TODO implement navigation to next screen to connect the ledger")
+        let vc = SelectLedgerDeviceViewController()
+        show(vc, sender: self)
     }
 }
