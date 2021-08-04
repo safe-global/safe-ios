@@ -101,6 +101,10 @@ class WCTransactionConfirmationViewController: UIViewController {
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
+
+        #warning("TODO: implement")
+        case .ledgerNanoX:
+            break
         }
     }
 

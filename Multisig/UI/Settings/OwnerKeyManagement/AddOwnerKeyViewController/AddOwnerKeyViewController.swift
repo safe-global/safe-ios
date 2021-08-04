@@ -72,6 +72,10 @@ class AddOwnerKeyViewController: UITableViewController {
 
         case .walletConnect:
             controller = OnboardingConnectOwnerKeyViewController(completion: completion)
+
+        #warning("TODO: finish implementation")
+        case .ledgerNanoX:
+            controller = UIViewController()
         }
         show(controller, sender: self)
     }
