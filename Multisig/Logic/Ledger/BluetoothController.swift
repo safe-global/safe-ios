@@ -41,7 +41,6 @@ protocol BluetoothControllerDelegate {
 }
 
 class BluetoothController: NSObject {
-    static let shared = BluetoothController()
     private var centralManager: CBCentralManager!
     var delegate: BluetoothControllerDelegate?
 
@@ -51,12 +50,9 @@ class BluetoothController: NSObject {
     private var supportedDeviceUUIDs: [CBUUID] { supportedDevices.compactMap { $0.uuid } }
     private var supportedDeviceNotifyUuids: [CBUUID] { supportedDevices.compactMap { $0.notifyUuid } }
 
-    override init() {
-        super.init()
-    }
-
-    func scan(devices: [SupportedDevice] = [LedgerNanoXDevice()]) {
-        supportedDevices = devices
+    func scan(supportedDevices: [SupportedDevice] = [LedgerNanoXDevice()]) {
+        devices = []
+        self.supportedDevices = supportedDevices
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
 
