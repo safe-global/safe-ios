@@ -13,7 +13,8 @@ class AddOwnerKeyViewController: UITableViewController {
 
     private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
         (.deviceImported, "Import Existing Key", "Imort an existing key or seed phrase"),
-        (.deviceGenerated, "Create New Key", "Create a new key that you can use as owner of your Gnosis Safe")
+        (.deviceGenerated, "Create New Key", "Create a new key that you can use as owner of your Gnosis Safe"),
+        (.ledgerNanoX, "Connect Ledger Wallet", "Add a key from your hardware wallet")
     ]
 
     convenience init(completion: @escaping () -> Void) {
@@ -75,7 +76,7 @@ class AddOwnerKeyViewController: UITableViewController {
 
         #warning("TODO: finish implementation")
         case .ledgerNanoX:
-            controller = UIViewController()
+            controller = SelectLedgerDeviceViewController()
         }
         show(controller, sender: self)
     }

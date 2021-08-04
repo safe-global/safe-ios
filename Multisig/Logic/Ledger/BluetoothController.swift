@@ -9,6 +9,29 @@
 import Foundation
 import CoreBluetooth
 
+struct BluetoothDevice {
+    let peripheral: CBPeripheral
+    var name: String {
+        peripheral.name ?? "Unknown device"
+    }
+
+    var readCharacteristic: CBCharacteristic? = nil
+    var writeCharacteristic: CBCharacteristic? = nil
+    var notifyCharacteristic: CBCharacteristic? = nil
+}
+
+protocol SupportedDevice {
+    var uuid: CBUUID { get }
+    var notifyUuid: CBUUID { get }
+    var writeUuid: CBUUID { get }
+}
+
+struct LedgerNanoXDevice: SupportedDevice {
+    var uuid: CBUUID { CBUUID(string: "13d63400-2c97-0004-0000-4c6564676572") }
+    var notifyUuid: CBUUID { CBUUID(string: "13D63400-2C97-0004-0001-4C6564676572") }
+    var writeUuid: CBUUID { CBUUID(string: "13d63400-2c97-0004-0002-4c6564676572") }
+}
+
 protocol BluetoothControllerDelegate {
     func bluetoothControllerDidReceive(response: Data, device: BluetoothDevice)
     func bluetoothControllerDidFailToConnectBluetooth(error: Error)
@@ -22,8 +45,9 @@ class BluetoothController: NSObject {
     private var centralManager: CBCentralManager!
     var delegate: BluetoothControllerDelegate?
 
-    private var devices: [BluetoothDevice] = []
-    private var supportedDevices: [DeviceConstant] = []
+    var devices: [BluetoothDevice] = []
+
+    private var supportedDevices: [SupportedDevice] = []
     private var supportedDeviceUUIDs: [CBUUID] { supportedDevices.compactMap { $0.uuid } }
     private var supportedDeviceNotifyUuids: [CBUUID] { supportedDevices.compactMap { $0.notifyUuid } }
 
@@ -31,7 +55,7 @@ class BluetoothController: NSObject {
         super.init()
     }
 
-    func scan(devices: [DeviceConstant] = [.ledgerNanoX]) {
+    func scan(devices: [SupportedDevice] = [LedgerNanoXDevice()]) {
         supportedDevices = devices
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
@@ -137,23 +161,4 @@ extension BluetoothController: CBPeripheralDelegate {
     private func indexFor(peripheral: CBPeripheral) -> Int? {
         devices.firstIndex{ p in p.peripheral == peripheral }
     }
-}
-
-struct BluetoothDevice {
-    let peripheral: CBPeripheral
-    var name: String {
-        peripheral.name ?? "Unknown device"
-    }
-
-    var readCharacteristic: CBCharacteristic? = nil
-    var writeCharacteristic: CBCharacteristic? = nil
-    var notifyCharacteristic: CBCharacteristic? = nil
-}
-
-enum DeviceConstant {
-    case ledgerNanoX
-
-    var uuid: CBUUID { CBUUID(string: "13d63400-2c97-0004-0000-4c6564676572") }
-    var notifyUuid: CBUUID { CBUUID(string: "13D63400-2C97-0004-0001-4C6564676572") }
-    var writeUuid: CBUUID { CBUUID(string: "13d63400-2c97-0004-0002-4c6564676572") }
 }
