@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Version
 
 fileprivate protocol SectionItem {}
 
@@ -67,18 +68,28 @@ class AdvancedSafeSettingsViewController: UITableViewController {
     }
 
     private func buildSections() {
-        sections = [
+        sections = []
+
+        sections.append(
             (section: .fallbackHandler("FALLBACK HANDLER"),
              items: [Section.FallbackHandler.fallbackHandler(safe.fallbackHandlerInfo),
-                     Section.FallbackHandler.fallbackHandlerHelpLink]),
+                     Section.FallbackHandler.fallbackHandlerHelpLink])
+        )
 
-            (section: .guardInfo("GUARD"),
-             items: [Section.GuardInfo.guardInfo(safe.guardInfo),
-                     Section.GuardInfo.guardInfoHelpLink]),
+        if let contractVersion = safe.contractVersion,
+           let version = Version(contractVersion),
+           version >= Version(1, 3, 0) {
+            sections.append(
+                (section: .guardInfo("GUARD"),
+                 items: [Section.GuardInfo.guardInfo(safe.guardInfo),
+                         Section.GuardInfo.guardInfoHelpLink])
+            )
+        }
 
+        sections.append(
             (section: .nonce("NONCE"),
              items: [Section.Nonce.nonce(safe.nonce?.description ?? "0")])
-        ]
+        )
 
         if let modules = safe.modulesInfo, !modules.isEmpty {
             sections.append((section: .modules("ADDRESSES OF ENABLED MODULES"),
