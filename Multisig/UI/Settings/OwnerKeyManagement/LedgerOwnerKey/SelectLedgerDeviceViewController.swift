@@ -11,6 +11,10 @@ import UIKit
 class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     private let bluetoothController = BluetoothController()
 
+    /// If a Bluetooth device is not found within the time limit, we show empty results page
+    private let searchTimeLimit: TimeInterval = 20
+    private var searchTimer: Timer?
+
     override var isEmpty: Bool { bluetoothController.devices.isEmpty }
 
     convenience init() {
@@ -32,7 +36,6 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
         tableView.backgroundColor = .primaryBackground
 
         loadingView.set(title: "Searching for Ledger Nano X devices")
-        loadingView.set(backgroundColor: .white)
 
         emptyView.setText("No Ledger Nano X device found. Please make sure your Ledger Nano X is unlocked, Bluetooth is enabled, and the Ethereum app is installed and opened.")
         emptyView.setImage(UIImage(named: "enable-ledger")!)
@@ -42,6 +45,15 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
         super.reloadData()
 
         bluetoothController.scan()
+        searchTimer = Timer.scheduledTimer(withTimeInterval: searchTimeLimit, repeats: false) { [weak self] _ in
+            self?.bluetoothController.stopScan()
+            self?.onSuccess()
+        }
+    }
+
+    override func onSuccess() {
+        super.onSuccess()
+        searchTimer?.invalidate()
     }
 
     // MARK: - Table view data source
@@ -52,11 +64,9 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let device = bluetoothController.devices[indexPath.row]
-        let cell = tableView.dequeueCell(BasicCell.self)
-        cell.setTitle(device.name)
+        let cell = tableView.basicCell(name: device.name, indexPath: indexPath)
         return cell
     }
-
 
     // MARK: - Table view delegate
 
@@ -72,7 +82,7 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
 
 extension SelectLedgerDeviceViewController: BluetoothControllerDelegate {
     func bluetoothControllerDidReceive(response: Data, device: BluetoothDevice) {
-        // do noth
+        // no-op
     }
 
     func bluetoothControllerDidFailToConnectBluetooth(error: Error) {

@@ -21,8 +21,4 @@ class LoadingView: UINibView {
     func set(title: String) {
         titleLabel.text = title
     }
-
-    func set(backgroundColor: UIColor) {
-        self.backgroundColor = backgroundColor
-    }
 }
