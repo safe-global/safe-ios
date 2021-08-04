@@ -30,10 +30,6 @@ extension KeyInfo {
         set { type = Int16(newValue.rawValue) }
     }
 
-    var hasPrivateKey: Bool {
-        (try? privateKey()) != nil
-	}
-
     var displayName: String {
         name ?? "Key \(address.ellipsized())"
     }
