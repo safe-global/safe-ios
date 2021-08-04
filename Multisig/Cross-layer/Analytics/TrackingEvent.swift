@@ -14,6 +14,7 @@ enum TrackingUserProperty: String, UserProperty {
     case numKeysImported = "num_keys_imported" // string, number of keys imported, "0" on fresh install
     case numKeysGenerated = "num_keys_generated" // string, number of keys generated, "0" on fresh install
     case numKeysWalletConnect = "num_keys_walletconnect" // string, number of WalletConnect keys, "0" on fresh install
+    case numKeysLedgerNanoX = "num_keys_ledger_nano_x" // string, number of Ledger Nano X keys, "0" on fresh install
     case passcodeIsSet = "passcode_is_set" // string, "true" or "false" depending on if app passcode is set
     case walletConnectForDappsEnabled = "wc_for_dapps_enabled" // string, "true" or "false"
     case walletConnectForKeysEnabled = "wc_for_keys_enabled" // string, "true" or "false"
@@ -51,8 +52,10 @@ enum TrackingEvent: String, Trackable {
     case transactionDetailsActionList               = "screen_transaction_details_action_list"
     case transactionDetailsTransactionConfirmed     = "user_transaction_confirmed"
     case transactionDetailsTxConfirmedWC            = "user_transaction_confirmed_walletconnect"
+    case transactionDetailsTxConfirmedLedgerNanoX   = "user_transaction_confirmed_ledger_nano_x"
     case transactionDetailsTransactionRejected      = "user_transaction_rejected"
     case transactionDetailsTxRejectedWC             = "user_transaction_rejected_walletconnect"
+    case transactionDetailsTxRejectedLedgerNanoX    = "user_transaction_rejected_ledger_nano_x"
     case transactionDetailsTxExecutedWC             = "user_transaction_executed_walletconnect"
 
     case dapps                                      = "screen_dapps"

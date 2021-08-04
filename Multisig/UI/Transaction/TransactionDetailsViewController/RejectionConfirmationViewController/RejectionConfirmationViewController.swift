@@ -114,6 +114,10 @@ class RejectionConfirmationViewController: UIViewController {
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
+
+        #warning("TODO: implement")
+        case .ledgerNanoX:
+            break
         }
     }
 
@@ -161,6 +165,8 @@ class RejectionConfirmationViewController: UIViewController {
                             Tracker.trackEvent(.transactionDetailsTransactionRejected)
                         case .walletConnect:
                             Tracker.trackEvent(.transactionDetailsTxRejectedWC)
+                        case .ledgerNanoX:
+                            Tracker.trackEvent(.transactionDetailsTxRejectedLedgerNanoX)
                         }
 
                         App.shared.snackbar.show(message: "Rejection successfully submitted")
