@@ -11,28 +11,24 @@ import Foundation
 /// Application Protocol Data Unit
 /// https://blog.ledger.com/btchip-doc/bitcoin-technical.html#_lifecycle_management_apdus
 /// https://gist.github.com/Wollac/49f0c4e318e42f463b8306298dfb4f4a
-class APDUHandler {
-    static let shared = APDUHandler()
+class APDUController {
+    static private let tagID: UInt8 = 0x05
 
-    private init() { }
-
-    private let tagID: UInt8 = 0x05
-
-    func sendADPU(message: Data) -> Data {
+    static func prepareADPU(message: Data) -> Data {
         var data = Data()
         data.append(tagID)
         data.append(UInt8(0x00))
         data.append(UInt8(0x00))
 
         let array = withUnsafeBytes(of: Int16(message.count).bigEndian, Array.init)
-        array.forEach{ x in data.append(x) }
+        array.forEach { x in data.append(x) }
 
         data.append(message)
 
         return data
     }
 
-    func parseADPU(message: Data) throws -> Data? {
+    static func parseADPU(message: Data) throws -> Data? {
         guard message.count > 6, Int8(message[0]) == tagID else {
             throw GSError.LedgerAPDUResponseError()
         }

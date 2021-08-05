@@ -8,10 +8,29 @@
 
 import Foundation
 
-class LedgerCommandController {
-    static func getAddressCommand(path: String,
-                                  displayVerificationDialog: Bool = true,
-                                  chainCode: Bool = false) -> Data {
+class LedgerController {
+    let bluetoothController: BluetoothController
+
+    init(bluetoothController: BluetoothController) {
+        self.bluetoothController = bluetoothController
+    }
+
+    func getAddress(deviceId: UUID, completion: @escaping (Address?) -> Void) {
+        guard let device = bluetoothController.deviceFor(deviceId: deviceId) else {
+            completion(nil)
+            return
+        }
+        let command = getAddressCommand(path: /*"44'/60'/0'/0'/0"*/ HDNode.defaultPathMetamask)
+        bluetoothController.sendCommand(device: device, command: command) { data in
+
+            print("Parsed response data: \(data.toHexString())")
+            completion(nil)
+        }
+    }
+
+    private func getAddressCommand(path: String,
+                                   displayVerificationDialog: Bool = true,
+                                   chainCode: Bool = false) -> Data {
         let paths = splitPath(path: path)
 
         var command = Data()
@@ -32,7 +51,7 @@ class LedgerCommandController {
         return command
     }
 
-    static func signMessage(path: String, message: String) throws -> Data {
+    private func signMessage(path: String, message: String) throws -> Data {
         let paths = splitPath(path: path)
         var command = Data()
         var pathsData = Data()
@@ -66,7 +85,7 @@ class LedgerCommandController {
         return command
     }
 
-    static func parseGetAddress(data: Data) throws -> (publicKey: Data, address: String) {
+    private func parseGetAddress(data: Data) throws -> (publicKey: Data, address: String) {
         guard data.count > 5 else {
             throw GSError.LedgerResponseError()
         }
@@ -89,7 +108,7 @@ class LedgerCommandController {
         return (publicKey, String(data: address, encoding: .ascii)!)
     }
 
-    static func parseSignMessage(data: Data) throws -> (v: Data, r: Data, s: Data) {
+    private func parseSignMessage(data: Data) throws -> (v: Data, r: Data, s: Data) {
         guard data.count == 65 else {
             throw GSError.LedgerResponseError()
         }
@@ -101,7 +120,7 @@ class LedgerCommandController {
         return (v, r, s)
     }
 
-    private static func splitPath(path: String) -> [UInt32] {
+    private func splitPath(path: String) -> [UInt32] {
         var result: [UInt32] = []
         let components = path.components(separatedBy: "/")
         components.forEach { component in

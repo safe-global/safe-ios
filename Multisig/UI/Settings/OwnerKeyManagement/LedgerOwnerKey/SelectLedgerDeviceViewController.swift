@@ -10,6 +10,7 @@ import UIKit
 
 class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     private let bluetoothController = BluetoothController()
+    private lazy var ledgerController = { LedgerController(bluetoothController: bluetoothController) }()
 
     /// If a Bluetooth device is not found within the time limit, we show empty results page
     private let searchTimeLimit: TimeInterval = 20
@@ -70,6 +71,13 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
 
     // MARK: - Table view delegate
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let device = bluetoothController.devices[indexPath.row]
+        ledgerController.getAddress(deviceId: device.peripheral.identifier) { addressOrNil in
+            print("Address: \(addressOrNil)")
+        }
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if !isEmpty {
             let tableHeaderView = TableHeaderView()
@@ -81,10 +89,6 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
 }
 
 extension SelectLedgerDeviceViewController: BluetoothControllerDelegate {
-    func bluetoothControllerDidReceive(response: Data, device: BluetoothDevice) {
-        // no-op
-    }
-
     func bluetoothControllerDidFailToConnectBluetooth(error: DetailedLocalizedError) {
         onSuccess()
         App.shared.snackbar.show(error: error)
@@ -99,9 +103,5 @@ extension SelectLedgerDeviceViewController: BluetoothControllerDelegate {
         if let error = error {
             App.shared.snackbar.show(error: error)
         }
-    }
-
-    func bluetoothControllerDataToSend(device: BluetoothDevice) -> Data? {
-        nil
     }
 }
