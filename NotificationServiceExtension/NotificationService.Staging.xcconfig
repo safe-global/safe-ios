@@ -12,3 +12,4 @@
 #include "NotificationService.Config.xcconfig"
 
 SERVICE_ENV = STAGING
+CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension_STAGING.entitlements

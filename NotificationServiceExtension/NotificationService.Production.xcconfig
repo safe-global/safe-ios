@@ -12,3 +12,4 @@
 #include "NotificationService.Config.xcconfig"
 
 SERVICE_ENV = PROD
+CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension_PROD.entitlements
