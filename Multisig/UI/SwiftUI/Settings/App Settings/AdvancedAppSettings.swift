@@ -15,11 +15,6 @@ struct AdvancedAppSettings: View {
 
     var body: some View {
         List {
-            Section(header: SectionHeader("ENDPOINTS")) {
-                KeyValueRow("Client Gateway service",
-                            value: DisplayURL(App.shared.clientGatewayService.url).absoluteString)
-            }
-
             Section(header: SectionHeader("TRACKING")) {
                 ToggleTrackingRow()
             }
