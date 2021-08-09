@@ -12,3 +12,4 @@
 #include "Config.xcconfig"
 
 SERVICE_ENV = PROD
+CODE_SIGN_ENTITLEMENTS = Multisig_PROD.entitlements
