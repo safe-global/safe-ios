@@ -72,9 +72,16 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
     // MARK: - Table view delegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let device = bluetoothController.devices[indexPath.row]
-        ledgerController.getAddress(deviceId: device.peripheral.identifier) { addressOrNil in
-            print("Address: \(addressOrNil)")
+        ledgerController.getAddress(deviceId: device.peripheral.identifier, at: 0) { [weak self] addressOrNil in
+            guard let address = addressOrNil else {
+                let alert = UIAlertController(title: "Address Not Found", message: "Please open Ethereum App on your Ledger device.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self?.present(alert, animated: true, completion: nil)
+                return
+            }
+            print("Address: \(address)")
         }
     }
 

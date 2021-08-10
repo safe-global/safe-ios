@@ -50,7 +50,7 @@ class BluetoothController: NSObject {
     typealias WriteCommand = () -> Void
     private var writeCommands = [UUID: WriteCommand]()
 
-    typealias ResponseCompletion = (Data) -> Void
+    typealias ResponseCompletion = (Result<Data, Error>) -> Void
     private var responses = [UUID: ResponseCompletion]()
 
 
@@ -111,7 +111,7 @@ extension BluetoothController: CBCentralManagerDelegate {
         delegate?.bluetoothControllerDidDisconnect(device: device, error: detailedError)
     }
 
-    func sendCommand(device: BluetoothDevice, command: Data, completion: @escaping (Data) -> Void) {
+    func sendCommand(device: BluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
         centralManager.connect(device.peripheral, options: nil)
         writeCommands[device.peripheral.identifier] = { [weak self] in
             let adpuData = APDUController.prepareADPU(message: command)
@@ -148,24 +148,30 @@ extension BluetoothController: CBPeripheralDelegate {
 
                 if let writeCommand = writeCommands[peripheral.identifier] {
                     writeCommand()
-                    writeCommands[peripheral.identifier] = nil
+                    writeCommands.removeValue(forKey: peripheral.identifier)
                 }
             }
         }
     }
 
-    #warning("TODO: throw proper error")
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        if let error = error {
-            LogService.shared.error("Failed to connect with bluetooth device", error: error)
-        }
-
         if supportedDeviceNotifyUuids.contains(characteristic.uuid) {
-            if let message = characteristic.value,
-               let data = try? APDUController.parseADPU(message: message),
-               let responseCompletion = responses[peripheral.identifier] {
-                responseCompletion(data)
+            // skip if response is not awaited anymore
+            guard let responseCompletion = responses[peripheral.identifier] else { return }
+
+            if let error = error {
+                LogService.shared.info("Failed to connect with bluetooth device", error: error)
+                responseCompletion(.failure(error))
             }
+            if let message = characteristic.value, let data = APDUController.parseADPU(message: message) {
+                responseCompletion(.success(data))
+            } else {
+                LogService.shared.error(
+                    "Could not parse ADPU for message: \(characteristic.value?.toHexString() ?? "nil")")
+                responseCompletion(.failure(""))
+            }
+            
+            responses.removeValue(forKey: peripheral.identifier)
         }
     }
 }

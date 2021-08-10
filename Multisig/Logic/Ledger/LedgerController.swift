@@ -15,21 +15,28 @@ class LedgerController {
         self.bluetoothController = bluetoothController
     }
 
-    func getAddress(deviceId: UUID, completion: @escaping (Address?) -> Void) {
+    func getAddress(deviceId: UUID, at index: Int, completion: @escaping (Address?) -> Void) {
         guard let device = bluetoothController.deviceFor(deviceId: deviceId) else {
             completion(nil)
             return
         }
-        let command = getAddressCommand(path: /*"44'/60'/0'/0'/0"*/ HDNode.defaultPathMetamask)
-        bluetoothController.sendCommand(device: device, command: command) { data in
-
-            print("Parsed response data: \(data.toHexString())")
-            completion(nil)
+        let command = getAddressCommand(path: "44'/60'/0'/0/\(index)")
+        bluetoothController.sendCommand(device: device, command: command) { [weak self] result in
+            switch result {
+            case .success(let data):
+                guard let address = self?.parseGetAddress(data: data) else {
+                    completion(nil)
+                    return
+                }
+                completion(Address(address))
+            case .failure(_):
+                completion(nil)
+            }
         }
     }
 
     private func getAddressCommand(path: String,
-                                   displayVerificationDialog: Bool = true,
+                                   displayVerificationDialog: Bool = false,
                                    chainCode: Bool = false) -> Data {
         let paths = splitPath(path: path)
 
@@ -37,7 +44,7 @@ class LedgerController {
         var pathsData = Data()
         paths.forEach({ element in
                         let array = withUnsafeBytes(of: element.bigEndian, Array.init)
-                        array.forEach{ x in pathsData.append(x) } })
+                        array.forEach { x in pathsData.append(x) } })
 
         command.append(UInt8(0xe0))
         command.append(UInt8(0x02))
@@ -77,41 +84,28 @@ class LedgerController {
         command.append(UInt8(data.count))
         command.append(data)
 
-        // Command length should be 150 bytes length otherwise we should split it into chuncks
+        // Command length should be 150 bytes length otherwise we should split
+        // it into chuncks. As we sign hashes we should be fine for now.
         guard command.count <= 150 else {
-            throw GSError.LedgerCommandError()
+            preconditionFailure("Wrong length of message for signing")
         }
 
         return command
     }
 
-    private func parseGetAddress(data: Data) throws -> (publicKey: Data, address: String) {
-        guard data.count > 5 else {
-            throw GSError.LedgerResponseError()
-        }
+    private func parseGetAddress(data: Data) -> String? {
+        guard data.count == 109,
+              Int(data[5]) == 65, // public key length
+              Int(data[71]) == 40 // address length
+        else { return nil }
 
-        let publicKeyLength = Int(data[5])
+        let address = data[(6 + 65 + 1)..<(6 + 65 + 1 + 40)]
 
-        guard data.count > 5 + publicKeyLength else {
-            throw GSError.LedgerResponseError()
-        }
-
-        let addressLength = Int(data[6 + publicKeyLength])
-
-        guard data.count == 2 + publicKeyLength + addressLength else {
-            throw GSError.LedgerResponseError()
-        }
-
-        let publicKey = data[6..<publicKeyLength]
-        let address = data[6 + publicKeyLength + 1..<6 + publicKeyLength + 1 + addressLength]
-
-        return (publicKey, String(data: address, encoding: .ascii)!)
+        return String(data: address, encoding: .ascii)
     }
 
-    private func parseSignMessage(data: Data) throws -> (v: Data, r: Data, s: Data) {
-        guard data.count == 65 else {
-            throw GSError.LedgerResponseError()
-        }
+    private func parseSignMessage(data: Data) throws -> (v: Data, r: Data, s: Data)? {
+        guard data.count == 65 else { return nil }
 
         let v = data[0..<1]
         let r = data[1...32]
