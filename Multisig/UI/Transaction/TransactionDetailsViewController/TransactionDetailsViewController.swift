@@ -382,6 +382,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         super.reloadData()
         reloadDataTask?.cancel()
 
+        // delete all app triggers update cycle
+        guard safe != nil && safe.chain != nil else { return }
+
         switch txSource {
         case .id(let txID):
             reloadDataTask = clientGatewayService.asyncTransactionDetails(id: txID, chainId: safe.chain!.id!) {
