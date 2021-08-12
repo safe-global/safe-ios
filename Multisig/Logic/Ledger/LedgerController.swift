@@ -15,20 +15,31 @@ class LedgerController {
         self.bluetoothController = bluetoothController
     }
 
-    func getAddress(deviceId: UUID, at index: Int, completion: @escaping (Address?) -> Void) {
+    struct LedgerInfo {
+        let address: Address
+        let path: String
+        let name: String
+    }
+
+    typealias LedgerKeyInfoCompletion = (LedgerInfo?) -> Void
+
+    func getAddress(deviceId: UUID, at index: Int, completion: @escaping LedgerKeyInfoCompletion) {
         guard let device = bluetoothController.deviceFor(deviceId: deviceId) else {
             completion(nil)
             return
         }
-        let command = getAddressCommand(path: "44'/60'/0'/0/\(index)")
+        let path = "44'/60'/0'/0/\(index)"
+        let command = getAddressCommand(path: path)
         bluetoothController.sendCommand(device: device, command: command) { [weak self] result in
             switch result {
             case .success(let data):
-                guard let address = self?.parseGetAddress(data: data) else {
+                guard let addressString = self?.parseGetAddress(data: data),
+                      let address =  Address(addressString) else {
                     completion(nil)
                     return
                 }
-                completion(Address(address))
+                let ledgerInfo = LedgerInfo(address: address, path: path, name: "Ledger key #\(index)")
+                completion(ledgerInfo)
             case .failure(_):
                 completion(nil)
             }

@@ -138,6 +138,11 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
             return
         }
 
+        if keyInfo.keyType == .ledgerNanoX {
+            completionHandler?(keyInfo)
+            return
+        }
+
         if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForConfirmation) {
             let vc = EnterPasscodeViewController()
             vc.passcodeCompletion = { [weak self] success in

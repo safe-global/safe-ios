@@ -33,6 +33,8 @@ class OwnerKeyController {
         }
     }
 
+    /// Import WalletConnect key
+    @discardableResult
     static func importKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
         do {
             try KeyInfo.import(session: session, installedWallet: installedWallet)
@@ -51,6 +53,26 @@ class OwnerKeyController {
                 App.shared.snackbar.show(error: err)
             } else {
                 let err = GSError.error(description: "Failed to add WalletConnect owner", error: error)
+                App.shared.snackbar.show(error: err)
+            }
+            return false
+        }
+    }
+
+    /// Import Ledger Nano X key
+    @discardableResult
+    static func importKey(ledgerDeviceUUID: UUID, path: String, address: Address, name: String) -> Bool {
+        do {
+            try KeyInfo.import(ledgerDeviceUUID: ledgerDeviceUUID, path: path, address: address, name: name)
+            Tracker.setNumKeys(KeyInfo.count(.ledgerNanoX), type: .ledgerNanoX)
+            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+            Tracker.trackEvent(.ledgerKeyImported)
+            return true
+        } catch {
+            if let err = error as? GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType {
+                App.shared.snackbar.show(error: err)
+            } else {
+                let err = GSError.error(description: "Failed to add Ledger owner", error: error)
                 App.shared.snackbar.show(error: err)
             }
             return false
