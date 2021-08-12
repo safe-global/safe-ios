@@ -214,6 +214,7 @@ extension Safe: Identifiable {
 
     static func removeAll() throws {
         Chain.removeAll()
+        NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
     }
 }
 
