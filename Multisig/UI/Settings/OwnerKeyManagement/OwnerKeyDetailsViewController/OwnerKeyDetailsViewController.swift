@@ -32,7 +32,7 @@ class OwnerKeyDetailsViewController: UIViewController {
 
         navigationItem.title = "Owner Key"
 
-        if keyInfo.keyType != .walletConnect {
+        if [KeyType.deviceImported, .deviceGenerated].contains(keyInfo.keyType) {
             exportButton = UIBarButtonItem(title: "Export", style: .done, target: self, action: #selector(didTapExportButton))
             navigationItem.rightBarButtonItem = exportButton
         }

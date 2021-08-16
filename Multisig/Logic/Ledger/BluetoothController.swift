@@ -9,7 +9,8 @@
 import Foundation
 import CoreBluetooth
 
-struct BluetoothDevice {
+// should be class
+class BluetoothDevice {
     let peripheral: CBPeripheral
     var name: String {
         peripheral.name ?? "Unknown device"
@@ -18,6 +19,10 @@ struct BluetoothDevice {
     var readCharacteristic: CBCharacteristic? = nil
     var writeCharacteristic: CBCharacteristic? = nil
     var notifyCharacteristic: CBCharacteristic? = nil
+
+    init(peripheral: CBPeripheral) {
+        self.peripheral = peripheral
+    }
 }
 
 protocol SupportedDevice {
@@ -32,17 +37,22 @@ struct LedgerNanoXDevice: SupportedDevice {
     var writeUuid: CBUUID { CBUUID(string: "13d63400-2c97-0004-0002-4c6564676572") }
 }
 
-protocol BluetoothControllerDelegate {
-    func bluetoothControllerDidReceive(response: Data, device: BluetoothDevice)
+protocol BluetoothControllerDelegate: AnyObject {
     func bluetoothControllerDidFailToConnectBluetooth(error: DetailedLocalizedError)
     func bluetoothControllerDidDiscover(device: BluetoothDevice)
     func bluetoothControllerDidDisconnect(device: BluetoothDevice, error: DetailedLocalizedError?)
-    func bluetoothControllerDataToSend(device: BluetoothDevice) -> Data?
 }
 
 class BluetoothController: NSObject {
     private var centralManager: CBCentralManager!
-    var delegate: BluetoothControllerDelegate?
+    weak var delegate: BluetoothControllerDelegate?
+
+    typealias WriteCommand = () -> Void
+    private var writeCommands = [UUID: WriteCommand]()
+
+    typealias ResponseCompletion = (Result<Data, Error>) -> Void
+    private var responses = [UUID: ResponseCompletion]()
+
 
     var devices: [BluetoothDevice] = []
 
@@ -58,6 +68,10 @@ class BluetoothController: NSObject {
 
     func stopScan() {
         centralManager.stopScan()
+    }
+
+    func deviceFor(deviceId: UUID) -> BluetoothDevice? {
+        devices.first { p in p.peripheral.identifier == deviceId }
     }
 }
 
@@ -75,7 +89,7 @@ extension BluetoothController: CBCentralManagerDelegate {
                         didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any],
                         rssi RSSI: NSNumber) {
-        if deviceFor(peripheral: peripheral) == nil {
+        if deviceFor(deviceId: peripheral.identifier) == nil {
             let device = BluetoothDevice(peripheral: peripheral)
             devices.append(device)
             delegate?.bluetoothControllerDidDiscover(device: device)
@@ -90,12 +104,20 @@ extension BluetoothController: CBCentralManagerDelegate {
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        if let device = deviceFor(peripheral: peripheral) {
-            let detailedError: DetailedLocalizedError? = error == nil ? nil :
-                GSError.error(description: "Bluetooth device disconnected", error: error!)
-            delegate?.bluetoothControllerDidDisconnect(device: device, error: detailedError)
-        }
+        guard let device = deviceFor(deviceId: peripheral.identifier) else { return }
+        let detailedError: DetailedLocalizedError? =
+            error == nil ? nil : GSError.error(description: "AR Bluetooth device disconnected", error: error!)
         devices.removeAll { p in p.peripheral == peripheral }
+        delegate?.bluetoothControllerDidDisconnect(device: device, error: detailedError)
+    }
+
+    func sendCommand(device: BluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
+        centralManager.connect(device.peripheral, options: nil)
+        writeCommands[device.peripheral.identifier] = { [weak self] in
+            let adpuData = APDUController.prepareADPU(message: command)
+            self?.responses[device.peripheral.identifier] = completion
+            device.peripheral.writeValue(adpuData, for: device.writeCharacteristic!, type: .withResponse)
+        }
     }
 }
 
@@ -112,51 +134,44 @@ extension BluetoothController: CBPeripheralDelegate {
         for characteristic in characteristics {
             if characteristic.properties.contains(.read) {
                 peripheral.readValue(for: characteristic)
-                devices[indexFor(peripheral: peripheral)!].readCharacteristic = characteristic
+                deviceFor(deviceId: peripheral.identifier)!.readCharacteristic = characteristic
             }
 
             if characteristic.properties.contains(.notify) {
                 peripheral.setNotifyValue(true, for: characteristic)
-                devices[indexFor(peripheral: peripheral)!].notifyCharacteristic = characteristic
+                deviceFor(deviceId: peripheral.identifier)!.notifyCharacteristic = characteristic
             }
 
             if characteristic.properties.contains(.write) {
                 peripheral.setNotifyValue(true, for: characteristic)
-                devices[indexFor(peripheral: peripheral)!].writeCharacteristic = characteristic
-                if let data = delegate?.bluetoothControllerDataToSend(device: devices[indexFor(peripheral: peripheral)!]) {
-                    peripheral.writeValue(data, for: characteristic, type: .withResponse)
+                deviceFor(deviceId: peripheral.identifier)!.writeCharacteristic = characteristic
+
+                if let writeCommand = writeCommands[peripheral.identifier] {
+                    writeCommand()
+                    writeCommands.removeValue(forKey: peripheral.identifier)
                 }
             }
         }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        if let error = error {
-            LogService.shared.error("Failed to connect with bluetooth device", error: error)
-        }
-
         if supportedDeviceNotifyUuids.contains(characteristic.uuid) {
-            if let data = characteristic.value {
-                delegate?.bluetoothControllerDidReceive(response: data,
-                                                        device: devices[indexFor(peripheral: peripheral)!])
+            // skip if response is not awaited anymore
+            guard let responseCompletion = responses[peripheral.identifier] else { return }
+
+            if let error = error {
+                LogService.shared.info("Failed to connect with bluetooth device", error: error)
+                responseCompletion(.failure(error))
             }
+            if let message = characteristic.value, let data = APDUController.parseADPU(message: message) {
+                responseCompletion(.success(data))
+            } else {
+                LogService.shared.error(
+                    "Could not parse ADPU for message: \(characteristic.value?.toHexString() ?? "nil")")
+                responseCompletion(.failure(""))
+            }
+            
+            responses.removeValue(forKey: peripheral.identifier)
         }
-    }
-
-    private func write(device: BluetoothDevice, data: Data) {
-        guard let writeCharacteristic = device.writeCharacteristic else { return }
-        device.peripheral.writeValue(data, for: writeCharacteristic, type: .withResponse)
-    }
-
-    func sendCommand(device: BluetoothDevice) {
-        centralManager.connect(device.peripheral, options: nil)
-    }
-
-    private func deviceFor(peripheral: CBPeripheral) -> BluetoothDevice? {
-        devices.first { p in p.peripheral == peripheral }
-    }
-
-    private func indexFor(peripheral: CBPeripheral) -> Int? {
-        devices.firstIndex{ p in p.peripheral == peripheral }
     }
 }

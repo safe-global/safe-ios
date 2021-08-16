@@ -47,7 +47,7 @@ class ConnectWalletViewController: UITableViewController {
         waitingForSession = false
 
         DispatchQueue.main.sync { [unowned self] in
-            _ = OwnerKeyController.importKey(session: session, installedWallet: walletPerTopic[session.url.topic])
+            OwnerKeyController.importKey(session: session, installedWallet: walletPerTopic[session.url.topic])
             self.completion()
         }
     }
