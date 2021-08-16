@@ -9,8 +9,6 @@
 import UIKit
 
 class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
-    var ledgerController: LedgerController?
-
     convenience init(completion: @escaping () -> Void) {
         #warning("TODO: change image for 'Pair your Ledger device' onboarding card")
         self.init(
@@ -44,8 +42,8 @@ extension OnboardingLedgerKeyViewController: SelectLedgerDeviceDelegate {
                                           didSelectDevice deviceId: UUID,
                                           bluetoothController: BluetoothController) {
 
-        ledgerController = LedgerController(bluetoothController: bluetoothController)
-        ledgerController!.getAddress(deviceId: deviceId, at: 10) { [weak controller] ledgerInfoOrNil in
+        let ledgerController = LedgerController(bluetoothController: bluetoothController)
+        ledgerController.getAddress(deviceId: deviceId, at: 10) { [weak controller] ledgerInfoOrNil in
             guard let ledgerInfo = ledgerInfoOrNil else {
                 let alert = UIAlertController(title: "Address Not Found", message: "Please open Ethereum App on your Ledger device.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

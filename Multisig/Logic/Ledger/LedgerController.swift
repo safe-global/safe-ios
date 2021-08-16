@@ -30,14 +30,27 @@ class LedgerController {
         }
         let path = "44'/60'/0'/0/\(index)"
         let command = getAddressCommand(path: path)
-        bluetoothController.sendCommand(device: device, command: command) { [weak self] result in
+
+        // We don't use [weak self] with private methods not to capture LedgerController in a caller
+        bluetoothController.sendCommand(device: device, command: command) { result in
             switch result {
             case .success(let data):
-                guard let addressString = self?.parseGetAddress(data: data),
+                guard data.count == 109,
+                      Int(data[5]) == 65, // public key length
+                      Int(data[71]) == 40 // address length
+                else {
+                    completion(nil)
+                    return
+                }
+
+                let addressData = data[(6 + 65 + 1)..<(6 + 65 + 1 + 40)]
+
+                guard let addressString = String(data: addressData, encoding: .ascii),
                       let address =  Address(addressString) else {
                     completion(nil)
                     return
                 }
+
                 let ledgerInfo = LedgerInfo(address: address, path: path, name: "Ledger key #\(index)")
                 completion(ledgerInfo)
             case .failure(_):
@@ -54,16 +67,20 @@ class LedgerController {
             return
         }
         let command = signMessageCommand(path: path, messageHash: safeTxHash)
+
+        // We don't use [weak self] with private methods not to capture LedgerController in a caller
         bluetoothController.sendCommand(device: device, command: command) { result in
             switch result {
             case .success(let data):
                 // https://github.com/LedgerHQ/ledgerjs/blob/c329fe63f6f640a9f4c2f200a788fa845547e81d/packages/hw-app-eth/src/Eth.ts#L468
+
+                // we are interested in the first 65 bytes only
+                guard data.count >= 65 else {
+                    completion(nil)
+                    return
+                }
                 let dataString = data.toHexString()
-                guard dataString.count >= 130 else { return }
-
-                let ledgerV = dataString.substr(0, 2)!
-                let v = String(Int(ledgerV, radix: 16)! + 4, radix: 16)
-
+                let v = String(Int(dataString.substr(0, 2)!, radix: 16)! + 4, radix: 16)
                 let rs = dataString.substr(2, 128)!
                 completion(rs + v)
 
@@ -128,27 +145,6 @@ class LedgerController {
         }
 
         return command
-    }
-
-    private func parseGetAddress(data: Data) -> String? {
-        guard data.count == 109,
-              Int(data[5]) == 65, // public key length
-              Int(data[71]) == 40 // address length
-        else { return nil }
-
-        let address = data[(6 + 65 + 1)..<(6 + 65 + 1 + 40)]
-
-        return String(data: address, encoding: .ascii)
-    }
-
-    private func parseSignMessage(data: Data) throws -> (v: Data, r: Data, s: Data)? {
-        guard data.count == 65 else { return nil }
-
-        let v = data[0..<1]
-        let r = data[1...32]
-        let s = data[33...65]
-
-        return (v, r, s)
     }
 
     private func splitPath(path: String) -> [UInt32] {
