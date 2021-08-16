@@ -46,6 +46,33 @@ class LedgerController {
         }
     }
 
+    typealias SignatureCompletion = (_ signature: String?) -> Void
+
+    func sign(safeTxHash: String, deviceId: UUID, path: String, completion: @escaping SignatureCompletion) {
+        guard let device = bluetoothController.deviceFor(deviceId: deviceId) else {
+            completion(nil)
+            return
+        }
+        let command = signMessageCommand(path: path, messageHash: safeTxHash)
+        bluetoothController.sendCommand(device: device, command: command) { result in
+            switch result {
+            case .success(let data):
+                // https://github.com/LedgerHQ/ledgerjs/blob/c329fe63f6f640a9f4c2f200a788fa845547e81d/packages/hw-app-eth/src/Eth.ts#L468
+                let dataString = data.toHexString()
+                guard dataString.count >= 130 else { return }
+
+                let ledgerV = dataString.substr(0, 2)!
+                let v = String(Int(ledgerV, radix: 16)! + 4, radix: 16)
+
+                let rs = dataString.substr(2, 128)!
+                completion(rs + v)
+
+            case .failure(_):
+                completion(nil)
+            }
+        }
+    }
+
     private func getAddressCommand(path: String,
                                    displayVerificationDialog: Bool = false,
                                    chainCode: Bool = false) -> Data {
@@ -69,24 +96,23 @@ class LedgerController {
         return command
     }
 
-    private func signMessage(path: String, message: String) throws -> Data {
-        let paths = splitPath(path: path)
+    private func signMessageCommand(path: String, messageHash: String) -> Data {
         var command = Data()
-        var pathsData = Data()
-        paths.forEach({ element in
-                        let array = withUnsafeBytes(of: element.bigEndian, Array.init)
-                        array.forEach{ x in pathsData.append(x) } })
-
         command.append(UInt8(0xe0))
         command.append(UInt8(0x08))
         command.append(UInt8(0x00))
         command.append(UInt8(0x00))
 
+        let paths = splitPath(path: path)
+        var pathsData = Data()
+        paths.forEach({ element in
+                        let array = withUnsafeBytes(of: element.bigEndian, Array.init)
+                        array.forEach{ x in pathsData.append(x) } })
         var data = Data()
         data.append(UInt8(paths.count))
         data.append(pathsData)
-        let messageData = message.data(using: .ascii) ?? Data()
 
+        let messageData = Data(hex: messageHash)
         let array = withUnsafeBytes(of: Int32(messageData.count).bigEndian, Array.init)
         array.forEach{ x in data.append(x) }
 
