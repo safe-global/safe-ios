@@ -8,15 +8,22 @@
 
 import UIKit
 
+protocol SelectLedgerDeviceDelegate: AnyObject {
+    func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
+                                          didSelectDevice deviceId: UUID,
+                                          bluetoothController: BluetoothController)
+}
+
 class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     private let bluetoothController = BluetoothController()
-    private lazy var ledgerController = { LedgerController(bluetoothController: bluetoothController) }()
 
     /// If a Bluetooth device is not found within the time limit, we show empty results page
     private let searchTimeLimit: TimeInterval = 20
     private var searchTimer: Timer?
 
     override var isEmpty: Bool { bluetoothController.devices.isEmpty }
+
+    weak var delegate: SelectLedgerDeviceDelegate?
 
     convenience init() {
         self.init(namedClass: Self.superclass())
@@ -74,19 +81,8 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let device = bluetoothController.devices[indexPath.row]
-        ledgerController.getAddress(deviceId: device.peripheral.identifier, at: 0) { [weak self] ledgerInfoOrNil in
-            guard let ledgerInfo = ledgerInfoOrNil else {
-                let alert = UIAlertController(title: "Address Not Found", message: "Please open Ethereum App on your Ledger device.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self?.present(alert, animated: true, completion: nil)
-                return
-            }
-            OwnerKeyController.importKey(ledgerDeviceUUID: device.peripheral.identifier,
-                                         path: ledgerInfo.path,
-                                         address: ledgerInfo.address,
-                                         name: ledgerInfo.name)
-            self?.dismiss(animated: true, completion: nil)
-        }
+        delegate?.selectLedgerDeviceViewController(
+            self, didSelectDevice: device.peripheral.identifier, bluetoothController: bluetoothController)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

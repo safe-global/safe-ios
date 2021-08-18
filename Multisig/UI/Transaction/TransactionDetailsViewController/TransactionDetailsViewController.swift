@@ -35,6 +35,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     private var txSource: TransactionSource!
 
+    private var ledgerKeyInfo: KeyInfo?
+
     convenience init(transactionID: String) {
         self.init(namedClass: Self.superclass())
         txSource = .id(transactionID)
@@ -292,9 +294,11 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
 
-        #warning("TODO: implement")
         case .ledgerNanoX:
-            break
+            ledgerKeyInfo = keyInfo
+            let vc = SelectLedgerDeviceViewController()
+            vc.delegate = self
+            present(vc, animated: true, completion: nil)
         }
     }
 
@@ -455,6 +459,28 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
     }
 
+}
+
+extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
+    func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
+                                          didSelectDevice deviceId: UUID,
+                                          bluetoothController: BluetoothController) {
+
+        guard let tx = tx,
+              let transaction = Transaction(tx: tx),
+              let safeTxHash = transaction.safeTxHash?.description,
+              let ledgerKeyInfo = ledgerKeyInfo,
+              let metadata = ledgerKeyInfo.metadata,
+              let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
+
+        let ledgerController = LedgerController(bluetoothController: bluetoothController)
+        ledgerController.sign(safeTxHash: safeTxHash, deviceId: deviceId, path: ledgerKeyMetadata.path) {
+            [weak self] signature in
+            guard let signature = signature else { return }
+            controller.dismiss(animated: true, completion: nil)
+            self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .ledgerNanoX)
+        }
+    }
 }
 
 extension SCGModels.TransactionDetails {
