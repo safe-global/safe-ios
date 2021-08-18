@@ -79,6 +79,6 @@ class SegmentViewController: ContainerViewController {
 }
 
 struct SegmentBarItem {
-    var image: UIImage
+    var image: UIImage?
     var title: String
 }

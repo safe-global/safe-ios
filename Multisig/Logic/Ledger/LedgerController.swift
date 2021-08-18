@@ -138,8 +138,8 @@ class LedgerController {
         command.append(UInt8(data.count))
         command.append(data)
 
-        // Command length should be 150 bytes length otherwise we should split
-        // it into chuncks. As we sign hashes we should be fine for now.
+        // A command length should be 150 bytes long. Otherwise, we should split it into chunks.
+        // As we sign hashes, we should be fine for now.
         guard command.count <= 150 else {
             preconditionFailure("Wrong length of message for signing")
         }
