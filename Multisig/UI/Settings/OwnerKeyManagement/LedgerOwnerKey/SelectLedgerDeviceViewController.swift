@@ -20,13 +20,15 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
     /// If a Bluetooth device is not found within the time limit, we show empty results page
     private let searchTimeLimit: TimeInterval = 20
     private var searchTimer: Timer?
+    private var completion: () -> Void = {}
 
     override var isEmpty: Bool { bluetoothController.devices.isEmpty }
 
     weak var delegate: SelectLedgerDeviceDelegate?
 
-    convenience init() {
+    convenience init(completion: @escaping () -> Void) {
         self.init(namedClass: Self.superclass())
+        self.completion = completion
     }
 
     override func viewDidLoad() {
@@ -82,7 +84,7 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
         tableView.deselectRow(at: indexPath, animated: true)
         let device = bluetoothController.devices[indexPath.row]
         delegate?.selectLedgerDeviceViewController(
-            self, didSelectDevice: device.peripheral.identifier, bluetoothController: bluetoothController)
+            self, didSelectDevice: device.peripheral.identifier, bluetoothController: bluetoothController)        
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

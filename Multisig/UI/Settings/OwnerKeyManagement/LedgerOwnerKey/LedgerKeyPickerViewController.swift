@@ -9,24 +9,43 @@
 import UIKit
 
 class LedgerKeyPickerViewController: SegmentViewController {
-    convenience init() {
-        self.init(namedClass: nil)
+    convenience init(deviceId: UUID, bluetoothController: BluetoothController, completion: () -> Void) {
+        self.init(nibName: "SegmentViewController", bundle: Bundle.main)
         segmentItems = [
             SegmentBarItem(image: nil, title: "Ledger Live"),
             SegmentBarItem(image: nil, title: "Ledger")
         ]
         viewControllers = [
-            LedgerKeyPickerContentViewController(type: .ledgerLive),
-            LedgerKeyPickerContentViewController(type: .ledger)
+            LedgerKeyPickerContentViewController(
+                type: .ledgerLive, deviceId: deviceId, bluetoothController: bluetoothController),
+            LedgerKeyPickerContentViewController(
+                type: .ledger, deviceId: deviceId, bluetoothController: bluetoothController)
         ]
         selectedIndex = 0
     }
 }
 
+fileprivate enum LedgerKeyType {
+    case ledgerLive
+    case ledger
+}
+
+fileprivate struct KeyAddressInfo {
+    var index: Int
+    var address: Address
+    var name: String?
+    var exists: Bool { name != nil }
+}
+
 fileprivate class LedgerKeyPickerViewModel {
+    let type: LedgerKeyType
+    let deviceId: UUID
+    let bluetoothController: BluetoothController
+    let ledgerController: LedgerController
+
     var keys = [KeyAddressInfo]()
     var maxItemCount = 100
-    var pageSize = 10
+    var pageSize = 5
     var isLoading = true
     var selectedIndex = -1
 
@@ -34,39 +53,57 @@ fileprivate class LedgerKeyPickerViewModel {
         keys.count < maxItemCount
     }
 
-    struct KeyAddressInfo {
-        var index: Int
-        var address: Address
-        var name: String?
-        var exists: Bool { name != nil }
+    init(type: LedgerKeyType, deviceId: UUID, bluetoothController: BluetoothController) {
+        self.type = type
+        self.deviceId = deviceId
+        self.bluetoothController = bluetoothController
+        self.ledgerController = LedgerController(bluetoothController: bluetoothController)
     }
 
-    func generateNextPage(completion: () -> Void) {
+    func generateNextPage(completion: @escaping (Error?) -> Void) {
+        guard !Thread.isMainThread else {
+            preconditionFailure("should be called on background thread")
+        }
         isLoading = true
 
-        // this will be async
         do {
             let indexes = (keys.count..<keys.count + pageSize)
-            let addresses = indexes.map { _ in Address.zero }
+            var addresses = [Address]()
+            var shouldReturn = false
+
+            for (_, index) in indexes.enumerated() {
+                let semaphore = DispatchSemaphore(value: 0)
+                ledgerController.getAddress(deviceId: self.deviceId, at: index) { [weak self] ledgerInfoOrNil in
+                    semaphore.signal()
+                    guard let ledgerInfo = ledgerInfoOrNil else {
+                        self?.isLoading = false
+                        completion("Address Not Found")
+                        shouldReturn = true
+                        return
+                    }
+                    addresses.append(ledgerInfo.address)
+                }
+                semaphore.wait()
+                if shouldReturn {
+                    return
+                }
+            }
+
+            guard addresses.count == indexes.count else { return }
+
             let infoByAddress = try Dictionary(grouping: KeyInfo.keys(addresses: addresses), by: \.address)
 
-            let nextPage = indexes.enumerated().map { (i, addressIndex) -> KeyAddressInfo in
+            let nextPageKeys = indexes.enumerated().map { (i, addressIndex) -> KeyAddressInfo in
                 let address = addresses[i]
                 return KeyAddressInfo(index: addressIndex, address: address, name: infoByAddress[address]?.first?.name)
             }
+            keys += nextPageKeys
 
-            keys += nextPage
+            isLoading = false
+            completion(nil)
         } catch {
             LogService.shared.error("Failed to generate addresses: \(error)")
-            App.shared.snackbar.show(
-                error: GSError.UnknownAppError(description: "Could not generate addresses",
-                                               reason: "Unexpected error occurred.",
-                                               howToFix: "Please try again later")
-            )
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
-            self?.isLoading = false
+            completion(error)
         }
     }
 }
@@ -74,17 +111,15 @@ fileprivate class LedgerKeyPickerViewModel {
 fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
     private var model: LedgerKeyPickerViewModel!
 
-    enum LedgerKeyType {
-        case ledgerLive
-        case ledger
+    let estimatedRowHeight: CGFloat = 58
+
+    var shouldShowLoadMoreButton: Bool {
+        model.canLoadMoreAddresses && !model.isLoading
     }
 
-    convenience init(type: LedgerKeyType) {
+    convenience init(type: LedgerKeyType, deviceId: UUID, bluetoothController: BluetoothController) {
         self.init()
-        switch type {
-        case .ledgerLive: model = LedgerKeyPickerViewModel()
-        case .ledger: model = LedgerKeyPickerViewModel()
-        }
+        model = LedgerKeyPickerViewModel(type: type, deviceId: deviceId, bluetoothController: bluetoothController)
     }
 
     override func viewDidLoad() {
@@ -92,36 +127,55 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
 
         navigationItem.title = "Connect Ledger Key"
 
+        tableView.backgroundColor = .primaryBackground
         tableView.registerCell(DerivedKeyTableViewCell.self)
-        tableView.registerCell(LoadingValueCell.self)
         tableView.registerCell(ButtonTableViewCell.self)
+        tableView.registerHeaderFooterView(LoadingFooterView.self)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 44
+        tableView.estimatedRowHeight = estimatedRowHeight
+    }
 
-        // TODO: handle errors when can't load a batch of keys
-        model.generateNextPage { [weak self] in
-            self?.tableView.reloadData()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        generateNextPage()
+    }
+
+    private func generateNextPage() {
+        DispatchQueue.global().async {
+            self.model.generateNextPage { [weak self] errorOrNil in
+                guard let self = self else { return }
+                if errorOrNil != nil {
+                    let alert = UIAlertController(title: "Address Not Found",
+                                                  message: "Please open Ethereum App on your Ledger device.",
+                                                  preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
         }
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        model.keys.count + 1
+        shouldShowLoadMoreButton ? model.keys.count + 1 : model.keys.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if model.isLoading && indexPath.row == model.keys.count  {
-            return tableView.dequeueCell(LoadingValueCell.self)
-        } else if indexPath.row == model.keys.count {
+        if indexPath.row == model.keys.count && shouldShowLoadMoreButton {
             let cell = tableView.dequeueCell(ButtonTableViewCell.self)
             let text = model.keys.count == 0 ? "Retry" : "Load more"
+            cell.height = estimatedRowHeight
             cell.setText(text) { [weak self] in
-                self?.model.generateNextPage {
+                self?.generateNextPage()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                     self?.tableView.reloadData()
                 }
             }
-            return tableView.dequeueCell(ButtonTableViewCell.self)
+            return cell
         }
 
         let key = model.keys[indexPath.row]
@@ -132,6 +186,26 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
         cell.setEnabled(!key.exists)
 
         return cell
+    }
+
+    // MARK: - Table view delegate
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if model.isLoading {
+            return tableView.dequeueReusableHeaderFooterView(withIdentifier: LoadingFooterView.reuseID)
+        }
+        return nil
+    }
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if model.isLoading {
+            return estimatedRowHeight
+        }
+        return 0
     }
 
     private func isSelected(_ indexPath: IndexPath) -> Bool {

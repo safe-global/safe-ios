@@ -31,7 +31,7 @@ class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
     }
 
     override func didTapNextButton(_ sender: Any) {
-        let vc = SelectLedgerDeviceViewController()
+        let vc = SelectLedgerDeviceViewController(completion: completion)
         vc.delegate = self
         show(vc, sender: self)
     }
@@ -42,19 +42,15 @@ extension OnboardingLedgerKeyViewController: SelectLedgerDeviceDelegate {
                                           didSelectDevice deviceId: UUID,
                                           bluetoothController: BluetoothController) {
 
-        let ledgerController = LedgerController(bluetoothController: bluetoothController)
-        ledgerController.getAddress(deviceId: deviceId, at: 10) { [weak controller] ledgerInfoOrNil in
-            guard let ledgerInfo = ledgerInfoOrNil else {
-                let alert = UIAlertController(title: "Address Not Found", message: "Please open Ethereum App on your Ledger device.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                controller?.present(alert, animated: true, completion: nil)
-                return
-            }
-            OwnerKeyController.importKey(ledgerDeviceUUID: deviceId,
-                                         path: ledgerInfo.path,
-                                         address: ledgerInfo.address,
-                                         name: ledgerInfo.name)
-            controller?.dismiss(animated: true, completion: nil)
-        }
+        let keyPickerController = LedgerKeyPickerViewController(deviceId: deviceId,
+                                                                bluetoothController: bluetoothController,
+                                                                completion: completion)
+        show(keyPickerController, sender: nil)
+
+//        OwnerKeyController.importKey(ledgerDeviceUUID: deviceId,
+//                                     path: ledgerInfo.path,
+//                                     address: ledgerInfo.address,
+//                                     name: ledgerInfo.name)
+//        controller?.dismiss(animated: true, completion: nil)
     }
 }

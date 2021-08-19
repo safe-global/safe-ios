@@ -2504,6 +2504,7 @@
 		55413674265E49E100796F91 /* AddOwnerKeyViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0AF1042726BACD96009C4B14 /* AddKeyOnboardingViewController.swift */,
 				55413672265E493500796F91 /* AddOwnerKeyViewController.swift */,
 				55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */,
 				55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */,
@@ -2704,8 +2705,6 @@
 			isa = PBXGroup;
 			children = (
 				0ADD19B5265EA23200EB0F2B /* ExportViewController.swift */,
-				0AF1042726BACD96009C4B14 /* AddKeyOnboardingViewController.swift */,
-				0AF1042926BACF59009C4B14 /* OnboardingLedgerKeyViewController.swift */,
 				55413674265E49E100796F91 /* AddOwnerKeyViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
@@ -2724,6 +2723,7 @@
 		55FBC2D326BA915B002C2553 /* LedgerOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
+				0AF1042926BACF59009C4B14 /* OnboardingLedgerKeyViewController.swift */,
 				55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */,
 				551DBE3D26CD39DC0053CCB2 /* LedgerKeyPickerViewController.swift */,
 			);
