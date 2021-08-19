@@ -23,6 +23,11 @@ class LedgerKeyPickerViewController: SegmentViewController {
         ]
         selectedIndex = 0
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Connect Ledger Wallet"
+    }
 }
 
 fileprivate enum LedgerKeyType {
@@ -45,12 +50,16 @@ fileprivate class LedgerKeyPickerViewModel {
 
     var keys = [KeyAddressInfo]()
     var maxItemCount = 100
-    var pageSize = 5
+    var pageSize = 10
     var isLoading = true
     var selectedIndex = -1
 
     var canLoadMoreAddresses: Bool {
         keys.count < maxItemCount
+    }
+
+    var bluetoothIsConnected: Bool {
+        bluetoothController.devices.first { $0.peripheral.identifier == deviceId } != nil
     }
 
     init(type: LedgerKeyType, deviceId: UUID, bluetoothController: BluetoothController) {
@@ -125,36 +134,46 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Connect Ledger Key"
-
         tableView.backgroundColor = .primaryBackground
         tableView.registerCell(DerivedKeyTableViewCell.self)
         tableView.registerCell(ButtonTableViewCell.self)
         tableView.registerHeaderFooterView(LoadingFooterView.self)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = estimatedRowHeight
+
+        generateNextPage()
     }
 
+    #warning("TODO: track")
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        generateNextPage()
     }
 
     private func generateNextPage() {
         DispatchQueue.global().async {
             self.model.generateNextPage { [weak self] errorOrNil in
                 guard let self = self else { return }
-                if errorOrNil != nil {
-                    let alert = UIAlertController(title: "Address Not Found",
-                                                  message: "Please open Ethereum App on your Ledger device.",
-                                                  preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
                 DispatchQueue.main.async {
+                    guard self.model.bluetoothIsConnected else {
+                        self.navigationController?.popViewController(animated: true)
+                        return
+                    }
+                    if errorOrNil != nil {
+                        let alert = UIAlertController(title: "Address Not Found",
+                                                      message: "Please open Ethereum App on your Ledger device.",
+                                                      preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
                     self.tableView.reloadData()
                 }
             }
+        }
+    }
+
+    private func updateWithDelay() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) { [weak self] in
+            self?.tableView.reloadData()
         }
     }
 
@@ -171,9 +190,7 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
             cell.height = estimatedRowHeight
             cell.setText(text) { [weak self] in
                 self?.generateNextPage()
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                    self?.tableView.reloadData()
-                }
+                self?.updateWithDelay()
             }
             return cell
         }

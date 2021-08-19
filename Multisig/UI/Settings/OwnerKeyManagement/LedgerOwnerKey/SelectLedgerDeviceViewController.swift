@@ -84,7 +84,7 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
         tableView.deselectRow(at: indexPath, animated: true)
         let device = bluetoothController.devices[indexPath.row]
         delegate?.selectLedgerDeviceViewController(
-            self, didSelectDevice: device.peripheral.identifier, bluetoothController: bluetoothController)        
+            self, didSelectDevice: device.peripheral.identifier, bluetoothController: bluetoothController)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
