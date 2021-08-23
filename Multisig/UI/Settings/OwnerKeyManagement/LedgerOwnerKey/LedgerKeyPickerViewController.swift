@@ -8,6 +8,8 @@
 
 import UIKit
 
+fileprivate let ledgerSerialQueue = DispatchQueue(label: "io.gnosis.safe.ledger.serial.queue")
+
 class LedgerKeyPickerViewController: SegmentViewController {
     convenience init(deviceId: UUID, bluetoothController: BluetoothController, completion: @escaping () -> Void) {
         self.init(nibName: "SegmentViewController", bundle: Bundle.main)
@@ -86,45 +88,50 @@ fileprivate class LedgerKeyPickerViewModel {
         }
         isLoading = true
 
-        do {
-            let indexes = (keys.count..<keys.count + pageSize)
-            var addresses = [Address]()
-            var shouldReturn = false
+        ledgerSerialQueue.async { [weak self] in
+            guard let `self` = self else { return }
+            do {
+                let indexes = (self.keys.count..<self.keys.count + self.pageSize)
+                var addresses = [Address]()
+                var shouldReturn = false
 
-            for (_, index) in indexes.enumerated() {
-                let semaphore = DispatchSemaphore(value: 0)
-                let path = basePathPattern.replacingOccurrences(of: "{index}", with: "\(index)")
-                ledgerController.getAddress(deviceId: self.deviceId, path: path) { [weak self] addressOrNil in
-                    semaphore.signal()
-                    guard let address = addressOrNil else {
-                        self?.isLoading = false
-                        completion("Address Not Found")
-                        shouldReturn = true
+                for (_, index) in indexes.enumerated() {
+                    let semaphore = DispatchSemaphore(value: 0)
+                    let path = self.basePathPattern.replacingOccurrences(of: "{index}", with: "\(index)")
+                    self.ledgerController.getAddress(deviceId: self.deviceId, path: path) { [weak self] addressOrNil in
+                        semaphore.signal()
+                        guard let address = addressOrNil, self != nil else {
+                            self?.isLoading = false
+                            completion("Address Not Found")
+                            shouldReturn = true
+                            return
+                        }
+                        addresses.append(address)
+                    }
+                    semaphore.wait()
+                    if shouldReturn {
                         return
                     }
-                    addresses.append(address)
                 }
-                semaphore.wait()
-                if shouldReturn {
-                    return
+
+                guard addresses.count == indexes.count else { return }
+
+                let infoByAddress = try Dictionary(grouping: KeyInfo.keys(addresses: addresses), by: \.address)
+
+                let nextPageKeys = indexes.enumerated().map { (i, addressIndex) -> KeyAddressInfo in
+                    let address = addresses[i]
+                    return KeyAddressInfo(index: addressIndex,
+                                          address: address,
+                                          name: infoByAddress[address]?.first?.name)
                 }
+                self.keys += nextPageKeys
+
+                self.isLoading = false
+                completion(nil)
+            } catch {
+                LogService.shared.error("Failed to generate addresses: \(error)")
+                completion(error)
             }
-
-            guard addresses.count == indexes.count else { return }
-
-            let infoByAddress = try Dictionary(grouping: KeyInfo.keys(addresses: addresses), by: \.address)
-
-            let nextPageKeys = indexes.enumerated().map { (i, addressIndex) -> KeyAddressInfo in
-                let address = addresses[i]
-                return KeyAddressInfo(index: addressIndex, address: address, name: infoByAddress[address]?.first?.name)
-            }
-            keys += nextPageKeys
-
-            isLoading = false
-            completion(nil)
-        } catch {
-            LogService.shared.error("Failed to generate addresses: \(error)")
-            completion(error)
         }
     }
 
