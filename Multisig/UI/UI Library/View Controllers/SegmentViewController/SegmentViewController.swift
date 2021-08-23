@@ -61,6 +61,7 @@ class SegmentViewController: ContainerViewController {
             selectedIndex = nil
             return
         }
+        selectedIndex = index
         let newSelectedSegment = segmentViews[newIndex]
         newSelectedSegment.isSelected = true
         //     deselect other views

@@ -11,6 +11,13 @@ import UIKit
 fileprivate let ledgerSerialQueue = DispatchQueue(label: "io.gnosis.safe.ledger.serial.queue")
 
 class LedgerKeyPickerViewController: SegmentViewController {
+    private var completion: (() -> Void)!
+
+    private lazy var importButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Import", style: .done, target: self, action: #selector(didTapImport))
+        return button
+    }()
+
     convenience init(deviceId: UUID, bluetoothController: BluetoothController, completion: @escaping () -> Void) {
         self.init(nibName: "SegmentViewController", bundle: Bundle.main)
         segmentItems = [
@@ -21,18 +28,29 @@ class LedgerKeyPickerViewController: SegmentViewController {
             LedgerKeyPickerContentViewController(type: .ledgerLive,
                                                  deviceId: deviceId,
                                                  bluetoothController: bluetoothController,
-                                                 completion: completion),
+                                                 importButton: importButton),
             LedgerKeyPickerContentViewController(type: .ledger,
                                                  deviceId: deviceId,
                                                  bluetoothController: bluetoothController,
-                                                 completion: completion)
+                                                 importButton: importButton)
         ]
         selectedIndex = 0
+        self.completion = completion
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         title = "Connect Ledger Wallet"
+        navigationItem.rightBarButtonItem = importButton
+        importButton.isEnabled = false
+    }
+
+    @objc func didTapImport() {
+        guard let selectedIndex = selectedIndex,
+              let controller = viewControllers[selectedIndex] as? LedgerKeyPickerContentViewController else { return }
+        controller.model.importSelectedKey()
+        completion()
     }
 }
 
@@ -135,19 +153,26 @@ fileprivate class LedgerKeyPickerViewModel {
         }
     }
 
-    func didSelect(key: KeyAddressInfo) {
+    func importSelectedKey() {
+        guard selectedIndex >= 0 else { return }
+        let key = keys[selectedIndex]
+        var namePrefix = ""
+        switch type {
+        case .ledger: namePrefix = "Ledger key #"
+        case .ledgerLive: namePrefix = "Ledger Live key #"
+        }
         OwnerKeyController.importKey(ledgerDeviceUUID: deviceId,
                                      path: basePathPattern.replacingOccurrences(of: "{index}", with: "\(key.index)"),
                                      address: key.address,
-                                     name: "Ledger key #\(key.index + 1)")
+                                     name: "\(namePrefix)\(key.index + 1)")
     }
 }
 
 fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
-    private var model: LedgerKeyPickerViewModel!
-    private var completion: (() -> Void)!
+    private(set) var model: LedgerKeyPickerViewModel!
 
     let estimatedRowHeight: CGFloat = 58
+    var importButton: UIBarButtonItem!
 
     var shouldShowLoadMoreButton: Bool {
         model.canLoadMoreAddresses && !model.isLoading
@@ -156,10 +181,10 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
     convenience init(type: LedgerKeyType,
                      deviceId: UUID,
                      bluetoothController: BluetoothController,
-                     completion: @escaping () -> Void) {
+                     importButton: UIBarButtonItem) {
         self.init()
         self.model = LedgerKeyPickerViewModel(type: type, deviceId: deviceId, bluetoothController: bluetoothController)
-        self.completion = completion
+        self.importButton = importButton
     }
 
     override func viewDidLoad() {
@@ -240,8 +265,10 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        model.didSelect(key: model.keys[indexPath.row])
-        completion()
+        guard !model.keys[indexPath.row].exists else { return }
+        importButton.isEnabled = true
+        model.selectedIndex = indexPath.row
+        tableView.reloadData()
     }
 
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
