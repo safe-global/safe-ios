@@ -12,9 +12,9 @@ class AddOwnerKeyViewController: UITableViewController {
     private var completion: () -> Void = {}
 
     private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
-        (.deviceImported, "Import Existing Key", "Import an existing key or seed phrase"),
-        (.deviceGenerated, "Create New Key", "Create a new key that you can use as owner of your Gnosis Safe"),
-        (.ledgerNanoX, "Connect Ledger Wallet", "Add a key from your hardware wallet")
+        (.deviceImported, "Import existing owner key", "Import an existing key or a seed phrase"),
+        (.deviceGenerated, "Create new owner key", "Create a new key that you can use as an owner of your Gnosis Safe"),
+        (.ledgerNanoX, "Connect your Ledger Wallet", "Add a key from your hardware wallet")
     ]
 
     convenience init(completion: @escaping () -> Void) {
