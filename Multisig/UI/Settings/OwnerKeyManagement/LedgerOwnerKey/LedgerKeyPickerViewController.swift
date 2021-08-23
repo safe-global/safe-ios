@@ -9,17 +9,21 @@
 import UIKit
 
 class LedgerKeyPickerViewController: SegmentViewController {
-    convenience init(deviceId: UUID, bluetoothController: BluetoothController, completion: () -> Void) {
+    convenience init(deviceId: UUID, bluetoothController: BluetoothController, completion: @escaping () -> Void) {
         self.init(nibName: "SegmentViewController", bundle: Bundle.main)
         segmentItems = [
             SegmentBarItem(image: nil, title: "Ledger Live"),
             SegmentBarItem(image: nil, title: "Ledger")
         ]
         viewControllers = [
-            LedgerKeyPickerContentViewController(
-                type: .ledgerLive, deviceId: deviceId, bluetoothController: bluetoothController),
-            LedgerKeyPickerContentViewController(
-                type: .ledger, deviceId: deviceId, bluetoothController: bluetoothController)
+            LedgerKeyPickerContentViewController(type: .ledgerLive,
+                                                 deviceId: deviceId,
+                                                 bluetoothController: bluetoothController,
+                                                 completion: completion),
+            LedgerKeyPickerContentViewController(type: .ledger,
+                                                 deviceId: deviceId,
+                                                 bluetoothController: bluetoothController,
+                                                 completion: completion)
         ]
         selectedIndex = 0
     }
@@ -58,6 +62,13 @@ fileprivate class LedgerKeyPickerViewModel {
         keys.count < maxItemCount
     }
 
+    lazy var basePathPattern: String = {
+        switch type {
+        case .ledgerLive: return "m/44'/60'/0'/0/{index}"
+        case .ledger: return "m/44'/60'/0'/{index}"
+        }
+    }()
+
     var bluetoothIsConnected: Bool {
         bluetoothController.devices.first { $0.peripheral.identifier == deviceId } != nil
     }
@@ -82,15 +93,16 @@ fileprivate class LedgerKeyPickerViewModel {
 
             for (_, index) in indexes.enumerated() {
                 let semaphore = DispatchSemaphore(value: 0)
-                ledgerController.getAddress(deviceId: self.deviceId, at: index) { [weak self] ledgerInfoOrNil in
+                let path = basePathPattern.replacingOccurrences(of: "{index}", with: "\(index)")
+                ledgerController.getAddress(deviceId: self.deviceId, path: path) { [weak self] addressOrNil in
                     semaphore.signal()
-                    guard let ledgerInfo = ledgerInfoOrNil else {
+                    guard let address = addressOrNil else {
                         self?.isLoading = false
                         completion("Address Not Found")
                         shouldReturn = true
                         return
                     }
-                    addresses.append(ledgerInfo.address)
+                    addresses.append(address)
                 }
                 semaphore.wait()
                 if shouldReturn {
@@ -115,10 +127,18 @@ fileprivate class LedgerKeyPickerViewModel {
             completion(error)
         }
     }
+
+    func didSelect(key: KeyAddressInfo) {
+        OwnerKeyController.importKey(ledgerDeviceUUID: deviceId,
+                                     path: basePathPattern.replacingOccurrences(of: "{index}", with: "\(key.index)"),
+                                     address: key.address,
+                                     name: "Ledger key #\(key.index + 1)")
+    }
 }
 
 fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
     private var model: LedgerKeyPickerViewModel!
+    private var completion: (() -> Void)!
 
     let estimatedRowHeight: CGFloat = 58
 
@@ -126,9 +146,13 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
         model.canLoadMoreAddresses && !model.isLoading
     }
 
-    convenience init(type: LedgerKeyType, deviceId: UUID, bluetoothController: BluetoothController) {
+    convenience init(type: LedgerKeyType,
+                     deviceId: UUID,
+                     bluetoothController: BluetoothController,
+                     completion: @escaping () -> Void) {
         self.init()
-        model = LedgerKeyPickerViewModel(type: type, deviceId: deviceId, bluetoothController: bluetoothController)
+        self.model = LedgerKeyPickerViewModel(type: type, deviceId: deviceId, bluetoothController: bluetoothController)
+        self.completion = completion
     }
 
     override func viewDidLoad() {
@@ -143,10 +167,10 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
 
         generateNextPage()
     }
-
-    #warning("TODO: track")
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        Tracker.trackEvent(.ledgerSelectKey)
     }
 
     private func generateNextPage() {
@@ -209,6 +233,8 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        model.didSelect(key: model.keys[indexPath.row])
+        completion()
     }
 
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

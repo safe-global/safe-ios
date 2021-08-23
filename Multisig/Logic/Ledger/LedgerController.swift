@@ -15,20 +15,12 @@ class LedgerController {
         self.bluetoothController = bluetoothController
     }
 
-    struct LedgerInfo {
-        let address: Address
-        let path: String
-        let name: String
-    }
-
-    typealias LedgerKeyInfoCompletion = (LedgerInfo?) -> Void
-
-    func getAddress(deviceId: UUID, at index: Int, completion: @escaping LedgerKeyInfoCompletion) {
+    func getAddress(deviceId: UUID, path: String, completion: @escaping (Address?) -> Void) {
         guard let device = bluetoothController.deviceFor(deviceId: deviceId) else {
             completion(nil)
             return
         }
-        let path = "44'/60'/0'/0/\(index)"
+
         let command = getAddressCommand(path: path)
 
         // We don't use [weak self] with private methods not to capture LedgerController in a caller
@@ -50,9 +42,8 @@ class LedgerController {
                     completion(nil)
                     return
                 }
-
-                let ledgerInfo = LedgerInfo(address: address, path: path, name: "Ledger key #\(index)")
-                completion(ledgerInfo)
+                
+                completion(address)
             case .failure(_):
                 completion(nil)
             }

@@ -31,7 +31,7 @@ class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
     }
 
     override func didTapNextButton(_ sender: Any) {
-        let vc = SelectLedgerDeviceViewController(completion: completion)
+        let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "import"])
         vc.delegate = self
         show(vc, sender: self)
     }
@@ -46,11 +46,5 @@ extension OnboardingLedgerKeyViewController: SelectLedgerDeviceDelegate {
                                                                 bluetoothController: bluetoothController,
                                                                 completion: completion)
         show(keyPickerController, sender: nil)
-
-//        OwnerKeyController.importKey(ledgerDeviceUUID: deviceId,
-//                                     path: ledgerInfo.path,
-//                                     address: ledgerInfo.address,
-//                                     name: ledgerInfo.name)
-//        controller?.dismiss(animated: true, completion: nil)
     }
 }
