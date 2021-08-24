@@ -27,43 +27,31 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mHc-ML-4be">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="819"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwx-aX-k8n">
-                                    <rect key="frame" x="82" y="172.5" width="250" height="146"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VC0-ON-Huy">
+                                    <rect key="frame" x="40" y="173" width="334" height="145.5"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VC0-ON-Huy">
-                                            <rect key="frame" x="18.5" y="-3.5" width="213.5" height="153"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ico-no-collectibles" translatesAutoresizingMaskIntoConstraints="NO" id="wZg-sP-Gt7">
-                                                    <rect key="frame" x="38.5" y="0.0" width="136" height="110"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="136" id="EYu-eb-pJJ"/>
-                                                        <constraint firstAttribute="height" constant="110" id="jju-R3-PKV"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collectibles will appear here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YgY-dx-SxR">
-                                                    <rect key="frame" x="0.0" y="125" width="213.5" height="28"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="28" id="OUd-fy-5Hb"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </stackView>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ico-no-collectibles" translatesAutoresizingMaskIntoConstraints="NO" id="wZg-sP-Gt7">
+                                            <rect key="frame" x="99" y="0.0" width="136" height="110"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="136" id="EYu-eb-pJJ"/>
+                                                <constraint firstAttribute="height" constant="110" id="jju-R3-PKV"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collectibles will appear here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YgY-dx-SxR">
+                                            <rect key="frame" x="60.5" y="125" width="213.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="146" id="0Zr-jG-u9g"/>
-                                        <constraint firstItem="VC0-ON-Huy" firstAttribute="centerY" secondItem="iwx-aX-k8n" secondAttribute="centerY" id="Uma-sl-g4i"/>
-                                        <constraint firstItem="VC0-ON-Huy" firstAttribute="centerX" secondItem="iwx-aX-k8n" secondAttribute="centerX" id="eBU-yU-Nnh"/>
-                                        <constraint firstAttribute="width" constant="250" id="qje-TB-y3l"/>
-                                    </constraints>
-                                </view>
+                                </stackView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstItem="iwx-aX-k8n" firstAttribute="centerX" secondItem="mHc-ML-4be" secondAttribute="centerX" id="ZB6-uX-Cx4"/>
-                                <constraint firstItem="iwx-aX-k8n" firstAttribute="centerY" secondItem="mHc-ML-4be" secondAttribute="centerY" multiplier="0.6" id="qR9-Qu-PYJ"/>
+                                <constraint firstItem="VC0-ON-Huy" firstAttribute="centerX" secondItem="mHc-ML-4be" secondAttribute="centerX" id="L1J-p3-NV1"/>
+                                <constraint firstItem="VC0-ON-Huy" firstAttribute="leading" secondItem="mHc-ML-4be" secondAttribute="leading" constant="40" id="Voe-eH-k6k"/>
+                                <constraint firstItem="VC0-ON-Huy" firstAttribute="centerY" secondItem="mHc-ML-4be" secondAttribute="centerY" multiplier="0.6" id="mxp-AG-q8n"/>
+                                <constraint firstAttribute="trailing" secondItem="VC0-ON-Huy" secondAttribute="trailing" constant="40" id="qVu-zC-Tx1"/>
                             </constraints>
                         </view>
                     </subviews>

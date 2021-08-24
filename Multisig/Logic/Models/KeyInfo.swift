@@ -16,6 +16,7 @@ enum KeyType: Int, CaseIterable {
     case deviceImported = 0
     case deviceGenerated = 1
     case walletConnect = 2
+    case ledgerNanoX = 3
 }
 
 extension KeyInfo {
@@ -37,6 +38,19 @@ extension KeyInfo {
     struct WalletConnectKeyMetadata: Codable {
         let walletInfo: Session.WalletInfo
         let installedWallet: InstalledWallet?
+
+        var data: Data {
+            try! JSONEncoder().encode(self)
+        }
+
+        static func from(data: Data) -> Self? {
+            try? JSONDecoder().decode(Self.self, from: data)
+        }
+    }
+
+    struct LedgerKeyMetadata: Codable {
+        let uuid: UUID
+        let path: String
 
         var data: Data {
             try! JSONEncoder().encode(self)
@@ -126,8 +140,6 @@ extension KeyInfo {
     static func `import`(address: Address, name: String, privateKey: PrivateKey) throws -> KeyInfo {
         let context = App.shared.coreDataStack.viewContext
 
-        // see if already exists - then update existing, otherwise
-        // create a new one
         let fr = KeyInfo.fetchRequest().by(address: address)
         let item: KeyInfo
 
@@ -164,8 +176,6 @@ extension KeyInfo {
 
         let context = App.shared.coreDataStack.viewContext
 
-        // see if already exists - then update existing, otherwise
-        // create a new one
         let fr = KeyInfo.fetchRequest().by(address: address)
         let item: KeyInfo
 
@@ -184,6 +194,40 @@ extension KeyInfo {
         item.keyID = "walletconnect:\(address.checksummed)"
         item.keyType = .walletConnect
         item.metadata = WalletConnectKeyMetadata(walletInfo: walletInfo, installedWallet: installedWallet).data
+
+        item.save()
+
+        return item
+    }
+
+    /// Will save the key info from Ledger device in the persistence store.
+    /// - Parameters:
+    ///   - ledgerDeviceUUID: device UUID
+    ///   - path: key derivation path
+    ///   - address: key address
+    ///   - name: key name
+    @discardableResult
+    static func `import`(ledgerDeviceUUID: UUID, path: String, address: Address, name: String) throws -> KeyInfo? {
+        let context = App.shared.coreDataStack.viewContext
+
+        let fr = KeyInfo.fetchRequest().by(address: address)
+        let item: KeyInfo
+
+        if let existing = try context.fetch(fr).first {
+            // It is possible to update only key of the same type. Do not update key name for already imported WalletConnect key.
+            guard existing.keyType == .ledgerNanoX else {
+                throw GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType()
+            }
+            item = existing
+        } else {
+            item = KeyInfo(context: context)
+            item.name = name
+        }
+
+        item.address = address
+        item.keyID = "ledger:\(address.checksummed)"
+        item.keyType = .ledgerNanoX
+        item.metadata = LedgerKeyMetadata(uuid: ledgerDeviceUUID, path: path).data
 
         item.save()
 

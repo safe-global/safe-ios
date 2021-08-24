@@ -35,6 +35,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     private var txSource: TransactionSource!
 
+    private var ledgerKeyInfo: KeyInfo?
+
     convenience init(transactionID: String) {
         self.init(namedClass: Self.superclass())
         txSource = .id(transactionID)
@@ -276,7 +278,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         transaction.chainId = chainId
 
         switch keyInfo.keyType {
-
         case .deviceImported, .deviceGenerated:
             do {
                 let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
@@ -292,8 +293,13 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
-        }
 
+        case .ledgerNanoX:
+            ledgerKeyInfo = keyInfo
+            let vc = SelectLedgerDeviceViewController()
+            vc.delegate = self
+            present(vc, animated: true, completion: nil)
+        }
     }
 
     private func confirmAndRefresh(safeTxHash: String, signature: String, keyType: KeyType) {
@@ -316,6 +322,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                             Tracker.trackEvent(.transactionDetailsTransactionConfirmed)
                         case .walletConnect:
                             Tracker.trackEvent(.transactionDetailsTxConfirmedWC)
+                        case .ledgerNanoX:
+                            Tracker.trackEvent(.transactionDetailsTxConfirmedLedgerNanoX)
                         }
                     }
                 }
@@ -454,6 +462,28 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
     }
 
+}
+
+extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
+    func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
+                                          didSelectDevice deviceId: UUID,
+                                          bluetoothController: BluetoothController) {
+
+        guard let tx = tx,
+              let transaction = Transaction(tx: tx),
+              let safeTxHash = transaction.safeTxHash?.description,
+              let ledgerKeyInfo = ledgerKeyInfo,
+              let metadata = ledgerKeyInfo.metadata,
+              let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
+
+        let ledgerController = LedgerController(bluetoothController: bluetoothController)
+        ledgerController.sign(safeTxHash: safeTxHash, deviceId: deviceId, path: ledgerKeyMetadata.path) {
+            [weak self] signature in
+            guard let signature = signature else { return }
+            controller.dismiss(animated: true, completion: nil)
+            self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .ledgerNanoX)
+        }
+    }
 }
 
 extension SCGModels.TransactionDetails {
