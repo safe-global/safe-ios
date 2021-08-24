@@ -49,7 +49,7 @@ class LedgerKeyPickerViewController: SegmentViewController {
     @objc func didTapImport() {
         guard let selectedIndex = selectedIndex,
               let controller = viewControllers[selectedIndex] as? LedgerKeyPickerContentViewController else { return }
-        controller.model.importSelectedKey()
+        controller.importSelectedKey()
         completion()
     }
 }
@@ -66,16 +66,26 @@ fileprivate struct KeyAddressInfo {
     var exists: Bool { name != nil }
 }
 
+fileprivate protocol LedgerKeyPickerViewModelDelegate: AnyObject {
+    func didChangeLoadingState()
+}
+
 fileprivate class LedgerKeyPickerViewModel {
     let type: LedgerKeyType
     let deviceId: UUID
     let bluetoothController: BluetoothController
     let ledgerController: LedgerController
 
+    weak var delegate: LedgerKeyPickerViewModelDelegate?
+
     var keys = [KeyAddressInfo]()
     var maxItemCount = 100
     var pageSize = 10
-    var isLoading = true
+    var isLoading = true {
+        didSet {
+            delegate?.didChangeLoadingState()
+        }
+    }
     var selectedIndex = -1
 
     var canLoadMoreAddresses: Bool {
@@ -101,39 +111,39 @@ fileprivate class LedgerKeyPickerViewModel {
     }
 
     func generateNextPage(completion: @escaping (Error?) -> Void) {
-        guard !Thread.isMainThread else {
-            preconditionFailure("should be called on background thread")
-        }
         isLoading = true
 
+        // We use serial queue because when switching Ledger / Ledger Live tabs, they should not try to send
+        // commands to the Ledger Nano X device while processing other tab commands.
         ledgerSerialQueue.async { [weak self] in
-            guard let `self` = self else { return }
-            do {
-                let indexes = (self.keys.count..<self.keys.count + self.pageSize)
-                var addresses = [Address]()
-                var shouldReturn = false
+            guard let self = self else { return }
 
-                for (_, index) in indexes.enumerated() {
-                    let semaphore = DispatchSemaphore(value: 0)
-                    let path = self.basePathPattern.replacingOccurrences(of: "{index}", with: "\(index)")
-                    self.ledgerController.getAddress(deviceId: self.deviceId, path: path) { [weak self] addressOrNil in
-                        semaphore.signal()
-                        guard let address = addressOrNil, self != nil else {
-                            self?.isLoading = false
-                            completion("Address Not Found")
-                            shouldReturn = true
-                            return
-                        }
-                        addresses.append(address)
-                    }
-                    semaphore.wait()
-                    if shouldReturn {
+            let indexes = (self.keys.count..<self.keys.count + self.pageSize)
+            var addresses = [Address]()
+            var shouldReturn = false
+
+            for index in indexes {
+                // We use dispatch semaphore here because we need to get the required amount of addresses making
+                // separate requests to the Ledger device before we continue with processing results.
+                let semaphore = DispatchSemaphore(value: 0)
+                let path = self.basePathPattern.replacingOccurrences(of: "{index}", with: "\(index)")
+                self.ledgerController.getAddress(deviceId: self.deviceId, path: path) { [weak self] addressOrNil in
+                    semaphore.signal()
+                    guard let address = addressOrNil, self != nil else {
+                        self?.isLoading = false
+                        completion("Address Not Found")
+                        shouldReturn = true
                         return
                     }
+                    addresses.append(address)
                 }
+                semaphore.wait()
+                if shouldReturn {
+                    return
+                }
+            }
 
-                guard addresses.count == indexes.count else { return }
-
+            do {
                 let infoByAddress = try Dictionary(grouping: KeyInfo.keys(addresses: addresses), by: \.address)
 
                 let nextPageKeys = indexes.enumerated().map { (i, addressIndex) -> KeyAddressInfo in
@@ -168,8 +178,8 @@ fileprivate class LedgerKeyPickerViewModel {
     }
 }
 
-fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
-    private(set) var model: LedgerKeyPickerViewModel!
+fileprivate class LedgerKeyPickerContentViewController: UITableViewController, LedgerKeyPickerViewModelDelegate {
+    private var model: LedgerKeyPickerViewModel!
 
     let estimatedRowHeight: CGFloat = 58
     var importButton: UIBarButtonItem!
@@ -184,6 +194,7 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
                      importButton: UIBarButtonItem) {
         self.init()
         self.model = LedgerKeyPickerViewModel(type: type, deviceId: deviceId, bluetoothController: bluetoothController)
+        model.delegate = self
         self.importButton = importButton
     }
 
@@ -205,31 +216,29 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
         Tracker.trackEvent(.ledgerSelectKey)
     }
 
-    private func generateNextPage() {
-        DispatchQueue.global().async {
-            self.model.generateNextPage { [weak self] errorOrNil in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    guard self.model.bluetoothIsConnected else {
-                        self.navigationController?.popViewController(animated: true)
-                        return
-                    }
-                    if errorOrNil != nil {
-                        let alert = UIAlertController(title: "Address Not Found",
-                                                      message: "Please open Ethereum App on your Ledger device.",
-                                                      preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                    self.tableView.reloadData()
-                }
-            }
-        }
+    func importSelectedKey() {
+        model.importSelectedKey()
     }
 
-    private func updateWithDelay() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) { [weak self] in
-            self?.tableView.reloadData()
+    private func generateNextPage() {
+        model.generateNextPage { [weak self] errorOrNil in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                // If a Bluetooth device was disconnected while generating the next page with addresses,
+                // we pop to select the ledger device screen.
+                guard self.model.bluetoothIsConnected else {
+                    self.navigationController?.popViewController(animated: true)
+                    return
+                }
+                if errorOrNil != nil {
+                    let alert = UIAlertController(title: "Address Not Found",
+                                                  message: "Please open Ethereum App on your Ledger device.",
+                                                  preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+                self.tableView.reloadData()
+            }
         }
     }
 
@@ -246,7 +255,6 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
             cell.height = estimatedRowHeight
             cell.setText(text) { [weak self] in
                 self?.generateNextPage()
-                self?.updateWithDelay()
             }
             return cell
         }
@@ -287,5 +295,13 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController {
 
     private func isSelected(_ indexPath: IndexPath) -> Bool {
         model.selectedIndex == indexPath.row
+    }
+
+    // MARK: - LedgerKeyPickerViewModelDelegate
+    
+    func didChangeLoadingState() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
