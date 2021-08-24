@@ -193,11 +193,24 @@ class OwnerKeyController {
                 try PrivateKey.deleteAll()
             }
 
-            // delete all device key infos whos private keys do not exist
-            let infos = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated]).filter {
-                !$0.hasPrivateKey
+            // delete all device key infos with private keys that are missing
+            let keyInfoToDelete = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated]).filter { info in
+                let shouldDelete: Bool
+                do {
+                    let keyOrNil = try info.privateKey()
+                    shouldDelete = keyOrNil == nil
+                } catch {
+                    // if error, then the key might still be there
+                    // but maybe data access failed for some reason (access while app is in background)
+                    // therefore we won't accidentally delete existing key
+                    shouldDelete = false
+                }
+                return shouldDelete
             }
-            try infos.forEach { try $0.delete() }
+
+            for info in keyInfoToDelete {
+                try info.delete()
+            }
         } catch {
             LogService.shared.error("Failed to delete all keys: \(error)")
         }
@@ -213,7 +226,7 @@ class OwnerKeyController {
         Tracker.trackEvent(.ownerKeyRemoved)
         Tracker.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
         Tracker.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
-        Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .deviceImported)
+        Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
         NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
     }
 }

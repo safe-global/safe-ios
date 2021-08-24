@@ -794,7 +794,6 @@
 		0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeEntryTableViewCell.xib; sourceTree = "<group>"; };
 		0A5F482F254C56CE0069C98D /* AddSafeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeTableViewCell.swift; sourceTree = "<group>"; };
 		0A5F4830254C56CE0069C98D /* AddSafeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddSafeTableViewCell.xib; sourceTree = "<group>"; };
-		0A616B9026AEC4B900FCEDB9 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		0A616B9526AEEBB700FCEDB9 /* BoolString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolString.swift; sourceTree = "<group>"; };
 		0A616B9826AEFD1D00FCEDB9 /* MultisigNotification+ContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultisigNotification+ContentProvider.swift"; sourceTree = "<group>"; };
 		0A616B9C26B0109F00FCEDB9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -991,7 +990,6 @@
 		0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
 		0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BalanceTableViewCell.xib; sourceTree = "<group>"; };
 		0AF1C9252541E09C00E28669 /* UIView+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+UINib.swift"; sourceTree = "<group>"; };
-		0AF2730E24DAAAB6007E4012 /* Multisig.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Multisig.entitlements; sourceTree = "<group>"; };
 		0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AF2731524DAABDC007E4012 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		0AF2731724DAABDC007E4012 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1118,6 +1116,12 @@
 		55A5854225014E05005E778B /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
+		55AF4CF226C15261006DA1CC /* Multisig_DEV.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_DEV.entitlements; sourceTree = "<group>"; };
+		55AF4CF326C15261006DA1CC /* Multisig_PROD.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_PROD.entitlements; sourceTree = "<group>"; };
+		55AF4CF426C15261006DA1CC /* Multisig_STAGING.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_STAGING.entitlements; sourceTree = "<group>"; };
+		55AF4CF526C15361006DA1CC /* NotificationServiceExtension_DEV.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension_DEV.entitlements; sourceTree = "<group>"; };
+		55AF4CF626C15361006DA1CC /* NotificationServiceExtension_STAGING.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension_STAGING.entitlements; sourceTree = "<group>"; };
+		55AF4CF726C15361006DA1CC /* NotificationServiceExtension_PROD.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension_PROD.entitlements; sourceTree = "<group>"; };
 		55B64657253050200050BD95 /* HashString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashString.swift; sourceTree = "<group>"; };
 		55B64658253050200050BD95 /* SignatureString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureString.swift; sourceTree = "<group>"; };
 		55B64659253050200050BD95 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -1918,7 +1922,9 @@
 		0A93DD552445CC8A00688050 /* Multisig */ = {
 			isa = PBXGroup;
 			children = (
-				0AF2730E24DAAAB6007E4012 /* Multisig.entitlements */,
+				55AF4CF226C15261006DA1CC /* Multisig_DEV.entitlements */,
+				55AF4CF326C15261006DA1CC /* Multisig_PROD.entitlements */,
+				55AF4CF426C15261006DA1CC /* Multisig_STAGING.entitlements */,
 				047A658025AE088000AE8845 /* App */,
 				0A93DD88244603A400688050 /* UI */,
 				5532D4912448A1960067505A /* Logic */,
@@ -2192,7 +2198,9 @@
 		0AF2731424DAABDC007E4012 /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
-				0A616B9026AEC4B900FCEDB9 /* NotificationServiceExtension.entitlements */,
+				55AF4CF526C15361006DA1CC /* NotificationServiceExtension_DEV.entitlements */,
+				55AF4CF726C15361006DA1CC /* NotificationServiceExtension_PROD.entitlements */,
+				55AF4CF626C15361006DA1CC /* NotificationServiceExtension_STAGING.entitlements */,
 				0AF2731724DAABDC007E4012 /* Info.plist */,
 				0AF2736A24DC57C6007E4012 /* NotificationPayload.swift */,
 				0A616B9826AEFD1D00FCEDB9 /* MultisigNotification+ContentProvider.swift */,
@@ -3670,7 +3678,7 @@
 		0A93DD762445CC8C00688050 /* Debug.Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -3694,7 +3702,7 @@
 		0A93DD772445CC8C00688050 /* Release.Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -3720,6 +3728,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
@@ -3741,6 +3750,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
@@ -3761,6 +3771,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
@@ -3781,6 +3792,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
@@ -3862,7 +3874,7 @@
 		0ACDC00B249252AD002035A2 /* Debug.Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -3888,6 +3900,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
@@ -3908,6 +3921,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
@@ -3983,7 +3997,7 @@
 		0ACDC00F249252B6002035A2 /* Release.Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -4009,6 +4023,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
@@ -4029,6 +4044,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
@@ -4078,7 +4094,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "NotificationServiceExtension/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -4152,7 +4168,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "NotificationServiceExtension/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -4226,7 +4242,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "NotificationServiceExtension/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -4300,7 +4316,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "NotificationServiceExtension/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -4368,7 +4384,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "NotificationServiceExtension/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -4436,7 +4452,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "NotificationServiceExtension/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -4532,7 +4548,7 @@
 		0AF7F771247FC50400527014 /* Release.Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -4558,6 +4574,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
@@ -4578,6 +4595,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
@@ -4659,7 +4677,7 @@
 		0AF7F775247FC50E00527014 /* Debug.Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Multisig/Multisig.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -4685,6 +4703,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
@@ -4705,6 +4724,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;

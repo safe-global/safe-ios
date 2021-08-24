@@ -31,10 +31,6 @@ extension KeyInfo {
         set { type = Int16(newValue.rawValue) }
     }
 
-    var hasPrivateKey: Bool {
-        (try? privateKey()) != nil
-	}
-
     var displayName: String {
         name ?? "Key \(address.ellipsized())"
     }
@@ -249,12 +245,6 @@ extension KeyInfo {
     /// Delete all of the keys stored
     static func deleteAll() throws {
         try all().forEach { try $0.delete() }
-    }
-
-    /// Deletes keys with matching addresses
-    /// - Parameter addresses: addresses of keys to delete
-    static func delete(addresses: [Address]) throws {
-        try keys(addresses: addresses).forEach { try $0.delete() }
     }
 
     /// Saves the key to the persistent store
