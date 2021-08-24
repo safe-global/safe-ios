@@ -14,7 +14,7 @@ class AddOwnerKeyViewController: UITableViewController {
     private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
         (.deviceImported, "Import existing owner key", "Import an existing key or a seed phrase"),
         (.deviceGenerated, "Create new owner key", "Create a new key that you can use as an owner of your Gnosis Safe"),
-        (.ledgerNanoX, "Connect your Ledger Wallet", "Add a key from your hardware wallet")
+        (.ledgerNanoX, "Connect Ledger Nano X", "Add a key from your hardware wallet")
     ]
 
     convenience init(completion: @escaping () -> Void) {
@@ -37,7 +37,7 @@ class AddOwnerKeyViewController: UITableViewController {
 
         if App.configuration.toggles.walletConnectOwnerKeyEnabled {
             keyTypes.append(
-                (.walletConnect, "Connect Key", "Connect an existing key from another wallet using WalletConnect")
+                (.walletConnect, "Connect key", "Connect an existing key from another wallet using WalletConnect")
             )
         }
     }
