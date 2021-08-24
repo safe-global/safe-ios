@@ -79,6 +79,7 @@ final class FirebaseTrackingHandler: TrackingHandler {
 
     func setTrackingEnabled(_ value: Bool) {
         Analytics.setAnalyticsCollectionEnabled(value)
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(value)
     }
 
     /// Verifies that the name is correct.

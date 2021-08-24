@@ -28,10 +28,13 @@ struct EmailSupportViewController: UIViewControllerRepresentable {
         let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "unknown"
         let version = "v\(marketingVersion) (\(buildNumber))"
         let safe = try? App.shared.coreDataStack.viewContext.fetch(Safe.fetchRequest().selected()).first
+        let address = safe?.address ?? "None"
+        let chain = safe != nil ? "\(safe!.chain!.name!) (\(safe!.chain!.id!))" : "None"
 
         let message = """
         Gnosis Safe \(version)
-        Safe address: \(safe?.address ?? "None")
+        Safe address: \(address)
+        Chain: \(chain)
         Feedback:
         """
         mailVC.setMessageBody(message, isHTML: false)

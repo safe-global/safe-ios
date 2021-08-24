@@ -23,8 +23,7 @@ final class CrashlyticsLogger: LogWriter {
     /// - Parameter crashlytics: default value is the Crashlytics shared instance.
     init(crashlytics: CrashlyticsProtocol = Crashlytics.crashlytics()) {
         self.crashlytics = crashlytics
-        // we always collect crashlytics reports
-        self.crashlytics.setCrashlyticsCollectionEnabled(true)
+        self.crashlytics.setCrashlyticsCollectionEnabled(AppSettings.trackingEnabled)
     }
 
     func log(_ message: String,

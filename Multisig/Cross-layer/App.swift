@@ -11,27 +11,29 @@ import Foundation
 class App {
     static let shared = App()
 
-    // UI layer
+    // MARK: - UI layer
+
     let viewState = ViewState()
     let theme = Theme()
     let snackbar = SnackbarCenter()
-
     let appReview = AppReviewController()
-
     let updateController = UpdateController()
-    // Business Logic Layer
+
+    // MARK: - Business Logic Layer
 
     let gnosisSafe = GnosisSafe()
     let auth = AuthenticationController()
 
-    // Data Layer
-    var coreDataStack: CoreDataProtocol = CoreDataStack()
+    // MARK: - Data Layer
 
+    var coreDataStack: CoreDataProtocol = CoreDataStack()
     var keychainService: SecureStore = KeychainService(identifier: App.configuration.app.bundleIdentifier)
 
-    // Services
-    let clientGatewayService = SafeClientGatewayService(
-        url: configuration.services.clientGatewayURL,
+    // MARK: - Services
+
+    // It should be lazy as it uses Firebase and coreDataStack that are not yet properly initialized
+    lazy var clientGatewayService = SafeClientGatewayService(
+        url: App.configuration.services.clientGatewayURL,
         logger: LogService.shared)
 
     var nodeService = EthereumNodeService()
@@ -40,7 +42,8 @@ class App {
 
     let clientGatewayHostObserver = NetworkHostStatusObserver(host: configuration.services.clientGatewayURL.host ?? "www.gnosis.io")
 
-    // Cross-layer
+    // MARK: - Cross-layer
+
     static let configuration = AppConfiguration()
 
     let firebaseConfig = FirebaseConfig()

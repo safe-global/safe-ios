@@ -12,9 +12,9 @@ class AddOwnerKeyViewController: UITableViewController {
     private var completion: () -> Void = {}
 
     private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
-        (.deviceImported, "Import Existing Key", "Imort an existing key or seed phrase"),
-        (.deviceGenerated, "Create New Key", "Create a new key that you can use as owner of your Gnosis Safe"),
-        (.ledgerNanoX, "Connect Ledger Wallet", "Add a key from your hardware wallet")
+        (.deviceImported, "Import existing owner key", "Import an existing key or a seed phrase"),
+        (.deviceGenerated, "Create new owner key", "Create a new key that you can use as an owner of your Gnosis Safe"),
+        (.ledgerNanoX, "Connect Ledger Nano X", "Add a key from your hardware wallet")
     ]
 
     convenience init(completion: @escaping () -> Void) {
@@ -37,7 +37,7 @@ class AddOwnerKeyViewController: UITableViewController {
 
         if App.configuration.toggles.walletConnectOwnerKeyEnabled {
             keyTypes.append(
-                (.walletConnect, "Connect Key", "Connect an existing key from another wallet using WalletConnect")
+                (.walletConnect, "Connect key", "Connect an existing key from another wallet using WalletConnect")
             )
         }
     }
@@ -58,6 +58,16 @@ class AddOwnerKeyViewController: UITableViewController {
         let cell = tableView.dequeueCell(AddOwnerKeyCell.self)
         cell.set(title: keyType.title)
         cell.set(subtitle: keyType.subtitle)
+        switch keyTypes[indexPath.row].type {
+        case .deviceGenerated:
+            cell.set(iconName: "ico-add-seed")
+        case .deviceImported:
+            cell.set(iconName: "ico-add-key")
+        case .ledgerNanoX:
+            cell.set(iconName: "ico-add-ledger")
+        case .walletConnect:
+            cell.set(iconName: "ico-add-walletconnect")
+        }
         return cell
     }
 
