@@ -135,4 +135,6 @@ enum TrackingEvent: String, Trackable {
     case incomingTxConfirmedWalletConnect           = "incoming_transaction_confirmed_wc"
 
     case ledgerKeyImported                          = "user_ledger_nano_x_key_imported"
+    case ledgerSelectDevice                         = "screen_select_ledger_nano_x_device"
+    case ledgerSelectKey                            = "screen_select_ledger_nano_x_key"
 }

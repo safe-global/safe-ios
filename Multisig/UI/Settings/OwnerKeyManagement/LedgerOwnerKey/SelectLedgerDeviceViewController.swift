@@ -20,13 +20,15 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
     /// If a Bluetooth device is not found within the time limit, we show empty results page
     private let searchTimeLimit: TimeInterval = 20
     private var searchTimer: Timer?
+    private var trackingParameters: [String: Any]?
 
     override var isEmpty: Bool { bluetoothController.devices.isEmpty }
 
     weak var delegate: SelectLedgerDeviceDelegate?
 
-    convenience init() {
+    convenience init(trackingParameters: [String: Any]) {
         self.init(namedClass: Self.superclass())
+        self.trackingParameters = trackingParameters
     }
 
     override func viewDidLoad() {
@@ -47,6 +49,11 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
 
         emptyView.setText("No Ledger Nano X device found. Please make sure your Ledger Nano X is unlocked, Bluetooth is enabled, and the Ethereum app is installed and opened.")
         emptyView.setImage(UIImage(named: "enable-ledger")!)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Tracker.trackEvent(.ledgerSelectDevice, parameters: trackingParameters)
     }
 
     override func reloadData() {

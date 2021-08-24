@@ -61,6 +61,7 @@ class SegmentViewController: ContainerViewController {
             selectedIndex = nil
             return
         }
+        selectedIndex = index
         let newSelectedSegment = segmentViews[newIndex]
         newSelectedSegment.isSelected = true
         //     deselect other views
@@ -79,6 +80,6 @@ class SegmentViewController: ContainerViewController {
 }
 
 struct SegmentBarItem {
-    var image: UIImage
+    var image: UIImage?
     var title: String
 }

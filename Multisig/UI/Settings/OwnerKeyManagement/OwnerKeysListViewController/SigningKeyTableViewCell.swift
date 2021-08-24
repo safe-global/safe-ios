@@ -42,9 +42,9 @@ class SigningKeyTableViewCell: UITableViewCell {
             let isConnected = WalletConnectClientController.shared.isConnected(keyInfo: keyInfo)
             set(wcConnectionStatus: isConnected ? .connected : .disconnected)
 
-        #warning("TODO: implement")
         case .ledgerNanoX:
-            break
+            set(keyImageUrl: nil, placeholder: UIImage(named: "ico-ledger")!)
+            set(wcConnectionStatus: .none)
         }
     }
 
