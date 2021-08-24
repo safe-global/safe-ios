@@ -15,11 +15,6 @@ struct AdvancedAppSettings: View {
 
     var body: some View {
         List {
-            Section(header: SectionHeader("ENDPOINTS")) {
-                KeyValueRow("Client Gateway service",
-                            value: DisplayURL(App.shared.clientGatewayService.url).absoluteString)
-            }
-
             Section(header: SectionHeader("TRACKING")) {
                 ToggleTrackingRow()
             }
@@ -54,9 +49,6 @@ struct AdvancedAppSettings: View {
         @State
         private var trackingEnabled = AppSettings.trackingEnabled
 
-        @State
-        private var showingSettingsAlert = false
-
         var body: some View {
             VStack {
                 Toggle(isOn: $trackingEnabled.didSet { enabled in
@@ -65,17 +57,6 @@ struct AdvancedAppSettings: View {
                     Text("Share Usage and Crash Data").headline()
                 }
                 .frame(height: 60)
-            }
-            .alert(isPresented: $showingSettingsAlert) {
-                Alert(title: Text("Please allow tracking in Settings"),
-                      message: Text("Currently tracking is disabled for the app."),
-                      primaryButton: .cancel {
-                        trackingEnabled = false
-                      },
-                      secondaryButton: .default(Text("Settings")) {
-                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-                        trackingEnabled = true
-                      })
             }
         }
     }

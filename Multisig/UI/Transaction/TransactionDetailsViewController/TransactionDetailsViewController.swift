@@ -296,7 +296,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         case .ledgerNanoX:
             ledgerKeyInfo = keyInfo
-            let vc = SelectLedgerDeviceViewController()
+            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "sign"])
             vc.delegate = self
             present(vc, animated: true, completion: nil)
         }
@@ -389,6 +389,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     override func reloadData() {
         super.reloadData()
         reloadDataTask?.cancel()
+
+        // delete all app triggers update cycle
+        guard safe != nil && safe.chain != nil else { return }
 
         switch txSource {
         case .id(let txID):

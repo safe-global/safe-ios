@@ -12,3 +12,4 @@
 #include "Config.xcconfig"
 
 SERVICE_ENV = STAGING
+CODE_SIGN_ENTITLEMENTS = Multisig_STAGING.entitlements

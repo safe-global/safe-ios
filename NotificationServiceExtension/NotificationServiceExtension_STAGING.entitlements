@@ -4,8 +4,6 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.io.gnosis.multisig.dev.mainnet</string>
-		<string>group.io.gnosis.multisig.prod.mainnet</string>
 		<string>group.io.gnosis.multisig.staging.mainnet</string>
 	</array>
 </dict>

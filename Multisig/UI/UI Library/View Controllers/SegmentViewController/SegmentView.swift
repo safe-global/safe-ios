@@ -34,7 +34,7 @@ class SegmentView: UINibView {
         }
     }
 
-    func setImage(_ image: UIImage) {
+    func setImage(_ image: UIImage?) {
         button.setImage(image, for: .normal)
     }
 
