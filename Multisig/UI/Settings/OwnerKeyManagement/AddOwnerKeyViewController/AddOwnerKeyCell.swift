@@ -9,13 +9,14 @@
 import UIKit
 
 class AddOwnerKeyCell: UITableViewCell {
+    @IBOutlet private weak var iconImageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var subtitleLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.primary)
-        subtitleLabel.setStyle(.footnote2)
+        titleLabel.setStyle(.headline)
+        subtitleLabel.setStyle(.tertiary)
     }
 
     func set(title: String) {
@@ -24,5 +25,9 @@ class AddOwnerKeyCell: UITableViewCell {
 
     func set(subtitle: String) {
         subtitleLabel.text = subtitle
+    }
+
+    func set(iconName: String) {
+        iconImageView.image = UIImage(named: iconName)
     }
 }
