@@ -297,7 +297,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         case .ledgerNanoX:
             ledgerKeyInfo = keyInfo
-            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "sign"])
+            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "confirm"])
             vc.delegate = self
             present(vc, animated: true, completion: nil)
         }

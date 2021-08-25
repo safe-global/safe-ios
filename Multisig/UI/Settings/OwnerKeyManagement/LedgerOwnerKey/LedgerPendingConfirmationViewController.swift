@@ -35,7 +35,7 @@ class LedgerPendingConfirmationViewController: UIViewController {
         topView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(close)))
 
         // round top corners
-        bottomView.layer.cornerRadius = 10
+        bottomView.layer.cornerRadius = 8
         bottomView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
 
         headerLabel.text = headerText
