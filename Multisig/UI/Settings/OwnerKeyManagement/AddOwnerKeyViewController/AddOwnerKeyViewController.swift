@@ -64,7 +64,7 @@ class AddOwnerKeyViewController: UITableViewController {
         case .deviceImported:
             cell.set(iconName: "ico-add-key")
         case .ledgerNanoX:
-            cell.set(iconName: "ico-add-ledger")
+            cell.set(iconName: "ico-ledger")
         case .walletConnect:
             cell.set(iconName: "ico-add-walletconnect")
         }

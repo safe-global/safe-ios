@@ -26,11 +26,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pm8-9N-kYs">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="600.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="584.5"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bcv-ea-aFp">
-                    <rect key="frame" x="0.0" y="580.5" width="414" height="315.5"/>
+                    <rect key="frame" x="0.0" y="564.5" width="414" height="331.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="8cL-Cs-oV3">
                             <rect key="frame" x="16" y="24" width="382" height="257.5"/>
@@ -84,7 +84,7 @@
                 <constraint firstItem="Bcv-ea-aFp" firstAttribute="top" secondItem="pm8-9N-kYs" secondAttribute="bottom" constant="-20" id="IGM-Mk-AAZ"/>
                 <constraint firstAttribute="bottom" secondItem="Bcv-ea-aFp" secondAttribute="bottom" id="QRH-gU-xln"/>
                 <constraint firstItem="pm8-9N-kYs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cEk-C2-6g8"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8cL-Cs-oV3" secondAttribute="bottom" id="ddm-oC-sEK"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8cL-Cs-oV3" secondAttribute="bottom" constant="16" id="ddm-oC-sEK"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pm8-9N-kYs" secondAttribute="trailing" id="ylJ-zX-95w"/>
             </constraints>
             <point key="canvasLocation" x="40.579710144927539" y="152.67857142857142"/>

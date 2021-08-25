@@ -114,7 +114,7 @@ class WalletConnectClientController {
     func sign(transaction: Transaction, from controller: UIViewController, completion: @escaping (String) -> Void) {
         guard controller.presentedViewController == nil else { return }
 
-        let pendingConfirmationVC = WCPendingConfirmationViewController.create()
+        let pendingConfirmationVC = WCPendingConfirmationViewController()
         pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
         controller.present(pendingConfirmationVC, animated: false)
 
@@ -193,7 +193,7 @@ class WalletConnectClientController {
                  onResult: @escaping (Result<HashString, Error>) -> Void) {
         guard controller.presentedViewController == nil else { return }
 
-        let pendingConfirmationVC = WCPendingConfirmationViewController.create(headerText: "Pending Execution")
+        let pendingConfirmationVC = WCPendingConfirmationViewController(headerText: "Pending Execution")
         pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
         controller.present(pendingConfirmationVC, animated: false)
 

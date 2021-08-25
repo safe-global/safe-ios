@@ -440,7 +440,7 @@
 		550FB19026691C8F00C13D54 /* WCEditParametersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB18226691C8F00C13D54 /* WCEditParametersViewController.xib */; };
 		550FB19126691C8F00C13D54 /* WCPendingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB18326691C8F00C13D54 /* WCPendingConfirmationViewController.swift */; };
 		550FB19226691C8F00C13D54 /* WalletConnectClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB18426691C8F00C13D54 /* WalletConnectClientController.swift */; };
-		550FB19326691C8F00C13D54 /* WCPedingConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB18526691C8F00C13D54 /* WCPedingConfirmationViewController.xib */; };
+		550FB19326691C8F00C13D54 /* WCPendingConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB18526691C8F00C13D54 /* WCPendingConfirmationViewController.xib */; };
 		550FB19426691C8F00C13D54 /* EditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB18626691C8F00C13D54 /* EditCell.swift */; };
 		550FB19526691C8F00C13D54 /* EditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB18726691C8F00C13D54 /* EditCell.xib */; };
 		550FB19626691C8F00C13D54 /* WCSendTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB18826691C8F00C13D54 /* WCSendTransactionRequest.swift */; };
@@ -565,6 +565,9 @@
 		55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */; };
 		55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */; };
 		55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */; };
+		55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */; };
+		55F9B7A226D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */; };
+		55F9B7A426D6785D003D1C68 /* UIAlerController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9B7A326D6785D003D1C68 /* UIAlerController+Extension.swift */; };
 		55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -1025,7 +1028,7 @@
 		550FB18226691C8F00C13D54 /* WCEditParametersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCEditParametersViewController.xib; sourceTree = "<group>"; };
 		550FB18326691C8F00C13D54 /* WCPendingConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCPendingConfirmationViewController.swift; sourceTree = "<group>"; };
 		550FB18426691C8F00C13D54 /* WalletConnectClientController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectClientController.swift; sourceTree = "<group>"; };
-		550FB18526691C8F00C13D54 /* WCPedingConfirmationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCPedingConfirmationViewController.xib; sourceTree = "<group>"; };
+		550FB18526691C8F00C13D54 /* WCPendingConfirmationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCPendingConfirmationViewController.xib; sourceTree = "<group>"; };
 		550FB18626691C8F00C13D54 /* EditCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCell.swift; sourceTree = "<group>"; };
 		550FB18726691C8F00C13D54 /* EditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCell.xib; sourceTree = "<group>"; };
 		550FB18826691C8F00C13D54 /* WCSendTransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCSendTransactionRequest.swift; sourceTree = "<group>"; };
@@ -1155,6 +1158,9 @@
 		55F91A8F25BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterKeyOrSeedPhraseViewController.xib; sourceTree = "<group>"; };
 		55F91A9025BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterKeyOrSeedPhraseViewController.swift; sourceTree = "<group>"; };
 		55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingBehavior.swift; sourceTree = "<group>"; };
+		55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LedgerPendingConfirmationViewController.xib; sourceTree = "<group>"; };
+		55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerPendingConfirmationViewController.swift; sourceTree = "<group>"; };
+		55F9B7A326D6785D003D1C68 /* UIAlerController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlerController+Extension.swift"; sourceTree = "<group>"; };
 		55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLedgerDeviceViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1646,6 +1652,7 @@
 				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
 				0A839B5F2578EB9500103AD9 /* View Controllers */,
 				558835ED255BFEA80014E8C7 /* Views */,
+				55F9B7A326D6785D003D1C68 /* UIAlerController+Extension.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -2367,20 +2374,20 @@
 		550FB17B26691C8F00C13D54 /* WalletConnect */ = {
 			isa = PBXGroup;
 			children = (
-				550FB17C26691C8F00C13D54 /* WCEditParametersViewController.swift */,
-				550FB17D26691C8F00C13D54 /* WalletConnectServerController.swift */,
-				550FB17E26691C8F00C13D54 /* WCTransactionConfirmationViewController.xib */,
-				550FB17F26691C8F00C13D54 /* WCTransactionConfirmationViewController.swift */,
-				550FB18026691C8F00C13D54 /* WCRequestsHandler.swift */,
-				550FB18126691C8F00C13D54 /* WalletsDataSource.swift */,
-				550FB18226691C8F00C13D54 /* WCEditParametersViewController.xib */,
-				550FB18326691C8F00C13D54 /* WCPendingConfirmationViewController.swift */,
-				550FB18426691C8F00C13D54 /* WalletConnectClientController.swift */,
-				550FB18526691C8F00C13D54 /* WCPedingConfirmationViewController.xib */,
 				550FB18626691C8F00C13D54 /* EditCell.swift */,
 				550FB18726691C8F00C13D54 /* EditCell.xib */,
-				550FB18826691C8F00C13D54 /* WCSendTransactionRequest.swift */,
+				550FB18426691C8F00C13D54 /* WalletConnectClientController.swift */,
+				550FB17D26691C8F00C13D54 /* WalletConnectServerController.swift */,
 				550FB18926691C8F00C13D54 /* wallets.json */,
+				550FB18126691C8F00C13D54 /* WalletsDataSource.swift */,
+				550FB17C26691C8F00C13D54 /* WCEditParametersViewController.swift */,
+				550FB18226691C8F00C13D54 /* WCEditParametersViewController.xib */,
+				550FB18526691C8F00C13D54 /* WCPendingConfirmationViewController.xib */,
+				550FB18326691C8F00C13D54 /* WCPendingConfirmationViewController.swift */,
+				550FB18026691C8F00C13D54 /* WCRequestsHandler.swift */,
+				550FB18826691C8F00C13D54 /* WCSendTransactionRequest.swift */,
+				550FB17F26691C8F00C13D54 /* WCTransactionConfirmationViewController.swift */,
+				550FB17E26691C8F00C13D54 /* WCTransactionConfirmationViewController.xib */,
 			);
 			path = WalletConnect;
 			sourceTree = "<group>";
@@ -2734,6 +2741,8 @@
 				0AF1042926BACF59009C4B14 /* OnboardingLedgerKeyViewController.swift */,
 				55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */,
 				551DBE3D26CD39DC0053CCB2 /* LedgerKeyPickerViewController.swift */,
+				55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */,
+				55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */,
 			);
 			path = LedgerOwnerKey;
 			sourceTree = "<group>";
@@ -2932,6 +2941,7 @@
 				04B4B68F25B8857F00CFE24B /* SafeInfoViewV2.xib in Resources */,
 				0A86EE6F25CC2B4C0059876E /* RetryFooterView.xib in Resources */,
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
+				55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */,
 				0AE5A9C3267A4BDC00468C90 /* ImportKeyBannerCell.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveSafeCell.xib in Resources */,
 				55DA0665269DD52E006C9AA5 /* dapps-polygon.json in Resources */,
@@ -3007,7 +3017,7 @@
 				0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */,
 				550FB1B526691D9500C13D54 /* DetailedCell.xib in Resources */,
 				04626EB7265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.xib in Resources */,
-				550FB19326691C8F00C13D54 /* WCPedingConfirmationViewController.xib in Resources */,
+				550FB19326691C8F00C13D54 /* WCPendingConfirmationViewController.xib in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
 				0AE5A9CB267A4C2800468C90 /* BannerView.xib in Resources */,
 				550FB1A026691CA300C13D54 /* DappsViewController.xib in Resources */,
@@ -3112,6 +3122,7 @@
 				0AE8C0A2257947CF00E62B34 /* DetailStatusCell.swift in Sources */,
 				55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */,
 				0468FB8825912E6800541536 /* HistoryTransactionsViewController.swift in Sources */,
+				55F9B7A426D6785D003D1C68 /* UIAlerController+Extension.swift in Sources */,
 				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
 				0A8AEB2025A4764F002A3FE1 /* ActionDetailAddressCell.swift in Sources */,
 				0AE5A9C2267A4BDC00468C90 /* ImportKeyBannerCell.swift in Sources */,
@@ -3145,6 +3156,7 @@
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
 				0AF1C8952541AD4E00E28669 /* ScrollableDataErrorView.swift in Sources */,
 				0A451BF0252DDB49001DB7D2 /* NoDataView.swift in Sources */,
+				55F9B7A226D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift in Sources */,
 				0A57C8E92587AECB00B7C019 /* EnterSafeAddressViewController.swift in Sources */,
 				0A616B9626AEEBB700FCEDB9 /* BoolString.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
