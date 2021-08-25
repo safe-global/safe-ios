@@ -246,7 +246,6 @@ class RemoteNotificationHandler {
         }
     }
 
-    #warning("TODO: Update when push notifications payload is clear")
     private func showDetails(_ userInfo: [AnyHashable : Any]) {
         UIApplication.shared.applicationIconBadgeNumber = 0
         let payload = NotificationPayload(userInfo: userInfo)

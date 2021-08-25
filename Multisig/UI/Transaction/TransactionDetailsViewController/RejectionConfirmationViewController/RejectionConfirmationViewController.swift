@@ -183,8 +183,6 @@ extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
     func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
                                           didSelectDevice deviceId: UUID,
                                           bluetoothController: BluetoothController) {
-
-
         guard let safeTxHash = rejectionTransaction.safeTxHash?.description,
               let keyInfo = keyInfo, keyInfo.keyType == .ledgerNanoX,
               let metadata = keyInfo.metadata,
