@@ -10,6 +10,7 @@ import UIKit
 
 class EnterAddressNameViewController: UIViewController {
     var address: Address!
+    var badgeName: String?
     var name: String?
     var trackingEvent: TrackingEvent!
     var screenTitle: String?
@@ -23,7 +24,7 @@ class EnterAddressNameViewController: UIViewController {
     private var debounceTimer: Timer!
     private let debounceDuration: TimeInterval = 0.250
 
-    @IBOutlet private weak var identiconView: UIImageView!
+    @IBOutlet private weak var identiconView: IdenticonView!
     @IBOutlet private weak var addressLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var textField: GNOTextField!
@@ -36,7 +37,7 @@ class EnterAddressNameViewController: UIViewController {
         assert(placeholder?.isEmpty == false, "Developer error: expect to have a placeholder")
         assert(trackingEvent != nil, "Developer error: expect to have a tracking event")
 
-        identiconView.setAddress(address.hexadecimal)
+        identiconView.set(address: address, badgeName: badgeName)
         addressLabel.attributedText = address.highlighted
         descriptionLabel.setStyle(.primary)
         descriptionLabel.text = descriptionText

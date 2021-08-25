@@ -17,7 +17,7 @@ class ChooseOwnerTableViewCell: UITableViewCell {
         addressInfoView.setDetailImage(nil)
     }
 
-    func set(address: Address, title: String) {
-        addressInfoView.setAddress(address, label: title)
+    func set(address: Address, title: String, badgeName: String?) {
+        addressInfoView.setAddress(address, label: title, badgeName: badgeName)
     }
 }

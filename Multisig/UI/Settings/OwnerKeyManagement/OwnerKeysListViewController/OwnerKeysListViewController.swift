@@ -147,7 +147,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
             return cell
         } else {
             let cell = tableView.dequeueCell(OwnerKeysListTableViewCell.self, for: indexPath)
-            cell.set(address: keyInfo.address, title: keyInfo.displayName)
+            cell.set(address: keyInfo.address, title: keyInfo.displayName, type: keyInfo.keyType)
             return cell
         }
     }

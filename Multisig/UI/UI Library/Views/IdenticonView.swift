@@ -24,6 +24,21 @@ class IdenticonView: UINibView {
             badgeImageView.image = UIImage(named: badgeName)
         }
 
-        badgeImageView.isHidden = badgeName != nil
+        badgeImageView.isHidden = badgeName == nil
+    }
+}
+
+extension KeyType {
+    var imageName: String {
+        switch self {
+        case .deviceImported:
+            return "ico-key-type-key"
+        case .deviceGenerated:
+            return "ico-key-type-seed"
+        case .walletConnect:
+            return "ico-key-type-walletconnet"
+        case .ledgerNanoX:
+            return "ico-key-type-ledger"
+        }
     }
 }

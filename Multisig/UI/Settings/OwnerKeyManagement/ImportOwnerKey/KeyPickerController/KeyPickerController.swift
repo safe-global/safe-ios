@@ -79,6 +79,7 @@ class KeyPickerController: UITableViewController {
         vc.trackingEvent = .enterKeyName
         vc.placeholder = "Enter name"
         vc.address = privateKey.address
+        vc.badgeName = KeyType.deviceImported.imageName
         vc.completion = { [unowned vc] name in
             let success = OwnerKeyController.importKey(
                 privateKey,
