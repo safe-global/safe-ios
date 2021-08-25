@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var updateAppWindow: UIWindow?
     var tabBarWindow: UIWindow?
+    var createPasscodeWindow: UIWindow?
     var privacyShieldWindow: UIWindow?
 
     // the window to present
@@ -212,6 +213,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         createPasscodeWindow.rootViewController = ViewControllerFactory.createPasscodeViewController { [unowned self] in
             onCreatePasscodeCompletion()
         }
+
+        self.createPasscodeWindow = createPasscodeWindow
         return createPasscodeWindow
     }
 
@@ -234,6 +237,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             showWindow(makeTermsWindow())
         } else if shouldShowPasscode {
             showWindow(makeEnterPasscodeWindow())
+        } else if presentedWindow === createPasscodeWindow {
+            showWindow(createPasscodeWindow)
         } else {
             showWindow(tabBarWindow)
         }
