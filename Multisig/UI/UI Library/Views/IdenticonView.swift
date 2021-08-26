@@ -36,7 +36,7 @@ extension KeyType {
         case .deviceGenerated:
             return "ico-key-type-seed"
         case .walletConnect:
-            return "ico-key-type-walletconnet"
+            return "ico-key-type-walletconnect"
         case .ledgerNanoX:
             return "ico-key-type-ledger"
         }
