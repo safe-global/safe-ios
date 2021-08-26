@@ -79,8 +79,6 @@ pipeline {
             }
             steps {
                 ansiColor('xterm') {
-                    // checkout scm: [$class: 'GitSCM', branches: 'refs/heads/main', clean: true], poll: false
-
                     // clean build dir
                     // (was useful when CoreData code generation didn't work properly for some reason)
                     sh "rm -rf Build"
