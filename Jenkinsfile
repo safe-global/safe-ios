@@ -26,9 +26,11 @@ pipeline {
         stage('Unit Test') {
             when {
                 allOf {
-                    triggeredBy 'SCMTrigger';
                     // Jenkins checks out PRs with a PR-XXX format
                     expression { BRANCH_NAME ==~ /^PR-.*/ }
+                    not {
+                        triggeredBy 'TimerTrigger'
+                    }
                 }
             }
             steps {
@@ -48,8 +50,10 @@ pipeline {
         stage('Upload to TestFlight') {
             when {
                 allOf {
-                    triggeredBy 'SCMTrigger';
                     expression { BRANCH_NAME ==~ /^(main|release\/.*)$/ }
+                    not {
+                        triggeredBy 'TimerTrigger'
+                    }
                 }
             }
             steps {
