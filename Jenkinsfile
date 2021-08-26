@@ -5,6 +5,10 @@
 //
 pipeline {
     agent any
+    triggers {
+        // cron('@midnight') // replace when cron is debugged
+        cron('H/15 * * * *')
+    }
     environment {
         // this enables ruby gem binaries, such as xcpretty
         PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
@@ -21,8 +25,11 @@ pipeline {
     stages {
         stage('Unit Test') {
             when {
-                // Jenkins checks out PRs with a PR-XXX format
-                expression { BRANCH_NAME ==~ /^PR-.*/ }
+                allOf {
+                    triggeredBy 'SCMTrigger';
+                    // Jenkins checks out PRs with a PR-XXX format
+                    expression { BRANCH_NAME ==~ /^PR-.*/ }
+                }
             }
             steps {
                 ansiColor('xterm') {
@@ -40,7 +47,10 @@ pipeline {
         }
         stage('Upload to TestFlight') {
             when {
-                expression { BRANCH_NAME ==~ /^(main|release\/.*)$/ }
+                allOf {
+                    triggeredBy 'SCMTrigger';
+                    expression { BRANCH_NAME ==~ /^(main|release\/.*)$/ }
+                }
             }
             steps {
                 ansiColor('xterm') {
@@ -57,6 +67,26 @@ pipeline {
                     sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging\"'
                     sh 'INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production\"'
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
+                }
+            }
+        }
+        stage('All Tests') {
+            when {
+                triggeredBy 'TimerTrigger'
+            }
+            steps {
+                ansiColor('xterm') {
+                    // checkout scm: [$class: 'GitSCM', branches: 'refs/heads/main', clean: true], poll: false
+
+                    // clean build dir
+                    // (was useful when CoreData code generation didn't work properly for some reason)
+                    sh "rm -rf Build"
+
+                    // new param for uikit enabled - alternative
+                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/test.sh \"All Tests\"'
+                    junit 'Build/reports/junit.xml'
+                    archiveArtifacts 'Build/*/xcodebuild-test.log'
+                    archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
                 }
             }
         }
