@@ -26,6 +26,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var pendingExecution = false
     private var safe: Safe!
     private var loadSafeInfoDataTask: URLSessionTask?
+    private var ledgerController: LedgerController?
 
     private enum TransactionSource {
         case id(String)
@@ -296,7 +297,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         case .ledgerNanoX:
             ledgerKeyInfo = keyInfo
-            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "sign"])
+            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "confirm"])
             vc.delegate = self
             present(vc, animated: true, completion: nil)
         }
@@ -476,11 +477,27 @@ extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
               let metadata = ledgerKeyInfo.metadata,
               let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
 
-        let ledgerController = LedgerController(bluetoothController: bluetoothController)
-        ledgerController.sign(safeTxHash: safeTxHash, deviceId: deviceId, path: ledgerKeyMetadata.path) {
-            [weak self] signature in
-            guard let signature = signature else { return }
-            controller.dismiss(animated: true, completion: nil)
+        let pendingConfirmationVC = LedgerPendingConfirmationViewController()
+        pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
+        pendingConfirmationVC.onClose = { [weak self] in
+            self?.reloadData()
+        }
+
+        // dismiss Select Ledger Device screen and presend Ledger Pending Confirmation overlay
+        controller.dismiss(animated: true)
+        present(pendingConfirmationVC, animated: false)
+        ledgerController = LedgerController(bluetoothController: bluetoothController)
+        ledgerController!.sign(safeTxHash: safeTxHash,
+                               deviceId: deviceId,
+                               path: ledgerKeyMetadata.path) { [weak self] signature in
+            // dismiss Ledger Pending Confirmation overlay
+            self?.presentedViewController?.dismiss(animated: true, completion: nil)
+            guard let signature = signature else {
+                let alert = UIAlertController.ledgerAlert()
+                self?.present(alert, animated: true)
+                self?.reloadData()
+                return
+            }
             self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .ledgerNanoX)
         }
     }

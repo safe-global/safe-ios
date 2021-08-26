@@ -25,9 +25,11 @@ class WCTransactionConfirmationViewController: UIViewController {
 
     private var transaction: Transaction!
     private var safe: Safe!
+    private var keyInfo: KeyInfo?
     private var minimalNonce: UInt256String!
     private var session: Session!
     private var importedKeysForSafe: [Address]!
+    private var ledgerController: LedgerController?
     private lazy var trackingParameters: [String: Any] = { ["chain_id": safe.chain!.id!] }()
 
     enum Section {
@@ -76,14 +78,15 @@ class WCTransactionConfirmationViewController: UIViewController {
     }
 
     private func sign(keyInfo: KeyInfo) {
+        self.keyInfo = keyInfo
+
         switch keyInfo.keyType {
 
         case .deviceImported, .deviceGenerated:
             DispatchQueue.global().async { [unowned self] in
                 do {
                     let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                    self.sendConfirmationAndDismiss(keyInfo: keyInfo,
-                                                    signature: signature.hexadecimal,
+                    self.sendConfirmationAndDismiss(signature: signature.hexadecimal,
                                                     trackingEvent: .incomingTxConfirmed)
                 } catch {
                     DispatchQueue.main.async {
@@ -95,20 +98,21 @@ class WCTransactionConfirmationViewController: UIViewController {
 
         case .walletConnect:
             WalletConnectClientController.shared.sign(transaction: transaction, from: self) { [weak self] signature in
-                self?.sendConfirmationAndDismiss(keyInfo: keyInfo,
-                                                 signature: signature,
+                self?.sendConfirmationAndDismiss(signature: signature,
                                                  trackingEvent: .incomingTxConfirmedWalletConnect)
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
 
-        #warning("TODO: implement")
         case .ledgerNanoX:
-            break
+            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "wc_incoming_confirm"])
+            vc.delegate = self
+            present(vc, animated: true, completion: nil)
         }
     }
 
-    private func sendConfirmationAndDismiss(keyInfo: KeyInfo, signature: String, trackingEvent: TrackingEvent) {
+    private func sendConfirmationAndDismiss(signature: String, trackingEvent: TrackingEvent) {
+        guard let keyInfo = keyInfo else { return }
         do {
             try App.shared.clientGatewayService.proposeTransaction(transaction: transaction,
                                                                    sender: AddressString(keyInfo.address),
@@ -365,6 +369,39 @@ extension WCTransactionConfirmationViewController: UITableViewDelegate {
         switch item {
         case Section.Basic.advanced(_): return BasicCell.rowHeight
         default: return UITableView.automaticDimension
+        }
+    }
+}
+
+extension WCTransactionConfirmationViewController: SelectLedgerDeviceDelegate {
+    func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
+                                          didSelectDevice deviceId: UUID,
+                                          bluetoothController: BluetoothController) {
+        guard let safeTxHash = transaction.safeTxHash?.description,
+              let keyInfo = keyInfo, keyInfo.keyType == .ledgerNanoX,
+              let metadata = keyInfo.metadata,
+              let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
+
+        let pendingConfirmationVC = LedgerPendingConfirmationViewController()
+        pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
+
+        // dismiss Select Ledger Device screen and presend Ledger Pending Confirmation overlay
+        controller.dismiss(animated: true)
+        present(pendingConfirmationVC, animated: false)
+        ledgerController = LedgerController(bluetoothController: bluetoothController)
+        ledgerController!.sign(safeTxHash: safeTxHash,
+                               deviceId: deviceId,
+                               path: ledgerKeyMetadata.path) { [weak self] signature in
+            // dismiss Ledger Pending Confirmation overlay
+            self?.presentedViewController?.dismiss(animated: true, completion: nil)
+            guard let signature = signature else {
+                let alert = UIAlertController.ledgerAlert()
+                self?.present(alert, animated: true)
+                return
+            }
+            DispatchQueue.global().async {
+                self?.sendConfirmationAndDismiss(signature: signature, trackingEvent: .incomingTxConfirmedLedger)
+            }
         }
     }
 }

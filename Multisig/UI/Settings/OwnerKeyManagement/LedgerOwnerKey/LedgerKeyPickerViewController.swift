@@ -231,10 +231,7 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
                     return
                 }
                 if errorOrNil != nil {
-                    let alert = UIAlertController(title: "Address Not Found",
-                                                  message: "Please open Ethereum App on your Ledger device.",
-                                                  preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    let alert = UIAlertController.ledgerAlert()
                     self.present(alert, animated: true, completion: nil)
                 }
                 self.tableView.reloadData()
