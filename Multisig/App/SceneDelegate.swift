@@ -237,7 +237,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             showWindow(makeTermsWindow())
         } else if shouldShowPasscode {
             showWindow(makeEnterPasscodeWindow())
-        } else if presentedWindow === createPasscodeWindow {
+        } else if let createPasscodeWindow = createPasscodeWindow, presentedWindow === createPasscodeWindow {
             showWindow(createPasscodeWindow)
         } else {
             showWindow(tabBarWindow)
