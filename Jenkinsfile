@@ -6,8 +6,7 @@
 pipeline {
     agent any
     triggers {
-        // cron('@midnight') // replace when cron is debugged
-        cron('H/15 * * * *')
+        cron('@midnight')
     }
     environment {
         // this enables ruby gem binaries, such as xcpretty
