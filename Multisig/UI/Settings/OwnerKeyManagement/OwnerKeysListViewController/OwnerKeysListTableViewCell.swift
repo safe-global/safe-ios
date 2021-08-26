@@ -18,7 +18,7 @@ class OwnerKeysListTableViewCell: UITableViewCell {
         addressInfoView.copyEnabled = false
     }
 
-    func set(address: Address, title: String) {
-        addressInfoView.setAddress(address, label: title)
+    func set(address: Address, title: String, type: KeyType) {
+        addressInfoView.setAddress(address, label: title, badgeName: type.imageName)
     }
 }

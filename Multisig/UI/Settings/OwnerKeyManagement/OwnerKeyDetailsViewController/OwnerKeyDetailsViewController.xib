@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OwnerKeyDetailsViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="addressInfoView" destination="qJp-t9-y2g" id="VtH-KN-bbW"/>
-                <outlet property="identiconView" destination="fMq-1d-RxI" id="UWO-cU-9hz"/>
+                <outlet property="identiconView" destination="meP-nK-jER" id="kKZ-SQ-g3W"/>
                 <outlet property="nameLabel" destination="yq1-lZ-6eZ" id="adO-LO-ycK"/>
                 <outlet property="qrView" destination="fPq-uD-SkE" id="LNe-LW-DUA"/>
                 <outlet property="titleLabel" destination="Dmp-VD-VOT" id="YH9-hl-6q2"/>
@@ -28,13 +28,14 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="07n-XO-TRT">
                     <rect key="frame" x="0.0" y="72" width="414" height="549"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fMq-1d-RxI">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="meP-nK-jER" customClass="IdenticonView" customModule="Multisig" customModuleProvider="target">
                             <rect key="frame" x="179" y="0.0" width="56" height="56"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="56" id="2f9-xX-bMo"/>
-                                <constraint firstAttribute="width" secondItem="fMq-1d-RxI" secondAttribute="height" multiplier="1:1" id="t1e-FE-Jue"/>
+                                <constraint firstAttribute="width" secondItem="meP-nK-jER" secondAttribute="height" id="piC-Mc-neh"/>
+                                <constraint firstAttribute="height" constant="56" id="pvI-TI-e5W"/>
                             </constraints>
-                        </imageView>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oYL-xU-2zO">
                             <rect key="frame" x="140.5" y="72" width="133.5" height="174.5"/>
                             <subviews>

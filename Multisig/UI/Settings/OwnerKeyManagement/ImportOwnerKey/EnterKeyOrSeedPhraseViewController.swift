@@ -102,6 +102,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
             vc.trackingEvent = .enterKeyName
             vc.placeholder = "Enter name"
             vc.address = privateKey.address
+            vc.badgeName = KeyType.deviceImported.imageName
             vc.completion = { [unowned vc, unowned self] name in
                 let success = OwnerKeyController.importKey(
                     privateKey,

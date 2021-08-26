@@ -14,6 +14,8 @@
 		04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5726AEE06500A14E95 /* BluetoothController.swift */; };
 		04273E5A26B1474700A14E95 /* LedgerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5926B1474700A14E95 /* LedgerController.swift */; };
 		04273E5C26B41A3700A14E95 /* APDUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5B26B41A3700A14E95 /* APDUController.swift */; };
+		04273E6026D43F0400A14E95 /* IdenticonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5F26D43F0400A14E95 /* IdenticonView.swift */; };
+		04273E6226D43F1700A14E95 /* IdenticonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04273E6126D43F1700A14E95 /* IdenticonView.xib */; };
 		0428DA4D25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DA4B25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift */; };
 		0428DA4E25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0428DA4C25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib */; };
 		0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */; };
@@ -614,6 +616,8 @@
 		04273E5726AEE06500A14E95 /* BluetoothController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothController.swift; sourceTree = "<group>"; };
 		04273E5926B1474700A14E95 /* LedgerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerController.swift; sourceTree = "<group>"; };
 		04273E5B26B41A3700A14E95 /* APDUController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APDUController.swift; sourceTree = "<group>"; };
+		04273E5F26D43F0400A14E95 /* IdenticonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdenticonView.swift; sourceTree = "<group>"; };
+		04273E6126D43F1700A14E95 /* IdenticonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdenticonView.xib; sourceTree = "<group>"; };
 		0428DA4B25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackHandlerTableViewCell.swift; sourceTree = "<group>"; };
 		0428DA4C25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FallbackHandlerTableViewCell.xib; sourceTree = "<group>"; };
 		0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLinkTableViewCell.swift; sourceTree = "<group>"; };
@@ -2602,6 +2606,8 @@
 				04B4B6F325B9E09C00CFE24B /* TableViewCell */,
 				0422005F25EFDF3700CAC173 /* TagView.swift */,
 				0422006F25EFDF4E00CAC173 /* TagView.xib */,
+				04273E5F26D43F0400A14E95 /* IdenticonView.swift */,
+				04273E6126D43F1700A14E95 /* IdenticonView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2969,6 +2975,7 @@
 				049A9D3B25F81F2C00CA5723 /* EditOwnerKeyViewController.xib in Resources */,
 				0ADD19A8265E53C600EB0F2B /* QRCodeView.xib in Resources */,
 				0A2F1A78267A5E5B00C09F03 /* TotalCell.xib in Resources */,
+				04273E6226D43F1700A14E95 /* IdenticonView.xib in Resources */,
 				0A8AEB1125A4712B002A3FE1 /* ActionDetailTextCell.xib in Resources */,
 				0A478D5925B876AF0038363E /* ButtonTableViewCell.xib in Resources */,
 				0A2F1A77267A5E5B00C09F03 /* BalanceCell.xib in Resources */,
@@ -3283,6 +3290,7 @@
 				0AF1042826BACD96009C4B14 /* AddKeyOnboardingViewController.swift in Sources */,
 				0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */,
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
+				04273E6026D43F0400A14E95 /* IdenticonView.swift in Sources */,
 				555312EF2506641D0008206B /* RIPEMD160.swift in Sources */,
 				04CE3F9D24B62F0800826AEE /* CollectibleMetaDataAttribute.swift in Sources */,
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,

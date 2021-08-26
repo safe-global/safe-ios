@@ -14,7 +14,7 @@ class OwnerKeyDetailsViewController: UIViewController {
 
     private var keyInfo: KeyInfo!
     private var exportButton: UIBarButtonItem!
-    @IBOutlet private weak var identiconView: UIImageView!
+    @IBOutlet private weak var identiconView: IdenticonView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var addressInfoView: AddressInfoView!
     @IBOutlet private weak var qrView: QRCodeView!
@@ -113,7 +113,7 @@ class OwnerKeyDetailsViewController: UIViewController {
     
     @objc private func bindData() {
         nameLabel.text = keyInfo.name
-        identiconView.setCircleImage(url: nil, address: keyInfo.address)
+        identiconView.set(address: keyInfo.address, badgeName: keyInfo.keyType.imageName)
         addressInfoView.setAddress(keyInfo.address, showIdenticon: false)
 
         if let addressString = keyInfo.addressString {

@@ -116,7 +116,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
             return cell
         } else {
             let cell = tableView.dequeueCell(ChooseOwnerTableViewCell.self)
-            cell.set(address: keyInfo.address, title: keyInfo.displayName)
+            cell.set(address: keyInfo.address, title: keyInfo.displayName, badgeName: keyInfo.keyType.imageName)
             return cell
         }
     }

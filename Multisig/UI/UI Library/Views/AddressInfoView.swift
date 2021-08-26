@@ -10,7 +10,7 @@ import UIKit
 
 class AddressInfoView: UINibView {
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var identiconView: UIImageView!
+    @IBOutlet private weak var identiconView: IdenticonView!
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var addressLabel: UILabel!
     @IBOutlet private weak var copyButton: UIButton!
@@ -37,7 +37,7 @@ class AddressInfoView: UINibView {
         titleLabel.isHidden = text == nil
     }
 
-    func setAddress(_ address: Address, label: String? = nil, imageUri: URL? = nil, showIdenticon: Bool = true) {
+    func setAddress(_ address: Address, label: String? = nil, imageUri: URL? = nil, showIdenticon: Bool = true, badgeName: String? = nil) {
         self.address = address
         self.label = label
 
@@ -53,7 +53,7 @@ class AddressInfoView: UINibView {
 
         addressLabel.textAlignment = showIdenticon ? .left : .center
         if showIdenticon {
-            identiconView.setCircleImage(url: imageUri, address: address)
+            identiconView.set(address: address, imageURL: imageUri, badgeName: badgeName)
         }
         identiconView.isHidden = !showIdenticon
     }

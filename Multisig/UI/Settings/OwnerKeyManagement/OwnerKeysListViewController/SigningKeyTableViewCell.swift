@@ -12,7 +12,6 @@ import WalletConnectSwift
 class SigningKeyTableViewCell: UITableViewCell {
     @IBOutlet weak var addressInfoView: AddressInfoView!
     @IBOutlet weak var wcConnectionStatusImageView: UIImageView!
-    @IBOutlet weak var keyImageView: UIImageView!
 
     static let height: CGFloat = 68
 
@@ -30,30 +29,22 @@ class SigningKeyTableViewCell: UITableViewCell {
     }
 
     func configure(keyInfo: KeyInfo) {
-        set(address: keyInfo.address, title: keyInfo.displayName)
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            set(keyImageUrl: nil, placeholder: UIImage(named: "ico-device-key")!)
             set(wcConnectionStatus: .none)
-
         case .walletConnect:
-            set(keyImageUrl: nil, placeholder: UIImage(named: "wc-logo")!)
             let isConnected = WalletConnectClientController.shared.isConnected(keyInfo: keyInfo)
             set(wcConnectionStatus: isConnected ? .connected : .disconnected)
-
         case .ledgerNanoX:
-            set(keyImageUrl: nil, placeholder: UIImage(named: "ico-ledger")!)
             set(wcConnectionStatus: .none)
         }
+
+        set(address: keyInfo.address, title: keyInfo.displayName, badgeName: keyInfo.keyType.imageName)
     }
 
-    func set(address: Address, title: String) {
-        addressInfoView.setAddress(address, label: title)
-    }
-
-    func set(keyImageUrl: URL?, placeholder: UIImage) {
-        keyImageView.kf.setImage(with: keyImageUrl, placeholder: placeholder)
+    func set(address: Address, title: String, badgeName: String?) {
+        addressInfoView.setAddress(address, label: title, badgeName: badgeName)
     }
 
     func set(wcConnectionStatus: WCConnectionStatus) {

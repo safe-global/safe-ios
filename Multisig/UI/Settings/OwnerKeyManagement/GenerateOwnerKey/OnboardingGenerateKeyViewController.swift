@@ -49,6 +49,7 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
         vc.trackingEvent = .enterKeyName
         vc.placeholder = "Enter name"
         vc.address = privateKey.address
+        vc.badgeName = KeyType.deviceGenerated.imageName
         vc.completion = { [unowned self, unowned vc] name in
             guard OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true),
                   let keyInfo = try? KeyInfo.keys(addresses: [privateKey.address]).first else {
