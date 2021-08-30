@@ -20,21 +20,33 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
     /// If a Bluetooth device is not found within the time limit, we show empty results page
     private let searchTimeLimit: TimeInterval = 20
     private var searchTimer: Timer?
-    private var trackingParameters: [String: Any]?
+    private var trackingParameters: [String: Any]!
+    private var showsCloseButton: Bool!
+    private var navTitle: String!
 
     override var isEmpty: Bool { bluetoothController.devices.isEmpty }
 
     weak var delegate: SelectLedgerDeviceDelegate?
 
-    convenience init(trackingParameters: [String: Any]) {
+    convenience init(trackingParameters: [String: Any],
+                     title: String,
+                     showsCloseButton: Bool) {
         self.init(namedClass: Self.superclass())
         self.trackingParameters = trackingParameters
+        self.navTitle = title
+        self.showsCloseButton = showsCloseButton
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Connect Ledger Wallet"
+        navigationItem.title = navTitle
+        if showsCloseButton {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .close,
+                target: self,
+                action: #selector(CloseModal.closeModal))
+        }
 
         bluetoothController.delegate = self
 

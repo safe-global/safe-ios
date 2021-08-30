@@ -117,9 +117,11 @@ class RejectionConfirmationViewController: UIViewController {
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
 
         case .ledgerNanoX:
-            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "reject"])
+            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "reject"],
+                                                      title: "Reject Transaction",
+                                                      showsCloseButton: true)
             vc.delegate = self
-            present(vc, animated: true, completion: nil)
+            present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
         }
     }
 

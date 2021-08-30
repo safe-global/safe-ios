@@ -201,7 +201,7 @@ fileprivate class LedgerKeyPickerViewModel {
 fileprivate class LedgerKeyPickerContentViewController: UITableViewController, LedgerKeyPickerViewModelDelegate {
     private var model: LedgerKeyPickerViewModel!
     private var fetchTimer: Timer?
-    private let fetchTimeLimit: TimeInterval = 15
+    private let fetchTimeLimit: TimeInterval = 20
 
     let estimatedRowHeight: CGFloat = 58
     var importButton: UIBarButtonItem!

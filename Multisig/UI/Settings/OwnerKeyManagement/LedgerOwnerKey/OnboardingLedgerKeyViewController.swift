@@ -10,14 +10,13 @@ import UIKit
 
 class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
     convenience init(completion: @escaping () -> Void) {
-        #warning("TODO: change image for 'Pair your Ledger device' onboarding card")
         self.init(
             cards: [
                 .init(image: UIImage(named: "ico-onbaording-import-key-1"),
                       title: "How does it work?",
                       body: "You can connect your Ledger device and select a key. If it is an owner of your Safe you can sign transactions."),
 
-                .init(image: UIImage(named: "ico-onbaording-import-key-2"),
+                .init(image: UIImage(named: "ico-onbaording-bluetooth"),
                       title: "Pair your Ledger device",
                       body: "Please make sure your Ledger Nano X is unlocked, Bluetooth is enabled and Ethereum app is installed and opened."),
 
@@ -31,7 +30,9 @@ class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
     }
 
     override func didTapNextButton(_ sender: Any) {
-        let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "import"])
+        let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "import"],
+                                                  title: "Connect Ledger Wallet",
+                                                  showsCloseButton: false)
         vc.delegate = self
         show(vc, sender: self)
     }
