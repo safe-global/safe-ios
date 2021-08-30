@@ -105,9 +105,11 @@ class WCTransactionConfirmationViewController: UIViewController {
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
 
         case .ledgerNanoX:
-            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "wc_incoming_confirm"])
+            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "wc_incoming_confirm"],
+                                                      title: "Confirm Incoming Transaction",
+                                                      showsCloseButton: true)
             vc.delegate = self
-            present(vc, animated: true, completion: nil)
+            present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
         }
     }
 

@@ -477,9 +477,18 @@ enum GSError {
     struct ProblemConnectingBluetoothDevice: DetailedLocalizedError {
         let description = "Failed to connect"
         let reason = "The Bluetooth device is not powered on."
-        let howToFix = "Please check bluetooth status on your phone."
+        let howToFix = "Please check the bluetooth status on your phone."
         let domain = iOSErrorDomain
         let code = 1317
+        let loggable = false
+    }
+
+    struct BluetoothIsNotAuthorized: DetailedLocalizedError {
+        let description = "Failed to connect"
+        let reason = "The Bluetooth device is not authorized."
+        let howToFix = "Please check the bluetooth status in the app settings."
+        let domain = iOSErrorDomain
+        let code = 1318
         let loggable = false
     }
 
