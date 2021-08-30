@@ -100,9 +100,9 @@ fileprivate class LedgerKeyPickerViewModel {
     weak var delegate: LedgerKeyPickerViewModelDelegate?
 
     var keys = [KeyAddressInfo]()
-    var maxItemCount = 100
-    var pageSize = 10
-    var isLoading = true {
+    let maxItemCount = 100
+    let pageSize = 10
+    private(set) var isLoading = true {
         didSet {
             delegate?.didChangeLoadingState()
         }
@@ -137,7 +137,7 @@ fileprivate class LedgerKeyPickerViewModel {
         // We use serial queue because when switching Ledger / Ledger Live tabs, they should not try to send
         // commands to the Ledger Nano X device while processing other tab commands.
         ledgerSerialQueue.async { [weak self] in
-            guard let self = self else { return }
+            guard let self = self, self.isLoading  else { return }
 
             let indexes = (self.keys.count..<self.keys.count + self.pageSize)
             var addresses = [Address]()
@@ -184,6 +184,10 @@ fileprivate class LedgerKeyPickerViewModel {
         }
     }
 
+    func stopLoading() {
+        isLoading = false
+    }
+
     func importSelectedKey(name: String) {
         guard selectedIndex >= 0 else { return }
         let key = keys[selectedIndex]
@@ -196,6 +200,8 @@ fileprivate class LedgerKeyPickerViewModel {
 
 fileprivate class LedgerKeyPickerContentViewController: UITableViewController, LedgerKeyPickerViewModelDelegate {
     private var model: LedgerKeyPickerViewModel!
+    private var fetchTimer: Timer?
+    private let fetchTimeLimit: TimeInterval = 15
 
     let estimatedRowHeight: CGFloat = 58
     var importButton: UIBarButtonItem!
@@ -246,8 +252,14 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
     }
 
     private func generateNextPage() {
+        fetchTimer = Timer.scheduledTimer(withTimeInterval: fetchTimeLimit, repeats: false) { [weak self] _ in
+            self?.model.stopLoading()
+            let alert = UIAlertController.ledgerAlert()
+            self?.present(alert, animated: true, completion: nil)
+        }
         model.generateNextPage { [weak self] errorOrNil in
             guard let self = self else { return }
+            self.fetchTimer?.invalidate()
             DispatchQueue.main.async {
                 // If a Bluetooth device was disconnected while generating the next page with addresses,
                 // we pop to select the ledger device screen.
