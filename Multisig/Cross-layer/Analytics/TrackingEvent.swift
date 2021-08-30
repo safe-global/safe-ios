@@ -138,4 +138,5 @@ enum TrackingEvent: String, Trackable {
     case ledgerKeyImported                          = "user_ledger_nano_x_key_imported"
     case ledgerSelectDevice                         = "screen_select_ledger_nano_x_device"
     case ledgerSelectKey                            = "screen_select_ledger_nano_x_key"
+    case ledgerEnterKeyName                         = "screen_ledger_nano_x_enter_name"
 }

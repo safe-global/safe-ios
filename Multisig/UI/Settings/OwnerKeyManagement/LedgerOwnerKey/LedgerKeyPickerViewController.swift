@@ -48,9 +48,30 @@ class LedgerKeyPickerViewController: SegmentViewController {
 
     @objc func didTapImport() {
         guard let selectedIndex = selectedIndex,
-              let controller = viewControllers[selectedIndex] as? LedgerKeyPickerContentViewController else { return }
-        controller.importSelectedKey()
-        completion()
+              let controller = viewControllers[selectedIndex] as? LedgerKeyPickerContentViewController,
+              let key = controller.selectedKey else { return }
+
+        var namePrefix = ""
+        switch controller.keyType {
+        case .ledger: namePrefix = "Ledger key #"
+        case .ledgerLive: namePrefix = "Ledger Live key #"
+        }
+        let defaultName = "\(namePrefix)\(key.index + 1)"
+
+        let vc = EnterAddressNameViewController()
+        vc.actionTitle = "Import"
+        vc.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        vc.screenTitle = "Enter Key Name"
+        vc.trackingEvent = .ledgerEnterKeyName
+        vc.placeholder = "Enter name"
+        vc.name = defaultName
+        vc.address = key.address
+        vc.badgeName = KeyType.ledgerNanoX.imageName
+        vc.completion = { [unowned self, controller] name in
+            controller.importSelectedKey(name: name)
+            self.completion()
+        }
+        show(vc, sender: nil)
     }
 }
 
@@ -163,18 +184,13 @@ fileprivate class LedgerKeyPickerViewModel {
         }
     }
 
-    func importSelectedKey() {
+    func importSelectedKey(name: String) {
         guard selectedIndex >= 0 else { return }
         let key = keys[selectedIndex]
-        var namePrefix = ""
-        switch type {
-        case .ledger: namePrefix = "Ledger key #"
-        case .ledgerLive: namePrefix = "Ledger Live key #"
-        }
         OwnerKeyController.importKey(ledgerDeviceUUID: deviceId,
                                      path: basePathPattern.replacingOccurrences(of: "{index}", with: "\(key.index)"),
                                      address: key.address,
-                                     name: "\(namePrefix)\(key.index + 1)")
+                                     name: name)
     }
 }
 
@@ -186,6 +202,15 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
 
     var shouldShowLoadMoreButton: Bool {
         model.canLoadMoreAddresses && !model.isLoading
+    }
+
+    var selectedKey: KeyAddressInfo? {
+        guard model.selectedIndex != -1 else { return nil }
+        return model.keys[model.selectedIndex]
+    }
+
+    var keyType: LedgerKeyType {
+        model.type
     }
 
     convenience init(type: LedgerKeyType,
@@ -216,8 +241,8 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
         Tracker.trackEvent(.ledgerSelectKey)
     }
 
-    func importSelectedKey() {
-        model.importSelectedKey()
+    func importSelectedKey(name: String) {
+        model.importSelectedKey(name: name)
     }
 
     private func generateNextPage() {

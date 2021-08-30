@@ -45,12 +45,16 @@ class EnterAddressNameViewController: UIViewController {
         textField.setPlaceholder(placeholder)
         textField.textField.delegate = self
         textField.textField.becomeFirstResponder()
+        if let name = name {
+            textField.textField.text = name
+        }
 
         navigationItem.title = screenTitle
 
         nextButton = UIBarButtonItem(title: actionTitle, style: .done, target: self, action: #selector(didTapNextButton))
-        nextButton.isEnabled = false
         navigationItem.rightBarButtonItem = nextButton
+
+        validateName()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -63,10 +67,11 @@ class EnterAddressNameViewController: UIViewController {
         completion(name)
     }
 
-    fileprivate func validateName() {
+    private func validateName() {
         nextButton.isEnabled = false
         guard let text = textField.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !text.isEmpty else {
+            self.name = nil
             return
         }
         self.name = text
