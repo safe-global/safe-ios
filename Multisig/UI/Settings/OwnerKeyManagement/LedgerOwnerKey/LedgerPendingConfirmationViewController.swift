@@ -9,7 +9,6 @@
 import UIKit
 
 class LedgerPendingConfirmationViewController: UIViewController {
-    @IBOutlet private weak var topView: UIView!
     @IBOutlet private weak var bottomView: UIView!
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
@@ -32,8 +31,6 @@ class LedgerPendingConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        topView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(close)))
-
         // round top corners
         bottomView.layer.cornerRadius = 8
         bottomView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -41,12 +38,12 @@ class LedgerPendingConfirmationViewController: UIViewController {
         headerLabel.text = headerText
         headerLabel.setStyle(.headline)
         descriptionLabel.setStyle(.callout)
-        cancelButton.setText("Cancel", .filledError)
+        cancelButton.setText("Cancel", .plain)
 
         modalTransitionStyle = .crossDissolve
     }
 
-    @objc private func close() {
+    private func close() {
         dismiss(animated: true) { [weak self] in
             self?.onClose?()
         }

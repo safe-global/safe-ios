@@ -115,7 +115,7 @@ class WalletConnectClientController {
         guard controller.presentedViewController == nil else { return }
 
         let pendingConfirmationVC = WCPendingConfirmationViewController()
-        pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
+        pendingConfirmationVC.modalPresentationStyle = .popover
         controller.present(pendingConfirmationVC, animated: false)
 
         sign(transaction: transaction) { [weak controller] result in
@@ -194,7 +194,7 @@ class WalletConnectClientController {
         guard controller.presentedViewController == nil else { return }
 
         let pendingConfirmationVC = WCPendingConfirmationViewController(headerText: "Pending Execution")
-        pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
+        pendingConfirmationVC.modalPresentationStyle = .popover
         controller.present(pendingConfirmationVC, animated: false)
 
         guard let session = session,
