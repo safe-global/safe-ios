@@ -383,7 +383,7 @@ extension WCTransactionConfirmationViewController: SelectLedgerDeviceDelegate {
               let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
 
         let pendingConfirmationVC = LedgerPendingConfirmationViewController()
-        pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
+        pendingConfirmationVC.modalPresentationStyle = .popover
 
         // dismiss Select Ledger Device screen and presend Ledger Pending Confirmation overlay
         controller.dismiss(animated: true)

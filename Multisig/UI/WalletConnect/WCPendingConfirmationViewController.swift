@@ -9,7 +9,6 @@
 import UIKit
 
 class WCPendingConfirmationViewController: UIViewController {
-    @IBOutlet private weak var topView: UIView!
     @IBOutlet private weak var bottomView: UIView!
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
@@ -32,8 +31,6 @@ class WCPendingConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        topView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(close)))
-
         // round top corners
         bottomView.layer.cornerRadius = 8
         bottomView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -42,12 +39,12 @@ class WCPendingConfirmationViewController: UIViewController {
         headerLabel.setStyle(.headline)
         activityIndicator.startAnimating()
         descriptionLabel.setStyle(.callout)
-        cancelButton.setText("Cancel", .filledError)
+        cancelButton.setText("Cancel", .plain)
 
         modalTransitionStyle = .crossDissolve
     }
 
-    @objc private func close() {
+    private func close() {
         dismiss(animated: true, completion: nil)
     }
 }

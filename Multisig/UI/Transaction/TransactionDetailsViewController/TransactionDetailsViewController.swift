@@ -478,7 +478,7 @@ extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
               let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
 
         let pendingConfirmationVC = LedgerPendingConfirmationViewController()
-        pendingConfirmationVC.modalPresentationStyle = .overCurrentContext
+        pendingConfirmationVC.modalPresentationStyle = .popover
         pendingConfirmationVC.onClose = { [weak self] in
             self?.reloadData()
         }

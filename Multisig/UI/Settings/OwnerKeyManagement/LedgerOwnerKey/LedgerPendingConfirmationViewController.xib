@@ -15,7 +15,6 @@
                 <outlet property="cancelButton" destination="HP4-d5-dLu" id="vzX-P3-wXF"/>
                 <outlet property="descriptionLabel" destination="Fm7-aH-SKi" id="Aia-bh-Hz9"/>
                 <outlet property="headerLabel" destination="4Vx-j0-agE" id="baS-53-ULA"/>
-                <outlet property="topView" destination="80E-CU-ipL" id="rvV-tj-WqN"/>
                 <outlet property="view" destination="rmt-Qi-cti" id="BNY-bS-BcI"/>
             </connections>
         </placeholder>
@@ -24,10 +23,6 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.20000000298023224" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="80E-CU-ipL">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="482.5"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AyD-YA-oAT">
                     <rect key="frame" x="0.0" y="462.5" width="414" height="433.5"/>
                     <subviews>
@@ -81,14 +76,10 @@
             <viewLayoutGuide key="safeArea" id="nFl-kt-k7b"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="AyD-YA-oAT" firstAttribute="top" secondItem="80E-CU-ipL" secondAttribute="bottom" constant="-20" id="71R-wb-hX8"/>
                 <constraint firstAttribute="bottom" secondItem="AyD-YA-oAT" secondAttribute="bottom" id="D4h-OK-FAD"/>
                 <constraint firstItem="AyD-YA-oAT" firstAttribute="leading" secondItem="nFl-kt-k7b" secondAttribute="leading" id="DV4-LS-X0f"/>
-                <constraint firstItem="nFl-kt-k7b" firstAttribute="trailing" secondItem="80E-CU-ipL" secondAttribute="trailing" id="EJ2-Cs-Ik9"/>
                 <constraint firstItem="nFl-kt-k7b" firstAttribute="bottom" secondItem="TtX-3G-9mc" secondAttribute="bottom" constant="16" id="IrR-b7-Wk4"/>
                 <constraint firstItem="nFl-kt-k7b" firstAttribute="trailing" secondItem="AyD-YA-oAT" secondAttribute="trailing" id="YkE-nE-Y4g"/>
-                <constraint firstItem="80E-CU-ipL" firstAttribute="leading" secondItem="nFl-kt-k7b" secondAttribute="leading" id="dtX-mK-FVy"/>
-                <constraint firstItem="80E-CU-ipL" firstAttribute="top" secondItem="rmt-Qi-cti" secondAttribute="top" id="qfa-gq-bdy"/>
             </constraints>
             <point key="canvasLocation" x="40.579710144927539" y="152.67857142857142"/>
         </view>
