@@ -80,6 +80,8 @@ extension BluetoothController: CBCentralManagerDelegate {
         switch central.state {
         case .poweredOn:
             centralManager.scanForPeripherals(withServices: supportedDeviceUUIDs)
+        case .unauthorized:
+            delegate?.bluetoothControllerDidFailToConnectBluetooth(error: GSError.BluetoothIsNotAuthorized())
         default:
             delegate?.bluetoothControllerDidFailToConnectBluetooth(error: GSError.ProblemConnectingBluetoothDevice())
         }

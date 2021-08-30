@@ -105,7 +105,22 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
 extension SelectLedgerDeviceViewController: BluetoothControllerDelegate {
     func bluetoothControllerDidFailToConnectBluetooth(error: DetailedLocalizedError) {
         onSuccess()
-        App.shared.snackbar.show(error: error)
+         if error is GSError.BluetoothIsNotAuthorized {
+            let alertVC = UIAlertController(title: nil,
+                                            message: "Please enable Bluetooth in App Settings",
+                                            preferredStyle: .alert)
+
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+            let settings = UIAlertAction(title: "Settings", style: .default) { _ in
+                let url = URL(string: UIApplication.openSettingsURLString)!
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url)
+                }
+            }
+            alertVC.addAction(cancel)
+            alertVC.addAction(settings)
+            present(alertVC, animated: true, completion: nil)
+        }
     }
 
     func bluetoothControllerDidDiscover(device: BluetoothDevice) {
@@ -114,8 +129,5 @@ extension SelectLedgerDeviceViewController: BluetoothControllerDelegate {
 
     func bluetoothControllerDidDisconnect(device: BluetoothDevice, error: DetailedLocalizedError?) {
         onSuccess()
-        if let error = error {
-            App.shared.snackbar.show(error: error)
-        }
     }
 }
