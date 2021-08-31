@@ -272,7 +272,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
               let safeTxHash = transaction.safeTxHash?.description else {
             preconditionFailure("Unexpected Error")            
         }
-        super.reloadData()
 
         transaction.safe = AddressString(safeAddress)
         transaction.safeVersion = safe.contractVersion
@@ -306,6 +305,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private func confirmAndRefresh(safeTxHash: String, signature: String, keyType: KeyType) {
+        super.reloadData()
         confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash,
                                                                        signature: signature,
                                                                        chainId: safe.chain!.id!) {
@@ -343,7 +343,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
               keyInfo.keyType == .walletConnect else {
             preconditionFailure("Unexpected Error")
         }
-        super.reloadData()
 
         do {
             let safeAddress = try Address(from: safe.address!)
