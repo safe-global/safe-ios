@@ -94,8 +94,6 @@ class RejectionConfirmationViewController: UIViewController {
     }
 
     private func rejectTransaction(_ keyInfo: KeyInfo) {
-        startLoading()
-
         self.keyInfo = keyInfo
 
         switch keyInfo.keyType {
@@ -137,6 +135,7 @@ class RejectionConfirmationViewController: UIViewController {
 
     private func rejectAndCloseController(signature: String) {
         guard let keyInfo = keyInfo else { return }
+        startLoading()
         _ = App.shared.clientGatewayService.asyncProposeTransaction(
             transaction: rejectionTransaction,
             sender: AddressString(keyInfo.address),
