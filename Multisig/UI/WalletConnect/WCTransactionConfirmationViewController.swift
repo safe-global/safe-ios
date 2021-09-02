@@ -386,6 +386,9 @@ extension WCTransactionConfirmationViewController: SelectLedgerDeviceDelegate {
 
         let pendingConfirmationVC = LedgerPendingConfirmationViewController()
         pendingConfirmationVC.modalPresentationStyle = .popover
+        pendingConfirmationVC.onClose = { [weak self] in
+            self?.ledgerController = nil
+        }
 
         // dismiss Select Ledger Device screen and presend Ledger Pending Confirmation overlay
         controller.dismiss(animated: true)

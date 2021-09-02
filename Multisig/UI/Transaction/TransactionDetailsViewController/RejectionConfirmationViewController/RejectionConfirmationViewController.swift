@@ -192,6 +192,7 @@ extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
         let pendingConfirmationVC = LedgerPendingConfirmationViewController()
         pendingConfirmationVC.modalPresentationStyle = .popover
         pendingConfirmationVC.onClose = { [weak self] in
+            self?.ledgerController = nil
             self?.endLoading()
         }
 
