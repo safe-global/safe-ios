@@ -53,7 +53,6 @@ class BluetoothController: NSObject {
     typealias ResponseCompletion = (Result<Data, Error>) -> Void
     private var responses = [UUID: ResponseCompletion]()
 
-
     var devices: [BluetoothDevice] = []
 
     private var supportedDevices: [SupportedDevice] = []
