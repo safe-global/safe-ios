@@ -107,9 +107,8 @@ class RejectionConfirmationViewController: UIViewController {
 
         case .walletConnect:
             WalletConnectClientController.shared.sign(transaction: rejectionTransaction, from: self) {
-                [unowned self] signature in
-
-                rejectAndCloseController(signature: signature)
+                [weak self] signature in
+                self?.rejectAndCloseController(signature: signature)
             }
 
             WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
