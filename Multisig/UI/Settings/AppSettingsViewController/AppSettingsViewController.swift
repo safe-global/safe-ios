@@ -23,9 +23,14 @@ class AppSettingsViewController: UITableViewController {
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
     enum Section {
+        case web
         case app
         case general
         case advanced
+
+        enum Web: SectionItem {
+            case pairedBrowsers(String)
+        }
 
         enum App: SectionItem {
             case ownerKeys(String, String)
@@ -73,8 +78,9 @@ class AppSettingsViewController: UITableViewController {
 
     private func buildSections() {
         sections = [
+            (section: .web, items: [Section.Web.pairedBrowsers("Paired browsers 🖥")]),
             (section: .app, items: [
-                Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
+                Section.App.ownerKeys("Owner keys 🔐", "\(KeyInfo.count())"),
                 Section.App.passcode("Passcode"),
                 Section.App.appearance("Appearance"),
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
@@ -116,6 +122,11 @@ class AppSettingsViewController: UITableViewController {
         }
     }
 
+    private func showPairedBrowsers() {
+        let vc = PairedBrowsersViewController()
+        show(vc, sender: self)
+    }
+
     private func showOwnerKeys() {
         let vc = OwnerKeysListViewController()
         show(vc, sender: self)
@@ -139,6 +150,9 @@ class AppSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
+        case Section.Web.pairedBrowsers(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
+
         case Section.App.ownerKeys(let name, let count):
             return tableView.basicCell(name: name, detail: count, indexPath: indexPath)
 
@@ -186,6 +200,9 @@ class AppSettingsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
+        case Section.Web.pairedBrowsers:
+            showPairedBrowsers()
+
         case Section.App.ownerKeys:
             showOwnerKeys()
 
