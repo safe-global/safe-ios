@@ -534,7 +534,8 @@
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
 		55AF36CC26E7B64800F69E22 /* PairedBrowsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36CA26E7B64800F69E22 /* PairedBrowsersViewController.swift */; };
-		55AF36CD26E7B64800F69E22 /* PairedBrowsersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AF36CB26E7B64800F69E22 /* PairedBrowsersViewController.xib */; };
+		55AF36CF26E7B8E100F69E22 /* PairedBrowsersHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36CE26E7B8E100F69E22 /* PairedBrowsersHeaderView.swift */; };
+		55AF36D126E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AF36D026E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib */; };
 		55B6465A253050200050BD95 /* HashString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64657253050200050BD95 /* HashString.swift */; };
 		55B6465B253050200050BD95 /* SignatureString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64658253050200050BD95 /* SignatureString.swift */; };
 		55B6465C253050200050BD95 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64659253050200050BD95 /* Transaction.swift */; };
@@ -1128,7 +1129,8 @@
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
 		55AF36CA26E7B64800F69E22 /* PairedBrowsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedBrowsersViewController.swift; sourceTree = "<group>"; };
-		55AF36CB26E7B64800F69E22 /* PairedBrowsersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PairedBrowsersViewController.xib; sourceTree = "<group>"; };
+		55AF36CE26E7B8E100F69E22 /* PairedBrowsersHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedBrowsersHeaderView.swift; sourceTree = "<group>"; };
+		55AF36D026E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PairedBrowsersHeaderView.xib; sourceTree = "<group>"; };
 		55AF4CF226C15261006DA1CC /* Multisig_DEV.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_DEV.entitlements; sourceTree = "<group>"; };
 		55AF4CF326C15261006DA1CC /* Multisig_PROD.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_PROD.entitlements; sourceTree = "<group>"; };
 		55AF4CF426C15261006DA1CC /* Multisig_STAGING.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_STAGING.entitlements; sourceTree = "<group>"; };
@@ -2678,7 +2680,8 @@
 			isa = PBXGroup;
 			children = (
 				55AF36CA26E7B64800F69E22 /* PairedBrowsersViewController.swift */,
-				55AF36CB26E7B64800F69E22 /* PairedBrowsersViewController.xib */,
+				55AF36CE26E7B8E100F69E22 /* PairedBrowsersHeaderView.swift */,
+				55AF36D026E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib */,
 			);
 			path = PairedBrowsers;
 			sourceTree = "<group>";
@@ -3009,6 +3012,7 @@
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
+				55AF36D126E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
@@ -3022,7 +3026,6 @@
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
-				55AF36CD26E7B64800F69E22 /* PairedBrowsersViewController.xib in Resources */,
 				0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
 				0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */,
@@ -3219,6 +3222,7 @@
 				048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */,
 				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
 				550FB1CF26691F1500C13D54 /* MonitoringService.swift in Sources */,
+				55AF36CF26E7B8E100F69E22 /* PairedBrowsersHeaderView.swift in Sources */,
 				0ADD19C0265EA23200EB0F2B /* PrivateKeyViewController.swift in Sources */,
 				558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */,
 				555312EB2506608D0008206B /* Base58.swift in Sources */,

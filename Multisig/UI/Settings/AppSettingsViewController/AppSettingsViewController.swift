@@ -268,7 +268,7 @@ class AppSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section].section
         switch section {
-        case .general, .advanced:
+        case .app, .general, .advanced:
             return sectionHeaderHeight
         default:
             return 0
