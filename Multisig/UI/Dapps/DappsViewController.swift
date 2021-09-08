@@ -182,7 +182,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         let item = sections[indexPath.section].items[indexPath.row]
 
         if case Section.WalletConnect.activeSession(let session) = item {
-            WalletConnectServerController.shared.disconnect(topic: session.topic!)
+            WalletConnectSafesServerController.shared.disconnect(topic: session.topic!)
         }
     }
 
@@ -243,7 +243,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         do {
-            try WalletConnectServerController.shared.connect(url: code)
+            try WalletConnectSafesServerController.shared.connect(url: code)
             Tracker.trackEvent(.dappConnectedWithScanButton)
             dismiss(animated: true, completion: nil)
         } catch {

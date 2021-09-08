@@ -26,7 +26,7 @@ class MonitoringService {
             // repeat syncronization loop every `syncInterval`
             self.syncLoopRepeater = Repeater(delay: self.syncInterval) { repeater in
                 if repeater.isStopped { return }
-                WalletConnectServerController.shared.updatePendingTransactions()
+                WalletConnectSafesServerController.shared.updatePendingTransactions()
             }
             // blocks current thread until the repeater is not stopped.
             self.syncLoopRepeater!.start()

@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         App.shared.notificationHandler.setUpMessaging(delegate: self)
 
         // Reconnect all WalletConnect sessions
-        WalletConnectServerController.shared.reconnectAllSessions()
+        WalletConnectSafesServerController.shared.reconnectAllSessions()
         WalletConnectClientController.shared.reconnectIfNeeded()
 
         return true
