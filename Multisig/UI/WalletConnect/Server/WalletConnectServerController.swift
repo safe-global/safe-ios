@@ -14,6 +14,13 @@ class WalletConnectServerController: ServerDelegate {
     private let notificationCenter = NotificationCenter.default
     private var showedNotificationsSessionTopics = [String]()
 
+    // Subclasses should override
+    var connectingNotification: NSNotification.Name!
+    var disconnectingNotification: NSNotification.Name!
+    var didFailToConnectNotificatoin: NSNotification.Name!
+    var didConnectNotificatoin: NSNotification.Name!
+    var didDisconnectNotificatoin: NSNotification.Name!
+    startLoading
     init() {
         server = Server(delegate: self)
         server.register(handler: WCRequestsHandler(server: server))
@@ -24,7 +31,7 @@ class WalletConnectServerController: ServerDelegate {
         do {
             createSession(wcurl: wcurl)
             try server.connect(to: wcurl)
-            notificationCenter.post(name: .wcConnectingServer, object: wcurl)
+            notificationCenter.post(name: connectingNotification, object: wcurl)
         } catch {
             throw GSError.CouldNotStartWallectConnectSession()
         }
@@ -55,7 +62,7 @@ class WalletConnectServerController: ServerDelegate {
             try server.disconnect(from: try Session.from(wcSession))
         } catch {
             wcSession.delete()
-            notificationCenter.post(name: .wcDidDisconnectServer, object: nil)
+            notificationCenter.post(name: disconnectingNotification, object: nil)
         }
     }
 
@@ -81,7 +88,7 @@ class WalletConnectServerController: ServerDelegate {
             guard let wcSession = WCSession.get(topic: url.topic) else { return }
             wcSession.delete()
         }
-        notificationCenter.post(name: .wcDidFailToConnectServer, object: url)
+        notificationCenter.post(name: didFailToConnectNotificatoin, object: url)
     }
 
     func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> Void) {
@@ -93,7 +100,7 @@ class WalletConnectServerController: ServerDelegate {
         DispatchQueue.main.sync {
             WCSession.update(session: session, status: .connected)
         }
-        notificationCenter.post(name: .wcDidConnectServer, object: session)
+        notificationCenter.post(name: didConnectNotificatoin, object: session)
 
         // skip snackbar notification for reconnect cases
         if !showedNotificationsSessionTopics.contains(session.url.topic) {
@@ -109,7 +116,7 @@ class WalletConnectServerController: ServerDelegate {
             guard let wcSession = WCSession.get(topic: session.url.topic) else { return }
             wcSession.delete()
         }
-        notificationCenter.post(name: .wcDidDisconnectServer, object: session)
+        notificationCenter.post(name: didDisconnectNotificatoin, object: session)
     }
 
     func server(_ server: Server, didUpdate session: Session) {

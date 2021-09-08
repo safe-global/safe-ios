@@ -109,10 +109,10 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     private func subscribeToNotifications() {
-        [NSNotification.Name.wcConnectingServer,
-         .wcDidConnectServer,
-         .wcDidDisconnectServer,
-         .wcDidFailToConnectServer,
+        [NSNotification.Name.wcConnectingSafeServer,
+         .wcDidConnectSafeServer,
+         .wcDidDisconnectSafeServer,
+         .wcDidFailToConnectSafeServer,
          .selectedSafeChanged].forEach {
             NotificationCenter.default.addObserver(self, selector: #selector(update), name: $0, object: nil)
          }

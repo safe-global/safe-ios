@@ -12,6 +12,15 @@ import WalletConnectSwift
 class WalletConnectSafesServerController: WalletConnectServerController {
     static let shared = WalletConnectSafesServerController()
 
+    override init() {
+        super.init()
+        connectingNotification = .wcConnectingSafeServer
+        disconnectingNotification = .wcDidDisconnectSafeServer
+        didFailToConnectNotificatoin = .wcDidFailToConnectSafeServer
+        didConnectNotificatoin = .wcDidConnectSafeServer
+        didDisconnectNotificatoin = .wcDidDisconnectSafeServer
+    }
+
     override func createSession(wcurl: WCURL) {
         WCSession.create(wcurl: wcurl)
     }

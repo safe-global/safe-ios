@@ -122,9 +122,12 @@ class RejectionConfirmationViewController: UIViewController {
         }
     }
 
+    #warning("TODO: fixin main branch")
     private func startLoading() {
-        loadingView.isHidden = false
-        contentContainerView.isHidden = true
+        DispatchQueue.main.async { [unowned self] in
+            self.loadingView.isHidden = false
+            self.contentContainerView.isHidden = true
+        }
     }
 
     private func endLoading() {
