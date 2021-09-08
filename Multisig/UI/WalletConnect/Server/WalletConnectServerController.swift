@@ -20,7 +20,7 @@ class WalletConnectServerController: ServerDelegate {
     var didFailToConnectNotificatoin: NSNotification.Name!
     var didConnectNotificatoin: NSNotification.Name!
     var didDisconnectNotificatoin: NSNotification.Name!
-    startLoading
+
     init() {
         server = Server(delegate: self)
         server.register(handler: WCRequestsHandler(server: server))

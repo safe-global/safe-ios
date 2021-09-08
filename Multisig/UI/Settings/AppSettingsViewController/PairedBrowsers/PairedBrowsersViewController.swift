@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import WalletConnectSwift
 
-class PairedBrowsersViewController: UITableViewController {    
+class PairedBrowsersViewController: UITableViewController {
+    private var sessions = [WCSession]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +22,31 @@ class PairedBrowsersViewController: UITableViewController {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
     }
 
-    func scan() {
+    private func subscribeToNotifications() {
+        [NSNotification.Name.wcConnectingKeyServer,
+         .wcDidConnectKeyServer,
+         .wcDidDisconnectKeyServer,
+         .wcDidFailToConnectKeyServer].forEach {
+            NotificationCenter.default.addObserver(self, selector: #selector(update), name: $0, object: nil)
+         }
+    }
+
+    @objc private func update() {
+        do {
+            // TODO: filter by key
+            sessions = try WCSession.getAll().filter {
+                $0.session != nil && (try? Session.from($0)) != nil
+            }
+        } catch {
+            // do nothing
+        }
+
+        DispatchQueue.main.async { [unowned self] in
+            self.tableView.reloadData()
+        }
+    }
+
+    private func scan() {
         let vc = QRCodeScannerViewController()
         vc.scannedValueValidator = { value in
             guard value.starts(with: "wc:") else {
@@ -37,11 +63,32 @@ class PairedBrowsersViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        0
+        sessions.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
+        let session = sessions[indexPath.row]
+
+        switch session.status {
+        case .connecting:
+            return tableView.detailedCell(
+                imageUrl: nil,
+                header: "Connecting...",
+                description: nil,
+                indexPath: indexPath,
+                canSelect: false,
+                placeholderImage: UIImage(named: "ico-empty-circle"))
+
+        case .connected:
+            let session = try! Session.from(session)
+            return tableView.detailedCell(
+                imageUrl: nil,
+                header: session.dAppInfo.peerMeta.name,
+                description: session.dAppInfo.peerMeta.description,
+                indexPath: indexPath,
+                canSelect: false,
+                placeholderImage: nil)
+        }
     }
 
     // MARK: - Table view delegate
