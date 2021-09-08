@@ -1,0 +1,87 @@
+//
+//  ConfirmConnectionViewController.swift
+//  Multisig
+//
+//  Created by Andrey Scherbovich on 08.09.21.
+//  Copyright © 2021 Gnosis Ltd. All rights reserved.
+//
+
+import UIKit
+
+class ConfirmConnectionViewController: UIViewController {
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var connectButton: UIButton!
+
+    private var keys = [KeyInfo]()
+    private var selectedKeys = [KeyInfo]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+
+    let supportedKeyTypes = [KeyType.deviceImported, .deviceGenerated, .ledgerNanoX]
+
+    @IBAction func connect(_ sender: Any) {
+        // TODO
+    }
+
+    @objc func cancel() {
+        // TODO
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        guard let keys = try? KeyInfo.all().filter({ supportedKeyTypes.contains($0.keyType) }), !keys.isEmpty else {
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        self.keys = keys
+
+        title = "Pairing Request"
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+
+        connectButton.setText("Connect", .filled)
+
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = .primaryBackground
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 48
+
+        tableView.registerCell(PairingOwnerKeyCell.self)
+        tableView.registerHeaderFooterView(ConfirmConnectionHeaderView.self)
+    }
+}
+
+extension ConfirmConnectionViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        keys.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let keyInfo = keys[indexPath.row]
+        let selected = selectedKeys.contains(keyInfo)
+        let cell = tableView.dequeueCell(PairingOwnerKeyCell.self, for: indexPath)
+        cell.configure(keyInfo: keyInfo, selected: selected)
+        return cell
+    }
+}
+
+extension ConfirmConnectionViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let keyInfo = keys[indexPath.row]
+        if let index = selectedKeys.firstIndex(of: keyInfo) {
+            selectedKeys.remove(at: index)
+        } else {
+            selectedKeys.append(keyInfo)
+        }
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return tableView.dequeueHeaderFooterView(ConfirmConnectionHeaderView.self)
+    }
+}

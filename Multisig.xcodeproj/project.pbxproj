@@ -538,6 +538,12 @@
 		55AF36D126E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AF36D026E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib */; };
 		55AF36E326E8AD0F00F69E22 /* WalletConnectSafesServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36E226E8AD0F00F69E22 /* WalletConnectSafesServerController.swift */; };
 		55AF36E526E8AD2300F69E22 /* WalletConnectKeysServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36E426E8AD2300F69E22 /* WalletConnectKeysServerController.swift */; };
+		55AF36E826E90BDD00F69E22 /* ConfirmConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36E626E90BDD00F69E22 /* ConfirmConnectionViewController.swift */; };
+		55AF36E926E90BDD00F69E22 /* ConfirmConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AF36E726E90BDD00F69E22 /* ConfirmConnectionViewController.xib */; };
+		55AF36EB26E9124F00F69E22 /* ConfirmConnectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36EA26E9124F00F69E22 /* ConfirmConnectionHeaderView.swift */; };
+		55AF36EE26E9126700F69E22 /* ConfirmConnectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AF36ED26E9126700F69E22 /* ConfirmConnectionHeaderView.xib */; };
+		55AF36F126E9177F00F69E22 /* PairingOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36EF26E9177F00F69E22 /* PairingOwnerKeyCell.swift */; };
+		55AF36F226E9177F00F69E22 /* PairingOwnerKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AF36F026E9177F00F69E22 /* PairingOwnerKeyCell.xib */; };
 		55B6465A253050200050BD95 /* HashString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64657253050200050BD95 /* HashString.swift */; };
 		55B6465B253050200050BD95 /* SignatureString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64658253050200050BD95 /* SignatureString.swift */; };
 		55B6465C253050200050BD95 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64659253050200050BD95 /* Transaction.swift */; };
@@ -1135,6 +1141,12 @@
 		55AF36D026E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PairedBrowsersHeaderView.xib; sourceTree = "<group>"; };
 		55AF36E226E8AD0F00F69E22 /* WalletConnectSafesServerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectSafesServerController.swift; sourceTree = "<group>"; };
 		55AF36E426E8AD2300F69E22 /* WalletConnectKeysServerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectKeysServerController.swift; sourceTree = "<group>"; };
+		55AF36E626E90BDD00F69E22 /* ConfirmConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmConnectionViewController.swift; sourceTree = "<group>"; };
+		55AF36E726E90BDD00F69E22 /* ConfirmConnectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmConnectionViewController.xib; sourceTree = "<group>"; };
+		55AF36EA26E9124F00F69E22 /* ConfirmConnectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmConnectionHeaderView.swift; sourceTree = "<group>"; };
+		55AF36ED26E9126700F69E22 /* ConfirmConnectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmConnectionHeaderView.xib; sourceTree = "<group>"; };
+		55AF36EF26E9177F00F69E22 /* PairingOwnerKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingOwnerKeyCell.swift; sourceTree = "<group>"; };
+		55AF36F026E9177F00F69E22 /* PairingOwnerKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PairingOwnerKeyCell.xib; sourceTree = "<group>"; };
 		55AF4CF226C15261006DA1CC /* Multisig_DEV.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_DEV.entitlements; sourceTree = "<group>"; };
 		55AF4CF326C15261006DA1CC /* Multisig_PROD.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_PROD.entitlements; sourceTree = "<group>"; };
 		55AF4CF426C15261006DA1CC /* Multisig_STAGING.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_STAGING.entitlements; sourceTree = "<group>"; };
@@ -2672,6 +2684,7 @@
 		55AF36C926E7B62600F69E22 /* PairedBrowsers */ = {
 			isa = PBXGroup;
 			children = (
+				55AF36F326E9192700F69E22 /* ConfirmConnection */,
 				55AF36CA26E7B64800F69E22 /* PairedBrowsersViewController.swift */,
 				55AF36CE26E7B8E100F69E22 /* PairedBrowsersHeaderView.swift */,
 				55AF36D026E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib */,
@@ -2730,6 +2743,19 @@
 				550FB18226691C8F00C13D54 /* WCEditParametersViewController.xib */,
 			);
 			path = "Incoming Transaction";
+			sourceTree = "<group>";
+		};
+		55AF36F326E9192700F69E22 /* ConfirmConnection */ = {
+			isa = PBXGroup;
+			children = (
+				55AF36E626E90BDD00F69E22 /* ConfirmConnectionViewController.swift */,
+				55AF36E726E90BDD00F69E22 /* ConfirmConnectionViewController.xib */,
+				55AF36EA26E9124F00F69E22 /* ConfirmConnectionHeaderView.swift */,
+				55AF36ED26E9126700F69E22 /* ConfirmConnectionHeaderView.xib */,
+				55AF36EF26E9177F00F69E22 /* PairingOwnerKeyCell.swift */,
+				55AF36F026E9177F00F69E22 /* PairingOwnerKeyCell.xib */,
+			);
+			path = ConfirmConnection;
 			sourceTree = "<group>";
 		};
 		55B66E85247FC5D900249E98 /* Onboarding */ = {
@@ -3059,6 +3085,7 @@
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
 				55AF36D126E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib in Resources */,
+				55AF36F226E9177F00F69E22 /* PairingOwnerKeyCell.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
@@ -3071,6 +3098,7 @@
 				550FB1B326691D9500C13D54 /* ExternalLinkHeaderFooterView.xib in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
+				55AF36EE26E9126700F69E22 /* ConfirmConnectionHeaderView.xib in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
 				0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
@@ -3094,6 +3122,7 @@
 				550FB1A026691CA300C13D54 /* DappsViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
+				55AF36E926E90BDD00F69E22 /* ConfirmConnectionViewController.xib in Resources */,
 				0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */,
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
@@ -3188,6 +3217,7 @@
 				0422006025EFDF3700CAC173 /* TagView.swift in Sources */,
 				55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */,
 				0AA9F263249A188C005BD60F /* AdvancedTransactionDetailsView.swift in Sources */,
+				55AF36F126E9177F00F69E22 /* PairingOwnerKeyCell.swift in Sources */,
 				049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */,
 				0ACB4CDB256BCD6900845BF4 /* SwiftUITableViewCell.swift in Sources */,
 				0AE8C0A2257947CF00E62B34 /* DetailStatusCell.swift in Sources */,
@@ -3411,6 +3441,7 @@
 				0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				0A6886D02588FC180045CAB5 /* EnterENSNameViewController.swift in Sources */,
+				55AF36EB26E9124F00F69E22 /* ConfirmConnectionHeaderView.swift in Sources */,
 				0468FB8625912E6800541536 /* QueuedTransactionsViewController.swift in Sources */,
 				0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */,
 				0ADD199E265E518600EB0F2B /* UIView+Pin.swift in Sources */,
@@ -3434,6 +3465,7 @@
 				0A451BEA252DDB39001DB7D2 /* FullScreenLoadingView.swift in Sources */,
 				0AEEBC73258CDF9400F3A6F9 /* CollectibleDetailViewController.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
+				55AF36E826E90BDD00F69E22 /* ConfirmConnectionViewController.swift in Sources */,
 				0AF1C7F42540887300E28669 /* HeaderViewController.swift in Sources */,
 				0A6886E72589080A0045CAB5 /* GNOTextField.swift in Sources */,
 				04D131DB25E416FC0032FA03 /* RejectionCreatedPiece.swift in Sources */,

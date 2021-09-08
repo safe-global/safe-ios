@@ -9,8 +9,12 @@
 import Foundation
 import WalletConnectSwift
 
+protocol WalletConnectKeysServerControllerDelegate: AnyObject {
+    func shouldStart(session: Session, completion: ([KeyInfo]) -> Void)
+}
+
 class WalletConnectKeysServerController: WalletConnectServerController {
-    static let shared = WalletConnectKeysServerController()
+    weak var delegate: WalletConnectKeysServerControllerDelegate?
 
     override init() {
         super.init()
@@ -26,8 +30,8 @@ class WalletConnectKeysServerController: WalletConnectServerController {
     }
 
     override func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> Void) {
-
-        // Show connection request overlay with a possibility to select a key (today)
-        // once the key is selected, we send a completion
+        delegate?.shouldStart(session: session) { keys in
+            // TODO: finish
+        }
     }
 }

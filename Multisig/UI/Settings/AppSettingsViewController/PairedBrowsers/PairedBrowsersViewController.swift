@@ -11,11 +11,14 @@ import WalletConnectSwift
 
 class PairedBrowsersViewController: UITableViewController {
     private var sessions = [WCSession]()
+    private var wcServerController = WalletConnectKeysServerController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Paired Browsers"
+
+        wcServerController.delegate = self
 
         tableView.backgroundColor = .primaryBackground
         tableView.registerHeaderFooterView(PairedBrowsersHeaderView.self)
@@ -106,7 +109,7 @@ extension PairedBrowsersViewController: QRCodeScannerViewControllerDelegate {
     #warning("TODO: add tracking")
     func scannerViewControllerDidScan(_ code: String) {
         do {
-            try WalletConnectKeysServerController.shared.connect(url: code)
+            try wcServerController.connect(url: code)
             dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
@@ -115,5 +118,22 @@ extension PairedBrowsersViewController: QRCodeScannerViewControllerDelegate {
 
     func scannerViewControllerDidCancel() {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension PairedBrowsersViewController: WalletConnectKeysServerControllerDelegate {
+    func shouldStart(session: Session, completion: ([KeyInfo]) -> Void) {
+        guard let keys = try? KeyInfo.all() else {
+            App.shared.snackbar.show(message: "Please import owner key to pair with browser")
+            completion([])
+            return
+        }
+        guard keys.filter({ $0.keyType != .walletConnect}).count != 0 else {
+            App.shared.snackbar.show(message: "Connected keys can not be paired with browser. Please import supported owner key.")
+            completion([])
+            return
+        }
+        let vc = ConfirmConnectionViewController()
+        present(vc, animated: true)
     }
 }
