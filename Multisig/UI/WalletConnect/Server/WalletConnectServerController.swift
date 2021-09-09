@@ -27,8 +27,7 @@ class WalletConnectServerController: ServerDelegate {
     var didDisconnectNotificatoin: NSNotification.Name!
 
     init() {
-        server = Server(delegate: self)
-        server.register(handler: WCRequestsHandler(server: server))
+        server = Server(delegate: self)        
     }
 
     func connect(url: String) throws {

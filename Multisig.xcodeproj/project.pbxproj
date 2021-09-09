@@ -554,6 +554,7 @@
 		55B66E87247FDF2C00249E98 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E86247FDF2C00249E98 /* TermsView.swift */; };
 		55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E88247FE09A00249E98 /* BottomOverlayView.swift */; };
 		55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */; };
+		55B6BE7926EA69F100AEE6DD /* WCKeysRequestsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B6BE7826EA69F100AEE6DD /* WCKeysRequestsHandler.swift */; };
 		55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */; };
 		55BCFC392552FCDB00020CE7 /* SafeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFC382552FCDB00020CE7 /* SafeSettingsViewController.swift */; };
 		55BCFC562554627100020CE7 /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFC542554627100020CE7 /* BasicCell.swift */; };
@@ -1165,6 +1166,7 @@
 		55B66E88247FE09A00249E98 /* BottomOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOverlayView.swift; sourceTree = "<group>"; };
 		55B66E8B247FE13300249E98 /* SemitransparentBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemitransparentBackgroundView.swift; sourceTree = "<group>"; };
 		55B66E8D24810BC800249E98 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
+		55B6BE7826EA69F100AEE6DD /* WCKeysRequestsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCKeysRequestsHandler.swift; sourceTree = "<group>"; };
 		55BCFC292551C9C200020CE7 /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		55BCFC382552FCDB00020CE7 /* SafeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeSettingsViewController.swift; sourceTree = "<group>"; };
 		55BCFC542554627100020CE7 /* BasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
@@ -2701,8 +2703,6 @@
 				55AF36E026E7C70700F69E22 /* Keys */,
 				55AF36DF26E7C6FD00F69E22 /* Safes */,
 				550FB17D26691C8F00C13D54 /* WalletConnectServerController.swift */,
-				550FB18026691C8F00C13D54 /* WCRequestsHandler.swift */,
-				550FB18826691C8F00C13D54 /* WCSendTransactionRequest.swift */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -2722,7 +2722,9 @@
 		55AF36DF26E7C6FD00F69E22 /* Safes */ = {
 			isa = PBXGroup;
 			children = (
+				550FB18026691C8F00C13D54 /* WCRequestsHandler.swift */,
 				55AF36E226E8AD0F00F69E22 /* WalletConnectSafesServerController.swift */,
+				550FB18826691C8F00C13D54 /* WCSendTransactionRequest.swift */,
 			);
 			path = Safes;
 			sourceTree = "<group>";
@@ -2731,6 +2733,7 @@
 			isa = PBXGroup;
 			children = (
 				55AF36E426E8AD2300F69E22 /* WalletConnectKeysServerController.swift */,
+				55B6BE7826EA69F100AEE6DD /* WCKeysRequestsHandler.swift */,
 			);
 			path = Keys;
 			sourceTree = "<group>";
@@ -3504,6 +3507,7 @@
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
 				0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */,
 				0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */,
+				55B6BE7926EA69F100AEE6DD /* WCKeysRequestsHandler.swift in Sources */,
 				0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */,
 				5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */,
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,

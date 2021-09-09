@@ -14,6 +14,9 @@ class WalletConnectSafesServerController: WalletConnectServerController {
 
     override init() {
         super.init()
+        
+        server.register(handler: WCRequestsHandler(server: server))
+
         connectingNotification = .wcConnectingSafeServer
         disconnectingNotification = .wcDidDisconnectSafeServer
         didFailToConnectNotificatoin = .wcDidFailToConnectSafeServer
