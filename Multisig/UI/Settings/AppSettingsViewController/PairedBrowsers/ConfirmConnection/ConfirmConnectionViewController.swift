@@ -16,17 +16,21 @@ class ConfirmConnectionViewController: UIViewController {
     private var selectedKeys = [KeyInfo]() {
         didSet {
             tableView.reloadData()
+            connectButton.isEnabled = !selectedKeys.isEmpty
         }
     }
 
     let supportedKeyTypes = [KeyType.deviceImported, .deviceGenerated, .ledgerNanoX]
 
+    var onConnect: (([KeyInfo]) -> Void)?
+    var onCancel: (() -> Void)?
+
     @IBAction func connect(_ sender: Any) {
-        // TODO
+        onConnect?(selectedKeys)
     }
 
     @objc func cancel() {
-        // TODO
+        onCancel?()
     }
 
     override func viewDidLoad() {
@@ -37,6 +41,7 @@ class ConfirmConnectionViewController: UIViewController {
             return
         }
         self.keys = keys
+        selectedKeys.append(keys[0])
 
         title = "Pairing Request"
 
@@ -65,6 +70,7 @@ extension ConfirmConnectionViewController: UITableViewDataSource {
         let keyInfo = keys[indexPath.row]
         let selected = selectedKeys.contains(keyInfo)
         let cell = tableView.dequeueCell(PairingOwnerKeyCell.self, for: indexPath)
+        cell.selectionStyle = .none
         cell.configure(keyInfo: keyInfo, selected: selected)
         return cell
     }
@@ -83,5 +89,9 @@ extension ConfirmConnectionViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return tableView.dequeueHeaderFooterView(ConfirmConnectionHeaderView.self)
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 160
     }
 }

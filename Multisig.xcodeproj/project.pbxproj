@@ -544,6 +544,7 @@
 		55AF36EE26E9126700F69E22 /* ConfirmConnectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AF36ED26E9126700F69E22 /* ConfirmConnectionHeaderView.xib */; };
 		55AF36F126E9177F00F69E22 /* PairingOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36EF26E9177F00F69E22 /* PairingOwnerKeyCell.swift */; };
 		55AF36F226E9177F00F69E22 /* PairingOwnerKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AF36F026E9177F00F69E22 /* PairingOwnerKeyCell.xib */; };
+		55AF36F526EA1F3A00F69E22 /* WCKeySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36F426EA1F3A00F69E22 /* WCKeySession.swift */; };
 		55B6465A253050200050BD95 /* HashString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64657253050200050BD95 /* HashString.swift */; };
 		55B6465B253050200050BD95 /* SignatureString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64658253050200050BD95 /* SignatureString.swift */; };
 		55B6465C253050200050BD95 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B64659253050200050BD95 /* Transaction.swift */; };
@@ -1147,6 +1148,7 @@
 		55AF36ED26E9126700F69E22 /* ConfirmConnectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmConnectionHeaderView.xib; sourceTree = "<group>"; };
 		55AF36EF26E9177F00F69E22 /* PairingOwnerKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingOwnerKeyCell.swift; sourceTree = "<group>"; };
 		55AF36F026E9177F00F69E22 /* PairingOwnerKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PairingOwnerKeyCell.xib; sourceTree = "<group>"; };
+		55AF36F426EA1F3A00F69E22 /* WCKeySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCKeySession.swift; sourceTree = "<group>"; };
 		55AF4CF226C15261006DA1CC /* Multisig_DEV.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_DEV.entitlements; sourceTree = "<group>"; };
 		55AF4CF326C15261006DA1CC /* Multisig_PROD.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_PROD.entitlements; sourceTree = "<group>"; };
 		55AF4CF426C15261006DA1CC /* Multisig_STAGING.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Multisig_STAGING.entitlements; sourceTree = "<group>"; };
@@ -2341,13 +2343,14 @@
 		0AF432D5244F075800E22E50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0A3FDAE226AEB2F9006A7DC3 /* Address+Extensions.swift */,
 				55B66E55247E494000249E98 /* AppSettings.swift */,
 				0AC5F5B225DD510600DEF0D7 /* AppUser.swift */,
+				048D72C026835CF90095999C /* Chain.swift */,
 				0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */,
 				554A16B2266E4D4900807049 /* EIP712Transformer.swift */,
 				55B64657253050200050BD95 /* HashString.swift */,
 				0A95893F25EFBE1E005011D7 /* KeyInfo.swift */,
-				048D72C026835CF90095999C /* Chain.swift */,
 				5532D4922448A1960067505A /* Safe.swift */,
 				0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */,
 				551DDEE8244F183500C719D3 /* Selection.swift */,
@@ -2356,11 +2359,11 @@
 				0AA9F25624991988005BD60F /* TokenBalance.swift */,
 				0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */,
 				55B64659253050200050BD95 /* Transaction.swift */,
+				55AF36F426EA1F3A00F69E22 /* WCKeySession.swift */,
 				550FB1AC26691D6700C13D54 /* WCPendingTransaction.swift */,
 				550FB1AB26691D6700C13D54 /* WCSession.swift */,
 				04CE3F9724B611FC00826AEE /* Collectible */,
 				55A585352501417E005E778B /* PrivateKey */,
-				0A3FDAE226AEB2F9006A7DC3 /* Address+Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3448,6 +3451,7 @@
 				04B4B6E525B9A08D00CFE24B /* CardTableViewCell.swift in Sources */,
 				5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */,
 				0A3FDAEC26AEB5BF006A7DC3 /* KeyInfo+Shared.swift in Sources */,
+				55AF36F526EA1F3A00F69E22 /* WCKeySession.swift in Sources */,
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
 				550FB19E26691CA300C13D54 /* DappsViewController.swift in Sources */,

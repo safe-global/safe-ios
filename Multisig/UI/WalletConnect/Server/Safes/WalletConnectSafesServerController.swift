@@ -25,6 +25,27 @@ class WalletConnectSafesServerController: WalletConnectServerController {
         WCSession.create(wcurl: wcurl)
     }
 
+    override func getSession(topic: String) -> Session? {
+        guard let wcSession = WCSession.get(topic: topic) else { return nil }
+        do {
+            return try Session.from(wcSession)
+        } catch {
+            wcSession.delete()
+            return nil
+        }
+    }
+
+    override func deleteStoredSession(topic: String) {
+        precondition(Thread.isMainThread)
+        guard let wcSession = WCSession.get(topic: topic) else { return }
+        wcSession.delete()
+    }
+
+    override func update(session: Session, status: SessionStatus) {
+        precondition(Thread.isMainThread)
+        WCSession.update(session: session, status: status)
+    }
+
     override func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> Void) {
         let walletMeta = Session.ClientMeta(name: "Gnosis Safe",
                                             description: "The most trusted platform to manage digital assets.",
@@ -56,6 +77,21 @@ class WalletConnectSafesServerController: WalletConnectServerController {
             peerMeta: walletMeta)
 
         completion(walletInfo)
+    }
+
+    func reconnectAllSessions() {
+        guard let wcSessions = try? WCSession.getAll() else { return }
+
+        wcSessions.forEach {
+            guard $0.session != nil, let session = try? Session.from($0) else {
+                // Trying to reconnect a session without handshake process finished.
+                // This could happed when the app restarts in the middle of the process.
+                $0.delete()
+                return
+            }
+
+            try! server.reconnect(to: session)
+        }
     }
 
     func updatePendingTransactions() {

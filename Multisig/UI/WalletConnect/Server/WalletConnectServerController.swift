@@ -9,6 +9,11 @@
 import Foundation
 import WalletConnectSwift
 
+enum SessionStatus: Int {
+    case connecting = 0
+    case connected = 1
+}
+
 class WalletConnectServerController: ServerDelegate {
     private(set) var server: Server!
     private let notificationCenter = NotificationCenter.default
@@ -41,54 +46,31 @@ class WalletConnectServerController: ServerDelegate {
         preconditionFailure("Subclass should override createSession method")
     }
 
-    func reconnectAllSessions() {
-        guard let wcSessions = try? WCSession.getAll() else { return }
-
-        wcSessions.forEach {
-            guard $0.session != nil, let session = try? Session.from($0) else {
-                // Trying to reconnect a session without handshake process finished.
-                // This could happed when the app restarts in the middle of the process.
-                $0.delete()
-                return
-            }
-
-            try! server.reconnect(to: session)
-        }
-    }
-
     func disconnect(topic: String) {
-        guard let wcSession = WCSession.get(topic: topic) else { return }
+        guard let session = getSession(topic: topic) else { return }
         do {
-            try server.disconnect(from: try Session.from(wcSession))
-        } catch {
-            wcSession.delete()
+            try server.disconnect(from: session)
             notificationCenter.post(name: disconnectingNotification, object: nil)
+        } catch {
+            LogService.shared.error("Error while disconnecting session", error: error)
         }
     }
 
-    func sessions(for address: Address) -> [Session] {
-        guard let wcSessions = try? WCSession.getAll() else { return [] }
-
-        var sessions = [Session]()
-        for wcSession in wcSessions {
-            do {
-                sessions.append(try Session.from(wcSession))
-            } catch {
-                wcSession.delete()
-            }
-        }
-
-        return sessions
+    func getSession(topic: String) -> Session? {
+        preconditionFailure("Subclasses should override this method")
     }
 
     // MARK: - ServerDelegate
 
     func server(_ server: Server, didFailToConnect url: WCURL) {
         DispatchQueue.main.sync {
-            guard let wcSession = WCSession.get(topic: url.topic) else { return }
-            wcSession.delete()
+            deleteStoredSession(topic: url.topic)
         }
         notificationCenter.post(name: didFailToConnectNotificatoin, object: url)
+    }
+
+    func deleteStoredSession(topic: String) {
+        preconditionFailure("Subclasses should override this method")
     }
 
     func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> Void) {
@@ -96,11 +78,12 @@ class WalletConnectServerController: ServerDelegate {
     }
 
     #warning("TODO: make snackbar message display business of view controllers")
+    #warning("TODO: figure our why with sync update it crashes")
     func server(_ server: Server, didConnect session: Session) {
-        DispatchQueue.main.sync {
-            WCSession.update(session: session, status: .connected)
+        DispatchQueue.main.async { [unowned self] in
+            self.update(session: session, status: .connected)
+            notificationCenter.post(name: didConnectNotificatoin, object: session)
         }
-        notificationCenter.post(name: didConnectNotificatoin, object: session)
 
         // skip snackbar notification for reconnect cases
         if !showedNotificationsSessionTopics.contains(session.url.topic) {
@@ -111,23 +94,26 @@ class WalletConnectServerController: ServerDelegate {
         }
     }
 
+    func update(session: Session, status: SessionStatus) {
+        preconditionFailure("Subclass should override createSession method")
+    }
+
     func server(_ server: Server, didDisconnect session: Session) {
-        DispatchQueue.main.sync {
-            guard let wcSession = WCSession.get(topic: session.url.topic) else { return }
-            wcSession.delete()
+        DispatchQueue.main.sync { [unowned self] in
+            self.deleteStoredSession(topic: session.url.topic)
         }
         notificationCenter.post(name: didDisconnectNotificatoin, object: session)
     }
 
     func server(_ server: Server, didUpdate session: Session) {
         DispatchQueue.main.sync {
-            WCSession.update(session: session, status: .connected)
+            update(session: session, status: .connected)
         }
     }
 
     func denySession(clientMeta: Session.ClientMeta,
-                             displayMessage: String? ,
-                             completion: (Session.WalletInfo) -> Void) {
+                     displayMessage: String? ,
+                     completion: (Session.WalletInfo) -> Void) {
         let walletInfo = Session.WalletInfo(
             approved: false,
             accounts: [],

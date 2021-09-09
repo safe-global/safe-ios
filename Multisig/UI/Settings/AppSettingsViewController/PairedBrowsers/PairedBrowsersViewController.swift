@@ -10,8 +10,8 @@ import UIKit
 import WalletConnectSwift
 
 class PairedBrowsersViewController: UITableViewController {
-    private var sessions = [WCSession]()
-    private var wcServerController = WalletConnectKeysServerController()
+    private var sessions = [WCKeySession]()
+    private var wcServerController = WalletConnectKeysServerController.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +21,11 @@ class PairedBrowsersViewController: UITableViewController {
         wcServerController.delegate = self
 
         tableView.backgroundColor = .primaryBackground
+        tableView.registerCell(DetailedCell.self)
         tableView.registerHeaderFooterView(PairedBrowsersHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
+
+        update()
     }
 
     private func subscribeToNotifications() {
@@ -36,12 +39,11 @@ class PairedBrowsersViewController: UITableViewController {
 
     @objc private func update() {
         do {
-            // TODO: filter by key
-            sessions = try WCSession.getAll().filter {
+            sessions = try WCKeySession.getAll().filter {
                 $0.session != nil && (try? Session.from($0)) != nil
             }
         } catch {
-            // do nothing
+            LogService.shared.error("Failed to get WCKeySession: \(error.localizedDescription)")
         }
 
         DispatchQueue.main.async { [unowned self] in
@@ -122,7 +124,7 @@ extension PairedBrowsersViewController: QRCodeScannerViewControllerDelegate {
 }
 
 extension PairedBrowsersViewController: WalletConnectKeysServerControllerDelegate {
-    func shouldStart(session: Session, completion: ([KeyInfo]) -> Void) {
+    func shouldStart(session: Session, completion: @escaping ([KeyInfo]) -> Void) {
         guard let keys = try? KeyInfo.all() else {
             App.shared.snackbar.show(message: "Please import owner key to pair with browser")
             completion([])
@@ -133,7 +135,20 @@ extension PairedBrowsersViewController: WalletConnectKeysServerControllerDelegat
             completion([])
             return
         }
-        let vc = ConfirmConnectionViewController()
-        present(vc, animated: true)
+
+        DispatchQueue.main.async { [unowned self] in
+            let vc = ConfirmConnectionViewController()
+            vc.onConnect = { [unowned vc] keys in
+                vc.dismiss(animated: true) {
+                    completion(keys)
+                }
+            }
+            vc.onCancel = { [unowned vc] in
+                vc.dismiss(animated: true) {
+                    completion([])
+                }
+            }
+            self.present(UINavigationController(rootViewController: vc), animated: true)
+        }
     }
 }
