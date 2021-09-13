@@ -25,6 +25,7 @@ class PairedBrowsersViewController: UITableViewController {
         tableView.registerHeaderFooterView(PairedBrowsersHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
 
+        subscribeToNotifications()
         update()
     }
 
@@ -92,7 +93,7 @@ class PairedBrowsersViewController: UITableViewController {
                 description: session.dAppInfo.peerMeta.description,
                 indexPath: indexPath,
                 canSelect: false,
-                placeholderImage: nil)
+                placeholderImage: UIImage(named: "ico-empty-circle"))
         }
     }
 
@@ -104,6 +105,16 @@ class PairedBrowsersViewController: UITableViewController {
             self.scan()
         }
         return view
+    }
+
+    override func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let session = sessions[indexPath.row]
+        let actions = [
+            UIContextualAction(style: .destructive, title: "Disconnect") { [unowned self] _, _, completion in
+                WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
+            }]
+        return UISwipeActionsConfiguration(actions: actions)
     }
 }
 
