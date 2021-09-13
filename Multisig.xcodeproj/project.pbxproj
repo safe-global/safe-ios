@@ -532,6 +532,8 @@
 		55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853E25014AD7005E778B /* BIP39+WordLists.swift */; };
 		55A5854125014B1B005E778B /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5854025014B1B005E778B /* Data+Extension.swift */; };
 		55A5854325014E05005E778B /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5854225014E05005E778B /* String+Extension.swift */; };
+		55AAEB7026EF7A9500DC3FEA /* WCIncomingKeyRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AAEB6F26EF7A9500DC3FEA /* WCIncomingKeyRequestViewController.swift */; };
+		55AAEB7226EF7CBB00DC3FEA /* WCIncomingKeyRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AAEB7126EF7CBB00DC3FEA /* WCIncomingKeyRequestViewController.xib */; };
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
 		55AF36CC26E7B64800F69E22 /* PairedBrowsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36CA26E7B64800F69E22 /* PairedBrowsersViewController.swift */; };
@@ -1136,6 +1138,8 @@
 		55A5853E25014AD7005E778B /* BIP39+WordLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BIP39+WordLists.swift"; sourceTree = "<group>"; };
 		55A5854025014B1B005E778B /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		55A5854225014E05005E778B /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		55AAEB6F26EF7A9500DC3FEA /* WCIncomingKeyRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCIncomingKeyRequestViewController.swift; sourceTree = "<group>"; };
+		55AAEB7126EF7CBB00DC3FEA /* WCIncomingKeyRequestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WCIncomingKeyRequestViewController.xib; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
 		55AF36CA26E7B64800F69E22 /* PairedBrowsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedBrowsersViewController.swift; sourceTree = "<group>"; };
@@ -2405,7 +2409,6 @@
 		550FB17B26691C8F00C13D54 /* WalletConnect */ = {
 			isa = PBXGroup;
 			children = (
-				55AF36E126E8AC9600F69E22 /* Incoming Transaction */,
 				55AF36DE26E7C6EA00F69E22 /* Client */,
 				55AF36DD26E7C6AC00F69E22 /* Server */,
 			);
@@ -2686,6 +2689,15 @@
 			path = web3swift;
 			sourceTree = "<group>";
 		};
+		55AAEB6E26EF7A5700DC3FEA /* Incoming Request */ = {
+			isa = PBXGroup;
+			children = (
+				55AAEB6F26EF7A9500DC3FEA /* WCIncomingKeyRequestViewController.swift */,
+				55AAEB7126EF7CBB00DC3FEA /* WCIncomingKeyRequestViewController.xib */,
+			);
+			path = "Incoming Request";
+			sourceTree = "<group>";
+		};
 		55AF36C926E7B62600F69E22 /* PairedBrowsers */ = {
 			isa = PBXGroup;
 			children = (
@@ -2722,6 +2734,7 @@
 		55AF36DF26E7C6FD00F69E22 /* Safes */ = {
 			isa = PBXGroup;
 			children = (
+				55AF36E126E8AC9600F69E22 /* Incoming Transaction */,
 				550FB18026691C8F00C13D54 /* WCRequestsHandler.swift */,
 				55AF36E226E8AD0F00F69E22 /* WalletConnectSafesServerController.swift */,
 				550FB18826691C8F00C13D54 /* WCSendTransactionRequest.swift */,
@@ -2732,6 +2745,7 @@
 		55AF36E026E7C70700F69E22 /* Keys */ = {
 			isa = PBXGroup;
 			children = (
+				55AAEB6E26EF7A5700DC3FEA /* Incoming Request */,
 				55AF36E426E8AD2300F69E22 /* WalletConnectKeysServerController.swift */,
 				55B6BE7826EA69F100AEE6DD /* WCKeysRequestsHandler.swift */,
 			);
@@ -3131,6 +3145,7 @@
 				55AF36E926E90BDD00F69E22 /* ConfirmConnectionViewController.xib in Resources */,
 				0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */,
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
+				55AAEB7226EF7CBB00DC3FEA /* WCIncomingKeyRequestViewController.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				555312F425068E0F0008206B /* README in Resources */,
 				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
@@ -3254,6 +3269,7 @@
 				048D72D026875B1C0095999C /* TableHeaderView.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
+				55AAEB7026EF7A9500DC3FEA /* WCIncomingKeyRequestViewController.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,

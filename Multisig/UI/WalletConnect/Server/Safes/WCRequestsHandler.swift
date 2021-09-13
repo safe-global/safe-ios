@@ -90,7 +90,7 @@ class WCRequestsHandler: RequestHandler {
                     topic: request.url.topic,
                     importedKeysForSafe: [Address](importedKeysForSafe))
 
-                confirmationController.onReject = {
+                confirmationController.onReject = { [unowned self] in
                     self.server.send(try! Response(request: request, error: .requestRejected))
                 }
 

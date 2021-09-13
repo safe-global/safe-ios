@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19197" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AppSettings" representedClassName="AppSettings" syncable="YES" codeGenerationType="class">
         <attribute name="appReviewEventCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="dismissedImportKeyBanner" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -101,8 +101,8 @@
         <element name="KeyInfo" positionX="63" positionY="72" width="128" height="104"/>
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="134"/>
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
+        <element name="WCKeySession" positionX="54" positionY="135" width="128" height="89"/>
         <element name="WCPendingTransaction" positionX="54" positionY="27" width="128" height="104"/>
         <element name="WCSession" positionX="54" positionY="18" width="128" height="119"/>
-        <element name="WCKeySession" positionX="54" positionY="135" width="128" height="89"/>
     </elements>
 </model>

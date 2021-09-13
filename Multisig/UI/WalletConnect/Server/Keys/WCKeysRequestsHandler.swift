@@ -8,6 +8,7 @@
 
 import Foundation
 import WalletConnectSwift
+import UIKit
 
 class WCKeysRequestsHandler: RequestHandler {
     private weak var server: Server!
@@ -27,13 +28,39 @@ class WCKeysRequestsHandler: RequestHandler {
     func handle(request: Request) {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
-        guard let wcKeySession = WCKeySession.get(topic: request.url.topic) else {
-            server.send(try! Response(request: request, error: .requestRejected))
-            return
-        }
+        guard let wcKeySession = WCKeySession.get(topic: request.url.topic),
+              let session = try? Session.from(wcKeySession),
+              let keyAddresses = session.walletInfo?.accounts.compactMap({ Address($0) }),
+              let keyInfo = try? KeyInfo.keys(addresses: keyAddresses).first else {
+                  server.send(try! Response(request: request, error: .requestRejected))
+                  return
+              }
 
         if request.method == "eth_sign" {
-            // TODO: implement
+            guard let address = try? request.parameter(of: AddressString.self, at: 0),
+                  let message = try? request.parameter(of: String.self, at: 1) else {
+                      server.send(try! Response(request: request, error: .requestRejected))
+                      return
+                  }
+
+            // present incoming key request controller
+            DispatchQueue.main.async {
+                let controller = WCIncomingKeyRequestViewController(safeAddress: address.address,
+                                                                    keyInfo: keyInfo,
+                                                                    message: message)
+
+                controller.onReject = { [unowned self] in
+                    self.server.send(try! Response(request: request, error: .requestRejected))
+                }
+
+                controller.onSign = { [unowned self] signature in
+                    self.server.send(try! Response(url: session.url, value: signature, id: request.id!.description))
+                }
+
+                let navController = UINavigationController(rootViewController: controller)
+                let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
+                sceneDelegate.present(navController)
+            }
         }
     }
 }
