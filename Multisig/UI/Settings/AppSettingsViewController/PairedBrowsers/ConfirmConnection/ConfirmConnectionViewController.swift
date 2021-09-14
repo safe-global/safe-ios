@@ -76,15 +76,17 @@ extension ConfirmConnectionViewController: UITableViewDataSource {
     }
 }
 
+#warning("TODO: enable multiple keys selection later")
 extension ConfirmConnectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let keyInfo = keys[indexPath.row]
-        if let index = selectedKeys.firstIndex(of: keyInfo) {
-            selectedKeys.remove(at: index)
-        } else {
-            selectedKeys.append(keyInfo)
-        }
+        selectedKeys = [keyInfo]
+//        if let index = selectedKeys.firstIndex(of: keyInfo) {
+//            selectedKeys.remove(at: index)
+//        } else {
+//            selectedKeys.append(keyInfo)
+//        }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

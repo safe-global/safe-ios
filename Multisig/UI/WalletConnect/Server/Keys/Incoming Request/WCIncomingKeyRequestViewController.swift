@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BigInt
 
 class WCIncomingKeyRequestViewController: UIViewController {
     @IBOutlet private weak var safeAddressInfoView: AddressInfoView!
@@ -41,6 +42,7 @@ class WCIncomingKeyRequestViewController: UIViewController {
                     onSign?(signature.hexadecimal)
                     DispatchQueue.main.async {
                         dismiss(animated: true, completion: nil)
+                        App.shared.snackbar.show(message: "Signed successfully")
                     }
                 } catch {
                     DispatchQueue.main.async {
@@ -114,7 +116,15 @@ extension WCIncomingKeyRequestViewController: SelectLedgerDeviceDelegate {
                 self?.present(alert, animated: true)
                 return
             }
-            self?.onSign?(signature)
+
+            // substract 4 from the v part of signature
+            var sig = BigInt(signature, radix: 16)!
+            sig -= 4
+            self?.onSign?(String(sig, radix: 16))
+            DispatchQueue.main.async { [weak self] in
+                self?.dismiss(animated: true, completion: nil)
+                App.shared.snackbar.show(message: "Signed successfully")
+            }
         }
     }
 }

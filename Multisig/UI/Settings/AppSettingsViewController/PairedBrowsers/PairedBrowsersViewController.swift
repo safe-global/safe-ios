@@ -111,7 +111,7 @@ class PairedBrowsersViewController: UITableViewController {
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let session = sessions[indexPath.row]
         let actions = [
-            UIContextualAction(style: .destructive, title: "Disconnect") { [unowned self] _, _, completion in
+            UIContextualAction(style: .destructive, title: "Disconnect") { _, _, completion in
                 WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
             }]
         return UISwipeActionsConfiguration(actions: actions)
