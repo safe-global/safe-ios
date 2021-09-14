@@ -8,6 +8,7 @@
 
 import UIKit
 
+#warning("TODO: decide later if we return WalletConnect key back to experimental")
 class ExperimentalViewController: UITableViewController {
     @UserDefault(key: "io.gnosis.multisig.experimental.walletConnect")
     var walletConnectEnabled: Bool? {
@@ -18,24 +19,24 @@ class ExperimentalViewController: UITableViewController {
         }
     }
 
-    @UserDefault(key: "io.gnosis.multisig.experimental.walletConnectOwnerKey")
-    var walletConnectOwnerKeyEnabled: Bool? {
-        didSet {
-            tableView.reloadData()
-            Tracker.setWalletConnectForKeysEnabled(walletConnectOwnerKeyEnabled ?? false)
-            NotificationCenter.default.post(name: .updatedExperemental, object: nil)
-        }
-    }
+//    @UserDefault(key: "io.gnosis.multisig.experimental.walletConnectOwnerKey")
+//    var walletConnectOwnerKeyEnabled: Bool? {
+//        didSet {
+//            tableView.reloadData()
+//            Tracker.setWalletConnectForKeysEnabled(walletConnectOwnerKeyEnabled ?? false)
+//            NotificationCenter.default.post(name: .updatedExperemental, object: nil)
+//        }
+//    }
 
     enum Row: Int, CaseIterable {
         case walletConnect
         case walletConnectDescription
-        case walletConnectOwnerKey
-        case walletConnectOwnerKeyDescription
+//        case walletConnectOwnerKey
+//        case walletConnectOwnerKeyDescription
     }
 
     private var rows: [Row] = [
-        .walletConnect, .walletConnectDescription, .walletConnectOwnerKey, .walletConnectOwnerKeyDescription
+        .walletConnect, .walletConnectDescription//, .walletConnectOwnerKey, .walletConnectOwnerKeyDescription
     ]
 
     override func viewDidLoad() {
@@ -55,9 +56,9 @@ class ExperimentalViewController: UITableViewController {
             walletConnectEnabled = false
         }
 
-        if walletConnectOwnerKeyEnabled == nil {
-            walletConnectOwnerKeyEnabled = false
-        }
+//        if walletConnectOwnerKeyEnabled == nil {
+//            walletConnectOwnerKeyEnabled = false
+//        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -85,17 +86,17 @@ class ExperimentalViewController: UITableViewController {
                 indexPath: indexPath
             )
 
-        case .walletConnectOwnerKey:
-            let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
-            cell.setText("Enable WalletConnect for keys")
-            cell.setOn(walletConnectOwnerKeyEnabled!, animated: false)
-            return cell
-
-        case .walletConnectOwnerKeyDescription:
-            return descriptionCell(
-                "This allows to use other wallets as owners in your Safe app via WalletConnect to sign and execute transactions on mobile.",
-                indexPath: indexPath
-            )
+//        case .walletConnectOwnerKey:
+//            let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
+//            cell.setText("Enable WalletConnect for keys")
+//            cell.setOn(walletConnectOwnerKeyEnabled!, animated: false)
+//            return cell
+//
+//        case .walletConnectOwnerKeyDescription:
+//            return descriptionCell(
+//                "This allows to use other wallets as owners in your Safe app via WalletConnect to sign and execute transactions on mobile.",
+//                indexPath: indexPath
+//            )
         }
     }
 
@@ -118,8 +119,8 @@ class ExperimentalViewController: UITableViewController {
         case .walletConnect:
             walletConnectEnabled!.toggle()
 
-        case .walletConnectOwnerKey:
-            walletConnectOwnerKeyEnabled!.toggle()
+//        case .walletConnectOwnerKey:
+//            walletConnectOwnerKeyEnabled!.toggle()
 
         default:
             break

@@ -35,7 +35,7 @@ class AddOwnerKeyViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .primaryBackground
 
-        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
+        if /*App.configuration.toggles.walletConnectOwnerKeyEnabled*/ true {
             keyTypes.append(
                 (.walletConnect, "Connect key", "Connect an existing key from another wallet using WalletConnect")
             )

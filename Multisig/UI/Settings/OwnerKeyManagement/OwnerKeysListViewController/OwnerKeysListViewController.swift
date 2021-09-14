@@ -140,7 +140,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let keyInfo = keys[indexPath.row]
-        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
+        if /*App.configuration.toggles.walletConnectOwnerKeyEnabled*/ true {
             let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
             cell.selectionStyle = .none
             cell.configure(keyInfo: keyInfo)
@@ -161,7 +161,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard App.configuration.toggles.walletConnectOwnerKeyEnabled else { return nil }
+        /*guard App.configuration.toggles.walletConnectOwnerKeyEnabled else { return nil }*/
 
         let keyInfo = keys[indexPath.row]
 
