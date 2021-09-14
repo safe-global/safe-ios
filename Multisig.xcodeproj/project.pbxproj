@@ -473,6 +473,7 @@
 		551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551BC70C2538965700E4CC79 /* LoadingModel.swift */; };
 		551DBE3E26CD39DC0053CCB2 /* LedgerKeyPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DBE3D26CD39DC0053CCB2 /* LedgerKeyPickerViewController.swift */; };
 		551DDEE9244F183500C719D3 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEE8244F183500C719D3 /* Selection.swift */; };
+		55242D6D26F0C32E00685569 /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 55242D6C26F0C32E00685569 /* SwiftCryptoTokenFormatter */; };
 		5532D4932448A1960067505A /* Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4922448A1960067505A /* Safe.swift */; };
 		5532D4BB2449A17D0067505A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4B02449A17D0067505A /* Logger.swift */; };
 		5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4B22449A17D0067505A /* LogFormatter.swift */; };
@@ -507,7 +508,6 @@
 		5562DD722693425E00B56722 /* NetworkIndicatorHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5562DD702693425E00B56722 /* NetworkIndicatorHeaderView.xib */; };
 		5562DD732693425E00B56722 /* NetworkIndicatorHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5562DD712693425E00B56722 /* NetworkIndicatorHeaderView.swift */; };
 		556E443726EF62E40066AF17 /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 556E443626EF62E40066AF17 /* SwiftCryptoTokenFormatter */; };
-		556E443926EF62F80066AF17 /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 556E443826EF62F80066AF17 /* SwiftCryptoTokenFormatter */; };
 		558835E0255A907B0014E8C7 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */; };
 		558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835E5255AEA390014E8C7 /* InfoCell.swift */; };
 		558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558835E6255AEA390014E8C7 /* InfoCell.xib */; };
@@ -1240,7 +1240,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				556E443926EF62F80066AF17 /* SwiftCryptoTokenFormatter in Frameworks */,
+				55242D6D26F0C32E00685569 /* SwiftCryptoTokenFormatter in Frameworks */,
 				0A3FDAE026AEB23C006A7DC3 /* Web3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2964,7 +2964,7 @@
 			name = NotificationServiceExtension;
 			packageProductDependencies = (
 				0A3FDADF26AEB23C006A7DC3 /* Web3 */,
-				556E443826EF62F80066AF17 /* SwiftCryptoTokenFormatter */,
+				55242D6C26F0C32E00685569 /* SwiftCryptoTokenFormatter */,
 			);
 			productName = NotificationServiceExtension;
 			productReference = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */;
@@ -5086,17 +5086,17 @@
 			package = 550FB1D02669204800C13D54 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */;
 			productName = WalletConnectSwift;
 		};
+		55242D6C26F0C32E00685569 /* SwiftCryptoTokenFormatter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 556E443526EF62E40066AF17 /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
+			productName = SwiftCryptoTokenFormatter;
+		};
 		55413670265E438500796F91 /* UnstoppableDomainsResolution */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */;
 			productName = UnstoppableDomainsResolution;
 		};
 		556E443626EF62E40066AF17 /* SwiftCryptoTokenFormatter */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 556E443526EF62E40066AF17 /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
-			productName = SwiftCryptoTokenFormatter;
-		};
-		556E443826EF62F80066AF17 /* SwiftCryptoTokenFormatter */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 556E443526EF62E40066AF17 /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
 			productName = SwiftCryptoTokenFormatter;
