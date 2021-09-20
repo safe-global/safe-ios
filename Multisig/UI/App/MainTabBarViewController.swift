@@ -143,12 +143,12 @@ class MainTabBarViewController: UITabBarController {
 
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
-            SegmentBarItem(image: UIImage(named: "ico-safe-settings")!, title: "Safe Settings"),
-            SegmentBarItem(image: UIImage(named: "ico-app-settings")!, title: "App Settings")
+            SegmentBarItem(image: UIImage(named: "ico-app-settings")!, title: "App Settings"),
+            SegmentBarItem(image: UIImage(named: "ico-safe-settings")!, title: "Safe Settings")
         ]
         segmentVC.viewControllers = [
-            noSafesVC,
-            AppSettingsViewController()
+            AppSettingsViewController(),
+            noSafesVC
         ]
         segmentVC.selectedIndex = 0
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
