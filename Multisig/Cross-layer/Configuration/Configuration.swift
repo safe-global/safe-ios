@@ -104,6 +104,7 @@ struct AppConfiguration {
         var bridgeURL: URL
     }
 
+    #warning("TODO: remove walletConnectOwnerKeyEnabled toggle later")
     struct FeatureToggles {
         @UserDefault(key: "io.gnosis.multisig.experimental.walletConnect")
         private var walletConnectEnabledSetting: Bool?
@@ -115,9 +116,9 @@ struct AppConfiguration {
             return walletConnectEnabledSetting ?? false
         }
 
-        var walletConnectOwnerKeyEnabled: Bool {
-            return walletConnectOwnerKeyEnabledSetting ?? false
-        }
+//        var walletConnectOwnerKeyEnabled: Bool {
+//            return walletConnectOwnerKeyEnabledSetting ?? false
+//        }
     }
 
     let services = Services()
