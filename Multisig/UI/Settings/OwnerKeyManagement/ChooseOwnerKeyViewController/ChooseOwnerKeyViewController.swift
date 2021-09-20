@@ -109,16 +109,16 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let keyInfo = owners[indexPath.row]
-        if /*App.configuration.toggles.walletConnectOwnerKeyEnabled*/ true {
-            let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
-            cell.selectionStyle = .none
-            cell.configure(keyInfo: keyInfo)
-            return cell
-        } else {
-            let cell = tableView.dequeueCell(ChooseOwnerTableViewCell.self)
-            cell.set(address: keyInfo.address, title: keyInfo.displayName, badgeName: keyInfo.keyType.imageName)
-            return cell
-        }
+//        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
+        let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
+        cell.selectionStyle = .none
+        cell.configure(keyInfo: keyInfo)
+        return cell
+//        } else {
+//            let cell = tableView.dequeueCell(ChooseOwnerTableViewCell.self)
+//            cell.set(address: keyInfo.address, title: keyInfo.displayName, badgeName: keyInfo.keyType.imageName)
+//            return cell
+//        }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
