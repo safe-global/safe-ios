@@ -348,6 +348,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         do {
             let safeAddress = try Address(from: safe.address!)
             transaction.safe = AddressString(safeAddress)
+            transaction.chainId = safe.chain!.id
         } catch {
             onError(GSError.error(description: "Failed to execute transaction", error: error))
         }

@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/firebase/abseil-cpp-SwiftPM.git",
         "state": {
           "branch": null,
-          "revision": "ff5f5f0a3d3266836b9d722bb73cabdf7057482e",
-          "version": "0.20200225.3"
+          "revision": "fffc3c2729be5747390ad02d5100291a0d9ad26a",
+          "version": "0.20200225.4"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/firebase/boringssl-SwiftPM.git",
         "state": {
           "branch": null,
-          "revision": "15889fadef7078dfa1392b0e2b08f3d0e9797104",
-          "version": "0.7.1"
+          "revision": "734a8247442fde37df4364c21f6a0085b6a36728",
+          "version": "0.7.2"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
         "state": {
           "branch": null,
-          "revision": "4e31051c63cc0ddf10a25cf5318856c510cf77f4",
-          "version": "1.4.0"
+          "revision": "8d4f6384e0a8cc41f2005247241dd553963a492a",
+          "version": "1.4.1"
         }
       },
       {
@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk.git",
         "state": {
           "branch": null,
-          "revision": "22d785016bf9b9a5d425597bf4a0ddd4cb158e5f",
-          "version": "8.1.0"
+          "revision": "2f972249c520cbf87ac8856f176ebc994cb1c9a6",
+          "version": "8.7.0"
         }
       },
       {
@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/google/GoogleAppMeasurement.git",
         "state": {
           "branch": null,
-          "revision": "48fcea0c0a74fc89131696aa995043eaa971ccb1",
-          "version": "8.0.0"
+          "revision": "4901bde146b0269da35470d261f741f0e910d8df",
+          "version": "8.7.0"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/google/GoogleDataTransport.git",
         "state": {
           "branch": null,
-          "revision": "369716b8d7518a530ce3c3a251436d72546debd8",
-          "version": "8.4.0"
+          "revision": "7fb27ea49414b9c5483503cd06baa821c8654d1e",
+          "version": "9.1.1"
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "58359415d4ea29ebdc8fa5b41ce96c434d76d901",
-          "version": "7.4.1"
+          "revision": "616fac2626b6b2d1424d79a6f786b4e2ed1cfb49",
+          "version": "7.5.2"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
         "state": {
           "branch": null,
-          "revision": "91ed3d188eb95705fef3c249453b81f32dc557d1",
-          "version": "1.5.0"
+          "revision": "bc6a19702ac76ac4e488b68148710eb815f9bc56",
+          "version": "1.7.0"
         }
       },
       {
@@ -114,8 +114,8 @@
         "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
         "state": {
           "branch": null,
-          "revision": "44450a8f564d7c0165f736ba2250649ff8d3e556",
-          "version": "6.3.0"
+          "revision": "d06df9adf50ed8cde5786d935836a5f445f780ba",
+          "version": "6.3.1"
         }
       },
       {
@@ -141,8 +141,8 @@
         "repositoryURL": "https://github.com/mxcl/PromiseKit.git",
         "state": {
           "branch": null,
-          "revision": "aea48ea1855f5d82e2dffa6027afce3aab8f3dd7",
-          "version": "6.13.3"
+          "revision": "d2f7ba14bcdc45e18f4f60ad9df883fb9055f081",
+          "version": "6.15.3"
         }
       },
       {
@@ -150,8 +150,8 @@
         "repositoryURL": "https://github.com/google/promises.git",
         "state": {
           "branch": null,
-          "revision": "afa9a1ace74e116848d4f743599ab83e584ff8cb",
-          "version": "1.2.12"
+          "revision": "611337c330350c9c1823ad6d671e7f936af5ee13",
+          "version": "2.0.0"
         }
       },
       {
@@ -249,8 +249,8 @@
         "repositoryURL": "https://github.com/WalletConnect/WalletConnectSwift.git",
         "state": {
           "branch": null,
-          "revision": "76bd8b65be612d98918709959516f9ad6ea9cfef",
-          "version": "1.5.0"
+          "revision": "f951da68a32666712e8c80ba0c77e9df5dce9fd6",
+          "version": "1.6.0"
         }
       },
       {

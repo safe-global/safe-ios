@@ -457,7 +457,6 @@
 		550FB1A826691D0A00C13D54 /* OwnerKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1A726691D0A00C13D54 /* OwnerKeyController.swift */; };
 		550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1A926691D2E00C13D54 /* UITableView+Cells.swift */; };
 		550FB1AD26691D6700C13D54 /* WCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1AB26691D6700C13D54 /* WCSession.swift */; };
-		550FB1AE26691D6700C13D54 /* WCPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1AC26691D6700C13D54 /* WCPendingTransaction.swift */; };
 		550FB1B326691D9500C13D54 /* ExternalLinkHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB1AF26691D9400C13D54 /* ExternalLinkHeaderFooterView.xib */; };
 		550FB1B426691D9500C13D54 /* ExternalLinkHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B026691D9400C13D54 /* ExternalLinkHeaderFooterView.swift */; };
 		550FB1B526691D9500C13D54 /* DetailedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB1B126691D9500C13D54 /* DetailedCell.xib */; };
@@ -468,8 +467,6 @@
 		550FB1C526691E1500C13D54 /* WalletConnectQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1C126691E1500C13D54 /* WalletConnectQRCodeViewController.swift */; };
 		550FB1C826691E4A00C13D54 /* ExperimentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1C726691E4A00C13D54 /* ExperimentalViewController.swift */; };
 		550FB1CA26691E7500C13D54 /* SafeContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1C926691E7500C13D54 /* SafeContract.swift */; };
-		550FB1CE26691F1500C13D54 /* Repeater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1CC26691F1500C13D54 /* Repeater.swift */; };
-		550FB1CF26691F1500C13D54 /* MonitoringService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1CD26691F1500C13D54 /* MonitoringService.swift */; };
 		550FB1D22669204800C13D54 /* WalletConnectSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 550FB1D12669204800C13D54 /* WalletConnectSwift */; };
 		551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551BC70C2538965700E4CC79 /* LoadingModel.swift */; };
 		551DBE3E26CD39DC0053CCB2 /* LedgerKeyPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DBE3D26CD39DC0053CCB2 /* LedgerKeyPickerViewController.swift */; };
@@ -1047,7 +1044,6 @@
 		550FB1A726691D0A00C13D54 /* OwnerKeyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerKeyController.swift; sourceTree = "<group>"; };
 		550FB1A926691D2E00C13D54 /* UITableView+Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Cells.swift"; sourceTree = "<group>"; };
 		550FB1AB26691D6700C13D54 /* WCSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCSession.swift; sourceTree = "<group>"; };
-		550FB1AC26691D6700C13D54 /* WCPendingTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCPendingTransaction.swift; sourceTree = "<group>"; };
 		550FB1AF26691D9400C13D54 /* ExternalLinkHeaderFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExternalLinkHeaderFooterView.xib; sourceTree = "<group>"; };
 		550FB1B026691D9400C13D54 /* ExternalLinkHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalLinkHeaderFooterView.swift; sourceTree = "<group>"; };
 		550FB1B126691D9500C13D54 /* DetailedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailedCell.xib; sourceTree = "<group>"; };
@@ -1058,8 +1054,6 @@
 		550FB1C126691E1500C13D54 /* WalletConnectQRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectQRCodeViewController.swift; sourceTree = "<group>"; };
 		550FB1C726691E4A00C13D54 /* ExperimentalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperimentalViewController.swift; sourceTree = "<group>"; };
 		550FB1C926691E7500C13D54 /* SafeContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeContract.swift; sourceTree = "<group>"; };
-		550FB1CC26691F1500C13D54 /* Repeater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repeater.swift; sourceTree = "<group>"; };
-		550FB1CD26691F1500C13D54 /* MonitoringService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitoringService.swift; sourceTree = "<group>"; };
 		551BC70C2538965700E4CC79 /* LoadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModel.swift; sourceTree = "<group>"; };
 		551DBE3D26CD39DC0053CCB2 /* LedgerKeyPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerKeyPickerViewController.swift; sourceTree = "<group>"; };
 		551DDEE8244F183500C719D3 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
@@ -2287,7 +2281,6 @@
 				0A791D9524D2E36400D70DA9 /* Crashlytics Non-fatal Errors */,
 				044A544C2448E5CF009CBB80 /* Localization */,
 				5532D4AE2449A17D0067505A /* Logger */,
-				550FB1CB26691F1500C13D54 /* Monitoring */,
 			);
 			path = "Cross-layer";
 			sourceTree = "<group>";
@@ -2334,7 +2327,6 @@
 				0AA9F25624991988005BD60F /* TokenBalance.swift */,
 				0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */,
 				55B64659253050200050BD95 /* Transaction.swift */,
-				550FB1AC26691D6700C13D54 /* WCPendingTransaction.swift */,
 				550FB1AB26691D6700C13D54 /* WCSession.swift */,
 				04CE3F9724B611FC00826AEE /* Collectible */,
 				55A585352501417E005E778B /* PrivateKey */,
@@ -2427,15 +2419,6 @@
 				550FB1C726691E4A00C13D54 /* ExperimentalViewController.swift */,
 			);
 			path = Experimental;
-			sourceTree = "<group>";
-		};
-		550FB1CB26691F1500C13D54 /* Monitoring */ = {
-			isa = PBXGroup;
-			children = (
-				550FB1CC26691F1500C13D54 /* Repeater.swift */,
-				550FB1CD26691F1500C13D54 /* MonitoringService.swift */,
-			);
-			path = Monitoring;
 			sourceTree = "<group>";
 		};
 		551DDEEA244F192300C719D3 /* Models */ = {
@@ -3202,7 +3185,6 @@
 				0A616B9B26AEFD4B00FCEDB9 /* MultisigNotification.swift in Sources */,
 				048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */,
 				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
-				550FB1CF26691F1500C13D54 /* MonitoringService.swift in Sources */,
 				0ADD19C0265EA23200EB0F2B /* PrivateKeyViewController.swift in Sources */,
 				558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */,
 				555312EB2506608D0008206B /* Base58.swift in Sources */,
@@ -3327,7 +3309,6 @@
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
-				550FB1CE26691F1500C13D54 /* Repeater.swift in Sources */,
 				0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
@@ -3453,7 +3434,6 @@
 				55B6465A253050200050BD95 /* HashString.swift in Sources */,
 				55B66E56247E494000249E98 /* AppSettings.swift in Sources */,
 				0A5F4829254C56580069C98D /* SafeEntryTableViewCell.swift in Sources */,
-				550FB1AE26691D6700C13D54 /* WCPendingTransaction.swift in Sources */,
 				555312E9250653800008206B /* BIP32HDNode.swift in Sources */,
 				0A2F1A79267A5E5B00C09F03 /* TotalCell.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
@@ -4857,7 +4837,7 @@
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.0;
+				minimumVersion = 1.6.0;
 			};
 		};
 		5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */ = {

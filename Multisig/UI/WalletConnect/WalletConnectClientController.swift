@@ -425,7 +425,12 @@ extension Client.Transaction {
             gas: gas,
             gasPrice: gasPrice,
             value: nil,
-            nonce: nonce
+            nonce: nonce,
+            type: nil,
+            accessList: nil,
+            chainId: transaction.chainId,
+            maxPriorityFeePerGas: nil,
+            maxFeePerGas: nil
         )
     }
 }

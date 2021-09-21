@@ -36,7 +36,7 @@ agvtool new-marketing-version x.y.z
 ``` 
 # For the Multisig app (App Store version):
 > ./bin/upload-symbols \
-  -gsp Multisig/Cross-layer/Analytics/Firebase/GoogleService-Info.Production.Mainnet.plist \
+  -gsp Multisig/Cross-layer/Analytics/Firebase/GoogleService-Info.Production.plist \
   -p ios /path/to/dSYMs
 ```
 #### Or download DSYMs with the script

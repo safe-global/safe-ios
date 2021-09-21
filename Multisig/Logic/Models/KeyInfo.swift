@@ -93,9 +93,9 @@ extension KeyInfo {
         let context = App.shared.coreDataStack.viewContext
         let fr = KeyInfo.fetchRequest().all()
         var items = try context.fetch(fr)
-        if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
-            items = items.filter { $0.keyType != .walletConnect }
-        }
+//        if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
+//            items = items.filter { $0.keyType != .walletConnect }
+//        }
         return items
     }
 
@@ -112,9 +112,9 @@ extension KeyInfo {
         return try addresses.compactMap { address in
             let fr = KeyInfo.fetchRequest().by(address: address)
             var items = try context.fetch(fr)
-            if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
-                items = items.filter { $0.keyType != .walletConnect }
-            }
+//            if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
+//                items = items.filter { $0.keyType != .walletConnect }
+//            }
             return items.first
         }
     }
