@@ -76,8 +76,6 @@ class AssetsTabViewController: SegmentViewController, JPEGsViewControllerDelegat
         }
     }
 
-
-
     func loadJPEGsAsync(_ completion: @escaping (_ isEmptyOrError: Bool) -> Void) {
         let IS_ERROR = true
         let IS_EMPTY = true
