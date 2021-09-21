@@ -24,6 +24,25 @@ class SegmentViewController: ContainerViewController {
     //      number of segmentItems is same as number of view controllers
     override func viewDidLoad() {
         super.viewDidLoad()
+        reloadSegmentBar()
+
+        if segmentItems.isEmpty {
+            segmentBar.isHidden = true
+        } else {
+            selectSegment(at: selectedIndex)
+        }
+    }
+
+    private func didTapSegmentView(at index: Int) {
+        selectSegment(at: index)
+    }
+
+    func reloadSegmentBar() {
+        for v in segmentViews {
+            segmentBarStackView.removeArrangedSubview(v)
+            v.removeFromSuperview()
+        }
+
         segmentViews = segmentItems.enumerated().map { index, item in
             let s = SegmentView()
             s.index = index
@@ -41,20 +60,21 @@ class SegmentViewController: ContainerViewController {
             segmentBarStackView.addArrangedSubview(v)
         }
 
-        if segmentItems.isEmpty {
-            segmentBar.isHidden = true
+        let shouldShow = segmentBar.isHidden && !segmentViews.isEmpty
+
+        if shouldShow {
+            UIView.animate(withDuration: 0.25) { [weak self] in
+                guard let self = self else { return }
+                self.segmentBar.isHidden = self.segmentItems.isEmpty
+            }
         } else {
-            selectSegment(at: selectedIndex)
+            self.segmentBar.isHidden = self.segmentItems.isEmpty
         }
     }
 
-    private func didTapSegmentView(at index: Int) {
-        selectSegment(at: index)
-    }
-
     // select segment programmatically by index
-    //  preconditions
-    //      index is in bounds of segmentItems or nil
+    //      this will select the segment in the segment bar (if such segment at index exist)
+    //      and will display the child view controller at the index (if such child exist)
     func selectSegment(at index: Int?) {
         guard let newIndex = index else {
             deselectAllSegments()
@@ -62,13 +82,19 @@ class SegmentViewController: ContainerViewController {
             return
         }
         selectedIndex = index
-        let newSelectedSegment = segmentViews[newIndex]
-        newSelectedSegment.isSelected = true
-        //     deselect other views
-        segmentViews.filter { $0 !== newSelectedSegment }.forEach {
-            $0.isSelected = false
+
+        if segmentViews.indices.contains(newIndex) {
+            let newSelectedSegment = segmentViews[newIndex]
+            newSelectedSegment.isSelected = true
+            //     deselect other views
+            segmentViews.filter { $0 !== newSelectedSegment }.forEach {
+                $0.isSelected = false
+            }
         }
-        displayChild(at: newIndex, in: contentView)
+
+        if let container = contentView {
+            displayChild(at: newIndex, in: container)
+        }
     }
 
     func deselectAllSegments() {

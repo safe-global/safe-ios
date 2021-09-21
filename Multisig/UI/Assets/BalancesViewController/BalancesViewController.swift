@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol BalancesViewControllerDelegate: AnyObject {
+    func balancesViewControllerDidStartReloading(_ controller: BalancesViewController)
+}
+
 // Loads and displays balances
 class BalancesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -18,6 +22,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         case balances(items: [TokenBalance])
     }
     var clientGatewayService: BalancesAPI = App.shared.clientGatewayService
+    weak var delegate: BalancesViewControllerDelegate?
 
     override var isEmpty: Bool { sections.isEmpty }
 
@@ -124,9 +129,11 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                     }
                 }
             }
+            delegate?.balancesViewControllerDidStartReloading(self)
         } catch {
             onError(GSError.error(description: "Failed to load balances", error: error))
         }
+
     }
 
     private func makeSections(items: [TokenBalance], total: String) -> [Section] {

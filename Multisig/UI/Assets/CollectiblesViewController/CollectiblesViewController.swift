@@ -9,6 +9,10 @@
 import UIKit
 import SwiftUI
 
+protocol JPEGsViewControllerDelegate: AnyObject {
+    func jpegsViewControllerDidFinishLoading(_ controller: CollectiblesViewController)
+}
+
 class CollectiblesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     var clientGatewayService = App.shared.clientGatewayService
     let rowHeight: CGFloat = 160
@@ -18,6 +22,8 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
 
     var currentDataTask: URLSessionTask?
     var sections = [CollectibleListSection]()
+
+    weak var delegate: JPEGsViewControllerDelegate?
 
     override var isEmpty: Bool { sections.isEmpty }
 
@@ -37,7 +43,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         tableView.sectionFooterHeight = footerHeight
         tableView.separatorStyle = .none
 
-        emptyView.setText("Collectibles will appear here")
+        emptyView.setText("JPEGs will appear here")
         emptyView.setImage(UIImage(named: "ico-no-collectibles")!)
     }
 
@@ -66,7 +72,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
                         (error as NSError).domain == NSURLErrorDomain {
                         return
                     }
-                    self.onError(GSError.error(description: "Failed to load collectibles", error: error))
+                    self.onError(GSError.error(description: "Failed to load JPEGs", error: error))
                 }
             case .success(let collectibles):
                 let sections = CollectibleListSection.create(collectibles)
@@ -78,6 +84,16 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
         }
+    }
+
+    override func onError(_ error: DetailedLocalizedError) {
+        super.onError(error)
+        delegate?.jpegsViewControllerDidFinishLoading(self)
+    }
+
+    override func onSuccess() {
+        super.onSuccess()
+        delegate?.jpegsViewControllerDidFinishLoading(self)
     }
 
     // MARK: - Table view data source
@@ -114,7 +130,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         let view = tableView.dequeueHeaderFooterView(CollectiblesHeaderView.self)
         let collectibleSection = sections[section]
         view.setName(collectibleSection.name)
-        view.setImage(with: collectibleSection.imageURL, placeholder: UIImage(named: "ico-nft-placeholder")!)
+        view.setImage(with: collectibleSection.imageURL, placeholder: UIImage(named: "ico-jpeg-placeholder")!)
         return view
     }
 

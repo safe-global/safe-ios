@@ -159,9 +159,9 @@ class TransactionDetailCellBuilder {
                     status: tx.txStatus,
                     value: 1,
                     decimals: 0,
-                    symbol: erc721Tx.tokenSymbol ?? "NFT",
+                    symbol: erc721Tx.tokenSymbol ?? "JPEG",
                     logoUri: erc721Tx.logoUri,
-                    logo: UIImage(named: "ico-nft-placeholder"),
+                    logo: UIImage(named: "ico-jpeg-placeholder"),
                     detail: erc721Tx.tokenId.description)
 
             case .nativeCoin(let nativeCoinTx):

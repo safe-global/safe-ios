@@ -19,11 +19,13 @@ class ContainerViewController: UIViewController {
 
     /// Displays a child view controller in the container view
     /// - Parameters:
-    ///   - index: index of a child to display. Must be in bounds of the
-    ///   `viewControllers` list.
+    ///   - index: index of a child to display. If not in bounds, then this method has no effect.
     ///   - containerView: root view for the child's view to embed. Child view
     ///   will have the same bounds as the `containerView`.
     func displayChild(at index: Int, in containerView: UIView) {
+        guard viewControllers.indices.contains(index) else {
+            return
+        }
         let newVC = viewControllers[index]
         if selectedViewController === newVC {
             // already displaying the child, do nothing

@@ -398,7 +398,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             decimals = (try? UInt256(erc20TransferInfo.decimals ?? 0)) ?? 0
             symbol = erc20TransferInfo.tokenSymbol ?? "ERC20"
         case .erc721(let erc721TransferInfo):
-            symbol = erc721TransferInfo.tokenSymbol ?? "NFT"
+            symbol = erc721TransferInfo.tokenSymbol ?? "JPEG"
             value = 1
             decimals = 0
         case .nativeCoin(let nativeCoinTransferInfo):
