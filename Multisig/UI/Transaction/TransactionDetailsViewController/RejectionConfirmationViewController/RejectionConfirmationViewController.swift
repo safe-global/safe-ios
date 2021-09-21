@@ -192,25 +192,26 @@ extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
 
         let pendingConfirmationVC = LedgerPendingConfirmationViewController()
         pendingConfirmationVC.modalPresentationStyle = .popover
-        pendingConfirmationVC.onClose = { [weak self] in
-            self?.endLoading()
+        pendingConfirmationVC.onClose = {
+            controller.reloadData()
         }
 
-        // dismiss Select Ledger Device screen and presend Ledger Pending Confirmation overlay
-        controller.dismiss(animated: true)
-        present(pendingConfirmationVC, animated: false)
+        // present Ledger Pending Confirmation overlay
+        controller.present(pendingConfirmationVC, animated: true)
         ledgerController = LedgerController(bluetoothController: bluetoothController)
         ledgerController!.sign(safeTxHash: safeTxHash,
                                deviceId: deviceId,
                                path: ledgerKeyMetadata.path) { [weak self] signature in
             // dismiss Ledger Pending Confirmation overlay
-            self?.presentedViewController?.dismiss(animated: true, completion: nil)
+            controller.presentedViewController?.dismiss(animated: true, completion: nil)
             guard let signature = signature else {
                 let alert = UIAlertController.ledgerAlert()
-                self?.present(alert, animated: true)
-                self?.endLoading()
+                controller.present(alert, animated: true)
+                controller.reloadData()
                 return
             }
+            // dismiss Select Ledger Device screen and reject
+            self?.presentedViewController?.dismiss(animated: false, completion: nil)
             self?.rejectAndCloseController(signature: signature)
         }
     }
