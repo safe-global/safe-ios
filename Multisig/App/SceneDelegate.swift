@@ -90,7 +90,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         App.shared.clientGatewayHostObserver.startObserving()
-        MonitoringService.shared.startMonitoring()
 
         privacyShieldWindow?.isHidden = true
 
@@ -110,7 +109,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Save changes in the application's managed object context when the application transitions to the background.
         App.shared.coreDataStack.saveContext()
-        MonitoringService.shared.stopSyncLoop()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
