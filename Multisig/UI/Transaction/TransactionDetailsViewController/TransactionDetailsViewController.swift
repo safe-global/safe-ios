@@ -346,7 +346,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         super.reloadData()
 
         do {
-            let safeAddress = try Address(from: safe.address!)            
+            let safeAddress = try Address(from: safe.address!)
             transaction.safe = AddressString(safeAddress)
             transaction.chainId = safe.chain!.id
         } catch {
