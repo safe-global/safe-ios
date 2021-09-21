@@ -11,8 +11,8 @@ import UIKit
 class DetailAccountCell: UITableViewCell {
     @IBOutlet private weak var addressInfoView: AddressInfoView!
 
-    func setAccount(address: Address, label: String? = nil, title: String? = nil, imageUri: URL? = nil) {
-        addressInfoView.setAddress(address, label: label, imageUri: imageUri)
+    func setAccount(address: Address, label: String? = nil, title: String? = nil, imageUri: URL? = nil, badgeName: String? = nil) {
+        addressInfoView.setAddress(address, label: label, imageUri: imageUri, badgeName: badgeName)
         addressInfoView.setTitle(title)
     }
 }

@@ -168,7 +168,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return tableView.basicCell(name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
 
         case Section.OwnerAddresses.ownerInfo(let info):
-            return addressDetailsCell(address: info.address, name: namingPolicy.name(info: info), indexPath: indexPath)
+            let keyInfo = try? KeyInfo.keys(addresses: [info.address]).first
+            return addressDetailsCell(address: info.address, name: namingPolicy.name(info: info), indexPath: indexPath, badgeName: keyInfo?.keyType.imageName)
 
         case Section.ContractVersion.versionInfo(let info, let status, let version):
             return safeVersionCell(info: info, status: status, version: version, indexPath: indexPath)
@@ -191,9 +192,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
     }
 
-    private func addressDetailsCell(address: Address, name: String?, indexPath: IndexPath) -> UITableViewCell {
+    private func addressDetailsCell(address: Address, name: String?, indexPath: IndexPath, badgeName: String? = nil) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: name)
+        cell.setAccount(address: address, label: name, badgeName: badgeName)
         return cell
     }
 
