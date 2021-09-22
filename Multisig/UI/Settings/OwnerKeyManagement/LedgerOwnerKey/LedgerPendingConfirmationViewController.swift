@@ -12,6 +12,7 @@ class LedgerPendingConfirmationViewController: UIViewController {
     @IBOutlet private weak var bottomView: UIView!
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
+    // NOTE: hidden until further releases
     @IBOutlet private weak var safeTxHashLabel: UILabel!
     @IBOutlet private weak var cancelButton: UIButton!
 
