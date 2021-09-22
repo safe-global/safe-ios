@@ -432,8 +432,7 @@ extension WCTransactionConfirmationViewController: SelectLedgerDeviceDelegate {
             // dismiss Ledger Pending Confirmation overlay
             self?.presentedViewController?.dismiss(animated: true, completion: nil)
             guard let signature = signature else {
-                let alert = UIAlertController.ledgerAlert()
-                self?.present(alert, animated: true)
+                App.shared.snackbar.show(message: "The operation was canceled on the Ledger device.")
                 return
             }
             DispatchQueue.global().async {
