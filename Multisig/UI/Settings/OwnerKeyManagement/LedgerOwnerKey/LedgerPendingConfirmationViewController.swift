@@ -28,6 +28,11 @@ class LedgerPendingConfirmationViewController: UIViewController {
         }
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        onClose?()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,9 +49,7 @@ class LedgerPendingConfirmationViewController: UIViewController {
     }
 
     private func close() {
-        dismiss(animated: true) { [weak self] in
-            self?.onClose?()
-        }
+        dismiss(animated: true)
     }
 }
 
