@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,21 +19,38 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="73"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXw-fU-tjL" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                        <rect key="frame" x="16" y="12" width="382" height="49"/>
-                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LgM-CF-TET">
+                        <rect key="frame" x="16" y="12" width="382" height="440"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXw-fU-tjL" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="AAu-31-NV4"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOP-i4-x4K" customClass="QRCodeView" customModule="Multisig" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="58" width="382" height="382"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="124" id="hMm-WP-PfG"/>
+                                    <constraint firstAttribute="width" secondItem="QOP-i4-x4K" secondAttribute="height" id="ha9-ih-fpp"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="wXw-fU-tjL" secondAttribute="trailing" constant="16" id="23P-eu-RAv"/>
-                    <constraint firstAttribute="bottom" secondItem="wXw-fU-tjL" secondAttribute="bottom" constant="12" id="a8S-R5-qf6"/>
-                    <constraint firstItem="wXw-fU-tjL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="bcg-7b-L0k"/>
-                    <constraint firstItem="wXw-fU-tjL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="kTk-DL-3av"/>
+                    <constraint firstAttribute="trailing" secondItem="LgM-CF-TET" secondAttribute="trailing" constant="16" id="5Tp-62-D9R"/>
+                    <constraint firstItem="LgM-CF-TET" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="MEF-en-45f"/>
+                    <constraint firstItem="LgM-CF-TET" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="UAF-H8-qWq"/>
+                    <constraint firstAttribute="bottom" secondItem="LgM-CF-TET" secondAttribute="bottom" constant="11" id="hUn-jA-uUW"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" name="secondaryBackground"/>
             <connections>
                 <outlet property="addressInfoView" destination="wXw-fU-tjL" id="Q02-1w-VXe"/>
+                <outlet property="qrCodeView" destination="QOP-i4-x4K" id="LsX-XK-vGR"/>
             </connections>
             <point key="canvasLocation" x="63.768115942028992" y="95.424107142857139"/>
         </tableViewCell>
@@ -41,5 +59,8 @@
         <namedColor name="secondaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

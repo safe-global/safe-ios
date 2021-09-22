@@ -22,16 +22,16 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
     convenience init(completion: @escaping () -> Void) {
         self.init(
             cards: [
-                .init(image: UIImage(named: "ico-onbaording-import-key-1"),
+                .init(image: UIImage(named: "ico-onboarding-import-key-1"),
                       title: "How does it work?",
                       body: "To use this app as an owner in the Gnosis Safe, you can create a key and add it as an owner of your Safe. When you tap Next, the app will create a new private key from a new unique seed phrase."),
 
-                .init(image: UIImage(named: "ico-onbaording-import-key-2"),
+                .init(image: UIImage(named: "ico-onboarding-import-key-2"),
                       title: "How secure is that?",
                       body: "The owner key and the seed phrase are stored in the device's secure store - iOS Keychain.",
                       link: .init(title: "How is a private key stored on mobile?", url: URL(string: "https://help.gnosis-safe.io/en/articles/4866738-how-are-private-keys-stored-on-gnosis-safe-mobile")!)),
 
-                .init(image: UIImage(named: "ico-onbaording-import-key-3"),
+                .init(image: UIImage(named: "ico-onboarding-import-key-3"),
                       title: "How to export?",
                       body: "To export your owner key or seed phrase, navigate to the key details.")
             ],

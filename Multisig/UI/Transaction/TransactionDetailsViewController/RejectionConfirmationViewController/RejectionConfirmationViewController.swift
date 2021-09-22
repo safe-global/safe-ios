@@ -108,13 +108,7 @@ class RejectionConfirmationViewController: UIViewController {
             }
 
         case .walletConnect:
-            WalletConnectClientController.shared.sign(transaction: rejectionTransaction, from: self) {
-                [unowned self] signature in
-
-                rejectAndCloseController(signature: signature)
-            }
-
-            WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
+            rejectWithWalletConnect(rejectionTransaction, keyInfo: keyInfo)
 
         case .ledgerNanoX:
             let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "reject"],
@@ -123,6 +117,38 @@ class RejectionConfirmationViewController: UIViewController {
             vc.delegate = self
             present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
         }
+    }
+
+    private func rejectWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
+        guard presentedViewController == nil else { return }
+
+        let pendingConfirmationVC = WCPendingConfirmationViewController()
+        pendingConfirmationVC.modalPresentationStyle = .popover
+        pendingConfirmationVC.onClose = { [unowned self] in
+            endLoading()
+        }
+        present(pendingConfirmationVC, animated: false)
+
+        WalletConnectClientController.shared.sign(transaction: transaction) {
+            [weak self] weakSignature in
+
+            DispatchQueue.main.async {
+                // dismiss pending confirmation view controller overlay
+                pendingConfirmationVC.dismiss(animated: true, completion: nil)
+            }
+
+            guard let signature = weakSignature else {
+                DispatchQueue.main.async {
+                    self?.endLoading()
+                    App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
+                }
+                return
+            }
+
+            self?.rejectAndCloseController(signature: signature)
+        }
+
+        WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
     }
 
     private func startLoading() {
@@ -190,27 +216,27 @@ extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
               let metadata = keyInfo.metadata,
               let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
 
-        let pendingConfirmationVC = LedgerPendingConfirmationViewController()
+        let pendingConfirmationVC = LedgerPendingConfirmationViewController(safeTxHash: rejectionTransaction.safeTxHash!)
         pendingConfirmationVC.modalPresentationStyle = .popover
-        pendingConfirmationVC.onClose = { [weak self] in
-            self?.endLoading()
+        pendingConfirmationVC.onClose = {
+            controller.reloadData()
         }
 
-        // dismiss Select Ledger Device screen and presend Ledger Pending Confirmation overlay
-        controller.dismiss(animated: true)
-        present(pendingConfirmationVC, animated: false)
+        // present Ledger Pending Confirmation overlay
+        controller.present(pendingConfirmationVC, animated: true)
         ledgerController = LedgerController(bluetoothController: bluetoothController)
         ledgerController!.sign(safeTxHash: safeTxHash,
                                deviceId: deviceId,
                                path: ledgerKeyMetadata.path) { [weak self] signature in
             // dismiss Ledger Pending Confirmation overlay
-            self?.presentedViewController?.dismiss(animated: true, completion: nil)
+            controller.presentedViewController?.dismiss(animated: true, completion: nil)
             guard let signature = signature else {
-                let alert = UIAlertController.ledgerAlert()
-                self?.present(alert, animated: true)
-                self?.endLoading()
+                App.shared.snackbar.show(message: "The operation was canceled on the Ledger device.")
+                controller.reloadData()
                 return
             }
+            // dismiss Select Ledger Device screen and reject
+            self?.presentedViewController?.dismiss(animated: false, completion: nil)
             self?.rejectAndCloseController(signature: signature)
         }
     }

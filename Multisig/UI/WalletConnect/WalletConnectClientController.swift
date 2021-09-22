@@ -111,33 +111,19 @@ class WalletConnectClientController {
         return session?.walletInfo?.peerId == peerId
     }
 
-    func sign(transaction: Transaction, from controller: UIViewController, completion: @escaping (String) -> Void) {
-        guard controller.presentedViewController == nil else { return }
-
-        let pendingConfirmationVC = WCPendingConfirmationViewController()
-        pendingConfirmationVC.modalPresentationStyle = .popover
-        controller.present(pendingConfirmationVC, animated: false)
-
-        sign(transaction: transaction) { [weak controller] result in
+    func sign(transaction: Transaction, completion: @escaping (String?) -> Void) {
+        wcSign(transaction: transaction) { result in
             switch result {
             case .success(let signature):
-                DispatchQueue.main.async {
-                    // dismiss pending confirmation view controller overlay
-                    controller?.dismiss(animated: false, completion: nil)
-                }
                 completion(signature)
 
             case .failure(_):
-                DispatchQueue.main.async {
-                    // dismiss pending confirmation view controller overlay
-                    controller?.dismiss(animated: false, completion: nil)
-                    App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
-                }
+                completion(nil)
             }
         }
     }
 
-    private func sign(transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
+    private func wcSign(transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
         guard let session = session,
               let client = client,
               let walletAddress = session.walletInfo?.accounts.first else {
@@ -188,14 +174,8 @@ class WalletConnectClientController {
                  confirmations: [SCGModels.Confirmation],
                  confirmationsRequired: UInt64,
                  rpcURL: URL,
-                 from controller: UIViewController,
                  onSend: @escaping (Result<Void, Error>) -> Void,
-                 onResult: @escaping (Result<HashString, Error>) -> Void) {
-        guard controller.presentedViewController == nil else { return }
-
-        let pendingConfirmationVC = WCPendingConfirmationViewController(headerText: "Pending Execution")
-        pendingConfirmationVC.modalPresentationStyle = .popover
-        controller.present(pendingConfirmationVC, animated: false)
+                 onResult: @escaping (Result<Void, Error>) -> Void) {
 
         guard let session = session,
               let client = client,
@@ -248,10 +228,10 @@ class WalletConnectClientController {
 
                 try client.eth_sendTransaction(url: session.url, transaction: clientTransaction) { response in
                     do {
-                        let txHash = try response.result(as: HashString.self)
-                        onResult(.success(txHash))
+                        let _ = try response.result(as: HashString.self)
+                        onResult(.success(()))
                     } catch {
-                        onResult(.failure(error))
+                        onResult(.failure(GSError.CouldNotSignWithWalletConnect()))
                     }
                 }
 
@@ -291,6 +271,7 @@ class WalletConnectClientController {
         }
     }
 
+    @discardableResult
     static func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) -> String? {
         do {
             let link = installedWallet.universalLink.isEmpty ? installedWallet.scheme : installedWallet.universalLink
@@ -428,7 +409,7 @@ extension Client.Transaction {
             nonce: nonce,
             type: nil,
             accessList: nil,
-            chainId: transaction.chainId,
+            chainId: nil,
             maxPriorityFeePerGas: nil,
             maxFeePerGas: nil
         )

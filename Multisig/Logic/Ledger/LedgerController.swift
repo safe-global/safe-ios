@@ -67,6 +67,7 @@ class LedgerController {
 
                 // we are interested in the first 65 bytes only
                 guard data.count >= 65 else {
+                    // canceled on the device
                     completion(nil)
                     return
                 }
