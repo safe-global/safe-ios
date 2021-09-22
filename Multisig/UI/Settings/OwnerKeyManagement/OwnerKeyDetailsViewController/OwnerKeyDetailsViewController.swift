@@ -8,17 +8,47 @@
 
 import UIKit
 
-class OwnerKeyDetailsViewController: UIViewController {
+fileprivate protocol SectionItem {}
+
+class OwnerKeyDetailsViewController: UITableViewController {
     // if not nil, then back button replaced with 'Done' button
     private var completion: (() -> Void)?
 
     private var keyInfo: KeyInfo!
     private var exportButton: UIBarButtonItem!
-    @IBOutlet private weak var identiconView: IdenticonView!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var addressInfoView: AddressInfoView!
-    @IBOutlet private weak var qrView: QRCodeView!
-    @IBOutlet private weak var titleLabel: UILabel!
+    let tableBackgroundColor: UIColor = .primaryBackground
+
+    private typealias SectionItems = (section: Section, items: [SectionItem])
+
+    private var sections = [SectionItems]()
+
+    enum Section {
+        case name(String)
+        case keyAddress(String)
+        case ownerKeyType(String)
+        case connected(String)
+        case advanced
+
+        enum Name: SectionItem {
+            case name
+        }
+
+        enum KeyAddress: SectionItem {
+            case address
+        }
+
+        enum OwnerKeyType: SectionItem {
+            case type
+        }
+
+        enum Connected: SectionItem {
+            case connected
+        }
+
+        enum Advanced: SectionItem {
+            case remove
+        }
+    }
 
     convenience init(keyInfo: KeyInfo, completion: (() -> Void)? = nil) {
         self.init()
@@ -37,31 +67,53 @@ class OwnerKeyDetailsViewController: UIViewController {
             navigationItem.rightBarButtonItem = exportButton
         }
 
-        nameLabel.setStyle(.headline)
-
-        titleLabel.setStyle(.headline)
-        titleLabel.text = "Key address"
-
-        addressInfoView.setDetailImage(nil)
-
-        bindData()
-
         if completion != nil {
             let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(pop))
             navigationItem.leftBarButtonItem = doneButton
         }
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(bindData),
-            name: .ownerKeyUpdated,
-            object: nil)
+        for notification in [Notification.Name.ownerKeyUpdated, .wcDidConnectClient, .wcDidDisconnectClient] {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(reloadData),
+                name: notification,
+                object: nil)
+        }
 
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(pop),
             name: .ownerKeyRemoved,
             object: nil)
+
+
+
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = tableBackgroundColor
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 68
+
+        tableView.registerCell(BasicCell.self)
+        tableView.registerCell(DetailAccountCell.self)
+        tableView.registerCell(KeyTypeTableViewCell.self)
+        tableView.registerCell(RemoveCell.self)
+        tableView.registerHeaderFooterView(BasicHeaderView.self)
+
+        sections = [
+            (section: .name("OWNER NAME"), items: [Section.Name.name]),
+
+            (section: .keyAddress("OWNER ADDRESS"),
+             items: [Section.KeyAddress.address]),
+
+            (section: .ownerKeyType("OWNER TYPE"),
+             items: [Section.OwnerKeyType.type])]
+
+        if keyInfo.keyType == .walletConnect {
+            sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
+        }
+
+        sections.append((section: .advanced, items: [Section.Advanced.remove]))
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -70,12 +122,7 @@ class OwnerKeyDetailsViewController: UIViewController {
     }
 
     @IBAction func removeButtonTouched(_ sender: Any) {
-        remove(key: keyInfo)
-    }
-
-    @IBAction func editButtonTouched(_ sender: Any) {
-        let vc = EditOwnerKeyViewController(keyInfo: keyInfo)
-        show(vc, sender: self)
+        removeKey()
     }
 
     @objc private func didTapExportButton() {
@@ -110,20 +157,9 @@ class OwnerKeyDetailsViewController: UIViewController {
             show(exportViewController, sender: self)
         }
     }
-    
-    @objc private func bindData() {
-        nameLabel.text = keyInfo.name
-        identiconView.set(address: keyInfo.address, badgeName: keyInfo.keyType.imageName)
-        addressInfoView.setAddress(keyInfo.address, showIdenticon: false)
 
-        if let addressString = keyInfo.addressString {
-            qrView.value = addressString
-            qrView.isHidden = false
-            titleLabel.isHidden = false
-        } else {
-            qrView.isHidden = true
-            titleLabel.isHidden = true
-        }
+    @objc private func reloadData() {
+        tableView.reloadData()
     }
 
     @objc private func pop() {
@@ -131,17 +167,177 @@ class OwnerKeyDetailsViewController: UIViewController {
         completion?()
     }
 
-    private func remove(key: KeyInfo) {
+    private func removeKey() {
         let alertController = UIAlertController(
             title: nil,
             message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
             preferredStyle: .actionSheet)
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
-            OwnerKeyController.remove(keyInfo: key)
+            OwnerKeyController.remove(keyInfo: self.keyInfo)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(remove)
         alertController.addAction(cancel)
         present(alertController, animated: true)
     }
+
+    private func reconnect(key keyInfo: KeyInfo) {
+        if let installedWallet = keyInfo.installedWallet {
+            WalletConnectClientController.reconnectWithInstalledWallet(installedWallet)
+        } else {
+            showConnectionQRCodeController()
+        }
+    }
+
+    private func disconnect(key keyInfo: KeyInfo) {
+        guard WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) else { return }
+        WalletConnectClientController.shared.disconnect()
+    }
+
+    private func showConnectionQRCodeController() {
+        WalletConnectClientController.showConnectionQRCodeController(from: self) { result in
+            switch result {
+            case .success(_):
+                return
+            case .failure(let error):
+                App.shared.snackbar.show(
+                    error: GSError.error(description: "Could not create connection URL", error: error))
+            }
+        }
+    }
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        sections.count
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        sections[section].items.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.Name.name:
+            return tableView.basicCell(name: keyInfo.name!, indexPath: indexPath)
+
+        case Section.KeyAddress.address:
+            return addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
+        case Section.OwnerKeyType.type:
+            return keyTypeCell(type: keyInfo.keyType, indexPath: indexPath)
+        case Section.Connected.connected:
+            return switchCell(for: indexPath, with: "Connected", isOn: WalletConnectClientController.shared.isConnected(keyInfo: keyInfo))
+        case Section.Advanced.remove:
+            return removeKeyCell(indexPath: indexPath)
+        default:
+            return UITableViewCell()
+        }
+    }
+
+    private func addressDetailsCell(address: Address, showQRCode: Bool, indexPath: IndexPath, badgeName: String? = nil) -> UITableViewCell {
+        let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
+        cell.setAccount(address: address, badgeName: badgeName, showQRCode: true)
+        return cell
+    }
+
+    private func keyTypeCell(type: KeyType, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(KeyTypeTableViewCell.self, for: indexPath)
+        cell.set(name: type.name, iconName: type.imageName)
+        cell.selectionStyle = .none
+        return cell
+    }
+
+    private func removeKeyCell(indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(RemoveCell.self, for: indexPath)
+        cell.set(title: "Remove owner key")
+        cell.onRemove = { [weak self] in
+            self?.removeKey()
+        }
+        cell.selectionStyle = .none
+        return cell
+    }
+
+    func switchCell(for indexPath: IndexPath, with text: String, isOn: Bool) -> SwitchTableViewCell {
+        let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
+        cell.setText(text)
+        cell.setOn(isOn, animated: false)
+        cell.selectionStyle = .none
+        return cell
+    }
+
+    // MARK: - Table view delegate
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.Name.name:
+            let vc = EditOwnerKeyViewController(keyInfo: keyInfo)
+            show(vc, sender: self)
+        case Section.Connected.connected:
+            if WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) {
+
+            } else {
+
+            }
+        default:
+            break
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.KeyAddress.address:
+            return UITableView.automaticDimension
+
+        case Section.Advanced.remove:
+            return RemoveCell.rowHeight
+
+        default:
+            return BasicCell.rowHeight
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
+        let section = sections[_section].section
+        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+        switch section {
+        case Section.name(let name):
+            view.setName(name)
+        case Section.keyAddress(let name):
+            view.setName(name)
+        case Section.ownerKeyType(let name):
+            view.setName(name)
+        case Section.connected(let name):
+            view.setName(name)
+        case Section.advanced:
+            break
+        }
+
+        return view
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
+        let section = sections[_section].section
+        if case Section.advanced = section {
+            return 0
+        }
+
+        return BasicHeaderView.headerHeight
+    }
 }
+
+extension KeyType {
+    var name: String {
+        switch self {
+        case .deviceGenerated:
+            return "Device Generated"
+        case .deviceImported:
+            return "Device Imported"
+        case .ledgerNanoX:
+            return "Ledger Nano X"
+        case .walletConnect:
+            return "WalletConnect"
+        }
+    }
+}
+
