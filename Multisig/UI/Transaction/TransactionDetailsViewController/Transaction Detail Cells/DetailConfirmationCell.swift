@@ -24,7 +24,8 @@ class DetailConfirmationCell: UITableViewCell {
         views += confirmations.map { address -> ConfirmationConfirmedPiece in
             let v = ConfirmationConfirmedPiece(frame: bounds)
             v.setText("Confirmed")
-            v.setAddress(address, label: KeyInfo.name(address: address))
+            let keyInfo = try? KeyInfo.keys(addresses: [address]).first
+            v.setAddress(address, label: KeyInfo.name(address: address), badgeName: keyInfo?.keyType.imageName)
             return v
         }
 
