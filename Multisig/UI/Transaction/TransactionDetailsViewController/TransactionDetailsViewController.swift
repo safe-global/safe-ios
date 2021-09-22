@@ -226,12 +226,12 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
         let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
         let vc = ChooseOwnerKeyViewController(owners: signers, descriptionText: descriptionText) {
-            [unowned self] keyInfo in
+            [weak self] keyInfo in
 
             // dismiss presented ChooseOwnerKeyViewController right after receiving the completion
-            dismiss(animated: true) {
+            self?.dismiss(animated: true) {
                 guard let keyInfo = keyInfo else { return }
-                sign(keyInfo)
+                self?.sign(keyInfo)
             }
         }
 
@@ -288,12 +288,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             }
 
         case .walletConnect:
-            WalletConnectClientController.shared.sign(transaction: transaction, from: self) {
-                [weak self] signature in
-                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: keyInfo.keyType)
-            }
-
-            WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
+            signWithWalletConnect(transaction, keyInfo: keyInfo)
 
         case .ledgerNanoX:
             ledgerKeyInfo = keyInfo
@@ -303,6 +298,38 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             vc.delegate = self
             present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
         }
+    }
+
+    private func signWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
+        guard let safeTxHash = transaction.safeTxHash?.description, presentedViewController == nil else { return }
+
+        let pendingConfirmationVC = WCPendingConfirmationViewController()
+        pendingConfirmationVC.modalPresentationStyle = .popover
+        pendingConfirmationVC.onClose = { [unowned self] in
+            reloadData()
+        }
+        present(pendingConfirmationVC, animated: false)
+
+        WalletConnectClientController.shared.sign(transaction: transaction) {
+            [weak self] weakSignature in
+
+            DispatchQueue.main.async {
+                // dismiss pending confirmation view controller overlay
+                pendingConfirmationVC.dismiss(animated: true, completion: nil)
+            }
+
+            guard let signature = weakSignature else {
+                DispatchQueue.main.async {
+                    self?.reloadData()
+                    App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
+                }
+                return
+            }
+
+            self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: keyInfo.keyType)
+        }
+
+        WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
     }
 
     private func confirmAndRefresh(safeTxHash: String, signature: String, keyType: KeyType) {
@@ -353,36 +380,46 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             onError(GSError.error(description: "Failed to execute transaction", error: error))
         }
 
+        guard presentedViewController == nil else { return }
+
+        let pendingConfirmationVC = WCPendingConfirmationViewController(headerText: "Pending Execution")
+        pendingConfirmationVC.modalPresentationStyle = .popover
+        pendingConfirmationVC.onClose = { [unowned self] in
+            self.reloadData()
+        }
+        present(pendingConfirmationVC, animated: false)
+
         WalletConnectClientController.shared.execute(
             transaction: transaction,
             confirmations: tx.ecdsaConfirmations,
             confirmationsRequired: multisigInfo.confirmationsRequired,
             rpcURL: safe.chain!.authenticatedRpcUrl,
-            from: self,
-            onSend: { result in
+            onSend: { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(_):
                         WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
                     case .failure(let error):
-                        App.shared.snackbar.show(
-                            error: GSError.error(description: "Failed to execute transaction", error: error))
+                        pendingConfirmationVC.dismiss(animated: true, completion: nil)
+                        self?.reloadData()
+                        App.shared.snackbar.show(error: error as! DetailedLocalizedError)
                     }
                 }
             },
             onResult: { result in
-                DispatchQueue.main.async { [unowned self] in
+                DispatchQueue.main.async { [weak self] in
+                    pendingConfirmationVC.dismiss(animated: true, completion: nil)
+
                     switch result {
-                    case .success(let hash):
-                        presentedViewController?.dismiss(animated: true)
-                        self.pendingExecution = true
-                        self.reloadData()
-                        App.shared.snackbar.show(message: "Transaction submitted. Transaction hash: \(hash)")
+                    case .success():
+                        self?.pendingExecution = true
+                        self?.reloadData()
+                        App.shared.snackbar.show(message: "Transaction submitted. You can check the transaction status in your wallet.")
                         Tracker.trackEvent(.transactionDetailsTxExecutedWC)
 
                     case .failure(let error):
-                        App.shared.snackbar.show(
-                            error: GSError.error(description: "Failed to execute transaction", error: error))
+                        self?.reloadData()
+                        App.shared.snackbar.show(error: error as! DetailedLocalizedError)
                     }
                 }
             })
@@ -482,25 +519,27 @@ extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
 
         let pendingConfirmationVC = LedgerPendingConfirmationViewController()
         pendingConfirmationVC.modalPresentationStyle = .popover
-        pendingConfirmationVC.onClose = { [weak self] in
-            self?.reloadData()
+        pendingConfirmationVC.onClose = {
+            controller.reloadData()
         }
 
-        // dismiss Select Ledger Device screen and presend Ledger Pending Confirmation overlay
-        controller.dismiss(animated: true)
-        present(pendingConfirmationVC, animated: false)
+        // present Ledger Pending Confirmation overlay
+        controller.present(pendingConfirmationVC, animated: true)
         ledgerController = LedgerController(bluetoothController: bluetoothController)
         ledgerController!.sign(safeTxHash: safeTxHash,
                                deviceId: deviceId,
                                path: ledgerKeyMetadata.path) { [weak self] signature in
             // dismiss Ledger Pending Confirmation overlay
-            self?.presentedViewController?.dismiss(animated: true, completion: nil)
+            controller.presentedViewController?.dismiss(animated: true, completion: nil)
             guard let signature = signature else {
                 let alert = UIAlertController.ledgerAlert()
-                self?.present(alert, animated: true)
-                self?.reloadData()
+                controller.present(alert, animated: true)
+                controller.reloadData()
                 return
             }
+
+            // dismiss Select Ledger Device screen and confrim
+            self?.presentedViewController?.dismiss(animated: false, completion: nil)
             self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .ledgerNanoX)
         }
     }

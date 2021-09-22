@@ -97,12 +97,7 @@ class WCTransactionConfirmationViewController: UIViewController {
             }
 
         case .walletConnect:
-            WalletConnectClientController.shared.sign(transaction: transaction, from: self) { [weak self] signature in
-                self?.sendConfirmationAndDismiss(signature: signature,
-                                                 trackingEvent: .incomingTxConfirmedWalletConnect)
-            }
-
-            WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
+            signWithWalletConnect(transaction, keyInfo: keyInfo)
 
         case .ledgerNanoX:
             let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "wc_incoming_confirm"],
@@ -113,8 +108,44 @@ class WCTransactionConfirmationViewController: UIViewController {
         }
     }
 
+    private func signWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
+        guard presentedViewController == nil else { return }
+
+        let pendingConfirmationVC = WCPendingConfirmationViewController()
+        pendingConfirmationVC.modalPresentationStyle = .popover
+        present(pendingConfirmationVC, animated: false)
+
+        WalletConnectClientController.shared.sign(transaction: transaction) {
+            [weak self] weakSignature in
+
+            DispatchQueue.main.async {
+                // dismiss pending confirmation view controller overlay
+                pendingConfirmationVC.dismiss(animated: true, completion: nil)
+            }
+
+            guard let signature = weakSignature else {
+                DispatchQueue.main.async {
+                    App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
+                }
+                return
+            }
+
+            self?.sendConfirmationAndDismiss(signature: signature,
+                                             trackingEvent: .incomingTxConfirmedWalletConnect)
+        }
+
+        WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
+    }
+
     private func sendConfirmationAndDismiss(signature: String, trackingEvent: TrackingEvent) {
         guard let keyInfo = keyInfo else { return }
+
+        DispatchQueue.main.async { [weak self] in
+            // block buttons
+            self?.submitButton.isEnabled = false
+            self?.rejectButton.isEnabled = false
+        }
+
         do {
             try App.shared.clientGatewayService.proposeTransaction(transaction: transaction,
                                                                    sender: AddressString(keyInfo.address),
@@ -125,12 +156,16 @@ class WCTransactionConfirmationViewController: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 // dismiss WCTransactionConfirmationViewController
                 self?.dismiss(animated: true, completion: nil)
-                App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners. Once it is executed the dapp will get a response with the transaction hash.")
+                App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners.")
             }
 
             onSubmit?(transaction.nonce, transaction.safeTxHash)
         } catch {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                // unblock buttons
+                self?.submitButton.isEnabled = true
+                self?.rejectButton.isEnabled = true
+
                 App.shared.snackbar.show(
                     error: GSError.error(description: "Could not sign transaction.", error: error))
             }
