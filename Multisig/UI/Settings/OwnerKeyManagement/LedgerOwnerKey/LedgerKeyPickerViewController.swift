@@ -124,6 +124,8 @@ fileprivate class LedgerKeyPickerViewModel {
         bluetoothController.devices.first { $0.peripheral.identifier == deviceId } != nil
     }
 
+    private var workItem: DispatchWorkItem?
+
     init(type: LedgerKeyType, deviceId: UUID, bluetoothController: BluetoothController) {
         self.type = type
         self.deviceId = deviceId
@@ -136,7 +138,7 @@ fileprivate class LedgerKeyPickerViewModel {
 
         // We use serial queue because when switching Ledger / Ledger Live tabs, they should not try to send
         // commands to the Ledger Nano X device while processing other tab commands.
-        ledgerSerialQueue.async { [weak self] in
+        workItem = DispatchWorkItem { [weak self] in
             guard let self = self, self.isLoading  else { return }
 
             let indexes = (self.keys.count..<self.keys.count + self.pageSize)
@@ -182,9 +184,11 @@ fileprivate class LedgerKeyPickerViewModel {
                 completion(error)
             }
         }
+        ledgerSerialQueue.async(execute: workItem!)
     }
 
     func stopLoading() {
+        workItem?.cancel()
         isLoading = false
     }
 
@@ -201,7 +205,7 @@ fileprivate class LedgerKeyPickerViewModel {
 fileprivate class LedgerKeyPickerContentViewController: UITableViewController, LedgerKeyPickerViewModelDelegate {
     private var model: LedgerKeyPickerViewModel!
     private var fetchTimer: Timer?
-    private let fetchTimeLimit: TimeInterval = 20
+    private let fetchTimeLimit: TimeInterval = 30
 
     let estimatedRowHeight: CGFloat = 58
     var importButton: UIBarButtonItem!
