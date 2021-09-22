@@ -216,7 +216,7 @@ extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
               let metadata = keyInfo.metadata,
               let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
 
-        let pendingConfirmationVC = LedgerPendingConfirmationViewController()
+        let pendingConfirmationVC = LedgerPendingConfirmationViewController(safeTxHash: rejectionTransaction.safeTxHash!)
         pendingConfirmationVC.modalPresentationStyle = .popover
         pendingConfirmationVC.onClose = {
             controller.reloadData()
