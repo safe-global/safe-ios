@@ -57,7 +57,7 @@ extension HashString {
             ]
         )
         attributedString.addAttribute(
-            .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: 0, length: 4))
+            .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: 0, length: 6))
         attributedString.addAttribute(
             .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: description.count - 4, length: 4))
         return attributedString

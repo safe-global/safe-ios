@@ -296,6 +296,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                                                       title: "Confirm Transaction",
                                                       showsCloseButton: true)
             vc.delegate = self
+            vc.onClose = { [weak self] in
+                self?.reloadData()
+            }
             present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
         }
     }
