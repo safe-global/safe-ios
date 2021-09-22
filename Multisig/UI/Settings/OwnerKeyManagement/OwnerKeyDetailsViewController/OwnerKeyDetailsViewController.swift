@@ -241,6 +241,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
     private func keyTypeCell(type: KeyType, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(KeyTypeTableViewCell.self, for: indexPath)
         cell.set(name: type.name, iconName: type.imageName)
+        cell.selectionStyle = .none
         return cell
     }
 
@@ -258,6 +259,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
         let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
         cell.setText(text)
         cell.setOn(isOn, animated: false)
+        cell.selectionStyle = .none
         return cell
     }
 
