@@ -8,12 +8,17 @@
 
 import UIKit
 
-class RemoveSafeCell: UITableViewCell {
+class RemoveCell: UITableViewCell {
     var onRemove: (() -> Void)?
 
+    @IBOutlet weak var removeButton: UIButton!
     static let rowHeight: CGFloat = 56
     
-    @IBAction func removeSafe() {
+    @IBAction func remove() {
         onRemove?()
+    }
+
+    func set(title: String) {
+        removeButton.setTitle(title, for: .normal)
     }
 }

@@ -291,6 +291,7 @@ class WalletConnectClientController {
         }
     }
 
+    @discardableResult
     static func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) -> String? {
         do {
             let link = installedWallet.universalLink.isEmpty ? installedWallet.scheme : installedWallet.universalLink

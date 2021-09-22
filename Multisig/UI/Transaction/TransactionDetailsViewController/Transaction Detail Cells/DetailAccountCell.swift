@@ -10,9 +10,12 @@ import UIKit
 
 class DetailAccountCell: UITableViewCell {
     @IBOutlet private weak var addressInfoView: AddressInfoView!
+    @IBOutlet private weak var qrCodeView: QRCodeView!
 
-    func setAccount(address: Address, label: String? = nil, title: String? = nil, imageUri: URL? = nil, badgeName: String? = nil) {
+    func setAccount(address: Address, label: String? = nil, title: String? = nil, imageUri: URL? = nil, badgeName: String? = nil, showQRCode: Bool = false) {
         addressInfoView.setAddress(address, label: label, imageUri: imageUri, badgeName: badgeName)
         addressInfoView.setTitle(title)
+        qrCodeView.isHidden = !showQRCode
+        qrCodeView.value = address.checksummed
     }
 }
