@@ -216,7 +216,7 @@ extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
               let metadata = keyInfo.metadata,
               let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
 
-        let pendingConfirmationVC = LedgerPendingConfirmationViewController()
+        let pendingConfirmationVC = LedgerPendingConfirmationViewController(safeTxHash: rejectionTransaction.safeTxHash!)
         pendingConfirmationVC.modalPresentationStyle = .popover
         pendingConfirmationVC.onClose = {
             controller.reloadData()
@@ -231,8 +231,7 @@ extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
             // dismiss Ledger Pending Confirmation overlay
             controller.presentedViewController?.dismiss(animated: true, completion: nil)
             guard let signature = signature else {
-                let alert = UIAlertController.ledgerAlert()
-                controller.present(alert, animated: true)
+                App.shared.snackbar.show(message: "The operation was canceled on the Ledger device.")
                 controller.reloadData()
                 return
             }

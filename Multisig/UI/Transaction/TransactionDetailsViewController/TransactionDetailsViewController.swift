@@ -296,6 +296,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                                                       title: "Confirm Transaction",
                                                       showsCloseButton: true)
             vc.delegate = self
+            vc.onClose = { [weak self] in
+                self?.reloadData()
+            }
             present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
         }
     }
@@ -517,7 +520,7 @@ extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
               let metadata = ledgerKeyInfo.metadata,
               let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
 
-        let pendingConfirmationVC = LedgerPendingConfirmationViewController()
+        let pendingConfirmationVC = LedgerPendingConfirmationViewController(safeTxHash: transaction.safeTxHash!)
         pendingConfirmationVC.modalPresentationStyle = .popover
         pendingConfirmationVC.onClose = {
             controller.reloadData()
@@ -532,8 +535,7 @@ extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
             // dismiss Ledger Pending Confirmation overlay
             controller.presentedViewController?.dismiss(animated: true, completion: nil)
             guard let signature = signature else {
-                let alert = UIAlertController.ledgerAlert()
-                controller.present(alert, animated: true)
+                App.shared.snackbar.show(message: "The operation was canceled on the Ledger device.")
                 controller.reloadData()
                 return
             }

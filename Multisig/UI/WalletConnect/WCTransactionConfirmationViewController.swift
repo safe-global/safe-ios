@@ -419,7 +419,7 @@ extension WCTransactionConfirmationViewController: SelectLedgerDeviceDelegate {
               let metadata = keyInfo.metadata,
               let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
 
-        let pendingConfirmationVC = LedgerPendingConfirmationViewController()
+        let pendingConfirmationVC = LedgerPendingConfirmationViewController(safeTxHash: transaction.safeTxHash!)
         pendingConfirmationVC.modalPresentationStyle = .popover
 
         // dismiss Select Ledger Device screen and presend Ledger Pending Confirmation overlay
@@ -432,8 +432,7 @@ extension WCTransactionConfirmationViewController: SelectLedgerDeviceDelegate {
             // dismiss Ledger Pending Confirmation overlay
             self?.presentedViewController?.dismiss(animated: true, completion: nil)
             guard let signature = signature else {
-                let alert = UIAlertController.ledgerAlert()
-                self?.present(alert, animated: true)
+                App.shared.snackbar.show(message: "The operation was canceled on the Ledger device.")
                 return
             }
             DispatchQueue.global().async {
