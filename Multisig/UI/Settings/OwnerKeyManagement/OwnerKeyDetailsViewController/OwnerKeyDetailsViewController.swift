@@ -98,6 +98,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
         tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(KeyTypeTableViewCell.self)
         tableView.registerCell(RemoveCell.self)
+        tableView.registerCell(SwitchTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         sections = [
@@ -159,7 +160,9 @@ class OwnerKeyDetailsViewController: UITableViewController {
     }
 
     @objc private func reloadData() {
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 
     @objc private func pop() {
@@ -181,7 +184,9 @@ class OwnerKeyDetailsViewController: UITableViewController {
         present(alertController, animated: true)
     }
 
-    private func reconnect(key keyInfo: KeyInfo) {
+    private func reconnectKey() {
+        assert(keyInfo.keyType == .walletConnect, "Developer error: worng key type used")
+
         if let installedWallet = keyInfo.installedWallet {
             WalletConnectClientController.reconnectWithInstalledWallet(installedWallet)
         } else {
@@ -189,7 +194,8 @@ class OwnerKeyDetailsViewController: UITableViewController {
         }
     }
 
-    private func disconnect(key keyInfo: KeyInfo) {
+    private func disconnectKey() {
+        assert(keyInfo.keyType == .walletConnect, "Developer error: worng key type used")
         guard WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) else { return }
         WalletConnectClientController.shared.disconnect()
     }
@@ -274,9 +280,9 @@ class OwnerKeyDetailsViewController: UITableViewController {
             show(vc, sender: self)
         case Section.Connected.connected:
             if WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) {
-
+                disconnectKey()
             } else {
-
+                reconnectKey()
             }
         default:
             break
