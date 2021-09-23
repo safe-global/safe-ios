@@ -394,7 +394,7 @@ enum GSError {
     struct PreconditionsForSigningNotSatisfied: DetailedLocalizedError {
         let description: String
         let reason = "Something is wrong either with the transaction data or with the application state (database, selected Safe, etc.)"
-        let howToFix = "Please reinstall the Gnosis Safe app"
+        let howToFix = "Please try again later or contact Safe support if this issue persists"
         let domain = iOSErrorDomain
         let code = 1304
         let loggable = true
@@ -403,7 +403,7 @@ enum GSError {
     struct KeychainError: DetailedLocalizedError {
         let description = "Keychain error"
         let reason: String
-        let howToFix = "Please reinstall the Gnosis Safe app"
+        let howToFix = "Please try again later or contact Safe support if this issue persists"
         let domain = iOSErrorDomain
         let code = 1305
         let loggable = true
@@ -412,7 +412,7 @@ enum GSError {
     struct DatabaseError: DetailedLocalizedError {
         let description = "Database error"
         let reason: String
-        let howToFix = "Please reinstall the Gnosis Safe app"
+        let howToFix = "Please try again later or contact Safe support if this issue persists"
         let domain = iOSErrorDomain
         let code = 1306
         let loggable = true

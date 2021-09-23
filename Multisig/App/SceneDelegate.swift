@@ -111,11 +111,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         App.shared.coreDataStack.saveContext()
     }
 
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // cleanup memory
-        PrivateKey.cleanup()
-    }
-
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
         handleUserActivity(userActivity)
     }
