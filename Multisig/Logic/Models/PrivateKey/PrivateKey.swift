@@ -84,7 +84,7 @@ extension PrivateKey {
             let pkDataOrNil = try App.shared.keychainService.data(forKey: id)
             guard let pkData = pkDataOrNil else { return nil }
             return try PrivateKey(data: pkData, id: id)
-        } catch GSError.KeychainError {
+        } catch let error as GSError.KeychainError {
             throw  error
         } catch {
             throw GSError.ThirdPartyError(reason: error.localizedDescription)
