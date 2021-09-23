@@ -520,7 +520,7 @@ extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
               let metadata = ledgerKeyInfo.metadata,
               let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
 
-        let pendingConfirmationVC = LedgerPendingConfirmationViewController(safeTxHash: transaction.safeTxHash!)
+        let pendingConfirmationVC = LedgerPendingConfirmationViewController(ledgerHash: transaction.hardwareWalletHash)
         pendingConfirmationVC.modalPresentationStyle = .popover
         pendingConfirmationVC.onClose = {
             controller.reloadData()

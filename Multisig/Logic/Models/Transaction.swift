@@ -31,6 +31,13 @@ struct Transaction: Codable {
     // computed based on other properties
     var safeTxHash: HashString!
     var transactionHash: HashString?
+
+    // Returns a hash displayed in ledger wallet:
+    // sha256 hash of the value to hash, all in caps letters
+    var hardwareWalletHash: String {
+        guard let data = safeTxHash?.hash else { return "" }
+        return data.sha256().toHexString().uppercased()
+    }
 }
 
 extension Transaction {
