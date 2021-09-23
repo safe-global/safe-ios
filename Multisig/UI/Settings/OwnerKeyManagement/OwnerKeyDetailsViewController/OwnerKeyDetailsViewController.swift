@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WalletConnectSwift
 
 fileprivate protocol SectionItem {}
 
@@ -14,6 +15,9 @@ class OwnerKeyDetailsViewController: UITableViewController {
     // if not nil, then back button replaced with 'Done' button
     private var completion: (() -> Void)?
 
+    private var walletPerTopic = [String: InstalledWallet]()
+    private var waitingForSession = false
+    
     private var keyInfo: KeyInfo!
     private var exportButton: UIBarButtonItem!
     let tableBackgroundColor: UIColor = .primaryBackground
@@ -72,7 +76,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
             navigationItem.leftBarButtonItem = doneButton
         }
 
-        for notification in [Notification.Name.ownerKeyUpdated, .wcDidConnectClient, .wcDidDisconnectClient] {
+        for notification in [Notification.Name.ownerKeyUpdated, .wcDidDisconnectClient] {
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(reloadData),
@@ -82,11 +86,15 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
         NotificationCenter.default.addObserver(
             self,
+            selector: #selector(walletConnectSessionCreated(_:)),
+            name: .wcDidConnectClient,
+            object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
             selector: #selector(pop),
             name: .ownerKeyRemoved,
             object: nil)
-
-
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -188,7 +196,9 @@ class OwnerKeyDetailsViewController: UITableViewController {
         assert(keyInfo.keyType == .walletConnect, "Developer error: worng key type used")
 
         if let installedWallet = keyInfo.installedWallet {
-            WalletConnectClientController.reconnectWithInstalledWallet(installedWallet)
+            guard let topic = WalletConnectClientController.reconnectWithInstalledWallet(installedWallet) else { return }
+            walletPerTopic[topic] = installedWallet
+            waitingForSession = true
         } else {
             showConnectionQRCodeController()
         }
@@ -200,17 +210,55 @@ class OwnerKeyDetailsViewController: UITableViewController {
         WalletConnectClientController.shared.disconnect()
     }
 
+    @objc private func walletConnectSessionCreated(_ notification: Notification) {
+        guard waitingForSession else { return }
+        waitingForSession = false
+
+        guard let session = notification.object as? Session,
+              let account = Address(session.walletInfo?.accounts.first ?? ""),
+              keyInfo.address == account else {
+            WalletConnectClientController.shared.disconnect()
+            DispatchQueue.main.async { [unowned self] in
+                presentedViewController?.dismiss(animated: false, completion: nil)
+                App.shared.snackbar.show(message: "Wrong wallet connected. Please try again.")
+            }
+            return
+        }
+
+        DispatchQueue.main.async { [unowned self] in
+            // we need to update to always properly refresh session.walletInfo.peedId
+            // that we use to identify if the wallet is connected
+            _ = OwnerKeyController.updateKey(session: session,
+                                               installedWallet: walletPerTopic[session.url.topic])
+
+            if let presented = presentedViewController {
+                // QR code controller
+                presented.dismiss(animated: false, completion: nil)
+            }
+
+            App.shared.snackbar.show(message: "Owner key wallet connected")
+            tableView.reloadData()
+        }
+    }
+
+    private func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) {
+        guard let topic = WalletConnectClientController.reconnectWithInstalledWallet(installedWallet) else { return }
+        walletPerTopic[topic] = installedWallet
+        waitingForSession = true
+    }
+
     private func showConnectionQRCodeController() {
         WalletConnectClientController.showConnectionQRCodeController(from: self) { result in
             switch result {
             case .success(_):
-                return
+                waitingForSession = true
             case .failure(let error):
                 App.shared.snackbar.show(
                     error: GSError.error(description: "Could not create connection URL", error: error))
             }
         }
     }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
@@ -280,9 +328,14 @@ class OwnerKeyDetailsViewController: UITableViewController {
             show(vc, sender: self)
         case Section.Connected.connected:
             if WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) {
-                disconnectKey()
+                WalletConnectClientController.shared.disconnect()
             } else {
-                reconnectKey()
+                // try to reconnect
+                if let installedWallet = keyInfo.installedWallet {
+                    self.reconnectWithInstalledWallet(installedWallet)
+                } else {
+                    self.showConnectionQRCodeController()
+                }
             }
         default:
             break
