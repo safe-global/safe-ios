@@ -75,7 +75,10 @@ pipeline {
         }
         stage('All Tests') {
             when {
-                triggeredBy 'TimerTrigger'
+                allOf {
+                    expression { BRANCH_NAME ==~ /^(main)$/ }
+                    triggeredBy 'TimerTrigger'
+                }
             }
             steps {
                 ansiColor('xterm') {

@@ -103,10 +103,11 @@ public final class KeychainService: SecureStore {
 
     /// see https://www.osstatus.com to find description.
     private func securityError(_ status: OSStatus) -> String {
+        let prefix = "OSStatus: \(status)"
         if let str = SecCopyErrorMessageString(status, nil) as String? {
-            return str
+            return prefix + str
         }
-        return String(describing: status)
+        return prefix
     }
 
     private func add(query: [String: Any]) throws {
