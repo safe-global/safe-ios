@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="73"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LgM-CF-TET">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LgM-CF-TET">
                         <rect key="frame" x="16" y="12" width="382" height="440"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXw-fU-tjL" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
@@ -28,14 +28,19 @@
                                     <constraint firstAttribute="height" constant="50" id="AAu-31-NV4"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOP-i4-x4K" customClass="QRCodeView" customModule="Multisig" customModuleProvider="target">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wG6-sb-pJl">
                                 <rect key="frame" x="0.0" y="58" width="382" height="382"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="124" id="hMm-WP-PfG"/>
-                                    <constraint firstAttribute="width" secondItem="QOP-i4-x4K" secondAttribute="height" id="ha9-ih-fpp"/>
-                                </constraints>
-                            </view>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOP-i4-x4K" customClass="QRCodeView" customModule="Multisig" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="382"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="124" id="hMm-WP-PfG"/>
+                                            <constraint firstAttribute="width" secondItem="QOP-i4-x4K" secondAttribute="height" id="ha9-ih-fpp"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                     </stackView>
                 </subviews>
