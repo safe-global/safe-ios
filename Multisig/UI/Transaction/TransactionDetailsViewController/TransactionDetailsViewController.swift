@@ -405,7 +405,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     case .failure(let error):
                         pendingConfirmationVC.dismiss(animated: true, completion: nil)
                         self?.reloadData()
-                        App.shared.snackbar.show(error: error as! DetailedLocalizedError)
+                        App.shared.snackbar.show(error: error)
                     }
                 }
             },
@@ -422,7 +422,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
                     case .failure(let error):
                         self?.reloadData()
-                        App.shared.snackbar.show(error: error as! DetailedLocalizedError)
+                        App.shared.snackbar.show(error: error)
                     }
                 }
             })

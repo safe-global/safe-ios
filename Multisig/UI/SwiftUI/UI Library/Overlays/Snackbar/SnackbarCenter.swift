@@ -60,9 +60,9 @@ class SnackbarCenter: ObservableObject {
         }
     }
 
-    func show(error: DetailedLocalizedError) {
+    func show(error: Error) {
         show(message: error.localizedDescription)
-        if error.loggable {
+        if let localized = error as? DetailedLocalizedError, localized.loggable {
             LogService.shared.error(error.localizedDescription, error: error)
         }
     }
