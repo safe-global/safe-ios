@@ -1,5 +1,5 @@
 //
-//  PairedBrowsersHeaderView.swift
+//  DesktopPairingHeaderView.swift
 //  Multisig
 //
 //  Created by Andrey Scherbovich on 07.09.21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PairedBrowsersHeaderView: UITableViewHeaderFooterView {
+class DesktopPairingHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var scanButton: UIButton!
 

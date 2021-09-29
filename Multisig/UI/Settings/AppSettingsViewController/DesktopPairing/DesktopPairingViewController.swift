@@ -9,20 +9,20 @@
 import UIKit
 import WalletConnectSwift
 
-class PairedBrowsersViewController: UITableViewController {
+class DesktopPairingViewController: UITableViewController {
     private var sessions = [WCKeySession]()
     private var wcServerController = WalletConnectKeysServerController.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Paired Browsers"
+        title = "Desktop Pairing"
 
         wcServerController.delegate = self
 
         tableView.backgroundColor = .primaryBackground
         tableView.registerCell(DetailedCell.self)
-        tableView.registerHeaderFooterView(PairedBrowsersHeaderView.self)
+        tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
 
         subscribeToNotifications()
@@ -100,7 +100,7 @@ class PairedBrowsersViewController: UITableViewController {
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueHeaderFooterView(PairedBrowsersHeaderView.self)
+        let view = tableView.dequeueHeaderFooterView(DesktopPairingHeaderView.self)
         view.onScan = { [unowned self] in
             self.scan()
         }
@@ -118,7 +118,7 @@ class PairedBrowsersViewController: UITableViewController {
     }
 }
 
-extension PairedBrowsersViewController: QRCodeScannerViewControllerDelegate {
+extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
     #warning("TODO: add tracking")
     func scannerViewControllerDidScan(_ code: String) {
         do {
@@ -134,7 +134,7 @@ extension PairedBrowsersViewController: QRCodeScannerViewControllerDelegate {
     }
 }
 
-extension PairedBrowsersViewController: WalletConnectKeysServerControllerDelegate {
+extension DesktopPairingViewController: WalletConnectKeysServerControllerDelegate {
     func shouldStart(session: Session, completion: @escaping ([KeyInfo]) -> Void) {
         guard let keys = try? KeyInfo.all() else {
             App.shared.snackbar.show(message: "Please import owner key to pair with browser")

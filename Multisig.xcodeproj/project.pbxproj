@@ -537,9 +537,9 @@
 		55AAEB7226EF7CBB00DC3FEA /* WCIncomingKeyRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AAEB7126EF7CBB00DC3FEA /* WCIncomingKeyRequestViewController.xib */; };
 		55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E48248681A100B0BC24 /* LinkButton.swift */; };
 		55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
-		55AF36CC26E7B64800F69E22 /* PairedBrowsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36CA26E7B64800F69E22 /* PairedBrowsersViewController.swift */; };
-		55AF36CF26E7B8E100F69E22 /* PairedBrowsersHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36CE26E7B8E100F69E22 /* PairedBrowsersHeaderView.swift */; };
-		55AF36D126E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AF36D026E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib */; };
+		55AF36CC26E7B64800F69E22 /* DesktopPairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36CA26E7B64800F69E22 /* DesktopPairingViewController.swift */; };
+		55AF36CF26E7B8E100F69E22 /* DesktopPairingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36CE26E7B8E100F69E22 /* DesktopPairingHeaderView.swift */; };
+		55AF36D126E7B8EF00F69E22 /* DesktopPairingHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AF36D026E7B8EF00F69E22 /* DesktopPairingHeaderView.xib */; };
 		55AF36E326E8AD0F00F69E22 /* WalletConnectSafesServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36E226E8AD0F00F69E22 /* WalletConnectSafesServerController.swift */; };
 		55AF36E526E8AD2300F69E22 /* WalletConnectKeysServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36E426E8AD2300F69E22 /* WalletConnectKeysServerController.swift */; };
 		55AF36E826E90BDD00F69E22 /* ConfirmConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF36E626E90BDD00F69E22 /* ConfirmConnectionViewController.swift */; };
@@ -1144,9 +1144,9 @@
 		55AAEB7126EF7CBB00DC3FEA /* WCIncomingKeyRequestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WCIncomingKeyRequestViewController.xib; sourceTree = "<group>"; };
 		55AC9E48248681A100B0BC24 /* LinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkButton.swift; sourceTree = "<group>"; };
 		55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
-		55AF36CA26E7B64800F69E22 /* PairedBrowsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedBrowsersViewController.swift; sourceTree = "<group>"; };
-		55AF36CE26E7B8E100F69E22 /* PairedBrowsersHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairedBrowsersHeaderView.swift; sourceTree = "<group>"; };
-		55AF36D026E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PairedBrowsersHeaderView.xib; sourceTree = "<group>"; };
+		55AF36CA26E7B64800F69E22 /* DesktopPairingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesktopPairingViewController.swift; sourceTree = "<group>"; };
+		55AF36CE26E7B8E100F69E22 /* DesktopPairingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesktopPairingHeaderView.swift; sourceTree = "<group>"; };
+		55AF36D026E7B8EF00F69E22 /* DesktopPairingHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DesktopPairingHeaderView.xib; sourceTree = "<group>"; };
 		55AF36E226E8AD0F00F69E22 /* WalletConnectSafesServerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectSafesServerController.swift; sourceTree = "<group>"; };
 		55AF36E426E8AD2300F69E22 /* WalletConnectKeysServerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectKeysServerController.swift; sourceTree = "<group>"; };
 		55AF36E626E90BDD00F69E22 /* ConfirmConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmConnectionViewController.swift; sourceTree = "<group>"; };
@@ -2601,7 +2601,7 @@
 		558835DE255A90420014E8C7 /* AppSettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
-				55AF36C926E7B62600F69E22 /* PairedBrowsers */,
+				55AF36C926E7B62600F69E22 /* DesktopPairing */,
 				0428DB0025CF231B002CF4A9 /* ChangeAppearanceViewController */,
 				558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */,
 				049A9DCF26020C0B00CA5723 /* SelectFiatViewController.swift */,
@@ -2711,15 +2711,15 @@
 			path = "Incoming Request";
 			sourceTree = "<group>";
 		};
-		55AF36C926E7B62600F69E22 /* PairedBrowsers */ = {
+		55AF36C926E7B62600F69E22 /* DesktopPairing */ = {
 			isa = PBXGroup;
 			children = (
 				55AF36F326E9192700F69E22 /* ConfirmConnection */,
-				55AF36CA26E7B64800F69E22 /* PairedBrowsersViewController.swift */,
-				55AF36CE26E7B8E100F69E22 /* PairedBrowsersHeaderView.swift */,
-				55AF36D026E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib */,
+				55AF36CA26E7B64800F69E22 /* DesktopPairingViewController.swift */,
+				55AF36CE26E7B8E100F69E22 /* DesktopPairingHeaderView.swift */,
+				55AF36D026E7B8EF00F69E22 /* DesktopPairingHeaderView.xib */,
 			);
-			path = PairedBrowsers;
+			path = DesktopPairing;
 			sourceTree = "<group>";
 		};
 		55AF36DD26E7C6AC00F69E22 /* Server */ = {
@@ -3115,7 +3115,7 @@
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
-				55AF36D126E7B8EF00F69E22 /* PairedBrowsersHeaderView.xib in Resources */,
+				55AF36D126E7B8EF00F69E22 /* DesktopPairingHeaderView.xib in Resources */,
 				55AF36F226E9177F00F69E22 /* PairingOwnerKeyCell.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
@@ -3310,7 +3310,7 @@
 				0AF1C9262541E09D00E28669 /* UIView+UINib.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
 				0AC5F5B325DD510600DEF0D7 /* AppUser.swift in Sources */,
-				55AF36CC26E7B64800F69E22 /* PairedBrowsersViewController.swift in Sources */,
+				55AF36CC26E7B64800F69E22 /* DesktopPairingViewController.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				0A433E8125516A9A006FFF75 /* TotalBalanceTableViewCell.swift in Sources */,
 				049A9D3A25F81F2C00CA5723 /* EditOwnerKeyViewController.swift in Sources */,
@@ -3331,8 +3331,8 @@
 				550FB1C426691E1500C13D54 /* ConnectWalletViewController.swift in Sources */,
 				0A616B9B26AEFD4B00FCEDB9 /* MultisigNotification.swift in Sources */,
 				048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */,
-				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,				
-				55AF36CF26E7B8E100F69E22 /* PairedBrowsersHeaderView.swift in Sources */,
+				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
+				55AF36CF26E7B8E100F69E22 /* DesktopPairingHeaderView.swift in Sources */,
 				0ADD19C0265EA23200EB0F2B /* PrivateKeyViewController.swift in Sources */,
 				558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */,
 				0AC2A3C726FB6802002CB26A /* CollectiblesUnsupportedViewController.swift in Sources */,

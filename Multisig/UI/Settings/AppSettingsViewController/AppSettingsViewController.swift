@@ -29,7 +29,7 @@ class AppSettingsViewController: UITableViewController {
         case advanced
 
         enum Web: SectionItem {
-            case pairedBrowsers(String)
+            case desktopPairing(String)
         }
 
         enum App: SectionItem {
@@ -78,7 +78,7 @@ class AppSettingsViewController: UITableViewController {
 
     private func buildSections() {
         sections = [
-            (section: .web, items: [Section.Web.pairedBrowsers("Paired browsers 🖥")]),
+            (section: .web, items: [Section.Web.desktopPairing("Desktop Pairing 🖥")]),
             (section: .app, items: [
                 Section.App.ownerKeys("Owner keys 🔐", "\(KeyInfo.count())"),
                 Section.App.passcode("Passcode"),
@@ -122,8 +122,8 @@ class AppSettingsViewController: UITableViewController {
         }
     }
 
-    private func showPairedBrowsers() {
-        let vc = PairedBrowsersViewController()
+    private func showDesktopPairing() {
+        let vc = DesktopPairingViewController()
         show(vc, sender: self)
     }
 
@@ -150,7 +150,7 @@ class AppSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.Web.pairedBrowsers(let name):
+        case Section.Web.desktopPairing(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.App.ownerKeys(let name, let count):
@@ -200,8 +200,8 @@ class AppSettingsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.Web.pairedBrowsers:
-            showPairedBrowsers()
+        case Section.Web.desktopPairing:
+            showDesktopPairing()
 
         case Section.App.ownerKeys:
             showOwnerKeys()
