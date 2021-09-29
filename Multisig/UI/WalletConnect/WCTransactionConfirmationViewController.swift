@@ -283,7 +283,7 @@ class WCTransactionConfirmationViewController: UIViewController {
         let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
 
         let coin = safe.chain!.nativeCurrency!
-
+        let namingPolicy = DefaultAddressNamingPolicy()
         let decimalAmount = BigDecimal(
             Int256(transaction.value.value) * -1,
             Int(coin.decimals)
@@ -299,7 +299,8 @@ class WCTransactionConfirmationViewController: UIViewController {
         cell.setToken(text: tokenText, style: .secondary)
         cell.setToken(image: coin.logoUrl)
         cell.setDetail(tokenDetail)
-        cell.setAddress(transaction.to.address, label: nil, imageUri: nil)
+        cell.setAddress(transaction.to.address, label: namingPolicy.name(for: transaction.to.address, info: nil),
+                        imageUri: nil)
         cell.setOutgoing(true)
         cell.selectionStyle = .none
 
