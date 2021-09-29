@@ -98,9 +98,8 @@ class WCRequestsHandler: RequestHandler {
                     self.server.send(try! Response(url: request.url, value: safeTxHash, id: requestId))
                 }
 
-                let navController = UINavigationController(rootViewController: confirmationController)
                 let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
-                sceneDelegate.present(navController)
+                sceneDelegate.present(ViewControllerFactory.modalWithRibbon(viewController: confirmationController, storedChain: safe.chain))
             }
         } else {
             do {
