@@ -64,26 +64,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             onAppUpdateCompletion()
         }
-
-        checkPasteboardForWalletConnectURL()
-    }
-
-    private func checkPasteboardForWalletConnectURL() {
-        if let potentialWCUrl = Pasteboard.string,
-           potentialWCUrl.hasPrefix("wc:"),
-           !potentialWCUrl.contains(WalletConnectClientController.safeKeyPrefix),
-           let _ = try? Safe.getSelected(),
-           App.configuration.toggles.walletConnectEnabled {
-            do {
-                App.shared.snackbar.show(message: "Creating WalletConnect session. This might take some time.")
-                try WalletConnectServerController.shared.connect(url: potentialWCUrl)
-                Tracker.trackEvent(.dappConnectedWithPasteboardValue)
-                // if setting nil it will crash
-                Pasteboard.string = ""
-            } catch {
-                App.shared.snackbar.show(message: "Failed to create a WalletConnect session.")
-            }
-        }
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
