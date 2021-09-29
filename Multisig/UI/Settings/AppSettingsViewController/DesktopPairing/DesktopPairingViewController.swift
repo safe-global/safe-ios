@@ -142,7 +142,7 @@ extension DesktopPairingViewController: WalletConnectKeysServerControllerDelegat
             return
         }
         guard keys.filter({ $0.keyType != .walletConnect}).count != 0 else {
-            App.shared.snackbar.show(message: "Connected keys can not be paired with browser. Please import supported owner key.")
+            App.shared.snackbar.show(message: "Connected keys can not be paired with desktop. Please import supported owner key.")
             completion([])
             return
         }

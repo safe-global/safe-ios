@@ -109,8 +109,11 @@ struct AppConfiguration {
         @UserDefault(key: "io.gnosis.multisig.experimental.walletConnect")
         private var walletConnectEnabledSetting: Bool?
 
-        @UserDefault(key: "io.gnosis.multisig.experimental.walletConnectOwnerKey")
-        private var walletConnectOwnerKeyEnabledSetting: Bool?
+//        @UserDefault(key: "io.gnosis.multisig.experimental.walletConnectOwnerKey")
+//        private var walletConnectOwnerKeyEnabledSetting: Bool?
+
+        @UserDefault(key: "io.gnosis.multisig.experimental.desktopPairing")
+        private var desktopPairingEnabledSetting: Bool?
 
         var walletConnectEnabled: Bool {
             return walletConnectEnabledSetting ?? false
@@ -119,6 +122,10 @@ struct AppConfiguration {
 //        var walletConnectOwnerKeyEnabled: Bool {
 //            return walletConnectOwnerKeyEnabledSetting ?? false
 //        }
+
+        var desktopPairingEnabled: Bool {
+            return desktopPairingEnabledSetting ?? false
+        }
     }
 
     let services = Services()

@@ -77,8 +77,11 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func buildSections() {
-        sections = [
-            (section: .web, items: [Section.Web.desktopPairing("Desktop Pairing 🖥")]),
+        sections = []
+        if App.configuration.toggles.desktopPairingEnabled {
+            sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing 🖥")]))
+        }
+        sections += [
             (section: .app, items: [
                 Section.App.ownerKeys("Owner keys 🔐", "\(KeyInfo.count())"),
                 Section.App.passcode("Passcode"),
