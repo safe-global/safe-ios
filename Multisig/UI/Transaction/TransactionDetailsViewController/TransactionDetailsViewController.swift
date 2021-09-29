@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import WalletConnectSwift
 
 class TransactionDetailsViewController: LoadableViewController, UITableViewDataSource, UITableViewDelegate {
     var clientGatewayService = App.shared.clientGatewayService
@@ -619,9 +620,17 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
             return []
         }
 
-        // but any WalletConnect key can execute a transaction
+        // any WalletConnect key can execute a transaction
+        // but it should be connected to the same Network as selected Safe
         let keys = (try? KeyInfo.all()) ?? []
-        return keys.filter { $0.keyType == .walletConnect }
+        let selectedSafeChainId = try! Safe.getSelected()!.chain!.id
+        return keys.filter {
+            guard $0.keyType == .walletConnect,
+                  let metadata = $0.metadata,
+                  let keyMetadata = KeyInfo.WalletConnectKeyMetadata.from(data: metadata),
+                  String(keyMetadata.walletInfo.chainId) == selectedSafeChainId else { return false }
+            return true
+        }
     }
 
     func rejectorKeys() -> [KeyInfo] {

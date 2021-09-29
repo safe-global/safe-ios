@@ -34,10 +34,19 @@ class WalletConnectQRCodeViewController: UIViewController {
         copyButton.setText("Copy to clipboard", .plain)
 
         qrCodeView.value = code
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(walletConnectSessionRejected(_:)), name: .wcDidFailToConnectClient, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.walletConnectKeyQR)
+    }
+
+    @objc private func walletConnectSessionRejected(_ notification: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
 }
