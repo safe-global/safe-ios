@@ -51,7 +51,8 @@ class WalletConnectServerController: ServerDelegate {
             try server.disconnect(from: session)
             notificationCenter.post(name: disconnectingNotification, object: nil)
         } catch {
-            LogService.shared.error("Error while disconnecting session", error: error)
+            deleteStoredSession(topic: topic)
+            notificationCenter.post(name: didDisconnectNotificatoin, object: nil)
         }
     }
 

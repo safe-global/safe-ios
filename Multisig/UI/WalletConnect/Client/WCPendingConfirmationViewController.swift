@@ -16,6 +16,7 @@ class WCPendingConfirmationViewController: UIViewController {
     @IBOutlet private weak var cancelButton: UIButton!
 
     var headerText = "Pending Confirmation"
+    var onClose: (() -> Void)?
 
     @IBAction private func cancel(_ sender: Any) {
         close()
@@ -45,6 +46,7 @@ class WCPendingConfirmationViewController: UIViewController {
     }
 
     private func close() {
+        onClose?()
         dismiss(animated: true, completion: nil)
     }
 }

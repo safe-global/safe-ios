@@ -77,7 +77,7 @@ class MainTabBarViewController: UITabBarController {
         ]
         segmentVC.viewControllers = [
             BalancesViewController(),
-            CollectiblesViewController()
+            CollectiblesUnsupportedViewController(nibName: nil, bundle: nil)
         ]
         segmentVC.selectedIndex = 0
 

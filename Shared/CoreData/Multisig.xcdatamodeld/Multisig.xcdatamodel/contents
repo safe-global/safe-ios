@@ -76,20 +76,12 @@
         <attribute name="session" optional="YES" attributeType="Binary"/>
         <attribute name="statusRaw" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="topic" attributeType="String"/>
-    </entity>
-    <entity name="WCPendingTransaction" representedClassName="WCPendingTransaction" syncable="YES" codeGenerationType="class">
-        <attribute name="created" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="nonce" attributeType="String"/>
-        <attribute name="requestId" attributeType="String"/>
-        <attribute name="safeTxHash" optional="YES" attributeType="String"/>
-        <relationship name="session" maxCount="1" deletionRule="Nullify" destinationEntity="WCSession" inverseName="pendingTransactions" inverseEntity="WCSession"/>
-    </entity>
+    </entity>    
     <entity name="WCSession" representedClassName="WCSession" syncable="YES" codeGenerationType="class">
         <attribute name="created" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="session" optional="YES" attributeType="Binary"/>
         <attribute name="statusRaw" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="topic" attributeType="String"/>
-        <relationship name="pendingTransactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WCPendingTransaction" inverseName="session" inverseEntity="WCPendingTransaction"/>
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="wcSessions" inverseEntity="Safe"/>
     </entity>
     <elements>
@@ -102,7 +94,6 @@
         <element name="Safe" positionX="-63" positionY="-18" width="128" height="134"/>
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
         <element name="WCKeySession" positionX="54" positionY="135" width="128" height="89"/>
-        <element name="WCPendingTransaction" positionX="54" positionY="27" width="128" height="104"/>
         <element name="WCSession" positionX="54" positionY="18" width="128" height="119"/>
     </elements>
 </model>

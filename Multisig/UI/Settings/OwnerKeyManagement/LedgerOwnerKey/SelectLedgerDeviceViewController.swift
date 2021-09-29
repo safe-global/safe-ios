@@ -28,6 +28,8 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
 
     weak var delegate: SelectLedgerDeviceDelegate?
 
+    var onClose: (() -> Void)?
+
     convenience init(trackingParameters: [String: Any],
                      title: String,
                      showsCloseButton: Bool) {
@@ -66,6 +68,11 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Tracker.trackEvent(.ledgerSelectDevice, parameters: trackingParameters)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        onClose?()
     }
 
     override func reloadData() {

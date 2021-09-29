@@ -95,16 +95,7 @@ class WCRequestsHandler: RequestHandler {
                 }
 
                 confirmationController.onSubmit = { nonce, safeTxHash in
-                    // transaction is successfully submitted to our backend
-                    // add pending transacion for monitoring
-                    DispatchQueue.main.async {
-                        guard let wcSession = WCSession.get(topic: request.url.topic) else { return }
-                        WCPendingTransaction.create(
-                            wcSession: wcSession,
-                            nonce: nonce,
-                            safeTxHash: safeTxHash,
-                            requestId: requestId.description)
-                    }
+                    self.server.send(try! Response(url: request.url, value: safeTxHash, id: requestId))
                 }
 
                 let navController = UINavigationController(rootViewController: confirmationController)

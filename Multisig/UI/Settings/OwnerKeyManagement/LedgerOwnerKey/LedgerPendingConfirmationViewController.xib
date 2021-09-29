@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,6 +15,7 @@
                 <outlet property="cancelButton" destination="HP4-d5-dLu" id="vzX-P3-wXF"/>
                 <outlet property="descriptionLabel" destination="Fm7-aH-SKi" id="Aia-bh-Hz9"/>
                 <outlet property="headerLabel" destination="4Vx-j0-agE" id="baS-53-ULA"/>
+                <outlet property="safeTxHashLabel" destination="HiR-2U-6CV" id="umF-X9-VCc"/>
                 <outlet property="view" destination="rmt-Qi-cti" id="BNY-bS-BcI"/>
             </connections>
         </placeholder>
@@ -24,32 +25,38 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AyD-YA-oAT">
-                    <rect key="frame" x="0.0" y="462.5" width="414" height="433.5"/>
+                    <rect key="frame" x="0.0" y="445.5" width="414" height="450.5"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="TtX-3G-9mc">
-                            <rect key="frame" x="16" y="24" width="382" height="359.5"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="TtX-3G-9mc">
+                            <rect key="frame" x="30" y="24" width="354" height="376.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm Transaction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Vx-j0-agE">
-                                    <rect key="frame" x="114" y="0.0" width="154.5" height="20.5"/>
+                                    <rect key="frame" x="100" y="0.0" width="154.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verify data on your Ledger Nano X by pressing both buttons simultaneously." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fm7-aH-SKi">
-                                    <rect key="frame" x="12.5" y="60.5" width="357.5" height="41"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verify the transaction hash below on your Ledger Nano X and confirm by pressing both buttons simultaneously." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fm7-aH-SKi">
+                                    <rect key="frame" x="4.5" y="42.5" width="345" height="61"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ledger-device" translatesAutoresizingMaskIntoConstraints="NO" id="Rx5-dq-O5k">
-                                    <rect key="frame" x="123" y="141.5" width="136" height="122"/>
+                                    <rect key="frame" x="109" y="125.5" width="136" height="122"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="136" id="Jgm-za-RCX"/>
                                         <constraint firstAttribute="height" constant="122" id="hCV-xM-a4Q"/>
                                     </constraints>
                                 </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0x9342446f11d3c46bc1f838100fef789c174a7db4147635d7f5709fc2ff72b2ba" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="HiR-2U-6CV">
+                                    <rect key="frame" x="0.0" y="269.5" width="354" height="29"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HP4-d5-dLu">
-                                    <rect key="frame" x="16" y="303.5" width="350" height="56"/>
+                                    <rect key="frame" x="16" y="320.5" width="322" height="56"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="56" id="wMS-Ae-e1h"/>
                                     </constraints>
@@ -67,8 +74,8 @@
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="TtX-3G-9mc" secondAttribute="trailing" constant="16" id="KHZ-6g-VoS"/>
-                        <constraint firstItem="TtX-3G-9mc" firstAttribute="leading" secondItem="AyD-YA-oAT" secondAttribute="leading" constant="16" id="mHw-ow-Dyb"/>
+                        <constraint firstAttribute="trailing" secondItem="TtX-3G-9mc" secondAttribute="trailing" constant="30" id="KHZ-6g-VoS"/>
+                        <constraint firstItem="TtX-3G-9mc" firstAttribute="leading" secondItem="AyD-YA-oAT" secondAttribute="leading" constant="30" id="mHw-ow-Dyb"/>
                         <constraint firstItem="TtX-3G-9mc" firstAttribute="top" secondItem="AyD-YA-oAT" secondAttribute="top" constant="24" id="utq-ie-NeJ"/>
                     </constraints>
                 </view>
