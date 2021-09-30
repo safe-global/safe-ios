@@ -15,7 +15,7 @@ class WCIncomingKeyRequestViewController: UIViewController {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var detailsLabel: UILabel!
     @IBOutlet private weak var rejectButton: UIButton!
-    @IBOutlet private weak var signButton: UIButton!
+    @IBOutlet private weak var confirmButton: UIButton!
 
     private var safeAddress: Address!
     private var keyInfo: KeyInfo!
@@ -30,7 +30,19 @@ class WCIncomingKeyRequestViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func sign(_ sender: Any) {
+    @IBAction func confirm(_ sender: Any) {
+        if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForConfirmation) {
+            let vc = EnterPasscodeViewController()
+            vc.passcodeCompletion = { [weak self] success in
+                self?.sign()
+            }
+            show(vc, sender: self)
+        } else {
+            sign()
+        }
+    }
+
+    private func sign() {
         guard let hash = try? HashString(hex: message) else { return }
 
         switch keyInfo.keyType {
@@ -83,11 +95,10 @@ class WCIncomingKeyRequestViewController: UIViewController {
         detailsLabel.text = message
 
         rejectButton.setText("Reject", .filledError)
-        signButton.setText("Sign", .filled)
+        confirmButton.setText("Confirm", .filled)
     }
 }
 
-#warning("Use messageHash instead of safeTxHash in signing")
 extension WCIncomingKeyRequestViewController: SelectLedgerDeviceDelegate {
     func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
                                           didSelectDevice deviceId: UUID,
@@ -106,7 +117,7 @@ extension WCIncomingKeyRequestViewController: SelectLedgerDeviceDelegate {
         controller.dismiss(animated: true)
         present(pendingConfirmationVC, animated: false)
         ledgerController = LedgerController(bluetoothController: bluetoothController)
-        ledgerController!.sign(safeTxHash: message,
+        ledgerController!.sign(messageHash: message,
                                deviceId: deviceId,
                                path: ledgerKeyMetadata.path) { [weak self] signature in
             // dismiss Ledger Pending Confirmation overlay

@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WCIncomingKeyRequestViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="confirmButton" destination="non-u7-Ew0" id="oU4-ns-gN8"/>
                 <outlet property="detailsLabel" destination="CNH-TT-654" id="Lka-tl-ZZb"/>
                 <outlet property="rejectButton" destination="9oB-yn-KTN" id="2ir-eg-G8V"/>
                 <outlet property="safeAddressInfoView" destination="mK7-oa-LSM" id="h2o-S1-QNS"/>
                 <outlet property="safeLabel" destination="Bdc-gv-rcQ" id="PcS-SB-0FB"/>
-                <outlet property="signButton" destination="non-u7-Ew0" id="J7H-Nn-odG"/>
                 <outlet property="titleLabel" destination="L60-cU-MiG" id="Jdg-4k-MmB"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Od1-Ke-npt"/>
             </connections>
@@ -91,9 +91,9 @@
                                 <constraint firstAttribute="height" constant="56" id="fTy-u4-UZK"/>
                             </constraints>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Sign"/>
+                            <state key="normal" title="Confirm"/>
                             <connections>
-                                <action selector="sign:" destination="-1" eventType="touchUpInside" id="kiW-W8-RDr"/>
+                                <action selector="confirm:" destination="-1" eventType="touchUpInside" id="hkt-qm-Q7u"/>
                             </connections>
                         </button>
                     </subviews>

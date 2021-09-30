@@ -52,12 +52,12 @@ class LedgerController {
 
     typealias SignatureCompletion = (_ signature: String?) -> Void
 
-    func sign(safeTxHash: String, deviceId: UUID, path: String, completion: @escaping SignatureCompletion) {
+    func sign(messageHash: String, deviceId: UUID, path: String, completion: @escaping SignatureCompletion) {
         guard let device = bluetoothController.deviceFor(deviceId: deviceId) else {
             completion(nil)
             return
         }
-        let command = signMessageCommand(path: path, messageHash: safeTxHash)
+        let command = signMessageCommand(path: path, messageHash: messageHash)
 
         // We don't use [weak self] with private methods not to capture LedgerController in a caller
         bluetoothController.sendCommand(device: device, command: command) { result in

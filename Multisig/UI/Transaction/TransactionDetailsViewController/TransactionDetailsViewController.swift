@@ -529,7 +529,7 @@ extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
         // present Ledger Pending Confirmation overlay
         controller.present(pendingConfirmationVC, animated: true)
         ledgerController = LedgerController(bluetoothController: bluetoothController)
-        ledgerController!.sign(safeTxHash: safeTxHash,
+        ledgerController!.sign(messageHash: safeTxHash,
                                deviceId: deviceId,
                                path: ledgerKeyMetadata.path) { [weak self] signature in
             // dismiss Ledger Pending Confirmation overlay
