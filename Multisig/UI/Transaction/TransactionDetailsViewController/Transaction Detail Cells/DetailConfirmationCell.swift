@@ -25,7 +25,7 @@ class DetailConfirmationCell: UITableViewCell {
             let v = ConfirmationConfirmedPiece(frame: bounds)
             v.setText("Confirmed")
             let keyInfo = try? KeyInfo.keys(addresses: [address]).first
-            v.setAddress(address, label: KeyInfo.name(address: address), badgeName: keyInfo?.keyType.imageName)
+            v.setAddress(address, label: keyInfo?.name, badgeName: keyInfo?.keyType.imageName)
             return v
         }
 
@@ -60,10 +60,11 @@ class DetailConfirmationCell: UITableViewCell {
 
         case .success:
             if let address = executor {
+                let keyInfo = try? KeyInfo.keys(addresses: [address]).first
                 let success = ConfirmationConfirmedPiece(frame: bounds)
                 success.setText("Executed")
                 success.setShowsBar(false)
-                success.setAddress(address, label: KeyInfo.name(address: address))
+                success.setAddress(address, label: keyInfo?.name, badgeName: keyInfo?.keyType.imageName)
                 views.append(success)
             } else {
                 let status = ConfirmationStatusPiece(frame: bounds)
