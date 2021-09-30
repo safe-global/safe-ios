@@ -11,7 +11,13 @@ import WalletConnectSwift
 
 class DesktopPairingViewController: UITableViewController {
     private var sessions = [WCKeySession]()
-    private var wcServerController = WalletConnectKeysServerController.shared
+    private let wcServerController = WalletConnectKeysServerController.shared
+    private lazy var relativeDateFormatter: RelativeDateTimeFormatter = {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.dateTimeStyle = .named
+        formatter.unitsStyle = .full
+        return formatter
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,11 +92,14 @@ class DesktopPairingViewController: UITableViewController {
                 placeholderImage: UIImage(named: "ico-empty-circle"))
 
         case .connected:
+            let relativeTime = relativeDateFormatter.localizedString(for: session.created!, relativeTo: Date())
             let session = try! Session.from(session)
+            let dappIcon = session.dAppInfo.peerMeta.icons.isEmpty ? nil : session.dAppInfo.peerMeta.icons[0]
+
             return tableView.detailedCell(
-                imageUrl: nil,
+                imageUrl: dappIcon,
                 header: session.dAppInfo.peerMeta.name,
-                description: session.dAppInfo.peerMeta.description,
+                description: relativeTime,
                 indexPath: indexPath,
                 canSelect: false,
                 placeholderImage: UIImage(named: "ico-empty-circle"))
@@ -137,12 +146,12 @@ extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
 extension DesktopPairingViewController: WalletConnectKeysServerControllerDelegate {
     func shouldStart(session: Session, completion: @escaping ([KeyInfo]) -> Void) {
         guard let keys = try? KeyInfo.all() else {
-            App.shared.snackbar.show(message: "Please import owner key to pair with browser")
+            App.shared.snackbar.show(message: "Please import an owner key to pair with desktop")
             completion([])
             return
         }
         guard keys.filter({ $0.keyType != .walletConnect}).count != 0 else {
-            App.shared.snackbar.show(message: "Connected keys can not be paired with desktop. Please import supported owner key.")
+            App.shared.snackbar.show(message: "Connected via WalletConnect keys can not be paired with the desktop. Please import supported owner key types.")
             completion([])
             return
         }

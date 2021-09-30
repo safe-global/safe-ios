@@ -67,12 +67,7 @@ class WalletConnectKeysServerController: WalletConnectServerController {
                 return
             }
 
-            let chainId: Int
-            if let chainIdStr = try? Safe.getSelected()?.chain?.id {
-                chainId = Int(chainIdStr)!
-            } else {
-                chainId = Int(Chain.ChainID.ethereumMainnet)!
-            }
+            let chainId = session.dAppInfo.chainId ?? Int(Chain.ChainID.ethereumMainnet)!
 
             let keysInfo = Session.WalletInfo(
                 approved: true,
