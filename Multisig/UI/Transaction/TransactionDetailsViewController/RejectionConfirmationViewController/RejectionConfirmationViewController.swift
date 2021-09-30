@@ -220,7 +220,6 @@ extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
         pendingConfirmationVC.onClose = { [weak self] in
             self?.ledgerController = nil
             self?.endLoading()
-            controller.reloadData()
         }
 
         // present Ledger Pending Confirmation overlay

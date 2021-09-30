@@ -525,7 +525,6 @@ extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
         pendingConfirmationVC.onClose = { [weak self] in
             self?.ledgerController = nil
             self?.reloadData()
-            controller.reloadData()
         }
 
         // present Ledger Pending Confirmation overlay
