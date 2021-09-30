@@ -492,18 +492,33 @@ class TransactionDetailCellBuilder {
                 safeTxHash = nil
             }
 
-            guard ![nonce, operation, hash, safeTxHash].compactMap({ $0 }).isEmpty else { return }
+            var advancedData: [(String, Any)] = []
+            if let nonce = nonce {
+                advancedData.append(("Nonce:", nonce))
+            }
+
+            if let operation = operation {
+                advancedData.append(("Type of operation:", operation))
+            }
+
+            if let hash = hash {
+                advancedData.append(("Transaction hash:", hash))
+            }
+
+            if let safeTxHash = safeTxHash {
+                advancedData.append(("safeTxHash:", safeTxHash))
+            }
+
+            if case let SCGModels.TransactionDetails.DetailedExecutionInfo.module(moduleInfo)? = tx.detailedExecutionInfo {
+                advancedData.append(("Module:", moduleInfo.address))
+            }
+
+            guard !advancedData.isEmpty else { return }
 
             disclosure(text: "Advanced") { [weak self] in
                 guard let `self` = self else { return }
-                let view = AdvancedTransactionDetailsView(
-                    nonce: nonce,
-                    operation: operation,
-                    hash: hash,
-                    safeTxHash: safeTxHash)
-                let host = UIHostingController(rootView: view)
-                host.navigationItem.title = "Advanced"
-                let vc = RibbonViewController(rootViewController: host)
+                let vc = AdvancedTransactionDetailsViewController()
+                vc.items = advancedData
                 self.vc.show(vc, sender: self)
             }
             break
