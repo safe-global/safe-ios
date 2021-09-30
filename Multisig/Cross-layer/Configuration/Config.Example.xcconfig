@@ -94,6 +94,7 @@ FALLBACKHANDLER_URL = https:/$()/help.gnosis-safe.io/en/articles/4738352-what-is
 GUARD_URL = https:/$()/help.gnosis-safe.io/en/articles/5324092-what-is-a-transaction-guard
 PAY_FOR_CANCELLATION_URL = https:/$()/help.gnosis-safe.io/en/articles/4738501-why-do-i-need-to-pay-for-cancelling-a-transaction
 CONNECT_DAPP_ON_MOBILE_URL = https:/$()/help.gnosis-safe.io/en/articles/5307197-how-to-connect-a-dapp-via-walletconnect-on-gnosis-safe-mobile
+DESKTOP_PAIRING_URL = https:/$()/help.gnosis-safe.io/en/articles/5584901-desktop-pairing
 
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/
