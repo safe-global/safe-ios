@@ -19,6 +19,8 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     private var sections = [SectionItems]()
 
+    private var showedNotificationsSessionTopics = [String]()
+
     enum Section {
         case walletConnect(String)
         case dapp(String)
@@ -116,6 +118,20 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
          .selectedSafeChanged].forEach {
             NotificationCenter.default.addObserver(self, selector: #selector(update), name: $0, object: nil)
          }
+
+        NotificationCenter.default.addObserver(forName: .wcDidConnectSafeServer, object: nil, queue: nil) {
+            [weak self] notification in
+
+            guard let self = self, let topic = notification.userInfo?["topic"] as? String else { return }
+
+            // skip snackbar notification for reconnect cases
+            if !self.showedNotificationsSessionTopics.contains(topic) {
+                self.showedNotificationsSessionTopics.append(topic)
+                DispatchQueue.main.async {
+                    App.shared.snackbar.show(message: "WalletConnect session created! Please return back to the browser.")
+                }
+            }
+        }
     }
 
     // MARK: - Table view data source

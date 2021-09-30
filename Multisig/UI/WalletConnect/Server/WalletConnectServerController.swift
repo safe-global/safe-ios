@@ -17,7 +17,6 @@ enum SessionStatus: Int {
 class WalletConnectServerController: ServerDelegate {
     private(set) var server: Server!
     private let notificationCenter = NotificationCenter.default
-    private var showedNotificationsSessionTopics = [String]()
 
     // Subclasses should override
     var connectingNotification: NSNotification.Name!
@@ -66,7 +65,7 @@ class WalletConnectServerController: ServerDelegate {
         DispatchQueue.main.sync {
             deleteStoredSession(topic: url.topic)
         }
-        notificationCenter.post(name: didFailToConnectNotificatoin, object: url)
+        notificationCenter.post(name: didFailToConnectNotificatoin, object: nil, userInfo: ["topic": url.topic])
     }
 
     func deleteStoredSession(topic: String) {
@@ -77,20 +76,10 @@ class WalletConnectServerController: ServerDelegate {
         preconditionFailure("Subclass should override createSession method")
     }
 
-    #warning("TODO: make snackbar message display business of view controllers")
-    #warning("TODO: figure our why with sync update it crashes")
     func server(_ server: Server, didConnect session: Session) {
         DispatchQueue.main.async { [unowned self] in
             self.update(session: session, status: .connected)
-            notificationCenter.post(name: didConnectNotificatoin, object: session)
-        }
-
-        // skip snackbar notification for reconnect cases
-        if !showedNotificationsSessionTopics.contains(session.url.topic) {
-            showedNotificationsSessionTopics.append(session.url.topic)
-            DispatchQueue.main.async {
-                App.shared.snackbar.show(message: "WalletConnect session created! Please return back to the browser.")
-            }
+            notificationCenter.post(name: didConnectNotificatoin, object: nil, userInfo: ["topic": session.url.topic])
         }
     }
 
@@ -102,7 +91,7 @@ class WalletConnectServerController: ServerDelegate {
         DispatchQueue.main.sync { [unowned self] in
             self.deleteStoredSession(topic: session.url.topic)
         }
-        notificationCenter.post(name: didDisconnectNotificatoin, object: session)
+        notificationCenter.post(name: didDisconnectNotificatoin, object: nil, userInfo: ["topic": session.url.topic])
     }
 
     func server(_ server: Server, didUpdate session: Session) {
