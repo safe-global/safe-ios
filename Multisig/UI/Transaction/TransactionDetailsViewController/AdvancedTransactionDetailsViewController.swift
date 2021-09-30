@@ -9,12 +9,17 @@
 import UIKit
 
 class AdvancedTransactionDetailsViewController: UITableViewController {
-    var items:[(title: String, value: Any)] = []
-    let namingPolicy = DefaultAddressNamingPolicy()
+    private var items: [(title: String, value: Any)] = []
+    private let namingPolicy = DefaultAddressNamingPolicy()
+
+    convenience init(items: [(title: String, value: Any)]) {
+        self.init()
+        self.items = items
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.transactionsDetailsAdvanced)
-
     }
 
     override func viewDidLoad() {

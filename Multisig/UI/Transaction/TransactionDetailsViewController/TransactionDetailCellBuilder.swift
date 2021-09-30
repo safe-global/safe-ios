@@ -517,8 +517,7 @@ class TransactionDetailCellBuilder {
 
             disclosure(text: "Advanced") { [weak self] in
                 guard let `self` = self else { return }
-                let vc = AdvancedTransactionDetailsViewController()
-                vc.items = advancedData
+                let vc = AdvancedTransactionDetailsViewController(items: advancedData)
                 self.vc.show(vc, sender: self)
             }
             break
