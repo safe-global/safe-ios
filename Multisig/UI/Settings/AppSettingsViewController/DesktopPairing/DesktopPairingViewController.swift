@@ -145,13 +145,17 @@ extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
 
 extension DesktopPairingViewController: WalletConnectKeysServerControllerDelegate {
     func shouldStart(session: Session, completion: @escaping ([KeyInfo]) -> Void) {
-        guard let keys = try? KeyInfo.all() else {
-            App.shared.snackbar.show(message: "Please import an owner key to pair with desktop")
+        guard let keys = try? KeyInfo.all(), !keys.isEmpty else {
+            DispatchQueue.main.async {
+                App.shared.snackbar.show(message: "Please import an owner key to pair with desktop")
+            }
             completion([])
             return
         }
         guard keys.filter({ $0.keyType != .walletConnect}).count != 0 else {
-            App.shared.snackbar.show(message: "Connected via WalletConnect keys can not be paired with the desktop. Please import supported owner key types.")
+            DispatchQueue.main.async {
+                App.shared.snackbar.show(message: "Connected via WalletConnect keys can not be paired with the desktop. Please import supported owner key types.")
+            }
             completion([])
             return
         }

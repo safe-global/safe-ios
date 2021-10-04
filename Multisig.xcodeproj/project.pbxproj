@@ -2647,10 +2647,10 @@
 		557D80C1270B33BA0036D6D0 /* DesktopPairing */ = {
 			isa = PBXGroup;
 			children = (
-				557D80C2270B33BA0036D6D0 /* DesktopPairingHeaderView.swift */,
 				557D80C3270B33BA0036D6D0 /* ConfirmConnection */,
-				557D80CA270B33BA0036D6D0 /* DesktopPairingViewController.swift */,
+				557D80C2270B33BA0036D6D0 /* DesktopPairingHeaderView.swift */,
 				557D80CB270B33BA0036D6D0 /* DesktopPairingHeaderView.xib */,
+				557D80CA270B33BA0036D6D0 /* DesktopPairingViewController.swift */,
 			);
 			path = DesktopPairing;
 			sourceTree = "<group>";
