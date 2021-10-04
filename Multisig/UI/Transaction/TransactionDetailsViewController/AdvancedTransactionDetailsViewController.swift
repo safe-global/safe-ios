@@ -34,6 +34,7 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         tableView.estimatedSectionHeaderHeight = BasicHeaderView.headerHeight
+        tableView.estimatedSectionFooterHeight = 0
     }
 
     func buildSections(_ tx: SCGModels.TransactionDetails) {
@@ -45,7 +46,7 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         if let txData = tx.txData {
             var safeTransactionData:[SectionItem] = []
             safeTransactionData.append(SectionItem(title: "To:", value: txData.to))
-            safeTransactionData.append(SectionItem(title: "Value:", value: txData.value))
+            safeTransactionData.append(SectionItem(title: "Value:", value: txData.value.description))
             if let data = txData.hexData {
                 safeTransactionData.append(SectionItem(title: "Data:", value: data))
             }
@@ -80,14 +81,21 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
 
         switch tx.detailedExecutionInfo {
         case .multisig(let multisigInfo):
-            var multiSigTransactionInfo:[SectionItem] = []
-            multiSigTransactionInfo.append(SectionItem(title: "safeTxGas:", value: multisigInfo.safeTxGas))
-            multiSigTransactionInfo.append(SectionItem(title: "baseGas:", value: multisigInfo.baseGas))
-            multiSigTransactionInfo.append(SectionItem(title: "gasPrice:", value: multisigInfo.gasPrice))
-            multiSigTransactionInfo.append(SectionItem(title: "gasToken:", value: multisigInfo.gasToken))
+            var multiSigTransactionInfo: [SectionItem] = []
+            multiSigTransactionInfo.append(SectionItem(title: "safeTxGas:", value: multisigInfo.safeTxGas.description))
+            multiSigTransactionInfo.append(SectionItem(title: "baseGas:", value: multisigInfo.baseGas.description))
+            multiSigTransactionInfo.append(SectionItem(title: "gasPrice:", value: multisigInfo.gasPrice.description))
+            multiSigTransactionInfo.append(SectionItem(title: "gasToken:", value: multisigInfo.gasToken.address.addressInfo))
             multiSigTransactionInfo.append(SectionItem(title: "refundReceiver:", value: multisigInfo.refundReceiver))
 
             sections.append(Section(title: "Multisig Data", items: multiSigTransactionInfo))
+
+            var signatures: [SectionItem] = []
+            multisigInfo.confirmations.forEach { confirmation in
+                signatures.append(SectionItem(title: nil, value: confirmation.signature))
+            }
+
+            sections.append(Section(title: "Signatures", items: signatures))
         case .module(let moduleInfo):
             sections.append(Section(title: "Module Data", items: [SectionItem(title: "Module Address:", value: moduleInfo.address)]))
         default:
@@ -125,25 +133,19 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
         if let addressInfo = item.value as? SCGModels.AddressInfo {
             return address(addressInfo.value.address, label: addressInfo.name, title: item.title, imageUri: addressInfo.logoUri, indexPath: indexPath)
-        } else if let addressString = item.value as? AddressString {
-            return address(addressString.address, label: nil, title: item.title, imageUri: nil, indexPath: indexPath)
-        } else if let intValue = item.value as? UInt256String {
-            return text(intValue.description, title: item.title, expandableTitle: nil, copyText: intValue.description, indexPath: indexPath)
-
-        } else if let string = item.value as? String {
+        } else if let addressInfo = item.value as? AddressInfo {
+            return address(addressInfo.address, label: addressInfo.name, title: item.title, imageUri: addressInfo.logoUri, indexPath: indexPath)
+        }
+        else if let string = item.value as? String {
             return text(string, title: item.title, expandableTitle: nil, copyText: string, indexPath: indexPath)
-
         } else if let data = item.value as? DataString {
             return text("\(data)", title: item.title, expandableTitle: "\(data.data.count) Bytes", copyText: "\(data)", indexPath: indexPath)
-
-        } else if let string = item.value as? String {
-            return text(string, title: item.title, expandableTitle: nil, copyText: string, indexPath: indexPath)
         } else {
             return UITableViewCell()
         }
     }
 
-    func text(_ text: String, title: String, expandableTitle: String?, copyText: String?, indexPath: IndexPath) -> UITableViewCell {
+    func text(_ text: String, title: String?, expandableTitle: String?, copyText: String?, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailExpandableTextCell.self, for: indexPath)
         cell.tableView = tableView
         cell.setTitle(title)
@@ -167,6 +169,6 @@ fileprivate struct Section {
 }
 
 fileprivate struct SectionItem {
-    let title: String
+    let title: String?
     let value: Any
 }
