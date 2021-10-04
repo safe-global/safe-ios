@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import WalletConnectSwift
 
 class TransactionDetailsViewController: LoadableViewController, UITableViewDataSource, UITableViewDelegate {
     var clientGatewayService = App.shared.clientGatewayService
@@ -272,7 +273,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
               let safeTxHash = transaction.safeTxHash?.description else {
             preconditionFailure("Unexpected Error")            
         }
-        super.reloadData()
 
         transaction.safe = AddressString(safeAddress)
         transaction.safeVersion = safe.contractVersion
@@ -329,13 +329,16 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 return
             }
 
-            self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: keyInfo.keyType)
+            DispatchQueue.main.async {
+                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: keyInfo.keyType)
+            }
         }
 
         WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
     }
 
     private func confirmAndRefresh(safeTxHash: String, signature: String, keyType: KeyType) {
+        super.reloadData()
         confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash,
                                                                        signature: signature,
                                                                        chainId: safe.chain!.id!) {
@@ -373,7 +376,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
               keyInfo.keyType == .walletConnect else {
             preconditionFailure("Unexpected Error")
         }
-        super.reloadData()
 
         do {
             let safeAddress = try Address(from: safe.address!)
@@ -405,7 +407,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     case .failure(let error):
                         pendingConfirmationVC.dismiss(animated: true, completion: nil)
                         self?.reloadData()
-                        App.shared.snackbar.show(error: error as! DetailedLocalizedError)
+                        let localizedError = (error as? DetailedLocalizedError) ?? GSError.error(
+                            description: "Failed to send transaction to wallet", error: error)
+                        App.shared.snackbar.show(error: localizedError)
                     }
                 }
             },
@@ -422,7 +426,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
                     case .failure(let error):
                         self?.reloadData()
-                        App.shared.snackbar.show(error: error as! DetailedLocalizedError)
+                        let localizedError = (error as? DetailedLocalizedError) ?? GSError.error(
+                            description: "Failed to execute transaction", error: error)
+                        App.shared.snackbar.show(error: localizedError)
                     }
                 }
             })
@@ -522,8 +528,9 @@ extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
 
         let pendingConfirmationVC = LedgerPendingConfirmationViewController(ledgerHash: transaction.hardwareWalletHash)
         pendingConfirmationVC.modalPresentationStyle = .popover
-        pendingConfirmationVC.onClose = {
-            controller.reloadData()
+        pendingConfirmationVC.onClose = { [weak self] in
+            self?.ledgerController = nil
+            self?.reloadData()
         }
 
         // present Ledger Pending Confirmation overlay
@@ -619,9 +626,17 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
             return []
         }
 
-        // but any WalletConnect key can execute a transaction
+        // any WalletConnect key can execute a transaction
+        // but it should be connected to the same Network as selected Safe
         let keys = (try? KeyInfo.all()) ?? []
-        return keys.filter { $0.keyType == .walletConnect }
+        let selectedSafeChainId = try! Safe.getSelected()!.chain!.id
+        return keys.filter {
+            guard $0.keyType == .walletConnect,
+                  let metadata = $0.metadata,
+                  let keyMetadata = KeyInfo.WalletConnectKeyMetadata.from(data: metadata),
+                  String(keyMetadata.walletInfo.chainId) == selectedSafeChainId else { return false }
+            return true
+        }
     }
 
     func rejectorKeys() -> [KeyInfo] {
