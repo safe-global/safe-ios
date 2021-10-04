@@ -329,7 +329,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 return
             }
 
-            self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: keyInfo.keyType)
+            DispatchQueue.main.async {
+                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: keyInfo.keyType)
+            }
         }
 
         WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
@@ -405,7 +407,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     case .failure(let error):
                         pendingConfirmationVC.dismiss(animated: true, completion: nil)
                         self?.reloadData()
-                        App.shared.snackbar.show(error: error)
+                        let localizedError = (error as? DetailedLocalizedError) ?? GSError.error(
+                            description: "Failed to send transaction to wallet", error: error)
+                        App.shared.snackbar.show(error: localizedError)
                     }
                 }
             },
@@ -422,7 +426,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
                     case .failure(let error):
                         self?.reloadData()
-                        App.shared.snackbar.show(error: error)
+                        let localizedError = (error as? DetailedLocalizedError) ?? GSError.error(
+                            description: "Failed to execute transaction", error: error)
+                        App.shared.snackbar.show(error: localizedError)
                     }
                 }
             })
