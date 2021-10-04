@@ -83,7 +83,7 @@ class WCRequestsHandler: RequestHandler {
             // present confirmation controller
 
             DispatchQueue.main.async { [unowned self] in
-                let confirmationController = WCTransactionConfirmationViewController(
+                let confirmationController = WCIncomingTransactionRequestViewController(
                     transaction: transaction,
                     safe: safe,
                     minimalNonce: safeInfo.nonce,

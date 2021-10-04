@@ -497,8 +497,8 @@
 		557D80AD270B32F80036D6D0 /* WCRequestsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D8096270B32F80036D6D0 /* WCRequestsHandler.swift */; };
 		557D80AE270B32F80036D6D0 /* WalletConnectSafesServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D8097270B32F80036D6D0 /* WalletConnectSafesServerController.swift */; };
 		557D80AF270B32F80036D6D0 /* WCEditParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D8099270B32F80036D6D0 /* WCEditParametersViewController.swift */; };
-		557D80B0270B32F80036D6D0 /* WCTransactionConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557D809A270B32F80036D6D0 /* WCTransactionConfirmationViewController.xib */; };
-		557D80B1270B32F80036D6D0 /* WCTransactionConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D809B270B32F80036D6D0 /* WCTransactionConfirmationViewController.swift */; };
+		557D80B0270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557D809A270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.xib */; };
+		557D80B1270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D809B270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.swift */; };
 		557D80B2270B32F80036D6D0 /* WCEditParametersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557D809C270B32F80036D6D0 /* WCEditParametersViewController.xib */; };
 		557D80B3270B32F80036D6D0 /* EditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D809D270B32F80036D6D0 /* EditCell.swift */; };
 		557D80B4270B32F80036D6D0 /* EditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557D809E270B32F80036D6D0 /* EditCell.xib */; };
@@ -1104,8 +1104,8 @@
 		557D8096270B32F80036D6D0 /* WCRequestsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCRequestsHandler.swift; sourceTree = "<group>"; };
 		557D8097270B32F80036D6D0 /* WalletConnectSafesServerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectSafesServerController.swift; sourceTree = "<group>"; };
 		557D8099270B32F80036D6D0 /* WCEditParametersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCEditParametersViewController.swift; sourceTree = "<group>"; };
-		557D809A270B32F80036D6D0 /* WCTransactionConfirmationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCTransactionConfirmationViewController.xib; sourceTree = "<group>"; };
-		557D809B270B32F80036D6D0 /* WCTransactionConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCTransactionConfirmationViewController.swift; sourceTree = "<group>"; };
+		557D809A270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCIncomingTransactionRequestViewController.xib; sourceTree = "<group>"; };
+		557D809B270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCIncomingTransactionRequestViewController.swift; sourceTree = "<group>"; };
 		557D809C270B32F80036D6D0 /* WCEditParametersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCEditParametersViewController.xib; sourceTree = "<group>"; };
 		557D809D270B32F80036D6D0 /* EditCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCell.swift; sourceTree = "<group>"; };
 		557D809E270B32F80036D6D0 /* EditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCell.xib; sourceTree = "<group>"; };
@@ -2604,8 +2604,8 @@
 			isa = PBXGroup;
 			children = (
 				557D8099270B32F80036D6D0 /* WCEditParametersViewController.swift */,
-				557D809A270B32F80036D6D0 /* WCTransactionConfirmationViewController.xib */,
-				557D809B270B32F80036D6D0 /* WCTransactionConfirmationViewController.swift */,
+				557D809A270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.xib */,
+				557D809B270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.swift */,
 				557D809C270B32F80036D6D0 /* WCEditParametersViewController.xib */,
 				557D809D270B32F80036D6D0 /* EditCell.swift */,
 				557D809E270B32F80036D6D0 /* EditCell.xib */,
@@ -3080,7 +3080,7 @@
 				5562DD722693425E00B56722 /* NetworkIndicatorHeaderView.xib in Resources */,
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
-				557D80B0270B32F80036D6D0 /* WCTransactionConfirmationViewController.xib in Resources */,
+				557D80B0270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.xib in Resources */,
 				55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */,
 				0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */,
 				55DA0669269DD573006C9AA5 /* dapps-xdai.json in Resources */,
@@ -3427,7 +3427,7 @@
 				04C5DF6B26FB451B0072476C /* KeyTypeTableViewCell.swift in Sources */,
 				0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */,
 				0A451C00252DDB67001DB7D2 /* ReloadButton.swift in Sources */,
-				557D80B1270B32F80036D6D0 /* WCTransactionConfirmationViewController.swift in Sources */,
+				557D80B1270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.swift in Sources */,
 				0A791DA124D30FE100D70DA9 /* Spacing.swift in Sources */,
 				557D80AE270B32F80036D6D0 /* WalletConnectSafesServerController.swift in Sources */,
 				55A58534250140B1005E778B /* PrivateKey.swift in Sources */,
