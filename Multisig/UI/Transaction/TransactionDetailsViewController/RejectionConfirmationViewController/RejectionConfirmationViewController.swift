@@ -216,6 +216,7 @@ extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
               let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
 
         let pendingConfirmationVC = LedgerPendingConfirmationViewController(ledgerHash: rejectionTransaction.hardwareWalletHash)
+        pendingConfirmationVC.headerText = "Reject Transaction"
         pendingConfirmationVC.modalPresentationStyle = .popover
         pendingConfirmationVC.onClose = { [weak self] in
             self?.ledgerController = nil
