@@ -478,46 +478,9 @@ class TransactionDetailCellBuilder {
             guard transferTx.direction != .incoming else { return }
             fallthrough
         default:
-            let nonce: String?
-            let operation: String? = tx.txData?.operation.string
-            let hash: String? = tx.txHash?.description
-            let safeTxHash: String?
-
-            if case SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(let multisigTx)? =
-                tx.detailedExecutionInfo {
-                nonce = multisigTx.nonce.description
-                safeTxHash = multisigTx.safeTxHash.description
-            } else {
-                nonce = nil
-                safeTxHash = nil
-            }
-
-            var advancedData: [(String, Any)] = []
-            if let nonce = nonce {
-                advancedData.append(("Nonce:", nonce))
-            }
-
-            if let operation = operation {
-                advancedData.append(("Type of operation:", operation))
-            }
-
-            if let hash = hash {
-                advancedData.append(("Transaction hash:", hash))
-            }
-
-            if let safeTxHash = safeTxHash {
-                advancedData.append(("safeTxHash:", safeTxHash))
-            }
-
-            if case let SCGModels.TransactionDetails.DetailedExecutionInfo.module(moduleInfo)? = tx.detailedExecutionInfo {
-                advancedData.append(("Module:", moduleInfo.address))
-            }
-
-            guard !advancedData.isEmpty else { return }
-
             disclosure(text: "Advanced") { [weak self] in
                 guard let `self` = self else { return }
-                let vc = AdvancedTransactionDetailsViewController(items: advancedData)
+                let vc = AdvancedTransactionDetailsViewController(tx)
                 self.vc.show(vc, sender: self)
             }
             break
