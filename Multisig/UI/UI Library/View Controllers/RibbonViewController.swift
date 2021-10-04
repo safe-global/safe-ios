@@ -11,6 +11,7 @@ import UIKit
 class RibbonViewController: ContainerViewController {
 
     var chain: SCGModels.Chain?
+    var storedChain: Chain?
 
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var ribbonView: RibbonView!
@@ -29,6 +30,8 @@ class RibbonViewController: ContainerViewController {
 
         if let chain = chain {
             ribbonView.update(scgChain: chain)
+        } else if let chain = storedChain {
+            ribbonView.update(chain: chain)
         } else {
             ribbonView.observeSelectedSafe()
         }

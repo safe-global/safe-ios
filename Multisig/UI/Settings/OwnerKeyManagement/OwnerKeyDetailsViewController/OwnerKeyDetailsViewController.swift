@@ -271,8 +271,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Name.name:
-            return tableView.basicCell(name: keyInfo.name!, indexPath: indexPath)
-
+            return tableView.basicCell(name: keyInfo.name ?? "", indexPath: indexPath)
         case Section.KeyAddress.address:
             return addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
         case Section.OwnerKeyType.type:

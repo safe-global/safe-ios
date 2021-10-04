@@ -190,6 +190,8 @@ class WCTransactionConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Transaction Details"
+
         if !session.dAppInfo.peerMeta.icons.isEmpty {
             let imageUrl = session.dAppInfo.peerMeta.icons[0]
             dappImageView.kf.setImage(with: imageUrl, placeholder: UIImage(named: "ico-empty-circle"))
@@ -213,7 +215,6 @@ class WCTransactionConfirmationViewController: UIViewController {
         tableView.registerCell(EditCell.self)
 
         tableView.estimatedRowHeight = BasicCell.rowHeight
-        tableView.separatorStyle = .none
 
         buildSections()
     }
@@ -271,7 +272,8 @@ class WCTransactionConfirmationViewController: UIViewController {
         let cell = tableView.dequeueCell(DetailAccountCell.self)
         cell.setAccount(
             address: transaction.safe!.address,
-            label: Safe.cachedName(by: transaction.safe!, chainId: safe.chain!.id!)
+            label: Safe.cachedName(by: transaction.safe!, chainId: safe.chain!.id!),
+            title: "Connected safe"
         )
         cell.selectionStyle = .none
         return cell
@@ -281,7 +283,7 @@ class WCTransactionConfirmationViewController: UIViewController {
         let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
 
         let coin = safe.chain!.nativeCurrency!
-
+        let namingPolicy = DefaultAddressNamingPolicy()
         let decimalAmount = BigDecimal(
             Int256(transaction.value.value) * -1,
             Int(coin.decimals)
@@ -297,7 +299,8 @@ class WCTransactionConfirmationViewController: UIViewController {
         cell.setToken(text: tokenText, style: .secondary)
         cell.setToken(image: coin.logoUrl)
         cell.setDetail(tokenDetail)
-        cell.setAddress(transaction.to.address, label: nil, imageUri: nil)
+        cell.setAddress(transaction.to.address, label: namingPolicy.name(for: transaction.to.address, info: nil),
+                        imageUri: nil)
         cell.setOutgoing(true)
         cell.selectionStyle = .none
 
@@ -308,7 +311,7 @@ class WCTransactionConfirmationViewController: UIViewController {
         let cell = tableView.dequeueCell(DetailExpandableTextCell.self)
         let data = transaction.data?.description ?? ""
         cell.tableView = tableView
-        cell.setTitle("data")
+        cell.setTitle("Data")
         cell.setText(data)
         cell.setCopyText(data)
         cell.setExpandableTitle("\(transaction.data?.data.count ?? 0) Bytes")
