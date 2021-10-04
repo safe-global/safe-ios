@@ -22,10 +22,13 @@ class WCIncomingKeyRequestViewController: UIViewController {
     private var message: String!
     private var ledgerController: LedgerController?
 
+    var didSignOrReject = false
+
     var onReject: (() -> Void)?
     var onSign: ((String) -> Void)?
 
     @IBAction func reject(_ sender: Any) {
+        didSignOrReject = true
         onReject?()
         dismiss(animated: true, completion: nil)
     }
@@ -64,6 +67,7 @@ class WCIncomingKeyRequestViewController: UIViewController {
                     let signature = try SafeTransactionSigner().sign(hash: hash, keyInfo: keyInfo)
                     onSign?(signature.hexadecimal)
                     DispatchQueue.main.async {
+                        didSignOrReject = true
                         dismiss(animated: true, completion: nil)
                         App.shared.snackbar.show(message: "Signed successfully")
                     }
@@ -108,6 +112,14 @@ class WCIncomingKeyRequestViewController: UIViewController {
 
         rejectButton.setText("Reject", .filledError)
         confirmButton.setText("Confirm", .filled)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // to handle swipe down properly
+        if !didSignOrReject {
+            onReject?()
+        }
     }
 }
 

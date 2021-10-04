@@ -23,6 +23,8 @@ class WCTransactionConfirmationViewController: UIViewController {
     var onReject: (() -> Void)?
     var onSubmit: ((_ nonce: UInt256String, _ safeTxHash: HashString) -> Void)?
 
+    var didSignOrReject = false
+
     private var transaction: Transaction!
     private var safe: Safe!
     private var keyInfo: KeyInfo?
@@ -56,6 +58,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     private var isAdvancedOptionsShown = false
 
     @IBAction private func reject(_ sender: Any) {
+        didSignOrReject = true
         onReject?()
         dismiss(animated: true, completion: nil)
     }
@@ -154,6 +157,7 @@ class WCTransactionConfirmationViewController: UIViewController {
             Tracker.trackEvent(trackingEvent, parameters: trackingParameters)
 
             DispatchQueue.main.async { [weak self] in
+                self?.didSignOrReject = true
                 // dismiss WCTransactionConfirmationViewController
                 self?.dismiss(animated: true, completion: nil)
                 App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners.")
@@ -190,7 +194,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Transaction Details"
+        navigationItem.leftBarButtonItem = nil
 
         if !session.dAppInfo.peerMeta.icons.isEmpty {
             let imageUrl = session.dAppInfo.peerMeta.icons[0]
@@ -232,6 +236,14 @@ class WCTransactionConfirmationViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // to handle swipe down properly
+        if !didSignOrReject {
+            onReject?()
+        }
     }
 
     private func buildSections() {
