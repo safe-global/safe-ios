@@ -538,11 +538,11 @@ extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
         ledgerController = LedgerController(bluetoothController: bluetoothController)
         ledgerController!.sign(safeTxHash: safeTxHash,
                                deviceId: deviceId,
-                               path: ledgerKeyMetadata.path) { [weak self] signature in
+                               path: ledgerKeyMetadata.path) { [weak self] weakSignature, weakErrorMessage in
             // dismiss Ledger Pending Confirmation overlay
             controller.presentedViewController?.dismiss(animated: true, completion: nil)
-            guard let signature = signature else {
-                App.shared.snackbar.show(message: "The operation was canceled on the Ledger device.")
+            guard let signature = weakSignature else {
+                App.shared.snackbar.show(message: weakErrorMessage!)
                 controller.reloadData()
                 return
             }
