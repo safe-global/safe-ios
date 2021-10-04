@@ -124,7 +124,7 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
 extension SelectLedgerDeviceViewController: BluetoothControllerDelegate {
     func bluetoothControllerDidFailToConnectBluetooth(error: DetailedLocalizedError) {
         onSuccess()
-         if error is GSError.BluetoothIsNotAuthorized {
+        if error is GSError.BluetoothIsNotAuthorized {
             let alertVC = UIAlertController(title: nil,
                                             message: "Please enable Bluetooth in App Settings",
                                             preferredStyle: .alert)

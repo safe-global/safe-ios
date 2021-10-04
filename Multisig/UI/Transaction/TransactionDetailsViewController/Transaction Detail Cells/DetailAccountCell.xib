@@ -19,14 +19,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="73"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LgM-CF-TET">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LgM-CF-TET">
                         <rect key="frame" x="16" y="12" width="382" height="440"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXw-fU-tjL" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="AAu-31-NV4"/>
-                                </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wG6-sb-pJl">
                                 <rect key="frame" x="0.0" y="58" width="382" height="382"/>

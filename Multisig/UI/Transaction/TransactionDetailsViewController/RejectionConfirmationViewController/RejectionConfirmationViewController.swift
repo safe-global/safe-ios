@@ -94,8 +94,6 @@ class RejectionConfirmationViewController: UIViewController {
     }
 
     private func rejectTransaction(_ keyInfo: KeyInfo) {
-        startLoading()
-
         self.keyInfo = keyInfo
 
         switch keyInfo.keyType {
@@ -163,6 +161,7 @@ class RejectionConfirmationViewController: UIViewController {
 
     private func rejectAndCloseController(signature: String) {
         guard let keyInfo = keyInfo else { return }
+        startLoading()
         _ = App.shared.clientGatewayService.asyncProposeTransaction(
             transaction: rejectionTransaction,
             sender: AddressString(keyInfo.address),
@@ -218,8 +217,9 @@ extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
 
         let pendingConfirmationVC = LedgerPendingConfirmationViewController(ledgerHash: rejectionTransaction.hardwareWalletHash)
         pendingConfirmationVC.modalPresentationStyle = .popover
-        pendingConfirmationVC.onClose = {
-            controller.reloadData()
+        pendingConfirmationVC.onClose = { [weak self] in
+            self?.ledgerController = nil
+            self?.endLoading()
         }
 
         // present Ledger Pending Confirmation overlay
