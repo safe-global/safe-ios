@@ -47,8 +47,14 @@ class WCIncomingKeyRequestViewController: UIViewController {
     }
 
     private func sign() {
-        // Safe will send a hash, other Dapps might send a message with eth_sign
-        let hash = (try? HashString(hex: message)) ?? HashString(EthHasher.hash("\\x19Ethereum Signed Message:\\n\(message.count)\(message!)"))
+        guard let hash = try? HashString(hex: message) else {
+            onReject?()
+            DispatchQueue.main.async { [unowned self] in
+                self.dismiss(animated: true, completion: nil)
+                App.shared.snackbar.show(message: "Signing arbitrary messages is not supported. The dApp should send a valid hash.")
+            }
+            return
+        }
 
         switch keyInfo.keyType {
 
