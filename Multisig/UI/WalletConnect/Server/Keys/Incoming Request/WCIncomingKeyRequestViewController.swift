@@ -34,7 +34,11 @@ class WCIncomingKeyRequestViewController: UIViewController {
         if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForConfirmation) {
             let vc = EnterPasscodeViewController()
             vc.passcodeCompletion = { [weak self] success in
-                self?.sign()
+                if success {
+                    self?.sign()
+                } else {
+                    self?.navigationController?.popViewController(animated: true)
+                }
             }
             show(vc, sender: self)
         } else {
@@ -43,7 +47,8 @@ class WCIncomingKeyRequestViewController: UIViewController {
     }
 
     private func sign() {
-        guard let hash = try? HashString(hex: message) else { return }
+        // Safe will send a hash, other Dapps might send a message with eth_sign
+        let hash = (try? HashString(hex: message)) ?? HashString(EthHasher.hash("\\x19Ethereum Signed Message:\\n\(message.count)\(message!)"))
 
         switch keyInfo.keyType {
 
@@ -90,6 +95,7 @@ class WCIncomingKeyRequestViewController: UIViewController {
 
         safeLabel.setStyle(.headline)
         safeAddressInfoView.setAddress(safeAddress)
+        safeAddressInfoView.setDetailImage(nil)
         titleLabel.setStyle(.caption1)
         detailsLabel.setStyle(.primary)
         detailsLabel.text = message
