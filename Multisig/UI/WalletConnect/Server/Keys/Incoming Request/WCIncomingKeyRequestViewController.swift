@@ -133,9 +133,11 @@ extension WCIncomingKeyRequestViewController: SelectLedgerDeviceDelegate {
                                           bluetoothController: BluetoothController) {
         guard let keyInfo = keyInfo, keyInfo.keyType == .ledgerNanoX,
               let metadata = keyInfo.metadata,
-              let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
+              let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata),
+              let hash = try? HashString(hex: message) else { return }
 
-        let pendingConfirmationVC = LedgerPendingConfirmationViewController()
+        let pendingConfirmationVC = LedgerPendingConfirmationViewController(
+            ledgerHash: hash.hash.sha256().toHexString().uppercased())
         pendingConfirmationVC.modalPresentationStyle = .popover
         pendingConfirmationVC.onClose = { [weak self] in
             self?.ledgerController = nil
@@ -147,12 +149,11 @@ extension WCIncomingKeyRequestViewController: SelectLedgerDeviceDelegate {
         ledgerController = LedgerController(bluetoothController: bluetoothController)
         ledgerController!.sign(messageHash: message,
                                deviceId: deviceId,
-                               path: ledgerKeyMetadata.path) { [weak self] signature in
+                               path: ledgerKeyMetadata.path) { [weak self] weakSignature, weakErrorMessage in
             // dismiss Ledger Pending Confirmation overlay
             self?.presentedViewController?.dismiss(animated: true, completion: nil)
-            guard let signature = signature else {
-                let alert = UIAlertController.ledgerAlert()
-                self?.present(alert, animated: true)
+            guard let signature = weakSignature else {
+                App.shared.snackbar.show(message: weakErrorMessage!)
                 return
             }
 
@@ -160,10 +161,8 @@ extension WCIncomingKeyRequestViewController: SelectLedgerDeviceDelegate {
             var sig = BigInt(signature, radix: 16)!
             sig -= 4
             self?.onSign?(String(sig, radix: 16))
-            DispatchQueue.main.async { [weak self] in
-                self?.dismiss(animated: true, completion: nil)
-                App.shared.snackbar.show(message: "Signed successfully")
-            }
+            self?.dismiss(animated: true, completion: nil)
+            App.shared.snackbar.show(message: "Signed successfully")
         }
     }
 }
