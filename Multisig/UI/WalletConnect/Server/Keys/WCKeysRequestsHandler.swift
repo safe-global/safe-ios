@@ -29,15 +29,14 @@ class WCKeysRequestsHandler: RequestHandler {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
         guard let wcKeySession = WCKeySession.get(topic: request.url.topic),
-              let session = try? Session.from(wcKeySession),
-              let keyAddresses = session.walletInfo?.accounts.compactMap({ Address($0) }),
-              let keyInfo = try? KeyInfo.keys(addresses: keyAddresses).first else {
+              let session = try? Session.from(wcKeySession) else {
                   server.send(try! Response(request: request, error: .requestRejected))
                   return
               }
 
         if request.method == "eth_sign" {
             guard let address = try? request.parameter(of: AddressString.self, at: 0),
+                  let keyInfo = try? KeyInfo.keys(addresses: [address.address]).first,
                   let message = try? request.parameter(of: String.self, at: 1) else {
                       server.send(try! Response(request: request, error: .requestRejected))
                       return
@@ -45,7 +44,7 @@ class WCKeysRequestsHandler: RequestHandler {
 
             // present incoming key request controller
             DispatchQueue.main.async {
-                let controller = WCIncomingKeyRequestViewController(safeAddress: address.address,
+                let controller = WCIncomingKeyRequestViewController(dAppMeta: session.dAppInfo.peerMeta,
                                                                     keyInfo: keyInfo,
                                                                     message: message)
 

@@ -296,7 +296,6 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
 
         let coin = safe.chain!.nativeCurrency!
-        let namingPolicy = DefaultAddressNamingPolicy()
         let decimalAmount = BigDecimal(
             Int256(transaction.value.value) * -1,
             Int(coin.decimals)
@@ -308,12 +307,16 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         )
         let tokenText = "\(amount) \(coin.symbol!)"
         let tokenDetail = amount == "0" ? "\(transaction.data?.data.count ?? 0) Bytes" : nil
+        let (addressName, _) = displayNameAndImageUri(address: AddressString(transaction.to.address),
+                                                      addressInfoIndex: nil,
+                                                      chainId: safe.chain!.id!)
 
         cell.setToken(text: tokenText, style: .secondary)
         cell.setToken(image: coin.logoUrl)
         cell.setDetail(tokenDetail)
+
         cell.setAddress(transaction.to.address,
-                        label: namingPolicy.name(for: transaction.to.address, info: nil),
+                        label: addressName,
                         imageUri: nil,
                         showExternalLink: false)
         cell.setOutgoing(true)

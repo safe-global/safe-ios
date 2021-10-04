@@ -12,10 +12,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WCIncomingKeyRequestViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="confirmButton" destination="non-u7-Ew0" id="oU4-ns-gN8"/>
+                <outlet property="dappImageView" destination="4fv-Iy-ycX" id="JHA-4x-vib"/>
+                <outlet property="dappNameLabel" destination="Bdc-gv-rcQ" id="aOC-aR-grQ"/>
                 <outlet property="detailsLabel" destination="CNH-TT-654" id="Lka-tl-ZZb"/>
                 <outlet property="rejectButton" destination="9oB-yn-KTN" id="2ir-eg-G8V"/>
-                <outlet property="safeAddressInfoView" destination="mK7-oa-LSM" id="h2o-S1-QNS"/>
-                <outlet property="safeLabel" destination="Bdc-gv-rcQ" id="PcS-SB-0FB"/>
+                <outlet property="signerAddressInfoView" destination="mK7-oa-LSM" id="h2o-S1-QNS"/>
                 <outlet property="titleLabel" destination="L60-cU-MiG" id="Jdg-4k-MmB"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Od1-Ke-npt"/>
             </connections>

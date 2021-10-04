@@ -8,16 +8,18 @@
 
 import UIKit
 import BigInt
+import WalletConnectSwift
 
 class WCIncomingKeyRequestViewController: UIViewController {
-    @IBOutlet private weak var safeAddressInfoView: AddressInfoView!
-    @IBOutlet private weak var safeLabel: UILabel!
+    @IBOutlet private weak var dappImageView: UIImageView!
+    @IBOutlet private weak var dappNameLabel: UILabel!
+    @IBOutlet private weak var signerAddressInfoView: AddressInfoView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var detailsLabel: UILabel!
     @IBOutlet private weak var rejectButton: UIButton!
     @IBOutlet private weak var confirmButton: UIButton!
 
-    private var safeAddress: Address!
+    private var dAppMeta: Session.ClientMeta!
     private var keyInfo: KeyInfo!
     private var message: String!
     private var ledgerController: LedgerController?
@@ -91,11 +93,11 @@ class WCIncomingKeyRequestViewController: UIViewController {
         }
     }
 
-    convenience init(safeAddress: Address,
+    convenience init(dAppMeta: Session.ClientMeta,
                      keyInfo: KeyInfo,
                      message: String) {
         self.init()
-        self.safeAddress = safeAddress
+        self.dAppMeta = dAppMeta
         self.keyInfo = keyInfo
         self.message = message
     }
@@ -103,9 +105,11 @@ class WCIncomingKeyRequestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        safeLabel.setStyle(.headline)
-        safeAddressInfoView.setAddress(safeAddress)
-        safeAddressInfoView.setDetailImage(nil)
+        dappImageView.kf.setImage(with: dAppMeta.icons.first, placeholder: UIImage(named: "ico-empty-circle"))
+        dappNameLabel.setStyle(.headline)
+        dappNameLabel.text = dAppMeta.name
+        signerAddressInfoView.setAddress(keyInfo.address, label: keyInfo.name)
+        signerAddressInfoView.setDetailImage(nil)
         titleLabel.setStyle(.caption1)
         detailsLabel.setStyle(.primary)
         detailsLabel.text = message
