@@ -50,11 +50,11 @@ class LedgerController {
         }
     }
 
-    typealias SignatureCompletion = (_ signature: String?) -> Void
+    typealias SignatureCompletion = (_ signature: String?, _ errorMessage: String?) -> Void
 
     func sign(safeTxHash: String, deviceId: UUID, path: String, completion: @escaping SignatureCompletion) {
         guard let device = bluetoothController.deviceFor(deviceId: deviceId) else {
-            completion(nil)
+            completion(nil, "Device not found")
             return
         }
         let command = signMessageCommand(path: path, messageHash: safeTxHash)
@@ -67,17 +67,21 @@ class LedgerController {
 
                 // we are interested in the first 65 bytes only
                 guard data.count >= 65 else {
+                    switch data.toHexString() {
+                    case "6985": completion(nil, "The operation was canceled on the Ledger device.")
+                    default: completion(nil, "Please check that Ethereum App is running on the Ledger device.")
+                    }
                     // canceled on the device
-                    completion(nil)
+
                     return
                 }
                 let dataString = data.toHexString()
                 let v = String(Int(dataString.substr(0, 2)!, radix: 16)! + 4, radix: 16)
                 let rs = dataString.substr(2, 128)!
-                completion(rs + v)
+                completion(rs + v, nil)
 
             case .failure(_):
-                completion(nil)
+                completion(nil, "Please check that Ethereum App is running on the Ledger device.")
             }
         }
     }
