@@ -22,18 +22,20 @@
                             <rect key="frame" x="16" y="0.0" width="387" height="289"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="256-zv-xIE">
-                                    <rect key="frame" x="41" y="0.0" width="305" height="173"/>
+                                    <rect key="frame" x="88.5" y="0.0" width="210" height="173"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connect-key" translatesAutoresizingMaskIntoConstraints="NO" id="7Ma-Ra-CMV">
-                                            <rect key="frame" x="62.5" y="0.0" width="180" height="120"/>
+                                            <rect key="frame" x="15" y="0.0" width="180" height="120"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="120" id="AgC-1v-bMj"/>
                                                 <constraint firstAttribute="width" constant="180" id="SsG-b1-lRC"/>
                                             </constraints>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect your device to the Gnosis Safe application on desktop." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVe-kt-LT4">
-                                            <rect key="frame" x="0.0" y="120" width="305" height="53"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVe-kt-LT4">
+                                            <rect key="frame" x="0.0" y="120" width="210" height="53"/>
+                                            <string key="text">Connect your device to the 
+Gnosis Safe on desktop</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>

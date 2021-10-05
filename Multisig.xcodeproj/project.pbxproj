@@ -2658,12 +2658,12 @@
 		557D80C3270B33BA0036D6D0 /* ConfirmConnection */ = {
 			isa = PBXGroup;
 			children = (
+				557D80C9270B33BA0036D6D0 /* ConfirmConnectionHeaderView.swift */,
 				557D80C4270B33BA0036D6D0 /* ConfirmConnectionHeaderView.xib */,
+				557D80C8270B33BA0036D6D0 /* ConfirmConnectionViewController.swift */,
 				557D80C5270B33BA0036D6D0 /* ConfirmConnectionViewController.xib */,
 				557D80C6270B33BA0036D6D0 /* PairingOwnerKeyCell.swift */,
 				557D80C7270B33BA0036D6D0 /* PairingOwnerKeyCell.xib */,
-				557D80C8270B33BA0036D6D0 /* ConfirmConnectionViewController.swift */,
-				557D80C9270B33BA0036D6D0 /* ConfirmConnectionHeaderView.swift */,
 			);
 			path = ConfirmConnection;
 			sourceTree = "<group>";

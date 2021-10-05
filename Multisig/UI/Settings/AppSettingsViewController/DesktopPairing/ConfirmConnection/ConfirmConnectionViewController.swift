@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import WalletConnectSwift
 
 class ConfirmConnectionViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var connectButton: UIButton!
 
+    private var dappInfo: Session.ClientMeta!
     private var keys = [KeyInfo]()
     private var selectedKeys = [KeyInfo]() {
         didSet {
@@ -31,6 +33,11 @@ class ConfirmConnectionViewController: UIViewController {
 
     @objc func cancel() {
         onCancel?()
+    }
+
+    convenience init(dappInfo: Session.ClientMeta) {
+        self.init()
+        self.dappInfo = dappInfo
     }
 
     override func viewDidLoad() {
@@ -90,7 +97,10 @@ extension ConfirmConnectionViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return tableView.dequeueHeaderFooterView(ConfirmConnectionHeaderView.self)
+        let view = tableView.dequeueHeaderFooterView(ConfirmConnectionHeaderView.self)
+        view.setTitle("Connect your Owner Key to\n\(dappInfo.name)")
+        view.setImage(url: dappInfo.icons.first)
+        return view
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

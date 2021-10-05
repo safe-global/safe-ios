@@ -161,7 +161,7 @@ extension DesktopPairingViewController: WalletConnectKeysServerControllerDelegat
         }
 
         DispatchQueue.main.async { [unowned self] in
-            let vc = ConfirmConnectionViewController()
+            let vc = ConfirmConnectionViewController(dappInfo: session.dAppInfo.peerMeta)
             vc.onConnect = { [unowned vc] keys in
                 vc.dismiss(animated: true) {
                     completion(keys)

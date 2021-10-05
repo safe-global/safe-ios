@@ -9,10 +9,19 @@
 import UIKit
 
 class ConfirmConnectionHeaderView: UITableViewHeaderFooterView {
-    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet private weak var headerImageView: UIImageView!
+    @IBOutlet private weak var headerLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.setStyle(.title3)
+    }
+
+    func setImage(url: URL?) {
+        headerImageView.kf.setImage(with: url, placeholder: UIImage(named: "ico-empty-circle"))
+    }
+
+    func setTitle(_ text: String) {
+        headerLabel.text = text
     }
 }
