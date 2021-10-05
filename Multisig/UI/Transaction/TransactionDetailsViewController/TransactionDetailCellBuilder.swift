@@ -480,7 +480,7 @@ class TransactionDetailCellBuilder {
         default:
             disclosure(text: "Advanced") { [weak self] in
                 guard let `self` = self else { return }
-                let vc = AdvancedTransactionDetailsViewController(tx)
+                let vc = AdvancedTransactionDetailsViewController(tx, chainId: self.chainId)
                 self.vc.show(vc, sender: self)
             }
             break
