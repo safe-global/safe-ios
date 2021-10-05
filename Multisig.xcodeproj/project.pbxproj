@@ -312,6 +312,7 @@
 		0A9E8E7725B9CA4200256AD3 /* BannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7525B9CA4200256AD3 /* BannerTableViewCell.swift */; };
 		0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7625B9CA4200256AD3 /* BannerTableViewCell.xib */; };
 		0AA59CC2270CAD05000CA7B1 /* SafeLoadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA59CC1270CAD05000CA7B1 /* SafeLoadedViewController.swift */; };
+		0AA59CC4270CAE91000CA7B1 /* LedgerKeyAddedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA59CC3270CAE91000CA7B1 /* LedgerKeyAddedViewController.swift */; };
 		0AA9F1F42497BCA9005BD60F /* TokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */; };
 		0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2062497BE9B005BD60F /* UInt256.swift */; };
 		0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2502498CC62005BD60F /* AddressString.swift */; };
@@ -897,6 +898,7 @@
 		0A9E8E7525B9CA4200256AD3 /* BannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
 		0A9E8E7625B9CA4200256AD3 /* BannerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerTableViewCell.xib; sourceTree = "<group>"; };
 		0AA59CC1270CAD05000CA7B1 /* SafeLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeLoadedViewController.swift; sourceTree = "<group>"; };
+		0AA59CC3270CAE91000CA7B1 /* LedgerKeyAddedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerKeyAddedViewController.swift; sourceTree = "<group>"; };
 		0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
 		0AA9F2062497BE9B005BD60F /* UInt256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt256.swift; sourceTree = "<group>"; };
 		0AA9F2502498CC62005BD60F /* AddressString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressString.swift; sourceTree = "<group>"; };
@@ -2744,6 +2746,7 @@
 				551DBE3D26CD39DC0053CCB2 /* LedgerKeyPickerViewController.swift */,
 				55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */,
 				55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */,
+				0AA59CC3270CAE91000CA7B1 /* LedgerKeyAddedViewController.swift */,
 			);
 			path = LedgerOwnerKey;
 			sourceTree = "<group>";
@@ -3315,6 +3318,7 @@
 				0A109E292689CBA100226708 /* RibbonView.swift in Sources */,
 				0AE46C87257684B8001DC62B /* LoadSafeViewController.swift in Sources */,
 				0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */,
+				0AA59CC4270CAE91000CA7B1 /* LedgerKeyAddedViewController.swift in Sources */,
 				0471B3BD262742CD001F2D3B /* UpdateAppViewController.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0ADD19A6265E53BE00EB0F2B /* QRCodeView.swift in Sources */,
