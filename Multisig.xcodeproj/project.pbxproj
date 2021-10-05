@@ -83,10 +83,10 @@
 		049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9DD92602211500CA5723 /* FiatCodesRequest.swift */; };
 		049EB0E925AF435C00F66CEA /* HistoryTransactions.json in Resources */ = {isa = PBXBuildFile; fileRef = 049EB0E425AF427C00F66CEA /* HistoryTransactions.json */; };
 		049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */; };
-		04B4B5F725B754D600CFE24B /* SafeLoadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B5F525B754D600CFE24B /* SafeLoadedViewController.swift */; };
-		04B4B5F825B754D600CFE24B /* SafeLoadedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B5F625B754D600CFE24B /* SafeLoadedViewController.xib */; };
-		04B4B60225B84D6900CFE24B /* SafeInfoViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B60125B84D6900CFE24B /* SafeInfoViewV2.swift */; };
-		04B4B68F25B8857F00CFE24B /* SafeInfoViewV2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B68E25B8857F00CFE24B /* SafeInfoViewV2.xib */; };
+		04B4B5F725B754D600CFE24B /* AccountActionCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B5F525B754D600CFE24B /* AccountActionCompletedViewController.swift */; };
+		04B4B5F825B754D600CFE24B /* AccountActionCompletedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B5F625B754D600CFE24B /* AccountActionCompletedViewController.xib */; };
+		04B4B60225B84D6900CFE24B /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B60125B84D6900CFE24B /* AccountInfoView.swift */; };
+		04B4B68F25B8857F00CFE24B /* AccountInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B68E25B8857F00CFE24B /* AccountInfoView.xib */; };
 		04B4B6DD25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */; };
 		04B4B6E525B9A08D00CFE24B /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B6E325B9A08D00CFE24B /* CardTableViewCell.swift */; };
 		04B4B6E625B9A08D00CFE24B /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */; };
@@ -311,6 +311,7 @@
 		0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
 		0A9E8E7725B9CA4200256AD3 /* BannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7525B9CA4200256AD3 /* BannerTableViewCell.swift */; };
 		0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7625B9CA4200256AD3 /* BannerTableViewCell.xib */; };
+		0AA59CC2270CAD05000CA7B1 /* SafeLoadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA59CC1270CAD05000CA7B1 /* SafeLoadedViewController.swift */; };
 		0AA9F1F42497BCA9005BD60F /* TokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */; };
 		0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2062497BE9B005BD60F /* UInt256.swift */; };
 		0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2502498CC62005BD60F /* AddressString.swift */; };
@@ -686,10 +687,10 @@
 		049A9DD92602211500CA5723 /* FiatCodesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatCodesRequest.swift; sourceTree = "<group>"; };
 		049EB0E425AF427C00F66CEA /* HistoryTransactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryTransactions.json; sourceTree = "<group>"; };
 		049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+Offset.swift"; sourceTree = "<group>"; };
-		04B4B5F525B754D600CFE24B /* SafeLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeLoadedViewController.swift; sourceTree = "<group>"; };
-		04B4B5F625B754D600CFE24B /* SafeLoadedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeLoadedViewController.xib; sourceTree = "<group>"; };
-		04B4B60125B84D6900CFE24B /* SafeInfoViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoViewV2.swift; sourceTree = "<group>"; };
-		04B4B68E25B8857F00CFE24B /* SafeInfoViewV2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeInfoViewV2.xib; sourceTree = "<group>"; };
+		04B4B5F525B754D600CFE24B /* AccountActionCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActionCompletedViewController.swift; sourceTree = "<group>"; };
+		04B4B5F625B754D600CFE24B /* AccountActionCompletedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountActionCompletedViewController.xib; sourceTree = "<group>"; };
+		04B4B60125B84D6900CFE24B /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
+		04B4B68E25B8857F00CFE24B /* AccountInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountInfoView.xib; sourceTree = "<group>"; };
 		04B4B6DB25B9804100CFE24B /* OnboardingImportOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingImportOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		04B4B6E325B9A08D00CFE24B /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
@@ -895,6 +896,7 @@
 		0A9BC3572460581500EB9C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A9E8E7525B9CA4200256AD3 /* BannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
 		0A9E8E7625B9CA4200256AD3 /* BannerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerTableViewCell.xib; sourceTree = "<group>"; };
+		0AA59CC1270CAD05000CA7B1 /* SafeLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeLoadedViewController.swift; sourceTree = "<group>"; };
 		0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
 		0AA9F2062497BE9B005BD60F /* UInt256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt256.swift; sourceTree = "<group>"; };
 		0AA9F2502498CC62005BD60F /* AddressString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressString.swift; sourceTree = "<group>"; };
@@ -1432,13 +1434,13 @@
 			path = ChooseOwnerKeyViewController;
 			sourceTree = "<group>";
 		};
-		04B4B5F425B754A400CFE24B /* SafeLoadedViewController */ = {
+		04B4B5F425B754A400CFE24B /* AccountActionCompletedViewController */ = {
 			isa = PBXGroup;
 			children = (
-				04B4B5F525B754D600CFE24B /* SafeLoadedViewController.swift */,
-				04B4B5F625B754D600CFE24B /* SafeLoadedViewController.xib */,
+				04B4B5F525B754D600CFE24B /* AccountActionCompletedViewController.swift */,
+				04B4B5F625B754D600CFE24B /* AccountActionCompletedViewController.xib */,
 			);
-			path = SafeLoadedViewController;
+			path = AccountActionCompletedViewController;
 			sourceTree = "<group>";
 		};
 		04B4B6F325B9E09C00CFE24B /* TableViewCell */ = {
@@ -1782,7 +1784,7 @@
 				048D72CA2685DC4C0095999C /* SelectNetworkViewController */,
 				3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */,
 				3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */,
-				04B4B5F425B754A400CFE24B /* SafeLoadedViewController */,
+				0AA59CC1270CAD05000CA7B1 /* SafeLoadedViewController.swift */,
 				0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */,
 				0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */,
 				0A57C9072587C1B100B7C019 /* EnterSafeAddressViewController */,
@@ -1900,6 +1902,7 @@
 		0A839B5F2578EB9500103AD9 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				04B4B5F425B754A400CFE24B /* AccountActionCompletedViewController */,
 				0A6C131325407B5100EA67E3 /* ContainerViewController.swift */,
 				0AF1C8282540914600E28669 /* NoSafesViewController.swift */,
 				044A54432448D0B6009CBB80 /* QRCodeScannerViewController */,
@@ -2600,8 +2603,8 @@
 				0ADD19A7265E53C600EB0F2B /* QRCodeView.xib */,
 				0A109E282689CBA100226708 /* RibbonView.swift */,
 				0A109E262689CB9A00226708 /* RibbonView.xib */,
-				04B4B60125B84D6900CFE24B /* SafeInfoViewV2.swift */,
-				04B4B68E25B8857F00CFE24B /* SafeInfoViewV2.xib */,
+				04B4B60125B84D6900CFE24B /* AccountInfoView.swift */,
+				04B4B68E25B8857F00CFE24B /* AccountInfoView.xib */,
 				0468FB44259106F400541536 /* StyledView.swift */,
 				0ACB4CDA256BCD6900845BF4 /* SwiftUITableViewCell.swift */,
 				04B4B6F325B9E09C00CFE24B /* TableViewCell */,
@@ -2920,7 +2923,7 @@
 			files = (
 				0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */,
 				0AE5A9C7267A4BEB00468C90 /* CreatePasscodeBannerCell.xib in Resources */,
-				04B4B5F825B754D600CFE24B /* SafeLoadedViewController.xib in Resources */,
+				04B4B5F825B754D600CFE24B /* AccountActionCompletedViewController.xib in Resources */,
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
 				0422007025EFDF4E00CAC173 /* TagView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
@@ -2936,7 +2939,7 @@
 				550FB19526691C8F00C13D54 /* EditCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
 				0471B3BE262742CD001F2D3B /* UpdateAppViewController.xib in Resources */,
-				04B4B68F25B8857F00CFE24B /* SafeInfoViewV2.xib in Resources */,
+				04B4B68F25B8857F00CFE24B /* AccountInfoView.xib in Resources */,
 				0A86EE6F25CC2B4C0059876E /* RetryFooterView.xib in Resources */,
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
 				55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */,
@@ -3149,7 +3152,7 @@
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
-				04B4B60225B84D6900CFE24B /* SafeInfoViewV2.swift in Sources */,
+				04B4B60225B84D6900CFE24B /* AccountInfoView.swift in Sources */,
 				0A2F1A76267A5E5B00C09F03 /* BalanceCell.swift in Sources */,
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
@@ -3346,6 +3349,7 @@
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
 				550FB19E26691CA300C13D54 /* DappsViewController.swift in Sources */,
+				0AA59CC2270CAD05000CA7B1 /* SafeLoadedViewController.swift in Sources */,
 				550FB19626691C8F00C13D54 /* WCSendTransactionRequest.swift in Sources */,
 				55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */,
 				0A451C06252DDB93001DB7D2 /* NetworkContentView.swift in Sources */,
@@ -3433,7 +3437,7 @@
 				0AD0273925A34FF600886671 /* MultiSendRowTableViewCell.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
 				55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */,
-				04B4B5F725B754D600CFE24B /* SafeLoadedViewController.swift in Sources */,
+				04B4B5F725B754D600CFE24B /* AccountActionCompletedViewController.swift in Sources */,
 				0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */,
 				0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */,
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
