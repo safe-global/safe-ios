@@ -9,9 +9,9 @@
 import Foundation
 
 class LedgerController {
-    let bluetoothController: BluetoothController
+    let bluetoothController: BaseBluetoothController
 
-    init(bluetoothController: BluetoothController) {
+    init(bluetoothController: BaseBluetoothController) {
         self.bluetoothController = bluetoothController
     }
 
@@ -27,15 +27,15 @@ class LedgerController {
         bluetoothController.sendCommand(device: device, command: command) { result in
             switch result {
             case .success(let data):
-                guard data.count == 109,
-                      Int(data[5]) == 65, // public key length
-                      Int(data[71]) == 40 // address length
+                guard data.count >= 107,
+                      data[0] == 65, // public key length
+                      data[66] == 40 // address length
                 else {
                     completion(nil)
                     return
                 }
-
-                let addressData = data[(6 + 65 + 1)..<(6 + 65 + 1 + 40)]
+                
+                let addressData = data[(1 + 65 + 1)..<(1 + 65 + 1 + 40)]
 
                 guard let addressString = String(data: addressData, encoding: .ascii),
                       let address =  Address(addressString) else {

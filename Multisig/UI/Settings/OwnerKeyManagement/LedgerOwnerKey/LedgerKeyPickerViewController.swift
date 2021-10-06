@@ -18,7 +18,7 @@ class LedgerKeyPickerViewController: SegmentViewController {
         return button
     }()
 
-    convenience init(deviceId: UUID, bluetoothController: BluetoothController, completion: @escaping () -> Void) {
+    convenience init(deviceId: UUID, bluetoothController: BaseBluetoothController, completion: @escaping () -> Void) {
         self.init(nibName: "SegmentViewController", bundle: Bundle.main)
         segmentItems = [
             SegmentBarItem(image: nil, title: "Ledger Live"),
@@ -95,7 +95,7 @@ fileprivate protocol LedgerKeyPickerViewModelDelegate: AnyObject {
 fileprivate class LedgerKeyPickerViewModel {
     let type: LedgerKeyType
     let deviceId: UUID
-    let bluetoothController: BluetoothController
+    let bluetoothController: BaseBluetoothController
     let ledgerController: LedgerController
 
     weak var delegate: LedgerKeyPickerViewModelDelegate?
@@ -122,12 +122,12 @@ fileprivate class LedgerKeyPickerViewModel {
     }()
 
     var bluetoothIsConnected: Bool {
-        bluetoothController.devices.first { $0.peripheral.identifier == deviceId } != nil
+        bluetoothController.devices.first { $0.identifier == deviceId } != nil
     }
 
     private var workItem: DispatchWorkItem?
 
-    init(type: LedgerKeyType, deviceId: UUID, bluetoothController: BluetoothController) {
+    init(type: LedgerKeyType, deviceId: UUID, bluetoothController: BaseBluetoothController) {
         self.type = type
         self.deviceId = deviceId
         self.bluetoothController = bluetoothController
@@ -226,7 +226,7 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
 
     convenience init(type: LedgerKeyType,
                      deviceId: UUID,
-                     bluetoothController: BluetoothController,
+                     bluetoothController: BaseBluetoothController,
                      importButton: UIBarButtonItem) {
         self.init()
         self.model = LedgerKeyPickerViewModel(type: type, deviceId: deviceId, bluetoothController: bluetoothController)
