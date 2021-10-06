@@ -126,8 +126,11 @@ struct AppConfiguration {
 //            return walletConnectOwnerKeyEnabledSetting ?? false
 //        }
 
+        @ConfigurationKey("DESKTOP_PAIRING_EXPERIMENTAL_ENABLED")
+        var desktopPairingExperimentalEnabled: Bool
+
         var desktopPairingEnabled: Bool {
-            return desktopPairingEnabledSetting ?? false
+            return (desktopPairingEnabledSetting ?? false) && desktopPairingExperimentalEnabled
         }
     }
 

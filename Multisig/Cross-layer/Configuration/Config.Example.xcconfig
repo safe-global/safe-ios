@@ -81,6 +81,9 @@ LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD)
 // Range of values: 1 is YES, 0 is NO.
 SSL_ENFORCE_PINNING = 1
 
+// Range of values: 1 is YES, 0 is NO.
+DESKTOP_PAIRING_EXPERIMENTAL_ENABLED = 0
+
 
 // WalletConnect bridge server for client
 // gnosis wc bridge: https://safe-walletconnect.gnosis.io/

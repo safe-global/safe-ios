@@ -46,9 +46,13 @@ class ExperimentalViewController: UITableViewController {
         case desktopPairingDescription
     }
 
-    private var rows: [Row] = [
-        .walletConnect, .walletConnectDescription, .desktopPairing, .desktopPairingDescription
-    ]
+    private lazy var rows: [Row] = {
+        var rows: [Row] = [.walletConnect, .walletConnectDescription]
+        if App.configuration.toggles.desktopPairingExperimentalEnabled {
+            rows += [.desktopPairing, .desktopPairingDescription]
+        }
+        return rows
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
