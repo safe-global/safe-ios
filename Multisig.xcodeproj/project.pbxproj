@@ -23,6 +23,7 @@
 		0428DB1225CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */; };
 		043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043913A024BF4E480006517D /* BrowseLinkButton.swift */; };
 		043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */; };
+		0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439638427077E3C00018F74 /* TransactionEstimationRequest.swift */; };
 		043ABD0E24EF0C33008826D5 /* TransactionDetailsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */; };
 		043ABD0F24EF0C33008826D5 /* SafeClientGatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043ABD0B24EF0C33008826D5 /* SafeClientGatewayService.swift */; };
 		044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 044A54452448D0B6009CBB80 /* QRCodeScannerViewController.xib */; };
@@ -643,6 +644,7 @@
 		0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDisplayModeTableViewController.swift; sourceTree = "<group>"; };
 		043913A024BF4E480006517D /* BrowseLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLinkButton.swift; sourceTree = "<group>"; };
 		043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTransactionDetailsViewController.swift; sourceTree = "<group>"; };
+		0439638427077E3C00018F74 /* TransactionEstimationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEstimationRequest.swift; sourceTree = "<group>"; };
 		043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailsRequest.swift; sourceTree = "<group>"; };
 		043ABD0B24EF0C33008826D5 /* SafeClientGatewayService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeClientGatewayService.swift; sourceTree = "<group>"; };
 		044A54452448D0B6009CBB80 /* QRCodeScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeScannerViewController.xib; sourceTree = "<group>"; };
@@ -1292,6 +1294,7 @@
 				0A63C7B32602087E00D36B22 /* SafeInfoRequest.swift */,
 				0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */,
 				043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */,
+				0439638427077E3C00018F74 /* TransactionEstimationRequest.swift */,
 				0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */,
 				04D1306B25DD525A0032FA03 /* ProposeTransactionRequest.swift */,
 				04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */,
@@ -3497,6 +3500,7 @@
 				550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */,
 				04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */,
 				0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */,
+				0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */,
 				048D72CD2685DC780095999C /* SelectNetworkTableViewCell.swift in Sources */,
 				0A57C5A42577DC5600420303 /* DetailExpandableTextCell.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,

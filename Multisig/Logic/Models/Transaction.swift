@@ -71,10 +71,10 @@ extension Transaction {
         self.safeVersion = safe.contractVersion
         self.nonce = contractNonce
 
-        if let latestTxNonce = try? App.shared.clientGatewayService
-            .latestQueuedTransactionNonce(safeAddress: self.safe!.address, chainId: chain.id!),
-           latestTxNonce.value >= nonce.value {
-            nonce = UInt256String(latestTxNonce.value + 1)
+        if let transactionEstimation = try? App.shared.clientGatewayService
+            .syncTransactionEstimation(safeAddress: self.safe!.address, chainId: chain.id!),
+           transactionEstimation.latestNonce.value >= nonce.value {
+            nonce = UInt256String(transactionEstimation.latestNonce.value + 1)
         }
 
         to = wcRequest.to ?? AddressString.zero
