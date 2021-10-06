@@ -83,7 +83,7 @@ class AppSettingsViewController: UITableViewController {
         }
         sections += [
             (section: .app, items: [
-                Section.App.ownerKeys("Owner keys 🔐", "\(KeyInfo.count())"),
+                Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
                 Section.App.passcode("Passcode"),
                 Section.App.appearance("Appearance"),
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),

@@ -11,6 +11,10 @@ import Foundation
 class LedgerController {
     let bluetoothController: BluetoothController
 
+    enum LedgerResponseCode: String {
+        case canceled = "6985"
+    }
+
     init(bluetoothController: BluetoothController) {
         self.bluetoothController = bluetoothController
     }
@@ -68,8 +72,10 @@ class LedgerController {
                 // we are interested in the first 65 bytes only
                 guard data.count >= 65 else {
                     switch data.toHexString() {
-                    case "6985": completion(nil, "The operation was canceled on the Ledger device.")
-                    default: completion(nil, "Please check that Ethereum App is running on the Ledger device.")
+                    case LedgerResponseCode.canceled.rawValue:
+                        completion(nil, "The operation was canceled on the Ledger device.")
+                    default:
+                        completion(nil, "Please check that Ethereum App is running on the Ledger device.")
                     }
                     // canceled on the device
 

@@ -140,11 +140,11 @@ extension WCIncomingKeyRequestViewController: SelectLedgerDeviceDelegate {
         ledgerController = LedgerController(bluetoothController: bluetoothController)
         ledgerController!.sign(messageHash: message,
                                deviceId: deviceId,
-                               path: ledgerKeyMetadata.path) { [weak self] weakSignature, weakErrorMessage in
+                               path: ledgerKeyMetadata.path) { [weak self] signatureOrNil, errorMessageOrNil in
             // dismiss Ledger Pending Confirmation overlay
             self?.presentedViewController?.dismiss(animated: true, completion: nil)
-            guard let signature = weakSignature else {
-                App.shared.snackbar.show(message: weakErrorMessage!)
+            guard let signature = signatureOrNil else {
+                App.shared.snackbar.show(message: errorMessageOrNil!)
                 return
             }
 
