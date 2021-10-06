@@ -150,7 +150,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
                 guard let `self` = self else { return }
                 self.completionHandler?(success ? keyInfo : nil)
             }
-           show(vc, sender: self)
+            show(vc, sender: self)
         } else {
             completionHandler?(keyInfo)
         }

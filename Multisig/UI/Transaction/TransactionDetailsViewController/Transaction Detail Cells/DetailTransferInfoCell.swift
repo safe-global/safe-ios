@@ -29,8 +29,11 @@ class DetailTransferInfoCell: UITableViewCell {
         ])
     }
 
-    func setAddress(_ address: Address, label: String?, imageUri: URL?) {
+    func setAddress(_ address: Address, label: String?, imageUri: URL?, showExternalLink: Bool = true) {
         addressInfoView.setAddress(address, label: label, imageUri: imageUri)
+        if !showExternalLink {
+            addressInfoView.setDetailImage(nil)
+        }
     }
 
     func setToken(text: String, style: GNOTextStyle) {

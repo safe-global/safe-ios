@@ -314,14 +314,14 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         present(pendingConfirmationVC, animated: false)
 
         WalletConnectClientController.shared.sign(transaction: transaction) {
-            [weak self] weakSignature in
+            [weak self] signatureOrNil in
 
             DispatchQueue.main.async {
                 // dismiss pending confirmation view controller overlay
                 pendingConfirmationVC.dismiss(animated: true, completion: nil)
             }
 
-            guard let signature = weakSignature else {
+            guard let signature = signatureOrNil else {
                 DispatchQueue.main.async {
                     self?.reloadData()
                     App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
@@ -536,13 +536,13 @@ extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
         // present Ledger Pending Confirmation overlay
         controller.present(pendingConfirmationVC, animated: true)
         ledgerController = LedgerController(bluetoothController: bluetoothController)
-        ledgerController!.sign(safeTxHash: safeTxHash,
+        ledgerController!.sign(messageHash: safeTxHash,
                                deviceId: deviceId,
-                               path: ledgerKeyMetadata.path) { [weak self] signature in
+                               path: ledgerKeyMetadata.path) { [weak self] signatureOrNil, errorMessageOrNil in
             // dismiss Ledger Pending Confirmation overlay
             controller.presentedViewController?.dismiss(animated: true, completion: nil)
-            guard let signature = signature else {
-                App.shared.snackbar.show(message: "The operation was canceled on the Ledger device.")
+            guard let signature = signatureOrNil else {
+                App.shared.snackbar.show(message: errorMessageOrNil!)
                 controller.reloadData()
                 return
             }
