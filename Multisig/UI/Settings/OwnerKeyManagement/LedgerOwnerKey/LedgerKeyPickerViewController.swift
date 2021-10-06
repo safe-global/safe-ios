@@ -115,7 +115,7 @@ fileprivate class LedgerKeyPickerViewModel {
 
     lazy var basePathPattern: String = {
         switch type {
-        case .ledgerLive: return "m/44'/60'/0'/0/{index}"
+        case .ledgerLive: return "m/44'/60'/{index}'/0/0"
         case .ledger: return "m/44'/60'/0'/{index}"
         }
     }()
