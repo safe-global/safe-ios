@@ -53,28 +53,32 @@ protocol BluetoothControllerDelegate: AnyObject {
 }
 
 class BaseBluetoothController: NSObject {
+    // Notified about discovery and connection/disconnection status
     weak var delegate: BluetoothControllerDelegate?
+
+    // List of discovered devices
     var devices: [BaseBluetoothDevice] = []
 
+    // Starts scanning process. This may result in calling of delegate's didDiscover methods
+    // several times for each device discovered.
     func scan() {
         preconditionFailure()
-        // can discover several times
-        // -or can fail to connect
-        // after discovering it can disconnect
     }
 
+    // Stops scanning for bluetooth devices
     func stopScan() {
         preconditionFailure()
-        // stops scanning, i.e. no discovering will happen
     }
 
+    // Returns a device by device id from the list of discovered devices
     func deviceFor(deviceId: UUID) -> BaseBluetoothDevice? {
         devices.first { $0.identifier == deviceId }
     }
 
+    // Sends asynchronous command to the device and gets called back via completion.
+    // Commands are binary data
     func sendCommand(device: BaseBluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
         preconditionFailure()
-        // sends command, then async returns response - either data or error
     }
 }
 
@@ -251,22 +255,23 @@ class SimulatedBluetoothController: BaseBluetoothController {
 
     override func sendCommand(device: BaseBluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
         DispatchQueue.global().async {
+            // get address command
             if command.starts(with: [0xe0, 0x02]) {
-                // get address
+                // generate random address and return the expected payload in completion
 
-                // generate random address
                 var address: Address!
                 repeat {
                     address = Data.randomBytes(length: 20).flatMap { Address($0) }
                 } while address == nil
 
-
+                // format payload
                 let fakePublicKey = [UInt8](repeating: 1, count: 65)
                 let hexAddress = address.data.toHexString().data(using: .ascii)!
 
                 let response: [UInt8] =
                     [UInt8(fakePublicKey.count)] + fakePublicKey +
                     [UInt8(hexAddress.count)] + hexAddress
+
                 assert(response.count == 107)
                 assert(response[0] == 65)
                 assert(response[66] == 40)
