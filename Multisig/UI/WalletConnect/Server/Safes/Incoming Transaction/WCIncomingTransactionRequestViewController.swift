@@ -23,8 +23,6 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     var onReject: (() -> Void)?
     var onSubmit: ((_ nonce: UInt256String, _ safeTxHash: HashString) -> Void)?
 
-    var didSignOrReject = false
-
     private var transaction: Transaction!
     private var safe: Safe!
     private var keyInfo: KeyInfo?
@@ -58,7 +56,6 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     private var isAdvancedOptionsShown = false
 
     @IBAction private func reject(_ sender: Any) {
-        didSignOrReject = true
         onReject?()
         dismiss(animated: true, completion: nil)
     }
@@ -157,7 +154,6 @@ class WCIncomingTransactionRequestViewController: UIViewController {
             Tracker.trackEvent(trackingEvent, parameters: trackingParameters)
 
             DispatchQueue.main.async { [weak self] in
-                self?.didSignOrReject = true
                 // dismiss WCTransactionConfirmationViewController
                 self?.dismiss(animated: true, completion: nil)
                 App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners.")
@@ -236,14 +232,6 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // to handle swipe down properly
-        if !didSignOrReject {
-            onReject?()
-        }
     }
 
     private func buildSections() {

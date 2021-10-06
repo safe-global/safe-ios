@@ -10,8 +10,8 @@ import UIKit
 import WalletConnectSwift
 
 class ConfirmConnectionViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var connectButton: UIButton!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var connectButton: UIButton!
 
     private var dappInfo: Session.ClientMeta!
     private var keys = [KeyInfo]()
@@ -43,7 +43,7 @@ class ConfirmConnectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let keys = try? KeyInfo.all().filter({ supportedKeyTypes.contains($0.keyType) }), !keys.isEmpty else {
+        guard let keys = try? KeyInfo.keys(types: supportedKeyTypes), !keys.isEmpty else {
             dismiss(animated: true, completion: nil)
             return
         }
