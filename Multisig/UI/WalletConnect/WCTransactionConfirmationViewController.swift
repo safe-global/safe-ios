@@ -100,11 +100,18 @@ class WCTransactionConfirmationViewController: UIViewController {
             signWithWalletConnect(transaction, keyInfo: keyInfo)
 
         case .ledgerNanoX:
-            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "wc_incoming_confirm"],
-                                                      title: "Confirm Incoming Transaction",
-                                                      showsCloseButton: true)
-            vc.delegate = self
-            present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+            let request = SignRequest(title: "Confirm Incoming Transaction",
+                                      tracking: ["action" : "wc_incoming_confirm"],
+                                      signer: keyInfo,
+                                      hexToSign: transaction.safeTxHash.description)
+            let vc = LedgerSignerViewController(request: request)
+            present(vc, animated: true, completion: nil)
+
+            vc.completion = { [weak self] signature in
+                DispatchQueue.global().async {
+                    self?.sendConfirmationAndDismiss(signature: signature, trackingEvent: .incomingTxConfirmedLedger)
+                }
+            }
         }
     }
 
@@ -409,41 +416,6 @@ extension WCTransactionConfirmationViewController: UITableViewDelegate {
         switch item {
         case Section.Basic.advanced(_): return BasicCell.rowHeight
         default: return UITableView.automaticDimension
-        }
-    }
-}
-
-extension WCTransactionConfirmationViewController: SelectLedgerDeviceDelegate {
-    func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
-                                          didSelectDevice deviceId: UUID,
-                                          bluetoothController: BaseBluetoothController) {
-        guard let safeTxHash = transaction.safeTxHash?.description,
-              let keyInfo = keyInfo, keyInfo.keyType == .ledgerNanoX,
-              let metadata = keyInfo.metadata,
-              let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
-
-        let pendingConfirmationVC = LedgerPendingConfirmationViewController(ledgerHash: transaction.hardwareWalletHash)
-        pendingConfirmationVC.modalPresentationStyle = .popover
-        pendingConfirmationVC.onClose = { [weak self] in
-            self?.ledgerController = nil
-        }
-
-        // dismiss Select Ledger Device screen and presend Ledger Pending Confirmation overlay
-        controller.dismiss(animated: true)
-        present(pendingConfirmationVC, animated: false)
-        ledgerController = LedgerController(bluetoothController: bluetoothController)
-        ledgerController!.sign(safeTxHash: safeTxHash,
-                               deviceId: deviceId,
-                               path: ledgerKeyMetadata.path) { [weak self] signature in
-            // dismiss Ledger Pending Confirmation overlay
-            self?.presentedViewController?.dismiss(animated: true, completion: nil)
-            guard let signature = signature else {
-                App.shared.snackbar.show(message: "The operation was canceled on the Ledger device.")
-                return
-            }
-            DispatchQueue.global().async {
-                self?.sendConfirmationAndDismiss(signature: signature, trackingEvent: .incomingTxConfirmedLedger)
-            }
         }
     }
 }

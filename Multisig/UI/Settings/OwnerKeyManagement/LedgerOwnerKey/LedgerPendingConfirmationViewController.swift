@@ -19,16 +19,28 @@ class LedgerPendingConfirmationViewController: UIViewController {
     var ledgerHash: String!
     var onClose: (() -> Void)?
 
+    var onSign: ((String?) -> Void)?
+
+    var ledgerController: LedgerController!
+    var hexToSign: String!
+    var deviceId: UUID!
+    var derivationPath: String!
+
     @IBAction private func cancel(_ sender: Any) {
         close()
     }
 
-    convenience init(ledgerHash: String, headerText: String? = nil) {
+    convenience init(headerText: String? = nil, bluetoothController: BaseBluetoothController, hexToSign: String, deviceId: UUID, derivationPath: String) {
         self.init(nibName: nil, bundle: nil)
         self.ledgerHash = ledgerHash
         if let headerText = headerText {
             self.headerText = headerText
         }
+        ledgerController = LedgerController(bluetoothController: bluetoothController)
+        self.hexToSign = hexToSign
+        self.ledgerHash = Data(hex: hexToSign).sha256().toHexString().uppercased()
+        self.deviceId = deviceId
+        self.derivationPath = derivationPath
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -49,7 +61,15 @@ class LedgerPendingConfirmationViewController: UIViewController {
         safeTxHashLabel.attributedText = highlightedLedgerHash
         cancelButton.setText("Cancel", .plain)
 
-        modalTransitionStyle = .crossDissolve
+        sign()
+    }
+
+    private func sign() {
+        ledgerController!.sign(safeTxHash: hexToSign,
+                               deviceId: deviceId,
+                               path: derivationPath) { [weak self] signature in
+            self?.onSign?(signature)
+        }
     }
 
     private func close() {
