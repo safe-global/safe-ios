@@ -585,7 +585,6 @@
 		55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */; };
 		55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */; };
 		55F9B7A226D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */; };
-		55F9B7A426D6785D003D1C68 /* UIAlerController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9B7A326D6785D003D1C68 /* UIAlerController+Extension.swift */; };
 		55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -1196,7 +1195,6 @@
 		55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidingBehavior.swift; sourceTree = "<group>"; };
 		55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LedgerPendingConfirmationViewController.xib; sourceTree = "<group>"; };
 		55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerPendingConfirmationViewController.swift; sourceTree = "<group>"; };
-		55F9B7A326D6785D003D1C68 /* UIAlerController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlerController+Extension.swift"; sourceTree = "<group>"; };
 		55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLedgerDeviceViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1693,7 +1691,6 @@
 				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
 				0A839B5F2578EB9500103AD9 /* View Controllers */,
 				558835ED255BFEA80014E8C7 /* Views */,
-				55F9B7A326D6785D003D1C68 /* UIAlerController+Extension.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -3238,7 +3235,6 @@
 				0AE8C0A2257947CF00E62B34 /* DetailStatusCell.swift in Sources */,
 				55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */,
 				0468FB8825912E6800541536 /* HistoryTransactionsViewController.swift in Sources */,
-				55F9B7A426D6785D003D1C68 /* UIAlerController+Extension.swift in Sources */,
 				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
 				0A8AEB2025A4764F002A3FE1 /* ActionDetailAddressCell.swift in Sources */,
 				0AE5A9C2267A4BDC00468C90 /* ImportKeyBannerCell.swift in Sources */,
