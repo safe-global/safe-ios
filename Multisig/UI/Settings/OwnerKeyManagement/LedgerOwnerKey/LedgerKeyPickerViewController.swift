@@ -48,31 +48,36 @@ class LedgerKeyPickerViewController: SegmentViewController {
 
     @objc func didTapImport() {
         guard let selectedIndex = selectedIndex,
-              let controller = viewControllers[selectedIndex] as? LedgerKeyPickerContentViewController,
-              let key = controller.selectedKey else { return }
+              let contentVC = viewControllers[selectedIndex] as? LedgerKeyPickerContentViewController,
+              let key = contentVC.selectedKey else { return }
 
         var namePrefix = ""
-        switch controller.keyType {
+        switch contentVC.keyType {
         case .ledger: namePrefix = "Ledger key #"
         case .ledgerLive: namePrefix = "Ledger Live key #"
         }
         let defaultName = "\(namePrefix)\(key.index + 1)"
 
-        let vc = EnterAddressNameViewController()
-        vc.actionTitle = "Import"
-        vc.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
-        vc.screenTitle = "Enter Key Name"
-        vc.trackingEvent = .ledgerEnterKeyName
-        vc.placeholder = "Enter name"
-        vc.name = defaultName
-        vc.address = key.address
-        vc.badgeName = KeyType.ledgerNanoX.imageName
-        vc.completion = { [unowned self, unowned controller] name in
-            controller.importSelectedKey(name: name)
-            // inject opening 'delegate' key completion
-            self.completion()
+        let enterNameVC = EnterAddressNameViewController()
+        enterNameVC.actionTitle = "Import"
+        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterNameVC.screenTitle = "Enter Key Name"
+        enterNameVC.trackingEvent = .ledgerEnterKeyName
+        enterNameVC.placeholder = "Enter name"
+        enterNameVC.name = defaultName
+        enterNameVC.address = key.address
+        enterNameVC.badgeName = KeyType.ledgerNanoX.imageName
+        enterNameVC.completion = { [unowned self, unowned contentVC, unowned enterNameVC] name in
+            contentVC.importSelectedKey(name: name)
+
+            let keyAddedVC = LedgerKeyAddedViewController()
+            keyAddedVC.completion = self.completion
+            keyAddedVC.accountAddress = key.address
+            keyAddedVC.accountName = name
+
+            enterNameVC.show(keyAddedVC, sender: nil)
         }
-        show(vc, sender: nil)
+        show(enterNameVC, sender: nil)
     }
 }
 

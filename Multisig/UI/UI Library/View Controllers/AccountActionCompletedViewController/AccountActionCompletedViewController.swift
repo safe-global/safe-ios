@@ -47,22 +47,16 @@ class AccountActionCompletedViewController: UIViewController {
         secondaryButton.setText(secondaryActionName, .primary)
 
         descriptionLabel.text = descriptionText
+        headerLabel.text = headerText
         accountInfoView.set(accountName)
         accountInfoView.setAddress(accountAddress)
     }
 
     @IBAction func primaryAction(_ sender: Any) {
-        Tracker.trackEvent(.userOnboardingOwnerAdd)
-        let vc = ViewControllerFactory.addOwnerViewController { [unowned self] in
-            self.dismiss(animated: true) {
-                self.completion()
-            }
-        }
-        present(vc, animated: true)
+        // to override
     }
 
     @IBAction func secondaryAction(_ sender: Any) {
-        Tracker.trackEvent(.userOnboardingOwnerSkip)
-        completion()
+        // to override
     }
 }

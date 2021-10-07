@@ -52,7 +52,7 @@
                             <rect key="frame" x="20" y="56" width="342" height="277"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Company Funds is read-only. Would you like to add owner key for this Safe to confirm transactions?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9z-vk-UYQ">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Company Funds is read-only. Would you like to add owner key for this Safe to confirm transactions?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9z-vk-UYQ">
                             <rect key="frame" x="0.0" y="365" width="382" height="61"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
@@ -65,14 +65,14 @@
                             </constraints>
                             <state key="normal" title="Button"/>
                             <connections>
-                                <action selector="importOwnerButtonTouched:" destination="-1" eventType="touchUpInside" id="2XX-eV-q37"/>
+                                <action selector="primaryAction:" destination="-1" eventType="touchUpInside" id="uBl-cT-2h8"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQV-Bp-zgJ">
                             <rect key="frame" x="0.0" y="546" width="382" height="30"/>
                             <state key="normal" title="Button"/>
                             <connections>
-                                <action selector="skipButtonTouched:" destination="-1" eventType="touchUpInside" id="U49-7U-dkP"/>
+                                <action selector="secondaryAction:" destination="-1" eventType="touchUpInside" id="d6Q-he-lfh"/>
                             </connections>
                         </button>
                     </subviews>
