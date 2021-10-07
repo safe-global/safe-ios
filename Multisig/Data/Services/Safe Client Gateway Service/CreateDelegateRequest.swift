@@ -28,7 +28,7 @@ struct CreateDelegateRequest: JSONRequest {
 extension SafeClientGatewayService {
 
     @discardableResult
-    func createDelegate(
+    func asyncCreateDelegate(
         safe: Address?,
         owner: Address,
         delegate: Address,

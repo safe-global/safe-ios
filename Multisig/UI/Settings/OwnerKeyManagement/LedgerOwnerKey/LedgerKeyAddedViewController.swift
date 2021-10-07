@@ -9,6 +9,8 @@
 import UIKit
 
 class LedgerKeyAddedViewController: AccountActionCompletedViewController {
+    private var addKeyController: AddDelegateKeyController!
+
     convenience init() {
         self.init(namedClass: AccountActionCompletedViewController.self)
     }
@@ -30,10 +32,10 @@ class LedgerKeyAddedViewController: AccountActionCompletedViewController {
 
     override func primaryAction(_ sender: Any) {
         // Start Add Delegate flow with the selected account address
-
-
         #warning("TODO: tracking?")
-        completion()
+        addKeyController = AddDelegateKeyController(ownerAddress: accountAddress, completion: completion)
+        addKeyController.presenter = self
+        addKeyController.start()
     }
 
     override func secondaryAction(_ sender: Any) {
@@ -43,11 +45,14 @@ class LedgerKeyAddedViewController: AccountActionCompletedViewController {
     }
 }
 
+// TODO: extend to support wallet connect signing
 class AddDelegateKeyController {
 
-    let ownerAddress: Address
-    let completionHandler: () -> Void
+    weak var presenter: UIViewController?
+    var clientGatewayService = App.shared.clientGatewayService
 
+    private let ownerAddress: Address
+    private let completionHandler: () -> Void
 
     init(ownerAddress: Address, completion: @escaping () -> Void) {
         self.ownerAddress = ownerAddress
@@ -76,7 +81,10 @@ class AddDelegateKeyController {
             case .success(let signatureData):
 
                 // 4. send message and signature to the backend
-                self.sendToBackend { [weak self] sendResult in
+                self.sendToBackend(
+                    delegateAddress: delegatePrivateKey.address,
+                    signature: signatureData
+                ) { [weak self] sendResult in
                     guard let self = self else { return }
 
                     switch sendResult {
@@ -147,20 +155,64 @@ class AddDelegateKeyController {
 
     // sign and call back with signature or fail with error (incl. cancelled error)
     func sign(message: Data, completion: @escaping (Result<Data, Error>) -> Void) {
+        // get ledger key info
+        let keyInfo: KeyInfo
+        do {
+            keyInfo = try self.loadKeyInfo()
+        } catch {
+            completion(.failure(error))
+            return
+        }
+
+        guard keyInfo.keyType == .ledgerNanoX else {
+            completion(.failure("Expected to get ledger key but a different key type is found."))
+            return
+        }
+
+        // sign with ledger
+        let request = SignRequest(title: "Confirm Push Notifications",
+                                  tracking: ["action": "confirm_push"],
+                                  signer: keyInfo,
+                                  hexToSign: message.toHexStringWithPrefix())
+        let vc = LedgerSignerViewController(request: request)
+
+        presenter?.present(vc, animated: true, completion: nil)
+
+        var isSuccess: Bool = false
+
+        vc.completion = { signature in
+            isSuccess = true
+            completion(.success(Data(hex: signature)))
+        }
+
+        vc.onClose = {
+            if !isSuccess {
+                completion(.failure("The operation cancelled by user"))
+            }
+        }
     }
 
-
-    func sendToBackend(completion: @escaping (Result<Void, Error>) -> Void) {
-        // send async request to backend
-        // call completion
+    func sendToBackend(delegateAddress: Address, signature: Data, completion: @escaping (Result<Void, Error>) -> Void) {
+        clientGatewayService.asyncCreateDelegate(safe: nil,
+                                                 owner: ownerAddress,
+                                                 delegate: delegateAddress,
+                                                 signature: signature,
+                                                 label: "iOS Device Delegate") { result in
+            completion(result.map { _ in () })
+        }
     }
 
     func abortProcess(error: Error) {
-
+        DispatchQueue.main.async { [weak self] in
+            App.shared.snackbar.show(message: error.localizedDescription)
+            self?.completionHandler()
+        }
     }
 
     func completeProcess() {
-        completionHandler()
+        DispatchQueue.main.async { [weak self] in
+            self?.completionHandler()
+        }
     }
 }
 
