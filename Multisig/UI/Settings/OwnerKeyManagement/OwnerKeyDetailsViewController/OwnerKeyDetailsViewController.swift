@@ -31,6 +31,8 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case keyAddress(String)
         case ownerKeyType(String)
         case connected(String)
+        case pushNotificationConfiguration(String)
+        case delegateKey(String)
         case advanced
 
         enum Name: SectionItem {
@@ -47,6 +49,15 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
         enum Connected: SectionItem {
             case connected
+        }
+
+        enum PushNotificationConfiguration: SectionItem {
+            case enabled
+        }
+
+        enum DelegateKey: SectionItem {
+            case address
+            case helpLink
         }
 
         enum Advanced: SectionItem {
@@ -120,6 +131,14 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
         if keyInfo.keyType == .walletConnect {
             sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
+        }
+
+        if [.walletConnect, .ledgerNanoX].contains(keyInfo.keyType) {
+            sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
+                             items: [Section.PushNotificationConfiguration.enabled]))
+            // only if enabled
+            sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
+                             items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
         }
 
         sections.append((section: .advanced, items: [Section.Advanced.remove]))
@@ -278,6 +297,12 @@ class OwnerKeyDetailsViewController: UITableViewController {
             return keyTypeCell(type: keyInfo.keyType, indexPath: indexPath)
         case Section.Connected.connected:
             return switchCell(for: indexPath, with: "Connected", isOn: WalletConnectClientController.shared.isConnected(keyInfo: keyInfo))
+        case Section.PushNotificationConfiguration.enabled:
+            return switchCell(for: indexPath, with: "Enabled", isOn: true)
+        case Section.DelegateKey.address:
+            return addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
+        case Section.DelegateKey.helpLink:
+            return addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
         case Section.Advanced.remove:
             return removeKeyCell(indexPath: indexPath)
         default:
