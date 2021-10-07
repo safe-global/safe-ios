@@ -16,11 +16,7 @@ struct SignRequest {
 }
 
 class LedgerSignerViewController: UINavigationController {
-
-    var request: SignRequest!
-
     var completion: ((String) -> Void)!
-
     var onClose: (() -> Void)? {
         didSet {
             if let vc = viewControllers.first as? SelectLedgerDeviceViewController {
@@ -28,6 +24,7 @@ class LedgerSignerViewController: UINavigationController {
             }
         }
     }
+    private var request: SignRequest!
 
     convenience init(request: SignRequest) {
         assert(request.signer.keyType == .ledgerNanoX)
@@ -46,7 +43,8 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
         didSelectDevice deviceId: UUID,
         bluetoothController: BaseBluetoothController
     ) {
-        guard let data = request.signer.metadata, let metadata = KeyInfo.LedgerKeyMetadata.from(data: data) else { return }
+        guard let data = request.signer.metadata,
+              let metadata = KeyInfo.LedgerKeyMetadata.from(data: data) else { return }
 
         let confirmVC = LedgerPendingConfirmationViewController(
             bluetoothController: bluetoothController,

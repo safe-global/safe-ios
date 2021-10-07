@@ -15,16 +15,16 @@ class LedgerPendingConfirmationViewController: UIViewController {
     @IBOutlet private weak var safeTxHashLabel: UILabel!
     @IBOutlet private weak var cancelButton: UIButton!
 
-    var headerText = "Confirm Transaction"
-    var ledgerHash: String!
     var onClose: (() -> Void)?
-
     var onSign: ((String?) -> Void)?
 
-    var ledgerController: LedgerController!
-    var hexToSign: String!
-    var deviceId: UUID!
-    var derivationPath: String!
+    private var headerText = "Confirm Transaction"
+    private var ledgerHash: String!
+
+    private var ledgerController: LedgerController!
+    private var hexToSign: String!
+    private var deviceId: UUID!
+    private var derivationPath: String!
 
     @IBAction private func cancel(_ sender: Any) {
         close()
