@@ -1,8 +1,8 @@
 //
-//  WCSession.swift
+//  WCKeySession.swift
 //  Multisig
 //
-//  Created by Andrey Scherbovich on 22.01.21.
+//  Created by Andrey Scherbovich on 09.09.21.
 //  Copyright © 2021 Gnosis Ltd. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import WalletConnectSwift
 
-extension WCSession {
+extension WCKeySession {
     var status: SessionStatus {
         get {
             SessionStatus(rawValue: Int(statusRaw))!
@@ -19,10 +19,10 @@ extension WCSession {
         }
     }
 
-    static func getAll() throws -> [WCSession] {
+    static func getAll() throws -> [WCKeySession] {
         do {
             let context = App.shared.coreDataStack.viewContext
-            let fr = WCSession.fetchRequest().all()
+            let fr = WCKeySession.fetchRequest().all()
             let sessions = try context.fetch(fr)
             return sessions
         } catch {
@@ -30,39 +30,37 @@ extension WCSession {
         }
     }
 
-    static func get(topic: String) -> WCSession? {
+    static func get(topic: String) -> WCKeySession? {
         let context = App.shared.coreDataStack.viewContext
-        let fr = WCSession.fetchRequest().by(topic: topic)
+        let fr = WCKeySession.fetchRequest().by(topic: topic)
         return try? context.fetch(fr).first
     }
 
     static func create(wcurl: WCURL) {
         dispatchPrecondition(condition: .onQueue(.main))
-        guard let safe = try? Safe.getSelected() else { return }
 
-        let wcSession: WCSession
+        let wcKeySession: WCKeySession
         if let existing = get(topic: wcurl.topic) {
-            wcSession = existing
+            wcKeySession = existing
         } else {
             let context = App.shared.coreDataStack.viewContext
-            wcSession = WCSession(context: context)
+            wcKeySession = WCKeySession(context: context)
         }
 
-        wcSession.status = .connecting
-        wcSession.created = Date()
-        wcSession.topic = wcurl.topic
-        wcSession.safe = safe
-        
+        wcKeySession.status = .connecting
+        wcKeySession.created = Date()
+        wcKeySession.topic = wcurl.topic
+
         App.shared.coreDataStack.saveContext()
     }
 
     static func update(session: Session, status: SessionStatus) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-        let fr = WCSession.fetchRequest().by(topic: session.url.topic)
-        guard let wcSession = try? context.fetch(fr).first else { return }
-        wcSession.status = status
-        wcSession.session = try! JSONEncoder().encode(session)
+        let fr = WCKeySession.fetchRequest().by(topic: session.url.topic)
+        guard let wcKeySession = try? context.fetch(fr).first else { return }
+        wcKeySession.status = status
+        wcKeySession.session = try! JSONEncoder().encode(session)
         App.shared.coreDataStack.saveContext()
     }
 
@@ -74,9 +72,9 @@ extension WCSession {
     }
 }
 
-extension NSFetchRequest where ResultType == WCSession {
+extension NSFetchRequest where ResultType == WCKeySession {
     func all() -> Self {
-        sortDescriptors = [NSSortDescriptor(keyPath: \WCSession.created, ascending: true)]
+        sortDescriptors = [NSSortDescriptor(keyPath: \WCKeySession.created, ascending: true)]
         return self
     }
 
@@ -89,8 +87,8 @@ extension NSFetchRequest where ResultType == WCSession {
 }
 
 extension Session {
-    static func from(_ wcSession: WCSession) throws -> Self {        
+    static func from(_ wcKeySession: WCKeySession) throws -> Self {
         let decoder = JSONDecoder()
-        return try decoder.decode(Session.self, from: wcSession.session!)
+        return try decoder.decode(Session.self, from: wcKeySession.session!)
     }
 }
