@@ -41,7 +41,7 @@ class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
 extension OnboardingLedgerKeyViewController: SelectLedgerDeviceDelegate {
     func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
                                           didSelectDevice deviceId: UUID,
-                                          bluetoothController: BluetoothController) {
+                                          bluetoothController: BaseBluetoothController) {
 
         let keyPickerController = LedgerKeyPickerViewController(deviceId: deviceId,
                                                                 bluetoothController: bluetoothController,

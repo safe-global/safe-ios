@@ -71,6 +71,10 @@ class OwnerKeyDetailsViewController: UITableViewController {
         self.completion = completion
     }
 
+    override func loadView() {
+        super.loadView()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(keyInfo != nil, "Developer error: expect to have a key")
@@ -86,26 +90,6 @@ class OwnerKeyDetailsViewController: UITableViewController {
             let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(pop))
             navigationItem.leftBarButtonItem = doneButton
         }
-
-        for notification in [Notification.Name.ownerKeyUpdated, .wcDidDisconnectClient] {
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(reloadData),
-                name: notification,
-                object: nil)
-        }
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(walletConnectSessionCreated(_:)),
-            name: .wcDidConnectClient,
-            object: nil)
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(pop),
-            name: .ownerKeyRemoved,
-            object: nil)
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -143,6 +127,26 @@ class OwnerKeyDetailsViewController: UITableViewController {
         }
 
         sections.append((section: .advanced, items: [Section.Advanced.remove]))
+
+        for notification in [Notification.Name.ownerKeyUpdated, .wcDidDisconnectClient] {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(reloadData),
+                name: notification,
+                object: nil)
+        }
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(walletConnectSessionCreated(_:)),
+            name: .wcDidConnectClient,
+            object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(pop),
+            name: .ownerKeyRemoved,
+            object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {

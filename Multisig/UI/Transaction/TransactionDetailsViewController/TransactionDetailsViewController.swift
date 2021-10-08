@@ -517,7 +517,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 extension TransactionDetailsViewController: SelectLedgerDeviceDelegate {
     func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
                                           didSelectDevice deviceId: UUID,
-                                          bluetoothController: BluetoothController) {
+                                          bluetoothController: BaseBluetoothController) {
 
         guard let tx = tx,
               let transaction = Transaction(tx: tx),

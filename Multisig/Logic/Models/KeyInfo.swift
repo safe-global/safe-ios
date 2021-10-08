@@ -119,6 +119,10 @@ extension KeyInfo {
         }
     }
 
+    static func firstKey(address: Address) throws -> KeyInfo? {
+        try keys(addresses: [address]).first
+    }
+
     /// Returns private keys found by the addresses. The multiple private keys option is needed when we want to sign the "push notification" payload with all of the keys available in the app.
     /// At most one key per address is returned.
     /// 
@@ -250,6 +254,10 @@ extension KeyInfo {
     /// Saves the key to the persistent store
     func save() {
         App.shared.coreDataStack.saveContext()
+    }
+
+    func rollback() {
+        App.shared.coreDataStack.rollback()
     }
 
     /// Will delete the key info and the stored private key

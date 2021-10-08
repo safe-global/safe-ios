@@ -18,7 +18,7 @@ class LedgerKeyPickerViewController: SegmentViewController {
         return button
     }()
 
-    convenience init(deviceId: UUID, bluetoothController: BluetoothController, completion: @escaping () -> Void) {
+    convenience init(deviceId: UUID, bluetoothController: BaseBluetoothController, completion: @escaping () -> Void) {
         self.init(nibName: "SegmentViewController", bundle: Bundle.main)
         segmentItems = [
             SegmentBarItem(image: nil, title: "Ledger Live"),
@@ -48,30 +48,36 @@ class LedgerKeyPickerViewController: SegmentViewController {
 
     @objc func didTapImport() {
         guard let selectedIndex = selectedIndex,
-              let controller = viewControllers[selectedIndex] as? LedgerKeyPickerContentViewController,
-              let key = controller.selectedKey else { return }
+              let contentVC = viewControllers[selectedIndex] as? LedgerKeyPickerContentViewController,
+              let key = contentVC.selectedKey else { return }
 
         var namePrefix = ""
-        switch controller.keyType {
+        switch contentVC.keyType {
         case .ledger: namePrefix = "Ledger key #"
         case .ledgerLive: namePrefix = "Ledger Live key #"
         }
         let defaultName = "\(namePrefix)\(key.index + 1)"
 
-        let vc = EnterAddressNameViewController()
-        vc.actionTitle = "Import"
-        vc.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
-        vc.screenTitle = "Enter Key Name"
-        vc.trackingEvent = .ledgerEnterKeyName
-        vc.placeholder = "Enter name"
-        vc.name = defaultName
-        vc.address = key.address
-        vc.badgeName = KeyType.ledgerNanoX.imageName
-        vc.completion = { [unowned self, controller] name in
-            controller.importSelectedKey(name: name)
-            self.completion()
+        let enterNameVC = EnterAddressNameViewController()
+        enterNameVC.actionTitle = "Import"
+        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterNameVC.screenTitle = "Enter Key Name"
+        enterNameVC.trackingEvent = .ledgerEnterKeyName
+        enterNameVC.placeholder = "Enter name"
+        enterNameVC.name = defaultName
+        enterNameVC.address = key.address
+        enterNameVC.badgeName = KeyType.ledgerNanoX.imageName
+        enterNameVC.completion = { [unowned self, unowned contentVC, unowned enterNameVC] name in
+            contentVC.importSelectedKey(name: name)
+
+            let keyAddedVC = LedgerKeyAddedViewController()
+            keyAddedVC.completion = self.completion
+            keyAddedVC.accountAddress = key.address
+            keyAddedVC.accountName = name
+
+            enterNameVC.show(keyAddedVC, sender: nil)
         }
-        show(vc, sender: nil)
+        show(enterNameVC, sender: nil)
     }
 }
 
@@ -94,7 +100,7 @@ fileprivate protocol LedgerKeyPickerViewModelDelegate: AnyObject {
 fileprivate class LedgerKeyPickerViewModel {
     let type: LedgerKeyType
     let deviceId: UUID
-    let bluetoothController: BluetoothController
+    let bluetoothController: BaseBluetoothController
     let ledgerController: LedgerController
 
     weak var delegate: LedgerKeyPickerViewModelDelegate?
@@ -115,18 +121,18 @@ fileprivate class LedgerKeyPickerViewModel {
 
     lazy var basePathPattern: String = {
         switch type {
-        case .ledgerLive: return "m/44'/60'/0'/0/{index}"
+        case .ledgerLive: return "m/44'/60'/{index}'/0/0"
         case .ledger: return "m/44'/60'/0'/{index}"
         }
     }()
 
     var bluetoothIsConnected: Bool {
-        bluetoothController.devices.first { $0.peripheral.identifier == deviceId } != nil
+        bluetoothController.devices.first { $0.identifier == deviceId } != nil
     }
 
     private var workItem: DispatchWorkItem?
 
-    init(type: LedgerKeyType, deviceId: UUID, bluetoothController: BluetoothController) {
+    init(type: LedgerKeyType, deviceId: UUID, bluetoothController: BaseBluetoothController) {
         self.type = type
         self.deviceId = deviceId
         self.bluetoothController = bluetoothController
@@ -225,7 +231,7 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
 
     convenience init(type: LedgerKeyType,
                      deviceId: UUID,
-                     bluetoothController: BluetoothController,
+                     bluetoothController: BaseBluetoothController,
                      importButton: UIBarButtonItem) {
         self.init()
         self.model = LedgerKeyPickerViewModel(type: type, deviceId: deviceId, bluetoothController: bluetoothController)

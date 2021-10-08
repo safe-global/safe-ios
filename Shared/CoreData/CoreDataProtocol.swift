@@ -12,6 +12,7 @@ import CoreData
 protocol CoreDataProtocol {
     var persistentContainer: NSPersistentContainer { get }
     func saveContext()
+    func rollback()
 }
 
 extension CoreDataProtocol {

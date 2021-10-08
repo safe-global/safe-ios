@@ -9,11 +9,20 @@
 import Foundation
 import CoreBluetooth
 
-// should be class
-class BluetoothDevice {
+class BaseBluetoothDevice {
+    var identifier: UUID { preconditionFailure() }
+    var name: String { preconditionFailure() }
+}
+
+class BluetoothDevice: BaseBluetoothDevice {
     let peripheral: CBPeripheral
-    var name: String {
+
+    override var name: String {
         peripheral.name ?? "Unknown device"
+    }
+
+    override var identifier: UUID {
+        peripheral.identifier
     }
 
     var readCharacteristic: CBCharacteristic? = nil
@@ -39,13 +48,42 @@ struct LedgerNanoXDevice: SupportedDevice {
 
 protocol BluetoothControllerDelegate: AnyObject {
     func bluetoothControllerDidFailToConnectBluetooth(error: DetailedLocalizedError)
-    func bluetoothControllerDidDiscover(device: BluetoothDevice)
-    func bluetoothControllerDidDisconnect(device: BluetoothDevice, error: DetailedLocalizedError?)
+    func bluetoothControllerDidDiscover(device: BaseBluetoothDevice)
+    func bluetoothControllerDidDisconnect(device: BaseBluetoothDevice, error: DetailedLocalizedError?)
 }
 
-class BluetoothController: NSObject {
-    private var centralManager: CBCentralManager!
+class BaseBluetoothController: NSObject {
+    // Notified about discovery and connection/disconnection status
     weak var delegate: BluetoothControllerDelegate?
+
+    // List of discovered devices
+    var devices: [BaseBluetoothDevice] = []
+
+    // Starts scanning process. This may result in calling of delegate's didDiscover methods
+    // several times for each device discovered.
+    func scan() {
+        preconditionFailure()
+    }
+
+    // Stops scanning for bluetooth devices
+    func stopScan() {
+        preconditionFailure()
+    }
+
+    // Returns a device by device id from the list of discovered devices
+    func deviceFor(deviceId: UUID) -> BaseBluetoothDevice? {
+        devices.first { $0.identifier == deviceId }
+    }
+
+    // Sends asynchronous command to the device and gets called back via completion.
+    // Commands are binary data
+    func sendCommand(device: BaseBluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
+        preconditionFailure()
+    }
+}
+
+class BluetoothController: BaseBluetoothController {
+    private var centralManager: CBCentralManager!
 
     typealias WriteCommand = () -> Void
     private var writeCommands = [UUID: WriteCommand]()
@@ -53,24 +91,42 @@ class BluetoothController: NSObject {
     typealias ResponseCompletion = (Result<Data, Error>) -> Void
     private var responses = [UUID: ResponseCompletion]()
 
-    var devices: [BluetoothDevice] = []
-
-    private var supportedDevices: [SupportedDevice] = []
+    private var supportedDevices: [SupportedDevice] = [LedgerNanoXDevice()]
     private var supportedDeviceUUIDs: [CBUUID] { supportedDevices.compactMap { $0.uuid } }
     private var supportedDeviceNotifyUuids: [CBUUID] { supportedDevices.compactMap { $0.notifyUuid } }
 
-    func scan(supportedDevices: [SupportedDevice] = [LedgerNanoXDevice()]) {
+    override func scan() {
         devices = []
-        self.supportedDevices = supportedDevices
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
 
-    func stopScan() {
+    override func stopScan() {
         centralManager.stopScan()
     }
 
-    func deviceFor(deviceId: UUID) -> BluetoothDevice? {
-        devices.first { p in p.peripheral.identifier == deviceId }
+    func removeDevices(peripheral: CBPeripheral) {
+        devices.removeAll { d in
+            if let device = d as? BluetoothDevice {
+                return device.peripheral == peripheral
+            }
+            return false
+        }
+    }
+
+    func bluetoothDevice(id: UUID) -> BluetoothDevice? {
+        deviceFor(deviceId: id) as? BluetoothDevice
+    }
+
+    override func sendCommand(device: BaseBluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
+        guard let device = device as? BluetoothDevice else {
+            preconditionFailure("Expecting bluetooth device")
+        }
+        centralManager.connect(device.peripheral, options: nil)
+        writeCommands[device.peripheral.identifier] = { [weak self] in
+            let adpuData = APDUController.prepareADPU(message: command)
+            self?.responses[device.peripheral.identifier] = completion
+            device.peripheral.writeValue(adpuData, for: device.writeCharacteristic!, type: .withResponse)
+        }
     }
 }
 
@@ -108,22 +164,13 @@ extension BluetoothController: CBCentralManagerDelegate {
         guard let device = deviceFor(deviceId: peripheral.identifier) else { return }
         let detailedError: DetailedLocalizedError? =
             error == nil ? nil : GSError.error(description: "The Bluetooth device disconnected", error: error!)
-        devices.removeAll { p in p.peripheral == peripheral }
+        removeDevices(peripheral: peripheral)
 
         responses.forEach { deviceId, completion in
             completion(.failure("The Bluetooth device disconnected"))
         }
 
         delegate?.bluetoothControllerDidDisconnect(device: device, error: detailedError)
-    }
-
-    func sendCommand(device: BluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
-        centralManager.connect(device.peripheral, options: nil)
-        writeCommands[device.peripheral.identifier] = { [weak self] in
-            let adpuData = APDUController.prepareADPU(message: command)
-            self?.responses[device.peripheral.identifier] = completion
-            device.peripheral.writeValue(adpuData, for: device.writeCharacteristic!, type: .withResponse)
-        }
     }
 }
 
@@ -140,17 +187,17 @@ extension BluetoothController: CBPeripheralDelegate {
         for characteristic in characteristics {
             if characteristic.properties.contains(.read) {
                 peripheral.readValue(for: characteristic)
-                deviceFor(deviceId: peripheral.identifier)!.readCharacteristic = characteristic
+                bluetoothDevice(id: peripheral.identifier)!.readCharacteristic = characteristic
             }
 
             if characteristic.properties.contains(.notify) {
                 peripheral.setNotifyValue(true, for: characteristic)
-                deviceFor(deviceId: peripheral.identifier)!.notifyCharacteristic = characteristic
+                bluetoothDevice(id: peripheral.identifier)!.notifyCharacteristic = characteristic
             }
 
             if characteristic.properties.contains(.write) {
                 peripheral.setNotifyValue(true, for: characteristic)
-                deviceFor(deviceId: peripheral.identifier)!.writeCharacteristic = characteristic
+                bluetoothDevice(id: peripheral.identifier)!.writeCharacteristic = characteristic
 
                 if let writeCommand = writeCommands[peripheral.identifier] {
                     writeCommand()
@@ -178,6 +225,73 @@ extension BluetoothController: CBPeripheralDelegate {
             }
             
             responses.removeValue(forKey: peripheral.identifier)
+        }
+    }
+}
+
+
+class SimulatedLedgerDevice: BaseBluetoothDevice {
+    let deviceID = UUID()
+    let deviceName = "Simulated Ledger Nano X"
+
+    override var identifier: UUID { deviceID }
+    override var name: String { deviceName }
+}
+
+class SimulatedBluetoothController: BaseBluetoothController {
+    override init() {
+        super.init()
+        devices = [SimulatedLedgerDevice()]
+    }
+
+    override func scan() {
+        // immediately discover
+        delegate?.bluetoothControllerDidDiscover(device: devices[0])
+    }
+
+    override func stopScan() {
+        // do nothing
+    }
+
+    override func sendCommand(device: BaseBluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
+        DispatchQueue.global().async {
+            // get address command
+            if command.starts(with: [0xe0, 0x02]) {
+                // generate random address and return the expected payload in completion
+
+                var address: Address!
+                repeat {
+                    address = Data.randomBytes(length: 20).flatMap { Address($0) }
+                } while address == nil
+
+                // format payload
+                let fakePublicKey = [UInt8](repeating: 1, count: 65)
+                let hexAddress = address.data.toHexString().data(using: .ascii)!
+
+                let response: [UInt8] =
+                    [UInt8(fakePublicKey.count)] + fakePublicKey +
+                    [UInt8(hexAddress.count)] + hexAddress
+
+                assert(response.count == 107)
+                assert(response[0] == 65)
+                assert(response[66] == 40)
+
+                completion(.success(Data(response)))
+            } else if command.starts(with: [0xe0, 0x08]) {
+                // sign command
+
+                let response = Data([UInt8](repeating: 3, count: 65))
+
+                DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2)) {
+                    completion(.success(response))
+                }
+
+            } else {
+
+                DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2)) {
+                    completion(.failure("Failed to do the command"))
+                }
+            }
         }
     }
 }

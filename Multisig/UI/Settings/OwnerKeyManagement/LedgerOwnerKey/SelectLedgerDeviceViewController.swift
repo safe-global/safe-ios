@@ -11,11 +11,16 @@ import UIKit
 protocol SelectLedgerDeviceDelegate: AnyObject {
     func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
                                           didSelectDevice deviceId: UUID,
-                                          bluetoothController: BluetoothController)
+                                          bluetoothController: BaseBluetoothController)
 }
 
 class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
+
+#if targetEnvironment(simulator)
+    private let bluetoothController = SimulatedBluetoothController()
+#else
     private let bluetoothController = BluetoothController()
+#endif
 
     /// If a Bluetooth device is not found within the time limit, we show empty results page
     private let searchTimeLimit: TimeInterval = 20
@@ -108,7 +113,7 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
         tableView.deselectRow(at: indexPath, animated: true)
         let device = bluetoothController.devices[indexPath.row]
         delegate?.selectLedgerDeviceViewController(
-            self, didSelectDevice: device.peripheral.identifier, bluetoothController: bluetoothController)
+            self, didSelectDevice: device.identifier, bluetoothController: bluetoothController)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -142,11 +147,11 @@ extension SelectLedgerDeviceViewController: BluetoothControllerDelegate {
         }
     }
 
-    func bluetoothControllerDidDiscover(device: BluetoothDevice) {
+    func bluetoothControllerDidDiscover(device: BaseBluetoothDevice) {
         onSuccess()
     }
 
-    func bluetoothControllerDidDisconnect(device: BluetoothDevice, error: DetailedLocalizedError?) {
+    func bluetoothControllerDidDisconnect(device: BaseBluetoothDevice, error: DetailedLocalizedError?) {
         onSuccess()
     }
 }

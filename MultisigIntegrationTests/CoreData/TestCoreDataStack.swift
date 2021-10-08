@@ -28,6 +28,10 @@ class TestCoreDataStack: CoreDataProtocol {
     func saveContext() {
         try! viewContext.save()
     }
+
+    func rollback() {
+        viewContext.rollback()
+    }
 }
 
 #endif

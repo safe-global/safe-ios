@@ -211,13 +211,14 @@ class RejectionConfirmationViewController: UIViewController {
 extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
     func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
                                           didSelectDevice deviceId: UUID,
-                                          bluetoothController: BluetoothController) {
+                                          bluetoothController: BaseBluetoothController) {
         guard let safeTxHash = rejectionTransaction.safeTxHash?.description,
               let keyInfo = keyInfo, keyInfo.keyType == .ledgerNanoX,
               let metadata = keyInfo.metadata,
               let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
 
         let pendingConfirmationVC = LedgerPendingConfirmationViewController(ledgerHash: rejectionTransaction.hardwareWalletHash)
+        pendingConfirmationVC.headerText = "Reject Transaction"
         pendingConfirmationVC.modalPresentationStyle = .popover
         pendingConfirmationVC.onClose = { [weak self] in
             self?.ledgerController = nil
