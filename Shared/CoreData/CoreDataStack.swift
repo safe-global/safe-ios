@@ -106,4 +106,10 @@ class CoreDataStack: CoreDataProtocol {
             }
         }
     }
+
+    func rollback() {
+        if viewContext.hasChanges {
+            viewContext.rollback()
+        }
+    }
 }
