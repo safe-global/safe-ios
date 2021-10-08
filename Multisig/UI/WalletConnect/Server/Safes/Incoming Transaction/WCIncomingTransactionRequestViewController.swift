@@ -422,7 +422,7 @@ extension WCIncomingTransactionRequestViewController: UITableViewDelegate {
 extension WCIncomingTransactionRequestViewController: SelectLedgerDeviceDelegate {
     func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
                                           didSelectDevice deviceId: UUID,
-                                          bluetoothController: BluetoothController) {
+                                          bluetoothController: BaseBluetoothController) {
         guard let safeTxHash = transaction.safeTxHash?.description,
               let keyInfo = keyInfo, keyInfo.keyType == .ledgerNanoX,
               let metadata = keyInfo.metadata,

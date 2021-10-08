@@ -31,13 +31,10 @@ class APDUController {
     /// We assume to get only one message, so no need to batch several messages
     static func parseADPU(message: Data) -> Data? {
         guard message.count > 6, Int8(message[0]) == tagID else { return nil }
-
         guard message[1] == 0 && message[2] == 0 else { return nil }
-
-        let dataLength = try! UInt16(message[3]) << 8 | UInt16(message[4])
-        let data: Data = message[5..<message.count]
+        guard let dataLength = (try? UInt16(message[3]) << 8 | UInt16(message[4])) else { return nil }
+        let data = [UInt8](message[5..<message.count])
         guard data.count == dataLength else { return nil }
-        
-        return data
+        return Data(data)
     }
 }
