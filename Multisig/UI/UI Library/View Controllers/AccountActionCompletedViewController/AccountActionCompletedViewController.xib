@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SafeLoadedViewController" customModule="Multisig" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AccountActionCompletedViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="accountInfoView" destination="Icj-PM-PmL" id="oDL-Az-EoR"/>
                 <outlet property="descriptionLabel" destination="e9z-vk-UYQ" id="8Ag-af-S8a"/>
-                <outlet property="importOwnerKeyButton" destination="ndJ-JW-SGt" id="otR-MV-GFM"/>
-                <outlet property="safeInfoView" destination="Icj-PM-PmL" id="oDL-Az-EoR"/>
-                <outlet property="skipButton" destination="cQV-Bp-zgJ" id="hpD-8C-trD"/>
-                <outlet property="titleLabel" destination="nqP-5o-5GW" id="6Mh-rg-apd"/>
+                <outlet property="headerLabel" destination="nqP-5o-5GW" id="6Mh-rg-apd"/>
+                <outlet property="primaryButton" destination="ndJ-JW-SGt" id="otR-MV-GFM"/>
+                <outlet property="secondaryButton" destination="cQV-Bp-zgJ" id="hpD-8C-trD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -32,7 +32,7 @@
                             <rect key="frame" x="132" y="0.0" width="118.5" height="24"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kk9-ZC-dZ5">
-                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                    <rect key="frame" x="0.0" y="-0.5" width="24" height="25"/>
                                     <color key="tintColor" name="hold"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="bPD-98-o67"/>
@@ -48,7 +48,7 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Icj-PM-PmL" customClass="SafeInfoViewV2" customModule="Multisig" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Icj-PM-PmL" customClass="AccountInfoView" customModule="Multisig" customModuleProvider="target">
                             <rect key="frame" x="20" y="56" width="342" height="277"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>

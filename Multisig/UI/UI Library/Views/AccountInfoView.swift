@@ -1,5 +1,5 @@
 //
-//  SafeInfoView.swift
+//  AccountInfoView.swift
 //  Multisig
 //
 //  Created by Moaaz on 1/20/21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SafeInfoViewV2: UINibView {
+class AccountInfoView: UINibView {
     @IBOutlet private weak var identiconView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressInfoView: AddressInfoView!
