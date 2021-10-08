@@ -118,6 +118,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
         tableView.registerCell(KeyTypeTableViewCell.self)
         tableView.registerCell(RemoveCell.self)
         tableView.registerCell(SwitchTableViewCell.self)
+        tableView.registerCell(HelpLinkTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         sections = [
@@ -292,51 +293,33 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case Section.Name.name:
             return tableView.basicCell(name: keyInfo.name ?? "", indexPath: indexPath)
         case Section.KeyAddress.address:
-            return addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
+            return tableView.addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
         case Section.OwnerKeyType.type:
             return keyTypeCell(type: keyInfo.keyType, indexPath: indexPath)
         case Section.Connected.connected:
-            return switchCell(for: indexPath, with: "Connected", isOn: WalletConnectClientController.shared.isConnected(keyInfo: keyInfo))
+            return tableView.switchCell(for: indexPath,
+                                           with: "Connected",
+                                           isOn: WalletConnectClientController.shared.isConnected(keyInfo: keyInfo))
         case Section.PushNotificationConfiguration.enabled:
-            return switchCell(for: indexPath, with: "Enabled", isOn: true)
+            return tableView.switchCell(for: indexPath, with: "Enabled", isOn: true)
         case Section.DelegateKey.address:
-            return addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
+            return tableView.addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
         case Section.DelegateKey.helpLink:
-            return addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
+            return tableView.helpLinkCell(text: "What is a fallback handler and how does it relate to the Gnosis Safe",
+                                url: App.configuration.help.delegateKeyURL,
+                                indexPath: indexPath)
         case Section.Advanced.remove:
-            return removeKeyCell(indexPath: indexPath)
+            return tableView.removeCell(indexPath: indexPath, title: "Remove owner key") { [weak self] in
+                self?.removeKey()
+            }
         default:
             return UITableViewCell()
         }
     }
 
-    private func addressDetailsCell(address: Address, showQRCode: Bool, indexPath: IndexPath, badgeName: String? = nil) -> UITableViewCell {
-        let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, badgeName: badgeName, showQRCode: true)
-        return cell
-    }
-
     private func keyTypeCell(type: KeyType, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(KeyTypeTableViewCell.self, for: indexPath)
         cell.set(name: type.name, iconName: type.imageName)
-        cell.selectionStyle = .none
-        return cell
-    }
-
-    private func removeKeyCell(indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(RemoveCell.self, for: indexPath)
-        cell.set(title: "Remove owner key")
-        cell.onRemove = { [weak self] in
-            self?.removeKey()
-        }
-        cell.selectionStyle = .none
-        return cell
-    }
-
-    func switchCell(for indexPath: IndexPath, with text: String, isOn: Bool) -> SwitchTableViewCell {
-        let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
-        cell.setText(text)
-        cell.setOn(isOn, animated: false)
         cell.selectionStyle = .none
         return cell
     }
@@ -361,6 +344,8 @@ class OwnerKeyDetailsViewController: UITableViewController {
                     self.showConnectionQRCodeController()
                 }
             }
+        case Section.PushNotificationConfiguration.enabled:
+            return
         default:
             break
         }
@@ -391,6 +376,10 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case Section.ownerKeyType(let name):
             view.setName(name)
         case Section.connected(let name):
+            view.setName(name)
+        case .pushNotificationConfiguration(let name):
+            view.setName(name)
+        case .delegateKey(let name):
             view.setName(name)
         case Section.advanced:
             break

@@ -54,10 +54,31 @@ extension UITableView {
         return cell
     }
 
+    func addressDetailsCell(address: Address, showQRCode: Bool, indexPath: IndexPath, badgeName: String? = nil) -> UITableViewCell {
+        let cell = dequeueCell(DetailAccountCell.self, for: indexPath)
+        cell.setAccount(address: address, badgeName: badgeName, showQRCode: true)
+        return cell
+    }
+
     func switchCell(for indexPath: IndexPath, with text: String, isOn: Bool) -> SwitchTableViewCell {
         let cell = dequeueCell(SwitchTableViewCell.self, for: indexPath)
         cell.setText(text)
         cell.setOn(isOn, animated: false)
+        return cell
+    }
+
+    func helpLinkCell(text: String, url: URL, indexPath: IndexPath) -> UITableViewCell {
+        let cell = dequeueCell(HelpLinkTableViewCell.self, for: indexPath)
+        cell.descriptionLabel.hyperLinkLabel(linkText: text)
+        cell.url = url
+        return cell
+    }
+
+    func removeCell(indexPath: IndexPath, title: String, onRemove: (() -> Void)?) -> UITableViewCell {
+        let cell = dequeueCell(RemoveCell.self, for: indexPath)
+        cell.set(title: title)
+        cell.onRemove = onRemove
+        cell.selectionStyle = .none
         return cell
     }
 }

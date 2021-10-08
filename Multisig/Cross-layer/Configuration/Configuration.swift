@@ -52,6 +52,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("DESKTOP_PAIRING_URL")
         var desktopPairingURL: URL
+
+        @ConfigurationKey("DELEGATE_KEY_URL")
+        var delegateKeyURL: URL
     }
 
     struct Legal {
