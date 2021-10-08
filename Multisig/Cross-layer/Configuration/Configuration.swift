@@ -49,6 +49,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("CONNECT_DAPP_ON_MOBILE_URL")
         var connectDappOnMobileURL: URL
+
+        @ConfigurationKey("DESKTOP_PAIRING_URL")
+        var desktopPairingURL: URL
     }
 
     struct Legal {
@@ -109,8 +112,11 @@ struct AppConfiguration {
         @UserDefault(key: "io.gnosis.multisig.experimental.walletConnect")
         private var walletConnectEnabledSetting: Bool?
 
-        @UserDefault(key: "io.gnosis.multisig.experimental.walletConnectOwnerKey")
-        private var walletConnectOwnerKeyEnabledSetting: Bool?
+//        @UserDefault(key: "io.gnosis.multisig.experimental.walletConnectOwnerKey")
+//        private var walletConnectOwnerKeyEnabledSetting: Bool?
+
+        @UserDefault(key: "io.gnosis.multisig.experimental.desktopPairing")
+        private var desktopPairingEnabledSetting: Bool?
 
         var walletConnectEnabled: Bool {
             return walletConnectEnabledSetting ?? false
@@ -119,6 +125,13 @@ struct AppConfiguration {
 //        var walletConnectOwnerKeyEnabled: Bool {
 //            return walletConnectOwnerKeyEnabledSetting ?? false
 //        }
+
+        @ConfigurationKey("DESKTOP_PAIRING_EXPERIMENTAL_ENABLED")
+        var desktopPairingExperimentalEnabled: Bool
+
+        var desktopPairingEnabled: Bool {
+            return (desktopPairingEnabledSetting ?? false) && desktopPairingExperimentalEnabled
+        }
     }
 
     let services = Services()
