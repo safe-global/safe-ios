@@ -597,6 +597,11 @@ extension SCGModels {
         let decimals: Int
         let logoUri: URL
     }
+
+    struct TransactionEstimation: Decodable {
+        let latestNonce: UInt256String
+        let safeTxGas: String
+    }
 }
 
 extension SCGModels.AddressInfo {

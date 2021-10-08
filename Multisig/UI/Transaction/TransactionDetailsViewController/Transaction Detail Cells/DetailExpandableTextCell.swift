@@ -34,8 +34,9 @@ class DetailExpandableTextCell: UITableViewCell {
         contentLabel.text = text
     }
 
-    func setTitle(_ text: String) {
+    func setTitle(_ text: String?) {
         titleLabel.text = text
+        titleLabel.isHidden = text == nil
     }
 
     func setExpandableTitle(_ text: String?) {

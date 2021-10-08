@@ -128,14 +128,14 @@ class RejectionConfirmationViewController: UIViewController {
         present(pendingConfirmationVC, animated: false)
 
         WalletConnectClientController.shared.sign(transaction: transaction) {
-            [weak self] weakSignature in
+            [weak self] signatureOrNil in
 
             DispatchQueue.main.async {
                 // dismiss pending confirmation view controller overlay
                 pendingConfirmationVC.dismiss(animated: true, completion: nil)
             }
 
-            guard let signature = weakSignature else {
+            guard let signature = signatureOrNil else {
                 DispatchQueue.main.async {
                     self?.endLoading()
                     App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
@@ -143,15 +143,17 @@ class RejectionConfirmationViewController: UIViewController {
                 return
             }
 
-            self?.rejectAndCloseController(signature: signature)
+            DispatchQueue.main.async {
+                self?.rejectAndCloseController(signature: signature)
+            }
         }
 
         WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
     }
 
     private func startLoading() {
-        loadingView.isHidden = false
-        contentContainerView.isHidden = true
+        self.loadingView.isHidden = false
+        self.contentContainerView.isHidden = true
     }
 
     private func endLoading() {
@@ -225,13 +227,13 @@ extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
         // present Ledger Pending Confirmation overlay
         controller.present(pendingConfirmationVC, animated: true)
         ledgerController = LedgerController(bluetoothController: bluetoothController)
-        ledgerController!.sign(safeTxHash: safeTxHash,
+        ledgerController!.sign(messageHash: safeTxHash,
                                deviceId: deviceId,
-                               path: ledgerKeyMetadata.path) { [weak self] signature in
+                               path: ledgerKeyMetadata.path) { [weak self] signatureOrNil, errorMessageOrNil in
             // dismiss Ledger Pending Confirmation overlay
             controller.presentedViewController?.dismiss(animated: true, completion: nil)
-            guard let signature = signature else {
-                App.shared.snackbar.show(message: "The operation was canceled on the Ledger device.")
+            guard let signature = signatureOrNil else {
+                App.shared.snackbar.show(message: errorMessageOrNil!)
                 controller.reloadData()
                 return
             }

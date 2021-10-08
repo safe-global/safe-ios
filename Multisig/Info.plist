@@ -51,6 +51,8 @@
 	<string>$(FALLBACKHANDLER_URL)</string>
 	<key>FEATURE_SUGGESTION_URL</key>
 	<string>$(FEATURE_SUGGESTION_URL)</string>
+	<key>DESKTOP_PAIRING_URL</key>
+	<string>$(DESKTOP_PAIRING_URL)</string>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<false/>
 	<key>GNOSIS_SAFE_WEB_URL</key>
@@ -187,5 +189,7 @@
 	</array>
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
+	<key>DESKTOP_PAIRING_EXPERIMENTAL_ENABLED</key>
+	<string>$(DESKTOP_PAIRING_EXPERIMENTAL_ENABLED)</string>
 </dict>
 </plist>
