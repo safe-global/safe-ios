@@ -109,11 +109,19 @@ class RejectionConfirmationViewController: UIViewController {
             rejectWithWalletConnect(rejectionTransaction, keyInfo: keyInfo)
 
         case .ledgerNanoX:
-            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "reject"],
-                                                      title: "Reject Transaction",
-                                                      showsCloseButton: true)
-            vc.delegate = self
-            present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+            let request = SignRequest(title: "Reject Transaction",
+                                      tracking: ["action" : "reject"],
+                                      signer: keyInfo,
+                                      hexToSign: rejectionTransaction.safeTxHash.description)
+            let vc = LedgerSignerViewController(request: request)
+            present(vc, animated: true, completion: nil)
+
+            vc.completion = { [weak self] signature in
+                self?.rejectAndCloseController(signature: signature)
+            }
+            vc.onClose = { [weak self] in
+                self?.endLoading()
+            }
         }
     }
 
@@ -205,42 +213,5 @@ class RejectionConfirmationViewController: UIViewController {
                     self?.endLoading()
                 }
             })
-    }
-}
-
-extension RejectionConfirmationViewController: SelectLedgerDeviceDelegate {
-    func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
-                                          didSelectDevice deviceId: UUID,
-                                          bluetoothController: BaseBluetoothController) {
-        guard let safeTxHash = rejectionTransaction.safeTxHash?.description,
-              let keyInfo = keyInfo, keyInfo.keyType == .ledgerNanoX,
-              let metadata = keyInfo.metadata,
-              let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata) else { return }
-
-        let pendingConfirmationVC = LedgerPendingConfirmationViewController(ledgerHash: rejectionTransaction.hardwareWalletHash)
-        pendingConfirmationVC.headerText = "Reject Transaction"
-        pendingConfirmationVC.modalPresentationStyle = .popover
-        pendingConfirmationVC.onClose = { [weak self] in
-            self?.ledgerController = nil
-            self?.endLoading()
-        }
-
-        // present Ledger Pending Confirmation overlay
-        controller.present(pendingConfirmationVC, animated: true)
-        ledgerController = LedgerController(bluetoothController: bluetoothController)
-        ledgerController!.sign(messageHash: safeTxHash,
-                               deviceId: deviceId,
-                               path: ledgerKeyMetadata.path) { [weak self] signatureOrNil, errorMessageOrNil in
-            // dismiss Ledger Pending Confirmation overlay
-            controller.presentedViewController?.dismiss(animated: true, completion: nil)
-            guard let signature = signatureOrNil else {
-                App.shared.snackbar.show(message: errorMessageOrNil!)
-                controller.reloadData()
-                return
-            }
-            // dismiss Select Ledger Device screen and reject
-            self?.presentedViewController?.dismiss(animated: false, completion: nil)
-            self?.rejectAndCloseController(signature: signature)
-        }
     }
 }

@@ -274,19 +274,21 @@ class SimulatedBluetoothController: BaseBluetoothController {
                 assert(response[0] == 65)
                 assert(response[66] == 40)
 
-                completion(.success(Data(response)))
+                DispatchQueue.main.async {
+                    completion(.success(Data(response)))
+                }
             } else if command.starts(with: [0xe0, 0x08]) {
                 // sign command
 
                 let response = Data([UInt8](repeating: 3, count: 65))
 
-                DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2)) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     completion(.success(response))
                 }
 
             } else {
 
-                DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2)) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     completion(.failure("Failed to do the command"))
                 }
             }
