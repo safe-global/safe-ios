@@ -54,9 +54,9 @@ extension UITableView {
         return cell
     }
 
-    func addressDetailsCell(address: Address, showQRCode: Bool, indexPath: IndexPath, badgeName: String? = nil) -> UITableViewCell {
+    func addressDetailsCell(address: Address, showQRCode: Bool = false, indexPath: IndexPath, badgeName: String? = nil) -> UITableViewCell {
         let cell = dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, badgeName: badgeName, showQRCode: true)
+        cell.setAccount(address: address, badgeName: badgeName, showQRCode: showQRCode)
         return cell
     }
 

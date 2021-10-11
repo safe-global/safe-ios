@@ -307,9 +307,9 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case Section.PushNotificationConfiguration.enabled:
             return tableView.switchCell(for: indexPath, with: "Enabled", isOn: true)
         case Section.DelegateKey.address:
-            return tableView.addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
+            return tableView.addressDetailsCell(address: keyInfo.address, indexPath: indexPath)
         case Section.DelegateKey.helpLink:
-            return tableView.helpLinkCell(text: "What is a fallback handler and how does it relate to the Gnosis Safe",
+            return tableView.helpLinkCell(text: "What is a delegate key and how does it relate to the Gnosis Safe",
                                 url: App.configuration.help.delegateKeyURL,
                                 indexPath: indexPath)
         case Section.Advanced.remove:
