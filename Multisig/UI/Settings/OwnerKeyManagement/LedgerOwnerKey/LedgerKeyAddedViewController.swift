@@ -102,8 +102,7 @@ class AddDelegateKeyController {
                             return
                         }
 
-                        // modify to set delegate address
-                        keyInfo.delegateAddressString = delegatePrivateKey.address.checksummed
+                        keyInfo.delegateAddress = delegatePrivateKey.address
 
                         // store the delegate key in keychain
                         do {

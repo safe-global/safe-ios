@@ -26,6 +26,11 @@ extension KeyInfo {
         set { addressString = newValue.checksummed }
     }
 
+    var delegateAddress: Address? {
+        get { delegateAddressString.flatMap(Address.init) }
+        set { delegateAddressString = newValue?.checksummed }
+    }
+
     var keyType: KeyType {
         get { KeyType(rawValue: Int(type)) ?? .deviceImported }
         set { type = Int16(newValue.rawValue) }

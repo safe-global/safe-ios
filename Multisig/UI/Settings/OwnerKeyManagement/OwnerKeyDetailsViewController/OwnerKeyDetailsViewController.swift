@@ -25,6 +25,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
     private var sections = [SectionItems]()
+    private var addKeyController: AddDelegateKeyController!
 
     enum Section {
         case name(String)
@@ -121,9 +122,10 @@ class OwnerKeyDetailsViewController: UITableViewController {
         if [.walletConnect, .ledgerNanoX].contains(keyInfo.keyType) {
             sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
                              items: [Section.PushNotificationConfiguration.enabled]))
-            // only if enabled
-            sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
-                             items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
+            if keyInfo.delegateAddress != nil {
+                sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
+                                 items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
+            }
         }
 
         sections.append((section: .advanced, items: [Section.Advanced.remove]))
@@ -305,9 +307,9 @@ class OwnerKeyDetailsViewController: UITableViewController {
                                            with: "Connected",
                                            isOn: WalletConnectClientController.shared.isConnected(keyInfo: keyInfo))
         case Section.PushNotificationConfiguration.enabled:
-            return tableView.switchCell(for: indexPath, with: "Enabled", isOn: true)
+            return tableView.switchCell(for: indexPath, with: "Enabled", isOn: keyInfo.delegateAddress != nil)
         case Section.DelegateKey.address:
-            return tableView.addressDetailsCell(address: keyInfo.address, indexPath: indexPath)
+            return tableView.addressDetailsCell(address: keyInfo.delegateAddress ?? Address.zero, indexPath: indexPath)
         case Section.DelegateKey.helpLink:
             return tableView.helpLinkCell(text: "What is a delegate key and how does it relate to the Gnosis Safe",
                                 url: App.configuration.help.delegateKeyURL,
@@ -349,6 +351,17 @@ class OwnerKeyDetailsViewController: UITableViewController {
                 }
             }
         case Section.PushNotificationConfiguration.enabled:
+            if keyInfo.delegateAddress == nil {
+                addKeyController = AddDelegateKeyController(ownerAddress: keyInfo.address) {
+                    self.dismiss(animated: true, completion: nil)
+                }
+                addKeyController.presenter = self
+                addKeyController.start()
+            } else {
+                keyInfo.delegateAddress = nil
+                // TODO: Update backend
+                NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
+            }
             return
         default:
             break
