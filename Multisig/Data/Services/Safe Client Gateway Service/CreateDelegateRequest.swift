@@ -8,19 +8,18 @@
 
 import Foundation
 
-#warning("TODO: unconfirmed implementation.")
 struct CreateDelegateRequest: JSONRequest {
     var httpMethod: String { "POST" }
-    var urlPath: String { "/safes/delegates/" }
+    var urlPath: String { "/delegates/" }
 
     typealias ResponseType = EmptyResponse
 
     struct EmptyResponse: Decodable { }
 
     var safe: String?
-    var address: String
     var delegate: String
-    // signature of hash: keccak(address + str(int(current_epoch // 3600)))
+    var delegator: String
+    // delegator's signature of hash: keccak(delegate + str(int(current_epoch // 3600)))
     var signature: String
     var label: String
 }
@@ -37,8 +36,8 @@ extension SafeClientGatewayService {
         completion: @escaping (Result<CreateDelegateRequest.ResponseType, Error>
     ) -> Void) -> URLSessionTask? {
         asyncExecute(request: CreateDelegateRequest(safe: safe?.checksummed,
-                                                    address: owner.checksummed,
                                                     delegate: delegate.checksummed,
+                                                    delegator: owner.checksummed,
                                                     signature: signature.toHexStringWithPrefix(),
                                                     label: label),
                      completion: completion)
