@@ -108,6 +108,9 @@ fileprivate class LedgerKeyPickerViewModel {
     var keys = [KeyAddressInfo]()
     let maxItemCount = 100
     let pageSize = 10
+    let getAddressTimeLimitInSec = 20
+    var getAddressTimeLimitReached = false
+
     private(set) var isLoading = true {
         didSet {
             delegate?.didChangeLoadingState()
@@ -141,6 +144,7 @@ fileprivate class LedgerKeyPickerViewModel {
 
     func generateNextPage(completion: @escaping (Error?) -> Void) {
         isLoading = true
+        getAddressTimeLimitReached = false
 
         // We use serial queue because when switching Ledger / Ledger Live tabs, they should not try to send
         // commands to the Ledger Nano X device while processing other tab commands.
@@ -160,13 +164,23 @@ fileprivate class LedgerKeyPickerViewModel {
                     semaphore.signal()
                     guard let address = addressOrNil, self != nil else {
                         self?.isLoading = false
-                        completion("Address Not Found")
+                        completion("Please unlock your Ledger device and open Ethereum App on it.")
                         shouldReturn = true
                         return
                     }
                     addresses.append(address)
                 }
-                semaphore.wait()
+                guard semaphore.wait(timeout: .now().advanced(by: .seconds(self.getAddressTimeLimitInSec))) == .success else {
+                    self.isLoading = false
+                    self.getAddressTimeLimitReached = true
+                    completion("""
+Please unlock your Ledger device and open Ethereum App on it.
+If it does not help, there is probably an issue with Bluetooth device pairing. Please remove pairing in your phone settings and try to pair with opened Ethereum App on your device.
+"""
+                    )
+                    return
+                }
+
                 if shouldReturn {
                     return
                 }
@@ -210,14 +224,16 @@ fileprivate class LedgerKeyPickerViewModel {
 
 fileprivate class LedgerKeyPickerContentViewController: UITableViewController, LedgerKeyPickerViewModelDelegate {
     private var model: LedgerKeyPickerViewModel!
-    private var fetchTimer: Timer?
-    private let fetchTimeLimit: TimeInterval = 30
 
     let estimatedRowHeight: CGFloat = 58
     var importButton: UIBarButtonItem!
 
     var shouldShowLoadMoreButton: Bool {
         model.canLoadMoreAddresses && !model.isLoading
+    }
+
+    var shouldShowOpenBluetoothSettingsButton: Bool {
+        model.getAddressTimeLimitReached
     }
 
     var selectedKey: KeyAddressInfo? {
@@ -262,14 +278,8 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
     }
 
     private func generateNextPage() {
-        fetchTimer = Timer.scheduledTimer(withTimeInterval: fetchTimeLimit, repeats: false) { [weak self] _ in
-            self?.model.stopLoading()
-            let alert = UIAlertController.ledgerAlert()
-            self?.present(alert, animated: true, completion: nil)
-        }
         model.generateNextPage { [weak self] errorOrNil in
             guard let self = self else { return }
-            self.fetchTimer?.invalidate()
             DispatchQueue.main.async {
                 // If a Bluetooth device was disconnected while generating the next page with addresses,
                 // we pop to select the ledger device screen.
@@ -278,8 +288,7 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
                     return
                 }
                 if errorOrNil != nil {
-                    let alert = UIAlertController.ledgerAlert()
-                    self.present(alert, animated: true, completion: nil)
+                    App.shared.snackbar.show(message: errorOrNil!.localizedDescription)
                 }
                 self.tableView.reloadData()
             }
@@ -289,18 +298,27 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        shouldShowLoadMoreButton ? model.keys.count + 1 : model.keys.count
+        var count = model.keys.count
+        if shouldShowLoadMoreButton {
+            count += 1
+        }
+        if shouldShowOpenBluetoothSettingsButton {
+            count += 1
+        }
+        return count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == model.keys.count && shouldShowLoadMoreButton {
-            let cell = tableView.dequeueCell(ButtonTableViewCell.self)
-            let text = model.keys.count == 0 ? "Retry" : "Load more"
-            cell.height = estimatedRowHeight
-            cell.setText(text) { [weak self] in
-                self?.generateNextPage()
+        if indexPath.row == model.keys.count {
+            if shouldShowLoadMoreButton {
+                return loadMoreCell()
+            } else {
+                return opneBluetoothSettingsCell()
             }
-            return cell
+        }
+
+        if indexPath.row == model.keys.count + 1 {
+            return opneBluetoothSettingsCell()
         }
 
         let key = model.keys[indexPath.row]
@@ -310,6 +328,26 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
         cell.setSelected(isSelected(indexPath))
         cell.setEnabled(!key.exists)
 
+        return cell
+    }
+
+    private func loadMoreCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(ButtonTableViewCell.self)
+        let text = model.keys.count == 0 ? "Retry" : "Load more"
+        cell.height = estimatedRowHeight
+        cell.setText(text) { [weak self] in
+            self?.generateNextPage()
+        }
+        return cell
+    }
+
+    private func opneBluetoothSettingsCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(ButtonTableViewCell.self)
+        let text = "Open Bluetooth settings"
+        cell.height = estimatedRowHeight
+        cell.setText(text) {
+            UIApplication.shared.open(URL(string: "App-Prefs:root=Bluetooth")!)
+        }
         return cell
     }
 
