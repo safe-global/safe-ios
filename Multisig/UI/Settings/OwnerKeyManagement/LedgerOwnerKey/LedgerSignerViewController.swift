@@ -59,17 +59,21 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
 
         confirmVC.onClose = controller.onClose
 
-        confirmVC.onSign = { [weak self, unowned controller] signature in
+        confirmVC.onSign = { [weak self, unowned controller] signature, errorMessage in
             guard let self = self else { return }
 
             // dismiss Ledger Pending Confirmation overlay
             self.dismiss(animated: true, completion: nil)
 
             guard let signature = signature else {
-                // not signed due to some device response.
-                // we keep the SelectDeviceVC open because we may need to re-select because of
-                // failed ledger connection
-                App.shared.snackbar.show(message: "The operation was canceled on the Ledger device.")
+                // Possible reasons:
+                //  - bluetooth pairing failure
+                //  - ethereum app on the ledger device is not open
+                //  - cancelled on ledger device
+                // In these situations it is more convenient to keep the bluetooth discover open
+                // so we just show the error and reload data
+                let message = errorMessage ?? "The operation was canceled on the Ledger device."
+                App.shared.snackbar.show(message: message)
 
                 // reload the devices in case we lost connection
                 controller.reloadData()

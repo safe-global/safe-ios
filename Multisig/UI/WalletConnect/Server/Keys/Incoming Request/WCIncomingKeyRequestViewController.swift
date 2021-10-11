@@ -84,11 +84,22 @@ class WCIncomingKeyRequestViewController: UIViewController {
             preconditionFailure("Developer error")
 
         case .ledgerNanoX:
-            let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "wc_key_incoming_sign"],
-                                                      title: "Sign Transaction",
-                                                      showsCloseButton: true)
-            vc.delegate = self
-            present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+            let request = SignRequest(title: "Sign Transaction",
+                                      tracking: ["action" : "wc_key_incoming_sign"],
+                                      signer: keyInfo,
+                                      hexToSign: hash.description)
+            let vc = LedgerSignerViewController(request: request)
+
+            present(vc, animated: true, completion: nil)
+
+            vc.completion = { [weak self] signature in
+                // subtracting 4 from the v component of the signature in order to convert it to the
+                // gnosis safe signature format
+                var sig = BigInt(signature, radix: 16)!
+                sig -= 4
+                self?.onSign?(String(sig, radix: 16))
+                App.shared.snackbar.show(message: "Signed successfully")
+            }
         }
     }
 
@@ -115,45 +126,5 @@ class WCIncomingKeyRequestViewController: UIViewController {
 
         rejectButton.setText("Reject", .filledError)
         confirmButton.setText("Confirm", .filled)
-    }
-}
-
-extension WCIncomingKeyRequestViewController: SelectLedgerDeviceDelegate {
-    func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
-                                          didSelectDevice deviceId: UUID,
-                                          bluetoothController: BaseBluetoothController) {
-        guard let keyInfo = keyInfo, keyInfo.keyType == .ledgerNanoX,
-              let metadata = keyInfo.metadata,
-              let ledgerKeyMetadata = KeyInfo.LedgerKeyMetadata.from(data: metadata),
-              let hash = try? HashString(hex: message) else { return }
-
-        let pendingConfirmationVC = LedgerPendingConfirmationViewController(
-            ledgerHash: hash.hash.sha256().toHexString().uppercased())
-        pendingConfirmationVC.modalPresentationStyle = .popover
-        pendingConfirmationVC.onClose = { [weak self] in
-            self?.ledgerController = nil
-        }
-
-        // dismiss Select Ledger Device screen and presend Ledger Pending Confirmation overlay
-        controller.dismiss(animated: true)
-        present(pendingConfirmationVC, animated: false)
-        ledgerController = LedgerController(bluetoothController: bluetoothController)
-        ledgerController!.sign(messageHash: message,
-                               deviceId: deviceId,
-                               path: ledgerKeyMetadata.path) { [weak self] signatureOrNil, errorMessageOrNil in
-            // dismiss Ledger Pending Confirmation overlay
-            self?.presentedViewController?.dismiss(animated: true, completion: nil)
-            guard let signature = signatureOrNil else {
-                App.shared.snackbar.show(message: errorMessageOrNil!)
-                return
-            }
-
-            // substract 4 from the v part of signature
-            var sig = BigInt(signature, radix: 16)!
-            sig -= 4
-            self?.onSign?(String(sig, radix: 16))
-            self?.dismiss(animated: true, completion: nil)
-            App.shared.snackbar.show(message: "Signed successfully")
-        }
     }
 }

@@ -16,7 +16,7 @@ class LedgerPendingConfirmationViewController: UIViewController {
     @IBOutlet private weak var cancelButton: UIButton!
 
     var onClose: (() -> Void)?
-    var onSign: ((String?) -> Void)?
+    var onSign: ((String?, String?) -> Void)?
 
     private var headerText = "Confirm Transaction"
     private var ledgerHash: String!
@@ -65,10 +65,10 @@ class LedgerPendingConfirmationViewController: UIViewController {
     }
 
     private func sign() {
-        ledgerController!.sign(safeTxHash: hexToSign,
+        ledgerController!.sign(messageHash: hexToSign,
                                deviceId: deviceId,
-                               path: derivationPath) { [weak self] signature in
-            self?.onSign?(signature)
+                               path: derivationPath) { [weak self] signature, error in
+            self?.onSign?(signature, error)
         }
     }
 
