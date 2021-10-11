@@ -136,14 +136,14 @@ class RejectionConfirmationViewController: UIViewController {
         present(pendingConfirmationVC, animated: false)
 
         WalletConnectClientController.shared.sign(transaction: transaction) {
-            [weak self] weakSignature in
+            [weak self] signatureOrNil in
 
             DispatchQueue.main.async {
                 // dismiss pending confirmation view controller overlay
                 pendingConfirmationVC.dismiss(animated: true, completion: nil)
             }
 
-            guard let signature = weakSignature else {
+            guard let signature = signatureOrNil else {
                 DispatchQueue.main.async {
                     self?.endLoading()
                     App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
@@ -151,15 +151,17 @@ class RejectionConfirmationViewController: UIViewController {
                 return
             }
 
-            self?.rejectAndCloseController(signature: signature)
+            DispatchQueue.main.async {
+                self?.rejectAndCloseController(signature: signature)
+            }
         }
 
         WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
     }
 
     private func startLoading() {
-        loadingView.isHidden = false
-        contentContainerView.isHidden = true
+        self.loadingView.isHidden = false
+        self.contentContainerView.isHidden = true
     }
 
     private func endLoading() {

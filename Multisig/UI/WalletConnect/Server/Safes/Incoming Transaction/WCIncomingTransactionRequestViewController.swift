@@ -1,5 +1,5 @@
 //
-//  WCTransactionConfirmationViewController.swift
+//  WCIncomingTransactionRequestViewController.swift
 //  Multisig
 //
 //  Created by Andrey Scherbovich on 02.02.21.
@@ -13,7 +13,7 @@ import SwiftCryptoTokenFormatter
 
 fileprivate protocol SectionItem {}
 
-class WCTransactionConfirmationViewController: UIViewController {
+class WCIncomingTransactionRequestViewController: UIViewController {
     @IBOutlet private weak var dappImageView: UIImageView!
     @IBOutlet private weak var dappNameLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
@@ -123,14 +123,14 @@ class WCTransactionConfirmationViewController: UIViewController {
         present(pendingConfirmationVC, animated: false)
 
         WalletConnectClientController.shared.sign(transaction: transaction) {
-            [weak self] weakSignature in
+            [weak self] signatureOrNil in
 
             DispatchQueue.main.async {
                 // dismiss pending confirmation view controller overlay
                 pendingConfirmationVC.dismiss(animated: true, completion: nil)
             }
 
-            guard let signature = weakSignature else {
+            guard let signature = signatureOrNil else {
                 DispatchQueue.main.async {
                     App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
                 }
@@ -197,7 +197,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Transaction Details"
+        navigationItem.leftBarButtonItem = nil
 
         if !session.dAppInfo.peerMeta.icons.isEmpty {
             let imageUrl = session.dAppInfo.peerMeta.icons[0]
@@ -280,7 +280,8 @@ class WCTransactionConfirmationViewController: UIViewController {
         cell.setAccount(
             address: transaction.safe!.address,
             label: Safe.cachedName(by: transaction.safe!, chainId: safe.chain!.id!),
-            title: "Connected safe"
+            title: "Connected safe",
+            showExternalLink: false
         )
         cell.selectionStyle = .none
         return cell
@@ -290,7 +291,6 @@ class WCTransactionConfirmationViewController: UIViewController {
         let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
 
         let coin = safe.chain!.nativeCurrency!
-        let namingPolicy = DefaultAddressNamingPolicy()
         let decimalAmount = BigDecimal(
             Int256(transaction.value.value) * -1,
             Int(coin.decimals)
@@ -302,12 +302,18 @@ class WCTransactionConfirmationViewController: UIViewController {
         )
         let tokenText = "\(amount) \(coin.symbol!)"
         let tokenDetail = amount == "0" ? "\(transaction.data?.data.count ?? 0) Bytes" : nil
+        let (addressName, _) = displayNameAndImageUri(address: AddressString(transaction.to.address),
+                                                      addressInfoIndex: nil,
+                                                      chainId: safe.chain!.id!)
 
         cell.setToken(text: tokenText, style: .secondary)
         cell.setToken(image: coin.logoUrl)
         cell.setDetail(tokenDetail)
-        cell.setAddress(transaction.to.address, label: namingPolicy.name(for: transaction.to.address, info: nil),
-                        imageUri: nil)
+
+        cell.setAddress(transaction.to.address,
+                        label: addressName,
+                        imageUri: nil,
+                        showExternalLink: false)
         cell.setOutgoing(true)
         cell.selectionStyle = .none
 
@@ -370,7 +376,7 @@ class WCTransactionConfirmationViewController: UIViewController {
     }
 }
 
-extension WCTransactionConfirmationViewController: UITableViewDataSource {
+extension WCIncomingTransactionRequestViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
@@ -394,7 +400,7 @@ extension WCTransactionConfirmationViewController: UITableViewDataSource {
     }
 }
 
-extension WCTransactionConfirmationViewController: UITableViewDelegate {
+extension WCIncomingTransactionRequestViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section].items[indexPath.row] {
 

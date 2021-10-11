@@ -113,7 +113,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        try? WalletConnectServerController.shared.connect(url: wcURL)
+        try? WalletConnectSafesServerController.shared.connect(url: wcURL)
         Tracker.trackEvent(.dappConnectedWithUniversalLink)
     }
 

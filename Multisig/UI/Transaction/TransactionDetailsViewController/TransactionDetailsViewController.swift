@@ -320,14 +320,14 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         present(pendingConfirmationVC, animated: false)
 
         WalletConnectClientController.shared.sign(transaction: transaction) {
-            [weak self] weakSignature in
+            [weak self] signatureOrNil in
 
             DispatchQueue.main.async {
                 // dismiss pending confirmation view controller overlay
                 pendingConfirmationVC.dismiss(animated: true, completion: nil)
             }
 
-            guard let signature = weakSignature else {
+            guard let signature = signatureOrNil else {
                 DispatchQueue.main.async {
                     self?.reloadData()
                     App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())

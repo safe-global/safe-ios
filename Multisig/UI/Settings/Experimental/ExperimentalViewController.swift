@@ -28,16 +28,31 @@ class ExperimentalViewController: UITableViewController {
 //        }
 //    }
 
+    #warning("TODO: track or delete")
+    @UserDefault(key: "io.gnosis.multisig.experimental.desktopPairing")
+    var desktopPairingEnabled: Bool? {
+        didSet {
+            tableView.reloadData()
+            NotificationCenter.default.post(name: .updatedExperemental, object: nil)
+        }
+    }
+
     enum Row: Int, CaseIterable {
         case walletConnect
         case walletConnectDescription
 //        case walletConnectOwnerKey
 //        case walletConnectOwnerKeyDescription
+        case desktopPairing
+        case desktopPairingDescription
     }
 
-    private var rows: [Row] = [
-        .walletConnect, .walletConnectDescription//, .walletConnectOwnerKey, .walletConnectOwnerKeyDescription
-    ]
+    private lazy var rows: [Row] = {
+        var rows: [Row] = [.walletConnect, .walletConnectDescription]
+        if App.configuration.toggles.desktopPairingExperimentalEnabled {
+            rows += [.desktopPairing, .desktopPairingDescription]
+        }
+        return rows
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +74,10 @@ class ExperimentalViewController: UITableViewController {
 //        if walletConnectOwnerKeyEnabled == nil {
 //            walletConnectOwnerKeyEnabled = false
 //        }
+
+        if desktopPairingEnabled == nil {
+            desktopPairingEnabled = false
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -82,7 +101,7 @@ class ExperimentalViewController: UITableViewController {
 
         case .walletConnectDescription:
             return descriptionCell(
-                "This adds a tab to connect your Safe to dapps via WalletConnect.",
+                "It adds a tab to connect your Safe to dapps via WalletConnect.",
                 indexPath: indexPath
             )
 
@@ -97,6 +116,18 @@ class ExperimentalViewController: UITableViewController {
 //                "This allows to use other wallets as owners in your Safe app via WalletConnect to sign and execute transactions on mobile.",
 //                indexPath: indexPath
 //            )
+
+        case .desktopPairing:
+            let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
+            cell.setText("Enable Desktop Pairing")
+            cell.setOn(desktopPairingEnabled!, animated: false)
+            return cell
+
+        case .desktopPairingDescription:
+            return descriptionCell(
+                "It allows connecting your owner keys to the desktop app.",
+                indexPath: indexPath
+            )
         }
     }
 
@@ -121,6 +152,9 @@ class ExperimentalViewController: UITableViewController {
 
 //        case .walletConnectOwnerKey:
 //            walletConnectOwnerKeyEnabled!.toggle()
+
+        case .desktopPairing:
+            desktopPairingEnabled!.toggle()
 
         default:
             break

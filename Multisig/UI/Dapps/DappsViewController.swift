@@ -19,6 +19,8 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     private var sections = [SectionItems]()
 
+    private var showedNotificationsSessionTopics = [String]()
+
     enum Section {
         case walletConnect(String)
         case dapp(String)
@@ -109,13 +111,27 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     private func subscribeToNotifications() {
-        [NSNotification.Name.wcConnectingServer,
-         .wcDidConnectServer,
-         .wcDidDisconnectServer,
-         .wcDidFailToConnectServer,
+        [NSNotification.Name.wcConnectingSafeServer,
+         .wcDidConnectSafeServer,
+         .wcDidDisconnectSafeServer,
+         .wcDidFailToConnectSafeServer,
          .selectedSafeChanged].forEach {
             NotificationCenter.default.addObserver(self, selector: #selector(update), name: $0, object: nil)
          }
+
+        NotificationCenter.default.addObserver(forName: .wcDidConnectSafeServer, object: nil, queue: nil) {
+            [weak self] notification in
+
+            guard let self = self, let topic = notification.userInfo?["topic"] as? String else { return }
+
+            // skip snackbar notification for reconnect cases
+            if !self.showedNotificationsSessionTopics.contains(topic) {
+                self.showedNotificationsSessionTopics.append(topic)
+                DispatchQueue.main.async {
+                    App.shared.snackbar.show(message: "WalletConnect session created! Please return back to the browser.")
+                }
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -182,7 +198,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         let item = sections[indexPath.section].items[indexPath.row]
 
         if case Section.WalletConnect.activeSession(let session) = item {
-            WalletConnectServerController.shared.disconnect(topic: session.topic!)
+            WalletConnectSafesServerController.shared.disconnect(topic: session.topic!)
         }
     }
 
@@ -243,7 +259,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         do {
-            try WalletConnectServerController.shared.connect(url: code)
+            try WalletConnectSafesServerController.shared.connect(url: code)
             Tracker.trackEvent(.dappConnectedWithScanButton)
             dismiss(animated: true, completion: nil)
         } catch {

@@ -18,10 +18,15 @@ class SafeTransactionSigner {
             throw GSError.TransactionSigningError()
         }
 
+        let hashString = HashString(transaction.safeTxHash.hash)
+        return try sign(hash: hashString, keyInfo: keyInfo)
+    }
+
+    func sign(hash: HashString, keyInfo: KeyInfo) throws -> Signature {
         guard let key = try keyInfo.privateKey() else {
             throw GSError.MissingPrivateKeyError()
         }
 
-        return try key.sign(hash: transaction.safeTxHash.hash)
+        return try key.sign(hash: hash.hash)
     }
 }

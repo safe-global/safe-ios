@@ -30,10 +30,15 @@ extension NSNotification.Name {
 
     // MARK: - WalletConnect
 
-    static let wcConnectingServer = NSNotification.Name("io.gnosis.safe.wcConnectingServer")
-    static let wcDidFailToConnectServer = NSNotification.Name("io.gnosis.safe.wcDidFailToConnectServer")
-    static let wcDidConnectServer = NSNotification.Name("io.gnosis.safe.wcDidConnectServer")
-    static let wcDidDisconnectServer = NSNotification.Name("io.gnosis.safe.wcDidDisconnectServer")
+    static let wcConnectingSafeServer = NSNotification.Name("io.gnosis.safe.wcConnectingSafeServer")
+    static let wcDidFailToConnectSafeServer = NSNotification.Name("io.gnosis.safe.wcDidFailToConnectSafeServer")
+    static let wcDidConnectSafeServer = NSNotification.Name("io.gnosis.safe.wcDidConnectSafeServer")
+    static let wcDidDisconnectSafeServer = NSNotification.Name("io.gnosis.safe.wcDidDisconnectSafeServer")
+
+    static let wcConnectingKeyServer = NSNotification.Name("io.gnosis.safe.wcConnectingKeyServer")
+    static let wcDidFailToConnectKeyServer = NSNotification.Name("io.gnosis.safe.wcDidFailToConnectKeyServer")
+    static let wcDidConnectKeyServer = NSNotification.Name("io.gnosis.safe.wcDidConnectKeyServer")
+    static let wcDidDisconnectKeyServer = NSNotification.Name("io.gnosis.safe.wcDidDisconnectKeyServer")
 
     static let wcDidFailToConnectClient = NSNotification.Name("io.gnosis.safe.wcDidFailToConnectClient")
     static let wcDidConnectClient = NSNotification.Name("io.gnosis.safe.wcDidConnectClient")

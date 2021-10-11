@@ -23,9 +23,14 @@ class AppSettingsViewController: UITableViewController {
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
     enum Section {
+        case web
         case app
         case general
         case advanced
+
+        enum Web: SectionItem {
+            case desktopPairing(String)
+        }
 
         enum App: SectionItem {
             case ownerKeys(String, String)
@@ -72,7 +77,11 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func buildSections() {
-        sections = [
+        sections = []
+        if App.configuration.toggles.desktopPairingEnabled {
+            sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing 🖥")]))
+        }
+        sections += [
             (section: .app, items: [
                 Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
                 Section.App.passcode("Passcode"),
@@ -116,6 +125,11 @@ class AppSettingsViewController: UITableViewController {
         }
     }
 
+    private func showDesktopPairing() {
+        let vc = DesktopPairingViewController()
+        show(vc, sender: self)
+    }
+
     private func showOwnerKeys() {
         let vc = OwnerKeysListViewController()
         show(vc, sender: self)
@@ -139,6 +153,9 @@ class AppSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
+        case Section.Web.desktopPairing(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
+
         case Section.App.ownerKeys(let name, let count):
             return tableView.basicCell(name: name, detail: count, indexPath: indexPath)
 
@@ -186,6 +203,9 @@ class AppSettingsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
+        case Section.Web.desktopPairing:
+            showDesktopPairing()
+
         case Section.App.ownerKeys:
             showOwnerKeys()
 
@@ -251,7 +271,7 @@ class AppSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section].section
         switch section {
-        case .general, .advanced:
+        case .app, .general, .advanced:
             return sectionHeaderHeight
         default:
             return 0
