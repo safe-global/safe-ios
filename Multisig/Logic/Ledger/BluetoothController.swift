@@ -151,8 +151,6 @@ extension BluetoothController: CBCentralManagerDelegate {
             devices.append(device)
             delegate?.bluetoothControllerDidDiscover(device: device)
         }
-
-        centralManager.stopScan()
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
