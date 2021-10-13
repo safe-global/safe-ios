@@ -9,6 +9,7 @@
 import UIKit
 
 class KeyTypeTableViewCell: UITableViewCell {
+    @IBOutlet private weak var imageContainerView: UIView!
     @IBOutlet private weak var iconImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
 
@@ -19,8 +20,8 @@ class KeyTypeTableViewCell: UITableViewCell {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        iconImageView.layer.cornerRadius = iconImageView.frame.height / 2
-        iconImageView.clipsToBounds = true
+        imageContainerView.layer.cornerRadius = imageContainerView.frame.height / 2
+        imageContainerView.clipsToBounds = true
     }
 
     func set(name: String, iconName: String) {
