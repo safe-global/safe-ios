@@ -57,7 +57,10 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
 
         present(confirmVC, animated: true)
 
-        confirmVC.onClose = controller.onClose
+        confirmVC.onClose = {
+            controller.reloadData()
+            controller.onClose?()
+        }
 
         confirmVC.onSign = { [weak self, unowned controller] signature, errorMessage in
             guard let self = self else { return }
