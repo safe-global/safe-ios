@@ -57,7 +57,7 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
 
         present(confirmVC, animated: true)
 
-        confirmVC.onClose = {
+        confirmVC.onClose = { [unowned controller] in
             controller.reloadData()
             controller.onClose?()
         }
