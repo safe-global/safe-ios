@@ -592,17 +592,10 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
             return []
         }
 
-        // any WalletConnect key can execute a transaction
-        // but it should be connected to the same Network as selected Safe
+        // but any WalletConnect key can execute a transaction
         let keys = (try? KeyInfo.all()) ?? []
         let selectedSafeChainId = try! Safe.getSelected()!.chain!.id
-        return keys.filter {
-            guard $0.keyType == .walletConnect,
-                  let metadata = $0.metadata,
-                  let keyMetadata = KeyInfo.WalletConnectKeyMetadata.from(data: metadata),
-                  String(keyMetadata.walletInfo.chainId) == selectedSafeChainId else { return false }
-            return true
-        }
+        return keys.filter { $0.keyType == .walletConnect }
     }
 
     func rejectorKeys() -> [KeyInfo] {
