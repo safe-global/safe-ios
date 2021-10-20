@@ -34,6 +34,7 @@ class AppSettingsViewController: UITableViewController {
 
         enum App: SectionItem {
             case ownerKeys(String, String)
+            case addressBook(String)
             case passcode(String)
             case appearance(String)
             case fiat(String, String)
@@ -81,14 +82,17 @@ class AppSettingsViewController: UITableViewController {
         if App.configuration.toggles.desktopPairingEnabled {
             sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing 🖥")]))
         }
+
+        var appSection = [Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())")]
+        if AddressBookEntity.count > 0 {
+            appSection.append(Section.App.addressBook("Address Book"))
+        }
+        appSection += [Section.App.passcode("Passcode"),
+                       Section.App.appearance("Appearance"),
+                       Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
+                       Section.App.experimental("Experimental 🧪")]
         sections += [
-            (section: .app, items: [
-                Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
-                Section.App.passcode("Passcode"),
-                Section.App.appearance("Appearance"),
-                Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
-                Section.App.experimental("Experimental 🧪")
-            ]),
+            (section: .app, items: appSection),
             (section: .general, items: [
                 Section.General.terms("Terms of use"),
                 Section.General.privacyPolicy("Privacy policy"),
@@ -159,6 +163,9 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.ownerKeys(let name, let count):
             return tableView.basicCell(name: name, detail: count, indexPath: indexPath)
 
+        case Section.App.addressBook(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
+            
         case Section.App.passcode(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
 
