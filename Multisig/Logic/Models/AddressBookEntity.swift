@@ -12,7 +12,7 @@ import CoreData
 // "address:chainId" -> name
 fileprivate var cachedNames = [String: String]()
 
-extension AddressBookEntity: Identifiable {
+extension AddressBookEntity {
     var displayAddress: String { address! }
     var addressValue: Address { Address(address!)! }
 
@@ -26,10 +26,17 @@ extension AddressBookEntity: Identifiable {
         return (try? context.fetch(AddressBookEntity.fetchRequest().all())) ?? []
     }
 
-    static func by(address: String, chainId: String) -> AddressBookEntity? {
+    static func by(address: String, chainId: String) -> [AddressBookEntity]? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let fr = AddressBookEntity.fetchRequest().by(address: address, chainId: chainId)
+        return try? context.fetch(fr)
+    }
+
+    static func by(chainId: String) -> AddressBookEntity? {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let context = App.shared.coreDataStack.viewContext
+        let fr = AddressBookEntity.fetchRequest().by(chainId: chainId)
         return try? context.fetch(fr).first
     }
 
@@ -57,8 +64,8 @@ extension AddressBookEntity: Identifiable {
         do {
             let context = App.shared.coreDataStack.viewContext
             let fr = AddressBookEntity.fetchRequest().all()
-            let safes = try context.fetch(fr)
-            return safes
+            let entities = try context.fetch(fr)
+            return entities
         } catch {
             throw GSError.DatabaseError(reason: error.localizedDescription)
         }
@@ -107,8 +114,11 @@ extension AddressBookEntity: Identifiable {
     }
 
     static func removeAll() throws {
-        Chain.removeAll()
-        NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
+        for entity in all {
+            remove(entity: entity)
+        }
+
+        NotificationCenter.default.post(name: .addressbookChanged, object: nil)
     }
 }
 
@@ -128,6 +138,12 @@ extension NSFetchRequest where ResultType == AddressBookEntity {
         sortDescriptors = []
         predicate = NSPredicate(format: "address == %@ AND chain.id == %@", address, chainId)
         fetchLimit = 1
+        return self
+    }
+
+    func by(chainId: String) -> Self {
+        sortDescriptors = []
+        predicate = NSPredicate(format: "chain.id == %@", chainId)
         return self
     }
 }
