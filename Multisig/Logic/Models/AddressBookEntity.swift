@@ -26,18 +26,18 @@ extension AddressBookEntity {
         return (try? context.fetch(AddressBookEntity.fetchRequest().all())) ?? []
     }
 
-    static func by(address: String, chainId: String) -> [AddressBookEntity]? {
+    static func by(address: String, chainId: String) -> AddressBookEntity? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let fr = AddressBookEntity.fetchRequest().by(address: address, chainId: chainId)
-        return try? context.fetch(fr)
+        return try? context.fetch(fr).first
     }
 
-    static func by(chainId: String) -> AddressBookEntity? {
+    static func by(chainId: String) -> [AddressBookEntity]? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let fr = AddressBookEntity.fetchRequest().by(chainId: chainId)
-        return try? context.fetch(fr).first
+        return try? context.fetch(fr)
     }
 
     static func updateCachedNames() {
