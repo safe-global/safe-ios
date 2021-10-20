@@ -9,7 +9,7 @@
 import UIKit
 
 class AddressBookListTableViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
-    var chainID: String?
+    var chainID: String!
     var entities: [AddressBookEntity] = []
 
     private var addButton: UIBarButtonItem!
@@ -23,6 +23,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        assert(chainID != nil, "Developer error: expect to have a chainID")
 
         title = "Address Book"
 
@@ -37,7 +38,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         tableView.estimatedRowHeight = 48
 
         emptyView.setText("There are no address book entities")
-        emptyView.setImage(UIImage(named: "ico-no-keys")!)
+        emptyView.setImage(UIImage(named: "ico-no-address-book")!)
 
         addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton(_:)))
         navigationItem.rightBarButtonItem = addButton
@@ -63,6 +64,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
     }
     
     @objc override func reloadData() {
+        entities = AddressBookEntity.by(chainId: chainID) ?? []
         tableView.reloadData()
     }
 
