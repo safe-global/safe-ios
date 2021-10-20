@@ -30,6 +30,7 @@
 		044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */; };
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
+		0455A42B271F73B7008B772D /* AddressBookEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42A271F73B7008B772D /* AddressBookEntity.swift */; };
 		04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */; };
 		0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */; };
 		0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C026296924009C04FA /* FirebaseRemoteConfig */; };
@@ -654,6 +655,7 @@
 		044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		0455A42A271F73B7008B772D /* AddressBookEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookEntity.swift; sourceTree = "<group>"; };
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
@@ -2365,6 +2367,7 @@
 				55B66E55247E494000249E98 /* AppSettings.swift */,
 				0AC5F5B225DD510600DEF0D7 /* AppUser.swift */,
 				048D72C026835CF90095999C /* Chain.swift */,
+				0455A42A271F73B7008B772D /* AddressBookEntity.swift */,
 				0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */,
 				554A16B2266E4D4900807049 /* EIP712Transformer.swift */,
 				55B64657253050200050BD95 /* HashString.swift */,
@@ -3485,7 +3488,6 @@
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
 				550FB19E26691CA300C13D54 /* DappsViewController.swift in Sources */,
-				0AA59CC2270CAD05000CA7B1 /* SafeLoadedViewController.swift in Sources */,
 				0AB5DF8F270DD185005BFB43 /* CreateDelegateRequest.swift in Sources */,
 				55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */,
 				0A451C06252DDB93001DB7D2 /* NetworkContentView.swift in Sources */,
@@ -3555,6 +3557,7 @@
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,
 				0468FB8725912E6800541536 /* FlatTransactionsListViewModel.swift in Sources */,
 				043ABD0E24EF0C33008826D5 /* TransactionDetailsRequest.swift in Sources */,
+				0455A42B271F73B7008B772D /* AddressBookEntity.swift in Sources */,
 				048D72D7268DACAF0095999C /* NetworksListViewModel.swift in Sources */,
 				0ADD19C3265EA23200EB0F2B /* SeedPhraseViewController.swift in Sources */,
 				049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */,
