@@ -34,8 +34,6 @@
 		0455A42E27204181008B772D /* AddressBookListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42D27204181008B772D /* AddressBookListTableViewController.swift */; };
 		0455A43127204A5B008B772D /* CreateAddressBookEntityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42F27204A5B008B772D /* CreateAddressBookEntityViewController.swift */; };
 		0455A43227204A5B008B772D /* CreateAddressBookEntityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0455A43027204A5B008B772D /* CreateAddressBookEntityViewController.xib */; };
-		0455A43527204A6A008B772D /* EditAddressBookEntityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A43327204A6A008B772D /* EditAddressBookEntityViewController.swift */; };
-		0455A43627204A6A008B772D /* EditAddressBookEntityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0455A43427204A6A008B772D /* EditAddressBookEntityViewController.xib */; };
 		04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */; };
 		0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */; };
 		0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C026296924009C04FA /* FirebaseRemoteConfig */; };
@@ -664,8 +662,6 @@
 		0455A42D27204181008B772D /* AddressBookListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookListTableViewController.swift; sourceTree = "<group>"; };
 		0455A42F27204A5B008B772D /* CreateAddressBookEntityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAddressBookEntityViewController.swift; sourceTree = "<group>"; };
 		0455A43027204A5B008B772D /* CreateAddressBookEntityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateAddressBookEntityViewController.xib; sourceTree = "<group>"; };
-		0455A43327204A6A008B772D /* EditAddressBookEntityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAddressBookEntityViewController.swift; sourceTree = "<group>"; };
-		0455A43427204A6A008B772D /* EditAddressBookEntityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditAddressBookEntityViewController.xib; sourceTree = "<group>"; };
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
@@ -1350,8 +1346,6 @@
 				0455A42D27204181008B772D /* AddressBookListTableViewController.swift */,
 				0455A42F27204A5B008B772D /* CreateAddressBookEntityViewController.swift */,
 				0455A43027204A5B008B772D /* CreateAddressBookEntityViewController.xib */,
-				0455A43327204A6A008B772D /* EditAddressBookEntityViewController.swift */,
-				0455A43427204A6A008B772D /* EditAddressBookEntityViewController.xib */,
 			);
 			path = AddressBook;
 			sourceTree = "<group>";
@@ -3180,7 +3174,6 @@
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
 				0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */,
 				550FB1B526691D9500C13D54 /* DetailedCell.xib in Resources */,
-				0455A43627204A6A008B772D /* EditAddressBookEntityViewController.xib in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
 				0AE5A9CB267A4C2800468C90 /* BannerView.xib in Resources */,
 				550FB1A026691CA300C13D54 /* DappsViewController.xib in Resources */,
@@ -3342,7 +3335,6 @@
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				0A433E8125516A9A006FFF75 /* TotalBalanceTableViewCell.swift in Sources */,
 				049A9D3A25F81F2C00CA5723 /* EditOwnerKeyViewController.swift in Sources */,
-				0455A43527204A6A008B772D /* EditAddressBookEntityViewController.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				550FB1C526691E1500C13D54 /* WalletConnectQRCodeViewController.swift in Sources */,
 				0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */,

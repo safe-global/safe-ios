@@ -380,6 +380,25 @@ enum GSError {
         let loggable = false
     }
 
+    // MARK: Address Book
+    struct AddressBookEntityAlreadyExists: DetailedLocalizedError {
+        let description = "Can’t use this address"
+        let reason = "An entityu with this address has been added already."
+        let howToFix = "Please use another address"
+        let domain = clientErrorDomain
+        let code = 8001
+        let loggable = false
+    }
+
+    struct AddressBookEntityAddressNotValid: DetailedLocalizedError {
+        let description = "This address is not valid"
+        let reason = "This value is not a valid address."
+        let howToFix = "Please use the checksummed address"
+        let domain = clientErrorDomain
+        let code = 8002
+        let loggable = false
+    }
+
     // MARK: - iOS errors
 
     struct UnknownAppError: DetailedLocalizedError {

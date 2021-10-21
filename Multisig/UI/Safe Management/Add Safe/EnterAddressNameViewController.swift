@@ -45,6 +45,7 @@ class EnterAddressNameViewController: UIViewController {
         textField.setPlaceholder(placeholder)
         textField.textField.delegate = self
         textField.textField.becomeFirstResponder()
+        
         if let name = name {
             textField.textField.text = name
         }

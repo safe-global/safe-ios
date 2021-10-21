@@ -87,6 +87,7 @@ class AppSettingsViewController: UITableViewController {
         if AddressBookEntity.count > 0 {
             appSection.append(Section.App.addressBook("Address Book"))
         }
+        
         appSection += [Section.App.passcode("Passcode"),
                        Section.App.appearance("Appearance"),
                        Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),

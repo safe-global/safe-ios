@@ -9,7 +9,7 @@
 import UIKit
 
 class AddressBookListTableViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
-    var chainID: String!
+    var chainId: String!
     var entities: [AddressBookEntity] = []
 
     private var addButton: UIBarButtonItem!
@@ -23,7 +23,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        assert(chainID != nil, "Developer error: expect to have a chainID")
+        assert(chainId != nil, "Developer error: expect to have a chainId")
 
         title = "Address Book"
 
@@ -64,7 +64,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
     }
     
     @objc override func reloadData() {
-        entities = AddressBookEntity.by(chainId: chainID) ?? []
+        entities = AddressBookEntity.by(chainId: chainId) ?? []
         tableView.reloadData()
     }
 
@@ -82,8 +82,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let vc = EditAddressBookEntityViewController(entity: entities[indexPath.row])
-        show(vc, sender: nil)
+        showEdit(entity: entities[indexPath.row])
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -91,8 +90,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
         var actions = [UIContextualAction]()
         let editAction = UIContextualAction(style: .normal, title: "Edit") { [unowned self] _, _, completion in
-            let vc = EditAddressBookEntityViewController(entity: entities[indexPath.row])
-            self.show(vc, sender: self)
+            showEdit(entity: entities[indexPath.row])
             completion(true)
         }
         actions.append(editAction)
@@ -104,6 +102,25 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         actions.append(deleteAction)
 
         return UISwipeActionsConfiguration(actions: actions)
+    }
+
+    private func showEdit(entity: AddressBookEntity) {
+        let defaultName = entity.name
+
+        let enterNameVC = EnterAddressNameViewController()
+        enterNameVC.actionTitle = "Save"
+        enterNameVC.descriptionText = "Choose a name for the entity. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterNameVC.screenTitle = "Enter entity Name"
+        enterNameVC.trackingEvent = .addressbookEditEntity
+        enterNameVC.placeholder = "Enter name"
+        enterNameVC.name = defaultName
+        enterNameVC.address = entity.addressValue
+        enterNameVC.completion = { [unowned self, unowned entity, unowned notificationCenter] name in
+            AddressBookEntity.update(entity.displayAddress, chainId: chainId, name: name)
+            notificationCenter.post(name: .addressbookChanged, object: self, userInfo: nil)
+        }
+
+        show(enterNameVC, sender: nil)
     }
 
     private func remove(_ entity: AddressBookEntity) {

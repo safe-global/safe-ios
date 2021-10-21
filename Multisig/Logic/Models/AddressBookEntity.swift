@@ -75,6 +75,17 @@ extension AddressBookEntity {
         by(address: address, chainId: chainId) != nil
     }
 
+    static func update(_ address: String, chainId: String, name: String) {
+        dispatchPrecondition(condition: .onQueue(.main))
+
+        guard let entity = by(address: address, chainId: chainId) else { return }
+        entity.name = name
+        App.shared.coreDataStack.saveContext()
+        AddressBookEntity.updateCachedNames()
+
+        NotificationCenter.default.post(name: .addressbookChanged, object: nil)
+    }
+
     @discardableResult
     static func create(address: String, name: String, chain: Chain) -> AddressBookEntity {
         dispatchPrecondition(condition: .onQueue(.main))
