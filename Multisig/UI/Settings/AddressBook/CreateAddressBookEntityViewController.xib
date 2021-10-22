@@ -43,6 +43,7 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="6Ut-Ab-bYf" secondAttribute="trailing" id="4q8-zu-NMj"/>
                         <constraint firstItem="6Ut-Ab-bYf" firstAttribute="leading" secondItem="mhL-re-iTS" secondAttribute="leading" id="K1Y-mZ-Uba"/>
+                        <constraint firstItem="Sv9-62-6XP" firstAttribute="width" secondItem="6Ut-Ab-bYf" secondAttribute="width" id="apN-QO-80S"/>
                     </constraints>
                 </stackView>
             </subviews>

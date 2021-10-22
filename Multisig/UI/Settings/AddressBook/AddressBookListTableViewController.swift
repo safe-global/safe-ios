@@ -23,7 +23,6 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        assert(chainId != nil, "Developer error: expect to have a chainId")
 
         title = "Address Book"
 
@@ -57,15 +56,26 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
     }
 
     @objc private func didTapAddButton(_ sender: Any) {
-        let vc = ViewControllerFactory.addOwnerViewController { [unowned self] in
-            self.dismiss(animated: true, completion: nil)
+        let vc = CreateAddressBookEntityViewController()
+        vc.chainId = chainId
+        vc.completion = { [unowned self, unowned notificationCenter] (address, name)  in
+            guard let chain = Chain.by(chainId) else { return }
+            AddressBookEntity.create(address: address.checksummed, name: name, chain: chain)
+            notificationCenter.post(name: .addressbookChanged, object: self, userInfo: nil)
+            navigationController?.popViewController(animated: true)
+            self.reloadData()
         }
-        present(vc, animated: true)
+
+        let ribbonVC = RibbonViewController(rootViewController: vc)
+        show(ribbonVC, sender: self)
     }
     
     @objc override func reloadData() {
+        chainId = try? Safe.getSelected()?.chain?.id
+        assert(chainId != nil, "Developer error: expect to have a chainId")
         entities = AddressBookEntity.by(chainId: chainId) ?? []
         tableView.reloadData()
+        self.onSuccess()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -118,9 +128,12 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         enterNameVC.completion = { [unowned self, unowned entity, unowned notificationCenter] name in
             AddressBookEntity.update(entity.displayAddress, chainId: chainId, name: name)
             notificationCenter.post(name: .addressbookChanged, object: self, userInfo: nil)
+            navigationController?.popViewController(animated: true)
         }
+        
+        let ribbonVC = RibbonViewController(rootViewController: enterNameVC)
 
-        show(enterNameVC, sender: nil)
+        show(ribbonVC, sender: nil)
     }
 
     private func remove(_ entity: AddressBookEntity) {

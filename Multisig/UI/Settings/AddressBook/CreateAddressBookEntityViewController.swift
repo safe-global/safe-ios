@@ -12,10 +12,11 @@ import Web3
 class CreateAddressBookEntityViewController: UIViewController {
     var address: Address? { addressField?.address }
     var name: String?
-    var completion: () -> Void = { }
-    var chain: SCGModels.Chain!
 
-    lazy var trackingParameters: [String: Any]  = { ["chain_id" : chain.chainId.description] }()
+    var completion: ((Address, String) -> Void)?
+    var chainId: String?
+
+    lazy var trackingParameters: [String: Any]  = { ["chain_id" : chainId] }()
     private var debounceTimer: Timer!
     private let debounceDuration: TimeInterval = 0.250
     
@@ -25,6 +26,9 @@ class CreateAddressBookEntityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        assert(chainId != nil, "Developer error: expect to have a chainId")
+        
         navigationItem.title = "New Entity"
 
         addressField.setPlaceholderText("Enter entity address")
@@ -51,6 +55,7 @@ class CreateAddressBookEntityViewController: UIViewController {
 
     @objc private func didTapNextButton(_ sender: Any) {
         guard let address = address else { return }
+        completion?(address, name!)
     }
 
     private func didTapAddressField() {
@@ -103,7 +108,7 @@ class CreateAddressBookEntityViewController: UIViewController {
             addressField.setAddress(address)
 
             // (2) and that there's no such safe already
-            let exists = AddressBookEntity.exists(address.checksummed, chainId: chain.id)
+            let exists = AddressBookEntity.exists(address.checksummed, chainId: chainId!)
             if exists { throw GSError.AddressBookEntityAlreadyExists() }
         } catch {
             addressField.setError(

@@ -84,7 +84,7 @@ class AppSettingsViewController: UITableViewController {
         }
 
         var appSection = [Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())")]
-        if AddressBookEntity.count > 0 {
+        if let _ = try? Safe.getSelected() {
             appSection.append(Section.App.addressBook("Address Book"))
         }
         
@@ -138,6 +138,12 @@ class AppSettingsViewController: UITableViewController {
     private func showOwnerKeys() {
         let vc = OwnerKeysListViewController()
         show(vc, sender: self)
+    }
+
+    private func showAddressBook() {
+        let vc = AddressBookListTableViewController()
+        let ribbonVC = RibbonViewController(rootViewController: vc)
+        show(ribbonVC, sender: self)
     }
 
     private func openPasscode() {
@@ -217,6 +223,9 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.ownerKeys:
             showOwnerKeys()
 
+        case Section.App.addressBook:
+            showAddressBook()
+            
         case Section.App.passcode:
             openPasscode()
 
