@@ -66,7 +66,7 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
                 safeTransactionData.append(SectionItem(title: "Data:", value: data))
             }
 
-            safeTransactionData.append(SectionItem(title: "Operation:", value: txData.operation.name))
+            safeTransactionData.append(SectionItem(title: "Operation:", value: "\(txData.operation.rawValue) (\(txData.operation.name))"))
 
             sections.append(Section(title: "Safe transaction data", items: safeTransactionData))
         }
@@ -74,8 +74,8 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         if case SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(let multisigTx)? =
             tx.detailedExecutionInfo {
             sections.append(Section(title: "",
-                                    items: [SectionItem(title: "safeTxHash:", value: multisigTx.nonce.description),
-                                            SectionItem(title: "Nonce:", value: multisigTx.safeTxHash.description)]))
+                                    items: [SectionItem(title: "safeTxHash:", value: multisigTx.safeTxHash.description),
+                                            SectionItem(title: "Nonce:", value: multisigTx.nonce.description)]))
         }
 
         switch tx.detailedExecutionInfo {
