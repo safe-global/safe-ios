@@ -14,6 +14,7 @@ class ChooseOwnerKeyViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
 
     private var owners: [KeyInfo] = []
+    private var chainID: String?
     private var descriptionText: String!
 
     // technically it is possible to select several wallets but to finish connection with one of them
@@ -23,9 +24,10 @@ class ChooseOwnerKeyViewController: UIViewController {
 
     var completionHandler: ((KeyInfo?) -> Void)?
 
-    convenience init(owners: [KeyInfo], descriptionText: String, completionHandler: ((KeyInfo?) -> Void)? = nil) {
+    convenience init(owners: [KeyInfo], chainID: String?, descriptionText: String, completionHandler: ((KeyInfo?) -> Void)? = nil) {
         self.init()
         self.owners = owners
+        self.chainID = chainID
         self.descriptionText = descriptionText
         self.completionHandler = completionHandler
     }
@@ -112,7 +114,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
 //        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
         let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
-        cell.configure(keyInfo: keyInfo)
+        cell.configure(keyInfo: keyInfo, chainID: chainID)
         return cell
 //        } else {
 //            let cell = tableView.dequeueCell(ChooseOwnerTableViewCell.self)
@@ -128,23 +130,17 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         // For WalletConnect key check that it is still connected
 //        if App.configuration.toggles.walletConnectOwnerKeyEnabled && keyInfo.keyType == .walletConnect {
         if keyInfo.keyType == .walletConnect {
-            guard WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) else {
+            switch KeyConnectionStatus.init(keyInfo: keyInfo, chainID: chainID) {
+            case .connected:
+                completionHandler?(keyInfo)
+            case .disconnected, .none:
                 reconnect(key: keyInfo)
-                return
+            case .connectionProblem:
+                App.shared.snackbar.show(error: GSError.KeyConnectionProblem())
             }
-
-            // do not request passcode for connected wallets
-            // as they have own protection
+        } else if keyInfo.keyType == .ledgerNanoX {
             completionHandler?(keyInfo)
-            return
-        }
-
-        if keyInfo.keyType == .ledgerNanoX {
-            completionHandler?(keyInfo)
-            return
-        }
-
-        if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForConfirmation) {
+        } else if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForConfirmation) {
             let vc = EnterPasscodeViewController()
             vc.passcodeCompletion = { [weak self] success in
                 guard let `self` = self else { return }

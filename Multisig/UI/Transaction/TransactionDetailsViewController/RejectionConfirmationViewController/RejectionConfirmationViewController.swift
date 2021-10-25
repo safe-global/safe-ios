@@ -76,6 +76,7 @@ class RejectionConfirmationViewController: UIViewController {
 
         let descriptionText = "You are about to create an on-chain rejection transaction. Please select which owner key to use."
         let vc = ChooseOwnerKeyViewController(owners: rejectors,
+                                              chainID: safe.chain!.id,
                                               descriptionText: descriptionText) { [weak self] keyInfo in
             guard let `self` = self else { return }
             self.dismiss(animated: true) {
