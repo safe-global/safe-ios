@@ -150,7 +150,7 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
                         copyText: "\(data)",
                         indexPath: indexPath)
         } else if let multiSendDataDecoded = item.value as? ([SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx],
-                                                             SCGModels.AddressInfoIndex) {
+                                                             SCGModels.AddressInfoIndex?) {
             return disclosure(text: item.title ?? "", indexPath: indexPath) { [weak self] in
                 guard let `self` = self else { return }
                 let root = MultiSendListTableViewController(transactions: multiSendDataDecoded.0,
