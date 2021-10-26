@@ -245,8 +245,6 @@ class AppSettingsViewController: UITableViewController {
         case Section.Advanced.advanced:
             let advancedVC = AdvancedAppSettings()
             let hostingController = UIHostingController(rootView: advancedVC)
-            let ribbon = RibbonViewController(rootViewController: hostingController)
-            show(ribbon, sender: self)
 
         default:
             break
