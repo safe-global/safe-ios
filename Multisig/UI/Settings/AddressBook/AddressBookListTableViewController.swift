@@ -39,7 +39,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         emptyView.setText("There are no address book entities")
         emptyView.setImage(UIImage(named: "ico-no-address-book")!)
 
-        addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton(_:)))
+        addButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showOptionsMenu))
         navigationItem.rightBarButtonItem = addButton
 
         for notification in [Notification.Name.selectedSafeChanged, .addressbookChanged] {
@@ -55,7 +55,32 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         Tracker.trackEvent(.addressbookList)
     }
 
-    @objc private func didTapAddButton(_ sender: Any) {
+    @objc private func showOptionsMenu() {
+        let alertController = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet)
+        let addEnityButton = UIAlertAction(title: "Add new entity", style: .default) { _ in
+            self.didTapAddButton()
+        }
+
+        let importEntityButton = UIAlertAction(title: "Import entities", style: .default) { _ in
+        }
+
+        let exportEntityButton = UIAlertAction(title: "Export entities", style: .default) { _ in
+        }
+
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        alertController.addAction(addEnityButton)
+        alertController.addAction(importEntityButton)
+        alertController.addAction(exportEntityButton)
+        alertController.addAction(cancelButton)
+
+        self.present(alertController, animated: true)
+    }
+
+    private func didTapAddButton() {
         let vc = CreateAddressBookEntityViewController()
         vc.chainId = chainId
         vc.completion = { [unowned self, unowned notificationCenter] (address, name)  in
@@ -75,7 +100,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         assert(chainId != nil, "Developer error: expect to have a chainId")
         entities = AddressBookEntity.by(chainId: chainId) ?? []
         tableView.reloadData()
-        self.onSuccess()
+        onSuccess()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

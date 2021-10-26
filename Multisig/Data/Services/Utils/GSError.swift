@@ -383,7 +383,7 @@ enum GSError {
     // MARK: Address Book
     struct AddressBookEntityAlreadyExists: DetailedLocalizedError {
         let description = "Can’t use this address"
-        let reason = "An entityu with this address has been added already."
+        let reason = "An entity with this address has been added already."
         let howToFix = "Please use another address"
         let domain = clientErrorDomain
         let code = 8001

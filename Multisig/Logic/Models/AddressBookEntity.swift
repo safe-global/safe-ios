@@ -103,6 +103,22 @@ extension AddressBookEntity {
         return entity
     }
 
+    @discardableResult
+    static func from(csvString: String) -> AddressBookEntity? {
+        let attributes = csvString.components(separatedBy: ",")
+        guard attributes.count == 3,
+              let _ = Address(attributes[0]),
+              let chain = Chain.by(attributes[2])
+        else { return nil }
+
+        if let entity = AddressBookEntity.by(address: attributes[0], chainId: chain.id!) {
+            entity.update(name: attributes[1])
+            return entity
+        }
+
+        return AddressBookEntity.create(address: attributes[0], name: attributes[1], chain: chain)
+    }
+
     func update(name: String) {
         dispatchPrecondition(condition: .onQueue(.main))
 
@@ -136,6 +152,10 @@ extension AddressBookEntity {
 extension AddressBookEntity {
     func update(address: Address, name: String) {
         self.name = name
+    }
+
+    func toCSV() -> String {
+        [addressValue.checksummed, name!, chain!.id!].joined(separator: ",")
     }
 }
 

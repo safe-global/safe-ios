@@ -11,7 +11,7 @@ import Web3
 
 class CreateAddressBookEntityViewController: UIViewController {
     var address: Address? { addressField?.address }
-    var name: String?
+    var name: String? { textField.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) }
 
     var completion: ((Address, String) -> Void)?
     var chainId: String?
@@ -43,9 +43,6 @@ class CreateAddressBookEntityViewController: UIViewController {
         textField.setPlaceholder("Enter entity name")
         textField.textField.delegate = self
         textField.textField.becomeFirstResponder()
-        if let name = name {
-            textField.textField.text = name
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -91,7 +88,6 @@ class CreateAddressBookEntityViewController: UIViewController {
 
     private func didEnterText(_ text: String?) {
         addressField.clear()
-        nextButton.isEnabled = false
 
         guard let text = text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
             return
@@ -110,6 +106,7 @@ class CreateAddressBookEntityViewController: UIViewController {
             // (2) and that there's no such safe already
             let exists = AddressBookEntity.exists(address.checksummed, chainId: chainId!)
             if exists { throw GSError.AddressBookEntityAlreadyExists() }
+            validateInput()
         } catch {
             addressField.setError(
                 GSError.error(description: "Can’t use this address",
@@ -117,15 +114,8 @@ class CreateAddressBookEntityViewController: UIViewController {
         }
     }
     
-    private func validateName() {
-        nextButton.isEnabled = false
-        guard let text = textField.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
-              !text.isEmpty else {
-            self.name = nil
-            return
-        }
-        self.name = text
-        nextButton.isEnabled = true
+    private func validateInput() {
+        nextButton.isEnabled = address != nil && name != nil && !name!.isEmpty
     }
 }
 
@@ -133,7 +123,7 @@ extension CreateAddressBookEntityViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         debounceTimer?.invalidate()
         debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceDuration, repeats: false, block: { [weak self] _ in
-            self?.validateName()
+            self?.validateInput()
         })
         return true
     }

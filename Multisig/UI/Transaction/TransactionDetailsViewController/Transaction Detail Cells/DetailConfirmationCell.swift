@@ -10,6 +10,7 @@ import UIKit
 
 class DetailConfirmationCell: UITableViewCell {
     @IBOutlet private weak var stackView: UIStackView!
+    var namingPolicy = DefaultAddressNamingPolicy()
 
     func setConfirmations(_ confirmations: [Address],
                           required: Int,
