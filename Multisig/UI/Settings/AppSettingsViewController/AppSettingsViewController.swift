@@ -245,6 +245,7 @@ class AppSettingsViewController: UITableViewController {
         case Section.Advanced.advanced:
             let advancedVC = AdvancedAppSettings()
             let hostingController = UIHostingController(rootView: advancedVC)
+            show(hostingController, sender: self)
 
         default:
             break
