@@ -114,7 +114,7 @@ extension AdvancedSafeSettingsViewController {
         case Section.FallbackHandler.fallbackHandler(let info):
             if let info = info {
                 return addressDetailsCell(address: info.address,
-                                          title: namingPolicy.name(info: info, chainId: safe.chain?.id),
+                                          title: namingPolicy.name(info: info),
                                           imageUri: info.logoUri,
                                           indexPath: indexPath)
             } else {
