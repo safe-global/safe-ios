@@ -129,7 +129,6 @@ extension CreateAddressBookEntryViewController: UITextFieldDelegate {
     }
 }
 
-
 extension CreateAddressBookEntryViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidCancel() {
         dismiss(animated: true, completion: nil)
