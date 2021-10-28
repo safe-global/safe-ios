@@ -61,4 +61,8 @@ extension NSNotification.Name {
     // MARK: - Experemental
 
     static let updatedExperemental = NSNotification.Name("io.gnosis.safe.updatedExperemental")
+
+    // MARK: - Addressbook
+
+    static let addressbookChanged = NSNotification.Name("io.gnosis.safe.addressbookChanged")
 }

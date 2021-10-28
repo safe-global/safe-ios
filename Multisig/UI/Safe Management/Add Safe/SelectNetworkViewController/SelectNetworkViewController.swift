@@ -16,8 +16,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
 
     private var model = NetworksListViewModel()
     
-    var completion: () -> Void = { }
-
+    var completion: (SCGModels.Chain) -> Void = { _ in }
     convenience init() {
         self.init(namedClass: Self.superclass())
     }
@@ -182,12 +181,8 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let vc = EnterSafeAddressViewController()
-        vc.completion = completion
-        vc.chain = model.models[indexPath.row]
-        let ribbon = RibbonViewController(rootViewController: vc)
-        ribbon.chain = vc.chain
-        show(ribbon, sender: self)
+        let chain = model.models[indexPath.row]
+        completion(chain)
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
