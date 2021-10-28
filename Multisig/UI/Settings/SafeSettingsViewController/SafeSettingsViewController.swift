@@ -258,7 +258,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             show(editSafeNameViewController, sender: self)
         case Section.Advanced.advanced(_):
             let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
-            show(advancedSafeSettingsViewController, sender: self)
+            let ribbon = RibbonViewController(rootViewController: advancedSafeSettingsViewController)
+            show(ribbon, sender: self)
         default:
             break
         }

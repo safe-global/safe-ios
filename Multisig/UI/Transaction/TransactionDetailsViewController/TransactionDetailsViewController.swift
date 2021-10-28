@@ -226,7 +226,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             return
         }
         let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
-        let vc = ChooseOwnerKeyViewController(owners: signers, descriptionText: descriptionText) {
+        let vc = ChooseOwnerKeyViewController(owners: signers, chainID: safe.chain!.id, descriptionText: descriptionText) {
             [weak self] keyInfo in
 
             // dismiss presented ChooseOwnerKeyViewController right after receiving the completion
@@ -253,6 +253,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         let descriptionText = "You are about to execute this transaction. Please select which owner key to use."
         let vc = ChooseOwnerKeyViewController(owners: signers,
+                                              chainID: safe.chain!.id,
                                               descriptionText: descriptionText) { [unowned self] keyInfo in
             dismiss(animated: true) {
                 if let keyInfo = keyInfo {
@@ -592,17 +593,10 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
             return []
         }
 
-        // any WalletConnect key can execute a transaction
-        // but it should be connected to the same Network as selected Safe
+        // but any WalletConnect key can execute a transaction
         let keys = (try? KeyInfo.all()) ?? []
         let selectedSafeChainId = try! Safe.getSelected()!.chain!.id
-        return keys.filter {
-            guard $0.keyType == .walletConnect,
-                  let metadata = $0.metadata,
-                  let keyMetadata = KeyInfo.WalletConnectKeyMetadata.from(data: metadata),
-                  String(keyMetadata.walletInfo.chainId) == selectedSafeChainId else { return false }
-            return true
-        }
+        return keys.filter { $0.keyType == .walletConnect }
     }
 
     func rejectorKeys() -> [KeyInfo] {

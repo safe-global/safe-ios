@@ -481,7 +481,8 @@ class TransactionDetailCellBuilder {
             disclosure(text: "Advanced") { [weak self] in
                 guard let `self` = self else { return }
                 let vc = AdvancedTransactionDetailsViewController(tx, chainId: self.chainId)
-                self.vc.show(vc, sender: self)
+                let ribbonVC = RibbonViewController(rootViewController: vc)
+                self.vc.show(ribbonVC, sender: self)
             }
             break
         }

@@ -380,7 +380,16 @@ enum GSError {
         let loggable = false
     }
 
-    // MARK: Address Book
+    struct KeyConnectionProblem: DetailedLocalizedError {
+        let description: String = "Couldn't use connection session"
+        let reason = "Something is wrong with the connection session."
+        let howToFix = "Please recreate connection session and make sure to use same selected network"
+        let domain = clientErrorDomain
+        let code = 9907
+        let loggable = false
+    }
+
+	// MARK: Address Book
     struct AddressBookEntryAlreadyExists: DetailedLocalizedError {
         let description = "Can’t use this address"
         let reason = "An entry with this address has been added already."
