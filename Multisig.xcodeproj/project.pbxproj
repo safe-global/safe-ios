@@ -30,7 +30,7 @@
 		044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */; };
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
-		0455A42B271F73B7008B772D /* AddressBookEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42A271F73B7008B772D /* AddressBookEntity.swift */; };
+		0455A42B271F73B7008B772D /* AddressBookEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42A271F73B7008B772D /* AddressBookEntry.swift */; };
 		0455A42E27204181008B772D /* AddressBookListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42D27204181008B772D /* AddressBookListTableViewController.swift */; };
 		0455A43127204A5B008B772D /* CreateAddressBookEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */; };
 		0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0455A43027204A5B008B772D /* CreateAddressBookEntryViewController.xib */; };
@@ -659,7 +659,7 @@
 		044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
-		0455A42A271F73B7008B772D /* AddressBookEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookEntity.swift; sourceTree = "<group>"; };
+		0455A42A271F73B7008B772D /* AddressBookEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookEntry.swift; sourceTree = "<group>"; };
 		0455A42D27204181008B772D /* AddressBookListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookListTableViewController.swift; sourceTree = "<group>"; };
 		0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAddressBookEntryViewController.swift; sourceTree = "<group>"; };
 		0455A43027204A5B008B772D /* CreateAddressBookEntryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateAddressBookEntryViewController.xib; sourceTree = "<group>"; };
@@ -2394,7 +2394,7 @@
 				55B66E55247E494000249E98 /* AppSettings.swift */,
 				0AC5F5B225DD510600DEF0D7 /* AppUser.swift */,
 				048D72C026835CF90095999C /* Chain.swift */,
-				0455A42A271F73B7008B772D /* AddressBookEntity.swift */,
+				0455A42A271F73B7008B772D /* AddressBookEntry.swift */,
 				0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */,
 				554A16B2266E4D4900807049 /* EIP712Transformer.swift */,
 				55B64657253050200050BD95 /* HashString.swift */,
@@ -3588,7 +3588,7 @@
 				0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */,
 				0468FB8725912E6800541536 /* FlatTransactionsListViewModel.swift in Sources */,
 				043ABD0E24EF0C33008826D5 /* TransactionDetailsRequest.swift in Sources */,
-				0455A42B271F73B7008B772D /* AddressBookEntity.swift in Sources */,
+				0455A42B271F73B7008B772D /* AddressBookEntry.swift in Sources */,
 				048D72D7268DACAF0095999C /* NetworksListViewModel.swift in Sources */,
 				0ADD19C3265EA23200EB0F2B /* SeedPhraseViewController.swift in Sources */,
 				049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */,

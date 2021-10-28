@@ -141,9 +141,7 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func showAddressBook() {
-        let vc = AddressBookListTableViewController()
-        let ribbonVC = RibbonViewController(rootViewController: vc)
-        show(ribbonVC, sender: self)
+        show(AddressBookListTableViewController(), sender: self)
     }
 
     private func openPasscode() {

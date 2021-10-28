@@ -14,9 +14,9 @@ class CreateAddressBookEntryViewController: UIViewController {
     var name: String? { textField.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) }
 
     var completion: ((Address, String) -> Void)?
-    var chainId: String?
+    var chain: SCGModels.Chain!
 
-    lazy var trackingParameters: [String: Any]  = { ["chain_id" : chainId] }()
+    lazy var trackingParameters: [String: Any]  = { ["chain_id" : chain.id] }()
     private var debounceTimer: Timer!
     private let debounceDuration: TimeInterval = 0.250
     
@@ -27,11 +27,11 @@ class CreateAddressBookEntryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        assert(chainId != nil, "Developer error: expect to have a chainId")
+        assert(chain != nil, "Developer error: expect to have a chain")
         
         navigationItem.title = "New Entry"
 
-        addressField.setPlaceholderText("Enter Entry address")
+        addressField.setPlaceholderText("Enter entry address")
 
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
 
@@ -104,7 +104,7 @@ class CreateAddressBookEntryViewController: UIViewController {
             addressField.setAddress(address)
 
             // (2) and that there's no such safe already
-            let exists = AddressBookEntry.exists(address.checksummed, chainId: chainId!)
+            let exists = AddressBookEntry.exists(address.checksummed, chainId: chain.id)
             if exists { throw GSError.AddressBookEntryAlreadyExists() }
             validateInput()
         } catch {

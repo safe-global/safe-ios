@@ -104,6 +104,12 @@ extension AddressBookEntry {
     }
 
     @discardableResult
+    static func create(address: String, name: String, chainInfo: SCGModels.Chain) -> AddressBookEntry {
+        let chain = Chain.createOrUpdate(chainInfo)
+        return AddressBookEntry.create(address: address, name: name, chain: chain)
+    }
+
+    @discardableResult
     static func from(csvString: String) -> AddressBookEntry? {
         let attributes = csvString.components(separatedBy: ",")
         guard attributes.count == 3,

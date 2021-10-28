@@ -28,9 +28,8 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         tableView.delegate = self
         tableView.dataSource = self
 
-        tableView.backgroundColor = .primaryBackground
-
         tableView.registerCell(DetailAccountCell.self)
+        tableView.registerHeaderFooterView(NetworkIndicatorHeaderView.self)
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
@@ -38,7 +37,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         emptyView.setText("There are no address book entries")
         emptyView.setImage(UIImage(named: "ico-no-address-book")!)
 
-        menuButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showOptionsMenu))
+        menuButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(showOptionsMenu))
         navigationItem.rightBarButtonItem = menuButton
 
         for notification in [Notification.Name.selectedSafeChanged, .addressbookChanged] {
@@ -97,17 +96,24 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
     private func didTapAddButton() {
         let vc = SelectNetworkViewController()
-        let vc = CreateAddressBookEntryViewController()
-        vc.completion = { [unowned self, unowned notificationCenter] (address, name)  in
-            guard let chain = Chain.by(chainId) else { return }
-            AddressBookEntry.create(address: address.checksummed, name: name, chain: chain)
-            notificationCenter.post(name: .addressbookChanged, object: self, userInfo: nil)
-            navigationController?.popViewController(animated: true)
-            self.reloadData()
+        vc.screenTitle = "New Entry"
+        vc.descriptionText = "Select network on which you want to add entry:"
+        vc.completion = { [unowned self] chain  in
+            let vc = CreateAddressBookEntryViewController()
+            vc.chain = chain
+            let ribbon = RibbonViewController(rootViewController: vc)
+            ribbon.chain = vc.chain
+            vc.completion = { (address, name)  in
+                AddressBookEntry.create(address: address.checksummed, name: name, chainInfo: chain)
+                NotificationCenter.default.post(name: .addressbookChanged, object: self, userInfo: nil)
+                navigationController?.popToRootViewController(animated: true)
+                self.reloadData()
+                App.shared.snackbar.show(message: "Address book entry added")
+            }
+            self.show(ribbon, sender: self)
         }
 
-        let ribbonVC = RibbonViewController(rootViewController: vc)
-        show(ribbonVC, sender: self)
+        show(vc, sender: self)
     }
     
     @objc override func reloadData() {
@@ -183,6 +189,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
             AddressBookEntry.update(entry.displayAddress, chainId: entry.chain!.id!, name: name)
             notificationCenter.post(name: .addressbookChanged, object: self, userInfo: nil)
             navigationController?.popViewController(animated: true)
+            App.shared.snackbar.show(message: "Address book entry updated")
         }
         
         let ribbonVC = RibbonViewController(rootViewController: enterNameVC)
@@ -197,6 +204,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
             preferredStyle: .actionSheet)
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
             AddressBookEntry.remove(entry: entry)
+            App.shared.snackbar.show(message: "Address book entry removed")
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(remove)
@@ -209,7 +217,7 @@ extension AddressBookListTableViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         if let csv = FileManagerWrapper.importFile(url: url) {
             let result = AddressBookEntry.importFrom(csv: csv)
-            App.shared.snackbar.show(message: "\(result.0) entries imported. \(result.1) entites updated")
+            App.shared.snackbar.show(message: "\(result.0) entries imported. \(result.1) entries updated")
         }
     }
 }
