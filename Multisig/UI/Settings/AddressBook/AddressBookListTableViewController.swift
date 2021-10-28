@@ -7,14 +7,13 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 class AddressBookListTableViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
-    var chainId: String!
-    var entities: [AddressBookEntity] = []
-
+    private var chainEntities: Chain.ChainEntities = []
     private var addButton: UIBarButtonItem!
     override var isEmpty: Bool {
-        entities.isEmpty
+        chainEntities.isEmpty
     }
 
     convenience init() {
@@ -64,17 +63,33 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
             self.didTapAddButton()
         }
 
-        let importEntityButton = UIAlertAction(title: "Import entities", style: .default) { _ in
+        alertController.addAction(addEnityButton)
+
+        let importEntityButton = UIAlertAction(title: "Import entities", style: .default) { [unowned self] _ in
+            let pricker = UIDocumentPickerViewController(documentTypes: [String(kUTTypeCommaSeparatedText)], in: .import)
+            pricker.delegate = self
+            pricker.allowsMultipleSelection = false
+            self.present(pricker, animated: true, completion: nil)
         }
 
-        let exportEntityButton = UIAlertAction(title: "Export entities", style: .default) { _ in
+        alertController.addAction(importEntityButton)
+
+        if let csv = AddressBookEntity.exportToCSV() {
+            let exportEntityButton = UIAlertAction(title: "Export entities", style: .default) { [unowned self] _ in
+                if let exportedFileURL = FileManagerWrapper.export(text: csv,
+                                                                   fileName: "AddressBook",
+                                                                   fileExtension: String(kUTTypeCommaSeparatedText)) {
+                    let activityViewController : UIActivityViewController = UIActivityViewController(
+                        activityItems: [exportedFileURL], applicationActivities: nil)
+
+                    self.present(activityViewController, animated: true, completion: nil)
+                }
+            }
+
+            alertController.addAction(exportEntityButton)
         }
 
         let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-
-        alertController.addAction(addEnityButton)
-        alertController.addAction(importEntityButton)
-        alertController.addAction(exportEntityButton)
         alertController.addAction(cancelButton)
 
         self.present(alertController, animated: true)
@@ -82,7 +97,6 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
     private func didTapAddButton() {
         let vc = CreateAddressBookEntityViewController()
-        vc.chainId = chainId
         vc.completion = { [unowned self, unowned notificationCenter] (address, name)  in
             guard let chain = Chain.by(chainId) else { return }
             AddressBookEntity.create(address: address.checksummed, name: name, chain: chain)
@@ -96,20 +110,22 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
     }
     
     @objc override func reloadData() {
-        chainId = try? Safe.getSelected()?.chain?.id
-        assert(chainId != nil, "Developer error: expect to have a chainId")
-        entities = AddressBookEntity.by(chainId: chainId) ?? []
+        chainEntities = Chain.chainEntities()
         tableView.reloadData()
         onSuccess()
     }
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        chainEntities.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        entities.count
+        chainEntities[section].entities.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self)
-        let entity = entities[indexPath.row]
+        let entity = chainEntities[indexPath.section].entities[indexPath.row]
 
         cell.setAccount(address: entity.addressValue, label: entity.name)
         return cell
@@ -117,15 +133,15 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        showEdit(entity: entities[indexPath.row])
+        showEdit(entity: chainEntities[indexPath.section].entities[indexPath.row])
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let entity = entities[indexPath.row]
+        let entity = chainEntities[indexPath.section].entities[indexPath.row]
 
         var actions = [UIContextualAction]()
         let editAction = UIContextualAction(style: .normal, title: "Edit") { [unowned self] _, _, completion in
-            showEdit(entity: entities[indexPath.row])
+            showEdit(entity: chainEntities[indexPath.section].entities[indexPath.row])
             completion(true)
         }
         actions.append(editAction)
@@ -137,6 +153,18 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         actions.append(deleteAction)
 
         return UISwipeActionsConfiguration(actions: actions)
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueHeaderFooterView(NetworkIndicatorHeaderView.self)
+        let chain = chainEntities[section].chain
+        view.text = chain.name
+        view.dotColor = chain.backgroundColor
+        return view
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        NetworkIndicatorHeaderView.height
     }
 
     private func showEdit(entity: AddressBookEntity) {
@@ -151,7 +179,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         enterNameVC.name = defaultName
         enterNameVC.address = entity.addressValue
         enterNameVC.completion = { [unowned self, unowned entity, unowned notificationCenter] name in
-            AddressBookEntity.update(entity.displayAddress, chainId: chainId, name: name)
+            AddressBookEntity.update(entity.displayAddress, chainId: entity.chain!.id!, name: name)
             notificationCenter.post(name: .addressbookChanged, object: self, userInfo: nil)
             navigationController?.popViewController(animated: true)
         }
@@ -173,5 +201,14 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         alertController.addAction(remove)
         alertController.addAction(cancel)
         present(alertController, animated: true)
+    }
+}
+
+extension AddressBookListTableViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        if let csv = FileManagerWrapper.importFile(url: url) {
+            let result = AddressBookEntity.importFrom(csv: csv)
+            App.shared.snackbar.show(message: "\(result.0) entities imported. \(result.1) entites updated")
+        }
     }
 }

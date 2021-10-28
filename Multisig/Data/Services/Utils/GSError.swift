@@ -511,6 +511,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct FileManagerError: DetailedLocalizedError {
+        let description = "Failed to access files"
+        let reason = "The app is not able to access files"
+        let howToFix = "Please try again."
+        let domain = iOSErrorDomain
+        let code = 1319
+        let loggable = false
+    }
+
     // - MARK: - Unstoppable domain errors
 
     struct UDUnsuportedName: DetailedLocalizedError {

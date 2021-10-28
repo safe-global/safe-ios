@@ -83,17 +83,15 @@ class AppSettingsViewController: UITableViewController {
             sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing 🖥")]))
         }
 
-        var appSection = [Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())")]
-        if let _ = try? Safe.getSelected() {
-            appSection.append(Section.App.addressBook("Address Book"))
-        }
-        
-        appSection += [Section.App.passcode("Passcode"),
-                       Section.App.appearance("Appearance"),
-                       Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
-                       Section.App.experimental("Experimental 🧪")]
         sections += [
-            (section: .app, items: appSection),
+            (section: .app, items: [
+                Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
+                Section.App.addressBook("Address Book"),
+                Section.App.passcode("Passcode"),
+                Section.App.appearance("Appearance"),
+                Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
+                Section.App.experimental("Experimental 🧪")
+            ]),
             (section: .general, items: [
                 Section.General.terms("Terms of use"),
                 Section.General.privacyPolicy("Privacy policy"),
@@ -102,7 +100,9 @@ class AppSettingsViewController: UITableViewController {
                 Section.General.rateTheApp("Rate the app"),
                 Section.General.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
             ]),
-            (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
+            (section: .advanced, items: [
+                Section.Advanced.advanced("Advanced")
+            ])
         ]
     }
 

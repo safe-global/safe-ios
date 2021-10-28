@@ -154,8 +154,36 @@ extension AddressBookEntity {
         self.name = name
     }
 
-    func toCSV() -> String {
+    var csv: String {
         [addressValue.checksummed, name!, chain!.id!].joined(separator: ",")
+    }
+}
+
+extension AddressBookEntity {
+    static func exportToCSV() -> String? {
+        guard AddressBookEntity.count > 0 else { return nil }
+        return "address, name, chainId \n" + AddressBookEntity.all.map { $0.csv }.joined(separator: "\n")
+    }
+
+    static func importFrom(csv: String) -> (numberOfAdded: Int, numberOfUpdated: Int) {
+        var numberOfAdded: Int = 0
+        var numberOfUpdated: Int = 0
+        let entites = csv.components(separatedBy: "\n").dropFirst()
+        entites.forEach { entity in
+            let values = entity.components(separatedBy: ",")
+            guard values.count == 3,
+                  let _ = Address(values[0]),
+                  let chain = Chain.by(values[2]) else { return }
+            if let entity = AddressBookEntity.by(address: values[0], chainId: values[2]) {
+                entity.update(name: values[1])
+                numberOfUpdated += 1
+            } else {
+                AddressBookEntity.create(address: values[0], name: values[1], chain: chain)
+                numberOfAdded += 1
+            }
+        }
+
+        return (numberOfAdded, numberOfUpdated)
     }
 }
 

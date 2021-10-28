@@ -222,6 +222,30 @@ extension Chain {
 
         return chainSafes
     }
+
+    typealias ChainEntities = [(chain: Chain, entities: [AddressBookEntity])]
+
+    /// Returns safes grouped by chain with the following logic applied:
+    /// - Selected safe chain will be first in the list
+    /// - Other chains are sorted by chain id
+    /// - Selected safe will be the first in the list of chain safes. Other safes are sorted by addition date with earlist on top.
+    static func chainEntities() -> ChainEntities {
+        guard let entities = try? AddressBookEntity.getAll() else { return [] }
+
+        var chainEntities = ChainEntities()
+        let groupedEntities = Dictionary(grouping: entities, by: {$0.chain!})
+
+        groupedEntities.keys
+            .sorted { UInt256($0.id!)! < UInt256($1.id!)! }
+            .forEach { chain in
+                chainEntities.append(
+                    (chain: chain,
+                     entities: groupedEntities[chain]!.sorted { $0.additionDate! > $1.additionDate!})
+                )
+            }
+
+        return chainEntities
+    }
 }
 
 extension Chain {
