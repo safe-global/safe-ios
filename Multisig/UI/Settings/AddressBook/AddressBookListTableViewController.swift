@@ -11,7 +11,7 @@ import MobileCoreServices
 
 class AddressBookListTableViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     private var chainEntries: Chain.ChainEntries = []
-    private var addButton: UIBarButtonItem!
+    private var menuButton: UIBarButtonItem!
     override var isEmpty: Bool {
         chainEntries.isEmpty
     }
@@ -35,11 +35,11 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
 
-        emptyView.setText("There are no address book entities")
+        emptyView.setText("There are no address book entries")
         emptyView.setImage(UIImage(named: "ico-no-address-book")!)
 
-        addButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showOptionsMenu))
-        navigationItem.rightBarButtonItem = addButton
+        menuButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showOptionsMenu))
+        navigationItem.rightBarButtonItem = menuButton
 
         for notification in [Notification.Name.selectedSafeChanged, .addressbookChanged] {
             NotificationCenter.default.addObserver(
@@ -65,7 +65,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
         alertController.addAction(addEnityButton)
 
-        let importEntryButton = UIAlertAction(title: "Import entities", style: .default) { [unowned self] _ in
+        let importEntryButton = UIAlertAction(title: "Import entries", style: .default) { [unowned self] _ in
             let pricker = UIDocumentPickerViewController(documentTypes: [String(kUTTypeCommaSeparatedText)], in: .import)
             pricker.delegate = self
             pricker.allowsMultipleSelection = false
@@ -75,7 +75,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         alertController.addAction(importEntryButton)
 
         if let csv = AddressBookEntry.exportToCSV() {
-            let exportEntryButton = UIAlertAction(title: "Export entities", style: .default) { [unowned self] _ in
+            let exportEntryButton = UIAlertAction(title: "Export entries", style: .default) { [unowned self] _ in
                 if let exportedFileURL = FileManagerWrapper.export(text: csv,
                                                                    fileName: "AddressBook",
                                                                    fileExtension: String(kUTTypeCommaSeparatedText)) {
@@ -96,6 +96,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
     }
 
     private func didTapAddButton() {
+        let vc = SelectNetworkViewController()
         let vc = CreateAddressBookEntryViewController()
         vc.completion = { [unowned self, unowned notificationCenter] (address, name)  in
             guard let chain = Chain.by(chainId) else { return }
@@ -120,12 +121,12 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        chainEntries[section].entities.count
+        chainEntries[section].entries.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self)
-        let entry = chainEntries[indexPath.section].entities[indexPath.row]
+        let entry = chainEntries[indexPath.section].entries[indexPath.row]
 
         cell.setAccount(address: entry.addressValue, label: entry.name)
         return cell
@@ -133,15 +134,15 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        showEdit(entry: chainEntries[indexPath.section].entities[indexPath.row])
+        showEdit(entry: chainEntries[indexPath.section].entries[indexPath.row])
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let entry = chainEntries[indexPath.section].entities[indexPath.row]
+        let entry = chainEntries[indexPath.section].entries[indexPath.row]
 
         var actions = [UIContextualAction]()
         let editAction = UIContextualAction(style: .normal, title: "Edit") { [unowned self] _, _, completion in
-            showEdit(entry: chainEntries[indexPath.section].entities[indexPath.row])
+            showEdit(entry: chainEntries[indexPath.section].entries[indexPath.row])
             completion(true)
         }
         actions.append(editAction)
@@ -208,7 +209,7 @@ extension AddressBookListTableViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         if let csv = FileManagerWrapper.importFile(url: url) {
             let result = AddressBookEntry.importFrom(csv: csv)
-            App.shared.snackbar.show(message: "\(result.0) entities imported. \(result.1) entites updated")
+            App.shared.snackbar.show(message: "\(result.0) entries imported. \(result.1) entites updated")
         }
     }
 }

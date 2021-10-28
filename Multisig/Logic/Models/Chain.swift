@@ -223,7 +223,7 @@ extension Chain {
         return chainSafes
     }
 
-    typealias ChainEntries = [(chain: Chain, entities: [AddressBookEntry])]
+    typealias ChainEntries = [(chain: Chain, entries: [AddressBookEntry])]
 
     /// Returns safes grouped by chain with the following logic applied:
     /// - Selected safe chain will be first in the list
@@ -240,7 +240,7 @@ extension Chain {
             .forEach { chain in
                 chainEntries.append(
                     (chain: chain,
-                     entities: groupedEntries[chain]!.sorted { $0.additionDate! > $1.additionDate!})
+                     entries: groupedEntries[chain]!.sorted { $0.additionDate! > $1.additionDate!})
                 )
             }
 
