@@ -44,7 +44,7 @@ extension AddressBookEntity {
         guard let entities = try? AddressBookEntity.getAll() else { return }
 
         cachedNames = entities.reduce(into: [String: String]()) { names, entity in
-            let chainId = entity.chain != nil ? entity.chain!.id! : "1"
+            let chainId = entity.chain != nil ? entity.chain!.id! : Chain.ChainID.ethereumMainnet
             let key = "\(entity.displayAddress):\(chainId)"
             names[key] = entity.name!
         }
@@ -94,14 +94,9 @@ extension AddressBookEntity {
 
     func update(name: String) {
         dispatchPrecondition(condition: .onQueue(.main))
-
         self.name = name
-
         App.shared.coreDataStack.saveContext()
-
-
         AddressBookEntity.updateCachedNames()
-
         NotificationCenter.default.post(name: .addressbookChanged, object: nil)
     }
 
