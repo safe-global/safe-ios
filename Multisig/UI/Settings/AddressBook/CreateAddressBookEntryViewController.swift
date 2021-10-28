@@ -1,5 +1,5 @@
 //
-//  CreateAddressBookEntityViewController.swift
+//  CreateAddressBookEntryViewController.swift
 //  Multisig
 //
 //  Created by Moaaz on 10/20/21.
@@ -9,7 +9,7 @@
 import UIKit
 import Web3
 
-class CreateAddressBookEntityViewController: UIViewController {
+class CreateAddressBookEntryViewController: UIViewController {
     var address: Address? { addressField?.address }
     var name: String? { textField.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) }
 
@@ -29,9 +29,9 @@ class CreateAddressBookEntityViewController: UIViewController {
 
         assert(chainId != nil, "Developer error: expect to have a chainId")
         
-        navigationItem.title = "New Entity"
+        navigationItem.title = "New Entry"
 
-        addressField.setPlaceholderText("Enter entity address")
+        addressField.setPlaceholderText("Enter Entry address")
 
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
 
@@ -40,14 +40,14 @@ class CreateAddressBookEntityViewController: UIViewController {
 
         navigationItem.rightBarButtonItem = nextButton
 
-        textField.setPlaceholder("Enter entity name")
+        textField.setPlaceholder("Enter entry name")
         textField.textField.delegate = self
         textField.textField.becomeFirstResponder()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.addressbookAddEntity)
+        Tracker.trackEvent(.addressbookAddEntry)
     }
 
     @objc private func didTapNextButton(_ sender: Any) {
@@ -104,13 +104,13 @@ class CreateAddressBookEntityViewController: UIViewController {
             addressField.setAddress(address)
 
             // (2) and that there's no such safe already
-            let exists = AddressBookEntity.exists(address.checksummed, chainId: chainId!)
-            if exists { throw GSError.AddressBookEntityAlreadyExists() }
+            let exists = AddressBookEntry.exists(address.checksummed, chainId: chainId!)
+            if exists { throw GSError.AddressBookEntryAlreadyExists() }
             validateInput()
         } catch {
             addressField.setError(
                 GSError.error(description: "Can’t use this address",
-                              error: error is EthereumAddress.Error ? GSError.AddressBookEntityAddressNotValid() : error))
+                              error: error is EthereumAddress.Error ? GSError.AddressBookEntryAddressNotValid() : error))
         }
     }
     
@@ -119,7 +119,7 @@ class CreateAddressBookEntityViewController: UIViewController {
     }
 }
 
-extension CreateAddressBookEntityViewController: UITextFieldDelegate {
+extension CreateAddressBookEntryViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         debounceTimer?.invalidate()
         debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceDuration, repeats: false, block: { [weak self] _ in
@@ -130,7 +130,7 @@ extension CreateAddressBookEntityViewController: UITextFieldDelegate {
 }
 
 
-extension CreateAddressBookEntityViewController: QRCodeScannerViewControllerDelegate {
+extension CreateAddressBookEntryViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidCancel() {
         dismiss(animated: true, completion: nil)
     }

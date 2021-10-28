@@ -1,5 +1,5 @@
 //
-//  AddressBookEntity.swift
+//  AddressBookEntry.swift
 //  Multisig
 //
 //  Created by Andrey Scherbovich on 20/10/21.
@@ -12,41 +12,41 @@ import CoreData
 // "address:chainId" -> name
 fileprivate var cachedNames = [String: String]()
 
-extension AddressBookEntity {
+extension AddressBookEntry {
     var displayAddress: String { address! }
     var addressValue: Address { Address(address!)! }
 
     static var count: Int {
         let context = App.shared.coreDataStack.viewContext
-        return (try? context.count(for: AddressBookEntity.fetchRequest().all())) ?? 0
+        return (try? context.count(for: AddressBookEntry.fetchRequest().all())) ?? 0
     }
 
-    static var all: [AddressBookEntity] {
+    static var all: [AddressBookEntry] {
         let context = App.shared.coreDataStack.viewContext
-        return (try? context.fetch(AddressBookEntity.fetchRequest().all())) ?? []
+        return (try? context.fetch(AddressBookEntry.fetchRequest().all())) ?? []
     }
 
-    static func by(address: String, chainId: String) -> AddressBookEntity? {
+    static func by(address: String, chainId: String) -> AddressBookEntry? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-        let fr = AddressBookEntity.fetchRequest().by(address: address, chainId: chainId)
+        let fr = AddressBookEntry.fetchRequest().by(address: address, chainId: chainId)
         return try? context.fetch(fr).first
     }
 
-    static func by(chainId: String) -> [AddressBookEntity]? {
+    static func by(chainId: String) -> [AddressBookEntry]? {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
-        let fr = AddressBookEntity.fetchRequest().by(chainId: chainId)
+        let fr = AddressBookEntry.fetchRequest().by(chainId: chainId)
         return try? context.fetch(fr)
     }
 
     static func updateCachedNames() {
-        guard let entities = try? AddressBookEntity.getAll() else { return }
+        guard let entities = try? AddressBookEntry.getAll() else { return }
 
-        cachedNames = entities.reduce(into: [String: String]()) { names, entity in
-            let chainId = entity.chain != nil ? entity.chain!.id! : "1"
-            let key = "\(entity.displayAddress):\(chainId)"
-            names[key] = entity.name!
+        cachedNames = entities.reduce(into: [String: String]()) { names, entry in
+            let chainId = entry.chain != nil ? entry.chain!.id! : "1"
+            let key = "\(entry.displayAddress):\(chainId)"
+            names[key] = entry.name!
         }
     }
 
@@ -60,10 +60,10 @@ extension AddressBookEntity {
         additionDate = Date()
     }
 
-    static func getAll() throws -> [AddressBookEntity] {
+    static func getAll() throws -> [AddressBookEntry] {
         do {
             let context = App.shared.coreDataStack.viewContext
-            let fr = AddressBookEntity.fetchRequest().all()
+            let fr = AddressBookEntry.fetchRequest().all()
             let entities = try context.fetch(fr)
             return entities
         } catch {
@@ -78,45 +78,45 @@ extension AddressBookEntity {
     static func update(_ address: String, chainId: String, name: String) {
         dispatchPrecondition(condition: .onQueue(.main))
 
-        guard let entity = by(address: address, chainId: chainId) else { return }
-        entity.name = name
+        guard let entry = by(address: address, chainId: chainId) else { return }
+        entry.name = name
         App.shared.coreDataStack.saveContext()
-        AddressBookEntity.updateCachedNames()
+        AddressBookEntry.updateCachedNames()
 
         NotificationCenter.default.post(name: .addressbookChanged, object: nil)
     }
 
     @discardableResult
-    static func create(address: String, name: String, chain: Chain) -> AddressBookEntity {
+    static func create(address: String, name: String, chain: Chain) -> AddressBookEntry {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
-        let entity = AddressBookEntity(context: context)
-        entity.address = address
-        entity.name = name
-        entity.chain = chain
+        let entry = AddressBookEntry(context: context)
+        entry.address = address
+        entry.name = name
+        entry.chain = chain
 
         App.shared.coreDataStack.saveContext()
 
         updateCachedNames()
 
-        return entity
+        return entry
     }
 
     @discardableResult
-    static func from(csvString: String) -> AddressBookEntity? {
+    static func from(csvString: String) -> AddressBookEntry? {
         let attributes = csvString.components(separatedBy: ",")
         guard attributes.count == 3,
               let _ = Address(attributes[0]),
               let chain = Chain.by(attributes[2])
         else { return nil }
 
-        if let entity = AddressBookEntity.by(address: attributes[0], chainId: chain.id!) {
-            entity.update(name: attributes[1])
-            return entity
+        if let entry = AddressBookEntry.by(address: attributes[0], chainId: chain.id!) {
+            entry.update(name: attributes[1])
+            return entry
         }
 
-        return AddressBookEntity.create(address: attributes[0], name: attributes[1], chain: chain)
+        return AddressBookEntry.create(address: attributes[0], name: attributes[1], chain: chain)
     }
 
     func update(name: String) {
@@ -127,29 +127,29 @@ extension AddressBookEntity {
         App.shared.coreDataStack.saveContext()
 
 
-        AddressBookEntity.updateCachedNames()
+        AddressBookEntry.updateCachedNames()
 
         NotificationCenter.default.post(name: .addressbookChanged, object: nil)
     }
 
-    static func remove(entity: AddressBookEntity) {
+    static func remove(entry: AddressBookEntry) {
         let context = App.shared.coreDataStack.viewContext
-        context.delete(entity)
+        context.delete(entry)
         App.shared.coreDataStack.saveContext()
         updateCachedNames()
         NotificationCenter.default.post(name: .addressbookChanged, object: nil)
     }
 
     static func removeAll() throws {
-        for entity in all {
-            remove(entity: entity)
+        for entry in all {
+            remove(entry: entry)
         }
 
         NotificationCenter.default.post(name: .addressbookChanged, object: nil)
     }
 }
 
-extension AddressBookEntity {
+extension AddressBookEntry {
     func update(address: Address, name: String) {
         self.name = name
     }
@@ -159,26 +159,26 @@ extension AddressBookEntity {
     }
 }
 
-extension AddressBookEntity {
+extension AddressBookEntry {
     static func exportToCSV() -> String? {
-        guard AddressBookEntity.count > 0 else { return nil }
-        return "address, name, chainId \n" + AddressBookEntity.all.map { $0.csv }.joined(separator: "\n")
+        guard AddressBookEntry.count > 0 else { return nil }
+        return "address, name, chainId \n" + AddressBookEntry.all.map { $0.csv }.joined(separator: "\n")
     }
 
     static func importFrom(csv: String) -> (numberOfAdded: Int, numberOfUpdated: Int) {
         var numberOfAdded: Int = 0
         var numberOfUpdated: Int = 0
         let entites = csv.components(separatedBy: "\n").dropFirst()
-        entites.forEach { entity in
-            let values = entity.components(separatedBy: ",")
+        entites.forEach { entry in
+            let values = entry.components(separatedBy: ",")
             guard values.count == 3,
                   let _ = Address(values[0]),
                   let chain = Chain.by(values[2]) else { return }
-            if let entity = AddressBookEntity.by(address: values[0], chainId: values[2]) {
-                entity.update(name: values[1])
+            if let entry = AddressBookEntry.by(address: values[0], chainId: values[2]) {
+                entry.update(name: values[1])
                 numberOfUpdated += 1
             } else {
-                AddressBookEntity.create(address: values[0], name: values[1], chain: chain)
+                AddressBookEntry.create(address: values[0], name: values[1], chain: chain)
                 numberOfAdded += 1
             }
         }
@@ -187,9 +187,9 @@ extension AddressBookEntity {
     }
 }
 
-extension NSFetchRequest where ResultType == AddressBookEntity {
+extension NSFetchRequest where ResultType == AddressBookEntry {
     func all() -> Self {
-        sortDescriptors = [NSSortDescriptor(keyPath: \AddressBookEntity.additionDate, ascending: true)]
+        sortDescriptors = [NSSortDescriptor(keyPath: \AddressBookEntry.additionDate, ascending: true)]
         return self
     }
 

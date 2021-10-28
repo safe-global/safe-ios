@@ -32,8 +32,8 @@
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
 		0455A42B271F73B7008B772D /* AddressBookEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42A271F73B7008B772D /* AddressBookEntity.swift */; };
 		0455A42E27204181008B772D /* AddressBookListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42D27204181008B772D /* AddressBookListTableViewController.swift */; };
-		0455A43127204A5B008B772D /* CreateAddressBookEntityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42F27204A5B008B772D /* CreateAddressBookEntityViewController.swift */; };
-		0455A43227204A5B008B772D /* CreateAddressBookEntityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0455A43027204A5B008B772D /* CreateAddressBookEntityViewController.xib */; };
+		0455A43127204A5B008B772D /* CreateAddressBookEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */; };
+		0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0455A43027204A5B008B772D /* CreateAddressBookEntryViewController.xib */; };
 		0455A44527282EAA008B772D /* FileManagerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A44427282EA9008B772D /* FileManagerWrapper.swift */; };
 		04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */; };
 		0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */; };
@@ -661,8 +661,8 @@
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		0455A42A271F73B7008B772D /* AddressBookEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookEntity.swift; sourceTree = "<group>"; };
 		0455A42D27204181008B772D /* AddressBookListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookListTableViewController.swift; sourceTree = "<group>"; };
-		0455A42F27204A5B008B772D /* CreateAddressBookEntityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAddressBookEntityViewController.swift; sourceTree = "<group>"; };
-		0455A43027204A5B008B772D /* CreateAddressBookEntityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateAddressBookEntityViewController.xib; sourceTree = "<group>"; };
+		0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAddressBookEntryViewController.swift; sourceTree = "<group>"; };
+		0455A43027204A5B008B772D /* CreateAddressBookEntryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateAddressBookEntryViewController.xib; sourceTree = "<group>"; };
 		0455A44427282EA9008B772D /* FileManagerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerWrapper.swift; sourceTree = "<group>"; };
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
@@ -1346,8 +1346,8 @@
 			isa = PBXGroup;
 			children = (
 				0455A42D27204181008B772D /* AddressBookListTableViewController.swift */,
-				0455A42F27204A5B008B772D /* CreateAddressBookEntityViewController.swift */,
-				0455A43027204A5B008B772D /* CreateAddressBookEntityViewController.xib */,
+				0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */,
+				0455A43027204A5B008B772D /* CreateAddressBookEntryViewController.xib */,
 			);
 			path = AddressBook;
 			sourceTree = "<group>";
@@ -3086,7 +3086,7 @@
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */,
-				0455A43227204A5B008B772D /* CreateAddressBookEntityViewController.xib in Resources */,
+				0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
@@ -3623,7 +3623,7 @@
 				55B66E56247E494000249E98 /* AppSettings.swift in Sources */,
 				0A5F4829254C56580069C98D /* SafeEntryTableViewCell.swift in Sources */,
 				555312E9250653800008206B /* BIP32HDNode.swift in Sources */,
-				0455A43127204A5B008B772D /* CreateAddressBookEntityViewController.swift in Sources */,
+				0455A43127204A5B008B772D /* CreateAddressBookEntryViewController.swift in Sources */,
 				0A2F1A79267A5E5B00C09F03 /* TotalCell.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
 				55BCFC5E255469B300020CE7 /* BasicHeaderView.swift in Sources */,
