@@ -89,9 +89,15 @@ final class SwitchSafesViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == addSafeSection {
             let vc = SelectNetworkViewController()
-            vc.completion = { [weak self] in
-                self?.didTapCloseButton()
+            vc.completion = { [weak self] chain  in
+                let vc = EnterSafeAddressViewController()
+                vc.chain = chain
+                let ribbon = RibbonViewController(rootViewController: vc)
+                ribbon.chain = vc.chain
+                vc.completion = { self?.didTapCloseButton() }
+                self?.show(ribbon, sender: self)
             }
+
             show(vc, sender: self)
         } else {
             let safe = chainSafes[indexPath.section - 1].safes[indexPath.row]

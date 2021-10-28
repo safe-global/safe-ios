@@ -47,9 +47,15 @@ class LoadSafeViewController: UIViewController {
 
     @IBAction private func didTapLoadSafe(_ sender: Any) {
         let vc = SelectNetworkViewController()
-        vc.completion = { [weak vc] in
-            vc?.navigationController?.popToRootViewController(animated: true)
+        vc.completion = { [weak self] chain  in
+            let vc = EnterSafeAddressViewController()
+            vc.chain = chain
+            let ribbon = RibbonViewController(rootViewController: vc)
+            ribbon.chain = vc.chain
+            vc.completion = { self?.navigationController?.popToRootViewController(animated: true) }
+            self?.show(ribbon, sender: self)
         }
+
         show(vc, sender: self)
     }
 }
