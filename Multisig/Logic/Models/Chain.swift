@@ -225,10 +225,7 @@ extension Chain {
 
     typealias ChainEntries = [(chain: Chain, entries: [AddressBookEntry])]
 
-    /// Returns safes grouped by chain with the following logic applied:
-    /// - Selected safe chain will be first in the list
-    /// - Other chains are sorted by chain id
-    /// - Selected safe will be the first in the list of chain safes. Other safes are sorted by addition date with earlist on top.
+    /// Returns safes grouped by chain sorted by chain id
     static func chainEntries() -> ChainEntries {
         guard let entries = try? AddressBookEntry.getAll() else { return [] }
 

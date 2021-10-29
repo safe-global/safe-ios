@@ -77,7 +77,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
             let exportEntryButton = UIAlertAction(title: "Export entries", style: .default) { [unowned self] _ in
                 if let exportedFileURL = FileManagerWrapper.export(text: csv,
                                                                    fileName: "AddressBook",
-                                                                   fileExtension: String(kUTTypeCommaSeparatedText)) {
+                                                                   fileExtension: "csv") {
                     let activityViewController : UIActivityViewController = UIActivityViewController(
                         activityItems: [exportedFileURL], applicationActivities: nil)
 
@@ -95,10 +95,10 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
     }
 
     private func didTapAddButton() {
-        let vc = SelectNetworkViewController()
-        vc.screenTitle = "New Entry"
-        vc.descriptionText = "Select network on which you want to add entry:"
-        vc.completion = { [unowned self] chain  in
+        let selectNetworkVC = SelectNetworkViewController()
+        selectNetworkVC.screenTitle = "New Entry"
+        selectNetworkVC.descriptionText = "Select network on which you want to add entry:"
+        selectNetworkVC.completion = { [unowned self] chain  in
             let vc = CreateAddressBookEntryViewController()
             vc.chain = chain
             let ribbon = RibbonViewController(rootViewController: vc)
@@ -113,7 +113,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
             self.show(ribbon, sender: self)
         }
 
-        show(vc, sender: self)
+        show(selectNetworkVC, sender: self)
     }
     
     @objc override func reloadData() {

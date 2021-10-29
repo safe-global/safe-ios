@@ -72,7 +72,7 @@ class CreateAddressBookEntryViewController: UIViewController {
                     return .success(value)
                 } else {
                     return .failure(GSError.error(description: "Can’t use this QR code",
-                                                  error: GSError.SafeAddressNotValid()))
+                                                  error: GSError.AddressBookEntryAddressNotValid()))
                 }
             }
             vc.modalPresentationStyle = .overFullScreen
@@ -103,7 +103,7 @@ class CreateAddressBookEntryViewController: UIViewController {
             let address = try Address(text, isERC681: true)
             addressField.setAddress(address)
 
-            // (2) and that there's no such safe already
+            // (2) and that there's no such entry already
             let exists = AddressBookEntry.exists(address.checksummed, chainId: chain.id)
             if exists { throw GSError.AddressBookEntryAlreadyExists() }
             validateInput()
