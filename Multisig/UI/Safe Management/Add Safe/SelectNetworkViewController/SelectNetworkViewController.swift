@@ -15,7 +15,9 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
     private var loadNextPageDataTask: URLSessionTask?
 
     private var model = NetworksListViewModel()
-    
+    var screenTitle: String!
+    var descriptionText: String!
+
     var completion: (SCGModels.Chain) -> Void = { _ in }
     convenience init() {
         self.init(namedClass: Self.superclass())
@@ -23,6 +25,9 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        assert(descriptionText?.isEmpty == false, "Developer error: expect to have a description")
+        assert(screenTitle?.isEmpty == false, "Developer error: expect to have an screen title")
 
         tableView.registerCell(SelectNetworkTableViewCell.self)
         tableView.registerHeaderFooterView(IdleFooterView.self)
@@ -36,7 +41,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         tableView.delegate = self
         tableView.dataSource = self
 
-        navigationItem.title = "Load Gnosis Safe"
+        navigationItem.title = screenTitle
         emptyView.setText("Networks will appear here")
     }
 
@@ -161,7 +166,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let tableHeaderView = TableHeaderView()
-        tableHeaderView.set("Select network on which your Safe was created:")
+        tableHeaderView.set(descriptionText)
         return tableHeaderView
     }
 

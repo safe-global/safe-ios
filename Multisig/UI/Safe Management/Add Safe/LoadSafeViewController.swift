@@ -47,6 +47,8 @@ class LoadSafeViewController: UIViewController {
 
     @IBAction private func didTapLoadSafe(_ sender: Any) {
         let vc = SelectNetworkViewController()
+        vc.screenTitle = "Load Gnosis Safe"
+        vc.descriptionText = "Select network on which your Safe was created:"
         vc.completion = { [weak self] chain  in
             let vc = EnterSafeAddressViewController()
             vc.chain = chain

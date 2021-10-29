@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateAddressBookEntryViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="addressField" destination="Sv9-62-6XP" id="nK5-eX-3oi"/>
+                <outlet property="textField" destination="6Ut-Ab-bYf" id="f3u-Ee-PXt"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="mhL-re-iTS">
+                    <rect key="frame" x="16" y="68" width="382" height="124"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ut-Ab-bYf" customClass="GNOTextField" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" placeholder="YES" id="FVz-rI-ckg"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sv9-62-6XP" customClass="AddressField" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="80" width="382" height="44"/>
+                            <viewLayoutGuide key="safeArea" id="gbR-mW-cxZ"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" placeholder="YES" id="BTC-5b-3AP"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="6Ut-Ab-bYf" secondAttribute="trailing" id="4q8-zu-NMj"/>
+                        <constraint firstItem="6Ut-Ab-bYf" firstAttribute="leading" secondItem="mhL-re-iTS" secondAttribute="leading" id="K1Y-mZ-Uba"/>
+                        <constraint firstItem="Sv9-62-6XP" firstAttribute="width" secondItem="6Ut-Ab-bYf" secondAttribute="width" id="apN-QO-80S"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="mhL-re-iTS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="NxJ-zp-oqg"/>
+                <constraint firstItem="mhL-re-iTS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="24" id="Z1O-ep-AvB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mhL-re-iTS" secondAttribute="trailing" constant="16" id="lZp-1f-b4f"/>
+            </constraints>
+            <point key="canvasLocation" x="133" y="132"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

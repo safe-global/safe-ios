@@ -18,7 +18,6 @@ final class SwitchSafesViewController: UITableViewController {
         super.viewDidLoad()
 
         title = "Switch Safes"
-
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         tableView.register(AddSafeTableViewCell.nib(), forCellReuseIdentifier: "AddSafe")
@@ -89,6 +88,8 @@ final class SwitchSafesViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == addSafeSection {
             let vc = SelectNetworkViewController()
+            vc.screenTitle = "Load Gnosis Safe"
+            vc.descriptionText = "Select network on which your Safe was created:"
             vc.completion = { [weak self] chain  in
                 let vc = EnterSafeAddressViewController()
                 vc.chain = chain

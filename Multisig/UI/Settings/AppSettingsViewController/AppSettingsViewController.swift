@@ -34,6 +34,7 @@ class AppSettingsViewController: UITableViewController {
 
         enum App: SectionItem {
             case ownerKeys(String, String)
+            case addressBook(String)
             case passcode(String)
             case appearance(String)
             case fiat(String, String)
@@ -81,9 +82,11 @@ class AppSettingsViewController: UITableViewController {
         if App.configuration.toggles.desktopPairingEnabled {
             sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing 🖥")]))
         }
+
         sections += [
             (section: .app, items: [
                 Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
+                Section.App.addressBook("Address Book"),
                 Section.App.passcode("Passcode"),
                 Section.App.appearance("Appearance"),
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
@@ -97,7 +100,9 @@ class AppSettingsViewController: UITableViewController {
                 Section.General.rateTheApp("Rate the app"),
                 Section.General.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
             ]),
-            (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
+            (section: .advanced, items: [
+                Section.Advanced.advanced("Advanced")
+            ])
         ]
     }
 
@@ -135,6 +140,10 @@ class AppSettingsViewController: UITableViewController {
         show(vc, sender: self)
     }
 
+    private func showAddressBook() {
+        show(AddressBookListTableViewController(), sender: self)
+    }
+
     private func openPasscode() {
         let vc = PasscodeSettingsViewController()
         show(vc, sender: self)
@@ -159,6 +168,9 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.ownerKeys(let name, let count):
             return tableView.basicCell(name: name, detail: count, indexPath: indexPath)
 
+        case Section.App.addressBook(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
+            
         case Section.App.passcode(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
 
@@ -209,6 +221,9 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.ownerKeys:
             showOwnerKeys()
 
+        case Section.App.addressBook:
+            showAddressBook()
+            
         case Section.App.passcode:
             openPasscode()
 

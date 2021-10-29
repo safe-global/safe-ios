@@ -222,6 +222,27 @@ extension Chain {
 
         return chainSafes
     }
+
+    typealias ChainEntries = [(chain: Chain, entries: [AddressBookEntry])]
+
+    /// Returns safes grouped by chain sorted by chain id
+    static func chainEntries() -> ChainEntries {
+        guard let entries = try? AddressBookEntry.getAll() else { return [] }
+
+        var chainEntries = ChainEntries()
+        let groupedEntries = Dictionary(grouping: entries, by: {$0.chain!})
+
+        groupedEntries.keys
+            .sorted { UInt256($0.id!)! < UInt256($1.id!)! }
+            .forEach { chain in
+                chainEntries.append(
+                    (chain: chain,
+                     entries: groupedEntries[chain]!.sorted { $0.additionDate! > $1.additionDate!})
+                )
+            }
+
+        return chainEntries
+    }
 }
 
 extension Chain {

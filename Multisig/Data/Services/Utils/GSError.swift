@@ -389,6 +389,25 @@ enum GSError {
         let loggable = false
     }
 
+	// MARK: Address Book
+    struct AddressBookEntryAlreadyExists: DetailedLocalizedError {
+        let description = "Can’t use this address"
+        let reason = "An entry with this address has been added already."
+        let howToFix = "Please use another address"
+        let domain = clientErrorDomain
+        let code = 8001
+        let loggable = false
+    }
+
+    struct AddressBookEntryAddressNotValid: DetailedLocalizedError {
+        let description = "This address is not valid"
+        let reason = "This value is not a valid address."
+        let howToFix = "Please use the checksummed address"
+        let domain = clientErrorDomain
+        let code = 8002
+        let loggable = false
+    }
+
     // MARK: - iOS errors
 
     struct UnknownAppError: DetailedLocalizedError {
@@ -498,6 +517,15 @@ enum GSError {
         let howToFix = "Please check the bluetooth status in the app settings."
         let domain = iOSErrorDomain
         let code = 1318
+        let loggable = false
+    }
+
+    struct FileManagerError: DetailedLocalizedError {
+        let description = "Failed to access files"
+        let reason = "The app is not able to access files"
+        let howToFix = "Please try again."
+        let domain = iOSErrorDomain
+        let code = 1319
         let loggable = false
     }
 

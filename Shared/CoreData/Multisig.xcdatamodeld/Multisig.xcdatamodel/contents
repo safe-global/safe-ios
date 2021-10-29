@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="AddressBookEntity" representedClassName="AddressBookEntity" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AddressBookEntry" representedClassName="AddressBookEntry" syncable="YES" codeGenerationType="class">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -92,6 +92,7 @@
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="wcSessions" inverseEntity="Safe"/>
     </entity>
     <elements>
+        <element name="AddressBookEntry" positionX="54" positionY="135" width="128" height="89"/>
         <element name="AppSettings" positionX="54" positionY="18" width="128" height="254"/>
         <element name="AppUser" positionX="54" positionY="63" width="128" height="89"/>
         <element name="Chain" positionX="54" positionY="117" width="128" height="179"/>
@@ -102,6 +103,5 @@
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
         <element name="WCKeySession" positionX="54" positionY="135" width="128" height="89"/>
         <element name="WCSession" positionX="54" positionY="18" width="128" height="119"/>
-        <element name="AddressBookEntity" positionX="54" positionY="135" width="128" height="89"/>
     </elements>
 </model>
