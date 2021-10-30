@@ -17,8 +17,6 @@ class AdvancedSafeSettingsViewController: UITableViewController {
     private var safe: Safe!
     private var sections = [SectionItems]()
 
-    var namingPolicy = DefaultAddressNamingPolicy()
-
     enum Section {
         case fallbackHandler(String)
         case guardInfo(String)
@@ -113,8 +111,11 @@ extension AdvancedSafeSettingsViewController {
 
         case Section.FallbackHandler.fallbackHandler(let info):
             if let info = info {
+                let (name, _) = NamingPolicy.name(for: info.address,
+                                                            info: info,
+                                                            chainId: safe.chain!.id!)
                 return addressDetailsCell(address: info.address,
-                                          title: namingPolicy.name(info: info),
+                                          title: name,
                                           imageUri: info.logoUri,
                                           indexPath: indexPath)
             } else {
@@ -129,8 +130,11 @@ extension AdvancedSafeSettingsViewController {
 
         case Section.GuardInfo.guardInfo(let info):
             if let info = info {
+                let (name, _) = NamingPolicy.name(for: info.address,
+                                                            info: info,
+                                                            chainId: safe.chain!.id!)
                 return addressDetailsCell(address: info.address,
-                                          title: namingPolicy.name(info: info),
+                                          title: name,
                                           imageUri: info.logoUri,
                                           indexPath: indexPath)
             } else {
@@ -150,8 +154,11 @@ extension AdvancedSafeSettingsViewController {
                                        canSelect: false)
 
         case Section.Module.module(let info):
+            let (name, _) = NamingPolicy.name(for: info.address,
+                                                        info: info,
+                                                        chainId: safe.chain!.id!)
             return addressDetailsCell(address: info.address,
-                                      title: namingPolicy.name(info: info),
+                                      title: name,
                                       imageUri: info.logoUri,
                                       indexPath: indexPath)
 

@@ -47,8 +47,9 @@ class MultiSendListTableViewController: UITableViewController {
         let cell = tableView.dequeueCell(MultiSendRowTableViewCell.self, for: indexPath)
         let tx = transactions[indexPath.row]
 
-        let (name, imageUri) = displayNameAndImageUri(
-            address: tx.to, addressInfoIndex: addressInfoIndex, chainId: chainId)
+        let (name, imageUri) = NamingPolicy.name(for: tx.to.address,
+                                                    info: addressInfoIndex?.values[tx.to]?.addressInfo,
+                                                    chainId: chainId)
 
         cell.setAddress(tx.to.address, label: name, imageUri: imageUri)
         cell.setAction(tx.dataDecoded?.method ?? "Action #\(indexPath.row + 1)")

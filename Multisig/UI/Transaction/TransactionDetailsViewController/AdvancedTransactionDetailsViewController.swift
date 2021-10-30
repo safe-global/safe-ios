@@ -130,14 +130,17 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         if let addressInfo = item.value as? SCGModels.AddressInfo {
+            let info = addressInfo.addressInfo
+            let (name, _) = NamingPolicy.name(for: info.address, info: info, chainId: chainId)
             return address(addressInfo.value.address,
-                           label: addressInfo.name,
+                           label: name,
                            title: item.title,
                            imageUri: addressInfo.logoUri,
                            indexPath: indexPath)
         } else if let addressInfo = item.value as? AddressInfo {
+            let (name, _) = NamingPolicy.name(for: addressInfo.address, info: addressInfo, chainId: chainId)
             return address(addressInfo.address,
-                           label: addressInfo.name,
+                           label: name,
                            title: item.title,
                            imageUri: addressInfo.logoUri,
                            indexPath: indexPath)

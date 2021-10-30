@@ -87,8 +87,9 @@ class ActionDetailViewController: UITableViewController {
         if let tx = multiSendTx {
             let coin = Chain.nativeCoin!
             txBuilder.result = []
-            let (name, imageUri) = displayNameAndImageUri(
-                address: tx.to, addressInfoIndex: addressInfoIndex, chainId: chainId)
+            let (name, imageUri) = NamingPolicy.name(for: tx.to.address,
+                                                        info: addressInfoIndex?.values[tx.to]?.addressInfo,
+                                                        chainId: chainId)
             txBuilder.buildTransferHeader(
                 address: tx.to.address,
                 label: name,
@@ -227,9 +228,9 @@ class ActionDetailViewController: UITableViewController {
 
     private func addressCell(_ address: Address, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailAddressCell.self)
-        let (name, imageUri) = displayNameAndImageUri(address: AddressString(address),
-                                                      addressInfoIndex: addressInfoIndex,
-                                                      chainId: chainId)
+        let (name, imageUri) = NamingPolicy.name(for: address,
+                                                    info: addressInfoIndex?.values[AddressString(address)]?.addressInfo,
+                                                    chainId: chainId)
         cell.setAddress(address, label: name, imageUri: imageUri)
         cell.selectionStyle = .none
         cell.margins.leading += indentation

@@ -523,10 +523,10 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-
     func confirmation(_ confirmations: [Address], required: Int, status: SCGModels.TxStatus, executor: Address?, isRejectionTx: Bool) {
         let cell = newCell(DetailConfirmationCell.self)
         cell.setConfirmations(confirmations,
+                              chainId: chainId,
                               required: required,
                               status: status,
                               executor: executor,
