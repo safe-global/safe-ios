@@ -40,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.setPasscodeIsSet(to: App.shared.auth.isPasscodeSet)
 
         Safe.updateCachedNames()
-
+        AddressBookEntry.updateCachedNames()
+        
         App.shared.notificationHandler.setUpMessaging(delegate: self)
 
         // Reconnect all WalletConnect sessions
