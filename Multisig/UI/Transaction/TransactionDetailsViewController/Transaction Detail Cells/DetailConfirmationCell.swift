@@ -12,6 +12,7 @@ class DetailConfirmationCell: UITableViewCell {
     @IBOutlet private weak var stackView: UIStackView!
 
     func setConfirmations(_ confirmations: [Address],
+                          chainId: String,
                           required: Int,
                           status: SCGModels.TxStatus,
                           executor: Address?,
@@ -25,7 +26,8 @@ class DetailConfirmationCell: UITableViewCell {
             let v = ConfirmationConfirmedPiece(frame: bounds)
             v.setText("Confirmed")
             let keyInfo = try? KeyInfo.keys(addresses: [address]).first
-            v.setAddress(address, label: keyInfo?.name, badgeName: keyInfo?.keyType.imageName)
+            let (name, _) = NamingPolicy.name(for: address, info: nil, chainId: chainId)
+            v.setAddress(address, label: name, badgeName: keyInfo?.keyType.imageName)
             return v
         }
 
@@ -60,11 +62,12 @@ class DetailConfirmationCell: UITableViewCell {
 
         case .success:
             if let address = executor {
-                let keyInfo = try? KeyInfo.keys(addresses: [address]).first
                 let success = ConfirmationConfirmedPiece(frame: bounds)
                 success.setText("Executed")
                 success.setShowsBar(false)
-                success.setAddress(address, label: keyInfo?.name, badgeName: keyInfo?.keyType.imageName)
+                let keyInfo = try? KeyInfo.keys(addresses: [address]).first
+                let (name, _) = NamingPolicy.name(for: address, info: nil, chainId: chainId)
+                success.setAddress(address, label: name, badgeName: keyInfo?.keyType.imageName)
                 views.append(success)
             } else {
                 let status = ConfirmationStatusPiece(frame: bounds)

@@ -242,6 +242,47 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(networkSafes[2].safes[2].name, "11")
     }
 
+    func test_networkEntries() throws {
+        var networkEntries = Chain.chainEntries()
+        XCTAssertEqual(networkEntries.count, 0)
+
+        let network1 = try makeChain(id: "1")
+        let network3 = try makeChain(id: "3")
+        let network2 = try makeChain(id: "2")
+
+        AddressBookEntry.create(address: "0x0000000000000000000000000000000000000000", name: "00", chain: network1)
+        AddressBookEntry.create(address: "0x0000000000000000000000000000000000000001", name: "01", chain: network1)
+
+        AddressBookEntry.create(address: "0x0000000000000000000000000000000000000011", name: "11", chain: network3)
+        AddressBookEntry.create(address: "0x0000000000000000000000000000000000000010", name: "10", chain: network3)
+        AddressBookEntry.create(address: "0x0000000000000000000000000000000000000000", name: "100", chain: network3)
+
+        AddressBookEntry.create(address: "0x0000000000000000000000000000000000000020", name: "20", chain: network2)
+        AddressBookEntry.create(address: "0x0000000000000000000000000000000000000021", name: "21", chain: network2)
+        AddressBookEntry.create(address: "0x0000000000000000000000000000000000000022", name: "22", chain: network2)
+
+        networkEntries = Chain.chainEntries()
+
+        XCTAssertEqual(networkEntries.count, 3)
+
+        XCTAssertEqual(networkEntries[0].chain, network1)
+        XCTAssertEqual(networkEntries[0].entries.count, 2)
+        XCTAssertEqual(networkEntries[0].entries[0].name, "01")
+        XCTAssertEqual(networkEntries[0].entries[1].name, "00")
+
+        XCTAssertEqual(networkEntries[1].chain, network2)
+        XCTAssertEqual(networkEntries[1].entries.count, 3)
+        XCTAssertEqual(networkEntries[1].entries[0].name, "22")
+        XCTAssertEqual(networkEntries[1].entries[1].name, "21")
+        XCTAssertEqual(networkEntries[1].entries[2].name, "20")
+
+        XCTAssertEqual(networkEntries[2].chain, network3)
+        XCTAssertEqual(networkEntries[2].entries.count, 3)
+        XCTAssertEqual(networkEntries[2].entries[0].name, "100")
+        XCTAssertEqual(networkEntries[2].entries[1].name, "10")
+        XCTAssertEqual(networkEntries[2].entries[2].name, "11")
+    }
+
     // nativeCurrency
     func test_nativeCurrency() throws {
         // when no safes then nil returned

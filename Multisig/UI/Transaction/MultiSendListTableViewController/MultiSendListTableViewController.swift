@@ -30,11 +30,29 @@ class MultiSendListTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.registerCell(MultiSendRowTableViewCell.self)
         tableView.backgroundColor = .secondaryBackground
+
+        for notification in [Notification.Name.ownerKeyImported,
+                             .ownerKeyRemoved,
+                             .ownerKeyUpdated,
+                             .addressbookChanged,
+                             .selectedSafeChanged,
+                             .selectedSafeUpdated,
+                             .chainInfoChanged] {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(lazyReloadData),
+                name: notification,
+                object: nil)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.transactionDetailsActionList)
+    }
+
+    @objc func lazyReloadData() {
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -47,8 +65,9 @@ class MultiSendListTableViewController: UITableViewController {
         let cell = tableView.dequeueCell(MultiSendRowTableViewCell.self, for: indexPath)
         let tx = transactions[indexPath.row]
 
-        let (name, imageUri) = displayNameAndImageUri(
-            address: tx.to, addressInfoIndex: addressInfoIndex, chainId: chainId)
+        let (name, imageUri) = NamingPolicy.name(for: tx.to.address,
+                                                    info: addressInfoIndex?.values[tx.to]?.addressInfo,
+                                                    chainId: chainId)
 
         cell.setAddress(tx.to.address, label: name, imageUri: imageUri)
         cell.setAction(tx.dataDecoded?.method ?? "Action #\(indexPath.row + 1)")

@@ -36,7 +36,7 @@ class SafeTests: CoreDataTestCase {
         safesResult = try context.fetch(Safe.fetchRequest().all())
         networksResult = try context.fetch(Chain.fetchRequest().all())
         XCTAssertEqual(safesResult.count, 1)
-        XCTAssertEqual(networksResult.count, 1)
+        XCTAssertEqual(networksResult.count, 2)
 
         safe = safesResult.first!
         XCTAssertNotNil(safe.selection)
@@ -44,7 +44,7 @@ class SafeTests: CoreDataTestCase {
         safesResult = try context.fetch(Safe.fetchRequest().all())
         networksResult = try context.fetch(Chain.fetchRequest().all())
         XCTAssertEqual(safesResult.count, 0)
-        XCTAssertEqual(networksResult.count, 0)
+        XCTAssertEqual(networksResult.count, 2)
     }
 
     func test_allSafes() throws {

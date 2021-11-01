@@ -302,9 +302,9 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         )
         let tokenText = "\(amount) \(coin.symbol!)"
         let tokenDetail = amount == "0" ? "\(transaction.data?.data.count ?? 0) Bytes" : nil
-        let (addressName, _) = displayNameAndImageUri(address: AddressString(transaction.to.address),
-                                                      addressInfoIndex: nil,
-                                                      chainId: safe.chain!.id!)
+        let (addressName, _) = NamingPolicy.name(for: transaction.to.address,
+                                                    info: nil,
+                                                    chainId: safe.chain!.id!)
 
         cell.setToken(text: tokenText, style: .secondary)
         cell.setToken(image: coin.logoUrl)

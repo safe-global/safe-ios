@@ -15,7 +15,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     var clientGatewayService = App.shared.clientGatewayService
     let tableBackgroundColor: UIColor = .primaryBackground
     let advancedSectionHeaderHeight: CGFloat = 28
-    var namingPolicy = DefaultAddressNamingPolicy()
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
@@ -169,7 +168,14 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         case Section.OwnerAddresses.ownerInfo(let info):
             let keyInfo = try? KeyInfo.keys(addresses: [info.address]).first
-            return addressDetailsCell(address: info.address, name: namingPolicy.name(info: info), indexPath: indexPath, badgeName: keyInfo?.keyType.imageName)
+            let (name, _) = NamingPolicy.name(for: info.address,
+                                                        info: info,
+                                                        chainId: safe.chain!.id!)
+
+            return addressDetailsCell(address: info.address,
+                                      name: name,
+                                      indexPath: indexPath,
+                                      badgeName: keyInfo?.keyType.imageName)
 
         case Section.ContractVersion.versionInfo(let info, let status, let version):
             return safeVersionCell(info: info, status: status, version: version, indexPath: indexPath)
@@ -323,16 +329,5 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 extension SafeSettingsViewController: ENSNameLoaderDelegate {
     func ensNameLoaderDidLoadName(_ loader: ENSNameLoader) {
         tableView.reloadData()
-    }
-}
-
-/// Precedence: KeyInfo.name > info.name
-class DefaultAddressNamingPolicy {
-    func name(for address: Address? = nil,
-              info: AddressInfo? = nil) -> String? {
-        if let addr = address ?? info?.address {
-            return KeyInfo.name(address: addr) ?? info?.name
-        }
-        return info?.name
     }
 }

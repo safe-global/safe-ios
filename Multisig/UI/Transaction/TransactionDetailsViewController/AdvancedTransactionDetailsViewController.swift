@@ -35,6 +35,19 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         tableView.estimatedRowHeight = 60
         tableView.estimatedSectionHeaderHeight = BasicHeaderView.headerHeight
         tableView.estimatedSectionFooterHeight = 0
+
+        for notification in [Notification.Name.ownerKeyImported,
+                             .ownerKeyRemoved,
+                             .ownerKeyUpdated,
+                             .addressbookChanged,
+                             .selectedSafeChanged,
+                             .selectedSafeUpdated] {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(lazyReloadData),
+                name: notification,
+                object: nil)
+        }
     }
 
     func buildSections(_ tx: SCGModels.TransactionDetails) {
@@ -104,6 +117,10 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         sections = sections.filter { section in !section.items.isEmpty }
     }
 
+    @objc func lazyReloadData() {
+        tableView.reloadData()
+    }
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         BasicHeaderView.headerHeight
     }
@@ -130,14 +147,17 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         if let addressInfo = item.value as? SCGModels.AddressInfo {
+            let info = addressInfo.addressInfo
+            let (name, _) = NamingPolicy.name(for: info.address, info: info, chainId: chainId)
             return address(addressInfo.value.address,
-                           label: addressInfo.name,
+                           label: name,
                            title: item.title,
                            imageUri: addressInfo.logoUri,
                            indexPath: indexPath)
         } else if let addressInfo = item.value as? AddressInfo {
+            let (name, _) = NamingPolicy.name(for: addressInfo.address, info: addressInfo, chainId: chainId)
             return address(addressInfo.address,
-                           label: addressInfo.name,
+                           label: name,
                            title: item.title,
                            imageUri: addressInfo.logoUri,
                            indexPath: indexPath)
