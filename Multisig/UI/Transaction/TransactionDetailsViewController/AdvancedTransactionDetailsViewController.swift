@@ -35,6 +35,19 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         tableView.estimatedRowHeight = 60
         tableView.estimatedSectionHeaderHeight = BasicHeaderView.headerHeight
         tableView.estimatedSectionFooterHeight = 0
+
+        for notification in [Notification.Name.ownerKeyImported,
+                             .ownerKeyRemoved,
+                             .ownerKeyUpdated,
+                             .addressbookChanged,
+                             .selectedSafeChanged,
+                             .selectedSafeUpdated] {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(lazyReloadData),
+                name: notification,
+                object: nil)
+        }
     }
 
     func buildSections(_ tx: SCGModels.TransactionDetails) {
@@ -102,6 +115,10 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         }
 
         sections = sections.filter { section in !section.items.isEmpty }
+    }
+
+    @objc func lazyReloadData() {
+        tableView.reloadData()
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

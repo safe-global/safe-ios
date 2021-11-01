@@ -30,11 +30,29 @@ class MultiSendListTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.registerCell(MultiSendRowTableViewCell.self)
         tableView.backgroundColor = .secondaryBackground
+
+        for notification in [Notification.Name.ownerKeyImported,
+                             .ownerKeyRemoved,
+                             .ownerKeyUpdated,
+                             .addressbookChanged,
+                             .selectedSafeChanged,
+                             .selectedSafeUpdated,
+                             .chainInfoChanged] {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(lazyReloadData),
+                name: notification,
+                object: nil)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.transactionDetailsActionList)
+    }
+
+    @objc func lazyReloadData() {
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source

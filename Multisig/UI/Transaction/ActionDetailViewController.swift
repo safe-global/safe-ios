@@ -62,11 +62,19 @@ class ActionDetailViewController: UITableViewController {
         tableView.backgroundColor = .secondaryBackground
         reloadData()
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(reloadData),
-            name: .chainInfoChanged,
-            object: nil)
+        for notification in [Notification.Name.ownerKeyImported,
+                             .ownerKeyRemoved,
+                             .ownerKeyUpdated,
+                             .addressbookChanged,
+                             .selectedSafeChanged,
+                             .selectedSafeUpdated,
+                             .chainInfoChanged] {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(reloadData),
+                name: notification,
+                object: nil)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
