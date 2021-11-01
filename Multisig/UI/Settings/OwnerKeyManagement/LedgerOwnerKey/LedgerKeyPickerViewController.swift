@@ -67,15 +67,10 @@ class LedgerKeyPickerViewController: SegmentViewController {
         enterNameVC.name = defaultName
         enterNameVC.address = key.address
         enterNameVC.badgeName = KeyType.ledgerNanoX.imageName
-        enterNameVC.completion = { [unowned self, unowned contentVC, unowned enterNameVC] name in
+        enterNameVC.completion = { [unowned self, unowned contentVC] name in
             contentVC.importSelectedKey(name: name)
 
-            let keyAddedVC = LedgerKeyAddedViewController()
-            keyAddedVC.completion = self.completion
-            keyAddedVC.accountAddress = key.address
-            keyAddedVC.accountName = name
-
-            enterNameVC.show(keyAddedVC, sender: nil)
+            self.completion()
         }
         show(enterNameVC, sender: nil)
     }
