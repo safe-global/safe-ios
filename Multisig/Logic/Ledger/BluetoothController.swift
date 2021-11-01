@@ -134,6 +134,9 @@ extension BluetoothController: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
+            centralManager.retrieveConnectedPeripherals(withServices: supportedDeviceUUIDs).forEach { peripheral in
+                didDiscoverDevice(peripheral)
+            }
             centralManager.scanForPeripherals(withServices: supportedDeviceUUIDs)
         case .unauthorized:
             delegate?.bluetoothControllerDidFailToConnectBluetooth(error: GSError.BluetoothIsNotAuthorized())
@@ -146,11 +149,7 @@ extension BluetoothController: CBCentralManagerDelegate {
                         didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any],
                         rssi RSSI: NSNumber) {
-        if deviceFor(deviceId: peripheral.identifier) == nil {
-            let device = BluetoothDevice(peripheral: peripheral)
-            devices.append(device)
-            delegate?.bluetoothControllerDidDiscover(device: device)
-        }
+        didDiscoverDevice(peripheral)
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -169,6 +168,14 @@ extension BluetoothController: CBCentralManagerDelegate {
         }
 
         delegate?.bluetoothControllerDidDisconnect(device: device, error: detailedError)
+    }
+
+    func didDiscoverDevice(_ peripheral: CBPeripheral) {
+        if deviceFor(deviceId: peripheral.identifier) == nil {
+            let device = BluetoothDevice(peripheral: peripheral)
+            devices.append(device)
+            delegate?.bluetoothControllerDidDiscover(device: device)
+        }
     }
 }
 
