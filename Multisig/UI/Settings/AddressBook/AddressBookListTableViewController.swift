@@ -50,7 +50,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.addressbookList)
+        Tracker.trackEvent(.addressBookList)
     }
 
     @objc private func showOptionsMenu() {
@@ -78,9 +78,12 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
                 if let exportedFileURL = FileManagerWrapper.export(text: csv,
                                                                    fileName: "AddressBook",
                                                                    fileExtension: "csv") {
+                    
                     let activityViewController : UIActivityViewController = UIActivityViewController(
                         activityItems: [exportedFileURL], applicationActivities: nil)
-
+                    activityViewController.completionWithItemsHandler = {(_ , completed, _, _) in
+                        if completed { Tracker.trackEvent(.addressBookExported) }
+                    }
                     self.present(activityViewController, animated: true, completion: nil)
                 }
             }
@@ -106,7 +109,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
             vc.completion = { (address, name)  in
                 AddressBookEntry.create(address: address.checksummed, name: name, chainInfo: chain)
                 NotificationCenter.default.post(name: .addressbookChanged, object: self, userInfo: nil)
-                navigationController?.popToRootViewController(animated: true)
+                navigationController?.popToViewController(self, animated: true)
                 self.reloadData()
                 App.shared.snackbar.show(message: "Address book entry added")
             }
@@ -181,7 +184,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         enterNameVC.actionTitle = "Save"
         enterNameVC.descriptionText = "Choose a name for the entry. The name is only stored locally and will not be shared with Gnosis or any third parties."
         enterNameVC.screenTitle = "Enter entry Name"
-        enterNameVC.trackingEvent = .addressbookEditEntry
+        enterNameVC.trackingEvent = .addressBookEditEntry
         enterNameVC.placeholder = "Enter name"
         enterNameVC.name = defaultName
         enterNameVC.address = entry.addressValue
@@ -217,6 +220,7 @@ extension AddressBookListTableViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         if let csv = FileManagerWrapper.importFile(url: url) {
             let result = AddressBookEntry.importFrom(csv: csv)
+            Tracker.trackEvent(.addressBookImported)
             App.shared.snackbar.show(message: "\(result.0) entries imported. \(result.1) entries updated")
         }
     }

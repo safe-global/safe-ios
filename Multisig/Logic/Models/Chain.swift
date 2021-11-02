@@ -45,6 +45,7 @@ extension Chain {
         return chain
     }
 
+    @discardableResult
     static func createOrUpdate(_ chainInfo: SCGModels.Chain) -> Chain {
         guard let chain = Chain.by(chainInfo.id) else {
             // should not fail, otherwise programmer error
