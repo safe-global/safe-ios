@@ -47,7 +47,7 @@ class CreateAddressBookEntryViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.addressbookAddEntry)
+        Tracker.trackEvent(.addressBookAddEntry)
     }
 
     @objc private func didTapNextButton(_ sender: Any) {

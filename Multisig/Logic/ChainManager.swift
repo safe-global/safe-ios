@@ -14,7 +14,7 @@ class ChainManager {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let chains):
-                    for chain in chains.results { Chain.updateIfExist(chain) }
+                    for chain in chains.results { Chain.createOrUpdate(chain) }
                     NotificationCenter.default.post(name: .chainInfoChanged, object: nil)
                 case .failure(_):
                     // Ignoring error because we'll try again in the next app start.
