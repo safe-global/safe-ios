@@ -47,6 +47,7 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
               let metadata = KeyInfo.LedgerKeyMetadata.from(data: data) else { return }
 
         let confirmVC = LedgerPendingConfirmationViewController(
+            headerText: request.title,
             bluetoothController: bluetoothController,
             hexToSign: request.hexToSign,
             deviceId: deviceId,
