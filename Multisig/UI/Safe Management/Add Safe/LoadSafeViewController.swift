@@ -46,18 +46,20 @@ class LoadSafeViewController: UIViewController {
     }
 
     @IBAction private func didTapLoadSafe(_ sender: Any) {
-        let vc = SelectNetworkViewController()
-        vc.screenTitle = "Load Gnosis Safe"
-        vc.descriptionText = "Select network on which your Safe was created:"
-        vc.completion = { [weak self] chain  in
+        let selectNetworkVC = SelectNetworkViewController()
+        selectNetworkVC.screenTitle = "Load Gnosis Safe"
+        selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
+        selectNetworkVC.completion = { [unowned selectNetworkVC, weak self] chain  in
             let vc = EnterSafeAddressViewController()
             vc.chain = chain
             let ribbon = RibbonViewController(rootViewController: vc)
             ribbon.chain = vc.chain
-            vc.completion = { self?.navigationController?.popToRootViewController(animated: true) }
+            vc.completion = {
+                selectNetworkVC?.navigationController?.popToRootViewController(animated: true)
+            }
             self?.show(ribbon, sender: self)
         }
 
-        show(vc, sender: self)
+        show(selectNetworkVC, sender: self)
     }
 }
