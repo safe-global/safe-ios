@@ -37,11 +37,10 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         emptyView.setText("There are no address book entries")
         emptyView.setImage(UIImage(named: "ico-no-address-book")!)
 
-        menuButton = UIBarButtonItem(image: UIImage(named: "chevron.down.circle"),
+        menuButton = UIBarButtonItem(image: UIImage.init(systemName: "chevron.down.circle"),
                                      style: UIBarButtonItem.Style.plain,
                                      target: self,
                                      action: #selector(showOptionsMenu))
-        //menuButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(showOptionsMenu))
         navigationItem.rightBarButtonItem = menuButton
 
         for notification in [Notification.Name.selectedSafeChanged, .addressbookChanged] {
