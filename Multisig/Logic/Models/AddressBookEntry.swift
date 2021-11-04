@@ -156,22 +156,30 @@ extension AddressBookEntry {
     }
 
     var csv: String {
-        [addressValue.checksummed, name!, chain!.id!].joined(separator: ",")
+        [addressValue.checksummed, name!.contains(",") ? "\"\(name!)\"" : name!, chain!.id!].joined(separator: ",")
     }
 }
 
 extension AddressBookEntry {
     static func exportToCSV() -> String? {
         guard AddressBookEntry.count > 0 else { return nil }
-        return "address, name, chainId \n" + AddressBookEntry.all.map { $0.csv }.joined(separator: "\n")
+        return (["address,name,chainId"] + AddressBookEntry.all.map { $0.csv }).joined(separator: "\n")
     }
 
     static func importFrom(csv: String) -> (numberOfAdded: Int, numberOfUpdated: Int) {
         var numberOfAdded: Int = 0
         var numberOfUpdated: Int = 0
-        let entites = csv.components(separatedBy: "\n").dropFirst()
+        let entites = csv.split(whereSeparator: \.isNewline).dropFirst()
         entites.forEach { entry in
-            let values = entry.components(separatedBy: ",")
+            var values: [String] = []
+            if entry.contains("\"") {
+                values = entry.components(separatedBy: "\",")
+                    .map { $0.components(separatedBy: ",\"") }
+                    .flatMap { $0 }
+            } else {
+                values = entry.components(separatedBy: ",")
+            }
+
             guard values.count == 3,
                   let _ = Address(values[0]),
                   let chain = Chain.by(values[2]) else { return }
