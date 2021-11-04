@@ -85,7 +85,10 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
                     let activityViewController : UIActivityViewController = UIActivityViewController(
                         activityItems: [exportedFileURL], applicationActivities: nil)
                     activityViewController.completionWithItemsHandler = {(_ , completed, _, _) in
-                        if completed { Tracker.trackEvent(.addressBookExported) }
+                        if completed {
+                            Tracker.trackEvent(.addressBookExported)
+                            App.shared.snackbar.show(message: "Address book entries exported")
+                        }
                     }
                     self.present(activityViewController, animated: true, completion: nil)
                 }
