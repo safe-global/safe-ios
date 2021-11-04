@@ -60,4 +60,18 @@ extension UITableView {
         cell.setOn(isOn, animated: false)
         return cell
     }
+
+    func helpCell(for indexPath: IndexPath,
+                  with text: String,
+                  backgroundColor: UIColor = .primaryBackground,
+                  textStyle: GNOTextStyle = .secondary) -> UITableViewCell {
+        let cell = dequeueCell(UITableViewCell.self, reuseID: "HelpCell", for: indexPath)
+        cell.textLabel?.setStyle(.secondary)
+        cell.backgroundColor = backgroundColor
+        cell.textLabel?.text = text
+        cell.textLabel?.numberOfLines = 0
+        cell.selectionStyle = .none
+        
+        return cell
+    }
 }

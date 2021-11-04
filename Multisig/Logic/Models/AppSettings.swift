@@ -52,6 +52,12 @@ extension AppSettings {
     @AppSetting(\.fiatCode)
     private static var fiatCode: String?
 
+    @AppSetting(\.copyAddressWithChainPrefix)
+    static var copyAddressWithChainPrefix: Bool
+
+    @AppSetting(\.prependingChainPrefixToAddresses)
+    static var prependingChainPrefixToAddresses: Bool
+
     static var selectedFiatCode: String {
         get { fiatCode ?? "USD" }
         set { fiatCode = newValue }

@@ -284,7 +284,7 @@ class PasscodeSettingsViewController: UITableViewController {
             return tableView.basicCell(name: "Change passcode", indexPath: indexPath)
 
         case .helpText:
-            return makeHelp(for: indexPath, with: "The passcode is needed to sign transactions.")
+            return tableView.helpCell(for: indexPath, with: "The passcode is needed to sign transactions.")
 
         case .loginWithBiometrics:
             return tableView.switchCell(for: indexPath,
@@ -306,7 +306,7 @@ class PasscodeSettingsViewController: UITableViewController {
                                         isOn: AppSettings.passcodeOptions.contains(.useForExportingKeys))
 
         case .oneOptionSelectedText:
-            return makeHelp(for: indexPath, with: "At least one option must be selected")
+            return tableView.helpCell(for: indexPath, with: "At least one option must be selected")
         }
     }
 
@@ -353,18 +353,6 @@ class PasscodeSettingsViewController: UITableViewController {
         case .single: return 0
         default: return BasicHeaderView.headerHeight
         }
-    }
-
-    // MARK: - Factory methods
-
-    private func makeHelp(for indexPath: IndexPath, with text: String) -> UITableViewCell {
-        let cell = tableView.dequeueCell(UITableViewCell.self, reuseID: "HelpCell", for: indexPath)
-        cell.textLabel?.setStyle(.secondary)
-        cell.backgroundColor = .primaryBackground
-        cell.textLabel?.text = text
-        cell.textLabel?.numberOfLines = 0
-        cell.selectionStyle = .none
-        return cell
     }
 
     private func makeHeader(with text: String) -> BasicHeaderView {

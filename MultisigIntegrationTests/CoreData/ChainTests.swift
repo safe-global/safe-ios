@@ -73,6 +73,7 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(chain.blockExplorerUrlAddress, "https://block.com/address/{{address}}")
         XCTAssertEqual(chain.blockExplorerUrlTxHash, "https://block.com/tx/{{txHash}}")
         XCTAssertEqual(chain.ensRegistryAddress, "0x0000000000000000000000000000000000000001")
+        XCTAssertEqual(chain.shortName, "eth")
         XCTAssertEqual(chain.nativeCurrency?.name, "Currency")
         XCTAssertEqual(chain.nativeCurrency?.symbol, "CRY")
         XCTAssertEqual(chain.nativeCurrency?.decimals, 18)
@@ -109,6 +110,7 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(chain.blockExplorerUrlAddress, chainInfo.blockExplorerUriTemplate.address)
         XCTAssertEqual(chain.blockExplorerUrlTxHash, chainInfo.blockExplorerUriTemplate.txHash)
         XCTAssertEqual(chain.ensRegistryAddress, chainInfo.ensRegistryAddress?.description)
+        XCTAssertEqual(chain.shortName, chainInfo.shortName)
 
         XCTAssertEqual(chain.nativeCurrency?.name, chainInfo.nativeCurrency.name)
         XCTAssertEqual(chain.nativeCurrency?.symbol, chainInfo.nativeCurrency.symbol)
@@ -135,6 +137,7 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(mainNetwork.blockExplorerUrlAddress, testNetworkInfo.blockExplorerUriTemplate.address)
         XCTAssertEqual(mainNetwork.blockExplorerUrlTxHash, testNetworkInfo.blockExplorerUriTemplate.txHash)
         XCTAssertEqual(mainNetwork.ensRegistryAddress, testNetworkInfo.ensRegistryAddress?.description)
+        XCTAssertEqual(mainNetwork.shortName, testNetworkInfo.shortName)
 
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testNetworkInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testNetworkInfo.nativeCurrency.symbol)
@@ -166,6 +169,7 @@ class NetworkTests: CoreDataTestCase {
         XCTAssertEqual(mainNetwork.rpcUrlAuthentication, testInfo.rpcUri.authentication.rawValue)
         XCTAssertEqual(mainNetwork.blockExplorerUrlAddress, testInfo.blockExplorerUriTemplate.address)
         XCTAssertEqual(mainNetwork.blockExplorerUrlTxHash, testInfo.blockExplorerUriTemplate.txHash)
+        XCTAssertEqual(mainNetwork.shortName, testInfo.shortName)
 
         XCTAssertEqual(mainNetwork.nativeCurrency?.name, testInfo.nativeCurrency.name)
         XCTAssertEqual(mainNetwork.nativeCurrency?.symbol, testInfo.nativeCurrency.symbol)
@@ -304,6 +308,7 @@ class NetworkTests: CoreDataTestCase {
                          rpcUrlAuthentication: SCGModels.RpcAuthentication.Authentication = .apiKeyPath,
                          blockExplorerUrlAddress: String,
                          blockExplorerUrlTxHash: String,
+                         shortName: String,
                          currencyName: String,
                          currencySymbl: String,
                          currencyDecimals: Int,
@@ -322,7 +327,7 @@ class NetworkTests: CoreDataTestCase {
                                                            logoUri: currencyLogo),
                         theme: SCGModels.Theme(textColor: themeTextColor,
                                                backgroundColor: themeBackgroundColor),
-                        ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
+                        ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e", shortName: shortName)
     }
 
     func makeMainnetInfo() -> SCGModels.Chain {
@@ -331,6 +336,7 @@ class NetworkTests: CoreDataTestCase {
                         rpcUrl: URL(string: "https://mainnet.infura.io/v3/")!,
                         blockExplorerUrlAddress: "https://etherscan.io/address/{{address}}",
                         blockExplorerUrlTxHash: "https://etherscan.io/tx/{{txHash}}",
+                        shortName: "eth",
                         currencyName: "Ether",
                         currencySymbl: "ETH",
                         currencyDecimals: 18,
@@ -346,6 +352,7 @@ class NetworkTests: CoreDataTestCase {
                         rpcUrl: URL(string: "https://rpc.com/")!,
                         blockExplorerUrlAddress: "https://block.com/address/{{address}}",
                         blockExplorerUrlTxHash: "https://block.com/tx/{{txHash}}",
+                        shortName: "eth",
                         currencyName: "Currency",
                         currencySymbl: "CRY",
                         currencyDecimals: 18,

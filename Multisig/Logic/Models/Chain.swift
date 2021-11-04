@@ -64,6 +64,7 @@ extension Chain {
                        blockExplorerUrlAddress: String,
                        blockExplorerUrlTxHash: String,
                        ensRegistryAddress: String?,
+                       shortName: String,
                        currencyName: String,
                        currencySymbl: String,
                        currencyDecimals: Int,
@@ -81,6 +82,7 @@ extension Chain {
         chain.blockExplorerUrlAddress = blockExplorerUrlAddress
         chain.blockExplorerUrlTxHash = blockExplorerUrlTxHash
         chain.ensRegistryAddress = ensRegistryAddress
+        chain.shortName = shortName
 
         let theme = ChainTheme(context: context)
         theme.textColor = themeTextColor
@@ -108,6 +110,7 @@ extension Chain {
                          blockExplorerUrlAddress: chainInfo.blockExplorerUriTemplate.address,
                          blockExplorerUrlTxHash: chainInfo.blockExplorerUriTemplate.txHash,
                          ensRegistryAddress: chainInfo.ensRegistryAddress?.description,
+                         shortName: chainInfo.shortName,
                          currencyName: chainInfo.nativeCurrency.name,
                          currencySymbl: chainInfo.nativeCurrency.symbol,
                          currencyDecimals: chainInfo.nativeCurrency.decimals,
@@ -147,6 +150,7 @@ extension Chain {
         blockExplorerUrlAddress = chainInfo.blockExplorerUriTemplate.address
         blockExplorerUrlTxHash = chainInfo.blockExplorerUriTemplate.txHash
         ensRegistryAddress = chainInfo.ensRegistryAddress?.description
+        shortName = chainInfo.shortName
 
         theme?.textColor = chainInfo.theme.textColor
         theme?.backgroundColor = chainInfo.theme.backgroundColor
@@ -182,6 +186,7 @@ extension Chain {
             blockExplorerUrlAddress: "https://etherscan.io/address/{{address}}",
             blockExplorerUrlTxHash: "https://etherscan.io/tx/{{txHash}}",
             ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
+            shortName: "eth",
             currencyName: "Ether",
             currencySymbl: "ETH",
             currencyDecimals: 18,
