@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "illustrationOwnerKeys.pdf",
+      "filename" : "illustrationAddressBook.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "illustrationTransactions.pdf",
+      "filename" : "illustrationAddressBookNightMode.pdf",
       "idiom" : "universal"
     }
   ],
