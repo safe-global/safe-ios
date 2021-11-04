@@ -55,7 +55,7 @@ class LoadSafeViewController: UIViewController {
             let ribbon = RibbonViewController(rootViewController: vc)
             ribbon.chain = vc.chain
             vc.completion = {
-                selectNetworkVC?.navigationController?.popToRootViewController(animated: true)
+                selectNetworkVC.navigationController?.popToRootViewController(animated: true)
             }
             self?.show(ribbon, sender: self)
         }
