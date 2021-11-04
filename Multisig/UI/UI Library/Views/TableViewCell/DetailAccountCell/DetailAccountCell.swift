@@ -12,7 +12,13 @@ class DetailAccountCell: UITableViewCell {
     @IBOutlet private weak var addressInfoView: AddressInfoView!
     @IBOutlet private weak var qrCodeView: QRCodeView!
 
-    func setAccount(address: Address, label: String? = nil, title: String? = nil, imageUri: URL? = nil, badgeName: String? = nil, showQRCode: Bool = false, showExternalLink: Bool = true) {
+    func setAccount(address: Address, label: String? = nil,
+                    title: String? = nil,
+                    imageUri: URL? = nil,
+                    badgeName: String? = nil,
+                    showQRCode: Bool = false,
+                    copyEnabled: Bool = true,
+                    showExternalLink: Bool = true) {
         addressInfoView.setAddress(address, label: label, imageUri: imageUri, badgeName: badgeName)
         addressInfoView.setTitle(title)
         qrCodeView.isHidden = !showQRCode
@@ -20,5 +26,7 @@ class DetailAccountCell: UITableViewCell {
         if !showExternalLink {
             addressInfoView.setDetailImage(nil)
         }
+
+        addressInfoView.copyEnabled = copyEnabled
     }
 }
