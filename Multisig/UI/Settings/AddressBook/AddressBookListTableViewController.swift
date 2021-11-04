@@ -141,7 +141,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         let cell = tableView.dequeueCell(DetailAccountCell.self)
         let entry = chainEntries[indexPath.section].entries[indexPath.row]
 
-        cell.setAccount(address: entry.addressValue, label: entry.name)
+        cell.setAccount(address: entry.addressValue, label: entry.name, copyEnabled: false, showExternalLink: false)
         return cell
     }
 
