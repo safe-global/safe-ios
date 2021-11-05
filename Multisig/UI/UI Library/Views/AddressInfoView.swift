@@ -17,6 +17,8 @@ class AddressInfoView: UINibView {
     @IBOutlet private var detailButton: UIButton!
 
     private(set) var address: Address!
+    private(set) var browseURL: URL?
+    private(set) var prefix: String?
     private(set) var label: String?
 
     var copyEnabled: Bool {
@@ -82,11 +84,10 @@ class AddressInfoView: UINibView {
     }
 }
 
-
 extension UIViewController {
     @objc func didTapAddressInfoDetails(_ sender: AddressInfoView) {
-        if let address = sender.address {
-            openInSafari(Safe.browserURL(address: address.checksummed))
+        if let url = sender.browseURL {
+            openInSafari(url)
         }
     }
 }
