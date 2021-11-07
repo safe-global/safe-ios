@@ -238,7 +238,7 @@ extension Chain {
             .forEach { chain in
                 chainEntries.append(
                     (chain: chain,
-                     entries: groupedEntries[chain]!.sorted { $0.additionDate! > $1.additionDate!})
+                     entries: groupedEntries[chain]!.sorted { $0.name! < $1.name! })
                 )
             }
 
