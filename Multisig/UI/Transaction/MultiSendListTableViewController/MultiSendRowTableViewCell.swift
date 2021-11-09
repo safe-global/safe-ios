@@ -15,7 +15,6 @@ class MultiSendRowTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         addressInfoView.copyEnabled = false
-        addressInfoView.setDetailImage(nil)
         actionLabel.setStyle(.primary)
     }
 

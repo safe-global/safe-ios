@@ -14,7 +14,6 @@ class ChooseOwnerTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         addressInfoView.copyEnabled = false
-        addressInfoView.setDetailImage(nil)
     }
 
     func set(address: Address, title: String, badgeName: String?) {

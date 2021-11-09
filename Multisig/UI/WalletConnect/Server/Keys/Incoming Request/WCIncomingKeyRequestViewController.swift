@@ -119,7 +119,6 @@ class WCIncomingKeyRequestViewController: UIViewController {
         dappNameLabel.setStyle(.headline)
         dappNameLabel.text = dAppMeta.name
         signerAddressInfoView.setAddress(keyInfo.address, label: keyInfo.name)
-        signerAddressInfoView.setDetailImage(nil)
         titleLabel.setStyle(.caption1)
         detailsLabel.setStyle(.primary)
         detailsLabel.text = message

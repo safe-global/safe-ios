@@ -17,7 +17,7 @@ class TransactionDetailCellBuilder {
     private weak var tableView: UITableView!
 
     // needed for proper safe selection for known addresses functionality. Also used to select the block explorer url.
-    private var chainId: String
+    private var chain: Chain
 
     private lazy var dateFormatter: DateFormatter = {
         let d = DateFormatter()
@@ -28,10 +28,10 @@ class TransactionDetailCellBuilder {
     }()
     var result: [UITableViewCell] = []
 
-    init(vc: UIViewController, tableView: UITableView, chainId: String) {
+    init(vc: UIViewController, tableView: UITableView, chain: Chain) {
         self.vc = vc
         self.tableView = tableView
-        self.chainId = chainId
+        self.chain = chain
 
         tableView.registerCell(DetailExpandableTextCell.self)
         tableView.registerCell(DetailConfirmationCell.self)
@@ -364,7 +364,7 @@ class TransactionDetailCellBuilder {
                     guard let `self` = self else { return }
                     let root = MultiSendListTableViewController(transactions: multiSendTxs,
                                                                 addressInfoIndex: addressInfoIndex,
-                                                                chainId: self.chainId)
+                                                                chain: self.chain)
                     let vc = RibbonViewController(rootViewController: root)
                     self.vc.show(vc, sender: self)
                 }
@@ -373,7 +373,7 @@ class TransactionDetailCellBuilder {
                     guard let `self` = self else { return }
                     let root = ActionDetailViewController(decoded: dataDecoded,
                                                           addressInfoIndex: addressInfoIndex,
-                                                          chainId: self.chainId,
+                                                          chain: self.chain,
                                                           data: tx.txData?.hexData)
                     let vc = RibbonViewController(rootViewController: root)
                     self.vc.show(vc, sender: self)
@@ -480,7 +480,7 @@ class TransactionDetailCellBuilder {
         default:
             disclosure(text: "Advanced") { [weak self] in
                 guard let `self` = self else { return }
-                let vc = AdvancedTransactionDetailsViewController(tx, chainId: self.chainId)
+                let vc = AdvancedTransactionDetailsViewController(tx, chain: self.chain)
                 let ribbonVC = RibbonViewController(rootViewController: vc)
                 self.vc.show(ribbonVC, sender: self)
             }
@@ -491,7 +491,6 @@ class TransactionDetailCellBuilder {
     func buildOpenInExplorer(hash: DataString?) {
         guard
             let txHash = hash?.description,
-            let chain = Chain.by(chainId),
             let txHashUrlTemplate = chain.blockExplorerUrlTxHash
         else { return }
         let url = URL(string: txHashUrlTemplate.replacingOccurrences(of: "{{txHash}}", with: txHash))!
@@ -526,7 +525,7 @@ class TransactionDetailCellBuilder {
     func confirmation(_ confirmations: [Address], required: Int, status: SCGModels.TxStatus, executor: Address?, isRejectionTx: Bool) {
         let cell = newCell(DetailConfirmationCell.self)
         cell.setConfirmations(confirmations,
-                              chainId: chainId,
+                              chainId: chain.id!,
                               required: required,
                               status: status,
                               executor: executor,
@@ -568,7 +567,11 @@ class TransactionDetailCellBuilder {
         cell.setToken(image: iconURL, placeholder: icon)
         cell.setToken(alpha: alpha)
         cell.setDetail(detail)
-        cell.setAddress(address, label: label, imageUri: addressLogoUri)
+        cell.setAddress(address,
+                        label: label,
+                        imageUri: addressLogoUri,
+                        browseURL: chain.browserURL(address: address.checksummed),
+                        prefix: chain.shortName)
         cell.setOutgoing(isOutgoing)
         result.append(cell)
     }
@@ -604,7 +607,7 @@ class TransactionDetailCellBuilder {
     }
 
     func displayNameAndImageUri(addressInfo: SCGModels.AddressInfo) -> (name: String?, imageUri: URL?) {
-        if let importedSafeName = Safe.cachedName(by: addressInfo.value, chainId: chainId) {
+        if let importedSafeName = Safe.cachedName(by: addressInfo.value, chainId: chain.id!) {
             return (importedSafeName, nil)
         }
 

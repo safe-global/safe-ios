@@ -21,7 +21,6 @@ class DefaultKeyTableViewCell: UITableViewCell {
         headerLabel.setStyle(.headline)
         leftLabel.setStyle(.primary)
         detailLabel.setStyle(.primary)
-        addressView.setDetailImage(nil)
         addressView.copyEnabled = false
         iconImageView.tintColor = .button
     }

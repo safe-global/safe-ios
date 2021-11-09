@@ -39,8 +39,16 @@ class AddressInfoView: UINibView {
         titleLabel.isHidden = text == nil
     }
 
-    func setAddress(_ address: Address, label: String? = nil, imageUri: URL? = nil, showIdenticon: Bool = true, badgeName: String? = nil) {
+    func setAddress(_ address: Address,
+                    label: String? = nil,
+                    imageUri: URL? = nil,
+                    showIdenticon: Bool = true,
+                    badgeName: String? = nil,
+                    browseURL: URL? = nil,
+                    prefix: String? = nil) {
         self.address = address
+        self.browseURL = browseURL
+        self.prefix = prefix
         self.label = label
 
         if let label = label {
@@ -58,12 +66,6 @@ class AddressInfoView: UINibView {
             identiconView.set(address: address, imageURL: imageUri, badgeName: badgeName)
         }
         identiconView.isHidden = !showIdenticon
-    }
-
-    func setDetailImage(_ image: UIImage?, tintColor: UIColor = .button) {
-        detailButton.isHidden = image == nil
-        detailButton.tintColor = tintColor
-        detailButton.setImage(image, for: .normal)
     }
 
     @IBAction private func didTapDetailButton() {

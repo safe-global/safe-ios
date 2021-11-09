@@ -280,8 +280,7 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         cell.setAccount(
             address: transaction.safe!.address,
             label: Safe.cachedName(by: transaction.safe!, chainId: safe.chain!.id!),
-            title: "Connected safe",
-            showExternalLink: false
+            title: "Connected safe"
         )
         cell.selectionStyle = .none
         return cell
@@ -289,8 +288,9 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
     private func transactionCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
+        let chain = safe.chain!
 
-        let coin = safe.chain!.nativeCurrency!
+        let coin = chain.nativeCurrency!
         let decimalAmount = BigDecimal(
             Int256(transaction.value.value) * -1,
             Int(coin.decimals)
@@ -313,7 +313,8 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         cell.setAddress(transaction.to.address,
                         label: addressName,
                         imageUri: nil,
-                        showExternalLink: false)
+                        browseURL: chain.browserURL(address: transaction.to.address.checksummed),
+                        prefix: chain.shortName)
         cell.setOutgoing(true)
         cell.selectionStyle = .none
 
