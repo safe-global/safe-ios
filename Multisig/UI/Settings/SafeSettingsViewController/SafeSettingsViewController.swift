@@ -76,11 +76,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.registerCell(RemoveCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
-        for notification in [Notification.Name.ownerKeyImported,
-                                .ownerKeyRemoved,
-                                .ownerKeyUpdated,
-                                .selectedSafeUpdated,
-                                .addressbookChanged] {
+        for notification in [Notification.Name.ownerKeyImported, .ownerKeyRemoved, .ownerKeyUpdated, .selectedSafeUpdated] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(lazyReloadData),
