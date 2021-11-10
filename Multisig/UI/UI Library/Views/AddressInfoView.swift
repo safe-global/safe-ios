@@ -32,6 +32,11 @@ class AddressInfoView: UINibView {
         textLabel.setStyle(.headline)
         addressLabel.setStyle(.tertiary)
         setTitle(nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(displayAddress),
+                                               name: .chainInfoChanged,
+                                               object: nil)
     }
 
     func setTitle(_ text: String?) {
@@ -55,12 +60,11 @@ class AddressInfoView: UINibView {
             textLabel.isHidden = false
             textLabel.text = label
             addressLabel.setStyle(.tertiary)
-            addressLabel.text = self.address.ellipsized()
         } else {
             textLabel.isHidden = true
-            addressLabel.attributedText = self.address.highlighted
         }
 
+        displayAddress()
         addressLabel.textAlignment = showIdenticon ? .left : .center
         if showIdenticon {
             identiconView.set(address: address, imageURL: imageUri, badgeName: badgeName)
@@ -73,7 +77,7 @@ class AddressInfoView: UINibView {
     }
 
     @IBAction private func copyAddress() {
-        Pasteboard.string = address.checksummed
+        Pasteboard.string = prefixString() + address.checksummed
         App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 
@@ -83,6 +87,18 @@ class AddressInfoView: UINibView {
 
     @IBAction private func didTouchUp(sender: UIButton, forEvent event: UIEvent) {
         alpha = 1.0
+    }
+
+    @objc func displayAddress() {
+        if let label = label {
+            addressLabel.text = prefixString() + self.address.ellipsized()
+        } else {
+            addressLabel.attributedText = self.address.highlighted
+        }
+    }
+
+    private func prefixString() -> String {
+        (AppSettings.copyAddressWithChainPrefix && prefix != nil ? "\(prefix!):" : "" )
     }
 }
 
