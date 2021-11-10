@@ -80,7 +80,7 @@ class AppSettingsViewController: UITableViewController {
     private func buildSections() {
         sections = []
         if App.configuration.toggles.desktopPairingEnabled {
-            sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing 🖥")]))
+            sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing")]))
         }
 
         sections += [
