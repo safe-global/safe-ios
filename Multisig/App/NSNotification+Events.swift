@@ -69,4 +69,8 @@ extension NSNotification.Name {
     // MARK: NamingPolicy
 
     static let namingPolicyChanged = NSNotification.Name("io.gnosis.safe.namingPolicyChanged")
+
+    // Chain settings chainged
+
+    static let chainSettingsChanged = NSNotification.Name("io.gnosis.safe.chainSettingsChanged")
 }

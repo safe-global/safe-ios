@@ -100,7 +100,7 @@ class EnterUnstoppableNameViewController: UIViewController {
     private func onSuccess(_ address: Address) {
         activityIndicator.stopAnimating()
         foundIdenticonView.setAddress(address.hexadecimal)
-        foundAddressLabel.attributedText = address.highlighted
+        foundAddressLabel.attributedText = address.checksummed.highlight()
         addressFoundStackView.isHidden = false
         confirmButton.isEnabled = true
         self.address = address

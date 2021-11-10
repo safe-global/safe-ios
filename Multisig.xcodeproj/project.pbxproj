@@ -75,6 +75,7 @@
 		048D72D026875B1C0095999C /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72CF26875B1C0095999C /* TableHeaderView.swift */; };
 		048D72D226875B2D0095999C /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72D126875B2D0095999C /* TableHeaderView.xib */; };
 		048D72D7268DACAF0095999C /* NetworksListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72D6268DACAF0095999C /* NetworksListViewModel.swift */; };
+		049257AE273C239C00507C33 /* String+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049257AD273C239C00507C33 /* String+Highlight.swift */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
 		049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */; };
@@ -172,7 +173,6 @@
 		0A3FDADD26AEB1D7006A7DC3 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A3FDADE26AEB1D7006A7DC3 /* Data+MultisigExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC33424602CE200EB9C5D /* Data+MultisigExtension.swift */; };
 		0A3FDAE026AEB23C006A7DC3 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3FDADF26AEB23C006A7DC3 /* Web3 */; settings = {ATTRIBUTES = (Required, ); }; };
-		0A3FDAE326AEB2F9006A7DC3 /* Address+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDAE226AEB2F9006A7DC3 /* Address+Extensions.swift */; };
 		0A3FDAE526AEB314006A7DC3 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
 		0A3FDAE626AEB3E1006A7DC3 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		0A3FDAE726AEB3E1006A7DC3 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AC9E552487B0CB00B0BC24 /* CoreDataProtocol.swift */; };
@@ -701,6 +701,7 @@
 		048D72CF26875B1C0095999C /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		048D72D126875B2D0095999C /* TableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
 		048D72D6268DACAF0095999C /* NetworksListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworksListViewModel.swift; sourceTree = "<group>"; };
+		049257AD273C239C00507C33 /* String+Highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Highlight.swift"; sourceTree = "<group>"; };
 		0493A28A262979820056EC49 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
 		049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListTableViewCell.swift; sourceTree = "<group>"; };
@@ -780,7 +781,6 @@
 		0A3DADA426270FA100743E38 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A3DFEFD2667D3A700B45770 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
-		0A3FDAE226AEB2F9006A7DC3 /* Address+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address+Extensions.swift"; sourceTree = "<group>"; };
 		0A3FDAEB26AEB5BF006A7DC3 /* KeyInfo+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyInfo+Shared.swift"; sourceTree = "<group>"; };
 		0A3FDAEE26AEB603006A7DC3 /* Chain+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chain+Shared.swift"; sourceTree = "<group>"; };
 		0A3FDAF126AEB691006A7DC3 /* Safe+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Safe+Shared.swift"; sourceTree = "<group>"; };
@@ -2377,7 +2377,6 @@
 		0AF432D5244F075800E22E50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0A3FDAE226AEB2F9006A7DC3 /* Address+Extensions.swift */,
 				55B66E55247E494000249E98 /* AppSettings.swift */,
 				0AC5F5B225DD510600DEF0D7 /* AppUser.swift */,
 				048D72C026835CF90095999C /* Chain.swift */,
@@ -2509,6 +2508,7 @@
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
 				04248BD8272DF18C00431397 /* NamingPolicy.swift */,
+				049257AD273C239C00507C33 /* String+Highlight.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -3397,7 +3397,6 @@
 				55BCFC392552FCDB00020CE7 /* SafeSettingsViewController.swift in Sources */,
 				0A86EE6925CC2B410059876E /* IdleFooterView.swift in Sources */,
 				048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */,
-				0A3FDAE326AEB2F9006A7DC3 /* Address+Extensions.swift in Sources */,
 				0A3FDAF226AEB691006A7DC3 /* Safe+Shared.swift in Sources */,
 				557D80AC270B32F80036D6D0 /* WalletConnectServerController.swift in Sources */,
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
@@ -3614,6 +3613,7 @@
 				0A2F1A79267A5E5B00C09F03 /* TotalCell.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
 				55BCFC5E255469B300020CE7 /* BasicHeaderView.swift in Sources */,
+				049257AE273C239C00507C33 /* String+Highlight.swift in Sources */,
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
 				0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */,
 				04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */,

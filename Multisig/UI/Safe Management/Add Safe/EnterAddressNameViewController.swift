@@ -38,7 +38,7 @@ class EnterAddressNameViewController: UIViewController {
         assert(trackingEvent != nil, "Developer error: expect to have a tracking event")
 
         identiconView.set(address: address, badgeName: badgeName)
-        addressLabel.attributedText = address.highlighted
+        addressLabel.attributedText = address.checksummed.highlight()
         descriptionLabel.setStyle(.primary)
         descriptionLabel.text = descriptionText
 

@@ -35,7 +35,7 @@ class AddressInfoView: UINibView {
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(displayAddress),
-                                               name: .chainInfoChanged,
+                                               name: .chainSettingsChanged,
                                                object: nil)
     }
 
@@ -70,6 +70,7 @@ class AddressInfoView: UINibView {
             identiconView.set(address: address, imageURL: imageUri, badgeName: badgeName)
         }
         identiconView.isHidden = !showIdenticon
+        detailButton.isHidden = browseURL == nil
     }
 
     @IBAction private func didTapDetailButton() {
@@ -90,15 +91,16 @@ class AddressInfoView: UINibView {
     }
 
     @objc func displayAddress() {
-        if let label = label {
+        if let _ = label {
             addressLabel.text = prefixString() + self.address.ellipsized()
         } else {
-            addressLabel.attributedText = self.address.highlighted
+            let prefixString = prefixString()
+            addressLabel.attributedText = (prefixString + self.address.checksummed).highlight(prefix: prefixString.count + 4)
         }
     }
 
     private func prefixString() -> String {
-        (AppSettings.copyAddressWithChainPrefix && prefix != nil ? "\(prefix!):" : "" )
+        (AppSettings.prependingChainPrefixToAddresses && prefix != nil ? "\(prefix!):" : "" )
     }
 }
 
@@ -109,3 +111,4 @@ extension UIViewController {
         }
     }
 }
+
