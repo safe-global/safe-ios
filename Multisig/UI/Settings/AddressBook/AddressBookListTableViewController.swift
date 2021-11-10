@@ -143,7 +143,11 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         let cell = tableView.dequeueCell(DetailAccountCell.self)
         let entry = chainEntries[indexPath.section].entries[indexPath.row]
 
-        cell.setAccount(address: entry.addressValue, label: entry.name, copyEnabled: false)
+        cell.setAccount(address: entry.addressValue,
+                        label: entry.name,
+                        copyEnabled: false,
+                        browseURL: entry.chain!.browserURL(address: entry.displayAddress),
+                        prefix: entry.chain!.shortName)
         return cell
     }
 
