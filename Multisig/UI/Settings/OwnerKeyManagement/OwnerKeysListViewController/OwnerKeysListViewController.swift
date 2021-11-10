@@ -132,16 +132,10 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let keyInfo = keys[indexPath.row]
-//        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
         let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
         cell.configure(keyInfo: keyInfo, chainID: chainID)
         return cell
-//        } else {
-//            let cell = tableView.dequeueCell(OwnerKeysListTableViewCell.self, for: indexPath)
-//            cell.set(address: keyInfo.address, title: keyInfo.displayName, type: keyInfo.keyType)
-//            return cell
-//        }
     }
 
     // MARK: - Table view delegate
@@ -158,7 +152,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        guard App.configuration.toggles.walletConnectOwnerKeyEnabled else { return nil }
 
         let keyInfo = keys[indexPath.row]
 
