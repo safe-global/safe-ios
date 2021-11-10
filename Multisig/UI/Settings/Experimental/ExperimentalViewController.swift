@@ -18,11 +18,11 @@ class ExperimentalViewController: UITableViewController {
         }
     }
 
-    #warning("TODO: track or delete")
     @UserDefault(key: "io.gnosis.multisig.experimental.desktopPairing")
     var desktopPairingEnabled: Bool? {
         didSet {
             tableView.reloadData()
+            Tracker.setDesktopPairingEnabled(desktopPairingEnabled ?? false)
             NotificationCenter.default.post(name: .updatedExperemental, object: nil)
         }
     }
