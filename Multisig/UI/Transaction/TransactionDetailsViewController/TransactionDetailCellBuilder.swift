@@ -216,7 +216,9 @@ class TransactionDetailCellBuilder {
                     imageUri: imgageUri,
                     addressTitle: "Add owner:",
                     text: "\(addOwnerTx.threshold)",
-                    textTitle: "Change required confirmations:")
+                    textTitle: "Change required confirmations:",
+                    browseURL: chain.browserURL(address: addOwnerTx.owner.value.address.checksummed),
+                    prefix: chain.shortName)
 
             case .removeOwner(let removeOwnerTx):
                 let (label, imageUri) = displayNameAndImageUri(addressInfo: removeOwnerTx.owner)
@@ -226,14 +228,26 @@ class TransactionDetailCellBuilder {
                     imageUri: imageUri,
                     addressTitle: "Remove owner:",
                     text: "\(removeOwnerTx.threshold)",
-                    textTitle: "Change required confirmations:")
+                    textTitle: "Change required confirmations:",
+                    browseURL: chain.browserURL(address: removeOwnerTx.owner.value.address.checksummed),
+                    prefix: chain.shortName)
 
             case .swapOwner(let swapOwnerTx):
                 let (oldOwnerLabel, oldOwnerImgageUri) = displayNameAndImageUri(addressInfo: swapOwnerTx.oldOwner)
                 let (newOwnerLabel, newOwnerImgageUri) = displayNameAndImageUri(addressInfo: swapOwnerTx.newOwner)
                 addresses(
-                    [(address: swapOwnerTx.oldOwner.value.address, label: oldOwnerLabel, imageUri: oldOwnerImgageUri, title: "Remove owner:"),
-                     (address: swapOwnerTx.newOwner.value.address, label: newOwnerLabel, imageUri: newOwnerImgageUri, title: "Add owner:")
+                    [(address: swapOwnerTx.oldOwner.value.address,
+                      label: oldOwnerLabel,
+                      imageUri: oldOwnerImgageUri,
+                      title: "Remove owner:",
+                      browseURL: chain.browserURL(address: swapOwnerTx.oldOwner.value.address.checksummed),
+                      prefix: chain.shortName),
+                     (address: swapOwnerTx.newOwner.value.address,
+                      label: newOwnerLabel,
+                      imageUri: newOwnerImgageUri,
+                      title: "Add owner:",
+                      browseURL: chain.browserURL(address: swapOwnerTx.newOwner.value.address.checksummed),
+                      prefix: chain.shortName)
                     ])
 
             case .changeThreshold(let thresholdTx):
@@ -525,7 +539,7 @@ class TransactionDetailCellBuilder {
     func confirmation(_ confirmations: [Address], required: Int, status: SCGModels.TxStatus, executor: Address?, isRejectionTx: Bool) {
         let cell = newCell(DetailConfirmationCell.self)
         cell.setConfirmations(confirmations,
-                              chainId: chain.id!,
+                              chain: chain,
                               required: required,
                               status: status,
                               executor: executor,
@@ -588,14 +602,31 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-    func addressAndText(_ address: Address, label: String?, imageUri: URL?, addressTitle: String, text: String, textTitle: String) {
+    func addressAndText(_ address: Address,
+                        label: String?,
+                        imageUri: URL?,
+                        addressTitle: String,
+                        text: String,
+                        textTitle: String,
+                        browseURL: URL?,
+                        prefix: String?) {
         let cell = newCell(DetailAccountAndTextCell.self)
         cell.setText(title: textTitle, details: text)
-        cell.setAccount(address: address, label: label, title: addressTitle, imageUri: imageUri)
+        cell.setAccount(address: address,
+                        label: label,
+                        title: addressTitle,
+                        imageUri: imageUri,
+                        browseURL: browseURL,
+                        prefix: prefix)
         result.append(cell)
     }
 
-    func addresses(_ accounts: [(address: Address, label: String?, imageUri: URL?, title: String?)]) {
+    func addresses(_ accounts: [(address: Address,
+                                 label: String?,
+                                 imageUri: URL?,
+                                 title: String?,
+                                 browseURL: URL?,
+                                 prefix: String?)]) {
         let cell = newCell(DetailMultiAccountsCell.self)
         cell.setAccounts(accounts: accounts)
         result.append(cell)

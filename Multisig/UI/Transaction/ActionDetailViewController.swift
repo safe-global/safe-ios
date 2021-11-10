@@ -239,7 +239,11 @@ class ActionDetailViewController: UITableViewController {
         let (name, imageUri) = NamingPolicy.name(for: address,
                                                     info: addressInfoIndex?.values[AddressString(address)]?.addressInfo,
                                                     chainId: chain.id!)
-        cell.setAddress(address, label: name, imageUri: imageUri)
+        cell.setAddress(address,
+                        label: name,
+                        imageUri: imageUri,
+                        browseURL: chain.browserURL(address: address.checksummed),
+                        prefix: chain.shortName)
         cell.selectionStyle = .none
         cell.margins.leading += indentation
         return cell

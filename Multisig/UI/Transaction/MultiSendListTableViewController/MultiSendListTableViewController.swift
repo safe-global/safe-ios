@@ -69,7 +69,10 @@ class MultiSendListTableViewController: UITableViewController {
                                                     info: addressInfoIndex?.values[tx.to]?.addressInfo,
                                                     chainId: chain.id!)
 
-        cell.setAddress(tx.to.address, label: name, imageUri: imageUri)
+        cell.setAddress(tx.to.address,
+                        label: name,
+                        imageUri: imageUri,
+                        prefix: chain.shortName)
         cell.setAction(tx.dataDecoded?.method ?? "Action #\(indexPath.row + 1)")
         cell.selectionStyle = .none
         return cell
