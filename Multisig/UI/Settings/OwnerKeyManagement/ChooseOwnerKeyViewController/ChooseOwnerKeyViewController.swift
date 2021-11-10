@@ -111,16 +111,10 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let keyInfo = owners[indexPath.row]
-//        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
         let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
         cell.configure(keyInfo: keyInfo, chainID: chainID)
         return cell
-//        } else {
-//            let cell = tableView.dequeueCell(ChooseOwnerTableViewCell.self)
-//            cell.set(address: keyInfo.address, title: keyInfo.displayName, badgeName: keyInfo.keyType.imageName)
-//            return cell
-//        }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -128,7 +122,6 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         let keyInfo = owners[indexPath.row]
 
         // For WalletConnect key check that it is still connected
-//        if App.configuration.toggles.walletConnectOwnerKeyEnabled && keyInfo.keyType == .walletConnect {
         if keyInfo.keyType == .walletConnect {
             switch KeyConnectionStatus.init(keyInfo: keyInfo, chainID: chainID) {
             case .connected:
@@ -162,7 +155,6 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let keyInfo = owners[indexPath.row]
-//        guard App.configuration.toggles.walletConnectOwnerKeyEnabled && keyInfo.keyType == .walletConnect else {
         guard keyInfo.keyType == .walletConnect else {
             return nil            
         }

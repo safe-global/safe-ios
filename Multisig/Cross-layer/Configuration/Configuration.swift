@@ -107,13 +107,9 @@ struct AppConfiguration {
         var bridgeURL: URL
     }
 
-    #warning("TODO: remove walletConnectOwnerKeyEnabled toggle later")
     struct FeatureToggles {
         @UserDefault(key: "io.gnosis.multisig.experimental.walletConnect")
         private var walletConnectEnabledSetting: Bool?
-
-//        @UserDefault(key: "io.gnosis.multisig.experimental.walletConnectOwnerKey")
-//        private var walletConnectOwnerKeyEnabledSetting: Bool?
 
         @UserDefault(key: "io.gnosis.multisig.experimental.desktopPairing")
         private var desktopPairingEnabledSetting: Bool?
@@ -121,10 +117,6 @@ struct AppConfiguration {
         var walletConnectEnabled: Bool {
             return walletConnectEnabledSetting ?? false
         }
-
-//        var walletConnectOwnerKeyEnabled: Bool {
-//            return walletConnectOwnerKeyEnabledSetting ?? false
-//        }
 
         @ConfigurationKey("DESKTOP_PAIRING_EXPERIMENTAL_ENABLED")
         var desktopPairingExperimentalEnabled: Bool
