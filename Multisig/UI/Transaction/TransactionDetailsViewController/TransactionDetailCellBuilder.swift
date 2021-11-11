@@ -111,7 +111,7 @@ class TransactionDetailCellBuilder {
     }
 
     func buildCreatorAddress(_ creationTx: SCGModels.TxInfo.Creation) {
-        let info = displayNameAndImageUri(addressInfo: creationTx.creator)
+        let info = NamingPolicy.name(for: creationTx.creator, chainId: chain.id!)
         return address(creationTx.creator.value.address,
                        label: info.name,
                        title: "Creator address",
@@ -130,10 +130,10 @@ class TransactionDetailCellBuilder {
             var addressLogoUri: URL?
             if isOutgoing {
                 address = transferTx.recipient.value.address
-                (label, addressLogoUri) = displayNameAndImageUri(addressInfo: transferTx.recipient)
+                (label, addressLogoUri) = NamingPolicy.name(for: transferTx.recipient, chainId: chain.id!)
             } else {
                 address = transferTx.sender.value.address
-                (label, addressLogoUri) = displayNameAndImageUri(addressInfo: transferTx.sender)
+                (label, addressLogoUri) = NamingPolicy.name(for: transferTx.sender, chainId: chain.id!)
             }
 
             switch transferTx.transferInfo {
@@ -198,7 +198,7 @@ class TransactionDetailCellBuilder {
 
             case .setFallbackHandler(let fallbackTx):
                 let handler: Address = fallbackTx.handler.value.address
-                var (label, imageUri) = displayNameAndImageUri(addressInfo: fallbackTx.handler)
+                var (label, imageUri) = NamingPolicy.name(for: fallbackTx.handler, chainId: chain.id!)
                 if label == nil {
                     label = handler.isZero ? "Not set" : "Unknown"
                 }
@@ -209,7 +209,7 @@ class TransactionDetailCellBuilder {
                     imageUri: imageUri)
 
             case .addOwner(let addOwnerTx):
-                let (label, imgageUri) = displayNameAndImageUri(addressInfo: addOwnerTx.owner)
+                let (label, imgageUri) = NamingPolicy.name(for: addOwnerTx.owner, chainId: chain.id!)
                 addressAndText(
                     addOwnerTx.owner.value.address,
                     label: label,
@@ -221,7 +221,7 @@ class TransactionDetailCellBuilder {
                     prefix: chain.shortName)
 
             case .removeOwner(let removeOwnerTx):
-                let (label, imageUri) = displayNameAndImageUri(addressInfo: removeOwnerTx.owner)
+                let (label, imageUri) = NamingPolicy.name(for: removeOwnerTx.owner, chainId: chain.id!)
                 addressAndText(
                     removeOwnerTx.owner.value.address,
                     label: label,
@@ -233,8 +233,8 @@ class TransactionDetailCellBuilder {
                     prefix: chain.shortName)
 
             case .swapOwner(let swapOwnerTx):
-                let (oldOwnerLabel, oldOwnerImgageUri) = displayNameAndImageUri(addressInfo: swapOwnerTx.oldOwner)
-                let (newOwnerLabel, newOwnerImgageUri) = displayNameAndImageUri(addressInfo: swapOwnerTx.newOwner)
+                let (oldOwnerLabel, oldOwnerImgageUri) = NamingPolicy.name(for: swapOwnerTx.oldOwner, chainId: chain.id!)
+                let (newOwnerLabel, newOwnerImgageUri) = NamingPolicy.name(for: swapOwnerTx.newOwner, chainId: chain.id!)
                 addresses(
                     [(address: swapOwnerTx.oldOwner.value.address,
                       label: oldOwnerLabel,
@@ -259,7 +259,7 @@ class TransactionDetailCellBuilder {
 
             case .changeImplementation(let implementationTx):
                 let implementation = implementationTx.implementation.value.address
-                var (label, imageUri) = displayNameAndImageUri(addressInfo: implementationTx.implementation)
+                var (label, imageUri) = NamingPolicy.name(for: implementationTx.implementation, chainId: chain.id!)
                 if label == nil {
                     label = implementationTx.implementation.name ?? "Unknown"
                 }
@@ -269,11 +269,11 @@ class TransactionDetailCellBuilder {
                         imageUri: imageUri)
 
             case .enableModule(let moduleTx):
-                let (label, imageUri) = displayNameAndImageUri(addressInfo: moduleTx.module)
+                let (label, imageUri) = NamingPolicy.name(for: moduleTx.module, chainId: chain.id!)
                 address(moduleTx.module.value.address, label: label, title: "Enable module:", imageUri: imageUri)
 
             case .disableModule(let moduleTx):
-                let (label, imageUri) = displayNameAndImageUri(addressInfo: moduleTx.module)
+                let (label, imageUri) = NamingPolicy.name(for: moduleTx.module, chainId: chain.id!)
                 address(moduleTx.module.value.address, label: label, title: "Disable module:", imageUri: imageUri)
 
             case .unknown:
@@ -282,7 +282,7 @@ class TransactionDetailCellBuilder {
 
         case .custom(let customTx):
             let coin = Chain.nativeCoin!
-            let (label, addressLogoUri) = displayNameAndImageUri(addressInfo: customTx.to)
+            let (label, addressLogoUri) = NamingPolicy.name(for: customTx.to, chainId: chain.id!)
 
             buildTransferHeader(
                 address: customTx.to.value.address,
@@ -632,21 +632,8 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-
     func newCell<T: UITableViewCell>(_ cls: T.Type) -> T {
         tableView.dequeueCell(cls)
-    }
-
-    func displayNameAndImageUri(addressInfo: SCGModels.AddressInfo) -> (name: String?, imageUri: URL?) {
-        if let importedSafeName = Safe.cachedName(by: addressInfo.value, chainId: chain.id!) {
-            return (importedSafeName, nil)
-        }
-
-        if let ownerName = KeyInfo.name(address: addressInfo.value.address) {
-            return (ownerName, nil)
-        }
-        
-        return (addressInfo.name, addressInfo.logoUri)
     }
 }
 

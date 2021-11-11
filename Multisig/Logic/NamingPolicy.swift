@@ -24,4 +24,12 @@ class NamingPolicy {
 
         return (info?.name, info?.logoUri)
     }
+
+    static func name(for info: AddressInfo? = nil, chainId: String) -> (name: String?, imageUri: URL?) {
+        return NamingPolicy.name(for: info?.address, info: info, chainId: chainId)
+    }
+
+    static func name(for info: SCGModels.AddressInfo? = nil, chainId: String) -> (name: String?, imageUri: URL?) {
+        return NamingPolicy.name(for: info?.value.address, info: info?.addressInfo, chainId: chainId)
+    }
 }
