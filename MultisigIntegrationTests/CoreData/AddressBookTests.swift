@@ -50,9 +50,9 @@ class AddressBookTests: CoreDataTestCase {
         let entry1 = createEntry(name: "0", address: "0x0")
         let allEntries = try AddressBookEntry.getAll()
         XCTAssertEqual(allEntries.count, 2)
-        // should be sorted by creation date
-        XCTAssertEqual(allEntries[0], entry0)
-        XCTAssertEqual(allEntries[1], entry1)
+        // should be sorted by name
+        XCTAssertEqual(allEntries[0], entry1)
+        XCTAssertEqual(allEntries[1], entry0)
     }
 
     func test_entryBy() throws {

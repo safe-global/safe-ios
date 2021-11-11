@@ -199,7 +199,7 @@ extension AddressBookEntry {
 
 extension NSFetchRequest where ResultType == AddressBookEntry {
     func all() -> Self {
-        sortDescriptors = [NSSortDescriptor(keyPath: \AddressBookEntry.additionDate, ascending: true)]
+        sortDescriptors = [NSSortDescriptor(keyPath: \AddressBookEntry.name, ascending: true)]
         return self
     }
 

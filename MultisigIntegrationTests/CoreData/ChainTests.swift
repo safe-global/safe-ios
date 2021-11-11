@@ -271,19 +271,19 @@ class NetworkTests: CoreDataTestCase {
 
         XCTAssertEqual(networkEntries[0].chain, network1)
         XCTAssertEqual(networkEntries[0].entries.count, 2)
-        XCTAssertEqual(networkEntries[0].entries[0].name, "01")
-        XCTAssertEqual(networkEntries[0].entries[1].name, "00")
+        XCTAssertEqual(networkEntries[0].entries[0].name, "00")
+        XCTAssertEqual(networkEntries[0].entries[1].name, "01")
 
         XCTAssertEqual(networkEntries[1].chain, network2)
         XCTAssertEqual(networkEntries[1].entries.count, 3)
-        XCTAssertEqual(networkEntries[1].entries[0].name, "22")
+        XCTAssertEqual(networkEntries[1].entries[0].name, "20")
         XCTAssertEqual(networkEntries[1].entries[1].name, "21")
-        XCTAssertEqual(networkEntries[1].entries[2].name, "20")
+        XCTAssertEqual(networkEntries[1].entries[2].name, "22")
 
         XCTAssertEqual(networkEntries[2].chain, network3)
         XCTAssertEqual(networkEntries[2].entries.count, 3)
-        XCTAssertEqual(networkEntries[2].entries[0].name, "100")
-        XCTAssertEqual(networkEntries[2].entries[1].name, "10")
+        XCTAssertEqual(networkEntries[2].entries[0].name, "10")
+        XCTAssertEqual(networkEntries[2].entries[1].name, "100")
         XCTAssertEqual(networkEntries[2].entries[2].name, "11")
     }
 
