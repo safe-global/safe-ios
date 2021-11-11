@@ -69,7 +69,7 @@ class AddDelegateKeyController {
         // 2. create 'create delegate' message
             // keccak(address + str(int(current_epoch // 3600)))
         let time = String(describing: Int(Date().timeIntervalSince1970) / 3600)
-        let hashString = delegatePrivateKey.address.hexadecimal + time
+        let hashString = delegatePrivateKey.address.checksummed + time
         let hashToSign = EthHasher.hash(hashString)
 
         // 3. sign message with ledger key
