@@ -95,7 +95,7 @@ class AddressInfoView: UINibView {
             addressLabel.text = prefixString() + self.address.ellipsized()
         } else {
             let prefixString = prefixString()
-            addressLabel.attributedText = (prefixString + self.address.checksummed).highlight(prefix: prefixString.count + 4)
+            addressLabel.attributedText = (prefixString + self.address.checksummed).highlight(prefix: prefixString.count + 6)
         }
     }
 

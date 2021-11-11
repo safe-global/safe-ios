@@ -198,6 +198,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         enterNameVC.placeholder = "Enter name"
         enterNameVC.name = defaultName
         enterNameVC.address = entry.addressValue
+        enterNameVC.prefix = entry.chain!.shortName
         enterNameVC.completion = { [unowned self, unowned entry, unowned notificationCenter] name in
             AddressBookEntry.update(entry.displayAddress, chainId: entry.chain!.id!, name: name)
             notificationCenter.post(name: .addressbookChanged, object: self, userInfo: nil)

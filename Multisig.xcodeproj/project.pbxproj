@@ -1719,6 +1719,7 @@
 				0AF1C9252541E09C00E28669 /* UIView+UINib.swift */,
 				55883611255C15870014E8C7 /* UIViewController+Safari.swift */,
 				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
+				049257AD273C239C00507C33 /* String+Highlight.swift */,
 				0A839B5F2578EB9500103AD9 /* View Controllers */,
 				558835ED255BFEA80014E8C7 /* Views */,
 			);
@@ -2508,7 +2509,6 @@
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
 				04248BD8272DF18C00431397 /* NamingPolicy.swift */,
-				049257AD273C239C00507C33 /* String+Highlight.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
