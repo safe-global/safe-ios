@@ -143,7 +143,11 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         let cell = tableView.dequeueCell(DetailAccountCell.self)
         let entry = chainEntries[indexPath.section].entries[indexPath.row]
 
-        cell.setAccount(address: entry.addressValue, label: entry.name, copyEnabled: false, showExternalLink: false)
+        cell.setAccount(address: entry.addressValue,
+                        label: entry.name,
+                        copyEnabled: false,
+                        browseURL: entry.chain!.browserURL(address: entry.displayAddress),
+                        prefix: entry.chain!.shortName)
         return cell
     }
 
@@ -194,6 +198,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         enterNameVC.placeholder = "Enter name"
         enterNameVC.name = defaultName
         enterNameVC.address = entry.addressValue
+        enterNameVC.prefix = entry.chain!.shortName
         enterNameVC.completion = { [unowned self, unowned entry, unowned notificationCenter] name in
             AddressBookEntry.update(entry.displayAddress, chainId: entry.chain!.id!, name: name)
             notificationCenter.post(name: .addressbookChanged, object: self, userInfo: nil)

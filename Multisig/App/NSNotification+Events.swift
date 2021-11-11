@@ -65,4 +65,8 @@ extension NSNotification.Name {
     // MARK: - Addressbook
 
     static let addressbookChanged = NSNotification.Name("io.gnosis.safe.addressbookChanged")
+
+    // Chain settings chainged
+
+    static let chainSettingsChanged = NSNotification.Name("io.gnosis.safe.chainSettingsChanged")
 }

@@ -10,10 +10,10 @@ import UIKit
 
 class AdvancedTransactionDetailsViewController: UITableViewController {
     private var sections: [Section] = []
-    private var chainId: String!
-    convenience init(_ tx: SCGModels.TransactionDetails, chainId: String) {
+    private var chain: Chain!
+    convenience init(_ tx: SCGModels.TransactionDetails, chain: Chain) {
         self.init()
-        self.chainId = chainId
+        self.chain = chain
         buildSections(tx)
     }
 
@@ -148,14 +148,14 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         let item = sections[indexPath.section].items[indexPath.row]
         if let addressInfo = item.value as? SCGModels.AddressInfo {
             let info = addressInfo.addressInfo
-            let (name, _) = NamingPolicy.name(for: info.address, info: info, chainId: chainId)
+            let (name, _) = NamingPolicy.name(for: info.address, info: info, chainId: chain.id!)
             return address(addressInfo.value.address,
                            label: name,
                            title: item.title,
                            imageUri: addressInfo.logoUri,
                            indexPath: indexPath)
         } else if let addressInfo = item.value as? AddressInfo {
-            let (name, _) = NamingPolicy.name(for: addressInfo.address, info: addressInfo, chainId: chainId)
+            let (name, _) = NamingPolicy.name(for: addressInfo.address, info: addressInfo, chainId: chain.id!)
             return address(addressInfo.address,
                            label: name,
                            title: item.title,
@@ -175,7 +175,7 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
                 guard let `self` = self else { return }
                 let root = MultiSendListTableViewController(transactions: multiSendDataDecoded.0,
                                                             addressInfoIndex: multiSendDataDecoded.1,
-                                                             chainId: self.chainId)
+                                                             chain: self.chain)
                  let vc = RibbonViewController(rootViewController: root)
                 self.show(vc, sender: self)
              }
@@ -185,7 +185,7 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
                 guard let `self` = self else { return }
                 let root = ActionDetailViewController(decoded: actionDataDecoded.0,
                                                       addressInfoIndex: actionDataDecoded.1,
-                                                      chainId: self.chainId,
+                                                      chain: self.chain,
                                                       data: actionDataDecoded.2)
                 let vc = RibbonViewController(rootViewController: root)
                 self.show(vc, sender: self)

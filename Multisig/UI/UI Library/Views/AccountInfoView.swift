@@ -25,11 +25,11 @@ class AccountInfoView: UINibView {
         nameLabel.text = name
     }
 
-    func setAddress(_ address: Address, label: String? = nil) {
+    func setAddress(_ address: Address, label: String? = nil, prefix: String?) {
         self.address = address
         self.label = label
 
         identiconView.setAddress(self.address.hexadecimal)
-        addressInfoView.setAddress(address, showIdenticon: false)
+        addressInfoView.setAddress(address, showIdenticon: false, prefix: prefix)
     }
 }

@@ -160,6 +160,15 @@ extension Chain {
         nativeCurrency?.decimals = Int32(chainInfo.nativeCurrency.decimals)
         nativeCurrency?.logoUrl = chainInfo.nativeCurrency.logoUri
     }
+
+    func browserURL(address: String) -> URL {
+        guard let addressUrlTemplate = blockExplorerUrlAddress
+        else {
+            assertionFailure("Block explorer url called when no chain's blockExplorerUrlAddress found")
+            return URL(string: "https://gnosis-safe.io/")!
+        }
+        return URL(string: addressUrlTemplate.replacingOccurrences(of: "{{address}}", with: address))!
+    }
 }
 
 extension NSFetchRequest where ResultType == Chain {

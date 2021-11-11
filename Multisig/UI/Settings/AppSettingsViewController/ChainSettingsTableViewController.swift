@@ -82,5 +82,7 @@ class ChainSettingsTableViewController: UITableViewController {
         default:
             break
         }
+
+        NotificationCenter.default.post(name: .chainSettingsChanged, object: self)
     }
 }

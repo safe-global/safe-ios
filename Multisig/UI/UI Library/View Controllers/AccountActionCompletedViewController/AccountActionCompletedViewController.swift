@@ -23,6 +23,7 @@ class AccountActionCompletedViewController: UIViewController {
 
     var accountName: String?
     var accountAddress: Address!
+    var prefix: String?
 
     var completion: () -> Void = { }
 
@@ -49,7 +50,7 @@ class AccountActionCompletedViewController: UIViewController {
         descriptionLabel.text = descriptionText
         headerLabel.text = headerText
         accountInfoView.set(accountName)
-        accountInfoView.setAddress(accountAddress)
+        accountInfoView.setAddress(accountAddress, prefix: prefix)
     }
 
     @IBAction func primaryAction(_ sender: Any) {

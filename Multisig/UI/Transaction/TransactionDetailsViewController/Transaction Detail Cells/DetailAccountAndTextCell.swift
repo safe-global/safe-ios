@@ -19,9 +19,9 @@ class DetailAccountAndTextCell: UITableViewCell {
         textDetailsLabel.setStyle(.secondary)
     }
 
-    func setAccount(address: Address, label: String?, title: String?, imageUri: URL?) {
+    func setAccount(address: Address, label: String?, title: String?, imageUri: URL?, browseURL: URL?, prefix: String?) {
         addressInfoView.setTitle(title)
-        addressInfoView.setAddress(address, label: label, imageUri: imageUri)
+        addressInfoView.setAddress(address, label: label, imageUri: imageUri, browseURL: browseURL, prefix: prefix)
     }
 
     func setText(title: String, details: String) {
