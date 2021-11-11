@@ -553,7 +553,8 @@ extension SCGModels {
         let nativeCurrency: Currency
         let theme: Theme
         let ensRegistryAddress: AddressString?
-
+        let shortName: String
+        
         var id: String {
             chainId.description
         }
