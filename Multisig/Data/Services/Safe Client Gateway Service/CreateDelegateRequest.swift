@@ -17,7 +17,7 @@ import Foundation
 /// useful for other convenience features, such as push notifications.
 struct CreateDelegateRequest: JSONRequest {
     var httpMethod: String { "POST" }
-    var urlPath: String { "/v1/chains/\(chainId)/delegates//delegates/" }
+    var urlPath: String { "/v1/chains/\(chainId)/delegates/" }
 
     typealias ResponseType = EmptyResponse
 
@@ -28,7 +28,7 @@ struct CreateDelegateRequest: JSONRequest {
     var delegator: String
     // delegator's signature of hash: keccak(delegate + str(int(current_epoch // 3600)))
     var signature: String
-    var label: String,
+    var label: String
     let chainId: String
 }
 
