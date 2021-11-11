@@ -193,13 +193,15 @@ class AddDelegateKeyController {
     }
 
     func sendToBackend(delegateAddress: Address, signature: Data, completion: @escaping (Result<Void, Error>) -> Void) {
-        clientGatewayService.asyncCreateDelegate(safe: nil,
-                                                 owner: ownerAddress,
-                                                 delegate: delegateAddress,
-                                                 signature: signature,
-                                                 label: "iOS Device Delegate",
-                                                 chainId: "4") { result in
-            completion(result.map { _ in () })
+        Chain.all.forEach { chain in
+            clientGatewayService.asyncCreateDelegate(safe: nil,
+                    owner: ownerAddress,
+                    delegate: delegateAddress,
+                    signature: signature,
+                    label: "iOS Device Delegate",
+                    chainId: chain.id!) { result in
+                completion(result.map { _ in () })
+            }
         }
     }
 
