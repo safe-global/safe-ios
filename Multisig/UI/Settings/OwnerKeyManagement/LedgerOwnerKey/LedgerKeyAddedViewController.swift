@@ -197,7 +197,8 @@ class AddDelegateKeyController {
                                                  owner: ownerAddress,
                                                  delegate: delegateAddress,
                                                  signature: signature,
-                                                 label: "iOS Device Delegate") { result in
+                                                 label: "iOS Device Delegate",
+                                                 chainId: "4") { result in
             completion(result.map { _ in () })
         }
     }
