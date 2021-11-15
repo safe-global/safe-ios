@@ -29,10 +29,12 @@ class ConfirmConnectionViewController: UIViewController {
 
     @IBAction func connect(_ sender: Any) {
         onConnect?(selectedKeys)
+        Tracker.trackEvent(.desktopPairingConnectionConfirmed)
     }
 
     @objc func cancel() {
         onCancel?()
+        Tracker.trackEvent(.desktopPairingConnectionRejected)
     }
 
     convenience init(dappInfo: Session.ClientMeta) {
@@ -65,6 +67,11 @@ class ConfirmConnectionViewController: UIViewController {
 
         tableView.registerCell(PairingOwnerKeyCell.self)
         tableView.registerHeaderFooterView(ConfirmConnectionHeaderView.self)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.desktopPairingConfirmConnection)
     }
 }
 

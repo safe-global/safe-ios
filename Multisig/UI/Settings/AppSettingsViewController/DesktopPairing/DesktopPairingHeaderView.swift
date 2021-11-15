@@ -23,6 +23,7 @@ class DesktopPairingHeaderView: UITableViewHeaderFooterView, ExternalURLSource {
 
     @IBAction func onLearnMore(_ sender: Any) {
         openExternalURL()
+        Tracker.trackEvent(.desktopPairingLearnMore)
     }
 
     override func awakeFromNib() {
