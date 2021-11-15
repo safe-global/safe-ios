@@ -18,8 +18,9 @@ struct CenteredAddressWithLink: View {
 
     var body: some View {
         HStack {
-            CopyButton(safe.address) {
-                SlicedText(safe.addressValue)
+            CopyButton(copyPrefixString() + safe.address!) {
+                let prefix = prependingPrefixString()
+                SlicedText(string: SlicedString(text: prefix + safe.address!, prefix: prefix.count + 6, suffix: 4))
                     .style(.addressLong)
                     .multilineTextAlignment(.center)
             }
@@ -40,5 +41,17 @@ struct CenteredAddressWithLink: View {
         .padding([.leading, .trailing], 44)
         // that 'link button' will be visually attached to the trailnig
         .padding(.trailing, -44)
+    }
+
+    private func copyPrefixString() -> String {
+        AppSettings.copyAddressWithChainPrefix ? prefixString() : ""
+    }
+
+    private func prependingPrefixString() -> String {
+        AppSettings.prependingChainPrefixToAddresses ? prefixString() : ""
+    }
+
+    private func prefixString() -> String {
+        safe.chain!.shortName != nil ? "\(safe.chain!.shortName!):" : ""
     }
 }
