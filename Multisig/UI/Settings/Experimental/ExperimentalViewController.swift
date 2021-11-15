@@ -8,7 +8,6 @@
 
 import UIKit
 
-#warning("TODO: decide later if we return WalletConnect key back to experimental")
 class ExperimentalViewController: UITableViewController {
     @UserDefault(key: "io.gnosis.multisig.experimental.walletConnect")
     var walletConnectEnabled: Bool? {
@@ -19,20 +18,11 @@ class ExperimentalViewController: UITableViewController {
         }
     }
 
-//    @UserDefault(key: "io.gnosis.multisig.experimental.walletConnectOwnerKey")
-//    var walletConnectOwnerKeyEnabled: Bool? {
-//        didSet {
-//            tableView.reloadData()
-//            Tracker.setWalletConnectForKeysEnabled(walletConnectOwnerKeyEnabled ?? false)
-//            NotificationCenter.default.post(name: .updatedExperemental, object: nil)
-//        }
-//    }
-
-    #warning("TODO: track or delete")
     @UserDefault(key: "io.gnosis.multisig.experimental.desktopPairing")
     var desktopPairingEnabled: Bool? {
         didSet {
             tableView.reloadData()
+            Tracker.setDesktopPairingEnabled(desktopPairingEnabled ?? false)
             NotificationCenter.default.post(name: .updatedExperemental, object: nil)
         }
     }
@@ -40,8 +30,6 @@ class ExperimentalViewController: UITableViewController {
     enum Row: Int, CaseIterable {
         case walletConnect
         case walletConnectDescription
-//        case walletConnectOwnerKey
-//        case walletConnectOwnerKeyDescription
         case desktopPairing
         case desktopPairingDescription
     }
@@ -70,10 +58,6 @@ class ExperimentalViewController: UITableViewController {
         if walletConnectEnabled == nil {
             walletConnectEnabled = false
         }
-
-//        if walletConnectOwnerKeyEnabled == nil {
-//            walletConnectOwnerKeyEnabled = false
-//        }
 
         if desktopPairingEnabled == nil {
             desktopPairingEnabled = false
@@ -104,18 +88,6 @@ class ExperimentalViewController: UITableViewController {
                 "It adds a tab to connect your Safe to dapps via WalletConnect.",
                 indexPath: indexPath
             )
-
-//        case .walletConnectOwnerKey:
-//            let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
-//            cell.setText("Enable WalletConnect for keys")
-//            cell.setOn(walletConnectOwnerKeyEnabled!, animated: false)
-//            return cell
-//
-//        case .walletConnectOwnerKeyDescription:
-//            return descriptionCell(
-//                "This allows to use other wallets as owners in your Safe app via WalletConnect to sign and execute transactions on mobile.",
-//                indexPath: indexPath
-//            )
 
         case .desktopPairing:
             let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
@@ -149,9 +121,6 @@ class ExperimentalViewController: UITableViewController {
         switch rows[indexPath.row] {
         case .walletConnect:
             walletConnectEnabled!.toggle()
-
-//        case .walletConnectOwnerKey:
-//            walletConnectOwnerKeyEnabled!.toggle()
 
         case .desktopPairing:
             desktopPairingEnabled!.toggle()
