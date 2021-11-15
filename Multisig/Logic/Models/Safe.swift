@@ -24,7 +24,7 @@ extension Safe: Identifiable {
 
     var addressValue: Address { Address(address!)! }
 
-    var browserURL: URL { Self.browserURL(address: displayAddress) }
+    var browserURL: URL { chain!.browserURL(address: displayAddress) }
 
     var displayENSName: String { ensName ?? "" }
 
@@ -119,18 +119,6 @@ extension Safe: Identifiable {
         } catch {
             throw GSError.DatabaseError(reason: error.localizedDescription)
         }
-    }
-
-    static func browserURL(address: String) -> URL {
-        guard
-            let safe = (try? Safe.getSelected()),
-            let chain = safe.chain,
-            let addressUrlTemplate = chain.blockExplorerUrlAddress
-        else {
-            assertionFailure("Block explorer url called when no safe chain found")
-            return URL(string: "https://gnosis-safe.io/")!
-        }
-        return URL(string: addressUrlTemplate.replacingOccurrences(of: "{{address}}", with: address))!
     }
 
     static func exists(_ address: String, chainId: String) -> Bool {

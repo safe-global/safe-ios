@@ -15,7 +15,6 @@ class PairingOwnerKeyCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         iconImageView.tintColor = .button
-        addressView.setDetailImage(nil)
         addressView.copyEnabled = false
     }
 

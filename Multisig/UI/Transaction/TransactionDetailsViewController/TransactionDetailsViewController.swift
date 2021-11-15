@@ -61,7 +61,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         safe = try! Safe.getSelected()!
 
-        builder = TransactionDetailCellBuilder(vc: self, tableView: tableView, chainId: safe.chain!.id!)
+        builder = TransactionDetailCellBuilder(vc: self, tableView: tableView, chain: safe.chain!)
 
         updateSafeInfo()
 

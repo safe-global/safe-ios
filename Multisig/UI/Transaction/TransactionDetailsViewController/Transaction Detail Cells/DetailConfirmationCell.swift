@@ -12,7 +12,7 @@ class DetailConfirmationCell: UITableViewCell {
     @IBOutlet private weak var stackView: UIStackView!
 
     func setConfirmations(_ confirmations: [Address],
-                          chainId: String,
+                          chain: Chain,
                           required: Int,
                           status: SCGModels.TxStatus,
                           executor: Address?,
@@ -26,8 +26,12 @@ class DetailConfirmationCell: UITableViewCell {
             let v = ConfirmationConfirmedPiece(frame: bounds)
             v.setText("Confirmed")
             let keyInfo = try? KeyInfo.keys(addresses: [address]).first
-            let (name, _) = NamingPolicy.name(for: address, info: nil, chainId: chainId)
-            v.setAddress(address, label: name, badgeName: keyInfo?.keyType.imageName)
+            let (name, _) = NamingPolicy.name(for: address, info: nil, chainId: chain.id!)
+            v.setAddress(address,
+                         label: name,
+                         badgeName: keyInfo?.keyType.imageName,
+                         browseURL: chain.browserURL(address: address.checksummed),
+                         prefix: chain.shortName)
             return v
         }
 
@@ -66,8 +70,12 @@ class DetailConfirmationCell: UITableViewCell {
                 success.setText("Executed")
                 success.setShowsBar(false)
                 let keyInfo = try? KeyInfo.keys(addresses: [address]).first
-                let (name, _) = NamingPolicy.name(for: address, info: nil, chainId: chainId)
-                success.setAddress(address, label: name, badgeName: keyInfo?.keyType.imageName)
+                let (name, _) = NamingPolicy.name(for: address, info: nil, chainId: chain.id!)
+                success.setAddress(address,
+                                   label: name,
+                                   badgeName: keyInfo?.keyType.imageName,
+                                   browseURL: chain.browserURL(address: address.checksummed),
+                                   prefix: chain.shortName)
                 views.append(success)
             } else {
                 let status = ConfirmationStatusPiece(frame: bounds)

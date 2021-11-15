@@ -15,12 +15,11 @@ class MultiSendRowTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         addressInfoView.copyEnabled = false
-        addressInfoView.setDetailImage(nil)
         actionLabel.setStyle(.primary)
     }
 
-    func setAddress(_ address: Address, label: String?, imageUri: URL?) {
-        addressInfoView.setAddress(address, label: label, imageUri: imageUri)
+    func setAddress(_ address: Address, label: String?, imageUri: URL?, prefix: String?) {
+        addressInfoView.setAddress(address, label: label, imageUri: imageUri, prefix: prefix)
     }
 
     func setAction(_ text: String?) {

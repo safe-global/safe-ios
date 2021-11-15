@@ -15,7 +15,8 @@ fileprivate var cachedNames = [String: String]()
 extension AddressBookEntry {
     var displayAddress: String { address! }
     var addressValue: Address { Address(address!)! }
-
+    var browserURL: URL { chain!.browserURL(address: displayAddress) }
+    
     static var count: Int {
         let context = App.shared.coreDataStack.viewContext
         return (try? context.count(for: AddressBookEntry.fetchRequest().all())) ?? 0
