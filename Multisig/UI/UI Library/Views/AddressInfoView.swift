@@ -78,7 +78,7 @@ class AddressInfoView: UINibView {
     }
 
     @IBAction private func copyAddress() {
-        Pasteboard.string = prefixString() + address.checksummed
+        Pasteboard.string = copyPrefixString() + address.checksummed
         App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 
@@ -92,16 +92,25 @@ class AddressInfoView: UINibView {
 
     @objc func displayAddress() {
         if let _ = label {
-            addressLabel.text = prefixString() + self.address.ellipsized()
+            addressLabel.text = prependingPrefixString() + self.address.ellipsized()
         } else {
-            let prefixString = prefixString()
+            let prefixString = prependingPrefixString()
             addressLabel.attributedText = (prefixString + self.address.checksummed).highlight(prefix: prefixString.count + 6)
         }
     }
 
-    private func prefixString() -> String {
-        (AppSettings.prependingChainPrefixToAddresses && prefix != nil ? "\(prefix!):" : "" )
+    private func copyPrefixString() -> String {
+        AppSettings.copyAddressWithChainPrefix ? prefixString() : ""
     }
+
+    private func prependingPrefixString() -> String {
+        AppSettings.prependingChainPrefixToAddresses ? prefixString() : ""
+    }
+
+    private func prefixString() -> String {
+        prefix != nil ? "\(prefix!):" : ""
+    }
+
 }
 
 extension UIViewController {
