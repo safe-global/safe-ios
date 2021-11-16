@@ -193,15 +193,29 @@ class AddDelegateKeyController {
     }
 
     func sendToBackend(delegateAddress: Address, signature: Data, completion: @escaping (Result<Void, Error>) -> Void) {
+        // to synchronize multiple async processes, we use DispatchGroup
+        let group = DispatchGroup()
+
         Chain.all.forEach { chain in
+            // trigger request
+            group.enter()
             clientGatewayService.asyncCreateDelegate(safe: nil,
                     owner: ownerAddress,
                     delegate: delegateAddress,
                     signature: signature,
                     label: "iOS Device Delegate",
                     chainId: chain.id!) { result in
-                completion(result.map { _ in () })
+                group.leave()
             }
+        }
+        // wait until all requests finish, then call completion
+        let timeoutResult = group.wait(timeout: .now() + .seconds(60))
+
+        switch timeoutResult {
+        case .success:
+            completion(.success(()))
+        case .timedOut:
+            completion(.failure("Requests timed out"))
         }
     }
 
