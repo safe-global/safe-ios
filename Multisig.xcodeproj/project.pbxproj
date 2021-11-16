@@ -1466,13 +1466,6 @@
 			path = TableHeaderView;
 			sourceTree = "<group>";
 		};
-		048D72D52689D7850095999C /* Safe Client Gateway */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Safe Client Gateway";
-			sourceTree = "<group>";
-		};
 		049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2038,7 +2031,6 @@
 		0A93DD6F2445CC8C00688050 /* MultisigTests */ = {
 			isa = PBXGroup;
 			children = (
-				0AC1D4AD269C43C2008FF643 /* UI */,
 				0A0EFCA3246EADE900D3D8BF /* Logic */,
 				0A0EFCA1246EADD100D3D8BF /* Data */,
 				0A0EFCA2246EADE200D3D8BF /* Cross-layer */,
@@ -2178,13 +2170,6 @@
 				0A5F4828254C56580069C98D /* SafeEntryTableViewCell.xib */,
 			);
 			path = SwitchSafesViewController;
-			sourceTree = "<group>";
-		};
-		0AC1D4AD269C43C2008FF643 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UI;
 			sourceTree = "<group>";
 		};
 		0AC60C772549C50E00A63AE2 /* HeaderViewController */ = {
@@ -2780,7 +2765,6 @@
 		55967116256EB1E50097D3A2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				048D72D52689D7850095999C /* Safe Client Gateway */,
 				55967117256EB1F10097D3A2 /* Safe Transaction Service */,
 			);
 			path = Services;

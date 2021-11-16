@@ -13,6 +13,7 @@ class LoadSafeViewController: UIViewController {
     var trackingEvent: TrackingEvent?
     @IBOutlet private weak var callToActionLabel: UILabel!
     @IBOutlet private weak var loadSafeButton: UIButton!
+    @IBOutlet private weak var demoButton: UIButton!
     private var buttonYConstraint: NSLayoutConstraint?
 
     convenience init() {
@@ -23,6 +24,7 @@ class LoadSafeViewController: UIViewController {
         super.viewDidLoad()
         callToActionLabel.setStyle(.title3)
         loadSafeButton.setText("Load Gnosis Safe", .filled)
+        demoButton.setText("Try Demo", .plain)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -61,5 +63,16 @@ class LoadSafeViewController: UIViewController {
         }
 
         show(selectNetworkVC, sender: self)
+    }
+
+    @IBAction func didTapTryDemo(_ sender: Any) {
+        let chain = Chain.mainnetChain()
+        
+        let demoAddress: Address = "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7"
+        let demoName = "Demo Safe"
+        let safeVersion = "1.1.1"
+        Safe.create(address: demoAddress.checksummed, version: safeVersion, name: demoName, chain: chain)
+        
+        App.shared.notificationHandler.safeAdded(address: demoAddress)
     }
 }

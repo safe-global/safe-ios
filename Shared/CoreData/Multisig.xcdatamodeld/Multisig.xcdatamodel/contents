@@ -92,16 +92,16 @@
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="wcSessions" inverseEntity="Safe"/>
     </entity>
     <elements>
-        <element name="AddressBookEntry" positionX="54" positionY="135" width="128" height="89"/>
-        <element name="AppSettings" positionX="54" positionY="18" width="128" height="254"/>
-        <element name="AppUser" positionX="54" positionY="63" width="128" height="89"/>
-        <element name="Chain" positionX="54" positionY="117" width="128" height="179"/>
-        <element name="ChainTheme" positionX="72" positionY="135" width="128" height="74"/>
-        <element name="ChainToken" positionX="63" positionY="126" width="128" height="104"/>
-        <element name="KeyInfo" positionX="63" positionY="72" width="128" height="119"/>
-        <element name="Safe" positionX="-63" positionY="-18" width="128" height="134"/>
-        <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
-        <element name="WCKeySession" positionX="54" positionY="135" width="128" height="89"/>
-        <element name="WCSession" positionX="54" positionY="18" width="128" height="119"/>
+        <element name="AddressBookEntry" positionX="-615.8209228515625" positionY="370.6504058837891" width="128" height="103"/>
+        <element name="AppSettings" positionX="-549.912353515625" positionY="53.71945190429688" width="128" height="254"/>
+        <element name="AppUser" positionX="-717.7774047851562" positionY="78.49925231933594" width="128" height="89"/>
+        <element name="Chain" positionX="-332.9133911132812" positionY="355.597900390625" width="128" height="179"/>
+        <element name="ChainTheme" positionX="-327.2045288085938" positionY="617.426513671875" width="128" height="74"/>
+        <element name="ChainToken" positionX="-42.746337890625" positionY="407.6658935546875" width="128" height="104"/>
+        <element name="KeyInfo" positionX="158.643798828125" positionY="90.97117614746094" width="128" height="133"/>
+        <element name="Safe" positionX="-306.777587890625" positionY="93.0504150390625" width="128" height="148"/>
+        <element name="Selection" positionX="-47.1181640625" positionY="250.9476470947266" width="128" height="58"/>
+        <element name="WCKeySession" positionX="156.4228515625" positionY="451.3370971679688" width="128" height="89"/>
+        <element name="WCSession" positionX="144.7237548828125" positionY="264.2711181640625" width="128" height="119"/>
     </elements>
 </model>
