@@ -16,11 +16,8 @@ class SigningKeyTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addressInfoView.setDetailImage(nil)
         addressInfoView.copyEnabled = false
     }
-
-
 
     func configure(keyInfo: KeyInfo, chainID: String?) {
         set(address: keyInfo.address, name: keyInfo.displayName, badgeName: keyInfo.keyType.imageName)

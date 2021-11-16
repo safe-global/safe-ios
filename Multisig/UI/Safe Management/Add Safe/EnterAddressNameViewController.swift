@@ -10,6 +10,7 @@ import UIKit
 
 class EnterAddressNameViewController: UIViewController {
     var address: Address!
+    var prefix: String?
     var badgeName: String?
     var name: String?
     var trackingEvent: TrackingEvent!
@@ -38,7 +39,8 @@ class EnterAddressNameViewController: UIViewController {
         assert(trackingEvent != nil, "Developer error: expect to have a tracking event")
 
         identiconView.set(address: address, badgeName: badgeName)
-        addressLabel.attributedText = address.highlighted
+        let prefixString = prefixString()
+        addressLabel.attributedText = (prefixString + address.checksummed).highlight(prefix: prefixString.count + 6)
         descriptionLabel.setStyle(.primary)
         descriptionLabel.text = descriptionText
 
@@ -76,6 +78,10 @@ class EnterAddressNameViewController: UIViewController {
         }
         self.name = text
         nextButton.isEnabled = true
+    }
+
+    private func prefixString() -> String {
+        (AppSettings.prependingChainPrefixToAddresses && prefix != nil ? "\(prefix!):" : "" )
     }
 }
 

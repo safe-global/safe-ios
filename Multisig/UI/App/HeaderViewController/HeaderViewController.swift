@@ -102,7 +102,7 @@ final class HeaderViewController: ContainerViewController {
             noSafeBarView.isHidden = hasSafe
 
             if let safe = selectedSafe {
-                safeBarView.setAddress(safe.addressValue)
+                safeBarView.setAddress(safe.addressValue, prefix: safe.chain!.shortName)
                 safeBarView.setName(safe.displayName)
                 safeBarView.setReadOnly(safe.isReadOnly)
             }

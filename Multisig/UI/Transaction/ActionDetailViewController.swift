@@ -15,7 +15,7 @@ class ActionDetailViewController: UITableViewController {
 
     private var multiSendTx: MultiSendTx?
     private var addressInfoIndex: AddressInfoIndex?
-    private var chainId: String!
+    private var chain: Chain!
     private var dataDecoded: DataDecoded?
     private var data: DataString?
     private var placeholderTitle: String?
@@ -29,23 +29,23 @@ class ActionDetailViewController: UITableViewController {
 
     convenience init(decoded: DataDecoded,
                      addressInfoIndex: AddressInfoIndex?,
-                     chainId: String,
+                     chain: Chain,
                      data: DataString? = nil) {
         self.init()
         self.dataDecoded = decoded
         self.addressInfoIndex = addressInfoIndex
-        self.chainId = chainId
+        self.chain = chain
         self.data = data
     }
 
     convenience init(tx: MultiSendTx,
                      addressInfoIndex: AddressInfoIndex?,
-                     chainId: String,
+                     chain: Chain,
                      placeholderTitle: String?) {
         self.init()
         multiSendTx = tx
         self.addressInfoIndex = addressInfoIndex
-        self.chainId = chainId
+        self.chain = chain
         dataDecoded = tx.dataDecoded
         data = tx.data
         self.placeholderTitle = placeholderTitle
@@ -54,7 +54,7 @@ class ActionDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        txBuilder = TransactionDetailCellBuilder(vc: self, tableView: tableView, chainId: chainId)
+        txBuilder = TransactionDetailCellBuilder(vc: self, tableView: tableView, chain: chain)
         tableView.registerCell(ActionDetailTextCell.self)
         tableView.registerCell(ActionDetailExpandableCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
@@ -97,7 +97,7 @@ class ActionDetailViewController: UITableViewController {
             txBuilder.result = []
             let (name, imageUri) = NamingPolicy.name(for: tx.to.address,
                                                         info: addressInfoIndex?.values[tx.to]?.addressInfo,
-                                                        chainId: chainId)
+                                                        chainId: chain.id!)
             txBuilder.buildTransferHeader(
                 address: tx.to.address,
                 label: name,
@@ -238,8 +238,12 @@ class ActionDetailViewController: UITableViewController {
         let cell = tableView.dequeueCell(ActionDetailAddressCell.self)
         let (name, imageUri) = NamingPolicy.name(for: address,
                                                     info: addressInfoIndex?.values[AddressString(address)]?.addressInfo,
-                                                    chainId: chainId)
-        cell.setAddress(address, label: name, imageUri: imageUri)
+                                                    chainId: chain.id!)
+        cell.setAddress(address,
+                        label: name,
+                        imageUri: imageUri,
+                        browseURL: chain.browserURL(address: address.checksummed),
+                        prefix: chain.shortName)
         cell.selectionStyle = .none
         cell.margins.leading += indentation
         return cell

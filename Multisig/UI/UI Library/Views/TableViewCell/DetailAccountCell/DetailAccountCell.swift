@@ -18,14 +18,16 @@ class DetailAccountCell: UITableViewCell {
                     badgeName: String? = nil,
                     showQRCode: Bool = false,
                     copyEnabled: Bool = true,
-                    showExternalLink: Bool = true) {
-        addressInfoView.setAddress(address, label: label, imageUri: imageUri, badgeName: badgeName)
+                    browseURL: URL? = nil,
+                    prefix: String? = nil) {
+        addressInfoView.setAddress(address, label: label,
+                                   imageUri: imageUri,
+                                   badgeName: badgeName,
+                                   browseURL: browseURL,
+                                   prefix: prefix)
         addressInfoView.setTitle(title)
         qrCodeView.isHidden = !showQRCode
         qrCodeView.value = address.checksummed
-        if !showExternalLink {
-            addressInfoView.setDetailImage(nil)
-        }
 
         addressInfoView.copyEnabled = copyEnabled
     }

@@ -18,6 +18,9 @@ class SafeBarView: UINibView {
     @IBOutlet private weak var detailLabel: UILabel!
     @IBOutlet private weak var button: UIButton!
 
+    private(set) var prefix: String?
+    private(set) var address: Address!
+
     override func commonInit() {
         super.commonInit()
         textLabel.setStyle(.headline)
@@ -26,11 +29,19 @@ class SafeBarView: UINibView {
         setReadOnly(false)
         addTarget(self, action: #selector(didTouchDown(sender:forEvent:)), for: .touchDown)
         addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(displayAddress),
+                                               name: .chainSettingsChanged,
+                                               object: nil)
+        
     }
 
-    func setAddress(_ value: Address) {
+    func setAddress(_ value: Address, prefix: String?) {
+        self.address = value
+        self.prefix = prefix
         identiconView.setAddress(value.hexadecimal)
-        detailLabel.text = value.ellipsized()
+        displayAddress()
     }
 
     func setName(_ value: String) {
@@ -58,6 +69,14 @@ class SafeBarView: UINibView {
 
     @objc private func didTouchUp(sender: UIButton, forEvent event: UIEvent) {
         alpha = 1.0
+    }
+
+    @objc func displayAddress() {
+        detailLabel.text = prefixString() + address.ellipsized()
+    }
+
+    private func prefixString() -> String {
+        (AppSettings.prependingChainPrefixToAddresses && prefix != nil ? "\(prefix!):" : "" )
     }
 }
 

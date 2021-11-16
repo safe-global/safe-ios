@@ -14,13 +14,13 @@ class MultiSendListTableViewController: UITableViewController {
 
     var transactions: [Transaction] = []
     var addressInfoIndex: AddressInfoIndex?
-    var chainId: String!
+    var chain: Chain!
 
-    convenience init(transactions: [Transaction], addressInfoIndex: AddressInfoIndex?, chainId: String) {
+    convenience init(transactions: [Transaction], addressInfoIndex: AddressInfoIndex?, chain: Chain) {
         self.init()
         self.transactions = transactions
         self.addressInfoIndex = addressInfoIndex
-        self.chainId = chainId
+        self.chain = chain
     }
 
     override func viewDidLoad() {
@@ -67,9 +67,12 @@ class MultiSendListTableViewController: UITableViewController {
 
         let (name, imageUri) = NamingPolicy.name(for: tx.to.address,
                                                     info: addressInfoIndex?.values[tx.to]?.addressInfo,
-                                                    chainId: chainId)
+                                                    chainId: chain.id!)
 
-        cell.setAddress(tx.to.address, label: name, imageUri: imageUri)
+        cell.setAddress(tx.to.address,
+                        label: name,
+                        imageUri: imageUri,
+                        prefix: chain.shortName)
         cell.setAction(tx.dataDecoded?.method ?? "Action #\(indexPath.row + 1)")
         cell.selectionStyle = .none
         return cell
@@ -81,7 +84,7 @@ class MultiSendListTableViewController: UITableViewController {
         let root = ActionDetailViewController(
             tx: tx,
             addressInfoIndex: addressInfoIndex,
-            chainId: chainId,
+            chain: chain,
             placeholderTitle: "Action #\(indexPath.row + 1)")
         let vc = RibbonViewController(rootViewController: root)
         show(vc, sender: self)

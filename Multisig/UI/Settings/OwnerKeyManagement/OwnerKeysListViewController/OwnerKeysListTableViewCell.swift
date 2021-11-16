@@ -14,7 +14,6 @@ class OwnerKeysListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        addressInfoView.setDetailImage(nil)
         addressInfoView.copyEnabled = false
     }
 

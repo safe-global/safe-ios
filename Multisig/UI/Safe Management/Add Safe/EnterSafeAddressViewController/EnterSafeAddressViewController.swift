@@ -68,6 +68,7 @@ class EnterSafeAddressViewController: UIViewController {
         enterAddressWrapperVC.chain = chain
 
         enterAddressVC.address = address
+        enterAddressVC.prefix = chain.shortName
         enterAddressVC.trackingEvent = .safeAddName
         enterAddressVC.screenTitle = "Load Gnosis Safe"
         enterAddressVC.descriptionText = "Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties."

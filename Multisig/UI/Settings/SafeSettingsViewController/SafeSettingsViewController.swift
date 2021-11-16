@@ -76,7 +76,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.registerCell(RemoveCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
-        for notification in [Notification.Name.ownerKeyImported, .ownerKeyRemoved, .ownerKeyUpdated, .selectedSafeUpdated] {
+        for notification in [Notification.Name.ownerKeyImported,
+                             .ownerKeyRemoved,
+                             .ownerKeyUpdated,
+                             .selectedSafeUpdated,
+                             .addressbookChanged] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(lazyReloadData),
@@ -209,7 +213,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         cell.setAddress(info, status: status, version: version)
         cell.selectionStyle = .none
         cell.onViewDetails = { [weak self] in
-            self?.openInSafari(Safe.browserURL(address: info.address.checksummed))
+            guard let `self` = self else { return }
+            self.openInSafari(self.safe.chain!.browserURL(address: info.address.checksummed))
         }
         return cell
     }

@@ -30,6 +30,7 @@ class WCIncomingKeyRequestViewController: UIViewController {
     @IBAction func reject(_ sender: Any) {
         onReject?()
         dismiss(animated: true, completion: nil)
+        Tracker.trackEvent(.desktopPairingSignRequestRejected)
     }
 
     @IBAction func confirm(_ sender: Any) {
@@ -72,6 +73,7 @@ class WCIncomingKeyRequestViewController: UIViewController {
                         dismiss(animated: true, completion: nil)
                         App.shared.snackbar.show(message: "Signed successfully")
                     }
+                    Tracker.trackEvent(.dpSignRequestConfirmedPhoneKey)
                 } catch {
                     DispatchQueue.main.async {
                         App.shared.snackbar.show(
@@ -99,6 +101,7 @@ class WCIncomingKeyRequestViewController: UIViewController {
                 sig -= 4
                 self?.onSign?(String(sig, radix: 16))
                 App.shared.snackbar.show(message: "Signed successfully")
+                Tracker.trackEvent(.dpSignRequestConfirmedLedger)
             }
         }
     }
@@ -119,12 +122,16 @@ class WCIncomingKeyRequestViewController: UIViewController {
         dappNameLabel.setStyle(.headline)
         dappNameLabel.text = dAppMeta.name
         signerAddressInfoView.setAddress(keyInfo.address, label: keyInfo.name)
-        signerAddressInfoView.setDetailImage(nil)
         titleLabel.setStyle(.caption1)
         detailsLabel.setStyle(.primary)
         detailsLabel.text = message
 
         rejectButton.setText("Reject", .filledError)
         confirmButton.setText("Confirm", .filled)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.desktopPairingSignRequest)
     }
 }

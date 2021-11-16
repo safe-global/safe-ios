@@ -38,6 +38,7 @@ class AppSettingsViewController: UITableViewController {
             case passcode(String)
             case appearance(String)
             case fiat(String, String)
+            case chainPrefix(String)
             case experimental(String)
         }
 
@@ -80,7 +81,7 @@ class AppSettingsViewController: UITableViewController {
     private func buildSections() {
         sections = []
         if App.configuration.toggles.desktopPairingEnabled {
-            sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing 🖥")]))
+            sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing")]))
         }
 
         sections += [
@@ -90,6 +91,7 @@ class AppSettingsViewController: UITableViewController {
                 Section.App.passcode("Passcode"),
                 Section.App.appearance("Appearance"),
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
+                Section.App.chainPrefix("Chain prefix"),
                 Section.App.experimental("Experimental 🧪")
             ]),
             (section: .general, items: [
@@ -180,6 +182,9 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.fiat(let name, let value):
             return tableView.basicCell(name: name, detail: value, indexPath: indexPath)
 
+        case Section.App.chainPrefix(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
+
         case Section.App.experimental(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
 
@@ -234,6 +239,9 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.fiat:
             let selectFiatViewController = SelectFiatViewController()
             show(selectFiatViewController, sender: self)
+
+        case Section.App.chainPrefix:
+            show(ChainSettingsTableViewController(), sender: self)
 
         case Section.App.experimental:
             let experimentalViewController = ExperimentalViewController()

@@ -18,6 +18,7 @@ enum TrackingUserProperty: String, UserProperty {
     case passcodeIsSet = "passcode_is_set" // string, "true" or "false" depending on if app passcode is set
     case walletConnectForDappsEnabled = "wc_for_dapps_enabled" // string, "true" or "false"
     case walletConnectForKeysEnabled = "wc_for_keys_enabled" // string, "true" or "false"
+    case desktopPairingEnabled = "desktop_pairing_enabled" // string, "true" or "false"
 }
 
 enum TrackingPushState: String {
@@ -145,4 +146,14 @@ enum TrackingEvent: String, Trackable {
     case ledgerSelectDevice                         = "screen_select_ledger_nano_x_device"
     case ledgerSelectKey                            = "screen_select_ledger_nano_x_key"
     case ledgerEnterKeyName                         = "screen_ledger_nano_x_enter_name"
+
+    case desktopPairing                             = "screen_desktop_pairing"
+    case desktopPairingLearnMore                    = "dp_learn_more"
+    case desktopPairingConfirmConnection            = "screen_dp_confirm_connection"
+    case desktopPairingConnectionConfirmed          = "dp_connection_confirmed"
+    case desktopPairingConnectionRejected           = "dp_connection_rejected"
+    case desktopPairingSignRequest                  = "screen_dp_sign_request"
+    case dpSignRequestConfirmedPhoneKey             = "dp_sign_request_confirmed_phone_key"
+    case dpSignRequestConfirmedLedger               = "dp_sign_request_confirmed_ledger_nx"
+    case desktopPairingSignRequestRejected          = "dp_sign_request_rejected"
 }
