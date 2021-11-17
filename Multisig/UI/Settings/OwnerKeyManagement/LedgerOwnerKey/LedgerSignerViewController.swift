@@ -84,6 +84,16 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
                 return
             }
 
+            let signatureData = Data(hex: signature)
+
+            guard let signedOwner = Address(data: self.request.hexToSign.hexToBytes(), signature: signatureData),
+                    signedOwner == self.request.signer.address else {
+                App.shared.snackbar.show(error: GSError.SignerMismatch())
+
+                // reload the devices in case we lost connection
+                controller.reloadData()
+                return
+            }
             // got signature, dismiss the first SelectDevice screen.
             self.dismiss(animated: true, completion: nil)
 
