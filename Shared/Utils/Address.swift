@@ -95,13 +95,11 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         hexadecimal.prefix(6) + "…" + hexadecimal.suffix(4)
     }
 
-    init(_ value: String, isERC681: Bool) throws {
-        var addressString = value
-        if isERC681 {
-            addressString = Self.addressFromERC681(addressString)
-        }
-
-        _store = try EthereumAddress(hex: addressString, eip55: false)
+    // This will check if ERC681 or EIP3770
+    static func addressWithPrefix(text: String) throws -> (prefix: String?, address: Address) {
+        let (prefix, addressString) = addressWithPrefix(text)
+        let address = try Address.init(from: addressString)
+        return (prefix, address)
     }
 
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-681.md
@@ -115,6 +113,34 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         }
 
         return hexPrefix + leadingHexChars
+    }
+
+    private static func addressWithPrefix(_ string: String) -> (prefix: String?, address: String) {
+        var prefix: String?
+        var withoutScheme: String
+        let hexPrefix = "0x"
+        let ethereumPayPrefix = "ethereum:pay-"
+        let ethereumPrefix = "ethereum:"
+
+        if string.hasPrefix(ethereumPayPrefix) {
+            withoutScheme = string.replacingOccurrences(of: ethereumPayPrefix, with: "")
+        } else if string.hasPrefix(ethereumPrefix) {
+            withoutScheme = string.replacingOccurrences(of: ethereumPrefix, with: "")
+        } else if string.contains(":") {
+            let components = string.components(separatedBy: ":")
+            prefix = components.count == 2 ? components.first! : nil
+            withoutScheme = components.last!
+        } else {
+            withoutScheme = string
+        }
+
+        let hasPrefix = withoutScheme.hasPrefix(hexPrefix)
+        let withoutPrefix = hasPrefix ? String(withoutScheme.dropFirst(hexPrefix.count)) : withoutScheme
+        let leadingHexChars = withoutPrefix.filter { (c) -> Bool in
+            return !c.unicodeScalars.contains(where: { !CharacterSet.hexadecimals.contains($0)})
+        }
+
+        return (prefix, hexPrefix + leadingHexChars)
     }
 }
 
