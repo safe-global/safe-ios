@@ -242,6 +242,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct AddressMismatchNetwork: DetailedLocalizedError {
+        let description = "Can’t use this address"
+        let reason = "This address is not matching the selected network."
+        let howToFix = "Please use a different address or switch network"
+        let domain = clientErrorDomain
+        let code = 1104
+        let loggable = false
+    }
+
     struct KeyAlreadyImported: DetailedLocalizedError {
         let description = "Can't use this private key"
         let reason = "This key already imported."
