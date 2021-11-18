@@ -245,7 +245,7 @@ enum GSError {
     struct AddressMismatchNetwork: DetailedLocalizedError {
         let description = "Can’t use this address"
         let reason = "This address is not matching the selected network."
-        let howToFix = "Please use different address or switch network"
+        let howToFix = "Please use a different address or switch network"
         let domain = clientErrorDomain
         let code = 1104
         let loggable = false

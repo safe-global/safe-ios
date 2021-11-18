@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConvertible, Identifiable {
-
+    var prefix: String?
     fileprivate var _store: EthereumAddress
 
     init(exactly data: Data) {
@@ -96,23 +96,11 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
     }
 
     // This will check if ERC681 or EIP3770
-    static func addressWithPrefix(text: String) throws -> (prefix: String?, address: Address) {
+    static func addressWithPrefix(text: String) throws -> Address {
         let (prefix, addressString) = addressWithPrefix(text)
-        let address = try Address.init(from: addressString)
-        return (prefix, address)
-    }
-
-    // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-681.md
-    private static func addressFromERC681(_ address: String) -> String {
-        let hexPrefix = "0x"
-        let withoutScheme = address.replacingOccurrences(of: "ethereum:pay-", with: "").replacingOccurrences(of: "ethereum:", with: "")
-        let hasPrefix = withoutScheme.hasPrefix(hexPrefix)
-        let withoutPrefix = hasPrefix ? String(withoutScheme.dropFirst(hexPrefix.count)) : withoutScheme
-        let leadingHexChars = withoutPrefix.filter { (c) -> Bool in
-            return !c.unicodeScalars.contains(where: { !CharacterSet.hexadecimals.contains($0)})
-        }
-
-        return hexPrefix + leadingHexChars
+        var address = try Address.init(from: addressString)
+        address.prefix = prefix
+        return address
     }
 
     private static func addressWithPrefix(_ string: String) -> (prefix: String?, address: String) {
@@ -122,6 +110,7 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         let ethereumPayPrefix = "ethereum:pay-"
         let ethereumPrefix = "ethereum:"
 
+        // We don't need to save the prefix of ERC681 for now, only the EIP3770
         if string.hasPrefix(ethereumPayPrefix) {
             withoutScheme = string.replacingOccurrences(of: ethereumPayPrefix, with: "")
         } else if string.hasPrefix(ethereumPrefix) {

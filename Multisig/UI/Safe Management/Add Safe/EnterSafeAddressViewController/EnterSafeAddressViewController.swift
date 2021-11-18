@@ -116,7 +116,7 @@ class EnterSafeAddressViewController: UIViewController {
             let vc = QRCodeScannerViewController()
             vc.trackingParameters = self.trackingParameters
             vc.scannedValueValidator = { value in
-                if let (_, _) = try? Address.addressWithPrefix(text: value) {
+                if let _ = try? Address.addressWithPrefix(text: value) {
                     return .success(value)
                 } else {
                     return .failure(GSError.error(description: "Can’t use this QR code",
@@ -194,9 +194,9 @@ class EnterSafeAddressViewController: UIViewController {
         addressField.setInputText(text)
         do {
             // (1) validate that the text is address
-            let (prefix, address) = try Address.addressWithPrefix(text: text)
+            let address = try Address.addressWithPrefix(text: text)
 
-            guard prefix == nil || prefix! == chain.shortName else {
+            guard (address.prefix ?? chain.shortName) == chain.shortName else {
                 addressField.setError(GSError.AddressMismatchNetwork())
                 return
             }
