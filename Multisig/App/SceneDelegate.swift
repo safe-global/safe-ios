@@ -7,6 +7,7 @@
 //
 import UIKit
 import SwiftUI
+import Intercom
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -54,6 +55,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let userActivity = connectionOptions.userActivities.first {
             handleUserActivity(userActivity)
         }
+
+        Intercom.setApiKey(App.configuration.services.intercomApiKey, forAppId: App.configuration.services.intercomAppId)
+        Intercom.setLauncherVisible(true)
+        
+        #if DEBUG
+        Intercom.enableLogging()
+        #endif
+        Intercom.registerUnidentifiedUser()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

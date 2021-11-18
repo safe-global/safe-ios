@@ -63,6 +63,10 @@
 	<string>$(HELP_CENTER_URL)</string>
 	<key>INFURA_API_KEY</key>
 	<string>$(INFURA_API_KEY)</string>
+	<key>INTERCOM_APP_ID</key>
+	<string>$(INTERCOM_APP_ID)</string>
+	<key>INTERCOM_API_KEY</key>
+	<string>$(INTERCOM_API_KEY)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LICENSES_URL</key>
