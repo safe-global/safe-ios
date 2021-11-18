@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadSafeViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="callToActionLabel" destination="C8Q-Q3-sw5" id="vEh-D9-FjA"/>
+                <outlet property="demoButton" destination="ap6-46-C2w" id="d4A-cy-B0Z"/>
                 <outlet property="loadSafeButton" destination="zmU-jI-7jI" id="3pu-zO-wG2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -39,14 +40,26 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ap6-46-C2w">
+                    <rect key="frame" x="16" y="497" width="382" height="56"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Try Demo"/>
+                    <connections>
+                        <action selector="didTapTryDemo:" destination="-1" eventType="touchUpInside" id="CTq-Yy-Wmn"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="primaryBackground"/>
             <constraints>
+                <constraint firstItem="ap6-46-C2w" firstAttribute="top" secondItem="zmU-jI-7jI" secondAttribute="bottom" constant="16" id="2O4-D1-zdG"/>
+                <constraint firstItem="ap6-46-C2w" firstAttribute="leading" secondItem="zmU-jI-7jI" secondAttribute="leading" id="8yq-mV-24f"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zmU-jI-7jI" secondAttribute="trailing" constant="16" id="Fsj-V8-5v5"/>
                 <constraint firstItem="zmU-jI-7jI" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" placeholder="YES" id="O2Q-7L-j78"/>
+                <constraint firstItem="ap6-46-C2w" firstAttribute="height" secondItem="zmU-jI-7jI" secondAttribute="height" id="OWF-cp-Ezm"/>
                 <constraint firstItem="C8Q-Q3-sw5" firstAttribute="trailing" secondItem="zmU-jI-7jI" secondAttribute="trailing" constant="-44" id="Rgu-lA-EgG"/>
                 <constraint firstItem="C8Q-Q3-sw5" firstAttribute="leading" secondItem="zmU-jI-7jI" secondAttribute="leading" constant="44" id="V2F-IW-WwO"/>
+                <constraint firstItem="ap6-46-C2w" firstAttribute="trailing" secondItem="zmU-jI-7jI" secondAttribute="trailing" id="bbm-RD-O5w"/>
                 <constraint firstItem="zmU-jI-7jI" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eN1-V1-VUH"/>
                 <constraint firstItem="zmU-jI-7jI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="loI-T5-HJe"/>
                 <constraint firstItem="zmU-jI-7jI" firstAttribute="top" secondItem="C8Q-Q3-sw5" secondAttribute="bottom" constant="33" id="r2P-bb-VvM"/>
