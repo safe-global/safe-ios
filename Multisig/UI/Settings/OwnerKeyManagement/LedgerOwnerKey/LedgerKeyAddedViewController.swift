@@ -209,7 +209,8 @@ class AddDelegateKeyController {
             }
         }
         // wait until all requests finish, then call completion
-        let timeoutResult = group.wait(timeout: .now() + .seconds(60))
+        let createDelegateRequestTimeoutInSeconds = 60 // one minute
+        let timeoutResult = group.wait(timeout: .now() + .seconds(createDelegateRequestTimeoutInSeconds))
 
         switch timeoutResult {
         case .success:
