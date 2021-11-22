@@ -208,7 +208,9 @@ class AddDelegateKeyController {
                 group.leave()
             }
         }
-        // wait until all requests finish, then call completion
+
+        // We use 60 seconds because it's a URLRequest's default timeout and
+        // we expect all requests to finish before that
         let createDelegateRequestTimeoutInSeconds = 60 // one minute
         let timeoutResult = group.wait(timeout: .now() + .seconds(createDelegateRequestTimeoutInSeconds))
 
