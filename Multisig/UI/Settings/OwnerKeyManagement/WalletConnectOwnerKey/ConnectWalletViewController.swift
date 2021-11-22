@@ -71,10 +71,14 @@ class ConnectWalletViewController: UITableViewController {
         enterAddressVC.address = address
         enterAddressVC.badgeName = KeyType.deviceImported.imageName
         enterAddressVC.completion = { [unowned self] name in
+            let success = OwnerKeyController.importKey(session: session,
+                                                         installedWallet: self.walletPerTopic[session.url.topic],
+                                                         name: name)
 
-            OwnerKeyController.importKey(session: session,
-                                         installedWallet: self.walletPerTopic[session.url.topic],
-                                         name: name)
+            if success {
+                App.shared.snackbar.show(message: "The key added successfully")
+            }
+
             self.completion()
         }
 
