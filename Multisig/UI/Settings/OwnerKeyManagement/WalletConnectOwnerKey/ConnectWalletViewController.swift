@@ -46,10 +46,39 @@ class ConnectWalletViewController: UITableViewController {
         guard let session = notification.object as? Session, waitingForSession else { return }
         waitingForSession = false
 
-        DispatchQueue.main.sync { [unowned self] in
-            OwnerKeyController.importKey(session: session, installedWallet: walletPerTopic[session.url.topic])
+        DispatchQueue.main.sync { [weak self] in
+            self?.enterName(for: session)
+        }
+    }
+
+    /// Gets the name from user and imports the key
+    private func enterName(for session: Session) {
+        // get the address of the connected wallet
+        guard let walletInfo = session.walletInfo,
+              let address = walletInfo.accounts.first.flatMap(Address.init) else {
+                  App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
+            return
+        }
+
+        let enterAddressVC = EnterAddressNameViewController()
+        enterAddressVC.actionTitle = "Import"
+        enterAddressVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterAddressVC.screenTitle = "Enter Key Name"
+        enterAddressVC.trackingEvent = .enterKeyName
+
+        enterAddressVC.placeholder = "Enter name"
+        enterAddressVC.name = walletInfo.peerMeta.name
+        enterAddressVC.address = address
+        enterAddressVC.badgeName = KeyType.deviceImported.imageName
+        enterAddressVC.completion = { [unowned self] name in
+
+            OwnerKeyController.importKey(session: session,
+                                         installedWallet: self.walletPerTopic[session.url.topic],
+                                         name: name)
             self.completion()
         }
+
+        show(enterAddressVC, sender: self)
     }
 
     // MARK: - Table view data source

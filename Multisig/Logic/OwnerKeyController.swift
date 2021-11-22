@@ -35,9 +35,10 @@ class OwnerKeyController {
 
     /// Import WalletConnect key
     @discardableResult
-    static func importKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
+    static func importKey(session: Session, installedWallet: InstalledWallet?, name: String) -> Bool {
         do {
-            try KeyInfo.import(session: session, installedWallet: installedWallet)
+            try KeyInfo.import(session: session, installedWallet: installedWallet, name: name)
+
             Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
 
@@ -83,7 +84,7 @@ class OwnerKeyController {
     // that we use to identify if the wallet is connected
     static func updateKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
         do {
-            try KeyInfo.import(session: session, installedWallet: installedWallet)
+            try KeyInfo.import(session: session, installedWallet: installedWallet, name: session.walletInfo?.peerMeta.name)
             return true
         } catch {
             let err = GSError.error(description: "Failed to update WalletConnect owner key", error: error)
