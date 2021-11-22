@@ -165,7 +165,7 @@ extension KeyInfo {
     /// - Parameters:
     ///   - session: WalletConnect session object
     @discardableResult
-    static func `import`(session: Session, installedWallet: InstalledWallet?) throws -> KeyInfo? {
+    static func `import`(session: Session, installedWallet: InstalledWallet?, name: String?) throws -> KeyInfo? {
         guard let walletInfo = session.walletInfo,
               let addressString = walletInfo.accounts.first,
               let address = Address(addressString) else {
@@ -185,7 +185,7 @@ extension KeyInfo {
             item = existing
         } else {
             item = KeyInfo(context: context)
-            item.name = walletInfo.peerMeta.name
+            item.name = name
         }
 
         item.address = address

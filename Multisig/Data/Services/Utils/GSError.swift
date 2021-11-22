@@ -398,6 +398,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct WCConnectedKeyMissingAddress: DetailedLocalizedError {
+        let description: String = "Can't add the key"
+        let reason = "Connected wallet did not provide key address"
+        let howToFix = "Please re-connect the key again and select an account in your wallet."
+        let domain = clientErrorDomain
+        let code = 9908
+        let loggable = false
+    }
+
 	// MARK: Address Book
     struct AddressBookEntryAlreadyExists: DetailedLocalizedError {
         let description = "Can’t use this address"
