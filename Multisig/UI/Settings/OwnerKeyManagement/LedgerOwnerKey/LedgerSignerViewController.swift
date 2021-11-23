@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Web3
 
 struct SignRequest {
     var title: String
@@ -84,16 +85,36 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
                 return
             }
 
+            // layout is <r: 35 bytes><s: 35 bytes><v: 1 byte>; v = (0 | 1) + 27 + 4
             let signatureData = Data(hex: signature)
+            assert(signatureData.count >= 65)
+            let r = Data(Array(signatureData[0..<32]))
+            let s = Data(Array(signatureData[32..<64]))
+            let v = signatureData[64]
 
-            guard let signedOwner = Address(data: self.request.hexToSign.hexToBytes(), signature: signatureData),
-                    signedOwner == self.request.signer.address else {
+            // original message signed by Ledger has Ethereum prefix according to eth_sign
+            let originalHash = Data(hex: self.request.hexToSign)
+            let prefix = "\u{19}Ethereum Signed Message:\n\(originalHash.count)"
+            let prefixedMessage = prefix.data(using: .utf8)! + originalHash
+
+            // recover the public key
+            let pubKey = try? EthereumPublicKey.init(message: prefixedMessage.makeBytes(),
+                                                     v: EthereumQuantity(quantity: BigUInt(v - 27 - 4)),
+                                                     r: EthereumQuantity(r.makeBytes()),
+                                                     s: EthereumQuantity(s.makeBytes()))
+
+            // Since it's possible to sign with a key different from the one user selected in app UI in the previous
+            // step, we'll check that the actual signer is the same as the selected owner.
+            
+            guard let signedOwner = pubKey?.address,
+                    Address(signedOwner) == self.request.signer.address else {
                 App.shared.snackbar.show(error: GSError.SignerMismatch())
 
                 // reload the devices in case we lost connection
                 controller.reloadData()
                 return
             }
+
             // got signature, dismiss the first SelectDevice screen.
             self.dismiss(animated: true, completion: nil)
 

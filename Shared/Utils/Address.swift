@@ -46,20 +46,7 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         guard let v = try? EthereumAddress(hex: data.toHexStringWithPrefix(), eip55: false) else { return nil }
         _store = v
     }
-
-    init?(data: Bytes, signature: Data) {
-        guard signature.count == 65 else { return nil }
-        let r = signature[0...31]
-        let s = signature[32...63]
-        let v = signature[64]
-
-        guard let pubKey = try? EthereumPublicKey.init(message: data,
-                                                       v: EthereumQuantity(quantity: BigUInt(v - 31)),
-                                                       r: EthereumQuantity(r.makeBytes()),
-                                                       s: EthereumQuantity(s.makeBytes())) else { return nil }
-        _store = pubKey.address
-    }
-
+    
     init(_ ethereumAddress: EthereumAddress) {
         _store = ethereumAddress
     }

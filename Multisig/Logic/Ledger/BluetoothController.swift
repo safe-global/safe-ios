@@ -123,9 +123,9 @@ class BluetoothController: BaseBluetoothController {
         }
         centralManager.connect(device.peripheral, options: nil)
         writeCommands[device.peripheral.identifier] = { [weak self] in
-            let adpuData = APDUController.prepareADPU(message: command)
+            let apduData = APDUController.prepareAPDU(message: command)
             self?.responses[device.peripheral.identifier] = completion
-            device.peripheral.writeValue(adpuData, for: device.writeCharacteristic!, type: .withResponse)
+            device.peripheral.writeValue(apduData, for: device.writeCharacteristic!, type: .withResponse)
         }
     }
 }
@@ -221,11 +221,11 @@ extension BluetoothController: CBPeripheralDelegate {
                 LogService.shared.info("Failed to connect with bluetooth device", error: error)
                 responseCompletion(.failure(error))
             }
-            if let message = characteristic.value, let data = APDUController.parseADPU(message: message) {
+            if let message = characteristic.value, let data = APDUController.parseAPDU(message: message) {
                 responseCompletion(.success(data))
             } else {
                 LogService.shared.error(
-                    "Could not parse ADPU for message: \(characteristic.value?.toHexString() ?? "nil")")
+                    "Could not parse APDU for message: \(characteristic.value?.toHexString() ?? "nil")")
                 responseCompletion(.failure(""))
             }
             
@@ -257,6 +257,8 @@ class SimulatedBluetoothController: BaseBluetoothController {
     override func stopScan() {
         // do nothing
     }
+
+    var keys: [Address: PrivateKey] = [:]
 
     override func sendCommand(device: BaseBluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
         DispatchQueue.global().async {
