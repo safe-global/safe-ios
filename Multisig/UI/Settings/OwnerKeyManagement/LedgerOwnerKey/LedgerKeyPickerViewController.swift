@@ -67,10 +67,23 @@ class LedgerKeyPickerViewController: SegmentViewController {
         enterNameVC.name = defaultName
         enterNameVC.address = key.address
         enterNameVC.badgeName = KeyType.ledgerNanoX.imageName
-        enterNameVC.completion = { [unowned self, unowned contentVC] name in
-            contentVC.importSelectedKey(name: name)
+        enterNameVC.completion = { [unowned self, unowned contentVC, unowned enterNameVC] name in
+            let success = contentVC.importSelectedKey(name: name)
 
-            self.completion()
+            if !success {
+                self.completion()
+                return
+            }
+
+            let keyAddedVC = LedgerKeyAddedViewController()
+            keyAddedVC.completion = { [weak self] in
+                App.shared.snackbar.show(message: "The key added successfully")
+                self?.completion()
+            }
+            keyAddedVC.accountAddress = key.address
+            keyAddedVC.accountName = name
+
+            enterNameVC.show(keyAddedVC, sender: nil)
         }
         show(enterNameVC, sender: nil)
     }
@@ -207,13 +220,13 @@ If it does not help, there is probably an issue with Bluetooth device pairing. P
         isLoading = false
     }
 
-    func importSelectedKey(name: String) {
-        guard selectedIndex >= 0 else { return }
+    func importSelectedKey(name: String) -> Bool {
+        guard selectedIndex >= 0 else { return false }
         let key = keys[selectedIndex]
-        OwnerKeyController.importKey(ledgerDeviceUUID: deviceId,
-                                     path: basePathPattern.replacingOccurrences(of: "{index}", with: "\(key.index)"),
-                                     address: key.address,
-                                     name: name)
+        return OwnerKeyController.importKey(ledgerDeviceUUID: deviceId,
+                                            path: basePathPattern.replacingOccurrences(of: "{index}", with: "\(key.index)"),
+                                            address: key.address,
+                                            name: name)
     }
 }
 
@@ -268,7 +281,7 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
         Tracker.trackEvent(.ledgerSelectKey)
     }
 
-    func importSelectedKey(name: String) {
+    func importSelectedKey(name: String) -> Bool {
         model.importSelectedKey(name: name)
     }
 

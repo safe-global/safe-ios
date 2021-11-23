@@ -242,6 +242,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct AddressMismatchNetwork: DetailedLocalizedError {
+        let description = "Can’t use this address"
+        let reason = "This address is not matching the selected network."
+        let howToFix = "Please use a different address or switch network"
+        let domain = clientErrorDomain
+        let code = 1104
+        let loggable = false
+    }
+
     struct KeyAlreadyImported: DetailedLocalizedError {
         let description = "Can't use this private key"
         let reason = "This key already imported."
@@ -395,6 +404,15 @@ enum GSError {
         let howToFix = "Please recreate connection session and make sure to use same selected network"
         let domain = clientErrorDomain
         let code = 9907
+        let loggable = false
+    }
+
+    struct WCConnectedKeyMissingAddress: DetailedLocalizedError {
+        let description: String = "Can't add the key"
+        let reason = "Connected wallet did not provide key address"
+        let howToFix = "Please re-connect the key again and select an account in your wallet."
+        let domain = clientErrorDomain
+        let code = 9908
         let loggable = false
     }
 

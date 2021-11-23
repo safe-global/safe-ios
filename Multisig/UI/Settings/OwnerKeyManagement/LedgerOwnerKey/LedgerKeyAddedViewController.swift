@@ -69,7 +69,7 @@ class AddDelegateKeyController {
         // 2. create 'create delegate' message
             // keccak(address + str(int(current_epoch // 3600)))
         let time = String(describing: Int(Date().timeIntervalSince1970) / 3600)
-        let hashString = delegatePrivateKey.address.hexadecimal + time
+        let hashString = delegatePrivateKey.address.checksummed + time
         let hashToSign = EthHasher.hash(hashString)
 
         // 3. sign message with ledger key
@@ -193,12 +193,32 @@ class AddDelegateKeyController {
     }
 
     func sendToBackend(delegateAddress: Address, signature: Data, completion: @escaping (Result<Void, Error>) -> Void) {
-        clientGatewayService.asyncCreateDelegate(safe: nil,
-                                                 owner: ownerAddress,
-                                                 delegate: delegateAddress,
-                                                 signature: signature,
-                                                 label: "iOS Device Delegate") { result in
-            completion(result.map { _ in () })
+        // to synchronize multiple async processes, we use DispatchGroup
+        let group = DispatchGroup()
+
+        Chain.all.forEach { chain in
+            // trigger request
+            group.enter()
+            clientGatewayService.asyncCreateDelegate(safe: nil,
+                    owner: ownerAddress,
+                    delegate: delegateAddress,
+                    signature: signature,
+                    label: "iOS Device Delegate",
+                    chainId: chain.id!) { result in
+                group.leave()
+            }
+        }
+
+        // We use 60 seconds because it's a URLRequest's default timeout and
+        // we expect all requests to finish before that
+        let createDelegateRequestTimeoutInSeconds = 60 // one minute
+        let timeoutResult = group.wait(timeout: .now() + .seconds(createDelegateRequestTimeoutInSeconds))
+
+        switch timeoutResult {
+        case .success:
+            completion(.success(()))
+        case .timedOut:
+            completion(.failure("Requests timed out"))
         }
     }
 
