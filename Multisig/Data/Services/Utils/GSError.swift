@@ -269,6 +269,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct SignerMismatch: DetailedLocalizedError {
+        let description = "Failed to sign transaction"
+        let reason = "Signature does not match selected owner."
+        let howToFix = "Please sign with selected owner"
+        let domain = clientErrorDomain
+        let code = 1114
+        let loggable = false
+    }
+
     struct TransactionSigningError: DetailedLocalizedError {
         let description = "Failed to confirm transaction"
         let reason = "Computed safeTxHash of a transaction to confirm does not match server-returned value."

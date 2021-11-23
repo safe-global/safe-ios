@@ -81,10 +81,29 @@ class LedgerController {
 
                     return
                 }
-                let dataString = data.toHexString()
-                let v = String(Int(dataString.substr(0, 2)!, radix: 16)! + 4, radix: 16)
-                let rs = dataString.substr(2, 128)!
-                completion(rs + v, nil)
+
+                // Ledger is signing with eth_sign (similar to https://docs.ethers.io/v5/api/signer/#Signer-signMessage)
+                // That means that when we pass the "messageHash" to the ledger, it signs a hash of the message
+                // with a prefix.
+                //
+                // Now, Ethereum signatures has to have 'v' equal to 27 or 28.
+                // However, Gnosis Safe contract expects a modified 'v' parameter if the signature was actually
+                // produced by the eth_sign method. It expects that the 'v' part be increased by 4, in this case
+                // the 'v' would be 31 or 32. This way contract can recover signer address with eth_sign.
+                // See more: https://github.com/gnosis/safe-contracts/blob/8c84fb3a1accaeffab24fd53e89ec626158ab818/contracts/GnosisSafe.sol#L292
+
+                // Next we're going to adjust the 'v' according to Gnosis Safe 'v' expectations and
+                // also change the signature layout from 'vrs' to 'rsv' which is expected by the contracts.
+
+                // The 'data' we get from Ledger has signature at first 65 bytes.
+                // The layout is: <v: 1 byte><r: 32 bytes><s: 32 bytes>
+                let v = data[0]
+                let r = Data(Array(data[1..<32]))
+                let s = Data(Array(data[32..<65]))
+
+                let gnosisSafeSignature = r + s + Data([v + 4])
+
+                completion(gnosisSafeSignature.toHexString(), nil)
 
             case .failure(_):
                 completion(nil, "Please check that Ethereum App is running on the Ledger device.")
