@@ -306,6 +306,4 @@ class AppSettingsViewController: UITableViewController {
             return 0
         }
     }
-    
-    
 }
