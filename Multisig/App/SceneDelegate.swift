@@ -56,13 +56,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             handleUserActivity(userActivity)
         }
 
-        Intercom.setApiKey(App.configuration.services.intercomApiKey, forAppId: App.configuration.services.intercomAppId)
-        Intercom.setLauncherVisible(true)
-        
-        #if DEBUG
-        Intercom.enableLogging()
-        #endif
-        Intercom.registerUnidentifiedUser()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
