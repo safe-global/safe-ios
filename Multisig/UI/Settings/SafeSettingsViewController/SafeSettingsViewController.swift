@@ -68,6 +68,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.backgroundColor = tableBackgroundColor
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
 
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailAccountCell.self)
@@ -324,10 +329,14 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section].section
-        if case Section.advanced = section {
+        switch section {
+        case Section.name:
+            return 0
+        case Section.advanced:
             return advancedSectionHeaderHeight
+        default:
+            return BasicHeaderView.headerHeight
         }
-        return BasicHeaderView.headerHeight
     }
 }
 
