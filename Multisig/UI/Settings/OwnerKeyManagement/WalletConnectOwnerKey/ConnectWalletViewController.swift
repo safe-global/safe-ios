@@ -60,29 +60,38 @@ class ConnectWalletViewController: UITableViewController {
             return
         }
 
-        let enterAddressVC = EnterAddressNameViewController()
-        enterAddressVC.actionTitle = "Import"
-        enterAddressVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
-        enterAddressVC.screenTitle = "Enter Key Name"
-        enterAddressVC.trackingEvent = .enterKeyName
+        let enterNameVC = EnterAddressNameViewController()
+        enterNameVC.actionTitle = "Import"
+        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterNameVC.screenTitle = "Enter Key Name"
+        enterNameVC.trackingEvent = .enterKeyName
 
-        enterAddressVC.placeholder = "Enter name"
-        enterAddressVC.name = walletInfo.peerMeta.name
-        enterAddressVC.address = address
-        enterAddressVC.badgeName = KeyType.deviceImported.imageName
-        enterAddressVC.completion = { [unowned self] name in
+        enterNameVC.placeholder = "Enter name"
+        enterNameVC.name = walletInfo.peerMeta.name
+        enterNameVC.address = address
+        enterNameVC.badgeName = KeyType.deviceImported.imageName
+        enterNameVC.completion = { [unowned self] name in
             let success = OwnerKeyController.importKey(session: session,
                                                          installedWallet: self.walletPerTopic[session.url.topic],
                                                          name: name)
 
-            if success {
-                App.shared.snackbar.show(message: "The key added successfully")
+            if !success {
+                self.completion()
+                return
             }
 
-            self.completion()
+            let keyAddedVC = WalletConnectKeyAddedViewController()
+            keyAddedVC.completion = { [weak self] in
+                App.shared.snackbar.show(message: "The key added successfully")
+                self?.completion()
+            }
+            keyAddedVC.accountAddress = address
+            keyAddedVC.accountName = name
+
+            enterNameVC.show(keyAddedVC, sender: nil)
         }
 
-        show(enterAddressVC, sender: self)
+        show(enterNameVC, sender: self)
     }
 
     // MARK: - Table view data source

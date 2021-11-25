@@ -16,17 +16,35 @@ class WCPendingConfirmationViewController: UIViewController {
     @IBOutlet private weak var cancelButton: UIButton!
 
     var headerText = "Pending Confirmation"
+    var keyInfo: KeyInfo!
+    var transaction: Transaction?
+    var message: String?
     var onClose: (() -> Void)?
+    var completion: ((String) -> Void)?
 
     @IBAction private func cancel(_ sender: Any) {
         close()
     }
 
-    convenience init(headerText: String? = nil) {
+    convenience init(_ transaction: Transaction, keyInfo: KeyInfo, title: String? = nil) {
+        self.init(keyInfo, title: title)
+        self.transaction = transaction
+    }
+
+    convenience init(request: SignRequest) {
+        self.init(request.signer, title: request.title)
+        message = request.hexToSign
+    }
+
+    convenience init(_ keyInfo: KeyInfo, title: String? = nil) {
+        assert(keyInfo.keyType == .walletConnect)
         self.init(nibName: nil, bundle: nil)
-        if let headerText = headerText {
+        modalPresentationStyle = .popover
+        if let headerText = title {
             self.headerText = headerText
         }
+
+        self.keyInfo = keyInfo
     }
 
     override func viewDidLoad() {
@@ -45,8 +63,42 @@ class WCPendingConfirmationViewController: UIViewController {
         modalTransitionStyle = .crossDissolve
     }
 
-    private func close() {
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         onClose?()
+    }
+    
+    private func close() {
         dismiss(animated: true, completion: nil)
+    }
+
+    func sign() {
+        assert(keyInfo.keyType == .walletConnect)
+        if let transaction = transaction {
+            WalletConnectClientController.shared.sign(transaction: transaction) { [weak self] signature in
+                self?.handle(signature: signature)
+            }
+        } else if let message = message {
+            WalletConnectClientController.shared.sign(message: message) { [weak self] signature in
+                self?.handle(signature: signature)
+            }
+        } else { return }
+
+        DispatchQueue.main.async {
+            WalletConnectClientController.openWalletIfInstalled(keyInfo: self.keyInfo)
+        }
+    }
+
+    private func handle(signature: String?) {
+        DispatchQueue.main.async {
+            guard let signature = signature else {
+                App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
+                self.dismiss(animated: true, completion: nil)
+
+                return
+            }
+
+            self.completion?(signature)
+        }
     }
 }

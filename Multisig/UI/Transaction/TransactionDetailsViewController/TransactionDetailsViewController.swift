@@ -296,7 +296,19 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             }
 
         case .walletConnect:
-            signWithWalletConnect(transaction, keyInfo: keyInfo)
+            let vc = WCPendingConfirmationViewController(transaction, keyInfo: keyInfo, title: "Confirm Transaction")
+
+            vc.completion = { [weak self] signature in
+                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .walletConnect)
+            }
+
+            vc.onClose = { [weak self] in
+                self?.reloadData()
+            }
+
+            present(vc, animated: true, completion: nil)
+
+            vc.sign()
 
         case .ledgerNanoX:
             let request = SignRequest(title: "Confirm Transaction",
@@ -315,40 +327,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 self?.reloadData()
             }
         }
-    }
-
-    private func signWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
-        guard let safeTxHash = transaction.safeTxHash?.description, presentedViewController == nil else { return }
-
-        let pendingConfirmationVC = WCPendingConfirmationViewController()
-        pendingConfirmationVC.modalPresentationStyle = .popover
-        pendingConfirmationVC.onClose = { [unowned self] in
-            reloadData()
-        }
-        present(pendingConfirmationVC, animated: false)
-
-        WalletConnectClientController.shared.sign(transaction: transaction) {
-            [weak self] signatureOrNil in
-
-            DispatchQueue.main.async {
-                // dismiss pending confirmation view controller overlay
-                pendingConfirmationVC.dismiss(animated: true, completion: nil)
-            }
-
-            guard let signature = signatureOrNil else {
-                DispatchQueue.main.async {
-                    self?.reloadData()
-                    App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
-                }
-                return
-            }
-
-            DispatchQueue.main.async {
-                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: keyInfo.keyType)
-            }
-        }
-
-        WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
     }
 
     private func confirmAndRefresh(safeTxHash: String, signature: String, keyType: KeyType) {

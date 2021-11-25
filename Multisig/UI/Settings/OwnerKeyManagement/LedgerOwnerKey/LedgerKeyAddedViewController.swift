@@ -45,7 +45,6 @@ class LedgerKeyAddedViewController: AccountActionCompletedViewController {
     }
 }
 
-// TODO: extend to support wallet connect signing
 class AddDelegateKeyController {
 
     weak var presenter: UIViewController?
@@ -164,31 +163,52 @@ class AddDelegateKeyController {
             return
         }
 
-        guard keyInfo.keyType == .ledgerNanoX else {
-            completion(.failure("Expected to get ledger key but a different key type is found."))
-            return
-        }
-
-        // sign with ledger
         let request = SignRequest(title: "Confirm Push Notifications",
                                   tracking: ["action": "confirm_push"],
                                   signer: keyInfo,
                                   hexToSign: message.toHexStringWithPrefix())
-        let vc = LedgerSignerViewController(request: request)
 
-        presenter?.present(vc, animated: true, completion: nil)
+        switch keyInfo.keyType {
+        case .ledgerNanoX:
+            let vc = LedgerSignerViewController(request: request)
 
-        var isSuccess: Bool = false
+            presenter?.present(vc, animated: true, completion: nil)
 
-        vc.completion = { signature in
-            isSuccess = true
-            completion(.success(Data(hex: signature)))
-        }
+            var isSuccess: Bool = false
 
-        vc.onClose = {
-            if !isSuccess {
-                completion(.failure("The operation cancelled by user"))
+            vc.completion = { signature in
+                isSuccess = true
+                completion(.success(Data(hex: signature)))
             }
+
+            vc.onClose = {
+                if !isSuccess {
+                    completion(.failure("The operation cancelled by user"))
+                }
+            }
+        case .walletConnect:
+            let vc = WCPendingConfirmationViewController(request: request)
+
+            presenter?.present(vc, animated: true, completion: nil)
+
+            var isSuccess: Bool = false
+
+            vc.completion = { signature in
+                isSuccess = true
+                completion(.success(Data(hex: signature)))
+            }
+
+            vc.onClose = {
+                if !isSuccess {
+                    completion(.failure("The operation cancelled by user"))
+                }
+            }
+
+            vc.sign()
+            break
+        default:
+            completion(.failure("Expected to get ledger key but a different key type is found."))
+            return
         }
     }
 
