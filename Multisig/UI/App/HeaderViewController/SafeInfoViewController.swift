@@ -14,6 +14,7 @@ class SafeInfoViewController: ContainerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        App.shared.intercomConfig.disable()
         let view = SafeInfoView()
             .environment(\.managedObjectContext, App.shared.coreDataStack.viewContext)
         let viewController = UIHostingController(rootView: view)
@@ -35,5 +36,6 @@ class SafeInfoViewController: ContainerViewController {
 
     @IBAction private func didTapClose(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        App.shared.intercomConfig.enable()
     }
 }

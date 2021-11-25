@@ -11,11 +11,20 @@ class IntercomConfig {
     func setUp() {
         Intercom.setApiKey(App.configuration.services.intercomApiKey, forAppId: App.configuration.services.intercomAppId)
         Intercom.setLauncherVisible(true)
+        Intercom.setBottomPadding(30)
 
         #if DEBUG
         Intercom.enableLogging()
         #endif
         Intercom.registerUnidentifiedUser()
+    }
+
+    func disable() {
+        Intercom.setLauncherVisible(false)
+    }
+
+    func enable() {
+        Intercom.setLauncherVisible(true)
     }
 
 }
