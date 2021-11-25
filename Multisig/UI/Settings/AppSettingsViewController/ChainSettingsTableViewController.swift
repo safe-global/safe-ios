@@ -35,10 +35,10 @@ class ChainSettingsTableViewController: UITableViewController {
         tableView.backgroundColor = .secondaryBackground
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
-        sections.append(Section(title: "Address prefix", items: [.copyAddressWithChainPrefix,
-                                                             .copyAddressWithChainPrefixHelp,
-                                                             .prependChainPrefixToAddresses,
-                                                             .prependChainPrefixToAddressesHelp]))
+        sections.append(Section(title: "Address prefix", items: [.prependChainPrefixToAddresses,
+                                                                 .prependChainPrefixToAddressesHelp,
+                                                                 .copyAddressWithChainPrefix,
+                                                                 .copyAddressWithChainPrefixHelp]))
         tableView.reloadData()
     }
 
@@ -57,7 +57,7 @@ class ChainSettingsTableViewController: UITableViewController {
                                         with: "Copy addresses with chain prefix",
                                         isOn: AppSettings.copyAddressWithChainPrefix)
         case .copyAddressWithChainPrefixHelp:
-            return tableView.helpCell(for: indexPath, with: "When enabled, all chain-specific addresses will have the chain prefix displayed before them")
+            return tableView.helpCell(for: indexPath, with: "When you copy any address, the app will prepend the chain according to standard EIP-3770")
 
         case .prependChainPrefixToAddresses:
             return tableView.switchCell(for: indexPath,
@@ -65,7 +65,7 @@ class ChainSettingsTableViewController: UITableViewController {
                                         isOn: AppSettings.prependingChainPrefixToAddresses)
 
         case .prependChainPrefixToAddressesHelp:
-            return tableView.helpCell(for: indexPath, with: "When you copy any address, the app will prepend the chain accodring to standard EIP-3770")
+            return tableView.helpCell(for: indexPath, with: "When enabled, all chain-specific addresses will have the chain prefix displayed before them")
         }
     }
 
