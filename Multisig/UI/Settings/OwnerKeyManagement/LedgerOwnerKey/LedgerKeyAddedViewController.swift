@@ -45,7 +45,7 @@ class LedgerKeyAddedViewController: AccountActionCompletedViewController {
 
     override func secondaryAction(_ sender: Any) {
         // doing nothing because user skipped
-        Tracker.trackEvent(.addDelegateKeySkipped, parameters: <#T##[String : Any]?#>)
+        Tracker.trackEvent(.addDelegateKeySkipped)
         completion()
     }
 }
