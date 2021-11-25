@@ -9,28 +9,61 @@
 import Foundation
 
 struct TransactionEstimationRequest: JSONRequest {
-    private let safeAddress: String
-    private let chainId: String
-    
-    var httpMethod: String { "GET" }
-    var urlPath: String { "/v1/chains/\(chainId)/safes/\(safeAddress)/multisig-transactions/estimations" }
-    typealias ResponseType = SCGModels.TransactionEstimation
-}
+    var to: String
+    var value: String
+    var data: String
+    var operation: Int
 
-extension TransactionEstimationRequest {
-    init(_ safeAddress: Address, chainId: String) {
-        self.init(safeAddress: safeAddress.checksummed, chainId: chainId)
+    let chainId: String
+    let safeAddress: String
+    
+    var httpMethod: String { "POST" }
+
+    var urlPath: String { "/v1/chains/\(chainId)/safes/\(safeAddress)/multisig-transactions/estimations"
+    }
+
+    typealias ResponseType = SCGModels.TransactionEstimation
+
+    enum CodingKeys: String, CodingKey {
+        case to, value, data, operation
     }
 }
 
 extension SafeClientGatewayService {
-    func asyncTransactionEstimation(safeAddress: Address,
-                       chainId: String,
-                       completion: @escaping (Result<SCGModels.TransactionEstimation, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: TransactionEstimationRequest(safeAddress, chainId: chainId), completion: completion)
+    func asyncTransactionEstimation(
+        chainId: String,
+        safeAddress: Address,
+        to: Address,
+        value: UInt256,
+        data: Data?,
+        operation: SCGModels.Operation,
+        completion: @escaping (Result<SCGModels.TransactionEstimation, Error>
+        ) -> Void) -> URLSessionTask? {
+        asyncExecute(
+            request: TransactionEstimationRequest(to: to.checksummed,
+                                                  value: String(value),
+                                                  data: data?.toHexStringWithPrefix() ?? "",
+                                                  operation: operation.rawValue,
+                                                  chainId: chainId,
+                                                  safeAddress: safeAddress.checksummed),
+            completion: completion)
     }
 
-    func syncTransactionEstimation(safeAddress: Address, chainId: String) throws -> SCGModels.TransactionEstimation {
-        try execute(request: TransactionEstimationRequest(safeAddress, chainId: chainId))
+    func syncTransactionEstimation(
+        chainId: String,
+        safeAddress: Address,
+        to: Address,
+        value: UInt256,
+        data: Data?,
+        operation: SCGModels.Operation
+    ) throws -> SCGModels.TransactionEstimation {
+        try execute(
+            request: TransactionEstimationRequest(to: to.checksummed,
+                                                  value: String(value),
+                                                  data: data?.toHexStringWithPrefix() ?? "",
+                                                  operation: operation.rawValue,
+                                                  chainId: chainId,
+                                                  safeAddress: safeAddress.checksummed)
+        )
     }
 }
