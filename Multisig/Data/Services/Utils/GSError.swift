@@ -416,9 +416,8 @@ enum GSError {
         let loggable = false
     }
 
-    // MARK: Delegate Key Errors
-
 	// MARK: Address Book
+
     struct AddressBookEntryAlreadyExists: DetailedLocalizedError {
         let description = "Can’t use this address"
         let reason = "An entry with this address has been added already."
@@ -557,6 +556,8 @@ enum GSError {
         let code = 1319
         let loggable = false
     }
+
+    // MARK: Delegate Key Errors
 
     struct OwnerKeyNotFoundForDelegate: DetailedLocalizedError {
         let description = "Failed to set up push notifications"
