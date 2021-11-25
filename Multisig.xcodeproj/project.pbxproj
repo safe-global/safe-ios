@@ -591,6 +591,8 @@
 		55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */; };
 		55F9B7A226D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */; };
 		55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */; };
+		D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */; };
+		D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68E0274E6AA500D7F5C5 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1209,6 +1211,8 @@
 		55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LedgerPendingConfirmationViewController.xib; sourceTree = "<group>"; };
 		55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerPendingConfirmationViewController.swift; sourceTree = "<group>"; };
 		55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLedgerDeviceViewController.swift; sourceTree = "<group>"; };
+		D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
+		D86A68E0274E6AA500D7F5C5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2000,6 +2004,7 @@
 				0A93DD672445CC8B00688050 /* Info.plist */,
 				0A93DD612445CC8B00688050 /* Preview Content */,
 				0A35CC2F24810CF6005E45BA /* ExportOptions.plist */,
+				D86A68E0274E6AA500D7F5C5 /* main.swift */,
 			);
 			path = Multisig;
 			sourceTree = "<group>";
@@ -2015,6 +2020,7 @@
 		0A93DD6F2445CC8C00688050 /* MultisigTests */ = {
 			isa = PBXGroup;
 			children = (
+				D86A68E2274E6B3E00D7F5C5 /* App */,
 				0A0EFCA3246EADE900D3D8BF /* Logic */,
 				0A0EFCA1246EADD100D3D8BF /* Data */,
 				0A0EFCA2246EADE200D3D8BF /* Cross-layer */,
@@ -2877,6 +2883,14 @@
 			path = Ledger;
 			sourceTree = "<group>";
 		};
+		D86A68E2274E6B3E00D7F5C5 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3415,6 +3429,7 @@
 				0A63C7B42602087E00D36B22 /* SafeInfoRequest.swift in Sources */,
 				0A57C5D72577F9E600420303 /* ConfirmationStatusPiece.swift in Sources */,
 				0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */,
+				D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */,
 				550FB1A526691CD800C13D54 /* SigningKeyTableViewCell.swift in Sources */,
 				0A2F1A70267A53A800C09F03 /* GSButton.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
@@ -3612,6 +3627,7 @@
 				0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */,
 				0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */,
 				555312F2250673AD0008206B /* BIP39Tests.swift in Sources */,
+				D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */,
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
 				55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */,
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
