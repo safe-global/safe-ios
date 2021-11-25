@@ -33,6 +33,11 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
         tableView.estimatedSectionHeaderHeight = BasicHeaderView.headerHeight
         tableView.estimatedSectionFooterHeight = 0
 
