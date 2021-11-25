@@ -392,9 +392,9 @@ extension KeyType {
     var name: String {
         switch self {
         case .deviceGenerated:
-            return "Device Generated"
+            return "Generated"
         case .deviceImported:
-            return "Device Imported"
+            return "Imported"
         case .ledgerNanoX:
             return "Ledger Nano X"
         case .walletConnect:
