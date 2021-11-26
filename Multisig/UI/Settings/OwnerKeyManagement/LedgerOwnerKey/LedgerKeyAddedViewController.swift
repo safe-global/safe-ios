@@ -148,7 +148,7 @@ class AddDelegateKeyController {
         let keyOrNil = try KeyInfo.firstKey(address: self.ownerAddress)
 
         guard let keyInfo = keyOrNil else {
-            throw "Owner key not found for delegate key"
+            throw GSError.OwnerKeyNotFoundForDelegate()
         }
         return keyInfo
     }
@@ -165,7 +165,7 @@ class AddDelegateKeyController {
         }
 
         guard keyInfo.keyType == .ledgerNanoX else {
-            completion(.failure("Expected to get ledger key but a different key type is found."))
+            completion(.failure(GSError.UnrecognizedKeyTypeForDelegate()))
             return
         }
 
@@ -187,7 +187,7 @@ class AddDelegateKeyController {
 
         vc.onClose = {
             if !isSuccess {
-                completion(.failure("The operation cancelled by user"))
+                completion(.failure(GSError.AddDelegateKeyCancelled()))
             }
         }
     }
@@ -218,7 +218,7 @@ class AddDelegateKeyController {
         case .success:
             completion(.success(()))
         case .timedOut:
-            completion(.failure("Requests timed out"))
+            completion(.failure(GSError.AddDelegateTimedOut()))
         }
     }
 
