@@ -48,6 +48,11 @@ class PasscodeSettingsViewController: UITableViewController {
         tableView.backgroundColor = .secondaryBackground
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
 
         NotificationCenter.default.addObserver(
             self, selector: #selector(reloadData), name: .biometricsActivated, object: nil)
