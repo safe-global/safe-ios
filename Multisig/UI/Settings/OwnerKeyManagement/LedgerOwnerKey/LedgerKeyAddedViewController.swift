@@ -30,9 +30,14 @@ class LedgerKeyAddedViewController: AccountActionCompletedViewController {
         super.viewDidLoad()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.addDelegateKeyLedger)
+    }
+
     override func primaryAction(_ sender: Any) {
         // Start Add Delegate flow with the selected account address
-        #warning("TODO: tracking?")
+        Tracker.trackEvent(.addDelegateKeyStarted)
         addKeyController = AddDelegateKeyController(ownerAddress: accountAddress, completion: completion)
         addKeyController.presenter = self
         addKeyController.start()
@@ -40,7 +45,7 @@ class LedgerKeyAddedViewController: AccountActionCompletedViewController {
 
     override func secondaryAction(_ sender: Any) {
         // doing nothing because user skipped
-        #warning("TODO: tracking?")
+        Tracker.trackEvent(.addDelegateKeySkipped)
         completion()
     }
 }
@@ -223,6 +228,7 @@ class AddDelegateKeyController {
     }
 
     func abortProcess(error: Error) {
+        Tracker.trackEvent(.addDelegateKeyFailed)
         DispatchQueue.main.async { [weak self] in
             App.shared.snackbar.show(message: error.localizedDescription)
             self?.completionHandler()
@@ -230,6 +236,7 @@ class AddDelegateKeyController {
     }
 
     func completeProcess() {
+        Tracker.trackEvent(.addDelegateKeySuccess)
         DispatchQueue.main.async { [weak self] in
             self?.completionHandler()
         }
