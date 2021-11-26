@@ -572,6 +572,8 @@
 		55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BCFC67255469C200020CE7 /* BasicHeaderView.xib */; };
 		55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EB8250A234F0080DF7F /* SecureStore.swift */; };
 		55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBA250A237C0080DF7F /* KeychainService.swift */; };
+		55CCD5832750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCD5822750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift */; };
+		55CCD5852750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CCD5842750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib */; };
 		55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0824939079003B2B19 /* ConsoleTracker.swift */; };
 		55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */; };
 		55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0B24939079003B2B19 /* Tracker.swift */; };
@@ -1196,6 +1198,8 @@
 		55CA3EB8250A234F0080DF7F /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		55CA3EBA250A237C0080DF7F /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceIntegrationTests.swift; sourceTree = "<group>"; };
+		55CCD5822750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerBluetoothIssueFooterView.swift; sourceTree = "<group>"; };
+		55CCD5842750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LedgerBluetoothIssueFooterView.xib; sourceTree = "<group>"; };
 		55CEFC0824939079003B2B19 /* ConsoleTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
 		55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		55CEFC0B24939079003B2B19 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
@@ -2869,6 +2873,8 @@
 				55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */,
 				55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */,
 				0AA59CC3270CAE91000CA7B1 /* LedgerKeyAddedViewController.swift */,
+				55CCD5822750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift */,
+				55CCD5842750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib */,
 			);
 			path = LedgerOwnerKey;
 			sourceTree = "<group>";
@@ -3137,6 +3143,7 @@
 				0AC2A3C826FB6802002CB26A /* CollectiblesUnsupportedViewController.xib in Resources */,
 				0A67AC9725E3BE4400B3E97C /* PasscodeViewController.xib in Resources */,
 				557D80CD270B33BA0036D6D0 /* ConfirmConnectionHeaderView.xib in Resources */,
+				55CCD5852750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib in Resources */,
 				55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */,
 				04B4B88B25BF36F900CFE24B /* ExecutionStatusPiece.xib in Resources */,
 				550FB1B326691D9500C13D54 /* ExternalLinkHeaderFooterView.xib in Resources */,
@@ -3259,6 +3266,7 @@
 				0AE8C0A2257947CF00E62B34 /* DetailStatusCell.swift in Sources */,
 				55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */,
 				0468FB8825912E6800541536 /* HistoryTransactionsViewController.swift in Sources */,
+				55CCD5832750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift in Sources */,
 				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
 				0A8AEB2025A4764F002A3FE1 /* ActionDetailAddressCell.swift in Sources */,
 				0AE5A9C2267A4BDC00468C90 /* ImportKeyBannerCell.swift in Sources */,
