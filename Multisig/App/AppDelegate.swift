@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import Intercom
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -70,6 +71,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        LogService.shared.error("Failed to registed to remote notifications \(error)")
+        LogService.shared.error("Failed to register to remote notifications \(error)")
+        print("---> PUSH: Failed to register to remote notifications \(error)")
+    }
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // Set device token for push notifications.
+        print("---> PUSH: Calling Intercom.setDeviceToken(deviceToken) ")
+        Intercom.setDeviceToken(deviceToken)
     }
 }
