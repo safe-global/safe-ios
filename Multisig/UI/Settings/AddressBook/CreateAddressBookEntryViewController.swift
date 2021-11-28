@@ -107,7 +107,7 @@ class CreateAddressBookEntryViewController: UIViewController {
                 return
             }
 
-            addressField.setAddress(address)
+            addressField.setAddress(address, prefix: chain.shortName)
 
             // (2) and that there's no such entry already
             let exists = AddressBookEntry.exists(address.checksummed, chainId: chain.id)

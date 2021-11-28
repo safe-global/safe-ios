@@ -201,7 +201,7 @@ class EnterSafeAddressViewController: UIViewController {
                 return
             }
 
-            addressField.setAddress(address)
+            addressField.setAddress(address, prefix: chain.shortName)
 
             // (2) and that there's no such safe already
             let exists = Safe.exists(address.checksummed, chainId: chain.id)
