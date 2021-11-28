@@ -136,7 +136,7 @@ class EnterSafeAddressViewController: UIViewController {
         if blockchainDomainManager.ens != nil {
             alertVC.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
                 guard let self = self else { return }
-                let ensNameVC = EnterENSNameViewController(manager: blockchainDomainManager)
+                let ensNameVC = EnterENSNameViewController(manager: blockchainDomainManager, chain: self.chain)
                 ensNameVC.trackingParameters = self.trackingParameters
                 ensNameVC.onConfirm = { [weak self] in
                     guard let `self` = self else { return }
@@ -152,7 +152,7 @@ class EnterSafeAddressViewController: UIViewController {
         if blockchainDomainManager.unstoppableDomainResolution != nil {
             alertVC.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
                 guard let self = self else { return }
-                let udNameVC = EnterUnstoppableNameViewController(manager: blockchainDomainManager)
+                let udNameVC = EnterUnstoppableNameViewController(manager: blockchainDomainManager, chain: self.chain)
                 udNameVC.trackingParameters = self.trackingParameters
                 udNameVC.onConfirm = { [weak self] in
                     guard let `self` = self else { return }

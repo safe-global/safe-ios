@@ -568,6 +568,10 @@ extension SCGModels {
                 return rpcUri.value
             }
         }
+
+        var prefixString: String {
+            AppSettings.prependingChainPrefixToAddresses ? "\(shortName):" : "" 
+        }
     }
 
     struct RpcAuthentication: Codable {
