@@ -242,6 +242,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct AddressMismatchNetwork: DetailedLocalizedError {
+        let description = "Can’t use this address"
+        let reason = "This address is not matching the selected network."
+        let howToFix = "Please use a different address or switch network"
+        let domain = clientErrorDomain
+        let code = 1104
+        let loggable = false
+    }
+
     struct KeyAlreadyImported: DetailedLocalizedError {
         let description = "Can't use this private key"
         let reason = "This key already imported."
@@ -257,6 +266,15 @@ enum GSError {
         let howToFix = "Please import different owner key"
         let domain = clientErrorDomain
         let code = 1112
+        let loggable = false
+    }
+
+    struct SignerMismatch: DetailedLocalizedError {
+        let description = "Failed to sign transaction"
+        let reason = "Signature does not match selected owner."
+        let howToFix = "Please sign with selected owner"
+        let domain = clientErrorDomain
+        let code = 1114
         let loggable = false
     }
 
@@ -380,6 +398,44 @@ enum GSError {
         let loggable = false
     }
 
+    struct KeyConnectionProblem: DetailedLocalizedError {
+        let description: String = "Couldn't use connection session"
+        let reason = "Something is wrong with the connection session."
+        let howToFix = "Please recreate connection session and make sure to use same selected network"
+        let domain = clientErrorDomain
+        let code = 9907
+        let loggable = false
+    }
+
+    struct WCConnectedKeyMissingAddress: DetailedLocalizedError {
+        let description: String = "Can't add the key"
+        let reason = "Connected wallet did not provide key address"
+        let howToFix = "Please re-connect the key again and select an account in your wallet."
+        let domain = clientErrorDomain
+        let code = 9908
+        let loggable = false
+    }
+
+	// MARK: Address Book
+
+    struct AddressBookEntryAlreadyExists: DetailedLocalizedError {
+        let description = "Can’t use this address"
+        let reason = "An entry with this address has been added already."
+        let howToFix = "Please use another address"
+        let domain = clientErrorDomain
+        let code = 8001
+        let loggable = false
+    }
+
+    struct AddressBookEntryAddressNotValid: DetailedLocalizedError {
+        let description = "This address is not valid"
+        let reason = "This value is not a valid address."
+        let howToFix = "Please use the checksummed address"
+        let domain = clientErrorDomain
+        let code = 8002
+        let loggable = false
+    }
+
     // MARK: - iOS errors
 
     struct UnknownAppError: DetailedLocalizedError {
@@ -490,6 +546,53 @@ enum GSError {
         let domain = iOSErrorDomain
         let code = 1318
         let loggable = false
+    }
+
+    struct FileManagerError: DetailedLocalizedError {
+        let description = "Failed to access files"
+        let reason = "The app is not able to access files"
+        let howToFix = "Please try again."
+        let domain = iOSErrorDomain
+        let code = 1319
+        let loggable = false
+    }
+
+    // MARK: Delegate Key Errors
+
+    struct OwnerKeyNotFoundForDelegate: DetailedLocalizedError {
+        let description = "Failed to set up push notifications"
+        let reason = "Owner key not found for delegate key"
+        let howToFix = "Please make sure that the owner key exists"
+        let domain = iOSErrorDomain
+        let code = 1320
+        let loggable: Bool = false
+    }
+
+    struct UnrecognizedKeyTypeForDelegate: DetailedLocalizedError {
+        let description = "Failed to set up push notifications"
+        let reason = "Expected to use ledger key but a different type provided"
+        let howToFix = "Please select a ledger key and try again"
+        let domain = iOSErrorDomain
+        let code = 1321
+        let loggable: Bool = false
+    }
+
+    struct AddDelegateKeyCancelled: DetailedLocalizedError {
+        let description = "Push notifications are not set"
+        let reason = "The operation is cancelled by user"
+        let howToFix = ""
+        let domain = iOSErrorDomain
+        let code = 1322
+        let loggable: Bool = false
+    }
+
+    struct AddDelegateTimedOut: DetailedLocalizedError {
+        let description = "Push notifications were not set properly"
+        let reason = "Request to server timed out"
+        let howToFix = "Please try again later"
+        let domain = iOSErrorDomain
+        let code = 1323
+        let loggable: Bool = false
     }
 
     // - MARK: - Unstoppable domain errors

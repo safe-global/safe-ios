@@ -45,6 +45,7 @@ extension Chain {
         return chain
     }
 
+    @discardableResult
     static func createOrUpdate(_ chainInfo: SCGModels.Chain) -> Chain {
         guard let chain = Chain.by(chainInfo.id) else {
             // should not fail, otherwise programmer error
@@ -63,6 +64,7 @@ extension Chain {
                        blockExplorerUrlAddress: String,
                        blockExplorerUrlTxHash: String,
                        ensRegistryAddress: String?,
+                       shortName: String,
                        currencyName: String,
                        currencySymbl: String,
                        currencyDecimals: Int,
@@ -80,6 +82,7 @@ extension Chain {
         chain.blockExplorerUrlAddress = blockExplorerUrlAddress
         chain.blockExplorerUrlTxHash = blockExplorerUrlTxHash
         chain.ensRegistryAddress = ensRegistryAddress
+        chain.shortName = shortName
 
         let theme = ChainTheme(context: context)
         theme.textColor = themeTextColor
@@ -107,6 +110,7 @@ extension Chain {
                          blockExplorerUrlAddress: chainInfo.blockExplorerUriTemplate.address,
                          blockExplorerUrlTxHash: chainInfo.blockExplorerUriTemplate.txHash,
                          ensRegistryAddress: chainInfo.ensRegistryAddress?.description,
+                         shortName: chainInfo.shortName,
                          currencyName: chainInfo.nativeCurrency.name,
                          currencySymbl: chainInfo.nativeCurrency.symbol,
                          currencyDecimals: chainInfo.nativeCurrency.decimals,
@@ -146,6 +150,7 @@ extension Chain {
         blockExplorerUrlAddress = chainInfo.blockExplorerUriTemplate.address
         blockExplorerUrlTxHash = chainInfo.blockExplorerUriTemplate.txHash
         ensRegistryAddress = chainInfo.ensRegistryAddress?.description
+        shortName = chainInfo.shortName
 
         theme?.textColor = chainInfo.theme.textColor
         theme?.backgroundColor = chainInfo.theme.backgroundColor
@@ -154,6 +159,15 @@ extension Chain {
         nativeCurrency?.symbol = chainInfo.nativeCurrency.symbol
         nativeCurrency?.decimals = Int32(chainInfo.nativeCurrency.decimals)
         nativeCurrency?.logoUrl = chainInfo.nativeCurrency.logoUri
+    }
+
+    func browserURL(address: String) -> URL {
+        guard let addressUrlTemplate = blockExplorerUrlAddress
+        else {
+            assertionFailure("Block explorer url called when no chain's blockExplorerUrlAddress found")
+            return URL(string: "https://gnosis-safe.io/")!
+        }
+        return URL(string: addressUrlTemplate.replacingOccurrences(of: "{{address}}", with: address))!
     }
 }
 
@@ -181,6 +195,7 @@ extension Chain {
             blockExplorerUrlAddress: "https://etherscan.io/address/{{address}}",
             blockExplorerUrlTxHash: "https://etherscan.io/tx/{{txHash}}",
             ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
+            shortName: "eth",
             currencyName: "Ether",
             currencySymbl: "ETH",
             currencyDecimals: 18,
@@ -221,6 +236,27 @@ extension Chain {
             }
 
         return chainSafes
+    }
+
+    typealias ChainEntries = [(chain: Chain, entries: [AddressBookEntry])]
+
+    /// Returns safes grouped by chain sorted by chain id
+    static func chainEntries() -> ChainEntries {
+        guard let entries = try? AddressBookEntry.getAll() else { return [] }
+
+        var chainEntries = ChainEntries()
+        let groupedEntries = Dictionary(grouping: entries, by: {$0.chain!})
+
+        groupedEntries.keys
+            .sorted { UInt256($0.id!)! < UInt256($1.id!)! }
+            .forEach { chain in
+                chainEntries.append(
+                    (chain: chain,
+                     entries: groupedEntries[chain]!.sorted { $0.name! < $1.name! })
+                )
+            }
+
+        return chainEntries
     }
 }
 

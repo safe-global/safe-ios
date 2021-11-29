@@ -67,14 +67,28 @@ extension UITableView {
         return cell
     }
 
-    func helpLinkCell(text: String, url: URL, indexPath: IndexPath) -> UITableViewCell {
+    func helpCell(for indexPath: IndexPath,
+                  with text: String,
+                  backgroundColor: UIColor = .primaryBackground,
+                  textStyle: GNOTextStyle = .secondary) -> UITableViewCell {
+        let cell = dequeueCell(UITableViewCell.self, reuseID: "HelpCell", for: indexPath)
+        cell.textLabel?.setStyle(.secondary)
+        cell.backgroundColor = backgroundColor
+        cell.textLabel?.text = text
+        cell.textLabel?.numberOfLines = 0
+        cell.selectionStyle = .none
+        
+        return cell
+    }
+
+	func helpLinkCell(text: String, url: URL, indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueCell(HelpLinkTableViewCell.self, for: indexPath)
         cell.descriptionLabel.hyperLinkLabel(linkText: text)
         cell.url = url
         return cell
     }
 
-    func removeCell(indexPath: IndexPath, title: String, onRemove: (() -> Void)?) -> UITableViewCell {
+	func removeCell(indexPath: IndexPath, title: String, onRemove: (() -> Void)?) -> UITableViewCell {
         let cell = dequeueCell(RemoveCell.self, for: indexPath)
         cell.set(title: title)
         cell.onRemove = onRemove

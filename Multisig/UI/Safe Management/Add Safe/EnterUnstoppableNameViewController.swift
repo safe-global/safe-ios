@@ -11,6 +11,7 @@ import UIKit
 class EnterUnstoppableNameViewController: UIViewController {
     var onConfirm: () -> Void = { }
     var manager: BlockchainDomainManager!
+    var chain: SCGModels.Chain!
     var address: Address?
     var trackingParameters: [String: Any]?
 
@@ -27,9 +28,10 @@ class EnterUnstoppableNameViewController: UIViewController {
     @IBOutlet private weak var foundIdenticonView: UIImageView!
     @IBOutlet private weak var foundAddressLabel: UILabel!
 
-    convenience init(manager: BlockchainDomainManager) {
+    convenience init(manager: BlockchainDomainManager, chain: SCGModels.Chain) {
         self.init()
         self.manager = manager
+        self.chain = chain
     }
 
     override func viewDidLoad() {
@@ -100,7 +102,7 @@ class EnterUnstoppableNameViewController: UIViewController {
     private func onSuccess(_ address: Address) {
         activityIndicator.stopAnimating()
         foundIdenticonView.setAddress(address.hexadecimal)
-        foundAddressLabel.attributedText = address.highlighted
+        foundAddressLabel.attributedText = (chain.prefixString + address.checksummed).highlight(prefix: chain.prefixString.count + 6)
         addressFoundStackView.isHidden = false
         confirmButton.isEnabled = true
         self.address = address

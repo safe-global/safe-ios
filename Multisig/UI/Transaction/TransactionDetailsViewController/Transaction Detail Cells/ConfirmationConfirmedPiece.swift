@@ -31,7 +31,7 @@ class ConfirmationConfirmedPiece: UINibView {
         verticalBar.isHidden = !shows
     }
 
-    func setAddress(_ address: Address, label: String? = nil, badgeName: String? = nil) {
-        addressInfoView.setAddress(address, label: label, badgeName: badgeName)
+    func setAddress(_ address: Address, label: String? = nil, badgeName: String? = nil, browseURL: URL?, prefix: String?) {
+        addressInfoView.setAddress(address, label: label, badgeName: badgeName, browseURL: browseURL, prefix: prefix)
     }
 }

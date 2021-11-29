@@ -15,7 +15,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     var clientGatewayService = App.shared.clientGatewayService
     let tableBackgroundColor: UIColor = .primaryBackground
     let advancedSectionHeaderHeight: CGFloat = 28
-    var namingPolicy = DefaultAddressNamingPolicy()
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
@@ -69,6 +68,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.backgroundColor = tableBackgroundColor
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
 
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailAccountCell.self)
@@ -77,7 +81,12 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.registerCell(RemoveCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
-        for notification in [Notification.Name.ownerKeyImported, .ownerKeyRemoved, .ownerKeyUpdated, .selectedSafeUpdated] {
+        for notification in [Notification.Name.ownerKeyImported,
+                             .ownerKeyRemoved,
+                             .ownerKeyUpdated,
+                             .selectedSafeUpdated,
+                             .addressbookChanged,
+                             .chainSettingsChanged] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(lazyReloadData),
@@ -169,10 +178,23 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         case Section.OwnerAddresses.ownerInfo(let info):
             let keyInfo = try? KeyInfo.keys(addresses: [info.address]).first
-            return addressDetailsCell(address: info.address, name: namingPolicy.name(info: info), indexPath: indexPath, badgeName: keyInfo?.keyType.imageName)
+            let (name, _) = NamingPolicy.name(for: info.address,
+                                                        info: info,
+                                                        chainId: safe.chain!.id!)
+
+            return addressDetailsCell(address: info.address,
+                                      name: name,
+                                      indexPath: indexPath,
+                                      badgeName: keyInfo?.keyType.imageName,
+                                      browseURL: safe.chain!.browserURL(address: info.address.checksummed),
+                                      prefix: safe.chain!.shortName)
 
         case Section.ContractVersion.versionInfo(let info, let status, let version):
-            return safeVersionCell(info: info, status: status, version: version, indexPath: indexPath)
+            return safeVersionCell(info: info,
+                                   status: status,
+                                   version: version,
+                                   indexPath: indexPath,
+                                   prefix: safe.chain!.shortName)
 
         case Section.EnsName.ensName:
             if ensLoader.isLoading {
@@ -204,18 +226,28 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
     }
 
-    private func addressDetailsCell(address: Address, name: String?, indexPath: IndexPath, badgeName: String? = nil) -> UITableViewCell {
+    private func addressDetailsCell(address: Address,
+                                    name: String?,
+                                    indexPath: IndexPath,
+                                    badgeName: String? = nil,
+                                    browseURL: URL? = nil,
+                                    prefix: String? = nil) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: name, badgeName: badgeName)
+        cell.setAccount(address: address, label: name, badgeName: badgeName, browseURL: browseURL, prefix: prefix)
         return cell
     }
 
-    private func safeVersionCell(info: AddressInfo, status: SCGModels.ImplementationVersionState, version: String, indexPath: IndexPath) -> UITableViewCell {
+    private func safeVersionCell(info: AddressInfo,
+                                 status: SCGModels.ImplementationVersionState,
+                                 version: String,
+                                 indexPath: IndexPath,
+                                 prefix: String? = nil) -> UITableViewCell {
         let cell = tableView.dequeueCell(ContractVersionStatusCell.self, for: indexPath)
-        cell.setAddress(info, status: status, version: version)
+        cell.setAddress(info, status: status, version: version, prefix: prefix)
         cell.selectionStyle = .none
         cell.onViewDetails = { [weak self] in
-            self?.openInSafari(Safe.browserURL(address: info.address.checksummed))
+            guard let `self` = self else { return }
+            self.openInSafari(self.safe.chain!.browserURL(address: info.address.checksummed))
         }
         return cell
     }
@@ -249,7 +281,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             show(editSafeNameViewController, sender: self)
         case Section.Advanced.advanced(_):
             let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
-            show(advancedSafeSettingsViewController, sender: self)
+            let ribbon = RibbonViewController(rootViewController: advancedSafeSettingsViewController)
+            show(ribbon, sender: self)
         default:
             break
         }
@@ -303,26 +336,19 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section].section
-        if case Section.advanced = section {
+        switch section {
+        case Section.name:
+            return 0
+        case Section.advanced:
             return advancedSectionHeaderHeight
+        default:
+            return BasicHeaderView.headerHeight
         }
-        return BasicHeaderView.headerHeight
     }
 }
 
 extension SafeSettingsViewController: ENSNameLoaderDelegate {
     func ensNameLoaderDidLoadName(_ loader: ENSNameLoader) {
         tableView.reloadData()
-    }
-}
-
-/// Precedence: KeyInfo.name > info.name
-class DefaultAddressNamingPolicy {
-    func name(for address: Address? = nil,
-              info: AddressInfo? = nil) -> String? {
-        if let addr = address ?? info?.address {
-            return KeyInfo.name(address: addr) ?? info?.name
-        }
-        return info?.name
     }
 }

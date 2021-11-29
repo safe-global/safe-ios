@@ -17,6 +17,8 @@ class AddressInfoView: UINibView {
     @IBOutlet private var detailButton: UIButton!
 
     private(set) var address: Address!
+    private(set) var browseURL: URL?
+    private(set) var prefix: String?
     private(set) var label: String?
 
     var copyEnabled: Bool {
@@ -30,6 +32,11 @@ class AddressInfoView: UINibView {
         textLabel.setStyle(.headline)
         addressLabel.setStyle(.tertiary)
         setTitle(nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(displayAddress),
+                                               name: .chainSettingsChanged,
+                                               object: nil)
     }
 
     func setTitle(_ text: String?) {
@@ -37,31 +44,33 @@ class AddressInfoView: UINibView {
         titleLabel.isHidden = text == nil
     }
 
-    func setAddress(_ address: Address, label: String? = nil, imageUri: URL? = nil, showIdenticon: Bool = true, badgeName: String? = nil) {
+    func setAddress(_ address: Address,
+                    label: String? = nil,
+                    imageUri: URL? = nil,
+                    showIdenticon: Bool = true,
+                    badgeName: String? = nil,
+                    browseURL: URL? = nil,
+                    prefix: String? = nil) {
         self.address = address
+        self.browseURL = browseURL
+        self.prefix = prefix
         self.label = label
 
         if let label = label {
             textLabel.isHidden = false
             textLabel.text = label
             addressLabel.setStyle(.tertiary)
-            addressLabel.text = self.address.ellipsized()
         } else {
             textLabel.isHidden = true
-            addressLabel.attributedText = self.address.highlighted
         }
 
+        displayAddress()
         addressLabel.textAlignment = showIdenticon ? .left : .center
         if showIdenticon {
             identiconView.set(address: address, imageURL: imageUri, badgeName: badgeName)
         }
         identiconView.isHidden = !showIdenticon
-    }
-
-    func setDetailImage(_ image: UIImage?, tintColor: UIColor = .button) {
-        detailButton.isHidden = image == nil
-        detailButton.tintColor = tintColor
-        detailButton.setImage(image, for: .normal)
+        detailButton.isHidden = browseURL == nil
     }
 
     @IBAction private func didTapDetailButton() {
@@ -69,7 +78,7 @@ class AddressInfoView: UINibView {
     }
 
     @IBAction private func copyAddress() {
-        Pasteboard.string = address.checksummed
+        Pasteboard.string = copyPrefixString() + address.checksummed
         App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 
@@ -80,13 +89,35 @@ class AddressInfoView: UINibView {
     @IBAction private func didTouchUp(sender: UIButton, forEvent event: UIEvent) {
         alpha = 1.0
     }
-}
 
+    @objc func displayAddress() {
+        if let _ = label {
+            addressLabel.text = prependingPrefixString() + self.address.ellipsized()
+        } else {
+            let prefixString = prependingPrefixString()
+            addressLabel.attributedText = (prefixString + self.address.checksummed).highlight(prefix: prefixString.count + 6)
+        }
+    }
+
+    private func copyPrefixString() -> String {
+        AppSettings.copyAddressWithChainPrefix ? prefixString() : ""
+    }
+
+    private func prependingPrefixString() -> String {
+        AppSettings.prependingChainPrefixToAddresses ? prefixString() : ""
+    }
+
+    private func prefixString() -> String {
+        prefix != nil ? "\(prefix!):" : ""
+    }
+
+}
 
 extension UIViewController {
     @objc func didTapAddressInfoDetails(_ sender: AddressInfoView) {
-        if let address = sender.address {
-            openInSafari(Safe.browserURL(address: address.checksummed))
+        if let url = sender.browseURL {
+            openInSafari(url)
         }
     }
 }
+

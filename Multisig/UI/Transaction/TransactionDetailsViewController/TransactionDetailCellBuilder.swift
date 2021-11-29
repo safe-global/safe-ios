@@ -17,7 +17,7 @@ class TransactionDetailCellBuilder {
     private weak var tableView: UITableView!
 
     // needed for proper safe selection for known addresses functionality. Also used to select the block explorer url.
-    private var chainId: String
+    private var chain: Chain
 
     private lazy var dateFormatter: DateFormatter = {
         let d = DateFormatter()
@@ -28,10 +28,10 @@ class TransactionDetailCellBuilder {
     }()
     var result: [UITableViewCell] = []
 
-    init(vc: UIViewController, tableView: UITableView, chainId: String) {
+    init(vc: UIViewController, tableView: UITableView, chain: Chain) {
         self.vc = vc
         self.tableView = tableView
-        self.chainId = chainId
+        self.chain = chain
 
         tableView.registerCell(DetailExpandableTextCell.self)
         tableView.registerCell(DetailConfirmationCell.self)
@@ -80,7 +80,12 @@ class TransactionDetailCellBuilder {
 
     func buildFactoryUsed(_ creationTx: SCGModels.TxInfo.Creation) {
         if let factory = creationTx.factory?.value.address {
-            address(factory, label: creationTx.factory?.name, title: "Factory used", imageUri: creationTx.factory?.logoUri)
+            address(factory,
+                    label: creationTx.factory?.name,
+                    title: "Factory used",
+                    imageUri: creationTx.factory?.logoUri,
+                    browseURL: chain.browserURL(address: factory.checksummed),
+                    prefix: chain.shortName)
         } else {
             text("No factory used", title: "Factory used", expandableTitle: nil, copyText: nil)
         }
@@ -92,7 +97,9 @@ class TransactionDetailCellBuilder {
                 implementation,
                 label: creationTx.implementation?.name ?? "Unknown",
                 title: "Mastercopy used",
-                imageUri: creationTx.implementation?.logoUri)
+                imageUri: creationTx.implementation?.logoUri,
+                browseURL: chain.browserURL(address: implementation.checksummed),
+                prefix: chain.shortName)
         } else {
             text(
                 "Not available",
@@ -111,11 +118,14 @@ class TransactionDetailCellBuilder {
     }
 
     func buildCreatorAddress(_ creationTx: SCGModels.TxInfo.Creation) {
-        let info = displayNameAndImageUri(addressInfo: creationTx.creator)
-        return address(creationTx.creator.value.address,
+        let info = NamingPolicy.name(for: creationTx.creator, chainId: chain.id!)
+        let creator = creationTx.creator.value.address
+        return address(creator,
                        label: info.name,
                        title: "Creator address",
-                       imageUri: info.imageUri)
+                       imageUri: info.imageUri,
+                       browseURL: chain.browserURL(address: creator.checksummed),
+                       prefix: chain.shortName)
     }
 
     func buildHeader(_ tx: SCGModels.TransactionDetails) {
@@ -130,10 +140,10 @@ class TransactionDetailCellBuilder {
             var addressLogoUri: URL?
             if isOutgoing {
                 address = transferTx.recipient.value.address
-                (label, addressLogoUri) = displayNameAndImageUri(addressInfo: transferTx.recipient)
+                (label, addressLogoUri) = NamingPolicy.name(for: transferTx.recipient, chainId: chain.id!)
             } else {
                 address = transferTx.sender.value.address
-                (label, addressLogoUri) = displayNameAndImageUri(addressInfo: transferTx.sender)
+                (label, addressLogoUri) = NamingPolicy.name(for: transferTx.sender, chainId: chain.id!)
             }
 
             switch transferTx.transferInfo {
@@ -198,7 +208,7 @@ class TransactionDetailCellBuilder {
 
             case .setFallbackHandler(let fallbackTx):
                 let handler: Address = fallbackTx.handler.value.address
-                var (label, imageUri) = displayNameAndImageUri(addressInfo: fallbackTx.handler)
+                var (label, imageUri) = NamingPolicy.name(for: fallbackTx.handler, chainId: chain.id!)
                 if label == nil {
                     label = handler.isZero ? "Not set" : "Unknown"
                 }
@@ -206,34 +216,50 @@ class TransactionDetailCellBuilder {
                     handler,
                     label: label,
                     title: "Set fallback handler:",
-                    imageUri: imageUri)
+                    imageUri: imageUri,
+                    browseURL: chain.browserURL(address: handler.checksummed),
+                    prefix: chain.shortName)
 
             case .addOwner(let addOwnerTx):
-                let (label, imgageUri) = displayNameAndImageUri(addressInfo: addOwnerTx.owner)
+                let (label, imgageUri) = NamingPolicy.name(for: addOwnerTx.owner, chainId: chain.id!)
                 addressAndText(
                     addOwnerTx.owner.value.address,
                     label: label,
                     imageUri: imgageUri,
                     addressTitle: "Add owner:",
                     text: "\(addOwnerTx.threshold)",
-                    textTitle: "Change required confirmations:")
+                    textTitle: "Change required confirmations:",
+                    browseURL: chain.browserURL(address: addOwnerTx.owner.value.address.checksummed),
+                    prefix: chain.shortName)
 
             case .removeOwner(let removeOwnerTx):
-                let (label, imageUri) = displayNameAndImageUri(addressInfo: removeOwnerTx.owner)
+                let (label, imageUri) = NamingPolicy.name(for: removeOwnerTx.owner, chainId: chain.id!)
                 addressAndText(
                     removeOwnerTx.owner.value.address,
                     label: label,
                     imageUri: imageUri,
                     addressTitle: "Remove owner:",
                     text: "\(removeOwnerTx.threshold)",
-                    textTitle: "Change required confirmations:")
+                    textTitle: "Change required confirmations:",
+                    browseURL: chain.browserURL(address: removeOwnerTx.owner.value.address.checksummed),
+                    prefix: chain.shortName)
 
             case .swapOwner(let swapOwnerTx):
-                let (oldOwnerLabel, oldOwnerImgageUri) = displayNameAndImageUri(addressInfo: swapOwnerTx.oldOwner)
-                let (newOwnerLabel, newOwnerImgageUri) = displayNameAndImageUri(addressInfo: swapOwnerTx.newOwner)
+                let (oldOwnerLabel, oldOwnerImgageUri) = NamingPolicy.name(for: swapOwnerTx.oldOwner, chainId: chain.id!)
+                let (newOwnerLabel, newOwnerImgageUri) = NamingPolicy.name(for: swapOwnerTx.newOwner, chainId: chain.id!)
                 addresses(
-                    [(address: swapOwnerTx.oldOwner.value.address, label: oldOwnerLabel, imageUri: oldOwnerImgageUri, title: "Remove owner:"),
-                     (address: swapOwnerTx.newOwner.value.address, label: newOwnerLabel, imageUri: newOwnerImgageUri, title: "Add owner:")
+                    [(address: swapOwnerTx.oldOwner.value.address,
+                      label: oldOwnerLabel,
+                      imageUri: oldOwnerImgageUri,
+                      title: "Remove owner:",
+                      browseURL: chain.browserURL(address: swapOwnerTx.oldOwner.value.address.checksummed),
+                      prefix: chain.shortName),
+                     (address: swapOwnerTx.newOwner.value.address,
+                      label: newOwnerLabel,
+                      imageUri: newOwnerImgageUri,
+                      title: "Add owner:",
+                      browseURL: chain.browserURL(address: swapOwnerTx.newOwner.value.address.checksummed),
+                      prefix: chain.shortName)
                     ])
 
             case .changeThreshold(let thresholdTx):
@@ -245,22 +271,36 @@ class TransactionDetailCellBuilder {
 
             case .changeImplementation(let implementationTx):
                 let implementation = implementationTx.implementation.value.address
-                var (label, imageUri) = displayNameAndImageUri(addressInfo: implementationTx.implementation)
+                var (label, imageUri) = NamingPolicy.name(for: implementationTx.implementation, chainId: chain.id!)
                 if label == nil {
                     label = implementationTx.implementation.name ?? "Unknown"
                 }
                 address(implementation,
                         label: label,
                         title: "New mastercopy:",
-                        imageUri: imageUri)
+                        imageUri: imageUri,
+                        browseURL: chain.browserURL(address: implementation.checksummed),
+                        prefix: chain.shortName)
 
             case .enableModule(let moduleTx):
-                let (label, imageUri) = displayNameAndImageUri(addressInfo: moduleTx.module)
-                address(moduleTx.module.value.address, label: label, title: "Enable module:", imageUri: imageUri)
+                let (label, imageUri) = NamingPolicy.name(for: moduleTx.module, chainId: chain.id!)
+                let module = moduleTx.module.value.address
+                address(module,
+                        label: label,
+                        title: "Enable module:",
+                        imageUri: imageUri,
+                        browseURL: chain.browserURL(address: module.checksummed),
+                        prefix: chain.shortName)
 
             case .disableModule(let moduleTx):
-                let (label, imageUri) = displayNameAndImageUri(addressInfo: moduleTx.module)
-                address(moduleTx.module.value.address, label: label, title: "Disable module:", imageUri: imageUri)
+                let (label, imageUri) = NamingPolicy.name(for: moduleTx.module, chainId: chain.id!)
+                let module = moduleTx.module.value.address
+                address(module,
+                        label: label,
+                        title: "Disable module:",
+                        imageUri: imageUri,
+                        browseURL: chain.browserURL(address: module.checksummed),
+                        prefix: chain.shortName)
 
             case .unknown:
                 text("Unknown operation", title: "Settings change:", expandableTitle: nil, copyText: nil)
@@ -268,7 +308,7 @@ class TransactionDetailCellBuilder {
 
         case .custom(let customTx):
             let coin = Chain.nativeCoin!
-            let (label, addressLogoUri) = displayNameAndImageUri(addressInfo: customTx.to)
+            let (label, addressLogoUri) = NamingPolicy.name(for: customTx.to, chainId: chain.id!)
 
             buildTransferHeader(
                 address: customTx.to.value.address,
@@ -364,7 +404,7 @@ class TransactionDetailCellBuilder {
                     guard let `self` = self else { return }
                     let root = MultiSendListTableViewController(transactions: multiSendTxs,
                                                                 addressInfoIndex: addressInfoIndex,
-                                                                chainId: self.chainId)
+                                                                chain: self.chain)
                     let vc = RibbonViewController(rootViewController: root)
                     self.vc.show(vc, sender: self)
                 }
@@ -373,7 +413,7 @@ class TransactionDetailCellBuilder {
                     guard let `self` = self else { return }
                     let root = ActionDetailViewController(decoded: dataDecoded,
                                                           addressInfoIndex: addressInfoIndex,
-                                                          chainId: self.chainId,
+                                                          chain: self.chain,
                                                           data: tx.txData?.hexData)
                     let vc = RibbonViewController(rootViewController: root)
                     self.vc.show(vc, sender: self)
@@ -393,7 +433,12 @@ class TransactionDetailCellBuilder {
         case .transfer(let transferTx):
             switch transferTx.transferInfo {
             case .erc721(let erc721Tx):
-                address(erc721Tx.tokenAddress.address, label: "Asset Contract", title: nil)
+                let tokenAddress = erc721Tx.tokenAddress.address
+                address(tokenAddress,
+                        label: "Asset Contract",
+                        title: nil,
+                        browseURL: chain.browserURL(address: tokenAddress.checksummed),
+                        prefix: chain.shortName)
             default:
                 break
             }
@@ -480,8 +525,9 @@ class TransactionDetailCellBuilder {
         default:
             disclosure(text: "Advanced") { [weak self] in
                 guard let `self` = self else { return }
-                let vc = AdvancedTransactionDetailsViewController(tx, chainId: self.chainId)
-                self.vc.show(vc, sender: self)
+                let vc = AdvancedTransactionDetailsViewController(tx, chain: self.chain)
+                let ribbonVC = RibbonViewController(rootViewController: vc)
+                self.vc.show(ribbonVC, sender: self)
             }
             break
         }
@@ -490,11 +536,10 @@ class TransactionDetailCellBuilder {
     func buildOpenInExplorer(hash: DataString?) {
         guard
             let txHash = hash?.description,
-            let chain = Chain.by(chainId),
             let txHashUrlTemplate = chain.blockExplorerUrlTxHash
         else { return }
         let url = URL(string: txHashUrlTemplate.replacingOccurrences(of: "{{txHash}}", with: txHash))!
-        externalURL(text: "View transaction on block explorer", url: url)
+        externalURL(text: "View on block explorer", url: url)
     }
 
     // MARK: - Cell Builder
@@ -522,10 +567,10 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-
     func confirmation(_ confirmations: [Address], required: Int, status: SCGModels.TxStatus, executor: Address?, isRejectionTx: Bool) {
         let cell = newCell(DetailConfirmationCell.self)
         cell.setConfirmations(confirmations,
+                              chain: chain,
                               required: required,
                               status: status,
                               executor: executor,
@@ -567,7 +612,11 @@ class TransactionDetailCellBuilder {
         cell.setToken(image: iconURL, placeholder: icon)
         cell.setToken(alpha: alpha)
         cell.setDetail(detail)
-        cell.setAddress(address, label: label, imageUri: addressLogoUri)
+        cell.setAddress(address,
+                        label: label,
+                        imageUri: addressLogoUri,
+                        browseURL: chain.browserURL(address: address.checksummed),
+                        prefix: chain.shortName)
         cell.setOutgoing(isOutgoing)
         result.append(cell)
     }
@@ -578,40 +627,54 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-    func address(_ address: Address, label: String?, title: String?, imageUri: URL? = nil) {
+    func address(_ address: Address,
+                 label: String?,
+                 title: String?,
+                 imageUri: URL? = nil,
+                 browseURL: URL? = nil,
+                 prefix: String? = nil) {
         let cell = newCell(DetailAccountCell.self)
-        cell.setAccount(address: address, label: label, title: title, imageUri: imageUri)
+        cell.setAccount(address: address,
+                        label: label,
+                        title: title,
+                        imageUri: imageUri,
+                        browseURL: browseURL,
+                        prefix: prefix)
         result.append(cell)
     }
 
-    func addressAndText(_ address: Address, label: String?, imageUri: URL?, addressTitle: String, text: String, textTitle: String) {
+    func addressAndText(_ address: Address,
+                        label: String?,
+                        imageUri: URL?,
+                        addressTitle: String,
+                        text: String,
+                        textTitle: String,
+                        browseURL: URL?,
+                        prefix: String?) {
         let cell = newCell(DetailAccountAndTextCell.self)
         cell.setText(title: textTitle, details: text)
-        cell.setAccount(address: address, label: label, title: addressTitle, imageUri: imageUri)
+        cell.setAccount(address: address,
+                        label: label,
+                        title: addressTitle,
+                        imageUri: imageUri,
+                        browseURL: browseURL,
+                        prefix: prefix)
         result.append(cell)
     }
 
-    func addresses(_ accounts: [(address: Address, label: String?, imageUri: URL?, title: String?)]) {
+    func addresses(_ accounts: [(address: Address,
+                                 label: String?,
+                                 imageUri: URL?,
+                                 title: String?,
+                                 browseURL: URL?,
+                                 prefix: String?)]) {
         let cell = newCell(DetailMultiAccountsCell.self)
         cell.setAccounts(accounts: accounts)
         result.append(cell)
     }
 
-
     func newCell<T: UITableViewCell>(_ cls: T.Type) -> T {
         tableView.dequeueCell(cls)
-    }
-
-    func displayNameAndImageUri(addressInfo: SCGModels.AddressInfo) -> (name: String?, imageUri: URL?) {
-        if let importedSafeName = Safe.cachedName(by: addressInfo.value, chainId: chainId) {
-            return (importedSafeName, nil)
-        }
-
-        if let ownerName = KeyInfo.name(address: addressInfo.value.address) {
-            return (ownerName, nil)
-        }
-        
-        return (addressInfo.name, addressInfo.logoUri)
     }
 }
 

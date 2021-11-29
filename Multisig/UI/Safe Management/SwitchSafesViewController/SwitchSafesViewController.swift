@@ -18,9 +18,12 @@ final class SwitchSafesViewController: UITableViewController {
         super.viewDidLoad()
 
         title = "Switch Safes"
-
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
+        
+        // explicitly set background color to prevent transparent background in dark mode
+        navigationController?.navigationBar.backgroundColor = .secondaryBackground
+        
         tableView.register(AddSafeTableViewCell.nib(), forCellReuseIdentifier: "AddSafe")
         tableView.register(SafeEntryTableViewCell.nib(), forCellReuseIdentifier: "SafeEntry")
         tableView.registerHeaderFooterView(NetworkIndicatorHeaderView.self)
@@ -74,7 +77,7 @@ final class SwitchSafesViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SafeEntry", for: indexPath) as! SafeEntryTableViewCell
         let safe = chainSafes[indexPath.section - 1].safes[indexPath.row]
         cell.setName(safe.displayName)
-        cell.setAddress(safe.addressValue)
+        cell.setAddress(safe.addressValue, prefix: safe.chain!.shortName)
         cell.setSelection(safe.isSelected)
         return cell
     }
@@ -88,11 +91,19 @@ final class SwitchSafesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == addSafeSection {
-            let vc = SelectNetworkViewController()
-            vc.completion = { [weak self] in
-                self?.didTapCloseButton()
+            let selectNetworkVC = SelectNetworkViewController()
+            selectNetworkVC.screenTitle = "Load Gnosis Safe"
+            selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
+            selectNetworkVC.completion = { [weak self] chain  in
+                let vc = EnterSafeAddressViewController()
+                vc.chain = chain
+                let ribbon = RibbonViewController(rootViewController: vc)
+                ribbon.chain = vc.chain
+                vc.completion = { self?.didTapCloseButton() }
+                self?.show(ribbon, sender: self)
             }
-            show(vc, sender: self)
+
+            show(selectNetworkVC, sender: self)
         } else {
             let safe = chainSafes[indexPath.section - 1].safes[indexPath.row]
             if !safe.isSelected {

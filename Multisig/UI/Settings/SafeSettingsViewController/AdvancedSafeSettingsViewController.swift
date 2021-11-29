@@ -17,8 +17,6 @@ class AdvancedSafeSettingsViewController: UITableViewController {
     private var safe: Safe!
     private var sections = [SectionItems]()
 
-    var namingPolicy = DefaultAddressNamingPolicy()
-
     enum Section {
         case fallbackHandler(String)
         case guardInfo(String)
@@ -113,10 +111,15 @@ extension AdvancedSafeSettingsViewController {
 
         case Section.FallbackHandler.fallbackHandler(let info):
             if let info = info {
+                let (name, _) = NamingPolicy.name(for: info.address,
+                                                            info: info,
+                                                            chainId: safe.chain!.id!)
                 return addressDetailsCell(address: info.address,
-                                          title: namingPolicy.name(info: info),
+                                          title: name,
                                           imageUri: info.logoUri,
-                                          indexPath: indexPath)
+                                          indexPath: indexPath,
+                                          browseURL: safe.chain!.browserURL(address: info.address.checksummed),
+                                          prefix: safe.chain!.shortName)
             } else {
                 return tableView.basicCell(
                     name: "Not set", indexPath: indexPath, withDisclosure: false, canSelect: false)
@@ -129,10 +132,15 @@ extension AdvancedSafeSettingsViewController {
 
         case Section.GuardInfo.guardInfo(let info):
             if let info = info {
+                let (name, _) = NamingPolicy.name(for: info.address,
+                                                            info: info,
+                                                            chainId: safe.chain!.id!)
                 return addressDetailsCell(address: info.address,
-                                          title: namingPolicy.name(info: info),
+                                          title: name,
                                           imageUri: info.logoUri,
-                                          indexPath: indexPath)
+                                          indexPath: indexPath,
+                                          browseURL: safe.chain!.browserURL(address: info.address.checksummed),
+                                          prefix: safe.chain!.shortName)
             } else {
                 return tableView.basicCell(
                     name: "Not set", indexPath: indexPath, withDisclosure: false, canSelect: false)
@@ -150,10 +158,15 @@ extension AdvancedSafeSettingsViewController {
                                        canSelect: false)
 
         case Section.Module.module(let info):
+            let (name, _) = NamingPolicy.name(for: info.address,
+                                                        info: info,
+                                                        chainId: safe.chain!.id!)
             return addressDetailsCell(address: info.address,
-                                      title: namingPolicy.name(info: info),
+                                      title: name,
                                       imageUri: info.logoUri,
-                                      indexPath: indexPath)
+                                      indexPath: indexPath,
+                                      browseURL: safe.chain!.browserURL(address: info.address.checksummed),
+                                      prefix: safe.chain!.shortName)
 
         default:
             return UITableViewCell()
@@ -203,9 +216,14 @@ extension AdvancedSafeSettingsViewController {
         BasicCell.rowHeight
     }
 
-    private func addressDetailsCell(address: Address, title: String?, imageUri: URL?, indexPath: IndexPath) -> UITableViewCell {
+    private func addressDetailsCell(address: Address,
+                                    title: String?,
+                                    imageUri: URL?,
+                                    indexPath: IndexPath,
+                                    browseURL: URL?,
+                                    prefix: String? = nil) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: title, imageUri: imageUri)
+        cell.setAccount(address: address, label: title, imageUri: imageUri, browseURL: browseURL, prefix: prefix)
         return cell
     }
 

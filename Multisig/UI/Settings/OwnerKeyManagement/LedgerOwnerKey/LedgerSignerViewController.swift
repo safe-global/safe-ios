@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Web3
 
 struct SignRequest {
     var title: String
@@ -47,6 +48,7 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
               let metadata = KeyInfo.LedgerKeyMetadata.from(data: data) else { return }
 
         let confirmVC = LedgerPendingConfirmationViewController(
+            headerText: request.title,
             bluetoothController: bluetoothController,
             hexToSign: request.hexToSign,
             deviceId: deviceId,
@@ -57,7 +59,10 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
 
         present(confirmVC, animated: true)
 
-        confirmVC.onClose = controller.onClose
+        confirmVC.onClose = { [unowned controller] in
+            controller.reloadData()
+            controller.onClose?()
+        }
 
         confirmVC.onSign = { [weak self, unowned controller] signature, errorMessage in
             guard let self = self else { return }
@@ -74,6 +79,36 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
                 // so we just show the error and reload data
                 let message = errorMessage ?? "The operation was canceled on the Ledger device."
                 App.shared.snackbar.show(message: message)
+
+                // reload the devices in case we lost connection
+                controller.reloadData()
+                return
+            }
+
+            // layout is <r: 35 bytes><s: 35 bytes><v: 1 byte>; v = (0 | 1) + 27 + 4
+            let signatureData = Data(hex: signature)
+            assert(signatureData.count >= 65)
+            let r = Data(Array(signatureData[0..<32]))
+            let s = Data(Array(signatureData[32..<64]))
+            let v = signatureData[64]
+
+            // original message signed by Ledger has Ethereum prefix according to eth_sign
+            let originalHash = Data(hex: self.request.hexToSign)
+            let prefix = "\u{19}Ethereum Signed Message:\n\(originalHash.count)"
+            let prefixedMessage = prefix.data(using: .utf8)! + originalHash
+
+            // recover the public key
+            let pubKey = try? EthereumPublicKey.init(message: prefixedMessage.makeBytes(),
+                                                     v: EthereumQuantity(quantity: BigUInt(v - 27 - 4)),
+                                                     r: EthereumQuantity(r.makeBytes()),
+                                                     s: EthereumQuantity(s.makeBytes()))
+
+            // Since it's possible to sign with a key different from the one user selected in app UI in the previous
+            // step, we'll check that the actual signer is the same as the selected owner.
+            
+            guard let signedOwner = pubKey?.address,
+                    Address(signedOwner) == self.request.signer.address else {
+                App.shared.snackbar.show(error: GSError.SignerMismatch())
 
                 // reload the devices in case we lost connection
                 controller.reloadData()

@@ -28,6 +28,16 @@ class CoreDataTestCase: XCTestCase {
         return safe
     }
 
+    @discardableResult
+    func createEntry(name: String, address: String, chain: Chain = Chain.mainnetChain()) -> AddressBookEntry {
+        let entry = AddressBookEntry(context: context)
+        entry.name = name
+        entry.address = address
+        entry.chain = chain
+        try! context.save()
+        return entry
+    }
+
     func makeChain(id: String) throws -> Chain {
         try Chain.create(
             chainId: id,
@@ -37,6 +47,7 @@ class CoreDataTestCase: XCTestCase {
             blockExplorerUrlAddress: "https://block.com/address/{{address}}",
             blockExplorerUrlTxHash: "https://block.com/tx/{{txHash}}",
             ensRegistryAddress: "0x0000000000000000000000000000000000000001",
+            shortName: "eth",
             currencyName: "Currency",
             currencySymbl: "CRY",
             currencyDecimals: 18,

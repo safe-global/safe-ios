@@ -21,7 +21,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.3.0</string>
+	<string>3.4.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -55,6 +55,8 @@
 	<string>$(FEATURE_SUGGESTION_URL)</string>
 	<key>DESKTOP_PAIRING_URL</key>
 	<string>$(DESKTOP_PAIRING_URL)</string>
+	<key>LEDGER_PAIRING_URL</key>
+	<string>$(LEDGER_PAIRING_URL)</string>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<false/>
 	<key>GNOSIS_SAFE_WEB_URL</key>

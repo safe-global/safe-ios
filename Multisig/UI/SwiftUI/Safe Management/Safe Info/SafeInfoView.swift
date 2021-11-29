@@ -28,7 +28,7 @@ struct SafeInfoView: View {
 
 struct SafeInfoContentView: View {
     @ObservedObject var safe: Safe
-
+    @State var appendPrefix: Bool = true
     var body: some View {
         VStack (alignment: .center) {
             AddressImage(safe.address).frame(width: 56, height: 56)
@@ -45,8 +45,16 @@ struct SafeInfoContentView: View {
             }
 
             LoadableENSNameText(safe: safe, showsLoading: false)
-            QRView(value: safe.address)
+
+            QRView(value: prefixString() + safe.address!)
                 .padding(.top, 12)
+
+            if (AppSettings.prependingChainPrefixToAddresses) {
+                EmptyView().background(Color.gray2)
+                Toggle(isOn: $appendPrefix, label: {
+                    Text("QR code with chain prefix").fixedSize().font(.gnoBody).foregroundColor(.secondaryLabel)
+                }).padding(.top, 20)
+            }
         }
         .multilineTextAlignment(.center)
         .onAppear {
@@ -54,6 +62,9 @@ struct SafeInfoContentView: View {
         }
     }
 
+    private func prefixString() -> String {
+        (appendPrefix && safe.chain!.shortName != nil ? "\(safe.chain!.shortName!):" : "" )
+    }
 }
 
 struct SwiftUINetworkIndicator: View {

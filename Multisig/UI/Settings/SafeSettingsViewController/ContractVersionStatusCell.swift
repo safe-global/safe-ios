@@ -19,6 +19,7 @@ class ContractVersionStatusCell: UITableViewCell {
     private var versionNumber: String!
     private var versionStatus: SCGModels.ImplementationVersionState!
     private var address: Address?
+    private var chainPrefix: String?
 
     var onViewDetails: (() -> Void)?
 
@@ -35,13 +36,14 @@ class ContractVersionStatusCell: UITableViewCell {
         addTarget(self, action: #selector(copyAddress), for: .touchUpInside)
     }
 
-    func setAddress(_ info: AddressInfo, status: SCGModels.ImplementationVersionState, version: String) {
+    func setAddress(_ info: AddressInfo, status: SCGModels.ImplementationVersionState, version: String, prefix: String? = nil) {
         address = info.address
         versionStatus = status
         versionNumber = version
+        chainPrefix = prefix
 
         identiconView.setCircleImage(url: info.logoUri, address: info.address)
-        detailLabel.text = info.address.ellipsized()
+        detailLabel.text = prependingPrefixString() + info.address.ellipsized()
 
         let semiboldConfiguration = UIImage.SymbolConfiguration(weight: .semibold)
 
@@ -75,7 +77,7 @@ class ContractVersionStatusCell: UITableViewCell {
 
     @objc private func copyAddress() {
         guard let address = address else { return }
-        Pasteboard.string = address.checksummed
+        Pasteboard.string = copyPrefixString() + address.checksummed
         App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 
@@ -86,5 +88,17 @@ class ContractVersionStatusCell: UITableViewCell {
 
     @objc private func didTouchUp(sender: UIButton, forEvent event: UIEvent) {
         alpha = 1.0
+    }
+
+    private func copyPrefixString() -> String {
+        AppSettings.copyAddressWithChainPrefix ? prefixString() : ""
+    }
+
+    private func prependingPrefixString() -> String {
+        AppSettings.prependingChainPrefixToAddresses ? prefixString() : ""
+    }
+
+    private func prefixString() -> String {
+        chainPrefix != nil ? "\(chainPrefix!):" : ""
     }
 }

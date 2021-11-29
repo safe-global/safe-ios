@@ -15,15 +15,19 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
     private var loadNextPageDataTask: URLSessionTask?
 
     private var model = NetworksListViewModel()
-    
-    var completion: () -> Void = { }
+    var screenTitle: String!
+    var descriptionText: String!
 
+    var completion: (SCGModels.Chain) -> Void = { _ in }
     convenience init() {
         self.init(namedClass: Self.superclass())
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        assert(descriptionText?.isEmpty == false, "Developer error: expect to have a description")
+        assert(screenTitle?.isEmpty == false, "Developer error: expect to have an screen title")
 
         tableView.registerCell(SelectNetworkTableViewCell.self)
         tableView.registerHeaderFooterView(IdleFooterView.self)
@@ -37,7 +41,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         tableView.delegate = self
         tableView.dataSource = self
 
-        navigationItem.title = "Load Gnosis Safe"
+        navigationItem.title = screenTitle
         emptyView.setText("Networks will appear here")
     }
 
@@ -162,7 +166,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let tableHeaderView = TableHeaderView()
-        tableHeaderView.set("Select network on which your Safe was created:")
+        tableHeaderView.set(descriptionText)
         return tableHeaderView
     }
 
@@ -182,12 +186,8 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let vc = EnterSafeAddressViewController()
-        vc.completion = completion
-        vc.chain = model.models[indexPath.row]
-        let ribbon = RibbonViewController(rootViewController: vc)
-        ribbon.chain = vc.chain
-        show(ribbon, sender: self)
+        let chain = model.models[indexPath.row]
+        completion(chain)
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

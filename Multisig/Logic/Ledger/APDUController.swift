@@ -1,5 +1,5 @@
 //
-//  ADPUHandler.swift
+//  APDUHandler.swift
 //  Multisig
 //
 //  Created by Moaaz on 14.06.21.
@@ -14,7 +14,7 @@ import Foundation
 class APDUController {
     static private let tagID: UInt8 = 0x05
 
-    static func prepareADPU(message: Data) -> Data {
+    static func prepareAPDU(message: Data) -> Data {
         var data = Data()
         data.append(tagID)
         data.append(UInt8(0x00))
@@ -29,7 +29,7 @@ class APDUController {
     }
 
     /// We assume to get only one message, so no need to batch several messages
-    static func parseADPU(message: Data) -> Data? {
+    static func parseAPDU(message: Data) -> Data? {
         guard message.count > 6, Int8(message[0]) == tagID else { return nil }
         guard message[1] == 0 && message[2] == 0 else { return nil }
         guard let dataLength = (try? UInt16(message[3]) << 8 | UInt16(message[4])) else { return nil }

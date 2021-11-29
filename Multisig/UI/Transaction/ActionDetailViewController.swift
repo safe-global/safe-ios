@@ -15,7 +15,7 @@ class ActionDetailViewController: UITableViewController {
 
     private var multiSendTx: MultiSendTx?
     private var addressInfoIndex: AddressInfoIndex?
-    private var chainId: String!
+    private var chain: Chain!
     private var dataDecoded: DataDecoded?
     private var data: DataString?
     private var placeholderTitle: String?
@@ -29,23 +29,23 @@ class ActionDetailViewController: UITableViewController {
 
     convenience init(decoded: DataDecoded,
                      addressInfoIndex: AddressInfoIndex?,
-                     chainId: String,
+                     chain: Chain,
                      data: DataString? = nil) {
         self.init()
         self.dataDecoded = decoded
         self.addressInfoIndex = addressInfoIndex
-        self.chainId = chainId
+        self.chain = chain
         self.data = data
     }
 
     convenience init(tx: MultiSendTx,
                      addressInfoIndex: AddressInfoIndex?,
-                     chainId: String,
+                     chain: Chain,
                      placeholderTitle: String?) {
         self.init()
         multiSendTx = tx
         self.addressInfoIndex = addressInfoIndex
-        self.chainId = chainId
+        self.chain = chain
         dataDecoded = tx.dataDecoded
         data = tx.data
         self.placeholderTitle = placeholderTitle
@@ -54,7 +54,7 @@ class ActionDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        txBuilder = TransactionDetailCellBuilder(vc: self, tableView: tableView, chainId: chainId)
+        txBuilder = TransactionDetailCellBuilder(vc: self, tableView: tableView, chain: chain)
         tableView.registerCell(ActionDetailTextCell.self)
         tableView.registerCell(ActionDetailExpandableCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
@@ -62,11 +62,19 @@ class ActionDetailViewController: UITableViewController {
         tableView.backgroundColor = .secondaryBackground
         reloadData()
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(reloadData),
-            name: .chainInfoChanged,
-            object: nil)
+        for notification in [Notification.Name.ownerKeyImported,
+                             .ownerKeyRemoved,
+                             .ownerKeyUpdated,
+                             .addressbookChanged,
+                             .selectedSafeChanged,
+                             .selectedSafeUpdated,
+                             .chainInfoChanged] {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(reloadData),
+                name: notification,
+                object: nil)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -87,8 +95,9 @@ class ActionDetailViewController: UITableViewController {
         if let tx = multiSendTx {
             let coin = Chain.nativeCoin!
             txBuilder.result = []
-            let (name, imageUri) = displayNameAndImageUri(
-                address: tx.to, addressInfoIndex: addressInfoIndex, chainId: chainId)
+            let (name, imageUri) = NamingPolicy.name(for: tx.to.address,
+                                                        info: addressInfoIndex?.values[tx.to]?.addressInfo,
+                                                        chainId: chain.id!)
             txBuilder.buildTransferHeader(
                 address: tx.to.address,
                 label: name,
@@ -227,10 +236,14 @@ class ActionDetailViewController: UITableViewController {
 
     private func addressCell(_ address: Address, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailAddressCell.self)
-        let (name, imageUri) = displayNameAndImageUri(address: AddressString(address),
-                                                      addressInfoIndex: addressInfoIndex,
-                                                      chainId: chainId)
-        cell.setAddress(address, label: name, imageUri: imageUri)
+        let (name, imageUri) = NamingPolicy.name(for: address,
+                                                    info: addressInfoIndex?.values[AddressString(address)]?.addressInfo,
+                                                    chainId: chain.id!)
+        cell.setAddress(address,
+                        label: name,
+                        imageUri: imageUri,
+                        browseURL: chain.browserURL(address: address.checksummed),
+                        prefix: chain.shortName)
         cell.selectionStyle = .none
         cell.margins.leading += indentation
         return cell

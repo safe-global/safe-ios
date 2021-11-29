@@ -68,6 +68,7 @@ class EnterSafeAddressViewController: UIViewController {
         enterAddressWrapperVC.chain = chain
 
         enterAddressVC.address = address
+        enterAddressVC.prefix = chain.shortName
         enterAddressVC.trackingEvent = .safeAddName
         enterAddressVC.screenTitle = "Load Gnosis Safe"
         enterAddressVC.descriptionText = "Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties."
@@ -115,7 +116,7 @@ class EnterSafeAddressViewController: UIViewController {
             let vc = QRCodeScannerViewController()
             vc.trackingParameters = self.trackingParameters
             vc.scannedValueValidator = { value in
-                if Address(value) != nil {
+                if let _ = try? Address.addressWithPrefix(text: value) {
                     return .success(value)
                 } else {
                     return .failure(GSError.error(description: "Can’t use this QR code",
@@ -135,7 +136,7 @@ class EnterSafeAddressViewController: UIViewController {
         if blockchainDomainManager.ens != nil {
             alertVC.addAction(UIAlertAction(title: "Enter ENS Name", style: .default, handler: { [weak self] _ in
                 guard let self = self else { return }
-                let ensNameVC = EnterENSNameViewController(manager: blockchainDomainManager)
+                let ensNameVC = EnterENSNameViewController(manager: blockchainDomainManager, chain: self.chain)
                 ensNameVC.trackingParameters = self.trackingParameters
                 ensNameVC.onConfirm = { [weak self] in
                     guard let `self` = self else { return }
@@ -151,7 +152,7 @@ class EnterSafeAddressViewController: UIViewController {
         if blockchainDomainManager.unstoppableDomainResolution != nil {
             alertVC.addAction(UIAlertAction(title: "Enter Unstoppable Name", style: .default, handler: { [weak self] _ in
                 guard let self = self else { return }
-                let udNameVC = EnterUnstoppableNameViewController(manager: blockchainDomainManager)
+                let udNameVC = EnterUnstoppableNameViewController(manager: blockchainDomainManager, chain: self.chain)
                 udNameVC.trackingParameters = self.trackingParameters
                 udNameVC.onConfirm = { [weak self] in
                     guard let `self` = self else { return }
@@ -193,8 +194,14 @@ class EnterSafeAddressViewController: UIViewController {
         addressField.setInputText(text)
         do {
             // (1) validate that the text is address
-            let address = try Address(text, isERC681: true)
-            addressField.setAddress(address)
+            let address = try Address.addressWithPrefix(text: text)
+
+            guard (address.prefix ?? chain.shortName) == chain.shortName else {
+                addressField.setError(GSError.AddressMismatchNetwork())
+                return
+            }
+
+            addressField.setAddress(address, prefix: chain.shortName)
 
             // (2) and that there's no such safe already
             let exists = Safe.exists(address.checksummed, chainId: chain.id)

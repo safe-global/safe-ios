@@ -82,7 +82,7 @@ LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD)
 SSL_ENFORCE_PINNING = 1
 
 // Range of values: 1 is YES, 0 is NO.
-DESKTOP_PAIRING_EXPERIMENTAL_ENABLED = 0
+DESKTOP_PAIRING_EXPERIMENTAL_ENABLED = 1
 
 
 // WalletConnect bridge server for client
@@ -99,6 +99,7 @@ GUARD_URL = https:/$()/help.gnosis-safe.io/en/articles/5324092-what-is-a-transac
 PAY_FOR_CANCELLATION_URL = https:/$()/help.gnosis-safe.io/en/articles/4738501-why-do-i-need-to-pay-for-cancelling-a-transaction
 CONNECT_DAPP_ON_MOBILE_URL = https:/$()/help.gnosis-safe.io/en/articles/5307197-how-to-connect-a-dapp-via-walletconnect-on-gnosis-safe-mobile
 DESKTOP_PAIRING_URL = https:/$()/help.gnosis-safe.io/en/articles/5584901-desktop-pairing
+LEDGER_PAIRING_URL = https:/$()/support.ledger.com/hc/en-us/articles/360019138694-Set-up-Bluetooth-connection
 
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/

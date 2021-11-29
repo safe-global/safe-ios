@@ -123,9 +123,9 @@ class BluetoothController: BaseBluetoothController {
         }
         centralManager.connect(device.peripheral, options: nil)
         writeCommands[device.peripheral.identifier] = { [weak self] in
-            let adpuData = APDUController.prepareADPU(message: command)
+            let apduData = APDUController.prepareAPDU(message: command)
             self?.responses[device.peripheral.identifier] = completion
-            device.peripheral.writeValue(adpuData, for: device.writeCharacteristic!, type: .withResponse)
+            device.peripheral.writeValue(apduData, for: device.writeCharacteristic!, type: .withResponse)
         }
     }
 }
@@ -134,6 +134,9 @@ extension BluetoothController: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
+            centralManager.retrieveConnectedPeripherals(withServices: supportedDeviceUUIDs).forEach { peripheral in
+                didDiscoverDevice(peripheral)
+            }
             centralManager.scanForPeripherals(withServices: supportedDeviceUUIDs)
         case .unauthorized:
             delegate?.bluetoothControllerDidFailToConnectBluetooth(error: GSError.BluetoothIsNotAuthorized())
@@ -146,11 +149,7 @@ extension BluetoothController: CBCentralManagerDelegate {
                         didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any],
                         rssi RSSI: NSNumber) {
-        if deviceFor(deviceId: peripheral.identifier) == nil {
-            let device = BluetoothDevice(peripheral: peripheral)
-            devices.append(device)
-            delegate?.bluetoothControllerDidDiscover(device: device)
-        }
+        didDiscoverDevice(peripheral)
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -169,6 +168,14 @@ extension BluetoothController: CBCentralManagerDelegate {
         }
 
         delegate?.bluetoothControllerDidDisconnect(device: device, error: detailedError)
+    }
+
+    func didDiscoverDevice(_ peripheral: CBPeripheral) {
+        if deviceFor(deviceId: peripheral.identifier) == nil {
+            let device = BluetoothDevice(peripheral: peripheral)
+            devices.append(device)
+            delegate?.bluetoothControllerDidDiscover(device: device)
+        }
     }
 }
 
@@ -214,11 +221,11 @@ extension BluetoothController: CBPeripheralDelegate {
                 LogService.shared.info("Failed to connect with bluetooth device", error: error)
                 responseCompletion(.failure(error))
             }
-            if let message = characteristic.value, let data = APDUController.parseADPU(message: message) {
+            if let message = characteristic.value, let data = APDUController.parseAPDU(message: message) {
                 responseCompletion(.success(data))
             } else {
                 LogService.shared.error(
-                    "Could not parse ADPU for message: \(characteristic.value?.toHexString() ?? "nil")")
+                    "Could not parse APDU for message: \(characteristic.value?.toHexString() ?? "nil")")
                 responseCompletion(.failure(""))
             }
             
@@ -250,6 +257,8 @@ class SimulatedBluetoothController: BaseBluetoothController {
     override func stopScan() {
         // do nothing
     }
+
+    var keys: [Address: PrivateKey] = [:]
 
     override func sendCommand(device: BaseBluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
         DispatchQueue.global().async {

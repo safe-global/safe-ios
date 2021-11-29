@@ -24,7 +24,7 @@ extension Safe: Identifiable {
 
     var addressValue: Address { Address(address!)! }
 
-    var browserURL: URL { Self.browserURL(address: displayAddress) }
+    var browserURL: URL { chain!.browserURL(address: displayAddress) }
 
     var displayENSName: String { ensName ?? "" }
 
@@ -121,18 +121,6 @@ extension Safe: Identifiable {
         }
     }
 
-    static func browserURL(address: String) -> URL {
-        guard
-            let safe = (try? Safe.getSelected()),
-            let chain = safe.chain,
-            let addressUrlTemplate = chain.blockExplorerUrlAddress
-        else {
-            assertionFailure("Block explorer url called when no safe chain found")
-            return URL(string: "https://gnosis-safe.io/")!
-        }
-        return URL(string: addressUrlTemplate.replacingOccurrences(of: "{{address}}", with: address))!
-    }
-
     static func exists(_ address: String, chainId: String) -> Bool {
         by(address: address, chainId: chainId) != nil
     }
@@ -187,12 +175,7 @@ extension Safe: Identifiable {
 
         let chainId = safe.chain!.id!
 
-        if safe.chain!.safe!.count == 1 {
-            // remove chain with associated safe
-            Chain.remove(chain: safe.chain!)
-        } else {
-            context.delete(safe)
-        }
+        context.delete(safe)
 
         if let safe = try? Safe.getAll().first {
             safe.select()
@@ -213,7 +196,10 @@ extension Safe: Identifiable {
     }
 
     static func removeAll() throws {
-        Chain.removeAll()
+        for safe in all {
+            remove(safe: safe)
+        }
+        
         NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
     }
 }

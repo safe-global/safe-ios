@@ -11,6 +11,7 @@ import WalletConnectSwift
 
 class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     private var keys: [KeyInfo] = []
+    private var chainID: String?
     private var addButton: UIBarButtonItem!
     override var isEmpty: Bool {
         keys.isEmpty
@@ -46,24 +47,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
         notificationCenter.addObserver(
             self,
-            selector: #selector(lazyReloadData),
-            name: .ownerKeyImported,
-            object: nil)
-
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(lazyReloadData),
-            name: .ownerKeyRemoved,
-            object: nil)
-
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(lazyReloadData),
-            name: .ownerKeyUpdated,
-            object: nil)
-
-        notificationCenter.addObserver(
-            self,
             selector: #selector(walletConnectSessionCreated(_:)),
             name: .wcDidConnectClient,
             object: nil)
@@ -73,6 +56,14 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
             selector: #selector(reload),
             name: .wcDidDisconnectClient,
             object: nil)
+
+        for notification in [NSNotification.Name.selectedSafeChanged,
+                                .selectedSafeUpdated,
+                                .ownerKeyImported,
+                                .ownerKeyRemoved,
+                                .ownerKeyUpdated] {
+            notificationCenter.addObserver(self, selector: #selector(lazyReloadData), name: notification, object: nil)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -90,6 +81,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     override func reloadData() {
         super.reloadData()
         keys = (try? KeyInfo.all()) ?? []
+        chainID = try? Safe.getSelected()?.chain?.id
         setNeedsReload(false)
         onSuccess()
         tableView.reloadData()
@@ -140,28 +132,26 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let keyInfo = keys[indexPath.row]
-//        if App.configuration.toggles.walletConnectOwnerKeyEnabled {
         let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
-        cell.configure(keyInfo: keyInfo)
+        cell.configure(keyInfo: keyInfo, chainID: chainID)
         return cell
-//        } else {
-//            let cell = tableView.dequeueCell(OwnerKeysListTableViewCell.self, for: indexPath)
-//            cell.set(address: keyInfo.address, title: keyInfo.displayName, type: keyInfo.keyType)
-//            return cell
-//        }
     }
 
     // MARK: - Table view delegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let vc = OwnerKeyDetailsViewController(keyInfo: keys[indexPath.row])
+        let keyInfo = keys[indexPath.row]
+        let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
+        if keyInfo.keyType == .walletConnect,
+           KeyConnectionStatus.init(keyInfo: keyInfo, chainID: chainID) == .connectionProblem {
+            App.shared.snackbar.show(error: GSError.KeyConnectionProblem())
+        }
         show(vc, sender: nil)
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        guard App.configuration.toggles.walletConnectOwnerKeyEnabled else { return nil }
 
         let keyInfo = keys[indexPath.row]
 

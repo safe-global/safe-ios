@@ -18,6 +18,7 @@ enum TrackingUserProperty: String, UserProperty {
     case passcodeIsSet = "passcode_is_set" // string, "true" or "false" depending on if app passcode is set
     case walletConnectForDappsEnabled = "wc_for_dapps_enabled" // string, "true" or "false"
     case walletConnectForKeysEnabled = "wc_for_keys_enabled" // string, "true" or "false"
+    case desktopPairingEnabled = "desktop_pairing_enabled" // string, "true" or "false"
 }
 
 enum TrackingPushState: String {
@@ -65,6 +66,12 @@ enum TrackingEvent: String, Trackable {
     case settingsAppAdvanced                        = "screen_settings_app_advanced"
     case settingsAppEditFiat                        = "screen_settings_app_edit_fiat"
     case settingsAppSupport                         = "screen_settings_app_support"
+
+    case addressBookList                            = "screen_address_book_list"
+    case addressBookAddEntry                        = "screen_adderess_book_add"
+    case addressBookEditEntry                       = "screen_address_book_edit"
+    case addressBookImported                        = "address_book_imported"
+    case addressBookExported                        = "address_book_exported"
 
     case settingsSafe                               = "screen_settings_safe"
     case settingsSafeNoSafe                         = "screen_settings_safe_no_safe"
@@ -139,4 +146,23 @@ enum TrackingEvent: String, Trackable {
     case ledgerSelectDevice                         = "screen_select_ledger_nano_x_device"
     case ledgerSelectKey                            = "screen_select_ledger_nano_x_key"
     case ledgerEnterKeyName                         = "screen_ledger_nano_x_enter_name"
+
+    case desktopPairing                             = "screen_desktop_pairing"
+    case desktopPairingLearnMore                    = "dp_learn_more"
+    case desktopPairingConfirmConnection            = "screen_dp_confirm_connection"
+    case desktopPairingConnectionConfirmed          = "dp_connection_confirmed"
+    case desktopPairingConnectionRejected           = "dp_connection_rejected"
+    case desktopPairingSignRequest                  = "screen_dp_sign_request"
+    case dpSignRequestConfirmedPhoneKey             = "dp_sign_request_confirmed_phone_key"
+    case dpSignRequestConfirmedLedger               = "dp_sign_request_confirmed_ledger_nx"
+    case desktopPairingSignRequestRejected          = "dp_sign_request_rejected"
+
+    // MARK: add delegate key
+    case addDelegateKeyLedger                       = "screen_delegate_ledger_nano_x"
+    case addDelegateKeyWalletConnect                = "screen_delegate_walletconnect"
+
+    case addDelegateKeyStarted                      = "user_start_add_delegate"
+    case addDelegateKeySkipped                      = "user_skip_add_delegate"
+    case addDelegateKeySuccess                      = "user_success_add_delegate"
+    case addDelegateKeyFailed                       = "user_failed_add_delegate"
 }

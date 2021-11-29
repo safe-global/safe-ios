@@ -30,9 +30,14 @@ class LedgerKeyAddedViewController: AccountActionCompletedViewController {
         super.viewDidLoad()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.addDelegateKeyLedger)
+    }
+
     override func primaryAction(_ sender: Any) {
         // Start Add Delegate flow with the selected account address
-        #warning("TODO: tracking?")
+        Tracker.trackEvent(.addDelegateKeyStarted)
         addKeyController = AddDelegateKeyController(ownerAddress: accountAddress, completion: completion)
         addKeyController.presenter = self
         addKeyController.start()
@@ -40,7 +45,7 @@ class LedgerKeyAddedViewController: AccountActionCompletedViewController {
 
     override func secondaryAction(_ sender: Any) {
         // doing nothing because user skipped
-        #warning("TODO: tracking?")
+        Tracker.trackEvent(.addDelegateKeySkipped)
         completion()
     }
 }
@@ -69,7 +74,7 @@ class AddDelegateKeyController {
         // 2. create 'create delegate' message
             // keccak(address + str(int(current_epoch // 3600)))
         let time = String(describing: Int(Date().timeIntervalSince1970) / 3600)
-        let hashString = delegatePrivateKey.address.hexadecimal + time
+        let hashString = delegatePrivateKey.address.checksummed + time
         let hashToSign = EthHasher.hash(hashString)
 
         // 3. sign message with ledger key
@@ -122,6 +127,9 @@ class AddDelegateKeyController {
                         // post notification so that UI state can be updated
                         NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
 
+                        // trigger push notification registration
+                        App.shared.notificationHandler.signingKeyUpdated()
+
                         self.completeProcess()
                         break
 
@@ -147,7 +155,7 @@ class AddDelegateKeyController {
         let keyOrNil = try KeyInfo.firstKey(address: self.ownerAddress)
 
         guard let keyInfo = keyOrNil else {
-            throw "Owner key not found for delegate key"
+            throw GSError.OwnerKeyNotFoundForDelegate()
         }
         return keyInfo
     }
@@ -164,7 +172,7 @@ class AddDelegateKeyController {
         }
 
         guard keyInfo.keyType == .ledgerNanoX else {
-            completion(.failure("Expected to get ledger key but a different key type is found."))
+            completion(.failure(GSError.UnrecognizedKeyTypeForDelegate()))
             return
         }
 
@@ -186,22 +194,43 @@ class AddDelegateKeyController {
 
         vc.onClose = {
             if !isSuccess {
-                completion(.failure("The operation cancelled by user"))
+                completion(.failure(GSError.AddDelegateKeyCancelled()))
             }
         }
     }
 
     func sendToBackend(delegateAddress: Address, signature: Data, completion: @escaping (Result<Void, Error>) -> Void) {
-        clientGatewayService.asyncCreateDelegate(safe: nil,
-                                                 owner: ownerAddress,
-                                                 delegate: delegateAddress,
-                                                 signature: signature,
-                                                 label: "iOS Device Delegate") { result in
-            completion(result.map { _ in () })
+        // to synchronize multiple async processes, we use DispatchGroup
+        let group = DispatchGroup()
+
+        Chain.all.forEach { chain in
+            // trigger request
+            group.enter()
+            clientGatewayService.asyncCreateDelegate(safe: nil,
+                    owner: ownerAddress,
+                    delegate: delegateAddress,
+                    signature: signature,
+                    label: "iOS Device Delegate",
+                    chainId: chain.id!) { result in
+                group.leave()
+            }
+        }
+
+        // We use 60 seconds because it's a URLRequest's default timeout and
+        // we expect all requests to finish before that
+        let createDelegateRequestTimeoutInSeconds = 60 // one minute
+        let timeoutResult = group.wait(timeout: .now() + .seconds(createDelegateRequestTimeoutInSeconds))
+
+        switch timeoutResult {
+        case .success:
+            completion(.success(()))
+        case .timedOut:
+            completion(.failure(GSError.AddDelegateTimedOut()))
         }
     }
 
     func abortProcess(error: Error) {
+        Tracker.trackEvent(.addDelegateKeyFailed)
         DispatchQueue.main.async { [weak self] in
             App.shared.snackbar.show(message: error.localizedDescription)
             self?.completionHandler()
@@ -209,6 +238,7 @@ class AddDelegateKeyController {
     }
 
     func completeProcess() {
+        Tracker.trackEvent(.addDelegateKeySuccess)
         DispatchQueue.main.async { [weak self] in
             self?.completionHandler()
         }

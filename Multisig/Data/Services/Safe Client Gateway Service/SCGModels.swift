@@ -553,7 +553,8 @@ extension SCGModels {
         let nativeCurrency: Currency
         let theme: Theme
         let ensRegistryAddress: AddressString?
-
+        let shortName: String
+        
         var id: String {
             chainId.description
         }
@@ -566,6 +567,10 @@ extension SCGModels {
             case .none:
                 return rpcUri.value
             }
+        }
+
+        var prefixString: String {
+            AppSettings.prependingChainPrefixToAddresses ? "\(shortName):" : "" 
         }
     }
 
@@ -602,6 +607,14 @@ extension SCGModels {
         let latestNonce: UInt256String
         let safeTxGas: String
     }
+
+    struct KeyDelegate: Codable {
+        var safe: AddressString
+        var delegate: AddressString
+        var delegator: AddressString
+        var label: String
+    }
+
 }
 
 extension SCGModels.AddressInfo {
@@ -610,20 +623,4 @@ extension SCGModels.AddressInfo {
     }
 }
 
-func displayNameAndImageUri(address: AddressString,
-                            addressInfoIndex: SCGModels.AddressInfoIndex?,
-                            chainId: String) -> (name: String?, imageUri: URL?) {
-    if let importedSafeName = Safe.cachedName(by: address, chainId: chainId) {
-        return (importedSafeName, nil)
-    }
 
-    if let ownerName = KeyInfo.name(address: address.address) {
-        return (ownerName, nil)
-    }
-
-    if let knownAddress = addressInfoIndex?.values[address] {
-        return (knownAddress.name, knownAddress.logoUri)
-    }
-
-    return (nil, nil)
-}

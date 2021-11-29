@@ -10,10 +10,10 @@ import UIKit
 
 class AdvancedTransactionDetailsViewController: UITableViewController {
     private var sections: [Section] = []
-    private var chainId: String!
-    convenience init(_ tx: SCGModels.TransactionDetails, chainId: String) {
+    private var chain: Chain!
+    convenience init(_ tx: SCGModels.TransactionDetails, chain: Chain) {
         self.init()
-        self.chainId = chainId
+        self.chain = chain
         buildSections(tx)
     }
 
@@ -33,8 +33,26 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
         tableView.estimatedSectionHeaderHeight = BasicHeaderView.headerHeight
         tableView.estimatedSectionFooterHeight = 0
+
+        for notification in [Notification.Name.ownerKeyImported,
+                             .ownerKeyRemoved,
+                             .ownerKeyUpdated,
+                             .addressbookChanged,
+                             .selectedSafeChanged,
+                             .selectedSafeUpdated] {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(lazyReloadData),
+                name: notification,
+                object: nil)
+        }
     }
 
     func buildSections(_ tx: SCGModels.TransactionDetails) {
@@ -66,7 +84,7 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
                 safeTransactionData.append(SectionItem(title: "Data:", value: data))
             }
 
-            safeTransactionData.append(SectionItem(title: "Operation:", value: txData.operation.name))
+            safeTransactionData.append(SectionItem(title: "Operation:", value: "\(txData.operation.rawValue) (\(txData.operation.name))"))
 
             sections.append(Section(title: "Safe transaction data", items: safeTransactionData))
         }
@@ -74,8 +92,8 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         if case SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(let multisigTx)? =
             tx.detailedExecutionInfo {
             sections.append(Section(title: "",
-                                    items: [SectionItem(title: "safeTxHash:", value: multisigTx.nonce.description),
-                                            SectionItem(title: "Nonce:", value: multisigTx.safeTxHash.description)]))
+                                    items: [SectionItem(title: "safeTxHash:", value: multisigTx.safeTxHash.description),
+                                            SectionItem(title: "Nonce:", value: multisigTx.nonce.description)]))
         }
 
         switch tx.detailedExecutionInfo {
@@ -104,6 +122,10 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         sections = sections.filter { section in !section.items.isEmpty }
     }
 
+    @objc func lazyReloadData() {
+        tableView.reloadData()
+    }
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         BasicHeaderView.headerHeight
     }
@@ -130,17 +152,24 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         if let addressInfo = item.value as? SCGModels.AddressInfo {
+            let info = addressInfo.addressInfo
+            let (name, _) = NamingPolicy.name(for: info.address, info: info, chainId: chain.id!)
             return address(addressInfo.value.address,
-                           label: addressInfo.name,
+                           label: name,
                            title: item.title,
                            imageUri: addressInfo.logoUri,
-                           indexPath: indexPath)
+                           indexPath: indexPath,
+                           browseURL: chain.browserURL(address: addressInfo.value.description),
+                           prefix: chain.shortName)
         } else if let addressInfo = item.value as? AddressInfo {
+            let (name, _) = NamingPolicy.name(for: addressInfo.address, info: addressInfo, chainId: chain.id!)
             return address(addressInfo.address,
-                           label: addressInfo.name,
+                           label: name,
                            title: item.title,
                            imageUri: addressInfo.logoUri,
-                           indexPath: indexPath)
+                           indexPath: indexPath,
+                           browseURL: chain.browserURL(address: addressInfo.address.checksummed),
+                           prefix: chain.shortName)
         }
         else if let string = item.value as? String {
             return text(string, title: item.title, expandableTitle: nil, copyText: string, indexPath: indexPath)
@@ -150,12 +179,12 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
                         copyText: "\(data)",
                         indexPath: indexPath)
         } else if let multiSendDataDecoded = item.value as? ([SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx],
-                                                             SCGModels.AddressInfoIndex) {
+                                                             SCGModels.AddressInfoIndex?) {
             return disclosure(text: item.title ?? "", indexPath: indexPath) { [weak self] in
                 guard let `self` = self else { return }
                 let root = MultiSendListTableViewController(transactions: multiSendDataDecoded.0,
                                                             addressInfoIndex: multiSendDataDecoded.1,
-                                                             chainId: self.chainId)
+                                                             chain: self.chain)
                  let vc = RibbonViewController(rootViewController: root)
                 self.show(vc, sender: self)
              }
@@ -165,7 +194,7 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
                 guard let `self` = self else { return }
                 let root = ActionDetailViewController(decoded: actionDataDecoded.0,
                                                       addressInfoIndex: actionDataDecoded.1,
-                                                      chainId: self.chainId,
+                                                      chain: self.chain,
                                                       data: actionDataDecoded.2)
                 let vc = RibbonViewController(rootViewController: root)
                 self.show(vc, sender: self)
@@ -191,9 +220,20 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         return cell
     }
 
-    func address(_ address: Address, label: String?, title: String?, imageUri: URL? = nil, indexPath: IndexPath) -> UITableViewCell {
+    func address(_ address: Address,
+                 label: String?,
+                 title: String?,
+                 imageUri: URL? = nil,
+                 indexPath: IndexPath,
+                 browseURL: URL?,
+                 prefix: String?) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: label, title: title, imageUri: imageUri)
+        cell.setAccount(address: address,
+                        label: label,
+                        title: title,
+                        imageUri: imageUri,
+                        browseURL: browseURL,
+                        prefix: prefix)
         return cell
     }
 

@@ -98,9 +98,6 @@ extension KeyInfo {
         let context = App.shared.coreDataStack.viewContext
         let fr = KeyInfo.fetchRequest().all()
         let items = try context.fetch(fr)
-//        if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
-//            items = items.filter { $0.keyType != .walletConnect }
-//        }
         return items
     }
 
@@ -117,9 +114,6 @@ extension KeyInfo {
         return try addresses.compactMap { address in
             let fr = KeyInfo.fetchRequest().by(address: address)
             let items = try context.fetch(fr)
-//            if !App.configuration.toggles.walletConnectOwnerKeyEnabled {
-//                items = items.filter { $0.keyType != .walletConnect }
-//            }
             return items.first
         }
     }
@@ -176,7 +170,7 @@ extension KeyInfo {
     /// - Parameters:
     ///   - session: WalletConnect session object
     @discardableResult
-    static func `import`(session: Session, installedWallet: InstalledWallet?) throws -> KeyInfo? {
+    static func `import`(session: Session, installedWallet: InstalledWallet?, name: String?) throws -> KeyInfo? {
         guard let walletInfo = session.walletInfo,
               let addressString = walletInfo.accounts.first,
               let address = Address(addressString) else {
@@ -196,7 +190,7 @@ extension KeyInfo {
             item = existing
         } else {
             item = KeyInfo(context: context)
-            item.name = walletInfo.peerMeta.name
+            item.name = name
         }
 
         item.address = address

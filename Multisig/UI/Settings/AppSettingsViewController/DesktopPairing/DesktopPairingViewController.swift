@@ -35,6 +35,11 @@ class DesktopPairingViewController: UITableViewController {
         update()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.desktopPairing)
+    }
+
     private func subscribeToNotifications() {
         [NSNotification.Name.wcConnectingKeyServer,
          .wcDidConnectKeyServer,
@@ -128,7 +133,6 @@ class DesktopPairingViewController: UITableViewController {
 }
 
 extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
-    #warning("TODO: add tracking")
     func scannerViewControllerDidScan(_ code: String) {
         do {
             try wcServerController.connect(url: code)

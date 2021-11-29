@@ -7,58 +7,70 @@
 //
 
 import UIKit
-import WalletConnectSwift
 
 class SigningKeyTableViewCell: UITableViewCell {
     @IBOutlet weak var addressInfoView: AddressInfoView!
-    @IBOutlet weak var wcConnectionStatusImageView: UIImageView!
+    @IBOutlet weak var connectionStatusImageView: UIImageView!
 
     static let height: CGFloat = 68
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addressInfoView.setDetailImage(nil)
         addressInfoView.copyEnabled = false
-        wcConnectionStatusImageView.tintColor = .button
     }
 
-    enum WCConnectionStatus {
-        case none
-        case connected
-        case disconnected
+    func configure(keyInfo: KeyInfo, chainID: String?) {
+        set(address: keyInfo.address, name: keyInfo.displayName, badgeName: keyInfo.keyType.imageName)
+        set(connectionStatus: KeyConnectionStatus.init(keyInfo: keyInfo, chainID: chainID))
     }
 
-    func configure(keyInfo: KeyInfo) {
-
-        switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
-            set(wcConnectionStatus: .none)
-        case .walletConnect:
-            let isConnected = WalletConnectClientController.shared.isConnected(keyInfo: keyInfo)
-            set(wcConnectionStatus: isConnected ? .connected : .disconnected)
-        case .ledgerNanoX:
-            set(wcConnectionStatus: .none)
-        }
-
-        set(address: keyInfo.address, title: keyInfo.displayName, badgeName: keyInfo.keyType.imageName)
+    func set(address: Address,
+             name: String,
+             badgeName: String,
+             connectionStatus: KeyConnectionStatus = .none) {
+        addressInfoView.setAddress(address, label: name, badgeName: badgeName)
+        set(connectionStatus: connectionStatus)
     }
 
-    func set(address: Address, title: String, badgeName: String?) {
-        addressInfoView.setAddress(address, label: title, badgeName: badgeName)
-    }
-
-    func set(wcConnectionStatus: WCConnectionStatus) {
-        switch wcConnectionStatus {
+    private func set(connectionStatus: KeyConnectionStatus) {
+        connectionStatusImageView.isHidden = connectionStatus == .none
+        switch connectionStatus {
         case .none:
-            wcConnectionStatusImageView.isHidden = true
-
+            connectionStatusImageView.image = nil
         case .connected:
-            wcConnectionStatusImageView.isHidden = false
-            wcConnectionStatusImageView.image = UIImage(systemName: "circlebadge.fill")
-
+            connectionStatusImageView.image = UIImage(systemName: "circlebadge.fill")
         case .disconnected:
-            wcConnectionStatusImageView.isHidden = false
-            wcConnectionStatusImageView.image = UIImage(systemName: "circlebadge")
+            connectionStatusImageView.image = UIImage(systemName: "circlebadge")
+        case .connectionProblem:
+            connectionStatusImageView.image = UIImage(named: "ico-warning")
+        }
+    }
+}
+
+
+enum KeyConnectionStatus {
+    case none
+    case connected
+    case disconnected
+    case connectionProblem
+
+    init(keyInfo: KeyInfo, chainID: String?) {
+        switch keyInfo.keyType {
+        case .deviceGenerated, .deviceImported, .ledgerNanoX:
+            self = .none
+        case .walletConnect:
+            if WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) {
+                if let metadata = keyInfo.metadata,
+                    let keyMetadata = KeyInfo.WalletConnectKeyMetadata.from(data: metadata),
+                    let chainID = chainID,
+                    String(keyMetadata.walletInfo.chainId) == chainID {
+                    self = .connected
+                } else {
+                    self = .connectionProblem
+                }
+            } else {
+                self = .disconnected
+            }
         }
     }
 }

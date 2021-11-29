@@ -63,7 +63,7 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     @IBAction private func submit(_ sender: Any) {
         let owners = (try? KeyInfo.keys(addresses: importedKeysForSafe)) ?? []
         let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
-        let vc = ChooseOwnerKeyViewController(owners: owners, descriptionText: descriptionText) {
+        let vc = ChooseOwnerKeyViewController(owners: owners, chainID: safe.chain!.id, descriptionText: descriptionText) {
             [unowned self] keyInfo in
 
             // dismiss presented ChooseOwnerKeyViewController right after receiving the completion
@@ -277,11 +277,14 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
     private func safeCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self)
+        let chain = safe.chain!
+        let address = transaction.safe!.address
         cell.setAccount(
-            address: transaction.safe!.address,
+            address: address,
             label: Safe.cachedName(by: transaction.safe!, chainId: safe.chain!.id!),
             title: "Connected safe",
-            showExternalLink: false
+            browseURL: chain.browserURL(address: address.checksummed),
+            prefix: chain.shortName
         )
         cell.selectionStyle = .none
         return cell
@@ -289,8 +292,9 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
     private func transactionCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
+        let chain = safe.chain!
 
-        let coin = safe.chain!.nativeCurrency!
+        let coin = chain.nativeCurrency!
         let decimalAmount = BigDecimal(
             Int256(transaction.value.value) * -1,
             Int(coin.decimals)
@@ -302,9 +306,9 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         )
         let tokenText = "\(amount) \(coin.symbol!)"
         let tokenDetail = amount == "0" ? "\(transaction.data?.data.count ?? 0) Bytes" : nil
-        let (addressName, _) = displayNameAndImageUri(address: AddressString(transaction.to.address),
-                                                      addressInfoIndex: nil,
-                                                      chainId: safe.chain!.id!)
+        let (addressName, _) = NamingPolicy.name(for: transaction.to.address,
+                                                    info: nil,
+                                                    chainId: safe.chain!.id!)
 
         cell.setToken(text: tokenText, style: .secondary)
         cell.setToken(image: coin.logoUrl)
@@ -313,7 +317,8 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         cell.setAddress(transaction.to.address,
                         label: addressName,
                         imageUri: nil,
-                        showExternalLink: false)
+                        browseURL: chain.browserURL(address: transaction.to.address.checksummed),
+                        prefix: chain.shortName)
         cell.setOutgoing(true)
         cell.selectionStyle = .none
 

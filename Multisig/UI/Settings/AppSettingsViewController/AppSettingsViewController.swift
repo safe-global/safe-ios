@@ -34,9 +34,11 @@ class AppSettingsViewController: UITableViewController {
 
         enum App: SectionItem {
             case ownerKeys(String, String)
+            case addressBook(String)
             case passcode(String)
             case appearance(String)
             case fiat(String, String)
+            case chainPrefix(String)
             case experimental(String)
         }
 
@@ -60,6 +62,12 @@ class AppSettingsViewController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
+
         tableView.separatorStyle = .singleLine
 
         tableView.registerCell(BasicCell.self)
@@ -79,14 +87,17 @@ class AppSettingsViewController: UITableViewController {
     private func buildSections() {
         sections = []
         if App.configuration.toggles.desktopPairingEnabled {
-            sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing 🖥")]))
+            sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing")]))
         }
+
         sections += [
             (section: .app, items: [
                 Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
+                Section.App.addressBook("Address Book"),
                 Section.App.passcode("Passcode"),
                 Section.App.appearance("Appearance"),
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
+                Section.App.chainPrefix("Chain prefix"),
                 Section.App.experimental("Experimental 🧪")
             ]),
             (section: .general, items: [
@@ -97,7 +108,9 @@ class AppSettingsViewController: UITableViewController {
                 Section.General.rateTheApp("Rate the app"),
                 Section.General.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
             ]),
-            (section: .advanced, items: [Section.Advanced.advanced("Advanced")])
+            (section: .advanced, items: [
+                Section.Advanced.advanced("Advanced")
+            ])
         ]
     }
 
@@ -135,6 +148,10 @@ class AppSettingsViewController: UITableViewController {
         show(vc, sender: self)
     }
 
+    private func showAddressBook() {
+        show(AddressBookListTableViewController(), sender: self)
+    }
+
     private func openPasscode() {
         let vc = PasscodeSettingsViewController()
         show(vc, sender: self)
@@ -159,6 +176,9 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.ownerKeys(let name, let count):
             return tableView.basicCell(name: name, detail: count, indexPath: indexPath)
 
+        case Section.App.addressBook(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
+            
         case Section.App.passcode(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
 
@@ -167,6 +187,9 @@ class AppSettingsViewController: UITableViewController {
 
         case Section.App.fiat(let name, let value):
             return tableView.basicCell(name: name, detail: value, indexPath: indexPath)
+
+        case Section.App.chainPrefix(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.App.experimental(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
@@ -209,6 +232,9 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.ownerKeys:
             showOwnerKeys()
 
+        case Section.App.addressBook:
+            showAddressBook()
+            
         case Section.App.passcode:
             openPasscode()
 
@@ -219,6 +245,9 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.fiat:
             let selectFiatViewController = SelectFiatViewController()
             show(selectFiatViewController, sender: self)
+
+        case Section.App.chainPrefix:
+            show(ChainSettingsTableViewController(), sender: self)
 
         case Section.App.experimental:
             let experimentalViewController = ExperimentalViewController()
@@ -267,11 +296,11 @@ class AppSettingsViewController: UITableViewController {
             return BasicCell.rowHeight
         }
     }
-
+  
     override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section].section
         switch section {
-        case .app, .general, .advanced:
+        case .general, .advanced:
             return sectionHeaderHeight
         default:
             return 0

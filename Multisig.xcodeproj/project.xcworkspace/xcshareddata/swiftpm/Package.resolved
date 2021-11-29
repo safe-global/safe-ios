@@ -1,0 +1,268 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "abseil",
+        "repositoryURL": "https://github.com/firebase/abseil-cpp-SwiftPM.git",
+        "state": {
+          "branch": null,
+          "revision": "fffc3c2729be5747390ad02d5100291a0d9ad26a",
+          "version": "0.20200225.4"
+        }
+      },
+      {
+        "package": "BigInt",
+        "repositoryURL": "https://github.com/attaswift/BigInt.git",
+        "state": {
+          "branch": null,
+          "revision": "0ed110f7555c34ff468e72e1686e59721f2b0da6",
+          "version": "5.3.0"
+        }
+      },
+      {
+        "package": "BlockiesSwift",
+        "repositoryURL": "https://github.com/gnosis/BlockiesSwift.git",
+        "state": {
+          "branch": "0.1.2-gnosis",
+          "revision": "f97be34ba7e10ac9778ca45474bed34a77b29a47",
+          "version": null
+        }
+      },
+      {
+        "package": "BoringSSL-GRPC",
+        "repositoryURL": "https://github.com/firebase/boringssl-SwiftPM.git",
+        "state": {
+          "branch": null,
+          "revision": "734a8247442fde37df4364c21f6a0085b6a36728",
+          "version": "0.7.2"
+        }
+      },
+      {
+        "package": "CryptoSwift",
+        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "4b0565384d3c4c588af09e660535b2c7c9bf5b39",
+          "version": "1.4.2"
+        }
+      },
+      {
+        "package": "EthereumAddress",
+        "repositoryURL": "https://github.com/sche/EthereumAddress.git",
+        "state": {
+          "branch": "update-CryptoSwift-version",
+          "revision": "6726437315d1f50bc24adea258d04ede3d0f73cb",
+          "version": null
+        }
+      },
+      {
+        "package": "Firebase",
+        "repositoryURL": "https://github.com/firebase/firebase-ios-sdk.git",
+        "state": {
+          "branch": null,
+          "revision": "839cc6b0cd80b0b8bf81fe9bd82b743b25dc6446",
+          "version": "8.9.1"
+        }
+      },
+      {
+        "package": "GoogleAppMeasurement",
+        "repositoryURL": "https://github.com/google/GoogleAppMeasurement.git",
+        "state": {
+          "branch": null,
+          "revision": "9b2f6aca5b4685c45f9f5481f19bee8e7982c538",
+          "version": "8.9.1"
+        }
+      },
+      {
+        "package": "GoogleDataTransport",
+        "repositoryURL": "https://github.com/google/GoogleDataTransport.git",
+        "state": {
+          "branch": null,
+          "revision": "15ccdfd25ac55b9239b82809531ff26605e7556e",
+          "version": "9.1.2"
+        }
+      },
+      {
+        "package": "GoogleUtilities",
+        "repositoryURL": "https://github.com/google/GoogleUtilities.git",
+        "state": {
+          "branch": null,
+          "revision": "797005ad8a1f0614063933e2fa010a5d13cb09d0",
+          "version": "7.6.0"
+        }
+      },
+      {
+        "package": "gRPC",
+        "repositoryURL": "https://github.com/firebase/grpc-SwiftPM.git",
+        "state": {
+          "branch": null,
+          "revision": "fb405dd2c7901485f7e158b24e3a0a47e4efd8b5",
+          "version": "1.28.4"
+        }
+      },
+      {
+        "package": "GTMSessionFetcher",
+        "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
+        "state": {
+          "branch": null,
+          "revision": "bc6a19702ac76ac4e488b68148710eb815f9bc56",
+          "version": "1.7.0"
+        }
+      },
+      {
+        "package": "Kingfisher",
+        "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
+        "state": {
+          "branch": null,
+          "revision": "318e319998bf555c3e914d5c3adb6da05af86a32",
+          "version": "7.1.1"
+        }
+      },
+      {
+        "package": "leveldb",
+        "repositoryURL": "https://github.com/firebase/leveldb.git",
+        "state": {
+          "branch": null,
+          "revision": "0706abcc6b0bd9cedfbb015ba840e4a780b5159b",
+          "version": "1.22.2"
+        }
+      },
+      {
+        "package": "nanopb",
+        "repositoryURL": "https://github.com/firebase/nanopb.git",
+        "state": {
+          "branch": null,
+          "revision": "7ee9ef9f627d85cbe1b8c4f49a3ed26eed216c77",
+          "version": "2.30908.0"
+        }
+      },
+      {
+        "package": "PromiseKit",
+        "repositoryURL": "https://github.com/mxcl/PromiseKit.git",
+        "state": {
+          "branch": null,
+          "revision": "93c8d41ce96ed78f36c3948be396d76f3ca3de1b",
+          "version": "6.16.2"
+        }
+      },
+      {
+        "package": "Promises",
+        "repositoryURL": "https://github.com/google/promises.git",
+        "state": {
+          "branch": null,
+          "revision": "611337c330350c9c1823ad6d671e7f936af5ee13",
+          "version": "2.0.0"
+        }
+      },
+      {
+        "package": "UnstoppableDomainsResolution",
+        "repositoryURL": "https://github.com/sche/resolution-swift.git",
+        "state": {
+          "branch": "update-deps",
+          "revision": "9da1a31c88a867a70555311143fed14b9fd88f5c",
+          "version": null
+        }
+      },
+      {
+        "package": "secp256k1",
+        "repositoryURL": "https://github.com/Boilertalk/secp256k1.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "823281fe9def21b384099b72a9a53ca988317b20",
+          "version": "0.1.4"
+        }
+      },
+      {
+        "package": "Starscream",
+        "repositoryURL": "https://github.com/daltoniam/Starscream.git",
+        "state": {
+          "branch": null,
+          "revision": "e6b65c6d9077ea48b4a7bdda8994a1d3c6969c8d",
+          "version": "3.1.1"
+        }
+      },
+      {
+        "package": "swift-nio-zlib-support",
+        "repositoryURL": "https://github.com/apple/swift-nio-zlib-support.git",
+        "state": {
+          "branch": null,
+          "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SwiftProtobuf",
+        "repositoryURL": "https://github.com/apple/swift-protobuf.git",
+        "state": {
+          "branch": null,
+          "revision": "7e2c5f3cbbeea68e004915e3a8961e20bd11d824",
+          "version": "1.18.0"
+        }
+      },
+      {
+        "package": "SnapshotTesting",
+        "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
+        "state": {
+          "branch": null,
+          "revision": "f8a9c997c3c1dab4e216a8ec9014e23144cbab37",
+          "version": "1.9.0"
+        }
+      },
+      {
+        "package": "SwiftAccessPolicy",
+        "repositoryURL": "https://github.com/gnosis/SwiftAccessPolicy.git",
+        "state": {
+          "branch": "main",
+          "revision": "3a1972c0feec8fabc4dd500f04c2b833f20bef12",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftCryptoTokenFormatter",
+        "repositoryURL": "https://github.com/gnosis/SwiftCryptoTokenFormatter.git",
+        "state": {
+          "branch": null,
+          "revision": "6f605fd7bd61327a6006919e28bf3f0632d1c556",
+          "version": "1.1.0"
+        }
+      },
+      {
+        "package": "TrustKit",
+        "repositoryURL": "https://github.com/datatheorem/TrustKit.git",
+        "state": {
+          "branch": null,
+          "revision": "3c953558d61fdd9b136d981764e3242bd92b2648",
+          "version": "1.7.0"
+        }
+      },
+      {
+        "package": "Version",
+        "repositoryURL": "https://github.com/mxcl/Version.git",
+        "state": {
+          "branch": null,
+          "revision": "1fe824b80d89201652e7eca7c9252269a1d85e25",
+          "version": "2.0.1"
+        }
+      },
+      {
+        "package": "WalletConnectSwift",
+        "repositoryURL": "https://github.com/WalletConnect/WalletConnectSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "f951da68a32666712e8c80ba0c77e9df5dce9fd6",
+          "version": "1.6.0"
+        }
+      },
+      {
+        "package": "Web3",
+        "repositoryURL": "https://github.com/gnosis/Web3.swift.git",
+        "state": {
+          "branch": "0.5.4",
+          "revision": "182ff667d6bceccafa3d3aa64ab64f2585001b99",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
