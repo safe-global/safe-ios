@@ -607,6 +607,14 @@ extension SCGModels {
         let latestNonce: UInt256String
         let safeTxGas: String
     }
+
+    struct KeyDelegate: Codable {
+        var safe: AddressString
+        var delegate: AddressString
+        var delegator: AddressString
+        var label: String
+    }
+
 }
 
 extension SCGModels.AddressInfo {
