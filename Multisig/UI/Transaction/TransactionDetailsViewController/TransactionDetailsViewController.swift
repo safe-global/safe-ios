@@ -362,68 +362,68 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private func execute(_ keyInfo: KeyInfo) {
-        guard let tx = tx,
-              var transaction = Transaction(tx: tx),
-              let multisigInfo = tx.multisigInfo,
-              keyInfo.keyType == .walletConnect else {
-            preconditionFailure("Unexpected Error")
-        }
-
-        do {
-            let safeAddress = try Address(from: safe.address!)
-            transaction.safe = AddressString(safeAddress)
-            transaction.chainId = safe.chain!.id
-        } catch {
-            onError(GSError.error(description: "Failed to execute transaction", error: error))
-        }
-
-        guard presentedViewController == nil else { return }
-
-        let pendingConfirmationVC = WCPendingConfirmationViewController(headerText: "Pending Execution")
-        pendingConfirmationVC.modalPresentationStyle = .popover
-        pendingConfirmationVC.onClose = { [unowned self] in
-            self.reloadData()
-        }
-        present(pendingConfirmationVC, animated: false)
-
-        WalletConnectClientController.shared.execute(
-            transaction: transaction,
-            confirmations: tx.ecdsaConfirmations,
-            confirmationsRequired: multisigInfo.confirmationsRequired,
-            rpcURL: safe.chain!.authenticatedRpcUrl,
-            onSend: { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(_):
-                        WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
-                    case .failure(let error):
-                        pendingConfirmationVC.dismiss(animated: true, completion: nil)
-                        self?.reloadData()
-                        let localizedError = (error as? DetailedLocalizedError) ?? GSError.error(
-                            description: "Failed to send transaction to wallet", error: error)
-                        App.shared.snackbar.show(error: localizedError)
-                    }
-                }
-            },
-            onResult: { result in
-                DispatchQueue.main.async { [weak self] in
-                    pendingConfirmationVC.dismiss(animated: true, completion: nil)
-
-                    switch result {
-                    case .success():
-                        self?.pendingExecution = true
-                        self?.reloadData()
-                        App.shared.snackbar.show(message: "Transaction submitted. You can check the transaction status in your wallet.")
-                        Tracker.trackEvent(.transactionDetailsTxExecutedWC)
-
-                    case .failure(let error):
-                        self?.reloadData()
-                        let localizedError = (error as? DetailedLocalizedError) ?? GSError.error(
-                            description: "Failed to execute transaction", error: error)
-                        App.shared.snackbar.show(error: localizedError)
-                    }
-                }
-            })
+//        guard let tx = tx,
+//              var transaction = Transaction(tx: tx),
+//              let multisigInfo = tx.multisigInfo,
+//              keyInfo.keyType == .walletConnect else {
+//            preconditionFailure("Unexpected Error")
+//        }
+//
+//        do {
+//            let safeAddress = try Address(from: safe.address!)
+//            transaction.safe = AddressString(safeAddress)
+//            transaction.chainId = safe.chain!.id
+//        } catch {
+//            onError(GSError.error(description: "Failed to execute transaction", error: error))
+//        }
+//
+//        guard presentedViewController == nil else { return }
+//
+//        let pendingConfirmationVC = WCPendingConfirmationViewController(headerText: "Pending Execution")
+//        pendingConfirmationVC.modalPresentationStyle = .popover
+//        pendingConfirmationVC.onClose = { [unowned self] in
+//            self.reloadData()
+//        }
+//        present(pendingConfirmationVC, animated: false)
+//
+//        WalletConnectClientController.shared.execute(
+//            transaction: transaction,
+//            confirmations: tx.ecdsaConfirmations,
+//            confirmationsRequired: multisigInfo.confirmationsRequired,
+//            rpcURL: safe.chain!.authenticatedRpcUrl,
+//            onSend: { [weak self] result in
+//                DispatchQueue.main.async {
+//                    switch result {
+//                    case .success(_):
+//                        WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
+//                    case .failure(let error):
+//                        pendingConfirmationVC.dismiss(animated: true, completion: nil)
+//                        self?.reloadData()
+//                        let localizedError = (error as? DetailedLocalizedError) ?? GSError.error(
+//                            description: "Failed to send transaction to wallet", error: error)
+//                        App.shared.snackbar.show(error: localizedError)
+//                    }
+//                }
+//            },
+//            onResult: { result in
+//                DispatchQueue.main.async { [weak self] in
+//                    pendingConfirmationVC.dismiss(animated: true, completion: nil)
+//
+//                    switch result {
+//                    case .success():
+//                        self?.pendingExecution = true
+//                        self?.reloadData()
+//                        App.shared.snackbar.show(message: "Transaction submitted. You can check the transaction status in your wallet.")
+//                        Tracker.trackEvent(.transactionDetailsTxExecutedWC)
+//
+//                    case .failure(let error):
+//                        self?.reloadData()
+//                        let localizedError = (error as? DetailedLocalizedError) ?? GSError.error(
+//                            description: "Failed to execute transaction", error: error)
+//                        App.shared.snackbar.show(error: localizedError)
+//                    }
+//                }
+//            })
     }
 
     // MARK: - Loading Data
