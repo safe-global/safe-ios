@@ -173,7 +173,7 @@ class RemoteNotificationHandler {
     ///   - timestamp: Unix timestamp or nil. If nil, the current time will be used.
     /// - Throws: Error in case of database failures, or private key signing errors
     /// - Returns: If there are any keys, then returns preimage of the hash, the hash that was signed, timestamp used, and array of signatures corresponding to the signing keys.
-    static func sign(safes: [String], deviceID: String, token: String, timestamp: String) throws -> (preimage: String, hash: String, signatures: [String])? {
+    static func sign(safes: [String], deviceID: String, token: String, timestamp: String) throws -> (preimage: String, hash: String, signatures: [String]) {
 
         // sign the registration data by each private key.
         var privateKeys = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated])
@@ -233,10 +233,11 @@ class RemoteNotificationHandler {
                     .compactMap { Address($0) }
                     .map { $0.checksummed }
                     .sorted()
-                guard let signResult = try Self.sign(safes: safes,
-                                                     deviceID: deviceID,
-                                                     token: pushToken,
-                                                     timestamp: timestamp) else { continue }
+                
+                let signResult = try Self.sign(safes: safes,
+                                               deviceID: deviceID,
+                                               token: pushToken,
+                                               timestamp: timestamp)
                 
                 safeRegistration.append(SafeRegistration(chainId: chainSafes.chain.id!, safes: safes,
                                                          signatures: signResult.signatures))
