@@ -174,10 +174,23 @@ class RemoteNotificationHandler {
     /// - Throws: Error in case of database failures, or private key signing errors
     /// - Returns: If there are any keys, then returns preimage of the hash, the hash that was signed, timestamp used, and array of signatures corresponding to the signing keys.
     static func sign(safes: [String], deviceID: String, token: String, timestamp: String) throws -> (preimage: String, hash: String, signatures: [String])? {
-        // sign the registration data by each private key.
 
-        let privateKeys = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated])
+        // sign the registration data by each private key.
+        var privateKeys = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated])
             .compactMap { try $0.privateKey() }
+
+        // get delegate keys for signing
+        let delegateKeys = try KeyInfo.keys(types: [.ledgerNanoX])
+            .compactMap { keyInfo -> PrivateKey? in
+                if let delegateAddress = keyInfo.delegateAddressString,
+                   let address = Address(delegateAddress),
+                   let privateKey = try PrivateKey.key(address: address) {
+                    return privateKey
+                }
+                return nil
+            }
+
+        privateKeys += delegateKeys
 
         guard !privateKeys.isEmpty,
               !safes.isEmpty else {
@@ -208,7 +221,7 @@ class RemoteNotificationHandler {
     }
 
     private func registerAll() {
-        guard let token = token else { return }
+        guard let pushToken = token else { return }
         guard let deviceID = storedDeviceID?.lowercased() else {
             assertionFailure("Programmer error: missing device ID")
             return
@@ -227,7 +240,7 @@ class RemoteNotificationHandler {
                     .sorted()
                 guard let signResult = try Self.sign(safes: safes,
                                                      deviceID: deviceID,
-                                                     token: token,
+                                                     token: pushToken,
                                                      timestamp: timestamp) else { continue }
                 
                 safeRegistration.append(SafeRegistration(chainId: chainSafes.chain.id!, safes: safes,
@@ -235,7 +248,7 @@ class RemoteNotificationHandler {
             }
 
             App.shared.clientGatewayService.registerNotification(uuid: deviceID,
-                                                                 cloudMessagingToken: token,
+                                                                 cloudMessagingToken: pushToken,
                                                                  buildNumber: appConfig.buildVersion,
                                                                  bundle: appConfig.bundleIdentifier,
                                                                  version: appConfig.marketingVersion,
