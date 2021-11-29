@@ -192,11 +192,6 @@ class RemoteNotificationHandler {
 
         privateKeys += delegateKeys
 
-        guard !privateKeys.isEmpty,
-              !safes.isEmpty else {
-            return nil
-        }
-
         let hashPreimage = [
             "gnosis-safe",
             timestamp,
