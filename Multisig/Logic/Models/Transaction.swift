@@ -55,26 +55,41 @@ extension Transaction {
     init?(wcRequest: WCSendTransactionRequest, safe: Safe, contractNonce: UInt256String) {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
-        guard safe.addressValue == wcRequest.from.address,
-              let chainId = safe.chain?.id,
-              let chain = safe.chain else { return nil }
+        guard safe.addressValue == wcRequest.from.address, let chainId = safe.chain?.id else { return nil }
 
         self.safe = wcRequest.from
         self.chainId = chainId
         self.safeVersion = safe.contractVersion
         self.nonce = contractNonce
 
-        if let transactionEstimation = try? App.shared.clientGatewayService
-            .syncTransactionEstimation(safeAddress: self.safe!.address, chainId: chain.id!),
-           transactionEstimation.latestNonce.value >= nonce.value {
-            nonce = UInt256String(transactionEstimation.latestNonce.value + 1)
-        }
-
         to = wcRequest.to ?? AddressString.zero
         value = wcRequest.value ?? "0"
         data = wcRequest.data
         operation = .call
         safeTxGas = wcRequest.gas ?? "0"
+
+        let estimationResult: SCGModels.TransactionEstimation
+        do {
+            estimationResult = try App.shared.clientGatewayService
+                .syncTransactionEstimation(
+                    chainId: chainId,
+                    safeAddress: safe.addressValue,
+                    to: to.address,
+                    value: value.value,
+                    data: data?.data,
+                    operation: operation)
+
+            if estimationResult.latestNonce.value >= nonce.value {
+                nonce = UInt256String(estimationResult.latestNonce.value + 1)
+            }
+
+            if let estimatedSafeTxGas = UInt256(estimationResult.safeTxGas) {
+                safeTxGas = UInt256String(estimatedSafeTxGas)
+            }
+        } catch {
+            LogService.shared.error("Estimation error: \(error)")
+        }
+
         baseGas = "0"
         gasPrice = "0"
         gasToken = AddressString.zero
