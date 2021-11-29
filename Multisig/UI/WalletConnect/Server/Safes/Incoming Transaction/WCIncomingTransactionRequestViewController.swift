@@ -277,10 +277,14 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
     private func safeCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self)
+        let chain = safe.chain!
+        let address = transaction.safe!.address
         cell.setAccount(
-            address: transaction.safe!.address,
+            address: address,
             label: Safe.cachedName(by: transaction.safe!, chainId: safe.chain!.id!),
-            title: "Connected safe"
+            title: "Connected safe",
+            browseURL: chain.browserURL(address: address.checksummed),
+            prefix: chain.shortName
         )
         cell.selectionStyle = .none
         return cell
