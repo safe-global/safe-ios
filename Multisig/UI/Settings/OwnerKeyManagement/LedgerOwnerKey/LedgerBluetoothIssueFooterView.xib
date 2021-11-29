@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LedgerBluetoothIssueFooterView" customModule="Multisig" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="588" height="250"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7NF-aO-Jdh">
+                    <rect key="frame" x="16" y="56" width="556" height="148"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dvq-th-cfl">
+                            <rect key="frame" x="0.0" y="0.0" width="556" height="109"/>
+                            <string key="text">Please unlock your Ledger device and open Ethereum App on it.
+If it does not help, there is probably an issue with Bluetooth device pairing. Please remove pairing in your phone settings and try to pair with opened Ethereum App on your device.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <string key="userLabel">Please unlock your Ledger device and open Ethereum App on it. If it does not help, there is probably an issue with Bluetooth device pairing. Please remove pairing in your phone settings and try to pair with opened Ethereum App on your device.</string>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learn more" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEq-sE-WTI">
+                            <rect key="frame" x="0.0" y="117" width="556" height="31"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gg3-x7-qhQ">
+                    <rect key="frame" x="16" y="173" width="556" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title=" "/>
+                    <connections>
+                        <action selector="action:" destination="iN0-l3-epB" eventType="touchUpInside" id="gFW-mh-8FQ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="7NF-aO-Jdh" secondAttribute="trailing" constant="16" id="Wk7-a8-caG"/>
+                <constraint firstItem="gg3-x7-qhQ" firstAttribute="top" secondItem="JEq-sE-WTI" secondAttribute="top" id="Z5t-wH-UVR"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="7NF-aO-Jdh" secondAttribute="bottom" constant="12" id="acv-gc-EeS"/>
+                <constraint firstItem="gg3-x7-qhQ" firstAttribute="trailing" secondItem="JEq-sE-WTI" secondAttribute="trailing" id="bDE-HF-JBt"/>
+                <constraint firstItem="gg3-x7-qhQ" firstAttribute="leading" secondItem="JEq-sE-WTI" secondAttribute="leading" id="d2G-L8-Sxm"/>
+                <constraint firstItem="gg3-x7-qhQ" firstAttribute="bottom" secondItem="JEq-sE-WTI" secondAttribute="bottom" id="oEL-wx-nAi"/>
+                <constraint firstItem="7NF-aO-Jdh" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="pi6-ln-kLd"/>
+                <constraint firstItem="7NF-aO-Jdh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="vyi-z9-SlK"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="actionLinkLabel" destination="JEq-sE-WTI" id="PqJ-hm-2O8"/>
+                <outlet property="descriptionLabel" destination="Dvq-th-cfl" id="k2l-AQ-76g"/>
+            </connections>
+            <point key="canvasLocation" x="-20.289855072463769" y="-33.482142857142854"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
