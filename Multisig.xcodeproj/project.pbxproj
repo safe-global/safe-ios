@@ -199,6 +199,7 @@
 		0A478D3C25B863D60038363E /* DerivedKeyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A478D3A25B863D60038363E /* DerivedKeyTableViewCell.xib */; };
 		0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A478D5625B876AF0038363E /* ButtonTableViewCell.swift */; };
 		0A478D5925B876AF0038363E /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A478D5725B876AF0038363E /* ButtonTableViewCell.xib */; };
+		0A4F44542754DE3D00423ABB /* GetDelegateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4F44532754DE3D00423ABB /* GetDelegateRequest.swift */; };
 		0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */; };
 		0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */; };
 		0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307452543273F00E8A270 /* UIViewController+UINib.swift */; };
@@ -805,6 +806,7 @@
 		0A478D3A25B863D60038363E /* DerivedKeyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DerivedKeyTableViewCell.xib; sourceTree = "<group>"; };
 		0A478D5625B876AF0038363E /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		0A478D5725B876AF0038363E /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
+		0A4F44532754DE3D00423ABB /* GetDelegateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDelegateRequest.swift; sourceTree = "<group>"; };
 		0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmTransactionRequest.swift; sourceTree = "<group>"; };
 		0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionSigner.swift; sourceTree = "<group>"; };
 		0A5307452543273F00E8A270 /* UIViewController+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINib.swift"; sourceTree = "<group>"; };
@@ -1315,6 +1317,7 @@
 				048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */,
 				0ABC898E2576B857005D555B /* SCGModels.swift */,
 				0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */,
+				0A4F44532754DE3D00423ABB /* GetDelegateRequest.swift */,
 			);
 			path = "Safe Client Gateway Service";
 			sourceTree = "<group>";
@@ -3481,6 +3484,7 @@
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
 				043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */,
+				0A4F44542754DE3D00423ABB /* GetDelegateRequest.swift in Sources */,
 				0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */,
 				55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */,
 				0AE8C0632579355800E62B34 /* TokenInfoView.swift in Sources */,

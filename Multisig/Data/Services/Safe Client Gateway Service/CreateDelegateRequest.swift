@@ -42,8 +42,8 @@ extension SafeClientGatewayService {
         signature: Data,
         label: String,
         chainId: String,
-        completion: @escaping (Result<CreateDelegateRequest.ResponseType, Error>
-    ) -> Void) -> URLSessionTask? {
+        completion: @escaping (Result<CreateDelegateRequest.ResponseType, Error>) -> Void
+    ) -> URLSessionTask? {
         asyncExecute(request: CreateDelegateRequest(safe: safe?.checksummed,
                                                     delegate: delegate.checksummed,
                                                     delegator: owner.checksummed,

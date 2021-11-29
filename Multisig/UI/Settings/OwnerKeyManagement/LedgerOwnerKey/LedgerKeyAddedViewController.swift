@@ -128,6 +128,9 @@ class AddDelegateKeyController {
                         // post notification so that UI state can be updated
                         NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
 
+                        // trigger push notification registration
+                        App.shared.notificationHandler.signingKeyUpdated()
+
                         self.completeProcess()
                         break
 
