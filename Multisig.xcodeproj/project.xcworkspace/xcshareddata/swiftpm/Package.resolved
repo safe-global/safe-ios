@@ -137,6 +137,15 @@
         }
       },
       {
+        "package": "PromiseKit",
+        "repositoryURL": "https://github.com/mxcl/PromiseKit.git",
+        "state": {
+          "branch": null,
+          "revision": "93c8d41ce96ed78f36c3948be396d76f3ca3de1b",
+          "version": "6.16.2"
+        }
+      },
+      {
         "package": "Promises",
         "repositoryURL": "https://github.com/google/promises.git",
         "state": {
@@ -152,6 +161,15 @@
           "branch": "update-deps",
           "revision": "9da1a31c88a867a70555311143fed14b9fd88f5c",
           "version": null
+        }
+      },
+      {
+        "package": "secp256k1",
+        "repositoryURL": "https://github.com/Boilertalk/secp256k1.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "823281fe9def21b384099b72a9a53ca988317b20",
+          "version": "0.1.4"
         }
       },
       {
@@ -233,6 +251,15 @@
           "branch": null,
           "revision": "f951da68a32666712e8c80ba0c77e9df5dce9fd6",
           "version": "1.6.0"
+        }
+      },
+      {
+        "package": "Web3",
+        "repositoryURL": "https://github.com/gnosis/Web3.swift.git",
+        "state": {
+          "branch": "0.5.4",
+          "revision": "182ff667d6bceccafa3d3aa64ab64f2585001b99",
+          "version": null
         }
       }
     ]

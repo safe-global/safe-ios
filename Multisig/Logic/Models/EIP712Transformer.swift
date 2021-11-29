@@ -36,6 +36,10 @@ class EIP712Transformer {
 
         return try! JSONEncoder().encode(typedData).makeString()
     }
+
+    static func typedDataString(from delegateObject: AddressTimestamp) -> String {
+        return ""
+    }
 }
 
 extension Transaction: EIP712Convertible {

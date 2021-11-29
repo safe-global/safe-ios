@@ -573,6 +573,7 @@
 		55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BCFC67255469C200020CE7 /* BasicHeaderView.xib */; };
 		55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EB8250A234F0080DF7F /* SecureStore.swift */; };
 		55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBA250A237C0080DF7F /* KeychainService.swift */; };
+		55CCD58727550F42004EA3E3 /* AddDelegateKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */; };
 		55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0824939079003B2B19 /* ConsoleTracker.swift */; };
 		55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */; };
 		55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0B24939079003B2B19 /* Tracker.swift */; };
@@ -1196,6 +1197,7 @@
 		55CA3EB8250A234F0080DF7F /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		55CA3EBA250A237C0080DF7F /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceIntegrationTests.swift; sourceTree = "<group>"; };
+		55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDelegateKeyController.swift; sourceTree = "<group>"; };
 		55CEFC0824939079003B2B19 /* ConsoleTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
 		55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		55CEFC0B24939079003B2B19 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
@@ -2841,6 +2843,7 @@
 			isa = PBXGroup;
 			children = (
 				0ADD19B5265EA23200EB0F2B /* ExportViewController.swift */,
+				55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */,
 				55413674265E49E100796F91 /* AddOwnerKeyViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
@@ -3546,6 +3549,7 @@
 				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,
 				0468EE9D26148A3B008270BF /* PrivacyProtectionScreenViewController.swift in Sources */,
 				55A5853D2501479C005E778B /* BIP39.swift in Sources */,
+				55CCD58727550F42004EA3E3 /* AddDelegateKeyController.swift in Sources */,
 				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,
 				0AB5DFB3270F48EB005BFB43 /* LedgerSignerViewController.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,

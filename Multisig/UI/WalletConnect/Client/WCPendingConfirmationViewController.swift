@@ -17,8 +17,11 @@ class WCPendingConfirmationViewController: UIViewController {
 
     var headerText = "Pending Confirmation"
     var keyInfo: KeyInfo!
+
     var transaction: Transaction?
     var message: String?
+    var delegateObject: AddressTimestamp?
+
     var onClose: (() -> Void)?
     var completion: ((String) -> Void)?
 
@@ -31,9 +34,9 @@ class WCPendingConfirmationViewController: UIViewController {
         self.transaction = transaction
     }
 
-    convenience init(request: SignRequest) {
+    convenience init(request: SignRequest, delegateObject: AddressTimestamp) {
         self.init(request.signer, title: request.title)
-        message = request.hexToSign
+        self.delegateObject = delegateObject
     }
 
     convenience init(_ keyInfo: KeyInfo, title: String? = nil) {
@@ -82,9 +85,15 @@ class WCPendingConfirmationViewController: UIViewController {
             WalletConnectClientController.shared.sign(message: message) { [weak self] signature in
                 self?.handle(signature: signature)
             }
-        } else { return }
+        } else if let delegateObject = delegateObject {
+            WalletConnectClientController.shared.sign(delegateObject: delegateObject) { [weak self] signature in
+                self?.handle(signature: signature)
+            }
+        } else {
+            return
+        }
 
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
             WalletConnectClientController.openWalletIfInstalled(keyInfo: self.keyInfo)
         }
     }
