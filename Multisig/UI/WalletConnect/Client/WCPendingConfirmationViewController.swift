@@ -20,7 +20,6 @@ class WCPendingConfirmationViewController: UIViewController {
 
     var transaction: Transaction?
     var message: String?
-    var delegateObject: AddressTimestamp?
 
     var onClose: (() -> Void)?
     var completion: ((String) -> Void)?
@@ -34,9 +33,9 @@ class WCPendingConfirmationViewController: UIViewController {
         self.transaction = transaction
     }
 
-    convenience init(request: SignRequest, delegateObject: AddressTimestamp) {
+    convenience init(request: SignRequest, message: String?) {
         self.init(request.signer, title: request.title)
-        self.delegateObject = delegateObject
+        self.message = message
     }
 
     convenience init(_ keyInfo: KeyInfo, title: String? = nil) {
@@ -83,10 +82,6 @@ class WCPendingConfirmationViewController: UIViewController {
             }
         } else if let message = message {
             WalletConnectClientController.shared.sign(message: message) { [weak self] signature in
-                self?.handle(signature: signature)
-            }
-        } else if let delegateObject = delegateObject {
-            WalletConnectClientController.shared.sign(delegateObject: delegateObject) { [weak self] signature in
                 self?.handle(signature: signature)
             }
         } else {

@@ -8,15 +8,6 @@
 
 import UIKit
 
-struct AddressTimestamp {
-    let address: String
-    let timestamp: String
-
-    var hash: Data {
-        EthHasher.hash(address + timestamp)
-    }
-}
-
 class AddDelegateKeyController {
 
     weak var presenter: UIViewController?
@@ -39,11 +30,12 @@ class AddDelegateKeyController {
 
         // 2. create 'create delegate' message
             // keccak(address + str(int(current_epoch // 3600)))
-        let timestamp = String(describing: Int(Date().timeIntervalSince1970) / 3600)
-        let delegateObject = AddressTimestamp(address: delegatePrivateKey.address.checksummed, timestamp: timestamp)
+        let time = String(describing: Int(Date().timeIntervalSince1970) / 3600)
+        let messageToSign = delegatePrivateKey.address.checksummed + time
+        let hashToSign = EthHasher.hash(messageToSign)
 
         // 3. sign message with ledger key
-        sign(delegateObject: delegateObject) { [weak self] signResult in
+        sign(message: hashToSign) { [weak self] signResult in
             guard let self = self else { return }
 
             switch signResult {
@@ -127,7 +119,7 @@ class AddDelegateKeyController {
     }
 
     // sign and call back with signature or fail with error (incl. cancelled error)
-    func sign(delegateObject: AddressTimestamp, completion: @escaping (Result<Data, Error>) -> Void) {
+    func sign(message: Data, completion: @escaping (Result<Data, Error>) -> Void) {
         // get ledger key info
         let keyInfo: KeyInfo
         do {
@@ -140,7 +132,7 @@ class AddDelegateKeyController {
         let request = SignRequest(title: "Confirm Push Notifications",
                                   tracking: ["action": "confirm_push"],
                                   signer: keyInfo,
-                                  hexToSign: delegateObject.hash.toHexStringWithPrefix())
+                                  hexToSign: message.toHexStringWithPrefix())
 
         switch keyInfo.keyType {
         case .ledgerNanoX:
@@ -162,7 +154,7 @@ class AddDelegateKeyController {
             }
 
         case .walletConnect:
-            let vc = WCPendingConfirmationViewController(request: request, delegateObject: delegateObject)
+            let vc = WCPendingConfirmationViewController(request: request, message: message.toHexStringWithPrefix())
 
             presenter?.present(vc, animated: true, completion: nil)
 

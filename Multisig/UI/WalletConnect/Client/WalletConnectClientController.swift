@@ -135,18 +135,6 @@ class WalletConnectClientController {
         }
     }
 
-    func sign(delegateObject: AddressTimestamp, completion: @escaping (String?) -> Void) {
-        wcSign(delegateObject: delegateObject) { result in
-            switch result {
-            case .success(let signature):
-                completion(signature)
-
-            case .failure(_):
-                completion(nil)
-            }
-        }
-    }
-
     private func wcSign(transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
         guard let session = session,
               let client = client,
@@ -175,6 +163,7 @@ class WalletConnectClientController {
         }
     }
 
+    // signs message without adding 'ethereum...' prefix to it.
     private func wcSign(message: String, completion: @escaping (Result<String, Error>) -> Void) {
         guard let session = session,
               let client = client,
@@ -186,37 +175,6 @@ class WalletConnectClientController {
         do {
             try client.eth_sign(url: session.url, account: walletAddress, message: message) { [weak self] in
                 self?.handleResponse($0, completion: completion)
-            }
-        } catch {
-            completion(.failure(error))
-        }
-    }
-
-    private func wcSign(delegateObject: AddressTimestamp, completion: @escaping (Result<String, Error>) -> Void) {
-        guard let session = session,
-              let client = client,
-              let walletAddress = session.walletInfo?.accounts.first else {
-            completion(.failure(GSError.WalletNotConnected(description: "Could not sign transaction")))
-            return
-        }
-
-        do {
-            switch session.walletInfo?.peerMeta.name ?? "" {
-            // we call signTypedData only for wallets supporting this feature
-            case "MetaMask", "LedgerLive", "🌈 Rainbow", "Trust Wallet":
-
-//                let message = EIP712Transformer.typedDataString(from: transaction)
-                let message = EIP712Transformer.typedDataString(from: delegateObject)
-
-                try client.eth_signTypedData(url: session.url, account: walletAddress, message: message) { [weak self] in
-                    self?.handleResponse($0, completion: completion)
-                }
-
-            default:
-                let message = delegateObject.hash.toHexStringWithPrefix()
-                try client.eth_sign(url: session.url, account: walletAddress, message: message) { [weak self] in
-                    self?.handleResponse($0, completion: completion)
-                }
             }
         } catch {
             completion(.failure(error))
