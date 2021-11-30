@@ -93,6 +93,9 @@ class AddDelegateKeyController {
                         // post notification so that UI state can be updated
                         NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
 
+                        // trigger push notification registration
+                        App.shared.notificationHandler.signingKeyUpdated()
+
                         self.completeProcess()
                         break
 
@@ -118,7 +121,7 @@ class AddDelegateKeyController {
         let keyOrNil = try KeyInfo.firstKey(address: self.ownerAddress)
 
         guard let keyInfo = keyOrNil else {
-            throw "Owner key not found for delegate key"
+            throw GSError.OwnerKeyNotFoundForDelegate()
         }
         return keyInfo
     }
@@ -154,9 +157,10 @@ class AddDelegateKeyController {
 
             vc.onClose = {
                 if !isSuccess {
-                    completion(.failure("The operation cancelled by user"))
+                    completion(.failure(GSError.AddDelegateKeyCancelled()))
                 }
             }
+
         case .walletConnect:
             let vc = WCPendingConfirmationViewController(request: request, delegateObject: delegateObject)
 
@@ -171,15 +175,14 @@ class AddDelegateKeyController {
 
             vc.onClose = {
                 if !isSuccess {
-                    completion(.failure("The operation cancelled by user"))
+                    completion(.failure(GSError.AddDelegateKeyCancelled()))
                 }
             }
 
             vc.sign()
-            break
+
         default:
-            completion(.failure("Expected to get ledger key but a different key type is found."))
-            return
+            completion(.failure(GSError.UnrecognizedKeyTypeForDelegate()))
         }
     }
 
@@ -209,11 +212,12 @@ class AddDelegateKeyController {
         case .success:
             completion(.success(()))
         case .timedOut:
-            completion(.failure("Requests timed out"))
+            completion(.failure(GSError.AddDelegateTimedOut()))
         }
     }
 
     func abortProcess(error: Error) {
+        Tracker.trackEvent(.addDelegateKeyFailed)
         DispatchQueue.main.async { [weak self] in
             App.shared.snackbar.show(message: error.localizedDescription)
             self?.completionHandler()
@@ -221,6 +225,7 @@ class AddDelegateKeyController {
     }
 
     func completeProcess() {
+        Tracker.trackEvent(.addDelegateKeySuccess)
         DispatchQueue.main.async { [weak self] in
             self?.completionHandler()
         }
