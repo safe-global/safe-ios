@@ -202,8 +202,10 @@ extension AdvancedSafeSettingsViewController {
             if info == nil {
                 return BasicCell.rowHeight
             }
-        case Section.GuardInfo.guardInfo(_):
-            return BasicCell.rowHeight
+        case Section.GuardInfo.guardInfo(let info):
+            if info == nil {
+                return BasicCell.rowHeight
+            }
         case Section.Nonce.nonce:
             return BasicCell.rowHeight
         default:

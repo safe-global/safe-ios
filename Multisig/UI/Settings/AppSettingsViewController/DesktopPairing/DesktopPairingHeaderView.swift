@@ -30,7 +30,7 @@ class DesktopPairingHeaderView: UITableViewHeaderFooterView, ExternalURLSource {
         super.awakeFromNib()
         titleLabel.setStyle(.title3)
         scanButton.setText("Scan QR Code", .filled)
-        learnMoreButton.setText("", .plain)
+        learnMoreButton.setTitle("", for: .normal)
         learnMoreLabel.hyperLinkLabel(linkText: "Learn more")
         url = App.configuration.help.desktopPairingURL
     }
