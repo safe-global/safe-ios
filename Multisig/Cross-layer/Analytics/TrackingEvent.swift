@@ -156,4 +156,13 @@ enum TrackingEvent: String, Trackable {
     case dpSignRequestConfirmedPhoneKey             = "dp_sign_request_confirmed_phone_key"
     case dpSignRequestConfirmedLedger               = "dp_sign_request_confirmed_ledger_nx"
     case desktopPairingSignRequestRejected          = "dp_sign_request_rejected"
+
+    // MARK: add delegate key
+    case addDelegateKeyLedger                       = "screen_delegate_ledger_nano_x"
+    case addDelegateKeyWalletConnect                = "screen_delegate_walletconnect"
+
+    case addDelegateKeyStarted                      = "user_start_add_delegate"
+    case addDelegateKeySkipped                      = "user_skip_add_delegate"
+    case addDelegateKeySuccess                      = "user_success_add_delegate"
+    case addDelegateKeyFailed                       = "user_failed_add_delegate"
 }

@@ -20,9 +20,9 @@ class SafeEntryTableViewCell: UITableViewCell {
         detailLabel.setStyle(.tertiary)
     }
 
-    func setAddress(_ value: Address) {
+    func setAddress(_ value: Address, prefix: String? = nil) {
         mainImageView.setAddress(value.hexadecimal)
-        detailLabel.text = value.ellipsized()
+        detailLabel.text = prefixString(prefix: prefix) + value.ellipsized()
     }
 
     func setName(_ value: String) {
@@ -31,5 +31,9 @@ class SafeEntryTableViewCell: UITableViewCell {
 
     func setSelection(_ value: Bool) {
         selectorView.isHidden = !value
+    }
+
+    private func prefixString(prefix: String?) -> String {
+        (AppSettings.prependingChainPrefixToAddresses && prefix != nil ? "\(prefix!):" : "" )
     }
 }

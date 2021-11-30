@@ -68,6 +68,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.backgroundColor = tableBackgroundColor
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
 
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailAccountCell.self)
@@ -80,7 +85,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                              .ownerKeyRemoved,
                              .ownerKeyUpdated,
                              .selectedSafeUpdated,
-                             .addressbookChanged] {
+                             .addressbookChanged,
+                             .chainSettingsChanged] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(lazyReloadData),
@@ -179,10 +185,16 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return addressDetailsCell(address: info.address,
                                       name: name,
                                       indexPath: indexPath,
-                                      badgeName: keyInfo?.keyType.imageName)
+                                      badgeName: keyInfo?.keyType.imageName,
+                                      browseURL: safe.chain!.browserURL(address: info.address.checksummed),
+                                      prefix: safe.chain!.shortName)
 
         case Section.ContractVersion.versionInfo(let info, let status, let version):
-            return safeVersionCell(info: info, status: status, version: version, indexPath: indexPath)
+            return safeVersionCell(info: info,
+                                   status: status,
+                                   version: version,
+                                   indexPath: indexPath,
+                                   prefix: safe.chain!.shortName)
 
         case Section.EnsName.ensName:
             if ensLoader.isLoading {
@@ -202,15 +214,24 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
     }
 
-    private func addressDetailsCell(address: Address, name: String?, indexPath: IndexPath, badgeName: String? = nil) -> UITableViewCell {
+    private func addressDetailsCell(address: Address,
+                                    name: String?,
+                                    indexPath: IndexPath,
+                                    badgeName: String? = nil,
+                                    browseURL: URL? = nil,
+                                    prefix: String? = nil) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: name, badgeName: badgeName)
+        cell.setAccount(address: address, label: name, badgeName: badgeName, browseURL: browseURL, prefix: prefix)
         return cell
     }
 
-    private func safeVersionCell(info: AddressInfo, status: SCGModels.ImplementationVersionState, version: String, indexPath: IndexPath) -> UITableViewCell {
+    private func safeVersionCell(info: AddressInfo,
+                                 status: SCGModels.ImplementationVersionState,
+                                 version: String,
+                                 indexPath: IndexPath,
+                                 prefix: String? = nil) -> UITableViewCell {
         let cell = tableView.dequeueCell(ContractVersionStatusCell.self, for: indexPath)
-        cell.setAddress(info, status: status, version: version)
+        cell.setAddress(info, status: status, version: version, prefix: prefix)
         cell.selectionStyle = .none
         cell.onViewDetails = { [weak self] in
             guard let `self` = self else { return }
@@ -324,10 +345,14 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section].section
-        if case Section.advanced = section {
+        switch section {
+        case Section.name:
+            return 0
+        case Section.advanced:
             return advancedSectionHeaderHeight
+        default:
+            return BasicHeaderView.headerHeight
         }
-        return BasicHeaderView.headerHeight
     }
 }
 

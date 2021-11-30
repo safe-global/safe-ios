@@ -269,6 +269,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct SignerMismatch: DetailedLocalizedError {
+        let description = "Failed to sign transaction"
+        let reason = "Signature does not match selected owner."
+        let howToFix = "Please sign with selected owner"
+        let domain = clientErrorDomain
+        let code = 1114
+        let loggable = false
+    }
+
     struct TransactionSigningError: DetailedLocalizedError {
         let description = "Failed to confirm transaction"
         let reason = "Computed safeTxHash of a transaction to confirm does not match server-returned value."
@@ -408,6 +417,7 @@ enum GSError {
     }
 
 	// MARK: Address Book
+
     struct AddressBookEntryAlreadyExists: DetailedLocalizedError {
         let description = "Can’t use this address"
         let reason = "An entry with this address has been added already."
@@ -545,6 +555,44 @@ enum GSError {
         let domain = iOSErrorDomain
         let code = 1319
         let loggable = false
+    }
+
+    // MARK: Delegate Key Errors
+
+    struct OwnerKeyNotFoundForDelegate: DetailedLocalizedError {
+        let description = "Failed to set up push notifications"
+        let reason = "Owner key not found for delegate key"
+        let howToFix = "Please make sure that the owner key exists"
+        let domain = iOSErrorDomain
+        let code = 1320
+        let loggable: Bool = false
+    }
+
+    struct UnrecognizedKeyTypeForDelegate: DetailedLocalizedError {
+        let description = "Failed to set up push notifications"
+        let reason = "Expected to use ledger key but a different type provided"
+        let howToFix = "Please select a ledger key and try again"
+        let domain = iOSErrorDomain
+        let code = 1321
+        let loggable: Bool = false
+    }
+
+    struct AddDelegateKeyCancelled: DetailedLocalizedError {
+        let description = "Push notifications are not set"
+        let reason = "The operation is cancelled by user"
+        let howToFix = ""
+        let domain = iOSErrorDomain
+        let code = 1322
+        let loggable: Bool = false
+    }
+
+    struct AddDelegateTimedOut: DetailedLocalizedError {
+        let description = "Push notifications were not set properly"
+        let reason = "Request to server timed out"
+        let howToFix = "Please try again later"
+        let domain = iOSErrorDomain
+        let code = 1323
+        let loggable: Bool = false
     }
 
     // - MARK: - Unstoppable domain errors

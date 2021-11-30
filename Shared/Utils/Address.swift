@@ -46,7 +46,7 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         guard let v = try? EthereumAddress(hex: data.toHexStringWithPrefix(), eip55: false) else { return nil }
         _store = v
     }
-
+    
     init(_ ethereumAddress: EthereumAddress) {
         _store = ethereumAddress
     }

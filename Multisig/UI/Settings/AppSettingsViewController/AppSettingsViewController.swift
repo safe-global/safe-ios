@@ -62,6 +62,12 @@ class AppSettingsViewController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
+
         tableView.separatorStyle = .singleLine
 
         tableView.registerCell(BasicCell.self)
@@ -290,11 +296,11 @@ class AppSettingsViewController: UITableViewController {
             return BasicCell.rowHeight
         }
     }
-
+  
     override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section].section
         switch section {
-        case .app, .general, .advanced:
+        case .general, .advanced:
             return sectionHeaderHeight
         default:
             return 0
