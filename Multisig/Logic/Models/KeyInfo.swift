@@ -268,6 +268,15 @@ extension KeyInfo {
         guard let keyID = keyID else { return nil }
         return try PrivateKey.key(id: keyID)
     }
+
+    func delegatePrivateKey() throws -> PrivateKey? {
+        guard let addressString = delegateAddressString, let address = Address(addressString) else { return nil }
+        return try PrivateKey.key(address: address)
+    }
+
+    func pushNotificationSigningKey() throws -> PrivateKey? {
+        try privateKey() ?? delegatePrivateKey()
+    }
 }
 
 extension NSFetchRequest where ResultType == KeyInfo {
