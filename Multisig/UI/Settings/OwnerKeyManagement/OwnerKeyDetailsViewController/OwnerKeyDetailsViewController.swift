@@ -106,30 +106,6 @@ class OwnerKeyDetailsViewController: UITableViewController {
         tableView.registerCell(HelpLinkTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
-        sections = [
-            (section: .name("OWNER NAME"), items: [Section.Name.name]),
-
-            (section: .keyAddress("OWNER ADDRESS"),
-             items: [Section.KeyAddress.address]),
-
-            (section: .ownerKeyType("OWNER TYPE"),
-             items: [Section.OwnerKeyType.type])]
-
-        if keyInfo.keyType == .walletConnect {
-            sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
-        }
-
-        if [.walletConnect, .ledgerNanoX].contains(keyInfo.keyType) {
-            sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
-                             items: [Section.PushNotificationConfiguration.enabled]))
-            if keyInfo.delegateAddress != nil {
-                sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
-                                 items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
-            }
-        }
-
-        sections.append((section: .advanced, items: [Section.Advanced.remove]))
-
         for notification in [Notification.Name.ownerKeyUpdated, .wcDidDisconnectClient] {
             NotificationCenter.default.addObserver(
                 self,
@@ -149,6 +125,8 @@ class OwnerKeyDetailsViewController: UITableViewController {
             selector: #selector(pop),
             name: .ownerKeyRemoved,
             object: nil)
+
+        reloadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -194,7 +172,31 @@ class OwnerKeyDetailsViewController: UITableViewController {
     }
 
     @objc private func reloadData() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
+            self.sections = [
+                (section: .name("OWNER NAME"), items: [Section.Name.name]),
+
+                (section: .keyAddress("OWNER ADDRESS"),
+                 items: [Section.KeyAddress.address]),
+
+                (section: .ownerKeyType("OWNER TYPE"),
+                 items: [Section.OwnerKeyType.type])]
+
+            if self.keyInfo.keyType == .walletConnect {
+                self.sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
+            }
+
+            if [.walletConnect, .ledgerNanoX].contains(keyInfo.keyType) {
+                self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
+                                 items: [Section.PushNotificationConfiguration.enabled]))
+                if self.keyInfo.delegateAddress != nil {
+                    self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
+                                     items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
+                }
+            }
+
+            self.sections.append((section: .advanced, items: [Section.Advanced.remove]))
+
             self.tableView.reloadData()
         }
     }
@@ -373,7 +375,10 @@ class OwnerKeyDetailsViewController: UITableViewController {
         switch item {
         case Section.KeyAddress.address:
             return UITableView.automaticDimension
-
+        case Section.DelegateKey.address:
+            return UITableView.automaticDimension
+        case Section.DelegateKey.helpLink:
+            return UITableView.automaticDimension
         case Section.Advanced.remove:
             return RemoveCell.rowHeight
 
