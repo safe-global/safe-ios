@@ -42,13 +42,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Safe.updateCachedNames()
         AddressBookEntry.updateCachedNames()
-        
+
         App.shared.notificationHandler.setUpMessaging(delegate: self)
 
         // Reconnect all WalletConnect sessions
         WalletConnectSafesServerController.shared.reconnectAllSessions()
         WalletConnectKeysServerController.shared.reconnectAllSessions()
         WalletConnectClientController.shared.reconnectIfNeeded()
+
+        // Fix transparent navigation bar in iOS 15
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
 
         return true
     }
