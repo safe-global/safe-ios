@@ -37,6 +37,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
         Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
         Tracker.setPasscodeIsSet(to: App.shared.auth.isPasscodeSet)
+        Tracker.setWalletConnectForDappsEnabled(App.configuration.toggles.walletConnectEnabled)
+        Tracker.setDesktopPairingEnabled(App.configuration.toggles.desktopPairingEnabled)
+
+        Safe.updateCachedNames()
+        AddressBookEntry.updateCachedNames()
+
+        App.shared.notificationHandler.setUpMessaging(delegate: self)
+
+        // Reconnect all WalletConnect sessions
+        WalletConnectSafesServerController.shared.reconnectAllSessions()
+        WalletConnectKeysServerController.shared.reconnectAllSessions()
+        WalletConnectClientController.shared.reconnectIfNeeded()
 
         // Fix transparent navigation bar in iOS 15
         if #available(iOS 15, *) {
