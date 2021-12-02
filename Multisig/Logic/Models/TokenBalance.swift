@@ -35,14 +35,14 @@ extension TokenBalance {
 
     init(address: Address, symbol: String?, logoUri: String?, tokenBalance: UInt256String, decimals: UInt256String?, fiatBalance: String, code: String) {
         self.address = address.checksummed
-        let coin = Chain.nativeCoin!
+        let coin = Chain.nativeCoin
 
-        self.symbol = symbol ?? coin.symbol!
-        self.imageURL = logoUri.flatMap { URL(string: $0) } ?? coin.logoUrl
+        self.symbol = symbol ?? coin?.symbol ?? "ETH"
+        self.imageURL = logoUri.flatMap { URL(string: $0) } ?? coin?.logoUrl
 
         let tokenFormatter = TokenFormatter()
         let amount = Int256(tokenBalance.value)
-        let precision = decimals?.value ?? UInt256(coin.decimals)
+        let precision = decimals?.value ?? (coin?.decimals).map(UInt256.init(clamping:)) ?? 18
 
         self.balance = tokenFormatter.string(
             from: BigDecimal(amount, Int(clamping: precision)),
@@ -62,7 +62,7 @@ extension TokenBalance {
     static func displayCurrency(from serverValue: String, code: String) -> String {
         let number = serverCurrencyFormatter.number(from: serverValue) ?? 0
         let formatter = TokenFormatter()
-        let amount = Int256(number.doubleValue * 100)
+        let amount = Int256(number.doubleValue) * 100
         let precision = 2
         let currencyCode = code
         let value = formatter.string(from: BigDecimal(amount, precision),
