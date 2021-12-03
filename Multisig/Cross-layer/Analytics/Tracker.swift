@@ -159,7 +159,8 @@ extension Tracker {
                 .transactionDetailsTxExecutedWC,
                 .dappConnectedWithScanButton,
                 .dappConnectedWithUniversalLink,
-                .dappConnectedWithPasteboardValue
+                .dappConnectedWithPasteboardValue,
+                .collectiblesOpenInWeb
             ].contains(event)
     }
 
