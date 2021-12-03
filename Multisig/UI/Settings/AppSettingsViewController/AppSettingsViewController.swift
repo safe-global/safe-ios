@@ -255,12 +255,15 @@ class AppSettingsViewController: UITableViewController {
 
         case Section.General.terms:
             openInSafari(legal.termsURL)
+            Tracker.trackEvent(.settingsTerms)
 
         case Section.General.privacyPolicy:
             openInSafari(legal.privacyURL)
+            Tracker.trackEvent(.settingsPrivacyPolicy)
 
         case Section.General.licenses:
             openInSafari(legal.licensesURL)
+            Tracker.trackEvent(.settingsLicenses)
 
         case Section.General.getInTouch:
             let getInTouchVC = GetInTouchView()
@@ -270,6 +273,7 @@ class AppSettingsViewController: UITableViewController {
         case Section.General.rateTheApp:
             let url = App.configuration.contact.appStoreReviewURL
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            Tracker.trackEvent(.settingsRateApp)
 
         case Section.Advanced.advanced:
             let advancedVC = AdvancedAppSettings()

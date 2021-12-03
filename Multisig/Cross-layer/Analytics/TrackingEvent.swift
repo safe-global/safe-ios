@@ -43,6 +43,7 @@ enum TrackingEvent: String, Trackable {
     case safeAddEns                                 = "screen_safe_add_ens"
     case safeAddUd                                  = "screen_safe_add_ud"
     case networkSelect                              = "screen_chain_list"
+    case tryDemo                                    = "user_try_demo"
 
     case transactionsQueued                         = "screen_transactions_queue"
     case transactionsHistory                        = "screen_transactions_history"
@@ -69,6 +70,11 @@ enum TrackingEvent: String, Trackable {
     case settingsAppEditFiat                        = "screen_settings_app_edit_fiat"
     case settingsAppSupport                         = "screen_settings_app_support"
     case settingsAppAppearance                      = "screen_settings_app_appearance"
+    case settingsAppChainPrefix                     = "screen_settings_app_chain_prefix"
+    case settingsTerms                              = "user_settings_open_terms"
+    case settingsPrivacyPolicy                      = "user_settings_open_privacy_policy"
+    case settingsLicenses                           = "user_settings_open_licenses"
+    case settingsRateApp                            = "user_settings_rate_app"
 
     case addressBookList                            = "screen_address_book_list"
     case addressBookAddEntry                        = "screen_adderess_book_add"

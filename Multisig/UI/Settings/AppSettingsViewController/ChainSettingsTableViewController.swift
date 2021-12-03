@@ -42,6 +42,11 @@ class ChainSettingsTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.settingsAppChainPrefix)
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
