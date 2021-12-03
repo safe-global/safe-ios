@@ -30,6 +30,11 @@ class ChangeDisplayModeTableViewController: UITableViewController {
         tableView.backgroundColor = .secondaryBackground
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.settingsAppAppearance)
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
