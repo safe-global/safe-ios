@@ -129,13 +129,15 @@ class AddDelegateKeyController {
             return
         }
 
-        let request = SignRequest(title: "Confirm Push Notifications",
-                                  tracking: ["action": "confirm_push"],
-                                  signer: keyInfo,
-                                  hexToSign: message.toHexStringWithPrefix())
-
+        let title = "Confirm Push Notifications"
+        let hexMessage = message.toHexStringWithPrefix()
         switch keyInfo.keyType {
         case .ledgerNanoX:
+            let request = SignRequest(title: title,
+                                      tracking: ["action": "confirm_push"],
+                                      signer: keyInfo,
+                                      hexToSign: hexMessage)
+
             let vc = LedgerSignerViewController(request: request)
 
             presenter?.present(vc, animated: true, completion: nil)
@@ -154,16 +156,11 @@ class AddDelegateKeyController {
             }
 
         case .walletConnect:
-            let vc = WCPendingConfirmationViewController(request: request, message: message.toHexStringWithPrefix())
+            let vc = WCPendingConfirmationViewController(hexMessage, keyInfo: keyInfo, title: title)
 
             presenter?.present(vc, animated: true, completion: nil)
 
             var isSuccess: Bool = false
-
-            vc.completion = { signature in
-                isSuccess = true
-                completion(.success(Data(hex: signature)))
-            }
 
             vc.onClose = {
                 if !isSuccess {
@@ -171,7 +168,10 @@ class AddDelegateKeyController {
                 }
             }
 
-            vc.sign()
+            vc.sign() { signature in
+                isSuccess = true
+                completion(.success(Data(hex: signature)))
+            }
 
         default:
             completion(.failure(GSError.UnrecognizedKeyTypeForDelegate()))

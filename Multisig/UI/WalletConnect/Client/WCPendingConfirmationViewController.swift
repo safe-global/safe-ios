@@ -15,14 +15,13 @@ class WCPendingConfirmationViewController: UIViewController {
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var cancelButton: UIButton!
 
-    var headerText = "Pending Confirmation"
-    var keyInfo: KeyInfo!
+    private var headerText = "Pending Confirmation"
+    private var keyInfo: KeyInfo!
 
-    var transaction: Transaction?
-    var message: String?
+    private var transaction: Transaction?
+    private var message: String?
 
     var onClose: (() -> Void)?
-    var completion: ((String) -> Void)?
 
     @IBAction private func cancel(_ sender: Any) {
         close()
@@ -33,8 +32,8 @@ class WCPendingConfirmationViewController: UIViewController {
         self.transaction = transaction
     }
 
-    convenience init(request: SignRequest, message: String?) {
-        self.init(request.signer, title: request.title)
+    convenience init(_ message: String, keyInfo: KeyInfo, title: String? = nil) {
+        self.init(keyInfo, title: title)
         self.message = message
     }
 
@@ -74,15 +73,14 @@ class WCPendingConfirmationViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    func sign() {
-        assert(keyInfo.keyType == .walletConnect)
+    func sign(completion: ((String) -> Void)?) {
         if let transaction = transaction {
             WalletConnectClientController.shared.sign(transaction: transaction) { [weak self] signature in
-                self?.handle(signature: signature)
+                self?.handleSignResponse(signature: signature, completion: completion)
             }
         } else if let message = message {
             WalletConnectClientController.shared.sign(message: message) { [weak self] signature in
-                self?.handle(signature: signature)
+                self?.handleSignResponse(signature: signature, completion: completion)
             }
         } else {
             return
@@ -93,16 +91,54 @@ class WCPendingConfirmationViewController: UIViewController {
         }
     }
 
-    private func handle(signature: String?) {
-        DispatchQueue.main.async {
+    func execute(ecdsaConfirmations: [SCGModels.Confirmation], confirmationsRequired: UInt64, authenticatedRpcUrl: URL, completion: (() -> Void)?) {
+        guard let transaction = transaction else { return }
+        WalletConnectClientController.shared.execute(
+            transaction: transaction,
+            confirmations: ecdsaConfirmations,
+            confirmationsRequired: confirmationsRequired,
+            rpcURL: authenticatedRpcUrl,
+            onSend: { [weak self] result in
+                DispatchQueue.main.async {
+                    guard let `self` = self else { return }
+                    switch result {
+                    case .success(_):
+                        WalletConnectClientController.openWalletIfInstalled(keyInfo: self.keyInfo)
+                    case .failure(let error):
+                        let localizedError = (error as? DetailedLocalizedError) ?? GSError.error(
+                            description: "Failed to send transaction to wallet", error: error)
+                        App.shared.snackbar.show(error: localizedError)
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+            },
+            onResult: { [weak self] result in
+                DispatchQueue.main.async {
+                    guard let `self` = self else { return }
+                    switch result {
+                    case .success():
+                        App.shared.snackbar.show(message: "Transaction submitted. You can check the transaction status in your wallet.")
+                        self.dismiss(animated: true, completion: nil)
+                        completion?()
+                    case .failure(let error):
+                        let localizedError = (error as? DetailedLocalizedError) ?? GSError.error(
+                            description: "Failed to execute transaction", error: error)
+                        App.shared.snackbar.show(error: localizedError)
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+            })
+    }
+
+    private func handleSignResponse(signature: String?, completion: ((String) -> Void)?) {
+        DispatchQueue.main.async { [weak self] in
             guard let signature = signature else {
                 App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
-                self.dismiss(animated: true, completion: nil)
-
                 return
             }
-
-            self.completion?(signature)
+            
+            self?.dismiss(animated: true, completion: nil)
+            completion?(signature)
         }
     }
 }
