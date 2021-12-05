@@ -16,7 +16,7 @@ class WalletConnectKeyAddedViewController: AccountActionCompletedViewController 
     }
 
     override func viewDidLoad() {
-        titleText = "Connect Ledger Nano X"
+        titleText = "Connect WalletConnect"
         headerText = "Owner Key added"
 
         assert(accountName != nil)
