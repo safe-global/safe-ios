@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         App.shared.firebaseConfig.setUp()
         App.shared.intercomConfig.setUp()
+        UIApplication.shared.registerForRemoteNotifications()
 
         #if DEBUG
         Tracker.append(handler: ConsoleTracker())
@@ -72,16 +73,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        LogService.shared.error("PUSH: Failed to registed to remote notifications \(error)")
+        LogService.shared.error("PUSH: Failed to register to remote notifications \(error)")
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        LogService.shared.debug("PUSH: Received APNS token: \(deviceToken.toHexStringWithPrefix())")
         Messaging.messaging().apnsToken = deviceToken
         Intercom.setDeviceToken(deviceToken)
-        LogService.shared.debug("PUSH: Received APNS token")
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        LogService.shared.debug("PUSH: didReceiveRemoteNotification with userInfo: \(userInfo)")
         Messaging.messaging().appDidReceiveMessage(userInfo)
         completionHandler(.noData)
     }
