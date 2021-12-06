@@ -10,13 +10,14 @@ import Foundation
 import UIKit
 import UserNotifications
 import Firebase
+import Intercom
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification,
-        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            _ center: UNUserNotificationCenter,
+            willPresent notification: UNNotification,
+            withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
 
         Messaging.messaging().appDidReceiveMessage(userInfo)
@@ -31,6 +32,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
 
         Messaging.messaging().appDidReceiveMessage(userInfo)
+
+        if Intercom.isIntercomPushNotification(userInfo) {
+            Intercom.handlePushNotification(userInfo)
+        }
 
         LogService.shared.debug("PUSH: didReceive notification with userInfo: \(userInfo)")
         App.shared.notificationHandler.received(notification: userInfo)
