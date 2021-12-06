@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import Firebase
 import Intercom
 
 @UIApplicationMain
@@ -53,8 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         WalletConnectKeysServerController.shared.reconnectAllSessions()
         WalletConnectClientController.shared.reconnectIfNeeded()
 
-        LogService.shared.debug("---> PUSH: configurationForConnecting ")
-
         return true
     }
 
@@ -63,8 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
-        LogService.shared.debug("---> PUSH: configurationForConnecting ")
-
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
@@ -72,21 +69,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-
-        LogService.shared.debug("---> PUSH: didDiscardSceneSessions ")
-
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        LogService.shared.error("Failed to register to remote notifications \(error)")
-        LogService.shared.debug("---> PUSH: Failed to register to remote notifications \(error)")
+        LogService.shared.error("PUSH: Failed to registed to remote notifications \(error)")
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        // Set device token for push notifications.
-        LogService.shared.debug("---> PUSH: Calling Intercom.setDeviceToken(deviceToken) ")
-        Intercom.setDeviceToken(deviceToken)
+        Messaging.messaging().apnsToken = deviceToken
+        LogService.shared.debug("PUSH: Received APNS token")
+    }
 
-
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        Messaging.messaging().appDidReceiveMessage(userInfo)
+        completionHandler(.noData)
     }
 }
