@@ -34,7 +34,7 @@ class AddDelegateKeyController {
         let messageToSign = delegatePrivateKey.address.checksummed + time
         let hashToSign = EthHasher.hash(messageToSign)
 
-        // 3. sign message with ledger key
+        // 3. sign message with key
         sign(message: hashToSign) { [weak self] signResult in
             guard let self = self else { return }
 
@@ -53,9 +53,9 @@ class AddDelegateKeyController {
                     // 4.1. on success, store the delegate key association
                     //             and the delegate key in the keychain
                     case .success:
-                        // store the delegate key association to the ledger key in the database
+                        // store the delegate key association to the key in the database
 
-                        // get the ledger key info
+                        // get the key info
                         let keyInfo: KeyInfo
                         do {
                             keyInfo = try self.loadKeyInfo()
@@ -109,7 +109,6 @@ class AddDelegateKeyController {
     }
 
     func loadKeyInfo() throws -> KeyInfo {
-        // get the ledger key info
         let keyOrNil = try KeyInfo.firstKey(address: self.ownerAddress)
 
         guard let keyInfo = keyOrNil else {
@@ -120,7 +119,6 @@ class AddDelegateKeyController {
 
     // sign and call back with signature or fail with error (incl. cancelled error)
     func sign(message: Data, completion: @escaping (Result<Data, Error>) -> Void) {
-        // get ledger key info
         let keyInfo: KeyInfo
         do {
             keyInfo = try self.loadKeyInfo()
@@ -158,7 +156,7 @@ class AddDelegateKeyController {
         case .walletConnect:
             let vc = WCPendingConfirmationViewController(hexMessage, keyInfo: keyInfo, title: title)
 
-            presenter?.present(vc, animated: true, completion: nil)
+            presenter?.present(vc, animated: true)
 
             var isSuccess: Bool = false
 

@@ -30,9 +30,14 @@ class WalletConnectKeyAddedViewController: AccountActionCompletedViewController 
         super.viewDidLoad()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.addDelegateKeyWalletConnect)
+    }
+
     override func primaryAction(_ sender: Any) {
         // Start Add Delegate flow with the selected account address
-        #warning("TODO: tracking?")
+        Tracker.trackEvent(.addDelegateKeyStarted)
         addKeyController = AddDelegateKeyController(ownerAddress: accountAddress, completion: completion)
         addKeyController.presenter = self
         addKeyController.start()
@@ -40,7 +45,7 @@ class WalletConnectKeyAddedViewController: AccountActionCompletedViewController 
 
     override func secondaryAction(_ sender: Any) {
         // doing nothing because user skipped
-        #warning("TODO: tracking?")
+        Tracker.trackEvent(.addDelegateKeySkipped)
         completion()
     }
 }

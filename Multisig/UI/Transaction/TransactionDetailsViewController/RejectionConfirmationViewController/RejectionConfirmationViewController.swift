@@ -133,17 +133,14 @@ class RejectionConfirmationViewController: UIViewController {
         pendingConfirmationVC.onClose = { [unowned self] in
             endLoading()
         }
-        present(pendingConfirmationVC, animated: false)
-
-        pendingConfirmationVC.onClose = { [weak self] in
-            self?.endLoading()
-        }
 
         pendingConfirmationVC.sign() { [weak self] signature in
             DispatchQueue.main.async {
                 self?.rejectAndCloseController(signature: signature)
             }
         }
+
+        present(pendingConfirmationVC, animated: true)
     }
 
     private func startLoading() {

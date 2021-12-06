@@ -119,7 +119,7 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         guard presentedViewController == nil else { return }
 
         let pendingConfirmationVC = WCPendingConfirmationViewController()
-        present(pendingConfirmationVC, animated: false)
+        present(pendingConfirmationVC, animated: true)
 
         pendingConfirmationVC.sign() { [weak self] signature in
             DispatchQueue.main.async {

@@ -302,7 +302,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 self?.reloadData()
             }
 
-            present(vc, animated: true, completion: nil)
+            present(vc, animated: true)
 
             vc.sign() { [weak self] signature in
                 self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .walletConnect)
