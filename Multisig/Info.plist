@@ -197,5 +197,7 @@
 	<string>$(DESKTOP_PAIRING_EXPERIMENTAL_ENABLED)</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
+	<key>IntercomAutoIntegratePushNotifications</key>
+	<string>YES</string>
 </dict>
 </plist>

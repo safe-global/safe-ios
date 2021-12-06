@@ -34,6 +34,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         Messaging.messaging().appDidReceiveMessage(userInfo)
 
         if Intercom.isIntercomPushNotification(userInfo) {
+            LogService.shared.debug("PUSH: didReceive Intercom push notification with userInfo: \(userInfo)")
+
             Intercom.handlePushNotification(userInfo)
         }
 

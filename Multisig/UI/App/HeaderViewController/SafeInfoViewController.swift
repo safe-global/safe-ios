@@ -36,6 +36,5 @@ class SafeInfoViewController: ContainerViewController {
 
     @IBAction private func didTapClose(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-        App.shared.intercomConfig.enable()
     }
 }

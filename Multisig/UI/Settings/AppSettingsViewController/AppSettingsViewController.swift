@@ -58,9 +58,6 @@ class AppSettingsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        App.shared.intercomConfig.enable()
-
         tableView.backgroundColor = tableBackgroundColor
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
@@ -79,6 +76,7 @@ class AppSettingsViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.settingsApp)
+        App.shared.intercomConfig.enable()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -267,7 +265,6 @@ class AppSettingsViewController: UITableViewController {
         case Section.General.getInTouch:
             let getInTouchVC = GetInTouchView()
             let hostingController = UIHostingController(rootView: getInTouchVC)
-            App.shared.intercomConfig.enable()
             show(hostingController, sender: self)
 
         case Section.General.rateTheApp:

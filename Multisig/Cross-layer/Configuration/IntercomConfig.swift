@@ -10,8 +10,6 @@ class IntercomConfig {
 
     func setUp() {
         Intercom.setApiKey(App.configuration.services.intercomApiKey, forAppId: App.configuration.services.intercomAppId)
-        Intercom.setLauncherVisible(true)
-        Intercom.setBottomPadding(30)
 
         #if DEBUG
         Intercom.enableLogging()
@@ -24,6 +22,7 @@ class IntercomConfig {
     }
 
     func enable() {
+        Intercom.setBottomPadding(30)
         Intercom.setLauncherVisible(true)
     }
 
