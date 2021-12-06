@@ -275,7 +275,7 @@ extension KeyInfo {
     }
 
     func pushNotificationSigningKey() throws -> PrivateKey? {
-        try privateKey() ?? delegatePrivateKey()
+        try? privateKey() ?? delegatePrivateKey()
     }
 }
 
