@@ -1,14 +1,14 @@
 //
-//  LedgerKeyAddedViewController.swift
+//  WalletConnectKeyAdded.swift
 //  Multisig
 //
-//  Created by Dmitry Bespalov on 05.10.21.
+//  Created by Moaaz on 11/22/21.
 //  Copyright © 2021 Gnosis Ltd. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class LedgerKeyAddedViewController: AccountActionCompletedViewController {
+class WalletConnectKeyAddedViewController: AccountActionCompletedViewController {
     private var addKeyController: AddDelegateKeyController!
 
     convenience init() {
@@ -16,7 +16,7 @@ class LedgerKeyAddedViewController: AccountActionCompletedViewController {
     }
 
     override func viewDidLoad() {
-        titleText = "Connect Ledger Nano X"
+        titleText = "Connect WalletConnect"
         headerText = "Owner Key added"
 
         assert(accountName != nil)
@@ -32,7 +32,7 @@ class LedgerKeyAddedViewController: AccountActionCompletedViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.addDelegateKeyLedger)
+        Tracker.trackEvent(.addDelegateKeyWalletConnect)
     }
 
     override func primaryAction(_ sender: Any) {

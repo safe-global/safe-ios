@@ -119,29 +119,14 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         guard presentedViewController == nil else { return }
 
         let pendingConfirmationVC = WCPendingConfirmationViewController()
-        pendingConfirmationVC.modalPresentationStyle = .popover
-        present(pendingConfirmationVC, animated: false)
+        present(pendingConfirmationVC, animated: true)
 
-        WalletConnectClientController.shared.sign(transaction: transaction) {
-            [weak self] signatureOrNil in
-
+        pendingConfirmationVC.sign() { [weak self] signature in
             DispatchQueue.main.async {
-                // dismiss pending confirmation view controller overlay
-                pendingConfirmationVC.dismiss(animated: true, completion: nil)
+                self?.sendConfirmationAndDismiss(signature: signature,
+                                                 trackingEvent: .incomingTxConfirmedWalletConnect)
             }
-
-            guard let signature = signatureOrNil else {
-                DispatchQueue.main.async {
-                    App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
-                }
-                return
-            }
-
-            self?.sendConfirmationAndDismiss(signature: signature,
-                                             trackingEvent: .incomingTxConfirmedWalletConnect)
         }
-
-        WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
     }
 
     private func sendConfirmationAndDismiss(signature: String, trackingEvent: TrackingEvent) {

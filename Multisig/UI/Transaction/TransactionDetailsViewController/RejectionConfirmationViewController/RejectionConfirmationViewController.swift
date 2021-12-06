@@ -130,34 +130,17 @@ class RejectionConfirmationViewController: UIViewController {
         guard presentedViewController == nil else { return }
 
         let pendingConfirmationVC = WCPendingConfirmationViewController()
-        pendingConfirmationVC.modalPresentationStyle = .popover
         pendingConfirmationVC.onClose = { [unowned self] in
             endLoading()
         }
-        present(pendingConfirmationVC, animated: false)
 
-        WalletConnectClientController.shared.sign(transaction: transaction) {
-            [weak self] signatureOrNil in
-
-            DispatchQueue.main.async {
-                // dismiss pending confirmation view controller overlay
-                pendingConfirmationVC.dismiss(animated: true, completion: nil)
-            }
-
-            guard let signature = signatureOrNil else {
-                DispatchQueue.main.async {
-                    self?.endLoading()
-                    App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
-                }
-                return
-            }
-
+        pendingConfirmationVC.sign() { [weak self] signature in
             DispatchQueue.main.async {
                 self?.rejectAndCloseController(signature: signature)
             }
         }
 
-        WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
+        present(pendingConfirmationVC, animated: true)
     }
 
     private func startLoading() {
