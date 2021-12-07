@@ -76,12 +76,14 @@ class AppSettingsViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.settingsApp)
-        App.shared.intercomConfig.enable()
+        App.shared.intercomConfig.enableFAB()
+        App.shared.intercomConfig.enableChatOverlay()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        App.shared.intercomConfig.disable()
+        App.shared.intercomConfig.disableFAB()
+        App.shared.intercomConfig.disableChatOverlay()
     }
 
     private func buildSections() {
