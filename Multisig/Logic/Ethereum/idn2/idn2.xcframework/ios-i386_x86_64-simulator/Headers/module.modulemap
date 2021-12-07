@@ -1,8 +1,0 @@
-module idn2 {
-    header "idn2.h"
-
-    export *
-    link "iconv"
-    link "unistring"
-}
-
