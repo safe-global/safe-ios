@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         App.shared.firebaseConfig.setUp()
         App.shared.intercomConfig.setUp()
+
+
         UIApplication.shared.registerForRemoteNotifications()
 
         #if DEBUG
@@ -85,8 +87,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         LogService.shared.debug("PUSH: didReceiveRemoteNotification with userInfo: \(userInfo)")
         if Intercom.isIntercomPushNotification(userInfo) {
-            LogService.shared.debug("PUSH: didReceiveRemoteNotification Intercom push notification with userInfo: \(userInfo)")
-            Intercom.handlePushNotification(userInfo)
+            LogService.shared.debug("-----> PUSH: didReceiveRemoteNotification Intercom push notification with userInfo: \(userInfo)")
+            //Intercom.handlePushNotification(userInfo)
         }
         Messaging.messaging().appDidReceiveMessage(userInfo)
         completionHandler(.noData)
