@@ -84,11 +84,6 @@ class AppSettingsViewController: UITableViewController {
         Tracker.trackEvent(.settingsApp)
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        App.shared.intercomConfig.disableChatOverlay()
-    }
-
     private func buildSections() {
         sections = []
         if App.configuration.toggles.desktopPairingEnabled {
