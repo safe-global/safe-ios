@@ -9,7 +9,7 @@
 import UIKit
 import SwiftUI
 import Firebase
-import Intercom
+//import Intercom
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -80,15 +80,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         LogService.shared.debug("PUSH: Received APNS token: \(deviceToken.toHexStringWithPrefix())")
         Messaging.messaging().apnsToken = deviceToken
-        Intercom.setDeviceToken(deviceToken)
+        //TODO: Enable for PUSH notifications
+        //Intercom.setDeviceToken(deviceToken)
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         LogService.shared.debug("PUSH: didReceiveRemoteNotification with userInfo: \(userInfo)")
-        if Intercom.isIntercomPushNotification(userInfo) {
-            LogService.shared.debug("-----> PUSH: didReceiveRemoteNotification Intercom push notification with userInfo: \(userInfo)")
-            //Intercom.handlePushNotification(userInfo)
-        }
         Messaging.messaging().appDidReceiveMessage(userInfo)
         completionHandler(.noData)
     }
