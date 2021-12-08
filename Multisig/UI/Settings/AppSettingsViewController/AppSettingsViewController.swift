@@ -81,12 +81,10 @@ class AppSettingsViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.settingsApp)
-        App.shared.intercomConfig.enableFAB()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        App.shared.intercomConfig.disableFAB()
         App.shared.intercomConfig.disableChatOverlay()
     }
 
@@ -255,7 +253,7 @@ class AppSettingsViewController: UITableViewController {
             show(experimentalViewController, sender: self)
             
         case Section.Support.chatWithUs:
-            //TODO: integrate itercom
+            App.shared.intercomConfig.startChat()
             break
             
         case Section.Support.getSupport:

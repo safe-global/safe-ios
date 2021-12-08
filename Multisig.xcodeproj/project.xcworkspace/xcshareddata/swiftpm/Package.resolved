@@ -110,6 +110,15 @@
         }
       },
       {
+        "package": "Intercom",
+        "repositoryURL": "https://github.com/intercom/intercom-ios.git",
+        "state": {
+          "branch": null,
+          "revision": "3a87d776c955e5b556295572fa7f0a24b0358365",
+          "version": "10.3.5"
+        }
+      },
+      {
         "package": "Kingfisher",
         "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
         "state": {

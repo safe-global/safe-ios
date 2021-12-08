@@ -19,16 +19,11 @@ class IntercomConfig {
         disableChatOverlay()
     }
 
-    func disableFAB() {
-        Intercom.setLauncherVisible(false)
-    }
-
-    func enableFAB() {
-        Intercom.setBottomPadding(30)
-        Intercom.setLauncherVisible(true)
-    }
-
     func disableChatOverlay() {
         Intercom.setInAppMessagesVisible(false)
+    }
+    
+    func startChat() {
+        Intercom.presentMessenger()
     }
 }
