@@ -183,8 +183,7 @@ class MainTabBarViewController: UITabBarController {
         let count = Intercom.unreadConversationCount()
         LogService.shared.debug("showBadge() called: count: \(count), settingsTabItem:   \(settingsTabItem)")
         if count > 0 {
-            //TODO: Find out what value just shows a badge without a number
-            settingsTabItem?.badgeValue = "\(count)"
+            settingsTabItem?.badgeValue = ""
             //TODO: How to set to apps primary color?
             settingsTabItem?.badgeColor = UIColor.green
         }   else {
