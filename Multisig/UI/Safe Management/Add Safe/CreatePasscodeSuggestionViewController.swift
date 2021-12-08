@@ -9,22 +9,22 @@
 import UIKit
 
 class CreatePasscodeSuggestionViewController: UIViewController {
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subtitleLabel: UILabel!
-    @IBOutlet weak var createButton: UIButton!
-    @IBOutlet weak var notNowButton: UIButton!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var subtitleLabel: UILabel!
+    @IBOutlet private weak var createButton: UIButton!
+    @IBOutlet private weak var notNowButton: UIButton!
 
     var onExit: (() -> Void)!
 
-    @IBAction func onCreate(_ sender: Any) {
+    @IBAction private func onCreate(_ sender: Any) {
         let passcodeVC = CreatePasscodeViewController()
         passcodeVC.completion = onExit
         show(passcodeVC, sender: nil)
         Tracker.trackEvent(.userPasscodeSuggestionAccepted)
     }
 
-    @IBAction func onNotNow(_ sender: Any) {
+    @IBAction private func onNotNow(_ sender: Any) {
         onExit?()
         Tracker.trackEvent(.userPasscodeSuggestionRejected)
     }

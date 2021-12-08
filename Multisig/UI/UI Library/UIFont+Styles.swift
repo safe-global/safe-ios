@@ -194,6 +194,21 @@ extension GNOButtonStyle {
         ]))
     ])
 
+    static let bordered = GNOButtonStyle(appearance: [
+        (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
+            .foregroundColor: UIColor.button,
+            .font: UIFont.gnoFont(forTextStyle: .primary)
+        ])),
+        (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
+            .foregroundColor: UIColor.button,
+            .font: UIFont.gnoFont(forTextStyle: .primary)
+        ])),
+        (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
+            .foregroundColor: UIColor.button,
+            .font: UIFont.gnoFont(forTextStyle: .primary)
+        ]))
+    ])
+
     static let filledError = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-normal"), textAttributes: [
             .foregroundColor: UIColor.primaryBackground,

@@ -10,11 +10,15 @@ import UIKit
 
 class LoadSafeViewController: UIViewController {
 
-    var trackingEvent: TrackingEvent?
-    @IBOutlet private weak var callToActionLabel: UILabel!
+    @IBOutlet private weak var textScrollView: UIStackView!
+    @IBOutlet private weak var headerLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var loadSafeButton: UIButton!
+    @IBOutlet private weak var createSafeButton: UIButton!
     @IBOutlet private weak var demoButton: UIButton!
+
     private var buttonYConstraint: NSLayoutConstraint?
+    var trackingEvent: TrackingEvent?
 
     convenience init() {
         self.init(nibName: nil, bundle: nil)
@@ -22,8 +26,10 @@ class LoadSafeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        callToActionLabel.setStyle(.title3)
-        loadSafeButton.setText("Load Gnosis Safe", .filled)
+        headerLabel.setStyle(.title3)
+        descriptionLabel.setStyle(.callout)
+        loadSafeButton.setText("Load existing Safe", .filled)
+        createSafeButton.setText("Create new Safe", .bordered)
         demoButton.setText("Try Demo", .plain)
     }
 
@@ -36,12 +42,12 @@ class LoadSafeViewController: UIViewController {
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        // center the button relative to the window instead of containing view
+        // center the text relative to the window instead of containing view
         // because this screen is used several times in different tabs
         // and the Y position of this view will be different -> leading to
         // the visual jumps when switching the tabs.
         if let window = view.window, buttonYConstraint == nil || buttonYConstraint?.isActive == false {
-            buttonYConstraint = loadSafeButton.centerYAnchor.constraint(equalTo: window.centerYAnchor)
+            buttonYConstraint = textScrollView.centerYAnchor.constraint(equalTo: window.centerYAnchor)
             buttonYConstraint?.isActive = true
             view.setNeedsLayout()
         }
@@ -63,6 +69,10 @@ class LoadSafeViewController: UIViewController {
         }
 
         show(selectNetworkVC, sender: self)
+    }
+
+    @IBAction func didTabCreateSafe(_ sender: Any) {
+
     }
 
     @IBAction func didTapTryDemo(_ sender: Any) {
