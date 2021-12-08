@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ico-app-settings-moon.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

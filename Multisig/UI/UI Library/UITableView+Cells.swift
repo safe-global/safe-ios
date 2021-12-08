@@ -10,6 +10,7 @@ import UIKit
 
 extension UITableView {
     func basicCell(name: String,
+                   icon: String? = nil,
                    detail: String? = nil,
                    indexPath: IndexPath,
                    withDisclosure: Bool = true,
@@ -17,6 +18,7 @@ extension UITableView {
                    canSelect: Bool = true) -> UITableViewCell {
         let cell = dequeueCell(BasicCell.self, for: indexPath)
         cell.setTitle(name)
+        cell.setIcon(icon)
         cell.setDetail(detail)
         if !withDisclosure {
             cell.setDisclosureImage(disclosureImage)

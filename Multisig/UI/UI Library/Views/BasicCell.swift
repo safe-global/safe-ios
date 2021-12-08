@@ -10,9 +10,11 @@ import UIKit
 
 class BasicCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet private weak var detailLabel: UILabel!
     @IBOutlet private weak var disclosureImageView: UIImageView!
 
+ 
     static let rowHeight: CGFloat = 60
 
     override func awakeFromNib() {
@@ -24,6 +26,15 @@ class BasicCell: UITableViewCell {
 
     func setTitle(_ value: String?) {
         titleLabel.text = value
+    }
+    
+    func setIcon(_ value: String?) {
+        guard let value = value else {
+            iconImage.isHidden = true
+            return
+        }
+        iconImage.image = UIImage(named: value)
+        iconImage.isHidden = false
     }
 
     func setDetail(_ value: String?) {
