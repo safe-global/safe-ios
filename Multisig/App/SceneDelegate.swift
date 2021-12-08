@@ -7,7 +7,6 @@
 //
 import UIKit
 import SwiftUI
-import Intercom
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -55,7 +54,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let userActivity = connectionOptions.userActivities.first {
             handleUserActivity(userActivity)
         }
-
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
