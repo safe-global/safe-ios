@@ -15,26 +15,41 @@ class CreatePasscodeSuggestionViewController: UIViewController {
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var notNowButton: UIButton!
 
-    var onExit: (() -> Void)?
+    var onExit: (() -> Void)!
 
     @IBAction func onCreate(_ sender: Any) {
+        let passcodeVC = CreatePasscodeViewController()
+        passcodeVC.completion = onExit
+        show(passcodeVC, sender: nil)
+        Tracker.trackEvent(.userPasscodeSuggestionAccepted)
     }
 
     @IBAction func onNotNow(_ sender: Any) {
         onExit?()
+        Tracker.trackEvent(.userPasscodeSuggestionRejected)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        imageView.image = UIImage(named: "keep-safe-secure")
-        titleLabel.setStyle(.headline)
-        subtitleLabel.setStyle(.primary)
+        hidesBottomBarWhenPushed = true
 
-        createButton.setText("Create password", .filled)
+        navigationItem.hidesBackButton = true
+        navigationItem.title = nil
+
+        imageView.image = UIImage(named: "keep-safe-secure")
+        titleLabel.setStyle(.title3)
+        subtitleLabel.setStyle(.callout)
+
+        createButton.setText("Create passcode", .filled)
         notNowButton.setText("Not now", .primary)
 
         // If we show this screen, no more need in displaying the banner
-        AppSetting.passcodeBannerDismissed = true
+        AppSettings.passcodeBannerDismissed = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.passcodeSuggestion)
     }
 }

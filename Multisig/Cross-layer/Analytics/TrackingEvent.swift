@@ -111,6 +111,7 @@ enum TrackingEvent: String, Trackable {
     case exportSeed                                 = "screen_owner_export_seed"
     case exportKey                                  = "screen_owner_export_key"
 
+    case passcodeSuggestion                         = "screen_passcode_suggestion"
     case createPasscode                             = "screen_passcode_create"
     case repeatPasscode                             = "screen_passcode_create_repeat"
     case enterPasscode                              = "screen_passcode_enter"
@@ -122,6 +123,8 @@ enum TrackingEvent: String, Trackable {
     case userPasscodeDisabled                       = "user_passcode_disabled"
     case userPasscodeReset                          = "user_passcode_reset"
     case userPasscodeSkipped                        = "user_passcode_skipped"
+    case userPasscodeSuggestionAccepted             = "user_passcode_suggestion_accepted"
+    case userPasscodeSuggestionRejected             = "user_passcode_suggestion_rejected"
 
     case userSafeAdded                              = "user_safe_added"
     case userSafeRemoved                            = "user_safe_removed"
