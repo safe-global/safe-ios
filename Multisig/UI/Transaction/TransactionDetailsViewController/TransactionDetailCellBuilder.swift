@@ -80,7 +80,12 @@ class TransactionDetailCellBuilder {
 
     func buildFactoryUsed(_ creationTx: SCGModels.TxInfo.Creation) {
         if let factory = creationTx.factory?.value.address {
-            address(factory, label: creationTx.factory?.name, title: "Factory used", imageUri: creationTx.factory?.logoUri)
+            address(factory,
+                    label: creationTx.factory?.name,
+                    title: "Factory used",
+                    imageUri: creationTx.factory?.logoUri,
+                    browseURL: chain.browserURL(address: factory.checksummed),
+                    prefix: chain.shortName)
         } else {
             text("No factory used", title: "Factory used", expandableTitle: nil, copyText: nil)
         }
@@ -92,7 +97,9 @@ class TransactionDetailCellBuilder {
                 implementation,
                 label: creationTx.implementation?.name ?? "Unknown",
                 title: "Mastercopy used",
-                imageUri: creationTx.implementation?.logoUri)
+                imageUri: creationTx.implementation?.logoUri,
+                browseURL: chain.browserURL(address: implementation.checksummed),
+                prefix: chain.shortName)
         } else {
             text(
                 "Not available",
@@ -112,10 +119,13 @@ class TransactionDetailCellBuilder {
 
     func buildCreatorAddress(_ creationTx: SCGModels.TxInfo.Creation) {
         let info = NamingPolicy.name(for: creationTx.creator, chainId: chain.id!)
-        return address(creationTx.creator.value.address,
+        let creator = creationTx.creator.value.address
+        return address(creator,
                        label: info.name,
                        title: "Creator address",
-                       imageUri: info.imageUri)
+                       imageUri: info.imageUri,
+                       browseURL: chain.browserURL(address: creator.checksummed),
+                       prefix: chain.shortName)
     }
 
     func buildHeader(_ tx: SCGModels.TransactionDetails) {
@@ -206,7 +216,9 @@ class TransactionDetailCellBuilder {
                     handler,
                     label: label,
                     title: "Set fallback handler:",
-                    imageUri: imageUri)
+                    imageUri: imageUri,
+                    browseURL: chain.browserURL(address: handler.checksummed),
+                    prefix: chain.shortName)
 
             case .addOwner(let addOwnerTx):
                 let (label, imgageUri) = NamingPolicy.name(for: addOwnerTx.owner, chainId: chain.id!)
@@ -266,15 +278,29 @@ class TransactionDetailCellBuilder {
                 address(implementation,
                         label: label,
                         title: "New mastercopy:",
-                        imageUri: imageUri)
+                        imageUri: imageUri,
+                        browseURL: chain.browserURL(address: implementation.checksummed),
+                        prefix: chain.shortName)
 
             case .enableModule(let moduleTx):
                 let (label, imageUri) = NamingPolicy.name(for: moduleTx.module, chainId: chain.id!)
-                address(moduleTx.module.value.address, label: label, title: "Enable module:", imageUri: imageUri)
+                let module = moduleTx.module.value.address
+                address(module,
+                        label: label,
+                        title: "Enable module:",
+                        imageUri: imageUri,
+                        browseURL: chain.browserURL(address: module.checksummed),
+                        prefix: chain.shortName)
 
             case .disableModule(let moduleTx):
                 let (label, imageUri) = NamingPolicy.name(for: moduleTx.module, chainId: chain.id!)
-                address(moduleTx.module.value.address, label: label, title: "Disable module:", imageUri: imageUri)
+                let module = moduleTx.module.value.address
+                address(module,
+                        label: label,
+                        title: "Disable module:",
+                        imageUri: imageUri,
+                        browseURL: chain.browserURL(address: module.checksummed),
+                        prefix: chain.shortName)
 
             case .unknown:
                 text("Unknown operation", title: "Settings change:", expandableTitle: nil, copyText: nil)
@@ -407,7 +433,12 @@ class TransactionDetailCellBuilder {
         case .transfer(let transferTx):
             switch transferTx.transferInfo {
             case .erc721(let erc721Tx):
-                address(erc721Tx.tokenAddress.address, label: "Asset Contract", title: nil)
+                let tokenAddress = erc721Tx.tokenAddress.address
+                address(tokenAddress,
+                        label: "Asset Contract",
+                        title: nil,
+                        browseURL: chain.browserURL(address: tokenAddress.checksummed),
+                        prefix: chain.shortName)
             default:
                 break
             }
@@ -508,7 +539,7 @@ class TransactionDetailCellBuilder {
             let txHashUrlTemplate = chain.blockExplorerUrlTxHash
         else { return }
         let url = URL(string: txHashUrlTemplate.replacingOccurrences(of: "{{txHash}}", with: txHash))!
-        externalURL(text: "View transaction on block explorer", url: url)
+        externalURL(text: "View on block explorer", url: url)
     }
 
     // MARK: - Cell Builder
@@ -596,9 +627,19 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-    func address(_ address: Address, label: String?, title: String?, imageUri: URL? = nil) {
+    func address(_ address: Address,
+                 label: String?,
+                 title: String?,
+                 imageUri: URL? = nil,
+                 browseURL: URL? = nil,
+                 prefix: String? = nil) {
         let cell = newCell(DetailAccountCell.self)
-        cell.setAccount(address: address, label: label, title: title, imageUri: imageUri)
+        cell.setAccount(address: address,
+                        label: label,
+                        title: title,
+                        imageUri: imageUri,
+                        browseURL: browseURL,
+                        prefix: prefix)
         result.append(cell)
     }
 

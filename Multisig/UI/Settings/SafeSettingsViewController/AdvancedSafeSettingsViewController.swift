@@ -117,7 +117,9 @@ extension AdvancedSafeSettingsViewController {
                 return addressDetailsCell(address: info.address,
                                           title: name,
                                           imageUri: info.logoUri,
-                                          indexPath: indexPath)
+                                          indexPath: indexPath,
+                                          browseURL: safe.chain!.browserURL(address: info.address.checksummed),
+                                          prefix: safe.chain!.shortName)
             } else {
                 return tableView.basicCell(
                     name: "Not set", indexPath: indexPath, withDisclosure: false, canSelect: false)
@@ -136,7 +138,9 @@ extension AdvancedSafeSettingsViewController {
                 return addressDetailsCell(address: info.address,
                                           title: name,
                                           imageUri: info.logoUri,
-                                          indexPath: indexPath)
+                                          indexPath: indexPath,
+                                          browseURL: safe.chain!.browserURL(address: info.address.checksummed),
+                                          prefix: safe.chain!.shortName)
             } else {
                 return tableView.basicCell(
                     name: "Not set", indexPath: indexPath, withDisclosure: false, canSelect: false)
@@ -160,7 +164,9 @@ extension AdvancedSafeSettingsViewController {
             return addressDetailsCell(address: info.address,
                                       title: name,
                                       imageUri: info.logoUri,
-                                      indexPath: indexPath)
+                                      indexPath: indexPath,
+                                      browseURL: safe.chain!.browserURL(address: info.address.checksummed),
+                                      prefix: safe.chain!.shortName)
 
         default:
             return UITableViewCell()
@@ -196,8 +202,10 @@ extension AdvancedSafeSettingsViewController {
             if info == nil {
                 return BasicCell.rowHeight
             }
-        case Section.GuardInfo.guardInfo(_):
-            return BasicCell.rowHeight
+        case Section.GuardInfo.guardInfo(let info):
+            if info == nil {
+                return BasicCell.rowHeight
+            }
         case Section.Nonce.nonce:
             return BasicCell.rowHeight
         default:
@@ -210,9 +218,14 @@ extension AdvancedSafeSettingsViewController {
         BasicCell.rowHeight
     }
 
-    private func addressDetailsCell(address: Address, title: String?, imageUri: URL?, indexPath: IndexPath) -> UITableViewCell {
+    private func addressDetailsCell(address: Address,
+                                    title: String?,
+                                    imageUri: URL?,
+                                    indexPath: IndexPath,
+                                    browseURL: URL?,
+                                    prefix: String? = nil) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: title, imageUri: imageUri)
+        cell.setAccount(address: address, label: title, imageUri: imageUri, browseURL: browseURL, prefix: prefix)
         return cell
     }
 

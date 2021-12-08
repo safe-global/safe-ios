@@ -25,13 +25,38 @@ class SignerTests: XCTestCase {
         XCTAssertEqual(signature.signer, Address(exactly: expectedSigner))
 
         do {
-            let pubKey = try EthereumPublicKey.init(message: message.makeBytes(),
-                                                    v: EthereumQuantity(quantity: BigUInt(signature.v - 27)),
-                                                    r: EthereumQuantity(signature.r.makeBytes()),
-                                                    s: EthereumQuantity(signature.s.makeBytes()))
+            let pubKey = try EthereumPublicKey(message: message.makeBytes(),
+                                               v: EthereumQuantity(quantity: BigUInt(signature.v - 27)),
+                                               r: EthereumQuantity(signature.r.makeBytes()),
+                                               s: EthereumQuantity(signature.s.makeBytes()))
             XCTAssertEqual(pubKey.address.hex(eip55: true), expectedSigner)
         } catch {
+            XCTFail()
             print("error: \(error)")
         }
     }
+
+    func testRecoverLedgerSignature() throws {
+        let messageHash = Data(hex: "ad9eb178b63d1b85f2721af8b4ec88e9a3acd5d00fc351d44d30ecffd3f20358")
+        let v = BigUInt("1f", radix: 16)! - 4 // 4 is added so that the Safe contracts can decode this signature as eth_sign signature
+        let r = Data(hex: "2a442f1e65dfb418acf71ae06c4d84680a6ff377d7e7e0e68c4b8351dd6b833a")
+        let s = Data(hex: "7d03af4a99a8de94d2c45893a8fe07b4f37b46d6d9f8fd3af0d3a6c3da81e5b5")
+
+        let prefixedMessageHash = "\u{19}Ethereum Signed Message:\n\(messageHash.count)"
+
+        XCTAssertEqual(messageHash.count, 32)
+        XCTAssertEqual(v, 27)
+
+        let prefixedMessage = prefixedMessageHash.data(using: .utf8)! + messageHash
+
+        let pubKey = try EthereumPublicKey(
+            message: prefixedMessage.makeBytes(),
+            v: EthereumQuantity(quantity: v - 27),
+            r: EthereumQuantity(r.makeBytes()),
+            s: EthereumQuantity(s.makeBytes()))
+
+        XCTAssertEqual(pubKey.address.hex(eip55: true), "0xe44F9E113Fbd671Bf697d5a1cf1716E1a8c3F35b")
+    }
 }
+
+

@@ -119,29 +119,14 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         guard presentedViewController == nil else { return }
 
         let pendingConfirmationVC = WCPendingConfirmationViewController()
-        pendingConfirmationVC.modalPresentationStyle = .popover
-        present(pendingConfirmationVC, animated: false)
+        present(pendingConfirmationVC, animated: true)
 
-        WalletConnectClientController.shared.sign(transaction: transaction) {
-            [weak self] signatureOrNil in
-
+        pendingConfirmationVC.sign() { [weak self] signature in
             DispatchQueue.main.async {
-                // dismiss pending confirmation view controller overlay
-                pendingConfirmationVC.dismiss(animated: true, completion: nil)
+                self?.sendConfirmationAndDismiss(signature: signature,
+                                                 trackingEvent: .incomingTxConfirmedWalletConnect)
             }
-
-            guard let signature = signatureOrNil else {
-                DispatchQueue.main.async {
-                    App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
-                }
-                return
-            }
-
-            self?.sendConfirmationAndDismiss(signature: signature,
-                                             trackingEvent: .incomingTxConfirmedWalletConnect)
         }
-
-        WalletConnectClientController.openWalletIfInstalled(keyInfo: keyInfo)
     }
 
     private func sendConfirmationAndDismiss(signature: String, trackingEvent: TrackingEvent) {
@@ -277,10 +262,14 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
     private func safeCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self)
+        let chain = safe.chain!
+        let address = transaction.safe!.address
         cell.setAccount(
-            address: transaction.safe!.address,
+            address: address,
             label: Safe.cachedName(by: transaction.safe!, chainId: safe.chain!.id!),
-            title: "Connected safe"
+            title: "Connected safe",
+            browseURL: chain.browserURL(address: address.checksummed),
+            prefix: chain.shortName
         )
         cell.selectionStyle = .none
         return cell

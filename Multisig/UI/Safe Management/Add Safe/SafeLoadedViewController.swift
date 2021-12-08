@@ -22,6 +22,7 @@ class SafeLoadedViewController: AccountActionCompletedViewController {
             descriptionText = "\((safe.name ?? "Safe")) is read-only. Would you like to add owner key for this Safe to confirm transactions?"
             accountName = safe.name
             accountAddress = safe.addressValue
+            prefix = safe.chain?.shortName
         } catch {
             fatalError()
         }

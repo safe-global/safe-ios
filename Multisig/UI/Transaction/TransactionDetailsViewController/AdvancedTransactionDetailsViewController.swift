@@ -33,6 +33,11 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
         tableView.estimatedSectionHeaderHeight = BasicHeaderView.headerHeight
         tableView.estimatedSectionFooterHeight = 0
 
@@ -153,14 +158,18 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
                            label: name,
                            title: item.title,
                            imageUri: addressInfo.logoUri,
-                           indexPath: indexPath)
+                           indexPath: indexPath,
+                           browseURL: chain.browserURL(address: addressInfo.value.description),
+                           prefix: chain.shortName)
         } else if let addressInfo = item.value as? AddressInfo {
             let (name, _) = NamingPolicy.name(for: addressInfo.address, info: addressInfo, chainId: chain.id!)
             return address(addressInfo.address,
                            label: name,
                            title: item.title,
                            imageUri: addressInfo.logoUri,
-                           indexPath: indexPath)
+                           indexPath: indexPath,
+                           browseURL: chain.browserURL(address: addressInfo.address.checksummed),
+                           prefix: chain.shortName)
         }
         else if let string = item.value as? String {
             return text(string, title: item.title, expandableTitle: nil, copyText: string, indexPath: indexPath)
@@ -211,9 +220,20 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
         return cell
     }
 
-    func address(_ address: Address, label: String?, title: String?, imageUri: URL? = nil, indexPath: IndexPath) -> UITableViewCell {
+    func address(_ address: Address,
+                 label: String?,
+                 title: String?,
+                 imageUri: URL? = nil,
+                 indexPath: IndexPath,
+                 browseURL: URL?,
+                 prefix: String?) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: label, title: title, imageUri: imageUri)
+        cell.setAccount(address: address,
+                        label: label,
+                        title: title,
+                        imageUri: imageUri,
+                        browseURL: browseURL,
+                        prefix: prefix)
         return cell
     }
 

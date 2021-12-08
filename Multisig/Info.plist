@@ -53,6 +53,8 @@
 	<string>$(FEATURE_SUGGESTION_URL)</string>
 	<key>DESKTOP_PAIRING_URL</key>
 	<string>$(DESKTOP_PAIRING_URL)</string>
+	<key>LEDGER_PAIRING_URL</key>
+	<string>$(LEDGER_PAIRING_URL)</string>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<false/>
 	<key>GNOSIS_SAFE_WEB_URL</key>

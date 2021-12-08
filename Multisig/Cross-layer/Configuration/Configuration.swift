@@ -58,6 +58,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("DESKTOP_PAIRING_URL")
         var desktopPairingURL: URL
+
+        @ConfigurationKey("LEDGER_PAIRING_URL")
+        var ledgerPairingURL: URL
     }
 
     struct Legal {

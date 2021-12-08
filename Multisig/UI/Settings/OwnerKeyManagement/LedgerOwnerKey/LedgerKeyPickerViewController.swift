@@ -67,10 +67,23 @@ class LedgerKeyPickerViewController: SegmentViewController {
         enterNameVC.name = defaultName
         enterNameVC.address = key.address
         enterNameVC.badgeName = KeyType.ledgerNanoX.imageName
-        enterNameVC.completion = { [unowned self, unowned contentVC] name in
-            contentVC.importSelectedKey(name: name)
+        enterNameVC.completion = { [unowned self, unowned contentVC, unowned enterNameVC] name in
+            let success = contentVC.importSelectedKey(name: name)
 
-            self.completion()
+            if !success {
+                self.completion()
+                return
+            }
+
+            let keyAddedVC = LedgerKeyAddedViewController()
+            keyAddedVC.completion = { [weak self] in
+                App.shared.snackbar.show(message: "The key added successfully")
+                self?.completion()
+            }
+            keyAddedVC.accountAddress = key.address
+            keyAddedVC.accountName = name
+
+            enterNameVC.show(keyAddedVC, sender: nil)
         }
         show(enterNameVC, sender: nil)
     }
@@ -170,6 +183,7 @@ fileprivate class LedgerKeyPickerViewModel {
                     self.getAddressTimeLimitReached = true
                     completion("""
 Please unlock your Ledger device and open Ethereum App on it.
+
 If it does not help, there is probably an issue with Bluetooth device pairing. Please remove pairing in your phone settings and try to pair with opened Ethereum App on your device.
 """
                     )
@@ -207,13 +221,13 @@ If it does not help, there is probably an issue with Bluetooth device pairing. P
         isLoading = false
     }
 
-    func importSelectedKey(name: String) {
-        guard selectedIndex >= 0 else { return }
+    func importSelectedKey(name: String) -> Bool {
+        guard selectedIndex >= 0 else { return false }
         let key = keys[selectedIndex]
-        OwnerKeyController.importKey(ledgerDeviceUUID: deviceId,
-                                     path: basePathPattern.replacingOccurrences(of: "{index}", with: "\(key.index)"),
-                                     address: key.address,
-                                     name: name)
+        return OwnerKeyController.importKey(ledgerDeviceUUID: deviceId,
+                                            path: basePathPattern.replacingOccurrences(of: "{index}", with: "\(key.index)"),
+                                            address: key.address,
+                                            name: name)
     }
 }
 
@@ -240,6 +254,8 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
         model.type
     }
 
+    var footerErrorMessage: String?
+
     convenience init(type: LedgerKeyType,
                      deviceId: UUID,
                      bluetoothController: BaseBluetoothController,
@@ -257,8 +273,11 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
         tableView.registerCell(DerivedKeyTableViewCell.self)
         tableView.registerCell(ButtonTableViewCell.self)
         tableView.registerHeaderFooterView(LoadingFooterView.self)
+        tableView.registerHeaderFooterView(LedgerBluetoothIssueFooterView.self)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = estimatedRowHeight
+        tableView.sectionFooterHeight = UITableView.automaticDimension
+        tableView.estimatedSectionFooterHeight = LedgerBluetoothIssueFooterView.estimatedHeight
 
         generateNextPage()
     }
@@ -268,7 +287,7 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
         Tracker.trackEvent(.ledgerSelectKey)
     }
 
-    func importSelectedKey(name: String) {
+    func importSelectedKey(name: String) -> Bool {
         model.importSelectedKey(name: name)
     }
 
@@ -280,11 +299,12 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
                 // we pop to select the ledger device screen.
                 guard self.model.bluetoothIsConnected else {
                     self.navigationController?.popViewController(animated: true)
+                    if let errorOrNil = errorOrNil {
+                        App.shared.snackbar.show(message: errorOrNil.localizedDescription)
+                    }
                     return
                 }
-                if errorOrNil != nil {
-                    App.shared.snackbar.show(message: errorOrNil!.localizedDescription)
-                }
+                self.footerErrorMessage = errorOrNil?.localizedDescription
                 self.tableView.reloadData()
             }
         }
@@ -360,6 +380,17 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
         if model.isLoading {
             return tableView.dequeueReusableHeaderFooterView(withIdentifier: LoadingFooterView.reuseID)
         }
+        if let footerErrorMessage = footerErrorMessage {
+            let view = tableView.dequeueHeaderFooterView(LedgerBluetoothIssueFooterView.self)
+            view.set(description: footerErrorMessage)
+            if shouldShowOpenBluetoothSettingsButton {
+                view.set(link: "Learn more", url: App.configuration.help.ledgerPairingURL)
+            } else {
+                view.set(link: nil, url: nil)
+            }
+            return view
+        }
+
         return nil
     }
 
@@ -367,6 +398,10 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
         if model.isLoading {
             return estimatedRowHeight
         }
+        if footerErrorMessage != nil {
+            return UITableView.automaticDimension
+        }
+
         return 0
     }
 

@@ -173,16 +173,12 @@ class RemoteNotificationHandler {
     ///   - timestamp: Unix timestamp or nil. If nil, the current time will be used.
     /// - Throws: Error in case of database failures, or private key signing errors
     /// - Returns: If there are any keys, then returns preimage of the hash, the hash that was signed, timestamp used, and array of signatures corresponding to the signing keys.
-    static func sign(safes: [String], deviceID: String, token: String, timestamp: String) throws -> (preimage: String, hash: String, signatures: [String])? {
-        // sign the registration data by each private key.
-
-        let privateKeys = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated])
-            .compactMap { try $0.privateKey() }
-
-        guard !privateKeys.isEmpty,
-              !safes.isEmpty else {
-            return nil
-        }
+    static func sign(safes: [String], deviceID: String, token: String, timestamp: String) throws -> (preimage: String, hash: String, signatures: [String]) {
+        // get keys for signing
+        let privateKeys = try KeyInfo.all()
+            .compactMap { keyInfo -> PrivateKey? in
+                try? keyInfo.pushNotificationSigningKey()
+            }
 
         let hashPreimage = [
             "gnosis-safe",
@@ -208,7 +204,7 @@ class RemoteNotificationHandler {
     }
 
     private func registerAll() {
-        guard let token = token else { return }
+        guard let pushToken = token else { return }
         guard let deviceID = storedDeviceID?.lowercased() else {
             assertionFailure("Programmer error: missing device ID")
             return
@@ -225,17 +221,18 @@ class RemoteNotificationHandler {
                     .compactMap { Address($0) }
                     .map { $0.checksummed }
                     .sorted()
-                guard let signResult = try Self.sign(safes: safes,
-                                                     deviceID: deviceID,
-                                                     token: token,
-                                                     timestamp: timestamp) else { continue }
+                
+                let signResult = try Self.sign(safes: safes,
+                                               deviceID: deviceID,
+                                               token: pushToken,
+                                               timestamp: timestamp)
                 
                 safeRegistration.append(SafeRegistration(chainId: chainSafes.chain.id!, safes: safes,
                                                          signatures: signResult.signatures))
             }
 
             App.shared.clientGatewayService.registerNotification(uuid: deviceID,
-                                                                 cloudMessagingToken: token,
+                                                                 cloudMessagingToken: pushToken,
                                                                  buildNumber: appConfig.buildVersion,
                                                                  bundle: appConfig.bundleIdentifier,
                                                                  version: appConfig.marketingVersion,

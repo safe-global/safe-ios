@@ -165,7 +165,7 @@ extension KeyInfo {
     /// - Parameters:
     ///   - session: WalletConnect session object
     @discardableResult
-    static func `import`(session: Session, installedWallet: InstalledWallet?) throws -> KeyInfo? {
+    static func `import`(session: Session, installedWallet: InstalledWallet?, name: String?) throws -> KeyInfo? {
         guard let walletInfo = session.walletInfo,
               let addressString = walletInfo.accounts.first,
               let address = Address(addressString) else {
@@ -185,7 +185,7 @@ extension KeyInfo {
             item = existing
         } else {
             item = KeyInfo(context: context)
-            item.name = walletInfo.peerMeta.name
+            item.name = name
         }
 
         item.address = address
@@ -267,6 +267,16 @@ extension KeyInfo {
     func privateKey() throws -> PrivateKey? {
         guard let keyID = keyID else { return nil }
         return try PrivateKey.key(id: keyID)
+    }
+
+    func delegatePrivateKey() throws -> PrivateKey? {
+        guard let addressString = delegateAddressString, let address = Address(addressString) else { return nil }
+        return try PrivateKey.key(address: address)
+    }
+
+    func pushNotificationSigningKey() throws -> PrivateKey? {
+        if let key = (try? privateKey()) { return key }
+        return try? delegatePrivateKey()
     }
 }
 
