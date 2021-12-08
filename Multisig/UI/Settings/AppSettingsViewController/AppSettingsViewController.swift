@@ -50,15 +50,8 @@ class AppSettingsViewController: UITableViewController {
 
         enum About: SectionItem {
             case aboutGnosisSafe(String)
-//            case terms(String)
-//            case privacyPolicy(String)
-//            case licenses(String)
-//            case getInTouch(String)
-//            case rateTheApp(String)
             case appVersion(String, String)
         }
-
-       
     }
 
     override func viewDidLoad() {
@@ -114,11 +107,6 @@ class AppSettingsViewController: UITableViewController {
                 Section.Advanced.advanced("Advanced")
             ]),
             (section: .about("About"), items: [
-//                Section.General.terms("Terms of use"),
-//                Section.General.privacyPolicy("Privacy policy"),
-//                Section.General.licenses("Licenses"),
-//                Section.General.getInTouch("Get in touch"),
-//                Section.General.rateTheApp("Rate the app"),
                 Section.About.aboutGnosisSafe("About Gnosis Safe"),
                 Section.About.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
             ])
@@ -215,28 +203,11 @@ class AppSettingsViewController: UITableViewController {
         case Section.Advanced.advanced(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
 
-//        case Section.General.terms(let name):
-//            return tableView.basicCell(name: name, indexPath: indexPath)
-//
-//        case Section.General.privacyPolicy(let name):
-//            return tableView.basicCell(name: name, indexPath: indexPath)
-//
-//        case Section.General.licenses(let name):
-//            return tableView.basicCell(name: name, indexPath: indexPath)
-//
-//        case Section.General.getInTouch(let name):
-//            return tableView.basicCell(name: name, indexPath: indexPath)
-//
-//        case Section.General.rateTheApp(let name):
-//            return tableView.basicCell(name: name, indexPath: indexPath)
-
         case Section.About.aboutGnosisSafe(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
             
         case Section.About.appVersion(let name, let version):
             return tableView.infoCell(name: name, info: version, indexPath: indexPath)
-
-        
 
         default:
             return UITableViewCell()
@@ -289,19 +260,10 @@ class AppSettingsViewController: UITableViewController {
             let advancedVC = AdvancedAppSettings()
             let hostingController = UIHostingController(rootView: advancedVC)
             show(hostingController, sender: self)
-
-//        case Section.General.terms:
-//            openInSafari(legal.termsURL)
-//
-//        case Section.General.privacyPolicy:
-//            openInSafari(legal.privacyURL)
-//
-//        case Section.General.licenses:
-//            openInSafari(legal.licensesURL)
-//
-//        case Section.General.rateTheApp:
-//            let url = App.configuration.contact.appStoreReviewURL
-//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            
+        case Section.About.aboutGnosisSafe:
+            show(AboutGnosisSafeTableViewController(), sender: self)
+            break
 
         default:
             break
