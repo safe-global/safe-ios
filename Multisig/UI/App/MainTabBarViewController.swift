@@ -171,7 +171,7 @@ class MainTabBarViewController: UITabBarController {
         let nav = UINavigationController(rootViewController: root)
         let tabItem = UITabBarItem(title: title, image: image, tag: tag)
 
-        //TODO: Can we not use this haclk to have a reference to the UITabBarItem?
+        //TODO: Can we not use this hack to have a reference to the UITabBarItem?
         if isSettingsTab {
             settingsTabItem = tabItem
         }
