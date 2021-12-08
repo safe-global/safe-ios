@@ -10,7 +10,6 @@ import UIKit
 
 class LoadSafeViewController: UIViewController {
 
-    @IBOutlet private weak var textScrollView: UIStackView!
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var loadSafeButton: UIButton!
@@ -47,7 +46,7 @@ class LoadSafeViewController: UIViewController {
         // and the Y position of this view will be different -> leading to
         // the visual jumps when switching the tabs.
         if let window = view.window, buttonYConstraint == nil || buttonYConstraint?.isActive == false {
-            buttonYConstraint = textScrollView.centerYAnchor.constraint(equalTo: window.centerYAnchor)
+            buttonYConstraint = descriptionLabel.centerYAnchor.constraint(equalTo: window.centerYAnchor)
             buttonYConstraint?.isActive = true
             view.setNeedsLayout()
         }
