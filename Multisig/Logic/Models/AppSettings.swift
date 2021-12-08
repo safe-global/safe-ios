@@ -97,6 +97,12 @@ extension AppSettings {
 
     @AppSetting(\.lastIgnoredUpdateVersion)
     static var lastIgnoredUpdateVersion: String?
+
+    static var shouldOfferToSetupPasscode: Bool {
+        get {
+            !(passcodeBannerDismissed || passcodeWasSetAtLeastOnce)
+        }
+    }
 }
 
 extension AppSettings {

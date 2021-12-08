@@ -84,23 +84,35 @@ class EnterSafeAddressViewController: UIViewController {
                 App.shared.notificationHandler.safeAdded(address: address)
             }
 
-            if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
-
-                let loadedVC = SafeLoadedViewController()
-                loadedVC.completion = createdCompletion
-
-                let loadedWrapperVC = RibbonViewController(rootViewController: loadedVC)
-                loadedWrapperVC.chain = self.chain
-                loadedWrapperVC.hidesBottomBarWhenPushed = true
-
-                enterAddressVC.show(loadedWrapperVC, sender: enterAddressVC)
-
-                AppSettings.hasShownImportKeyOnboarding = true
+            if AppSettings.shouldOfferToSetupPasscode {
+                let createPasscodeSuggestionVC = CreatePasscodeSuggestionViewController()
+                createPasscodeSuggestionVC.onExit = { [unowned enterAddressVC, unowned self] in
+                    showImportKeySuggestion(from: enterAddressVC, createdCompletion: createdCompletion)
+                }
+                enterAddressVC.show(createPasscodeSuggestionVC, sender: enterAddressVC)
             } else {
-                createdCompletion()
+                showImportKeySuggestion(from: enterAddressVC, createdCompletion: createdCompletion)
             }
         }
         show(enterAddressWrapperVC, sender: self)
+    }
+
+    private func showImportKeySuggestion(from presenter: UIViewController, createdCompletion: @escaping () -> Void) {
+        if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
+
+            let loadedVC = SafeLoadedViewController()
+            loadedVC.completion = createdCompletion
+
+            let loadedWrapperVC = RibbonViewController(rootViewController: loadedVC)
+            loadedWrapperVC.chain = self.chain
+            loadedWrapperVC.hidesBottomBarWhenPushed = true
+
+            presenter.show(loadedWrapperVC, sender: presenter)
+
+            AppSettings.hasShownImportKeyOnboarding = true
+        } else {
+            createdCompletion()
+        }
     }
 
     private func didTapAddressField() {

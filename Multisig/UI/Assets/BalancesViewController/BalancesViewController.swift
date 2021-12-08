@@ -37,8 +37,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
 
     private var shouldShowPasscodeBanner: Bool {
-        OwnerKeyController.hasPrivateKey &&
-            !(AppSettings.passcodeBannerDismissed || AppSettings.passcodeWasSetAtLeastOnce)
+        OwnerKeyController.hasPrivateKey && AppSettings.shouldOfferToSetupPasscode
     }
 
     convenience init() {
