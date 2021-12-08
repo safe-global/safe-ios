@@ -161,7 +161,7 @@ class MainTabBarViewController: UITabBarController {
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         
         let tabRoot = HeaderViewController(rootViewController: ribbonVC)
-        return tabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 2)
+        return tabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 2, isSettingsTab: true)
     }
 
     //TODO: Find a better way to update tab than storing a reference here
@@ -180,6 +180,7 @@ class MainTabBarViewController: UITabBarController {
 
     @objc func showBadge() {
         let count = Intercom.unreadConversationCount()
+        LogService.shared.debug("showBadge() called: count: \(count), settingsTabItem:   \(settingsTabItem)")
         if count > 0 {
             //TODO: Find out what value just shows a badge without a number
             settingsTabItem?.badgeValue = "\(count)"
