@@ -16,7 +16,7 @@ class IntercomConfig {
         #endif
         Intercom.registerUnidentifiedUser()
 
-        disableChatOverlay() // enable only where appropriate
+        disableChatOverlay()
     }
 
     func disableFAB() {
@@ -28,12 +28,7 @@ class IntercomConfig {
         Intercom.setLauncherVisible(true)
     }
 
-
     func disableChatOverlay() {
         Intercom.setInAppMessagesVisible(false)
-    }
-
-    func enableChatOverlay() {
-        Intercom.setInAppMessagesVisible(true)
     }
 }
