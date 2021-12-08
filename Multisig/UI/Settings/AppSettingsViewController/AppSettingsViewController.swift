@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import Intercom
 
 fileprivate protocol SectionItem {}
 
@@ -93,7 +94,7 @@ class AppSettingsViewController: UITableViewController {
         if App.configuration.toggles.desktopPairingEnabled {
             sections.append((section: .app, items: [Section.App.desktopPairing("Pair your Desktop")]))
         }
-
+        let unreadCount = Intercom.unreadConversationCount()
         sections += [
             (section: .app, items: [
                 Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
@@ -105,7 +106,7 @@ class AppSettingsViewController: UITableViewController {
                 Section.App.experimental("Experimental")
             ]),
             (section: .support("Support & Feedback"), items: [
-                Section.Support.chatWithUs("Chat with us"),
+                Section.Support.chatWithUs("Chat with us (\(unreadCount))"),
                 Section.Support.getSupport("Get Support")
             ]),
             (section: .advanced("Advanced"), items: [
@@ -133,7 +134,8 @@ class AppSettingsViewController: UITableViewController {
         for notification in [Notification.Name.ownerKeyRemoved,
                              .ownerKeyImported,
                              .selectedFiatCurrencyChanged,
-                             .updatedExperemental] {
+                             .updatedExperemental,
+                             .IntercomUnreadConversationCountDidChange] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(reload),
