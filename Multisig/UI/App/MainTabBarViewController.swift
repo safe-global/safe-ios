@@ -184,8 +184,7 @@ class MainTabBarViewController: UITabBarController {
         LogService.shared.debug("showBadge() called: count: \(count), settingsTabItem:   \(settingsTabItem)")
         if count > 0 {
             settingsTabItem?.badgeValue = ""
-            //TODO: How to set to apps primary color?
-            settingsTabItem?.badgeColor = UIColor.green
+            settingsTabItem?.badgeColor = UIColor.button
         }   else {
             settingsTabItem?.badgeValue = nil
         }
