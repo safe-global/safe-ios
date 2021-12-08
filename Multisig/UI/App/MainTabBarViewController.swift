@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Intercom
 
 class MainTabBarViewController: UITabBarController {
     var onFirstAppear: (_ vc: MainTabBarViewController) -> Void = { _ in }
@@ -55,10 +56,16 @@ class MainTabBarViewController: UITabBarController {
             object: nil)
 
         NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(updateTabs),
-            name: .updatedExperemental,
-            object: nil)
+                self,
+                selector: #selector(updateTabs),
+                name: .updatedExperemental,
+                object: nil)
+
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(showBadge),
+                name: NSNotification.Name.IntercomUnreadConversationCountDidChange,
+                object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -157,11 +164,30 @@ class MainTabBarViewController: UITabBarController {
         return tabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 2)
     }
 
-    private func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
+    //TODO: Find a better way to update tab than storing a reference here
+    private var settingsTabItem : UITabBarItem? = nil
+
+    private func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int, isSettingsTab: Bool = false) -> UIViewController {
         let nav = UINavigationController(rootViewController: root)
         let tabItem = UITabBarItem(title: title, image: image, tag: tag)
+
+        if isSettingsTab {
+            settingsTabItem = tabItem
+        }
         nav.tabBarItem = tabItem
         return nav
+    }
+
+    @objc func showBadge() {
+        let count = Intercom.unreadConversationCount()
+        if count > 0 {
+            //TODO: Find out what value just shows a badge without a number
+            settingsTabItem?.badgeValue = "\(count)"
+            //TODO: How to set to apps primary color?
+            settingsTabItem?.badgeColor = UIColor.green
+        }   else {
+            settingsTabItem?.badgeValue = nil
+        }
     }
 
     @objc private func showQueuedTransactions() {

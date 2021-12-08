@@ -17,16 +17,6 @@ class IntercomConfig {
         Intercom.registerUnidentifiedUser()
 
         disableChatOverlay() // enable only where appropriate
-
-        NotificationCenter.default.addObserver(self,
-                selector: #selector(IntercomConfig.updateUnreadCount(_:)),
-                name: NSNotification.Name.IntercomUnreadConversationCountDidChange,
-                object: nil)
-
-    }
-
-    @objc func updateUnreadCount(_ count: UInt) {
-        print("FOOOOOOOOOOOOOOOOOOO: \(count)")
     }
 
     func disableFAB() {
