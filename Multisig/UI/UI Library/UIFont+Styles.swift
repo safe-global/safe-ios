@@ -50,8 +50,6 @@ extension GNOTextStyle {
     static let headline2 = GNOTextStyle(size: 17, weight: .bold)
 
     static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .primaryLabel)
-
-    static let normal = GNOTextStyle(size: 26, weight: .regular, fontName: "Averta Regular")
 }
 
 extension GNOTextStyle {

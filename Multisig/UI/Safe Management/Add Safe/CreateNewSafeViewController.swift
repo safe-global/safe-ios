@@ -22,13 +22,13 @@ class CreateNewSafeViewController: UIViewController, ExternalURLSource {
     private(set) var url: URL?
 
     @IBAction func webArticleLinkPressed(_ sender: Any) {
-        url = App.configuration.help.desktopPairingURL
+        url = App.configuration.help.createSafeURL
         openExternalURL()
         Tracker.trackEvent(.createSafeHelpArticle)
     }
 
     @IBAction func desktopAppLinkPressed(_ sender: Any) {
-        url = App.configuration.help.connectDappOnMobileURL
+        url = App.configuration.services.webAppURL
         openExternalURL()
         Tracker.trackEvent(.createSafeDesktopApp)
     }

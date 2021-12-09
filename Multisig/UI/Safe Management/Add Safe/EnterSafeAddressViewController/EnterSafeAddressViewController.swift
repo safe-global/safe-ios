@@ -10,7 +10,6 @@ import UIKit
 import Web3
 
 class EnterSafeAddressViewController: UIViewController {
-    var websiteURL = App.configuration.services.webAppURL
     var address: Address? { addressField?.address }
     var gatewayService = App.shared.clientGatewayService
     var completion: () -> Void = { }
@@ -20,11 +19,6 @@ class EnterSafeAddressViewController: UIViewController {
 
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var addressField: AddressField!
-    @IBOutlet private weak var actionStackView: UIStackView!
-    @IBOutlet private weak var actionLabel: UILabel!
-    @IBOutlet private weak var openWebsiteButton: UIButton!
-    @IBOutlet private weak var externalLinkIcon: UIImageView!
-    @IBOutlet private weak var suggestionStackView: UIStackView!
 
     private var loadSafeTask: URLSessionTask?
     private var nextButton: UIBarButtonItem!
@@ -35,8 +29,6 @@ class EnterSafeAddressViewController: UIViewController {
 
         headerLabel.setStyle(.headline)
 
-        actionLabel.setStyle(.primary)
-
         addressField.setPlaceholderText("Enter Safe address")
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
 
@@ -44,17 +36,11 @@ class EnterSafeAddressViewController: UIViewController {
         nextButton.isEnabled = false
 
         navigationItem.rightBarButtonItem = nextButton
-
-        openWebsiteButton.setText(websiteURL.absoluteString, .plain)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.safeAddAddress, parameters: trackingParameters)
-    }
-
-    @IBAction private func didTapOpenWebsiteButton(_ sender: Any) {
-        openInSafari(websiteURL)
     }
 
     @objc private func didTapNextButton(_ sender: Any) {
@@ -183,22 +169,14 @@ class EnterSafeAddressViewController: UIViewController {
         present(alertVC, animated: true, completion: nil)
     }
 
-    private func setSuggestionHidden(_ isHidden: Bool) {
-        suggestionStackView.isHidden = isHidden
-        externalLinkIcon.isHidden = isHidden
-    }
-
     private func didEnterText(_ text: String?) {
         addressField.clear()
         loadSafeTask?.cancel()
         nextButton.isEnabled = false
-        setSuggestionHidden(false)
 
         guard let text = text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
             return
         }
-
-        setSuggestionHidden(true)
 
         guard !text.isEmpty else {
             addressField.setError("Safe address should not be empty")
