@@ -44,7 +44,7 @@ extension GNOTextStyle {
 
     static let subhead = GNOTextStyle(size: 15, weight: .bold)
 
-    static let callout = GNOTextStyle(size: 16, weight: .regular)
+    static let callout = GNOTextStyle(size: 16, weight: .regular, color: .primaryLabel)
     static let error = GNOTextStyle(size: 16, weight: .regular, color: .error)
     static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .primaryLabel)
     static let headline2 = GNOTextStyle(size: 17, weight: .bold)
@@ -195,15 +195,15 @@ extension GNOButtonStyle {
     static let bordered = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
             .foregroundColor: UIColor.button,
-            .font: UIFont.gnoFont(forTextStyle: .primary)
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
             .foregroundColor: UIColor.button,
-            .font: UIFont.gnoFont(forTextStyle: .primary)
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
             .foregroundColor: UIColor.button,
-            .font: UIFont.gnoFont(forTextStyle: .primary)
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])
 

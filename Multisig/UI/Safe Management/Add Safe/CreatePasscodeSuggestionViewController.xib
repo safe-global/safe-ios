@@ -42,7 +42,7 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MkS-TR-Xqe">
                             <rect key="frame" x="0.0" y="38.5" width="374" height="61"/>
-                            <string key="text">Protect your data with a password used to unlock the Safe and confirm transactions.
+                            <string key="text">Protect your data with a passcode used to unlock the Safe and confirm transactions.
 </string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
