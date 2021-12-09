@@ -223,7 +223,8 @@ class SettingsUINavigationController: UINavigationController {
         LogService.shared.debug("showBadge() called: count: \(count)")
         if count > 0 {
             tabBarItem.badgeValue = ""
-            tabBarItem.badgeColor = UIColor.button
+            tabBarItem.badgeColor = UIColor.pending
+            tabBarItem.selectedImage = curcle
         } else {
             tabBarItem.badgeValue = nil
         }
