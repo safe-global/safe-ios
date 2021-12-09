@@ -8,20 +8,24 @@
 
 import UIKit
 
-class AddDelegateKeyController {
+class DelegateKeyController {
 
     weak var presenter: UIViewController?
-    var clientGatewayService = App.shared.clientGatewayService
+    private var clientGatewayService = App.shared.clientGatewayService
 
-    private let ownerAddress: Address
+    private let keyInfo: KeyInfo
     private let completionHandler: () -> Void
 
-    init(ownerAddress: Address, completion: @escaping () -> Void) {
-        self.ownerAddress = ownerAddress
+    init(ownerAddress: Address, completion: @escaping () -> Void) throws {
+        guard let keyOrNil = try KeyInfo.firstKey(address: ownerAddress) else {
+            throw GSError.OwnerKeyNotFoundForDelegate()
+        }
+
+        self.keyInfo = keyOrNil
         self.completionHandler = completion
     }
 
-    func start() {
+    func createDelegate() {
         // 1. generate a delegate key
         // 16 bit = 12 words
         let delegateSeed = Data.randomBytes(length: 16)!
@@ -41,31 +45,20 @@ class AddDelegateKeyController {
             switch signResult {
             // 3.1. on success, create delegate on backend
             case .success(let signatureData):
-
                 // 4. send message and signature to the backend
-                self.sendToBackend(
+                self.createOnBackEnd(
                     delegateAddress: delegatePrivateKey.address,
                     signature: signatureData
                 ) { [weak self] sendResult in
                     guard let self = self else { return }
-
                     switch sendResult {
                     // 4.1. on success, store the delegate key association
                     //             and the delegate key in the keychain
                     case .success:
                         // store the delegate key association to the key in the database
 
-                        // get the key info
-                        let keyInfo: KeyInfo
-                        do {
-                            keyInfo = try self.loadKeyInfo()
-                        } catch {
-                            self.abortProcess(error: error)
-                            return
-                        }
-
                         // modify to set delegate address
-                        keyInfo.delegateAddressString = delegatePrivateKey.address.checksummed
+                        self.keyInfo.delegateAddressString = delegatePrivateKey.address.checksummed
 
                         // store the delegate key in keychain
                         do {
@@ -73,60 +66,80 @@ class AddDelegateKeyController {
                             try delegatePrivateKey.save()
 
                             // save the database modifications
-                            keyInfo.save()
+                            self.keyInfo.save()
+
+                            // post notification so that UI state can be updated
+                            NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
+
+                            // trigger push notification registration
+                            App.shared.notificationHandler.signingKeyUpdated()
+
+                            Tracker.trackEvent(.addDelegateKeySuccess)
                         } catch {
                             // at this point, we registered delegate in the backend, will ignore that because
                             // the delegate can be overriden in the future attempts.
 
                             // however, we rollback the database changes to the KeyInfo
-                            keyInfo.rollback()
+                            self.keyInfo.rollback()
                         }
 
-                        // post notification so that UI state can be updated
-                        NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
-
-                        // trigger push notification registration
-                        App.shared.notificationHandler.signingKeyUpdated()
-
-                        self.completeProcess()
+                        self.completionHandler()
                         break
 
                     // 4.2. on error - show to the user, abort, close/completion
                     case .failure(let error):
-                        self.abortProcess(error: error)
+                        self.abortProcess(error: error, trackingEvent: .addDelegateKeyFailed)
                         break
                     }
                 }
-
-                break
-
-            // 3.2. on error, show erro to the user, abort&complete
+            // 3.2. on error, show error to the user, abort&complete
             case .failure(let error):
-                self.abortProcess(error: error)
-                break
+                self.abortProcess(error: error, trackingEvent: .addDelegateKeyFailed)
             }
         }
     }
 
-    func loadKeyInfo() throws -> KeyInfo {
-        let keyOrNil = try KeyInfo.firstKey(address: self.ownerAddress)
+    func deleteDelegate() {
+        do {
+            guard let delegateKey = try keyInfo.delegatePrivateKey() else {
+                throw GSError.PrivateKeyFetchError(reason: "Delegate key not found")
+            }
 
-        guard let keyInfo = keyOrNil else {
-            throw GSError.OwnerKeyNotFoundForDelegate()
+            let time = String(describing: Int(Date().timeIntervalSince1970) / 3600)
+            let messageToSign = delegateKey.address.checksummed + time
+            let hashToSign = EthHasher.hash(messageToSign)
+            let signature = try delegateKey.sign(hash: hashToSign)
+
+            self.deleteOnBackEnd(delegateAddress: delegateKey.address,
+                                 signature: signature.hexadecimal
+            ) { [weak self] sendResult in
+                guard let self = self else { return }
+                switch sendResult {
+                case .success:
+                    do {
+                        self.keyInfo.delegateAddressString = nil
+                        try delegateKey.save()
+                        self.keyInfo.save()
+                        NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
+                        App.shared.notificationHandler.signingKeyUpdated()
+
+                        Tracker.trackEvent(.deleteDelegateKeySuccess)
+                    } catch {
+                        self.keyInfo.rollback()
+                    }
+
+                    self.completionHandler()
+                case .failure(let error):
+                    self.abortProcess(error: error, trackingEvent: .deleteDelegateKeyFailed)
+                }
+            }
+        } catch {
+            abortProcess(error: error, trackingEvent: .deleteDelegateKeyFailed)
         }
-        return keyInfo
     }
 
     // sign and call back with signature or fail with error (incl. cancelled error)
-    func sign(message: Data, completion: @escaping (Result<Data, Error>) -> Void) {
-        let keyInfo: KeyInfo
-        do {
-            keyInfo = try self.loadKeyInfo()
-        } catch {
-            completion(.failure(error))
-            return
-        }
-
+    private func sign(message: Data, completion: @escaping (Result<Data, Error>) -> Void) {
         let title = "Confirm Push Notifications"
         let hexMessage = message.toHexStringWithPrefix()
         switch keyInfo.keyType {
@@ -176,7 +189,7 @@ class AddDelegateKeyController {
         }
     }
 
-    func sendToBackend(delegateAddress: Address, signature: Data, completion: @escaping (Result<Void, Error>) -> Void) {
+    func createOnBackEnd(delegateAddress: Address, signature: Data, completion: @escaping (Result<Void, Error>) -> Void) {
         // to synchronize multiple async processes, we use DispatchGroup
         let group = DispatchGroup()
 
@@ -184,11 +197,11 @@ class AddDelegateKeyController {
             // trigger request
             group.enter()
             clientGatewayService.asyncCreateDelegate(safe: nil,
-                    owner: ownerAddress,
-                    delegate: delegateAddress,
-                    signature: signature,
-                    label: "iOS Device Delegate",
-                    chainId: chain.id!) { result in
+                                                     owner: keyInfo.address,
+                                                     delegate: delegateAddress,
+                                                     signature: signature,
+                                                     label: "iOS Device Delegate",
+                                                     chainId: chain.id!) { result in
                 group.leave()
             }
         }
@@ -206,17 +219,38 @@ class AddDelegateKeyController {
         }
     }
 
-    func abortProcess(error: Error) {
-        Tracker.trackEvent(.addDelegateKeyFailed)
-        DispatchQueue.main.async { [weak self] in
-            App.shared.snackbar.show(message: error.localizedDescription)
-            self?.completionHandler()
+    func deleteOnBackEnd(delegateAddress: Address, signature: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        // to synchronize multiple async processes, we use DispatchGroup
+        let group = DispatchGroup()
+
+        Chain.all.forEach { chain in
+            // trigger request
+            group.enter()
+            clientGatewayService.asyncDeleteDelegate(owner: keyInfo.address,
+                                                     delegate: delegateAddress,
+                                                     signature: signature,
+                                                     chainId: chain.id!) { result in
+                group.leave()
+            }
+        }
+
+        // We use 60 seconds because it's a URLRequest's default timeout and
+        // we expect all requests to finish before that
+        let createDelegateRequestTimeoutInSeconds = 60 // one minute
+        let timeoutResult = group.wait(timeout: .now() + .seconds(createDelegateRequestTimeoutInSeconds))
+
+        switch timeoutResult {
+        case .success:
+            completion(.success(()))
+        case .timedOut:
+            completion(.failure(GSError.DeleteDelegateTimedOut()))
         }
     }
 
-    func completeProcess() {
-        Tracker.trackEvent(.addDelegateKeySuccess)
+    func abortProcess(error: Error, trackingEvent: TrackingEvent) {
+        Tracker.trackEvent(trackingEvent)
         DispatchQueue.main.async { [weak self] in
+            App.shared.snackbar.show(message: error.localizedDescription)
             self?.completionHandler()
         }
     }

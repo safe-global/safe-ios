@@ -25,7 +25,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
     private var sections = [SectionItems]()
-    private var addKeyController: AddDelegateKeyController!
+    private var addKeyController: DelegateKeyController!
 
     enum Section {
         case name(String)
@@ -353,16 +353,18 @@ class OwnerKeyDetailsViewController: UITableViewController {
                 }
             }
         case Section.PushNotificationConfiguration.enabled:
-            if keyInfo.delegateAddress == nil {
-                addKeyController = AddDelegateKeyController(ownerAddress: keyInfo.address) {
+            do {
+                addKeyController = try DelegateKeyController(ownerAddress: keyInfo.address) {
                     self.dismiss(animated: true, completion: nil)
                 }
                 addKeyController.presenter = self
-                addKeyController.start()
-            } else {
-                keyInfo.delegateAddress = nil
-                // TODO: Update backend
-                NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
+                if keyInfo.delegateAddress == nil {
+                    addKeyController.createDelegate()
+                } else {
+                    addKeyController.deleteDelegate()
+                }
+            } catch {
+                App.shared.snackbar.show(message: error.localizedDescription)
             }
             return
         default:
