@@ -248,7 +248,8 @@ class AppSettingsViewController: UITableViewController {
             show(experimentalViewController, sender: self)
             
         case Section.Support.chatWithUs:
-            //TODO: integrate itercom
+            //TODO: integrate intercom
+            Tracker.trackEvent(.userOpenIntercom)
             break
             
         case Section.Support.getSupport:
