@@ -43,6 +43,8 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "Select an asset"
+        
         tableView.registerCell(BalanceTableViewCell.self)
         
         tableView.allowsSelection = false
