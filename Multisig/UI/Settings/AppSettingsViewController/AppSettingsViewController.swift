@@ -101,6 +101,7 @@ class AppSettingsViewController: UITableViewController {
                 Section.App.experimental("Experimental")
             ]),
             (section: .support("Support & Feedback"), items: [
+                //TODO Remove unread count when a badge has been added
                 Section.Support.chatWithUs("Chat with us (\(unreadCount))"),
                 Section.Support.getSupport("Get Support")
             ]),
