@@ -10,7 +10,8 @@ import UIKit
 import Intercom
 
 class MainTabBarViewController: UITabBarController {
-    var onFirstAppear: (_ vc: MainTabBarViewController) -> Void = { _ in }
+    var onFirstAppear: (_ vc: MainTabBarViewController) -> Void = { _ in
+    }
 
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
@@ -38,44 +39,40 @@ class MainTabBarViewController: UITabBarController {
         tabBar.barTintColor = .secondaryBackground
 
         NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(showHistoryTransactions),
-            name: .incommingTxNotificationReceived,
-            object: nil)
+                self,
+                selector: #selector(showHistoryTransactions),
+                name: .incommingTxNotificationReceived,
+                object: nil)
 
         NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(showQueuedTransactions),
-            name: .queuedTxNotificationReceived,
-            object: nil)
+                self,
+                selector: #selector(showQueuedTransactions),
+                name: .queuedTxNotificationReceived,
+                object: nil)
 
         NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(showTransactionDetails),
-            name: .confirmationTxNotificationReceived,
-            object: nil)
+                self,
+                selector: #selector(showTransactionDetails),
+                name: .confirmationTxNotificationReceived,
+                object: nil)
 
         NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(updateTabs),
                 name: .updatedExperemental,
                 object: nil)
-
-        NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(showBadge),
-                name: NSNotification.Name.IntercomUnreadConversationCountDidChange,
-                object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard appearsFirstTime else { return }
+        guard appearsFirstTime else {
+            return
+        }
         appearsFirstTime = false
 
         onFirstAppear(self)
     }
-    
+
     private func balancesTabViewController() -> UIViewController {
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
@@ -98,7 +95,7 @@ class MainTabBarViewController: UITabBarController {
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         return tabViewController(
-            root: tabRoot, title: "Assets", image: UIImage(named: "tab-icon-balances.pdf")!, tag: 0)
+                root: tabRoot, title: "Assets", image: UIImage(named: "tab-icon-balances.pdf")!, tag: 0)
     }
 
     private func transactionsTabViewController() -> UIViewController {
@@ -125,9 +122,9 @@ class MainTabBarViewController: UITabBarController {
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         transactionsSegementControl = segmentVC
-        
+
         return tabViewController(
-            root: tabRoot, title: "Transactions", image: UIImage(named: "tab-icon-transactions")!, tag: 1)
+                root: tabRoot, title: "Transactions", image: UIImage(named: "tab-icon-transactions")!, tag: 1)
     }
 
     private func dappsTabViewController() -> UIViewController {
@@ -161,33 +158,21 @@ class MainTabBarViewController: UITabBarController {
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         
         let tabRoot = HeaderViewController(rootViewController: ribbonVC)
-        return tabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 2, isSettingsTab: true)
+        return settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 2, isSettingsTab: true)
     }
 
-    //TODO: Find a better way to update tab than storing a reference here
-    private var settingsTabItem : UITabBarItem? = nil
-
-    private func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int, isSettingsTab: Bool = false) -> UIViewController {
-        let nav = UINavigationController(rootViewController: root)
+    private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int, isSettingsTab: Bool = false) -> UIViewController {
+        let nav = SettingsUINavigationController(rootViewController: root)
         let tabItem = UITabBarItem(title: title, image: image, tag: tag)
-
-        //TODO: Can we not use this hack to have a reference to the UITabBarItem?
-        if isSettingsTab {
-            settingsTabItem = tabItem
-        }
         nav.tabBarItem = tabItem
         return nav
     }
 
-    @objc func showBadge() {
-        let count = Intercom.unreadConversationCount()
-        LogService.shared.debug("showBadge() called: count: \(count), settingsTabItem:   \(settingsTabItem)")
-        if count > 0 {
-            settingsTabItem?.badgeValue = ""
-            settingsTabItem?.badgeColor = UIColor.button
-        }   else {
-            settingsTabItem?.badgeValue = nil
-        }
+    private func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int, isSettingsTab: Bool = false) -> UIViewController {
+        let nav = UINavigationController(rootViewController: root)
+        let tabItem = UITabBarItem(title: title, image: image, tag: tag)
+        nav.tabBarItem = tabItem
+        return nav
     }
 
     @objc private func showQueuedTransactions() {
@@ -213,5 +198,34 @@ class MainTabBarViewController: UITabBarController {
         App.shared.notificationHandler.transactionDetailsPayload = nil
         let vc = ViewControllerFactory.transactionDetailsViewController(safeTxHash: safeTxHash)
         present(vc, animated: true, completion: nil)
+    }
+}
+
+class SettingsUINavigationController: UINavigationController {
+    override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
+        let count = Intercom.unreadConversationCount()
+        LogService.shared.debug("SettingsUINavigationController.init() called: count: \(count)")
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(showBadge),
+                name: NSNotification.Name.IntercomUnreadConversationCountDidChange,
+                object: nil)
+
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    @objc func showBadge() {
+        let count = Intercom.unreadConversationCount()
+        LogService.shared.debug("showBadge() called: count: \(count)")
+        if count > 0 {
+            tabBarItem.badgeValue = ""
+            tabBarItem.badgeColor = UIColor.button
+        } else {
+            tabBarItem.badgeValue = nil
+        }
     }
 }
