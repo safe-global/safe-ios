@@ -123,6 +123,18 @@ class WalletConnectClientController {
         }
     }
 
+    func sign(message: String, completion: @escaping (String?) -> Void) {
+        wcSign(message: message) { result in
+            switch result {
+            case .success(let signature):
+                completion(signature)
+
+            case .failure(_):
+                completion(nil)
+            }
+        }
+    }
+
     private func wcSign(transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
         guard let session = session,
               let client = client,
@@ -131,40 +143,57 @@ class WalletConnectClientController {
             return
         }
 
-        func handleResponse(_ response: Response) {
-            do {
-                var signature = try response.result(as: String.self)
-
-                var signatureBytes = Data(hex: signature).bytes
-                var v = signatureBytes.last!
-                if v < 27 {
-                    v += 27
-                    signatureBytes[signatureBytes.count - 1] = v
-                    signature = Data(signatureBytes).toHexStringWithPrefix()
-                }
-
-                completion(.success(signature))
-            } catch {
-                completion(.failure(error))
-            }
-        }
-
         do {
             switch session.walletInfo?.peerMeta.name ?? "" {
-
             // we call signTypedData only for wallets supporting this feature
             case "MetaMask", "LedgerLive", "🌈 Rainbow", "Trust Wallet":
                 let message = EIP712Transformer.typedDataString(from: transaction)
-                try client.eth_signTypedData(url: session.url, account: walletAddress, message: message) {
-                    handleResponse($0)
+                try client.eth_signTypedData(url: session.url, account: walletAddress, message: message) { [weak self] in
+                    self?.handleResponse($0, completion: completion)
                 }
 
             default:
                 let message = transaction.safeTxHash.description
-                try client.eth_sign(url: session.url, account: walletAddress, message: message) {
-                    handleResponse($0)
+                try client.eth_sign(url: session.url, account: walletAddress, message: message) { [weak self] in
+                    self?.handleResponse($0, completion: completion)
                 }
             }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+
+    // signs message without adding 'ethereum...' prefix to it.
+    private func wcSign(message: String, completion: @escaping (Result<String, Error>) -> Void) {
+        guard let session = session,
+              let client = client,
+              let walletAddress = session.walletInfo?.accounts.first else {
+            completion(.failure(GSError.WalletNotConnected(description: "Could not sign transaction")))
+            return
+        }
+
+        do {
+            try client.eth_sign(url: session.url, account: walletAddress, message: message) { [weak self] in
+                self?.handleResponse($0, completion: completion)
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+
+    private func handleResponse(_ response: Response, completion: @escaping (Result<String, Error>) -> Void) {
+        do {
+            var signature = try response.result(as: String.self)
+
+            var signatureBytes = Data(hex: signature).bytes
+            var v = signatureBytes.last!
+            if v < 27 {
+                v += 27
+                signatureBytes[signatureBytes.count - 1] = v
+                signature = Data(signatureBytes).toHexStringWithPrefix()
+            }
+
+            completion(.success(signature))
         } catch {
             completion(.failure(error))
         }

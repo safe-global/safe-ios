@@ -23,36 +23,34 @@ class AppSettingsViewController: UITableViewController {
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
     enum Section {
-        case web
         case app
-        case general
-        case advanced
-
-        enum Web: SectionItem {
-            case desktopPairing(String)
-        }
+        case support(String)
+        case advanced(String)
+        case about(String)
 
         enum App: SectionItem {
+            case desktopPairing(String)
             case ownerKeys(String, String)
             case addressBook(String)
             case passcode(String)
-            case appearance(String)
             case fiat(String, String)
             case chainPrefix(String)
+            case appearance(String)
             case experimental(String)
         }
-
-        enum General: SectionItem {
-            case terms(String)
-            case privacyPolicy(String)
-            case licenses(String)
-            case getInTouch(String)
-            case rateTheApp(String)
-            case appVersion(String, String)
+        
+        enum Support: SectionItem {
+            case chatWithUs(String)
+            case getSupport(String)
         }
-
+        
         enum Advanced: SectionItem {
             case advanced(String)
+        }
+
+        enum About: SectionItem {
+            case aboutGnosisSafe(String)
+            case appVersion(String, String)
         }
     }
 
@@ -72,6 +70,7 @@ class AppSettingsViewController: UITableViewController {
 
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(InfoCell.self)
+        tableView.registerCell(DetailedCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         buildSections()
@@ -87,7 +86,7 @@ class AppSettingsViewController: UITableViewController {
     private func buildSections() {
         sections = []
         if App.configuration.toggles.desktopPairingEnabled {
-            sections.append((section: .web, items: [Section.Web.desktopPairing("Desktop Pairing")]))
+            sections.append((section: .app, items: [Section.App.desktopPairing("Pair your Desktop")]))
         }
 
         sections += [
@@ -95,21 +94,21 @@ class AppSettingsViewController: UITableViewController {
                 Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
                 Section.App.addressBook("Address Book"),
                 Section.App.passcode("Passcode"),
-                Section.App.appearance("Appearance"),
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
                 Section.App.chainPrefix("Chain prefix"),
-                Section.App.experimental("Experimental 🧪")
+                Section.App.appearance("Appearance"),
+                Section.App.experimental("Experimental")
             ]),
-            (section: .general, items: [
-                Section.General.terms("Terms of use"),
-                Section.General.privacyPolicy("Privacy policy"),
-                Section.General.licenses("Licenses"),
-                Section.General.getInTouch("Get in touch"),
-                Section.General.rateTheApp("Rate the app"),
-                Section.General.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
+            (section: .support("Support & Feedback"), items: [
+                Section.Support.chatWithUs("Chat with us"),
+                Section.Support.getSupport("Get Support")
             ]),
-            (section: .advanced, items: [
+            (section: .advanced("Advanced"), items: [
                 Section.Advanced.advanced("Advanced")
+            ]),
+            (section: .about("About"), items: [
+                Section.About.aboutGnosisSafe("About Gnosis Safe"),
+                Section.About.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
             ])
         ]
     }
@@ -170,50 +169,45 @@ class AppSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.Web.desktopPairing(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath)
-
+            
+        case Section.App.desktopPairing(let name):
+            return tableView.basicCell(name: name, icon: "icon-app-settings-screen.pdf", indexPath: indexPath)
+            
         case Section.App.ownerKeys(let name, let count):
-            return tableView.basicCell(name: name, detail: count, indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-key.pdf", detail: count, indexPath: indexPath)
 
         case Section.App.addressBook(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-book.pdf", indexPath: indexPath)
             
         case Section.App.passcode(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath)
-
-        case Section.App.appearance(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath)
-
+            return tableView.basicCell(name: name, icon: "ico-app-settings-lock.pdf", indexPath: indexPath)
+            
         case Section.App.fiat(let name, let value):
-            return tableView.basicCell(name: name, detail: value, indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-fiat.pdf", detail: value, indexPath: indexPath)
 
         case Section.App.chainPrefix(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-hash.pdf", indexPath: indexPath)
 
+        case Section.App.appearance(let name):
+            return tableView.basicCell(name: name, icon: "ico-app-settings-moon.pdf", indexPath: indexPath)
+    
         case Section.App.experimental(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath)
-
-        case Section.General.terms(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath)
-
-        case Section.General.privacyPolicy(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath)
-
-        case Section.General.licenses(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath)
-
-        case Section.General.getInTouch(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath)
-
-        case Section.General.rateTheApp(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath)
-
-        case Section.General.appVersion(let name, let version):
-            return tableView.infoCell(name: name, info: version, indexPath: indexPath)
-
+            return tableView.basicCell(name: name, icon: "ico-app-settings-package.pdf", indexPath: indexPath)
+            
+        case Section.Support.chatWithUs(let name):
+            return tableView.basicCell(name: name, icon: "ico-app-settings-message-circle.pdf", indexPath: indexPath)
+            
+        case Section.Support.getSupport(let name):
+            return tableView.basicCell(name: name, icon: "ico-app-settings-support.pdf", indexPath: indexPath)
+            
         case Section.Advanced.advanced(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
+
+        case Section.About.aboutGnosisSafe(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
+            
+        case Section.About.appVersion(let name, let version):
+            return tableView.infoCell(name: name, info: version, indexPath: indexPath)
 
         default:
             return UITableViewCell()
@@ -226,7 +220,7 @@ class AppSettingsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.Web.desktopPairing:
+        case Section.App.desktopPairing:
             showDesktopPairing()
 
         case Section.App.ownerKeys:
@@ -237,48 +231,39 @@ class AppSettingsViewController: UITableViewController {
             
         case Section.App.passcode:
             openPasscode()
+            
+        case Section.App.fiat:
+            let selectFiatViewController = SelectFiatViewController()
+            show(selectFiatViewController, sender: self)
+            
+        case Section.App.chainPrefix:
+            show(ChainSettingsTableViewController(), sender: self)
 
         case Section.App.appearance:
             let appearanceViewController = ChangeDisplayModeTableViewController()
             show(appearanceViewController, sender: self)
 
-        case Section.App.fiat:
-            let selectFiatViewController = SelectFiatViewController()
-            show(selectFiatViewController, sender: self)
-
-        case Section.App.chainPrefix:
-            show(ChainSettingsTableViewController(), sender: self)
-
         case Section.App.experimental:
             let experimentalViewController = ExperimentalViewController()
             show(experimentalViewController, sender: self)
-
-        case Section.General.terms:
-            openInSafari(legal.termsURL)
-            Tracker.trackEvent(.settingsTerms)
-
-        case Section.General.privacyPolicy:
-            openInSafari(legal.privacyURL)
-            Tracker.trackEvent(.settingsPrivacyPolicy)
-
-        case Section.General.licenses:
-            openInSafari(legal.licensesURL)
-            Tracker.trackEvent(.settingsLicenses)
-
-        case Section.General.getInTouch:
+            
+        case Section.Support.chatWithUs:
+            //TODO: integrate itercom
+            break
+            
+        case Section.Support.getSupport:
             let getInTouchVC = GetInTouchView()
             let hostingController = UIHostingController(rootView: getInTouchVC)
             show(hostingController, sender: self)
-
-        case Section.General.rateTheApp:
-            let url = App.configuration.contact.appStoreReviewURL
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            Tracker.trackEvent(.settingsRateApp)
-
+            
         case Section.Advanced.advanced:
             let advancedVC = AdvancedAppSettings()
             let hostingController = UIHostingController(rootView: advancedVC)
             show(hostingController, sender: self)
+            
+        case Section.About.aboutGnosisSafe:
+            show(AboutGnosisSafeTableViewController(), sender: self)
+            break
 
         default:
             break
@@ -286,28 +271,36 @@ class AppSettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let section = sections[section].section
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+        switch section {
+        case Section.support(let name):
+            view.setName(name)
+            
+        case Section.advanced(let name):
+            view.setName(name)
+            
+        case Section.about(let name):
+            view.setName(name)
+            
+        default:
+            break
+        }
+        
         return view
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let item = sections[indexPath.section].items[indexPath.row]
-        switch item {
-        case Section.General.appVersion:
-            return InfoCell.rowHeight
-
-        default:
-            return BasicCell.rowHeight
-        }
+        return BasicCell.rowHeight
     }
   
     override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section].section
         switch section {
-        case .general, .advanced:
-            return sectionHeaderHeight
-        default:
+        case .app:
             return 0
+        default:
+            return BasicHeaderView.headerHeight
         }
     }
 }

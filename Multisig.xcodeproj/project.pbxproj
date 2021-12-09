@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A572456F4F50044A24C /* SafeInfoView.swift */; };
 		041C2A5A2456F53E0044A24C /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A592456F53E0044A24C /* QRView.swift */; };
+		041DAAE9274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041DAAE8274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift */; };
 		0422006025EFDF3700CAC173 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422005F25EFDF3700CAC173 /* TagView.swift */; };
 		0422007025EFDF4E00CAC173 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0422006F25EFDF4E00CAC173 /* TagView.xib */; };
 		04248BD9272DF18C00431397 /* NamingPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04248BD8272DF18C00431397 /* NamingPolicy.swift */; };
@@ -575,6 +576,7 @@
 		55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBA250A237C0080DF7F /* KeychainService.swift */; };
 		55CCD5832750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCD5822750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift */; };
 		55CCD5852750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CCD5842750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib */; };
+		55CCD58727550F42004EA3E3 /* AddDelegateKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */; };
 		55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0824939079003B2B19 /* ConsoleTracker.swift */; };
 		55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */; };
 		55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0B24939079003B2B19 /* Tracker.swift */; };
@@ -594,6 +596,7 @@
 		55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */; };
 		55F9B7A226D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */; };
 		55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */; };
+		D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */; };
 		D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */; };
 		D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68E0274E6AA500D7F5C5 /* main.swift */; };
 /* End PBXBuildFile section */
@@ -639,6 +642,7 @@
 /* Begin PBXFileReference section */
 		041C2A572456F4F50044A24C /* SafeInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeInfoView.swift; sourceTree = "<group>"; };
 		041C2A592456F53E0044A24C /* QRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
+		041DAAE8274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectKeyAddedViewController.swift; sourceTree = "<group>"; };
 		0422005F25EFDF3700CAC173 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		0422006F25EFDF4E00CAC173 /* TagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
 		04248BD8272DF18C00431397 /* NamingPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamingPolicy.swift; sourceTree = "<group>"; };
@@ -1202,6 +1206,7 @@
 		55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceIntegrationTests.swift; sourceTree = "<group>"; };
 		55CCD5822750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerBluetoothIssueFooterView.swift; sourceTree = "<group>"; };
 		55CCD5842750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LedgerBluetoothIssueFooterView.xib; sourceTree = "<group>"; };
+		55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDelegateKeyController.swift; sourceTree = "<group>"; };
 		55CEFC0824939079003B2B19 /* ConsoleTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
 		55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		55CEFC0B24939079003B2B19 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
@@ -1217,6 +1222,7 @@
 		55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LedgerPendingConfirmationViewController.xib; sourceTree = "<group>"; };
 		55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerPendingConfirmationViewController.swift; sourceTree = "<group>"; };
 		55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLedgerDeviceViewController.swift; sourceTree = "<group>"; };
+		D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGnosisSafeTableViewController.swift; sourceTree = "<group>"; };
 		D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		D86A68E0274E6AA500D7F5C5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2461,6 +2467,7 @@
 				550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */,
 				550FB1C026691E1500C13D54 /* ConnectWalletViewController.swift */,
 				550FB1C126691E1500C13D54 /* WalletConnectQRCodeViewController.swift */,
+				041DAAE8274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift */,
 			);
 			path = WalletConnectOwnerKey;
 			sourceTree = "<group>";
@@ -2700,6 +2707,7 @@
 				049A9DCF26020C0B00CA5723 /* SelectFiatViewController.swift */,
 				0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */,
 				04B964402734427D00A21EE9 /* ChainSettingsTableViewController.swift */,
+				D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */,
 			);
 			path = AppSettingsViewController;
 			sourceTree = "<group>";
@@ -2851,6 +2859,7 @@
 			isa = PBXGroup;
 			children = (
 				0ADD19B5265EA23200EB0F2B /* ExportViewController.swift */,
+				55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */,
 				55413674265E49E100796F91 /* AddOwnerKeyViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
@@ -3370,8 +3379,10 @@
 				0AF1C7FB25408A4D00E28669 /* SafeBarView.swift in Sources */,
 				550FB1C826691E4A00C13D54 /* ExperimentalViewController.swift in Sources */,
 				0ADD19BF265EA23200EB0F2B /* ExportViewController.swift in Sources */,
+				041DAAE9274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift in Sources */,
 				0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
+				D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */,
@@ -3569,6 +3580,7 @@
 				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,
 				0468EE9D26148A3B008270BF /* PrivacyProtectionScreenViewController.swift in Sources */,
 				55A5853D2501479C005E778B /* BIP39.swift in Sources */,
+				55CCD58727550F42004EA3E3 /* AddDelegateKeyController.swift in Sources */,
 				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,
 				0AB5DFB3270F48EB005BFB43 /* LedgerSignerViewController.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
