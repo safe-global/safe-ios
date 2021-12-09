@@ -197,8 +197,12 @@ class AppSettingsViewController: UITableViewController {
             return tableView.basicCell(name: name, icon: "ico-app-settings-package.pdf", indexPath: indexPath)
             
         case Section.Support.chatWithUs(let name):
-            return tableView.basicCell(name: name, icon: "ico-app-settings-message-circle.pdf", indexPath: indexPath)
-            
+            if Intercom.unreadConversationCount() > 0 {
+                return tableView.basicCell(name: name, icon: "ico-app-settings-support.pdf", indexPath: indexPath)
+            } else {
+                return tableView.basicCell(name: name, icon: "ico-app-settings-message-circle.pdf", indexPath: indexPath)
+            }
+
         case Section.Support.getSupport(let name):
             return tableView.basicCell(name: name, icon: "ico-app-settings-support.pdf", indexPath: indexPath)
             
