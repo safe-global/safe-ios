@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ico-settings-with-badge.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

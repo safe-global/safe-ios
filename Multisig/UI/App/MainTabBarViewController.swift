@@ -158,17 +158,17 @@ class MainTabBarViewController: UITabBarController {
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         
         let tabRoot = HeaderViewController(rootViewController: ribbonVC)
-        return settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 2, isSettingsTab: true)
+        return settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 3)
     }
 
-    private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int, isSettingsTab: Bool = false) -> UIViewController {
+    private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
         let nav = SettingsUINavigationController(rootViewController: root)
         let tabItem = UITabBarItem(title: title, image: image, tag: tag)
         nav.tabBarItem = tabItem
         return nav
     }
 
-    private func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int, isSettingsTab: Bool = false) -> UIViewController {
+    private func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
         let nav = UINavigationController(rootViewController: root)
         let tabItem = UITabBarItem(title: title, image: image, tag: tag)
         nav.tabBarItem = tabItem
@@ -204,8 +204,6 @@ class MainTabBarViewController: UITabBarController {
 class SettingsUINavigationController: UINavigationController {
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
-        let count = Intercom.unreadConversationCount()
-        LogService.shared.debug("SettingsUINavigationController.init() called: count: \(count)")
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(showBadge),
@@ -220,13 +218,13 @@ class SettingsUINavigationController: UINavigationController {
     
     @objc func showBadge() {
         let count = Intercom.unreadConversationCount()
-        LogService.shared.debug("showBadge() called: count: \(count)")
         if count > 0 {
             tabBarItem.badgeValue = ""
             tabBarItem.badgeColor = UIColor.pending
-            tabBarItem.selectedImage = curcle
+            tabBarItem.selectedImage = UIImage(named: "tab-icon-settings-with-badge")
         } else {
             tabBarItem.badgeValue = nil
+            tabBarItem.selectedImage = UIImage(named: "tab-icon-settings")
         }
     }
 }
