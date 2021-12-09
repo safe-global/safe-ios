@@ -74,5 +74,6 @@ class LoadSafeViewController: UIViewController {
         Safe.create(address: demoAddress.checksummed, version: safeVersion, name: demoName, chain: chain)
         
         App.shared.notificationHandler.safeAdded(address: demoAddress)
+        Tracker.trackEvent(.tryDemo)
     }
 }

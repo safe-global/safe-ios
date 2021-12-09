@@ -172,7 +172,7 @@ class AppSettingsViewController: UITableViewController {
         switch item {
             
         case Section.App.desktopPairing(let name):
-            return tableView.basicCell(name: name, icon: "icon-app-settings-screen", indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-desktop-pairing", indexPath: indexPath)
             
         case Section.App.ownerKeys(let name, let count):
             return tableView.basicCell(name: name, icon: "ico-app-settings-key", detail: count, indexPath: indexPath)
