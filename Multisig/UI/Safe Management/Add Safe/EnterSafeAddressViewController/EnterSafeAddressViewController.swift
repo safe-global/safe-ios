@@ -88,7 +88,8 @@ class EnterSafeAddressViewController: UIViewController {
                 let createPasscodeSuggestionVC = CreatePasscodeSuggestionViewController()
                 createPasscodeSuggestionVC.onExit = { [unowned enterAddressVC, unowned self] in
                     showImportKeySuggestion(from: enterAddressVC, createdCompletion: createdCompletion)
-                }                
+                }
+                createPasscodeSuggestionVC.hidesBottomBarWhenPushed = true
                 enterAddressVC.show(createPasscodeSuggestionVC, sender: enterAddressVC)
             } else {
                 showImportKeySuggestion(from: enterAddressVC, createdCompletion: createdCompletion)

@@ -37,7 +37,6 @@ class CreateNewSafeViewController: UIViewController, ExternalURLSource {
         super.viewDidLoad()
 
         title = "Create new Safe"
-        hidesBottomBarWhenPushed = true
 
         desktopAppButton.setTitle("", for: .normal)
         helpArticleButton.setTitle("", for: .normal)
