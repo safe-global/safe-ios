@@ -42,6 +42,10 @@ enum TrackingEvent: String, Trackable {
     case safeAddUd                                  = "screen_safe_add_ud"
     case networkSelect                              = "screen_chain_list"
 
+    case createSafe                                 = "screen_create_safe"
+    case createSafeDesktopApp                       = "user_create_safe_desktop_app"
+    case createSafeHelpArticle                      = "user_create_safe_help_article"
+
     case transactionsQueued                         = "screen_transactions_queue"
     case transactionsHistory                        = "screen_transactions_history"
     case transactionsNoSafe                         = "screen_transactions_no_safe"

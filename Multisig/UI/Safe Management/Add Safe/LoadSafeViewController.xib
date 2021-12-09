@@ -72,7 +72,6 @@
                             </state>
                             <connections>
                                 <action selector="didTabCreateSafe:" destination="-1" eventType="touchUpInside" id="TkB-fO-USA"/>
-                                <action selector="didTapLoadSafe:" destination="-1" eventType="touchUpInside" id="EU9-qj-phO"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ap6-46-C2w">

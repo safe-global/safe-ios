@@ -71,7 +71,8 @@ class LoadSafeViewController: UIViewController {
     }
 
     @IBAction func didTabCreateSafe(_ sender: Any) {
-
+        let controller = CreateNewSafeViewController()
+        show(controller, sender: self)
     }
 
     @IBAction func didTapTryDemo(_ sender: Any) {

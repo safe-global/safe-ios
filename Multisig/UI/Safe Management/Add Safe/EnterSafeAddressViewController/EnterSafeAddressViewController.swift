@@ -88,7 +88,7 @@ class EnterSafeAddressViewController: UIViewController {
                 let createPasscodeSuggestionVC = CreatePasscodeSuggestionViewController()
                 createPasscodeSuggestionVC.onExit = { [unowned enterAddressVC, unowned self] in
                     showImportKeySuggestion(from: enterAddressVC, createdCompletion: createdCompletion)
-                }
+                }                
                 enterAddressVC.show(createPasscodeSuggestionVC, sender: enterAddressVC)
             } else {
                 showImportKeySuggestion(from: enterAddressVC, createdCompletion: createdCompletion)
