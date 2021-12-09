@@ -20,6 +20,12 @@ struct AppConfiguration {
         @ConfigurationKey("INFURA_API_KEY")
         var infuraKey: String
 
+        @ConfigurationKey("INTERCOM_APP_ID")
+        var intercomAppId: String
+
+        @ConfigurationKey("INTERCOM_API_KEY")
+        var intercomApiKey: String
+
         @ConfigurationKey("GNOSIS_SAFE_WEB_URL")
         var webAppURL: URL
 

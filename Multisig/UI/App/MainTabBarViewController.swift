@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Intercom
 
 class MainTabBarViewController: UITabBarController {
-    var onFirstAppear: (_ vc: MainTabBarViewController) -> Void = { _ in }
+    var onFirstAppear: (_ vc: MainTabBarViewController) -> Void = { _ in
+    }
 
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
@@ -63,12 +65,14 @@ class MainTabBarViewController: UITabBarController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard appearsFirstTime else { return }
+        guard appearsFirstTime else {
+            return
+        }
         appearsFirstTime = false
 
         onFirstAppear(self)
     }
-    
+
     private func balancesTabViewController() -> UIViewController {
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
@@ -118,7 +122,7 @@ class MainTabBarViewController: UITabBarController {
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         transactionsSegementControl = segmentVC
-        
+
         return tabViewController(
             root: tabRoot, title: "Transactions", image: UIImage(named: "tab-icon-transactions")!, tag: 1)
     }
@@ -154,7 +158,14 @@ class MainTabBarViewController: UITabBarController {
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         
         let tabRoot = HeaderViewController(rootViewController: ribbonVC)
-        return tabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 2)
+        return settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 3)
+    }
+
+    private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
+        let nav = SettingsUINavigationController(rootViewController: root)
+        let tabItem = UITabBarItem(title: title, image: image, tag: tag)
+        nav.tabBarItem = tabItem
+        return nav
     }
 
     private func tabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
@@ -187,5 +198,31 @@ class MainTabBarViewController: UITabBarController {
         App.shared.notificationHandler.transactionDetailsPayload = nil
         let vc = ViewControllerFactory.transactionDetailsViewController(safeTxHash: safeTxHash)
         present(vc, animated: true, completion: nil)
+    }
+}
+
+class SettingsUINavigationController: UINavigationController {
+    override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showBadge),
+            name: NSNotification.Name.IntercomUnreadConversationCountDidChange,
+            object: nil)
+
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    @objc func showBadge() {
+        let count = Intercom.unreadConversationCount()
+        if count > 0 {
+            tabBarItem.badgeValue = ""
+            tabBarItem.badgeColor = UIColor.pending
+        } else {
+            tabBarItem.badgeValue = nil
+        }
     }
 }

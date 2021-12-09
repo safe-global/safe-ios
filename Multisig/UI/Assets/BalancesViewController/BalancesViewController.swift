@@ -213,6 +213,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         cell.onClose = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true
             recreateSectionsWithCurrentItems()
+            Tracker.trackEvent(.skipPasscodeBanner)
         }
         cell.onImport = { [unowned self] in
             AppSettings.passcodeBannerDismissed = true
@@ -227,6 +228,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             }
             let nav = UINavigationController(rootViewController: vc)
             present(nav, animated: true)
+            Tracker.trackEvent(.setupPasscodeFromBanner)
         }
         return cell
     }

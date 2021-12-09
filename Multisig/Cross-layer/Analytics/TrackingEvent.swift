@@ -33,6 +33,8 @@ enum TrackingEvent: String, Trackable {
     case assetsCoins                                = "screen_assets_coins"
     case assetsCollectibles                         = "screen_assets_collectibles"
     case assetsCollectiblesDetails                  = "screen_assets_collectibles_details"
+    case collectiblesNotSupported                   = "screen_collectibles_not_supported"
+    case collectiblesOpenInWeb                      = "user_collectibles_open_in_web"
 
     case safeReceive                                = "screen_safe_receive"
     case safeSwitch                                 = "screen_safe_switch"
@@ -41,6 +43,7 @@ enum TrackingEvent: String, Trackable {
     case safeAddEns                                 = "screen_safe_add_ens"
     case safeAddUd                                  = "screen_safe_add_ud"
     case networkSelect                              = "screen_chain_list"
+    case tryDemo                                    = "user_try_demo"
 
     case createSafe                                 = "screen_create_safe"
     case createSafeDesktopApp                       = "user_create_safe_desktop_app"
@@ -70,6 +73,12 @@ enum TrackingEvent: String, Trackable {
     case settingsAppAdvanced                        = "screen_settings_app_advanced"
     case settingsAppEditFiat                        = "screen_settings_app_edit_fiat"
     case settingsAppSupport                         = "screen_settings_app_support"
+    case settingsAppAppearance                      = "screen_settings_app_appearance"
+    case settingsAppChainPrefix                     = "screen_settings_app_chain_prefix"
+    case settingsTerms                              = "user_settings_open_terms"
+    case settingsPrivacyPolicy                      = "user_settings_open_privacy_policy"
+    case settingsLicenses                           = "user_settings_open_licenses"
+    case settingsRateApp                            = "user_settings_rate_app"
 
     case addressBookList                            = "screen_address_book_list"
     case addressBookAddEntry                        = "screen_adderess_book_add"
@@ -129,6 +138,8 @@ enum TrackingEvent: String, Trackable {
     case userPasscodeSkipped                        = "user_passcode_skipped"
     case userPasscodeSuggestionAccepted             = "user_passcode_suggestion_accepted"
     case userPasscodeSuggestionRejected             = "user_passcode_suggestion_rejected"
+    case skipPasscodeBanner                         = "user_banner_passcode_skip"
+    case setupPasscodeFromBanner                    = "user_banner_passcode_create"
 
     case userSafeAdded                              = "user_safe_added"
     case userSafeRemoved                            = "user_safe_removed"
@@ -140,7 +151,6 @@ enum TrackingEvent: String, Trackable {
     case connectInstalledWallet                     = "user_owner_connected_installed_wallet"
     case connectExternalWallet                      = "user_owner_connected_external_wallet"
     case dappConnectedWithUniversalLink             = "user_dapp_connected_universal_link"
-    case dappConnectedWithPasteboardValue           = "user_dapp_connected_pasteboard"
     case dappConnectedWithScanButton                = "user_dapp_connected_scan_button"
 
     case walletConnectIncomingTransaction           = "screen_wc_incoming_transaction"

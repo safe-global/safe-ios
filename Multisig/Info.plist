@@ -21,7 +21,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.4.0</string>
+	<string>3.5.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -67,6 +67,10 @@
 	<string>$(HELP_CENTER_URL)</string>
 	<key>INFURA_API_KEY</key>
 	<string>$(INFURA_API_KEY)</string>
+	<key>INTERCOM_APP_ID</key>
+	<string>$(INTERCOM_APP_ID)</string>
+	<key>INTERCOM_API_KEY</key>
+	<string>$(INTERCOM_API_KEY)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LICENSES_URL</key>
@@ -194,6 +198,6 @@
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
 	<key>DESKTOP_PAIRING_EXPERIMENTAL_ENABLED</key>
-	<string>$(DESKTOP_PAIRING_EXPERIMENTAL_ENABLED)</string>
+	<string>$(DESKTOP_PAIRING_EXPERIMENTAL_ENABLED)</string>	
 </dict>
 </plist>

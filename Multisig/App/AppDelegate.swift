@@ -8,10 +8,12 @@
 
 import UIKit
 import SwiftUI
+import Firebase
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         App.shared.firebaseConfig.setUp()
+        App.shared.intercomConfig.setUp()
 
         #if DEBUG
         Tracker.append(handler: ConsoleTracker())
@@ -36,19 +38,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
         Tracker.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
         Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
+        Tracker.setNumKeys(KeyInfo.count(.ledgerNanoX), type: .ledgerNanoX)
         Tracker.setPasscodeIsSet(to: App.shared.auth.isPasscodeSet)
         Tracker.setWalletConnectForDappsEnabled(App.configuration.toggles.walletConnectEnabled)
         Tracker.setDesktopPairingEnabled(App.configuration.toggles.desktopPairingEnabled)
 
         Safe.updateCachedNames()
         AddressBookEntry.updateCachedNames()
-        
+
         App.shared.notificationHandler.setUpMessaging(delegate: self)
 
         // Reconnect all WalletConnect sessions
         WalletConnectSafesServerController.shared.reconnectAllSessions()
         WalletConnectKeysServerController.shared.reconnectAllSessions()
         WalletConnectClientController.shared.reconnectIfNeeded()
+
+        // Fix transparent navigation bar in iOS 15
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
 
         return true
     }
@@ -68,6 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        LogService.shared.error("Failed to registed to remote notifications \(error)")
+        LogService.shared.error("PUSH: Failed to register to remote notifications \(error)")
     }
 }
