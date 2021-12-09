@@ -14,16 +14,16 @@ import Firebase
 extension AppDelegate: UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(
-            _ center: UNUserNotificationCenter,
-            willPresent notification: UNNotification,
-            withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        let userInfo = notification.request.content.userInfo
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            let userInfo = notification.request.content.userInfo
 
-        Messaging.messaging().appDidReceiveMessage(userInfo)
+            Messaging.messaging().appDidReceiveMessage(userInfo)
 
-        LogService.shared.debug("PUSH: App is in foreground, willPresent notification with userInfo: \(userInfo)")
-        completionHandler([.alert, .badge, .sound])
-    }
+            LogService.shared.debug("PUSH: App is in foreground, willPresent notification with userInfo: \(userInfo)")
+            completionHandler([.alert, .badge, .sound])
+        }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,

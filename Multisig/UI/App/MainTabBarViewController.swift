@@ -39,28 +39,28 @@ class MainTabBarViewController: UITabBarController {
         tabBar.barTintColor = .secondaryBackground
 
         NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(showHistoryTransactions),
-                name: .incommingTxNotificationReceived,
-                object: nil)
+            self,
+            selector: #selector(showHistoryTransactions),
+            name: .incommingTxNotificationReceived,
+            object: nil)
 
         NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(showQueuedTransactions),
-                name: .queuedTxNotificationReceived,
-                object: nil)
+            self,
+            selector: #selector(showQueuedTransactions),
+            name: .queuedTxNotificationReceived,
+            object: nil)
 
         NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(showTransactionDetails),
-                name: .confirmationTxNotificationReceived,
-                object: nil)
+            self,
+            selector: #selector(showTransactionDetails),
+            name: .confirmationTxNotificationReceived,
+            object: nil)
 
         NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(updateTabs),
-                name: .updatedExperemental,
-                object: nil)
+            self,
+            selector: #selector(updateTabs),
+            name: .updatedExperemental,
+            object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -95,7 +95,7 @@ class MainTabBarViewController: UITabBarController {
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         return tabViewController(
-                root: tabRoot, title: "Assets", image: UIImage(named: "tab-icon-balances.pdf")!, tag: 0)
+            root: tabRoot, title: "Assets", image: UIImage(named: "tab-icon-balances.pdf")!, tag: 0)
     }
 
     private func transactionsTabViewController() -> UIViewController {
@@ -124,7 +124,7 @@ class MainTabBarViewController: UITabBarController {
         transactionsSegementControl = segmentVC
 
         return tabViewController(
-                root: tabRoot, title: "Transactions", image: UIImage(named: "tab-icon-transactions")!, tag: 1)
+            root: tabRoot, title: "Transactions", image: UIImage(named: "tab-icon-transactions")!, tag: 1)
     }
 
     private func dappsTabViewController() -> UIViewController {
@@ -207,10 +207,10 @@ class SettingsUINavigationController: UINavigationController {
         let count = Intercom.unreadConversationCount()
         LogService.shared.debug("SettingsUINavigationController.init() called: count: \(count)")
         NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(showBadge),
-                name: NSNotification.Name.IntercomUnreadConversationCountDidChange,
-                object: nil)
+            self,
+            selector: #selector(showBadge),
+            name: NSNotification.Name.IntercomUnreadConversationCountDidChange,
+            object: nil)
 
     }
     
