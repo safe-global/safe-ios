@@ -597,6 +597,7 @@
 		55F9B7A226D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */; };
 		55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */; };
 		D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */; };
+		D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177527620649000B4C04 /* SelectAssetViewController.swift */; };
 		D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */; };
 		D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68E0274E6AA500D7F5C5 /* main.swift */; };
 /* End PBXBuildFile section */
@@ -1223,6 +1224,7 @@
 		55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerPendingConfirmationViewController.swift; sourceTree = "<group>"; };
 		55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLedgerDeviceViewController.swift; sourceTree = "<group>"; };
 		D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGnosisSafeTableViewController.swift; sourceTree = "<group>"; };
+		D865177527620649000B4C04 /* SelectAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetViewController.swift; sourceTree = "<group>"; };
 		D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		D86A68E0274E6AA500D7F5C5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1876,6 +1878,7 @@
 		0A6886AA2588FB190045CAB5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				D865177427620628000B4C04 /* Transfer */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
 				5503F62A255062070046545C /* CollectiblesViewController */,
 			);
@@ -2901,6 +2904,14 @@
 			path = Ledger;
 			sourceTree = "<group>";
 		};
+		D865177427620628000B4C04 /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
+			);
+			path = Transfer;
+			sourceTree = "<group>";
+		};
 		D86A68E2274E6B3E00D7F5C5 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -3425,6 +3436,7 @@
 				048D72BD26832FD70095999C /* ChainsListRequest.swift in Sources */,
 				551DBE3E26CD39DC0053CCB2 /* LedgerKeyPickerViewController.swift in Sources */,
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
+				D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */,
 				043ABD0F24EF0C33008826D5 /* SafeClientGatewayService.swift in Sources */,
 				04B4B6DD25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.swift in Sources */,
 				5588365425652E4B0014E8C7 /* LoadingValueCell.swift in Sources */,

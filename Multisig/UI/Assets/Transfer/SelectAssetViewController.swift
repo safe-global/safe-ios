@@ -10,6 +10,8 @@ import UIKit
 
 class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
     var term: String?
     
     var balances: [TokenBalance] = []
@@ -44,6 +46,7 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         super.viewDidLoad()
         
         navigationItem.title = "Select an asset"
+        navigationItem.searchController = searchController
         
         tableView.registerCell(BalanceTableViewCell.self)
         
@@ -54,9 +57,11 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.refreshControl = nil
         
         emptyView.setImage(UIImage(named: "ico-no-assets.pdf")!)
         emptyView.setText("No assets found.")
+        emptyView.refreshControl = nil
     }
     
     override func viewDidAppear(_ animated: Bool) {
