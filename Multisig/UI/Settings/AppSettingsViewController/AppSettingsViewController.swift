@@ -89,7 +89,6 @@ class AppSettingsViewController: UITableViewController {
         if App.configuration.toggles.desktopPairingEnabled {
             sections.append((section: .app, items: [Section.App.desktopPairing("Pair your Desktop")]))
         }
-        let unreadCount = Intercom.unreadConversationCount()
         sections += [
             (section: .app, items: [
                 Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
@@ -101,8 +100,7 @@ class AppSettingsViewController: UITableViewController {
                 Section.App.experimental("Experimental")
             ]),
             (section: .support("Support & Feedback"), items: [
-                //TODO Remove unread count when a badge has been added
-                Section.Support.chatWithUs("Chat with us (\(unreadCount))"),
+                Section.Support.chatWithUs("Chat with us"),
                 Section.Support.getSupport("Get Support")
             ]),
             (section: .advanced("Advanced"), items: [
@@ -174,38 +172,38 @@ class AppSettingsViewController: UITableViewController {
         switch item {
             
         case Section.App.desktopPairing(let name):
-            return tableView.basicCell(name: name, icon: "icon-app-settings-screen.pdf", indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "icon-app-settings-screen", indexPath: indexPath)
             
         case Section.App.ownerKeys(let name, let count):
-            return tableView.basicCell(name: name, icon: "ico-app-settings-key.pdf", detail: count, indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-key", detail: count, indexPath: indexPath)
 
         case Section.App.addressBook(let name):
-            return tableView.basicCell(name: name, icon: "ico-app-settings-book.pdf", indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-book", indexPath: indexPath)
             
         case Section.App.passcode(let name):
-            return tableView.basicCell(name: name, icon: "ico-app-settings-lock.pdf", indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-lock", indexPath: indexPath)
             
         case Section.App.fiat(let name, let value):
-            return tableView.basicCell(name: name, icon: "ico-app-settings-fiat.pdf", detail: value, indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-fiat", detail: value, indexPath: indexPath)
 
         case Section.App.chainPrefix(let name):
-            return tableView.basicCell(name: name, icon: "ico-app-settings-hash.pdf", indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-hash", indexPath: indexPath)
 
         case Section.App.appearance(let name):
-            return tableView.basicCell(name: name, icon: "ico-app-settings-moon.pdf", indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-moon", indexPath: indexPath)
     
         case Section.App.experimental(let name):
-            return tableView.basicCell(name: name, icon: "ico-app-settings-package.pdf", indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-package", indexPath: indexPath)
             
         case Section.Support.chatWithUs(let name):
             if Intercom.unreadConversationCount() > 0 {
-                return tableView.basicCell(name: name, icon: "ico-app-settings-support.pdf", indexPath: indexPath)
+                return tableView.basicCell(name: name, icon: "ico-app-settings-message-circle-with-badge", indexPath: indexPath)
             } else {
-                return tableView.basicCell(name: name, icon: "ico-app-settings-message-circle.pdf", indexPath: indexPath)
+                return tableView.basicCell(name: name, icon: "ico-app-settings-message-circle", indexPath: indexPath)
             }
 
         case Section.Support.getSupport(let name):
-            return tableView.basicCell(name: name, icon: "ico-app-settings-support.pdf", indexPath: indexPath)
+            return tableView.basicCell(name: name, icon: "ico-app-settings-support", indexPath: indexPath)
             
         case Section.Advanced.advanced(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)

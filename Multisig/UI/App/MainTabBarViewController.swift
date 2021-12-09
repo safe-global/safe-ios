@@ -219,9 +219,10 @@ class SettingsUINavigationController: UINavigationController {
     @objc func showBadge() {
         let count = Intercom.unreadConversationCount()
         if count > 0 {
-            tabBarItem.selectedImage = UIImage(named: "tab-icon-settings-with-badge")
+            tabBarItem.badgeValue = ""
+            tabBarItem.badgeColor = UIColor.pending
         } else {
-            tabBarItem.selectedImage = UIImage(named: "tab-icon-settings")
+            tabBarItem.badgeValue = nil
         }
     }
 }
