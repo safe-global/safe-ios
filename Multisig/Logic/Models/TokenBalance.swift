@@ -17,6 +17,7 @@ struct TokenBalance: Identifiable, Hashable {
     var imageURL: URL?
     var image: UIImage?
     let address: String
+    let name: String
     let symbol: String
     let balance: String
     let fiatBalance: String
@@ -25,6 +26,7 @@ struct TokenBalance: Identifiable, Hashable {
 extension TokenBalance {
     init(_ item: SCGBalance, code: String) {
         self.init(address: item.tokenInfo.address.address,
+                  name: item.tokenInfo.name,
                   symbol: item.tokenInfo.symbol,
                   logoUri: item.tokenInfo.logoUri,
                   tokenBalance: item.balance,
@@ -33,10 +35,11 @@ extension TokenBalance {
                   code: code)
     }
 
-    init(address: Address, symbol: String?, logoUri: String?, tokenBalance: UInt256String, decimals: UInt256String?, fiatBalance: String, code: String) {
+    init(address: Address, name: String?, symbol: String?, logoUri: String?, tokenBalance: UInt256String, decimals: UInt256String?, fiatBalance: String, code: String) {
         self.address = address.checksummed
         let coin = Chain.nativeCoin
 
+        self.name = name ?? coin?.name ?? "Ether"
         self.symbol = symbol ?? coin?.symbol ?? "ETH"
         self.imageURL = logoUri.flatMap { URL(string: $0) } ?? coin?.logoUrl
 

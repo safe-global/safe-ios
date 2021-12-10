@@ -32,7 +32,7 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         self.term = term
         
         filteredBalances = balances.filter { balance in
-            return balance.symbol.contains(term)
+            return balance.symbol.contains(term) || balance.name.contains(term)
         }
         if isEmpty {
             showOnly(view: emptyView)
@@ -59,7 +59,7 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         tableView.dataSource = self
         tableView.refreshControl = nil
         
-        emptyView.setImage(UIImage(named: "ico-no-assets.pdf")!)
+        emptyView.setImage(UIImage(named: "ico-no-assets")!)
         emptyView.setText("No assets found.")
         emptyView.refreshControl = nil
     }
@@ -68,10 +68,6 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         super.viewDidAppear(animated)
         onSuccess()
         Tracker.trackEvent(.assetsTransferSelect)
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
