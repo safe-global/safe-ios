@@ -8,11 +8,11 @@
 
 import UIKit
 
-class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
+class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
     let searchController = UISearchController(searchResultsController: nil)
     
-    var term: String?
+    var term: String = ""
     
     var balances: [TokenBalance] = []
     
@@ -28,18 +28,21 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         self.filteredBalances = balances
     }
     
-    func filterTokens(term: String) {
-        self.term = term
-        
-        filteredBalances = balances.filter { balance in
-            return balance.symbol.contains(term) || balance.name.contains(term)
+    func updateSearchResults(for searchController: UISearchController) {
+        term = searchController.searchBar.text ?? ""
+        if !term.isEmpty {
+            filteredBalances = balances.filter { balance in
+                return balance.symbol.contains(term) || balance.name.contains(term)
+            }
+        } else {
+            filteredBalances = balances
         }
         if isEmpty {
             showOnly(view: emptyView)
         } else {
             showOnly(view: tableView)
-            tableView.reloadData()
         }
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -62,6 +65,12 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         emptyView.setImage(UIImage(named: "ico-no-assets")!)
         emptyView.setText("No assets found.")
         emptyView.refreshControl = nil
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+        
+        definesPresentationContext = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
