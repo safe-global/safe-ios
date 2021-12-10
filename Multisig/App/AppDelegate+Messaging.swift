@@ -17,20 +17,25 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        let userInfo = notification.request.content.userInfo
-        LogService.shared.debug("PUSH: App is in foreground, willPresent notification with userInfo: \(userInfo)")
-        completionHandler([.alert, .badge, .sound])
-    }
+            let userInfo = notification.request.content.userInfo
+
+            Messaging.messaging().appDidReceiveMessage(userInfo)
+
+            LogService.shared.debug("PUSH: App is in foreground, willPresent notification with userInfo: \(userInfo)")
+            completionHandler([.alert, .badge, .sound])
+        }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
+
+        Messaging.messaging().appDidReceiveMessage(userInfo)
+
         LogService.shared.debug("PUSH: didReceive notification with userInfo: \(userInfo)")
         App.shared.notificationHandler.received(notification: userInfo)
         completionHandler()
     }
-
 }
 
 extension AppDelegate: MessagingDelegate {
@@ -43,6 +48,5 @@ extension AppDelegate: MessagingDelegate {
             LogService.shared.debug("Couldn't obtain fcmToken value")
         }
     }
-
 }
 

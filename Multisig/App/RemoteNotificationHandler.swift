@@ -274,8 +274,8 @@ class RemoteNotificationHandler {
     }
  }
 
-fileprivate func logDebug(_ msg: String) {
-    LogService.shared.debug("PUSH: " + msg)
+fileprivate func logDebug(_ msg: String, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
+    LogService.shared.debug("PUSH: " + msg, file: file, line: line, function: function)
 }
 
 fileprivate func logError(_ msg: String, _ error: Error) {

@@ -8,10 +8,12 @@
 
 import UIKit
 import SwiftUI
+import Firebase
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         App.shared.firebaseConfig.setUp()
+        App.shared.intercomConfig.setUp()
 
         #if DEBUG
         Tracker.append(handler: ConsoleTracker())
@@ -77,6 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        LogService.shared.error("Failed to registed to remote notifications \(error)")
+        LogService.shared.error("PUSH: Failed to register to remote notifications \(error)")
     }
 }
