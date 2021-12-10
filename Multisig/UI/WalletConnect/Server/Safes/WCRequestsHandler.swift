@@ -61,9 +61,8 @@ class WCRequestsHandler: RequestHandler {
 
             safe.update(from: safeInfo)
 
-            guard let transaction = Transaction(wcRequest: wcRequest, safe: safe, contractNonce: safeInfo.nonce),
-                  let importedKeysAddresses = try? KeyInfo.all().map({ $0.address })
-            else {
+            guard let transaction = Transaction(wcRequest: wcRequest, safe: safe),
+                  let importedKeysAddresses = try? KeyInfo.all().map({ $0.address }) else {
                 server.send(try! Response(request: request, error: .requestRejected))
                 return
             }
@@ -86,7 +85,6 @@ class WCRequestsHandler: RequestHandler {
                 let confirmationController = WCIncomingTransactionRequestViewController(
                     transaction: transaction,
                     safe: safe,
-                    minimalNonce: safeInfo.nonce,
                     topic: request.url.topic,
                     importedKeysForSafe: [Address](importedKeysForSafe))
 

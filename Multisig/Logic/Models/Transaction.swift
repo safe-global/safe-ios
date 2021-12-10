@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import Version
 
 // Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
 struct Transaction: Codable {
     var safe: AddressString?
-    var safeVersion: String?
+    var safeVersion: Version?
     var chainId: String?
 
     // required by a smart contract
@@ -52,21 +53,20 @@ extension Transaction {
         safeTxHash = multiSigTxInfo.safeTxHash
     }
 
-    init?(wcRequest: WCSendTransactionRequest, safe: Safe, contractNonce: UInt256String) {
+    init?(wcRequest: WCSendTransactionRequest, safe: Safe) {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
         guard safe.addressValue == wcRequest.from.address, let chainId = safe.chain?.id else { return nil }
 
         self.safe = wcRequest.from
         self.chainId = chainId
-        self.safeVersion = safe.contractVersion
-        self.nonce = contractNonce
+        self.safeVersion = Version(safe.contractVersion!)
 
-        to = wcRequest.to ?? AddressString.zero
-        value = wcRequest.value ?? "0"
-        data = wcRequest.data
-        operation = .call
-        safeTxGas = wcRequest.gas ?? "0"
+        self.to = wcRequest.to ?? AddressString.zero
+        self.value = wcRequest.value ?? "0"
+        self.data = wcRequest.data
+        self.operation = .call
+        self.safeTxGas = wcRequest.gas ?? "0"
 
         let estimationResult: SCGModels.TransactionEstimation
         do {
@@ -79,15 +79,19 @@ extension Transaction {
                     data: data?.data,
                     operation: operation)
 
-            if estimationResult.latestNonce.value >= nonce.value {
-                nonce = UInt256String(estimationResult.latestNonce.value + 1)
-            }
+            self.nonce = UInt256String(estimationResult.latestNonce.value + 1)
 
             if let estimatedSafeTxGas = UInt256(estimationResult.safeTxGas) {
-                safeTxGas = UInt256String(estimatedSafeTxGas)
+                self.safeTxGas = UInt256String(estimatedSafeTxGas)
             }
         } catch {
             LogService.shared.error("Estimation error: \(error)")
+            return nil
+        }
+
+        // For contracts starting 1.3.0 we setup safeTxGas to zero
+        if self.safeVersion! >= Version(1, 3, 0) {
+            self.safeTxGas = UInt256String(0)
         }
 
         baseGas = "0"
@@ -115,7 +119,7 @@ extension Transaction {
 
     static func rejectionTransaction(safeAddress: Address,
                                      nonce: UInt256String,
-                                     safeVersion: String,
+                                     safeVersion: Version,
                                      chainId: String) -> Transaction {
 
         var transaction = Transaction(to: AddressString(safeAddress),

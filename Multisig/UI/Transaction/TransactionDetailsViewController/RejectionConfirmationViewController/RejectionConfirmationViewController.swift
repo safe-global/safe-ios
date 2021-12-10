@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Version
 
 class RejectionConfirmationViewController: UIViewController {
 
@@ -24,7 +25,7 @@ class RejectionConfirmationViewController: UIViewController {
     private lazy var rejectionTransaction: Transaction = {
         Transaction.rejectionTransaction(safeAddress: safe.addressValue,
                                          nonce: transaction.multisigInfo!.nonce,
-                                         safeVersion: safe.contractVersion!,
+                                         safeVersion: Version(safe.contractVersion!)!,
                                          chainId: safe.chain!.id!)
     }()
     private var safe: Safe!

@@ -19,7 +19,7 @@ class EIP712Transformer {
         var eip712Description = EIP712Domain.eip712Description
 
         // Reference: https://github.com/gnosis/gnosis-py/blob/772a7da3a281c21931b8e5f01508a74cab7ecfb8/gnosis/safe/safe_tx.py#L169
-        if let v = Version(transaction.safeVersion!), v >= Version("1.3.0")! {
+        if transaction.safeVersion! >= Version("1.3.0")! {
             safeDomain.chainId = transaction.chainId
             eip712Description.members.insert(.init(name: "chainId", type: "uint256"), at: 0)
         }
