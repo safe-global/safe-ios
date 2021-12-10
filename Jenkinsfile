@@ -5,6 +5,9 @@
 //
 pipeline {
     agent any
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '30'))
+    }
     triggers {
         cron('@midnight')
     }

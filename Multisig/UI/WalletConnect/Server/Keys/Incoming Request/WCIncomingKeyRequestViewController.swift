@@ -34,7 +34,7 @@ class WCIncomingKeyRequestViewController: UIViewController {
     }
 
     @IBAction func confirm(_ sender: Any) {
-        if App.shared.auth.isPasscodeSet &&
+        if App.shared.auth.isPasscodeSetAndAvailable &&
             AppSettings.passcodeOptions.contains(.useForConfirmation) &&
             keyInfo.keyType != .ledgerNanoX {
 

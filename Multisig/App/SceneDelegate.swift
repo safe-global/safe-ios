@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var presentedWindow: UIWindow?
 
     private var shouldShowPasscode: Bool {
-        App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForLogin)
+        App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForLogin)
     }
 
     private var startedFromNotification: Bool {

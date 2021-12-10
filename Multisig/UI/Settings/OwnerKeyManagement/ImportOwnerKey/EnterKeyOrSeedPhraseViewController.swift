@@ -109,7 +109,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
                     name: name,
                     isDrivedFromSeedPhrase: false)
                 guard success else { return }
-                if App.shared.auth.isPasscodeSet {
+                if App.shared.auth.isPasscodeSetAndAvailable {
                     App.shared.snackbar.show(message: "Owner key successfully imported")
                     self.completion()
                 } else {
