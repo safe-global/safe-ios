@@ -24,10 +24,11 @@ class WCEditParametersViewController: UIViewController, ExternalURLSource {
     private var onUpdate: ((UInt256String, UInt256String?) -> Void)!
     private var trackingParameters: [String: Any]!
 
-    var url: URL? = App.configuration.help.desktopPairingURL
+    var url: URL? = App.configuration.help.advancedTxParamsURL
 
     @IBAction private func openHelpArticle(_ sender: Any) {
         openExternalURL()
+        Tracker.trackEvent(.advancedTxParamsOpenedHelp)
     }
 
     static func create(nonce: UInt256String,

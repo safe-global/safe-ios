@@ -51,6 +51,8 @@
 	<string>$(FALLBACKHANDLER_URL)</string>
 	<key>FEATURE_SUGGESTION_URL</key>
 	<string>$(FEATURE_SUGGESTION_URL)</string>
+	<key>ADVANCED_TX_PARAMS_URL</key>
+	<string>$(ADVANCED_TX_PARAMS_URL)</string>
 	<key>DESKTOP_PAIRING_URL</key>
 	<string>$(DESKTOP_PAIRING_URL)</string>
 	<key>LEDGER_PAIRING_URL</key>
@@ -196,6 +198,6 @@
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
 	<key>DESKTOP_PAIRING_EXPERIMENTAL_ENABLED</key>
-	<string>$(DESKTOP_PAIRING_EXPERIMENTAL_ENABLED)</string>	
+	<string>$(DESKTOP_PAIRING_EXPERIMENTAL_ENABLED)</string>
 </dict>
 </plist>

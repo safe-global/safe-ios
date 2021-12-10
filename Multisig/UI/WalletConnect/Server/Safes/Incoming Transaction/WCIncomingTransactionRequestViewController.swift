@@ -119,11 +119,11 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     private func signWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
         guard presentedViewController == nil else { return }
 
-        let pendingConfirmationVC = WCPendingConfirmationViewController()
+        let pendingConfirmationVC = WCPendingConfirmationViewController(transaction, keyInfo: keyInfo)
         present(pendingConfirmationVC, animated: true)
 
         pendingConfirmationVC.sign() { [weak self] signature in
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 self?.sendConfirmationAndDismiss(signature: signature,
                                                  trackingEvent: .incomingTxConfirmedWalletConnect)
             }
@@ -172,7 +172,7 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         self.init()
         self.transaction = transaction
         self.safe = safe
-        self.minimalNonce = safe.nonce! + 1
+        self.minimalNonce = safe.nonce!
         self.session = try! Session.from(WCSession.get(topic: topic)!)
         self.importedKeysForSafe = importedKeysForSafe
     }
