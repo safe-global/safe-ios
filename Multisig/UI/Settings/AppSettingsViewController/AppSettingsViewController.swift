@@ -253,6 +253,7 @@ class AppSettingsViewController: UITableViewController {
             show(experimentalViewController, sender: self)
             
         case Section.Support.chatWithUs:
+            Tracker.trackEvent(.userOpenIntercom)
             App.shared.intercomConfig.startChat()
             break
             

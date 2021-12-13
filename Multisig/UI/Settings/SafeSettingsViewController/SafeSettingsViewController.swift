@@ -207,8 +207,20 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.Advanced.removeSafe:
-            return removeSafeCell(indexPath: indexPath)
-
+            return tableView.removeCell(indexPath: indexPath, title: "Remove Safe") { [weak self] in
+                guard let `self` = self else { return }
+                let alertController = UIAlertController(
+                    title: nil,
+                    message: "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost.",
+                    preferredStyle: .actionSheet)
+                let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
+                    Safe.remove(safe: self.safe)
+                }
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alertController.addAction(remove)
+                alertController.addAction(cancel)
+                self.present(alertController, animated: true)
+            }
         default:
             return UITableViewCell()
         }
@@ -246,27 +258,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             cell.setTitle(name)
         } else {
             cell.displayLoading()
-        }
-        cell.selectionStyle = .none
-        return cell
-    }
-
-    private func removeSafeCell(indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(RemoveCell.self, for: indexPath)
-        cell.set(title: "Remove Safe")
-        cell.onRemove = { [weak self] in
-            guard let `self` = self else { return }
-            let alertController = UIAlertController(
-                title: nil,
-                message: "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost.",
-                preferredStyle: .actionSheet)
-            let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
-                Safe.remove(safe: self.safe)
-            }
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            alertController.addAction(remove)
-            alertController.addAction(cancel)
-            self.present(alertController, animated: true)
         }
         cell.selectionStyle = .none
         return cell

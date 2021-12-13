@@ -140,6 +140,7 @@ enum TrackingEvent: String, Trackable {
     case userPasscodeSuggestionRejected             = "user_passcode_suggestion_rejected"
     case skipPasscodeBanner                         = "user_banner_passcode_skip"
     case setupPasscodeFromBanner                    = "user_banner_passcode_create"
+    case userOpenIntercom                           = "user_settings_open_intercom"
 
     case userSafeAdded                              = "user_safe_added"
     case userSafeRemoved                            = "user_safe_removed"
@@ -182,4 +183,8 @@ enum TrackingEvent: String, Trackable {
     case addDelegateKeySkipped                      = "user_skip_add_delegate"
     case addDelegateKeySuccess                      = "user_success_add_delegate"
     case addDelegateKeyFailed                       = "user_failed_add_delegate"
+
+    // MARK: delete  delegate key
+    case deleteDelegateKeySuccess                   = "user_success_delete_delegate"
+    case deleteDelegateKeyFailed                    = "user_failed_delete_delegate"
 }
