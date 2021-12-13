@@ -198,6 +198,10 @@
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
 	<key>DESKTOP_PAIRING_EXPERIMENTAL_ENABLED</key>
-	<string>$(DESKTOP_PAIRING_EXPERIMENTAL_ENABLED)</string>	
+	<string>$(DESKTOP_PAIRING_EXPERIMENTAL_ENABLED)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>IntercomAutoIntegratePushNotifications</key>
+	<string>NO</string>
 </dict>
 </plist>
