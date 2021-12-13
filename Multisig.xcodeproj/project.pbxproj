@@ -503,6 +503,9 @@
 		555312F2250673AD0008206B /* BIP39Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312F1250673AC0008206B /* BIP39Tests.swift */; };
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
+		5559A915276758B500237A5D /* dapps-bsc.json in Resources */ = {isa = PBXBuildFile; fileRef = 5559A914276758B500237A5D /* dapps-bsc.json */; };
+		5559A91727675DB600237A5D /* dapps-arbitrum.json in Resources */ = {isa = PBXBuildFile; fileRef = 5559A91627675DB600237A5D /* dapps-arbitrum.json */; };
+		5559A91927675E3700237A5D /* dapps-optimism.json in Resources */ = {isa = PBXBuildFile; fileRef = 5559A91827675E3700237A5D /* dapps-optimism.json */; };
 		555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */; };
 		555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555DA310250A4C7C00C3A0BE /* KeychainKey.swift */; };
 		5562DD722693425E00B56722 /* NetworkIndicatorHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5562DD702693425E00B56722 /* NetworkIndicatorHeaderView.xib */; };
@@ -1133,6 +1136,9 @@
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
+		5559A914276758B500237A5D /* dapps-bsc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-bsc.json"; sourceTree = "<group>"; };
+		5559A91627675DB600237A5D /* dapps-arbitrum.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-arbitrum.json"; sourceTree = "<group>"; };
+		5559A91827675E3700237A5D /* dapps-optimism.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-optimism.json"; sourceTree = "<group>"; };
 		555DA310250A4C7C00C3A0BE /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
 		5562DD702693425E00B56722 /* NetworkIndicatorHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NetworkIndicatorHeaderView.xib; sourceTree = "<group>"; };
 		5562DD712693425E00B56722 /* NetworkIndicatorHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkIndicatorHeaderView.swift; sourceTree = "<group>"; };
@@ -2476,6 +2482,9 @@
 				550FB19D26691CA300C13D54 /* dapps-mainnet.json */,
 				55DA0664269DD52E006C9AA5 /* dapps-polygon.json */,
 				55DA0668269DD573006C9AA5 /* dapps-xdai.json */,
+				5559A91627675DB600237A5D /* dapps-arbitrum.json */,
+				5559A91827675E3700237A5D /* dapps-optimism.json */,
+				5559A914276758B500237A5D /* dapps-bsc.json */,
 			);
 			path = Dapps;
 			sourceTree = "<group>";
@@ -3156,6 +3165,7 @@
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
 				0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */,
+				5559A915276758B500237A5D /* dapps-bsc.json in Resources */,
 				049A9D3B25F81F2C00CA5723 /* EditOwnerKeyViewController.xib in Resources */,
 				0ADD19A8265E53C600EB0F2B /* QRCodeView.xib in Resources */,
 				0A2F1A78267A5E5B00C09F03 /* TotalCell.xib in Resources */,
@@ -3173,6 +3183,7 @@
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
+				5559A91927675E3700237A5D /* dapps-optimism.json in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				550FB1C226691E1500C13D54 /* WalletConnectQRCodeViewController.xib in Resources */,
 				0AC2A3C826FB6802002CB26A /* CollectiblesUnsupportedViewController.xib in Resources */,
@@ -3184,6 +3195,7 @@
 				550FB1B326691D9500C13D54 /* ExternalLinkHeaderFooterView.xib in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
+				5559A91727675DB600237A5D /* dapps-arbitrum.json in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
 				0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */,
 				04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */,

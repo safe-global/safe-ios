@@ -13,7 +13,6 @@ class BasicCell: UITableViewCell {
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet private weak var detailLabel: UILabel!
     @IBOutlet private weak var disclosureImageView: UIImageView!
-
  
     static let rowHeight: CGFloat = 60
 
@@ -33,7 +32,8 @@ class BasicCell: UITableViewCell {
             iconImage.isHidden = true
             return
         }
-        iconImage.image = UIImage(named: value)
+        let image = UIImage(named: value) ?? UIImage(systemName: value)
+        iconImage.image = image
         iconImage.isHidden = false
     }
 

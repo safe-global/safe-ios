@@ -1,21 +1,15 @@
 [
     {
-        "name": "Mesa",
-        "description": "Fully permissionless DEX",
-        "logo": "https://mesa.eth.link/assets/favicon.ico",
-        "url": "https://mesa.eth.link/"
+        "name": "CowSwap",
+        "description": "Ethereum's MetaDEX Aggregator that allows to trade with MEV protection",
+        "logo": "https://cowswap.exchange/favicon.png?v=1",
+        "url": "https://cowswap.exchange/"
     },
     {
         "name": "Uniswap",
         "description": "Decentralized Trading Protocol",
         "logo": "https://app.uniswap.org/favicon.png",
         "url": "https://app.uniswap.org/"
-    },
-    {
-        "name": "Sushi",
-        "description": "Swap, earn, stack yields, lend, borrow, leverage",
-        "logo": "https://app.sushi.com/favicon.ico",
-        "url": "https://app.sushi.com/"
     },
     {
         "name": "Balancer",

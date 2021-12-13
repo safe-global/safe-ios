@@ -9,6 +9,7 @@
 import UIKit
 import SwiftUI
 import WalletConnectSwift
+import Version
 
 class TransactionDetailsViewController: LoadableViewController, UITableViewDataSource, UITableViewDelegate {
     var clientGatewayService = App.shared.clientGatewayService
@@ -283,7 +284,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
 
         transaction.safe = AddressString(safeAddress)
-        transaction.safeVersion = safe.contractVersion
+        transaction.safeVersion = safe.contractVersion != nil ? Version(safe.contractVersion!) : nil
         transaction.chainId = chainId
 
         switch keyInfo.keyType {
