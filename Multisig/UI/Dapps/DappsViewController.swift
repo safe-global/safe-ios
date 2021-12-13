@@ -73,6 +73,8 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.registerCell(DetailedCell.self)
         tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.estimatedSectionFooterHeight = BasicHeaderView.headerHeight
+        tableView.estimatedRowHeight = DetailedCell.estimatedRowHeight
+        tableView.rowHeight = UITableView.automaticDimension
     }
 
     @objc private func update() {
@@ -245,10 +247,6 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
             return 0
         }
         return UITableView.automaticDimension
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return DetailedCell.rowHeight
     }
 
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {

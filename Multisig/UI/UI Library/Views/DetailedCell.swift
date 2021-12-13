@@ -14,7 +14,7 @@ class DetailedCell: UITableViewCell {
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
 
-    static let rowHeight: CGFloat = 64
+    static let estimatedRowHeight: CGFloat = 64
 
     override func awakeFromNib() {
         super.awakeFromNib()

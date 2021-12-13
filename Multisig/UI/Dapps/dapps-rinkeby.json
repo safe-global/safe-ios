@@ -1,5 +1,11 @@
 [
     {
+        "name": "CowSwap",
+        "description": "Ethereum's MetaDEX Aggregator that allows to trade with MEV protection",
+        "logo": "https://cowswap.exchange/favicon.png?v=1",
+        "url": "https://cowswap.exchange/"
+    },
+    {
         "name": "WalletConnect Example Dapp",
         "description": "Try out WalletConnect",
         "logo": "https://example.walletconnect.org/favicon.ico",

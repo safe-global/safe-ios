@@ -28,10 +28,9 @@ class ConnectWalletViewController: UITableViewController {
         title = "Connect Wallet"
 
         tableView.backgroundColor = .primaryBackground
-        tableView.registerCell(DetailedCell.self)
         tableView.registerCell(BasicCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
-        tableView.rowHeight = DetailedCell.rowHeight
+        tableView.rowHeight = BasicCell.rowHeight
 
         NotificationCenter.default.addObserver(
             self, selector: #selector(walletConnectSessionCreated(_:)), name: .wcDidConnectClient, object: nil)
@@ -111,25 +110,25 @@ class ConnectWalletViewController: UITableViewController {
         if indexPath.section == 0 {
             if installedWallets.count != 0 {
                 let wallet = installedWallets[indexPath.row]
-                return tableView.detailedCell(
-                    imageUrl: nil,
-                    header: wallet.name,
-                    description: nil,
+                return tableView.basicCell(
+                    name: wallet.name,
+                    icon: wallet.imageName,
                     indexPath: indexPath,
-                    canSelect: false,
-                    placeholderImage: UIImage(named: wallet.imageName))
+                    withDisclosure: false,
+                    canSelect: false
+                )
             } else {
                 return tableView.basicCell(
                     name: "Known wallets not found", indexPath: indexPath, withDisclosure: false, canSelect: false)
             }
         } else {
-            return tableView.detailedCell(
-                imageUrl: nil,
-                header: "Display QR Code",
-                description: nil,
+            return tableView.basicCell(
+                name: "Display QR Code",
+                icon: "qrcode",
                 indexPath: indexPath,
-                canSelect: false,
-                placeholderImage: UIImage(systemName: "qrcode"))
+                withDisclosure: false,
+                canSelect: false
+            )
         }
     }
 

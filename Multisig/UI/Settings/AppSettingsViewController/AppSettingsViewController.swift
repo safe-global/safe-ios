@@ -71,7 +71,6 @@ class AppSettingsViewController: UITableViewController {
 
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(InfoCell.self)
-        tableView.registerCell(DetailedCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         buildSections()
