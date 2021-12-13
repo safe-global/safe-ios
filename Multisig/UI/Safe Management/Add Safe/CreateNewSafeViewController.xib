@@ -15,7 +15,6 @@
                 <outlet property="descriptionLabel" destination="TZf-vU-4Bi" id="9OU-1o-WZB"/>
                 <outlet property="desktopAppButton" destination="Gxi-dy-BAN" id="6wL-Vb-yuj"/>
                 <outlet property="desktopLinkLabel" destination="DA1-FT-vpB" id="4pu-3h-6QE"/>
-                <outlet property="headerLabel" destination="XOo-ir-qCt" id="zpR-VG-c1G"/>
                 <outlet property="helpArticleButton" destination="Uba-0L-slH" id="TCj-8N-4Zt"/>
                 <outlet property="stepOneLabel" destination="I0S-Tr-OKi" id="NHk-f9-2ze"/>
                 <outlet property="stepThreeLabel" destination="UWr-UM-rod" id="X7R-AW-2NH"/>
@@ -30,16 +29,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Kry-PK-I39">
-                    <rect key="frame" x="16" y="60" width="382" height="122"/>
+                    <rect key="frame" x="16" y="68" width="382" height="85.5"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to Gnosis Safe?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOo-ir-qCt">
-                            <rect key="frame" x="112.5" y="0.0" width="157" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="0cQ-VO-zA9">
-                            <rect key="frame" x="1.5" y="36.5" width="379" height="85.5"/>
+                            <rect key="frame" x="1.5" y="0.0" width="379" height="85.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currently the creation of a Safe Multisig is not supported on mobile. You can create one in a few simple steps using our" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZf-vU-4Bi">
                                     <rect key="frame" x="0.0" y="0.0" width="379" height="61"/>
@@ -107,7 +100,7 @@
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4WY-N8-686">
                                     <rect key="frame" x="19" y="0.0" width="2" height="16"/>
-                                    <color key="backgroundColor" name="primaryBackground"/>
+                                    <color key="backgroundColor" name="gray4"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="2" id="QWm-le-TbF"/>
                                         <constraint firstAttribute="height" constant="16" id="kku-7w-Kas"/>
@@ -164,7 +157,7 @@
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMh-yx-CGS">
                                     <rect key="frame" x="19" y="0.0" width="2" height="16"/>
-                                    <color key="backgroundColor" name="primaryBackground"/>
+                                    <color key="backgroundColor" name="gray4"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="UZX-4T-QWR"/>
                                         <constraint firstAttribute="width" constant="2" id="eXO-RC-BDs"/>
@@ -242,7 +235,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gxi-dy-BAN">
-                    <rect key="frame" x="158.5" y="161.5" width="97" height="20.5"/>
+                    <rect key="frame" x="158.5" y="133" width="97" height="20.5"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain"/>
                     <connections>
@@ -253,9 +246,8 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Kry-PK-I39" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="1vu-AD-9NS"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="m3d-X0-3Cl" secondAttribute="trailing" constant="16" id="2Vp-vq-1Sm"/>
-                <constraint firstItem="Kry-PK-I39" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="3zj-3j-aaJ"/>
+                <constraint firstItem="Kry-PK-I39" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="24" id="3zj-3j-aaJ"/>
                 <constraint firstAttribute="trailing" secondItem="Kry-PK-I39" secondAttribute="trailing" constant="16" id="4qy-yS-EGP"/>
                 <constraint firstItem="qgr-U2-cL8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Kry-PK-I39" secondAttribute="bottom" constant="20" id="5fH-B1-R3F"/>
                 <constraint firstItem="ttA-97-9DJ" firstAttribute="top" secondItem="m3d-X0-3Cl" secondAttribute="bottom" constant="40" id="9jI-hT-eQs"/>
@@ -283,8 +275,8 @@
         <namedColor name="button">
             <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="primaryBackground">
-            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="gray4">
+            <color red="0.90980392156862744" green="0.90588235294117647" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="secondaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

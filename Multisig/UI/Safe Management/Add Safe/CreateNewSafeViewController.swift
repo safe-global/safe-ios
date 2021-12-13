@@ -9,7 +9,6 @@
 import UIKit
 
 class CreateNewSafeViewController: UIViewController, ExternalURLSource {
-    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var desktopLinkLabel: UILabel!
     @IBOutlet weak var stepOneLabel: UILabel!
@@ -41,7 +40,6 @@ class CreateNewSafeViewController: UIViewController, ExternalURLSource {
         desktopAppButton.setTitle("", for: .normal)
         helpArticleButton.setTitle("", for: .normal)
 
-        headerLabel.setStyle(.headline)
         descriptionLabel.setStyle(.primary)
         desktopLinkLabel.hyperLinkLabel(linkText: "Desktop App")
 
