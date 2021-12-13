@@ -167,8 +167,6 @@ enum TrackingEvent: String, Trackable {
     case addDelegateKeyFailed                       = "user_failed_add_delegate"
 
     // MARK: delete  delegate key
-    case deleteDelegateKeyStarted                   = "user_start_delete_delegate"
-    case deleteDelegateKeySkipped                   = "user_skip_delete_delegate"
     case deleteDelegateKeySuccess                   = "user_success_delete_delegate"
     case deleteDelegateKeyFailed                    = "user_failed_delete_delegate"
 }

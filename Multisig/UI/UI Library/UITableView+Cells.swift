@@ -81,7 +81,7 @@ extension UITableView {
         return cell
     }
 
-	func helpLinkCell(text: String, url: URL, indexPath: IndexPath) -> UITableViewCell {
+    func helpLinkCell(text: String, url: URL, indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueCell(HelpLinkTableViewCell.self, for: indexPath)
         cell.descriptionLabel.hyperLinkLabel(linkText: text)
         cell.url = url
