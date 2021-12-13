@@ -9,15 +9,6 @@
 import UIKit
 
 class ExperimentalViewController: UITableViewController {
-    @UserDefault(key: "io.gnosis.multisig.experimental.walletConnect")
-    var walletConnectEnabled: Bool? {
-        didSet {
-            tableView.reloadData()
-            Tracker.setWalletConnectForDappsEnabled(walletConnectEnabled ?? false)
-            NotificationCenter.default.post(name: .updatedExperemental, object: nil)
-        }
-    }
-
     @UserDefault(key: "io.gnosis.multisig.experimental.desktopPairing")
     var desktopPairingEnabled: Bool? {
         didSet {
@@ -28,14 +19,12 @@ class ExperimentalViewController: UITableViewController {
     }
 
     enum Row: Int, CaseIterable {
-        case walletConnect
-        case walletConnectDescription
         case desktopPairing
         case desktopPairingDescription
     }
 
     private lazy var rows: [Row] = {
-        var rows: [Row] = [.walletConnect, .walletConnectDescription]
+        var rows: [Row] = []
         if App.configuration.toggles.desktopPairingExperimentalEnabled {
             rows += [.desktopPairing, .desktopPairingDescription]
         }
@@ -55,10 +44,6 @@ class ExperimentalViewController: UITableViewController {
 
         tableView.backgroundColor = .primaryBackground
 
-        if walletConnectEnabled == nil {
-            walletConnectEnabled = false
-        }
-
         if desktopPairingEnabled == nil {
             desktopPairingEnabled = false
         }
@@ -77,18 +62,6 @@ class ExperimentalViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch rows[indexPath.row] {
-        case .walletConnect:
-            let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
-            cell.setText("Enable WalletConnect for Dapps")
-            cell.setOn(walletConnectEnabled!, animated: false)
-            return cell
-
-        case .walletConnectDescription:
-            return descriptionCell(
-                "It adds a tab to connect your Safe to dapps via WalletConnect.",
-                indexPath: indexPath
-            )
-
         case .desktopPairing:
             let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
             cell.setText("Enable Desktop Pairing")
@@ -119,9 +92,6 @@ class ExperimentalViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         switch rows[indexPath.row] {
-        case .walletConnect:
-            walletConnectEnabled!.toggle()
-
         case .desktopPairing:
             desktopPairingEnabled!.toggle()
 

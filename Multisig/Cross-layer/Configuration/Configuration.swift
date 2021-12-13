@@ -120,15 +120,8 @@ struct AppConfiguration {
     }
 
     struct FeatureToggles {
-        @UserDefault(key: "io.gnosis.multisig.experimental.walletConnect")
-        private var walletConnectEnabledSetting: Bool?
-
         @UserDefault(key: "io.gnosis.multisig.experimental.desktopPairing")
         private var desktopPairingEnabledSetting: Bool?
-
-        var walletConnectEnabled: Bool {
-            return walletConnectEnabledSetting ?? false
-        }
 
         @ConfigurationKey("DESKTOP_PAIRING_EXPERIMENTAL_ENABLED")
         var desktopPairingExperimentalEnabled: Bool
