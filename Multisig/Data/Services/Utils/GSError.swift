@@ -595,6 +595,15 @@ enum GSError {
         let loggable: Bool = false
     }
 
+    struct DeleteDelegateTimedOut: DetailedLocalizedError {
+        let description = "Push notifications were not disabled properly"
+        let reason = "Request to server timed out"
+        let howToFix = "Please try again later"
+        let domain = iOSErrorDomain
+        let code = 1324
+        let loggable: Bool = false
+    }
+
     // - MARK: - Unstoppable domain errors
 
     struct UDUnsuportedName: DetailedLocalizedError {

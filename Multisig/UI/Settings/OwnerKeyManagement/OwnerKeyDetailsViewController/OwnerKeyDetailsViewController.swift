@@ -25,12 +25,15 @@ class OwnerKeyDetailsViewController: UITableViewController {
     private typealias SectionItems = (section: Section, items: [SectionItem])
 
     private var sections = [SectionItems]()
+    private var addKeyController: DelegateKeyController!
 
     enum Section {
         case name(String)
         case keyAddress(String)
         case ownerKeyType(String)
         case connected(String)
+        case pushNotificationConfiguration(String)
+        case delegateKey(String)
         case advanced
 
         enum Name: SectionItem {
@@ -47,6 +50,15 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
         enum Connected: SectionItem {
             case connected
+        }
+
+        enum PushNotificationConfiguration: SectionItem {
+            case enabled
+        }
+
+        enum DelegateKey: SectionItem {
+            case address
+            case helpLink
         }
 
         enum Advanced: SectionItem {
@@ -91,22 +103,8 @@ class OwnerKeyDetailsViewController: UITableViewController {
         tableView.registerCell(KeyTypeTableViewCell.self)
         tableView.registerCell(RemoveCell.self)
         tableView.registerCell(SwitchTableViewCell.self)
+        tableView.registerCell(HelpLinkTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
-
-        sections = [
-            (section: .name("OWNER NAME"), items: [Section.Name.name]),
-
-            (section: .keyAddress("OWNER ADDRESS"),
-             items: [Section.KeyAddress.address]),
-
-            (section: .ownerKeyType("OWNER TYPE"),
-             items: [Section.OwnerKeyType.type])]
-
-        if keyInfo.keyType == .walletConnect {
-            sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
-        }
-
-        sections.append((section: .advanced, items: [Section.Advanced.remove]))
 
         for notification in [Notification.Name.ownerKeyUpdated, .wcDidDisconnectClient] {
             NotificationCenter.default.addObserver(
@@ -127,6 +125,8 @@ class OwnerKeyDetailsViewController: UITableViewController {
             selector: #selector(pop),
             name: .ownerKeyRemoved,
             object: nil)
+
+        reloadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -172,7 +172,31 @@ class OwnerKeyDetailsViewController: UITableViewController {
     }
 
     @objc private func reloadData() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
+            self.sections = [
+                (section: .name("OWNER NAME"), items: [Section.Name.name]),
+
+                (section: .keyAddress("OWNER ADDRESS"),
+                 items: [Section.KeyAddress.address]),
+
+                (section: .ownerKeyType("OWNER TYPE"),
+                 items: [Section.OwnerKeyType.type])]
+
+            if self.keyInfo.keyType == .walletConnect {
+                self.sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
+            }
+
+            if [.walletConnect, .ledgerNanoX].contains(keyInfo.keyType) {
+                self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
+                                 items: [Section.PushNotificationConfiguration.enabled]))
+                if self.keyInfo.delegateAddress != nil {
+                    self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
+                                     items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
+                }
+            }
+
+            self.sections.append((section: .advanced, items: [Section.Advanced.remove]))
+
             self.tableView.reloadData()
         }
     }
@@ -277,45 +301,33 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case Section.Name.name:
             return tableView.basicCell(name: keyInfo.name ?? "", indexPath: indexPath)
         case Section.KeyAddress.address:
-            return addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
+            return tableView.addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
         case Section.OwnerKeyType.type:
             return keyTypeCell(type: keyInfo.keyType, indexPath: indexPath)
         case Section.Connected.connected:
-            return switchCell(for: indexPath, with: "Connected", isOn: WalletConnectClientController.shared.isConnected(keyInfo: keyInfo))
+            return tableView.switchCell(for: indexPath,
+                                           with: "Connected",
+                                           isOn: WalletConnectClientController.shared.isConnected(keyInfo: keyInfo))
+        case Section.PushNotificationConfiguration.enabled:
+            return tableView.switchCell(for: indexPath, with: "Enabled", isOn: keyInfo.delegateAddress != nil)
+        case Section.DelegateKey.address:
+            return tableView.addressDetailsCell(address: keyInfo.delegateAddress ?? Address.zero, indexPath: indexPath)
+        case Section.DelegateKey.helpLink:
+            return tableView.helpLinkCell(text: "What is a delegate key and how does it relate to the Gnosis Safe",
+                                url: App.configuration.help.delegateKeyURL,
+                                indexPath: indexPath)
         case Section.Advanced.remove:
-            return removeKeyCell(indexPath: indexPath)
+            return tableView.removeCell(indexPath: indexPath, title: "Remove owner key") { [weak self] in
+                self?.removeKey()
+            }
         default:
             return UITableViewCell()
         }
     }
 
-    private func addressDetailsCell(address: Address, showQRCode: Bool, indexPath: IndexPath, badgeName: String? = nil) -> UITableViewCell {
-        let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, badgeName: badgeName, showQRCode: true)
-        return cell
-    }
-
     private func keyTypeCell(type: KeyType, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(KeyTypeTableViewCell.self, for: indexPath)
         cell.set(name: type.name, iconName: type.imageName)
-        cell.selectionStyle = .none
-        return cell
-    }
-
-    private func removeKeyCell(indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(RemoveCell.self, for: indexPath)
-        cell.set(title: "Remove owner key")
-        cell.onRemove = { [weak self] in
-            self?.removeKey()
-        }
-        cell.selectionStyle = .none
-        return cell
-    }
-
-    func switchCell(for indexPath: IndexPath, with text: String, isOn: Bool) -> SwitchTableViewCell {
-        let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
-        cell.setText(text)
-        cell.setOn(isOn, animated: false)
         cell.selectionStyle = .none
         return cell
     }
@@ -340,6 +352,21 @@ class OwnerKeyDetailsViewController: UITableViewController {
                     self.showConnectionQRCodeController()
                 }
             }
+        case Section.PushNotificationConfiguration.enabled:
+            do {
+                addKeyController = try DelegateKeyController(ownerAddress: keyInfo.address) {
+                    self.dismiss(animated: true, completion: nil)
+                }
+                addKeyController.presenter = self
+                if keyInfo.delegateAddress == nil {
+                    addKeyController.createDelegate()
+                } else {
+                    addKeyController.deleteDelegate()
+                }
+            } catch {
+                App.shared.snackbar.show(message: error.localizedDescription)
+            }
+            return
         default:
             break
         }
@@ -350,7 +377,10 @@ class OwnerKeyDetailsViewController: UITableViewController {
         switch item {
         case Section.KeyAddress.address:
             return UITableView.automaticDimension
-
+        case Section.DelegateKey.address:
+            return UITableView.automaticDimension
+        case Section.DelegateKey.helpLink:
+            return UITableView.automaticDimension
         case Section.Advanced.remove:
             return RemoveCell.rowHeight
 
@@ -370,6 +400,10 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case Section.ownerKeyType(let name):
             view.setName(name)
         case Section.connected(let name):
+            view.setName(name)
+        case .pushNotificationConfiguration(let name):
+            view.setName(name)
+        case .delegateKey(let name):
             view.setName(name)
         case Section.advanced:
             break

@@ -24,6 +24,7 @@
 		0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */; };
 		0428DA5B25CBFC25002CF4A9 /* HelpLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0428DA5925CBFC25002CF4A9 /* HelpLinkTableViewCell.xib */; };
 		0428DB1225CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */; };
+		0438C9212760120D009A0E31 /* DeleteDelegateKeyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */; };
 		043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043913A024BF4E480006517D /* BrowseLinkButton.swift */; };
 		043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */; };
 		0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439638427077E3C00018F74 /* TransactionEstimationRequest.swift */; };
@@ -576,7 +577,7 @@
 		55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBA250A237C0080DF7F /* KeychainService.swift */; };
 		55CCD5832750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCD5822750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift */; };
 		55CCD5852750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CCD5842750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib */; };
-		55CCD58727550F42004EA3E3 /* AddDelegateKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */; };
+		55CCD58727550F42004EA3E3 /* DelegateKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCD58627550F42004EA3E3 /* DelegateKeyController.swift */; };
 		55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0824939079003B2B19 /* ConsoleTracker.swift */; };
 		55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */; };
 		55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0B24939079003B2B19 /* Tracker.swift */; };
@@ -659,6 +660,7 @@
 		0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLinkTableViewCell.swift; sourceTree = "<group>"; };
 		0428DA5925CBFC25002CF4A9 /* HelpLinkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpLinkTableViewCell.xib; sourceTree = "<group>"; };
 		0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDisplayModeTableViewController.swift; sourceTree = "<group>"; };
+		0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDelegateKeyRequest.swift; sourceTree = "<group>"; };
 		043913A024BF4E480006517D /* BrowseLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLinkButton.swift; sourceTree = "<group>"; };
 		043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTransactionDetailsViewController.swift; sourceTree = "<group>"; };
 		0439638427077E3C00018F74 /* TransactionEstimationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEstimationRequest.swift; sourceTree = "<group>"; };
@@ -1208,7 +1210,7 @@
 		55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceIntegrationTests.swift; sourceTree = "<group>"; };
 		55CCD5822750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerBluetoothIssueFooterView.swift; sourceTree = "<group>"; };
 		55CCD5842750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LedgerBluetoothIssueFooterView.xib; sourceTree = "<group>"; };
-		55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDelegateKeyController.swift; sourceTree = "<group>"; };
+		55CCD58627550F42004EA3E3 /* DelegateKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateKeyController.swift; sourceTree = "<group>"; };
 		55CEFC0824939079003B2B19 /* ConsoleTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
 		55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		55CEFC0B24939079003B2B19 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
@@ -1328,6 +1330,7 @@
 				0ABC898E2576B857005D555B /* SCGModels.swift */,
 				0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */,
 				0A4F44532754DE3D00423ABB /* GetDelegateRequest.swift */,
+				0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */,
 			);
 			path = "Safe Client Gateway Service";
 			sourceTree = "<group>";
@@ -2864,7 +2867,7 @@
 			isa = PBXGroup;
 			children = (
 				0ADD19B5265EA23200EB0F2B /* ExportViewController.swift */,
-				55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */,
+				55CCD58627550F42004EA3E3 /* DelegateKeyController.swift */,
 				55413674265E49E100796F91 /* AddOwnerKeyViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
@@ -3305,6 +3308,7 @@
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
 				0A86EE6325CC2B350059876E /* LoadingFooterView.swift in Sources */,
+				0438C9212760120D009A0E31 /* DeleteDelegateKeyRequest.swift in Sources */,
 				0AE5A9C6267A4BEB00468C90 /* CreatePasscodeBannerCell.swift in Sources */,
 				557D80D3270B33BA0036D6D0 /* DesktopPairingViewController.swift in Sources */,
 				0A2F1A7B267A5E9E00C09F03 /* GSImageView.swift in Sources */,
@@ -3588,7 +3592,7 @@
 				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,
 				0468EE9D26148A3B008270BF /* PrivacyProtectionScreenViewController.swift in Sources */,
 				55A5853D2501479C005E778B /* BIP39.swift in Sources */,
-				55CCD58727550F42004EA3E3 /* AddDelegateKeyController.swift in Sources */,
+				55CCD58727550F42004EA3E3 /* DelegateKeyController.swift in Sources */,
 				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,
 				0AB5DFB3270F48EB005BFB43 /* LedgerSignerViewController.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,

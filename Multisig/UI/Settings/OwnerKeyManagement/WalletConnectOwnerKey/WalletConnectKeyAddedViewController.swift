@@ -9,7 +9,7 @@
 import Foundation
 
 class WalletConnectKeyAddedViewController: AccountActionCompletedViewController {
-    private var addKeyController: AddDelegateKeyController!
+    private var addKeyController: DelegateKeyController!
 
     convenience init() {
         self.init(namedClass: AccountActionCompletedViewController.self)
@@ -38,9 +38,13 @@ class WalletConnectKeyAddedViewController: AccountActionCompletedViewController 
     override func primaryAction(_ sender: Any) {
         // Start Add Delegate flow with the selected account address
         Tracker.trackEvent(.addDelegateKeyStarted)
-        addKeyController = AddDelegateKeyController(ownerAddress: accountAddress, completion: completion)
-        addKeyController.presenter = self
-        addKeyController.start()
+        do {
+            addKeyController = try DelegateKeyController(ownerAddress: accountAddress, completion: completion)
+            addKeyController.presenter = self
+            addKeyController.createDelegate()
+        } catch {
+            App.shared.snackbar.show(message: error.localizedDescription)
+        }
     }
 
     override func secondaryAction(_ sender: Any) {
