@@ -40,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
         Tracker.setNumKeys(KeyInfo.count(.ledgerNanoX), type: .ledgerNanoX)
         Tracker.setPasscodeIsSet(to: App.shared.auth.isPasscodeSet)
-        Tracker.setWalletConnectForDappsEnabled(App.configuration.toggles.walletConnectEnabled)
+        #warning("TODO: remove after 01.03.2022")
+        Tracker.setWalletConnectForDappsEnabled(true)
         Tracker.setDesktopPairingEnabled(App.configuration.toggles.desktopPairingEnabled)
 
         Safe.updateCachedNames()

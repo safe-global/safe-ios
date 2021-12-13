@@ -97,7 +97,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func handleUserActivity(_ userActivity: NSUserActivity) {
         // Does not make scense to handle WalletConnect URLs without a safe
-        guard let _ = try? Safe.getSelected(), App.configuration.toggles.walletConnectEnabled else { return }
+        guard let _ = try? Safe.getSelected() else { return }
 
         // Get URL components from the incoming user activity.
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
