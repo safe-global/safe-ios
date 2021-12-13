@@ -24,6 +24,7 @@
 		0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */; };
 		0428DA5B25CBFC25002CF4A9 /* HelpLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0428DA5925CBFC25002CF4A9 /* HelpLinkTableViewCell.xib */; };
 		0428DB1225CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */; };
+		0438C9212760120D009A0E31 /* DeleteDelegateKeyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */; };
 		043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043913A024BF4E480006517D /* BrowseLinkButton.swift */; };
 		043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */; };
 		0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439638427077E3C00018F74 /* TransactionEstimationRequest.swift */; };
@@ -485,6 +486,10 @@
 		5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C82449A1980067505A /* LogServiceTests.swift */; };
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
+		5534F7372760C7670018E655 /* CreatePasscodeSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */; };
+		5534F7382760C7670018E655 /* CreatePasscodeSuggestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */; };
+		5534F73B2761DAAD0018E655 /* CreateNewSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */; };
+		5534F73C2761DAAD0018E655 /* CreateNewSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */; };
 		55413671265E438500796F91 /* UnstoppableDomainsResolution in Frameworks */ = {isa = PBXBuildFile; productRef = 55413670265E438500796F91 /* UnstoppableDomainsResolution */; };
 		55413673265E493500796F91 /* AddOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413672265E493500796F91 /* AddOwnerKeyViewController.swift */; };
 		55413677265E4A0000796F91 /* AddOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */; };
@@ -579,7 +584,7 @@
 		55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBA250A237C0080DF7F /* KeychainService.swift */; };
 		55CCD5832750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCD5822750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift */; };
 		55CCD5852750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CCD5842750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib */; };
-		55CCD58727550F42004EA3E3 /* AddDelegateKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */; };
+		55CCD58727550F42004EA3E3 /* DelegateKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCD58627550F42004EA3E3 /* DelegateKeyController.swift */; };
 		55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0824939079003B2B19 /* ConsoleTracker.swift */; };
 		55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */; };
 		55CEFC0F24939079003B2B19 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEFC0B24939079003B2B19 /* Tracker.swift */; };
@@ -662,6 +667,7 @@
 		0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLinkTableViewCell.swift; sourceTree = "<group>"; };
 		0428DA5925CBFC25002CF4A9 /* HelpLinkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpLinkTableViewCell.xib; sourceTree = "<group>"; };
 		0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDisplayModeTableViewController.swift; sourceTree = "<group>"; };
+		0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDelegateKeyRequest.swift; sourceTree = "<group>"; };
 		043913A024BF4E480006517D /* BrowseLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLinkButton.swift; sourceTree = "<group>"; };
 		043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTransactionDetailsViewController.swift; sourceTree = "<group>"; };
 		0439638427077E3C00018F74 /* TransactionEstimationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEstimationRequest.swift; sourceTree = "<group>"; };
@@ -1111,6 +1117,10 @@
 		5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleLoggerTests.swift; sourceTree = "<group>"; };
 		5532D4D02449A1E40067505A /* MockLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLogger.swift; sourceTree = "<group>"; };
 		5532D4DD2449A34A0067505A /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeSuggestionViewController.swift; sourceTree = "<group>"; };
+		5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatePasscodeSuggestionViewController.xib; sourceTree = "<group>"; };
+		5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewSafeViewController.swift; sourceTree = "<group>"; };
+		5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateNewSafeViewController.xib; sourceTree = "<group>"; };
 		55413672265E493500796F91 /* AddOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyCell.swift; sourceTree = "<group>"; };
 		55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerKeyCell.xib; sourceTree = "<group>"; };
@@ -1214,7 +1224,7 @@
 		55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceIntegrationTests.swift; sourceTree = "<group>"; };
 		55CCD5822750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerBluetoothIssueFooterView.swift; sourceTree = "<group>"; };
 		55CCD5842750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LedgerBluetoothIssueFooterView.xib; sourceTree = "<group>"; };
-		55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDelegateKeyController.swift; sourceTree = "<group>"; };
+		55CCD58627550F42004EA3E3 /* DelegateKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateKeyController.swift; sourceTree = "<group>"; };
 		55CEFC0824939079003B2B19 /* ConsoleTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
 		55CEFC0A24939079003B2B19 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		55CEFC0B24939079003B2B19 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
@@ -1334,6 +1344,7 @@
 				0ABC898E2576B857005D555B /* SCGModels.swift */,
 				0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */,
 				0A4F44532754DE3D00423ABB /* GetDelegateRequest.swift */,
+				0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */,
 			);
 			path = "Safe Client Gateway Service";
 			sourceTree = "<group>";
@@ -1867,6 +1878,10 @@
 				0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */,
 				0A6886CF2588FC180045CAB5 /* EnterAddressNameViewController.swift */,
 				0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */,
+				5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */,
+				5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */,
+				5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */,
+				5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */,
 			);
 			path = "Add Safe";
 			sourceTree = "<group>";
@@ -2873,7 +2888,7 @@
 			isa = PBXGroup;
 			children = (
 				0ADD19B5265EA23200EB0F2B /* ExportViewController.swift */,
-				55CCD58627550F42004EA3E3 /* AddDelegateKeyController.swift */,
+				55CCD58627550F42004EA3E3 /* DelegateKeyController.swift */,
 				55413674265E49E100796F91 /* AddOwnerKeyViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
 				049A9D2D25F81EF700CA5723 /* EditOwnerKeyViewController */,
@@ -3104,6 +3119,7 @@
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */,
 				0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */,
+				5534F73C2761DAAD0018E655 /* CreateNewSafeViewController.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
@@ -3220,6 +3236,7 @@
 				0428DA4E25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib in Resources */,
 				0468FB9725912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib in Resources */,
 				0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */,
+				5534F7382760C7670018E655 /* CreatePasscodeSuggestionViewController.xib in Resources */,
 				0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3317,6 +3334,7 @@
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
 				0A86EE6325CC2B350059876E /* LoadingFooterView.swift in Sources */,
+				0438C9212760120D009A0E31 /* DeleteDelegateKeyRequest.swift in Sources */,
 				0AE5A9C6267A4BEB00468C90 /* CreatePasscodeBannerCell.swift in Sources */,
 				557D80D3270B33BA0036D6D0 /* DesktopPairingViewController.swift in Sources */,
 				0A2F1A7B267A5E9E00C09F03 /* GSImageView.swift in Sources */,
@@ -3462,6 +3480,7 @@
 				55B64666253051630050BD95 /* SelectOwnerAddressViewModel.swift in Sources */,
 				557D80AF270B32F80036D6D0 /* WCEditParametersViewController.swift in Sources */,
 				0428DB1225CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift in Sources */,
+				5534F7372760C7670018E655 /* CreatePasscodeSuggestionViewController.swift in Sources */,
 				0AC2A3CA26FB6B84002CB26A /* WebAppURLBuilder.swift in Sources */,
 				0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */,
 				04273E5C26B41A3700A14E95 /* APDUController.swift in Sources */,
@@ -3600,7 +3619,7 @@
 				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,
 				0468EE9D26148A3B008270BF /* PrivacyProtectionScreenViewController.swift in Sources */,
 				55A5853D2501479C005E778B /* BIP39.swift in Sources */,
-				55CCD58727550F42004EA3E3 /* AddDelegateKeyController.swift in Sources */,
+				55CCD58727550F42004EA3E3 /* DelegateKeyController.swift in Sources */,
 				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,
 				0AB5DFB3270F48EB005BFB43 /* LedgerSignerViewController.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
@@ -3653,6 +3672,7 @@
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
 				0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */,
 				04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */,
+				5534F73B2761DAAD0018E655 /* CreateNewSafeViewController.swift in Sources */,
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,
 				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
 			);

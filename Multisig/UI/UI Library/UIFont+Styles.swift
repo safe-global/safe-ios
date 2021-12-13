@@ -44,14 +44,12 @@ extension GNOTextStyle {
 
     static let subhead = GNOTextStyle(size: 15, weight: .bold)
 
-    static let callout = GNOTextStyle(size: 16, weight: .regular, color: .secondaryLabel)
+    static let callout = GNOTextStyle(size: 16, weight: .regular, color: .primaryLabel)
     static let error = GNOTextStyle(size: 16, weight: .regular, color: .error)
     static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .primaryLabel)
     static let headline2 = GNOTextStyle(size: 17, weight: .bold)
 
     static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .primaryLabel)
-
-    static let normal = GNOTextStyle(size: 26, weight: .regular, fontName: "Averta Regular")
 }
 
 extension GNOTextStyle {
@@ -190,6 +188,21 @@ extension GNOButtonStyle {
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-filled-inactive"), textAttributes: [
             .foregroundColor: UIColor.primaryBackground,
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ]))
+    ])
+
+    static let bordered = GNOButtonStyle(appearance: [
+        (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
+            .foregroundColor: UIColor.button,
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ])),
+        (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
+            .foregroundColor: UIColor.button,
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ])),
+        (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
+            .foregroundColor: UIColor.button,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])

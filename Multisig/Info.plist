@@ -49,6 +49,8 @@
 	<string>$(DISCORD_URL)</string>
 	<key>FALLBACKHANDLER_URL</key>
 	<string>$(FALLBACKHANDLER_URL)</string>
+	<key>DELEGATE_KEY_URL</key>
+	<string>$(DELEGATE_KEY_URL)</string>
 	<key>FEATURE_SUGGESTION_URL</key>
 	<string>$(FEATURE_SUGGESTION_URL)</string>
 	<key>ADVANCED_TX_PARAMS_URL</key>
@@ -57,6 +59,8 @@
 	<string>$(DESKTOP_PAIRING_URL)</string>
 	<key>LEDGER_PAIRING_URL</key>
 	<string>$(LEDGER_PAIRING_URL)</string>
+	<key>CREATE_SAFE_URL</key>
+	<string>$(CREATE_SAFE_URL)</string>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<false/>
 	<key>GNOSIS_SAFE_WEB_URL</key>

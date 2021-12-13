@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="y50-KN-XRf">
-                    <rect key="frame" x="16" y="64" width="382" height="576"/>
+                    <rect key="frame" x="16" y="64" width="382" height="426"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xMX-8F-x2L">
                             <rect key="frame" x="132" y="0.0" width="118.5" height="24"/>
@@ -58,8 +58,18 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Icj-PM-PmL" secondAttribute="trailing" constant="20" id="FAu-j1-ZLG"/>
+                        <constraint firstItem="e9z-vk-UYQ" firstAttribute="width" secondItem="y50-KN-XRf" secondAttribute="width" id="f4s-Ty-43T"/>
+                        <constraint firstItem="Icj-PM-PmL" firstAttribute="leading" secondItem="y50-KN-XRf" secondAttribute="leading" constant="20" id="yLJ-ib-5tc"/>
+                    </constraints>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="HHx-nQ-VG2">
+                    <rect key="frame" x="16" y="730" width="382" height="116"/>
+                    <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndJ-JW-SGt">
-                            <rect key="frame" x="0.0" y="458" width="382" height="56"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="OtO-KT-ebz"/>
                             </constraints>
@@ -69,7 +79,10 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQV-Bp-zgJ">
-                            <rect key="frame" x="0.0" y="546" width="382" height="30"/>
+                            <rect key="frame" x="0.0" y="72" width="382" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="i52-sS-N5G"/>
+                            </constraints>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="secondaryAction:" destination="-1" eventType="touchUpInside" id="d6Q-he-lfh"/>
@@ -77,11 +90,7 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="Icj-PM-PmL" secondAttribute="trailing" constant="20" id="FAu-j1-ZLG"/>
-                        <constraint firstItem="cQV-Bp-zgJ" firstAttribute="width" secondItem="ndJ-JW-SGt" secondAttribute="width" id="FcE-Xe-SMQ"/>
-                        <constraint firstItem="ndJ-JW-SGt" firstAttribute="width" secondItem="y50-KN-XRf" secondAttribute="width" id="Lhg-iv-bd5"/>
-                        <constraint firstItem="e9z-vk-UYQ" firstAttribute="width" secondItem="y50-KN-XRf" secondAttribute="width" id="f4s-Ty-43T"/>
-                        <constraint firstItem="Icj-PM-PmL" firstAttribute="leading" secondItem="y50-KN-XRf" secondAttribute="leading" constant="20" id="yLJ-ib-5tc"/>
+                        <constraint firstItem="cQV-Bp-zgJ" firstAttribute="width" secondItem="ndJ-JW-SGt" secondAttribute="width" id="mkp-su-4FS"/>
                     </constraints>
                 </stackView>
             </subviews>
@@ -89,8 +98,11 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="y50-KN-XRf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="ERe-X0-h0X"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="HHx-nQ-VG2" secondAttribute="trailing" constant="16" id="Q57-4t-115"/>
                 <constraint firstItem="y50-KN-XRf" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-16" id="WOu-t3-orm"/>
                 <constraint firstItem="y50-KN-XRf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Z6N-Dh-qUE"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="HHx-nQ-VG2" secondAttribute="bottom" constant="16" id="dMV-SV-26O"/>
+                <constraint firstItem="HHx-nQ-VG2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="giN-yQ-4uk"/>
             </constraints>
             <point key="canvasLocation" x="60.869565217391312" y="73.660714285714278"/>
         </view>
