@@ -607,9 +607,17 @@
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */; };
+<<<<<<< HEAD
 		D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177527620649000B4C04 /* SelectAssetViewController.swift */; };
+<<<<<<< HEAD
 		D865178127687E0B000B4C04 /* TransactionSuccessScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177F27687E0B000B4C04 /* TransactionSuccessScreen.swift */; };
 		D865178227687E0B000B4C04 /* TransactionSuccessScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D865178027687E0B000B4C04 /* TransactionSuccessScreen.xib */; };
+=======
+=======
+		D86517792767555E000B4C04 /* TotalBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517782767555E000B4C04 /* TotalBalanceView.swift */; };
+		D865177D27675DD1000B4C04 /* TotalBalanceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D865177C27675DD1000B4C04 /* TotalBalanceView.xib */; };
+>>>>>>> 3ef071424 (gh-1644 Add custom view for total balance)
+>>>>>>> 35120cc52 (gh-1644 Add custom view for total balance)
 		D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */; };
 		D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68E0274E6AA500D7F5C5 /* main.swift */; };
 /* End PBXBuildFile section */
@@ -1245,9 +1253,17 @@
 		55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLedgerDeviceViewController.swift; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGnosisSafeTableViewController.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		D865177527620649000B4C04 /* SelectAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetViewController.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		D865177F27687E0B000B4C04 /* TransactionSuccessScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSuccessScreen.swift; sourceTree = "<group>"; };
 		D865178027687E0B000B4C04 /* TransactionSuccessScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionSuccessScreen.xib; sourceTree = "<group>"; };
+=======
+=======
+		D86517782767555E000B4C04 /* TotalBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceView.swift; sourceTree = "<group>"; };
+		D865177C27675DD1000B4C04 /* TotalBalanceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotalBalanceView.xib; sourceTree = "<group>"; };
+>>>>>>> 3ef071424 (gh-1644 Add custom view for total balance)
+>>>>>>> 35120cc52 (gh-1644 Add custom view for total balance)
 		D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		D86A68E0274E6AA500D7F5C5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2181,6 +2197,7 @@
 		0AB9F4C3254C64680044395F /* BalancesViewController */ = {
 			isa = PBXGroup;
 			children = (
+				D8651777276754F0000B4C04 /* TotalBalance */,
 				0AF1C9132541C68000E28669 /* BalancesViewController.swift */,
 				0A433E7F25516A9A006FFF75 /* TotalBalanceTableViewCell.swift */,
 				0A433E8025516A9A006FFF75 /* TotalBalanceTableViewCell.xib */,
@@ -2938,12 +2955,22 @@
 			path = Ledger;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		D865177427620628000B4C04 /* Transfer */ = {
 			isa = PBXGroup;
 			children = (
 				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
 			);
 			path = Transfer;
+=======
+		D8651777276754F0000B4C04 /* TotalBalance */ = {
+			isa = PBXGroup;
+			children = (
+				D86517782767555E000B4C04 /* TotalBalanceView.swift */,
+				D865177C27675DD1000B4C04 /* TotalBalanceView.xib */,
+			);
+			path = TotalBalance;
+>>>>>>> 3ef071424 (gh-1644 Add custom view for total balance)
 			sourceTree = "<group>";
 		};
 		D865177E27687D6E000B4C04 /* Execution */ = {
@@ -3167,6 +3194,7 @@
 				D865178227687E0B000B4C04 /* TransactionSuccessScreen.xib in Resources */,
 				0468FB9825912E8300541536 /* TransactionListTableViewCell.xib in Resources */,
 				0A57C5A52577DC5600420303 /* DetailExpandableTextCell.xib in Resources */,
+				D865177D27675DD1000B4C04 /* TotalBalanceView.xib in Resources */,
 				0A57C5DD2577F9ED00420303 /* ConfirmationStatusPiece.xib in Resources */,
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
 				0ADD19C6265EA23200EB0F2B /* SeedWordCollectionViewCell.xib in Resources */,
@@ -3544,6 +3572,7 @@
 				0A791DA124D30FE100D70DA9 /* Spacing.swift in Sources */,
 				557D80AE270B32F80036D6D0 /* WalletConnectSafesServerController.swift in Sources */,
 				55A58534250140B1005E778B /* PrivateKey.swift in Sources */,
+				D86517792767555E000B4C04 /* TotalBalanceView.swift in Sources */,
 				55B6465C253050200050BD95 /* Transaction.swift in Sources */,
 				0A109E292689CBA100226708 /* RibbonView.swift in Sources */,
 				0AE46C87257684B8001DC62B /* LoadSafeViewController.swift in Sources */,
