@@ -486,6 +486,10 @@
 		5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C82449A1980067505A /* LogServiceTests.swift */; };
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
+		5534F7372760C7670018E655 /* CreatePasscodeSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */; };
+		5534F7382760C7670018E655 /* CreatePasscodeSuggestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */; };
+		5534F73B2761DAAD0018E655 /* CreateNewSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */; };
+		5534F73C2761DAAD0018E655 /* CreateNewSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */; };
 		55413671265E438500796F91 /* UnstoppableDomainsResolution in Frameworks */ = {isa = PBXBuildFile; productRef = 55413670265E438500796F91 /* UnstoppableDomainsResolution */; };
 		55413673265E493500796F91 /* AddOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413672265E493500796F91 /* AddOwnerKeyViewController.swift */; };
 		55413677265E4A0000796F91 /* AddOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */; };
@@ -1110,6 +1114,10 @@
 		5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleLoggerTests.swift; sourceTree = "<group>"; };
 		5532D4D02449A1E40067505A /* MockLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLogger.swift; sourceTree = "<group>"; };
 		5532D4DD2449A34A0067505A /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeSuggestionViewController.swift; sourceTree = "<group>"; };
+		5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatePasscodeSuggestionViewController.xib; sourceTree = "<group>"; };
+		5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewSafeViewController.swift; sourceTree = "<group>"; };
+		5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateNewSafeViewController.xib; sourceTree = "<group>"; };
 		55413672265E493500796F91 /* AddOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyCell.swift; sourceTree = "<group>"; };
 		55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerKeyCell.xib; sourceTree = "<group>"; };
@@ -1864,6 +1872,10 @@
 				0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */,
 				0A6886CF2588FC180045CAB5 /* EnterAddressNameViewController.swift */,
 				0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */,
+				5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */,
+				5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */,
+				5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */,
+				5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */,
 			);
 			path = "Add Safe";
 			sourceTree = "<group>";
@@ -3098,6 +3110,7 @@
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */,
 				0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */,
+				5534F73C2761DAAD0018E655 /* CreateNewSafeViewController.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
@@ -3211,6 +3224,7 @@
 				0428DA4E25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib in Resources */,
 				0468FB9725912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib in Resources */,
 				0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */,
+				5534F7382760C7670018E655 /* CreatePasscodeSuggestionViewController.xib in Resources */,
 				0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3454,6 +3468,7 @@
 				55B64666253051630050BD95 /* SelectOwnerAddressViewModel.swift in Sources */,
 				557D80AF270B32F80036D6D0 /* WCEditParametersViewController.swift in Sources */,
 				0428DB1225CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift in Sources */,
+				5534F7372760C7670018E655 /* CreatePasscodeSuggestionViewController.swift in Sources */,
 				0AC2A3CA26FB6B84002CB26A /* WebAppURLBuilder.swift in Sources */,
 				0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */,
 				04273E5C26B41A3700A14E95 /* APDUController.swift in Sources */,
@@ -3645,6 +3660,7 @@
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
 				0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */,
 				04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */,
+				5534F73B2761DAAD0018E655 /* CreateNewSafeViewController.swift in Sources */,
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,
 				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
 			);

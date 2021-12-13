@@ -45,6 +45,10 @@ enum TrackingEvent: String, Trackable {
     case networkSelect                              = "screen_chain_list"
     case tryDemo                                    = "user_try_demo"
 
+    case createSafe                                 = "screen_create_safe"
+    case createSafeDesktopApp                       = "user_create_safe_desktop_app"
+    case createSafeHelpArticle                      = "user_create_safe_help_article"
+
     case transactionsQueued                         = "screen_transactions_queue"
     case transactionsHistory                        = "screen_transactions_history"
     case transactionsNoSafe                         = "screen_transactions_no_safe"
@@ -120,6 +124,7 @@ enum TrackingEvent: String, Trackable {
     case exportSeed                                 = "screen_owner_export_seed"
     case exportKey                                  = "screen_owner_export_key"
 
+    case passcodeSuggestion                         = "screen_passcode_suggestion"
     case createPasscode                             = "screen_passcode_create"
     case repeatPasscode                             = "screen_passcode_create_repeat"
     case enterPasscode                              = "screen_passcode_enter"
@@ -131,6 +136,8 @@ enum TrackingEvent: String, Trackable {
     case userPasscodeDisabled                       = "user_passcode_disabled"
     case userPasscodeReset                          = "user_passcode_reset"
     case userPasscodeSkipped                        = "user_passcode_skipped"
+    case userPasscodeSuggestionAccepted             = "user_passcode_suggestion_accepted"
+    case userPasscodeSuggestionRejected             = "user_passcode_suggestion_rejected"
     case skipPasscodeBanner                         = "user_banner_passcode_skip"
     case setupPasscodeFromBanner                    = "user_banner_passcode_create"
     case userOpenIntercom                           = "user_settings_open_intercom"

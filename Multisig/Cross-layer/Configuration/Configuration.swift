@@ -64,6 +64,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("LEDGER_PAIRING_URL")
         var ledgerPairingURL: URL
+
+        @ConfigurationKey("CREATE_SAFE_URL")
+        var createSafeURL: URL
     }
 
     struct Legal {

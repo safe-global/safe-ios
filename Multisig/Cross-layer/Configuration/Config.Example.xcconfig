@@ -103,6 +103,7 @@ PAY_FOR_CANCELLATION_URL = https:/$()/help.gnosis-safe.io/en/articles/4738501-wh
 CONNECT_DAPP_ON_MOBILE_URL = https:/$()/help.gnosis-safe.io/en/articles/5307197-how-to-connect-a-dapp-via-walletconnect-on-gnosis-safe-mobile
 DESKTOP_PAIRING_URL = https:/$()/help.gnosis-safe.io/en/articles/5584901-desktop-pairing
 LEDGER_PAIRING_URL = https:/$()/support.ledger.com/hc/en-us/articles/360019138694-Set-up-Bluetooth-connection
+CREATE_SAFE_URL = https:/$()/help.gnosis-safe.io/en/articles/3876461-create-a-safe
 
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/
@@ -117,7 +118,7 @@ FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
 CONTACT_EMAIL           = safe@gnosis.io
 
 // Web app url
-GNOSIS_SAFE_WEB_URL     = https:/$()/gnosis-safe.io/
+GNOSIS_SAFE_WEB_URL     = https:/$()/gnosis-safe.io/app/
 
 // App Review URLs
 _APP_STORE_REVIEW_URL_DEV        = https:/$()/apps.apple.com/app/id1515758190?action=write-review
