@@ -35,7 +35,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10,679.25 USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0l-py-63V">
-                            <rect key="frame" x="141.5" y="20" width="113.5" height="34"/>
+                            <rect key="frame" x="141.5" y="20" width="113.5" height="63"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="34" id="0b7-0h-rkJ"/>
                             </constraints>
@@ -44,10 +44,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H5X-sT-Xhx">
-                            <rect key="frame" x="63" y="56" width="270" height="67"/>
+                            <rect key="frame" x="63" y="85" width="270" height="38"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvm-We-XBq">
-                                    <rect key="frame" x="0.0" y="0.0" width="130" height="67"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="130" height="38"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="130" id="yAr-7J-ECD"/>
                                     </constraints>
@@ -58,7 +58,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaz-jF-aeE">
-                                    <rect key="frame" x="140" y="0.0" width="130" height="67"/>
+                                    <rect key="frame" x="140" y="0.0" width="130" height="38"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" title="Receive"/>
                                     <connections>
