@@ -26,12 +26,17 @@ class TotalBalanceView: UINibView {
     override func commonInit() {
         super.commonInit()
     
-        amountLabel.setStyle(.primary)
-        totalLabel.setStyle(.headline)
         
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         sendButton.setText("Send", .filled)
         receiveButton.setText("Receive", .filled)
+        amountLabel.setStyle(.normal)
+        totalLabel.setStyle(.footnote2)
     }
+    
     
     @IBAction func sendButtonClicked(_ sender: Any) {
         onSendClicked?()
