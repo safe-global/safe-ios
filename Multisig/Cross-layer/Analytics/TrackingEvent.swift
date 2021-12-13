@@ -31,6 +31,7 @@ enum TrackingEvent: String, Trackable {
 
     case assetsNoSafe                               = "screen_assets_no_safe"
     case assetsCoins                                = "screen_assets_coins"
+    case assetsTransferSelect                       = "screen_assets_coins_transfer_select"
     case assetsCollectibles                         = "screen_assets_collectibles"
     case assetsCollectiblesDetails                  = "screen_assets_collectibles_details"
     case collectiblesNotSupported                   = "screen_collectibles_not_supported"
