@@ -133,6 +133,7 @@ enum TrackingEvent: String, Trackable {
     case userPasscodeSkipped                        = "user_passcode_skipped"
     case skipPasscodeBanner                         = "user_banner_passcode_skip"
     case setupPasscodeFromBanner                    = "user_banner_passcode_create"
+    case userOpenIntercom                           = "user_settings_open_intercom"
 
     case userSafeAdded                              = "user_safe_added"
     case userSafeRemoved                            = "user_safe_removed"
