@@ -13,7 +13,7 @@ import Foundation
 /// See more:
 ///   - https://raw.githubusercontent.com/ethereum/eth1.0-apis/assembled-spec/openrpc.json
 ///   - https://eips.ethereum.org/EIPS/eip-1474
-enum EthRpc1 { 
+enum EthRpc1 {
     enum Transaction: Codable {
         case legacy(TransactionLegacy)
         case eip2930(Transaction2930)
@@ -24,8 +24,13 @@ enum EthRpc1 {
         init(from decoder: Decoder) throws {
             enum Key: String, CodingKey { case type }
             let container = try decoder.container(keyedBy: Key.self)
-            let type = try container.decode(String.self, forKey: .type)
-            guard let byte = Data(ethHex: type).bytes.first else {
+            var type = try container.decode(String.self, forKey: .type)
+
+            if type.hasPrefix("0x") {
+                type.removeFirst(2)
+            }
+
+            guard let byte = UInt8(type, radix: 16) else {
                 throw DecodingError.dataCorrupted(
                     DecodingError.Context(
                         codingPath: decoder.codingPath,
