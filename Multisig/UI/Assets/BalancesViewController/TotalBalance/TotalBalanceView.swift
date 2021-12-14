@@ -20,19 +20,16 @@ class TotalBalanceView: UINibView {
     var amount: String? {
         didSet {
             amountLabel.text = amount
-            
         }
-    }
-    
-    override func commonInit() {
-        super.commonInit()
     }
     
     override func awakeFromNib() {
         amountLabel.setStyle(.title4)
         totalLabel.setStyle(.footnote2)
         sendButton.setText("Send", .filled)
-        receiveButton.setText("Receive", .filled)
+        //TODO: set this attribute in setStyle(:)
+        sendButton.tintColor = UIColor.primaryBackground
+        receiveButton.setText("Receive", .bordered)
     }
     
     @IBAction func sendButtonClicked(_ sender: Any) {
