@@ -100,8 +100,8 @@ class WCEditParametersViewController: UIViewController, ExternalURLSource {
         if let safeTxGasText = safeTxGasTextField.textField.text?
             .trimmingCharacters(in: .whitespacesAndNewlines), !safeTxGasText.isEmpty,
            let safeTxGas = UInt256(safeTxGasText) {
-
             self.safeTxGas = UInt256String(safeTxGas)
+            saveButton.isEnabled = true
         } else {
             saveButton.isEnabled = false
         }
