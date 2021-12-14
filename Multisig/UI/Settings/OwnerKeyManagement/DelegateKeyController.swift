@@ -226,8 +226,7 @@ class DelegateKeyController {
         Chain.all.forEach { chain in
             // trigger request
             group.enter()
-            clientGatewayService.asyncDeleteDelegate(safe: nil,
-                                                     owner: keyInfo.address,
+            clientGatewayService.asyncDeleteDelegate(owner: keyInfo.address,
                                                      delegate: delegateAddress,
                                                      signature: signature,
                                                      chainId: chain.id!) { result in

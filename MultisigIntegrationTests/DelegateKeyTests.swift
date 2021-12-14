@@ -144,7 +144,6 @@ class DelegateKeyTests: XCTestCase {
         let exp = expectation(description: "Async Delete Delegate Request")
 
         clientGateway.asyncDeleteDelegate(
-            safe: nil,
             owner: delegatorKey.address,
             delegate: delegateKey.address,
             signature: signature.toHexStringWithPrefix(),
@@ -171,7 +170,6 @@ class DelegateKeyTests: XCTestCase {
         let exp = expectation(description: "Async Delete Delegate Request")
 
         clientGateway.asyncDeleteDelegate(
-            safe: nil,
             owner: delegatorKey.address,
             delegate: delegateKey.address,
             signature: signature.toHexStringWithPrefix(),
