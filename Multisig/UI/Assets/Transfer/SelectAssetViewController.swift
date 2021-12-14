@@ -29,10 +29,10 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        term = searchController.searchBar.text ?? ""
+        term = searchController.searchBar.text?.lowercased() ?? ""
         if !term.isEmpty {
             filteredBalances = balances.filter { balance in
-                return balance.symbol.contains(term) || balance.name.contains(term)
+                return balance.symbol.lowercased().contains(term) || balance.name.lowercased().contains(term)
             }
         } else {
             filteredBalances = balances
