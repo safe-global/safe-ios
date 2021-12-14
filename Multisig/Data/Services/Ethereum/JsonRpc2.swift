@@ -12,7 +12,6 @@ import Foundation
 ///
 /// See more: https://www.jsonrpc.org/specification
 enum JsonRpc2 {
-
     /// A rpc call is represented by sending a Request object to a Server
     struct Request<Params: Codable>: Codable {
         /// A String specifying the version of the JSON-RPC protocol. MUST be exactly "2.0".
@@ -63,7 +62,6 @@ enum JsonRpc2 {
             try container.encode([String]())
         }
     }
-
 
     /// Request identifier, it is a String, Number (integer or fractional), or NULL.
     enum Id: Codable {
