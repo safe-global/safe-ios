@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TransactionSuccessScreen" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="statusLabel" destination="vWJ-lb-hId" id="M3i-ln-AXv"/>
+                <outlet property="titleLabel" destination="2cy-o0-Tus" id="Nh3-8m-t0k"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewDetailsButton" destination="9w2-V0-5fP" id="hLw-3G-CnZ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="1QG-6Q-dsy">
+                    <rect key="frame" x="16" y="303.5" width="382" height="299.5"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-success" translatesAutoresizingMaskIntoConstraints="NO" id="hpa-kC-4yd">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="110"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your transaction is queued!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cy-o0-Tus">
+                            <rect key="frame" x="0.0" y="142" width="382" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your request to send 10 ETH is submitted and needs to be confirmed by other owners." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWJ-lb-hId">
+                            <rect key="frame" x="0.0" y="178.5" width="382" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9w2-V0-5fP">
+                            <rect key="frame" x="0.0" y="243.5" width="382" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="Pgy-bb-4SC"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="View details">
+                                <color key="titleColor" systemColor="labelColor"/>
+                            </state>
+                            <connections>
+                                <action selector="viewDetailsClicked:" destination="-1" eventType="touchUpInside" id="bxl-Kg-ROK"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="9w2-V0-5fP" firstAttribute="top" secondItem="vWJ-lb-hId" secondAttribute="bottom" constant="24" id="IJv-aq-DaP"/>
+                        <constraint firstItem="9w2-V0-5fP" firstAttribute="top" secondItem="vWJ-lb-hId" secondAttribute="bottom" constant="24" id="T2J-eU-Zzs"/>
+                        <constraint firstItem="2cy-o0-Tus" firstAttribute="top" secondItem="hpa-kC-4yd" secondAttribute="bottom" constant="32" id="TiH-Fe-fPK"/>
+                        <constraint firstItem="vWJ-lb-hId" firstAttribute="top" secondItem="2cy-o0-Tus" secondAttribute="bottom" constant="16" id="km2-m4-039"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="1QG-6Q-dsy" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="7fz-lZ-gf9"/>
+                <constraint firstItem="1QG-6Q-dsy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="iO8-fC-5Xj"/>
+                <constraint firstAttribute="trailing" secondItem="1QG-6Q-dsy" secondAttribute="trailing" constant="16" id="ndR-zk-14h"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1QG-6Q-dsy" secondAttribute="trailing" constant="16" id="qkG-5q-pwa"/>
+            </constraints>
+            <point key="canvasLocation" x="131.8840579710145" y="116.51785714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ico-success" width="110" height="110"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
