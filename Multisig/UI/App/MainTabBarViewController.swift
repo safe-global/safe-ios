@@ -186,11 +186,7 @@ class MainTabBarViewController: UITabBarController {
     }
 
     @objc private func updateTabs() {
-        if App.configuration.toggles.walletConnectEnabled {
-            viewControllers = [balancesTabVC, transactionsTabVC, dappsTabVC, settingsTabVC]
-        } else {
-            viewControllers = [balancesTabVC, transactionsTabVC, settingsTabVC]
-        }
+        viewControllers = [balancesTabVC, transactionsTabVC, dappsTabVC, settingsTabVC]        
     }
 
     @objc func showTransactionDetails(_ notification: Notification) {

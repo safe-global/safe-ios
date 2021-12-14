@@ -9,6 +9,8 @@ cp "${EXAMPLE_CONFIG}" "${CONFIG_FILE}"
 
 # replace the example value with the environment key
 sed -i '' "s/USE_YOUR_OWN_INFURA_KEY_HERE/${INFURA_KEY}/g" "${CONFIG_FILE}"
+sed -i '' "s/YOUR_INTERCOM_APP_ID/${INTERCOM_APP_ID}/g" "${CONFIG_FILE}"
+sed -i '' "s/YOUR_INTERCOM_API_KEY/${INTERCOM_API_KEY}/g" "${CONFIG_FILE}"
 
 # replace the ssl pinning flag with the parameter value
 if ! [ -z ${SSL_ENFORCE_PINNING} ]; then

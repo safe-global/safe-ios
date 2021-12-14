@@ -1,5 +1,11 @@
 [
     {
+        "name": "CowSwap",
+        "description": "Ethereum's MetaDEX Aggregator that allows to trade with MEV protection",
+        "logo": "https://cowswap.exchange/favicon.png?v=1",
+        "url": "https://cowswap.exchange/"
+    },
+    {
         "name": "Honeyswap",
         "description": "Decentralized exchange",
         "logo": "https://app.honeyswap.org/images/favicon.png",

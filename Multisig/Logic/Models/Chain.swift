@@ -184,6 +184,10 @@ extension Chain {
         static let ethereumRinkeby = "4"
         static let polygon = "137"
         static let xDai = "100"
+        static let bsc = "56"
+        static let arbitrum = "42161"
+        static let avalanche = "43114"
+        static let optimism = "10"
     }
 
     static func mainnetChain() -> Chain {

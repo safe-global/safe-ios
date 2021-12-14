@@ -31,6 +31,7 @@ enum TrackingEvent: String, Trackable {
 
     case assetsNoSafe                               = "screen_assets_no_safe"
     case assetsCoins                                = "screen_assets_coins"
+    case assetsTransferSelect                       = "screen_assets_coins_transfer_select"
     case assetsCollectibles                         = "screen_assets_collectibles"
     case assetsCollectiblesDetails                  = "screen_assets_collectibles_details"
     case collectiblesNotSupported                   = "screen_collectibles_not_supported"
@@ -44,6 +45,10 @@ enum TrackingEvent: String, Trackable {
     case safeAddUd                                  = "screen_safe_add_ud"
     case networkSelect                              = "screen_chain_list"
     case tryDemo                                    = "user_try_demo"
+
+    case createSafe                                 = "screen_create_safe"
+    case createSafeDesktopApp                       = "user_create_safe_desktop_app"
+    case createSafeHelpArticle                      = "user_create_safe_help_article"
 
     case transactionsQueued                         = "screen_transactions_queue"
     case transactionsHistory                        = "screen_transactions_history"
@@ -120,6 +125,7 @@ enum TrackingEvent: String, Trackable {
     case exportSeed                                 = "screen_owner_export_seed"
     case exportKey                                  = "screen_owner_export_key"
 
+    case passcodeSuggestion                         = "screen_passcode_suggestion"
     case createPasscode                             = "screen_passcode_create"
     case repeatPasscode                             = "screen_passcode_create_repeat"
     case enterPasscode                              = "screen_passcode_enter"
@@ -131,6 +137,8 @@ enum TrackingEvent: String, Trackable {
     case userPasscodeDisabled                       = "user_passcode_disabled"
     case userPasscodeReset                          = "user_passcode_reset"
     case userPasscodeSkipped                        = "user_passcode_skipped"
+    case userPasscodeSuggestionAccepted             = "user_passcode_suggestion_accepted"
+    case userPasscodeSuggestionRejected             = "user_passcode_suggestion_rejected"
     case skipPasscodeBanner                         = "user_banner_passcode_skip"
     case setupPasscodeFromBanner                    = "user_banner_passcode_create"
     case userOpenIntercom                           = "user_settings_open_intercom"
@@ -152,6 +160,7 @@ enum TrackingEvent: String, Trackable {
     case incomingTxConfirmed                        = "incoming_transaction_confirmed"
     case incomingTxConfirmedWalletConnect           = "incoming_transaction_confirmed_wc"
     case incomingTxConfirmedLedger                  = "incoming_transaction_confirmed_ledger_nx"
+    case advancedTxParamsOpenedHelp                 = "advanced_tx_params_opened_help"
 
     case ledgerKeyImported                          = "user_ledger_nano_x_key_imported"
     case ledgerSelectDevice                         = "screen_select_ledger_nano_x_device"

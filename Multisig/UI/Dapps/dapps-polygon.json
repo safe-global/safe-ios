@@ -10,11 +10,5 @@
         "description": "Swap, earn, stack yields, lend, borrow, leverage",
         "logo": "https://app.sushi.com/favicon.ico",
         "url": "https://app.sushi.com/"
-    },
-    {
-        "name": "Honeyswap",
-        "description": "Decentralized exchange",
-        "logo": "https://app.honeyswap.org/images/favicon.png",
-        "url": "https://app.honeyswap.org/"
-    },
+    }
 ]

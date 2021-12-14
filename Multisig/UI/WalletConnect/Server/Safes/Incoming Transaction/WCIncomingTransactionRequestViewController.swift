@@ -10,6 +10,7 @@ import UIKit
 import WalletConnectSwift
 import Kingfisher
 import SwiftCryptoTokenFormatter
+import Version
 
 fileprivate protocol SectionItem {}
 
@@ -26,7 +27,7 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     private var transaction: Transaction!
     private var safe: Safe!
     private var keyInfo: KeyInfo?
-    private var minimalNonce: UInt256String!
+    private var minimalNonce: UInt256!
     private var session: Session!
     private var importedKeysForSafe: [Address]!
     private var ledgerController: LedgerController?
@@ -118,11 +119,11 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     private func signWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
         guard presentedViewController == nil else { return }
 
-        let pendingConfirmationVC = WCPendingConfirmationViewController()
+        let pendingConfirmationVC = WCPendingConfirmationViewController(transaction, keyInfo: keyInfo)
         present(pendingConfirmationVC, animated: true)
 
         pendingConfirmationVC.sign() { [weak self] signature in
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 self?.sendConfirmationAndDismiss(signature: signature,
                                                  trackingEvent: .incomingTxConfirmedWalletConnect)
             }
@@ -166,13 +167,12 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
     convenience init(transaction: Transaction,
                      safe: Safe,
-                     minimalNonce: UInt256String,
                      topic: String,
                      importedKeysForSafe: [Address]) {
         self.init()
         self.transaction = transaction
         self.safe = safe
-        self.minimalNonce = minimalNonce
+        self.minimalNonce = safe.nonce!
         self.session = try! Session.from(WCSession.get(topic: topic)!)
         self.importedKeysForSafe = importedKeysForSafe
     }
@@ -227,11 +227,23 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     }
 
     private func buildSections() {
-        let advancedSectionItems = !isAdvancedOptionsShown ? [] : [
-            Section.Advanced.nonce(infoCell(title: "nonce", value: transaction.nonce.description)),
-            Section.Advanced.safeTxGas(infoCell(title: "safeTxGas", value: transaction.safeTxGas.description)),
-            Section.Advanced.edit(editCell())
-        ]
+        var advancedSectionItems = [SectionItem]()
+        if isAdvancedOptionsShown {
+            advancedSectionItems.append(
+                Section.Advanced.nonce(infoCell(title: "Safe nonce", value: transaction.nonce.description))
+            )
+
+            let version = Version(safe.contractVersion!)!
+            if version < Version(1, 3, 0) {
+                advancedSectionItems.append(
+                    Section.Advanced.safeTxGas(infoCell(title: "SafeTxGas", value: transaction.safeTxGas.description))
+                )
+            }
+
+            advancedSectionItems.append(
+                Section.Advanced.edit(editCell())
+            )
+        }
         sections = [
             (section: .basic, items: [
                 Section.Basic.safe(safeCell()),
@@ -245,13 +257,18 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
     private func reloadAdvancedSection() {
         buildSections()
+
         tableView.beginUpdates()
         tableView.reloadRows(at: [IndexPath(row: 3, section: 0)], with: .automatic)
-        let advancedRows = [
-            IndexPath(row: 0, section: 1), // nonce
-            IndexPath(row: 1, section: 1), // safeTxGas
-            IndexPath(row: 2, section: 1) // edit
-        ]
+
+        var advancedRows = [IndexPath]()
+        let version = Version(safe.contractVersion!)!
+        let advancedRowsCount = version < Version(1, 3, 0) ? 3 : 2
+
+        for index in 0..<advancedRowsCount {
+            advancedRows.append(IndexPath(row: index, section: 1))
+        }
+
         if isAdvancedOptionsShown {
             tableView.insertRows(at: advancedRows, with: .bottom)
         } else {
@@ -325,6 +342,7 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     private func advancedCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(BasicCell.self)
         cell.setTitle("Advanced")
+        cell.setIcon(nil)
         let image = UIImage(systemName: isAdvancedOptionsShown ? "chevron.up" : "chevron.down")!
             .applyingSymbolConfiguration(.init(weight: .bold))!
         cell.setDisclosureImage(image)
@@ -351,18 +369,22 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     }
 
     private func showEditParameters() {
+        let safeTxGas = transaction.safeVersion! >= Version(1, 3, 0) ? nil : transaction.safeTxGas
         let editParamsController = WCEditParametersViewController.create(nonce: transaction.nonce,
                                                                          minimalNonce: minimalNonce,
-                                                                         safeTxGas: transaction.safeTxGas,
+                                                                         safeTxGas: safeTxGas,
                                                                          trackingParameters: trackingParameters) {
             [unowned self] nonce, safeTxGas in
             self.transaction.nonce = nonce
-            self.transaction.safeTxGas = safeTxGas
+            if let safeTxGas = safeTxGas {
+                self.transaction.safeTxGas = safeTxGas
+            }
             self.transaction.updateSafeTxHash()
             self.buildSections()
             self.tableView.reloadData()
         }
-        show(editParamsController, sender: self)
+        let navController = UINavigationController(rootViewController: editParamsController)
+        present(navController, animated: true, completion: nil)
     }
 }
 

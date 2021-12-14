@@ -486,6 +486,10 @@
 		5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C82449A1980067505A /* LogServiceTests.swift */; };
 		5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */; };
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
+		5534F7372760C7670018E655 /* CreatePasscodeSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */; };
+		5534F7382760C7670018E655 /* CreatePasscodeSuggestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */; };
+		5534F73B2761DAAD0018E655 /* CreateNewSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */; };
+		5534F73C2761DAAD0018E655 /* CreateNewSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */; };
 		55413671265E438500796F91 /* UnstoppableDomainsResolution in Frameworks */ = {isa = PBXBuildFile; productRef = 55413670265E438500796F91 /* UnstoppableDomainsResolution */; };
 		55413673265E493500796F91 /* AddOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413672265E493500796F91 /* AddOwnerKeyViewController.swift */; };
 		55413677265E4A0000796F91 /* AddOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */; };
@@ -499,6 +503,9 @@
 		555312F2250673AD0008206B /* BIP39Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312F1250673AC0008206B /* BIP39Tests.swift */; };
 		5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03424489F37003EC861 /* CoreDataStack.swift */; };
 		5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
+		5559A915276758B500237A5D /* dapps-bsc.json in Resources */ = {isa = PBXBuildFile; fileRef = 5559A914276758B500237A5D /* dapps-bsc.json */; };
+		5559A91727675DB600237A5D /* dapps-arbitrum.json in Resources */ = {isa = PBXBuildFile; fileRef = 5559A91627675DB600237A5D /* dapps-arbitrum.json */; };
+		5559A91927675E3700237A5D /* dapps-optimism.json in Resources */ = {isa = PBXBuildFile; fileRef = 5559A91827675E3700237A5D /* dapps-optimism.json */; };
 		555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA3EBC250A24910080DF7F /* KeychainServiceIntegrationTests.swift */; };
 		555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555DA310250A4C7C00C3A0BE /* KeychainKey.swift */; };
 		5562DD722693425E00B56722 /* NetworkIndicatorHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5562DD702693425E00B56722 /* NetworkIndicatorHeaderView.xib */; };
@@ -600,6 +607,7 @@
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */; };
+		D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177527620649000B4C04 /* SelectAssetViewController.swift */; };
 		D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */; };
 		D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68E0274E6AA500D7F5C5 /* main.swift */; };
 /* End PBXBuildFile section */
@@ -1110,6 +1118,10 @@
 		5532D4C92449A1980067505A /* ConsoleLoggerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleLoggerTests.swift; sourceTree = "<group>"; };
 		5532D4D02449A1E40067505A /* MockLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLogger.swift; sourceTree = "<group>"; };
 		5532D4DD2449A34A0067505A /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeSuggestionViewController.swift; sourceTree = "<group>"; };
+		5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatePasscodeSuggestionViewController.xib; sourceTree = "<group>"; };
+		5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewSafeViewController.swift; sourceTree = "<group>"; };
+		5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateNewSafeViewController.xib; sourceTree = "<group>"; };
 		55413672265E493500796F91 /* AddOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyCell.swift; sourceTree = "<group>"; };
 		55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerKeyCell.xib; sourceTree = "<group>"; };
@@ -1125,6 +1137,9 @@
 		5556A03624489F37003EC861 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
 		5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
+		5559A914276758B500237A5D /* dapps-bsc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-bsc.json"; sourceTree = "<group>"; };
+		5559A91627675DB600237A5D /* dapps-arbitrum.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-arbitrum.json"; sourceTree = "<group>"; };
+		5559A91827675E3700237A5D /* dapps-optimism.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-optimism.json"; sourceTree = "<group>"; };
 		555DA310250A4C7C00C3A0BE /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
 		5562DD702693425E00B56722 /* NetworkIndicatorHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NetworkIndicatorHeaderView.xib; sourceTree = "<group>"; };
 		5562DD712693425E00B56722 /* NetworkIndicatorHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkIndicatorHeaderView.swift; sourceTree = "<group>"; };
@@ -1228,6 +1243,7 @@
 		55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLedgerDeviceViewController.swift; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGnosisSafeTableViewController.swift; sourceTree = "<group>"; };
+		D865177527620649000B4C04 /* SelectAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetViewController.swift; sourceTree = "<group>"; };
 		D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		D86A68E0274E6AA500D7F5C5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1864,6 +1880,10 @@
 				0A68869D2588FAFB0045CAB5 /* EnterENSNameViewController.xib */,
 				0A6886CF2588FC180045CAB5 /* EnterAddressNameViewController.swift */,
 				0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */,
+				5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */,
+				5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */,
+				5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */,
+				5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */,
 			);
 			path = "Add Safe";
 			sourceTree = "<group>";
@@ -1884,6 +1904,7 @@
 		0A6886AA2588FB190045CAB5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				D865177427620628000B4C04 /* Transfer */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
 				5503F62A255062070046545C /* CollectiblesViewController */,
 			);
@@ -2464,6 +2485,9 @@
 				550FB19D26691CA300C13D54 /* dapps-mainnet.json */,
 				55DA0664269DD52E006C9AA5 /* dapps-polygon.json */,
 				55DA0668269DD573006C9AA5 /* dapps-xdai.json */,
+				5559A91627675DB600237A5D /* dapps-arbitrum.json */,
+				5559A91827675E3700237A5D /* dapps-optimism.json */,
+				5559A914276758B500237A5D /* dapps-bsc.json */,
 			);
 			path = Dapps;
 			sourceTree = "<group>";
@@ -2909,6 +2933,14 @@
 			path = Ledger;
 			sourceTree = "<group>";
 		};
+		D865177427620628000B4C04 /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
+			);
+			path = Transfer;
+			sourceTree = "<group>";
+		};
 		D86A68E2274E6B3E00D7F5C5 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -3098,6 +3130,7 @@
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */,
 				0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */,
+				5534F73C2761DAAD0018E655 /* CreateNewSafeViewController.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
@@ -3143,6 +3176,7 @@
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
 				0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */,
+				5559A915276758B500237A5D /* dapps-bsc.json in Resources */,
 				049A9D3B25F81F2C00CA5723 /* EditOwnerKeyViewController.xib in Resources */,
 				0ADD19A8265E53C600EB0F2B /* QRCodeView.xib in Resources */,
 				0A2F1A78267A5E5B00C09F03 /* TotalCell.xib in Resources */,
@@ -3160,6 +3194,7 @@
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
+				5559A91927675E3700237A5D /* dapps-optimism.json in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
 				550FB1C226691E1500C13D54 /* WalletConnectQRCodeViewController.xib in Resources */,
 				0AC2A3C826FB6802002CB26A /* CollectiblesUnsupportedViewController.xib in Resources */,
@@ -3171,6 +3206,7 @@
 				550FB1B326691D9500C13D54 /* ExternalLinkHeaderFooterView.xib in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
+				5559A91727675DB600237A5D /* dapps-arbitrum.json in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
 				0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */,
 				04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */,
@@ -3211,6 +3247,7 @@
 				0428DA4E25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib in Resources */,
 				0468FB9725912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib in Resources */,
 				0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */,
+				5534F7382760C7670018E655 /* CreatePasscodeSuggestionViewController.xib in Resources */,
 				0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3436,6 +3473,7 @@
 				048D72BD26832FD70095999C /* ChainsListRequest.swift in Sources */,
 				551DBE3E26CD39DC0053CCB2 /* LedgerKeyPickerViewController.swift in Sources */,
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
+				D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */,
 				043ABD0F24EF0C33008826D5 /* SafeClientGatewayService.swift in Sources */,
 				04B4B6DD25B9804200CFE24B /* OnboardingImportOwnerKeyViewController.swift in Sources */,
 				5588365425652E4B0014E8C7 /* LoadingValueCell.swift in Sources */,
@@ -3454,6 +3492,7 @@
 				55B64666253051630050BD95 /* SelectOwnerAddressViewModel.swift in Sources */,
 				557D80AF270B32F80036D6D0 /* WCEditParametersViewController.swift in Sources */,
 				0428DB1225CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift in Sources */,
+				5534F7372760C7670018E655 /* CreatePasscodeSuggestionViewController.swift in Sources */,
 				0AC2A3CA26FB6B84002CB26A /* WebAppURLBuilder.swift in Sources */,
 				0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */,
 				04273E5C26B41A3700A14E95 /* APDUController.swift in Sources */,
@@ -3645,6 +3684,7 @@
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
 				0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */,
 				04B4B88A25BF36F900CFE24B /* ExecutionStatusPiece.swift in Sources */,
+				5534F73B2761DAAD0018E655 /* CreateNewSafeViewController.swift in Sources */,
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,
 				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
 			);
