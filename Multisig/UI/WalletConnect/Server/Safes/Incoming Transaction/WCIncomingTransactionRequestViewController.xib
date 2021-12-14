@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,7 +32,7 @@
                     </constraints>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="khs-P5-diM">
-                    <rect key="frame" x="0.0" y="168.5" width="414" height="621.5"/>
+                    <rect key="frame" x="0.0" y="172.5" width="414" height="617.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DApp Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnR-X5-tae">
@@ -81,7 +81,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fax-2M-IAp" secondAttribute="trailing" constant="16" id="xch-1I-q7n"/>
                 <constraint firstItem="khs-P5-diM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="xmT-S2-CTU"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="wnR-X5-tae" secondAttribute="trailing" constant="16" id="z1t-aB-GH5"/>
-                <constraint firstItem="khs-P5-diM" firstAttribute="top" secondItem="wnR-X5-tae" secondAttribute="bottom" constant="16" id="zOh-PX-8Dh"/>
+                <constraint firstItem="khs-P5-diM" firstAttribute="top" secondItem="wnR-X5-tae" secondAttribute="bottom" constant="20" id="zOh-PX-8Dh"/>
             </constraints>
             <point key="canvasLocation" x="43" y="153"/>
         </view>

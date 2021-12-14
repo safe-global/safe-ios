@@ -71,7 +71,6 @@ class AppSettingsViewController: UITableViewController {
 
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(InfoCell.self)
-        tableView.registerCell(DetailedCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
         buildSections()
@@ -253,6 +252,7 @@ class AppSettingsViewController: UITableViewController {
             show(experimentalViewController, sender: self)
             
         case Section.Support.chatWithUs:
+            Tracker.trackEvent(.userOpenIntercom)
             App.shared.intercomConfig.startChat()
             break
             

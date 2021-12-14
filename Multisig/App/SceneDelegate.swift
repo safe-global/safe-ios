@@ -14,7 +14,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var updateAppWindow: UIWindow?
     var tabBarWindow: UIWindow?
-    var createPasscodeWindow: UIWindow?
     var privacyShieldWindow: UIWindow?
 
     // the window to present
@@ -97,7 +96,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func handleUserActivity(_ userActivity: NSUserActivity) {
         // Does not make scense to handle WalletConnect URLs without a safe
-        guard let _ = try? Safe.getSelected(), App.configuration.toggles.walletConnectEnabled else { return }
+        guard let _ = try? Safe.getSelected() else { return }
 
         // Get URL components from the incoming user activity.
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
@@ -181,16 +180,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return enterPasscodeWindow
     }
 
-    func makeCreatePasscodeWindow() -> UIWindow {
-        let createPasscodeWindow = makeWindow(scene: scene!)
-        createPasscodeWindow.rootViewController = ViewControllerFactory.createPasscodeViewController { [unowned self] in
-            onCreatePasscodeCompletion()
-        }
-
-        self.createPasscodeWindow = createPasscodeWindow
-        return createPasscodeWindow
-    }
-
     func makePrivacyShieldWindow() -> UIWindow {
         let privacyShieldWindow = makeWindow(scene: scene!)
         privacyShieldWindow.rootViewController = PrivacyProtectionScreenViewController()
@@ -210,18 +199,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             showWindow(makeTermsWindow())
         } else if shouldShowPasscode {
             showWindow(makeEnterPasscodeWindow())
-        } else if let createPasscodeWindow = createPasscodeWindow, presentedWindow === createPasscodeWindow {
-            showWindow(createPasscodeWindow)
         } else {
             showWindow(tabBarWindow)
         }
     }
 
     func onTermsCompletion() {
-        showWindow(makeCreatePasscodeWindow())
-    }
-
-    func onCreatePasscodeCompletion() {
         showWindow(tabBarWindow)
     }
 

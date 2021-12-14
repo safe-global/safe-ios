@@ -46,8 +46,8 @@ extension Safe: Identifiable {
         static let v1_3_0 = Data(ethHex: "0x47e79534a245952e8b16893a336b85a3d9ea9fa8c573f3d803afb92a79469218")
     }
 
-    static func domainData(for safe: AddressString, version: String, chainId: String) -> Data {
-        if let v = Version(version), v >= Version("1.3.0")! {
+    static func domainData(for safe: AddressString, version: Version, chainId: String) -> Data {
+        if version >= Version("1.3.0")! {
             let chainIdData = UInt256(chainId, radix: 10)!.data32
             return DomainSeparatorTypeHash.v1_3_0 + chainIdData + safe.data32
         } else {

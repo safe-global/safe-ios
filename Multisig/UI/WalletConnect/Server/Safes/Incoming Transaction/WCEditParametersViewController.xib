@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WCEditParametersViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="helpArticleButton" destination="QwG-Oy-obZ" id="GIO-hH-d6U"/>
+                <outlet property="helpArticleLinkLabel" destination="WVf-He-Ysp" id="FIc-zn-h5n"/>
                 <outlet property="nonceLabel" destination="F2o-qf-58q" id="Ndl-X4-L4i"/>
                 <outlet property="nonceTextField" destination="ymg-TQ-ZkB" id="zyj-bl-vzD"/>
                 <outlet property="safeTxGasLabel" destination="MoV-bO-fJx" id="bmV-8L-20W"/>
@@ -29,7 +31,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="w1B-sq-tWz">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="84.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nonce" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2o-qf-58q">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe nonce" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2o-qf-58q">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
@@ -47,7 +49,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eNL-VY-cOa">
                             <rect key="frame" x="0.0" y="100.5" width="382" height="84.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="safeTxGas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoV-bO-fJx">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SafeTxGas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoV-bO-fJx">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
@@ -64,13 +66,34 @@
                         </stackView>
                     </subviews>
                 </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How do I configure these details manually?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVf-He-Ysp">
+                    <rect key="frame" x="16" y="317" width="382" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QwG-Oy-obZ">
+                    <rect key="frame" x="16" y="317" width="382" height="20.5"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain"/>
+                    <connections>
+                        <action selector="openHelpArticle:" destination="-1" eventType="touchUpInside" id="F6r-zT-Fd0"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="LZI-Vz-Rym" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="1xm-eM-dSF"/>
+                <constraint firstItem="WVf-He-Ysp" firstAttribute="top" secondItem="LZI-Vz-Rym" secondAttribute="bottom" constant="24" id="51N-wh-ugB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LZI-Vz-Rym" secondAttribute="trailing" constant="16" id="5Vp-bL-Em9"/>
+                <constraint firstItem="QwG-Oy-obZ" firstAttribute="centerX" secondItem="WVf-He-Ysp" secondAttribute="centerX" id="atP-TU-SMc"/>
+                <constraint firstItem="QwG-Oy-obZ" firstAttribute="width" secondItem="WVf-He-Ysp" secondAttribute="width" id="ctk-No-8hY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WVf-He-Ysp" secondAttribute="trailing" constant="16" id="cya-tF-00s"/>
+                <constraint firstItem="QwG-Oy-obZ" firstAttribute="centerY" secondItem="WVf-He-Ysp" secondAttribute="centerY" id="doF-av-RXu"/>
+                <constraint firstItem="QwG-Oy-obZ" firstAttribute="height" secondItem="WVf-He-Ysp" secondAttribute="height" id="gTR-1N-Ldg"/>
                 <constraint firstItem="LZI-Vz-Rym" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="njD-mV-17L"/>
+                <constraint firstItem="WVf-He-Ysp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="yW6-GO-KMy"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <point key="canvasLocation" x="19" y="153"/>

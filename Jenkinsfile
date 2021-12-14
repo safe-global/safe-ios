@@ -18,6 +18,10 @@ pipeline {
         LC_CTYPE = "en_US.UTF-8"
         INFURA_STAGING_KEY = credentials('INFURA_STAGING_KEY')
         INFURA_PROD_KEY = credentials('INFURA_PROD_KEY')
+        INTERCOM_STAGING_API_KEY = credentials('INTERCOM_STAGING_API_KEY')
+        INTERCOM_PROD_API_KEY = credentials('INTERCOM_PROD_API_KEY')
+        INTERCOM_STAGING_APP_ID = credentials('INTERCOM_STAGING_APP_ID')
+        INTERCOM_PROD_APP_ID = credentials('INTERCOM_PROD_APP_ID')
         ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
         CODECOV_TOKEN = credentials('CODECOV_TOKEN')
     }
@@ -70,8 +74,8 @@ pipeline {
                     // the uploading to AppStoreConnect started to work.
 
                     // new param for uikit enabled
-                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Staging\"'
-                    sh 'INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" bin/archive.sh \"Multisig - Production\"'
+                    sh 'INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" INTERCOM_APP_ID=\"${INTERCOM_PROD_APP_ID}\" INTERCOM_API_KEY=\"${INTERCOM_PROD_API_KEY}\" bin/archive.sh \"Multisig - Production\"'
+                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" INTERCOM_APP_ID=\"${INTERCOM_STAGING_APP_ID}\" INTERCOM_API_KEY=\"${INTERCOM_STAGING_API_KEY}\" bin/archive.sh \"Multisig - Staging\"'
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
             }
