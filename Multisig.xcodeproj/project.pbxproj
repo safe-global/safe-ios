@@ -608,20 +608,10 @@
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */; };
 		D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177527620649000B4C04 /* SelectAssetViewController.swift */; };
-<<<<<<< HEAD
-<<<<<<< HEAD
 		D865178127687E0B000B4C04 /* TransactionSuccessScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177F27687E0B000B4C04 /* TransactionSuccessScreen.swift */; };
 		D865178227687E0B000B4C04 /* TransactionSuccessScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D865178027687E0B000B4C04 /* TransactionSuccessScreen.xib */; };
-=======
-=======
 		D86517792767555E000B4C04 /* TotalBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517782767555E000B4C04 /* TotalBalanceView.swift */; };
 		D865177D27675DD1000B4C04 /* TotalBalanceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D865177C27675DD1000B4C04 /* TotalBalanceView.xib */; };
->>>>>>> 3ef071424 (gh-1644 Add custom view for total balance)
->>>>>>> 35120cc52 (gh-1644 Add custom view for total balance)
-=======
-		D86517792767555E000B4C04 /* TotalBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517782767555E000B4C04 /* TotalBalanceView.swift */; };
-		D865177D27675DD1000B4C04 /* TotalBalanceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D865177C27675DD1000B4C04 /* TotalBalanceView.xib */; };
->>>>>>> aba9fa125 (gh-1644 Add text style for total amount)
 		D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */; };
 		D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68E0274E6AA500D7F5C5 /* main.swift */; };
 /* End PBXBuildFile section */
@@ -1258,20 +1248,10 @@
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGnosisSafeTableViewController.swift; sourceTree = "<group>"; };
 		D865177527620649000B4C04 /* SelectAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetViewController.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
-<<<<<<< HEAD
 		D865177F27687E0B000B4C04 /* TransactionSuccessScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSuccessScreen.swift; sourceTree = "<group>"; };
 		D865178027687E0B000B4C04 /* TransactionSuccessScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionSuccessScreen.xib; sourceTree = "<group>"; };
-=======
-=======
 		D86517782767555E000B4C04 /* TotalBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceView.swift; sourceTree = "<group>"; };
 		D865177C27675DD1000B4C04 /* TotalBalanceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotalBalanceView.xib; sourceTree = "<group>"; };
->>>>>>> 3ef071424 (gh-1644 Add custom view for total balance)
->>>>>>> 35120cc52 (gh-1644 Add custom view for total balance)
-=======
-		D86517782767555E000B4C04 /* TotalBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceView.swift; sourceTree = "<group>"; };
-		D865177C27675DD1000B4C04 /* TotalBalanceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotalBalanceView.xib; sourceTree = "<group>"; };
->>>>>>> aba9fa125 (gh-1644 Add text style for total amount)
 		D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		D86A68E0274E6AA500D7F5C5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2969,7 +2949,7 @@
 				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
 			);
 			path = Transfer;
-				sourceTree = "<group>";
+			sourceTree = "<group>";
 		};
 		D8651777276754F0000B4C04 /* TotalBalance */ = {
 			isa = PBXGroup;
