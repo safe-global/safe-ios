@@ -11,7 +11,8 @@ import UIKit
 class TotalBalanceTableViewCell: UITableViewCell {
 //    @IBOutlet private weak var mainLabel: UILabel!
 //    @IBOutlet private weak var detailLabel: UILabel!
-
+    @IBOutlet weak var totalBalanceView: TotalBalanceView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 //        mainLabel.setStyle(.headline)
@@ -24,6 +25,7 @@ class TotalBalanceTableViewCell: UITableViewCell {
 
     func setMainText(_ value: String) {
         //mainLabel.text = value
+        totalBalanceView.amount = value
     }
 
     func setDetailText(_ value: String) {

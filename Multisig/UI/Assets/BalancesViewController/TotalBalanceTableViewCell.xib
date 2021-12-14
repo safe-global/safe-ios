@@ -31,6 +31,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="totalBalanceView" destination="O62-Xb-M74" id="jle-ev-hlB"/>
+            </connections>
             <point key="canvasLocation" x="178.2608695652174" y="225"/>
         </tableViewCell>
     </objects>
