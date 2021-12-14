@@ -201,6 +201,9 @@
 		0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A478D5625B876AF0038363E /* ButtonTableViewCell.swift */; };
 		0A478D5925B876AF0038363E /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A478D5725B876AF0038363E /* ButtonTableViewCell.xib */; };
 		0A4F44542754DE3D00423ABB /* GetDelegateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4F44532754DE3D00423ABB /* GetDelegateRequest.swift */; };
+		0A513A952768974900F07D5A /* EthRpc1Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A513A942768974900F07D5A /* EthRpc1Types.swift */; };
+		0A513A9727689CA000F07D5A /* EthRpc1Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A513A9627689CA000F07D5A /* EthRpc1Requests.swift */; };
+		0A513A992768A1E400F07D5A /* JsonRpc2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A513A982768A1E400F07D5A /* JsonRpc2.swift */; };
 		0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */; };
 		0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */; };
 		0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307452543273F00E8A270 /* UIViewController+UINib.swift */; };
@@ -813,6 +816,9 @@
 		0A478D5625B876AF0038363E /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		0A478D5725B876AF0038363E /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
 		0A4F44532754DE3D00423ABB /* GetDelegateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDelegateRequest.swift; sourceTree = "<group>"; };
+		0A513A942768974900F07D5A /* EthRpc1Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthRpc1Types.swift; sourceTree = "<group>"; };
+		0A513A9627689CA000F07D5A /* EthRpc1Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthRpc1Requests.swift; sourceTree = "<group>"; };
+		0A513A982768A1E400F07D5A /* JsonRpc2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonRpc2.swift; sourceTree = "<group>"; };
 		0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmTransactionRequest.swift; sourceTree = "<group>"; };
 		0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionSigner.swift; sourceTree = "<group>"; };
 		0A5307452543273F00E8A270 /* UIViewController+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINib.swift"; sourceTree = "<group>"; };
@@ -2258,6 +2264,16 @@
 			path = SeedPhraseViewController;
 			sourceTree = "<group>";
 		};
+		0ADE3F25276765E5009E79EF /* Ethereum */ = {
+			isa = PBXGroup;
+			children = (
+				0A513A942768974900F07D5A /* EthRpc1Types.swift */,
+				0A513A9627689CA000F07D5A /* EthRpc1Requests.swift */,
+				0A513A982768A1E400F07D5A /* JsonRpc2.swift */,
+			);
+			path = Ethereum;
+			sourceTree = "<group>";
+		};
 		0AF1C90D2541B67200E28669 /* LoadableViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2562,6 +2578,7 @@
 		5532D4DF2449A4C00067505A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0ADE3F25276765E5009E79EF /* Ethereum */,
 				5532D4B72449A17D0067505A /* Utils */,
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
 				043ABD0924EF0C33008826D5 /* Safe Client Gateway Service */,
@@ -3328,6 +3345,7 @@
 				55F9B7A226D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift in Sources */,
 				0A57C8E92587AECB00B7C019 /* EnterSafeAddressViewController.swift in Sources */,
 				0A616B9626AEEBB700FCEDB9 /* BoolString.swift in Sources */,
+				0A513A9727689CA000F07D5A /* EthRpc1Requests.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
 				0AD062E62577AE7E0030810D /* TransactionDetailCellBuilder.swift in Sources */,
 				55413673265E493500796F91 /* AddOwnerKeyViewController.swift in Sources */,
@@ -3364,6 +3382,7 @@
 				048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */,
 				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
 				0ADD19C0265EA23200EB0F2B /* PrivateKeyViewController.swift in Sources */,
+				0A513A992768A1E400F07D5A /* JsonRpc2.swift in Sources */,
 				558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */,
 				0AC2A3C726FB6802002CB26A /* CollectiblesUnsupportedViewController.swift in Sources */,
 				555312EB2506608D0008206B /* Base58.swift in Sources */,
@@ -3621,6 +3640,7 @@
 				55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */,
 				04B4B5F725B754D600CFE24B /* AccountActionCompletedViewController.swift in Sources */,
 				0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */,
+				0A513A952768974900F07D5A /* EthRpc1Types.swift in Sources */,
 				0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */,
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
 				0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */,
