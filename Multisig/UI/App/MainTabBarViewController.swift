@@ -52,8 +52,14 @@ class MainTabBarViewController: UITabBarController {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(showTransactionDetails),
+            selector: #selector(handleConfirmTransactionNotificationReceived),
             name: .confirmationTxNotificationReceived,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleInitiateTransactionNotificationReceived),
+            name: .initiateTxNotificationReceived,
             object: nil)
 
         NotificationCenter.default.addObserver(
@@ -174,6 +180,14 @@ class MainTabBarViewController: UITabBarController {
         nav.tabBarItem = tabItem
         return nav
     }
+    
+    @objc private func handleInitiateTransactionNotificationReceived(_ info: [String : Any]?) {
+        if let transactionDetails = info?["transactionDetails"] as? SCGModels.TransactionDetails {
+            showTransactionDetails(transactionDetails: transactionDetails)
+        } else {
+            showQueuedTransactions()
+        }
+    }
 
     @objc private func showQueuedTransactions() {
         selectedIndex = 1
@@ -189,10 +203,19 @@ class MainTabBarViewController: UITabBarController {
         viewControllers = [balancesTabVC, transactionsTabVC, dappsTabVC, settingsTabVC]        
     }
 
-    @objc func showTransactionDetails(_ notification: Notification) {
+    @objc func handleConfirmTransactionNotificationReceived(_ notification: Notification) {
         guard let safeTxHash = App.shared.notificationHandler.transactionDetailsPayload else { return }
         App.shared.notificationHandler.transactionDetailsPayload = nil
+        showTransactionDetails(safeTxHash: safeTxHash)
+    }
+    
+    private func showTransactionDetails(safeTxHash: Data) {
         let vc = ViewControllerFactory.transactionDetailsViewController(safeTxHash: safeTxHash)
+        present(vc, animated: true, completion: nil)
+    }
+    
+    private func showTransactionDetails(transactionDetails: SCGModels.TransactionDetails) {
+        let vc = ViewControllerFactory.transactionDetailsViewController(transaction: transactionDetails)
         present(vc, animated: true, completion: nil)
     }
 }

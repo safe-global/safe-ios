@@ -608,6 +608,8 @@
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */; };
 		D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177527620649000B4C04 /* SelectAssetViewController.swift */; };
+		D865178127687E0B000B4C04 /* TransactionSuccessScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177F27687E0B000B4C04 /* TransactionSuccessScreen.swift */; };
+		D865178227687E0B000B4C04 /* TransactionSuccessScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D865178027687E0B000B4C04 /* TransactionSuccessScreen.xib */; };
 		D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */; };
 		D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68E0274E6AA500D7F5C5 /* main.swift */; };
 /* End PBXBuildFile section */
@@ -1244,6 +1246,8 @@
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGnosisSafeTableViewController.swift; sourceTree = "<group>"; };
 		D865177527620649000B4C04 /* SelectAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetViewController.swift; sourceTree = "<group>"; };
+		D865177F27687E0B000B4C04 /* TransactionSuccessScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSuccessScreen.swift; sourceTree = "<group>"; };
+		D865178027687E0B000B4C04 /* TransactionSuccessScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionSuccessScreen.xib; sourceTree = "<group>"; };
 		D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		D86A68E0274E6AA500D7F5C5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1914,6 +1918,7 @@
 		0A6886AB2588FB2C0045CAB5 /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				D865177E27687D6E000B4C04 /* Execution */,
 				0ADA9127256591410004DEC0 /* TransactionListViewController */,
 				0A57C8E22587ADB200B7C019 /* TransactionDetailsViewController */,
 				0AD0273F25A354C700886671 /* MultiSendListTableViewController */,
@@ -2941,6 +2946,15 @@
 			path = Transfer;
 			sourceTree = "<group>";
 		};
+		D865177E27687D6E000B4C04 /* Execution */ = {
+			isa = PBXGroup;
+			children = (
+				D865177F27687E0B000B4C04 /* TransactionSuccessScreen.swift */,
+				D865178027687E0B000B4C04 /* TransactionSuccessScreen.xib */,
+			);
+			path = Execution;
+			sourceTree = "<group>";
+		};
 		D86A68E2274E6B3E00D7F5C5 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -3150,6 +3164,7 @@
 				5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */,
 				557D80B2270B32F80036D6D0 /* WCEditParametersViewController.xib in Resources */,
 				0A433E8225516A9A006FFF75 /* TotalBalanceTableViewCell.xib in Resources */,
+				D865178227687E0B000B4C04 /* TransactionSuccessScreen.xib in Resources */,
 				0468FB9825912E8300541536 /* TransactionListTableViewCell.xib in Resources */,
 				0A57C5A52577DC5600420303 /* DetailExpandableTextCell.xib in Resources */,
 				0A57C5DD2577F9ED00420303 /* ConfirmationStatusPiece.xib in Resources */,
@@ -3614,6 +3629,7 @@
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
 				555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */,
 				0ADD19C5265EA23200EB0F2B /* SeedWordCollectionViewCell.swift in Sources */,
+				D865178127687E0B000B4C04 /* TransactionSuccessScreen.swift in Sources */,
 				0A478D3325B861D50038363E /* DefaultKeyTableViewCell.swift in Sources */,
 				550FB1C326691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift in Sources */,
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,

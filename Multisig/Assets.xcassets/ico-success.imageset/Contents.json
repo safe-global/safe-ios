@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Congratulations.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
