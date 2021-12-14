@@ -62,6 +62,27 @@ class DelegateKeyTests: XCTestCase {
         try loadKeys()
     }
 
+    func testGetDelegates() throws {
+        try loadKeys()
+        try getDelegates()
+    }
+
+    func testCreateDeleteByDelegator() throws {
+        continueAfterFailure = false
+        try loadKeys()
+        try getDelegates()
+        try createDelegate()
+        try deleteDelegateByDelegator()
+    }
+
+    func testCreateDeleteByDelegate() throws {
+        continueAfterFailure = false
+        try loadKeys()
+        try getDelegates()
+        try createDelegate()
+        try deleteDelegateByDelegate()
+    }
+
     func delegateMessageSignature(by signer: PrivateKey) throws -> Data {
         // compose the 'delegating' message
         let timestamp = Int(Date().timeIntervalSince1970)
@@ -83,10 +104,32 @@ class DelegateKeyTests: XCTestCase {
         return Data(hex: signature.hexadecimal)
     }
 
-    func testCreateDelegate() throws {
-        try loadKeys()
+    @discardableResult
+    func getDelegates() throws -> Page<SCGModels.KeyDelegate>? {
+        var delegates: Page<SCGModels.KeyDelegate>?
 
-        let signature = try delegateMessageSignature(by: delegateKey)
+        let exp = expectation(description: "Async Get Delegate Request")
+        clientGateway.asyncGetDelegate(
+            chainId: chainId,
+            delegator: delegatorKey.address
+        ) { result in
+            switch result {
+            case .success(let resp):
+                print("Delegates: \(resp.results)")
+                delegates = resp
+            case .failure(let error):
+                print("Failed to get delegates: \(error)")
+                XCTFail(error.localizedDescription)
+            }
+
+            exp.fulfill()
+        }
+        waitForExpectations(timeout: 300, handler: nil)
+        return delegates
+    }
+    
+    func createDelegate() throws {
+        let signature = try delegateMessageSignature(by: delegatorKey)
 
         // create delegate
         let exp = expectation(description: "Async Create Delegate Request")
@@ -114,31 +157,7 @@ class DelegateKeyTests: XCTestCase {
         waitForExpectations(timeout: 300, handler: nil)
     }
 
-    func testGetDelegates() throws {
-        try loadKeys()
-
-        // get delegates
-        let exp = expectation(description: "Async Get Delegate Request")
-        clientGateway.asyncGetDelegate(
-            chainId: chainId,
-            delegator: delegatorKey.address
-        ) { result in
-            switch result {
-            case .success(let resp):
-                print("Delegates: \(resp.results)")
-            case .failure(let error):
-                print("Failed to get delegates: \(error)")
-                XCTFail(error.localizedDescription)
-            }
-
-            exp.fulfill()
-        }
-        waitForExpectations(timeout: 300, handler: nil)
-    }
-
-    func testDeleteDelegateByDelegate() throws {
-        try loadKeys()
-
+    func deleteDelegateByDelegate() throws {
         let signature = try delegateMessageSignature(by: delegateKey)
 
         let exp = expectation(description: "Async Delete Delegate Request")
@@ -162,9 +181,7 @@ class DelegateKeyTests: XCTestCase {
         waitForExpectations(timeout: 300, handler: nil)
     }
 
-    func testDeleteDelegateByDelegator() throws {
-        try loadKeys()
-
+    func deleteDelegateByDelegator() throws {
         let signature = try delegateMessageSignature(by: delegatorKey)
 
         let exp = expectation(description: "Async Delete Delegate Request")
