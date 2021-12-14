@@ -55,6 +55,12 @@ class MainTabBarViewController: UITabBarController {
             selector: #selector(showTransactionDetails),
             name: .confirmationTxNotificationReceived,
             object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showQueuedTransactions),
+            name: .initiateTxNotificationReceived,
+            object: nil)
 
         NotificationCenter.default.addObserver(
             self,
