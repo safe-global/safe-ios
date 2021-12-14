@@ -202,6 +202,7 @@
 		0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A478D5625B876AF0038363E /* ButtonTableViewCell.swift */; };
 		0A478D5925B876AF0038363E /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A478D5725B876AF0038363E /* ButtonTableViewCell.xib */; };
 		0A4F44542754DE3D00423ABB /* GetDelegateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4F44532754DE3D00423ABB /* GetDelegateRequest.swift */; };
+		0A513A9D2768EBC900F07D5A /* DelegateKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A513A9C2768EBC900F07D5A /* DelegateKeyTests.swift */; };
 		0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */; };
 		0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */; };
 		0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307452543273F00E8A270 /* UIViewController+UINib.swift */; };
@@ -825,6 +826,7 @@
 		0A478D5625B876AF0038363E /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		0A478D5725B876AF0038363E /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
 		0A4F44532754DE3D00423ABB /* GetDelegateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDelegateRequest.swift; sourceTree = "<group>"; };
+		0A513A9C2768EBC900F07D5A /* DelegateKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateKeyTests.swift; sourceTree = "<group>"; };
 		0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmTransactionRequest.swift; sourceTree = "<group>"; };
 		0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionSigner.swift; sourceTree = "<group>"; };
 		0A5307452543273F00E8A270 /* UIViewController+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINib.swift"; sourceTree = "<group>"; };
@@ -2168,6 +2170,7 @@
 				0A3DFF002667D7DA00B45770 /* CoreData */,
 				0A64313F247ED1AA006FD30A /* MultisigIntegrationTests.xctestplan */,
 				0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */,
+				0A513A9C2768EBC900F07D5A /* DelegateKeyTests.swift */,
 				5532D4D02449A1E40067505A /* MockLogger.swift */,
 				0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */,
 				0A9BC3572460581500EB9C5D /* Info.plist */,
@@ -3739,6 +3742,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A513A9D2768EBC900F07D5A /* DelegateKeyTests.swift in Sources */,
 				0A61E8422670E474009D68A4 /* CellTestViewController.swift in Sources */,
 				0ADFADA3267B496F007ACD65 /* BalancesTableViewControllerTests.swift in Sources */,
 				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,

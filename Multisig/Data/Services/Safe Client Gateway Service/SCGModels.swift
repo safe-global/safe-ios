@@ -610,7 +610,7 @@ extension SCGModels {
     }
 
     struct KeyDelegate: Codable {
-        var safe: AddressString
+        var safe: AddressString?
         var delegate: AddressString
         var delegator: AddressString
         var label: String

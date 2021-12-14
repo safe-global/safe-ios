@@ -16,6 +16,7 @@ struct DeleteDelegateKeyRequest: JSONRequest {
 
     struct EmptyResponse: Decodable { }
 
+    var safe: String?
     var delegate: String
     var delegator: String
     var signature: String
@@ -26,13 +27,15 @@ extension SafeClientGatewayService {
 
     @discardableResult
     func asyncDeleteDelegate(
+        safe: Address?,
         owner: Address,
         delegate: Address,
         signature: String,
         chainId: String,
         completion: @escaping (Result<DeleteDelegateKeyRequest.ResponseType, Error>) -> Void
     ) -> URLSessionTask? {
-        asyncExecute(request: DeleteDelegateKeyRequest(delegate: delegate.checksummed,
+        asyncExecute(request: DeleteDelegateKeyRequest(safe: safe?.checksummed,
+                                                       delegate: delegate.checksummed,
                                                        delegator: owner.checksummed,
                                                        signature: signature,
                                                        chainId: chainId),
