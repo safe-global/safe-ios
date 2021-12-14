@@ -15,12 +15,12 @@ class TransactionSuccessScreen: UIViewController {
     @IBOutlet weak var viewDetailsButton: UIButton!
     
     var amount: String = ""
-    var txId: String = ""
+    var transactionDetails: SCGModels.TransactionDetails?
     
-    convenience init(amount: String, txId: String) {
+    convenience init(amount: String, transactionDetails: SCGModels.TransactionDetails? = nil) {
         self.init(nibName: nil, bundle: nil)
         self.amount = amount
-        self.txId = txId
+        self.transactionDetails = transactionDetails
     }
     
     override func viewDidLoad() {
@@ -35,10 +35,9 @@ class TransactionSuccessScreen: UIViewController {
     }
     
     @IBAction func viewDetailsClicked(_ sender: Any) {
-        //TODO open txDetails screen when txId is available
-        //TODO pass txId in userInfo below
-        NotificationCenter.default.post(name: .initiateTxNotificationReceived, object: self, userInfo: nil)
-        
+        NotificationCenter.default.post(name: .initiateTxNotificationReceived,
+                                        object: self,
+                                        userInfo: transactionDetails == nil ? nil : ["transactionDetails": transactionDetails!])
         //TODO check if resetting of the property is needed
         navigationController?.isNavigationBarHidden = false
         navigationController?.popToRootViewController(animated: true)
