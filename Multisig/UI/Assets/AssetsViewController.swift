@@ -45,14 +45,17 @@ class AssetsViewController: ContainerViewController {
             assert(safe != nil)
             //check if safe has an owner imported
             if safe!.isReadOnly {
-                //no -> open add owner key first screen
-            } else {
-                //yes -> proceed to select asset screen
-                guard let balances = self?.balances else {
-                    return
+                let vc = AddOwnerFirstViewController()
+                vc.onSuccess = { [weak self, unowned safe] in
+                    if !safe!.isReadOnly {
+                        self?.showSelectAssetsViewContoller()
+                    }
                 }
-                let vc = SelectAssetViewController(balances: balances)
-                self?.show(vc, sender: self)
+                
+                let navigationController = UINavigationController(rootViewController: vc)
+                self?.present(navigationController, animated: true)
+            } else {
+                self?.showSelectAssetsViewContoller()
             }
         }
         
@@ -62,6 +65,12 @@ class AssetsViewController: ContainerViewController {
             vc.modalTransitionStyle = .crossDissolve
             self?.present(vc, animated: true, completion: nil)
         }
+    }
+    
+    private func showSelectAssetsViewContoller() {
+        guard let balances = self.balances else { return }
+        let vc = SelectAssetViewController(balances: balances)
+        self.show(vc, sender: self)
     }
     
     @objc private func updateBalances(_ notification: Notification) {

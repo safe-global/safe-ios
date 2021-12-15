@@ -606,6 +606,8 @@
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		D80B5A0A2769F95000D6E024 /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A082769F95000D6E024 /* AssetsViewController.swift */; };
 		D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D80B5A092769F95000D6E024 /* AssetsViewController.xib */; };
+		D80B5A0F276A367A00D6E024 /* AddOwnerFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A0D276A367A00D6E024 /* AddOwnerFirstViewController.swift */; };
+		D80B5A10276A367A00D6E024 /* AddOwnerFirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D80B5A0E276A367A00D6E024 /* AddOwnerFirstViewController.xib */; };
 		D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */; };
 		D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177527620649000B4C04 /* SelectAssetViewController.swift */; };
 		D86517792767555E000B4C04 /* TotalBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517782767555E000B4C04 /* TotalBalanceView.swift */; };
@@ -1246,6 +1248,8 @@
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		D80B5A082769F95000D6E024 /* AssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
 		D80B5A092769F95000D6E024 /* AssetsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetsViewController.xib; sourceTree = "<group>"; };
+		D80B5A0D276A367A00D6E024 /* AddOwnerFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerFirstViewController.swift; sourceTree = "<group>"; };
+		D80B5A0E276A367A00D6E024 /* AddOwnerFirstViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerFirstViewController.xib; sourceTree = "<group>"; };
 		D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGnosisSafeTableViewController.swift; sourceTree = "<group>"; };
 		D865177527620649000B4C04 /* SelectAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetViewController.swift; sourceTree = "<group>"; };
 		D86517782767555E000B4C04 /* TotalBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceView.swift; sourceTree = "<group>"; };
@@ -2900,6 +2904,7 @@
 		55F91A8E25BEABA100938475 /* OwnerKeyManagement */ = {
 			isa = PBXGroup;
 			children = (
+				D80B5A0C276A362900D6E024 /* AddOwnerFirst */,
 				0ADD19B5265EA23200EB0F2B /* ExportViewController.swift */,
 				55CCD58627550F42004EA3E3 /* DelegateKeyController.swift */,
 				55413674265E49E100796F91 /* AddOwnerKeyViewController */,
@@ -2941,6 +2946,15 @@
 				04273E5B26B41A3700A14E95 /* APDUController.swift */,
 			);
 			path = Ledger;
+			sourceTree = "<group>";
+		};
+		D80B5A0C276A362900D6E024 /* AddOwnerFirst */ = {
+			isa = PBXGroup;
+			children = (
+				D80B5A0D276A367A00D6E024 /* AddOwnerFirstViewController.swift */,
+				D80B5A0E276A367A00D6E024 /* AddOwnerFirstViewController.xib */,
+			);
+			path = AddOwnerFirst;
 			sourceTree = "<group>";
 		};
 		D865177427620628000B4C04 /* Transfer */ = {
@@ -3183,6 +3197,7 @@
 				D865177D27675DD1000B4C04 /* TotalBalanceView.xib in Resources */,
 				0A57C5DD2577F9ED00420303 /* ConfirmationStatusPiece.xib in Resources */,
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
+				D80B5A10276A367A00D6E024 /* AddOwnerFirstViewController.xib in Resources */,
 				0ADD19C6265EA23200EB0F2B /* SeedWordCollectionViewCell.xib in Resources */,
 				557D80BE270B32F80036D6D0 /* wallets.json in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
@@ -3573,6 +3588,7 @@
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
+				D80B5A0F276A367A00D6E024 /* AddOwnerFirstViewController.swift in Sources */,
 				0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,

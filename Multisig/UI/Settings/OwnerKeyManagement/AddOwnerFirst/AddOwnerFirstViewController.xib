@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddOwnerFirstViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="addOwnerKeyButton" destination="7RB-b3-Ut6" id="wax-v0-9ue"/>
+                <outlet property="messageLabel" destination="fgX-BX-h8F" id="OUT-sg-G0x"/>
+                <outlet property="titleLabel" destination="Qls-7o-dQ6" id="VpE-nS-vyR"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="l1I-xf-zVj">
+                    <rect key="frame" x="16" y="308.5" width="382" height="289.5"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-onboarding-import-key-2" translatesAutoresizingMaskIntoConstraints="NO" id="6sT-SE-KZa">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="100"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add owner key first" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qls-7o-dQ6">
+                            <rect key="frame" x="0.0" y="132" width="382" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To start sending funds import at least one owner key. Keys are used to confirm transactions." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgX-BX-h8F">
+                            <rect key="frame" x="0.0" y="168.5" width="382" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7RB-b3-Ut6">
+                            <rect key="frame" x="0.0" y="233.5" width="382" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="PR3-b0-Jdc"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Add owner key">
+                                <color key="titleColor" systemColor="labelColor"/>
+                            </state>
+                            <connections>
+                                <action selector="addOwnerKeyClicked:" destination="-1" eventType="touchUpInside" id="Lcs-aO-v8r"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="fgX-BX-h8F" firstAttribute="top" secondItem="Qls-7o-dQ6" secondAttribute="bottom" constant="16" id="O9r-7I-gW9"/>
+                        <constraint firstItem="Qls-7o-dQ6" firstAttribute="top" secondItem="6sT-SE-KZa" secondAttribute="bottom" constant="32" id="aS6-1d-RYf"/>
+                        <constraint firstItem="7RB-b3-Ut6" firstAttribute="top" secondItem="fgX-BX-h8F" secondAttribute="bottom" constant="24" id="luE-io-aaP"/>
+                        <constraint firstItem="7RB-b3-Ut6" firstAttribute="top" secondItem="fgX-BX-h8F" secondAttribute="bottom" constant="24" id="pRM-dy-lLr"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="l1I-xf-zVj" secondAttribute="trailing" constant="16" id="5tf-AT-TDU"/>
+                <constraint firstItem="l1I-xf-zVj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="G3u-RD-QZi"/>
+                <constraint firstItem="l1I-xf-zVj" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="LXM-8I-7gU"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="131"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ico-onboarding-import-key-2" width="141" height="100"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
