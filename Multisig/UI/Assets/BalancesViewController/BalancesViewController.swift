@@ -48,10 +48,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         tableView.registerCell(BalanceTableViewCell.self)
         tableView.registerCell(BannerTableViewCell.self)
         
-        //TODO: remove #if (intermediate way to access select transfer asset screen)
-#if !DEBUG
         tableView.allowsSelection = false
-#endif
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
@@ -179,18 +176,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                 cell.setImage(with: item.imageURL, placeholder: UIImage(named: "ico-token-placeholder")!)
             }
             return cell
-        }
-    }
-    
-    //TODO: remove func (intermediate way to access select transfer asset screen)
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let section = sections[indexPath.section]
-        switch section {
-        case .balances(let balances):
-            show(SelectAssetViewController(balances: balances), sender: self)
-        default:
-            break
         }
     }
 
