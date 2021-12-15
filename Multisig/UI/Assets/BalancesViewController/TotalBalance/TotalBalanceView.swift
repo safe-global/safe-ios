@@ -23,6 +23,12 @@ class TotalBalanceView: UINibView {
         }
     }
     
+    var loading: Bool = false {
+        didSet {
+            
+        }
+    }
+    
     override func awakeFromNib() {
         amountLabel.setStyle(.title4)
         totalLabel.setStyle(.footnote2)

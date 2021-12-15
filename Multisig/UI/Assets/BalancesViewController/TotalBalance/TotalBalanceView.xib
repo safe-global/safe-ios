@@ -28,8 +28,8 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10,679.25 USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0l-py-63V">
-                    <rect key="frame" x="171.5" y="62" width="125" height="0.0"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0l-py-63V">
+                    <rect key="frame" x="16" y="62" width="436" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -69,11 +69,12 @@
                 <constraint firstItem="aMZ-ar-Gfy" firstAttribute="top" secondItem="QMn-jv-Tki" secondAttribute="top" constant="16" id="3Ce-9Q-Vb4"/>
                 <constraint firstItem="H5X-sT-Xhx" firstAttribute="centerX" secondItem="U0l-py-63V" secondAttribute="centerX" id="5Wn-1M-GNQ"/>
                 <constraint firstItem="QMn-jv-Tki" firstAttribute="bottom" secondItem="H5X-sT-Xhx" secondAttribute="bottom" constant="24" id="8Zn-90-WKa"/>
-                <constraint firstItem="U0l-py-63V" firstAttribute="width" secondItem="aMZ-ar-Gfy" secondAttribute="width" multiplier="0.286616" id="SCe-Pj-t66"/>
                 <constraint firstItem="U0l-py-63V" firstAttribute="top" secondItem="aMZ-ar-Gfy" secondAttribute="bottom" constant="2" id="TR6-3p-sCY"/>
                 <constraint firstItem="aMZ-ar-Gfy" firstAttribute="leading" secondItem="QMn-jv-Tki" secondAttribute="leading" constant="16" id="cB9-qd-clv"/>
                 <constraint firstItem="QMn-jv-Tki" firstAttribute="trailing" secondItem="aMZ-ar-Gfy" secondAttribute="trailing" constant="16" id="lS0-7V-f51"/>
                 <constraint firstItem="U0l-py-63V" firstAttribute="centerX" secondItem="aMZ-ar-Gfy" secondAttribute="centerX" id="lSl-go-7t3"/>
+                <constraint firstItem="U0l-py-63V" firstAttribute="leading" secondItem="0BM-wC-Yrx" secondAttribute="leading" constant="16" id="oql-A7-gAl"/>
+                <constraint firstAttribute="trailing" secondItem="U0l-py-63V" secondAttribute="trailing" constant="16" id="tjP-sc-Bh8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-194.20289855072465" y="-186.49553571428569"/>
