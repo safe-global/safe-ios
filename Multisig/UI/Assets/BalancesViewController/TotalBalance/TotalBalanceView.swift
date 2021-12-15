@@ -25,7 +25,11 @@ class TotalBalanceView: UINibView {
     
     var loading: Bool = false {
         didSet {
-            
+            if (loading) {
+                //hide amount, show skeleton loader
+            } else {
+                //show amount, hide skeleton loader
+            }
         }
     }
     
