@@ -46,7 +46,7 @@ public final class FeedbackTooltip: BaseCustomView {
         addSubview(background)
 
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = ColorName.darkBlue.color
+        label.textColor = .primaryLabel
         label.numberOfLines = 0
         label.textAlignment = .center
         label.isUserInteractionEnabled = true
@@ -87,7 +87,7 @@ public final class FeedbackTooltip: BaseCustomView {
 
         background.image = Asset.greenTooltipBackground.image
 
-        label.textColor = ColorName.snowwhite.color
+        label.textColor = .primaryLabel
         label.font = UIFont.systemFont(ofSize: 16)
 
         arrow.image = isShowingAboveTarget ? arrowDown : arrowUp
