@@ -14,7 +14,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     private enum Section {
         case importKeyBanner
         case passcodeBanner
-        case total(text: String)
         case balances(items: [TokenBalance])
     }
     var clientGatewayService: BalancesAPI = App.shared.clientGatewayService
@@ -47,7 +46,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerCell(BalanceTableViewCell.self)
-        tableView.registerCell(TotalBalanceTableViewCell.self)
         tableView.registerCell(BannerTableViewCell.self)
         
         //TODO: remove #if (intermediate way to access select transfer asset screen)
@@ -122,7 +120,14 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                         let results = summary.items.map { TokenBalance($0, code: AppSettings.selectedFiatCode) }
                         let total = TokenBalance.displayCurrency(from: summary.fiatTotal, code: AppSettings.selectedFiatCode)
                         guard let `self` = self else { return }
-                        self.sections = self.makeSections(items: results, total: total)
+                        
+                        //update coins total balance header by propagating total value
+                        NotificationCenter.default.post(
+                            name: .totalBalanceUpdated,
+                            object: self,
+                            userInfo: ["totalAmount": total]
+                        )
+                        self.sections = self.makeSections(items: results)
                         self.onSuccess()
                     }
                 }
@@ -132,7 +137,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         }
     }
 
-    private func makeSections(items: [TokenBalance], total: String) -> [Section] {
+    private func makeSections(items: [TokenBalance]) -> [Section] {
         guard !items.isEmpty else { return [] }
 
         var sections = [Section]()
@@ -141,7 +146,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         } else if shouldShowPasscodeBanner {
             sections.append(.passcodeBanner)
         }
-        sections.append(.total(text: total))
         sections.append(.balances(items: items))
         return sections
     }
@@ -152,7 +156,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
-        case .importKeyBanner, .passcodeBanner, .total: return 1
+        case .importKeyBanner, .passcodeBanner: return 1
         case .balances(items: let items): return items.count
         }
     }
@@ -163,11 +167,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             return importKeyBanner(indexPath: indexPath)
         case .passcodeBanner:
             return createPasscodeBanner(indexPath: indexPath)
-        case .total(text: let text):
-            let cell = tableView.dequeueCell(TotalBalanceTableViewCell.self, for: indexPath)
-            cell.setMainText("Total")
-            cell.setDetailText(text)
-            return cell
         case .balances(items: let items):
             let item = items[indexPath.row]
             let cell = tableView.dequeueCell(BalanceTableViewCell.self, for: indexPath)
@@ -251,15 +250,13 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private func recreateSectionsWithCurrentItems() {
         var items = [TokenBalance]()
-        var total = ""
         for section in sections {
             switch section {
             case .balances(items: let balances): items = balances
-            case .total(text: let text): total = text
             default: continue
             }
         }
-        sections = makeSections(items: items, total: total)
+        sections = makeSections(items: items)
         tableView.reloadData()
     }
 }
