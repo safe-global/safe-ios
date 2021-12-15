@@ -14,6 +14,8 @@ class AssetsViewController: ContainerViewController {
     
     @IBOutlet private weak var contentView: UIView!
     
+    private var balances: [TokenBalance]? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,15 +36,38 @@ class AssetsViewController: ContainerViewController {
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(updateTotalBalance(_:)),
-            name: .totalBalanceUpdated,
+            selector: #selector(updateBalances),
+            name: .balanceUpdated,
             object: nil)
+        
+        totalBalanceView.onSendClicked = { [weak self] in
+            let safe = Selection.current().safe
+            assert(safe != nil)
+            //check if safe has an owner imported
+            if safe!.isReadOnly {
+                //no -> open add owner key first screen
+            } else {
+                //yes -> proceed to select asset screen
+                guard let balances = self?.balances else {
+                    return
+                }
+                let vc = SelectAssetViewController(balances: balances)
+                self?.show(vc, sender: self)
+            }
+        }
+        
+        totalBalanceView.onReceivedClicked = { [weak self] in
+            let vc = SafeInfoViewController(nibName: nil, bundle: nil)
+            vc.modalPresentationStyle = .overFullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            self?.present(vc, animated: true, completion: nil)
+        }
     }
     
-    @objc private func updateTotalBalance(_ notification: Notification) {
-        guard let totalAmount = notification.userInfo?["totalAmount"] as? String else {
-            return
-        }
-        totalBalanceView.amount = totalAmount
+    @objc private func updateBalances(_ notification: Notification) {
+        let userInfo = notification.userInfo
+        totalBalanceView.amount = userInfo?["total"] as? String
+        self.balances = userInfo?["balances"] as? [TokenBalance]
+        totalBalanceView.sendEnabled = !(balances?.isEmpty ?? true)
     }
 }

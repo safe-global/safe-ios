@@ -20,7 +20,7 @@ extension NSNotification.Name {
     static let ownerKeyRemoved = NSNotification.Name("io.gnosis.safe.ownerKeyRemoved")
     static let ownerKeyUpdated = NSNotification.Name("io.gnosis.safe.ownerKeyUpdated")
     
-    static let totalBalanceUpdated = NSNotification.Name("io.gnosis.safe.totalBalanceUpdated")
+    static let balanceUpdated = NSNotification.Name("io.gnosis.safe.balancesUpdated")
 
     static let transactionDataInvalidated = NSNotification.Name("io.gnosis.safe.transactionDataInvalidated")
 

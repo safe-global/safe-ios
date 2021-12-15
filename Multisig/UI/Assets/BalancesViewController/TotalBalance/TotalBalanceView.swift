@@ -33,6 +33,12 @@ class TotalBalanceView: UINibView {
         }
     }
     
+    var sendEnabled: Bool = false {
+        didSet {
+            sendButton.isEnabled = sendEnabled
+        }
+    }
+    
     override func awakeFromNib() {
         amountLabel.setStyle(.title4)
         totalLabel.setStyle(.footnote2)

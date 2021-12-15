@@ -123,9 +123,9 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                         
                         //update coins total balance header by propagating total value
                         NotificationCenter.default.post(
-                            name: .totalBalanceUpdated,
+                            name: .balanceUpdated,
                             object: self,
-                            userInfo: ["totalAmount": total]
+                            userInfo: ["balances": results, "total": total]
                         )
                         self.sections = self.makeSections(items: results)
                         self.onSuccess()
