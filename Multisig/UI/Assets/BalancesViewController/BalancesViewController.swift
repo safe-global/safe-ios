@@ -118,7 +118,8 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                         let total = TokenBalance.displayCurrency(from: summary.fiatTotal, code: AppSettings.selectedFiatCode)
                         guard let `self` = self else { return }
                         
-                        //update coins total balance header by propagating total value
+                        //update coins total balance header by propagating total value and balances
+                        //propagation of balances is needed to init SelectAssetViewController from AssetsViewController when send button is clicked
                         NotificationCenter.default.post(
                             name: .balanceUpdated,
                             object: self,
