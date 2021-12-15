@@ -610,6 +610,9 @@
 		D80B5A0F276A367A00D6E024 /* AddOwnerFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A0D276A367A00D6E024 /* AddOwnerFirstViewController.swift */; };
 		D80B5A10276A367A00D6E024 /* AddOwnerFirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D80B5A0E276A367A00D6E024 /* AddOwnerFirstViewController.xib */; };
 		D80B5A13276B5FAD00D6E024 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = D80B5A12276B5FAD00D6E024 /* SkeletonView */; };
+		D80B5A032769CEAD00D6E024 /* FeedbackTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* FeedbackTooltip.swift */; };
+		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
+		D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A062769D05D00D6E024 /* BaseCustomView.swift */; };
 		D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */; };
 		D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177527620649000B4C04 /* SelectAssetViewController.swift */; };
 		D86517792767555E000B4C04 /* TotalBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517782767555E000B4C04 /* TotalBalanceView.swift */; };
@@ -1253,6 +1256,9 @@
 		D80B5A092769F95000D6E024 /* AssetsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetsViewController.xib; sourceTree = "<group>"; };
 		D80B5A0D276A367A00D6E024 /* AddOwnerFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerFirstViewController.swift; sourceTree = "<group>"; };
 		D80B5A0E276A367A00D6E024 /* AddOwnerFirstViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerFirstViewController.xib; sourceTree = "<group>"; };
+		D80B5A022769CEAD00D6E024 /* FeedbackTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTooltip.swift; sourceTree = "<group>"; };
+		D80B5A042769CF1B00D6E024 /* TooltipSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSource.swift; sourceTree = "<group>"; };
+		D80B5A062769D05D00D6E024 /* BaseCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomView.swift; sourceTree = "<group>"; };
 		D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGnosisSafeTableViewController.swift; sourceTree = "<group>"; };
 		D865177527620649000B4C04 /* SelectAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetViewController.swift; sourceTree = "<group>"; };
 		D86517782767555E000B4C04 /* TotalBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceView.swift; sourceTree = "<group>"; };
@@ -2766,6 +2772,7 @@
 		558835ED255BFEA80014E8C7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D80B5A012769CE8800D6E024 /* Tooltip */,
 				558835EE255BFEDB0014E8C7 /* AddressInfoView.swift */,
 				558835F8255BFEF80014E8C7 /* AddressInfoView.xib */,
 				55BCFC542554627100020CE7 /* BasicCell.swift */,
@@ -2802,6 +2809,7 @@
 				0422006F25EFDF4E00CAC173 /* TagView.xib */,
 				04273E5F26D43F0400A14E95 /* IdenticonView.swift */,
 				04273E6126D43F1700A14E95 /* IdenticonView.xib */,
+				D80B5A062769D05D00D6E024 /* BaseCustomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2960,6 +2968,15 @@
 				D80B5A0E276A367A00D6E024 /* AddOwnerFirstViewController.xib */,
 			);
 			path = AddOwnerFirst;
+			sourceTree = "<group>";
+		};
+		D80B5A012769CE8800D6E024 /* Tooltip */ = {
+			isa = PBXGroup;
+			children = (
+				D80B5A022769CEAD00D6E024 /* FeedbackTooltip.swift */,
+				D80B5A042769CF1B00D6E024 /* TooltipSource.swift */,
+			);
+			path = Tooltip;
 			sourceTree = "<group>";
 		};
 		D865177427620628000B4C04 /* Transfer */ = {
@@ -3489,6 +3506,7 @@
 				557D80B7270B32F80036D6D0 /* WalletConnectKeysServerController.swift in Sources */,
 				0AF2733F24DAC9FE007E4012 /* RemoteNotificationHandler.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
+				D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */,
 				0A802B8124E413450001790F /* HTTPClientError.swift in Sources */,
 				0A6886D12588FC180045CAB5 /* EnterAddressNameViewController.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
@@ -3513,6 +3531,7 @@
 				0A3FDAF226AEB691006A7DC3 /* Safe+Shared.swift in Sources */,
 				557D80AC270B32F80036D6D0 /* WalletConnectServerController.swift in Sources */,
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
+				D80B5A032769CEAD00D6E024 /* FeedbackTooltip.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
@@ -3524,6 +3543,7 @@
 				0AF1042A26BACF59009C4B14 /* OnboardingLedgerKeyViewController.swift in Sources */,
 				048D72BD26832FD70095999C /* ChainsListRequest.swift in Sources */,
 				551DBE3E26CD39DC0053CCB2 /* LedgerKeyPickerViewController.swift in Sources */,
+				D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */,
 				0A465C34246C236A00AFA467 /* FrameForTapping.swift in Sources */,
 				D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */,
 				043ABD0F24EF0C33008826D5 /* SafeClientGatewayService.swift in Sources */,
