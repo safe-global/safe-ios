@@ -26,17 +26,17 @@ class AuthenticationControllerTests: CoreDataTestCase {
         let auth = App.shared.auth
 
         // verify that peasscode is not set
-        XCTAssertFalse(auth.isPasscodeSet)
+        XCTAssertFalse(auth.isPasscodeSetAndAvailable)
         XCTAssertFalse(AppSettings.passcodeWasSetAtLeastOnce)
         XCTAssertFalse(try auth.isPasscodeCorrect(plaintextPasscode: passcode))
 
         // delete should have no consequences when passcode not set
         try auth.deletePasscode()
-        XCTAssertFalse(auth.isPasscodeSet)
+        XCTAssertFalse(auth.isPasscodeSetAndAvailable)
 
         // create will set the passcode
         try auth.createPasscode(plaintextPasscode: passcode)
-        XCTAssertTrue(auth.isPasscodeSet)
+        XCTAssertTrue(auth.isPasscodeSetAndAvailable)
         XCTAssertTrue(AppSettings.passcodeWasSetAtLeastOnce)
 
         // check if valid passcode accepted
@@ -59,7 +59,7 @@ class AuthenticationControllerTests: CoreDataTestCase {
 
         // delete will remove the passcode
         try auth.deletePasscode()
-        XCTAssertFalse(auth.isPasscodeSet)
+        XCTAssertFalse(auth.isPasscodeSetAndAvailable)
         XCTAssertTrue(AppSettings.passcodeWasSetAtLeastOnce)
 
         XCTAssertFalse(try auth.isPasscodeCorrect(plaintextPasscode: changedPasscode))

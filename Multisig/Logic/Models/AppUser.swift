@@ -37,27 +37,22 @@ extension AppUser {
         return user
     }
 
-    var encryptedPassword: String {
-        get {
-            do {
-                if let data = try App.shared.keychainService.data(forKey: keychainKey),
-                   let string = String(data: data, encoding: .utf8) {
-                    return string
-                }
-            } catch {
-                LogService.shared.error("Failed to get encrypted password", error: error)
-            }
-            return ""
+    func encryptedPassword() throws -> String? {
+        // keychain might be not accessible. In this case we don't know if there's encrypted password or not
+        // we must gracefully finish whatever operation is going on.
+        if let data = try App.shared.keychainService.data(forKey: keychainKey),
+           let string = String(data: data, encoding: .utf8) {
+            return string
         }
-        set {
-            do {
-                if let data = newValue.data(using: .utf8) {
-                    try removeEncryptedPassword()
-                    try App.shared.keychainService.save(data: data, forKey: keychainKey)
-                }
-            } catch {
-                LogService.shared.error("Failed to save encrypted password", error: error)
-            }
+        return nil
+    }
+
+    func setEncryptedPassword(_ newValue: String) throws {
+        if let data = newValue.data(using: .utf8) {
+            // keychain might fail
+            try removeEncryptedPassword()
+            // keychain might fail
+            try App.shared.keychainService.save(data: data, forKey: keychainKey)
         }
     }
 
@@ -65,6 +60,7 @@ extension AppUser {
         App.configuration.app.bundleIdentifier + id!.uuidString
     }
 
+    // keychain might fail
     func removeEncryptedPassword() throws {
         try App.shared.keychainService.removeData(forKey: keychainKey)
     }

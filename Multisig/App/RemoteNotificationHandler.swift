@@ -221,7 +221,10 @@ class RemoteNotificationHandler {
                     .compactMap { Address($0) }
                     .map { $0.checksummed }
                     .sorted()
-                
+
+                // The signing might fail in case the underlying key store is not available. In this case
+                // we abort the whole process. The registration will be attempted again on the next
+                // app coming to foreground event.
                 let signResult = try Self.sign(safes: safes,
                                                deviceID: deviceID,
                                                token: pushToken,
@@ -239,7 +242,7 @@ class RemoteNotificationHandler {
                                                                  timestamp: timestamp,
                                                                  safeRegistrations: safeRegistration) { _ in }
         } catch {
-            logError("Failed to register device", error)
+            logDebug("Failed to register the device: \(error)")
         }
     }
 

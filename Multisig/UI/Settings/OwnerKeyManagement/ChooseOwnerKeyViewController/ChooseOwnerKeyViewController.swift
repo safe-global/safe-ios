@@ -133,7 +133,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
             }
         } else if keyInfo.keyType == .ledgerNanoX {
             completionHandler?(keyInfo)
-        } else if App.shared.auth.isPasscodeSet && AppSettings.passcodeOptions.contains(.useForConfirmation) {
+        } else if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
             let vc = EnterPasscodeViewController()
             vc.passcodeCompletion = { [weak self] success in
                 guard let `self` = self else { return }
