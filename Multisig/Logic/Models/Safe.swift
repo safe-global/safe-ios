@@ -218,6 +218,8 @@ extension Safe {
         modulesInfo = info.modules?.map { $0.addressInfo }
         fallbackHandlerInfo = info.fallbackHandler?.addressInfo
         guardInfo = info.guard?.addressInfo
+                            
+        NotificationCenter.default.post(name: .selectedSafeUpdated, object: self)
     }
 }
 

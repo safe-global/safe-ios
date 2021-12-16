@@ -16,6 +16,8 @@ class AssetsViewController: ContainerViewController {
     
     private var balances: [TokenBalance]? = nil
     
+    private var safe: Safe? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,9 +42,19 @@ class AssetsViewController: ContainerViewController {
             name: .balanceUpdated,
             object: nil)
         
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(selectedSafeUpdatedReceived), name: .selectedSafeUpdated, object: nil)
+        
+        totalBalanceView.onReceivedClicked = { [weak self] in
+            let vc = SafeInfoViewController()
+            vc.modalPresentationStyle = .overFullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            self?.present(vc, animated: true, completion: nil)
+        }
+        
         totalBalanceView.onSendClicked = { [weak self] in
-            let safe = Selection.current().safe!
             //check if safe has an owner imported
+            guard let safe = self?.safe else { return }
             if safe.isReadOnly {
                 let vc = AddOwnerFirstViewController()
                 vc.onSuccess = { [weak self, unowned safe] in
@@ -50,19 +62,11 @@ class AssetsViewController: ContainerViewController {
                         self?.showSelectAssetsViewContoller()
                     }
                 }
-                
                 let navigationController = UINavigationController(rootViewController: vc)
                 self?.present(navigationController, animated: true)
             } else {
                 self?.showSelectAssetsViewContoller()
             }
-        }
-        
-        totalBalanceView.onReceivedClicked = { [weak self] in
-            let vc = SafeInfoViewController()
-            vc.modalPresentationStyle = .overFullScreen
-            vc.modalTransitionStyle = .crossDissolve
-            self?.present(vc, animated: true, completion: nil)
         }
     }
     
@@ -77,5 +81,13 @@ class AssetsViewController: ContainerViewController {
         totalBalanceView.amount = userInfo?["total"] as? String
         self.balances = userInfo?["balances"] as? [TokenBalance]
         totalBalanceView.sendEnabled = !(balances?.isEmpty ?? true)
+    }
+    
+    @objc private func selectedSafeUpdatedReceived(notification: Notification) {
+        //workaround for getting recent safeInfo with safe
+        //otherwise first call to Safe.getSelected() won't contain safeInfo data
+        //this would lead to safe.isReadOnly not returning correct value
+        //TODO: revise workaround
+        self.safe = notification.object as? Safe
     }
 }
