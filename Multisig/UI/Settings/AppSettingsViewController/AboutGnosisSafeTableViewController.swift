@@ -67,16 +67,20 @@ class AboutGnosisSafeTableViewController: UITableViewController {
         switch item {
         case Item.terms:
             openInSafari(legal.termsURL)
+            Tracker.trackEvent(.settingsTerms)
     
         case Item.privacyPolicy:
             openInSafari(legal.privacyURL)
+            Tracker.trackEvent(.settingsPrivacyPolicy)
 
         case Item.licenses:
             openInSafari(legal.licensesURL)
+            Tracker.trackEvent(.settingsLicenses)
 
         case Item.rateTheApp:
             let url = App.configuration.contact.appStoreReviewURL
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            Tracker.trackEvent(.settingsRateApp)
         }
     }
 }

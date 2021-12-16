@@ -48,7 +48,7 @@ class WCEditParametersViewController: UIViewController, ExternalURLSource {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Edit Transaction"
+        title = "Advanced Parameters"
 
         let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(CloseModal.closeModal))
         navigationItem.leftBarButtonItem = closeButton
