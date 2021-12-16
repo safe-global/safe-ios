@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class TotalBalanceView: UINibView {
 
@@ -26,9 +27,9 @@ class TotalBalanceView: UINibView {
     var loading: Bool = false {
         didSet {
             if (loading) {
-                //hide amount, show skeleton loader
+                amountLabel.showSkeleton()
             } else {
-                //show amount, hide skeleton loader
+                amountLabel.hideSkeleton()
             }
         }
     }
@@ -40,6 +41,7 @@ class TotalBalanceView: UINibView {
     }
     
     override func awakeFromNib() {
+        amountLabel.skeletonTextLineHeight = .relativeToConstraints
         amountLabel.setStyle(.title4)
         totalLabel.setStyle(.footnote2)
         sendButton.setText("Send", .filled)
