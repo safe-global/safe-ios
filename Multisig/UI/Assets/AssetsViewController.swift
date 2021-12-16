@@ -41,13 +41,12 @@ class AssetsViewController: ContainerViewController {
             object: nil)
         
         totalBalanceView.onSendClicked = { [weak self] in
-            let safe = Selection.current().safe
-            assert(safe != nil)
+            let safe = Selection.current().safe!
             //check if safe has an owner imported
-            if safe!.isReadOnly {
+            if safe.isReadOnly {
                 let vc = AddOwnerFirstViewController()
                 vc.onSuccess = { [weak self, unowned safe] in
-                    if !safe!.isReadOnly {
+                    if !safe.isReadOnly {
                         self?.showSelectAssetsViewContoller()
                     }
                 }
@@ -60,7 +59,7 @@ class AssetsViewController: ContainerViewController {
         }
         
         totalBalanceView.onReceivedClicked = { [weak self] in
-            let vc = SafeInfoViewController(nibName: nil, bundle: nil)
+            let vc = SafeInfoViewController()
             vc.modalPresentationStyle = .overFullScreen
             vc.modalTransitionStyle = .crossDissolve
             self?.present(vc, animated: true, completion: nil)
