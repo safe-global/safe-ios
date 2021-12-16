@@ -80,22 +80,14 @@ class MainTabBarViewController: UITabBarController {
     }
 
     private func balancesTabViewController() -> UIViewController {
-        let segmentVC = SegmentViewController(namedClass: nil)
-        segmentVC.segmentItems = [
-            SegmentBarItem(image: UIImage(named: "ico-coins")!, title: "Coins"),
-            SegmentBarItem(image: UIImage(named: "ico-collectibles")!, title: "Collectibles")
-        ]
-        segmentVC.viewControllers = [
-            BalancesViewController(),
-            CollectiblesUnsupportedViewController(nibName: nil, bundle: nil)
-        ]
-        segmentVC.selectedIndex = 0
+        
+        let assetsVC = AssetsViewController()
 
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
         loadSafeViewController.trackingEvent = .assetsNoSafe
 
-        let ribbonVC = RibbonViewController(rootViewController: segmentVC)
+        let ribbonVC = RibbonViewController(rootViewController: assetsVC)
         noSafesVC.hasSafeViewController = ribbonVC
         noSafesVC.noSafeViewController = loadSafeViewController
 

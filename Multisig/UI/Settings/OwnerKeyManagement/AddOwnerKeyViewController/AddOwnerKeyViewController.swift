@@ -9,17 +9,19 @@
 import UIKit
 
 class AddOwnerKeyViewController: UITableViewController {
+    
     private var completion: () -> Void = {}
-
+    private var showsCloseButton: Bool = true
     private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
         (.deviceImported, "Import existing owner key", "Import an existing key or a seed phrase"),
         (.deviceGenerated, "Create new owner key", "Create a new key that you can use as an owner of your Gnosis Safe"),
         (.ledgerNanoX, "Connect Ledger Nano X", "Add a key from your hardware wallet")
     ]
 
-    convenience init(completion: @escaping () -> Void) {
+    convenience init(showsCloseButton: Bool = true, completion: @escaping () -> Void) {
         self.init()
         self.completion = completion
+        self.showsCloseButton = showsCloseButton
     }
 
     override func viewDidLoad() {
@@ -27,8 +29,12 @@ class AddOwnerKeyViewController: UITableViewController {
 
         title = "Add Owner Key"
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close, target: self, action: #selector(CloseModal.closeModal))
+        if showsCloseButton {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .close,
+                target: self,
+                action: #selector(CloseModal.closeModal))
+        }
 
         tableView.registerCell(AddOwnerKeyCell.self)
         tableView.estimatedRowHeight = 90

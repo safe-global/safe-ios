@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TotalBalanceView" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="amountLabel" destination="U0l-py-63V" id="0mq-wM-2Lb"/>
+                <outlet property="receiveButton" destination="vaz-jF-aeE" id="UhY-PC-GAm"/>
+                <outlet property="sendButton" destination="Xvm-We-XBq" id="Ov6-zm-MGr"/>
+                <outlet property="totalLabel" destination="aMZ-ar-Gfy" id="z5M-k3-6YU"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="0BM-wC-Yrx">
+            <rect key="frame" x="0.0" y="0.0" width="468" height="154"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coin balance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMZ-ar-Gfy">
+                    <rect key="frame" x="16" y="60" width="436" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0l-py-63V">
+                    <rect key="frame" x="16" y="62" width="436" height="0.0"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="34" id="bWc-ow-moD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHiddenWhenSkeletonIsActive" value="NO"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H5X-sT-Xhx">
+                    <rect key="frame" x="99" y="78" width="270" height="18"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvm-We-XBq">
+                            <rect key="frame" x="0.0" y="0.0" width="130" height="18"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="130" id="yAr-7J-ECD"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Send" image="ico-send"/>
+                            <connections>
+                                <action selector="sendButtonClicked:" destination="-1" eventType="touchUpInside" id="obc-mQ-dEe"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaz-jF-aeE">
+                            <rect key="frame" x="140" y="0.0" width="130" height="18"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Receive" image="ico-receive"/>
+                            <connections>
+                                <action selector="receiveButtonClicked:" destination="-1" eventType="touchUpInside" id="Hz8-An-UB5"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="38" id="y68-SZ-Jym"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="QMn-jv-Tki"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="H5X-sT-Xhx" firstAttribute="top" secondItem="U0l-py-63V" secondAttribute="bottom" constant="16" id="1Xc-z3-yGe"/>
+                <constraint firstItem="aMZ-ar-Gfy" firstAttribute="top" secondItem="QMn-jv-Tki" secondAttribute="top" constant="16" id="3Ce-9Q-Vb4"/>
+                <constraint firstItem="H5X-sT-Xhx" firstAttribute="centerX" secondItem="U0l-py-63V" secondAttribute="centerX" id="5Wn-1M-GNQ"/>
+                <constraint firstItem="QMn-jv-Tki" firstAttribute="bottom" secondItem="H5X-sT-Xhx" secondAttribute="bottom" constant="24" id="8Zn-90-WKa"/>
+                <constraint firstItem="U0l-py-63V" firstAttribute="top" secondItem="aMZ-ar-Gfy" secondAttribute="bottom" constant="2" id="TR6-3p-sCY"/>
+                <constraint firstItem="aMZ-ar-Gfy" firstAttribute="leading" secondItem="QMn-jv-Tki" secondAttribute="leading" constant="16" id="cB9-qd-clv"/>
+                <constraint firstItem="QMn-jv-Tki" firstAttribute="trailing" secondItem="aMZ-ar-Gfy" secondAttribute="trailing" constant="16" id="lS0-7V-f51"/>
+                <constraint firstItem="U0l-py-63V" firstAttribute="centerX" secondItem="aMZ-ar-Gfy" secondAttribute="centerX" id="lSl-go-7t3"/>
+                <constraint firstItem="U0l-py-63V" firstAttribute="leading" secondItem="0BM-wC-Yrx" secondAttribute="leading" constant="16" id="oql-A7-gAl"/>
+                <constraint firstAttribute="trailing" secondItem="U0l-py-63V" secondAttribute="trailing" constant="16" id="tjP-sc-Bh8"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-194.20289855072465" y="-186.49553571428569"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ico-receive" width="16" height="16"/>
+        <image name="ico-send" width="16" height="16"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
