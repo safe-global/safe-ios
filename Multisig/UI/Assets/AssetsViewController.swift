@@ -38,6 +38,12 @@ class AssetsViewController: ContainerViewController {
         
         NotificationCenter.default.addObserver(
             self,
+            selector: #selector(balanceLoading),
+            name: .balanceLoading,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
             selector: #selector(updateBalances),
             name: .balanceUpdated,
             object: nil)
@@ -76,7 +82,12 @@ class AssetsViewController: ContainerViewController {
         self.show(vc, sender: self)
     }
     
+    @objc private func balanceLoading() {
+        totalBalanceView.loading = true
+    }
+    
     @objc private func updateBalances(_ notification: Notification) {
+        totalBalanceView.loading = false
         let userInfo = notification.userInfo
         totalBalanceView.amount = userInfo?["total"] as? String
         self.balances = userInfo?["balances"] as? [TokenBalance]

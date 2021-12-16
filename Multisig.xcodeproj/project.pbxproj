@@ -608,6 +608,7 @@
 		D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D80B5A092769F95000D6E024 /* AssetsViewController.xib */; };
 		D80B5A0F276A367A00D6E024 /* AddOwnerFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A0D276A367A00D6E024 /* AddOwnerFirstViewController.swift */; };
 		D80B5A10276A367A00D6E024 /* AddOwnerFirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D80B5A0E276A367A00D6E024 /* AddOwnerFirstViewController.xib */; };
+		D80B5A13276B5FAD00D6E024 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = D80B5A12276B5FAD00D6E024 /* SkeletonView */; };
 		D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */; };
 		D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177527620649000B4C04 /* SelectAssetViewController.swift */; };
 		D86517792767555E000B4C04 /* TotalBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517782767555E000B4C04 /* TotalBalanceView.swift */; };
@@ -1273,6 +1274,7 @@
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
 				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
 				0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */,
+				D80B5A13276B5FAD00D6E024 /* SkeletonView in Frameworks */,
 				0A3DAD9526270F4D00743E38 /* idn2.xcframework in Frameworks */,
 				93EE3F752760F49800111F17 /* Intercom in Frameworks */,
 				0ACCC6E52742991100EC79B9 /* Web3 in Frameworks */,
@@ -3025,6 +3027,7 @@
 				55DA0662269C9411006C9AA5 /* Version */,
 				0ACCC6E42742991100EC79B9 /* Web3 */,
 				93EE3F742760F49800111F17 /* Intercom */,
+				D80B5A12276B5FAD00D6E024 /* SkeletonView */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
@@ -3138,6 +3141,7 @@
 				55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version" */,
 				0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift" */,
 				93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios" */,
+				D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -5206,6 +5210,14 @@
 				minimumVersion = 10.3.5;
 			};
 		};
+		D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -5293,6 +5305,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios" */;
 			productName = Intercom;
+		};
+		D80B5A12276B5FAD00D6E024 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 /* End XCSwiftPackageProductDependency section */
 

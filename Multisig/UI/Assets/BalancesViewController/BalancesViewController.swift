@@ -96,6 +96,10 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         currentDataTask?.cancel()
         do {
             let safe = try Safe.getSelected()!
+            NotificationCenter.default.post(
+                name: .balanceLoading,
+                object: self
+            )
             currentDataTask = clientGatewayService.asyncBalances(safeAddress: safe.addressValue,
                                                                  chainId: safe.chain!.id!) { [weak self] result in
                 guard let `self` = self else { return }
