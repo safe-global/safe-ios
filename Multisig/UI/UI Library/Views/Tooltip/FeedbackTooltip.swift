@@ -4,20 +4,14 @@
 import UIKit
 
 public protocol FeedbackTooltipDelegate: AnyObject {
-
     func tooltipWillAppear(_ tooltip: FeedbackTooltip)
     func tooltipWillDisappear(_ tooltip: FeedbackTooltip)
-
 }
 
 public final class FeedbackTooltip: BaseCustomView {
 
     private let label = UILabel()
     private let background = UIImageView()
-
-    private let button = UIButton(type: .custom)
-    private let buttonSize: CGFloat = 27
-    private let labelButtonSpace: CGFloat = 8
 
     private let arrowUp = UIImage(named: "ico-tooltip-arrow")!
     private let arrowDown = UIImage(cgImage:  UIImage(named: "ico-tooltip-arrow")!.cgImage!,
@@ -51,9 +45,6 @@ public final class FeedbackTooltip: BaseCustomView {
         label.textAlignment = .center
         label.isUserInteractionEnabled = true
         addSubview(label)
-
-        button.setImage(UIImage(named: "ico-close"), for: .normal)
-        button.addTarget(self, action: #selector(dismissTooltip), for: .touchUpInside)
 
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissTooltip))
         addGestureRecognizer(tapRecognizer)
@@ -96,25 +87,14 @@ public final class FeedbackTooltip: BaseCustomView {
         // reset constraints
         label.removeFromSuperview()
         addSubview(label)
-        addSubview(button)
-
-        button.translatesAutoresizingMaskIntoConstraints = false
-
+      
         NSLayoutConstraint.activate([
             widthAnchor.constraint(equalTo: label.widthAnchor,
-                                   constant: 2 * labelHorizontalInset + buttonSize + labelButtonSpace),
+                                   constant: 2 * labelHorizontalInset),
             heightAnchor.constraint(equalTo: label.heightAnchor, constant: 2 * labelVerticalInset),
-
-            button.widthAnchor.constraint(equalToConstant: buttonSize),
-            button.heightAnchor.constraint(equalToConstant: buttonSize),
-            button.centerYAnchor.constraint(equalTo: centerYAnchor),
-            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -labelHorizontalInset),
-
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: labelHorizontalInset),
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -labelButtonSpace),
-            label.heightAnchor.constraint(greaterThanOrEqualTo: button.heightAnchor),
-
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: labelHorizontalInset),
             arrow.widthAnchor.constraint(equalToConstant: arrowSize.width),
             arrow.heightAnchor.constraint(equalToConstant: arrowSize.height)
         ])
