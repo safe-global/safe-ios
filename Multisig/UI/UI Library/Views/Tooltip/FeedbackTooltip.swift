@@ -19,9 +19,9 @@ public final class FeedbackTooltip: BaseCustomView {
     private let buttonSize: CGFloat = 27
     private let labelButtonSpace: CGFloat = 8
 
-    private let arrowUp = Asset.greenTooltipArrow.image
-    private let arrowDown = UIImage(cgImage: Asset.greenTooltipArrow.image.cgImage!,
-                                    scale: Asset.greenTooltipArrow.image.scale,
+    private let arrowUp = UIImage(named: "ico-tooltip-arrow")!
+    private let arrowDown = UIImage(cgImage:  UIImage(named: "ico-tooltip-arrow")!.cgImage!,
+                                    scale:  UIImage(named: "ico-tooltip-arrow")!.scale,
                                     orientation: .downMirrored)
     private let arrow = UIImageView()
     private let arrowSize = CGSize(width: 16, height: 9)
@@ -42,7 +42,7 @@ public final class FeedbackTooltip: BaseCustomView {
     public weak var delegate: FeedbackTooltipDelegate?
 
     public override func commonInit() {
-        background.image = Asset.whiteTooltipBackground.image
+        background.image = UIImage(named: "whiteTooltipBackground")
         addSubview(background)
 
         label.font = UIFont.systemFont(ofSize: 14)
@@ -52,7 +52,7 @@ public final class FeedbackTooltip: BaseCustomView {
         label.isUserInteractionEnabled = true
         addSubview(label)
 
-        button.setImage(Asset.greenTooltipCross.image, for: .normal)
+        button.setImage(UIImage(named: "ico-close"), for: .normal)
         button.addTarget(self, action: #selector(dismissTooltip), for: .touchUpInside)
 
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissTooltip))
@@ -85,7 +85,7 @@ public final class FeedbackTooltip: BaseCustomView {
     public func setGreenStyle(aboveTarget: Bool = true) {
         isShowingAboveTarget = aboveTarget
 
-        background.image = Asset.greenTooltipBackground.image
+        background.image = UIImage(named: "bkg-tooltip")
 
         label.textColor = .primaryLabel
         label.font = UIFont.systemFont(ofSize: 16)
