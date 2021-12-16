@@ -31,7 +31,7 @@ class PasscodeSettingsViewController: UITableViewController {
     private var data: [(section: Section, rows: [Row])] = []
 
     private var isPasscodeSet: Bool {
-        App.shared.auth.isPasscodeSet
+        App.shared.auth.isPasscodeSetAndAvailable
     }
 
     // MARK: - View lifecycle

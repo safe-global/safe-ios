@@ -95,7 +95,9 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         super.reloadData()
         currentDataTask?.cancel()
         do {
-            let safe = try Safe.getSelected()!
+            guard let safe = try Safe.getSelected() else {
+                return
+            }
             NotificationCenter.default.post(
                 name: .balanceLoading,
                 object: self

@@ -64,7 +64,7 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
                 vc.show(detailsVC, sender: vc)
             }
 
-            if App.shared.auth.isPasscodeSet {
+            if App.shared.auth.isPasscodeSetAndAvailable {
                 passcodeCompletion()
             } else {
                 let createPasscodeViewController = CreatePasscodeViewController(passcodeCompletion)

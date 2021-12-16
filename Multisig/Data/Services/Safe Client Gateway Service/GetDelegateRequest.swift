@@ -18,11 +18,21 @@ struct GetDelegateRequest: JSONRequest {
     var httpMethod: String { "GET" }
     var urlPath: String { "/v1/chains/\(chainId)/delegates/" }
 
+    var query: String? {
+        [
+            safe.map { "safe=" + $0 },
+            delegate.map { "delegate=" + $0 },
+            delegator.map { "delegator=" + $0 },
+            label.map { "label=" + $0 }
+        ].compactMap { $0 }.joined(separator: "&")
+    }
+
     typealias ResponseType = Page<SCGModels.KeyDelegate>
 }
 
 extension SafeClientGatewayService {
-    func asyncCreateDelegate(
+    @discardableResult
+    func asyncGetDelegate(
         chainId: String,
         safe: Address? = nil,
         delegator: Address? = nil,

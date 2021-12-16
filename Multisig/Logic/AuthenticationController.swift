@@ -30,12 +30,6 @@ class AuthenticationController {
         accessService.userRepository = AuthUserRepository()
     }
 
-    /// Returns true if the passcode is set up, false otherwise
-    var isPasscodeSet: Bool {
-        guard let user = user else { return false }
-        return !user.encryptedPassword.isEmpty
-    }
-
     /// This method will derive a key from the passcode, hash it, and store
     /// it in the Keychain.
     ///
@@ -96,13 +90,13 @@ class AuthenticationController {
         // if passcode is set but all options are 0, then we have inconsistent settings.
         // to restore, we will enable passcode entry for confirmations, as this is the expected
         // behavior in the v1.
-        guard isPasscodeSet && AppSettings.passcodeOptions.isEmpty else { return }
+        guard isPasscodeSetAndAvailable && AppSettings.passcodeOptions.isEmpty else { return }
         AppSettings.passcodeOptions = .useForConfirmation
     }
 
     func migrateUsePasscodeForExportingKey() {
         guard !AppSettings.usePasscodeForExportingKeyMigrated else { return }
-        if isPasscodeSet {
+        if isPasscodeSetAndAvailable {
             AppSettings.passcodeOptions.insert(.useForExportingKeys)
         }
 
@@ -111,7 +105,19 @@ class AuthenticationController {
 
     /// Returns saved user, if any
     private var user: User? {
-        try? AppUser.all().first?.user()
+        try? fetchUser()
+    }
+
+    func fetchUser() throws -> User? {
+        try AppUser.all().first?.user()
+    }
+
+    var isPasscodeSetAndAvailable: Bool {
+        guard let user = (try? fetchUser()) else {
+            // passcode not available
+            return false
+        }
+        return !user.encryptedPassword.isEmpty
     }
 
     private func derivedKey(from plaintext: String) -> String {
@@ -303,11 +309,11 @@ class AuthUserRepository: UserRepository {
     func save(user: User) {
         do {
             let appUser = try AppUser.user(id: user.id) ?? AppUser.newUser(id: user.id)
-            appUser.update(with: user)
+            try appUser.update(with: user)
             AppSettings.usePasscodeForExportingKeyMigrated = true
             appUser.save()
         } catch {
-            LogService.shared.error("Failed to save user", error: error)
+            LogService.shared.error("Failed to save user: \(error)")
         }
     }
 
@@ -317,16 +323,16 @@ class AuthUserRepository: UserRepository {
                 appUser.delete()
             }
         } catch {
-            LogService.shared.error("Failed to save user", error: error)
+            LogService.shared.error("Failed to delete user: \(error)")
         }
     }
 
     func user(userID: UUID) -> User? {
         do {
             let appUser = try AppUser.user(id: userID)
-            return appUser?.user()
+            return try appUser?.user()
         } catch {
-            LogService.shared.error("Failed to save user", error: error)
+            LogService.shared.error("Failed to load user: \(error)")
             return nil
         }
     }
@@ -334,25 +340,31 @@ class AuthUserRepository: UserRepository {
     func users() -> [User] {
         do {
             let appUsers = try AppUser.all()
-            return appUsers.map { $0.user() }
+            return try appUsers.map { try $0.user() }
         } catch {
-            LogService.shared.error("Failed to save user", error: error)
+            LogService.shared.error("Failed to get users: \(error)")
             return []
         }
     }
 }
 
 extension AppUser {
-    func update(with user: User) {
+    func update(with user: User) throws {
         assert(id == user.id)
-        encryptedPassword = user.encryptedPassword
+        // here, the updating might fail because keychain is not accessible.
+        try setEncryptedPassword(user.encryptedPassword)
         sessionRenewedAt = user.sessionRenewedAt
         failedAuthAttempts = Int64(user.failedAuthAttempts)
         accessBlockedAt = user.accessBlockedAt
     }
 
-    func user() -> User {
-        var result = User(userID: id!, encryptedPassword: encryptedPassword)
+    func user() throws -> User {
+        // here, getting password might fail if keychain is not accessible
+        let passwordOrNil = try encryptedPassword()
+        guard let id = id, let password = passwordOrNil else {
+            throw GSError.DatabaseError(reason: "User id or password unavailable")
+        }
+        var result = User(userID: id, encryptedPassword: password)
         result.sessionRenewedAt = sessionRenewedAt
         result.failedAuthAttempts = Int(failedAuthAttempts)
         result.accessBlockedAt = accessBlockedAt
