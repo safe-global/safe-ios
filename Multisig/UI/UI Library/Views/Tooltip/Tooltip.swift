@@ -3,12 +3,12 @@
 //
 import UIKit
 
-public protocol FeedbackTooltipDelegate: AnyObject {
-    func tooltipWillAppear(_ tooltip: FeedbackTooltip)
-    func tooltipWillDisappear(_ tooltip: FeedbackTooltip)
+public protocol TooltipDelegate: AnyObject {
+    func tooltipWillAppear(_ tooltip: Tooltip)
+    func tooltipWillDisappear(_ tooltip: Tooltip)
 }
 
-public final class FeedbackTooltip: BaseCustomView {
+public final class Tooltip: BaseCustomView {
 
     private let label = UILabel()
     private let background = UIImageView()
@@ -33,7 +33,7 @@ public final class FeedbackTooltip: BaseCustomView {
 
     public private(set) var isVisible: Bool = false
 
-    public weak var delegate: FeedbackTooltipDelegate?
+    public weak var delegate: TooltipDelegate?
 
     public override func commonInit() {
         background.image = UIImage(named: "whiteTooltipBackground")
@@ -42,7 +42,7 @@ public final class FeedbackTooltip: BaseCustomView {
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .primaryLabel
         label.numberOfLines = 0
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.isUserInteractionEnabled = true
         addSubview(label)
 
@@ -78,7 +78,9 @@ public final class FeedbackTooltip: BaseCustomView {
 
         background.image = UIImage(named: "bkg-tooltip")
 
-        label.textColor = .primaryLabel
+        label.setStyle(.callout)
+        label.textColor = .white
+        
         label.font = UIFont.systemFont(ofSize: 16)
 
         arrow.image = isShowingAboveTarget ? arrowDown : arrowUp
@@ -133,8 +135,8 @@ public final class FeedbackTooltip: BaseCustomView {
                             greenStyle: Bool = false,
                             aboveTarget: Bool = true,
                             hideAutomatically: Bool = true,
-                            delegate: FeedbackTooltipDelegate? = nil) -> FeedbackTooltip {
-        let tooltip = FeedbackTooltip()
+                            delegate: TooltipDelegate? = nil) -> Tooltip {
+        let tooltip = Tooltip()
         tooltip.delegate = delegate
         tooltip.label.text = message
         tooltip.alpha = 0

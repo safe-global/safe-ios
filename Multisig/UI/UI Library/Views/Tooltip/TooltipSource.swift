@@ -3,9 +3,9 @@
 //
 import UIKit
 
-public class TooltipSource: FeedbackTooltipDelegate {
+public class TooltipSource: TooltipDelegate {
 
-    private weak var tooltip: FeedbackTooltip?
+    private weak var tooltip: Tooltip?
     private weak var target: UIView?
 
     private var onTap: (() -> Void)?
@@ -38,15 +38,15 @@ public class TooltipSource: FeedbackTooltipDelegate {
             let message = self.message, !message.isEmpty,
             let window = UIApplication.shared.keyWindow,
             let target = target else { return }
-        tooltip = FeedbackTooltip.show(for: target, in: window, message: message, delegate: self)
+        tooltip = Tooltip.show(for: target, in: window, message: message, delegate: self)
         onTap?()
     }
 
-    public func tooltipWillAppear(_ tooltip: FeedbackTooltip) {
+    public func tooltipWillAppear(_ tooltip: Tooltip) {
         onAppear?()
     }
 
-    public func tooltipWillDisappear(_ tooltip: FeedbackTooltip) {
+    public func tooltipWillDisappear(_ tooltip: Tooltip) {
         onDisappear?()
     }
 }

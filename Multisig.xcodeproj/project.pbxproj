@@ -605,14 +605,14 @@
 		55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
+		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
+		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
+		D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A062769D05D00D6E024 /* BaseCustomView.swift */; };
 		D80B5A0A2769F95000D6E024 /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A082769F95000D6E024 /* AssetsViewController.swift */; };
 		D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D80B5A092769F95000D6E024 /* AssetsViewController.xib */; };
 		D80B5A0F276A367A00D6E024 /* AddOwnerFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A0D276A367A00D6E024 /* AddOwnerFirstViewController.swift */; };
 		D80B5A10276A367A00D6E024 /* AddOwnerFirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D80B5A0E276A367A00D6E024 /* AddOwnerFirstViewController.xib */; };
 		D80B5A13276B5FAD00D6E024 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = D80B5A12276B5FAD00D6E024 /* SkeletonView */; };
-		D80B5A032769CEAD00D6E024 /* FeedbackTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* FeedbackTooltip.swift */; };
-		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
-		D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A062769D05D00D6E024 /* BaseCustomView.swift */; };
 		D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */; };
 		D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177527620649000B4C04 /* SelectAssetViewController.swift */; };
 		D86517792767555E000B4C04 /* TotalBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517782767555E000B4C04 /* TotalBalanceView.swift */; };
@@ -1252,13 +1252,13 @@
 		55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerPendingConfirmationViewController.swift; sourceTree = "<group>"; };
 		55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLedgerDeviceViewController.swift; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
+		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
+		D80B5A042769CF1B00D6E024 /* TooltipSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSource.swift; sourceTree = "<group>"; };
+		D80B5A062769D05D00D6E024 /* BaseCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomView.swift; sourceTree = "<group>"; };
 		D80B5A082769F95000D6E024 /* AssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
 		D80B5A092769F95000D6E024 /* AssetsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetsViewController.xib; sourceTree = "<group>"; };
 		D80B5A0D276A367A00D6E024 /* AddOwnerFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerFirstViewController.swift; sourceTree = "<group>"; };
 		D80B5A0E276A367A00D6E024 /* AddOwnerFirstViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerFirstViewController.xib; sourceTree = "<group>"; };
-		D80B5A022769CEAD00D6E024 /* FeedbackTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTooltip.swift; sourceTree = "<group>"; };
-		D80B5A042769CF1B00D6E024 /* TooltipSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSource.swift; sourceTree = "<group>"; };
-		D80B5A062769D05D00D6E024 /* BaseCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomView.swift; sourceTree = "<group>"; };
 		D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGnosisSafeTableViewController.swift; sourceTree = "<group>"; };
 		D865177527620649000B4C04 /* SelectAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetViewController.swift; sourceTree = "<group>"; };
 		D86517782767555E000B4C04 /* TotalBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceView.swift; sourceTree = "<group>"; };
@@ -2961,6 +2961,15 @@
 			path = Ledger;
 			sourceTree = "<group>";
 		};
+		D80B5A012769CE8800D6E024 /* Tooltip */ = {
+			isa = PBXGroup;
+			children = (
+				D80B5A022769CEAD00D6E024 /* Tooltip.swift */,
+				D80B5A042769CF1B00D6E024 /* TooltipSource.swift */,
+			);
+			path = Tooltip;
+			sourceTree = "<group>";
+		};
 		D80B5A0C276A362900D6E024 /* AddOwnerFirst */ = {
 			isa = PBXGroup;
 			children = (
@@ -2968,15 +2977,6 @@
 				D80B5A0E276A367A00D6E024 /* AddOwnerFirstViewController.xib */,
 			);
 			path = AddOwnerFirst;
-			sourceTree = "<group>";
-		};
-		D80B5A012769CE8800D6E024 /* Tooltip */ = {
-			isa = PBXGroup;
-			children = (
-				D80B5A022769CEAD00D6E024 /* FeedbackTooltip.swift */,
-				D80B5A042769CF1B00D6E024 /* TooltipSource.swift */,
-			);
-			path = Tooltip;
 			sourceTree = "<group>";
 		};
 		D865177427620628000B4C04 /* Transfer */ = {
@@ -3531,7 +3531,7 @@
 				0A3FDAF226AEB691006A7DC3 /* Safe+Shared.swift in Sources */,
 				557D80AC270B32F80036D6D0 /* WalletConnectServerController.swift in Sources */,
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
-				D80B5A032769CEAD00D6E024 /* FeedbackTooltip.swift in Sources */,
+				D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
