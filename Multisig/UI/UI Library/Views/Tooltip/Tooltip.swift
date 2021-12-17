@@ -36,15 +36,19 @@ public final class Tooltip: BaseCustomView {
     public weak var delegate: TooltipDelegate?
 
     public override func commonInit() {
-        background.image = UIImage(named: "whiteTooltipBackground")
+        
+        background.image = UIImage(named: "bkg-tooltip")
         addSubview(background)
-
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .primaryLabel
+        
+        label.setStyle(.callout)
+        label.textColor = .white
         label.numberOfLines = 0
         label.textAlignment = .left
         label.isUserInteractionEnabled = true
         addSubview(label)
+        
+        arrow.image = isShowingAboveTarget ? arrowDown : arrowUp
+        addSubview(arrow)
 
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissTooltip))
         addGestureRecognizer(tapRecognizer)
@@ -58,49 +62,16 @@ public final class Tooltip: BaseCustomView {
         NSLayoutConstraint.activate([
             widthAnchor.constraint(equalTo: label.widthAnchor, constant: 2 * labelHorizontalInset),
             heightAnchor.constraint(equalTo: label.heightAnchor, constant: 2 * labelVerticalInset),
-
-            label.centerXAnchor.constraint(equalTo: centerXAnchor),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: labelHorizontalInset),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: labelHorizontalInset),
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
-
+            arrow.widthAnchor.constraint(equalToConstant: arrowSize.width),
+            arrow.heightAnchor.constraint(equalToConstant: arrowSize.height),
             background.leadingAnchor.constraint(equalTo: leadingAnchor),
             background.trailingAnchor.constraint(equalTo: trailingAnchor),
             background.topAnchor.constraint(equalTo: topAnchor),
             background.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-
-        addSubview(arrow)
-        arrow.isHidden = true
-    }
-
-    // by default, the tooltip will be shown above the target view. Pass 'false' to show it below.
-    public func setGreenStyle(aboveTarget: Bool = true) {
-        isShowingAboveTarget = aboveTarget
-
-        background.image = UIImage(named: "bkg-tooltip")
-
-        label.setStyle(.callout)
-        label.textColor = .white
-        
-        label.font = UIFont.systemFont(ofSize: 16)
-
-        arrow.image = isShowingAboveTarget ? arrowDown : arrowUp
-        arrow.isHidden = false
-
-        // reset constraints
-        label.removeFromSuperview()
-        addSubview(label)
-      
-        NSLayoutConstraint.activate([
-            widthAnchor.constraint(equalTo: label.widthAnchor,
-                                   constant: 2 * labelHorizontalInset),
-            heightAnchor.constraint(equalTo: label.heightAnchor, constant: 2 * labelVerticalInset),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: labelHorizontalInset),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: labelHorizontalInset),
-            arrow.widthAnchor.constraint(equalToConstant: arrowSize.width),
-            arrow.heightAnchor.constraint(equalToConstant: arrowSize.height)
-        ])
-
     }
 
     @objc func dismissTooltip() {
@@ -132,7 +103,6 @@ public final class Tooltip: BaseCustomView {
     public static func show(for view: UIView,
                             in superview: UIView,
                             message: String,
-                            greenStyle: Bool = false,
                             aboveTarget: Bool = true,
                             hideAutomatically: Bool = true,
                             delegate: TooltipDelegate? = nil) -> Tooltip {
@@ -140,11 +110,8 @@ public final class Tooltip: BaseCustomView {
         tooltip.delegate = delegate
         tooltip.label.text = message
         tooltip.alpha = 0
+        tooltip.isShowingAboveTarget = aboveTarget
         superview.addSubview(tooltip)
-
-        if greenStyle {
-            tooltip.setGreenStyle(aboveTarget: aboveTarget)
-        }
 
         // The idea is to show the tooltip within bounds, with the minimum possible width.
         //
