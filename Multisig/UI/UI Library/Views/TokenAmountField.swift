@@ -21,11 +21,8 @@ class TokenAmountField: UINibView {
         set { amountTextField.text = newValue }
     }
     
-    override func commonInit() {
-        super.commonInit()
-    }
-    
     override func awakeFromNib() {
+        super.awakeFromNib()
         symbolLabel.setStyle(.tertiary)
         amountTextField.setStyle(.primary)
         amountTextField.placeholder = "Amount"
