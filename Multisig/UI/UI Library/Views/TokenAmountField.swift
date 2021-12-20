@@ -12,6 +12,7 @@ class TokenAmountField: UINibView {
     
     var onTap: () -> Void = { }
 
+    @IBOutlet weak var borderImage: UIImageView!
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var amountLabel: UITextField!
     @IBOutlet weak var symbolLabel: UILabel!
@@ -27,6 +28,22 @@ class TokenAmountField: UINibView {
         amountLabel.placeholder = "Amount"
         errorLabel.setStyle(.error)
         errorLabel.isHidden = true
+    }
+    
+    func showToken(token: TokenBalance, showBalance: Bool = false) {
+        symbolLabel.text = token.symbol
+        if showBalance {
+            //TODO: format balance?
+            amountLabel.text = token.balance
+        }
+        borderImage.tintColor = .gray4
+        errorLabel.isHidden = true
+    }
+    
+    func showError(message: String) {
+        errorLabel.text = message
+        errorLabel.isHidden = false
+        borderImage.tintColor = .error
     }
     
     @IBAction func didTapField(_ sender: Any) {

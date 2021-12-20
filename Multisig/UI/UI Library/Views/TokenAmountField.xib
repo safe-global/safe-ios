@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TokenAmountField" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="amountLabel" destination="uK1-Ie-3QV" id="25h-sB-Pzf"/>
+                <outlet property="borderImage" destination="qz7-gY-lyD" id="ZoK-vD-RfU"/>
                 <outlet property="errorLabel" destination="1ZI-WV-Ple" id="ns3-45-wrt"/>
                 <outlet property="iconImage" destination="BIQ-ET-AJr" id="tp2-xB-1Fk"/>
                 <outlet property="symbolLabel" destination="zb9-Hr-eSN" id="zCg-Pp-cus"/>
