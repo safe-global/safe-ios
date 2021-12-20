@@ -79,7 +79,8 @@ extension Transaction {
                     data: data?.data,
                     operation: operation)
 
-            self.nonce = UInt256String(estimationResult.latestNonce.value + 1)
+            self.nonce = UInt256String(
+                estimationResult.latestNonce.value == 0 ? 0 : estimationResult.latestNonce.value + 1)
 
             if let estimatedSafeTxGas = UInt256(estimationResult.safeTxGas) {
                 self.safeTxGas = UInt256String(estimatedSafeTxGas)
