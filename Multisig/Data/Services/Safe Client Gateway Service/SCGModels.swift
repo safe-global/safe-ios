@@ -605,7 +605,7 @@ extension SCGModels {
 
     struct TransactionEstimation: Decodable {
         let currentNonce: UInt256String
-        let latestNonce: UInt256String
+        let recommendedNonce: UInt256String
         let safeTxGas: String
     }
 
