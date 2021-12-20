@@ -9,6 +9,8 @@
 import UIKit
 
 class TokenAmountField: UINibView {
+    
+    var onTap: () -> Void = { }
 
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var amountLabel: UITextField!
@@ -17,5 +19,25 @@ class TokenAmountField: UINibView {
     
     override func commonInit() {
         super.commonInit()
+    }
+    
+    override func awakeFromNib() {
+        symbolLabel.setStyle(.tertiary)
+        amountLabel.setStyle(.primary)
+        amountLabel.placeholder = "Amount"
+        errorLabel.setStyle(.error)
+        errorLabel.isHidden = true
+    }
+    
+    @IBAction func didTapField(_ sender: Any) {
+        onTap()
+    }
+    
+    @IBAction func didTouchUp(_ sender: Any) {
+        
+    }
+    
+    @IBAction func didTouchDown(_ sender: Any) {
+        
     }
 }
