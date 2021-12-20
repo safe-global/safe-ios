@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TokenAmountField" customModule="Multisig" customModuleProvider="target">
             <connections>
-                <outlet property="amountLabel" destination="uK1-Ie-3QV" id="25h-sB-Pzf"/>
+                <outlet property="amountTextField" destination="uK1-Ie-3QV" id="25h-sB-Pzf"/>
                 <outlet property="borderImage" destination="qz7-gY-lyD" id="ZoK-vD-RfU"/>
                 <outlet property="errorLabel" destination="1ZI-WV-Ple" id="ns3-45-wrt"/>
                 <outlet property="iconImage" destination="BIQ-ET-AJr" id="tp2-xB-1Fk"/>
@@ -40,16 +40,22 @@
                                                 <constraint firstAttribute="height" constant="32" id="DAi-oh-tHf"/>
                                             </constraints>
                                         </imageView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Def-GE-vRM">
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Def-GE-vRM">
                                             <rect key="frame" x="46" y="32.5" width="331" height="20.5"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uK1-Ie-3QV" userLabel="amount">
-                                                    <rect key="frame" x="0.0" y="0.0" width="278.5" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="288" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="-1" id="iBX-yq-eDu"/>
+                                                    </connections>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ETH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zb9-Hr-eSN" userLabel="symbol">
-                                                    <rect key="frame" x="298.5" y="0.0" width="32.5" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ETH" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zb9-Hr-eSN" userLabel="symbol">
+                                                    <rect key="frame" x="298" y="0.0" width="33" height="20.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="33" id="blz-cG-aJQ"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -66,28 +72,15 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="109.5"/>
                                     <color key="tintColor" name="gray4"/>
                                 </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rS-Et-v0K" userLabel="Action Button">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <connections>
-                                        <action selector="didTapField:" destination="-1" eventType="touchUpInside" id="OOk-YW-I7J"/>
-                                        <action selector="didTouchDown:" destination="-1" eventType="touchDown" id="tuI-wV-msl"/>
-                                        <action selector="didTouchUp:" destination="-1" eventType="touchCancel" id="cj1-wu-QJd"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="qz7-gY-lyD" secondAttribute="bottom" id="1dQ-dt-JNo"/>
-                                <constraint firstAttribute="trailing" secondItem="6rS-Et-v0K" secondAttribute="trailing" id="BbI-0q-WUM"/>
                                 <constraint firstItem="qz7-gY-lyD" firstAttribute="leading" secondItem="M9y-P0-zXN" secondAttribute="leading" id="Hdc-HN-5rq"/>
                                 <constraint firstAttribute="bottom" secondItem="g5e-am-wi6" secondAttribute="bottom" constant="12" id="Jj7-CI-u3X"/>
                                 <constraint firstItem="qz7-gY-lyD" firstAttribute="top" secondItem="M9y-P0-zXN" secondAttribute="top" id="UYo-1v-8i9"/>
-                                <constraint firstAttribute="bottom" secondItem="6rS-Et-v0K" secondAttribute="bottom" id="XCk-TW-HWu"/>
-                                <constraint firstItem="6rS-Et-v0K" firstAttribute="leading" secondItem="M9y-P0-zXN" secondAttribute="leading" id="bhb-CC-XQ1"/>
                                 <constraint firstAttribute="trailing" secondItem="g5e-am-wi6" secondAttribute="trailing" constant="20" id="gNX-2P-0t1"/>
                                 <constraint firstAttribute="trailing" secondItem="qz7-gY-lyD" secondAttribute="trailing" id="h0m-tC-cET"/>
-                                <constraint firstItem="6rS-Et-v0K" firstAttribute="top" secondItem="M9y-P0-zXN" secondAttribute="top" id="i5s-ZY-n1I"/>
                                 <constraint firstItem="g5e-am-wi6" firstAttribute="leading" secondItem="M9y-P0-zXN" secondAttribute="leading" constant="17" id="jNK-pu-SUu"/>
                                 <constraint firstItem="g5e-am-wi6" firstAttribute="top" secondItem="M9y-P0-zXN" secondAttribute="top" constant="12" id="wEj-lE-Pto"/>
                             </constraints>

@@ -10,13 +10,16 @@ import UIKit
 
 class TokenAmountField: UINibView {
     
-    var onTap: () -> Void = { }
-
     @IBOutlet weak var borderImage: UIImageView!
     @IBOutlet weak var iconImage: UIImageView!
-    @IBOutlet weak var amountLabel: UITextField!
+    @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var symbolLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
+    
+    var balance: String {
+        get { amountTextField.text ?? "" }
+        set { amountTextField.text = newValue }
+    }
     
     override func commonInit() {
         super.commonInit()
@@ -24,18 +27,16 @@ class TokenAmountField: UINibView {
     
     override func awakeFromNib() {
         symbolLabel.setStyle(.tertiary)
-        amountLabel.setStyle(.primary)
-        amountLabel.placeholder = "Amount"
+        amountTextField.setStyle(.primary)
+        amountTextField.placeholder = "Amount"
         errorLabel.setStyle(.error)
         errorLabel.isHidden = true
     }
     
-    func showToken(token: TokenBalance, showBalance: Bool = false) {
-        symbolLabel.text = token.symbol
-        if showBalance {
-            //TODO: format balance?
-            amountLabel.text = token.balance
-        }
+    func showToken(symbol: String, logoURL: String? = nil, amount: String = "") {
+        iconImage.setCircleShapeImage(url: URL(string: logoURL ?? ""), placeholder:  UIImage(named: "ico-token-placeholder")!)
+        symbolLabel.text = symbol
+        amountTextField.text = amount
         borderImage.tintColor = .gray4
         errorLabel.isHidden = true
     }
@@ -45,16 +46,33 @@ class TokenAmountField: UINibView {
         errorLabel.isHidden = false
         borderImage.tintColor = .error
     }
-    
-    @IBAction func didTapField(_ sender: Any) {
-        onTap()
-    }
-    
-    @IBAction func didTouchUp(_ sender: Any) {
+}
+
+// allow only decimal numbers to be entered in the amount field
+extension TokenAmountField: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-    }
-    
-    @IBAction func didTouchDown(_ sender: Any) {
-        
+        let decimalSeparator = Locale.autoupdatingCurrent.decimalSeparator ?? "."
+        let inverseSet = CharacterSet(charactersIn:"0123456789").inverted
+        let components = string.components(separatedBy: inverseSet)
+        let filtered = components.joined(separator: "")
+        if filtered == string {
+            return true
+        } else {
+           if string.contains(decimalSeparator) {
+           let countdots = textField.text!.components(separatedBy: decimalSeparator).count - 1
+           if countdots == 0 {
+             return true
+           } else {
+               if countdots > 0 && string == decimalSeparator {
+               return false
+             } else {
+               return true
+             }
+           }
+         } else {
+             return false
+         }
+       }
     }
 }
