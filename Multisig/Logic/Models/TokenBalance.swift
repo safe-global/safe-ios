@@ -73,4 +73,8 @@ extension TokenBalance {
                         thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
         return "\(value) \(currencyCode)"
     }
+
+    var balanceWithSymbol: String {
+        "\(balance) \(symbol)"
+    }
 }
