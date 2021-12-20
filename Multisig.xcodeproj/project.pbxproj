@@ -621,6 +621,8 @@
 		D865178227687E0B000B4C04 /* TransactionSuccessScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D865178027687E0B000B4C04 /* TransactionSuccessScreen.xib */; };
 		D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */; };
 		D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68E0274E6AA500D7F5C5 /* main.swift */; };
+		D88FA81E2770869E0023B77F /* TokenAmountField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FA81C2770869E0023B77F /* TokenAmountField.swift */; };
+		D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88FA81D2770869E0023B77F /* TokenAmountField.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1267,6 +1269,8 @@
 		D865178027687E0B000B4C04 /* TransactionSuccessScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionSuccessScreen.xib; sourceTree = "<group>"; };
 		D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		D86A68E0274E6AA500D7F5C5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D88FA81C2770869E0023B77F /* TokenAmountField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAmountField.swift; sourceTree = "<group>"; };
+		D88FA81D2770869E0023B77F /* TokenAmountField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenAmountField.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2810,6 +2814,8 @@
 				04273E5F26D43F0400A14E95 /* IdenticonView.swift */,
 				04273E6126D43F1700A14E95 /* IdenticonView.xib */,
 				D80B5A062769D05D00D6E024 /* BaseCustomView.swift */,
+				D88FA81C2770869E0023B77F /* TokenAmountField.swift */,
+				D88FA81D2770869E0023B77F /* TokenAmountField.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3242,6 +3248,7 @@
 				55DA0669269DD573006C9AA5 /* dapps-xdai.json in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
+				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
 				D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
 				0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */,
@@ -3496,6 +3503,7 @@
 				0AF1C7FB25408A4D00E28669 /* SafeBarView.swift in Sources */,
 				550FB1C826691E4A00C13D54 /* ExperimentalViewController.swift in Sources */,
 				0ADD19BF265EA23200EB0F2B /* ExportViewController.swift in Sources */,
+				D88FA81E2770869E0023B77F /* TokenAmountField.swift in Sources */,
 				041DAAE9274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift in Sources */,
 				0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
