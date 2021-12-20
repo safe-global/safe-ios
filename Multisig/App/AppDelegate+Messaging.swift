@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import UserNotifications
 import Firebase
+import Intercom
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
 
@@ -31,6 +32,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
 
         Messaging.messaging().appDidReceiveMessage(userInfo)
+        
+        if Intercom.isIntercomPushNotification(userInfo) {
+            LogService.shared.debug("PUSH: userNotificationCenter Intercom push notification with userInfo: \(userInfo)")
+            Intercom.presentMessenger()
+        }
 
         LogService.shared.debug("PUSH: didReceive notification with userInfo: \(userInfo)")
         App.shared.notificationHandler.received(notification: userInfo)
