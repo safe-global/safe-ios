@@ -310,6 +310,10 @@ public protocol JsonRpc2Method {
     associatedtype Return
 }
 
+extension JsonRpc2Method {
+    public static var name: String { String(describing: self) }
+}
+
 extension JsonRpc2Method where Self: Encodable {
     public func request(id: JsonRpc2.Id? = nil) throws -> JsonRpc2.Request {
         try JsonRpc2.Request(

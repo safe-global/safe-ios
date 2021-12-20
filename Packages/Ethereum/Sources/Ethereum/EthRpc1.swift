@@ -381,8 +381,6 @@ public enum EthRpc1 {
 extension EthRpc1 {
     /// Returns the balance of the account of given address.
     public struct eth_getBalance: JsonRpc2Method, EhtRpc1AccountParams {
-        public static var name: String { "eth_getBalance" }
-
         /// Account to get balance of
         public var address: String
 
@@ -400,8 +398,6 @@ extension EthRpc1 {
 
     /// Returns the number of the most recent block seen by this client
     public struct eth_blockNumber: JsonRpc2Method, EthRpc1EmptyParams {
-        public static var name: String { "eth_blockNumber" }
-
         /// number of the latest block
         public typealias Return = String
 
@@ -411,8 +407,6 @@ extension EthRpc1 {
 
     /// Returns the current price per gas in wei.
     public struct eth_gasPrice: JsonRpc2Method, EthRpc1EmptyParams {
-        public static var name: String { "eth_gasPrice" }
-
         /// Gas price
         public typealias Return = String
 
@@ -421,8 +415,6 @@ extension EthRpc1 {
 
     /// Executes a new message call immediately without creating a transaction on the block chain.
     public struct eth_call: JsonRpc2Method, EthRpc1TransactionParams {
-        public static var name: String { "eth_call" }
-
         /// Transaction. NOTE: `from` field MUST be present.
         public var transaction: Transaction
 
@@ -436,8 +428,6 @@ extension EthRpc1 {
 
     /// Generates and returns an estimate of how much gas is necessary to allow the transaction to complete.
     public struct eth_estimateGas: JsonRpc2Method, EthRpc1TransactionParams {
-        public static var name: String { "eth_estimateGas" }
-
         /// Transaction. NOTE: `from` field MUST be present.
         public var transaction: Transaction
 
@@ -451,8 +441,6 @@ extension EthRpc1 {
 
     /// Submits a raw transaction.
     public struct eth_sendRawTransaction: JsonRpc2Method, EthRpc1TransactionParams {
-        public static var name: String { "eth_sendRawTransaction" }
-
         /// Transaction as bytes
         public var transaction: String
 
@@ -466,8 +454,6 @@ extension EthRpc1 {
 
     /// Returns the receipt of a transaction by transaction hash.
     public struct eth_getTransactionReceipt: JsonRpc2Method {
-        public static var name: String { "eth_getTransactionReceipt" }
-
         public var transactionHash: String
 
         /// Receipt Information or null if transaction not found
@@ -480,8 +466,6 @@ extension EthRpc1 {
 
     /// Returns the number of transactions sent from an address.
     public struct eth_getTransactionCount: JsonRpc2Method, EhtRpc1AccountParams {
-        public static var name: String { "eth_getTransactionCount" }
-
         /// Account to get balance of
         public var address: String
 
