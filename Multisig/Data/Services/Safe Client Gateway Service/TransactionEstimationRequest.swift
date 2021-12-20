@@ -19,7 +19,7 @@ struct TransactionEstimationRequest: JSONRequest {
     
     var httpMethod: String { "POST" }
 
-    var urlPath: String { "/v1/chains/\(chainId)/safes/\(safeAddress)/multisig-transactions/estimations"
+    var urlPath: String { "/v2/chains/\(chainId)/safes/\(safeAddress)/multisig-transactions/estimations"
     }
 
     typealias ResponseType = SCGModels.TransactionEstimation
