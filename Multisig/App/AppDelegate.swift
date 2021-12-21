@@ -10,6 +10,7 @@ import UIKit
 import SwiftUI
 import Firebase
 import Intercom
+import WhatsNewKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

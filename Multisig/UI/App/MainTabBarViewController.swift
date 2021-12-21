@@ -8,6 +8,7 @@
 
 import UIKit
 import Intercom
+import WhatsNewKit
 
 class MainTabBarViewController: UITabBarController {
     var onFirstAppear: (_ vc: MainTabBarViewController) -> Void = { _ in
@@ -77,6 +78,32 @@ class MainTabBarViewController: UITabBarController {
         appearsFirstTime = false
 
         onFirstAppear(self)
+
+        // Initialize WhatsNew
+        let whatsNew = WhatsNew(
+                // The Title
+                title: "WhatsNewKit",
+                // The features you want to showcase
+                items: [
+                    WhatsNew.Item(
+                            title: "Installation",
+                            subtitle: "You can install WhatsNewKit via CocoaPods or Carthage",
+                            image: UIImage(named: "installation")
+                    ),
+                    WhatsNew.Item(
+                            title: "Open Source",
+                            subtitle: "Contributions are very welcome 👨‍💻",
+                            image: UIImage(named: "openSource")
+                    )
+                ]
+        )
+        // Initialize WhatsNewViewController with WhatsNew
+        let whatsNewViewController = WhatsNewViewController(
+                whatsNew: whatsNew
+        )
+        // Present it 🤩
+        self.present(whatsNewViewController, animated: true)
+
     }
 
     private func balancesTabViewController() -> UIViewController {
