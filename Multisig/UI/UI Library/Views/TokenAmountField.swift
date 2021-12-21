@@ -48,28 +48,31 @@ class TokenAmountField: UINibView {
 // allow only decimal numbers to be entered in the amount field
 extension TokenAmountField: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        let decimalSeparator = Locale.autoupdatingCurrent.decimalSeparator ?? "."
-        let inverseSet = CharacterSet(charactersIn:"0123456789").inverted
+        let decimalSeparator = Locale.current.decimalSeparator ?? "."
+        let inverseSet = CharacterSet.decimalDigits.inverted
         let components = string.components(separatedBy: inverseSet)
         let filtered = components.joined(separator: "")
         if filtered == string {
             return true
         } else {
-           if string.contains(decimalSeparator) {
-           let countdots = textField.text!.components(separatedBy: decimalSeparator).count - 1
-           if countdots == 0 {
-             return true
-           } else {
-               if countdots > 0 && string == decimalSeparator {
-               return false
-             } else {
-               return true
-             }
-           }
-         } else {
-             return false
-         }
-       }
+             //disallow negative amounts
+            if string.contains("-") {
+                return false
+            }
+            if string.contains(decimalSeparator) {
+                let countdots = (textField.text?.components(separatedBy: decimalSeparator).count ?? 0) - 1
+                if countdots <= 0 {
+                    return true
+                } else {
+                    if countdots > 0 && string == decimalSeparator {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+            } else {
+                return false
+            }
+        }
     }
 }
