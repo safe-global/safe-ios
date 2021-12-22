@@ -205,5 +205,9 @@
 	<string>The app needs access to the photo library if you need to share your screenshot with our support team.</string>
 	<key>DESKTOP_PAIRING_EXPERIMENTAL_ENABLED</key>
 	<string>$(DESKTOP_PAIRING_EXPERIMENTAL_ENABLED)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>IntercomAutoIntegratePushNotifications</key>
+	<string>NO</string>
 </dict>
 </plist>
