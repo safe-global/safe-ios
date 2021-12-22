@@ -130,7 +130,9 @@ class RejectionConfirmationViewController: UIViewController {
     private func rejectWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
         guard presentedViewController == nil else { return }
 
-        let pendingConfirmationVC = WCPendingConfirmationViewController()
+        let pendingConfirmationVC = WCPendingConfirmationViewController(transaction,
+                                                                        keyInfo: keyInfo,
+                                                                        title: "Pending Rejection")
         pendingConfirmationVC.onClose = { [unowned self] in
             endLoading()
         }

@@ -309,7 +309,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
                                            with: "Connected",
                                            isOn: WalletConnectClientController.shared.isConnected(keyInfo: keyInfo))
         case Section.PushNotificationConfiguration.enabled:
-            return tableView.switchCell(for: indexPath, with: "Enabled", isOn: keyInfo.delegateAddress != nil)
+            return tableView.switchCell(for: indexPath, with: "Receive Push Notifications", isOn: keyInfo.delegateAddress != nil)
         case Section.DelegateKey.address:
             return tableView.addressDetailsCell(address: keyInfo.delegateAddress ?? Address.zero, indexPath: indexPath)
         case Section.DelegateKey.helpLink:

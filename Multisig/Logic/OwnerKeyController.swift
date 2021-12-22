@@ -42,8 +42,8 @@ class OwnerKeyController {
             Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
 
-            if installedWallet != nil {
-                Tracker.trackEvent(.connectInstalledWallet)
+            if let installedWallet = installedWallet {
+                Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": installedWallet.name])
             } else {
                 Tracker.trackEvent(.connectExternalWallet)
             }
