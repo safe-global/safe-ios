@@ -82,23 +82,23 @@ class MainTabBarViewController: UITabBarController {
         // Initialize WhatsNew
         let whatsNew = WhatsNew(
                 // The Title
-                title: "WhatsNewKit",
+                title: "What's new",
                 // The features you want to showcase
                 items: [
                     WhatsNew.Item(
                             title: "Intercom Chat support",
                             subtitle: "Have a trouble or want to leave feedback? Drop us a message directly in the Intercom chat.",
-                            image: UIImage(named: "whats_new_chat")
+                            image: UIImage(named: "ico-whats-new-chat")
                     ),
                     WhatsNew.Item(
                             title: "Initiate asset transfer",
                             subtitle: "Initiate a transfer of your tokens on-the-go...",
-                            image: UIImage(named: "whats_new_ether")
+                            image: UIImage(named: "ico-whats-new-ether")
                     ),
                     WhatsNew.Item(
                             title: "Execute transactions",
                             subtitle: "...and execute those transactions from your mobile.",
-                            image: UIImage(named: "whats_new_transactions")
+                            image: UIImage(named: "ico-whats-new-transactions")
                     )
                 ]
         )
@@ -107,10 +107,16 @@ class MainTabBarViewController: UITabBarController {
 
         // Customize Configuration to your needs
         configuration.backgroundColor = .white
-        configuration.titleView.titleColor = .orange
-        configuration.itemsView.titleFont = .systemFont(ofSize: 17)
-        configuration.detailButton?.titleColor = .orange
-        configuration.completionButton.backgroundColor = .orange
+
+        configuration.titleView.titleColor = .darkText
+
+        configuration.itemsView.titleFont = .systemFont(ofSize: 17, weight: .bold)
+        configuration.itemsView.titleColor = .darkText
+        
+        configuration.detailButton?.titleColor = .button
+        configuration.completionButton.backgroundColor = .button
+        configuration.completionButton.title = "Let's go"
+
         // And many more configuration properties...
 
         let keyValueVersionStore = KeyValueWhatsNewVersionStore(
