@@ -97,12 +97,31 @@ class MainTabBarViewController: UITabBarController {
                     )
                 ]
         )
+        // Initialize default Configuration
+        var configuration = WhatsNewViewController.Configuration()
+
+        // Customize Configuration to your needs
+        configuration.backgroundColor = .white
+        configuration.titleView.titleColor = .orange
+        configuration.itemsView.titleFont = .systemFont(ofSize: 17)
+        configuration.detailButton?.titleColor = .orange
+        configuration.completionButton.backgroundColor = .orange
+        // And many more configuration properties...
+
+        let keyValueVersionStore = KeyValueWhatsNewVersionStore(
+                keyValueable: UserDefaults.standard
+        )
+
         // Initialize WhatsNewViewController with WhatsNew
         let whatsNewViewController = WhatsNewViewController(
-                whatsNew: whatsNew
+                whatsNew: whatsNew,
+                configuration: configuration,
+                versionStore: keyValueVersionStore
         )
         // Present it 🤩
-        self.present(whatsNewViewController, animated: true)
+        if let whatsNewViewController = whatsNewViewController {
+            self.present(whatsNewViewController, animated: true)
+        }
 
     }
 
