@@ -86,14 +86,19 @@ class MainTabBarViewController: UITabBarController {
                 // The features you want to showcase
                 items: [
                     WhatsNew.Item(
-                            title: "Installation",
-                            subtitle: "You can install WhatsNewKit via CocoaPods or Carthage",
-                            image: UIImage(named: "installation")
+                            title: "Intercom Chat support",
+                            subtitle: "Have a trouble or want to leave feedback? Drop us a message directly in the Intercom chat.",
+                            image: UIImage(named: "whats_new_chat")
                     ),
                     WhatsNew.Item(
-                            title: "Open Source",
-                            subtitle: "Contributions are very welcome 👨‍💻",
-                            image: UIImage(named: "openSource")
+                            title: "Initiate asset transfer",
+                            subtitle: "Initiate a transfer of your tokens on-the-go...",
+                            image: UIImage(named: "whats_new_ether")
+                    ),
+                    WhatsNew.Item(
+                            title: "Execute transactions",
+                            subtitle: "...and execute those transactions from your mobile.",
+                            image: UIImage(named: "whats_new_transactions")
                     )
                 ]
         )
@@ -116,7 +121,7 @@ class MainTabBarViewController: UITabBarController {
         let whatsNewViewController = WhatsNewViewController(
                 whatsNew: whatsNew,
                 configuration: configuration,
-                versionStore: keyValueVersionStore
+                versionStore: InMemoryWhatsNewVersionStore() // keyValueVersionStore // persist
         )
         // Present it 🤩
         if let whatsNewViewController = whatsNewViewController {
