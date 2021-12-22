@@ -79,61 +79,10 @@ class MainTabBarViewController: UITabBarController {
 
         onFirstAppear(self)
 
-        // Initialize WhatsNew
-        let whatsNew = WhatsNew(
-                // The Title
-                title: "What's new",
-                // The features you want to showcase
-                items: [
-                    WhatsNew.Item(
-                            title: "Intercom Chat support",
-                            subtitle: "Have a trouble or want to leave feedback? Drop us a message directly in the Intercom chat.",
-                            image: UIImage(named: "ico-whats-new-chat")
-                    ),
-                    WhatsNew.Item(
-                            title: "Initiate asset transfer",
-                            subtitle: "Initiate a transfer of your tokens on-the-go...",
-                            image: UIImage(named: "ico-whats-new-ether")
-                    ),
-                    WhatsNew.Item(
-                            title: "Execute transactions",
-                            subtitle: "...and execute those transactions from your mobile.",
-                            image: UIImage(named: "ico-whats-new-transactions")
-                    )
-                ]
-        )
-        // Initialize default Configuration
-        var configuration = WhatsNewViewController.Configuration()
-
-        // Customize Configuration to your needs
-        configuration.backgroundColor = .white
-
-        configuration.titleView.titleColor = .darkText
-
-        configuration.itemsView.titleFont = .systemFont(ofSize: 17, weight: .bold)
-        configuration.itemsView.titleColor = .darkText
-        
-        configuration.detailButton?.titleColor = .button
-        configuration.completionButton.backgroundColor = .button
-        configuration.completionButton.title = "Let's go"
-
-        // And many more configuration properties...
-
-        let keyValueVersionStore = KeyValueWhatsNewVersionStore(
-                keyValueable: UserDefaults.standard
-        )
-
-        // Initialize WhatsNewViewController with WhatsNew
-        let whatsNewViewController = WhatsNewViewController(
-                whatsNew: whatsNew,
-                configuration: configuration,
-                versionStore: InMemoryWhatsNewVersionStore() // keyValueVersionStore // persist
-        )
-        // Present it 🤩
-        if let whatsNewViewController = whatsNewViewController {
-            self.present(whatsNewViewController, animated: true)
+        let whatsNewHandler = WhatsNewHandler()
+        if let whatsNewVC = whatsNewHandler.getViewController()  {
+            present(whatsNewVC, animated: true)
         }
-
     }
 
     private func balancesTabViewController() -> UIViewController {
