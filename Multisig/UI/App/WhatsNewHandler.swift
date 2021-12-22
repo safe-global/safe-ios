@@ -8,7 +8,7 @@ import UIKit
 import WhatsNewKit
 
 class WhatsNewHandler {
-    let whatsNew = WhatsNew(
+    private let whatsNew = WhatsNew(
             title: "What's new",
             items: [
                 WhatsNew.Item(
@@ -59,9 +59,5 @@ class WhatsNewHandler {
                 configuration: configuration,
                 versionStore: keyValueVersionStore
         )
-    }
-
-    func getViewController() -> WhatsNewViewController? {
-        whatsNewViewController
     }
 }
