@@ -21,7 +21,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.5.0</string>
+	<string>3.6.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -205,5 +205,9 @@
 	<string>The app needs access to the photo library if you need to share your screenshot with our support team.</string>
 	<key>DESKTOP_PAIRING_EXPERIMENTAL_ENABLED</key>
 	<string>$(DESKTOP_PAIRING_EXPERIMENTAL_ENABLED)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>IntercomAutoIntegratePushNotifications</key>
+	<string>NO</string>
 </dict>
 </plist>

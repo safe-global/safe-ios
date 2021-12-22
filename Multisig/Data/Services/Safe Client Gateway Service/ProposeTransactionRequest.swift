@@ -34,11 +34,7 @@ struct ProposeTransactionRequest: JSONRequest {
     var httpMethod: String { "POST" }
     var urlPath: String { "/v1/chains/\(chainId)/transactions/\(safe)/propose" }
 
-    typealias ResponseType = EmptyResponse
-
-    struct EmptyResponse: Decodable {
-        // empty
-    }
+    typealias ResponseType = SCGModels.TransactionDetails
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -64,7 +60,7 @@ extension SafeClientGatewayService {
         sender: AddressString,
         signature: String,
         chainId: String,
-        completion: @escaping (Result<ProposeTransactionRequest.EmptyResponse, Error>) -> Void) -> URLSessionTask? {
+        completion: @escaping (Result<ProposeTransactionRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
 
         return asyncExecute(request: ProposeTransactionRequest(safe: transaction.safe!,
                                                                sender: sender,
@@ -74,12 +70,12 @@ extension SafeClientGatewayService {
                             completion: completion)
     }
 
-    func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String, chainId: String) throws {
+    func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String, chainId: String) throws -> SCGModels.TransactionDetails? {
         let request = ProposeTransactionRequest(safe: transaction.safe!,
                                                 sender: sender,
                                                 signature: signature,
                                                 transaction: transaction,
                                                 chainId: chainId)
-        try execute(request: request)
+        return try execute(request: request)
     }
 }

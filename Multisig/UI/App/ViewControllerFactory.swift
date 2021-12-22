@@ -55,6 +55,11 @@ enum ViewControllerFactory {
         let vc = TransactionDetailsViewController(safeTxHash: safeTxHash)
         return modalWithRibbon(viewController: vc)
     }
+    
+    static func transactionDetailsViewController(transaction: SCGModels.TransactionDetails) -> UIViewController {
+        let vc = TransactionDetailsViewController(transaction: transaction)
+        return modalWithRibbon(viewController: vc)
+    }
 
     static func modalWithRibbon(viewController: UIViewController, chain: SCGModels.Chain? = nil, storedChain: Chain? = nil) -> UIViewController {
         viewController.navigationItem.leftBarButtonItem =

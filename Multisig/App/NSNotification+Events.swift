@@ -19,12 +19,16 @@ extension NSNotification.Name {
     static let ownerKeyImported = NSNotification.Name("io.gnosis.safe.ownerKeyImported")
     static let ownerKeyRemoved = NSNotification.Name("io.gnosis.safe.ownerKeyRemoved")
     static let ownerKeyUpdated = NSNotification.Name("io.gnosis.safe.ownerKeyUpdated")
+    
+    static let balanceLoading = NSNotification.Name("io.gnosis.safe.balanceLoading")
+    static let balanceUpdated = NSNotification.Name("io.gnosis.safe.balanceUpdated")
 
     static let transactionDataInvalidated = NSNotification.Name("io.gnosis.safe.transactionDataInvalidated")
 
     static let incommingTxNotificationReceived = NSNotification.Name("io.gnosis.safe.incommingTxNotification")
     static let queuedTxNotificationReceived = NSNotification.Name("io.gnosis.safe.queuedTxNotificationReceived")
     static let confirmationTxNotificationReceived = NSNotification.Name("io.gnosis.safe.confirmationTxNotificationReceived")
+    static let initiateTxNotificationReceived = NSNotification.Name("io.gnosis.safe.initiateTxNotificationReceived")
 
     static let biometricsActivated = NSNotification.Name("io.gnosis.safe.biometricsActivated")
 

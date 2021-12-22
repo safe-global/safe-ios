@@ -52,8 +52,14 @@ class MainTabBarViewController: UITabBarController {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(showTransactionDetails),
+            selector: #selector(handleConfirmTransactionNotificationReceived),
             name: .confirmationTxNotificationReceived,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleInitiateTransactionNotificationReceived),
+            name: .initiateTxNotificationReceived,
             object: nil)
 
         NotificationCenter.default.addObserver(
@@ -74,22 +80,14 @@ class MainTabBarViewController: UITabBarController {
     }
 
     private func balancesTabViewController() -> UIViewController {
-        let segmentVC = SegmentViewController(namedClass: nil)
-        segmentVC.segmentItems = [
-            SegmentBarItem(image: UIImage(named: "ico-coins")!, title: "Coins"),
-            SegmentBarItem(image: UIImage(named: "ico-collectibles")!, title: "Collectibles")
-        ]
-        segmentVC.viewControllers = [
-            BalancesViewController(),
-            CollectiblesUnsupportedViewController(nibName: nil, bundle: nil)
-        ]
-        segmentVC.selectedIndex = 0
+        
+        let assetsVC = AssetsViewController()
 
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
         loadSafeViewController.trackingEvent = .assetsNoSafe
 
-        let ribbonVC = RibbonViewController(rootViewController: segmentVC)
+        let ribbonVC = RibbonViewController(rootViewController: assetsVC)
         noSafesVC.hasSafeViewController = ribbonVC
         noSafesVC.noSafeViewController = loadSafeViewController
 
@@ -174,6 +172,14 @@ class MainTabBarViewController: UITabBarController {
         nav.tabBarItem = tabItem
         return nav
     }
+    
+    @objc private func handleInitiateTransactionNotificationReceived(_ info: [String : Any]?) {
+        if let transactionDetails = info?["transactionDetails"] as? SCGModels.TransactionDetails {
+            showTransactionDetails(transactionDetails: transactionDetails)
+        } else {
+            showQueuedTransactions()
+        }
+    }
 
     @objc private func showQueuedTransactions() {
         selectedIndex = 1
@@ -189,10 +195,19 @@ class MainTabBarViewController: UITabBarController {
         viewControllers = [balancesTabVC, transactionsTabVC, dappsTabVC, settingsTabVC]        
     }
 
-    @objc func showTransactionDetails(_ notification: Notification) {
+    @objc func handleConfirmTransactionNotificationReceived(_ notification: Notification) {
         guard let safeTxHash = App.shared.notificationHandler.transactionDetailsPayload else { return }
         App.shared.notificationHandler.transactionDetailsPayload = nil
+        showTransactionDetails(safeTxHash: safeTxHash)
+    }
+    
+    private func showTransactionDetails(safeTxHash: Data) {
         let vc = ViewControllerFactory.transactionDetailsViewController(safeTxHash: safeTxHash)
+        present(vc, animated: true, completion: nil)
+    }
+    
+    private func showTransactionDetails(transactionDetails: SCGModels.TransactionDetails) {
+        let vc = ViewControllerFactory.transactionDetailsViewController(transaction: transactionDetails)
         present(vc, animated: true, completion: nil)
     }
 }
