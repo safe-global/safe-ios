@@ -79,10 +79,7 @@ class MainTabBarViewController: UITabBarController {
 
         onFirstAppear(self)
 
-        let whatsNewHandler = WhatsNewHandler()
-        if let whatsNewVC = whatsNewHandler.getViewController()  {
-            present(whatsNewVC, animated: true)
-        }
+        WhatsNewHandler().getViewController()?.present(on: self)
     }
 
     private func balancesTabViewController() -> UIViewController {

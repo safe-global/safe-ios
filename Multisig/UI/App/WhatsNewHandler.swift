@@ -38,13 +38,17 @@ class WhatsNewHandler {
         configuration.backgroundColor = .white
 
         configuration.titleView.titleColor = .darkText
+        configuration.titleView.titleFont = .systemFont(ofSize: 26, weight: .regular)
 
-        configuration.itemsView.titleFont = .systemFont(ofSize: 17, weight: .bold)
+        configuration.itemsView.titleFont = .systemFont(ofSize: 16, weight: .bold)
         configuration.itemsView.titleColor = .darkText
+        configuration.itemsView.subtitleColor = .gray
 
         configuration.detailButton?.titleColor = .button
         configuration.completionButton.backgroundColor = .button
         configuration.completionButton.title = "Let's go"
+
+        configuration.itemsView.autoTintImage = false
 
         let keyValueVersionStore = KeyValueWhatsNewVersionStore(
                 keyValueable: UserDefaults.standard
@@ -53,7 +57,7 @@ class WhatsNewHandler {
         whatsNewViewController = WhatsNewViewController(
                 whatsNew: whatsNew,
                 configuration: configuration,
-                versionStore: InMemoryWhatsNewVersionStore() // keyValueVersionStore // persist
+                versionStore: InMemoryWhatsNewVersionStore() // TODO: Uncomment this: keyValueVersionStore
         )
     }
 
