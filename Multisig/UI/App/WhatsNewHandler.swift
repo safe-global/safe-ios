@@ -3,7 +3,6 @@
 // Copyright (c) 2021 Gnosis Ltd. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import WhatsNewKit
 
