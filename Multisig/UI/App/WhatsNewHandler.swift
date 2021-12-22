@@ -57,7 +57,7 @@ class WhatsNewHandler {
         whatsNewViewController = WhatsNewViewController(
                 whatsNew: whatsNew,
                 configuration: configuration,
-                versionStore: InMemoryWhatsNewVersionStore() // TODO: Uncomment this: keyValueVersionStore
+                versionStore: keyValueVersionStore
         )
     }
 
