@@ -30,6 +30,7 @@ let package = Package(
         .testTarget(name: "EthereumTests", dependencies: ["Ethereum", "TestHelpers"]),
 
         .target(name: "Solidity", dependencies: ["BigInt"]),
+        .testTarget(name: "SolidityTests", dependencies: ["Solidity"]),
 
         .target(name: "TestHelpers")
     ]
