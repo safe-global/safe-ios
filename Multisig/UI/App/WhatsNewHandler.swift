@@ -36,14 +36,14 @@ class WhatsNewHandler {
         let whatsNews = [whatsNew]
         var configuration = WhatsNewViewController.Configuration()
 
-        configuration.backgroundColor = .white
+        configuration.backgroundColor = .quaternaryBackground
 
-        configuration.titleView.titleColor = .darkText
+        configuration.titleView.titleColor = .primaryLabel
         configuration.titleView.titleFont = .systemFont(ofSize: 26, weight: .regular)
 
         configuration.itemsView.titleFont = .systemFont(ofSize: 16, weight: .bold)
-        configuration.itemsView.titleColor = .darkText
-        configuration.itemsView.subtitleColor = .gray
+        configuration.itemsView.titleColor = .primaryLabel
+        configuration.itemsView.subtitleColor = .secondaryLabel
 
         configuration.detailButton?.titleColor = .button
         configuration.completionButton.backgroundColor = .button
