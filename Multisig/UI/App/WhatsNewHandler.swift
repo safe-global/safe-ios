@@ -8,6 +8,8 @@ import WhatsNewKit
 
 class WhatsNewHandler {
     private let whatsNew = WhatsNew(
+            // Show the WhatsNew screen only once for users of this version
+            version: WhatsNew.Version(major: 3, minor: 6, patch: 0),
             title: "What's new",
             items: [
                 WhatsNew.Item(
@@ -31,7 +33,7 @@ class WhatsNewHandler {
     var whatsNewViewController: WhatsNewViewController?
 
     init() {
-
+        let whatsNews = [whatsNew]
         var configuration = WhatsNewViewController.Configuration()
 
         configuration.backgroundColor = .white
@@ -53,10 +55,13 @@ class WhatsNewHandler {
                 keyValueable: UserDefaults.standard
         )
 
-        whatsNewViewController = WhatsNewViewController(
-                whatsNew: whatsNew,
-                configuration: configuration,
-                versionStore: keyValueVersionStore
-        )
+        let whatsNewForCurrentVersion = whatsNews.get(byVersion: .current())
+        if let whatsNewForCurrentVersion = whatsNewForCurrentVersion {
+            whatsNewViewController = WhatsNewViewController(
+                    whatsNew: whatsNewForCurrentVersion,
+                    configuration: configuration,
+                    versionStore: keyValueVersionStore // use InMemoryWhatsNewVersionStore() for debugging
+            )
+        }
     }
 }
