@@ -9,13 +9,11 @@ import Foundation
 
 protocol SolAbiUnsignedInteger: SolAbiType, UnsignedInteger, FixedWidthInteger, CustomPlaygroundDisplayConvertible {
     static var bitWidth: Int { get }
-    var store: Value { get set }
+    var storage: Value { get set }
 
-    // must be at least bitWidth long!
     associatedtype Value: UnsignedInteger & ExpressibleByIntegerLiteral & Hashable & Comparable
     init()
 }
-
 
 extension SolAbiUnsignedInteger {
     static var isStatic: Bool { true }
@@ -27,48 +25,44 @@ extension SolAbiUnsignedInteger {
             UInt8((value >> bitOffset) & 0xff)
         }
 
-        let remainder32 = bytes.count % 32
-        if remainder32 == 0 {
+        let remainderFrom32 = bytes.count % 32
+        if remainderFrom32 == 0 {
             return Data(bytes)
         }
 
-        return Data(repeating: 0x00, count: 32 - remainder32) + Data(bytes)
+        return Data(repeating: 0x00, count: 32 - remainderFrom32) + Data(bytes)
     }
 }
 
 extension SolAbi {
     struct UInt256: SolAbiUnsignedInteger {
         static var bitWidth: Int { 256 }
-        var store: BigUInt
+        var storage: BigUInt
         init() {
-            store = .init()
+            storage = .init()
         }
     }
 
     struct UInt72: SolAbiUnsignedInteger {
         static var bitWidth: Int { 72 }
-        var store: BigUInt
-        init() { store = .init() }
+        var storage: BigUInt
+        init() { storage = .init() }
     }
 }
 
-// encode uint256
-
 import BigInt
-
-// the store must always have bitWidth / Word words.
 
 extension String {
     init<T>(_ v: T, radix: Int, uppercase: Bool = false) where T: SolAbiUnsignedInteger, T.Value == BigUInt {
-        self.init(v.store, radix: radix, uppercase: uppercase)
+        self.init(v.storage, radix: radix, uppercase: uppercase)
     }
 }
 
 extension SolAbiUnsignedInteger where Value == BigUInt {
 
     var words: [Value.Words.Element] {
-        let difference = Self.requiredWordCount - store.words.count
-        let words = store.words + [Words.Element](repeating: Words.Element(0), count: difference)
+        let difference = Self.requiredWordCount - storage.words.count
+        let words = storage.words + [Words.Element](repeating: Words.Element(0), count: difference)
         return words
     }
 
@@ -86,12 +80,6 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
     }
 
     var leadingZeroBitCount: Int {
-        // from end to beginning, while words are zero, sum it up
-        // then, stop at the first non-zero word.
-
-        // last index of word with at least one nonzero
-        // leading zeros = all most signinficant zeros.
-
         // is equal to leading zeros + all zero word bits
         let lastNonZeroWordIndex = words.lastIndex(where: { $0.nonzeroBitCount > 0 }) ?? 0
         let count = words[lastNonZeroWordIndex..<words.count].map { $0.leadingZeroBitCount }.reduce(0, +)
@@ -99,23 +87,20 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
     }
 
     var byteSwapped: Self {
-        let wordSize: Int = Words.Element.bitWidth
-        let remainder: Int = Self.bitWidth % wordSize
-        if remainder == 0 {
-            let swappedWords = store.words.map { word in word.byteSwapped }.reversed()
-            return Self(store: BigUInt(words: swappedWords))
-        } else {
-            // swap-reverse all full words
-            // then rotate the remainder 
+        // swap-reverse all words and then remove the trailing zero bytes
+        let swappedWords = words.map { $0.byteSwapped }.reversed()
+        var result = BigUInt(words: swappedWords)
 
-            var swappedWords = store.words.map { $0.byteSwapped }
-            // remove the trailing zero bytes from the highest word
-            swappedWords[swappedWords.count - 1] >>= wordSize - remainder
-            var result = BigUInt(words: swappedWords)
-            // rotate the remainder to the left
-            result = (result << remainder) | (result >> (Self.bitWidth - remainder))
-            return Self(store: result)
+        // after swapping there will be trailing zeroes if the bit width is not a factor of word bit width
+        // so we remove those zero bytes
+        let wordBitWidth: Int = Words.Element.bitWidth
+        let remainderBitWidth: Int = Self.bitWidth % wordBitWidth
+        if remainderBitWidth > 0 {
+            result >>= wordBitWidth - remainderBitWidth
         }
+
+        result &= Self.maxStore
+        return Self(store: result)
     }
 
     static var requiredWordCount: Int {
@@ -123,22 +108,21 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
     }
 
     var description: String {
-        store.description
+        storage.description
     }
 
     var playgroundDescription: Any {
-        store.playgroundDescription
+        storage.playgroundDescription
     }
 
     init(store: BigUInt) {
         // must always have bitWidth/Word.bitWidth count
         precondition(Self.bitWidth > 0, "Bit width must be positive")
         self.init()
-        self.store = store & Self.maxStore
+        self.storage = store & Self.maxStore
     }
 
     init(_truncatingBits bits: UInt) {
-        // TODO: for low bitwidth!
         let store = BigUInt(integerLiteral: UInt64(bits))
         self.init(store: store)
     }
@@ -171,9 +155,9 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
     }
 
     func addingReportingOverflow(_ rhs: Self) -> (partialValue: Self, overflow: Bool) {
-        let sum = store + rhs.store
+        let sum = storage + rhs.storage
         let overflow = sum.bitWidth > Self.bitWidth
-        let partialValue = sum & Self.max.store
+        let partialValue = sum & Self.max.storage
         return (Self(store: partialValue), overflow)
     }
 
@@ -186,57 +170,41 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
     }
 
     func subtractingReportingOverflow(_ rhs: Self) -> (partialValue: Self, overflow: Bool) {
-        let difference = Self(store: (store + rhs.twosComplement.store) & Self.max.store)
-        let overflow = store < rhs.store
+        let difference = Self(store: (storage + rhs.twosComplement.storage) & Self.max.storage)
+        let overflow = storage < rhs.storage
         return (difference, overflow)
     }
 
     func multipliedReportingOverflow(by rhs: Self) -> (partialValue: Self, overflow: Bool) {
-        let product = store * rhs.store
+        let product = storage * rhs.storage
         let overflow = product.bitWidth > Self.bitWidth
         let partialValue = Self(store: product)
         return (partialValue, overflow)
     }
 
     func dividedReportingOverflow(by rhs: Self) -> (partialValue: Self, overflow: Bool) {
-        if rhs.store.isZero {
+        if rhs.storage.isZero {
             return (self, true)
         }
-        let (quotient, _) = store.quotientAndRemainder(dividingBy: rhs.store)
+        let (quotient, _) = storage.quotientAndRemainder(dividingBy: rhs.storage)
         return (Self(store: quotient), false)
     }
 
     func remainderReportingOverflow(dividingBy rhs: Self) -> (partialValue: Self, overflow: Bool) {
-        if rhs.store.isZero {
+        if rhs.storage.isZero {
             return (self, true)
         }
-        let (_, remainder) = store.quotientAndRemainder(dividingBy: rhs.store)
+        let (_, remainder) = storage.quotientAndRemainder(dividingBy: rhs.storage)
         return (Self(store: remainder), false)
     }
 
     func dividingFullWidth(_ dividend: (high: Self, low: Self)) -> (quotient: Self, remainder: Self) {
-//        let (quotient, remainder) = store.quotientAndRemainder(dividingBy: rhs.store)
-//        let dividend = dividend.high.store + dividend.low.store
-        // low.words + high.words --> double-width
         let dividendWords = [Words.Element](dividend.low.words) + dividend.high.words
         let dividendStore = BigUInt(words: dividendWords)
-
-        // dividend = double width
-        // divisor = self
-
-        // if double width / 1 then result is double width!
-        // the remainder is 0
-
-        // this will never overflow
-        // remainder is within the size of the dividend
-        // so it can be bigger than this type
-        let (quotient, remainder) = dividendStore.quotientAndRemainder(dividingBy: store)
-
+        let (quotient, remainder) = dividendStore.quotientAndRemainder(dividingBy: storage)
         // If the quotient of dividing dividend by this value is too large to represent in the type, a runtime error may occur.
         let overflowQuotient = quotient.bitWidth > bitWidth
         precondition(!overflowQuotient, "Quotient is too large for this type")
-        // remainder is always less than the divisor
-
         return (Self(store: quotient), Self(store: remainder))
     }
 
@@ -248,7 +216,7 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
 
     static func *= (lhs: inout Self, rhs: Self) {
         let result = lhs * rhs
-        lhs.store = result.store
+        lhs.storage = result.storage
     }
 
     static func / (lhs: Self, rhs: Self) -> Self {
@@ -259,7 +227,7 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
 
     static func /= (lhs: inout Self, rhs: Self) {
         let result = lhs / rhs
-        lhs.store = result.store
+        lhs.storage = result.storage
     }
 
     static func % (lhs: Self, rhs: Self) -> Self {
@@ -270,22 +238,22 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
 
     static func %= (lhs: inout Self, rhs: Self) {
         let result = lhs % rhs
-        lhs.store = result.store
+        lhs.storage = result.storage
     }
 
     static func &= (lhs: inout Self, rhs: Self) {
         let result = lhs & rhs
-        lhs.store = result.store
+        lhs.storage = result.storage
     }
 
     static func |= (lhs: inout Self, rhs: Self) {
         let result = lhs | rhs
-        lhs.store = result.store
+        lhs.storage = result.storage
     }
 
     static func ^= (lhs: inout Self, rhs: Self) {
         let result = lhs ^ rhs
-        lhs.store = result.store
+        lhs.storage = result.storage
     }
 
     static func - (lhs: Self, rhs: Self) -> Self {
@@ -331,73 +299,58 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
         }
         // any other - right shift of lhs.
         else {
-            return Self(store: lhs.store >> rhs)
+            return Self(store: lhs.storage >> rhs)
         }
     }
 
     static func >>= <RHS>(lhs: inout Self, rhs: RHS) where RHS : BinaryInteger {
         let result = lhs >> rhs
-        lhs.store = result.store
+        lhs.storage = result.storage
     }
 
     static func << <RHS>(lhs: Self, rhs: RHS) -> Self where RHS : BinaryInteger {
-//        Using a negative value for rhs performs a right shift using abs(rhs).
+        // Using a negative value for rhs performs a right shift using abs(rhs).
         if rhs < 0 {
             return lhs >> (0 - rhs)
         }
-//        Using a value for rhs that is greater than or equal to the bit width of lhs is an overshift, resulting in zero.
+        // Using a value for rhs that is greater than or equal to the bit width of lhs is an overshift, resulting in zero.
         else if rhs >= Self.bitWidth {
             return 0
         }
-        //        Using any other value for rhs performs a left shift on lhs by that amount.
+        // Using any other value for rhs performs a left shift on lhs by that amount.
         else {
-            return Self(store: lhs.store << rhs)
+            return Self(store: lhs.storage << rhs)
         }
     }
 
     static func <<= <RHS>(lhs: inout Self, rhs: RHS) where RHS : BinaryInteger {
         let result = lhs << rhs
-        lhs.store = result.store
+        lhs.storage = result.storage
     }
 
     // have to implement it otherwise default implementation hangs forever
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.store == rhs.store
+        lhs.storage == rhs.storage
     }
 
     static func < (lhs: Self, rhs: Self) -> Bool {
-        lhs.store < rhs.store
+        lhs.storage < rhs.storage
     }
 
     func hash(into hasher: inout Hasher) {
-        store.hash(into: &hasher)
+        storage.hash(into: &hasher)
     }
-
 
     static var maxStore: BigUInt {
         // normally, this value is BigUInt(2).power(bitWidth) - 1
         // however, that operation is slow: O((exponent * self.count)^log2(3))
-        // The code below is an optimization.
         //
-        // Maximum possible value = bitWidth x 1's
-        // We need to account for words, so we need to deal with
-        // the case when bitWidth can be divided fully by the word size
-        // and with the remainder case.
-
-        // when bitWidth % word size == 0, then all words are of 1's
+        // so we construct the maximum value out of all '0xff' bytes
+        // by creating enough words and shifting bits to reduce it to the required bit width
+        let words = [Words.Element](repeating: .max, count: requiredWordCount)
         let wordSize = Words.Element.bitWidth
-        if bitWidth % wordSize == 0 {
-            let words = (0..<requiredWordCount).map { _ in Words.Element.max }
-            return BigUInt(words: words)
-        }
-        else {
-            // then bitWidth / wordsize words are of 1's
-            // and the last one is max value (all 1's) shifted right to the wordsize - remainder
-            // so that only remainder x 1's are left.
-            let mostWords = (0..<bitWidth / wordSize).map { _ in Words.Element.max }
-            let lastWord = Words.Element.max >> (wordSize - bitWidth % wordSize)
-            return BigUInt(words: mostWords + [lastWord])
-        }
+        let maxValue = BigUInt(words: words) >> (requiredWordCount * wordSize - bitWidth)
+        return maxValue
     }
 
     static var max: Self {

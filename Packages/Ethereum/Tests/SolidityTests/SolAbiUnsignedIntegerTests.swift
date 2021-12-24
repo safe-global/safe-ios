@@ -24,7 +24,7 @@ class UInt256Tests: XCTestCase {
     let high = u256(store: BigUInt(2).power(u256.bitWidth) - 1)
 
     func testMax() {
-        XCTAssertEqual(u256.max.store, BigUInt(2).power(u256.bitWidth) - 1)
+        XCTAssertEqual(u256.max.storage, BigUInt(2).power(u256.bitWidth) - 1)
     }
 
     func testWords() {
@@ -88,13 +88,13 @@ class UInt256Tests: XCTestCase {
     func testInitWithBigUint() {
         let _2expN = BigUInt(2).power(u256.bitWidth)
 
-        XCTAssertEqual(u256(store: _2expN - 1).store, _2expN - 1)
-        XCTAssertEqual(u256(store: _2expN - 2).store, _2expN - 2)
+        XCTAssertEqual(u256(store: _2expN - 1).storage, _2expN - 1)
+        XCTAssertEqual(u256(store: _2expN - 2).storage, _2expN - 2)
 
-        XCTAssertEqual(u256(store: _2expN).store, 0)
-        XCTAssertEqual(u256(store: 0).store, 0)
-        XCTAssertEqual(u256(store: 1).store, 1)
-        XCTAssertEqual(u256(store: _2expN / 4).store, _2expN / 4)
+        XCTAssertEqual(u256(store: _2expN).storage, 0)
+        XCTAssertEqual(u256(store: 0).storage, 0)
+        XCTAssertEqual(u256(store: 1).storage, 1)
+        XCTAssertEqual(u256(store: _2expN / 4).storage, _2expN / 4)
     }
 
     func testAddWithOverflow() {
@@ -367,7 +367,7 @@ class UInt72Tests: XCTestCase {
     }
 
     func testMax() {
-        XCTAssertEqual(u72.max.store, BigUInt(2).power(72) - 1)
+        XCTAssertEqual(u72.max.storage, BigUInt(2).power(72) - 1)
     }
 
     func testSmoke() {

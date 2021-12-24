@@ -27,10 +27,6 @@ protocol SolAbiType {
 }
 
 
-protocol SolAbiSignedInteger {
-    static var bitWidth: Int { get }
-}
-
 protocol SolAbiUnsignedFixedPoint {
     static var bitWidth: Int { get }
     static var exponent: Int { get }
