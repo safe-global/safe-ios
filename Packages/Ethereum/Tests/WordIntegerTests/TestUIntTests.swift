@@ -7,7 +7,7 @@
 
 import Foundation
 import XCTest
-import Solidity
+import WordInteger
 import BigInt
 
 public struct TestUInt200 {

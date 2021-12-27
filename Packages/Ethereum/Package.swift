@@ -29,8 +29,11 @@ let package = Package(
         .target(name: "Ethereum", dependencies: ["Json", "JsonRpc2"]),
         .testTarget(name: "EthereumTests", dependencies: ["Ethereum", "TestHelpers"]),
 
-        .target(name: "Solidity", dependencies: ["BigInt"]),
+        .target(name: "Solidity", dependencies: ["WordInteger"]),
         .testTarget(name: "SolidityTests", dependencies: ["Solidity"]),
+
+        .target(name: "WordInteger", dependencies: ["BigInt"]),
+        .testTarget(name: "WordIntegerTests", dependencies: ["WordInteger"]),
 
         .target(name: "TestHelpers")
     ]
