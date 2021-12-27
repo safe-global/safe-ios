@@ -72,6 +72,8 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
 
         helpArticleLinkLabel.hyperLinkLabel(linkText: "How do I configure these details manually?")
         helpArticleButton.setTitle("", for: .normal)
+        
+        validateInputs()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -97,7 +99,17 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
                   }
                   return
               }
-        nonceTextField.setError(nil)
+        
+        if nonce == minimalNonce {
+            nonceTextField.setError(nil)
+        } else {
+            let offset = nonce - minimalNonce
+            var txString = "transactions"
+            if offset == 1 {
+                txString = "transaction"
+            }
+            nonceTextField.setError("\(offset) \(txString) will need to be created and executed before this transaction")
+        }
         self.nonce = UInt256String(nonce)
         
         if self.safeTxGas == nil {
