@@ -9,6 +9,7 @@ import XCTest
 @testable import JsonRpc2
 import TestHelpers
 
+@available(iOS 15.0.0, *)
 @available(macOS 12.0.0, *)
 class AsyncClientTests: XCTestCase {
 

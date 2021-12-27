@@ -154,6 +154,10 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
         self.init(store: store)
     }
 
+    init?(_ description: String) {
+        self.init(description, radix: 10)
+    }
+
     func addingReportingOverflow(_ rhs: Self) -> (partialValue: Self, overflow: Bool) {
         let sum = storage + rhs.storage
         let overflow = sum.bitWidth > Self.bitWidth
@@ -208,15 +212,22 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
         return (Self(store: quotient), Self(store: remainder))
     }
 
+    static func + (lhs: Self, rhs: Self) -> Self {
+        let (result, overflow) = lhs.addingReportingOverflow(rhs)
+        precondition(!overflow, "Addition overflow")
+        return result
+    }
+
+    static func - (lhs: Self, rhs: Self) -> Self {
+        let (result, overflow) = lhs.subtractingReportingOverflow(rhs)
+        precondition(!overflow, "Subtraction overflow")
+        return result
+    }
+
     static func * (lhs: Self, rhs: Self) -> Self {
         let (result, overflow) = lhs.multipliedReportingOverflow(by: rhs)
         precondition(!overflow, "Multiplication overflow")
         return result
-    }
-
-    static func *= (lhs: inout Self, rhs: Self) {
-        let result = lhs * rhs
-        lhs.storage = result.storage
     }
 
     static func / (lhs: Self, rhs: Self) -> Self {
@@ -225,15 +236,20 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
         return result
     }
 
-    static func /= (lhs: inout Self, rhs: Self) {
-        let result = lhs / rhs
-        lhs.storage = result.storage
-    }
-
     static func % (lhs: Self, rhs: Self) -> Self {
         let (result, overflow) = lhs.remainderReportingOverflow(dividingBy: rhs)
         precondition(!overflow, "Modulo overflow")
         return result
+    }
+
+    static func *= (lhs: inout Self, rhs: Self) {
+        let result = lhs * rhs
+        lhs.storage = result.storage
+    }
+
+    static func /= (lhs: inout Self, rhs: Self) {
+        let result = lhs / rhs
+        lhs.storage = result.storage
     }
 
     static func %= (lhs: inout Self, rhs: Self) {
@@ -256,25 +272,8 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
         lhs.storage = result.storage
     }
 
-    static func - (lhs: Self, rhs: Self) -> Self {
-        let (result, overflow) = lhs.subtractingReportingOverflow(rhs)
-        precondition(!overflow, "Subtraction overflow")
-        return result
-    }
-
-    static func + (lhs: Self, rhs: Self) -> Self {
-        let (result, overflow) = lhs.addingReportingOverflow(rhs)
-        precondition(!overflow, "Addition overflow")
-        return result
-    }
-
     prefix static func ~ (x: Self) -> Self {
         let words = x.words.map { ~$0 }
-        return Self(store: BigUInt(words: words))
-    }
-
-    static func ^ (lhs: Self, rhs: Self) -> Self {
-        let words = zip(lhs.words, rhs.words).map { $0 ^ $1 }
         return Self(store: BigUInt(words: words))
     }
 
@@ -288,24 +287,9 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
         return Self(store: BigUInt(words: words))
     }
 
-    static func >> <RHS>(lhs: Self, rhs: RHS) -> Self where RHS : BinaryInteger {
-        // negative performs left shift using abs(rhs)
-        if rhs < 0 {
-            return lhs << (0 - rhs)
-        }
-        // rhs >= bit width is overshift: -1 for negative value, 0 for nonnegative value.
-        else if rhs >= Self.bitWidth {
-            return 0
-        }
-        // any other - right shift of lhs.
-        else {
-            return Self(store: lhs.storage >> rhs)
-        }
-    }
-
-    static func >>= <RHS>(lhs: inout Self, rhs: RHS) where RHS : BinaryInteger {
-        let result = lhs >> rhs
-        lhs.storage = result.storage
+    static func ^ (lhs: Self, rhs: Self) -> Self {
+        let words = zip(lhs.words, rhs.words).map { $0 ^ $1 }
+        return Self(store: BigUInt(words: words))
     }
 
     static func << <RHS>(lhs: Self, rhs: RHS) -> Self where RHS : BinaryInteger {
@@ -323,8 +307,28 @@ extension SolAbiUnsignedInteger where Value == BigUInt {
         }
     }
 
+    static func >> <RHS>(lhs: Self, rhs: RHS) -> Self where RHS : BinaryInteger {
+        // negative performs left shift using abs(rhs)
+        if rhs < 0 {
+            return lhs << (0 - rhs)
+        }
+        // rhs >= bit width is overshift: -1 for negative value, 0 for nonnegative value.
+        else if rhs >= Self.bitWidth {
+            return 0
+        }
+        // any other - right shift of lhs.
+        else {
+            return Self(store: lhs.storage >> rhs)
+        }
+    }
+
     static func <<= <RHS>(lhs: inout Self, rhs: RHS) where RHS : BinaryInteger {
         let result = lhs << rhs
+        lhs.storage = result.storage
+    }
+
+    static func >>= <RHS>(lhs: inout Self, rhs: RHS) where RHS : BinaryInteger {
+        let result = lhs >> rhs
         lhs.storage = result.storage
     }
 

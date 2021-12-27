@@ -277,11 +277,11 @@ extension Token.transfer.Return: SolAbiTuple {
 
 func encodeCall() throws {
     // transfer
-    let call = Token.transfer(to: SolAbi.Address(), value: SolAbi.UInt256(1))
-    let params = call.encode()
-    // send in the transaction.
-    let output: Data = Data()
-    let result = try call.result(from: output)
+//    let call = Token.transfer(to: SolAbi.Address(), value: SolAbi.UInt256(1))
+//    let params = call.encode()
+//    // send in the transaction.
+//    let output: Data = Data()
+//    let result = try call.result(from: output)
 }
 
 
