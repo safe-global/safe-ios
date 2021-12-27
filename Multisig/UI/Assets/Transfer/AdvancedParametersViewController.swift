@@ -57,12 +57,12 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem = saveButton
         
-        nonceLabel.setStyle(.callout)
+        nonceLabel.setStyle(.headline)
         nonceTextField.textField.text = nonce.description
         nonceTextField.textField.addTarget(self, action: #selector(validateInputs), for: .editingChanged)
 
         if let safeTxGas = safeTxGas {
-            safeTxGasLabel.setStyle(.callout)
+            safeTxGasLabel.setStyle(.headline)
             safeTxGasTextField.textField.text = safeTxGas.description
             safeTxGasTextField.textField.addTarget(self, action: #selector(validateInputs), for: .editingChanged)
         } else {
