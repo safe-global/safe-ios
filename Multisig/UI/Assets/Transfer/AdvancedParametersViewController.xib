@@ -13,8 +13,10 @@
             <connections>
                 <outlet property="helpArticleButton" destination="QwG-Oy-obZ" id="GIO-hH-d6U"/>
                 <outlet property="helpArticleLinkLabel" destination="WVf-He-Ysp" id="FIc-zn-h5n"/>
+                <outlet property="nonceErrorLabel" destination="i29-eB-UKL" id="izg-Z9-p3S"/>
                 <outlet property="nonceLabel" destination="F2o-qf-58q" id="Ndl-X4-L4i"/>
                 <outlet property="nonceTextField" destination="ymg-TQ-ZkB" id="zyj-bl-vzD"/>
+                <outlet property="safeTxGasErrorLabel" destination="wFE-Rz-Sjc" id="bEY-vO-XzP"/>
                 <outlet property="safeTxGasLabel" destination="MoV-bO-fJx" id="bmV-8L-20W"/>
                 <outlet property="safeTxGasTextField" destination="Iby-4v-EzW" id="nG9-9s-c6F"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -26,10 +28,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="LZI-Vz-Rym">
-                    <rect key="frame" x="16" y="108" width="382" height="185"/>
+                    <rect key="frame" x="16" y="108" width="382" height="242"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="w1B-sq-tWz">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="84.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="113"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe nonce" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2o-qf-58q">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
@@ -44,10 +46,16 @@
                                         <constraint firstAttribute="height" constant="56" id="s9a-Z8-q7H"/>
                                     </constraints>
                                 </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe nonce error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i29-eB-UKL">
+                                    <rect key="frame" x="0.0" y="92.5" width="382" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eNL-VY-cOa">
-                            <rect key="frame" x="0.0" y="100.5" width="382" height="84.5"/>
+                            <rect key="frame" x="0.0" y="129" width="382" height="113"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SafeTxGas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoV-bO-fJx">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
@@ -62,18 +70,24 @@
                                         <constraint firstAttribute="height" constant="56" id="41e-aP-LEp"/>
                                     </constraints>
                                 </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SafeTxGas error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFE-Rz-Sjc">
+                                    <rect key="frame" x="0.0" y="92.5" width="382" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                         </stackView>
                     </subviews>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How do I configure these details manually?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVf-He-Ysp">
-                    <rect key="frame" x="32" y="317" width="350" height="20.5"/>
+                    <rect key="frame" x="32" y="374" width="350" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QwG-Oy-obZ">
-                    <rect key="frame" x="32" y="320.5" width="350" height="14"/>
+                    <rect key="frame" x="32" y="377.5" width="350" height="14"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain"/>
                     <connections>

@@ -11,8 +11,10 @@ import UIKit
 class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     
     @IBOutlet private weak var nonceLabel: UILabel!
+    @IBOutlet weak var nonceErrorLabel: UILabel!
     @IBOutlet private weak var nonceTextField: GNOTextField!
     @IBOutlet private weak var safeTxGasLabel: UILabel!
+    @IBOutlet weak var safeTxGasErrorLabel: UILabel!
     @IBOutlet private weak var safeTxGasTextField: GNOTextField!
     @IBOutlet private weak var helpArticleLinkLabel: UILabel!
     @IBOutlet private weak var helpArticleButton: UIButton!
@@ -58,6 +60,11 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         navigationItem.rightBarButtonItem = saveButton
         
         nonceLabel.setStyle(.headline)
+        
+        nonceErrorLabel.setStyle(.error)
+        nonceErrorLabel.text = ""
+        nonceErrorLabel.isHidden = true
+        
         nonceTextField.textField.text = nonce.description
         nonceTextField.textField.addTarget(self, action: #selector(validateInputs), for: .editingChanged)
 
@@ -69,6 +76,9 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
             safeTxGasLabel.isHidden = true
             safeTxGasTextField.isHidden = true
         }
+        safeTxGasErrorLabel.setStyle(.error)
+        safeTxGasErrorLabel.text = ""
+        safeTxGasErrorLabel.isHidden = true
 
         helpArticleLinkLabel.hyperLinkLabel(linkText: "How do I configure these details manually?")
         helpArticleButton.setTitle("", for: .normal)
