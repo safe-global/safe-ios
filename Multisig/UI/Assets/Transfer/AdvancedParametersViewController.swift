@@ -11,10 +11,8 @@ import UIKit
 class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     
     @IBOutlet private weak var nonceLabel: UILabel!
-    @IBOutlet weak var nonceErrorLabel: UILabel!
     @IBOutlet private weak var nonceTextField: GNOTextField!
     @IBOutlet private weak var safeTxGasLabel: UILabel!
-    @IBOutlet weak var safeTxGasErrorLabel: UILabel!
     @IBOutlet private weak var safeTxGasTextField: GNOTextField!
     @IBOutlet private weak var helpArticleLinkLabel: UILabel!
     @IBOutlet private weak var helpArticleButton: UIButton!
@@ -58,13 +56,8 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
 
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem = saveButton
-        
+
         nonceLabel.setStyle(.headline)
-        
-        nonceErrorLabel.setStyle(.error)
-        nonceErrorLabel.text = ""
-        nonceErrorLabel.isHidden = true
-        
         nonceTextField.textField.text = nonce.description
         nonceTextField.textField.addTarget(self, action: #selector(validateInputs), for: .editingChanged)
 
@@ -76,9 +69,6 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
             safeTxGasLabel.isHidden = true
             safeTxGasTextField.isHidden = true
         }
-        safeTxGasErrorLabel.setStyle(.error)
-        safeTxGasErrorLabel.text = ""
-        safeTxGasErrorLabel.isHidden = true
 
         helpArticleLinkLabel.hyperLinkLabel(linkText: "How do I configure these details manually?")
         helpArticleButton.setTitle("", for: .normal)
@@ -100,14 +90,21 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         guard let nonceText = nonceTextField.textField.text?
                 .trimmingCharacters(in: .whitespacesAndNewlines), !nonceText.isEmpty,
               let nonce = UInt256(nonceText), nonce >= minimalNonce else {
-            return
-        }
+                  if !(nonceTextField.textField.text ?? "").isEmpty {
+                      nonceTextField.setError("Transaction with this nonce is already executed")
+                  } else {
+                      nonceTextField.setError(nil)
+                  }
+                  return
+              }
+        nonceTextField.setError(nil)
         self.nonce = UInt256String(nonce)
+        
         if self.safeTxGas == nil {
             saveButton.isEnabled = true
             return
         }
-
+        
         if let safeTxGasText = safeTxGasTextField.textField.text?
             .trimmingCharacters(in: .whitespacesAndNewlines), !safeTxGasText.isEmpty,
            let safeTxGas = UInt256(safeTxGasText) {
@@ -118,3 +115,4 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         }
     }
 }
+

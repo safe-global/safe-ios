@@ -13,10 +13,8 @@
             <connections>
                 <outlet property="helpArticleButton" destination="QwG-Oy-obZ" id="GIO-hH-d6U"/>
                 <outlet property="helpArticleLinkLabel" destination="WVf-He-Ysp" id="FIc-zn-h5n"/>
-                <outlet property="nonceErrorLabel" destination="i29-eB-UKL" id="izg-Z9-p3S"/>
                 <outlet property="nonceLabel" destination="F2o-qf-58q" id="Ndl-X4-L4i"/>
                 <outlet property="nonceTextField" destination="ymg-TQ-ZkB" id="zyj-bl-vzD"/>
-                <outlet property="safeTxGasErrorLabel" destination="wFE-Rz-Sjc" id="bEY-vO-XzP"/>
                 <outlet property="safeTxGasLabel" destination="MoV-bO-fJx" id="bmV-8L-20W"/>
                 <outlet property="safeTxGasTextField" destination="Iby-4v-EzW" id="nG9-9s-c6F"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -27,11 +25,11 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="LZI-Vz-Rym">
-                    <rect key="frame" x="16" y="108" width="382" height="242"/>
+                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="LZI-Vz-Rym">
+                    <rect key="frame" x="16" y="108" width="382" height="185"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="w1B-sq-tWz">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="113"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="w1B-sq-tWz">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="84.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe nonce" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2o-qf-58q">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
@@ -39,23 +37,14 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ymg-TQ-ZkB" customClass="GNOTextField" customModule="Multisig" customModuleProvider="target">
+                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ymg-TQ-ZkB" customClass="GNOTextField" customModule="Multisig" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="28.5" width="382" height="56"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="56" id="s9a-Z8-q7H"/>
-                                    </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe nonce error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i29-eB-UKL">
-                                    <rect key="frame" x="0.0" y="92.5" width="382" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eNL-VY-cOa">
-                            <rect key="frame" x="0.0" y="129" width="382" height="113"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eNL-VY-cOa">
+                            <rect key="frame" x="0.0" y="100.5" width="382" height="84.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SafeTxGas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoV-bO-fJx">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
@@ -63,30 +52,21 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iby-4v-EzW" customClass="GNOTextField" customModule="Multisig" customModuleProvider="target">
+                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iby-4v-EzW" customClass="GNOTextField" customModule="Multisig" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="28.5" width="382" height="56"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="56" id="41e-aP-LEp"/>
-                                    </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SafeTxGas error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFE-Rz-Sjc">
-                                    <rect key="frame" x="0.0" y="92.5" width="382" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                         </stackView>
                     </subviews>
                 </stackView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How do I configure these details manually?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVf-He-Ysp">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="How do I configure these details manually?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVf-He-Ysp">
                     <rect key="frame" x="32" y="374" width="350" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QwG-Oy-obZ">
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QwG-Oy-obZ">
                     <rect key="frame" x="32" y="377.5" width="350" height="14"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain"/>
@@ -101,8 +81,6 @@
                 <constraint firstItem="LZI-Vz-Rym" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="1xm-eM-dSF"/>
                 <constraint firstItem="WVf-He-Ysp" firstAttribute="top" secondItem="LZI-Vz-Rym" secondAttribute="bottom" constant="24" id="51N-wh-ugB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LZI-Vz-Rym" secondAttribute="trailing" constant="16" id="5Vp-bL-Em9"/>
-                <constraint firstItem="QwG-Oy-obZ" firstAttribute="centerX" secondItem="WVf-He-Ysp" secondAttribute="centerX" id="atP-TU-SMc"/>
-                <constraint firstItem="QwG-Oy-obZ" firstAttribute="width" secondItem="WVf-He-Ysp" secondAttribute="width" id="ctk-No-8hY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WVf-He-Ysp" secondAttribute="trailing" constant="32" id="cya-tF-00s"/>
                 <constraint firstItem="QwG-Oy-obZ" firstAttribute="centerY" secondItem="WVf-He-Ysp" secondAttribute="centerY" id="doF-av-RXu"/>
                 <constraint firstItem="QwG-Oy-obZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="lop-gp-XsU"/>
