@@ -60,7 +60,8 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         nonceLabel.setStyle(.headline)
         nonceTextField.textField.text = nonce.description
         nonceTextField.textField.addTarget(self, action: #selector(validateInputs), for: .editingChanged)
-
+        nonceTextField.textField.keyboardType = .numberPad
+       
         if let safeTxGas = safeTxGas {
             safeTxGasLabel.setStyle(.headline)
             safeTxGasTextField.textField.text = safeTxGas.description
@@ -69,6 +70,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
             safeTxGasLabel.isHidden = true
             safeTxGasTextField.isHidden = true
         }
+        safeTxGasTextField.textField.keyboardType = .numberPad
 
         helpArticleLinkLabel.hyperLinkLabel(linkText: "How do I configure these details manually?")
         helpArticleButton.setTitle("", for: .normal)
