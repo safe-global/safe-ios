@@ -35,12 +35,16 @@ extension Sol {
 // since Tuples are code-specific, we define a protocol that will add required functionality
 // when added to a struct
 public protocol SolTuple {
+
+}
+
+
     // only used in the isStatic default implementation.
     // Soltype.type
-    static var types: [Any.Type] { get }
+//    static var types: [Any.Type] { get }
 
-    var elements: [SolType] { get set }
-}
+//    var elements: [SolType] { get set }
+//}
 
 // TODO: Behave the same way as Swift Array
 // similar to Tuples, fixed arrays are code-specific, i.e. instead of pre-defining some specific types

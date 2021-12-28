@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  JsonContractDescription.swift
 //
 //
 //  Created by Dmitry Bespalov on 28.12.21.
@@ -48,7 +48,17 @@ extension Sol.Json {
         }
     }
 
-    public struct DefaultDescription: SolJsonDescription, Codable {
+    public struct ReceiveFunctionDescription: SolJsonDescription, Codable {
+        public var type: DescriptionType
+        public var stateMutability: StateMutability
+
+        public init(type: Sol.Json.DescriptionType, stateMutability: Sol.Json.StateMutability) {
+            self.type = type
+            self.stateMutability = stateMutability
+        }
+    }
+
+    public struct FallbackFunctionDescription: SolJsonDescription, Codable {
         public var type: DescriptionType
         public var stateMutability: StateMutability
 
@@ -126,23 +136,24 @@ extension Sol.Json {
     }
 }
 
+extension SolJsonDescription where Self: Encodable {
+    func encode(container: inout UnkeyedEncodingContainer) throws {
+        try container.encode(self)
+    }
+}
+
+extension SolJsonDescription where Self: Decodable {
+    static func decode(from container: inout UnkeyedDecodingContainer) throws -> Self {
+        try container.decode(Self.self)
+    }
+}
+
 extension Sol.Json.ContractDescription: Encodable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
         for description in descriptions {
-            switch description {
-            case let value as Sol.Json.FunctionDescription:
-                try container.encode(value)
-            case let value as Sol.Json.ConstructorDescription:
-                try container.encode(value)
-            case let value as Sol.Json.DefaultDescription:
-                try container.encode(value)
-            case let value as Sol.Json.EventDescription:
-                try container.encode(value)
-            case let value as Sol.Json.ErrorDescription:
-                try container.encode(value)
-            default:
-                break
+            if let d = description as? SolJsonDescription & Encodable {
+                try d.encode(container: &container)
             }
         }
     }
@@ -151,30 +162,33 @@ extension Sol.Json.ContractDescription: Encodable {
 extension Sol.Json.ContractDescription: Decodable {
     struct DescriptionHeader: Codable {
         var type: Sol.Json.DescriptionType
+
+        var decodable: (SolJsonDescription & Decodable).Type {
+            switch type {
+            case .function:
+                return Sol.Json.FunctionDescription.self
+            case .event:
+                return Sol.Json.EventDescription.self
+            case .error:
+                return Sol.Json.ErrorDescription.self
+            case .constructor:
+                return Sol.Json.ConstructorDescription.self
+            case .fallback:
+                return Sol.Json.FallbackFunctionDescription.self
+            case .receive:
+                return Sol.Json.ReceiveFunctionDescription.self
+            }
+        }
     }
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let headers = try container.decode([DescriptionHeader].self)
         descriptions = []
         var array = try decoder.unkeyedContainer()
         for header in headers {
-            switch header.type {
-            case .function:
-                let value = try array.decode(Sol.Json.FunctionDescription.self)
-                descriptions.append(value)
-            case .constructor:
-                let value = try array.decode(Sol.Json.ConstructorDescription.self)
-                descriptions.append(value)
-            case .fallback, .receive:
-                let value = try array.decode(Sol.Json.DefaultDescription.self)
-                descriptions.append(value)
-            case .event:
-                let value = try array.decode(Sol.Json.EventDescription.self)
-                descriptions.append(value)
-            case .error:
-                let value = try array.decode(Sol.Json.ErrorDescription.self)
-                descriptions.append(value)
-            }
+            let value = try header.decodable.decode(from: &array)
+            descriptions.append(value)
         }
     }
 }
