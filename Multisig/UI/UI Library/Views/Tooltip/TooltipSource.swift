@@ -14,6 +14,8 @@ public class TooltipSource: TooltipDelegate {
 
     public var isActive: Bool = true
     public var message: String?
+    public var aboveTarget: Bool = true
+    public var hideAutomatically: Bool = false
 
     public init(target: UIView,
                 onTap: (() -> Void)? = nil,
@@ -35,10 +37,16 @@ public class TooltipSource: TooltipDelegate {
             return
         }
         guard isActive,
-            let message = self.message, !message.isEmpty,
-            let window = UIApplication.shared.keyWindow,
-            let target = target else { return }
-        tooltip = Tooltip.show(for: target, in: window, message: message, delegate: self)
+              let message = self.message, !message.isEmpty,
+              let window = UIApplication.shared.keyWindow,
+              let target = target else { return }
+        tooltip = Tooltip.show(
+            for: target,
+            in: window,
+            message: message,
+            aboveTarget: aboveTarget,
+            hideAutomatically: hideAutomatically,
+            delegate: self)
         onTap?()
     }
 

@@ -9,17 +9,18 @@ public protocol TooltipDelegate: AnyObject {
 }
 
 public final class Tooltip: BaseCustomView {
+    
+    static let arrowUp = UIImage(named: "ico-tooltip-arrow")!
+    static let arrowDown = UIImage(cgImage:  UIImage(named: "ico-tooltip-arrow")!.cgImage!,
+                                    scale:  UIImage(named: "ico-tooltip-arrow")!.scale,
+                                    orientation: .downMirrored)
 
     private let label = UILabel()
     private let background = UIImageView()
 
-    private let arrowUp = UIImage(named: "ico-tooltip-arrow")!
-    private let arrowDown = UIImage(cgImage:  UIImage(named: "ico-tooltip-arrow")!.cgImage!,
-                                    scale:  UIImage(named: "ico-tooltip-arrow")!.scale,
-                                    orientation: .downMirrored)
     private let arrow = UIImageView()
     private let arrowSize = CGSize(width: 16, height: 9)
-
+    
     private var isShowingAboveTarget = true
 
     private let labelHorizontalInset: CGFloat = 12
@@ -47,7 +48,6 @@ public final class Tooltip: BaseCustomView {
         label.isUserInteractionEnabled = true
         addSubview(label)
         
-        arrow.image = isShowingAboveTarget ? arrowDown : arrowUp
         addSubview(arrow)
 
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissTooltip))
@@ -111,6 +111,7 @@ public final class Tooltip: BaseCustomView {
         tooltip.label.text = message
         tooltip.alpha = 0
         tooltip.isShowingAboveTarget = aboveTarget
+        tooltip.arrow.image = aboveTarget ? Tooltip.arrowDown : Tooltip.arrowUp
         superview.addSubview(tooltip)
 
         // The idea is to show the tooltip within bounds, with the minimum possible width.
