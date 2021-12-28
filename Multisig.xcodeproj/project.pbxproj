@@ -632,6 +632,7 @@
 		D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68E0274E6AA500D7F5C5 /* main.swift */; };
 		D88FA81E2770869E0023B77F /* TokenAmountField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FA81C2770869E0023B77F /* TokenAmountField.swift */; };
 		D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88FA81D2770869E0023B77F /* TokenAmountField.xib */; };
+		D8A6B130277A0E8800438460 /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6B12F277A0E8800438460 /* InfoLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1289,6 +1290,7 @@
 		D86A68E0274E6AA500D7F5C5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D88FA81C2770869E0023B77F /* TokenAmountField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAmountField.swift; sourceTree = "<group>"; };
 		D88FA81D2770869E0023B77F /* TokenAmountField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenAmountField.xib; sourceTree = "<group>"; };
+		D8A6B12F277A0E8800438460 /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2857,6 +2859,7 @@
 				D80B5A062769D05D00D6E024 /* BaseCustomView.swift */,
 				D88FA81C2770869E0023B77F /* TokenAmountField.swift */,
 				D88FA81D2770869E0023B77F /* TokenAmountField.xib */,
+				D8A6B12F277A0E8800438460 /* InfoLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3722,6 +3725,7 @@
 				0AEEBC73258CDF9400F3A6F9 /* CollectibleDetailViewController.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
 				0AF1C7F42540887300E28669 /* HeaderViewController.swift in Sources */,
+				D8A6B130277A0E8800438460 /* InfoLabel.swift in Sources */,
 				0A6886E72589080A0045CAB5 /* GNOTextField.swift in Sources */,
 				04D131DB25E416FC0032FA03 /* RejectionCreatedPiece.swift in Sources */,
 				0A478D3B25B863D60038363E /* DerivedKeyTableViewCell.swift in Sources */,
