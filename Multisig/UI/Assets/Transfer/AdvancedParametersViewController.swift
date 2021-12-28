@@ -10,9 +10,9 @@ import UIKit
 
 class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     
-    @IBOutlet private weak var nonceLabel: UILabel!
+    @IBOutlet private weak var nonceLabel: InfoLabel!
     @IBOutlet private weak var nonceTextField: GNOTextField!
-    @IBOutlet private weak var safeTxGasLabel: UILabel!
+    @IBOutlet private weak var safeTxGasLabel: InfoLabel!
     @IBOutlet private weak var safeTxGasTextField: GNOTextField!
     @IBOutlet private weak var helpArticleLinkLabel: UILabel!
     @IBOutlet private weak var helpArticleButton: UIButton!
@@ -57,7 +57,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem = saveButton
 
-        nonceLabel.setStyle(.headline)
+        nonceLabel.setText("Safe nonce", description: "Safe nonce determines an order in which transactions are executed.")
         nonceTextField.textField.text = nonce.description
         nonceTextField.textField.addTarget(self, action: #selector(validateInputs), for: .editingChanged)
         nonceTextField.textField.keyboardType = .numberPad
