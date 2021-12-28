@@ -63,7 +63,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         nonceTextField.textField.keyboardType = .numberPad
        
         if let safeTxGas = safeTxGas {
-            safeTxGasLabel.setStyle(.headline)
+            safeTxGasLabel.setText("SafeTxGas", description: "SafeTxGas specifies the gas that should be used for the Safe transaction.")
             safeTxGasTextField.textField.text = safeTxGas.description
             safeTxGasTextField.textField.addTarget(self, action: #selector(validateInputs), for: .editingChanged)
         } else {
