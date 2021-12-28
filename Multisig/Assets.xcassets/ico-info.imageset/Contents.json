@@ -3,6 +3,16 @@
     {
       "filename" : "ico-info.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-info-1.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
