@@ -22,6 +22,7 @@ extension Sol {
 }
 
 
+// TODO: Fixed Point arithmetic? Numeric? Additive Arithmetic?
 // ufixed<M>x<N>
 public protocol SolUnsignedFixedPointDecimal {
     static var bitWidth: Int { get }
@@ -43,6 +44,7 @@ public protocol SolSignedFixedPointDecimal {
 
 // MARK: - Sol.Address
 extension Sol {
+    // TODO: init with string
     public struct Address {
         public var storage: UInt160
         public init() { storage = 0 }
@@ -52,6 +54,7 @@ extension Sol {
 
 // MARK: - Sol.Bool
 extension Sol {
+    // TODO: Behave the same as Swift Bool
     public struct Bool {
         public var storage: Swift.Bool
         public init() { storage = false }
@@ -71,6 +74,7 @@ extension Sol {
 
 // MARK: - Sol.Bytes<M>
 
+// TODO: Behave the same way as Swift Array / Data of bytes
 public protocol SolFixedBytes {
     static var byteCount: Int { get }
     var storage: Data { get set }
