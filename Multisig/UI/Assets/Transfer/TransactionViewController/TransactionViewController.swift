@@ -12,20 +12,26 @@ import Web3
 class TransactionViewController: UIViewController {
     @IBOutlet private weak var safeAddressInfoView: AddressInfoView!
     @IBOutlet private weak var addressField: AddressField!
-    @IBOutlet private weak var amountTextField: GNOTextField!
     @IBOutlet private weak var maxButton: UIButton!
-    @IBOutlet weak var balanceLabel: UILabel!
-    @IBOutlet weak var totalBalanceLabel: UILabel!
+    @IBOutlet private weak var balanceLabel: UILabel!
+    @IBOutlet private weak var totalBalanceLabel: UILabel!
+    @IBOutlet private weak var amountTextField: TokenAmountField!
     @IBOutlet private weak var reviewButton: UIButton!
+    @IBOutlet private weak var scrollView: UIScrollView!
 
     var address: Address? { addressField?.address }
-    var amount: Double? { amountTextField.textField.text!.isEmpty ? nil : Double(amountTextField.textField.text!) }
+    var amount: String? { amountTextField.balance.isEmpty ? nil : amountTextField.balance }
     var tokenBalance: TokenBalance!
     var gatewayService = App.shared.clientGatewayService
     var safe: Safe!
 
     private var debounceTimer: Timer!
     private let debounceDuration: TimeInterval = 0.250
+
+
+    private var nextButton: UIBarButtonItem!
+
+    private var keyboardBehavior: KeyboardAvoidingBehavior!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,16 +42,14 @@ class TransactionViewController: UIViewController {
         navigationItem.title = "Send " + tokenBalance.symbol
         maxButton.setText("Send max", .primary)
 
-        safeAddressInfoView.setAddress(safe.addressValue, label: safe.name)
+        safeAddressInfoView.setAddress(safe.addressValue,
+                                       label: safe.name,
+                                       prefix: safe.chain!.shortName)
 
         addressField.setPlaceholderText("Recipient's address")
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
 
         reviewButton.isEnabled = false
-
-        amountTextField.setPlaceholder("Amount")
-        amountTextField.textField.delegate = self
-        amountTextField.textField.keyboardType = .decimalPad
 
         balanceLabel.setStyle(.secondary)
         totalBalanceLabel.setStyle(.headline)
@@ -54,20 +58,34 @@ class TransactionViewController: UIViewController {
         totalBalanceLabel.text = tokenBalance.balanceWithSymbol
 
         reviewButton.setText("Review", .filled)
+        amountTextField.setToken(symbol: tokenBalance.symbol, logoURL: tokenBalance.imageURL)
+        amountTextField.delegate = self
+        
+        keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //Tracker.trackEvent(.sendFundsTransaction)
+        keyboardBehavior.start()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        keyboardBehavior.stop()
     }
 
     @IBAction func maxButtonTouched(_ sender: Any) {
-        amountTextField.textField.text = tokenBalance.balance
+        amountTextField.balance = tokenBalance.balance
         verifyInput()
     }
 
     @IBAction private func didTapReviewButton(_ sender: Any) {
+        let vc = ReviewSendFundsTransactionViewController()
+        vc.toAddress = address
+        vc.safe = safe
+        vc.amount = amount
 
+        show(vc, sender: self)
     }
 
     private func didTapAddressField() {
@@ -114,24 +132,27 @@ class TransactionViewController: UIViewController {
         }
         addressField.setInputText(text)
         do {
-            // (1) validate that the text is address
             let address = try Address.addressWithPrefix(text: text)
-
             guard (address.prefix ?? safe.chain?.shortName) == safe.chain?.shortName else {
                 addressField.setError(GSError.AddressMismatchNetwork())
                 return
             }
 
-            addressField.setAddress(address, prefix: safe.chain?.shortName)
+            addressField.setAddress(address,
+                                    label: NamingPolicy.name(for: address, chainId: safe.chain!.id!).name,
+                                    prefix: safe.chain?.shortName)
         } catch {
             addressField.setError(
                 GSError.error(description: "Can’t use this address",
                               error: error is EthereumAddress.Error ? GSError.SafeAddressNotValid() : error))
         }
+
+        verifyInput()
     }
 
     func verifyInput() {
-        reviewButton.isEnabled = address != nil && amount != nil && (amount! <= Double(tokenBalance.balance)!)
+        // TODO: Verify that amount is less than balance
+        reviewButton.isEnabled = address != nil && amount != nil
     }
 }
 
@@ -154,5 +175,9 @@ extension TransactionViewController: UITextFieldDelegate {
             self?.verifyInput()
         })
         return true
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        keyboardBehavior.activeTextField = textField
     }
 }

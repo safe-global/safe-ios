@@ -61,6 +61,8 @@
 		0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471D13124728C2C00B22A70 /* EmailLink.swift */; };
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
 		047300FE24781081004F1200 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FD24781081004F1200 /* AddressTests.swift */; };
+		047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */; };
+		047588192774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047588172774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib */; };
 		047691592464026400D73D8B /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691582464026400D73D8B /* SectionHeader.swift */; };
 		0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
@@ -118,6 +120,10 @@
 		04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */; };
 		04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D968D2276B872D00CE4A9E /* TransactionViewController.swift */; };
 		04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D968D3276B872D00CE4A9E /* TransactionViewController.xib */; };
+		04E4CD62277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4CD60277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift */; };
+		04E4CD63277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4CD61277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib */; };
+		04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */; };
+		04E4CD67277752C400B558F4 /* TokenAmountInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */; };
 		04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */; };
 		04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */; };
 		04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */; };
@@ -718,6 +724,8 @@
 		0471D13124728C2C00B22A70 /* EmailLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLink.swift; sourceTree = "<group>"; };
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
 		047300FD24781081004F1200 /* AddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
+		047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSendFundsTransactionViewController.swift; sourceTree = "<group>"; };
+		047588172774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewSendFundsTransactionViewController.xib; sourceTree = "<group>"; };
 		047691582464026400D73D8B /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -777,6 +785,10 @@
 		04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailRejectionInfoCell.xib; sourceTree = "<group>"; };
 		04D968D2276B872D00CE4A9E /* TransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		04D968D3276B872D00CE4A9E /* TransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionViewController.xib; sourceTree = "<group>"; };
+		04E4CD60277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTransactionHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		04E4CD61277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTransactionHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAmountInfoView.swift; sourceTree = "<group>"; };
+		04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenAmountInfoView.xib; sourceTree = "<group>"; };
 		04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueuedTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSafeSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1447,6 +1459,19 @@
 				0468FB9125912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		047588152774D6A2001DD992 /* ReviewSendFundsTrasnactionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */,
+				047588172774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib */,
+				04E4CD60277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift */,
+				04E4CD61277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib */,
+				04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */,
+				04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */,
+			);
+			path = ReviewSendFundsTrasnactionViewController;
 			sourceTree = "<group>";
 		};
 		0476915E246408D000D73D8B /* Settings */ = {
@@ -3004,6 +3029,7 @@
 		D865177427620628000B4C04 /* Transfer */ = {
 			isa = PBXGroup;
 			children = (
+				047588152774D6A2001DD992 /* ReviewSendFundsTrasnactionViewController */,
 				04D968D1276B872D00CE4A9E /* TransactionViewController */,
 				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
 			);
@@ -3267,8 +3293,11 @@
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
+				047588192774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib in Resources */,
+				04E4CD63277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib in Resources */,
 				D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
+				04E4CD67277752C400B558F4 /* TokenAmountInfoView.xib in Resources */,
 				0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */,
 				5559A915276758B500237A5D /* dapps-bsc.json in Resources */,
 				049A9D3B25F81F2C00CA5723 /* EditOwnerKeyViewController.xib in Resources */,
@@ -3453,6 +3482,7 @@
 				557D80D2270B33BA0036D6D0 /* ConfirmConnectionHeaderView.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
+				04E4CD62277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
@@ -3523,6 +3553,7 @@
 				550FB1C826691E4A00C13D54 /* ExperimentalViewController.swift in Sources */,
 				0ADD19BF265EA23200EB0F2B /* ExportViewController.swift in Sources */,
 				D88FA81E2770869E0023B77F /* TokenAmountField.swift in Sources */,
+				047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */,
 				041DAAE9274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift in Sources */,
 				0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
@@ -3715,6 +3746,7 @@
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
 				555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */,
+				04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */,
 				0ADD19C5265EA23200EB0F2B /* SeedWordCollectionViewCell.swift in Sources */,
 				D865178127687E0B000B4C04 /* TransactionSuccessScreen.swift in Sources */,
 				0A478D3325B861D50038363E /* DefaultKeyTableViewCell.swift in Sources */,
