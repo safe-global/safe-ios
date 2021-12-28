@@ -18,22 +18,23 @@ class InfoLabel : UILabel {
     }
     
     func setText(_ text: String = "", description: String? = nil, style: GNOTextStyle = .headline) {
-        
-        let result = NSMutableAttributedString()
 
         if !text.isEmpty {
+            
             let attributedText = NSMutableAttributedString(string: "\(text) ", attributes: style.attributes)
-            result.append(attributedText)
             
             let attachment = NSTextAttachment()
             attachment.image = UIImage(named: "ico-info")
+            //FIXME: discuss if using system image is a better alternative
+            //UIImage(systemName: "info.circle")
             let imageOffsetY: CGFloat = -2.0
-            attachment.bounds = CGRect(x:0, y:imageOffsetY, width: attachment.image!.size.width, height:attachment.image!.size.height);
-
+            attachment.bounds = CGRect(x:0, y:imageOffsetY, width: attachment.image!.size.width, height:attachment.image!.size.height)
+            
             let attachmentString = NSAttributedString(attachment: attachment)
-            result.append(attachmentString)
+            
+            attributedText.append(attachmentString)
 
-            self.attributedText = result
+            self.attributedText = attributedText
             
             if let description = description {
                 tooltipSource = TooltipSource(target: self)
