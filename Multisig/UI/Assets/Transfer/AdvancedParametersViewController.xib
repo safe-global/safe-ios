@@ -28,11 +28,11 @@
                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="LZI-Vz-Rym">
                     <rect key="frame" x="16" y="108" width="382" height="185"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="w1B-sq-tWz">
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="w1B-sq-tWz">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="84.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe nonce" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2o-qf-58q">
-                                    <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe nonce" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2o-qf-58q" customClass="InfoLabel" customModule="Multisig" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="85.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -42,12 +42,16 @@
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="ymg-TQ-ZkB" firstAttribute="leading" secondItem="w1B-sq-tWz" secondAttribute="leading" id="tSR-E8-eW0"/>
+                                <constraint firstAttribute="trailing" secondItem="ymg-TQ-ZkB" secondAttribute="trailing" id="tek-40-D3m"/>
+                            </constraints>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eNL-VY-cOa">
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eNL-VY-cOa">
                             <rect key="frame" x="0.0" y="100.5" width="382" height="84.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SafeTxGas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoV-bO-fJx">
-                                    <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SafeTxGas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoV-bO-fJx" customClass="InfoLabel" customModule="Multisig" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="80" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -57,6 +61,10 @@
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="Iby-4v-EzW" firstAttribute="leading" secondItem="eNL-VY-cOa" secondAttribute="leading" id="7gb-Sx-g3H"/>
+                                <constraint firstAttribute="trailing" secondItem="Iby-4v-EzW" secondAttribute="trailing" id="wMs-Ny-UO8"/>
+                            </constraints>
                         </stackView>
                     </subviews>
                 </stackView>
