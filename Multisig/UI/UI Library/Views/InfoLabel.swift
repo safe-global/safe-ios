@@ -39,6 +39,8 @@ class InfoLabel : UILabel {
                 tooltipSource = TooltipSource(target: self)
                 tooltipSource?.message = description
                 tooltipSource?.aboveTarget = false
+            } else {
+                tooltipSource = nil
             }
         } else {
             attributedText = nil
