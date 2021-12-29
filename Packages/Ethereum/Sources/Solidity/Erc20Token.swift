@@ -95,6 +95,43 @@ extension EthContract {
     }
 }
 
-protocol EthContractFunction {}
+public protocol EthContractFunction: AbiEncodable {
+    /*
+     All in all, a call to the function f with parameters a_1, ..., a_n is encoded as
+
+     function_selector(f) enc((a_1, ..., a_n))
+
+     and the return values v_1, ..., v_k of f are encoded as
+
+     enc((v_1, ..., v_k))
+
+     i.e. the values are combined into a tuple and encoded.
+
+
+     The first four bytes of the call data for a function call specifies the function to be called. It is the first (left, high-order in big-endian) four bytes of the Keccak-256 hash of the signature of the function. The signature is defined as the canonical expression of the basic prototype without data location specifier, i.e. the function name with the parenthesised list of parameter types. Parameter types are split by a single comma - no spaces are used.
+     */
+    associatedtype Returns: SolTuple
+    var functionSelector: Data { get }
+}
+
+extension EthContractFunction {
+    public var functionSelector: Data {
+        // keccak256( name '(' param-canonical-type-names ')' )[0..<4]
+        // name = name of the self type
+        // params = reflected params as SolType
+        let name = String(describing: type(of: self))
+        let params = Mirror(reflecting: self).children
+            .compactMap { $0 as? SolType }
+            .map(\.canonicalTypeName)
+        let signature = "\(name)(\(params.joined(separator: ",")))"
+        #warning("Not implemented keccak")
+//        let hash = keccak256(signature)
+        let hash = Data([0, 0, 0, 0])
+        let result = Data(hash[0..<4])
+        return result
+    }
+}
+
 protocol EthContractEvent {}
+
 protocol EthContractError {}

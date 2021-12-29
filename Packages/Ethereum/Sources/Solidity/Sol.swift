@@ -11,7 +11,9 @@ public enum Sol {
 
 }
 
-public protocol SolType {}
+public protocol SolType: AbiEncodable {
+    var canonicalTypeName: String { get }
+}
 
 //protocol SolTypeEncodable {
 //    func encode() -> Data

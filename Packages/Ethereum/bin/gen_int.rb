@@ -25,12 +25,20 @@ extension Sol.UInt{{BIT_WIDTH}}: WordUnsignedInteger {
     public static var bitWidth: Swift.Int { {{BIT_WIDTH}} }
 }
 
+extension Sol.UInt{{BIT_WIDTH}}: SolInteger {
+    // uses default implementation
+}
+
 extension Sol.Int{{BIT_WIDTH}}: WordSignedInteger {
     public typealias Stride = Self
     public typealias Magnitude = Sol.UInt{{BIT_WIDTH}}
     public typealias IntegerLiteralType = Swift.Int
 
     public static var bitWidth: Swift.Int { {{BIT_WIDTH}} }
+}
+
+extension Sol.Int{{BIT_WIDTH}}: SolInteger {
+    // uses default implementation
 }
 
 EOD
