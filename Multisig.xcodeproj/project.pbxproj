@@ -625,6 +625,8 @@
 		D88FA81E2770869E0023B77F /* TokenAmountField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FA81C2770869E0023B77F /* TokenAmountField.swift */; };
 		D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88FA81D2770869E0023B77F /* TokenAmountField.xib */; };
 		D8A6B130277A0E8800438460 /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6B12F277A0E8800438460 /* InfoLabel.swift */; };
+		D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6B12B2779D01900438460 /* AdvancedParametersViewController.swift */; };
+		D8A6B12E2779D01900438460 /* AdvancedParametersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8A6B12C2779D01900438460 /* AdvancedParametersViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1275,6 +1277,8 @@
 		D88FA81C2770869E0023B77F /* TokenAmountField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAmountField.swift; sourceTree = "<group>"; };
 		D88FA81D2770869E0023B77F /* TokenAmountField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenAmountField.xib; sourceTree = "<group>"; };
 		D8A6B12F277A0E8800438460 /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
+		D8A6B12B2779D01900438460 /* AdvancedParametersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedParametersViewController.swift; sourceTree = "<group>"; };
+		D8A6B12C2779D01900438460 /* AdvancedParametersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdvancedParametersViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2995,6 +2999,8 @@
 			isa = PBXGroup;
 			children = (
 				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
+				D8A6B12B2779D01900438460 /* AdvancedParametersViewController.swift */,
+				D8A6B12C2779D01900438460 /* AdvancedParametersViewController.xib */,
 			);
 			path = Transfer;
 			sourceTree = "<group>";
@@ -3320,6 +3326,7 @@
 				0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */,
 				0ADD19C1265EA23200EB0F2B /* PrivateKeyViewController.xib in Resources */,
 				5588363D2562904E0014E8C7 /* ContractVersionStatusCell.xib in Resources */,
+				D8A6B12E2779D01900438460 /* AdvancedParametersViewController.xib in Resources */,
 				0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */,
 				0AE8C0452579317700E62B34 /* DetailDisclosingCell.xib in Resources */,
 				0A478D3425B861D50038363E /* DefaultKeyTableViewCell.xib in Resources */,
@@ -3699,6 +3706,7 @@
 				0A465C37246C2ECD00AFA467 /* GetInTouchView.swift in Sources */,
 				0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */,
 				0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */,
+				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,

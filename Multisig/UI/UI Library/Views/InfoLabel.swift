@@ -27,7 +27,7 @@ class InfoLabel : UILabel {
             attachment.image = UIImage(named: "ico-info")
             //FIXME: discuss if using system image is a better alternative
             //UIImage(systemName: "info.circle")
-            let imageOffsetY: CGFloat = -2.0
+            let imageOffsetY: CGFloat = -3.0
             attachment.bounds = CGRect(x:0, y:imageOffsetY, width: attachment.image!.size.width, height:attachment.image!.size.height)
             
             let attachmentString = NSAttributedString(attachment: attachment)
