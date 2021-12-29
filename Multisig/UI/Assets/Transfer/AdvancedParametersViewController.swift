@@ -32,18 +32,17 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         Tracker.trackEvent(.advancedTxParamsOpenedHelp)
     }
     
-    static func create(nonce: UInt256String,
+    convenience init(nonce: UInt256String,
                        minimalNonce: UInt256,
                        safeTxGas: UInt256String?,
                        trackingParameters: [String: Any],
-                       onUpdate: @escaping (UInt256String, UInt256String?) -> Void) -> AdvancedParametersViewController {
-        let controller = AdvancedParametersViewController()
-        controller.nonce = nonce
-        controller.minimalNonce = minimalNonce
-        controller.safeTxGas = safeTxGas
-        controller.trackingParameters = trackingParameters
-        controller.onUpdate = onUpdate
-        return controller
+                       onUpdate: @escaping (UInt256String, UInt256String?) -> Void) {
+        self.init(namedClass: Self.superclass())
+        self.nonce = nonce
+        self.minimalNonce = minimalNonce
+        self.safeTxGas = safeTxGas
+        self.trackingParameters = trackingParameters
+        self.onUpdate = onUpdate
     }
 
     override func viewDidLoad() {
