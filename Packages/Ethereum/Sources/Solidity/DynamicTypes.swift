@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Dmitry Bespalov on 27.12.21.
 //
@@ -10,57 +10,71 @@ import Foundation
 extension Sol {
     // TODO: behave the same as Swift Array
     // variable-length array of any element
-    public struct Array<Element: SolType> {
+    public struct Array<Element: AbiEncodable & AbiDecodable> {
+        public var elementAbiType: AbiTypeDescription
         public var elements: [Element]
-        public init() { elements = [] }
-        public init(elements: [Element]) { self.elements = elements }
+
+        public init(elementAbiType: Sol.AbiTypeDescription, elements: [Element]) {
+            self.elementAbiType = elementAbiType
+            self.elements = elements
+
+            let derivedAbiTypes = elements.map(\.abiDescription)
+            precondition(derivedAbiTypes.allSatisfy { $0 == elementAbiType })
+        }
     }
 
     // TODO: Behave the same as Swift Array of Bytes, or the Data
     public struct Bytes {
         public var storage: Data
-        public init() { storage = Data() }
+
         public init(storage: Data) { self.storage = storage }
     }
 
     // TODO: Behave the same way as Swift String?
     public struct String {
         public var storage: Swift.String
-        public init() { storage = Swift.String() }
+
         public init(storage: Swift.String) { self.storage = storage }
     }
 
     public struct Tuple {
-        public var elements: [SolType]
-        public init() { elements = [] }
-        public init(elements: [SolType]) { self.elements = elements }
+        public typealias Element = AbiEncodable & AbiDecodable
+        public var elementAbiTypes: [Sol.AbiTypeDescription]
+        public var elements: [Element]
+
+        public init(elements: [Element]) {
+            self.elementAbiTypes = elements.map(\.abiDescription)
+            self.elements = elements
+        }
+
+        public init(elementAbiTypes: [Sol.AbiTypeDescription], elements: [Element]) {
+            self.elementAbiTypes = elementAbiTypes
+            self.elements = elements
+
+            let derivedAbiTypes = elements.map(\.abiDescription)
+            precondition(elementAbiTypes == derivedAbiTypes)
+        }
     }
 
-    public struct FixedArray<Element: SolType> {
+    public struct FixedArray<Element: AbiEncodable & AbiDecodable> {
         public var size: Swift.Int
-        public var elements: [SolType]
+        public var elementAbiType: AbiTypeDescription
+        public var elements: [Element]
 
-        public init() { self.init(size: 0, elements: []) }
-
-        public init(size: Swift.Int, elements: [SolType]) {
-            self.elements = elements
+        public init(size: Swift.Int, elementAbiType: Sol.AbiTypeDescription, elements: [Element]) {
             self.size = size
+            self.elementAbiType = elementAbiType
+            self.elements = elements
+
             precondition(elements.count == size)
+
+            let derivedAbiTypes = elements.map(\.abiDescription)
+            precondition(derivedAbiTypes.allSatisfy { $0 == elementAbiType })
         }
     }
 }
 
 
-extension Sol {
-    struct AbiTypeDescription {
-        // needed for function_selector encoding
-        var canonicalName: Swift.String
-        // needed for tuple encoding
-        var isDynamic: Swift.Bool
-        // needed for tuple encoding
-        var headSize: Swift.Int
-    }
-}
 
 
 // TODO: Behave the same way as Swift Array
@@ -87,8 +101,9 @@ extension Sol {
 // TODO: Behave the same way as Swift Array
 // since Tuples are code-specific, we define a protocol that will add required functionality
 // when added to a struct
-public protocol SolTuple: SolType {
-
+public protocol SolTuple: AbiEncodable {
+    // requires that the mirorr's AbiTypes are equal to this value
+    var elementAbiTypes: [Sol.AbiTypeDescription] { get }
 }
 
 // this is for custom tuples that ... but we can convert actually
@@ -126,22 +141,20 @@ extension SolTuple {
          Note that in the dynamic case, head(X(i)) is well-defined since the lengths of the head parts only depend on the types and not the values. The value of head(X(i)) is the offset of the beginning of tail(X(i)) relative to the start of enc(X).
          */
 
-        // mirror describes an instance of a type
-        // from it we will get the actual types of the tuple.
-        let mirror = Mirror(reflecting: self)
-        let elements = mirror.children.compactMap { $0.value as? AbiEncodable }
 
-        let sizeOfHeads = elements
-            .map { type(of: $0).headSize($0) }
+        let elements = mirrorElements
+        let abiTypes = elementAbiTypes
+
+        precondition(elements.count == abiTypes.count)
+
+        let sizeOfHeads = abiTypes
+            .map(\.headSize)
             .reduce(0, +)
 
         var (heads, tails) = (Data(), Data())
-        for element in elements {
+        for (element, abiType) in zip(elements, abiTypes) {
             let head: Data, tail: Data
-            // we pass the element as a hint because Swift can make reflection only
-            // of an instance, and not of a type. This means that for tuple types
-            // we can only get types of elements when they are in the actual tuple.
-            if type(of: element).isDynamic(element) {
+            if abiType.isDynamic {
                 let offset: Sol.UInt256 = Sol.UInt256(sizeOfHeads + tails.count)
                 head = offset.encode()
                 tail = element.encode()
@@ -156,38 +169,46 @@ extension SolTuple {
         return result
     }
 
-    public static func isDynamic(_ hint: AbiEncodable?) -> Bool {
-        // true iff there exists a child element that is dynamic.
+    internal var mirrorElements: [AbiEncodable] {
         let mirror = Mirror(reflecting: self)
-        for child in mirror.children {
-            if let element = child.value as? AbiEncodable,
-               type(of: element).isDynamic(element) {
-                return true
-            }
-        }
-        return false
+        let elements = mirror.children.compactMap { $0.value as? AbiEncodable }
+        return elements
     }
 
-    public static func headSize(_ hint: AbiEncodable?) -> Int {
-        if isDynamic(hint) {
-            return 32
-        }
-        let mirror = Mirror(reflecting: self)
-        let result = mirror.children
-            .compactMap { $0.value as? AbiEncodable }
-            .map { type(of: $0).headSize($0) }
-            .reduce(0, +)
+    public var elementAbiTypes: [Sol.AbiTypeDescription] {
+        mirrorElements.map(\.abiDescription)
+    }
+
+    public var abiDescription: Sol.AbiTypeDescription {
+        let isDynamic = elementAbiTypes.contains(where: \.isDynamic)
+        let result = Sol.AbiTypeDescription(
+            canonicalName: "(\(elementAbiTypes.map(\.canonicalName).joined(separator: ",")))",
+            isDynamic: isDynamic,
+            headSize: isDynamic ? 32 : elementAbiTypes.map(\.headSize).reduce(0, +)
+        )
         return result
     }
 
-    public var canonicalTypeName: String {
-        let mirror = Mirror(reflecting: self)
-        let elementTypes = mirror.children
-            .compactMap { $0.value as? SolType }
-            .map(\.canonicalTypeName)
-        return "(\(elementTypes.joined(separator: ",")))"
+    static func elements(from data: Data, offset: inout Int, abiTypes: [(AbiDecodable.Type, Bool)]) throws -> [AbiDecodable] {
+        var result: [AbiDecodable] = []
+        for (elementType, isDynamic) in abiTypes {
+            if isDynamic {
+                let tailOffset = try Sol.UInt256(from: data, offset: &offset)
+                guard tailOffset < Int.max else {
+                    throw AbiDecodingError.outOfBounds
+                }
+                var intTailOffset = Int(tailOffset)
+                let tail = try elementType.init(from: data, offset: &intTailOffset)
+                result.append(tail)
+            } else {
+                let head = try elementType.init(from: data, offset: &offset)
+                result.append(head)
+            }
+        }
+        return result
     }
 }
+
 
 extension Sol.Tuple: SolTuple, CustomReflectable {
     public var customMirror: Mirror {
@@ -221,10 +242,25 @@ extension Sol.Bytes: SolType {
         return result
     }
 
-    public static func isDynamic(_ hint: AbiEncodable?) -> Bool { true }
+    public var abiDescription: Sol.AbiTypeDescription {
+        Sol.AbiTypeDescription(
+            canonicalName: "bytes",
+            isDynamic: true,
+            headSize: 32
+        )
+    }
 
-    public var canonicalTypeName: String {
-        "bytes"
+    public init(from data: Data, offset: inout Int) throws {
+        let size = try Sol.UInt256(from: data, offset: &offset)
+        guard size < Int.max else {
+            throw AbiDecodingError.outOfBounds
+        }
+        let intSize = Int(size)
+        let storage = data[offset..<offset + intSize]
+        self.init(storage: storage)
+        let remainder32 = intSize % 32
+        let paddingLength = remainder32 == 0 ? 0 : (32 - remainder32)
+        offset += intSize + paddingLength
     }
 }
 
@@ -241,14 +277,24 @@ extension Sol.String: SolType {
         return result
     }
 
-    public static func isDynamic(_ hint: AbiEncodable?) -> Bool { true }
+    public var abiDescription: Sol.AbiTypeDescription {
+        Sol.AbiTypeDescription(
+            canonicalName: "string",
+            isDynamic: true,
+            headSize: 32
+        )
+    }
 
-    public var canonicalTypeName: String {
-        "string"
+    public init(from data: Data, offset: inout Int) throws {
+        let bytes = try Sol.Bytes(from: data, offset: &offset)
+        guard let storage = String(data: bytes.storage, encoding: .utf8) else {
+            throw AbiDecodingError.dataInvalid
+        }
+        self.init(storage: storage)
     }
 }
 
-extension Sol.Array: SolType {
+extension Sol.Array: AbiEncodable {
     public func encode() -> Data {
         /*
          T[] where X has k elements (k is assumed to be of type uint256):
@@ -258,40 +304,36 @@ extension Sol.Array: SolType {
          i.e. it is encoded as if it were an array of static size k, prefixed with the number of elements.
          */
         let size = Sol.UInt256(self.elements.count).encode()
-        let elements = Sol.Tuple(elements: self.elements).encode()
+        let fixedArray = Sol.FixedArray(size: self.elements.count,
+                                        elementAbiType: elementAbiType,
+                                        elements: self.elements)
+
+        let elements = fixedArray.encode()
         let result = size + elements
         return result
     }
 
-    public static func isDynamic(_ hint: AbiEncodable?) -> Bool { true }
+    public var abiDescription: Sol.AbiTypeDescription {
+        Sol.AbiTypeDescription(
+            canonicalName: elementAbiType.canonicalName + "[]",
+            isDynamic: true,
+            headSize: 32
+        )
+    }
 
-    public var canonicalTypeName: String {
-        "[]"
+    public static func decode(from data: Data, offset: inout Int, isDynamic: Bool) throws -> [Element] {
+        let size = try Sol.UInt256(from: data, offset: &offset)
+        guard size <= Int.max else {
+            throw AbiDecodingError.outOfBounds
+        }
+        let intSize = Int(size)
+        let elements = try Sol.FixedArray<Element>.decode(from: data, offset: &offset, size: intSize, isDynamic: isDynamic)
+        return elements
     }
 }
 
-extension Sol.FixedArray: SolType {
-    // Note: for the fixed array with Element == Tuple we can't
-    // guarantee during compile time that every element has the same type, i.e.
-    // that each element is the same tuple.
-
-    // so we'll make a check during encoding process.
-
-    public static func isDynamic(_ hint: AbiEncodable?) -> Bool {
-        let array = hint as! Self
-        let result = Element.isDynamic(array.elements.first)
-        return result
-    }
-
-    public static func headSize(_ hint: AbiEncodable?) -> Int {
-        if isDynamic(hint) {
-            return 32
-        }
-        let array = hint as! Self
-        let result = array.size * Element.headSize(array.elements.first)
-        return result
-    }
-
+extension Sol.FixedArray: AbiEncodable {
+    // requires that abi description correctly describes the element.
     public func encode() -> Data {
         /*
          T[k] for any T and k:
@@ -300,9 +342,24 @@ extension Sol.FixedArray: SolType {
 
          i.e. it is encoded as if it were a tuple with k elements of the same type.
          */
-        let tuple = Sol.Tuple(elements: self.elements)
+        let tuple = Sol.Tuple(
+            elementAbiTypes: [Sol.AbiTypeDescription](repeating: elementAbiType, count: elements.count),
+            elements: elements
+        )
         let result = tuple.encode()
         return result
     }
-}
 
+    public var abiDescription: Sol.AbiTypeDescription {
+        Sol.AbiTypeDescription(
+            canonicalName: elementAbiType.canonicalName + "[\(size)]",
+            isDynamic: elementAbiType.isDynamic,
+            headSize: elementAbiType.isDynamic ? 32 : (size * elementAbiType.headSize)
+        )
+    }
+
+    static func decode(from data: Data, offset: inout Int, size: Int, isDynamic: Bool) throws -> [Element] {
+        let elements = try Sol.Tuple.elements(from: data, offset: &offset, abiTypes: [(AbiDecodable.Type, Bool)](repeating: (Element.self, isDynamic), count: size))
+        return elements as! [Element]
+    }
+}

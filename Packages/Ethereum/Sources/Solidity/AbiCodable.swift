@@ -9,32 +9,45 @@ import Foundation
 
 public protocol AbiEncodable {
     func encode() -> Data
-    static func isDynamic(_ hint: AbiEncodable?) -> Bool
-    static func headSize(_ hint: AbiEncodable?) -> Int
+    var abiDescription: Sol.AbiTypeDescription { get }
 }
 
-extension AbiEncodable {
-    public static func isDynamic(_ hint: AbiEncodable?) -> Bool {
-        false
-    }
+extension Sol {
+    public struct AbiTypeDescription: Hashable {
+        // needed for function_selector encoding
+        public var canonicalName: Swift.String
+        // needed for tuple encoding
+        public var isDynamic: Swift.Bool
+        // needed for tuple encoding
+        public var headSize: Swift.Int
 
-    public static func headSize(_ hint: AbiEncodable?) -> Int { 32 }
+        public init(canonicalName: Swift.String, isDynamic: Swift.Bool, headSize: Swift.Int) {
+            self.canonicalName = canonicalName
+            self.isDynamic = isDynamic
+            self.headSize = headSize
+        }
+    }
 }
 
 public protocol AbiDecodable {
-    init(from decoder: AbiDecoder) throws
+    init(from data: Data, offset: inout Int) throws
 }
 
-public struct AbiEncoder {
-    public init() {}
-
-    public func encode(_ value: Data) {
-
-    }
+public protocol SolType: AbiEncodable, AbiDecodable {
 }
 
-public struct AbiDecoder {
-    public init() {}
+
+struct AbiDecodingError: Error {
+    static let dataInvalid = AbiDecodingError()
+    static let outOfBounds = AbiDecodingError()
 }
 
-typealias AbiCodable = AbiEncodable & AbiDecodable
+// decoding
+//   contract description + data -> created types
+        // contract description -> canonical description -> types
+
+
+//   canonical description + data -> created types
+//      parsing of '(' ')' and '[]' and '[k]'
+//      parsing of uintM, intM, ufixedMxN, fixedMxN, bytesM
+//      and others

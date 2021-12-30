@@ -109,30 +109,74 @@ extension SolInteger where Self: FixedWidthInteger {
         return result
     }
 
-    public var canonicalTypeName: String {
-        String(describing: type(of: self)).lowercased()
+    public var abiDescription: Sol.AbiTypeDescription {
+        Sol.AbiTypeDescription(
+            canonicalName: String(describing: type(of: self)).lowercased(),
+            isDynamic: false,
+            headSize: 32
+        )
+    }
+
+    public init(from data: Data, offset: inout Int) throws {
+        // there must be 32 bytes
+        guard offset < data.count - 32 else {
+            throw AbiDecodingError.outOfBounds
+        }
+        // uint<M>: enc(X) is the big-endian encoding of X, padded on the higher-order (left) side with zero-bytes such that the length is multiple of 32.
+        // int<M>: enc(X) is the big-endian two’s complement encoding of X, padded on the higher-order (left) side with 0xff bytes for negative X and with zero-bytes for non-negative X such that the length is 32 bytes.
+        let byteCount = Self.bitWidth / 8
+        let remainder32 = byteCount % 32
+        let paddingLength = remainder32 == 0 ? 0 : (32 - remainder32)
+
+        let significantBytes = data[offset + paddingLength..<offset + 32]
+        self = 0
+        for byte in significantBytes {
+            self = (self << 8) | Self(byte)
+        }
+
+        offset += 32
     }
 }
 
-extension SolUnsignedFixedPointDecimal where Storage: AbiEncodable {
+extension SolUnsignedFixedPointDecimal where Storage: AbiEncodable & AbiDecodable {
     public func encode() -> Data {
         // ufixed<M>x<N>: enc(X) is enc(X * 10**N) where X * 10**N is interpreted as a uint256
         let result = storage.encode()
         return result
     }
-    public var canonicalTypeName: String {
-        String(describing: type(of: self)).lowercased()
+
+    public var abiDescription: Sol.AbiTypeDescription {
+        Sol.AbiTypeDescription(
+            canonicalName: String(describing: type(of: self)).lowercased(),
+            isDynamic: false,
+            headSize: 32
+        )
+    }
+
+    public init(from data: Data, offset: inout Int) throws {
+        let storage = try Storage(from: data, offset: &offset)
+        self.init(storage: storage)
     }
 }
 
-extension SolSignedFixedPointDecimal where Storage: AbiEncodable {
+extension SolSignedFixedPointDecimal where Storage: AbiEncodable & AbiDecodable {
     public func encode() -> Data {
         // fixed<M>x<N>: enc(X) is enc(X * 10**N) where X * 10**N is interpreted as a int256
         let result = storage.encode()
         return result
     }
-    public var canonicalTypeName: String {
-        String(describing: type(of: self)).lowercased()
+
+    public var abiDescription: Sol.AbiTypeDescription {
+        Sol.AbiTypeDescription(
+            canonicalName: String(describing: type(of: self)).lowercased(),
+            isDynamic: false,
+            headSize: 32
+        )
+    }
+
+    public init(from data: Data, offset: inout Int) throws {
+        let storage = try Storage(from: data, offset: &offset)
+        self.init(storage: storage)
     }
 }
 
@@ -142,8 +186,17 @@ extension Sol.Address: SolType {
         let result = storage.encode()
         return result
     }
-    public var canonicalTypeName: String {
-        String(describing: type(of: self)).lowercased()
+
+    public var abiDescription: Sol.AbiTypeDescription {
+        Sol.AbiTypeDescription(
+            canonicalName: "address",
+            isDynamic: false,
+            headSize: 32
+        )
+    }
+
+    public init(from data: Data, offset: inout Int) throws {
+        storage = try Sol.UInt160(from: data, offset: &offset)
     }
 }
 
@@ -154,15 +207,38 @@ extension Sol.Bool: SolType {
         let result = value.encode()
         return result
     }
-    public var canonicalTypeName: String {
-        String(describing: type(of: self)).lowercased()
+
+    public var abiDescription: Sol.AbiTypeDescription {
+        Sol.AbiTypeDescription(
+            canonicalName: "bool",
+            isDynamic: false,
+            headSize: 32
+        )
+    }
+
+    public init(from data: Data, offset: inout Int) throws {
+        let value = try Sol.UInt8(from: data, offset: &offset)
+        switch value {
+        case 0:
+            storage = false
+
+        case 1:
+            storage = true
+
+        default:
+            // which offset from the beginning?
+            // what was expected?
+            // what got instead?
+            throw AbiDecodingError.dataInvalid
+        }
     }
 }
+
 
 extension SolFixedBytes {
     public func encode() -> Data {
         // bytes<M>: enc(X) is the sequence of bytes in X padded with trailing zero-bytes to a length of 32 bytes
-        let remainderFrom32 = storage.count % 32
+        let remainderFrom32 = Self.byteCount % 32
         let result: Data
         if remainderFrom32 == 0 {
             result = storage
@@ -172,8 +248,24 @@ extension SolFixedBytes {
         assert(result.count == 32)
         return result
     }
-    public var canonicalTypeName: String {
-        "bytes\(storage.count)"
+
+    public var abiDescription: Sol.AbiTypeDescription {
+        Sol.AbiTypeDescription(
+            canonicalName: "bytes\(Self.byteCount)",
+            isDynamic: false,
+            headSize: 32
+        )
+    }
+
+    public init(from data: Data, offset: inout Int) throws {
+        guard offset < data.count - 32 else {
+            throw AbiDecodingError.outOfBounds
+        }
+        let remainderFrom32 = Self.byteCount % 32
+        let paddingLength = remainderFrom32 == 0 ? 0 : (32 - remainderFrom32)
+        let storage = data[0..<paddingLength]
+        self.init(storage: storage)
+        offset += 32
     }
 }
 
@@ -187,7 +279,26 @@ extension Sol.Function: SolType {
         let result = bytes24.encode()
         return result
     }
-    public var canonicalTypeName: String {
-        Sol.Bytes24().canonicalTypeName
+    
+    public var abiDescription: Sol.AbiTypeDescription {
+        Sol.AbiTypeDescription(
+            canonicalName: "bytes24",
+            isDynamic: false,
+            headSize: 32
+        )
+    }
+
+    public init(from data: Data, offset: inout Int) throws {
+        let bytes24 = try Sol.Bytes24(from: data, offset: &offset)
+
+        let selector = bytes24.storage[20..<24]
+        self.selector = Sol.Bytes4(storage: selector)
+
+        let addressBytes = bytes24.storage[0..<20]
+        var addressStorage: Sol.UInt160 = 0
+        for byte in addressBytes {
+            addressStorage = (addressStorage << 8) | Sol.UInt160(byte)
+        }
+        address = Sol.Address(storage: addressStorage)
     }
 }
