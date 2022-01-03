@@ -8,6 +8,7 @@
 
 import UIKit
 import Intercom
+import WhatsNewKit
 
 class MainTabBarViewController: UITabBarController {
     var onFirstAppear: (_ vc: MainTabBarViewController) -> Void = { _ in
@@ -77,6 +78,8 @@ class MainTabBarViewController: UITabBarController {
         appearsFirstTime = false
 
         onFirstAppear(self)
+
+        WhatsNewHandler().whatsNewViewController?.present(on: self)
     }
 
     private func balancesTabViewController() -> UIViewController {
