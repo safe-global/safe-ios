@@ -20,6 +20,8 @@ extension Sol {
 
 extension Sol.String: SolAbiEncodable {
     public var isDynamic: Bool { true }
+
+    public var canonicalName: String { "string" }
     
     public func encode() -> Data {
         /*

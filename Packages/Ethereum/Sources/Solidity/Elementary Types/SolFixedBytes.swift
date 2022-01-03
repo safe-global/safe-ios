@@ -39,6 +39,10 @@ extension SolFixedBytes {
 
         offset += 32
     }
+
+    public var canonicalName: String {
+        "bytes\(Self.byteCount)"
+    }
 }
 
 extension SolFixedBytes {

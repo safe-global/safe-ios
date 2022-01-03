@@ -25,6 +25,10 @@ extension Sol {
 extension Sol.Array: SolAbiEncodable {
     public var isDynamic: Bool { true }
 
+    public var canonicalName: String {
+        "\(self.elements.first?.canonicalName ?? String(describing: type(of: Element.self)))[]"
+    }
+
     public func encode() -> Data {
         /*
          T[] where X has k elements (k is assumed to be of type uint256):

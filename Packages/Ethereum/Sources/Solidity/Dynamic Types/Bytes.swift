@@ -21,6 +21,10 @@ extension Sol {
 extension Sol.Bytes: SolAbiEncodable {
     public var isDynamic: Bool { true }
 
+    public var canonicalName: String {
+        "bytes"
+    }
+
     public func encode() -> Data {
         /*
          bytes, of length k (which is assumed to be of type uint256):

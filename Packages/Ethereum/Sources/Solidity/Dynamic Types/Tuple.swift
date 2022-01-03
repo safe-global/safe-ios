@@ -35,6 +35,10 @@ extension SolEncodableTuple {
         isDynamic ? 32 : elements.map(\.headSize).reduce(0, +)
     }
 
+    public var canonicalName: String {
+        "(\(elements.map(\.canonicalName).joined(separator: ","))"
+    }
+
     public func encode() -> Data {
         /*
          Definition: The following types are called “dynamic”:

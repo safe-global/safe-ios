@@ -41,6 +41,13 @@ extension Sol.FixedArray: SolAbiEncodable {
         return result
     }
 
+    public mutating func decode(from data: Data, offset: inout Int) throws {
+        precondition(elements.count == size)
+        var tuple = Sol.Tuple(elements: elements)
+        try tuple.decode(from: data, offset: &offset)
+        elements = tuple.elements as! [Element]
+    }
+
     public var isDynamic: Bool {
         elements.first?.isDynamic ?? false
     }
@@ -49,10 +56,8 @@ extension Sol.FixedArray: SolAbiEncodable {
         (elements.first?.headSize ?? 32) * elements.count
     }
 
-    public mutating func decode(from data: Data, offset: inout Int) throws {
-        precondition(elements.count == size)
-        var tuple = Sol.Tuple(elements: elements)
-        try tuple.decode(from: data, offset: &offset)
-        elements = tuple.elements as! [Element]
+    public var canonicalName: String {
+        "\(self.elements.first?.canonicalName ?? String(describing: Element.self).lowercased())[\(size)]"
     }
+
 }

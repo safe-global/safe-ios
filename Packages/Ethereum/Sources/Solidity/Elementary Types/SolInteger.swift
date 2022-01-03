@@ -53,4 +53,9 @@ extension SolInteger where Self: FixedWidthInteger {
 
         offset += 32
     }
+
+    public var canonicalName: String {
+        let result = (Self.isSigned ? "int" : "uint") + "\(Self.bitWidth)"
+        return result
+    }
 }

@@ -43,6 +43,10 @@ extension Sol.Bool: SolAbiEncodable {
             throw SolAbiDecodingError.dataInvalid
         }
     }
+
+    public var canonicalName: String {
+        "bool"
+    }
 }
 
 extension Sol.Bool: Hashable {

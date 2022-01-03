@@ -43,6 +43,10 @@ extension Sol.Function: SolAbiEncodable {
         let selectorStorage = bytes24.storage[20..<24]
         self.selector = Sol.Bytes4(storage: selectorStorage)
     }
+
+    public var canonicalName: String {
+        "function"
+    }
 }
 
 extension Sol.Function: Hashable {
