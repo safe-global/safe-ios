@@ -8,13 +8,12 @@
 import Foundation
 
 // TODO: Behave the same way as Swift Array / Data of bytes
-public protocol SolFixedBytes: SolAbiEncodable {
+public protocol SolFixedBytes: SolAbiEncodable, Hashable {
     static var byteCount: Int { get }
     var storage: Data { get set }
     init()
     init(storage: Data)
 }
-
 
 // MARK: - Encoding
 
@@ -33,13 +32,21 @@ extension SolFixedBytes {
     }
 
     public mutating func decode(from data: Data, offset: inout Int) throws {
-        guard offset < data.count - 32 else {
+        guard offset < data.count - 32 + 1 else {
             throw SolAbiDecodingError.outOfBounds
         }
-        let remainderFrom32 = Self.byteCount % 32
-        let paddingLength = remainderFrom32 == 0 ? 0 : (32 - remainderFrom32)
-        self.storage = data[0..<paddingLength]
+        self.storage = data[0..<Self.byteCount]
 
         offset += 32
+    }
+}
+
+extension SolFixedBytes {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.storage == rhs.storage
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(storage)
     }
 }

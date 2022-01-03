@@ -44,3 +44,13 @@ extension Sol.Bool: SolAbiEncodable {
         }
     }
 }
+
+extension Sol.Bool: Hashable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.storage == rhs.storage
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(storage)
+    }
+}

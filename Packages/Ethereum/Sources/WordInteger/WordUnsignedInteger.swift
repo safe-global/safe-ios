@@ -161,6 +161,10 @@ extension WordUnsignedInteger {
         precondition(!c.overflow)
         return c.partialValue
     }
+
+    public static func += (lhs: inout Self, rhs: Self) {
+        lhs = lhs + rhs
+    }
 }
 
 // The Strideable protocol provides default implementations for the equal-to (==) and less-than (<) operators that depend on the Stride type’s implementations. If a type conforming to Strideable is its own Stride type, it must provide concrete implementations of the two operators to avoid infinite recursion.
@@ -260,6 +264,15 @@ extension WordUnsignedInteger {
     public static func << <RHS>(lhs: Self, rhs: RHS) -> Self where RHS : BinaryInteger {
         let a = lhs.big()
         let b = a << rhs
+        return Self(big: b)
+    }
+
+    // infinite loop?
+    // TODO: NOT!
+    static func &<< <Other>(lhs: Self, rhs: Other) -> Self where Other : BinaryInteger {
+        let shiftAmount = Int(rhs) % Self.bitWidth
+        let a = lhs.big()
+        let b = a << shiftAmount
         return Self(big: b)
     }
 
@@ -419,5 +432,17 @@ extension WordUnsignedInteger {
     public init(_truncatingBits value: UInt) {
 //        storage = [value]
         self.init(storage: [value])
+    }
+}
+
+// initializers implemented because Swift's default implementation goes into infinite loop
+extension WordUnsignedInteger {
+    public init?<S: StringProtocol>(_ text: S, radix: Int = 10) {
+        guard let big = BigUInt(text, radix: radix) else { return nil }
+        self.init(big: big)
+    }
+
+    public init<T: BinaryInteger>(truncatingIfNeeded source: T) {
+        self.init(storage: [UInt](source.words))
     }
 }

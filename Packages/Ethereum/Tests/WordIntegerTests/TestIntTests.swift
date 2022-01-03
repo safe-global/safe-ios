@@ -113,6 +113,17 @@ class TestIntTests: XCTestCase {
         XCTAssertEqual(i200(1).byteSwapped, i200("6277101735386680763835789423207666416102355444464034512896"))
     }
 
+    func test128() {
+        let a = Sol.Int128(-3)
+        let expected: [UInt] = [0xff_ff_ff_ff_ff_ff_ff_ff, 0xff_ff_ff_ff_ff_ff_ff_fd].reversed()
+        XCTAssertEqual(a.words, expected)
+    }
+
+    func testRightShift() {
+        let a = Sol.Int128(-3)
+        XCTAssertEqual(a >> 1, Sol.Int128(-2))
+    }
+
     func assert(_ a: i200, _ op: (i200, i200) -> i200, _ b: i200, _ c: i200, line: UInt = #line) {
         XCTAssertEqual(op(a, b), c, line: line)
     }

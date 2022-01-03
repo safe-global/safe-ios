@@ -8,28 +8,17 @@
 import Foundation
 
 // TODO: Fixed Point arithmetic? Numeric? Additive Arithmetic?
-// ufixed<M>x<N>
-public protocol SolUnsignedFixedPointDecimal: SolAbiEncodable {
-    static var bitWidth: Int { get }
-    static var exponent: Int { get }
-    associatedtype Storage: FixedWidthInteger, UnsignedInteger
-    var storage: Storage { get set }
-    init()
-    init(storage: Storage)
+extension Sol {
+    public struct UnsignedFixedPoint<T> where T: FixedWidthInteger & UnsignedInteger {
+        public var storage: T
+        public var exponent: Swift.Int
+        public init() { storage = .init(); exponent = 18 }
+        public init(storage: T, exponent: Swift.Int) { self.storage = storage; self.exponent = exponent }
+    }
 }
 
-public protocol SolSignedFixedPointDecimal: SolAbiEncodable {
-    static var bitWidth: Int { get }
-    static var exponent: Int { get }
-    associatedtype Storage: FixedWidthInteger, SignedInteger
-    var storage: Storage { get set }
-    init()
-    init(storage: Storage)
-}
-
-extension SolUnsignedFixedPointDecimal where Storage: SolAbiEncodable {
+extension Sol.UnsignedFixedPoint: SolAbiEncodable where T: SolAbiEncodable {
     public func encode() -> Data {
-        // ufixed<M>x<N>: enc(X) is enc(X * 10**N) where X * 10**N is interpreted as a uint256
         let result = storage.encode()
         return result
     }
@@ -39,14 +28,44 @@ extension SolUnsignedFixedPointDecimal where Storage: SolAbiEncodable {
     }
 }
 
-extension SolSignedFixedPointDecimal where Storage: SolAbiEncodable {
+extension Sol.UnsignedFixedPoint: Hashable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.exponent == rhs.exponent && lhs.storage == rhs.storage
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(exponent)
+        hasher.combine(storage)
+    }
+}
+
+extension Sol {
+    public struct SignedFixedPoint<T> where T: FixedWidthInteger & SignedInteger {
+        public var storage: T
+        public var exponent: Swift.Int
+        public init() { storage = .init(); exponent = 18 }
+        public init(storage: T, exponent: Swift.Int) { self.storage = storage; self.exponent = exponent }
+    }
+}
+
+extension Sol.SignedFixedPoint: SolAbiEncodable where T: SolAbiEncodable {
     public func encode() -> Data {
-        // fixed<M>x<N>: enc(X) is enc(X * 10**N) where X * 10**N is interpreted as a int256
         let result = storage.encode()
         return result
     }
 
     public mutating func decode(from data: Data, offset: inout Int) throws {
         try self.storage.decode(from: data, offset: &offset)
+    }
+}
+
+extension Sol.SignedFixedPoint: Hashable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.exponent == rhs.exponent && lhs.storage == rhs.storage
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(exponent)
+        hasher.combine(storage)
     }
 }

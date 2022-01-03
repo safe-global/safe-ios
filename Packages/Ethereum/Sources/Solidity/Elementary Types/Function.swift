@@ -21,9 +21,10 @@ extension Sol {
 
 extension Sol.Function: SolAbiEncodable {
     public func encode() -> Data {
-        let addressBytes = stride(from: 0, to: type(of: address.storage).bitWidth, by: 8).map { bitOffset in
-            UInt8((address.storage >> bitOffset) & 0xff)
-        }
+        // an address (20 bytes) followed by a function selector (4 bytes). Encoded identical to bytes24
+
+        // we need to remove the padding (12 bytes) from the left
+        let addressBytes = address.encode()[12..<32]
         assert(addressBytes.count == 20)
         let bytes24 = Sol.Bytes24(storage: addressBytes + selector.storage)
         let result = bytes24.encode()
@@ -34,14 +35,23 @@ extension Sol.Function: SolAbiEncodable {
         var bytes24 = Sol.Bytes24(storage: Data())
         try bytes24.decode(from: data, offset: &offset)
 
-        let selectorStorage = bytes24.storage[20..<24]
-        self.selector = Sol.Bytes4(storage: selectorStorage)
-
         // add padding to 32 so that decoding would work
         let addressBytes = Data(repeating: 0, count: 12) + bytes24.storage[0..<20]
-        var uint160 = Sol.UInt160()
         var addressOffset = 0
-        try uint160.decode(from: addressBytes, offset: &addressOffset)
-        self.address = Sol.Address(storage: uint160)
+        self.address = try Sol.Address(from: addressBytes, offset: &addressOffset)
+
+        let selectorStorage = bytes24.storage[20..<24]
+        self.selector = Sol.Bytes4(storage: selectorStorage)
+    }
+}
+
+extension Sol.Function: Hashable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.address == rhs.address && lhs.selector == rhs.selector
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(address)
+        hasher.combine(selector)
     }
 }

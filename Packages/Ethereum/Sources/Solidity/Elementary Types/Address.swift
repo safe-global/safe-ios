@@ -28,3 +28,13 @@ extension Sol.Address: SolAbiEncodable {
         try self.storage.decode(from: data, offset: &offset)
     }
 }
+
+extension Sol.Address: Hashable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.storage == rhs.storage
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(storage)
+    }
+}

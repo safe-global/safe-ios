@@ -239,9 +239,16 @@ extension WordSignedInteger {
 
     // implemented, otherwise infinite recursion
     public static func >> <RHS>(lhs: Self, rhs: RHS) -> Self where RHS : BinaryInteger {
-        let a = lhs.big()
-        let b = a >> rhs
-        return Self(big: b)
+        // big int doesn't do shifts properly, we need to sign-extend the most significant bit
+
+        let a = lhs.unsigned()
+        var b = a >> rhs
+
+        if lhs < 0 {
+            b |= .max << (RHS(Self.bitWidth) - rhs)
+        }
+
+        return Self(storage: b.storage)
     }
 
     // implemented, otherwise infinite recursion
@@ -401,5 +408,16 @@ extension WordSignedInteger {
     public init(_truncatingBits value: UInt) {
 //        storage = [value]
         self.init(storage: [value])
+    }
+}
+
+extension WordSignedInteger {
+    public init?<S: StringProtocol>(_ text: S, radix: Int = 10) {
+        guard let big = BigInt(text, radix: radix) else { return nil }
+        self.init(big: big)
+    }
+
+    public init<T: BinaryInteger>(truncatingIfNeeded source: T) {
+        self.init(storage: [UInt](source.words))
     }
 }

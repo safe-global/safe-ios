@@ -14,8 +14,11 @@ extension SolInteger where Self: FixedWidthInteger {
         // uint<M>: enc(X) is the big-endian encoding of X, padded on the higher-order (left) side with zero-bytes such that the length is multiple of 32.
         // int<M>: enc(X) is the big-endian two’s complement encoding of X, padded on the higher-order (left) side with 0xff bytes for negative X and with zero-bytes for non-negative X such that the length is 32 bytes.
         let value = bigEndian
-        let bytes = stride(from: 0, to: Self.bitWidth, by: 8).map { bitOffset in
-            UInt8((value >> bitOffset) & 0xff)
+        let bytes = stride(from: 0, to: Self.bitWidth, by: 8).map { bitOffset -> UInt8 in
+            let shifted = value >> bitOffset
+            let byte = (shifted & 0xff).words.first!
+            let uint8 = UInt8(byte)
+            return uint8
         }
 
         let result: Data
@@ -33,7 +36,7 @@ extension SolInteger where Self: FixedWidthInteger {
 
     public mutating func decode(from data: Data, offset: inout Int) throws {
         // there must be 32 bytes
-        guard offset < data.count - 32 else {
+        guard offset < data.count - 32 + 1 else {
             throw SolAbiDecodingError.outOfBounds
         }
         // uint<M>: enc(X) is the big-endian encoding of X, padded on the higher-order (left) side with zero-bytes such that the length is multiple of 32.
