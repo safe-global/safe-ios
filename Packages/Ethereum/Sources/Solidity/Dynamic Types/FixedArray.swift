@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sol {
-    public struct FixedArray<Element: AbiEncodable> {
+    public struct FixedArray<Element: SolAbiEncodable> {
         public var size: Swift.Int
         public var elements: [Element]
 
@@ -17,10 +17,12 @@ extension Sol {
             self.elements = elements
             precondition(elements.count == size)
         }
+
+        public init() { size = 0; elements = [] }
     }
 }
 
-extension Sol.FixedArray: AbiEncodable {
+extension Sol.FixedArray: SolAbiEncodable {
     public func encode() -> Data {
         /*
          T[k] for any T and k:
@@ -45,7 +47,7 @@ extension Sol.FixedArray: AbiEncodable {
     // I must have an element and a size.
     public mutating func decode(from data: Data, offset: inout Int) throws {
         precondition(!elements.isEmpty)
-        var tuple = Sol.Tuple(elements: [AbiEncodable](repeating: elements[0], count: size))
+        var tuple = Sol.Tuple(elements: [SolAbiEncodable](repeating: elements[0], count: size))
         try tuple.decode(from: data, offset: &offset)
         elements = tuple.elements as! [Element]
     }

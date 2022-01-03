@@ -9,17 +9,19 @@ import Foundation
 
 extension Sol {
     public struct Tuple: SolEncodableTuple {
-        public var elements: [AbiEncodable]
+        public var elements: [SolAbiEncodable]
 
-        public init(elements: [AbiEncodable]) {
+        public init(elements: [SolAbiEncodable]) {
             self.elements = elements
         }
+
+        public init() { elements = [] }
     }
 }
 
 // TODO: Behave the same way as Swift Array
-public protocol SolEncodableTuple: AbiEncodable {
-    var elements: [AbiEncodable] { get set }
+public protocol SolEncodableTuple: SolAbiEncodable {
+    var elements: [SolAbiEncodable] { get set }
 }
 
 // this is for custom tuples that ... but we can convert actually
@@ -95,10 +97,9 @@ extension SolEncodableTuple {
     public mutating func decode(from data: Data, offset: inout Int) throws {
         for i in (0..<elements.count) {
             if elements[i].isDynamic {
-                var tailOffset = Sol.UInt256()
-                try tailOffset.decode(from: data, offset: &offset)
+                let tailOffset = try Sol.UInt256(from: data, offset: &offset)
                 guard tailOffset < Int.max else {
-                    throw AbiDecodingError.outOfBounds
+                    throw SolAbiDecodingError.outOfBounds
                 }
                 var intTailOffset = Int(tailOffset)
 
@@ -119,9 +120,9 @@ public protocol SolKeyPathTuple: SolEncodableTuple {
 }
 
 extension SolKeyPathTuple {
-    public var elements: [AbiEncodable] {
+    public var elements: [SolAbiEncodable] {
         get {
-            let result = Self.keyPaths.compactMap { self[keyPath: $0] as? AbiEncodable }
+            let result = Self.keyPaths.compactMap { self[keyPath: $0] as? SolAbiEncodable }
             return result
         }
         set {

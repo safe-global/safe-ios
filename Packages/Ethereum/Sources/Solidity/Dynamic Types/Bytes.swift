@@ -13,10 +13,12 @@ extension Sol {
         public var storage: Data
 
         public init(storage: Data) { self.storage = storage }
+
+        public init() { storage = Data() }
     }
 }
 
-extension Sol.Bytes: SolType {
+extension Sol.Bytes: SolAbiEncodable {
     public var isDynamic: Bool { true }
 
     public func encode() -> Data {
@@ -34,10 +36,9 @@ extension Sol.Bytes: SolType {
     }
 
     public mutating func decode(from data: Data, offset: inout Int) throws {
-        var size = Sol.UInt256()
-        try size.decode(from: data, offset: &offset)
+        let size = try Sol.UInt256(from: data, offset: &offset)
         guard size < Int.max else {
-            throw AbiDecodingError.outOfBounds
+            throw SolAbiDecodingError.outOfBounds
         }
         let intSize = Int(size)
 

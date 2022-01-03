@@ -1,6 +1,12 @@
 # Generates bytes<M> types for Contract ABI
 
 template = <<-EOD
+// Created by Dmitry Bespalov on 01.01.2022
+
+// THIS FILE IS GENERATED. DO NOT MODIFY BY HAND.
+
+import Foundation
+
 // MARK: - Sol.Bytes{{BYTE_COUNT}}
 
 extension Sol {
@@ -17,7 +23,16 @@ extension Sol.Bytes{{BYTE_COUNT}}: SolFixedBytes {
 
 EOD
 
+filename_template = "Bytes{{BYTE_COUNT}}.swift"
+
 (0..32).drop(1).each { |byte_count|
-    decl = template.gsub(/\{\{BYTE_COUNT\}\}/, "#{byte_count}")
-    puts(decl)
+    filename = filename_template
+        .gsub(/\{\{BYTE_COUNT\}\}/, "#{byte_count}")
+
+    content = template
+        .gsub(/\{\{BYTE_COUNT\}\}/, "#{byte_count}")
+
+    File.open(filename, "w") { |file|
+        file.write(content)
+    }
 }

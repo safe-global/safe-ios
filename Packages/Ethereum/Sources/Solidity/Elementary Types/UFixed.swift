@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+// MARK: - Sol.UFixed, Sol.Fixed
+
+extension Sol {
+    typealias UFixed = UFixed128x18
+    typealias Fixed = Fixed128x18
+}

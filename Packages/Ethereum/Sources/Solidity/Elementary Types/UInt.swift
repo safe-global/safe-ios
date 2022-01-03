@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+// MARK: - Sol.UInt, Sol.Int
+
+extension Sol {
+    typealias UInt = UInt256
+    typealias Int = Int256
+}

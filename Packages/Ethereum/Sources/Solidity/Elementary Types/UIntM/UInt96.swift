@@ -3,6 +3,7 @@
 // THIS FILE IS GENERATED. DO NOT MODIFY BY HAND.
 
 import Foundation
+import WordInteger
 
 // MARK: - Sol.UInt96
 

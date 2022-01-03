@@ -6,3 +6,10 @@
 //
 
 import Foundation
+import XCTest
+import Solidity
+
+class IntegerEncodingTests: XCTestCase {
+    
+    
+}

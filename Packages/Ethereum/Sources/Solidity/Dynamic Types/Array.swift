@@ -10,18 +10,19 @@ import Foundation
 extension Sol {
     // TODO: behave the same as Swift Array
     // variable-length array of any element
-    public struct Array<Element: AbiEncodable> {
+    public struct Array<Element: SolAbiEncodable> {
         public var elements: [Element]
 
         public init(elements: [Element]) {
             self.elements = elements
-
         }
+
+        public init() { self.elements = [] }
     }
 
 }
 
-extension Sol.Array: AbiEncodable {
+extension Sol.Array: SolAbiEncodable {
     public var isDynamic: Bool { true }
 
     public func encode() -> Data {
@@ -41,10 +42,9 @@ extension Sol.Array: AbiEncodable {
 
     public mutating func decode(from data: Data, offset: inout Int) throws {
         precondition(!elements.isEmpty)
-        var size = Sol.UInt256()
-        try size.decode(from: data, offset: &offset)
+        let size = try Sol.UInt256(from: data, offset: &offset)
         guard size <= Int.max else {
-            throw AbiDecodingError.outOfBounds
+            throw SolAbiDecodingError.outOfBounds
         }
         let intSize = Int(size)
 

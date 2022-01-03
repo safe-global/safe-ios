@@ -12,11 +12,17 @@ public protocol SolAbiEncodable {
     var headSize: Int { get }
     func encode() -> Data
     mutating func decode(from data: Data, offset: inout Int) throws
+    init()
 }
 
 public extension SolAbiEncodable {
     var isDynamic: Bool { false }
     var headSize: Int { 32 }
+
+    init(from data: Data, offset: inout Int) throws {
+        self.init()
+        try self.decode(from: data, offset: &offset)
+    }
 }
 
 struct SolAbiDecodingError: Error {

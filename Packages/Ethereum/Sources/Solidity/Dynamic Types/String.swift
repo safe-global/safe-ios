@@ -13,10 +13,12 @@ extension Sol {
         public var storage: Swift.String
 
         public init(storage: Swift.String) { self.storage = storage }
+
+        public init() { storage = "" }
     }
 }
 
-extension Sol.String: SolType {
+extension Sol.String: SolAbiEncodable {
     public func encode() -> Data {
         /*
          enc(X) = enc(enc_utf8(X)), i.e. X is UTF-8 encoded and this value is interpreted as of bytes type and encoded further. Note that the length used in this subsequent encoding is the number of bytes of the UTF-8 encoded string, not its number of characters.
@@ -30,10 +32,10 @@ extension Sol.String: SolType {
     }
 
     public mutating func decode(from data: Data, offset: inout Int) throws {
-        var bytes = Sol.Bytes(storage: Data())
-        try bytes.decode(from: data, offset: &offset)
+        let bytes = try Sol.Bytes(from: data, offset: &offset)
+
         guard let storage = String(data: bytes.storage, encoding: .utf8) else {
-            throw AbiDecodingError.dataInvalid
+            throw SolAbiDecodingError.dataInvalid
         }
         self.storage = storage
     }
