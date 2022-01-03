@@ -39,6 +39,63 @@ public enum ERC20 {
                 self.success = success
             }
         }
-
     }
+    //        struct name: EthContractFunction {
+    //            struct Returns: SolTuple {
+    //                var name: Sol.String
+    //            }
+    //        }
+    //
+    //        struct symbol: EthContractFunction {
+    //            struct Returns: SolTuple {
+    //                var name: Sol.String
+    //            }
+    //        }
+    //
+    //        struct decimals: EthContractFunction {
+    //            struct Returns: SolTuple {
+    //                var name: Sol.UInt8
+    //            }
+    //        }
+    //
+    //        struct totalSupply: EthContractFunction {
+    //            struct Returns: SolTuple {
+    //                var totalSupply: Sol.UInt256
+    //            }
+    //        }
+    //
+    //        struct balanceOf: EthContractFunction {
+    //            var who: Sol.Address
+    //
+    //            struct Returns: SolTuple {
+    //                var balance: Sol.UInt256
+    //            }
+    //        }
+    //
+    //        struct allowance: EthContractFunction {
+    //            var owner: Sol.Address
+    //            var spender: Sol.Address
+    //
+    //            struct Returns: SolTuple {
+    //                var remaining: Sol.UInt256
+    //            }
+    //        }
+    //
+    //        struct transfer: EthContractFunction {
+    //            var to: Sol.Address
+    //            var value: Sol.UInt256
+    //
+    //            struct Returns: SolTuple {
+    //                var success: Sol.Bool
+    //            }
+    //        }
+    //
+    //        struct approve: EthContractFunction {
+    //            var spender: Sol.Address
+    //            var value: Sol.UInt256
+    //
+    //            struct Returns: SolTuple {
+    //                var success: Sol.Bool
+    //            }
+    //        }
 }

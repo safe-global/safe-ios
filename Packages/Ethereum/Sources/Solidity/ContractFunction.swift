@@ -8,9 +8,8 @@
 import Foundation
 
 public protocol SolContractFunction: SolAbiEncodable {
-    var name: String { get }
-    var parameters: Sol.Tuple { get set }
     var selector: Sol.Bytes4 { get set }
+    var parameters: Sol.Tuple { get set }
 
     associatedtype Returns: SolEncodableTuple
 }
@@ -18,45 +17,27 @@ public protocol SolContractFunction: SolAbiEncodable {
 extension Sol {
     public struct ContractFunction<R: SolEncodableTuple>: SolContractFunction {
         public var selector: Sol.Bytes4
-        public var name: Swift.String
         public var parameters: Sol.Tuple
+
+        public var canonicalName: Swift.String {
+            let name = selector.storage.map({ Swift.String($0, radix: 16) }).joined()
+            let result = name + parameters.canonicalName
+            return result
+        }
 
         public typealias Returns = R
 
-        public init() { name = ""; parameters = .init(); selector = .init() }
+        public init() { parameters = .init(); selector = .init() }
 
-        public init(name: Swift.String, parameters: Sol.Tuple) {
-            self.name = name
-            self.parameters = parameters
-            self.selector = .init()
-            self.selector = derivedSelector
-        }
-
-        public init(name: Swift.String, parameters: Sol.Tuple, selector: Sol.Bytes4) {
-            self.name = name
+        public init(selector: Sol.Bytes4, parameters: Sol.Tuple) {
             self.parameters = parameters
             self.selector = selector
         }
     }
 }
 
+
 extension SolContractFunction {
-    public var canonicalName: String {
-        name + parameters.canonicalName
-    }
-
-    public var isDynamic: Bool {
-        parameters.isDynamic
-    }
-
-    public var headSize: Int {
-        isDynamic ? 32 : (selector.headSize + parameters.headSize)
-    }
-
-    public var derivedSelector: Sol.Bytes4 {
-        fatalError()
-    }
-
     public func encode() -> Data {
         /*
          All in all, a call to the function f with parameters a_1, ..., a_n is encoded as
@@ -83,8 +64,8 @@ extension SolContractFunction {
 }
 
 extension SolContractFunction where Self: SolKeyPathTuple {
-    public var name: String {
-        String(describing: type(of: self))
+    public var canonicalName: String {
+        String(describing: type(of: self)) + parameters.canonicalName
     }
 
     public var parameters: Sol.Tuple {
@@ -98,10 +79,25 @@ extension SolContractFunction where Self: SolKeyPathTuple {
 
     public var selector: Sol.Bytes4 {
         get {
-            derivedSelector
+            // keccak256(canonicalName)[0..<4]
+            let result = Sol.Bytes4()
+            return result
         }
         set {
             // do  nothing
         }
+    }
+
+    public func encode() -> Data {
+        let result = selector.encode() + parameters.encode()
+        return result
+    }
+
+    public mutating func decode(from data: Data, offset: inout Int) throws {
+        let selector = try Sol.Bytes4(from: data, offset: &offset)
+        guard selector == self.selector else {
+            throw SolAbiDecodingError.dataInvalid
+        }
+        try self.parameters.decode(from: data, offset: &offset)
     }
 }
