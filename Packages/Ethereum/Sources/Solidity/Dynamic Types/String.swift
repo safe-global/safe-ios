@@ -19,6 +19,8 @@ extension Sol {
 }
 
 extension Sol.String: SolAbiEncodable {
+    public var isDynamic: Bool { true }
+    
     public func encode() -> Data {
         /*
          enc(X) = enc(enc_utf8(X)), i.e. X is UTF-8 encoded and this value is interpreted as of bytes type and encoded further. Note that the length used in this subsequent encoding is the number of bytes of the UTF-8 encoded string, not its number of characters.
@@ -38,5 +40,15 @@ extension Sol.String: SolAbiEncodable {
             throw SolAbiDecodingError.dataInvalid
         }
         self.storage = storage
+    }
+}
+
+extension Sol.String: Hashable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.storage == rhs.storage
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(storage)
     }
 }

@@ -95,22 +95,36 @@ extension SolEncodableTuple {
     // This way the Tuple can be used during runtime without knowing the types of data in advance:
     // just construct a prototype tuple and decode the data to it.
     public mutating func decode(from data: Data, offset: inout Int) throws {
+        let startOffset = offset
+        // -1 to mark that tailEnd wasn't modified
+        var tailEnd = -1
         for i in (0..<elements.count) {
             if elements[i].isDynamic {
                 let tailOffset = try Sol.UInt256(from: data, offset: &offset)
+
                 guard tailOffset < Int.max else {
                     throw SolAbiDecodingError.outOfBounds
                 }
-                var intTailOffset = Int(tailOffset)
+                var absoluteTailOffset = startOffset + Int(tailOffset)
 
-                try elements[i].decode(from: data, offset: &intTailOffset)
+                guard absoluteTailOffset < data.count else {
+                    throw SolAbiDecodingError.outOfBounds
+                }
+
+                try elements[i].decode(from: data, offset: &absoluteTailOffset)
+
+                tailEnd = absoluteTailOffset
             } else {
                 try elements[i].decode(from: data, offset: &offset)
             }
         }
+        // by the end of the loop the offset will go past the `heads` part
+        // and we must jump to the last element's tail end, if there're any tails
+        if tailEnd != -1 {
+            offset = tailEnd
+        }
     }
 }
-
 
 // useful for expressing Solidity Tuple as a Swift struct - in that case
 // it can be encoded and decoded using default implementations, just

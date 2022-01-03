@@ -35,7 +35,7 @@ extension SolFixedBytes {
         guard offset < data.count - 32 + 1 else {
             throw SolAbiDecodingError.outOfBounds
         }
-        self.storage = data[0..<Self.byteCount]
+        self.storage = data[offset..<offset + Self.byteCount]
 
         offset += 32
     }

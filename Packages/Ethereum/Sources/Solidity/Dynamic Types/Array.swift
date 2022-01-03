@@ -41,15 +41,29 @@ extension Sol.Array: SolAbiEncodable {
     }
 
     public mutating func decode(from data: Data, offset: inout Int) throws {
-        precondition(!elements.isEmpty)
         let size = try Sol.UInt256(from: data, offset: &offset)
         guard size <= Int.max else {
             throw SolAbiDecodingError.outOfBounds
         }
         let intSize = Int(size)
 
-        var fixedArray = Sol.FixedArray(size: intSize, elements: elements)
+        guard offset < data.count else {
+            throw SolAbiDecodingError.outOfBounds
+        }
+
+        var fixedArray = Sol.FixedArray(size: intSize, repeating: Element.init())
         try fixedArray.decode(from: data, offset: &offset)
+
+        elements = fixedArray.elements
     }
 }
 
+extension Sol.Array: Hashable, Equatable where Element: Hashable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.elements == rhs.elements
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(elements)
+    }
+}

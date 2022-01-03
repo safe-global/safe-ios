@@ -18,6 +18,11 @@ extension Sol {
             precondition(elements.count == size)
         }
 
+        public init(size: Swift.Int, repeating: Element) {
+            self.size = size
+            self.elements = [Element](repeating: repeating, count: size)
+        }
+
         public init() { size = 0; elements = [] }
     }
 }
@@ -44,10 +49,9 @@ extension Sol.FixedArray: SolAbiEncodable {
         (elements.first?.headSize ?? 32) * elements.count
     }
 
-    // I must have an element and a size.
     public mutating func decode(from data: Data, offset: inout Int) throws {
-        precondition(!elements.isEmpty)
-        var tuple = Sol.Tuple(elements: [SolAbiEncodable](repeating: elements[0], count: size))
+        precondition(elements.count == size)
+        var tuple = Sol.Tuple(elements: elements)
         try tuple.decode(from: data, offset: &offset)
         elements = tuple.elements as! [Element]
     }

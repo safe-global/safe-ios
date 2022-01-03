@@ -37,15 +37,30 @@ extension Sol.Bytes: SolAbiEncodable {
 
     public mutating func decode(from data: Data, offset: inout Int) throws {
         let size = try Sol.UInt256(from: data, offset: &offset)
+
         guard size < Int.max else {
             throw SolAbiDecodingError.outOfBounds
         }
         let intSize = Int(size)
+
+        guard offset < data.count - intSize + 1 else {
+            throw SolAbiDecodingError.outOfBounds
+        }
 
         self.storage = data[offset..<offset + intSize]
 
         let remainder32 = intSize % 32
         let paddingLength = remainder32 == 0 ? 0 : (32 - remainder32)
         offset += intSize + paddingLength
+    }
+}
+
+extension Sol.Bytes: Hashable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.storage == rhs.storage
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(storage)
     }
 }
