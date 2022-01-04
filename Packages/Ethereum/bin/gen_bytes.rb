@@ -12,7 +12,6 @@ import Foundation
 extension Sol {
     public struct Bytes{{BYTE_COUNT}} {
         public var storage: Data
-        public init() { storage = Data() }
         public init(storage: Data) { self.storage = storage }
     }
 }

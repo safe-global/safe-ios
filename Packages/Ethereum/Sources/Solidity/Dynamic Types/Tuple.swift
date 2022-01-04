@@ -36,7 +36,7 @@ extension SolEncodableTuple {
     }
 
     public var canonicalName: String {
-        "(\(elements.map(\.canonicalName).joined(separator: ","))"
+        "(\(elements.map(\.canonicalName).joined(separator: ",")))"
     }
 
     public func encode() -> Data {
@@ -133,7 +133,7 @@ extension SolEncodableTuple {
 // useful for expressing Solidity Tuple as a Swift struct - in that case
 // it can be encoded and decoded using default implementations, just
 // provide array of key paths to the tuple elements
-public protocol SolKeyPathTuple: SolEncodableTuple {
+public protocol SolKeyPathTuple {
     static var keyPaths: [AnyKeyPath] { get }
 }
 
@@ -145,9 +145,20 @@ extension SolKeyPathTuple {
         }
         set {
             for (keyPath, element) in zip(Self.keyPaths, newValue) {
-                self[keyPath: keyPath as! WritableKeyPath] = element
+                // the keyPath we get has a concrete Value type which is not
+                // the SolAbiEncodable type (type of element). Force-casting to WritableKeyPath fails
+                // so we use unsafeBitCast.
+                let kp = unsafeBitCast(keyPath, to: WritableKeyPath<Self, SolAbiEncodable>.self)
+                self[keyPath: kp] = element
             }
         }
     }
 }
 
+extension Sol {
+    public struct EmptyTuple: SolEncodableTuple, SolKeyPathTuple {
+        public static var keyPaths: [AnyKeyPath] = []
+
+        public init() {}
+    }
+}

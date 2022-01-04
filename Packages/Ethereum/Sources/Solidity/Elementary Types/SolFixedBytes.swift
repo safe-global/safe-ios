@@ -18,6 +18,10 @@ public protocol SolFixedBytes: SolAbiEncodable, Hashable {
 // MARK: - Encoding
 
 extension SolFixedBytes {
+    public init() {
+        self.init(storage: Data(repeating: 0x00, count: Self.byteCount))
+    }
+
     public func encode() -> Data {
         // bytes<M>: enc(X) is the sequence of bytes in X padded with trailing zero-bytes to a length of 32 bytes
         let remainderFrom32 = Self.byteCount % 32

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CryptoSwift
 
 public protocol SolContractFunction: SolAbiEncodable {
     var selector: Sol.Bytes4 { get set }
@@ -36,7 +37,6 @@ extension Sol {
     }
 }
 
-
 extension SolContractFunction {
     public func encode() -> Data {
         /*
@@ -53,12 +53,20 @@ extension SolContractFunction {
 
          The first four bytes of the call data for a function call specifies the function to be called. It is the first (left, high-order in big-endian) four bytes of the Keccak-256 hash of the signature of the function. The signature is defined as the canonical expression of the basic prototype without data location specifier, i.e. the function name with the parenthesised list of parameter types. Parameter types are split by a single comma - no spaces are used.
          */
-        let result = selector.encode() + parameters.encode()
+        let selector = selector.encode()[0..<4]
+        let result = selector + parameters.encode()
         return result
     }
 
     public mutating func decode(from data: Data, offset: inout Int) throws {
-        self.selector = try Sol.Bytes4(from: data, offset: &offset)
+        guard offset < data.count - 4 + 1 else {
+            throw SolAbiDecodingError.outOfBounds
+        }
+        let selectorData = data[offset..<offset + 4] + Data(repeating: 0x00, count: 32 - 4)
+        var selectorOffset = 0
+        self.selector = try Sol.Bytes4(from: selectorData, offset: &selectorOffset)
+        offset += 4
+
         try self.parameters.decode(from: data, offset: &offset)
     }
 }
@@ -80,24 +88,14 @@ extension SolContractFunction where Self: SolKeyPathTuple {
     public var selector: Sol.Bytes4 {
         get {
             // keccak256(canonicalName)[0..<4]
-            let result = Sol.Bytes4()
+            let preimage = canonicalName
+            let hashValue = SHA3(variant: .keccak256).calculate(for: preimage.bytes)
+            precondition(hashValue.count == 256 / 8)
+            let result = Sol.Bytes4(storage: Data(hashValue[0..<4]))
             return result
         }
         set {
             // do  nothing
         }
-    }
-
-    public func encode() -> Data {
-        let result = selector.encode() + parameters.encode()
-        return result
-    }
-
-    public mutating func decode(from data: Data, offset: inout Int) throws {
-        let selector = try Sol.Bytes4(from: data, offset: &offset)
-        guard selector == self.selector else {
-            throw SolAbiDecodingError.dataInvalid
-        }
-        try self.parameters.decode(from: data, offset: &offset)
     }
 }

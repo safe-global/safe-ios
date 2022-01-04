@@ -15,7 +15,8 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-        .package(url: "https://github.com/attaswift/BigInt.git", from: "5.3.0")
+        .package(url: "https://github.com/attaswift/BigInt.git", .exact("5.3.0")),
+        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .exact("1.4.2"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -29,7 +30,7 @@ let package = Package(
         .target(name: "Ethereum", dependencies: ["Json", "JsonRpc2"]),
         .testTarget(name: "EthereumTests", dependencies: ["Ethereum", "TestHelpers"]),
 
-        .target(name: "Solidity", dependencies: ["WordInteger"]),
+        .target(name: "Solidity", dependencies: ["WordInteger", "CryptoSwift"]),
         .testTarget(name: "SolidityTests", dependencies: ["Solidity"]),
 
         .target(name: "WordInteger", dependencies: ["BigInt"]),

@@ -9,7 +9,6 @@ import Foundation
 extension Sol {
     public struct Bytes10 {
         public var storage: Data
-        public init() { storage = Data() }
         public init(storage: Data) { self.storage = storage }
     }
 }
