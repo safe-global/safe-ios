@@ -380,7 +380,6 @@ extension WordUnsignedInteger {
     }
 
     public init(_truncatingBits value: UInt) {
-//        storage = [value]
         self.init(storage: [value])
     }
 }
