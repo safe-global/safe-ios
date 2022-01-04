@@ -27,8 +27,9 @@ public extension SolAbiEncodable {
 }
 
 struct SolAbiDecodingError: Error {
-    static let dataInvalid = SolAbiDecodingError(code: -1)
-    static let outOfBounds = SolAbiDecodingError(code: -2)
+    static let dataInvalid = SolAbiDecodingError(code: -1, message: "Data invalid")
+    static let outOfBounds = SolAbiDecodingError(code: -2, message: "Data offset is out of bounds")
 
     let code: Int
+    let message: String
 }
