@@ -10,7 +10,6 @@ import BigInt
 
 // MARK: - Signed Integer
 
-// Redundant conformance constraint 'Self' : 'SignedInteger'
 public protocol WordSignedInteger: WordInteger, SignedInteger, FixedWidthInteger, ExpressibleByStringLiteral where Self.Magnitude: WordUnsignedInteger, Self.IntegerLiteralType == Int, Self.Words == [UInt] {
 }
 
@@ -54,36 +53,25 @@ extension WordSignedInteger {
     }
 }
 
-// roots
-//extension WordSignedInteger {
-////extension KInt: Equatable {
-//    public static func == (lhs: Self, rhs: Self) -> Bool {
-//        fatalError()
-//    }
-//}
 extension WordSignedInteger {
-//extension KInt: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: IntegerLiteralType) {
-//        storage = []
         self.init(storage: [UInt(bitPattern: value)])
     }
-
-//    typealias IntegerLiteralType = UInt
 }
+
 extension WordSignedInteger {
-//extension KInt: CustomStringConvertible {
     public var description: String {
         big().description
     }
 }
+
 extension WordSignedInteger {
-//extension KInt: Hashable {
     public func hash(into hasher: inout Hasher) {
         fatalError()
     }
 }
+
 extension WordSignedInteger {
-//extension KInt1: Comparable {
     public static func < (lhs: Self, rhs: Self) -> Bool {
         switch (lhs.isNegative, rhs.isNegative) {
         case (true, true):
@@ -98,10 +86,7 @@ extension WordSignedInteger {
     }
 }
 
-// extensions - level 1
 extension WordSignedInteger {
-//extension KInt: AdditiveArithmetic /* : Equatable */ {
-
     public static func - (lhs: Self, rhs: Self) -> Self {
         let c = lhs.subtractingReportingOverflow(rhs)
         precondition(!c.overflow)
@@ -116,7 +101,6 @@ extension WordSignedInteger {
 }
 
 extension WordSignedInteger {
-//extension KInt: Strideable /* : Comparable */ {
     public func advanced(by n: Stride) -> Self {
         fatalError()
     }
@@ -124,22 +108,15 @@ extension WordSignedInteger {
     public func distance(to other: Self) -> Stride {
         fatalError()
     }
-
-//    typealias Stride = KInt
 }
 
 extension WordSignedInteger {
-//extension KInt: LosslessStringConvertible /* : CustomStringConvertible */ {
     public init?(_ description: String) {
         nil
     }
 }
 
-// extensions - level 2
 extension WordSignedInteger {
-//extension KInt: Numeric /* : AdditiveArithmetic, ExpressibleByIntegerLiteral */ {
-//    typealias Magnitude = KUInt
-
     public var magnitude: Magnitude {
         if isNegative {
             let v = Magnitude(storage: storage)
@@ -160,34 +137,26 @@ extension WordSignedInteger {
     public static func * (lhs: Self, rhs: Self) -> Self {
         fatalError()
     }
-
 }
 
-// non-standard, additional
 extension WordSignedInteger {
-
-    // expressible by string literal
     public init(stringLiteral value: String) {
         let v = BigInt(stringLiteral: value)
         self.init(big: v)
     }
 
-    // expressible by extended grapheme ... literal
     public init(extendedGraphemeClusterLiteral value: String) {
         let v = BigInt(extendedGraphemeClusterLiteral: value)
         self.init(big: v)
     }
 
-    // expressible by unicode scalar literal
     public init(unicodeScalarLiteral value: UnicodeScalar) {
         let v = BigInt(unicodeScalarLiteral: value)
         self.init(big: v)
     }
 }
 
-// extensions - level 3
 extension WordSignedInteger {
-//extension KInt: BinaryInteger /* : CustomStringConvertible, Hashable, Numeric, Strideable */ {
     public static func %= (lhs: inout Self, rhs: Self) {
         lhs = lhs % rhs
     }
@@ -256,8 +225,6 @@ extension WordSignedInteger {
         lhs = lhs >> rhs
     }
 
-//    typealias Words = [UInt]
-
     public var words: [UInt] {
         storage
     }
@@ -277,22 +244,7 @@ extension WordSignedInteger {
     }
 }
 
-// extensions - level 4
-
 extension WordSignedInteger {
-//extension KInt: SignedNumeric /* : Numeric */ {
-
-}
-extension WordSignedInteger {
-//extension KInt: SignedInteger /* : BinaryInteger, SignedNumeric */ {
-
-}
-extension WordSignedInteger {
-//extension KInt: FixedWidthInteger /* : BinaryInteger, LosslessStringConvertible */ {
-//    public static var bitWidth: Int {
-//        72
-//    }
-
     public func addingReportingOverflow(_ rhs: Self) -> (partialValue: Self, overflow: Bool) {
         let a = big()
         let b = rhs.big()
@@ -310,7 +262,7 @@ extension WordSignedInteger {
         let c = a - b
         let partialValue = Self(big: c)
         let signFlipped = isPositive && rhs.isNegative && partialValue.isNegative ||
-            isNegative && isPositive && partialValue.isPositive
+            isNegative && rhs.isPositive && partialValue.isPositive
         let overflow = (c.bitWidth - 1) > Self.bitWidth || signFlipped
         return (partialValue, overflow)
     }
@@ -320,8 +272,11 @@ extension WordSignedInteger {
         let b = rhs.big()
         let c = a * b
         let partialValue = Self(big: c)
-        let signFlipped = isPositive && rhs.isPositive && partialValue.isNegative ||
-            isNegative && rhs.isNegative && partialValue.isPositive
+        let signFlipped =
+            isPositive && rhs.isPositive && partialValue.isNegative || // + * + = +
+            isNegative && rhs.isNegative && partialValue.isNegative || // - * - = +
+            isPositive && rhs.isNegative && partialValue.isPositive || // + * - = -
+            isNegative && rhs.isPositive && partialValue.isPositive    // - * + = -
         let overflow = (c.bitWidth - 1) > Self.bitWidth || signFlipped
         return (partialValue, overflow)
     }
@@ -406,7 +361,6 @@ extension WordSignedInteger {
     }
 
     public init(_truncatingBits value: UInt) {
-//        storage = [value]
         self.init(storage: [value])
     }
 }

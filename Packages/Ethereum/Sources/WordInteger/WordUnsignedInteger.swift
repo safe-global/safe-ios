@@ -15,9 +15,8 @@ public protocol WordInteger {
     init()
     init(storage: [UInt])
 }
-// redundant conformance to unsigned integer
+
 public protocol WordUnsignedInteger: WordInteger, UnsignedInteger, FixedWidthInteger, ExpressibleByStringLiteral where Self.Stride: WordSignedInteger, Self.IntegerLiteralType == UInt {
-//protocol KUInt: UnsignedInteger, FixedWidthInteger where Self.Stride == KInt, Self.Magnitude == Self, Self.IntegerLiteralType == UInt, Self.Words == [UInt] {
 }
 
 extension WordInteger {
@@ -86,46 +85,35 @@ extension WordUnsignedInteger {
     }
 }
 
-// roots
 extension WordInteger {
-//extension KUInt: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.storage == rhs.storage
     }
 }
 
 extension WordUnsignedInteger {
-//extension KUInt: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: IntegerLiteralType) {
         self.init(storage: [value])
     }
-
-//    typealias IntegerLiteralType = UInt
 }
 
 extension WordUnsignedInteger {
-//extension KUInt: CustomStringConvertible {
     public var description: String {
-        // convert to decimal string --> BigUInt
         return big().description
     }
 }
 
-// non-standard (not required by fixed integers)
 extension WordUnsignedInteger {
-    // expressible by string literal
     public init(stringLiteral value: String) {
         let v = BigUInt(stringLiteral: value)
         self.init(big: v)
     }
 
-    // expressible by extended grapheme ... literal
     public init(extendedGraphemeClusterLiteral value: String) {
         let v = BigUInt(extendedGraphemeClusterLiteral: value)
         self.init(big: v)
     }
 
-    // expressible by unicode scalar literal
     public init(unicodeScalarLiteral value: UnicodeScalar) {
         let v = BigUInt(unicodeScalarLiteral: value)
         self.init(big: v)
@@ -133,23 +121,18 @@ extension WordUnsignedInteger {
 }
 
 extension WordUnsignedInteger {
-//extension KUInt: Hashable {
     public func hash(into hasher: inout Hasher) {
         words.forEach { hasher.combine($0) }
     }
 }
 
 extension WordUnsignedInteger {
-//extension KUInt1: Comparable {
     public static func < (lhs: Self, rhs: Self) -> Bool {
         lhs.big() < rhs.big()
     }
 }
 
-// extensions - level 1
 extension WordUnsignedInteger {
-//extension KUInt: AdditiveArithmetic /* : Equatable */ {
-
     public static func - (lhs: Self, rhs: Self) -> Self {
         let c = lhs.subtractingReportingOverflow(rhs)
         precondition(!c.overflow)
@@ -167,42 +150,32 @@ extension WordUnsignedInteger {
     }
 }
 
-// The Strideable protocol provides default implementations for the equal-to (==) and less-than (<) operators that depend on the Stride type’s implementations. If a type conforming to Strideable is its own Stride type, it must provide concrete implementations of the two operators to avoid infinite recursion.
+// The Strideable protocol provides default implementations for the equal-to (==) and less-than (<) operators that
+// depend on the Stride type’s implementations. If a type conforming to Strideable is its own Stride type,
+// it must provide concrete implementations of the two operators to avoid infinite recursion.
 extension WordUnsignedInteger {
-//extension KUInt: Strideable /* : Comparable */ {
-
-    // If this type’s Stride type conforms to BinaryInteger, then for a value x, a distance n, and a value y = x.advanced(by: n), x.distance(to: y) == n. Using this method with types that have a noninteger Stride may result in an approximation. If the result of advancing by n is not representable as a value of this type, then a runtime error may occur.
+    // If this type’s Stride type conforms to BinaryInteger, then for a value x,
+    // a distance n, and a value y = x.advanced(by: n), x.distance(to: y) == n.
+    // Using this method with types that have a noninteger Stride may result in an approximation.
+    // If the result of advancing by n is not representable as a value of this type, then a runtime error may occur.
     public func advanced(by n: Stride) -> Self {
         let b = Self(storage: n.storage)
         let c = self + b
         return c
     }
 
-    // If this type’s Stride type conforms to BinaryInteger, then for two values x and y, and a distance n = x.distance(to: y), x.advanced(by: n) == y. Using this method with types that have a noninteger Stride may result in an approximation.
+    // If this type’s Stride type conforms to BinaryInteger, then for two values x and y, and
+    // a distance n = x.distance(to: y), x.advanced(by: n) == y. Using this method with types that have a
+    // noninteger Stride may result in an approximation.
     public func distance(to other: Self) -> Stride {
         let minusSelf = twosComplement
         let distance = other + minusSelf
         return Stride(storage: distance.storage)
     }
-
-//    typealias Stride = KInt
 }
 
-//extension WordUnsignedInteger {
-//extension KUInt: LosslessStringConvertible /* : CustomStringConvertible */ {
-//    public init?(_ description: String) {
-//        guard let v = BigUInt(description, radix: 10), v <= Self.max.big() else { return nil }
-//        self.init(big: v)
-//    }
-//}
-
-// extensions - level 2
 extension WordUnsignedInteger {
-//extension KUInt: Numeric /* : AdditiveArithmetic, ExpressibleByIntegerLiteral */ {
-//    typealias Magnitude = KUInt
-
     public var magnitude: Self {
-//        Self(storage: [])
         self
     }
 
@@ -225,9 +198,7 @@ extension WordUnsignedInteger {
 
 }
 
-// extensions - level 3
 extension WordUnsignedInteger {
-//extension KUInt: BinaryInteger /* : CustomStringConvertible, Hashable, Numeric, Strideable */ {
     public static func %= (lhs: inout Self, rhs: Self) {
         lhs = lhs % rhs
     }
@@ -267,15 +238,6 @@ extension WordUnsignedInteger {
         return Self(big: b)
     }
 
-    // infinite loop?
-    // TODO: NOT!
-    static func &<< <Other>(lhs: Self, rhs: Other) -> Self where Other : BinaryInteger {
-        let shiftAmount = Int(rhs) % Self.bitWidth
-        let a = lhs.big()
-        let b = a << shiftAmount
-        return Self(big: b)
-    }
-
     // implemented, otherwise infinite recursion
     public static func <<= <RHS>(lhs: inout Self, rhs: RHS) where RHS : BinaryInteger {
         lhs = lhs << rhs
@@ -292,8 +254,6 @@ extension WordUnsignedInteger {
     public static func >>= <RHS>(lhs: inout Self, rhs: RHS) where RHS : BinaryInteger {
         lhs = lhs >> rhs
     }
-
-//    typealias Words = [UInt]
 
     public var words: [UInt] {
         storage
@@ -320,17 +280,7 @@ extension WordUnsignedInteger {
     }
 }
 
-// extensions - level 4
 extension WordUnsignedInteger {
-//extension KUInt: UnsignedInteger /* : BinaryInteger */ {
-
-}
-extension WordUnsignedInteger {
-//extension KUInt: FixedWidthInteger /* : BinaryInteger, LosslessStringConvertible */ {
-//    public static var bitWidth: Int {
-//        72
-//    }
-
     public func addingReportingOverflow(_ rhs: Self) -> (partialValue: Self, overflow: Bool) {
         let c = big() + rhs.big()
         let overflow = c.bitWidth > Self.bitWidth
