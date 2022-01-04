@@ -28,12 +28,12 @@ public enum ERC20 {
 
     public struct symbol: SolContractFunction, SolKeyPathTuple {
         public struct Returns: SolEncodableTuple, SolKeyPathTuple {
-            public var name: Sol.String
+            public var symbol: Sol.String
 
-            public static var keyPaths: [AnyKeyPath] = [\Self.name]
+            public static var keyPaths: [AnyKeyPath] = [\Self.symbol]
 
             public init(name: Sol.String) {
-                self.name = name
+                self.symbol = name
             }
 
             public init() { self.init(name: .init()) }
@@ -130,17 +130,8 @@ public enum ERC20 {
 
         public static var keyPaths: [AnyKeyPath] = [\Self.to, \Self.value]
 
-        public struct Returns: SolEncodableTuple, SolKeyPathTuple {
-            public var success: Sol.Bool
+        public typealias Returns = ReturnsSuccess
 
-            public static var keyPaths: [AnyKeyPath] = [\Self.success]
-
-            public init(success: Sol.Bool) {
-                self.success = success
-            }
-
-            public init() { self.init(success: .init()) }
-        }
         public init(to: Sol.Address, value: Sol.UInt256) {
             self.to = to
             self.value = value
@@ -166,19 +157,7 @@ public enum ERC20 {
             self.init(from: .init(), to: .init(), value: .init())
         }
 
-        public struct Returns: SolEncodableTuple, SolKeyPathTuple {
-            public var success: Sol.Bool
-
-            public static var keyPaths: [AnyKeyPath] = [\Self.success]
-
-            public init(success: Sol.Bool) {
-                self.success = success
-            }
-
-            public init() {
-                self.init(success: .init())
-            }
-        }
+        public typealias Returns = ReturnsSuccess
     }
 
     public struct approve: SolContractFunction, SolKeyPathTuple {
@@ -187,21 +166,24 @@ public enum ERC20 {
 
         public static var keyPaths: [AnyKeyPath] = [\Self.spender, \Self.value]
 
-        public struct Returns: SolEncodableTuple, SolKeyPathTuple {
-            public var success: Sol.Bool
+        public typealias Returns = ReturnsSuccess
 
-            public static var keyPaths: [AnyKeyPath] = [\Self.success]
-
-            public init(success: Sol.Bool) {
-                self.success = success
-            }
-            public init() { self.init(success: .init()) }
-        }
         public init(spender: Sol.Address, value: Sol.UInt256) {
             self.spender = spender
             self.value = value
         }
 
         public init() { self.init(spender: .init(), value: .init()) }
+    }
+
+    public struct ReturnsSuccess: SolEncodableTuple, SolKeyPathTuple {
+        public var success: Sol.Bool
+
+        public static var keyPaths: [AnyKeyPath] = [\Self.success]
+
+        public init(success: Sol.Bool) {
+            self.success = success
+        }
+        public init() { self.init(success: .init()) }
     }
 }
