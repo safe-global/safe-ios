@@ -10,7 +10,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Ethereum",
-            targets: ["Json", "JsonRpc2", "Ethereum", "Solidity"]),
+            targets: ["Json", "JsonRpc2", "Ethereum", "Solidity", "SafeDeployments"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -35,6 +35,9 @@ let package = Package(
 
         .target(name: "WordInteger", dependencies: ["BigInt"]),
         .testTarget(name: "WordIntegerTests", dependencies: ["WordInteger"]),
+
+        .target(name: "SafeDeployments", dependencies: ["Solidity"], resources: [.copy("assets")]),
+        .testTarget(name: "SafeDeploymentsTests", dependencies: ["SafeDeployments"]),
 
         .target(name: "TestHelpers")
     ]
