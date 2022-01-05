@@ -11,14 +11,14 @@ extension Sol {
     public enum Json {}
 }
 
-protocol SolJsonAbiType {
+public protocol SolJsonAbiType {
     var type: Sol.Json.TypeId { get }
 }
 
 // solidity compiler v0.7.6 - 0.8.11
 extension Sol.Json {
     public struct Contract {
-        var abi: [SolJsonAbiType]
+        public var abi: [SolJsonAbiType]
     }
 
     public struct Function: SolJsonAbiType, Codable {
