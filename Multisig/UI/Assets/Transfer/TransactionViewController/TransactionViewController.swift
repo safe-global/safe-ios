@@ -81,7 +81,7 @@ class TransactionViewController: UIViewController {
 
     @IBAction private func didTapReviewButton(_ sender: Any) {
         let vc = ReviewSendFundsTransactionViewController()
-        vc.toAddress = address
+        vc.address = address
         vc.safe = safe
         vc.amount = amount
 

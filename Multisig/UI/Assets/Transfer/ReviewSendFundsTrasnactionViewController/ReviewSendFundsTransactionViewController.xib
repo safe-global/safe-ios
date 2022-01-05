@@ -12,9 +12,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReviewSendFundsTransactionViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="confirmButton" destination="gpc-EJ-2Wi" id="O54-gw-EVR"/>
+                <outlet property="contentContainerView" destination="exn-rB-X4l" id="mMv-E5-6pb"/>
                 <outlet property="descriptionLabel" destination="9lF-Zo-WNx" id="d7N-MQ-OrL"/>
                 <outlet property="estimationFailedDescriptionLabel" destination="mIn-yK-oM2" id="05m-Tf-Sxs"/>
                 <outlet property="estimationFailedLabel" destination="kvr-AR-gh9" id="1ow-uD-bGw"/>
+                <outlet property="estimationFailedView" destination="NjX-ll-Qv3" id="NMB-Eh-B5I"/>
+                <outlet property="loadingActivityIndicator" destination="c45-1o-qKX" id="d5e-fL-zK7"/>
                 <outlet property="retryButton" destination="KlU-3H-1EA" id="YAx-gq-CdY"/>
                 <outlet property="tableView" destination="bcC-1M-wdN" id="bOi-W7-XtJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -25,7 +28,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="c45-1o-qKX">
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="c45-1o-qKX">
                     <rect key="frame" x="197" y="443" width="20" height="20"/>
                 </activityIndicatorView>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NjX-ll-Qv3">
@@ -89,10 +92,6 @@
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bcC-1M-wdN">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="685"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <connections>
-                                <outlet property="dataSource" destination="-1" id="eU6-M8-nHv"/>
-                                <outlet property="delegate" destination="-1" id="TJ4-ou-4NF"/>
-                            </connections>
                         </tableView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You’re about to initiate a Safe transaction. It won’t be submitted to blockchain yet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9lF-Zo-WNx">
                             <rect key="frame" x="16" y="693" width="382" height="41"/>
