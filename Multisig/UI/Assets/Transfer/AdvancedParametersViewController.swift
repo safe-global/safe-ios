@@ -79,7 +79,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.walletConnectEditParameters, parameters: trackingParameters)
+        Tracker.trackEvent(.assetsTransferAdvancedParams, parameters: trackingParameters)
     }
     
     @objc private func save() {
