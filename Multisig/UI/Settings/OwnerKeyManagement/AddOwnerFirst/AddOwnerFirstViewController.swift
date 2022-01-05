@@ -37,5 +37,6 @@ class AddOwnerFirstViewController: UIViewController {
             self.onSuccess?()
         }
         show(vc, sender: self)
+        Tracker.trackEvent(.assetTransferAddOwnerClicked)
     }
 }
