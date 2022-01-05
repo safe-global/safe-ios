@@ -1,0 +1,6 @@
+lane :refresh_dsyms do
+  download_dsyms                  # Download dSYM files from iTC
+  upload_symbols_to_crashlytics   # Upload them to Crashlytics
+  clean_build_artifacts           # Delete the local dSYM files
+end
+
