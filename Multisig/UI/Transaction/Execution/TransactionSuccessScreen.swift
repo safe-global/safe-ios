@@ -14,13 +14,18 @@ class TransactionSuccessScreen: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var viewDetailsButton: UIButton!
     
-    var amount: String = ""
-    var transactionDetails: SCGModels.TransactionDetails?
+    private var amount: String = ""
+    private var transactionDetails: SCGModels.TransactionDetails?
+    private var trackingEvent: TrackingEvent!
     
-    convenience init(amount: String, transactionDetails: SCGModels.TransactionDetails? = nil) {
+    convenience init(
+        amount: String,
+        transactionDetails: SCGModels.TransactionDetails? = nil,
+        trackingEvent: TrackingEvent = .assetsTransferSuccess) {
         self.init(nibName: nil, bundle: nil)
         self.amount = amount
         self.transactionDetails = transactionDetails
+        self.trackingEvent = trackingEvent
     }
     
     override func viewDidLoad() {
@@ -32,6 +37,11 @@ class TransactionSuccessScreen: UIViewController {
         statusLabel.setStyle(.primary)
         statusLabel.text = "Your request to send \(amount) is submitted and needs to be confirmed by other owners."
         viewDetailsButton.setText("View details", .filled)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(trackingEvent)
     }
     
     @IBAction func viewDetailsClicked(_ sender: Any) {

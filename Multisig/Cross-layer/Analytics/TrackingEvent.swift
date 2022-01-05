@@ -31,11 +31,20 @@ enum TrackingEvent: String, Trackable {
 
     case assetsNoSafe                               = "screen_assets_no_safe"
     case assetsCoins                                = "screen_assets_coins"
-    case assetsTransferSelect                       = "screen_assets_coins_transfer_select"
     case assetsCollectibles                         = "screen_assets_collectibles"
     case assetsCollectiblesDetails                  = "screen_assets_collectibles_details"
     case collectiblesNotSupported                   = "screen_collectibles_not_supported"
     case collectiblesOpenInWeb                      = "user_collectibles_open_in_web"
+    
+    case assetTrasferReceiveClicked                 = "user_select_receive_asset"
+    case assetTransferSendClicked                   = "user_select_send_asset"
+    case assetTransferAddOwnerClicked               = "user_select_add_owner_to_send_assets"
+    case assetsTransferSelect                       = "screen_select_asset"
+    case assetsTransferAddOwner                     = "screen_add_owner_to_send_funds"
+    case assetsTransferInit                         = "screen_asset_transfer"
+    case assetsTransferReview                       = "screen_review_asset_transfer"
+    case assetsTransferAdvancedParams               = "screen_asset_transfer_advanced_params"
+    case assetsTransferSuccess                      = "screen_asset_transfer_success"
 
     case safeReceive                                = "screen_safe_receive"
     case safeSwitch                                 = "screen_safe_switch"
