@@ -80,6 +80,11 @@ class MainTabBarViewController: UITabBarController {
         onFirstAppear(self)
 
         WhatsNewHandler().whatsNewViewController?.present(on: self)
+
+        if (App.shared.intercomConfig.presentMessenger) {
+            App.shared.intercomConfig.presentMessenger = false
+            App.shared.intercomConfig.startChat()
+        }
     }
 
     private func balancesTabViewController() -> UIViewController {

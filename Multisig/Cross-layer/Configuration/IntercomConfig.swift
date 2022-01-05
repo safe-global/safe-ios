@@ -8,6 +8,8 @@ import Intercom
 
 class IntercomConfig {
 
+    var presentMessenger: Bool = false
+
     func setUp() {
         Intercom.setApiKey(App.configuration.services.intercomApiKey, forAppId: App.configuration.services.intercomAppId)
 
@@ -22,7 +24,7 @@ class IntercomConfig {
     func disableChatOverlay() {
         Intercom.setInAppMessagesVisible(false)
     }
-    
+
     func startChat() {
         Intercom.presentMessenger()
     }
