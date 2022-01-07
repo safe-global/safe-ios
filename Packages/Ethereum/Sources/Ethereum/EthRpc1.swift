@@ -1220,12 +1220,14 @@ extension Eth {
 
         public static let baseUnit: Eth.Unit = wei
 
+        // Reference: https://www.languagesandnumbers.com/articles/en/ethereum-ether-units/
+
         public static let wei = Eth.Unit(symbol: "Wei", converter: UnitConverterLinear(coefficient: 1))
         public static let attoether = Eth.Unit(symbol: "aΞ", converter: kilowei.converter)
 
         public static let kilowei = Eth.Unit(symbol: "Kwei", converter: UnitConverterLinear(coefficient: 1_000))
         public static let femtoether = Eth.Unit(symbol: "fΞ", converter: kilowei.converter)
-        public static let lovelace = Eth.Unit(symbol: "Lovelace", converter: kilowei.converter)
+        public static let lovelace = Eth.Unit(symbol: "Ada", converter: kilowei.converter)
 
         public static let megawei = Eth.Unit(symbol: "Mwei", converter: UnitConverterLinear(coefficient: 1_000_000))
         public static let picoether = Eth.Unit(symbol: "pΞ", converter: megawei.converter)
@@ -1246,5 +1248,15 @@ extension Eth {
         public static let exawei = Eth.Unit(symbol: "Ewei", converter: UnitConverterLinear(coefficient: 1_000_000_000_000_000_000))
         public static let ether = Eth.Unit(symbol: "Ξ", converter: exawei.converter)
         public static let buterin = Eth.Unit(symbol: "Buterin", converter: exawei.converter)
+
+        public static let kiloether = Eth.Unit(symbol: "kΞ", converter: UnitConverterLinear(coefficient: "1000000000000000000000"))
+        public static let grand = Eth.Unit(symbol: "Grand", converter: kiloether.converter)
+        public static let einstein = Eth.Unit(symbol: "Einstein", converter: kiloether.converter)
+
+        public static let megaether = Eth.Unit(symbol: "MΞ", converter: UnitConverterLinear(coefficient: "1000000000000000000000000"))
+
+        public static let gigaether = Eth.Unit(symbol: "GΞ", converter: UnitConverterLinear(coefficient: "1000000000000000000000000000"))
+
+        public static let teraether = Eth.Unit(symbol: "TΞ", converter: UnitConverterLinear(coefficient: "1000000000000000000000000000000"))
     }
 }
