@@ -76,6 +76,20 @@ public enum EthRpc1 {
                 self = .unknown
             }
         }
+
+        public func encode(to encoder: Encoder) throws {
+            switch self {
+            case .legacy(let value):
+                try value.encode(to: encoder)
+            case .eip2930(let value):
+                try value.encode(to: encoder)
+            case .eip1559(let value):
+                try value.encode(to: encoder)
+            case .unknown:
+                var container = encoder.singleValueContainer()
+                try container.encode([String: String]())
+            }
+        }
     }
 
     public struct TransactionLegacy: Codable {
@@ -1032,6 +1046,10 @@ extension Eth.AccessList: RlpCodable {
 import CryptoSwift
 
 extension Eth.TransactionEip1559 {
+    // The signature_y_parity, signature_r, signature_s elements of this transaction represent a
+    // secp256k1 signature over
+    // keccak256(0x02 || rlp([chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, destination, amount, data, access_list]))
+
     public func preImageForSigning() -> Data {
         let array: [RlpCodable] = [
             chainId,
@@ -1057,6 +1075,9 @@ extension Eth.TransactionEip1559 {
 }
 
 extension Eth.TransactionEip1559 {
+//        // rlp-encode transaction items
+//        let rlpTransaction = RlpCoder().encode([chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, destination, amount, data, access_list as [RlpCodable]])
+
     public func rawTransaction() -> EthRpc1.Data {
         let signature = self.signature ?? Eth.Signature(yParity: 0, r: 0, s: 0)
         let array: [RlpCodable] = [
