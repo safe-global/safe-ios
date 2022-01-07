@@ -88,6 +88,8 @@ class TransactionIntegrationTests: XCTestCase {
         continueAfterFailure = false
         let privateKey = try PrivateKey(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))
 
+        let minerTip = Eth.Amount(value: 2, unit: Eth.Unit.gigawei).converted(to: Eth.Unit.wei).value
+
         let tx = Eth.TransactionEip1559(
             chainId: 4,
             from: "728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
@@ -97,8 +99,8 @@ class TransactionIntegrationTests: XCTestCase {
             to: "dd1D27C114aB45e8A650B251eDFA1b0795bbe020",
             value: Eth.Amount(value: 1, unit: Eth.Unit.kilowei).value,
             fee: Eth.Fee(
-                // miner tip
-                maxPriorityFee: Eth.Amount(value: 2, unit: Eth.Unit.gigawei).converted(to: Eth.Unit.wei).value
+                maxFeePerGas: minerTip,
+                maxPriorityFee: minerTip
             )
         )
 
@@ -120,6 +122,8 @@ class TransactionIntegrationTests: XCTestCase {
 
         print("call data", input.toHexStringWithPrefix())
 
+        let minerTip = Eth.Amount(value: 2, unit: Eth.Unit.gigawei).converted(to: Eth.Unit.wei).value
+
         let tx = Eth.TransactionEip1559(
             chainId: 4,
             from: "728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
@@ -128,8 +132,8 @@ class TransactionIntegrationTests: XCTestCase {
             // erc20 transfer call
             input: Sol.Bytes(storage: input),
             fee: Eth.Fee(
-                // miner tip
-                maxPriorityFee: Eth.Amount(value: 2, unit: Eth.Unit.gigawei).converted(to: Eth.Unit.wei).value
+                maxFeePerGas: minerTip,
+                maxPriorityFee: minerTip
             )
         )
 
@@ -346,6 +350,7 @@ class TransactionIntegrationTests: XCTestCase {
         }
 
         // send transaction
+
         let signatures = multisigDetails.confirmations.sorted { lhs, rhs in
             lhs.signer.value.address.hexadecimal < rhs.signer.value.address.hexadecimal
         }.map { confirmation in
