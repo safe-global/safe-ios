@@ -11,7 +11,7 @@ import TestHelpers
 
 class JsonRpc2ClientTests: XCTestCase {
     let client = JsonRpc2.Client(
-        transport: JsonRpc2.ClientHTTPTransport(url: "https://mainnet.infura.io/v3/PROJECTID"),
+        transport: JsonRpc2.ClientHTTPTransport(url: "https://mainnet.infura.io/v3/fda31d5c85564ae09c97b1b970e7eb33"),
         serializer: JsonRpc2.DefaultSerializer())
 
     func testSendData() {

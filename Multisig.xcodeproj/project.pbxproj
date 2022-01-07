@@ -205,7 +205,6 @@
 		0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */; };
 		0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */; };
 		0A5307462543273F00E8A270 /* UIViewController+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5307452543273F00E8A270 /* UIViewController+UINib.swift */; };
-		0A559A672672096B00E83A9E /* TotalBalanceTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A559A662672096B00E83A9E /* TotalBalanceTableViewCellTests.swift */; };
 		0A559A6926720E5300E83A9E /* BannerTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A559A6826720E5300E83A9E /* BannerTableViewCellTests.swift */; };
 		0A573F2925876B9E009EF0C1 /* AddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A573F2825876B9E009EF0C1 /* AddressField.swift */; };
 		0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A573F6D25877586009EF0C1 /* AddressField.xib */; };
@@ -221,6 +220,7 @@
 		0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5E32577FBD900420303 /* DetailConfirmationCell.xib */; };
 		0A57C8E92587AECB00B7C019 /* EnterSafeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C8E72587AECB00B7C019 /* EnterSafeAddressViewController.swift */; };
 		0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C8E82587AECB00B7C019 /* EnterSafeAddressViewController.xib */; };
+		0A5B87E2278633FF000B66EA /* Ethereum in Frameworks */ = {isa = PBXBuildFile; productRef = 0A5B87E1278633FF000B66EA /* Ethereum */; };
 		0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */; };
 		0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */; };
 		0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */; };
@@ -1282,6 +1282,7 @@
 				D80B5A13276B5FAD00D6E024 /* SkeletonView in Frameworks */,
 				0A3DAD9526270F4D00743E38 /* idn2.xcframework in Frameworks */,
 				93EE3F752760F49800111F17 /* Intercom in Frameworks */,
+				0A5B87E2278633FF000B66EA /* Ethereum in Frameworks */,
 				0ACCC6E52742991100EC79B9 /* Web3 in Frameworks */,
 				55888DFF260C4F6200940347 /* SwiftAccessPolicy in Frameworks */,
 				0463F5C326296924009C04FA /* FirebaseCrashlytics in Frameworks */,
@@ -3036,6 +3037,7 @@
 				0ACCC6E42742991100EC79B9 /* Web3 */,
 				93EE3F742760F49800111F17 /* Intercom */,
 				D80B5A12276B5FAD00D6E024 /* SkeletonView */,
+				0A5B87E1278633FF000B66EA /* Ethereum */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
@@ -3804,7 +3806,6 @@
 				0A61E83E2670DED5009D68A4 /* BalanceTableViewCellTests.swift in Sources */,
 				0A3DFEF72667D1C000B45770 /* CoreDataTestCase.swift in Sources */,
 				0A802B9024E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift in Sources */,
-				0A559A672672096B00E83A9E /* TotalBalanceTableViewCellTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5255,6 +5256,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
 			productName = SwiftCryptoTokenFormatter;
+		};
+		0A5B87E1278633FF000B66EA /* Ethereum */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Ethereum;
 		};
 		0A61E83B2670DE68009D68A4 /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;

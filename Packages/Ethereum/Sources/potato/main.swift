@@ -1,9 +1,11 @@
 //
-//  File.swift
+//  main.swift
 //  
 //
 //  Created by Dmitry Bespalov on 05.01.22.
 //
+
+// Generates swift abi types from the safe deployment.
 
 import Foundation
 import SafeDeployments

@@ -12,7 +12,7 @@ import Web3
 struct PrivateKey {
     var id: KeyID
     var mnemonic: String?
-    private var _store: EthereumPrivateKey
+    private(set) var _store: EthereumPrivateKey
 
     typealias KeyID = String
 

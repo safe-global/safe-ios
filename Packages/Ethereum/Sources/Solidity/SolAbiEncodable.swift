@@ -24,6 +24,11 @@ public extension SolAbiEncodable {
         self.init()
         try self.decode(from: data, offset: &offset)
     }
+
+    init(_ data: Data) throws {
+        var offset = 0
+        try self.init(from: data, offset: &offset)
+    }
 }
 
 struct SolAbiDecodingError: Error {
