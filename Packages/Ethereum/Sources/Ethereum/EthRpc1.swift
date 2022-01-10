@@ -861,8 +861,116 @@ extension Sol.Address: CustomStringConvertible {
     }
 }
 
-
+// [nonce, gasPrice, gasLimit, to, value, data, v, r, s]
 public enum Eth {
+    public struct TransactionLegacy {
+        // affects hashing per EIP-155
+        public var chainId: Sol.UInt256? = nil
+
+        public var from: Sol.Address? = nil
+        public var to: Sol.Address = 0
+        public var value: Sol.UInt256 = 0
+        public var input: Sol.Bytes = .init()
+        public var nonce: Sol.UInt64 = 0
+
+        public var fee: FeeLegacy = .init()
+
+        public var hash: Hash? = nil
+        public var signature: SignatureLegacy? = nil
+        public var locationInBlock: BlockLocation? = nil
+
+        public init(chainId: Sol.UInt256? = nil, from: Sol.Address? = nil, to: Sol.Address = 0, value: Sol.UInt256 = 0, input: Sol.Bytes = .init(), nonce: Sol.UInt64 = 0, fee: Eth.FeeLegacy = .init(), hash: Eth.Hash? = nil, signature: Eth.SignatureLegacy? = nil, locationInBlock: Eth.BlockLocation? = nil) {
+            self.chainId = chainId
+            self.from = from
+            self.to = to
+            self.value = value
+            self.input = input
+            self.nonce = nonce
+            self.fee = fee
+            self.hash = hash
+            self.signature = signature
+            self.locationInBlock = locationInBlock
+        }
+    }
+
+    public struct FeeLegacy {
+        public var gas: Sol.UInt64 = 0
+        public var gasPrice: Sol.UInt256 = 0
+
+        public init(gas: Sol.UInt64 = 0, gasPrice: Sol.UInt256 = 0) {
+            self.gas = gas
+            self.gasPrice = gasPrice
+        }
+    }
+
+    public struct SignatureLegacy {
+        public var v: Sol.UInt256
+        public var r: Sol.UInt256
+        public var s: Sol.UInt256
+
+        // requires:
+        // v = {0, 1}
+        // r, s are from the secp256k1 signature
+        public init(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256, chainId: Sol.UInt256? = nil) {
+            // EIP-155
+            // If you do, then the v of the signature MUST be set to {0,1} + CHAIN_ID * 2 + 35
+            // otherwise then v continues to be set to {0,1} + 27 as previously.
+            if let chainId = chainId {
+                self.v = v + chainId * 2 + 35
+            } else {
+                self.v = v + 27
+            }
+            self.r = r
+            self.s = s
+        }
+    }
+
+
+    public struct TransactionEip2930 {
+        public var type: Sol.UInt64 = 0x01
+
+        public var chainId: Sol.UInt256 = 1
+
+        public var from: Sol.Address? = nil
+        public var to: Sol.Address = 0
+        public var value: Sol.UInt256 = 0
+        public var input: Sol.Bytes = .init()
+        public var nonce: Sol.UInt64 = 0
+
+        public var fee: Fee2930 = .init()
+
+        public var hash: Hash? = nil
+        public var signature: Signature? = nil
+        public var locationInBlock: BlockLocation? = nil
+
+        public init(type: Sol.UInt64 = 0x01, chainId: Sol.UInt256 = 1, from: Sol.Address? = nil, to: Sol.Address = 0, value: Sol.UInt256 = 0, input: Sol.Bytes = .init(), nonce: Sol.UInt64 = 0, fee: Eth.Fee2930 = .init(), hash: Eth.Hash? = nil, signature: Eth.Signature? = nil, locationInBlock: Eth.BlockLocation? = nil) {
+            self.type = type
+            self.chainId = chainId
+            self.from = from
+            self.to = to
+            self.value = value
+            self.input = input
+            self.nonce = nonce
+            self.fee = fee
+            self.hash = hash
+            self.signature = signature
+            self.locationInBlock = locationInBlock
+        }
+    }
+
+    public struct Fee2930 {
+        public var gas: Sol.UInt64 = 0
+        public var gasPrice: Sol.UInt256 = 0
+        public var accessList: AccessList = .init()
+
+
+        public init(gas: Sol.UInt64 = 0, gasPrice: Sol.UInt256 = 0, accessList: Eth.AccessList = .init()) {
+            self.gas = gas
+            self.gasPrice = gasPrice
+            self.accessList = accessList
+        }
+    }
+
     public struct TransactionEip1559 {
         public var type: Sol.UInt64 = 0x02
 
@@ -874,7 +982,7 @@ public enum Eth {
         public var input: Sol.Bytes = .init()
         public var nonce: Sol.UInt64 = 0
 
-        public var fee: Fee = .init()
+        public var fee: Fee1559 = .init()
 
         public var hash: Hash? = nil
 
@@ -890,7 +998,7 @@ public enum Eth {
             value: Sol.UInt256 = 0,
             input: Sol.Bytes = .init(),
             nonce: Sol.UInt64 = 0,
-            fee: Eth.Fee = .init(),
+            fee: Eth.Fee1559 = .init(),
             hash: Hash? = nil,
             signature: Eth.Signature? = nil,
             locationInBlock: Eth.BlockLocation? = nil
@@ -917,7 +1025,7 @@ public enum Eth {
                 value: 0,
                 input: Sol.Bytes(),
                 nonce: 0,
-                fee: Eth.Fee(),
+                fee: Eth.Fee1559(),
                 hash: nil,
                 signature: nil,
                 locationInBlock: nil
@@ -925,7 +1033,7 @@ public enum Eth {
         }
     }
 
-    public struct Fee {
+    public struct Fee1559 {
         public var gas: Sol.UInt64 = 0
         public var maxFeePerGas: Sol.UInt256 = 0
         public var maxPriorityFee: Sol.UInt256 = 0
@@ -1045,7 +1153,42 @@ extension Eth.AccessList: RlpCodable {
 // TODO: extract to file?
 import CryptoSwift
 
-extension Eth.TransactionEip1559 {
+public protocol EthSignable {
+    func preImageForSigning() -> Data
+    func hashForSigning() -> Eth.Hash
+}
+
+extension EthSignable {
+    public func hashForSigning() -> Eth.Hash {
+        let hash = Data(SHA3(variant: .keccak256).calculate(for: preImageForSigning().bytes))
+        return Eth.Hash(hash)
+    }
+}
+
+public protocol EthRawTransaction {
+    func rawTransaction() -> EthRpc1.Data
+    func txHash() -> Eth.Hash
+}
+
+extension EthRawTransaction {
+    public func txHash() -> Eth.Hash {
+        let hash = Data(SHA3(variant: .keccak256).calculate(for: rawTransaction().storage.bytes))
+        return Eth.Hash(hash)
+    }
+}
+
+public protocol EthTransaction: EthSignable, EthRawTransaction {
+    var from: Sol.Address? { get }
+    var hash: Eth.Hash? { get set }
+
+    // derived from the fee and value
+    var requiredBalance: Sol.UInt256 { get }
+
+    mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256)
+    mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256)
+}
+
+extension Eth.TransactionEip1559: EthSignable {
     // The signature_y_parity, signature_r, signature_s elements of this transaction represent a
     // secp256k1 signature over
     // keccak256(0x02 || rlp([chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, destination, amount, data, access_list]))
@@ -1063,18 +1206,28 @@ extension Eth.TransactionEip1559 {
             fee.accessList
         ]
         let rlpTransaction = RlpCoder().encode(array)
-        // create preimage
         let preImage = Data([UInt8(type)]) + rlpTransaction
         return preImage
     }
+}
 
-    public func hashForSigning() -> Eth.Hash {
-        let hash = Data(SHA3(variant: .keccak256).calculate(for: preImageForSigning().bytes))
-        return Eth.Hash(hash)
+extension Eth.TransactionEip1559: EthTransaction {
+    public mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256) {
+        nonce = transactionCount
+        fee.gas = gas
+        fee.maxFeePerGas = fee.maxPriorityFee + baseFee
+    }
+
+    public mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256) {
+        self.signature = Eth.Signature(yParity: v, r: r, s: s)
+    }
+
+    public var requiredBalance: Sol.UInt256 {
+        Sol.UInt256(fee.gas) * fee.maxFeePerGas + value
     }
 }
 
-extension Eth.TransactionEip1559 {
+extension Eth.TransactionEip1559: EthRawTransaction {
 //        // rlp-encode transaction items
 //        let rlpTransaction = RlpCoder().encode([chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, destination, amount, data, access_list as [RlpCodable]])
 
@@ -1098,17 +1251,20 @@ extension Eth.TransactionEip1559 {
         let result = Data([UInt8(type)]) + rlpEncoded
         return EthRpc1.Data(storage: result)
     }
-
-    public func txHash() -> Eth.Hash {
-        let hash = Data(SHA3(variant: .keccak256).calculate(for: rawTransaction().storage.bytes))
-        return Eth.Hash(hash)
-    }
 }
 
-
 extension EthRpc1.eth_estimateGas {
-    public init(_ tx: Eth.TransactionEip1559) {
-        self.init(transaction: .eip1559(EthRpc1.Transaction1559(tx)))
+    public init(_ tx: EthTransaction) {
+        switch tx {
+        case let eip1559 as Eth.TransactionEip1559:
+            self.init(transaction: .eip1559(EthRpc1.Transaction1559(eip1559)))
+        case let eip2930 as Eth.TransactionEip2930:
+            self.init(transaction: .eip2930(EthRpc1.Transaction2930(eip2930)))
+        case let legacy as Eth.TransactionLegacy:
+            self.init(transaction: .legacy(EthRpc1.TransactionLegacy(legacy)))
+        default:
+            fatalError("Not implemented")
+        }
     }
 }
 
@@ -1136,6 +1292,190 @@ extension EthRpc1.Transaction1559 {
         )
     }
 }
+
+// MARK: Eip2930
+extension Eth.TransactionEip2930: EthSignable {
+    public func preImageForSigning() -> Data {
+        let array: [RlpCodable] = [
+            chainId,
+            nonce,
+            fee.gasPrice,
+            fee.gas,
+            to,
+            value,
+            input,
+            fee.accessList
+        ]
+        let rlpTransaction = RlpCoder().encode(array)
+        let preImage = Data([UInt8(type)]) + rlpTransaction
+        return preImage
+    }
+}
+
+extension Eth.TransactionEip2930: EthRawTransaction {
+    public func rawTransaction() -> EthRpc1.Data {
+        let signature = self.signature ?? Eth.Signature(yParity: 0, r: 0, s: 0)
+        let array: [RlpCodable] = [
+            chainId,
+            nonce,
+            fee.gasPrice,
+            fee.gas,
+            to,
+            value,
+            input,
+            fee.accessList,
+            signature.yParity,
+            signature.r,
+            signature.s
+        ]
+        let rlpEncoded = RlpCoder().encode(array)
+        let result = Data([UInt8(type)]) + rlpEncoded
+        return EthRpc1.Data(storage: result)
+    }
+}
+
+extension Eth.TransactionEip2930: EthTransaction {
+    public mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256) {
+        nonce = transactionCount
+        fee.gas = gas
+        fee.gasPrice = baseFee
+    }
+
+    public mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256) {
+        self.signature = Eth.Signature(yParity: v, r: r, s: s)
+    }
+
+    public var requiredBalance: Sol.UInt256 {
+        Sol.UInt256(fee.gas) * fee.gasPrice + value
+    }
+}
+
+
+extension EthRpc1.Transaction2930 {
+    public init(_ tx: Eth.TransactionEip2930) {
+        self.init(
+            type: EthRpc1.Quantity<Sol.UInt64>(tx.type),
+            nonce: EthRpc1.Quantity<Sol.UInt64>(tx.nonce),
+            to: EthRpc1.Data(tx.to),
+            gas: EthRpc1.Quantity<Sol.UInt64>(tx.fee.gas),
+            value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
+            input: EthRpc1.Data(tx.input),
+            gasPrice: EthRpc1.Quantity<Sol.UInt256>(tx.fee.gasPrice),
+            accessList: [EthRpc1.AccessListEntry](tx.fee.accessList),
+            chainId: EthRpc1.Quantity<Sol.UInt256>(tx.chainId),
+            from: tx.from.map { EthRpc1.Data($0) },
+            blockHash: (tx.locationInBlock?.blockHash).map { EthRpc1.Data($0) },
+            blockNumber: (tx.locationInBlock?.blockNumber).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            hash: tx.hash.map { EthRpc1.Data($0) },
+            transactionIndex: (tx.locationInBlock?.transactionIndex).map { EthRpc1.Quantity<Sol.UInt64>($0) },
+            yParity: (tx.signature?.yParity).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            r: (tx.signature?.r).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            s: (tx.signature?.s).map { EthRpc1.Quantity<Sol.UInt256>($0) }
+        )
+    }
+}
+
+// MARK: Legacy
+extension Eth.TransactionLegacy: EthSignable {
+    public func preImageForSigning() -> Data {
+        let array: [RlpCodable]
+        if let chainId = chainId {
+            // (nonce, gasprice, startgas, to, value, data, chainid, 0, 0)
+            array = [
+                nonce,
+                fee.gasPrice,
+                fee.gas,
+                to,
+                value,
+                input,
+                chainId,
+                Sol.UInt256(0),
+                Sol.UInt256(0)
+            ]
+        } else {
+            // (nonce, gasprice, startgas, to, value, data)
+            array = [
+                nonce,
+                fee.gasPrice,
+                fee.gas,
+                to,
+                value,
+                input
+            ]
+        }
+        let rlpTransaction = RlpCoder().encode(array)
+        // eip-2718
+        // rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])
+        let preImage = rlpTransaction
+        return preImage
+    }
+}
+
+extension Eth.TransactionLegacy: EthRawTransaction {
+    public func rawTransaction() -> EthRpc1.Data {
+        // If you do, then the v of the signature MUST be set to {0,1} + CHAIN_ID * 2 + 35
+        // otherwise then v continues to be set to {0,1} + 27 as previously.
+        let signature = self.signature ?? Eth.SignatureLegacy(v: 0, r: 0, s: 0, chainId: chainId)
+        let array: [RlpCodable] = [
+            nonce,
+            fee.gasPrice,
+            fee.gas,
+            to,
+            value,
+            input,
+            signature.v,
+            signature.r,
+            signature.s
+        ]
+        let rlpEncoded = RlpCoder().encode(array)
+        // eip-2718
+        // rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])
+        let result = rlpEncoded
+        return EthRpc1.Data(storage: result)
+    }
+}
+
+extension Eth.TransactionLegacy: EthTransaction {
+    public mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256) {
+        nonce = transactionCount
+        fee.gas = gas
+        fee.gasPrice = baseFee
+    }
+
+    public mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256) {
+        self.signature = Eth.SignatureLegacy(v: v, r: r, s: s, chainId: chainId)
+    }
+
+    public var requiredBalance: Sol.UInt256 {
+        Sol.UInt256(fee.gas) * fee.gasPrice + value
+    }
+}
+
+extension EthRpc1.TransactionLegacy {
+    public init(_ tx: Eth.TransactionLegacy) {
+        self.init(
+            // type is the 1st byte of the encoded rlp transaction
+            // rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])
+            type: EthRpc1.Quantity<Sol.UInt64>(Sol.UInt64(tx.rawTransaction().storage[0])),
+            nonce: EthRpc1.Quantity<Sol.UInt64>(tx.nonce),
+            to: EthRpc1.Data(tx.to),
+            gas: EthRpc1.Quantity<Sol.UInt64>(tx.fee.gas),
+            value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
+            input: EthRpc1.Data(tx.input),
+            gasPrice: EthRpc1.Quantity<Sol.UInt256>(tx.fee.gasPrice),
+            chainId: EthRpc1.Quantity<Sol.UInt256>(tx.chainId ?? 0),
+            from: tx.from.map { EthRpc1.Data($0) },
+            blockHash: (tx.locationInBlock?.blockHash).map { EthRpc1.Data($0) },
+            blockNumber: (tx.locationInBlock?.blockNumber).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            hash: tx.hash.map { EthRpc1.Data($0) },
+            transactionIndex: (tx.locationInBlock?.transactionIndex).map { EthRpc1.Quantity<Sol.UInt64>($0) },
+            v: (tx.signature?.v).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            r: (tx.signature?.r).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            s: (tx.signature?.s).map { EthRpc1.Quantity<Sol.UInt256>($0) }
+        )
+    }
+}
+
 
 extension Array where Element == EthRpc1.AccessListEntry {
     public init(_ list: Eth.AccessList) {

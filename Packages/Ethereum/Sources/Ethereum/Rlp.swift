@@ -98,20 +98,6 @@ extension Array: RlpCodable where Element == RlpCodable {
     }
 }
 
-//
-//public func == (lhs: RlpCodable, rhs: RlpCodable) -> Bool {
-//    if let lelft = lhs as? Data, let right = rhs as? Data {
-//        return lelft == right
-//    } else if let left = lhs as? [RlpCodable], let right = rhs as? [RlpCodable], left.count == right.count {
-//        return zip(left, right).allSatisfy(==)
-//    } else if let left = lhs as? RlpInteger, let right = rhs as? RlpInteger {
-//        return left =
-//    } else {
-//        return false
-//    }
-//}
-
-
 // port of https://eth.wiki/en/fundamentals/rlp
 public struct RlpCoder {
 

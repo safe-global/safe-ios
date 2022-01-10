@@ -84,7 +84,7 @@ class TransactionIntegrationTests: XCTestCase {
         serializer: JsonRpc2.DefaultSerializer())
 
     // make an eth transaction on a test network.
-    func testEoaSendTestEth() throws {
+    func testEoaSendTestEthEip1559() throws {
         continueAfterFailure = false
         let privateKey = try PrivateKey(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))
 
@@ -98,7 +98,7 @@ class TransactionIntegrationTests: XCTestCase {
             // safe address
             to: "dd1D27C114aB45e8A650B251eDFA1b0795bbe020",
             value: Eth.Amount(value: 1, unit: Eth.Unit.kilowei).value,
-            fee: Eth.Fee(
+            fee: Eth.Fee1559(
                 maxFeePerGas: minerTip,
                 maxPriorityFee: minerTip
             )
@@ -107,7 +107,57 @@ class TransactionIntegrationTests: XCTestCase {
         try send(tx: tx, using: privateKey)
     }
 
-    func testEoaSendTestErc20() throws {
+    func testEoaSendTestEthLegacyWithChainId() throws {
+        continueAfterFailure = false
+        let privateKey = try PrivateKey(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))
+
+        let tx = Eth.TransactionLegacy(
+            chainId: 4,
+            from: "728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+            // eoa address
+//            to: "Ad302A4b09402b41EC3Fb4981B63E4Dd141fed6d",
+            // safe address
+            to: "dd1D27C114aB45e8A650B251eDFA1b0795bbe020",
+            value: Eth.Amount(value: 1, unit: Eth.Unit.kilowei).value
+        )
+
+        try send(tx: tx, using: privateKey)
+    }
+
+    func testEoaSendTestEthLegacyWithoutChainId() throws {
+        continueAfterFailure = false
+        let privateKey = try PrivateKey(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))
+
+        let tx = Eth.TransactionLegacy(
+            from: "728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+            // eoa address
+//            to: "Ad302A4b09402b41EC3Fb4981B63E4Dd141fed6d",
+            // safe address
+            to: "dd1D27C114aB45e8A650B251eDFA1b0795bbe020",
+            value: Eth.Amount(value: 1, unit: Eth.Unit.kilowei).value
+        )
+
+        try send(tx: tx, using: privateKey)
+    }
+
+    func testEoaSendTestEthEip2930() throws {
+        continueAfterFailure = false
+        let privateKey = try PrivateKey(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))
+
+        let tx = Eth.TransactionEip2930(
+            chainId: 4,
+            from: "728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+            // eoa address
+//            to: "Ad302A4b09402b41EC3Fb4981B63E4Dd141fed6d",
+            // safe address
+            to: "dd1D27C114aB45e8A650B251eDFA1b0795bbe020",
+            value: Eth.Amount(value: 1, unit: Eth.Unit.kilowei).value
+        )
+
+        try send(tx: tx, using: privateKey)
+    }
+
+    func testEoaSendTestErc20Eip1559() throws {
         continueAfterFailure = false
         let privateKey = try PrivateKey(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))
 
@@ -131,7 +181,7 @@ class TransactionIntegrationTests: XCTestCase {
             to: "b3a4Bc89d8517E0e2C9B66703d09D3029ffa1e6d",
             // erc20 transfer call
             input: Sol.Bytes(storage: input),
-            fee: Eth.Fee(
+            fee: Eth.Fee1559(
                 maxFeePerGas: minerTip,
                 maxPriorityFee: minerTip
             )
@@ -140,9 +190,8 @@ class TransactionIntegrationTests: XCTestCase {
         try send(tx: tx, using: privateKey)
     }
 
-    func send(tx: Eth.TransactionEip1559, using privateKey: PrivateKey, line: UInt = #line) throws {
+    func send(tx: EthTransaction, using privateKey: PrivateKey, line: UInt = #line) throws {
         var tx = tx
-
 
         let getEstimate = EthRpc1.eth_estimateGas(tx)
         let getTransactionCount = EthRpc1.eth_getTransactionCount(address: EthRpc1.Data(tx.from!), block: .tag(.pending))
@@ -193,10 +242,9 @@ class TransactionIntegrationTests: XCTestCase {
                     let transactionCount: EthRpc1.Quantity<Sol.UInt64> = try getTransactionCount.result(from: transactionCountResult)
                     let baseFee: EthRpc1.Quantity<Sol.UInt256> = try getPrice.result(from: priceResult)
 
-                    // # of transactions is 1 more than latest nonce
-                    tx.nonce = transactionCount.storage
-                    tx.fee.gas = max(gasEstimate.storage, tx.fee.gas)
-                    tx.fee.maxFeePerGas = tx.fee.maxPriorityFee + baseFee.storage
+                    tx.update(gas: gasEstimate.storage,
+                              transactionCount: transactionCount.storage,
+                              baseFee: baseFee.storage)
 
                 } catch {
                     XCTFail("Failed to decode value: \(error)", line: line)
@@ -209,16 +257,16 @@ class TransactionIntegrationTests: XCTestCase {
         let txHash = tx.hashForSigning()
 
         print("Hash for signing:",  EthRpc1.Data(txHash.storage))
-        print("Balance Needed:", Sol.UInt256(tx.fee.gas) * tx.fee.maxFeePerGas + tx.value)
+
+        print("Balance Needed:", tx.requiredBalance)
 
         let signature = try privateKey._store.sign(hash: Array(txHash.storage.storage))
 
-        tx.signature = try Eth.Signature(
-            yParity: Sol.UInt256(signature.v), // ethereum signature reqs
+        try tx.updateSignature(
+            v: Sol.UInt256(signature.v),
             r: Sol.UInt256(Data(signature.r)),
             s: Sol.UInt256(Data(signature.s))
         )
-
 
         let publicKey = try EthereumPublicKey(
             message: tx.preImageForSigning().bytes,
@@ -270,7 +318,7 @@ class TransactionIntegrationTests: XCTestCase {
     }
 
     // make a safe transaction sending eth on a test network.
-    func testSafeSendEthTest() throws {
+    func testSafeSendEthTestEip1559() throws {
         continueAfterFailure = false
 
         // Get queue -> first transaction -> submit it
@@ -380,7 +428,7 @@ class TransactionIntegrationTests: XCTestCase {
             from: "728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
             to: "dd1D27C114aB45e8A650B251eDFA1b0795bbe020",
             input: Sol.Bytes(storage: input),
-            fee: Eth.Fee(
+            fee: Eth.Fee1559(
                 maxFeePerGas: minerTip,
                 maxPriorityFee: minerTip
             )
