@@ -1,0 +1,62 @@
+//
+//  File.swift
+//  
+//
+//  Created by Dmitry Bespalov on 03.01.22.
+//
+
+import Foundation
+import Solidity
+import XCTest
+
+class FixedPointEncodingTests: XCTestCase {
+    func testEncodeUFixed8x18() {
+        let value = Sol.UnsignedFixedPoint(storage: Sol.UInt8(0xef), exponent: 18)
+        let data = value.encode()
+        let expected = Data([
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xef, // 32 bytes
+        ])
+        XCTAssertEqual(data, expected)
+    }
+
+    func testDecodeUFixed248x18() throws {
+        let data = Data([
+            0xaa, // extra byte to simulate start from the middle
+            0x00, 0xef, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16 bytes
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xaa, // 32 bytes
+        ])
+        let expected = Sol.UnsignedFixedPoint(
+            storage: Sol.UInt248("ef0000000000000000000000000000000000000000000000000000000000aa", radix: 16)!,
+            exponent: 18)
+
+        var offset: Int = 1
+        var decoded = Sol.UnsignedFixedPoint(storage: Sol.UInt248(), exponent: 18)
+        try decoded.decode(from: data, offset: &offset)
+        XCTAssertEqual(decoded, expected)
+        XCTAssertEqual(offset, 33)
+    }
+
+    func testEncodeFixed128x18() {
+        let value = Sol.SignedFixedPoint(storage: Sol.Int128(-3), exponent: 18)
+        let data = value.encode()
+        let expected = Data([
+            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // 16 bytes
+            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfd, // 32 bytes
+        ])
+        XCTAssertEqual(Array(data), Array(expected))
+    }
+
+    func testDecodeFixed128x18() throws {
+        let expected = Sol.SignedFixedPoint(storage: Sol.Int128(-3), exponent: 18)
+        let data = Data([
+            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // 16 bytes
+            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfd, // 32 bytes
+        ])
+
+        var decoded = Sol.SignedFixedPoint(storage: Sol.Int128(), exponent: 18)
+        var offset: Int = 0
+        try decoded.decode(from: data, offset: &offset)
+        XCTAssertEqual(decoded, expected)
+    }
+}
