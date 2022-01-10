@@ -7,6 +7,7 @@
 
 import Foundation
 import JsonRpc2
+import Solidity
 
 /// Namespace for the types defined in the Ethereum JSON-RPC 1.0 specification
 ///
@@ -75,54 +76,71 @@ public enum EthRpc1 {
                 self = .unknown
             }
         }
+
+        public func encode(to encoder: Encoder) throws {
+            switch self {
+            case .legacy(let value):
+                try value.encode(to: encoder)
+            case .eip2930(let value):
+                try value.encode(to: encoder)
+            case .eip1559(let value):
+                try value.encode(to: encoder)
+            case .unknown:
+                var container = encoder.singleValueContainer()
+                try container.encode([String: String]())
+            }
+        }
     }
 
     public struct TransactionLegacy: Codable {
         /// type according to EIP-2718
         ///
         /// Must be in range [0xc0, 0xfe]
-        public var type: String
+        public var type: Quantity<Sol.UInt64> = .init(0xc0)
 
-        public var nonce: String
+        public var nonce: Quantity<Sol.UInt64>
 
         /// to address
-        public var to: String?
+        public var to: EthRpc1.Data?
 
         /// gas limit
-        public var gas: String
+        public var gas: Quantity<Sol.UInt64>
 
-        public var value: String
+        public var value: Quantity<Sol.UInt256>
 
         /// input data
-        public var input: String
+        public var input: EthRpc1.Data
 
         /// The gas price willing to be paid by the sender in wei
-        public var gasPrice: String
+        public var gasPrice: Quantity<Sol.UInt256>
 
         /// Chain ID that this transaction is valid on.
-        public var chainId: String?
+        ///
+        /// Used only in the response type
+        public var chainId: Quantity<Sol.UInt256>?
 
         /// from address
-        public var from: String?
+        public var from: EthRpc1.Data?
 
-        public var blockHash: String?
+        public var blockHash: EthRpc1.Data?
 
-        public var blockNumber: String?
+        public var blockNumber: Quantity<Sol.UInt256>?
 
         /// Transaction hash
-        public var hash: String?
+        public var hash: EthRpc1.Data?
 
-        public var transactionIndex: String?
+        public var transactionIndex: Quantity<Sol.UInt64>?
 
         /// Signature 'v' component
-        public var v: String?
+        public var v: Quantity<Sol.UInt256>?
 
         /// Signature 'r' component
-        public var r: String?
+        public var r: Quantity<Sol.UInt256>?
 
         /// Signature 's' component
-        public var s: String?
-        public init(type: String, nonce: String, to: String?, gas: String, value: String, input: String, gasPrice: String, chainId: String?, from: String?, blockHash: String?, blockNumber: String?, hash: String?, transactionIndex: String?, v: String?, r: String?, s: String?) {
+        public var s: Quantity<Sol.UInt256>?
+
+        public init(type: EthRpc1.Quantity<Sol.UInt64>, nonce: EthRpc1.Quantity<Sol.UInt64>, to: EthRpc1.Data?, gas: EthRpc1.Quantity<Sol.UInt64>, value: EthRpc1.Quantity<Sol.UInt256>, input: EthRpc1.Data, gasPrice: EthRpc1.Quantity<Sol.UInt256>, chainId: EthRpc1.Quantity<Sol.UInt256>?, from: EthRpc1.Data?, blockHash: EthRpc1.Data?, blockNumber: EthRpc1.Quantity<Sol.UInt256>?, hash: EthRpc1.Data?, transactionIndex: EthRpc1.Quantity<Sol.UInt64>?, v: EthRpc1.Quantity<Sol.UInt256>?, r: EthRpc1.Quantity<Sol.UInt256>?, s: EthRpc1.Quantity<Sol.UInt256>?) {
             self.type = type
             self.nonce = nonce
             self.to = to
@@ -147,52 +165,52 @@ public enum EthRpc1 {
         /// type according to EIP-2718
         ///
         /// Must be 0x01 per specification
-        public var type: String
+        public var type: Quantity<Sol.UInt64> = .init(0x01)
 
-        public var nonce: String
+        public var nonce: Quantity<Sol.UInt64>
 
         /// to address
-        public var to: String?
+        public var to: EthRpc1.Data?
 
         /// gas limit
-        public var gas: String
+        public var gas: Quantity<Sol.UInt64>
 
-        public var value: String
+        public var value: Quantity<Sol.UInt256>
 
         /// input data
-        public var input: String
+        public var input: EthRpc1.Data
 
         /// The gas price willing to be paid by the sender in wei
-        public var gasPrice: String
+        public var gasPrice: Quantity<Sol.UInt256>
 
         /// EIP-2930 access list
         public var accessList: [AccessListEntry]
 
         /// Chain ID that this transaction is valid on.
-        public var chainId: String
+        public var chainId: Quantity<Sol.UInt256>
 
         /// from address
-        public var from: String?
+        public var from: EthRpc1.Data?
 
-        public var blockHash: String?
+        public var blockHash: EthRpc1.Data?
 
-        public var blockNumber: String?
+        public var blockNumber: Quantity<Sol.UInt256>?
 
         /// Transaction hash
-        public var hash: String?
+        public var hash: EthRpc1.Data?
 
-        public var transactionIndex: String?
+        public var transactionIndex: Quantity<Sol.UInt64>?
 
         /// The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
-        public var yParity: String?
+        public var yParity: Quantity<Sol.UInt256>?
 
         /// Signature 'r' component
-        public var r: String?
+        public var r: Quantity<Sol.UInt256>?
 
         /// Signature 's' component
-        public var s: String?
+        public var s: Quantity<Sol.UInt256>?
 
-        public init(type: String, nonce: String, to: String?, gas: String, value: String, input: String, gasPrice: String, accessList: [EthRpc1.AccessListEntry], chainId: String, from: String?, blockHash: String?, blockNumber: String?, hash: String?, transactionIndex: String?, yParity: String?, r: String?, s: String?) {
+        public init(type: EthRpc1.Quantity<Sol.UInt64>, nonce: EthRpc1.Quantity<Sol.UInt64>, to: EthRpc1.Data?, gas: EthRpc1.Quantity<Sol.UInt64>, value: EthRpc1.Quantity<Sol.UInt256>, input: EthRpc1.Data, gasPrice: EthRpc1.Quantity<Sol.UInt256>, accessList: [EthRpc1.AccessListEntry], chainId: EthRpc1.Quantity<Sol.UInt256>, from: EthRpc1.Data?, blockHash: EthRpc1.Data?, blockNumber: EthRpc1.Quantity<Sol.UInt256>?, hash: EthRpc1.Data?, transactionIndex: EthRpc1.Quantity<Sol.UInt64>?, yParity: EthRpc1.Quantity<Sol.UInt256>?, r: EthRpc1.Quantity<Sol.UInt256>?, s: EthRpc1.Quantity<Sol.UInt256>?) {
             self.type = type
             self.nonce = nonce
             self.to = to
@@ -218,55 +236,55 @@ public enum EthRpc1 {
         /// type according to EIP-2718
         ///
         /// Must be 0x02 per specification
-        public var type: String
+        public var type: Quantity<Sol.UInt64> = .init(0x02)
 
-        public var nonce: String
+        public var nonce: Quantity<Sol.UInt64>
 
         /// to address
-        public var to: String?
+        public var to: EthRpc1.Data? = nil
 
         /// gas limit
-        public var gas: String
+        public var gas: Quantity<Sol.UInt64>
 
-        public var value: String
+        public var value: Quantity<Sol.UInt256>
 
         /// input data
-        public var input: String
+        public var input: EthRpc1.Data
 
         /// Maximum fee per gas the sender is willing to pay to miners in wei
-        public var maxPriorityFeePerGas: String
+        public var maxPriorityFeePerGas: Quantity<Sol.UInt256>
 
         /// The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
-        public var maxFeePerGas: String
+        public var maxFeePerGas: Quantity<Sol.UInt256>
 
         /// EIP-2930 access list
         public var accessList: [AccessListEntry]
 
         /// Chain ID that this transaction is valid on.
-        public var chainId: String
+        public var chainId: Quantity<Sol.UInt256>
 
         /// from address
-        public var from: String?
+        public var from: EthRpc1.Data? = nil
 
-        public var blockHash: String?
+        public var blockHash: EthRpc1.Data? = nil
 
-        public var blockNumber: String?
+        public var blockNumber: Quantity<Sol.UInt256>? = nil
 
         /// Transaction hash
-        public var hash: String?
+        public var hash: EthRpc1.Data? = nil
 
-        public var transactionIndex: String?
+        public var transactionIndex: Quantity<Sol.UInt64>? = nil
 
         /// The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
-        public var yParity: String?
+        public var yParity: Quantity<Sol.UInt256>? = nil
 
         /// Signature 'r' component
-        public var r: String?
+        public var r: Quantity<Sol.UInt256>? = nil
 
         /// Signature 's' component
-        public var s: String?
+        public var s: Quantity<Sol.UInt256>? = nil
 
-        public init(type: String, nonce: String, to: String?, gas: String, value: String, input: String, maxPriorityFeePerGas: String, maxFeePerGas: String, accessList: [EthRpc1.AccessListEntry], chainId: String, from: String?, blockHash: String?, blockNumber: String?, hash: String?, transactionIndex: String?, yParity: String?, r: String?, s: String?) {
+        public init(type: EthRpc1.Quantity<Sol.UInt64> = .init(0x02), nonce: EthRpc1.Quantity<Sol.UInt64>, to: EthRpc1.Data? = nil, gas: EthRpc1.Quantity<Sol.UInt64>, value: EthRpc1.Quantity<Sol.UInt256>, input: EthRpc1.Data, maxPriorityFeePerGas: EthRpc1.Quantity<Sol.UInt256>, maxFeePerGas: EthRpc1.Quantity<Sol.UInt256>, accessList: [EthRpc1.AccessListEntry], chainId: EthRpc1.Quantity<Sol.UInt256>, from: EthRpc1.Data? = nil, blockHash: EthRpc1.Data? = nil, blockNumber: EthRpc1.Quantity<Sol.UInt256>? = nil, hash: EthRpc1.Data? = nil, transactionIndex: EthRpc1.Quantity<Sol.UInt64>? = nil, yParity: EthRpc1.Quantity<Sol.UInt256>? = nil, r: EthRpc1.Quantity<Sol.UInt256>? = nil, s: EthRpc1.Quantity<Sol.UInt256>? = nil) {
             self.type = type
             self.nonce = nonce
             self.to = to
@@ -286,7 +304,7 @@ public enum EthRpc1 {
             self.r = r
             self.s = s
         }
-    }
+}
 
     public struct Log: Codable {
         public var removed: Bool?
@@ -368,10 +386,10 @@ public enum EthRpc1 {
 
     /// Access list entry
     public struct AccessListEntry: Codable {
-        public var address: String?
-        public var storageKeys: [String]?
+        public var address: EthRpc1.Data?
+        public var storageKeys: [EthRpc1.Data]?
 
-        public init(address: String?, storageKeys: [String]?) {
+        public init(address: EthRpc1.Data?, storageKeys: [EthRpc1.Data]?) {
             self.address = address
             self.storageKeys = storageKeys
         }
@@ -380,17 +398,17 @@ public enum EthRpc1 {
 
 extension EthRpc1 {
     /// Returns the balance of the account of given address.
-    public struct eth_getBalance: JsonRpc2Method, EhtRpc1AccountParams {
+    public struct eth_getBalance: JsonRpc2Method, EthRpc1AccountParams {
         /// Account to get balance of
-        public var address: String
+        public var address: EthRpc1.Data
 
         /// Block number or tag
-        public var block: String
+        public var block: EthRpc1.BlockSpecifier
 
         /// Balance
-        public typealias Return = String
-        
-        public init(address: String, block: String) {
+        public typealias Return = Quantity<Sol.UInt256>
+
+        public init(address: EthRpc1.Data, block: EthRpc1.BlockSpecifier) {
             self.address = address
             self.block = block
         }
@@ -399,7 +417,7 @@ extension EthRpc1 {
     /// Returns the number of the most recent block seen by this client
     public struct eth_blockNumber: JsonRpc2Method, EthRpc1EmptyParams {
         /// number of the latest block
-        public typealias Return = String
+        public typealias Return = Quantity<Sol.UInt256>
 
         public init() {}
     }
@@ -408,7 +426,7 @@ extension EthRpc1 {
     /// Returns the current price per gas in wei.
     public struct eth_gasPrice: JsonRpc2Method, EthRpc1EmptyParams {
         /// Gas price
-        public typealias Return = String
+        public typealias Return = Quantity<Sol.UInt256>
 
         public init() {}
     }
@@ -419,7 +437,7 @@ extension EthRpc1 {
         public var transaction: Transaction
 
         /// Return data
-        public typealias Return = String
+        public typealias Return = EthRpc1.Data
 
         public init(transaction: EthRpc1.Transaction) {
             self.transaction = transaction
@@ -432,7 +450,7 @@ extension EthRpc1 {
         public var transaction: Transaction
 
         /// Gas used
-        public typealias Return = String
+        public typealias Return = Quantity<Sol.UInt64>
 
         public init(transaction: EthRpc1.Transaction) {
             self.transaction = transaction
@@ -442,40 +460,40 @@ extension EthRpc1 {
     /// Submits a raw transaction.
     public struct eth_sendRawTransaction: JsonRpc2Method, EthRpc1TransactionParams {
         /// Transaction as bytes
-        public var transaction: String
+        public var transaction: EthRpc1.Data
 
         /// Transaction hash, or the zero hash if the transaction is not yet available
-        public typealias Return = String
+        public typealias Return = EthRpc1.Data
 
-        public init(transaction: String) {
+        public init(transaction: EthRpc1.Data) {
             self.transaction = transaction
         }
     }
 
     /// Returns the receipt of a transaction by transaction hash.
     public struct eth_getTransactionReceipt: JsonRpc2Method {
-        public var transactionHash: String
+        public var transactionHash: EthRpc1.Data
 
         /// Receipt Information or null if transaction not found
         public typealias Return = ReceiptInfo?
 
-        public init(transactionHash: String) {
+        public init(transactionHash: EthRpc1.Data) {
             self.transactionHash = transactionHash
         }
     }
 
     /// Returns the number of transactions sent from an address.
-    public struct eth_getTransactionCount: JsonRpc2Method, EhtRpc1AccountParams {
+    public struct eth_getTransactionCount: JsonRpc2Method, EthRpc1AccountParams {
         /// Account to get balance of
-        public var address: String
+        public var address: EthRpc1.Data
 
         /// Block number or tag
-        public var block: String
+        public var block: EthRpc1.BlockSpecifier
 
         /// Transaction count
-        public typealias Return = String
+        public typealias Return = Quantity<Sol.UInt64>
 
-        public init(address: String, block: String) {
+        public init(address: EthRpc1.Data, block: EthRpc1.BlockSpecifier) {
             self.address = address
             self.block = block
         }
@@ -500,17 +518,17 @@ extension EthRpc1EmptyParams {
 }
 
 // reusable codable implementation of account parameters for methods that query account state
-public protocol EhtRpc1AccountParams: Codable {
-    var address: String { get set }
-    var block: String { get set }
-    init(address: String, block: String)
+public protocol EthRpc1AccountParams: Codable {
+    var address: EthRpc1.Data { get set }
+    var block: EthRpc1.BlockSpecifier { get set }
+    init(address: EthRpc1.Data, block: EthRpc1.BlockSpecifier)
 }
 
-extension EhtRpc1AccountParams {
+extension EthRpc1AccountParams {
     public init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
-        let address = try container.decode(String.self)
-        let block = try container.decode(String.self)
+        let address = try container.decode(EthRpc1.Data.self)
+        let block = try container.decode(EthRpc1.BlockSpecifier.self)
         self.init(address: address, block: block)
     }
 
@@ -543,12 +561,1063 @@ extension EthRpc1TransactionParams {
 extension EthRpc1.eth_getTransactionReceipt: Codable {
     public init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
-        let transaction = try container.decode(String.self)
+        let transaction = try container.decode(EthRpc1.Data.self)
         self.init(transactionHash: transaction)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
         try container.encode(transactionHash)
+    }
+}
+
+extension EthRpc1 {
+    public struct Quantity<T> where T: FixedWidthInteger {
+        public var storage: T
+
+        public init() {
+            self.init(.init())
+        }
+
+        public init(_ value: T) {
+            self.storage = value
+        }
+    }
+}
+
+extension EthRpc1.Quantity: Codable {
+    // A Quantity value MUST be hex-encoded.
+    // A Quantity value MUST be “0x”-prefixed.
+    // A Quantity value MUST be expressed using the fewest possible hex digits per byte.
+    // A Quantity value MUST express zero as “0x0”.
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let string = try container.decode(String.self)
+
+        guard string.hasPrefix("0x") else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(codingPath: decoder.codingPath,
+                                      debugDescription: "Quantity value MUST be 0x-prefixed",
+                                      underlyingError: nil)
+            )
+        }
+
+        guard let value = T(string.dropFirst(2), radix: 16) else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(codingPath: decoder.codingPath,
+                                      debugDescription: "Quantity value MUST be hex-encoded",
+                                      underlyingError: nil)
+            )
+        }
+
+        self.init(value)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        let value: String
+        if storage == 0 {
+            value = "0x0"
+        } else {
+            let hex = String(storage, radix: 16)
+            let minHexDigits = String(hex.drop { $0 == "0" })
+            value = "0x" + minHexDigits
+        }
+        var container = encoder.singleValueContainer()
+        try container.encode(value)
+    }
+}
+
+extension EthRpc1 {
+    public struct Data {
+        public var storage: Foundation.Data
+
+        public init() {
+            self.init(storage: .init())
+        }
+
+        public init(storage: Foundation.Data) {
+            self.storage = storage
+        }
+    }
+}
+
+extension EthRpc1.Data: Codable {
+//    A Data value MUST be hex-encoded.
+//    A Data value MUST be “0x”-prefixed.
+//    A Data value MUST be expressed using two hex digits per byte.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        var string = try container.decode(String.self)
+
+        guard string.hasPrefix("0x") else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(codingPath: decoder.codingPath,
+                                      debugDescription: "Data value MUST be 0x-prefixed",
+                                      underlyingError: nil)
+            )
+        }
+
+        string.removeFirst(2)
+
+        guard string.count % 2 == 0 else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(codingPath: decoder.codingPath,
+                                      debugDescription: "Data value MUST  be expressed using two hex digits per byte.",
+                                      underlyingError: nil)
+            )
+        }
+
+        let hexDigitsPerByte = 2
+        let bytes = try stride(from: 0, to: string.count, by: hexDigitsPerByte).map { offset -> UInt8 in
+            let startIndex = string.index(string.startIndex, offsetBy: offset)
+            let endIndex = string.index(startIndex, offsetBy: hexDigitsPerByte)
+            let substring = string[startIndex..<endIndex]
+            guard let byte = UInt8(substring, radix: 16) else {
+                throw DecodingError.dataCorrupted(
+                    DecodingError.Context(codingPath: decoder.codingPath,
+                                          debugDescription: "Data value MUST be hex-encoded",
+                                          underlyingError: nil)
+                )
+            }
+            return byte
+        }
+
+        self.storage = Data(bytes)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        let value = "0x" + storage.compactMap { String(format: "%02x", Int($0)) }.joined()
+        var container = encoder.singleValueContainer()
+        try container.encode(value)
+    }
+}
+
+extension EthRpc1.Data: CustomStringConvertible {
+    public var description: String {
+        "0x" + storage.compactMap { String(format: "%02x", Int($0)) }.joined()
+    }
+}
+
+extension EthRpc1 {
+    public enum BlockTag: String, Codable {
+        case latest
+        case earliest
+        case pending
+    }
+}
+
+extension EthRpc1 {
+    public struct BlockNumberIdentifier: Codable {
+        public var blockNumber: Quantity<Sol.UInt256>
+        public init(blockNumber: EthRpc1.Quantity<Sol.UInt256>) {
+            self.blockNumber = blockNumber
+        }
+    }
+    public struct BlockHashIdentifier: Codable {
+        public var blockHash: Data
+        public var requireCanonical: Bool? = false
+        public init(blockHash: EthRpc1.Data, requireCanonical: Bool? = false) {
+            self.blockHash = blockHash
+            self.requireCanonical = requireCanonical
+        }
+    }
+}
+
+extension EthRpc1 {
+    public enum BlockSpecifier: Codable {
+        case number(Quantity<Sol.UInt256>)
+        case tag(BlockTag)
+        case numberId(BlockNumberIdentifier)
+        case hashId(BlockHashIdentifier)
+    }
+}
+
+extension EthRpc1.BlockSpecifier {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let value = (try? container.decode(EthRpc1.Quantity<Sol.UInt256>.self)) {
+            self = .number(value)
+        }
+        else if let value = (try? container.decode(EthRpc1.BlockTag.self)) {
+            self = .tag(value)
+        }
+        else if let value = (try? container.decode(EthRpc1.BlockNumberIdentifier.self)) {
+            self = .numberId(value)
+        }
+        else if let value = (try? container.decode(EthRpc1.BlockHashIdentifier.self)) {
+            self = .hashId(value)
+        }
+        else {
+            throw DecodingError.typeMismatch(
+                type(of: self),
+                DecodingError.Context(
+                    codingPath: decoder.codingPath,
+                    debugDescription: "Unknown block specifier",
+                    underlyingError: nil)
+            )
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .number(let value):
+            try container.encode(value)
+        case .tag(let value):
+            try container.encode(value)
+        case .numberId(let value):
+            try container.encode(value)
+        case .hashId(let value):
+            try container.encode(value)
+        }
+    }
+}
+
+extension Sol.Address {
+    var ethRpcData: EthRpc1.Data {
+        let encoded32bytes = self.encode()
+        let bytes = encoded32bytes.dropFirst(encoded32bytes.count - self.storage.self.bitWidth / 8)
+        return EthRpc1.Data(storage: bytes)
+    }
+}
+
+extension EthRpc1.Data {
+    public init(_ value: Sol.Address) {
+        let abiEncoded = value.encode()
+        let byteCount = value.storage.self.bitWidth / 8
+        let bytes = abiEncoded.suffix(byteCount)
+        self.init(storage: bytes)
+    }
+
+    public init(_ value: Sol.Bytes) {
+        self.init(storage: value.storage)
+    }
+
+    public init<T>(_ value: T) where T: SolFixedBytes {
+        self.init(storage: value.storage)
+    }
+
+    public init(_ value: Eth.Hash) {
+        self.init(value.storage)
+    }
+}
+
+
+// TODO: MOVE!
+extension Sol.UInt64: RlpInteger {}
+extension Sol.UInt256: RlpInteger {}
+extension Sol.UInt160: RlpInteger {}
+
+extension Sol.Bytes: RlpCodable {
+    public func encode(using coder: RlpCoder) -> Data {
+        storage.encode(using: coder)
+    }
+
+    public func decode(value: RlpCodable, coder: RlpCoder) throws -> RlpCodable {
+        let result = try storage.decode(value: value, coder: coder) as! Data
+        return Self(storage: result)
+    }
+}
+
+extension SolFixedBytes where Self: RlpCodable {
+    public func encode(using coder: RlpCoder) -> Data {
+        storage.encode(using: coder)
+    }
+
+    public func decode(value: RlpCodable, coder: RlpCoder) throws -> RlpCodable {
+        let result = try storage.decode(value: value, coder: coder) as! Data
+        return Self(storage: result)
+    }
+}
+extension Sol.Bytes32: RlpCodable {}
+
+extension Sol.Address: RlpCodable {
+    public func encode(using coder: RlpCoder) -> Data {
+        storage.encode(using: coder)
+    }
+
+    public func decode(value: RlpCodable, coder: RlpCoder) throws -> RlpCodable {
+        let result = try storage.decode(value: value, coder: coder) as! Sol.UInt160
+        return Self(storage: result)
+    }
+}
+
+extension Sol.Address: ExpressibleByIntegerLiteral {
+    public init(integerLiteral value: UInt) {
+        self.init(storage: .init(integerLiteral: value))
+    }
+}
+
+extension Sol.Address: ExpressibleByStringLiteral {
+    public init(stringLiteral value: String) {
+        self.init(storage: .init(value, radix: 16)!)
+    }
+}
+
+extension Sol.Address: CustomStringConvertible {
+    public var description: String {
+        EthRpc1.Data(self).description
+    }
+}
+
+// [nonce, gasPrice, gasLimit, to, value, data, v, r, s]
+public enum Eth {
+    public struct TransactionLegacy {
+        // affects hashing per EIP-155
+        public var chainId: Sol.UInt256? = nil
+
+        public var from: Sol.Address? = nil
+        public var to: Sol.Address = 0
+        public var value: Sol.UInt256 = 0
+        public var input: Sol.Bytes = .init()
+        public var nonce: Sol.UInt64 = 0
+
+        public var fee: FeeLegacy = .init()
+
+        public var hash: Hash? = nil
+        public var signature: SignatureLegacy? = nil
+        public var locationInBlock: BlockLocation? = nil
+
+        public init(chainId: Sol.UInt256? = nil, from: Sol.Address? = nil, to: Sol.Address = 0, value: Sol.UInt256 = 0, input: Sol.Bytes = .init(), nonce: Sol.UInt64 = 0, fee: Eth.FeeLegacy = .init(), hash: Eth.Hash? = nil, signature: Eth.SignatureLegacy? = nil, locationInBlock: Eth.BlockLocation? = nil) {
+            self.chainId = chainId
+            self.from = from
+            self.to = to
+            self.value = value
+            self.input = input
+            self.nonce = nonce
+            self.fee = fee
+            self.hash = hash
+            self.signature = signature
+            self.locationInBlock = locationInBlock
+        }
+    }
+
+    public struct FeeLegacy {
+        public var gas: Sol.UInt64 = 0
+        public var gasPrice: Sol.UInt256 = 0
+
+        public init(gas: Sol.UInt64 = 0, gasPrice: Sol.UInt256 = 0) {
+            self.gas = gas
+            self.gasPrice = gasPrice
+        }
+    }
+
+    public struct SignatureLegacy {
+        public var v: Sol.UInt256
+        public var r: Sol.UInt256
+        public var s: Sol.UInt256
+
+        // requires:
+        // v = {0, 1}
+        // r, s are from the secp256k1 signature
+        public init(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256, chainId: Sol.UInt256? = nil) {
+            // EIP-155
+            // If you do, then the v of the signature MUST be set to {0,1} + CHAIN_ID * 2 + 35
+            // otherwise then v continues to be set to {0,1} + 27 as previously.
+            if let chainId = chainId {
+                self.v = v + chainId * 2 + 35
+            } else {
+                self.v = v + 27
+            }
+            self.r = r
+            self.s = s
+        }
+    }
+
+
+    public struct TransactionEip2930 {
+        public var type: Sol.UInt64 = 0x01
+
+        public var chainId: Sol.UInt256 = 1
+
+        public var from: Sol.Address? = nil
+        public var to: Sol.Address = 0
+        public var value: Sol.UInt256 = 0
+        public var input: Sol.Bytes = .init()
+        public var nonce: Sol.UInt64 = 0
+
+        public var fee: Fee2930 = .init()
+
+        public var hash: Hash? = nil
+        public var signature: Signature? = nil
+        public var locationInBlock: BlockLocation? = nil
+
+        public init(type: Sol.UInt64 = 0x01, chainId: Sol.UInt256 = 1, from: Sol.Address? = nil, to: Sol.Address = 0, value: Sol.UInt256 = 0, input: Sol.Bytes = .init(), nonce: Sol.UInt64 = 0, fee: Eth.Fee2930 = .init(), hash: Eth.Hash? = nil, signature: Eth.Signature? = nil, locationInBlock: Eth.BlockLocation? = nil) {
+            self.type = type
+            self.chainId = chainId
+            self.from = from
+            self.to = to
+            self.value = value
+            self.input = input
+            self.nonce = nonce
+            self.fee = fee
+            self.hash = hash
+            self.signature = signature
+            self.locationInBlock = locationInBlock
+        }
+    }
+
+    public struct Fee2930 {
+        public var gas: Sol.UInt64 = 0
+        public var gasPrice: Sol.UInt256 = 0
+        public var accessList: AccessList = .init()
+
+
+        public init(gas: Sol.UInt64 = 0, gasPrice: Sol.UInt256 = 0, accessList: Eth.AccessList = .init()) {
+            self.gas = gas
+            self.gasPrice = gasPrice
+            self.accessList = accessList
+        }
+    }
+
+    public struct TransactionEip1559 {
+        public var type: Sol.UInt64 = 0x02
+
+        public var chainId: Sol.UInt256 = 1
+
+        public var from: Sol.Address? = nil
+        public var to: Sol.Address = 0
+        public var value: Sol.UInt256 = 0
+        public var input: Sol.Bytes = .init()
+        public var nonce: Sol.UInt64 = 0
+
+        public var fee: Fee1559 = .init()
+
+        public var hash: Hash? = nil
+
+        public var signature: Signature? = nil
+
+        public var locationInBlock: BlockLocation? = nil
+
+        public init(
+            type: Sol.UInt64 = 0x02,
+            chainId: Sol.UInt256 = 1,
+            from: Sol.Address? = nil,
+            to: Sol.Address = 0,
+            value: Sol.UInt256 = 0,
+            input: Sol.Bytes = .init(),
+            nonce: Sol.UInt64 = 0,
+            fee: Eth.Fee1559 = .init(),
+            hash: Hash? = nil,
+            signature: Eth.Signature? = nil,
+            locationInBlock: Eth.BlockLocation? = nil
+        ) {
+            self.type = type
+            self.chainId = chainId
+            self.from = from
+            self.to = to
+            self.value = value
+            self.input = input
+            self.nonce = nonce
+            self.fee = fee
+            self.hash = hash
+            self.signature = signature
+            self.locationInBlock = locationInBlock
+        }
+
+        public init() {
+            self.init(
+                type: 0x02,
+                chainId: 1,
+                from: nil,
+                to: 0,
+                value: 0,
+                input: Sol.Bytes(),
+                nonce: 0,
+                fee: Eth.Fee1559(),
+                hash: nil,
+                signature: nil,
+                locationInBlock: nil
+            )
+        }
+    }
+
+    public struct Fee1559 {
+        public var gas: Sol.UInt64 = 0
+        public var maxFeePerGas: Sol.UInt256 = 0
+        public var maxPriorityFee: Sol.UInt256 = 0
+        public var accessList: AccessList = .init()
+
+        public init(gas: Sol.UInt64 = 0, maxFeePerGas: Sol.UInt256 = 0, maxPriorityFee: Sol.UInt256 = 0, accessList: Eth.AccessList = .init()) {
+            self.gas = gas
+            self.maxFeePerGas = maxFeePerGas
+            self.maxPriorityFee = maxPriorityFee
+            self.accessList = accessList
+        }
+    }
+
+    public struct BlockLocation {
+        public var blockHash: Sol.Bytes32 = .init()
+        public var blockNumber: Sol.UInt256 = 0
+        public var transactionIndex: Sol.UInt64 = 0
+
+        public init(blockHash: Sol.Bytes32 = .init(), blockNumber: Sol.UInt256 = 0, transactionIndex: Sol.UInt64 = 0) {
+            self.blockHash = blockHash
+            self.blockNumber = blockNumber
+            self.transactionIndex = transactionIndex
+        }
+    }
+
+    public struct Signature {
+        public var yParity: Sol.UInt256 = 0
+        public var r: Sol.UInt256 = 0
+        public var s: Sol.UInt256 = 0
+
+        public init(yParity: Sol.UInt256 = 0, r: Sol.UInt256 = 0, s: Sol.UInt256 = 0) {
+            self.yParity = yParity
+            self.r = r
+            self.s = s
+        }
+    }
+
+    public struct AccessList {
+        public var elements: [AccessListElement] = []
+        public init(elements: [Eth.AccessListElement] = []) {
+            self.elements = elements
+        }
+
+        public init() {
+            self.elements = []
+        }
+    }
+
+    public struct AccessListElement {
+        public var address: Sol.Address = 0
+        public var storageKeys: [Sol.Bytes32] = []
+        public init(address: Sol.Address = 0, storageKeys: [Sol.Bytes32] = []) {
+            self.address = address
+            self.storageKeys = storageKeys
+        }
+
+        public init() {
+            self.address = 0
+            self.storageKeys = []
+        }
+    }
+
+    public struct Hash {
+        public var storage: Sol.Bytes32
+
+        public init(_ value: Sol.Bytes32) {
+            self.storage = value
+        }
+
+        public init(_ value: Foundation.Data) {
+            self.storage = Sol.Bytes32(storage: value)
+        }
+
+        public init() {
+            self.storage = Sol.Bytes32()
+        }
+    }
+}
+
+extension Eth.AccessListElement: RlpCodable {
+    public func encode(using coder: RlpCoder) -> Data {
+        let array = [address, storageKeys as [RlpCodable]] as [RlpCodable]
+        let result = coder.encode(array)
+        return result
+    }
+
+    public func decode(value: RlpCodable, coder: RlpCoder) throws -> RlpCodable {
+        guard let array = value as? [RlpCodable], array.count == 2 else {
+            throw RlpCoder.RlpDecodingError.notRlpEncoded
+        }
+
+        let address = try self.address.decode(value: array[0], coder: coder)
+        let storageKeys = try (self.storageKeys as [RlpCodable]).decode(value: array[1], coder: coder)
+
+        return Self(
+            address: address as! Sol.Address,
+            storageKeys: storageKeys as! [Sol.Bytes32]
+        )
+    }
+}
+
+extension Eth.AccessList: RlpCodable {
+    public func encode(using coder: RlpCoder) -> Data {
+        let list: [RlpCodable] = elements.map { element -> RlpCodable in
+            element.encode(using: coder)
+        }
+        let result = coder.encode(list)
+        return result
+    }
+
+    public func decode(value: RlpCodable, coder: RlpCoder) throws -> RlpCodable {
+        let list = try (self.elements as [RlpCodable]).decode(value: value, coder: coder)
+        return Self(elements: list as! [Eth.AccessListElement])
+    }
+}
+
+// TODO: extract to file?
+import CryptoSwift
+
+public protocol EthSignable {
+    func preImageForSigning() -> Data
+    func hashForSigning() -> Eth.Hash
+}
+
+extension EthSignable {
+    public func hashForSigning() -> Eth.Hash {
+        let hash = Data(SHA3(variant: .keccak256).calculate(for: preImageForSigning().bytes))
+        return Eth.Hash(hash)
+    }
+}
+
+public protocol EthRawTransaction {
+    func rawTransaction() -> EthRpc1.Data
+    func txHash() -> Eth.Hash
+}
+
+extension EthRawTransaction {
+    public func txHash() -> Eth.Hash {
+        let hash = Data(SHA3(variant: .keccak256).calculate(for: rawTransaction().storage.bytes))
+        return Eth.Hash(hash)
+    }
+}
+
+public protocol EthTransaction: EthSignable, EthRawTransaction {
+    var from: Sol.Address? { get }
+    var hash: Eth.Hash? { get set }
+
+    // derived from the fee and value
+    var requiredBalance: Sol.UInt256 { get }
+
+    mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256)
+    mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256)
+}
+
+extension Eth.TransactionEip1559: EthSignable {
+    // The signature_y_parity, signature_r, signature_s elements of this transaction represent a
+    // secp256k1 signature over
+    // keccak256(0x02 || rlp([chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, destination, amount, data, access_list]))
+
+    public func preImageForSigning() -> Data {
+        let array: [RlpCodable] = [
+            chainId,
+            nonce,
+            fee.maxPriorityFee,
+            fee.maxFeePerGas,
+            fee.gas,
+            to,
+            value,
+            input,
+            fee.accessList
+        ]
+        let rlpTransaction = RlpCoder().encode(array)
+        let preImage = Data([UInt8(type)]) + rlpTransaction
+        return preImage
+    }
+}
+
+extension Eth.TransactionEip1559: EthTransaction {
+    public mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256) {
+        nonce = transactionCount
+        fee.gas = gas
+        fee.maxFeePerGas = fee.maxPriorityFee + baseFee
+    }
+
+    public mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256) {
+        self.signature = Eth.Signature(yParity: v, r: r, s: s)
+    }
+
+    public var requiredBalance: Sol.UInt256 {
+        Sol.UInt256(fee.gas) * fee.maxFeePerGas + value
+    }
+}
+
+extension Eth.TransactionEip1559: EthRawTransaction {
+//        // rlp-encode transaction items
+//        let rlpTransaction = RlpCoder().encode([chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, destination, amount, data, access_list as [RlpCodable]])
+
+    public func rawTransaction() -> EthRpc1.Data {
+        let signature = self.signature ?? Eth.Signature(yParity: 0, r: 0, s: 0)
+        let array: [RlpCodable] = [
+            chainId,
+            nonce,
+            fee.maxPriorityFee,
+            fee.maxFeePerGas,
+            fee.gas,
+            to,
+            value,
+            input,
+            fee.accessList,
+            signature.yParity,
+            signature.r,
+            signature.s
+        ]
+        let rlpEncoded = RlpCoder().encode(array)
+        let result = Data([UInt8(type)]) + rlpEncoded
+        return EthRpc1.Data(storage: result)
+    }
+}
+
+extension EthRpc1.eth_estimateGas {
+    public init(_ tx: EthTransaction) {
+        switch tx {
+        case let eip1559 as Eth.TransactionEip1559:
+            self.init(transaction: .eip1559(EthRpc1.Transaction1559(eip1559)))
+        case let eip2930 as Eth.TransactionEip2930:
+            self.init(transaction: .eip2930(EthRpc1.Transaction2930(eip2930)))
+        case let legacy as Eth.TransactionLegacy:
+            self.init(transaction: .legacy(EthRpc1.TransactionLegacy(legacy)))
+        default:
+            fatalError("Not implemented")
+        }
+    }
+}
+
+extension EthRpc1.Transaction1559 {
+    public init(_ tx: Eth.TransactionEip1559) {
+        self.init(
+            type: EthRpc1.Quantity<Sol.UInt64>(tx.type),
+            nonce: EthRpc1.Quantity<Sol.UInt64>(tx.nonce),
+            to: EthRpc1.Data(tx.to),
+            gas: EthRpc1.Quantity<Sol.UInt64>(tx.fee.gas),
+            value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
+            input: EthRpc1.Data(tx.input),
+            maxPriorityFeePerGas: EthRpc1.Quantity<Sol.UInt256>(tx.fee.maxPriorityFee),
+            maxFeePerGas: EthRpc1.Quantity<Sol.UInt256>(tx.fee.maxFeePerGas),
+            accessList: [EthRpc1.AccessListEntry](tx.fee.accessList),
+            chainId: EthRpc1.Quantity<Sol.UInt256>(tx.chainId),
+            from: tx.from.map { EthRpc1.Data($0) },
+            blockHash: (tx.locationInBlock?.blockHash).map { EthRpc1.Data($0) },
+            blockNumber: (tx.locationInBlock?.blockNumber).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            hash: tx.hash.map { EthRpc1.Data($0) },
+            transactionIndex: (tx.locationInBlock?.transactionIndex).map { EthRpc1.Quantity<Sol.UInt64>($0) },
+            yParity: (tx.signature?.yParity).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            r: (tx.signature?.r).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            s: (tx.signature?.s).map { EthRpc1.Quantity<Sol.UInt256>($0) }
+        )
+    }
+}
+
+// MARK: Eip2930
+extension Eth.TransactionEip2930: EthSignable {
+    public func preImageForSigning() -> Data {
+        let array: [RlpCodable] = [
+            chainId,
+            nonce,
+            fee.gasPrice,
+            fee.gas,
+            to,
+            value,
+            input,
+            fee.accessList
+        ]
+        let rlpTransaction = RlpCoder().encode(array)
+        let preImage = Data([UInt8(type)]) + rlpTransaction
+        return preImage
+    }
+}
+
+extension Eth.TransactionEip2930: EthRawTransaction {
+    public func rawTransaction() -> EthRpc1.Data {
+        let signature = self.signature ?? Eth.Signature(yParity: 0, r: 0, s: 0)
+        let array: [RlpCodable] = [
+            chainId,
+            nonce,
+            fee.gasPrice,
+            fee.gas,
+            to,
+            value,
+            input,
+            fee.accessList,
+            signature.yParity,
+            signature.r,
+            signature.s
+        ]
+        let rlpEncoded = RlpCoder().encode(array)
+        let result = Data([UInt8(type)]) + rlpEncoded
+        return EthRpc1.Data(storage: result)
+    }
+}
+
+extension Eth.TransactionEip2930: EthTransaction {
+    public mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256) {
+        nonce = transactionCount
+        fee.gas = gas
+        fee.gasPrice = baseFee
+    }
+
+    public mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256) {
+        self.signature = Eth.Signature(yParity: v, r: r, s: s)
+    }
+
+    public var requiredBalance: Sol.UInt256 {
+        Sol.UInt256(fee.gas) * fee.gasPrice + value
+    }
+}
+
+
+extension EthRpc1.Transaction2930 {
+    public init(_ tx: Eth.TransactionEip2930) {
+        self.init(
+            type: EthRpc1.Quantity<Sol.UInt64>(tx.type),
+            nonce: EthRpc1.Quantity<Sol.UInt64>(tx.nonce),
+            to: EthRpc1.Data(tx.to),
+            gas: EthRpc1.Quantity<Sol.UInt64>(tx.fee.gas),
+            value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
+            input: EthRpc1.Data(tx.input),
+            gasPrice: EthRpc1.Quantity<Sol.UInt256>(tx.fee.gasPrice),
+            accessList: [EthRpc1.AccessListEntry](tx.fee.accessList),
+            chainId: EthRpc1.Quantity<Sol.UInt256>(tx.chainId),
+            from: tx.from.map { EthRpc1.Data($0) },
+            blockHash: (tx.locationInBlock?.blockHash).map { EthRpc1.Data($0) },
+            blockNumber: (tx.locationInBlock?.blockNumber).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            hash: tx.hash.map { EthRpc1.Data($0) },
+            transactionIndex: (tx.locationInBlock?.transactionIndex).map { EthRpc1.Quantity<Sol.UInt64>($0) },
+            yParity: (tx.signature?.yParity).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            r: (tx.signature?.r).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            s: (tx.signature?.s).map { EthRpc1.Quantity<Sol.UInt256>($0) }
+        )
+    }
+}
+
+// MARK: Legacy
+extension Eth.TransactionLegacy: EthSignable {
+    public func preImageForSigning() -> Data {
+        let array: [RlpCodable]
+        if let chainId = chainId {
+            // (nonce, gasprice, startgas, to, value, data, chainid, 0, 0)
+            array = [
+                nonce,
+                fee.gasPrice,
+                fee.gas,
+                to,
+                value,
+                input,
+                chainId,
+                Sol.UInt256(0),
+                Sol.UInt256(0)
+            ]
+        } else {
+            // (nonce, gasprice, startgas, to, value, data)
+            array = [
+                nonce,
+                fee.gasPrice,
+                fee.gas,
+                to,
+                value,
+                input
+            ]
+        }
+        let rlpTransaction = RlpCoder().encode(array)
+        // eip-2718
+        // rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])
+        let preImage = rlpTransaction
+        return preImage
+    }
+}
+
+extension Eth.TransactionLegacy: EthRawTransaction {
+    public func rawTransaction() -> EthRpc1.Data {
+        // If you do, then the v of the signature MUST be set to {0,1} + CHAIN_ID * 2 + 35
+        // otherwise then v continues to be set to {0,1} + 27 as previously.
+        let signature = self.signature ?? Eth.SignatureLegacy(v: 0, r: 0, s: 0, chainId: chainId)
+        let array: [RlpCodable] = [
+            nonce,
+            fee.gasPrice,
+            fee.gas,
+            to,
+            value,
+            input,
+            signature.v,
+            signature.r,
+            signature.s
+        ]
+        let rlpEncoded = RlpCoder().encode(array)
+        // eip-2718
+        // rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])
+        let result = rlpEncoded
+        return EthRpc1.Data(storage: result)
+    }
+}
+
+extension Eth.TransactionLegacy: EthTransaction {
+    public mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256) {
+        nonce = transactionCount
+        fee.gas = gas
+        fee.gasPrice = baseFee
+    }
+
+    public mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256) {
+        self.signature = Eth.SignatureLegacy(v: v, r: r, s: s, chainId: chainId)
+    }
+
+    public var requiredBalance: Sol.UInt256 {
+        Sol.UInt256(fee.gas) * fee.gasPrice + value
+    }
+}
+
+extension EthRpc1.TransactionLegacy {
+    public init(_ tx: Eth.TransactionLegacy) {
+        self.init(
+            // type is the 1st byte of the encoded rlp transaction
+            // rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])
+            type: EthRpc1.Quantity<Sol.UInt64>(Sol.UInt64(tx.rawTransaction().storage[0])),
+            nonce: EthRpc1.Quantity<Sol.UInt64>(tx.nonce),
+            to: EthRpc1.Data(tx.to),
+            gas: EthRpc1.Quantity<Sol.UInt64>(tx.fee.gas),
+            value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
+            input: EthRpc1.Data(tx.input),
+            gasPrice: EthRpc1.Quantity<Sol.UInt256>(tx.fee.gasPrice),
+            chainId: EthRpc1.Quantity<Sol.UInt256>(tx.chainId ?? 0),
+            from: tx.from.map { EthRpc1.Data($0) },
+            blockHash: (tx.locationInBlock?.blockHash).map { EthRpc1.Data($0) },
+            blockNumber: (tx.locationInBlock?.blockNumber).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            hash: tx.hash.map { EthRpc1.Data($0) },
+            transactionIndex: (tx.locationInBlock?.transactionIndex).map { EthRpc1.Quantity<Sol.UInt64>($0) },
+            v: (tx.signature?.v).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            r: (tx.signature?.r).map { EthRpc1.Quantity<Sol.UInt256>($0) },
+            s: (tx.signature?.s).map { EthRpc1.Quantity<Sol.UInt256>($0) }
+        )
+    }
+}
+
+
+extension Array where Element == EthRpc1.AccessListEntry {
+    public init(_ list: Eth.AccessList) {
+        self = list.elements.map({ element in
+            EthRpc1.AccessListEntry(
+                address: EthRpc1.Data(element.address),
+                storageKeys: element.storageKeys.map { storageKey in
+                    EthRpc1.Data(storageKey)
+                }
+            )
+        })
+    }
+}
+
+public protocol EthUnit {
+    var symbol: String { get }
+
+    init(symbol: String)
+}
+
+public protocol EthUnitConverter {
+    // returns value in terms of a base unit of its dimension
+    func baseUnitValue(from value: Sol.UInt256) -> Sol.UInt256
+    // returns the base unit in terms of the value
+    func value(from baseUnitValue: Sol.UInt256) -> Sol.UInt256
+}
+
+public protocol EthDimension: EthUnit {
+    init(symbol: String, converter: EthUnitConverter)
+    var converter: EthUnitConverter { get }
+    static var baseUnit: Self { get }
+}
+
+extension Eth {
+    public struct Amount<UnitType> where UnitType: EthUnit {
+        public var value: Sol.UInt256
+        public var unit: UnitType
+
+        public init(value: Sol.UInt256, unit: UnitType) {
+            self.value = value
+            self.unit = unit
+        }
+    }
+}
+
+extension Eth.Amount where UnitType: EthDimension {
+    public mutating func convert(to otherUnit: UnitType) {
+        // convert self.value from self.unit to otherUnit
+            // convert self.value to base unit
+        let valueInBaseUnits = self.unit.converter.baseUnitValue(from: self.value)
+            // convert base unit to other unit
+        let valueInOtherUnits = otherUnit.converter.value(from: valueInBaseUnits)
+        self.value = valueInOtherUnits
+        self.unit = otherUnit
+    }
+
+    public func converted(to otherUnit: UnitType) -> Eth.Amount<UnitType> {
+        // return new amount with value converted from self.unit to the other unit
+        var otherAmount = self
+        otherAmount.convert(to: otherUnit)
+        return otherAmount
+    }
+}
+
+extension Eth {
+    public struct UnitConverterLinear: EthUnitConverter {
+        // a
+        public let coefficient: Sol.UInt256
+        // b
+        public let constant: Sol.UInt256
+
+        public init(coefficient: Sol.UInt256, constant: Sol.UInt256 = 0) {
+            self.coefficient = coefficient
+            self.constant = constant
+        }
+
+        // y = ax + b
+        public func baseUnitValue(from value: Sol.UInt256) -> Sol.UInt256 {
+            coefficient * value + constant
+        }
+
+        // x = (y - b) / a
+        public func value(from baseUnitValue: Sol.UInt256) -> Sol.UInt256 {
+            (baseUnitValue - constant) / coefficient
+        }
+    }
+}
+
+extension Eth {
+    public struct Unit: EthDimension {
+        public var symbol: String
+        public var converter: EthUnitConverter
+
+        public init(symbol: String) {
+            self.symbol = symbol
+            self.converter = UnitConverterLinear(coefficient: 1)
+        }
+
+        public init(symbol: String, converter: EthUnitConverter) {
+            self.symbol = symbol
+            self.converter = converter
+        }
+
+        public static let baseUnit: Eth.Unit = wei
+
+        // Reference: https://www.languagesandnumbers.com/articles/en/ethereum-ether-units/
+
+        public static let wei = Eth.Unit(symbol: "Wei", converter: UnitConverterLinear(coefficient: 1))
+        public static let attoether = Eth.Unit(symbol: "aΞ", converter: kilowei.converter)
+
+        public static let kilowei = Eth.Unit(symbol: "Kwei", converter: UnitConverterLinear(coefficient: 1_000))
+        public static let femtoether = Eth.Unit(symbol: "fΞ", converter: kilowei.converter)
+        public static let lovelace = Eth.Unit(symbol: "Ada", converter: kilowei.converter)
+
+        public static let megawei = Eth.Unit(symbol: "Mwei", converter: UnitConverterLinear(coefficient: 1_000_000))
+        public static let picoether = Eth.Unit(symbol: "pΞ", converter: megawei.converter)
+        public static let babbage = Eth.Unit(symbol: "Babbage", converter: megawei.converter)
+
+        public static let gigawei = Eth.Unit(symbol: "Gwei", converter: UnitConverterLinear(coefficient: 1_000_000_000))
+        public static let nanoether = Eth.Unit(symbol: "nΞ", converter: gigawei.converter)
+        public static let shannon = Eth.Unit(symbol: "Shannon", converter: gigawei.converter)
+
+        public static let terawei = Eth.Unit(symbol: "Twei", converter: UnitConverterLinear(coefficient: 1_000_000_000_000))
+        public static let microether = Eth.Unit(symbol: "μΞ", converter: terawei.converter)
+        public static let szabo = Eth.Unit(symbol: "Szabo", converter: terawei.converter)
+
+        public static let petawei = Eth.Unit(symbol: "Pwei", converter: UnitConverterLinear(coefficient: 1_000_000_000_000_000))
+        public static let milliether = Eth.Unit(symbol: "mΞ", converter: petawei.converter)
+        public static let finney = Eth.Unit(symbol: "Finney", converter: petawei.converter)
+
+        public static let exawei = Eth.Unit(symbol: "Ewei", converter: UnitConverterLinear(coefficient: 1_000_000_000_000_000_000))
+        public static let ether = Eth.Unit(symbol: "Ξ", converter: exawei.converter)
+        public static let buterin = Eth.Unit(symbol: "Buterin", converter: exawei.converter)
+
+        public static let kiloether = Eth.Unit(symbol: "kΞ", converter: UnitConverterLinear(coefficient: "1000000000000000000000"))
+        public static let grand = Eth.Unit(symbol: "Grand", converter: kiloether.converter)
+        public static let einstein = Eth.Unit(symbol: "Einstein", converter: kiloether.converter)
+
+        public static let megaether = Eth.Unit(symbol: "MΞ", converter: UnitConverterLinear(coefficient: "1000000000000000000000000"))
+
+        public static let gigaether = Eth.Unit(symbol: "GΞ", converter: UnitConverterLinear(coefficient: "1000000000000000000000000000"))
+
+        public static let teraether = Eth.Unit(symbol: "TΞ", converter: UnitConverterLinear(coefficient: "1000000000000000000000000000000"))
     }
 }

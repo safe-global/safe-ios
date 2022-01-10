@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Ethereum",
-    platforms: [.iOS(.v14), .macOS(.v11)],
+    platforms: [.iOS(.v13), .macOS(.v11)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -29,7 +29,7 @@ let package = Package(
         .target(name: "JsonRpc2", dependencies: ["Json"]),
         .testTarget(name: "JsonRpc2Tests", dependencies: ["JsonRpc2", "TestHelpers"]),
 
-        .target(name: "Ethereum", dependencies: ["Json", "JsonRpc2"]),
+        .target(name: "Ethereum", dependencies: ["Json", "JsonRpc2", "Solidity"]),
         .testTarget(name: "EthereumTests", dependencies: ["Ethereum", "TestHelpers"]),
 
         .target(name: "Solidity", dependencies: ["WordInteger", "CryptoSwift"]),
