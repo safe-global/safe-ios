@@ -56,6 +56,7 @@ class AssetsViewController: ContainerViewController {
             vc.modalPresentationStyle = .overFullScreen
             vc.modalTransitionStyle = .crossDissolve
             self?.present(vc, animated: true, completion: nil)
+            Tracker.trackEvent(.assetTrasferReceiveClicked)
         }
         
         totalBalanceView.onSendClicked = { [weak self] in
@@ -73,6 +74,7 @@ class AssetsViewController: ContainerViewController {
             } else {
                 self?.showSelectAssetsViewContoller()
             }
+            Tracker.trackEvent(.assetTransferSendClicked)
         }
     }
     

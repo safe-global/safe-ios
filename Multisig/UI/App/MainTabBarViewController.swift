@@ -8,6 +8,7 @@
 
 import UIKit
 import Intercom
+import WhatsNewKit
 
 class MainTabBarViewController: UITabBarController {
     var onFirstAppear: (_ vc: MainTabBarViewController) -> Void = { _ in
@@ -77,6 +78,13 @@ class MainTabBarViewController: UITabBarController {
         appearsFirstTime = false
 
         onFirstAppear(self)
+
+        if (App.shared.intercomConfig.presentMessenger) {
+            App.shared.intercomConfig.presentMessenger = false
+            App.shared.intercomConfig.startChat()
+        } else {
+            WhatsNewHandler().whatsNewViewController?.present(on: self)
+        }
     }
 
     private func balancesTabViewController() -> UIViewController {
@@ -133,7 +141,7 @@ class MainTabBarViewController: UITabBarController {
         noSafesVC.noSafeViewController = loadSafeViewController
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
-        return tabViewController(root: tabRoot, title: "Dapps", image: UIImage(named: "tab-icon-dapps")!, tag: 2)
+        return tabViewController(root: tabRoot, title: "dApps", image: UIImage(named: "tab-icon-dapps")!, tag: 2)
     }
 
     private func settingsTabViewController() -> UIViewController {

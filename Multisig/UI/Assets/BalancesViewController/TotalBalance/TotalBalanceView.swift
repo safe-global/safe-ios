@@ -41,6 +41,7 @@ class TotalBalanceView: UINibView {
     }
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         amountLabel.skeletonTextLineHeight = .relativeToConstraints
         amountLabel.setStyle(.title4)
         totalLabel.setStyle(.footnote2)

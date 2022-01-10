@@ -48,7 +48,7 @@ class WCEditParametersViewController: UIViewController, ExternalURLSource {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Edit Transaction"
+        title = "Advanced Parameters"
 
         let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(CloseModal.closeModal))
         navigationItem.leftBarButtonItem = closeButton
@@ -100,8 +100,8 @@ class WCEditParametersViewController: UIViewController, ExternalURLSource {
         if let safeTxGasText = safeTxGasTextField.textField.text?
             .trimmingCharacters(in: .whitespacesAndNewlines), !safeTxGasText.isEmpty,
            let safeTxGas = UInt256(safeTxGasText) {
-
             self.safeTxGas = UInt256String(safeTxGas)
+            saveButton.isEnabled = true
         } else {
             saveButton.isEnabled = false
         }

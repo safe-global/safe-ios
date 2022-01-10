@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: download_dsyms" time="61.566158">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: upload_symbols_to_crashlytics" time="5.453818">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: clean_build_artifacts" time="0.012325">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
