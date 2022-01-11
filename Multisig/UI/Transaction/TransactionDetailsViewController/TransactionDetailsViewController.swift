@@ -366,7 +366,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
               var transaction = Transaction(tx: tx),
               let multisigInfo = tx.multisigInfo,
               keyInfo.keyType == .walletConnect else {
-            preconditionFailure("Unexpected Error")
+                  assertionFailure("Unexpected Error")
+                  return
         }
 
         do {
