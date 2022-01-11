@@ -156,7 +156,7 @@ extension Safe: Identifiable {
         self.name = name
 
         App.shared.coreDataStack.saveContext()
-        NotificationCenter.default.post(name: .selectedSafeUpdated, object: nil)
+        NotificationCenter.default.post(name: .selectedSafeUpdated, object: self)
 
         Safe.updateCachedNames()
     }
@@ -206,20 +206,20 @@ extension Safe: Identifiable {
 
 extension Safe {
     func update(from info: SafeInfoRequest.ResponseType) {
-        DispatchQueue.main.async {
-            self.contractVersion = info.version
-            App.shared.coreDataStack.saveContext()
-        }
-
         threshold = info.threshold.value
         ownersInfo = info.owners.map { $0.addressInfo }
         implementationInfo = info.implementation.addressInfo
+        implementationVersionState = ImplementationVersionState(info.implementationVersionState)
         nonce = info.nonce.value
         modulesInfo = info.modules?.map { $0.addressInfo }
         fallbackHandlerInfo = info.fallbackHandler?.addressInfo
         guardInfo = info.guard?.addressInfo
-                            
-        NotificationCenter.default.post(name: .selectedSafeUpdated, object: self)
+        version = info.version
+        DispatchQueue.main.async {
+            self.contractVersion = info.version
+            App.shared.coreDataStack.saveContext()
+            NotificationCenter.default.post(name: .selectedSafeUpdated, object: self)
+        }
     }
 }
 
@@ -233,5 +233,15 @@ extension NSFetchRequest where ResultType == Safe {
         sortDescriptors = []
         predicate = NSPredicate(format: "selection != nil")
         return self
+    }
+}
+
+extension ImplementationVersionState {
+    init(_ implementationVersionState: SCGModels.ImplementationVersionState) {
+        switch implementationVersionState {
+        case .unknown: self = .unknown
+        case .upToDate: self = .upToDate
+        case .upgradeAvailable: self = .upgradeAvailable
+        }
     }
 }
