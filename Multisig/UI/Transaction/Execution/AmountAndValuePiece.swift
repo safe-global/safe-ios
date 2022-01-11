@@ -9,9 +9,20 @@
 import UIKit
 
 class AmountAndValuePiece: UINibView {
-    // token amount label
-    // fiat amount label
-    // both right-justified
-    // flexible width
-    // fixed height
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var fiatAmountLabel: UILabel!
+
+    override func commonInit() {
+        super.commonInit()
+        amountLabel.setStyle(.primary)
+        fiatAmountLabel.setStyle(.caption1.weight(.regular))
+    }
+
+    func setAmount(_ value: String?) {
+        amountLabel.text = value
+    }
+
+    func setFiatAmount(_ value: String?) {
+        fiatAmountLabel.text = value
+    }
 }

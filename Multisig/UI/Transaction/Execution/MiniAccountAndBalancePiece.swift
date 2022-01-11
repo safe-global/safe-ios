@@ -9,14 +9,24 @@
 import UIKit
 
 class MiniAccountAndBalancePiece: UINibView {
-    // account icon (including type of account)
-    // account name or address
-        // if name too long then it's ellipsized
-    // account balance
-        // right-justified text
+    @IBOutlet weak var addressInfoView: AddressInfoView!
+    @IBOutlet weak var bottomLabel: UILabel!
 
+    override func commonInit() {
+        super.commonInit()
+        bottomLabel.setStyle(.caption1.weight(.medium))
+        addressInfoView.setIconSize(24)
+        addressInfoView.setCopyAddressEnabled(false)
+    }
 
-    // fixed height
-    // fixed maximum width - content sticks to the trailing side when width grows
-    // width flexible depending on the name width or amount width
+    func setModel(_ value: MiniAccountInfoUIModel) {
+        addressInfoView.setAddressOneLine(
+            value.address,
+            label: value.label,
+            imageUri: value.imageUri,
+            badgeName: value.badge,
+            prefix: value.prefix)
+
+        bottomLabel.text = value.balance
+    }
 }

@@ -18,6 +18,7 @@ extension UIColor {
     static let gray2 = UIColor(named: "gray2")!
     static let gray4 = UIColor(named: "gray4")!
     static let gray5 = UIColor(named: "gray5")!
+    static let whiteOrBlack = UIColor(named: "whiteOrBlackBackground")!
     static let pending = UIColor(named: "pending")!
     static let primaryBackground = UIColor(named: "primaryBackground")!
     static let primaryLabel = UIColor(named: "primaryLabel")!
