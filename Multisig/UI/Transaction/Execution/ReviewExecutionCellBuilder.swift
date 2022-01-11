@@ -135,7 +135,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         // amount
         let amountModel = tokenAmount(from: transferTx.transferInfo)
         buildAmount(amountModel: amountModel)
-        
+
         // from
         let (senderLabel, senderLogo) = NamingPolicy.name(for: transferTx.sender, chainId: chain.id!)
         let senderUrl = chain.browserURL(address: transferTx.sender.value.address.checksummed)
@@ -187,6 +187,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
             result.symbol = erc721.tokenSymbol ?? "NFT"
             result.tokenLogoUri = erc721.logoUri
             result.placeholder = UIImage(named: "ico-nft-placeholder")
+            result.detail = erc721.tokenId.description
 
         case .unknown:
             break
@@ -199,6 +200,7 @@ struct TokenAmountUIModel {
     var value: UInt256?
     var symbol: String = ""
     var decimals: UInt64?
+    var detail: String?
     var tokenLogoUri: String?
     var placeholder = UIImage(named: "ico-token-placeholder")
 
@@ -224,7 +226,7 @@ struct TokenAmountUIModel {
 
     var formattedFiatValue: String {
         // TODO: Fetch fiat amount
-        "fiat amount"
+        detail ?? "fiat amount"
     }
 
     var tokenLogoURL: URL? {
