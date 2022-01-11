@@ -9,6 +9,7 @@
 import UIKit
 
 class TokenInfoView: UINibView {
+    @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var detailLabel: UILabel!
@@ -16,6 +17,7 @@ class TokenInfoView: UINibView {
     override func awakeFromNib() {
         super.awakeFromNib()
         setDetail(nil)
+        setTitle(nil)
     }
 
     func setImage(_ image: UIImage?) {
@@ -29,6 +31,12 @@ class TokenInfoView: UINibView {
     func setText(_ text: String, style: GNOTextStyle = .primary) {
         textLabel.text = text
         textLabel.setStyle(style)
+    }
+
+    func setTitle(_ value: String?, style: GNOTextStyle = .primary) {
+        titleLabel.text = value
+        titleLabel.setStyle(style)
+        titleLabel.isHidden = value == nil
     }
 
     func setDetail(_ text: String?, style: GNOTextStyle = GNOTextStyle.footnote2) {

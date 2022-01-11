@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="amountLabel" destination="OZ4-T7-PQr" id="An3-E7-p2w"/>
                 <outlet property="fiatAmountLabel" destination="fxT-NE-o3e" id="Pli-FX-XCk"/>
+                <outlet property="stackView" destination="NpF-IP-wfL" id="gm2-FR-nSJ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

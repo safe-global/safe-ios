@@ -17,7 +17,7 @@ class TransactionDetailCellBuilder {
     private weak var tableView: UITableView!
 
     // needed for proper safe selection for known addresses functionality. Also used to select the block explorer url.
-    private var chain: Chain
+    private(set) var chain: Chain
 
     private lazy var dateFormatter: DateFormatter = {
         let d = DateFormatter()
