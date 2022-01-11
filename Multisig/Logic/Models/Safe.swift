@@ -87,6 +87,11 @@ extension Safe: Identifiable {
         return cachedNames[key]
     }
 
+    static func cachedName(by address: String, chainId: String) -> String? {
+        let key = "\(address):\(chainId)"
+        return cachedNames[key]
+    }
+
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         additionDate = Date()

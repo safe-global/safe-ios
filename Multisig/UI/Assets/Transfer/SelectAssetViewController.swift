@@ -53,7 +53,6 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         
         tableView.registerCell(BalanceTableViewCell.self)
         
-        tableView.allowsSelection = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         tableView.backgroundColor = tableBackgroundColor
@@ -95,5 +94,40 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
             cell.setImage(with: item.imageURL, placeholder: UIImage(named: "ico-token-placeholder")!)
         }
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = TransactionViewController()
+        vc.tokenBalance = filteredBalances[indexPath.row]
+        show(vc, sender: self)
+    }
+}
+
+extension SelectAssetViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let inverseSet = CharacterSet(charactersIn:"0123456789").inverted
+
+        let components = string.components(separatedBy: inverseSet)
+
+        let filtered = components.joined(separator: "")
+
+        if filtered == string {
+            return true
+        } else {
+            if string == "." {
+                let countdots = textField.text!.components(separatedBy:".").count - 1
+                if countdots == 0 {
+                    return true
+                }else{
+                    if countdots > 0 && string == "." {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+            }else{
+                return false
+            }
+        }
     }
 }

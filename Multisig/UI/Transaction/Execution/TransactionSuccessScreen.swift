@@ -15,15 +15,18 @@ class TransactionSuccessScreen: UIViewController {
     @IBOutlet weak var viewDetailsButton: UIButton!
     
     private var amount: String = ""
+    private var token: String = ""
     private var transactionDetails: SCGModels.TransactionDetails?
     private var trackingEvent: TrackingEvent!
     
     convenience init(
         amount: String,
+        token: String,
         transactionDetails: SCGModels.TransactionDetails? = nil,
         trackingEvent: TrackingEvent = .assetsTransferSuccess) {
         self.init(nibName: nil, bundle: nil)
         self.amount = amount
+        self.token = token
         self.transactionDetails = transactionDetails
         self.trackingEvent = trackingEvent
     }
@@ -35,7 +38,7 @@ class TransactionSuccessScreen: UIViewController {
 
         titleLabel.setStyle(.headline)
         statusLabel.setStyle(.primary)
-        statusLabel.text = "Your request to send \(amount) is submitted and needs to be confirmed by other owners."
+        statusLabel.text = "Your request to send \(amount) \(token) is submitted and needs to be confirmed by other owners."
         viewDetailsButton.setText("View details", .filled)
     }
     
