@@ -209,7 +209,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         guard let nonce = safe.nonce, nonce == tx?.multisigInfo?.nonce.value else {
             return false
         }
-        return tx?.needsYourExecution ?? false
+        guard let tx = tx else {
+            return false
+        }
+        return needsYourExecution(tx: tx)
     }
 
     private var enableRejectionButton: Bool {
@@ -255,9 +258,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     @objc private func didTapExecute() {
-        guard let signers = tx?.multisigInfo?.executionKeys() else {
-            return
-        }
+        let signers = executionKeys()
 
         let descriptionText = "You are about to execute this transaction. Please select which owner key to use."
         let vc = ChooseOwnerKeyViewController(owners: signers,
@@ -473,6 +474,51 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
     }
 
+    // returns the execution keys valid for executing this transaction
+    func executionKeys() -> [KeyInfo] {
+        // we only know now how to exeucte a safe transaction
+        guard tx?.multisigInfo != nil else {
+            return []
+        }
+
+        guard let safe = safe, let chain = safe.chain else {
+            return []
+        }
+
+        // all keys that can sign this tx on its chain.
+            // currently, only wallet connect keys are chain-specific, so we filter those out.
+        guard let allKeys = try? KeyInfo.all(), !allKeys.isEmpty else {
+            return []
+        }
+
+        let validKeys = allKeys.filter { keyInfo in
+            // if it's a wallet connect key which chain doesn't match then do not use it
+            if keyInfo.keyType == .walletConnect,
+               let data = keyInfo.metadata,
+               let connection = KeyInfo.WalletConnectKeyMetadata.from(data: data),
+               // when chainId is 0 then it is 'any' chain
+               connection.walletInfo.chainId != 0 &&
+                String(describing: connection.walletInfo.chainId) != chain.id {
+                return false
+            }
+            // else use the key
+            return true
+        }
+
+        return validKeys
+    }
+
+    // returns true if the app has means to execute the transaction and the transaction has all required confirmations
+    func needsYourExecution(tx: SCGModels.TransactionDetails) -> Bool {
+        if tx.txStatus == .awaitingExecution,
+           let multisigInfo = tx.multisigInfo,
+           // unclear why the confirmations only count ecdsa
+           tx.ecdsaConfirmations.count >= multisigInfo.confirmationsRequired,
+           !executionKeys().isEmpty {
+            return true
+        }
+        return false
+    }
 }
 
 extension SCGModels.TransactionDetails {
@@ -481,16 +527,6 @@ extension SCGModels.TransactionDetails {
            let multisigInfo = multisigInfo,
            !multisigInfo.signerKeys().isEmpty,
            multisigInfo.needsMoreSignatures {
-            return true
-        }
-        return false
-    }
-
-    var needsYourExecution: Bool {
-        if txStatus == .awaitingExecution,
-           let multisigInfo = multisigInfo,
-           ecdsaConfirmations.count >= multisigInfo.confirmationsRequired,
-           !multisigInfo.executionKeys().isEmpty {
             return true
         }
         return false
@@ -537,20 +573,6 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
         }).map( { $0.address } )
 
         return (try? KeyInfo.keys(addresses: remainingSigners)) ?? []
-    }
-
-    // In general, a transaction can be executed with any ethereum key.
-    // However, we restrict the ability to execute only to owners for additional protection.
-    func executionKeys() -> [KeyInfo] {
-        let signerAddresses = signers.map(\.value).map( { $0.address } )
-        guard !((try? KeyInfo.keys(addresses: signerAddresses)) ?? []).isEmpty else {
-            return []
-        }
-
-        // but any WalletConnect key can execute a transaction
-        let keys = (try? KeyInfo.all()) ?? []
-        let selectedSafeChainId = try! Safe.getSelected()!.chain!.id
-        return keys.filter { $0.keyType == .walletConnect }
     }
 
     func rejectorKeys() -> [KeyInfo] {
