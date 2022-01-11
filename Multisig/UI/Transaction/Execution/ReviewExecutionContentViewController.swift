@@ -11,6 +11,9 @@ import UIKit
 class ReviewExecutionContentViewController: UITableViewController {
 
     typealias Transaction = SCGModels.TransactionDetails
+    var onTapAccount: () -> Void = {}
+    var onTapFee: () -> Void = {}
+    var onTapAdvanced: () -> Void = {}
 
     private var safe: Safe!
     private var chain: Chain!
@@ -40,6 +43,9 @@ class ReviewExecutionContentViewController: UITableViewController {
             chain: chain,
             safe: safe
         )
+        builder.onTapAccount = onTapAccount
+        builder.onTapFee = onTapFee
+        builder.onTapAdvanced = onTapAdvanced
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48

@@ -47,6 +47,10 @@ class ReviewExecutionViewController: ContainerViewController {
             safe: safe,
             chain: chain,
             transaction: transaction)
+        contentVC.onTapAccount = action(#selector(didTapAccount(_:)))
+        contentVC.onTapFee = action(#selector(didTapFee(_:)))
+        contentVC.onTapAdvanced = action(#selector(didTapAdvanced(_:)))
+
         self.viewControllers = [contentVC]
         self.displayChild(at: 0, in: contentView)
 
@@ -65,16 +69,35 @@ class ReviewExecutionViewController: ContainerViewController {
         navigationItem.leftBarButtonItem = closeButton
     }
 
+    func action(_ selector: Selector) -> () -> Void {
+        { [weak self] in
+            self?.performSelector(onMainThread: selector, with: nil, waitUntilDone: false)
+        }
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // tracking
     }
 
-    @IBAction func didTapSubmit(_ sender: Any) {
-        print("Submit!")
-    }
 
     @IBAction func didTapClose(_ sender: Any) {
         self.onClose()
+    }
+
+    @IBAction func didTapAccount(_ sender: Any) {
+        print("Account!")
+    }
+
+    @IBAction func didTapFee(_ sender: Any) {
+        print("Fee!")
+    }
+
+    @IBAction func didTapAdvanced(_ sender: Any) {
+        print("Advanced!")
+    }
+
+    @IBAction func didTapSubmit(_ sender: Any) {
+        print("Submit!")
     }
 }

@@ -13,6 +13,7 @@ class ChooseOwnerKeyViewController: UIViewController {
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
 
+    private var titleText: String!
     private var owners: [KeyInfo] = []
     private var chainID: String?
     private var descriptionText: String!
@@ -24,10 +25,17 @@ class ChooseOwnerKeyViewController: UIViewController {
 
     var completionHandler: ((KeyInfo?) -> Void)?
 
-    convenience init(owners: [KeyInfo], chainID: String?, descriptionText: String, completionHandler: ((KeyInfo?) -> Void)? = nil) {
+    convenience init(
+        owners: [KeyInfo],
+        chainID: String?,
+        titleText: String = "Select owner key",
+        descriptionText: String,
+        completionHandler: ((KeyInfo?) -> Void)? = nil
+    ) {
         self.init()
         self.owners = owners
         self.chainID = chainID
+        self.titleText = titleText
         self.descriptionText = descriptionText
         self.completionHandler = completionHandler
     }
@@ -39,7 +47,7 @@ class ChooseOwnerKeyViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Select owner key"
+        navigationItem.title = titleText
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel, target: self, action: #selector(didTapCloseButton))
         
