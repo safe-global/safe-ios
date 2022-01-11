@@ -101,6 +101,12 @@ extension KeyInfo {
         return items
     }
 
+    static func owners(safe: Safe) -> [KeyInfo] {
+        guard let owners = safe.ownersInfo?.compactMap ({ $0.address } ) else { return [] }
+
+        return (try? KeyInfo.keys(addresses: owners)) ?? []
+    }
+
     static func keys(types: [KeyType]) throws -> [KeyInfo] {
         try all().filter { types.contains(KeyType(rawValue: Int($0.type))!) }
     }

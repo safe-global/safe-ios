@@ -80,11 +80,12 @@ class TransactionViewController: UIViewController {
     }
 
     @IBAction private func didTapReviewButton(_ sender: Any) {
-        let vc = ReviewSendFundsTransactionViewController()
-        vc.address = address
-        vc.safe = safe
-        vc.amount = amount
+        guard let amount = amount, let address = address else { return }
 
+        let vc = ReviewSendFundsTransactionViewController(safe: safe,
+                                                          address: address,
+                                                          tokenBalance: tokenBalance,
+                                                          amount: amount)
         show(vc, sender: self)
     }
 

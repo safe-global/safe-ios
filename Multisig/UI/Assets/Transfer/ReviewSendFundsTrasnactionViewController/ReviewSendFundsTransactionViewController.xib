@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReviewSendFundsTransactionViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
-                <outlet property="confirmButton" destination="gpc-EJ-2Wi" id="O54-gw-EVR"/>
+                <outlet property="confirmButtonView" destination="wYW-8e-Q4s" id="0Sn-Ob-Cex"/>
                 <outlet property="contentContainerView" destination="exn-rB-X4l" id="mMv-E5-6pb"/>
                 <outlet property="descriptionLabel" destination="9lF-Zo-WNx" id="d7N-MQ-OrL"/>
                 <outlet property="estimationFailedDescriptionLabel" destination="mIn-yK-oM2" id="05m-Tf-Sxs"/>
@@ -37,8 +38,9 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="XTX-n7-56N">
                             <rect key="frame" x="16" y="332.5" width="382" height="193.5"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0tB-2l-eR1">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-error" translatesAutoresizingMaskIntoConstraints="NO" id="0tB-2l-eR1">
                                     <rect key="frame" x="175" y="0.0" width="32" height="32"/>
+                                    <color key="tintColor" name="error"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="32" id="PPn-GH-htT"/>
                                         <constraint firstAttribute="width" secondItem="0tB-2l-eR1" secondAttribute="height" id="iCo-aI-zqJ"/>
@@ -89,9 +91,13 @@
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exn-rB-X4l">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bcC-1M-wdN">
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bcC-1M-wdN">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="685"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="dja-7q-JDi"/>
+                                <outlet property="delegate" destination="-1" id="jhs-e1-cGf"/>
+                            </connections>
                         </tableView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You’re about to initiate a Safe transaction. It won’t be submitted to blockchain yet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9lF-Zo-WNx">
                             <rect key="frame" x="16" y="693" width="382" height="41"/>
@@ -99,33 +105,29 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpc-EJ-2Wi">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wYW-8e-Q4s" customClass="ActivityButtonView" customModule="Multisig" customModuleProvider="target">
                             <rect key="frame" x="16" y="742" width="382" height="56"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="56" id="cM9-cO-60u"/>
+                                <constraint firstAttribute="height" constant="56" id="jJG-wk-Atj"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Confirm">
-                                <color key="titleColor" systemColor="labelColor"/>
-                            </state>
-                            <connections>
-                                <action selector="confirmButtonTouched:" destination="-1" eventType="touchUpInside" id="Mv1-xn-gqu"/>
-                            </connections>
-                        </button>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="title" value="Confirm"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="gpc-EJ-2Wi" secondAttribute="trailing" constant="16" id="96N-wk-UUC"/>
-                        <constraint firstItem="gpc-EJ-2Wi" firstAttribute="leading" secondItem="exn-rB-X4l" secondAttribute="leading" constant="16" id="E2I-7R-FZt"/>
-                        <constraint firstAttribute="bottom" secondItem="gpc-EJ-2Wi" secondAttribute="bottom" constant="20" id="Iq9-gb-KbR"/>
-                        <constraint firstItem="9lF-Zo-WNx" firstAttribute="centerX" secondItem="gpc-EJ-2Wi" secondAttribute="centerX" id="KRc-i5-600"/>
+                        <constraint firstItem="9lF-Zo-WNx" firstAttribute="width" secondItem="wYW-8e-Q4s" secondAttribute="width" id="6j9-En-YFY"/>
+                        <constraint firstAttribute="bottom" secondItem="wYW-8e-Q4s" secondAttribute="bottom" constant="20" id="GZp-jB-a9X"/>
+                        <constraint firstItem="9lF-Zo-WNx" firstAttribute="centerX" secondItem="wYW-8e-Q4s" secondAttribute="centerX" id="MV3-7Z-XXN"/>
+                        <constraint firstItem="wYW-8e-Q4s" firstAttribute="leading" secondItem="exn-rB-X4l" secondAttribute="leading" constant="16" id="PaO-8v-U8C"/>
                         <constraint firstItem="bcC-1M-wdN" firstAttribute="width" secondItem="exn-rB-X4l" secondAttribute="width" id="eOY-hg-8UY"/>
+                        <constraint firstItem="wYW-8e-Q4s" firstAttribute="top" secondItem="9lF-Zo-WNx" secondAttribute="bottom" constant="8" id="fKx-Uh-ab1"/>
                         <constraint firstItem="9lF-Zo-WNx" firstAttribute="top" secondItem="bcC-1M-wdN" secondAttribute="bottom" constant="8" symbolic="YES" id="fVu-BO-39c"/>
                         <constraint firstItem="bcC-1M-wdN" firstAttribute="centerX" secondItem="exn-rB-X4l" secondAttribute="centerX" id="l8M-1z-NI5"/>
-                        <constraint firstItem="9lF-Zo-WNx" firstAttribute="width" secondItem="gpc-EJ-2Wi" secondAttribute="width" id="mQ7-n5-lsG"/>
+                        <constraint firstAttribute="trailing" secondItem="wYW-8e-Q4s" secondAttribute="trailing" constant="16" id="rPK-Cf-oQg"/>
                         <constraint firstItem="bcC-1M-wdN" firstAttribute="top" secondItem="exn-rB-X4l" secondAttribute="top" id="sCL-8T-aao"/>
-                        <constraint firstItem="gpc-EJ-2Wi" firstAttribute="top" secondItem="9lF-Zo-WNx" secondAttribute="bottom" constant="8" symbolic="YES" id="wkt-oQ-lNI"/>
                     </constraints>
                 </view>
             </subviews>
@@ -147,6 +149,10 @@
         </view>
     </objects>
     <resources>
+        <image name="ico-error" width="44" height="44"/>
+        <namedColor name="error">
+            <color red="0.93725490196078431" green="0.14117647058823529" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

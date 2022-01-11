@@ -13,7 +13,6 @@ fileprivate protocol SectionItem {}
 
 class ReviewSendFundsTransactionViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var confirmButton: UIButton!
     @IBOutlet private weak var retryButton: UIButton!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var estimationFailedLabel: UILabel!
@@ -21,33 +20,34 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     @IBOutlet private weak var estimationFailedDescriptionLabel: UILabel!
     @IBOutlet private weak var estimationFailedView: UIView!
     @IBOutlet private weak var contentContainerView: UIView!
+    @IBOutlet private weak var confirmButtonView: ActivityButtonView!
 
     private var currentDataTask: URLSessionTask?
     var address: Address!
     var amount: String!
     var safe: Safe!
+    var tokenBalance: TokenBalance!
+    var nonce: UInt256String!
+    var safeTxGas: UInt256String?
+    var minimalNonce: UInt256String?
 
-    enum Section {
-        case basic
-        case advanced
-
-        enum Basic: SectionItem {
-            case safe(UITableViewCell)
-            case transaction(UITableViewCell)
-            case data(UITableViewCell)
-            case advanced(UITableViewCell)
-        }
-
-        enum Advanced: SectionItem {
-            case nonce(UITableViewCell)
-            case safeTxGas(UITableViewCell)
-            case edit(UITableViewCell)
-        }
+    enum SectionItem {
+        case trasnfer(UITableViewCell)
+        case advanced(UITableViewCell)
     }
 
-    private typealias SectionItems = (section: Section, items: [SectionItem])
-    private var sections = [SectionItems]()
-    private var isAdvancedOptionsShown = false
+    private var sectionItems = [SectionItem]()
+
+    convenience init(safe: Safe,
+                     address: Address,
+                     tokenBalance: TokenBalance,
+                     amount: String) {
+        self.init(namedClass: ReviewSendFundsTransactionViewController.self)
+        self.safe = safe
+        self.address = address
+        self.amount = amount
+        self.tokenBalance = tokenBalance
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,26 +55,38 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         assert(address != nil)
         assert(amount != nil)
         assert(safe != nil)
+        assert(tokenBalance != nil)
 
         navigationItem.title = "Review"
-        confirmButton.setText("Confirm", .filled)
         retryButton.setText("Retry", .filled)
         descriptionLabel.setStyle(.footnote2)
 
-        tableView.registerCell(DetailTransferInfoCell.self)
-        tableView.registerCell(DetailAccountCell.self)
-        tableView.registerCell(InfoCell.self)
-        tableView.registerCell(DetailExpandableTextCell.self)
-        tableView.registerCell(BasicCell.self)
-        tableView.registerCell(EditCell.self)
+        tableView.registerCell(ReviewSendFundsTransactionHeaderTableViewCell.self)
+        tableView.registerCell(EditAdvancedParametersUITableViewCell.self)
 
-        tableView.estimatedRowHeight = BasicCell.rowHeight
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableView.automaticDimension
 
         loadData()
-    }
+        confirmButtonView.state = .normal
+        confirmButtonView.onClick = { [weak self] in
+            guard let `self` = self else { return }
+            let descriptionText = "An owner key will be used to confirm this transaction."
+            let vc = ChooseOwnerKeyViewController(owners: KeyInfo.owners(safe: self.safe),
+                                                  chainID: self.safe.chain!.id,
+                                                  descriptionText: descriptionText) { [weak self] keyInfo in
+                guard let `self` = self else { return }
+                self.dismiss(animated: true) {
+                    if let info = keyInfo {
+                        self.startConfirm()
+                        self.sign(info)
+                    }
+                }
+            }
 
-    @IBAction func confirmButtonTouched(_ sender: Any) {
-
+            let navigationController = UINavigationController(rootViewController: vc)
+            self.present(navigationController, animated: true)
+        }
     }
 
     @IBAction func retryButtonTouched(_ sender: Any) {
@@ -91,12 +103,38 @@ class ReviewSendFundsTransactionViewController: UIViewController {
                                                                    data: nil,
                                                                    operation: .call) { [weak self] result in
             guard let `self` = self else { return }
-            DispatchQueue.main.async {
-                self.endLoading()
-                self.buildSections()
-                self.tableView.reloadData()
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    if (error as NSError).code == URLError.cancelled.rawValue &&
+                        (error as NSError).domain == NSURLErrorDomain {
+                        return
+                    }
+                    self.showError(GSError.error(description: "Failed to create transaction", error: error))
+                }
+            case .success(let estimationResult):
+                self.minimalNonce = estimationResult.currentNonce
+                self.nonce = estimationResult.recommendedNonce
+
+                if let estimatedSafeTxGas = UInt256(estimationResult.safeTxGas) {
+                    self.safeTxGas = UInt256String(estimatedSafeTxGas)
+                }
+
+                DispatchQueue.main.async {
+                    self.endLoading()
+                    self.bindData()
+                }
             }
         }
+    }
+
+    func showError(_ error: DetailedLocalizedError) {
+        App.shared.snackbar.show(error: error)
+        loadingActivityIndicator.isHidden = true
+        loadingActivityIndicator.stopAnimating()
+        contentContainerView.isHidden = true
+        estimationFailedView.isHidden = false
     }
 
     private func startLoading() {
@@ -111,201 +149,113 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         contentContainerView.isHidden = false
     }
 
-    private func buildSections() {
-        var advancedSectionItems = [SectionItem]()
-        if isAdvancedOptionsShown {
-            advancedSectionItems.append(
-                Section.Advanced.nonce(infoCell(title: "Safe nonce", value: "transaction.nonce.description"))
-            )
+    private func startConfirm() {
+        self.confirmButtonView.state = .loading
+        navigationItem.hidesBackButton = true
+    }
 
-            let version = Version(safe.contractVersion!)!
-            if version < Version(1, 3, 0) {
-                advancedSectionItems.append(
-                    Section.Advanced.safeTxGas(infoCell(title: "SafeTxGas", value: "transaction.safeTxGas.description"))
-                )
+    private func endConfirm() {
+        self.confirmButtonView.state = .normal
+        navigationItem.hidesBackButton = false
+    }
+
+    private func sign(_ keyInfo: KeyInfo) {
+
+    }
+
+    private func confirm(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
+        currentDataTask = App.shared.clientGatewayService.asyncProposeTransaction(transaction: transaction,
+                                                                             sender: AddressString(keyInfo.address),
+                                                                             signature: signature,
+                                                                             chainId: safe.chain!.id!) { result in
+            // NOTE: sometimes the data of the transaction list is not
+            // updated right away, we'll give a moment for the backend
+            // to catch up before finishing with this request.
+            DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(600)) {
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    self.endConfirm()
+                    switch result {
+                    case .failure(let error):
+                        if (error as NSError).code == URLError.cancelled.rawValue &&
+                            (error as NSError).domain == NSURLErrorDomain {
+                            return
+                        }
+                        App.shared.snackbar.show(error: GSError.error(description: "Failed to create transaction", error: error))
+                    case .success(let transaction):
+                        NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
+                        self.showTransactionSucess(transaction: transaction)
+                    }
+                }
             }
-
-            advancedSectionItems.append(
-                Section.Advanced.edit(editCell())
-            )
         }
-        sections = [
-            (section: .basic, items: [
-                Section.Basic.safe(safeCell()),
-                Section.Basic.advanced(advancedCell())
-            ]),
-            (section: .advanced, items: advancedSectionItems)
-        ]
     }
 
-    private func reloadAdvancedSection() {
-        buildSections()
-
-        tableView.beginUpdates()
-        tableView.reloadRows(at: [IndexPath(row: 3, section: 0)], with: .automatic)
-
-        var advancedRows = [IndexPath]()
-        let version = Version(safe.contractVersion!)!
-        let advancedRowsCount = version < Version(1, 3, 0) ? 3 : 2
-
-        for index in 0..<advancedRowsCount {
-            advancedRows.append(IndexPath(row: index, section: 1))
-        }
-
-        if isAdvancedOptionsShown {
-            tableView.insertRows(at: advancedRows, with: .bottom)
-        } else {
-            tableView.deleteRows(at: advancedRows, with: .fade)
-        }
-        tableView.endUpdates()
+    private func bindData() {
+        sectionItems = [SectionItem.trasnfer(trasnferCell()), SectionItem.advanced(parametersCell())]
+        tableView.reloadData()
     }
 
-    private func safeCell() -> UITableViewCell {
-        let cell = tableView.dequeueCell(DetailAccountCell.self)
-        let chain = safe.chain!
+    private func trasnferCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(ReviewSendFundsTransactionHeaderTableViewCell.self)
+        let prefix = safe.chain!.shortName
+        cell.setFromAddress(safe.addressValue, label: safe.name, prefix: prefix)
+        let (name, imageURL) = NamingPolicy.name(for: address, info: nil, chainId: safe.chain!.id!)
+        cell.setToAddress(address, label: name, imageUri: imageURL, prefix: prefix)
+        cell.setToken(text: tokenBalance.symbol, details: "13213", image: tokenBalance.imageURL)
 
-        cell.setAccount(
-            address: safe!.addressValue,
-            label: Safe.cachedName(by: safe.address!, chainId: chain.id!),
-            title: "Connected safe",
-            browseURL: chain.browserURL(address: address.checksummed),
-            prefix: chain.shortName
-        )
-        cell.selectionStyle = .none
         return cell
     }
 
-//    private func transactionCell() -> UITableViewCell {
-//        let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
-//        let chain = safe.chain!
-//
-//        let coin = chain.nativeCurrency!
-//        let decimalAmount = BigDecimal(
-//            Int256(transaction.value.value) * -1,
-//            Int(coin.decimals)
-//        )
-//        let amount = TokenFormatter().string(
-//            from: decimalAmount,
-//            decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
-//            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ","
-//        )
-//        let tokenText = "\(amount) \(coin.symbol!)"
-//        let tokenDetail = amount == "0" ? "\(transaction.data?.data.count ?? 0) Bytes" : nil
-//        let (addressName, _) = NamingPolicy.name(for: transaction.to.address,
-//                                                    info: nil,
-//                                                    chainId: safe.chain!.id!)
-//
-//        cell.setToken(text: tokenText, style: .secondary)
-//        cell.setToken(image: coin.logoUrl)
-//        cell.setDetail(tokenDetail)
-//
-//        cell.setAddress(transaction.to.address,
-//                        label: addressName,
-//                        imageUri: nil,
-//                        browseURL: chain.browserURL(address: transaction.to.address.checksummed),
-//                        prefix: chain.shortName)
-//        cell.setOutgoing(true)
-//        cell.selectionStyle = .none
-//
-//        return cell
-//    }
-
-    private func advancedCell() -> UITableViewCell {
-        let cell = tableView.dequeueCell(BasicCell.self)
-        cell.setTitle("Advanced")
-        cell.setIcon(nil)
-        let image = UIImage(systemName: isAdvancedOptionsShown ? "chevron.up" : "chevron.down")!
-            .applyingSymbolConfiguration(.init(weight: .bold))!
-        cell.setDisclosureImage(image)
-        cell.setDisclosureImageTintColor(.secondaryLabel)
-        cell.selectedBackgroundView = UIView()
-        return cell
-    }
-
-    private func infoCell(title: String, value: String) -> UITableViewCell {
-        let cell = tableView.dequeueCell(InfoCell.self)
-        cell.setTitle(title)
-        cell.setInfo(value)
-        cell.selectionStyle = .none
-        return cell
-    }
-
-    private func editCell() -> UITableViewCell {
-        let cell = tableView.dequeueCell(EditCell.self)
+    private func parametersCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(EditAdvancedParametersUITableViewCell.self)
+        cell.tableView = tableView
+        cell.set(nonce: nonce.description)
+        cell.set(safeTxGas: safeTxGas?.description)
         cell.onEdit = { [unowned self] in
             self.showEditParameters()
         }
-        cell.selectionStyle = .none
+
         return cell
     }
 
     private func showEditParameters() {
-        let vc = advanced
-//        let safeTxGas = transaction.safeVersion! >= Version(1, 3, 0) ? nil : transaction.safeTxGas
-//        let editParamsController = WCEditParametersViewController.create(nonce: transaction.nonce,
-//                                                                         minimalNonce: minimalNonce,
-//                                                                         safeTxGas: safeTxGas,
-//                                                                         trackingParameters: trackingParameters) {
-//            [unowned self] nonce, safeTxGas in
-//            self.transaction.nonce = nonce
-//            if let safeTxGas = safeTxGas {
-//                self.transaction.safeTxGas = safeTxGas
-//            }
-//            self.transaction.updateSafeTxHash()
-//            self.buildSections()
-//            self.tableView.reloadData()
-//        }
-//        let navController = UINavigationController(rootViewController: editParamsController)
-//        present(navController, animated: true, completion: nil)
+        guard let nonce = nonce,
+              let minimalNonce = minimalNonce else { return }
+
+
+        let vc = AdvancedParametersViewController(nonce: nonce,
+                                                  minimalNonce: minimalNonce.value,
+                                                  safeTxGas: safeTxGas) { [weak self] nonce, safeTxGas in
+            guard let `self` = self else { return }
+            self.nonce = nonce
+            self.safeTxGas = safeTxGas
+            self.bindData()
+        }
+
+        present(ViewControllerFactory.modal(viewController: vc), animated: true)
+    }
+
+    private func showTransactionSucess(transaction: SCGModels.TransactionDetails) {
+        let vc = TransactionSuccessScreen(amount: amount,
+                                          token: tokenBalance.symbol,
+                                          transactionDetails: transaction,
+                                          trackingEvent: .assetsTransferSuccess)
+
+        show(vc, sender: self)
     }
 }
 
 extension ReviewSendFundsTransactionViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        sections.count
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sections[section].items.count
+        sectionItems.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = sections[indexPath.section].items[indexPath.row]
+        let item = sectionItems[indexPath.row]
         switch item {
-        case Section.Basic.safe(let cell): return cell
-        case Section.Basic.transaction(let cell): return cell
-        case Section.Basic.data(let cell): return cell
-        case Section.Basic.advanced(let cell): return cell
-        case Section.Advanced.nonce(let cell): return cell
-        case Section.Advanced.safeTxGas(let cell): return cell
-        case Section.Advanced.edit(let cell): return cell
-        default: return UITableViewCell()
-        }
-    }
-}
-
-extension ReviewSendFundsTransactionViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch sections[indexPath.section].items[indexPath.row] {
-
-        case Section.Basic.advanced(_):
-            tableView.deselectRow(at: indexPath, animated: true)
-            isAdvancedOptionsShown.toggle()
-            reloadAdvancedSection()
-
-        case Section.Advanced.edit(_):
-            showEditParameters()
-
-        default:
-            break
-        }
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let item = sections[indexPath.section].items[indexPath.row]
-        switch item {
-        case Section.Basic.advanced(_): return BasicCell.rowHeight
-        default: return UITableView.automaticDimension
+        case SectionItem.trasnfer(let cell): return cell
+        case SectionItem.advanced(let cell): return cell
         }
     }
 }
