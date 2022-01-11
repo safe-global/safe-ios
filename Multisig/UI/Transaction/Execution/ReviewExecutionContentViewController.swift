@@ -16,7 +16,7 @@ class ReviewExecutionContentViewController: UITableViewController {
     private var chain: Chain!
     private var transaction: SCGModels.TransactionDetails!
 
-    private var builder: TransactionDetailCellBuilder!
+    private var builder: ReviewExecutionCellBuilder!
 
     private var cells: [UITableViewCell] = []
 
@@ -58,7 +58,11 @@ class ReviewExecutionContentViewController: UITableViewController {
     // pull to refresh? - not now
 
     func reloadData() {
-        cells = builder.build(transaction)
+        let model = ExecutionReviewUIModel(
+            transaction: transaction,
+            executionOptions: ExecutionOptionsUIModel()
+        )
+        cells = builder.build(model)
         tableView.reloadData()
     }
 

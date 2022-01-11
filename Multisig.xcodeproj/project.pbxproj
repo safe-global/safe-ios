@@ -124,6 +124,16 @@
 		0A04506B278D800700650F71 /* ReviewExecutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A045069278D800700650F71 /* ReviewExecutionViewController.xib */; };
 		0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */; };
 		0A04506F278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04506E278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift */; };
+		0A045071278DAC9100650F71 /* MiniAccountAndBalancePiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A045070278DAC9100650F71 /* MiniAccountAndBalancePiece.swift */; };
+		0A045073278DACA200650F71 /* AmountAndValuePiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A045072278DACA200650F71 /* AmountAndValuePiece.swift */; };
+		0A045075278DACBD00650F71 /* AmountAndValuePiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A045074278DACBD00650F71 /* AmountAndValuePiece.xib */; };
+		0A045077278DACC400650F71 /* MiniAccountAndBalancePiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A045076278DACC400650F71 /* MiniAccountAndBalancePiece.xib */; };
+		0A04507A278DAD4000650F71 /* SecondaryDetailDisclosureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A045078278DAD4000650F71 /* SecondaryDetailDisclosureCell.swift */; };
+		0A04507B278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A045079278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib */; };
+		0A045080278DAD9000650F71 /* DisclosureWithContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04507E278DAD9000650F71 /* DisclosureWithContentCell.swift */; };
+		0A045081278DAD9000650F71 /* DisclosureWithContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A04507F278DAD9000650F71 /* DisclosureWithContentCell.xib */; };
+		0A045086278DC04C00650F71 /* BorderedInnerTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A045084278DC04B00650F71 /* BorderedInnerTableCell.swift */; };
+		0A045087278DC04C00650F71 /* BorderedInnerTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A045085278DC04C00650F71 /* BorderedInnerTableCell.xib */; };
 		0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A096CBD2608D9370034E6BC /* NetworkStatusObserver.swift */; };
 		0A096CC32608F4750034E6BC /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967104256E92470097D3A2 /* SignerTests.swift */; };
 		0A096CC82608F49E0034E6BC /* RegisterNotificationTokenRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */; };
@@ -790,6 +800,16 @@
 		0A045069278D800700650F71 /* ReviewExecutionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewExecutionViewController.xib; sourceTree = "<group>"; };
 		0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewExecutionContentViewController.swift; sourceTree = "<group>"; };
 		0A04506E278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewExecutionCellBuilder.swift; sourceTree = "<group>"; };
+		0A045070278DAC9100650F71 /* MiniAccountAndBalancePiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniAccountAndBalancePiece.swift; sourceTree = "<group>"; };
+		0A045072278DACA200650F71 /* AmountAndValuePiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountAndValuePiece.swift; sourceTree = "<group>"; };
+		0A045074278DACBD00650F71 /* AmountAndValuePiece.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmountAndValuePiece.xib; sourceTree = "<group>"; };
+		0A045076278DACC400650F71 /* MiniAccountAndBalancePiece.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiniAccountAndBalancePiece.xib; sourceTree = "<group>"; };
+		0A045078278DAD4000650F71 /* SecondaryDetailDisclosureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryDetailDisclosureCell.swift; sourceTree = "<group>"; };
+		0A045079278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondaryDetailDisclosureCell.xib; sourceTree = "<group>"; };
+		0A04507E278DAD9000650F71 /* DisclosureWithContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclosureWithContentCell.swift; sourceTree = "<group>"; };
+		0A04507F278DAD9000650F71 /* DisclosureWithContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisclosureWithContentCell.xib; sourceTree = "<group>"; };
+		0A045084278DC04B00650F71 /* BorderedInnerTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedInnerTableCell.swift; sourceTree = "<group>"; };
+		0A045085278DC04C00650F71 /* BorderedInnerTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BorderedInnerTableCell.xib; sourceTree = "<group>"; };
 		0A096CBD2608D9370034E6BC /* NetworkStatusObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusObserver.swift; sourceTree = "<group>"; };
 		0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAppSettings.swift; sourceTree = "<group>"; };
@@ -3036,6 +3056,16 @@
 				0A045069278D800700650F71 /* ReviewExecutionViewController.xib */,
 				0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */,
 				0A04506E278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift */,
+				0A045084278DC04B00650F71 /* BorderedInnerTableCell.swift */,
+				0A045085278DC04C00650F71 /* BorderedInnerTableCell.xib */,
+				0A045070278DAC9100650F71 /* MiniAccountAndBalancePiece.swift */,
+				0A045076278DACC400650F71 /* MiniAccountAndBalancePiece.xib */,
+				0A045072278DACA200650F71 /* AmountAndValuePiece.swift */,
+				0A045074278DACBD00650F71 /* AmountAndValuePiece.xib */,
+				0A045078278DAD4000650F71 /* SecondaryDetailDisclosureCell.swift */,
+				0A045079278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib */,
+				0A04507E278DAD9000650F71 /* DisclosureWithContentCell.swift */,
+				0A04507F278DAD9000650F71 /* DisclosureWithContentCell.xib */,
 			);
 			path = Execution;
 			sourceTree = "<group>";
@@ -3222,6 +3252,7 @@
 				0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */,
 				0AE5A9C7267A4BEB00468C90 /* CreatePasscodeBannerCell.xib in Resources */,
 				557D80B4270B32F80036D6D0 /* EditCell.xib in Resources */,
+				0A045075278DACBD00650F71 /* AmountAndValuePiece.xib in Resources */,
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
 				0422007025EFDF4E00CAC173 /* TagView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
@@ -3229,6 +3260,7 @@
 				048D72D226875B2D0095999C /* TableHeaderView.xib in Resources */,
 				558835F9255BFEF80014E8C7 /* AddressInfoView.xib in Resources */,
 				557D80B9270B32F80036D6D0 /* WCIncomingKeyRequestViewController.xib in Resources */,
+				0A045077278DACC400650F71 /* MiniAccountAndBalancePiece.xib in Resources */,
 				0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
@@ -3277,6 +3309,7 @@
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
 				557D80B0270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.xib in Resources */,
 				55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */,
+				0A045081278DAD9000650F71 /* DisclosureWithContentCell.xib in Resources */,
 				0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */,
 				55DA0669269DD573006C9AA5 /* dapps-xdai.json in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
@@ -3329,6 +3362,7 @@
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
 				04B4B6E625B9A08D00CFE24B /* CardTableViewCell.xib in Resources */,
+				0A045087278DC04C00650F71 /* BorderedInnerTableCell.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
 				0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */,
 				550FB1B526691D9500C13D54 /* DetailedCell.xib in Resources */,
@@ -3342,6 +3376,7 @@
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
+				0A04507B278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib in Resources */,
 				0A478D3C25B863D60038363E /* DerivedKeyTableViewCell.xib in Resources */,
 				0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */,
 				0ADD19C1265EA23200EB0F2B /* PrivateKeyViewController.xib in Resources */,
@@ -3471,6 +3506,7 @@
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
+				0A045086278DC04C00650F71 /* BorderedInnerTableCell.swift in Sources */,
 				04B4B60225B84D6900CFE24B /* AccountInfoView.swift in Sources */,
 				0A2F1A76267A5E5B00C09F03 /* BalanceCell.swift in Sources */,
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
@@ -3548,6 +3584,7 @@
 				04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */,
 				557D80B7270B32F80036D6D0 /* WalletConnectKeysServerController.swift in Sources */,
 				0AF2733F24DAC9FE007E4012 /* RemoteNotificationHandler.swift in Sources */,
+				0A045071278DAC9100650F71 /* MiniAccountAndBalancePiece.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
 				D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */,
 				0A802B8124E413450001790F /* HTTPClientError.swift in Sources */,
@@ -3616,9 +3653,11 @@
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				0A63C7B42602087E00D36B22 /* SafeInfoRequest.swift in Sources */,
 				0A57C5D72577F9E600420303 /* ConfirmationStatusPiece.swift in Sources */,
+				0A045073278DACA200650F71 /* AmountAndValuePiece.swift in Sources */,
 				0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */,
 				D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */,
 				550FB1A526691CD800C13D54 /* SigningKeyTableViewCell.swift in Sources */,
+				0A04507A278DAD4000650F71 /* SecondaryDetailDisclosureCell.swift in Sources */,
 				0A2F1A70267A53A800C09F03 /* GSButton.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
 				557D80B3270B32F80036D6D0 /* EditCell.swift in Sources */,
@@ -3770,6 +3809,7 @@
 				049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */,
 				0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */,
 				0AD0274525A3586800886671 /* ActionDetailViewController.swift in Sources */,
+				0A045080278DAD9000650F71 /* DisclosureWithContentCell.swift in Sources */,
 				0AD6EF1E25CAF5EC00EE5512 /* AppReviewController.swift in Sources */,
 				557D80CF270B33BA0036D6D0 /* PairingOwnerKeyCell.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
