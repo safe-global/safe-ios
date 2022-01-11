@@ -17,7 +17,7 @@ class ContractVersionStatusCell: UITableViewCell {
     @IBOutlet private weak var button: UIButton!
 
     private var versionNumber: String!
-    private var versionStatus: SCGModels.ImplementationVersionState!
+    private var versionStatus: ImplementationVersionState!
     private var address: Address?
     private var chainPrefix: String?
 
@@ -36,7 +36,7 @@ class ContractVersionStatusCell: UITableViewCell {
         addTarget(self, action: #selector(copyAddress), for: .touchUpInside)
     }
 
-    func setAddress(_ info: AddressInfo, status: SCGModels.ImplementationVersionState, version: String, prefix: String? = nil) {
+    func setAddress(_ info: AddressInfo, status: ImplementationVersionState, version: String, prefix: String? = nil) {
         address = info.address
         versionStatus = status
         versionNumber = version

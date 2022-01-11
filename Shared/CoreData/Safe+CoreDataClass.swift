@@ -17,7 +17,15 @@ public class Safe: NSManagedObject {
     var addressInfo: AddressInfo?
     var ownersInfo: [AddressInfo]?
     var implementationInfo: AddressInfo?
+    var implementationVersionState: ImplementationVersionState?
     var modulesInfo: [AddressInfo]?
     var fallbackHandlerInfo: AddressInfo?
     var guardInfo: AddressInfo?
+    var version: String?
+}
+
+enum ImplementationVersionState: String, Decodable {
+    case upToDate = "UP_TO_DATE"
+    case upgradeAvailable = "OUTDATED"
+    case unknown = "UNKNOWN"
 }

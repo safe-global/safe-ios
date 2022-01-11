@@ -44,7 +44,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
 
         enum ContractVersion: SectionItem {
-            case versionInfo(AddressInfo, SCGModels.ImplementationVersionState, String)
+            case versionInfo(AddressInfo, ImplementationVersionState, String)
         }
 
         enum EnsName: SectionItem {
@@ -89,7 +89,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                              .chainSettingsChanged] {
             notificationCenter.addObserver(
                 self,
-                selector: #selector(lazyReloadData),
+                selector: #selector(update),
                 name: notification,
                 object: nil)
         }
@@ -98,6 +98,16 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.settingsSafe)
+    }
+
+    @objc func update() {
+        do {
+            safe = try Safe.getSelected()!
+            updateSections()
+        } catch {
+            onError(GSError.error(description: "Failed to load safe settings", error: error))
+        }
+        tableView.reloadData()
     }
 
     override func reloadData() {
@@ -125,7 +135,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                     DispatchQueue.main.async { [weak self] in
                         guard let `self` = self else { return }
                         self.safe.update(from: safeInfo)
-                        self.updateSections(with: safeInfo)
+                        self.updateSections()
                         self.ensLoader = ENSNameLoader(safe: self.safe, delegate: self)
                         self.onSuccess()
                     }
@@ -136,18 +146,18 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
     }
 
-    private func updateSections(with info: SafeInfoRequest.ResponseType) {
+    private func updateSections() {
         sections = [
             (section: .name("Safe Name"), items: [Section.Name.name(safe.name ?? "Safe \(safe.addressValue.ellipsized())")]),
 
             (section: .requiredConfirmations("Required confirmations"),
-             items: [Section.RequiredConfirmations.confirmations("\(info.threshold) out of \(info.owners.count)")]),
+             items: [Section.RequiredConfirmations.confirmations("\(safe.threshold!) out of \(safe.ownersInfo!.count)")]),
 
             (section: .ownerAddresses("Owner addresses"),
-             items: info.owners.map { Section.OwnerAddresses.ownerInfo($0.addressInfo) }),
+             items: safe.ownersInfo!.map { Section.OwnerAddresses.ownerInfo($0) }),
 
             (section: .safeVersion("Safe version"),
-             items: [Section.ContractVersion.versionInfo(info.implementation.addressInfo, info.implementationVersionState, info.version)]),
+             items: [Section.ContractVersion.versionInfo(safe.implementationInfo!, safe.implementationVersionState!, safe.version!)]),
 
             (section: .ensName("ENS name"), items: [Section.EnsName.ensName]),
 
@@ -238,7 +248,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     private func safeVersionCell(info: AddressInfo,
-                                 status: SCGModels.ImplementationVersionState,
+                                 status: ImplementationVersionState,
                                  version: String,
                                  indexPath: IndexPath,
                                  prefix: String? = nil) -> UITableViewCell {
