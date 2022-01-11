@@ -206,11 +206,6 @@ extension Safe: Identifiable {
 
 extension Safe {
     func update(from info: SafeInfoRequest.ResponseType) {
-        DispatchQueue.main.async {
-            self.contractVersion = info.version
-            App.shared.coreDataStack.saveContext()
-        }
-
         threshold = info.threshold.value
         ownersInfo = info.owners.map { $0.addressInfo }
         implementationInfo = info.implementation.addressInfo
@@ -218,8 +213,11 @@ extension Safe {
         modulesInfo = info.modules?.map { $0.addressInfo }
         fallbackHandlerInfo = info.fallbackHandler?.addressInfo
         guardInfo = info.guard?.addressInfo
-                            
-        NotificationCenter.default.post(name: .selectedSafeUpdated, object: self)
+        DispatchQueue.main.async {
+            self.contractVersion = info.version
+            App.shared.coreDataStack.saveContext()
+            NotificationCenter.default.post(name: .selectedSafeUpdated, object: self)
+        }
     }
 }
 
