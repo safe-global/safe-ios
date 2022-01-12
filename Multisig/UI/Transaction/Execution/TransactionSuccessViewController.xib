@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TransactionSuccessScreen" customModule="Multisig" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TransactionSuccessViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="statusLabel" destination="vWJ-lb-hId" id="M3i-ln-AXv"/>
                 <outlet property="titleLabel" destination="2cy-o0-Tus" id="Nh3-8m-t0k"/>

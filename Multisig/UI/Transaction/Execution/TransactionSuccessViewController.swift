@@ -1,5 +1,5 @@
 //
-//  TransactionSuccessScreen.swift
+//  TransactionSuccessViewController.swift
 //  Multisig
 //
 //  Created by Vitaly Katz on 14.12.21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TransactionSuccessScreen: UIViewController {
+class TransactionSuccessViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!

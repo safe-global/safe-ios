@@ -235,13 +235,14 @@ class ReviewSendFundsTransactionViewController: UIViewController {
 
         present(ViewControllerFactory.modal(viewController: vc), animated: true)
     }
-
+    
     private func showTransactionSucess(transaction: SCGModels.TransactionDetails) {
-        let vc = TransactionSuccessScreen(amount: amount,
-                                          token: tokenBalance.symbol,
-                                          transactionDetails: transaction,
-                                          trackingEvent: .assetsTransferSuccess)
-
+        let vc = TransactionSuccessViewController(
+            amount: amount,
+            token: tokenBalance.symbol,
+            transactionDetails: transaction,
+            trackingEvent: .assetsTransferSuccess)
+        
         show(vc, sender: self)
     }
 }
