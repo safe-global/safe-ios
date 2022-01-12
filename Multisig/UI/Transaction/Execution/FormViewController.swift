@@ -77,7 +77,7 @@ class FormViewController: UITableViewController {
     }
 
     func reloadData() {
-        let fields = fieldFactory.fields(from: model, keyboardBehavior: keyboardBehavior)
+        let fields = fieldFactory.fields(from: model, delegate: self)
         self.cells = fields.map { view in
             let cell = tableView.dequeueCell(ContainerTableViewCell.self)
             cell.setContent(view)
@@ -94,21 +94,22 @@ class FormViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         cells[indexPath.row]
     }
+}
 
-//    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let cell = cells[indexPath.row] as! ContainerTableViewCell
-//        print(cell)
-//        return cell.contentView.bounds.height
-//    }
+extension FormViewController: FieldDelegate {
+    func textFieldFocused(_ textField: UITextField) {
+        keyboardBehavior.activeResponder = textField
+    }
 
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let cell = cells[indexPath.row] as! ContainerTableViewCell
-//        let height = cell.cellContentView.frame.height
-//        print(indexPath, height, cell.frame)
-//        return height
-//    }
+    func layoutNeeded() {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+}
 
-    // keyboardBehavior.activeResponder = field.uiResponder
+protocol FieldDelegate: AnyObject {
+    func textFieldFocused(_ textField: UITextField)
+    func layoutNeeded()
 }
 
 import Solidity
@@ -121,20 +122,68 @@ struct FeeLegacyFormUIModel {
     var helpLink: URL
 }
 
+struct FieldUIModel<T> where T: FieldValueTransformer {
+    var label: String
+
+    var description: String?
+    var placeholder: String?
+
+    var caption: String?
+    var error: String?
+
+    var value: T.Value?
+    var transformer: T
+    var validator: TextValidator?
+
+    var text: String? {
+        value.map { transformer.text(from: $0) }
+    }
+}
+
+protocol FieldValueTransformer {
+    associatedtype Value
+    func text(from value: Value) -> String
+    func value(from text: String) -> Value?
+}
+
+class IntegerTransformer<Value>: FieldValueTransformer where Value: FixedWidthInteger {
+    func text(from value: Value) -> String {
+        String(describing: value)
+    }
+
+    func value(from text: String) -> Value? {
+        Value(text, radix: 10)
+    }
+}
+
+// fields could reference other fields or the model to get the  output (derived fields/ values)
+
 class FeeLegacyFieldFactory {
-    func fields(from model: FeeLegacyFormUIModel, keyboardBehavior: KeyboardAvoidingBehavior) -> [UIView] {
+    func fields(from model: FeeLegacyFormUIModel, delegate: FieldDelegate) -> [UIView] {
+        let integerValidator = IntegerTextValidator()
+
+        let fieldModel = FieldUIModel(
+            label: "Nonce",
+            description: "Transaction count of the execution account",
+            placeholder: "Nonce",
+            value: model.nonce,
+            transformer: IntegerTransformer(),
+            validator: IntegerTextValidator()
+        )
+
         let nonce = LabeledTextField()
         nonce.infoLabel.setText(
-            "Nonce",
-            description: "Transaction count of the execution account",
+            fieldModel.label,
+            description: fieldModel.description,
             style: .primary
         )
-        nonce.gnoTextField.setPlaceholder("Nonce")
-        nonce.gnoTextField.text = model.nonce.map { String(describing: $0) }
-        nonce.gnoTextField.setError(GSError.error(description: "Invalid nonce. Use another value"))
-        nonce.onTextFieldDidBeginEditing = { [weak keyboardBehavior] _, tf in
-            keyboardBehavior?.activeResponder = tf
-        }
+        nonce.gnoTextField.setPlaceholder(fieldModel.placeholder)
+        nonce.gnoTextField.text = fieldModel.text
+        nonce.validator = fieldModel.validator
+        nonce.setCaption(fieldModel.caption)
+        nonce.setError(fieldModel.error)
+
+        nonce.fieldDelegate = delegate
 
         let gas = LabeledTextField()
         gas.infoLabel.setText(
@@ -145,9 +194,8 @@ class FeeLegacyFieldFactory {
         gas.gnoTextField.setPlaceholder("Gas limit")
         gas.gnoTextField.text = model.gas.map { String(describing: $0) }
         gas.gnoTextField.setError(GSError.error(description: "Invalid gas limit. Use another value. Long line long line long line long line"))
-        gas.onTextFieldDidBeginEditing = { [weak keyboardBehavior] _, tf in
-            keyboardBehavior?.activeResponder = tf
-        }
+        gas.fieldDelegate = delegate
+        gas.validator = integerValidator
 
         let gasPrice = LabeledTextField()
         gasPrice.infoLabel.setText(
@@ -159,9 +207,7 @@ class FeeLegacyFieldFactory {
         gasPrice.gnoTextField.text = model.gasPrice.map { String(describing: $0) }
         gasPrice.gnoTextField.setError(GSError.error(description: "Invalid gas price. Use another value"))
         gasPrice.setCaption("Total estimated fee: 0.00604 ETH")
-        gasPrice.onTextFieldDidBeginEditing = { [weak keyboardBehavior] _, tf in
-            keyboardBehavior?.activeResponder = tf
-        }
+        gasPrice.fieldDelegate = delegate
 
         let help = HyperlinkButtonView()
         help.setText("How do I configure these details manually?")

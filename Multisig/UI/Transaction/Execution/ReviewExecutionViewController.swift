@@ -142,3 +142,23 @@ class ReviewExecutionViewController: ContainerViewController {
         print("Submit!")
     }
 }
+
+
+// model: transaction legacy
+// screen will edit it.
+
+// nonce
+    // range: 0 - u64.max
+
+// gas
+    // range: 0 - u64.max
+
+// gasPrice
+    // range: 0 - u265.max
+// totalFee
+    // gas * gasPrice
+
+// model changed -> what piece changed? ->
+    // update piece
+        // validate the value
+
