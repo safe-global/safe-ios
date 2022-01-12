@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class SigningKeyTableViewCell: UITableViewCell {
     @IBOutlet weak var addressInfoView: AddressInfoView!
@@ -21,32 +22,34 @@ class SigningKeyTableViewCell: UITableViewCell {
         super.awakeFromNib()
         addressInfoView.setCopyAddressEnabled(false)
         cellDetailLabel.setStyle(.primary)
-        cellDetailLabel.isHidden = true
         cellDetailImageView.isHidden = true
+
+        cellDetailLabel.isSkeletonable = true
+        cellDetailLabel.skeletonTextLineHeight = .relativeToConstraints
+        cellDetailLabel.textAlignment = .right
     }
 
-    func configure(keyInfo: KeyInfo, chainID: String?, detail: String? = nil, accessoryImage: UIImage? = nil) {
-        set(address: keyInfo.address,
-            name: keyInfo.displayName,
-            badgeName: keyInfo.keyType.imageName,
-            detail: detail,
-            accessoryImage: accessoryImage)
+    func configure(keyInfo: KeyInfo, chainID: String?, detail: String? = nil, accessoryImage: UIImage? = nil, enabled: Bool = true, isLoading: Bool = false) {
+        addressInfoView.setAddress(
+            keyInfo.address,
+            label: keyInfo.displayName,
+            badgeName: keyInfo.keyType.imageName)
+
         set(connectionStatus: KeyConnectionStatus(keyInfo: keyInfo, chainID: chainID))
-    }
 
-    func set(address: Address,
-             name: String,
-             badgeName: String,
-             connectionStatus: KeyConnectionStatus = .none,
-             detail: String? = nil,
-             accessoryImage: UIImage? = nil
-    ) {
-        addressInfoView.setAddress(address, label: name, badgeName: badgeName)
-        set(connectionStatus: connectionStatus)
         cellDetailLabel.text = detail
-        cellDetailLabel.isHidden = detail == nil
+
+        if isLoading {
+            cellDetailLabel.showSkeleton(delay: 0.2)
+        } else {
+            cellDetailLabel.hideSkeleton()
+        }
+
         cellDetailImageView.image = accessoryImage
         cellDetailImageView.isHidden = accessoryImage == nil
+
+
+        contentView.alpha = enabled ? 1 : 0.5
     }
 
     private func set(connectionStatus: KeyConnectionStatus) {

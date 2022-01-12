@@ -23,19 +23,19 @@
                         <rect key="frame" x="16" y="12" width="330" height="44"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5c-16-Fab" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="228.5" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="222.5" height="44"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OnE-4a-wAn">
-                                <rect key="frame" x="232.5" y="0.0" width="24" height="44"/>
+                                <rect key="frame" x="226.5" y="0.0" width="24" height="44"/>
                                 <color key="tintColor" name="button"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="f3g-td-WFn"/>
                                     <constraint firstAttribute="height" constant="44" id="uka-ft-E0S"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Taq-7i-OG1" userLabel="Detail Label">
-                                <rect key="frame" x="260.5" y="0.0" width="35.5" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Taq-7i-OG1" userLabel="Detail Label">
+                                <rect key="frame" x="254.5" y="0.0" width="41.5" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

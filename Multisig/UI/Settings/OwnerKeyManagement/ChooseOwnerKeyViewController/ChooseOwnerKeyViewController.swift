@@ -36,6 +36,8 @@ class ChooseOwnerKeyViewController: UIViewController {
     private var balancesLoader: AccountBalanceLoader? = nil
     private var loadingTask: URLSessionTask?
     private var accountBalances: [AccountBalanceUIModel]?
+    private var isLoading: Bool = false
+    private var pullToRefreshControl: UIRefreshControl!
 
     // technically it is possible to select several wallets but to finish connection with one of them
     private var walletPerTopic = [String: InstalledWallet]()
@@ -95,6 +97,12 @@ class ChooseOwnerKeyViewController: UIViewController {
             name: .wcDidDisconnectClient,
             object: nil)
 
+        pullToRefreshControl = UIRefreshControl()
+        pullToRefreshControl.addTarget(self,
+                                       action: #selector(pullToRefreshChanged),
+                                       for: .valueChanged)
+        tableView.refreshControl = pullToRefreshControl
+
         reloadBalances()
     }
 
@@ -106,6 +114,10 @@ class ChooseOwnerKeyViewController: UIViewController {
 
     @objc private func didTapCloseButton() {
         dismiss(animated: true, completion: nil)
+    }
+
+    @objc private func pullToRefreshChanged() {
+        reloadBalances()
     }
 
     // MARK: - Wallet Connect
@@ -147,10 +159,14 @@ class ChooseOwnerKeyViewController: UIViewController {
         guard let loader = balancesLoader else { return }
         loadingTask?.cancel()
 
-        // TODO: loading indicators
+        self.isLoading = true
+        self.tableView.reloadData()
 
         loadingTask = loader.loadBalances(for: owners, completion: { [weak self] result in
             guard let self = self else { return }
+
+            self.isLoading = false
+            self.pullToRefreshControl.endRefreshing()
 
             switch result {
             case .failure(let error):
@@ -186,15 +202,28 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         }
 
         var accountBalance: String? = nil
+        var isEnabled = true
         if let balances = accountBalances, indexPath.row < balances.count {
             let model = balances[indexPath.row]
             accountBalance = model.balance.isEmpty ? nil : model.balance
-            // TODO: mark as disabled
+            isEnabled = model.isEnabled
         }
 
-        cell.configure(keyInfo: keyInfo, chainID: chainID, detail: accountBalance, accessoryImage: accessoryImage)
+        cell.configure(keyInfo: keyInfo,
+                       chainID: chainID,
+                       detail: accountBalance,
+                       accessoryImage: accessoryImage,
+                       enabled: isEnabled,
+                       isLoading: isLoading)
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if let balances = accountBalances, indexPath.row < balances.count, !balances[indexPath.row].isEnabled {
+            return nil
+        }
+        return indexPath
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
