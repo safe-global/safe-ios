@@ -37,7 +37,8 @@ class ReviewExecutionContentViewController: UITableViewController {
         builder = ReviewExecutionCellBuilder(
             vc: self,
             tableView: tableView,
-            chain: chain
+            chain: chain,
+            safe: safe
         )
 
         tableView.rowHeight = UITableView.automaticDimension

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftCryptoTokenFormatter
 
 class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
@@ -15,8 +16,11 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     var onTapFee: () -> Void = {}
     var onTapAdvanced: () -> Void = {}
 
-    override init(vc: UIViewController, tableView: UITableView, chain: Chain) {
+    private var safe: Safe!
+
+    init(vc: UIViewController, tableView: UITableView, chain: Chain, safe: Safe) {
         super.init(vc: vc, tableView: tableView, chain: chain)
+        self.safe = safe
 
         tableView.registerCell(BorderedInnerTableCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Spacer")
@@ -117,6 +121,116 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         let advancedCell = tableView.dequeueCell(SecondaryDetailDisclosureCell.self)
         advancedCell.setText("Advanced parameters")
         return advancedCell
+    }
+
+    // MARK: New Transfer Header
+
+    override func buildHeader(_ tx: SCGModels.TransactionDetails) {
+        // multi-level enums
+        guard case SCGModels.TxInfo.transfer(let transferTx) = tx.txInfo else {
+            super.buildHeader(tx)
+            return
+        }
+
+        // amount
+        let amountModel = tokenAmount(from: transferTx.transferInfo)
+        buildAmount(amountModel: amountModel)
+
+        // from
+        let (senderLabel, senderLogo) = NamingPolicy.name(for: transferTx.sender, chainId: chain.id!)
+        let senderUrl = chain.browserURL(address: transferTx.sender.value.address.checksummed)
+
+        // to
+        let (recipientLabel, recipientLogo) = NamingPolicy.name(for: transferTx.recipient, chainId: chain.id!)
+        let recipientUrl = chain.browserURL(address: transferTx.sender.value.address.checksummed)
+
+        self.addresses([
+            (address: transferTx.sender.value.address, label: senderLabel,
+             imageUri: senderLogo, title: "From", browseURL: senderUrl, prefix: chain.shortName),
+
+            (address: transferTx.recipient.value.address, label: recipientLabel,
+             imageUri: recipientLogo, title: "To", browseURL: recipientUrl, prefix: chain.shortName)
+        ])
+    }
+
+    func buildAmount(amountModel: TokenAmountUIModel) {
+        let cell = newCell(DetailMultiAccountsCell.self)
+        let tokenView = TokenInfoView()
+        tokenView.setTitle("Amount")
+        tokenView.setImage(amountModel.tokenLogoURL, placeholder: amountModel.placeholder)
+        tokenView.setText(amountModel.formattedAmount)
+        tokenView.setDetail(amountModel.formattedFiatValue, style: .caption1.weight(.medium))
+        cell.setViews([tokenView])
+        result.append(cell)
+    }
+
+    func tokenAmount(from transferInfo: SCGModels.TxInfo.Transfer.TransferInfo) -> TokenAmountUIModel {
+        var result = TokenAmountUIModel()
+
+        switch transferInfo {
+        case .erc20(let erc20):
+            result.value = erc20.value.value
+            result.decimals = erc20.decimals
+            result.symbol = erc20.tokenSymbol ?? "ERC20"
+            result.tokenLogoUri = erc20.logoUri
+
+        case .nativeCoin(let native):
+            let coin = Chain.nativeCoin!
+            result.value = native.value.value
+            result.decimals = UInt64(coin.decimals)
+            result.symbol = coin.symbol!
+            result.tokenLogoUri = coin.logoUrl?.absoluteString
+
+        case .erc721(let erc721):
+            result.value = 1
+            result.decimals = 0
+            result.symbol = erc721.tokenSymbol ?? "NFT"
+            result.tokenLogoUri = erc721.logoUri
+            result.placeholder = UIImage(named: "ico-nft-placeholder")
+            result.detail = erc721.tokenId.description
+
+        case .unknown:
+            break
+        }
+        return result
+    }
+}
+
+struct TokenAmountUIModel {
+    var value: UInt256?
+    var symbol: String = ""
+    var decimals: UInt64?
+    var detail: String?
+    var tokenLogoUri: String?
+    var placeholder = UIImage(named: "ico-token-placeholder")
+
+    var formattedAmount: String {
+        let tokenAmountText: String
+        if let value = value {
+            let decimalAmount = BigDecimal(Int256(value),
+                                           decimals.flatMap { Int($0) } ?? 0)
+
+            let amount = TokenFormatter().string(
+                from: decimalAmount,
+                decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+                thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
+                forcePlusSign: false
+            )
+
+            tokenAmountText = "\(amount) \(symbol)"
+        } else {
+            tokenAmountText = "Unknown token"
+        }
+        return tokenAmountText
+    }
+
+    var formattedFiatValue: String {
+        // TODO: Fetch fiat amount
+        detail ?? "fiat amount"
+    }
+
+    var tokenLogoURL: URL? {
+        tokenLogoUri.flatMap { URL(string: $0) }
     }
 }
 

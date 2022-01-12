@@ -27,6 +27,10 @@ class DetailMultiAccountsCell: UITableViewCell {
                          prefix: data.prefix)
             return v
         }
+        setViews(views)
+    }
+
+    func setViews(_ views: [UIView]) {
         for view in stackView.arrangedSubviews {
             view.removeFromSuperview()
         }
