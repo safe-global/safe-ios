@@ -16,7 +16,7 @@ class ReviewExecutionContentViewController: UITableViewController {
     private var chain: Chain!
     private var transaction: SCGModels.TransactionDetails!
 
-    private var builder: TransactionDetailCellBuilder!
+    private var builder: ReviewExecutionCellBuilder!
 
     private var cells: [UITableViewCell] = []
 
@@ -58,7 +58,24 @@ class ReviewExecutionContentViewController: UITableViewController {
     // pull to refresh? - not now
 
     func reloadData() {
-        cells = builder.build(transaction)
+        let model = ExecutionReviewUIModel(
+            transaction: transaction,
+            executionOptions: ExecutionOptionsUIModel(
+                accountState: .filled(
+                    MiniAccountInfoUIModel(
+                        // chain prefix makes the address too large and ellipsized at the end
+                        prefix: chain.shortName,
+                        address: safe.addressValue,
+                        label: safe.name,
+                        imageUri: nil,
+                        badge: KeyType.deviceGenerated.imageName,
+                        balance: "some balance"
+                    )
+                ),
+                feeState: .loading
+            )
+        )
+        cells = builder.build(model)
         tableView.reloadData()
     }
 

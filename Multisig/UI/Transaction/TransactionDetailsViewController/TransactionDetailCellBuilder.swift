@@ -673,8 +673,8 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-    func newCell<T: UITableViewCell>(_ cls: T.Type) -> T {
-        tableView.dequeueCell(cls)
+    func newCell<T: UITableViewCell>(_ cls: T.Type, reuseId: String? = nil) -> T {
+        tableView.dequeueCell(cls, reuseID: reuseId)
     }
 }
 
