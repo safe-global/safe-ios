@@ -31,6 +31,11 @@ class GNOTextField: UINibView {
         textField.attributedPlaceholder = NSAttributedString(string: text, attributes: attributes)
     }
 
+    var text: String? {
+        get { textField.text }
+        set { textField.text = newValue }
+    }
+
     func setError(_ error: Error?) {
         errorLabel.text = error?.localizedDescription
         errorLabel.isHidden = error == nil

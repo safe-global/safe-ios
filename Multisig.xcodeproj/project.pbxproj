@@ -315,6 +315,13 @@
 		0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8AEB1F25A4764F002A3FE1 /* ActionDetailAddressCell.xib */; };
 		0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */; };
 		0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */; };
+		0A9366A5278EE8FE001918A9 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366A4278EE8FE001918A9 /* FormViewController.swift */; };
+		0A9366AC278F0175001918A9 /* ContainerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366AA278F0175001918A9 /* ContainerTableViewCell.swift */; };
+		0A9366AD278F0175001918A9 /* ContainerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9366AB278F0175001918A9 /* ContainerTableViewCell.xib */; };
+		0A9366AF278F0A9F001918A9 /* LabeledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366AE278F0A9F001918A9 /* LabeledTextField.swift */; };
+		0A9366B1278F0AA8001918A9 /* LabeledTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9366B0278F0AA8001918A9 /* LabeledTextField.xib */; };
+		0A9366B3278F1EA0001918A9 /* HyperlinkButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366B2278F1EA0001918A9 /* HyperlinkButtonView.swift */; };
+		0A9366B5278F1EAC001918A9 /* HyperlinkButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9366B4278F1EAC001918A9 /* HyperlinkButtonView.xib */; };
 		0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD562445CC8A00688050 /* AppDelegate.swift */; };
 		0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD582445CC8A00688050 /* SceneDelegate.swift */; };
 		0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DD5F2445CC8B00688050 /* Assets.xcassets */; };
@@ -985,6 +992,13 @@
 		0A8AEB1F25A4764F002A3FE1 /* ActionDetailAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionDetailAddressCell.xib; sourceTree = "<group>"; };
 		0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollecitbleSectionSeparatorView.swift; sourceTree = "<group>"; };
 		0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollecitbleSectionSeparatorView.xib; sourceTree = "<group>"; };
+		0A9366A4278EE8FE001918A9 /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		0A9366AA278F0175001918A9 /* ContainerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerTableViewCell.swift; sourceTree = "<group>"; };
+		0A9366AB278F0175001918A9 /* ContainerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainerTableViewCell.xib; sourceTree = "<group>"; };
+		0A9366AE278F0A9F001918A9 /* LabeledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledTextField.swift; sourceTree = "<group>"; };
+		0A9366B0278F0AA8001918A9 /* LabeledTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabeledTextField.xib; sourceTree = "<group>"; };
+		0A9366B2278F1EA0001918A9 /* HyperlinkButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperlinkButtonView.swift; sourceTree = "<group>"; };
+		0A9366B4278F1EAC001918A9 /* HyperlinkButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HyperlinkButtonView.xib; sourceTree = "<group>"; };
 		0A93DD532445CC8A00688050 /* Multisig_PROD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig_PROD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -3130,6 +3144,13 @@
 				0A045079278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib */,
 				0A04507E278DAD9000650F71 /* DisclosureWithContentCell.swift */,
 				0A04507F278DAD9000650F71 /* DisclosureWithContentCell.xib */,
+				0A9366A4278EE8FE001918A9 /* FormViewController.swift */,
+				0A9366B2278F1EA0001918A9 /* HyperlinkButtonView.swift */,
+				0A9366B4278F1EAC001918A9 /* HyperlinkButtonView.xib */,
+				0A9366AE278F0A9F001918A9 /* LabeledTextField.swift */,
+				0A9366B0278F0AA8001918A9 /* LabeledTextField.xib */,
+				0A9366AA278F0175001918A9 /* ContainerTableViewCell.swift */,
+				0A9366AB278F0175001918A9 /* ContainerTableViewCell.xib */,
 			);
 			path = Execution;
 			sourceTree = "<group>";
@@ -3313,6 +3334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ACCC6E827429A3300EC79B9 /* AccountActionCompletedViewController.xib in Resources */,
+				0A9366B5278F1EAC001918A9 /* HyperlinkButtonView.xib in Resources */,
 				0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */,
 				0AE5A9C7267A4BEB00468C90 /* CreatePasscodeBannerCell.xib in Resources */,
 				557D80B4270B32F80036D6D0 /* EditCell.xib in Resources */,
@@ -3367,6 +3389,7 @@
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
 				550FB1A626691CD800C13D54 /* SigningKeyTableViewCell.xib in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
+				0A9366AD278F0175001918A9 /* ContainerTableViewCell.xib in Resources */,
 				0A74EEFE268DF37100EB0EFB /* RibbonViewController.xib in Resources */,
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
 				5562DD722693425E00B56722 /* NetworkIndicatorHeaderView.xib in Resources */,
@@ -3415,7 +3438,6 @@
 				55CCD5852750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib in Resources */,
 				55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */,
 				04C5ED3B27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib in Resources */,
-				04B4B88B25BF36F900CFE24B /* ExecutionStatusPiece.xib in Resources */,
 				550FB1B326691D9500C13D54 /* ExternalLinkHeaderFooterView.xib in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
@@ -3459,6 +3481,7 @@
 				0A478D3425B861D50038363E /* DefaultKeyTableViewCell.xib in Resources */,
 				557D80D0270B33BA0036D6D0 /* PairingOwnerKeyCell.xib in Resources */,
 				0A9A1A36257924C600B44405 /* DetailAccountAndTextCell.xib in Resources */,
+				0A9366B1278F0AA8001918A9 /* LabeledTextField.xib in Resources */,
 				048D72CE2685DC780095999C /* SelectNetworkTableViewCell.xib in Resources */,
 				0A57C5C72577F75D00420303 /* ConfirmationConfirmedPiece.xib in Resources */,
 				0428DA4E25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib in Resources */,
@@ -3558,6 +3581,7 @@
 				557D80D1270B33BA0036D6D0 /* ConfirmConnectionViewController.swift in Sources */,
 				557D80BA270B32F80036D6D0 /* WalletsDataSource.swift in Sources */,
 				0A791D9F24D309CE00D70DA9 /* ScreenMetrics.swift in Sources */,
+				0A9366AF278F0A9F001918A9 /* LabeledTextField.swift in Sources */,
 				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
 				5596C0482550813B00EF23A5 /* CollectiblesHeaderView.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
@@ -3664,6 +3688,7 @@
 				D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */,
 				0A802B8124E413450001790F /* HTTPClientError.swift in Sources */,
 				0A6886D12588FC180045CAB5 /* EnterAddressNameViewController.swift in Sources */,
+				0A9366A5278EE8FE001918A9 /* FormViewController.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
 				0A3DFEFF2667D3D100B45770 /* TestCoreDataStack.swift in Sources */,
 				0468FB9925912E8300541536 /* TransactionListHeaderTableViewCell.swift in Sources */,
@@ -3776,6 +3801,7 @@
 				5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
 				D80B5A0F276A367A00D6E024 /* AddOwnerFirstViewController.swift in Sources */,
+				0A9366AC278F0175001918A9 /* ContainerTableViewCell.swift in Sources */,
 				0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
@@ -3860,6 +3886,7 @@
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
 				0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */,
 				0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */,
+				0A9366B3278F1EA0001918A9 /* HyperlinkButtonView.swift in Sources */,
 				0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */,
 				5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */,
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
