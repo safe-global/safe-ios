@@ -35,7 +35,7 @@ extension WordSignedInteger {
         return storage[storage.count - 1] >> shift == 1
     }
 
-    init(big v: BigInt) {
+    public init(big v: BigInt) {
         let m = Magnitude(big: v.magnitude)
         if v.sign == .minus {
             self.init(storage: m.twosComplement.storage)
@@ -44,11 +44,11 @@ extension WordSignedInteger {
         }
     }
 
-    func big() -> BigInt {
+    public func big() -> BigInt {
         BigInt(sign: isNegative ? .minus : .plus, magnitude: magnitude.big())
     }
 
-    func unsigned() -> Magnitude {
+    public func unsigned() -> Magnitude {
         Magnitude(storage: storage)
     }
 }

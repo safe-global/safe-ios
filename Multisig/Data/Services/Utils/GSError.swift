@@ -38,7 +38,7 @@ enum GSError {
     ///   - description: User facing description
     ///   - error: undrelying error
     /// - Returns: Detailed localized error
-    static func error(description: String, error: Error) -> DetailedLocalizedError {
+    static func error(description: String, error: Error? = nil) -> DetailedLocalizedError {
         struct AppError: DetailedLocalizedError {
             let description: String
             let reason: String
@@ -59,12 +59,16 @@ enum GSError {
             return UnknownAppError(description: description,
                                    reason: error.failureReason ?? error.localizedDescription,
                                    howToFix: error.recoverySuggestion ?? "")
-        } else {
-            let error = error as NSError
+        } else if let error = error as NSError? {
             return UnknownAppError(
                 description: description,
                 reason: error.localizedFailureReason ?? error.localizedDescription,
                 howToFix: error.localizedRecoverySuggestion ?? "")
+        } else {
+            return UnknownAppError(
+                description: description,
+                reason: "",
+                howToFix: "")
         }
     }
 

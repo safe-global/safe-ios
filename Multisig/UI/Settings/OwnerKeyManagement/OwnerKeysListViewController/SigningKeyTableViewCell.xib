@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -23,15 +23,27 @@
                         <rect key="frame" x="16" y="12" width="330" height="44"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5c-16-Fab" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="302" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="228.5" height="44"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OnE-4a-wAn">
-                                <rect key="frame" x="306" y="0.0" width="24" height="44"/>
+                                <rect key="frame" x="232.5" y="0.0" width="24" height="44"/>
                                 <color key="tintColor" name="button"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="f3g-td-WFn"/>
                                     <constraint firstAttribute="height" constant="44" id="uka-ft-E0S"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Taq-7i-OG1" userLabel="Detail Label">
+                                <rect key="frame" x="260.5" y="0.0" width="35.5" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tHL-yx-DP4" userLabel="Detail Image View">
+                                <rect key="frame" x="300" y="0.0" width="30" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="daK-GI-peV"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -47,6 +59,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="addressInfoView" destination="B5c-16-Fab" id="ako-W4-RBl"/>
+                <outlet property="cellDetailImageView" destination="tHL-yx-DP4" id="iy2-QG-fq6"/>
+                <outlet property="cellDetailLabel" destination="Taq-7i-OG1" id="Qdy-27-uOx"/>
                 <outlet property="connectionStatusImageView" destination="OnE-4a-wAn" id="Z11-gz-FGa"/>
             </connections>
             <point key="canvasLocation" x="168.11594202898553" y="166.40625"/>

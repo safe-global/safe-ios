@@ -15,6 +15,8 @@ class ReviewExecutionViewController: ContainerViewController {
     private var chain: Chain!
     private var transaction: SCGModels.TransactionDetails!
 
+    private var controller: TransactionExecutionController!
+
     private var onClose: () -> Void = { }
 
     private var contentVC: ReviewExecutionContentViewController!
@@ -32,6 +34,7 @@ class ReviewExecutionViewController: ContainerViewController {
         self.chain = chain
         self.transaction = transaction
         self.onClose = onClose
+        self.controller = TransactionExecutionController(safe: safe, chain: chain, transaction: transaction)
     }
 
     override func viewDidLoad() {
@@ -86,7 +89,33 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapAccount(_ sender: Any) {
-        print("Account!")
+        let keys = controller.executionKeys()
+        let selectedIndex = controller.selectedKeyIndex
+        let balancesLoader = DefaultAccountBalanceLoader(chain: chain)
+
+        let keyPickerVC = ChooseOwnerKeyViewController(
+            owners: keys,
+            chainID: controller.chainId,
+            titleText: "Select an execution key",
+            descriptionText: "The selected key will be used to execute this transaction.",
+            requestsPasscode: false,
+            selectedIndex: selectedIndex,
+            balancesLoader: balancesLoader
+        ) { [weak self] selectedKeyInfo in
+            // dismiss
+            guard let self = self else { return }
+            self.dismiss(animated: true) {
+                // when dismissed, change the selected key
+                if let keyInfo = selectedKeyInfo {
+                    print(keyInfo)
+                } else {
+                    print("nothing selected")
+                }
+            }
+        }
+
+        let navigationController = UINavigationController(rootViewController: keyPickerVC)
+        present(navigationController, animated: true)
     }
 
     @IBAction func didTapFee(_ sender: Any) {
