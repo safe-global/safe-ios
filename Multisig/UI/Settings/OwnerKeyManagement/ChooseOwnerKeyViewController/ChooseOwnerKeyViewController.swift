@@ -77,7 +77,7 @@ class ChooseOwnerKeyViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = titleText
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .cancel, target: self, action: #selector(didTapCloseButton))
+            barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         
         tableView.registerCell(ChooseOwnerTableViewCell.self)
         tableView.registerCell(SigningKeyTableViewCell.self)

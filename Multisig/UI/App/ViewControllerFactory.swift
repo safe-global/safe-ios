@@ -70,6 +70,13 @@ enum ViewControllerFactory {
         let navController = UINavigationController(rootViewController: ribbon)
         return navController
     }
+
+    static func modal(viewController: UIViewController) -> UIViewController {
+        viewController.navigationItem.leftBarButtonItem =
+            UIBarButtonItem(barButtonSystemItem: .close, target: viewController, action: #selector(CloseModal.closeModal))
+        let navController = UINavigationController(rootViewController: viewController)
+        return navController
+    }
 }
 
 @objc protocol CloseModal {

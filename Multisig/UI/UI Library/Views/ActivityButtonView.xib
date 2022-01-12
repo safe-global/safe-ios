@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActivityButtonView" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="actionButton" destination="hCj-uC-YBc" id="U68-SI-vsb"/>
+                <outlet property="activityIndicator" destination="eul-gI-0s1" id="kch-fq-x9J"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="118"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCj-uC-YBc">
+                    <rect key="frame" x="0.0" y="22" width="414" height="118"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="confirm"/>
+                    <connections>
+                        <action selector="actionButtonTouched:" destination="-1" eventType="touchUpInside" id="pzG-x0-CxK"/>
+                    </connections>
+                </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="eul-gI-0s1">
+                    <rect key="frame" x="197" y="71" width="20" height="20"/>
+                </activityIndicatorView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="hCj-uC-YBc" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="5iW-aK-mds"/>
+                <constraint firstItem="hCj-uC-YBc" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="9hL-7n-ore"/>
+                <constraint firstItem="hCj-uC-YBc" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Rn4-qh-v73"/>
+                <constraint firstItem="hCj-uC-YBc" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="UIB-hM-Q9M"/>
+                <constraint firstItem="eul-gI-0s1" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="bJk-QC-E5G"/>
+                <constraint firstItem="eul-gI-0s1" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="g8U-g1-fwJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="131.8840579710145" y="-128.57142857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

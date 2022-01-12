@@ -14,9 +14,9 @@ class AssetsViewController: ContainerViewController {
     
     @IBOutlet private weak var contentView: UIView!
     
-    private var balances: [TokenBalance]? = nil
+    private var balances: [TokenBalance]?
     
-    private var safe: Safe? = nil
+    private var safe: Safe?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,10 +97,6 @@ class AssetsViewController: ContainerViewController {
     }
     
     @objc private func selectedSafeUpdatedReceived(notification: Notification) {
-        //workaround for getting recent safeInfo with safe
-        //otherwise first call to Safe.getSelected() won't contain safeInfo data
-        //this would lead to safe.isReadOnly not returning correct value
-        //TODO: revise workaround
         self.safe = notification.object as? Safe
     }
 }

@@ -431,7 +431,7 @@ enum GSError {
         let loggable = false
     }
 
-    struct AddressBookEntryAddressNotValid: DetailedLocalizedError {
+    struct AddressNotValid: DetailedLocalizedError {
         let description = "This address is not valid"
         let reason = "This value is not a valid address."
         let howToFix = "Please use the checksummed address"
