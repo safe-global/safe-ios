@@ -136,6 +136,8 @@
 		0A01DCE42770B0A100A87D7A /* TransactionIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A01DCE32770B0A100A87D7A /* TransactionIntegrationTests.swift */; };
 		0A04506A278D800700650F71 /* ReviewExecutionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A045068278D800700650F71 /* ReviewExecutionViewController.swift */; };
 		0A04506B278D800700650F71 /* ReviewExecutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A045069278D800700650F71 /* ReviewExecutionViewController.xib */; };
+		0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */; };
+		0A04506F278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04506E278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift */; };
 		0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A096CBD2608D9370034E6BC /* NetworkStatusObserver.swift */; };
 		0A096CC32608F4750034E6BC /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967104256E92470097D3A2 /* SignerTests.swift */; };
 		0A096CC82608F49E0034E6BC /* RegisterNotificationTokenRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */; };
@@ -814,6 +816,8 @@
 		0A01DCE32770B0A100A87D7A /* TransactionIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionIntegrationTests.swift; sourceTree = "<group>"; };
 		0A045068278D800700650F71 /* ReviewExecutionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewExecutionViewController.swift; sourceTree = "<group>"; };
 		0A045069278D800700650F71 /* ReviewExecutionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewExecutionViewController.xib; sourceTree = "<group>"; };
+		0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewExecutionContentViewController.swift; sourceTree = "<group>"; };
+		0A04506E278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewExecutionCellBuilder.swift; sourceTree = "<group>"; };
 		0A096CBD2608D9370034E6BC /* NetworkStatusObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusObserver.swift; sourceTree = "<group>"; };
 		0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAppSettings.swift; sourceTree = "<group>"; };
@@ -3088,6 +3092,8 @@
 				D865178027687E0B000B4C04 /* TransactionSuccessViewController.xib */,
 				0A045068278D800700650F71 /* ReviewExecutionViewController.swift */,
 				0A045069278D800700650F71 /* ReviewExecutionViewController.xib */,
+				0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */,
+				0A04506E278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift */,
 			);
 			path = Execution;
 			sourceTree = "<group>";
@@ -3603,6 +3609,7 @@
 				041DAAE9274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift in Sources */,
 				0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
+				0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */,
 				D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
@@ -3812,6 +3819,7 @@
 				049A9DD026020C0B00CA5723 /* SelectFiatViewController.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
+				0A04506F278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift in Sources */,
 				0A478D1B25B860240038363E /* KeyPickerController.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
 				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,

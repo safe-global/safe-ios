@@ -80,8 +80,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                              .chainInfoChanged,
                              .addressbookChanged,
                              .selectedSafeUpdated,
-                             .selectedSafeChanged,
-                             .chainInfoChanged] {
+                             .selectedSafeChanged] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(lazyReloadData),
@@ -258,6 +257,24 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     @objc private func didTapExecute() {
+        guard let safe = self.safe,
+              let chain = self.safe.chain,
+              let tx = self.tx else {
+              return
+          }
+        let reviewVC = ReviewExecutionViewController(
+            safe: safe,
+            chain: chain,
+            transaction: tx
+        ) { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
+
+        let navigationController = UINavigationController(rootViewController: reviewVC)
+        present(navigationController, animated: true)
+    }
+
+    @objc private func legacyDidTapExecute() {
         let signers = executionKeys()
 
         let descriptionText = "You are about to execute this transaction. Please select which owner key to use."
