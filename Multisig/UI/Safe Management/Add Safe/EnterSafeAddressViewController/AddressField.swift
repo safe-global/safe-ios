@@ -53,10 +53,10 @@ class AddressField: UINibView {
         }
     }
 
-    func setAddress(_ address: Address?, prefix: String? = nil) {
+    func setAddress(_ address: Address?, label: String? = nil, prefix: String? = nil) {
         self.address = address
         if let address = address {
-            addressView.setAddress(address, prefix: prefix)
+            addressView.setAddress(address, label: label, prefix: prefix)
             showInputView(addressView)
         } else {
             showInputView(placeholderLabel)

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04077B37278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04077B35278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift */; };
+		04077B38278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04077B36278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib */; };
+		04077B3D278CB85000AF6376 /* ActivityButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04077B3C278CB84F00AF6376 /* ActivityButtonView.swift */; };
+		04077B3F278CB85F00AF6376 /* ActivityButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04077B3E278CB85F00AF6376 /* ActivityButtonView.xib */; };
 		041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A572456F4F50044A24C /* SafeInfoView.swift */; };
 		041C2A5A2456F53E0044A24C /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A592456F53E0044A24C /* QRView.swift */; };
 		041DAAE9274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041DAAE8274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift */; };
@@ -61,6 +65,8 @@
 		0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471D13124728C2C00B22A70 /* EmailLink.swift */; };
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
 		047300FE24781081004F1200 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FD24781081004F1200 /* AddressTests.swift */; };
+		047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */; };
+		047588192774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047588172774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib */; };
 		047691592464026400D73D8B /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691582464026400D73D8B /* SectionHeader.swift */; };
 		0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
@@ -101,6 +107,8 @@
 		04B964412734427D00A21EE9 /* ChainSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B964402734427D00A21EE9 /* ChainSettingsTableViewController.swift */; };
 		04C5DF6B26FB451B0072476C /* KeyTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C5DF6926FB451B0072476C /* KeyTypeTableViewCell.swift */; };
 		04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C5DF6A26FB451B0072476C /* KeyTypeTableViewCell.xib */; };
+		04C5ED3A27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */; };
+		04C5ED3B27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C5ED3927878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib */; };
 		04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97A99246C3E5F00EBA0F1 /* ViewState.swift */; };
 		04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */; };
 		04CE3F9624B6115200826AEE /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9524B6115200826AEE /* Collectible.swift */; };
@@ -114,6 +122,12 @@
 		04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D131D925E416FC0032FA03 /* RejectionCreatedPiece.xib */; };
 		04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1323325E43C550032FA03 /* DetailRejectionInfoCell.swift */; };
 		04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */; };
+		04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D968D2276B872D00CE4A9E /* TransactionViewController.swift */; };
+		04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D968D3276B872D00CE4A9E /* TransactionViewController.xib */; };
+		04E4CD62277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4CD60277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift */; };
+		04E4CD63277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4CD61277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib */; };
+		04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */; };
+		04E4CD67277752C400B558F4 /* TokenAmountInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */; };
 		04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */; };
 		04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */; };
 		04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */; };
@@ -671,6 +685,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04077B35278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSendFundsTransactionHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		04077B36278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewSendFundsTransactionHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		04077B3C278CB84F00AF6376 /* ActivityButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityButtonView.swift; sourceTree = "<group>"; };
+		04077B3E278CB85F00AF6376 /* ActivityButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityButtonView.xib; sourceTree = "<group>"; };
 		041C2A572456F4F50044A24C /* SafeInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeInfoView.swift; sourceTree = "<group>"; };
 		041C2A592456F53E0044A24C /* QRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
 		041DAAE8274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectKeyAddedViewController.swift; sourceTree = "<group>"; };
@@ -722,6 +740,8 @@
 		0471D13124728C2C00B22A70 /* EmailLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLink.swift; sourceTree = "<group>"; };
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
 		047300FD24781081004F1200 /* AddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
+		047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSendFundsTransactionViewController.swift; sourceTree = "<group>"; };
+		047588172774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewSendFundsTransactionViewController.xib; sourceTree = "<group>"; };
 		047691582464026400D73D8B /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -764,6 +784,8 @@
 		04B964402734427D00A21EE9 /* ChainSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainSettingsTableViewController.swift; sourceTree = "<group>"; };
 		04C5DF6926FB451B0072476C /* KeyTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyTypeTableViewCell.swift; sourceTree = "<group>"; };
 		04C5DF6A26FB451B0072476C /* KeyTypeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyTypeTableViewCell.xib; sourceTree = "<group>"; };
+		04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAdvancedParametersUITableViewCell.swift; sourceTree = "<group>"; };
+		04C5ED3927878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditAdvancedParametersUITableViewCell.xib; sourceTree = "<group>"; };
 		04C97A99246C3E5F00EBA0F1 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserLink.swift; sourceTree = "<group>"; };
 		04CE3F9524B6115200826AEE /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
@@ -777,6 +799,12 @@
 		04D131DA25E416FC0032FA03 /* RejectionCreatedPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RejectionCreatedPiece.swift; sourceTree = "<group>"; };
 		04D1323325E43C550032FA03 /* DetailRejectionInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRejectionInfoCell.swift; sourceTree = "<group>"; };
 		04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailRejectionInfoCell.xib; sourceTree = "<group>"; };
+		04D968D2276B872D00CE4A9E /* TransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
+		04D968D3276B872D00CE4A9E /* TransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionViewController.xib; sourceTree = "<group>"; };
+		04E4CD60277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTransactionHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		04E4CD61277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTransactionHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAmountInfoView.swift; sourceTree = "<group>"; };
+		04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenAmountInfoView.xib; sourceTree = "<group>"; };
 		04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueuedTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSafeSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1459,6 +1487,23 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		047588152774D6A2001DD992 /* ReviewSendFundsTrasnactionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */,
+				047588172774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib */,
+				04E4CD60277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift */,
+				04E4CD61277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib */,
+				04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */,
+				04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */,
+				04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */,
+				04C5ED3927878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib */,
+				04077B35278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift */,
+				04077B36278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib */,
+			);
+			path = ReviewSendFundsTrasnactionViewController;
+			sourceTree = "<group>";
+		};
 		0476915E246408D000D73D8B /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1610,6 +1655,15 @@
 				04D1309C25E2BB830032FA03 /* RejectionConfirmationViewController.swift */,
 			);
 			path = RejectionConfirmationViewController;
+			sourceTree = "<group>";
+		};
+		04D968D1276B872D00CE4A9E /* TransactionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				04D968D2276B872D00CE4A9E /* TransactionViewController.swift */,
+				04D968D3276B872D00CE4A9E /* TransactionViewController.xib */,
+			);
+			path = TransactionViewController;
 			sourceTree = "<group>";
 		};
 		0A0EFCA1246EADD100D3D8BF /* Data */ = {
@@ -2835,6 +2889,8 @@
 				D88FA81C2770869E0023B77F /* TokenAmountField.swift */,
 				D88FA81D2770869E0023B77F /* TokenAmountField.xib */,
 				D8A6B12F277A0E8800438460 /* InfoLabel.swift */,
+				04077B3C278CB84F00AF6376 /* ActivityButtonView.swift */,
+				04077B3E278CB85F00AF6376 /* ActivityButtonView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3007,6 +3063,8 @@
 		D865177427620628000B4C04 /* Transfer */ = {
 			isa = PBXGroup;
 			children = (
+				047588152774D6A2001DD992 /* ReviewSendFundsTrasnactionViewController */,
+				04D968D1276B872D00CE4A9E /* TransactionViewController */,
 				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
 				D8A6B12B2779D01900438460 /* AdvancedParametersViewController.swift */,
 				D8A6B12C2779D01900438460 /* AdvancedParametersViewController.xib */,
@@ -3239,6 +3297,7 @@
 				55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */,
 				0AE5A9C3267A4BDC00468C90 /* ImportKeyBannerCell.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveCell.xib in Resources */,
+				04077B3F278CB85F00AF6376 /* ActivityButtonView.xib in Resources */,
 				55DA0665269DD52E006C9AA5 /* dapps-polygon.json in Resources */,
 				5580BF1B276B213000CA288F /* dapps-avalanche.json in Resources */,
 				0AEEBC74258CDF9400F3A6F9 /* CollectibleDetailViewController.xib in Resources */,
@@ -3276,8 +3335,11 @@
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
+				047588192774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib in Resources */,
+				04E4CD63277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib in Resources */,
 				D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
+				04E4CD67277752C400B558F4 /* TokenAmountInfoView.xib in Resources */,
 				0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */,
 				5559A915276758B500237A5D /* dapps-bsc.json in Resources */,
 				049A9D3B25F81F2C00CA5723 /* EditOwnerKeyViewController.xib in Resources */,
@@ -3290,6 +3352,7 @@
 				0428DA5B25CBFC25002CF4A9 /* HelpLinkTableViewCell.xib in Resources */,
 				557D80BD270B32F80036D6D0 /* WCPendingConfirmationViewController.xib in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
+				04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
@@ -3306,6 +3369,8 @@
 				557D80CD270B33BA0036D6D0 /* ConfirmConnectionHeaderView.xib in Resources */,
 				55CCD5852750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib in Resources */,
 				55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */,
+				04C5ED3B27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib in Resources */,
+				04B4B88B25BF36F900CFE24B /* ExecutionStatusPiece.xib in Resources */,
 				550FB1B326691D9500C13D54 /* ExternalLinkHeaderFooterView.xib in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
@@ -3318,6 +3383,7 @@
 				04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */,
 				0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */,
 				049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */,
+				04077B38278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib in Resources */,
 				049A9D2025F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib in Resources */,
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
@@ -3462,6 +3528,7 @@
 				557D80D2270B33BA0036D6D0 /* ConfirmConnectionHeaderView.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
+				04E4CD62277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
@@ -3532,6 +3599,7 @@
 				550FB1C826691E4A00C13D54 /* ExperimentalViewController.swift in Sources */,
 				0ADD19BF265EA23200EB0F2B /* ExportViewController.swift in Sources */,
 				D88FA81E2770869E0023B77F /* TokenAmountField.swift in Sources */,
+				047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */,
 				041DAAE9274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift in Sources */,
 				0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
@@ -3609,6 +3677,7 @@
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
 				0A63C7B42602087E00D36B22 /* SafeInfoRequest.swift in Sources */,
 				0A57C5D72577F9E600420303 /* ConfirmationStatusPiece.swift in Sources */,
+				04077B3D278CB85000AF6376 /* ActivityButtonView.swift in Sources */,
 				0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */,
 				D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */,
 				550FB1A526691CD800C13D54 /* SigningKeyTableViewCell.swift in Sources */,
@@ -3647,6 +3716,7 @@
 				0471B3BD262742CD001F2D3B /* UpdateAppViewController.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0ADD19A6265E53BE00EB0F2B /* QRCodeView.swift in Sources */,
+				04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */,
 				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,
 				3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
@@ -3696,6 +3766,7 @@
 				0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */,
 				55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */,
 				557D80BC270B32F80036D6D0 /* WalletConnectClientController.swift in Sources */,
+				04C5ED3A27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift in Sources */,
 				0A451BEA252DDB39001DB7D2 /* FullScreenLoadingView.swift in Sources */,
 				0AEEBC73258CDF9400F3A6F9 /* CollectibleDetailViewController.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
@@ -3726,6 +3797,7 @@
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
 				555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */,
+				04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */,
 				0ADD19C5265EA23200EB0F2B /* SeedWordCollectionViewCell.swift in Sources */,
 				D865178127687E0B000B4C04 /* TransactionSuccessViewController.swift in Sources */,
 				0A478D3325B861D50038363E /* DefaultKeyTableViewCell.swift in Sources */,
@@ -3763,6 +3835,7 @@
 				0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */,
 				0AD0274525A3586800886671 /* ActionDetailViewController.swift in Sources */,
 				0AD6EF1E25CAF5EC00EE5512 /* AppReviewController.swift in Sources */,
+				04077B37278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift in Sources */,
 				557D80CF270B33BA0036D6D0 /* PairingOwnerKeyCell.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				5562DD732693425E00B56722 /* NetworkIndicatorHeaderView.swift in Sources */,

@@ -23,8 +23,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     // should be nil for contracts of v1.3.0 and higher
     private var safeTxGas: UInt256String?
     private var onUpdate: ((UInt256String, UInt256String?) -> Void)!
-    private var trackingParameters: [String: Any]!
-    
+
     var url: URL? = App.configuration.help.advancedTxParamsURL
     
     @IBAction private func openHelpArticle(_ sender: Any) {
@@ -35,13 +34,11 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     convenience init(nonce: UInt256String,
                        minimalNonce: UInt256,
                        safeTxGas: UInt256String?,
-                       trackingParameters: [String: Any],
                        onUpdate: @escaping (UInt256String, UInt256String?) -> Void) {
-        self.init(namedClass: Self.superclass())
+        self.init(namedClass: AdvancedParametersViewController.self)
         self.nonce = nonce
         self.minimalNonce = minimalNonce
         self.safeTxGas = safeTxGas
-        self.trackingParameters = trackingParameters
         self.onUpdate = onUpdate
     }
 
@@ -49,9 +46,6 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         super.viewDidLoad()
         
         navigationItem.title = "Edit advanced parameters"
-        
-        let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(CloseModal.closeModal))
-        navigationItem.leftBarButtonItem = closeButton
 
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem = saveButton
@@ -79,7 +73,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.assetsTransferAdvancedParams, parameters: trackingParameters)
+        Tracker.trackEvent(.assetsTransferAdvancedParams)
     }
     
     @objc private func save() {
