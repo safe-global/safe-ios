@@ -72,7 +72,7 @@ class CreateAddressBookEntryViewController: UIViewController {
                     return .success(value)
                 } else {
                     return .failure(GSError.error(description: "Can’t use this QR code",
-                                                  error: GSError.AddressBookEntryAddressNotValid()))
+                                                  error: GSError.AddressNotValid()))
                 }
             }
             vc.modalPresentationStyle = .overFullScreen
@@ -116,7 +116,7 @@ class CreateAddressBookEntryViewController: UIViewController {
         } catch {
             addressField.setError(
                 GSError.error(description: "Can’t use this address",
-                              error: error is EthereumAddress.Error ? GSError.AddressBookEntryAddressNotValid() : error))
+                              error: error is EthereumAddress.Error ? GSError.AddressNotValid() : error))
         }
     }
     
