@@ -370,10 +370,10 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
     private func showEditParameters() {
         let safeTxGas = transaction.safeVersion! >= Version(1, 3, 0) ? nil : transaction.safeTxGas
-        let editParamsController = WCEditParametersViewController.create(nonce: transaction.nonce,
-                                                                         minimalNonce: minimalNonce,
-                                                                         safeTxGas: safeTxGas,
-                                                                         trackingParameters: trackingParameters) {
+        let editParamsController = AdvancedParametersViewController(nonce: transaction.nonce,
+                                                                    minimalNonce: minimalNonce,
+                                                                    safeTxGas: safeTxGas,
+                                                                    trackingEvent: .walletConnectEditParameters) {
             [unowned self] nonce, safeTxGas in
             self.transaction.nonce = nonce
             if let safeTxGas = safeTxGas {
