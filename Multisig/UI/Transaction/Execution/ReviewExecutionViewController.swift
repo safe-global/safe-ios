@@ -137,7 +137,8 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapAdvanced(_ sender: Any) {
-        print("Advanced!")
+        let advancedVC = AdvancedTransactionDetailsViewController(transaction, chain: chain)
+        show(advancedVC, sender: self)
     }
 
     @IBAction func didTapSubmit(_ sender: Any) {
