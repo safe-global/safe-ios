@@ -15,6 +15,13 @@ class ReviewExecutionContentViewController: UITableViewController {
     var onTapFee: () -> Void = {}
     var onTapAdvanced: () -> Void = {}
 
+    var model: ExecutionReviewUIModel? {
+        didSet {
+            guard isViewLoaded else { return }
+            reloadData()
+        }
+    }
+
     private var safe: Safe!
     private var chain: Chain!
     private var transaction: SCGModels.TransactionDetails!
@@ -62,26 +69,8 @@ class ReviewExecutionContentViewController: UITableViewController {
         reloadData()
     }
 
-    // pull to refresh? - not now
-
     func reloadData() {
-        let model = ExecutionReviewUIModel(
-            transaction: transaction,
-            executionOptions: ExecutionOptionsUIModel(
-                accountState: .filled(
-                    MiniAccountInfoUIModel(
-                        // chain prefix makes the address too large and ellipsized at the end
-                        prefix: chain.shortName,
-                        address: safe.addressValue,
-                        label: safe.name,
-                        imageUri: nil,
-                        badge: KeyType.deviceGenerated.imageName,
-                        balance: "some balance"
-                    )
-                ),
-                feeState: .loading
-            )
-        )
+        guard let model = model else { return }
         cells = builder.build(model)
         tableView.reloadData()
     }

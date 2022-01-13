@@ -7,20 +7,6 @@
 //
 
 import Foundation
-
-/*
- Owner Key Selection Policy
-
- Criteria to search for the default key - prefer the highest balance that is enough to pay for the transaction, and prefer owner keys
- Key is owner AND has enough balance AND is max amount
- If not, the key that has enough balance
- If not, the key that is owner and has highest balance
- If not, the key has highest balance
- [not possible now]: ~If not, the most recently used key (do we have this info?)~
- If not, the first key from existing ones
- The “Review” screen requires at least one key to be in the app in order for the execution to work, therefore there will always be a key to select from.
- Changing the selected key can affect the gas estimation, so when the key changes, the gas estimation policy must be notified about this.
- */
 import Solidity
 
 class OwnerKeySelectionPolicy {
