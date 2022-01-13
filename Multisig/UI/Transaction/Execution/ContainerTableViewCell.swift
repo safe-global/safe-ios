@@ -26,10 +26,8 @@ class ContainerTableViewCell: UITableViewCell {
 
                 cellContentView.heightAnchor.constraint(equalTo: view.heightAnchor),
                 cellContentView.widthAnchor.constraint(equalTo: view.widthAnchor)
-//                    cellContentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//                cellContentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ])
-            
+
             self.setNeedsUpdateConstraints()
         }
     }
