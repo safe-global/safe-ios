@@ -56,7 +56,13 @@ class KeyboardAvoidingBehavior {
     }
 
     @objc func didTapScrollView() {
-        if let responder = activeResponder, hidesKeyboardOnTap {
+        if hidesKeyboardOnTap {
+            hideKeyboard()
+        }
+    }
+
+    func hideKeyboard() {
+        if let responder = activeResponder {
             deactivate(responder)
         }
     }

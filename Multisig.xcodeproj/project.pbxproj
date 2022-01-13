@@ -322,6 +322,8 @@
 		0A9366B1278F0AA8001918A9 /* LabeledTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9366B0278F0AA8001918A9 /* LabeledTextField.xib */; };
 		0A9366B3278F1EA0001918A9 /* HyperlinkButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366B2278F1EA0001918A9 /* HyperlinkButtonView.swift */; };
 		0A9366B5278F1EAC001918A9 /* HyperlinkButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9366B4278F1EAC001918A9 /* HyperlinkButtonView.xib */; };
+		0A9366B7279067A8001918A9 /* FeeLegacyFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366B6279067A7001918A9 /* FeeLegacyFormModel.swift */; };
+		0A9366B9279073E3001918A9 /* TextValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366B8279073E3001918A9 /* TextValidator.swift */; };
 		0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD562445CC8A00688050 /* AppDelegate.swift */; };
 		0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD582445CC8A00688050 /* SceneDelegate.swift */; };
 		0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DD5F2445CC8B00688050 /* Assets.xcassets */; };
@@ -999,6 +1001,8 @@
 		0A9366B0278F0AA8001918A9 /* LabeledTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabeledTextField.xib; sourceTree = "<group>"; };
 		0A9366B2278F1EA0001918A9 /* HyperlinkButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperlinkButtonView.swift; sourceTree = "<group>"; };
 		0A9366B4278F1EAC001918A9 /* HyperlinkButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HyperlinkButtonView.xib; sourceTree = "<group>"; };
+		0A9366B6279067A7001918A9 /* FeeLegacyFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeLegacyFormModel.swift; sourceTree = "<group>"; };
+		0A9366B8279073E3001918A9 /* TextValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextValidator.swift; sourceTree = "<group>"; };
 		0A93DD532445CC8A00688050 /* Multisig_PROD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig_PROD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -3145,9 +3149,11 @@
 				0A04507E278DAD9000650F71 /* DisclosureWithContentCell.swift */,
 				0A04507F278DAD9000650F71 /* DisclosureWithContentCell.xib */,
 				0A9366A4278EE8FE001918A9 /* FormViewController.swift */,
+				0A9366B6279067A7001918A9 /* FeeLegacyFormModel.swift */,
 				0A9366B2278F1EA0001918A9 /* HyperlinkButtonView.swift */,
 				0A9366B4278F1EAC001918A9 /* HyperlinkButtonView.xib */,
 				0A9366AE278F0A9F001918A9 /* LabeledTextField.swift */,
+				0A9366B8279073E3001918A9 /* TextValidator.swift */,
 				0A9366B0278F0AA8001918A9 /* LabeledTextField.xib */,
 				0A9366AA278F0175001918A9 /* ContainerTableViewCell.swift */,
 				0A9366AB278F0175001918A9 /* ContainerTableViewCell.xib */,
@@ -3572,6 +3578,7 @@
 				0AE8C0442579317700E62B34 /* DetailDisclosingCell.swift in Sources */,
 				0AD0273225A34E2F00886671 /* MultiSendListTableViewController.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
+				0A9366B9279073E3001918A9 /* TextValidator.swift in Sources */,
 				D80B5A0A2769F95000D6E024 /* AssetsViewController.swift in Sources */,
 				0A22E11C25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift in Sources */,
 				55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */,
@@ -3944,6 +3951,7 @@
 				0A9A1A35257924C600B44405 /* DetailAccountAndTextCell.swift in Sources */,
 				55B6465A253050200050BD95 /* HashString.swift in Sources */,
 				55B66E56247E494000249E98 /* AppSettings.swift in Sources */,
+				0A9366B7279067A8001918A9 /* FeeLegacyFormModel.swift in Sources */,
 				0A5F4829254C56580069C98D /* SafeEntryTableViewCell.swift in Sources */,
 				555312E9250653800008206B /* BIP32HDNode.swift in Sources */,
 				0455A43127204A5B008B772D /* CreateAddressBookEntryViewController.swift in Sources */,

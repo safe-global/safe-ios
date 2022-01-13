@@ -9,31 +9,51 @@
 import Foundation
 import UIKit
 
+/// Responsible for creating the fields and field validation
+protocol FormModel {
+    /// Will be set by the form view controller
+    var delegate: FieldDelegate? { get set }
+    /// Whether the form is valid.
+    var isValid: Bool? { get }
+    /// validates the form. Must set the `isValid` to `true` if validation succeeds.
+    func validate()
+    /// Returns the field views
+    func fields() -> [UIView]
+}
 
-// responsibilities
-//    layout of fields
-//    reaction to keyboard show/hide
-//    presenter of vc's when needed by fields
-//    validation triggering
-//    navigation between fields
+/// Responsible for reacting to text field focus and validating the form
+protocol FieldDelegate: AnyObject {
+    func textFieldFocused(_ textField: UITextField)
+    func textFieldLostFocus(_ textField: UITextField)
+    /// Tells the delegate to redraw the screen to adapt to changed field layout
+    func layoutNeeded()
+    /// Tells the delegate to validate the whole form
+    func validate()
+}
 
-// chose table view because if we need to support sections in the future, this will be easier with the table view.
+/// A form screen
 class FormViewController: UITableViewController {
+    // responsibilities
+    //    layout of fields
+    //    reaction to keyboard show/hide
+    //    presenter of vc's when needed by fields
+    //    validation triggering
+    // Using table view because if we need to support sections in the future, this will be easier with the table view.
 
     var cells: [UITableViewCell] = []
-    var model: FeeLegacyFormUIModel!
-    var fieldFactory: FeeLegacyFieldFactory!
+    var model: FormModel!
     var onClose: () -> Void = {}
     var onSave: () -> Void = {}
 
     var keyboardBehavior: KeyboardAvoidingBehavior!
     var closeButton: UIBarButtonItem!
     var saveButton: UIBarButtonItem!
+    var keyboardToolbar: UIToolbar!
 
-    convenience init(model: FeeLegacyFormUIModel, factory: FeeLegacyFieldFactory, onClose: @escaping () -> Void) {
+    convenience init(model: FormModel, onClose: @escaping () -> Void) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
-        self.fieldFactory = factory
+        self.model.delegate = self
         self.onClose = onClose
     }
 
@@ -51,9 +71,18 @@ class FormViewController: UITableViewController {
 
         closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         navigationItem.leftBarButtonItem = closeButton
+
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(didTapSaveButton))
         navigationItem.rightBarButtonItem = saveButton
+        saveButton.isEnabled = false
 
+        keyboardToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 100, height: 60))
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapKeyboardDone))
+        keyboardToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            done
+        ]
+        keyboardToolbar.sizeToFit()
 
         reloadData()
     }
@@ -64,6 +93,10 @@ class FormViewController: UITableViewController {
 
     @objc func didTapSaveButton() {
         onSave()
+    }
+
+    @objc func didTapKeyboardDone() {
+        keyboardBehavior.hideKeyboard()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -77,7 +110,7 @@ class FormViewController: UITableViewController {
     }
 
     func reloadData() {
-        let fields = fieldFactory.fields(from: model, delegate: self)
+        let fields = model.fields()
         self.cells = fields.map { view in
             let cell = tableView.dequeueCell(ContainerTableViewCell.self)
             cell.setContent(view)
@@ -94,183 +127,25 @@ class FormViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         cells[indexPath.row]
     }
+
+    func validate() {
+        model.validate()
+        saveButton.isEnabled = model.isValid == true
+    }
 }
 
 extension FormViewController: FieldDelegate {
     func textFieldFocused(_ textField: UITextField) {
         keyboardBehavior.activeResponder = textField
+        textField.inputAccessoryView = keyboardToolbar
     }
 
     func layoutNeeded() {
         tableView.beginUpdates()
         tableView.endUpdates()
     }
-}
 
-protocol FieldDelegate: AnyObject {
-    func textFieldFocused(_ textField: UITextField)
-    func layoutNeeded()
-}
-
-import Solidity
-
-// also factory for field UI views
-struct FeeLegacyFormUIModel {
-    var nonce: Sol.UInt64? // no value in the field
-    var gas: Sol.UInt64?
-    var gasPrice: Sol.UInt256?
-    var helpLink: URL
-}
-
-struct FieldUIModel<T> where T: FieldValueTransformer {
-    var label: String
-
-    var description: String?
-    var placeholder: String?
-
-    var caption: String?
-    var error: String?
-
-    var value: T.Value?
-    var transformer: T
-    var validator: TextValidator?
-
-    var text: String? {
-        value.map { transformer.text(from: $0) }
+    func textFieldLostFocus(_ textField: UITextField) {
+        validate()
     }
 }
-
-protocol FieldValueTransformer {
-    associatedtype Value
-    func text(from value: Value) -> String
-    func value(from text: String) -> Value?
-}
-
-class IntegerTransformer<Value>: FieldValueTransformer where Value: FixedWidthInteger {
-    func text(from value: Value) -> String {
-        String(describing: value)
-    }
-
-    func value(from text: String) -> Value? {
-        Value(text, radix: 10)
-    }
-}
-
-// fields could reference other fields or the model to get the  output (derived fields/ values)
-
-class FeeLegacyFieldFactory {
-    func fields(from model: FeeLegacyFormUIModel, delegate: FieldDelegate) -> [UIView] {
-        let integerValidator = IntegerTextValidator()
-
-        let fieldModel = FieldUIModel(
-            label: "Nonce",
-            description: "Transaction count of the execution account",
-            placeholder: "Nonce",
-            value: model.nonce,
-            transformer: IntegerTransformer(),
-            validator: IntegerTextValidator()
-        )
-
-        let nonce = LabeledTextField()
-        nonce.infoLabel.setText(
-            fieldModel.label,
-            description: fieldModel.description,
-            style: .primary
-        )
-        nonce.gnoTextField.setPlaceholder(fieldModel.placeholder)
-        nonce.gnoTextField.text = fieldModel.text
-        nonce.validator = fieldModel.validator
-        nonce.setCaption(fieldModel.caption)
-        nonce.setError(fieldModel.error)
-
-        nonce.fieldDelegate = delegate
-
-        let gas = LabeledTextField()
-        gas.infoLabel.setText(
-            "Gas limit",
-            description: "Maximum gas that this transaction can spend. Unused gas will be refunded",
-            style: .primary
-        )
-        gas.gnoTextField.setPlaceholder("Gas limit")
-        gas.gnoTextField.text = model.gas.map { String(describing: $0) }
-        gas.gnoTextField.setError(GSError.error(description: "Invalid gas limit. Use another value. Long line long line long line long line"))
-        gas.fieldDelegate = delegate
-        gas.validator = integerValidator
-
-        let gasPrice = LabeledTextField()
-        gasPrice.infoLabel.setText(
-            "Gas price (GWEI)",
-            description: "Price per 1 gas in Gwei price units",
-            style: .primary
-        )
-        gasPrice.gnoTextField.setPlaceholder("Gas price (GWEI)")
-        gasPrice.gnoTextField.text = model.gasPrice.map { String(describing: $0) }
-        gasPrice.gnoTextField.setError(GSError.error(description: "Invalid gas price. Use another value"))
-        gasPrice.setCaption("Total estimated fee: 0.00604 ETH")
-        gasPrice.fieldDelegate = delegate
-
-        let help = HyperlinkButtonView()
-        help.setText("How do I configure these details manually?")
-        help.url = model.helpLink
-
-        return [nonce, gas, gasPrice, help]
-    }
-}
-
-
-struct Fee1559FormUIModel {
-    var nonce: Sol.UInt64? // no value in the field
-    var gas: Sol.UInt64?
-    var maxFeePerGas: Sol.UInt256?
-    var maxPriorityFee: Sol.UInt256?
-}
-
-// field might have multiple text fields
-// field might have a text view
-// anyway, activeResponder
-
-// Form - whole screen should be inside scroll view
-    // fields
-        // input field
-            // reference to the form?
-            // name label
-            // description
-            // placeholder (hint)
-            // error text
-            // validator
-                // check that the partial input is valid while the user enters something
-                // check that the final value is valid
-                // validation can take time (making network request)
-            // 'value' formatter (could be generic to support any value type)
-                // text -> value
-                // value -> text
-                // should be sync/immediate
-            // 'error' value?
-            // 'default' value?
-            // 'hidden'
-            // 'enabled'
-            // 'min' and 'max' values
-            // 'focused' or 'active'
-            // 'debouncing'
-        // address field
-            // different ways of input
-            // validator
-            // value formatter
-            // might want to have reference to presenting controller
-
-        // 'estimated fee' field
-            // calculates the fee price from the inputs
-            // show fiat amount?
-
-        // 'submit' button?
-            // in navigation bar
-            // in the form bottom? - sticks to bottom?
-
-        // 'link' field
-
-    // form validator
-        // check that the whole form is valid
-
-    // value transformer from the form content to the model object / modifying the model object...
-
-// UI behavior: keyboard to scroll to the editable field (focus on the field)

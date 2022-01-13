@@ -119,11 +119,13 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapFee(_ sender: Any) {
-        let formVC = FormViewController(
-            model: FeeLegacyFormUIModel(nonce: 22, gas: 59223, gasPrice: 59, helpLink: App.configuration.help.advancedTxParamsURL),
-            factory: FeeLegacyFieldFactory()
-
-        ) { [weak self] in
+        let formModel = FeeLegacyFormModel(
+            nonce: 22,
+            gas: 53000,
+            gasPriceInWei: 12,
+            nativeCurrency: chain.nativeCurrency!)
+        let formVC = FormViewController(model: formModel) { [weak self] in
+            // on close
             self?.dismiss(animated: true, completion: {
                 // update estimation parameters, etc.
             })
@@ -142,23 +144,3 @@ class ReviewExecutionViewController: ContainerViewController {
         print("Submit!")
     }
 }
-
-
-// model: transaction legacy
-// screen will edit it.
-
-// nonce
-    // range: 0 - u64.max
-
-// gas
-    // range: 0 - u64.max
-
-// gasPrice
-    // range: 0 - u265.max
-// totalFee
-    // gas * gasPrice
-
-// model changed -> what piece changed? ->
-    // update piece
-        // validate the value
-

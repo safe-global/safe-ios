@@ -124,6 +124,33 @@ class TestIntTests: XCTestCase {
         XCTAssertEqual(a >> 1, i200(-2))
     }
 
+    func testExactlyBig() {
+        // max = 2^(n-1) - 1 = 2^199 - 1 = 803469022129495137770981046170581301261101496891396417650687
+        // 2^199 must crash = 803469022129495137770981046170581301261101496891396417650688
+        XCTAssertNil(i200(exactlyBig: "803469022129495137770981046170581301261101496891396417650688"))
+        XCTAssertNotNil(i200(exactlyBig: "803469022129495137770981046170581301261101496891396417650687"))
+        XCTAssertNotNil(i200(exactlyBig: "-803469022129495137770981046170581301261101496891396417650688"))
+        XCTAssertEqual(i200(exactlyBig: "-1"), -1)
+    }
+
+    func testInitExactlyFromSource() {
+        let max = TestUInt200.max
+        XCTAssertNil(i200(exactly: max))
+        XCTAssertNotNil(i200(exactly: 5))
+    }
+
+    func testAlgo() {
+        XCTAssertEqual(log2(i200(1024)), 10)
+        XCTAssertEqual(log2(i200(1_048_576)), 20)
+        XCTAssertEqual(pow(i200(10), 1), 10)
+        XCTAssertEqual(pow(i200(10), 0), 1)
+        XCTAssertEqual(pow(i200(10), 25), i200("10000000000000000000000000"))
+        XCTAssertEqual(log10(i200("10000000000000000000000000")), 25)
+        XCTAssertEqual(log10(i200("10000000000000000000000000")), 25)
+        XCTAssertEqual(log10(i200("803469022129495137770981046170581301261101496891396417650687")), 59)
+        XCTAssertEqual(log2(i200("803469022129495137770981046170581301261101496891396417650687")), 198)
+    }
+
     func assert(_ a: i200, _ op: (i200, i200) -> i200, _ b: i200, _ c: i200, line: UInt = #line) {
         XCTAssertEqual(op(a, b), c, line: line)
     }
