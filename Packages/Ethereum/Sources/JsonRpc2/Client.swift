@@ -18,20 +18,23 @@ extension JsonRpc2 {
             self.serializer = serializer
         }
 
-        public func send(request: JsonRpc2.Request, completion: @escaping (JsonRpc2.Response?) -> Void) {
+        @discardableResult
+        public func send(request: JsonRpc2.Request, completion: @escaping (JsonRpc2.Response?) -> Void) -> URLSessionTask? {
             send(request: request, validator: JsonRpc2.RequestValidator(), completion: completion)
         }
 
-        public func send(request: JsonRpc2.BatchRequest, completion: @escaping (JsonRpc2.BatchResponse?) -> Void) {
+        @discardableResult
+        public func send(request: JsonRpc2.BatchRequest, completion: @escaping (JsonRpc2.BatchResponse?) -> Void) -> URLSessionTask? {
             send(request: request, validator: JsonRpc2.BatchRequestValidator(JsonRpc2.RequestValidator()), completion: completion)
         }
 
         // Generic send allows to have both batch and single request types to use the  same algorithm.
+        @discardableResult
         public func send<Request, Response, Validator>(
             request: Request,
             validator: Validator,
             completion: @escaping (Response?) -> Void
-        )
+        ) -> URLSessionTask?
         where Validator: JsonRpc2ClientValidator,
               Validator.Request == Request,
               Validator.Response == Response,
@@ -53,11 +56,11 @@ extension JsonRpc2 {
                 jsonRequest = try serializer.toJson(value: request)
             } catch let swiftEncodingError {
                 completion(validator.error(for: request, value: .parseError.with(error: swiftEncodingError)))
-                return
+                return nil
             }
 
             // send request
-            transport.send(data: jsonRequest) { result in
+            let task = transport.send(data: jsonRequest) { result in
                 // handle response
                 switch result {
                 case .success(let jsonResponse):
@@ -105,6 +108,8 @@ extension JsonRpc2 {
                     completion(validator.error(for: request, value: .requestFailed.with(error: lowLevelSendingError)))
                 }
             }
+            task?.resume()
+            return task
         }
     }
 }

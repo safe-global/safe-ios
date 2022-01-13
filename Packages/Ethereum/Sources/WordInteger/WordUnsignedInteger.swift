@@ -72,7 +72,7 @@ extension WordUnsignedInteger {
         self.storage = Self.storage(truncating: storage, signed: false)
     }
 
-    func big() -> BigUInt {
+    public func big() -> BigUInt {
         BigUInt(words: storage)
     }
 
@@ -80,7 +80,7 @@ extension WordUnsignedInteger {
         ~self &+ 1
     }
 
-    init(big v: BigUInt) {
+    public init(big v: BigUInt) {
         self.init(storage: [UInt](v.words))
     }
 }

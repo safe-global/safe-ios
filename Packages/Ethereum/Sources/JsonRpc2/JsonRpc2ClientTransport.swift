@@ -9,7 +9,8 @@ import Foundation
 
 // Responsible for sending a json data to the Server and receiving response (if any)
 public protocol JsonRpc2ClientTransport {
-    func send(data: Data, completion: @escaping (Result<Data, Error>) -> Void)
+    @discardableResult
+    func send(data: Data, completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionTask?
 }
 
 @available(iOS 15.0.0, *)

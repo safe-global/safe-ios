@@ -148,6 +148,8 @@
 		0A045081278DAD9000650F71 /* DisclosureWithContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A04507F278DAD9000650F71 /* DisclosureWithContentCell.xib */; };
 		0A045086278DC04C00650F71 /* BorderedInnerTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A045084278DC04B00650F71 /* BorderedInnerTableCell.swift */; };
 		0A045087278DC04C00650F71 /* BorderedInnerTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A045085278DC04C00650F71 /* BorderedInnerTableCell.xib */; };
+		0A045089278E282800650F71 /* DefaultAccountBalanceLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A045088278E282700650F71 /* DefaultAccountBalanceLoader.swift */; };
+		0A04508B278E283D00650F71 /* TransactionExecutionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04508A278E283D00650F71 /* TransactionExecutionController.swift */; };
 		0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A096CBD2608D9370034E6BC /* NetworkStatusObserver.swift */; };
 		0A096CC32608F4750034E6BC /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967104256E92470097D3A2 /* SignerTests.swift */; };
 		0A096CC82608F49E0034E6BC /* RegisterNotificationTokenRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */; };
@@ -838,6 +840,8 @@
 		0A04507F278DAD9000650F71 /* DisclosureWithContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisclosureWithContentCell.xib; sourceTree = "<group>"; };
 		0A045084278DC04B00650F71 /* BorderedInnerTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedInnerTableCell.swift; sourceTree = "<group>"; };
 		0A045085278DC04C00650F71 /* BorderedInnerTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BorderedInnerTableCell.xib; sourceTree = "<group>"; };
+		0A045088278E282700650F71 /* DefaultAccountBalanceLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAccountBalanceLoader.swift; sourceTree = "<group>"; };
+		0A04508A278E283D00650F71 /* TransactionExecutionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionExecutionController.swift; sourceTree = "<group>"; };
 		0A096CBD2608D9370034E6BC /* NetworkStatusObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusObserver.swift; sourceTree = "<group>"; };
 		0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAppSettings.swift; sourceTree = "<group>"; };
@@ -3111,6 +3115,8 @@
 				D865177F27687E0B000B4C04 /* TransactionSuccessViewController.swift */,
 				D865178027687E0B000B4C04 /* TransactionSuccessViewController.xib */,
 				0A045068278D800700650F71 /* ReviewExecutionViewController.swift */,
+				0A04508A278E283D00650F71 /* TransactionExecutionController.swift */,
+				0A045088278E282700650F71 /* DefaultAccountBalanceLoader.swift */,
 				0A045069278D800700650F71 /* ReviewExecutionViewController.xib */,
 				0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */,
 				0A04506E278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift */,
@@ -3580,6 +3586,7 @@
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
 				0AF1C8952541AD4E00E28669 /* ScrollableDataErrorView.swift in Sources */,
 				0A451BF0252DDB49001DB7D2 /* NoDataView.swift in Sources */,
+				0A04508B278E283D00650F71 /* TransactionExecutionController.swift in Sources */,
 				55F9B7A226D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift in Sources */,
 				0A57C8E92587AECB00B7C019 /* EnterSafeAddressViewController.swift in Sources */,
 				0A616B9626AEEBB700FCEDB9 /* BoolString.swift in Sources */,
@@ -3789,6 +3796,7 @@
 				0455A42E27204181008B772D /* AddressBookListTableViewController.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				557D80B5270B32F80036D6D0 /* WCSendTransactionRequest.swift in Sources */,
+				0A045089278E282800650F71 /* DefaultAccountBalanceLoader.swift in Sources */,
 				0A6886D02588FC180045CAB5 /* EnterENSNameViewController.swift in Sources */,
 				0468FB8625912E6800541536 /* QueuedTransactionsViewController.swift in Sources */,
 				0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */,
