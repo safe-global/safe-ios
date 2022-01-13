@@ -324,6 +324,8 @@
 		0A9366B5278F1EAC001918A9 /* HyperlinkButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9366B4278F1EAC001918A9 /* HyperlinkButtonView.xib */; };
 		0A9366B7279067A8001918A9 /* FeeLegacyFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366B6279067A7001918A9 /* FeeLegacyFormModel.swift */; };
 		0A9366B9279073E3001918A9 /* TextValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366B8279073E3001918A9 /* TextValidator.swift */; };
+		0A9366BB27908717001918A9 /* OwnerKeySelectionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366BA27908717001918A9 /* OwnerKeySelectionPolicy.swift */; };
+		0A9366BD279090CD001918A9 /* OwnerKeySelectionPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366BC279090CC001918A9 /* OwnerKeySelectionPolicyTests.swift */; };
 		0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD562445CC8A00688050 /* AppDelegate.swift */; };
 		0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DD582445CC8A00688050 /* SceneDelegate.swift */; };
 		0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DD5F2445CC8B00688050 /* Assets.xcassets */; };
@@ -1003,6 +1005,8 @@
 		0A9366B4278F1EAC001918A9 /* HyperlinkButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HyperlinkButtonView.xib; sourceTree = "<group>"; };
 		0A9366B6279067A7001918A9 /* FeeLegacyFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeLegacyFormModel.swift; sourceTree = "<group>"; };
 		0A9366B8279073E3001918A9 /* TextValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextValidator.swift; sourceTree = "<group>"; };
+		0A9366BA27908717001918A9 /* OwnerKeySelectionPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeySelectionPolicy.swift; sourceTree = "<group>"; };
+		0A9366BC279090CC001918A9 /* OwnerKeySelectionPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeySelectionPolicyTests.swift; sourceTree = "<group>"; };
 		0A93DD532445CC8A00688050 /* Multisig_PROD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig_PROD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD562445CC8A00688050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A93DD582445CC8A00688050 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1734,6 +1738,7 @@
 			isa = PBXGroup;
 			children = (
 				551DDEEA244F192300C719D3 /* Models */,
+				0A9366BC279090CC001918A9 /* OwnerKeySelectionPolicyTests.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -3134,6 +3139,7 @@
 				D865178027687E0B000B4C04 /* TransactionSuccessViewController.xib */,
 				0A045068278D800700650F71 /* ReviewExecutionViewController.swift */,
 				0A04508A278E283D00650F71 /* TransactionExecutionController.swift */,
+				0A9366BA27908717001918A9 /* OwnerKeySelectionPolicy.swift */,
 				0A045088278E282700650F71 /* DefaultAccountBalanceLoader.swift */,
 				0A045069278D800700650F71 /* ReviewExecutionViewController.xib */,
 				0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */,
@@ -3621,6 +3627,7 @@
 				55F9B7A226D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift in Sources */,
 				0A57C8E92587AECB00B7C019 /* EnterSafeAddressViewController.swift in Sources */,
 				0A616B9626AEEBB700FCEDB9 /* BoolString.swift in Sources */,
+				0A9366BB27908717001918A9 /* OwnerKeySelectionPolicy.swift in Sources */,
 				0A81E310246C062400425DEF /* Icons.swift in Sources */,
 				0AD062E62577AE7E0030810D /* TransactionDetailCellBuilder.swift in Sources */,
 				55413673265E493500796F91 /* AddOwnerKeyViewController.swift in Sources */,
@@ -3987,6 +3994,7 @@
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
 				0AA9F25924992CB6005BD60F /* TransactionTests.swift in Sources */,
 				0ADD04D6268CB9BF00C2B44A /* UIColorStylesTests.swift in Sources */,
+				0A9366BD279090CD001918A9 /* OwnerKeySelectionPolicyTests.swift in Sources */,
 				0A096CC82608F49E0034E6BC /* RegisterNotificationTokenRequestTests.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,
 				5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */,
