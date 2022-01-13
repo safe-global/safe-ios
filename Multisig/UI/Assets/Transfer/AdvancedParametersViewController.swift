@@ -22,6 +22,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     private var minimalNonce: UInt256!
     // should be nil for contracts of v1.3.0 and higher
     private var safeTxGas: UInt256String?
+    private var trackingEvent: TrackingEvent?
     private var onUpdate: ((UInt256String, UInt256String?) -> Void)!
 
     var url: URL? = App.configuration.help.advancedTxParamsURL
@@ -32,13 +33,15 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     }
     
     convenience init(nonce: UInt256String,
-                       minimalNonce: UInt256,
-                       safeTxGas: UInt256String?,
-                       onUpdate: @escaping (UInt256String, UInt256String?) -> Void) {
+                     minimalNonce: UInt256,
+                     safeTxGas: UInt256String?,
+                     trackingEvent: TrackingEvent,
+                     onUpdate: @escaping (UInt256String, UInt256String?) -> Void) {
         self.init(namedClass: AdvancedParametersViewController.self)
         self.nonce = nonce
         self.minimalNonce = minimalNonce
         self.safeTxGas = safeTxGas
+        self.trackingEvent = trackingEvent
         self.onUpdate = onUpdate
     }
 
@@ -73,7 +76,9 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.assetsTransferAdvancedParams)
+        if let event = trackingEvent {
+            Tracker.trackEvent(event)
+        }
     }
     
     @objc private func save() {

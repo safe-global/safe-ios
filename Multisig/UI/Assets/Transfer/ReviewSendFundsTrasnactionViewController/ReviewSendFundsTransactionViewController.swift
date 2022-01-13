@@ -226,7 +226,8 @@ class ReviewSendFundsTransactionViewController: UIViewController {
 
         let vc = AdvancedParametersViewController(nonce: nonce,
                                                   minimalNonce: minimalNonce.value,
-                                                  safeTxGas: safeTxGas) { [weak self] nonce, safeTxGas in
+                                                  safeTxGas: safeTxGas,
+                                                  trackingEvent: .assetsTransferAdvancedParams) { [weak self] nonce, safeTxGas in
             guard let `self` = self else { return }
             self.nonce = nonce
             self.safeTxGas = safeTxGas
