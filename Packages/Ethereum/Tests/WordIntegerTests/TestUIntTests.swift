@@ -10,35 +10,6 @@ import XCTest
 import WordInteger
 import BigInt
 
-public struct TestUInt200 {
-    public var storage: [UInt]
-
-    public init() { storage = [] }
-}
-
-// required by TestUInt200.Strideable.Stride (and FixedWidthInteger.Stride constraints)
-public struct TestInt200 {
-    public var storage: [UInt]
-
-    public init() { storage = [] }
-}
-
-extension TestUInt200: WordUnsignedInteger {
-    public typealias Stride = TestInt200
-    public typealias Magnitude = TestUInt200
-    public typealias IntegerLiteralType = UInt
-
-    public static var bitWidth: Int { 200 }
-}
-
-extension TestInt200: WordSignedInteger {
-    public typealias Stride = TestInt200
-    public typealias Magnitude = TestUInt200
-    public typealias IntegerLiteralType = Int
-
-    public static var bitWidth: Int { 200 }
-}
-
 class TestUIntTests: XCTestCase {
     typealias u200 = TestUInt200
     func testInit() {
@@ -133,4 +104,84 @@ class TestUIntTests: XCTestCase {
     func testSign() {
         XCTAssertEqual(u200(3).signum(), 1)
     }
+
+    func testInitExactlyFromSource() {
+        let max = TestUInt201.max
+        XCTAssertNil(u200(exactly: max))
+        XCTAssertNotNil(u200(exactly: 5))
+    }
+
+    func testAlgo() {
+        XCTAssertEqual(log2(u200(1024)), 10)
+        XCTAssertEqual(log2(u200(1_048_576)), 20)
+        XCTAssertEqual(pow(u200(10), 1), 10)
+        XCTAssertEqual(pow(u200(10), 0), 1)
+        XCTAssertEqual(pow(u200(10), 25), u200("10000000000000000000000000"))
+        XCTAssertEqual(log10(u200("10000000000000000000000000")), 25)
+        XCTAssertEqual(log10(u200("10000000000000000000000000")), 25)
+        XCTAssertEqual(log10(u200("1606938044258990275541962092341162602522202993782792835301375")), 60)
+        XCTAssertEqual(log2(u200("1606938044258990275541962092341162602522202993782792835301375")), 199)
+    }
+
+    func testExactlyBig() {
+        // max = 2^n - 1 = 2^200 - 1 = 1606938044258990275541962092341162602522202993782792835301375
+        XCTAssertNil(u200(exactlyBig: "1606938044258990275541962092341162602522202993782792835301376"))
+        XCTAssertNotNil(u200(exactlyBig: "1606938044258990275541962092341162602522202993782792835301375"))
+    }
+
+}
+
+
+public struct TestUInt200 {
+    public var storage: [UInt]
+
+    public init() { storage = [] }
+}
+
+
+// required by TestUInt200.Strideable.Stride (and FixedWidthInteger.Stride constraints)
+public struct TestInt200 {
+    public var storage: [UInt]
+
+    public init() { storage = [] }
+}
+
+extension TestUInt200: WordUnsignedInteger {
+    public typealias Stride = TestInt200
+    public typealias Magnitude = TestUInt200
+    public typealias IntegerLiteralType = UInt
+
+    public static var bitWidth: Int { 200 }
+}
+
+extension TestInt200: WordSignedInteger {
+    public typealias Stride = TestInt200
+    public typealias Magnitude = TestUInt200
+    public typealias IntegerLiteralType = Int
+
+    public static var bitWidth: Int { 200 }
+}
+
+public struct TestUInt201: WordUnsignedInteger {
+    public typealias Stride = TestInt201
+    public typealias Magnitude = TestUInt201
+    public typealias IntegerLiteralType = UInt
+
+    public static var bitWidth: Int { 201 }
+
+    public var storage: [UInt]
+
+    public init() { storage = [] }
+}
+
+public struct TestInt201: WordSignedInteger {
+    public typealias Stride = TestInt201
+    public typealias Magnitude = TestUInt201
+    public typealias IntegerLiteralType = Int
+
+    public static var bitWidth: Int { 201 }
+
+    public var storage: [UInt]
+
+    public init() { storage = [] }
 }

@@ -119,7 +119,21 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapFee(_ sender: Any) {
-        print("Fee!")
+        let formModel = FeeLegacyFormModel(
+            nonce: 22,
+            gas: 53000,
+            gasPriceInWei: 12,
+            nativeCurrency: chain.nativeCurrency!)
+        let formVC = FormViewController(model: formModel) { [weak self] in
+            // on close
+            self?.dismiss(animated: true, completion: {
+                // update estimation parameters, etc.
+            })
+        }
+        formVC.navigationItem.title = "Edit transaction fee"
+
+        let nav = UINavigationController(rootViewController: formVC)
+        present(nav, animated: true, completion: nil)
     }
 
     @IBAction func didTapAdvanced(_ sender: Any) {
